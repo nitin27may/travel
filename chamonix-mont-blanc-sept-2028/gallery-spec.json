@@ -1,0 +1,84 @@
+{
+ "trip": "chamonix-mont-blanc-sept-2028",
+ "places": [
+  {
+   "place": "Chamonix valley from Les Praz",
+   "days": "1-3",
+   "blurb": "The valley floor between the Aiguilles Rouges and the Mont Blanc massif, 1,000 m below both.",
+   "queries": [
+    "Les Praz de Chamonix",
+    "Chamonix valley Mont Blanc panorama",
+    "Chamonix Aiguille Verte Mont Blanc"
+   ]
+  },
+  {
+   "place": "Brévent and the Grand Balcon Sud",
+   "days": "2",
+   "blurb": "Aiguilles Rouges balcony facing the whole Mont Blanc range across the valley.",
+   "queries": [
+    "Brévent Chamonix",
+    "Grand Balcon Sud Planpraz Flégère",
+    "Planpraz Chamonix"
+   ]
+  },
+  {
+   "place": "Aiguillette des Houches",
+   "days": "3",
+   "blurb": "Lift-free summit above Les Houches with a full view of the massif.",
+   "queries": [
+    "Aiguillette des Houches",
+    "Les Houches Mont Blanc"
+   ]
+  },
+  {
+   "place": "Lac Blanc and the Lacs de Chéserys",
+   "days": "4-5",
+   "blurb": "High lake at 2,352 m that mirrors the Mont Blanc range on calm days.",
+   "queries": [
+    "Lac Blanc Chamonix",
+    "Lacs de Chéserys",
+    "Lac Blanc Aiguilles Rouges Mont Blanc reflection"
+   ]
+  },
+  {
+   "place": "Aiguille du Midi",
+   "days": "6",
+   "blurb": "Cable car to 3,842 m, the highest ride in Europe built for visitors.",
+   "queries": [
+    "Aiguille du Midi",
+    "Aiguille du Midi téléphérique Chamonix",
+    "Aiguille du Midi Mont Blanc"
+   ]
+  },
+  {
+   "place": "Mer de Glace and Montenvers",
+   "days": "6",
+   "blurb": "France's longest glacier, seen from the Montenvers rack railway.",
+   "queries": [
+    "Mer de Glace Montenvers",
+    "Mer de Glace glacier",
+    "Montenvers train Chamonix"
+   ]
+  },
+  {
+   "place": "Col de Balme and Le Tour",
+   "days": "7",
+   "blurb": "Swiss border col at 2,191 m looking back down the valley toward Mont Blanc.",
+   "queries": [
+    "Col de Balme Chamonix",
+    "Le Tour Chamonix village",
+    "Argentière Chamonix"
+   ]
+  },
+  {
+   "place": "Early autumn in the high Alps",
+   "days": "",
+   "blurb": "What the upper meadows and glaciers look like as September turns to autumn.",
+   "queries": [
+    "Chamonix autumn larch",
+    "Mont Blanc autumn Chamonix",
+    "Aiguilles Rouges autumn"
+   ]
+  }
+ ]
+}

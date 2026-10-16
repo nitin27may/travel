@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="trip-date" content="2027-07-27">
+<meta name="trip-dates" content="27 Jul – 10 Aug 2027">
+<meta name="trip-duration" content="15 days">
+<meta name="trip-region" content="Switzerland">
+<title>Switzerland — 27 July to 10 August 2027</title>
+<meta name="description" content="A researched 14-night Switzerland itinerary built entirely on public transport: Lucerne, Wengen and Zermatt, planned around lift timetables, the National Day weekend and the afternoon storm cycle.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* theme: alpine-snow */
+/* alpine-snow — glacier blue, pine, brass funicular, and one flag red.
+   Source palette: Switzerland (Jul–Aug 2027).
+   Good for: high mountains with rail/cable access, glaciers, car-free resorts. */
+/* @fonts: Space+Grotesk:wght@500;700|Literata:opsz,wght@7..72,400;7..72,600|Space+Mono:wght@400;700 */
+:root{
+  --font-display:"Space Grotesk",sans-serif;
+  --font-body:"Literata",Georgia,serif;
+  --font-mono:"Space Mono",monospace;
+
+  --bg:#f5f5f2;
+  --surface:#fffefc;
+  --bg-deep:#1a2028;
+  --bg-deep-2:#28303a;
+
+  --ink:#232a30;
+  --ink-on-deep:#ccd2d8;
+  --muted:#68717a;
+  --muted-on-deep:#98a3ac;
+  --line:#dde0da;
+
+  --accent:#2d7f9e;
+  --accent-dark:#1f5f77;
+  --accent-ink:#ffffff;
+  --accent-soft:#e3f0f5;
+
+  --header:#1f5d4c;
+  --header-ink:#ffffff;
+  --header-sub:#cbe0d8;
+
+  --warn:#d12a1d;
+  --warn-soft:#fdeceb;
+
+  --highlight:#a8792c;
+  --highlight-ink:#221804;
+  --highlight-soft:#f6efdf;
+  --highlight-on-deep:#e6c179;
+
+  --class-1:#2d7f9e;   /* cable */
+  --class-2:#eeefe9;   /* rail */
+  --class-3:#1f5d4c;   /* on foot */
+  --class-4:#a8792c;
+  --class-5:#d52b1e;
+  --class-6:#5f6b75;
+}
+
+
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Literata",Georgia,serif;font-size:17.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.sign,.btn,.tag,nav a b{font-family:"Space Grotesk",system-ui,sans-serif}
+.time,.stats dt,.stats dd,.dfacts,.when,.gate,nav a span,figcaption,.kicker,.eyebrow,.numstrip span,.area .days{font-family:"Space Mono",ui-monospace,monospace}
+a{color:var(--accent)}img{max-width:100%;display:block}
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;background:var(--bg-deep);overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.66}
+.hero .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,32,40,.5) 0%,rgba(26,32,40,.1) 36%,rgba(26,32,40,.93) 100%)}
+.hwrap{position:relative;max-width:1080px;margin:0 auto;padding:0 22px 52px;width:100%;color:#fff}
+.eyebrow{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:#f0b3ae;margin:0 0 14px}
+.hero h1{font-size:clamp(2.5rem,7vw,4.8rem);line-height:.98;font-weight:700;letter-spacing:-.03em;margin:0 0 10px}
+.hero h1 em{font-style:normal;color:var(--warn)}
+.sub{font-size:clamp(1.02rem,2.2vw,1.26rem);max-width:46ch;color:#e7e8e4;margin:0 0 26px}
+.hstats{display:flex;flex-wrap:wrap;gap:26px;font-family:"Space Mono",monospace;font-size:12.5px;color:#c8cdd2}
+.hstats b{display:block;font-size:21px;color:#fff;font-weight:700}
+.credit{position:absolute;right:12px;bottom:6px;font-family:"Space Mono",monospace;font-size:10px;color:rgba(255,255,255,.5)}.credit a{color:inherit}
+nav{position:sticky;top:0;z-index:60;background:rgba(245,245,242,.96);backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+.nwrap{max-width:1080px;margin:0 auto;display:flex;gap:1px;overflow-x:auto;padding:0 10px}
+nav a{flex:0 0 auto;padding:9px 10px;text-decoration:none;color:var(--muted);text-align:center;border-bottom:3px solid transparent}
+nav a b{display:block;font-size:14px;font-weight:700;color:var(--ink);line-height:1.1}
+nav a span{display:block;font-size:9.5px;letter-spacing:.03em}
+nav a.on{border-bottom-color:var(--warn)}nav a.on b{color:var(--warn)}
+main{max-width:1080px;margin:0 auto;padding:0 22px}
+section.pane{padding:50px 0;border-bottom:1px solid var(--line)}
+.pane h2{font-size:clamp(1.5rem,3.6vw,2.15rem);letter-spacing:-.025em;margin:0 0 8px;font-weight:700}
+.kicker{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--warn);margin:0 0 12px}
+.prose{max-width:66ch}.prose p{margin:0 0 14px}
+.callout{border-left:4px solid var(--warn);background:#fff;padding:16px 20px;margin:20px 0;border-radius:0 6px 6px 0}
+.callout h3{margin:0 0 6px;font-size:1.02rem;letter-spacing:-.01em}
+.callout.good{border-left-color:var(--header)}.callout.info{border-left-color:var(--accent)}
+.legend{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px}
+.legend li{display:flex;gap:12px;align-items:baseline;font-size:.93rem;color:var(--muted)}
+.gate{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;color:#fff;white-space:nowrap;font-weight:700}
+.g-rail{background:var(--accent)}.g-cable{background:var(--highlight)}.g-foot{background:var(--header)}
+.g-early{background:var(--bg-deep)}.g-fixed{background:var(--warn)}
+.introwide{margin:24px 0 6px;border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover}
+.introwide figcaption{position:absolute;right:0;bottom:0;background:rgba(26,32,40,.75);color:#fff;font-size:9px;padding:3px 8px}
+.introwide figcaption a{color:#f0b3ae;text-decoration:none}
+.numstrip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:26px 0 6px;padding:18px 0;border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep)}
+.numstrip b{display:block;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.8rem;line-height:1;color:var(--accent)}
+.numstrip span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;margin:22px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.area figure{margin:0;position:relative}.area img{width:100%;height:148px;object-fit:cover}
+.area figcaption{position:absolute;left:0;bottom:0;background:rgba(26,32,40,.75);color:#fff;font-size:8px;padding:2px 6px}
+.area figcaption a{color:#f0b3ae;text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{font-size:1.02rem;margin:0 0 5px;line-height:1.15;letter-spacing:-.01em}
+.area .days{font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#fff;background:var(--bg-deep);border-radius:3px;padding:2px 7px;display:inline-block;margin-bottom:7px}
+.area p{margin:0;font-size:.89rem;color:var(--muted)}
+.know{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:11px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.95rem}
+.know li b{font-family:"Space Grotesk",sans-serif;font-size:1.18rem;color:var(--warn)}
+section.day{padding-top:46px;padding-bottom:10px;scroll-margin-top:62px;border-top:1px solid var(--line)}
+.dhead{display:grid;grid-template-columns:128px 1fr;gap:26px;align-items:start;margin-bottom:24px}
+.sign{background:var(--bg-deep);color:#fff;border-radius:6px;padding:14px 10px;text-align:center;position:sticky;top:74px}
+.sign .signn{display:block;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.66}
+.sign .signd{display:block;font-size:18px;font-weight:700;letter-spacing:-.02em;margin-top:2px}
+.s-rail{background:var(--accent)}.s-cable{background:var(--highlight)}.s-foot{background:var(--header)}
+.s-early{background:var(--bg-deep)}.s-fixed{background:var(--warn)}
+.dmeta h2{font-size:clamp(1.4rem,3.3vw,1.95rem);margin:0 0 8px;letter-spacing:-.025em;font-weight:700}
+.lede{margin:0 0 14px;color:#3a424a;max-width:62ch}
+.dfacts{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;padding:0;margin:0 0 14px;font-size:11.5px;color:var(--muted)}
+.dfacts b{color:var(--ink);font-weight:400;margin-right:5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:grid;grid-template-columns:290px 1fr;margin:0 0 18px}
+.card.nofig{grid-template-columns:1fr}
+.card.nofig .cbody{padding:20px 24px}
+.card figure{margin:0;position:relative;min-height:225px;overflow:hidden}
+.card figure img{width:100%;height:100%;object-fit:cover}
+.card figcaption{position:absolute;left:0;bottom:0;background:rgba(26,32,40,.74);color:#fff;font-size:8.5px;padding:2px 7px}
+.card figcaption a{color:#fff;text-decoration:none}
+.cbody{padding:20px 22px}
+.chead{display:flex;align-items:center;gap:9px;margin-bottom:6px;flex-wrap:wrap}
+.time{font-size:11.5px;font-weight:700;background:var(--bg-deep);color:#fff;padding:3px 9px;border-radius:3px}
+.tag{font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;padding:3px 8px;border-radius:3px;font-weight:700}
+.t-unmissable{background:#f7dcd9;color:#8f1f16}.t-hidden{background:#d8e9ee;color:#1a5a70}
+.t-added{background:#f3e6cc;color:#7a5713}.t-optional,.t-easy,.t-value{background:#e6e9e5;color:#48525a}
+.cbody h3{margin:0 0 8px;font-size:1.14rem;letter-spacing:-.015em}
+.cbody p{margin:0 0 14px;color:#3a424a}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats dt{font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin:0}
+.stats dd{margin:2px 0 0;font-size:12.5px;font-weight:700}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;text-decoration:none;padding:7px 13px;border-radius:4px;border:1px solid var(--accent);color:var(--accent);background:#fff}
+.btn:hover{background:var(--accent);color:#fff}.btn-map{background:var(--accent);color:#fff}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+details p{margin:10px 0 0;font-size:.93rem;color:#48525a}
+.mapwrap{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:6px 0 8px;background:#e9eae6}
+.mapwrap iframe{width:100%;height:300px;border:0;display:block}
+.cklist{list-style:none;padding:0;margin:16px 0 0;columns:2;column-gap:34px}
+.cklist li{break-inside:avoid;margin:0 0 9px}
+.cklist label{display:flex;gap:9px;align-items:baseline;font-size:.93rem;cursor:pointer}
+.cklist input{margin:0;accent-color:var(--accent);flex:0 0 auto;transform:translateY(2px)}
+.cklist .when{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--muted);padding:2px 7px;border-radius:3px;white-space:nowrap}
+.cklist input:checked+.when{background:var(--header)}
+.cklist label:has(input:checked){opacity:.45;text-decoration:line-through}
+.cuts{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px}
+.cuts li{display:grid;grid-template-columns:270px 1fr;gap:18px;padding-bottom:11px;border-bottom:1px solid var(--line);font-size:.94rem}
+.cuts b{font-family:"Space Grotesk",sans-serif}.cuts span{color:var(--muted)}
+footer{background:var(--bg-deep);color:#b4bac0;padding:40px 22px 54px;font-size:.89rem}
+.fwrap{max-width:1080px;margin:0 auto}
+footer h3{color:#fff;font-size:.98rem;letter-spacing:-.01em;margin:0 0 8px}
+footer a{color:#f0b3ae}
+@media(max-width:820px){body{font-size:16.5px}.dhead{grid-template-columns:1fr;gap:14px}
+ .sign{position:static;display:flex;gap:10px;justify-content:center;align-items:baseline;padding:9px}
+ .card{grid-template-columns:1fr}.card figure{min-height:195px;max-height:225px}
+ .stats{grid-template-columns:repeat(2,1fr)}.cklist{columns:1}.cuts li{grid-template-columns:1fr;gap:2px}
+ .numstrip{grid-template-columns:repeat(3,1fr);gap:14px}.area img{height:130px}.hero{min-height:68vh}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+@media print{nav,.mapwrap,.hero img,.hero .grad{display:none}body{background:#fff;font-size:11pt}
+ .hero{min-height:auto;background:#fff}.hwrap{color:#000;padding:0}.hero h1,.sub,.hstats{color:#000}
+ .card{grid-template-columns:1fr;break-inside:avoid}.card figure{display:none}
+ details{display:block}details p{display:block!important}section.day{break-before:page}}
+
+/* home link back to the hub dashboard */
+nav a.home{color:var(--accent);font-weight:600;border-right:1px solid var(--line);margin-right:6px}
+nav a.home:hover{color:var(--accent)}
+</style></head>
+<body data-slug="switzerland-2027" data-ck-legacy="ch27-">
+<header class="hero">
+  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn%20reflection%20in%20the%20Riffelsee%20at%20sunrise.jpg?width=1800" alt="The Matterhorn reflected in the Riffelsee at sunrise">
+  <div class="grad"></div>
+  <div class="hwrap">
+    <p class="eyebrow">Tuesday 27 July — Tuesday 10 August 2027 · 14 nights · no car</p>
+    <h1>Switzerland<br>by <em>timetable</em></h1>
+    <p class="sub">Fourteen nights in three car-free bases, planned around the things that actually govern the days here — when the first lift runs, when the storms build, and one Sunday when the whole country stops.</p>
+    <div class="hstats">
+      <div><b id="cd">—</b>until departure</div>
+      <div><b>3</b>bases, all car-free</div>
+      <div><b>0</b>km driven</div>
+      <div><b>~5h</b>total transfer time</div>
+    </div>
+  </div>
+  <span class="credit"><a href="https://commons.wikimedia.org/wiki/File:Matterhorn_reflection_in_the_Riffelsee_at_sunrise.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></span>
+</header>
+<nav><div class="nwrap" id="nav"><a class="home" href="/"><b>&#8592;</b><span>all plans</span></a><a href="#about"><b>·</b><span>intro</span></a><a href="#gallery"><b>&#9632;</b><span>photos</span></a><a href="#adventure"><b>&#9650;</b><span>adventure</span></a><a href="#d1"><b>1</b><span>27 Jul</span></a><a href="#d2"><b>2</b><span>28 Jul</span></a><a href="#d3"><b>3</b><span>29 Jul</span></a><a href="#d4"><b>4</b><span>30 Jul</span></a><a href="#d5"><b>5</b><span>31 Jul</span></a><a href="#d6"><b>6</b><span>1 Aug</span></a><a href="#d7"><b>7</b><span>2 Aug</span></a><a href="#d8"><b>8</b><span>3 Aug</span></a><a href="#d9"><b>9</b><span>4 Aug</span></a><a href="#d10"><b>10</b><span>5 Aug</span></a><a href="#d11"><b>11</b><span>6 Aug</span></a><a href="#d12"><b>12</b><span>7 Aug</span></a><a href="#d13"><b>13</b><span>8 Aug</span></a><a href="#d14"><b>14</b><span>9 Aug</span></a><a href="#d15"><b>15</b><span>10 Aug</span></a></div></nav>
+<main>
+<section class="pane" id="about">
+  <p class="kicker">Before day one</p>
+  <h2>What you are actually going to see</h2>
+  <div class="prose">
+    <p>The Alps exist because Africa is still pushing into Europe. The collision crumpled an ancient seafloor upward and, in Switzerland, drove sheets of older rock <i>over</i> younger rock — most visibly at the Glarus overthrust, where a 250-million-year-old layer sits on top of one 35 million years old. That is why the country reads as vertical rather than rolling: it is a range built by compression, then carved by ice into the U-shaped valleys and hanging waterfalls you see at Lauterbrunnen.</p>
+    <p>What Switzerland is actually famous for, though, is not the geology — it is that <b>all of it is reachable</b>. There are cogwheel railways to 3,089 m, a funicular climbing at 110%, a cable car with an open roof deck, and a rack line that has run to the foot of the Eiger since 1893. No other mountain country has decided, as national policy, that ordinary people should be able to get to the top of things. That decision is why this plan has no car in it.</p>
+    <p>The third thing is the huts. There are around <b>153 SAC mountain huts with 9,000 beds</b>, staffed from mid-June to mid-October, where you can eat a cooked dinner at 2,800 m and sleep. Add four national languages, a country the size of Nova Scotia, and a train network that lets you cross most of it before lunch.</p>
+  </div>
+  <figure class="introwide"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Eggishorn%20panorama.jpg?width=1600" alt="The Bernese Alps and the Aletsch glacier from the Eggishorn"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Eggishorn_panorama.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></figcaption></figure>
+  <div class="numstrip">
+    <div><b>14</b><span>nights</span></div><div><b>3</b><span>bases, all car-free</span></div>
+    <div><b>0</b><span>km driven</span></div><div><b>3,089</b><span>m, Gornergrat</span></div>
+    <div><b>~5h</b><span>total transfers</span></div><div><b>CHF 499</b><span>rail pass, 15 days</span></div>
+  </div>
+  <div class="areas"><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/6645%20-%20Rigi%20Kulm%20-%20Vierwaldst%C3%A4ttersee.JPG?width=1100" alt="Lucerne &amp; the lake mountains"><figcaption><a href="https://commons.wikimedia.org/wiki/File:6645_-_Rigi_Kulm_-_Vierwaldst%C3%A4ttersee.JPG" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Days 1–4</span><h3>Lucerne &amp; the lake mountains</h3><p>Rigi, Stanserhorn and Stoos — the only three summits a Swiss Travel Pass covers outright. Low altitude, free lake boats, and the best wet-weather reserve in the country.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lauterbrunnental%20from%20M%C3%A4nnlichen%2C%20Bern%2C%20Switzerland%2C%202012%20August.jpg?width=1100" alt="The Jungfrau region"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Lauterbrunnental_from_M%C3%A4nnlichen%2C_Bern%2C_Switzerland%2C_2012_August.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Days 5–9</span><h3>The Jungfrau region</h3><p>Wengen, Mürren and the Lauterbrunnen valley: seventy-two waterfalls, the Eiger north face, and the densest cable-car network in the Alps. Also the wettest of the three.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Riffelhorn%20oberhalb%20von%20Zermatt%20im%20Mattertal%20-%20Gornergrat%20und%20Hoht%C3%A4lligrat%20zum%20Hoht%C3%A4lli%20-%20Stockhorn%20mit%20Gornergletscher%20im%20Jahr%202008%20-%20Mischabel-Gruppe%20%28cropped%20Breithorn-Panorama%29.jpg?width=1100" alt="Zermatt &amp; the Valais"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Riffelhorn_oberhalb_von_Zermatt_im_Mattertal_-_Gornergrat_und_Hoht%C3%A4lligrat_zum_Hoht%C3%A4lli_-_Stockhorn_mit_Gornergletscher_im_Jahr_2008_-_Mischabel-Gruppe_%28cropped_Breithorn-Panorama%29.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Days 10–15</span><h3>Zermatt &amp; the Valais</h3><p>The driest region in Switzerland and the highest peaks. Twenty-nine 4,000ers within sight, one of them the most recognisable mountain on earth.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/5297%20-%20Wengernalp%20-%20Wengernalpbahn.JPG?width=1100" alt="The network itself"><figcaption><a href="https://commons.wikimedia.org/wiki/File:5297_-_Wengernalp_-_Wengernalpbahn.JPG" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Every day</span><h3>The network itself</h3><p>Fifteen days, three bases, zero kilometres driven. Trains, cogwheels, funiculars, gondolas and lake steamers — the transport is not how you reach the scenery, it is part of it.</p></div></article></div>
+  <ul class="know">
+    <li><b>1</b><span><b>The first lift runs hours after sunrise.</b> Gornergrat opens at 07:00, Oeschinensee and Moosfluh at 08:30, Mürren–Allmendhubel at 09:00 — against a 06:01 sunrise. Every dawn photograph here needs a night high up or a walk in the dark. Book those nights before anything else.</span></li>
+    <li><b>2</b><span><b>Storms are on an annual peak in your fortnight.</b> Fifteen years of Alpine lightning data put convective initiation peaking at 16:00–17:00 and the seasonal maximum at the end of July. The quiet window is 09:00–11:00. Plan every high day as 05:30 to 13:00 — it solves the storms, the crowds and the light at once.</span></li>
+    <li><b>3</b><span><b>This is the busiest fortnight of the Swiss year.</b> Every European school system is on holiday simultaneously, the French and Italian exodus weekends fall on 31 July and 7 August, and 1 August is National Day. Nothing is empty. September would be quieter, cheaper and more stable — this window is chosen for daylight and for full lift and hut operation, not for solitude.</span></li>
+    <li><b>4</b><span><b>Switzerland is expensive and the numbers are not close.</b> Zurich runs about 89&#37; above Toronto. Budget CHF 200 a day for bed and food, then <b>add CHF 80–130 on every day you go up a mountain</b> — a single Jungfraujoch ticket costs more than a whole mid-range day.</span></li>
+    <li><b>5</b><span><b>Switzerland is not in the EU roaming zone.</b> A Europe-regional eSIM may silently exclude it. Check the destination list before buying — it is the most common expensive mistake here. And bring a Type J or plain two-pin adapter; a German Schuko plug physically will not fit.</span></li>
+  </ul>
+</section>
+<!-- gallery:start -->
+
+<style>
+#gallery{padding:50px 0;border-bottom:1px solid var(--line,#ddd)}
+#gallery .gwrap{max-width:1080px;margin:0 auto;padding:0 20px}
+#gallery h2{margin:0 0 6px}
+#gallery .gnote{color:var(--muted,#666);margin:0 0 26px;max-width:62ch}
+#gallery .gplace{margin:0 0 34px}
+#gallery .gplace h3{margin:0;font-size:1.2rem;letter-spacing:-.01em}
+#gallery .gplace .gdays{font-family:var(--font-mono,monospace);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#666);margin-left:8px;white-space:nowrap}
+#gallery .gplace p{margin:3px 0 12px;color:var(--muted,#666);font-size:.95rem}
+#gallery .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;background:var(--surface,#fff);border:1px solid var(--line,#ddd)}
+#gallery figure a.gimg{display:block;aspect-ratio:3/2;overflow:hidden}
+#gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+#gallery figure:hover img{transform:scale(1.03)}
+#gallery figcaption{padding:7px 9px 8px;font-size:.78rem;line-height:1.35;color:var(--ink,#222)}
+#gallery figcaption small{display:block;color:var(--muted,#666);font-size:.68rem;margin-top:2px}
+#gallery figcaption small a{color:inherit}
+@media (prefers-reduced-motion:reduce){#gallery img{transition:none}}
+@media print{#gallery{break-inside:avoid}}
+
+#glb{position:fixed;inset:0;z-index:1000;display:none;background:rgba(10,12,14,.97);color:#fff;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-body,Georgia,serif)}
+#glb.open{display:flex}
+#glb .gl-stage{position:relative;flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center;padding:44px 64px 8px;box-sizing:border-box;touch-action:pan-y}
+#glb img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:3px;transition:opacity .2s}
+#glb img.loading{opacity:.25}
+#glb .gl-cap{width:100%;max-width:900px;padding:8px 20px 18px;box-sizing:border-box;text-align:center;font-size:.9rem;line-height:1.4}
+#glb .gl-cap small{display:block;color:#b8c0c8;font-size:.75rem;margin-top:3px}
+#glb .gl-cap a{color:#cfe3ee}
+#glb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center}
+#glb button:hover,#glb button:focus-visible{background:rgba(255,255,255,.28);outline:2px solid #fff}
+#glb .gl-prev{left:10px;top:50%;margin-top:-23px}
+#glb .gl-next{right:10px;top:50%;margin-top:-23px}
+#glb .gl-close{right:10px;top:10px;font-size:1.3rem}
+#glb .gl-fs{right:64px;top:10px;font-size:1.1rem}
+#glb .gl-count{position:absolute;left:16px;top:18px;font-family:var(--font-mono,monospace);font-size:.75rem;letter-spacing:.08em;color:#b8c0c8}
+@media (max-width:620px){#glb .gl-stage{padding:48px 6px 4px}#glb .gl-prev,#glb .gl-next{top:auto;bottom:86px;margin:0}#glb .gl-prev{left:12px}#glb .gl-next{right:12px}}
+@media (prefers-reduced-motion:reduce){#glb img{transition:none}}
+@media print{#glb{display:none!important}}
+</style>
+
+<section id="gallery"><div class="gwrap">
+<p class="kicker">Where you are going</p>
+<h2>Photo gallery</h2>
+<p class="gnote">The places on this plan, in the order you reach them. Click a photo to view it full size, then use the arrows, arrow keys or a swipe to move through the gallery. These show typical views, not conditions on your dates.</p>
+<div class="gplace"><h3>Lucerne Old Town and Kapellbrücke<span class="gdays">1-4</span></h3><p>A covered wooden footbridge across the Reuss, dating from the 14th century, with 17th-century painted panels under its roof.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lucerne_Kapellbr%C3%BCcke_and_Rathausquai_from_Bahnhofstrasse.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lucerne_Kapellbr%C3%BCcke_and_Rathausquai_from_Bahnhofstrasse.jpg?width=1600" data-cap="Kapellbrücke and Rathausquai facades along the Reuss, Lucerne" data-place="Lucerne Old Town and Kapellbrücke" data-credit="Ymblanter &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lucerne_Kapellbr%C3%BCcke_and_Rathausquai_from_Bahnhofstrasse.jpg?width=900" alt="Kapellbrücke and Rathausquai facades along the Reuss, Lucerne"></a><figcaption>Kapellbrücke and Rathausquai facades along the Reuss, Lucerne<small>Ymblanter &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lucerne_Kapellbr%C3%BCcke_and_Rathausquai_from_Bahnhofstrasse.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Chapel_Bridge_%28Kapellbr%C3%BCcke%29%2C_Lucerne%2C_Switzerland_02.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Chapel_Bridge_%28Kapellbr%C3%BCcke%29%2C_Lucerne%2C_Switzerland_02.jpg?width=1600" data-cap="Kapellbrücke and Wasserturm (water tower) over the Reuss" data-place="Lucerne Old Town and Kapellbrücke" data-credit="Godot13 &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Chapel_Bridge_%28Kapellbr%C3%BCcke%29%2C_Lucerne%2C_Switzerland_02.jpg?width=900" alt="Kapellbrücke and Wasserturm (water tower) over the Reuss"></a><figcaption>Kapellbrücke and Wasserturm (water tower) over the Reuss<small>Godot13 &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Chapel_Bridge_%28Kapellbr%C3%BCcke%29%2C_Lucerne%2C_Switzerland_02.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Luzern_Kapellbruecke.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Luzern_Kapellbruecke.jpg?width=1600" data-cap="Kapellbrücke and Wasserturm with flower boxes on the bridge rail" data-place="Lucerne Old Town and Kapellbrücke" data-credit="Ikiwaner &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Luzern_Kapellbruecke.jpg?width=900" alt="Kapellbrücke and Wasserturm with flower boxes on the bridge rail"></a><figcaption>Kapellbrücke and Wasserturm with flower boxes on the bridge rail<small>Ikiwaner &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Luzern_Kapellbruecke.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Rigi Kulm<span class="gdays">1-4</span></h3><p>Rigi is the summit reached by the Vitznau and Arth-Goldau rail lines, and it is free with the Travel Pass.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:20240906.Rigi_Kulm.-019.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/20240906.Rigi_Kulm.-019.jpg?width=1600" data-cap="Rigi Kulm summit view over cloud-filled valleys toward the Alpine skyline" data-place="Rigi Kulm" data-credit="Bybbisch94 &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/20240906.Rigi_Kulm.-019.jpg?width=900" alt="Rigi Kulm summit view over cloud-filled valleys toward the Alpine skyline"></a><figcaption>Rigi Kulm summit view over cloud-filled valleys toward the Alpine skyline<small>Bybbisch94 &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:20240906.Rigi_Kulm.-019.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:20240906.Rigi_Kulm.-036.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/20240906.Rigi_Kulm.-036.jpg?width=1600" data-cap="Rigi Kulm summit terraces and station with the Alps beyond the cloud layer" data-place="Rigi Kulm" data-credit="Bybbisch94 &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/20240906.Rigi_Kulm.-036.jpg?width=900" alt="Rigi Kulm summit terraces and station with the Alps beyond the cloud layer"></a><figcaption>Rigi Kulm summit terraces and station with the Alps beyond the cloud layer<small>Bybbisch94 &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:20240906.Rigi_Kulm.-036.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Stoos and Fronalpstock<span class="gdays">1-4</span></h3><p>Stoos is a car-free ridge village above Schwyz, reached by the world&#x27;s steepest funicular, with the Fronalpstock ridge above it.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Stoos_Fronalpstock_Canton_Schwyz.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Stoos_Fronalpstock_Canton_Schwyz.jpg?width=1600" data-cap="Fronalpstock with the Mythen peaks rising above cloud over the Schwyz valleys" data-place="Stoos and Fronalpstock" data-credit="Waldindu &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stoos_Fronalpstock_Canton_Schwyz.jpg?width=900" alt="Fronalpstock with the Mythen peaks rising above cloud over the Schwyz valleys"></a><figcaption>Fronalpstock with the Mythen peaks rising above cloud over the Schwyz valleys<small>Waldindu &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Stoos_Fronalpstock_Canton_Schwyz.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Fronalpstock_Stoos_0859.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Fronalpstock_Stoos_0859.jpg?width=1600" data-cap="Alpine pasture and switchback path on the Stoos side of the ridge" data-place="Stoos and Fronalpstock" data-credit="Badener &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fronalpstock_Stoos_0859.jpg?width=900" alt="Alpine pasture and switchback path on the Stoos side of the ridge"></a><figcaption>Alpine pasture and switchback path on the Stoos side of the ridge<small>Badener &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Fronalpstock_Stoos_0859.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Lauterbrunnen valley and Staubbach<span class="gdays">5-9</span></h3><p>Lauterbrunnen is a valley-floor village under 300 m cliffs, with the Staubbach Falls dropping about 300 m from the rock face above it.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:043_Lauterbrunnen_Photo_by_Giles_Laurent.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/043_Lauterbrunnen_Photo_by_Giles_Laurent.jpg?width=1600" data-cap="Staubbach Falls above the church and meadows of Lauterbrunnen in spring" data-place="Lauterbrunnen valley and Staubbach" data-credit="Giles Laurent &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/043_Lauterbrunnen_Photo_by_Giles_Laurent.jpg?width=900" alt="Staubbach Falls above the church and meadows of Lauterbrunnen in spring"></a><figcaption>Staubbach Falls above the church and meadows of Lauterbrunnen in spring<small>Giles Laurent &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:043_Lauterbrunnen_Photo_by_Giles_Laurent.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lauterbrunnen_from_the_River.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lauterbrunnen_from_the_River.jpg?width=1600" data-cap="Lauterbrunnen church and the Staubbach Falls above the river in autumn" data-place="Lauterbrunnen valley and Staubbach" data-credit="Sergio Ligregni &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lauterbrunnen_from_the_River.jpg?width=900" alt="Lauterbrunnen church and the Staubbach Falls above the river in autumn"></a><figcaption>Lauterbrunnen church and the Staubbach Falls above the river in autumn<small>Sergio Ligregni &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lauterbrunnen_from_the_River.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:1_lauterbrunnen_valley_2012.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/1_lauterbrunnen_valley_2012.jpg?width=1600" data-cap="Lauterbrunnen valley with the village and falls under cloud, from a hillside view" data-place="Lauterbrunnen valley and Staubbach" data-credit="chensiyuan &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/1_lauterbrunnen_valley_2012.jpg?width=900" alt="Lauterbrunnen valley with the village and falls under cloud, from a hillside view"></a><figcaption>Lauterbrunnen valley with the village and falls under cloud, from a hillside view<small>chensiyuan &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:1_lauterbrunnen_valley_2012.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Jungfrau railway and the Eiger, Mönch and Jungfrau<span class="gdays">5-9</span></h3><p>The Wengernalp railway climbs from Lauterbrunnen toward the Eiger, Mönch and Jungfrau above Kleine Scheidegg.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Blick_auf_Eiger%2C_M%C3%B6nch%2C_Jungfraujoch_Bahnfahrt.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Blick_auf_Eiger%2C_M%C3%B6nch%2C_Jungfraujoch_Bahnfahrt.jpg?width=1600" data-cap="Wengernalpbahn train on the climb below the Eiger-Mönch-Jungfrau massif" data-place="Jungfrau railway and the Eiger, Mönch and Jungfrau" data-credit="LiLaLu13 &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Blick_auf_Eiger%2C_M%C3%B6nch%2C_Jungfraujoch_Bahnfahrt.jpg?width=900" alt="Wengernalpbahn train on the climb below the Eiger-Mönch-Jungfrau massif"></a><figcaption>Wengernalpbahn train on the climb below the Eiger-Mönch-Jungfrau massif<small>LiLaLu13 &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Blick_auf_Eiger%2C_M%C3%B6nch%2C_Jungfraujoch_Bahnfahrt.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Blick_auf_Eiger%2C_M%C3%B6nch%2C_jungfraujoch_Fallbodensee.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Blick_auf_Eiger%2C_M%C3%B6nch%2C_jungfraujoch_Fallbodensee.jpg?width=1600" data-cap="Fallbodensee reservoir with the Eiger and Mönch faces above it, in summer" data-place="Jungfrau railway and the Eiger, Mönch and Jungfrau" data-credit="LiLaLu13 &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Blick_auf_Eiger%2C_M%C3%B6nch%2C_jungfraujoch_Fallbodensee.jpg?width=900" alt="Fallbodensee reservoir with the Eiger and Mönch faces above it, in summer"></a><figcaption>Fallbodensee reservoir with the Eiger and Mönch faces above it, in summer<small>LiLaLu13 &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Blick_auf_Eiger%2C_M%C3%B6nch%2C_jungfraujoch_Fallbodensee.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Eiger_M%C3%B6nch_und_Jungfrau.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Eiger_M%C3%B6nch_und_Jungfrau.jpg?width=1600" data-cap="Eiger, Mönch and Jungfrau massif above alpine meadows and switchback roads" data-place="Jungfrau railway and the Eiger, Mönch and Jungfrau" data-credit="Daniel Reust &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Eiger_M%C3%B6nch_und_Jungfrau.jpg?width=900" alt="Eiger, Mönch and Jungfrau massif above alpine meadows and switchback roads"></a><figcaption>Eiger, Mönch and Jungfrau massif above alpine meadows and switchback roads<small>Daniel Reust &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Eiger_M%C3%B6nch_und_Jungfrau.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Schilthorn and Mürren<span class="gdays">5-9</span></h3><p>Mürren is a car-free village at about 1,650 m, and the Schilthornbahn climbs from it to the Schilthorn at 2,970 m.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Kabine_Schilthorn_TUD5778_webalbum_1_print.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Kabine_Schilthorn_TUD5778_webalbum_1_print.jpg?width=1600" data-cap="Schilthorn cable car and glass walkway with the Jungfrau massif behind" data-place="Schilthorn and Mürren" data-credit="Schilthornbahn &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kabine_Schilthorn_TUD5778_webalbum_1_print.jpg?width=900" alt="Schilthorn cable car and glass walkway with the Jungfrau massif behind"></a><figcaption>Schilthorn cable car and glass walkway with the Jungfrau massif behind<small>Schilthornbahn &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Kabine_Schilthorn_TUD5778_webalbum_1_print.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:M%C3%BCrren_is_a_Walser_mountain_village_in_Bernese_Oberland%2C_Switzerland.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%BCrren_is_a_Walser_mountain_village_in_Bernese_Oberland%2C_Switzerland.jpg?width=1600" data-cap="Mürren village street with steep rock faces rising behind the chalets" data-place="Schilthorn and Mürren" data-credit="Rosser1954 &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%BCrren_is_a_Walser_mountain_village_in_Bernese_Oberland%2C_Switzerland.jpg?width=900" alt="Mürren village street with steep rock faces rising behind the chalets"></a><figcaption>Mürren village street with steep rock faces rising behind the chalets<small>Rosser1954 &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:M%C3%BCrren_is_a_Walser_mountain_village_in_Bernese_Oberland%2C_Switzerland.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Riffelsee and the Matterhorn<span class="gdays">10-14</span></h3><p>The Riffelsee is a small lake on the Gornergrat side of Zermatt, and the Matterhorn is reflected in it on calm days.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Matterhorn%2BRiffelsee_2.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn%2BRiffelsee_2.jpg?width=1600" data-cap="Matterhorn reflected in the Riffelsee on a clear summer day" data-place="Riffelsee and the Matterhorn" data-credit="BECK François &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn%2BRiffelsee_2.jpg?width=900" alt="Matterhorn reflected in the Riffelsee on a clear summer day"></a><figcaption>Matterhorn reflected in the Riffelsee on a clear summer day<small>BECK François &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Matterhorn%2BRiffelsee_2.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Matterhorn_and_Riffelhorn_reflection_in_the_Riffelsee_at_sunset_and_a_red_sky.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn_and_Riffelhorn_reflection_in_the_Riffelsee_at_sunset_and_a_red_sky.jpg?width=1600" data-cap="Matterhorn reflected in the Riffelsee at sunset, with a pink sky" data-place="Riffelsee and the Matterhorn" data-credit="Deralpinbergsteiger &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn_and_Riffelhorn_reflection_in_the_Riffelsee_at_sunset_and_a_red_sky.jpg?width=900" alt="Matterhorn reflected in the Riffelsee at sunset, with a pink sky"></a><figcaption>Matterhorn reflected in the Riffelsee at sunset, with a pink sky<small>Deralpinbergsteiger &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Matterhorn_and_Riffelhorn_reflection_in_the_Riffelsee_at_sunset_and_a_red_sky.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Matterhorn_reflection_in_the_Riffelsee_with_the_Milky_Way_galaxy.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn_reflection_in_the_Riffelsee_with_the_Milky_Way_galaxy.jpg?width=1600" data-cap="Matterhorn and the Riffelsee under the Milky Way at night" data-place="Riffelsee and the Matterhorn" data-credit="Deralpinbergsteiger &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn_reflection_in_the_Riffelsee_with_the_Milky_Way_galaxy.jpg?width=900" alt="Matterhorn and the Riffelsee under the Milky Way at night"></a><figcaption>Matterhorn and the Riffelsee under the Milky Way at night<small>Deralpinbergsteiger &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Matterhorn_reflection_in_the_Riffelsee_with_the_Milky_Way_galaxy.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Gornergrat<span class="gdays">10-14</span></h3><p>The Gornergrat is a rack-railway summit at 3,089 m above Zermatt, with the Gorner Glacier falling away below it.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Aerial_panorama_of_the_Gornergrat_170622.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_panorama_of_the_Gornergrat_170622.jpg?width=1600" data-cap="Aerial panorama of the Gornergrat, with the Riffelsee lake and Gorner Glacier" data-place="Gornergrat" data-credit="Bob Tan &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_panorama_of_the_Gornergrat_170622.jpg?width=900" alt="Aerial panorama of the Gornergrat, with the Riffelsee lake and Gorner Glacier"></a><figcaption>Aerial panorama of the Gornergrat, with the Riffelsee lake and Gorner Glacier<small>Bob Tan &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Aerial_panorama_of_the_Gornergrat_170622.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Gornergrat_in_Wallis%2C_Switzerland%2C_2012_August.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Gornergrat_in_Wallis%2C_Switzerland%2C_2012_August.jpg?width=1600" data-cap="Gornergrat Kulm observatory and hotel, with the Matterhorn behind" data-place="Gornergrat" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Gornergrat_in_Wallis%2C_Switzerland%2C_2012_August.jpg?width=900" alt="Gornergrat Kulm observatory and hotel, with the Matterhorn behind"></a><figcaption>Gornergrat Kulm observatory and hotel, with the Matterhorn behind<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Gornergrat_in_Wallis%2C_Switzerland%2C_2012_August.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Klein_Matterhorn_looking_toward_Gornergrat.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Klein_Matterhorn_looking_toward_Gornergrat.jpg?width=1600" data-cap="Glacier and rock ridges from the Klein Matterhorn area looking toward Gornergrat" data-place="Gornergrat" data-credit="Andrew Bossi (edited by Herzi Pinki) &middot; CC BY-SA 2.5"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Klein_Matterhorn_looking_toward_Gornergrat.jpg?width=900" alt="Glacier and rock ridges from the Klein Matterhorn area looking toward Gornergrat"></a><figcaption>Glacier and rock ridges from the Klein Matterhorn area looking toward Gornergrat<small>Andrew Bossi (edited by Herzi Pinki) &middot; CC BY-SA 2.5 &middot; <a href="https://commons.wikimedia.org/wiki/File:Klein_Matterhorn_looking_toward_Gornergrat.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+</div></section>
+
+<script>
+(function(){
+  var root=document.getElementById('gallery'); if(!root) return;
+  var links=[].slice.call(root.querySelectorAll('a.gimg'));
+  if(!links.length) return;
+  var box=document.createElement('div');
+  box.id='glb'; box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-label','Photo viewer');
+  box.innerHTML='<div class="gl-count"></div><button class="gl-fs" type="button" aria-label="Full screen">&#x26F6;</button><button class="gl-close" type="button" aria-label="Close">&times;</button>'
+   +'<div class="gl-stage"><button class="gl-prev" type="button" aria-label="Previous photo">&#8249;</button><img alt=""><button class="gl-next" type="button" aria-label="Next photo">&#8250;</button></div><div class="gl-cap"></div>';
+  document.body.appendChild(box);
+  var img=box.querySelector('img'), cap=box.querySelector('.gl-cap'), cnt=box.querySelector('.gl-count'), cur=0, opener=null;
+  function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+  function show(i){
+    cur=(i+links.length)%links.length; var a=links[cur];
+    img.classList.add('loading'); img.onload=function(){img.classList.remove('loading')};
+    img.src=a.getAttribute('data-full'); img.alt=a.getAttribute('data-cap')||'';
+    cap.innerHTML=esc(a.getAttribute('data-cap')||'')+'<small>'+esc(a.getAttribute('data-place')||'')+' &middot; '+esc(a.getAttribute('data-credit')||'')+' &middot; <a href="'+a.href+'" target="_blank" rel="noopener">Commons page</a></small>';
+    cnt.textContent=(cur+1)+' / '+links.length;
+    [1,-1].forEach(function(d){var n=links[(cur+d+links.length)%links.length]; (new Image()).src=n.getAttribute('data-full')});
+  }
+  function open(i,from){opener=from; box.classList.add('open'); document.documentElement.style.overflow='hidden'; show(i); box.querySelector('.gl-close').focus()}
+  function close(){
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
+    box.classList.remove('open'); document.documentElement.style.overflow=''; img.removeAttribute('src'); if(opener) opener.focus();
+  }
+  links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault(); open(i,a)})});
+  box.querySelector('.gl-prev').addEventListener('click',function(){show(cur-1)});
+  box.querySelector('.gl-next').addEventListener('click',function(){show(cur+1)});
+  box.querySelector('.gl-close').addEventListener('click',close);
+  box.querySelector('.gl-fs').addEventListener('click',function(){
+    if(document.fullscreenElement){document.exitFullscreen()} else if(box.requestFullscreen){box.requestFullscreen()}
+  });
+  box.addEventListener('click',function(e){ if(e.target===box||e.target.classList.contains('gl-stage')||e.target===cap) close() });
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('open')) return;
+    if(e.key==='Escape') close(); else if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='Tab'){ var f=[].slice.call(box.querySelectorAll('button')); var i=f.indexOf(document.activeElement); e.preventDefault(); f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus() }
+  });
+  var x0=null;
+  box.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1)) },{passive:true});
+})();
+</script>
+
+<!-- gallery:end -->
+
+
+
+
+
+<section class="pane">
+  <p class="kicker">The three decisions</p>
+  <h2>Why there is no car in this plan</h2>
+  <div class="prose">
+    <p>A 15-day second-class Swiss Travel Pass is <b>CHF 499</b>. An all-in mid-size rental car for the same fortnight is <b>CHF 1,940–2,310</b>. That alone would settle it, but three things make the car actively worse than useless.</p>
+    <p><b>Every base in this plan is car-free.</b> Zermatt permits private cars only as far as Täsch. Wengen states plainly that it can be reached only by public transport, on foot or by bicycle. You would pay CHF 17 a day to park a car you cannot drive. <b>The pass does not cover car-carrying trains</b>, which is how you would cross the passes in bad weather. And <b>TCS forecasts multi-hour queues at the Gotthard north portal in July and the south portal in August</b> — this window straddles both. Trains use the base tunnel and are unaffected.</p>
+    <p>Break-even against the pass is roughly four paying adults. If driving the passes is itself the appeal, rent for three or four days — about CHF 400 — rather than fourteen.</p>
+  </div>
+  <div class="callout info">
+    <h3>But the Travel Pass may not be the right pass</h3>
+    <p>A <b>Half Fare Card is CHF 150</b> and covers a month from any start date. The Travel Pass only wins if you would otherwise generate CHF 700+ in fares — and with three bases and two transfers, you might not. The thing nobody mentions: <b>the Travel Pass makes exactly three mountains free — Rigi, Stanserhorn and Stoos.</b> Everything else is 50%, and Jungfraujoch is only 25%, where the <b>Half Fare Card actually beats it by CHF 47–58</b>. Price the real transfers before choosing. Buying early does not help either — Swiss domestic fares are fixed and never sell out.</p>
+  </div>
+  <div class="callout good">
+    <h3>The biggest lever is guest cards, not the national pass</h3>
+    <p><b>Engadin gives you 10 lifts free</b> with two nights, worth about CHF 230 a head over five — and it is the only affordable route to lifts that reject every national pass. <b>Saas-Fee gives all nine cable cars free from the first night.</b> Arosa gives three. Widely repeated but wrong: <b>Aletsch Arena does not give free lifts</b> — the feeder cable cars from the valley are discounted or free with a GA, but the summit lifts at Moosfluh, Bettmerhorn and Eggishorn are 20% off at best.</p>
+  </div>
+</section>
+<section class="pane">
+  <p class="kicker">What runs the trip</p>
+  <h2>How you get there is the plan</h2>
+  <div class="prose"><p>Nothing here is scheduled by the map. It is scheduled by first departures, last departures, and two dates that cannot move. Each day carries a badge for what governs it.</p></div>
+  <ul class="legend"><li><span class="gate g-rail">Rail</span> Train, cogwheel or funicular does the work</li><li><span class="gate g-cable">Cable car</span> A gondola or aerial cableway is the key — and its hours set the day</li><li><span class="gate g-foot">On foot</span> No lift involved. You walk up, or there is nothing to ride</li><li><span class="gate g-early">Dawn start</span> Governed by first light, which runs hours before the first lift</li><li><span class="gate g-fixed">Date-locked</span> A fixed event you plan around rather than through</li></ul>
+  <div class="callout">
+    <h3>Sunday 1 August — Swiss National Day, on a Sunday</h3>
+    <p>The only federal holiday, and it lands on the one day everything already closes. Banks, post offices, most retail and most supermarkets shut; station and petrol-station shops stay open. Trains run a <b>Sunday and holiday timetable</b>. Restaurants are open and packed. Accommodation guidance is to book four to six months ahead — when the 1st falls on a weekend it is the busiest travel weekend of the Swiss year. <b>Buy food on Saturday 31 July, and do not move bases on the 31st, 1st or 2nd.</b></p>
+  </div>
+  <div class="callout">
+    <h3>Saturday 7 August — Sierre-Zinal</h3>
+    <p>A 31 km mountain race with 2,200 m of ascent, broadcast to over 100 countries. Published closures shut the Sierre–Zinal road twice before 06:30, Vissoie–Sierre 10:30–12:30, and <b>Ayer–Chandolin from 06:00 to 14:00</b>. Grimentz, St-Luc, Chandolin and Zinal are locked down for most of the day and the valley is fully booked. <b>Val d'Anniviers and Lac de Moiry are out of this plan for that reason.</b> The Zurich Street Parade and the Zermatt Folklore Festival both plausibly land the same weekend.</p>
+  </div>
+  <div class="callout info">
+    <h3>The 08:00 problem — book the high nights first</h3>
+    <p>Sunrise is 06:01 on 27 July. <b>Gornergrat's first train is 07:00. Grindelwald–First is about 08:00. Oeschinensee and Moosfluh are 08:30. Mürren–Allmendhubel is 09:00.</b> Every marquee sunrise here needs either a night high up or a walk in the dark. Two exceptions worth knowing: the <b>Zermatt Kirchbrücke</b> is a five-minute walk from the village, and <b>walking up to Oeschinensee from Kandersteg bypasses the mandatory booking system entirely</b> — walkers need no slot.</p>
+  </div>
+</section>
+
+<section class="pane" id="adventure">
+  <p class="kicker">Adventure</p>
+  <h2>What to book, and who can actually do it</h2>
+  <div class="prose">
+    <p>Prices verified from operators, 29 Aug 2026. The limits matter more than the prices:
+    <b>with a ten-year-old, two are marginal and one rules an activity out entirely.</b></p>
+  </div>
+
+  <div class="callout"><b>The Breithorn is minimum age 18.</b> It is the strongest single objective
+  of the Valais week &mdash; CHF 240 pp, six hours, back in Zermatt by early afternoon, no climbing
+  experience needed &mdash; and a ten-year-old cannot join. Make it an adults-only morning with the
+  party split, or drop it. Decide before you are standing in the guide's office.</div>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">Wengen week</span></div>
+  <h3>Grindelwald First &mdash; the descent chain</h3>
+  <p>Four activities stacked down one mountain, plus the free 45&nbsp;m Cliff Walk cantilevered off
+  the rock at 2,166&nbsp;m. Pairs with the Bachalpsee hike &mdash; walk in the morning, ride down
+  after. <b>Sold only at the valley station, daily limits, can sell out. Go early.</b></p>
+  <dl class="stats"><div><dt>Adult, 1 activity</dt><dd>CHF 90</dd></div><div><dt>Adult, 2</dt><dd>CHF 109</dd></div><div><dt>Child 6&ndash;15</dt><dd>CHF 60 / 81</dd></div><div><dt>Includes</dt><dd>Unlimited gondola</dd></div></dl>
+  <dl class="stats"><div><dt>First Flyer</dt><dd>84 km/h &middot; 10+, 140 cm, 35&ndash;125 kg</dd></div><div><dt>First Glider</dt><dd>83 km/h &middot; 10+, 130 cm, 35&ndash;125 kg</dd></div><div><dt>Mountain Cart</dt><dd>min 135 cm</dd></div><div><dt>Trottibike</dt><dd>min 125 cm</dd></div></dl>
+  <div class="callout"><b>Measure and weigh him before you buy.</b> An average ten-year-old is about
+  138 cm and 32 kg &mdash; just under the Flyer's 140 cm and 35 kg. The Glider at 130 cm is the
+  likelier flight, the Trottibike at 125 cm is safe, and the Cliff Walk is free regardless.
+  Under-14s must be accompanied on both flights.</div>
+  <div class="btns"><a class="btn btn-map" href="https://www.jungfrau.ch/en-gb/grindelwaldfirst/adventure-package/" target="_blank" rel="noopener">Adventure Package</a><a class="btn" href="https://maps.google.com/?q=Grindelwald+First+cable+car" target="_blank" rel="noopener">Map</a></div>
+  </div></article>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">Wengen week</span></div>
+  <h3>Tandem paragliding, Interlaken</h3>
+  <p>The best-verified operator in this research, and <b>the one activity the whole family clears
+  comfortably</b> &mdash; minimum age about six, minimum weight 25 kg.</p>
+  <dl class="stats"><div><dt>Standard</dt><dd>CHF 199 &middot; 10&ndash;20 min</dd></div><div><dt>Double Airtime</dt><dd>CHF 299 &middot; 30&ndash;40 min</dd></div><div><dt>Limits</dt><dd>age ~6+, 25&ndash;100 kg</dd></div><div><dt>07:15 flight</dt><dd>max 80 kg</dd></div></dl>
+  <div class="callout good"><b>Weather cancellation is postponed free or refunded in full on request</b>,
+  and you can cancel yourself free up to 24 hours ahead &mdash; so booking early in the week is risk-free.</div>
+  <div class="btns"><a class="btn btn-map" href="https://paragliding-interlaken.ch/" target="_blank" rel="noopener">Operator</a><a class="btn" href="tel:+41338238233">+41 33 823 82 33</a></div>
+  </div></article>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">09:00&ndash;14:30 only</span></div>
+  <h3>M&uuml;rren via ferrata</h3>
+  <p>Route free, gear rental mandatory. <b>K3 is a serious grade</b> &mdash; a capable ten-year-old
+  can do it with a parent and signed consent, but it is not the family warm-up. The operator page
+  confirms <b>neither the zipline nor the Nepal bridge</b> that the blogs describe.</p>
+  <dl class="stats"><div><dt>Route</dt><dd>Free</dd></div><div><dt>Gear, mandatory</dt><dd>CHF 35 pp</dd></div><div><dt>Shoes / gloves</dt><dd>CHF 20 / 29</dd></div><div><dt>Season</dt><dd>1 Jun &ndash; 31 Oct</dd></div></dl>
+  <div class="callout"><b>The one activity that fights the weather plan.</b> Usage is restricted to
+  09:00&ndash;18:00 for nature conservation and the last gear issue is 14:30, so it cannot run on the
+  05:30&ndash;13:00 clock everything else uses. Put it early in the week on a settled forecast. They
+  may also refuse gear in rain or on slippery rock <i>even when the route is officially open</i>.</div>
+  <div class="btns"><a class="btn btn-map" href="https://intersport-muerren.ch/via-ferrata-muerren/?lang=en" target="_blank" rel="noopener">Rental station</a></div>
+  </div></article>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">Kandersteg day</span></div>
+  <h3>Oeschinensee mountain coaster</h3>
+  <p>A cheap bolt-on to a day already in the plan, and he rides it alone from eight. Remember that
+  <b>walking up to the lake bypasses the mandatory timed entry slot entirely</b>.</p>
+  <dl class="stats"><div><dt>1 ride</dt><dd>CHF 6</dd></div><div><dt>3 rides</dt><dd>CHF 17</dd></div><div><dt>Track</dt><dd>750 m</dd></div><div><dt>Age</dt><dd>8+ alone; 3&ndash;7 free with an adult</dd></div></dl>
+  <div class="btns"><a class="btn btn-map" href="https://www.oeschinensee.ch/en/rodelbahn/" target="_blank" rel="noopener">Official</a></div>
+  </div></article>
+
+  <div class="callout info"><b>Still unverified:</b> individual First activity prices (the ~CHF 31
+  figure is secondary-source only), and weather-cancellation terms for every operator except
+  paragliding and the M&uuml;rren ferrata &mdash; ask at booking. Separately, the
+  <b>Charles Kuonen suspension bridge</b> is reachable, but the Europaweg's
+  Springelboden&ndash;Eggenstadel section was still closed as of June 2026 with rockfall barriers
+  destroyed. Re-check for 2027 and get the Randa ascent time from +41&nbsp;27&nbsp;967&nbsp;16&nbsp;77.</div>
+</section>
+
+<section class="day" id="d1"><header class="dhead">
+<div class="sign s-rail"><span class="signn">Day 1</span><span class="signd">Tue 27 Jul</span></div>
+<div class="dmeta"><h2>Zurich to Lucerne</h2><p class="lede">Land, walk to the station under the terminal, and be on a train within the hour. Lucerne is deliberately first: it is the closest base to the airport and the lowest, so nothing today asks anything of you.</p>
+<ul class="dfacts"><li><b>Base</b> Lucerne</li><li><b>Getting about</b> 1h05 by train</li><li><b>Governed by</b> <span class="gate g-rail">Rail</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Zurich+Airport/Lucerne/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/00%201426%20Wengernalpbahn%20-%20Berner%20Oberland%20%28Schweiz%29.jpg?width=1100" alt="Zurich Airport → Lucerne"><figcaption><a href="https://commons.wikimedia.org/wiki/File:00_1426_Wengernalpbahn_-_Berner_Oberland_%28Schweiz%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">11:00</span></div><h3>Zurich Airport → Lucerne</h3><p>The station is directly under the terminal, trains run at least twice an hour, and the journey is about an hour. No transfer, no luggage van, no parking. This is the entire argument for doing Switzerland by rail, demonstrated in the first sixty minutes.</p>
+<dl class="stats"><div><dt>Journey</dt><dd>1h05</dd></div><div><dt>Frequency</dt><dd>2+/hour</dd></div><div><dt>Change</dt><dd>None</dd></div><div><dt>Fare</dt><dd>Free with pass</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Lucerne+railway+station%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.sbb.ch/en" target="_blank" rel="noopener">SBB timetable</a></div><details><summary>Fine print, fares and alternatives</summary><p>Buy the pass before you fly, or at the airport station. Swiss domestic fares are fixed and never sell out, so there is no early-booking advantage — but Supersaver tickets and the Saver Day Pass (CHF 29 with a Half Fare Card against CHF 52 without) do reward booking ahead.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Luzern%20asv2022-10%20Kapellbr%C3%BCcke%20img1.jpg?width=1100" alt="Lucerne on foot"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Luzern_asv2022-10_Kapellbr%C3%BCcke_img1.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">14:00</span><span class="tag t-value">value</span></div><h3>Lucerne on foot</h3><p>The Chapel Bridge, the covered wooden walkway with the painted gable panels, and the medieval old town around it. Low altitude, flat, and entirely walkable — the right shape for a day when you have been awake for twenty hours.</p>
+<dl class="stats"><div><dt>Altitude</dt><dd>436 m</dd></div><div><dt>Effort</dt><dd>None</dd></div><div><dt>Base</dt><dd>4 nights</dd></div><div><dt>Boats</dt><dd>Free with pass</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Kapellbr%C3%BCcke%2C+Lucerne%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.luzern.com/en/" target="_blank" rel="noopener">Lucerne tourism</a></div><details><summary>Fine print, fares and alternatives</summary><p>Lake Lucerne boats are free with a Swiss Travel Pass, as is the Verkehrshaus transport museum and the Glacier Garden. The Lucerne Guest Card, issued with any overnight, gives free travel in city zone 10. Budget CHF 25 for an inexpensive meal, CHF 100 for a mid-range dinner for two.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 1" src="https://maps.google.com/maps?q=Lucerne%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d2"><header class="dhead">
+<div class="sign s-rail"><span class="signn">Day 2</span><span class="signd">Wed 28 Jul</span></div>
+<div class="dmeta"><h2>Rigi, the queen of the mountains</h2><p class="lede">The best free day in the country. Rigi is one of only three mountains the Swiss Travel Pass covers outright, and the way up is half the point.</p>
+<ul class="dfacts"><li><b>Base</b> Lucerne</li><li><b>Getting about</b> Boat + cog railway</li><li><b>Governed by</b> <span class="gate g-rail">Rail</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Lucerne/Vitznau/Rigi+Kulm/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/6645%20-%20Rigi%20Kulm%20-%20Vierwaldst%C3%A4ttersee.JPG?width=1100" alt="Boat to Vitznau, then Europe&#x27;s first mountain railway"><figcaption><a href="https://commons.wikimedia.org/wiki/File:6645_-_Rigi_Kulm_-_Vierwaldst%C3%A4ttersee.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Boat to Vitznau, then Europe&#x27;s first mountain railway</h3><p>Take the lake steamer from Lucerne rather than the train — it is free with the pass and it approaches the mountain the way visitors have since 1871, when this became the first cogwheel railway in Europe. From Rigi Kulm at 1,798 m you see the Bernese Alps on one side and the lake system on the other.</p>
+<dl class="stats"><div><dt>Summit</dt><dd>1,798 m</dd></div><div><dt>Cog railway</dt><dd>32 min</dd></div><div><dt>Full fare</dt><dd>CHF 84 return</dd></div><div><dt>With pass</dt><dd>Free</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Rigi+Kulm%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.rigi.ch/en/inform/prices" target="_blank" rel="noopener">Rigi Railways</a></div><details><summary>Fine print, fares and alternatives</summary><p>Free with a Swiss Travel Pass or GA, and children under 16 travel free when accompanied. Trains run hourly. The Rigi Panoramaweg from Kulm to Scheidegg is 8.2 km with 230 m of ascent, about three hours, on a wide stroller-friendly path — the easiest big-view walk of the trip. Come down the other side to Arth-Goldau for a loop rather than a there-and-back.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 2" src="https://maps.google.com/maps?q=Rigi+Kulm%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d3"><header class="dhead">
+<div class="sign s-rail"><span class="signn">Day 3</span><span class="signd">Thu 29 Jul</span></div>
+<div class="dmeta"><h2>The Stoos ridge</h2><p class="lede">The best view-per-minute in Switzerland, reached by the steepest funicular in the world. Two hours of walking for a ridge that never stops delivering.</p>
+<ul class="dfacts"><li><b>Base</b> Lucerne</li><li><b>Getting about</b> Train + world&#x27;s steepest funicular</li><li><b>Governed by</b> <span class="gate g-rail">Rail</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Lucerne/Schwyz/Stoos/Fronalpstock/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/StoosView7.jpg?width=1100" alt="Klingenstock to Fronalpstock"><figcaption><a href="https://commons.wikimedia.org/wiki/File:StoosView7.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">08:30</span><span class="tag t-unmissable">unmissable</span></div><h3>Klingenstock to Fronalpstock</h3><p>4.5 km with 282 m up and 302 m down, about two hours moving and four door-to-door. Graded T2 — no technical difficulty, but constant undulation and some steep drop-offs beside the path. The payoff is continuous for the entire ridge: the serpentine arms of Lake Lucerne below, Rigi and Pilatus opposite.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>4.5 km</dd></div><div><dt>Ascent</dt><dd>282 m</dd></div><div><dt>Time</dt><dd>2 h walking</dd></div><div><dt>Grade</dt><dd>T2</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Fronalpstock%2C+Stoos%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.stoos.ch/de/pages/preise-parking" target="_blank" rel="noopener">Stoosbahnen</a></div><details><summary>Fine print, fares and alternatives</summary><p>The funicular climbs at up to 110% — 47.7 degrees — and is free with a Swiss Travel Pass or GA. The two chairlifts at either end of the ridge are not covered by any pass; the Stoos Peak Experience ticket covering both is CHF 60. Klingenstock runs 13 June to 11 October, Fronalpstock 1 May to 1 November, both 09:00–16:00. Unsettling for vertigo sufferers but not genuinely exposed.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 3" src="https://maps.google.com/maps?q=Stoos%2C+Schwyz%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d4"><header class="dhead">
+<div class="sign s-cable"><span class="signn">Day 4</span><span class="signd">Fri 30 Jul</span></div>
+<div class="dmeta"><h2>Stanserhorn, and a wet-weather reserve</h2><p class="lede">The third and last of the mountains the pass covers outright — and the only cable car in the world with an open upper deck. If the forecast is poor, this is the day to swap indoors.</p>
+<ul class="dfacts"><li><b>Base</b> Lucerne</li><li><b>Getting about</b> Vintage funicular + open-top cable car</li><li><b>Governed by</b> <span class="gate g-cable">Cable car</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Lucerne/Stans/Stanserhorn/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cabrio-4%20Stanserhorn%20Cableway.jpg?width=1100" alt="The CabriO cable car"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Cabrio-4_Stanserhorn_Cableway.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:30</span><span class="tag t-value">value</span></div><h3>The CabriO cable car</h3><p>A 1893 funicular from Stans, then a double-decker cable car whose roof deck is open to the sky — you ride the last stretch standing in the wind with no glass at all. Free with a Swiss Travel Pass, which makes it the best-value lift in central Switzerland.</p>
+<dl class="stats"><div><dt>Summit</dt><dd>1,898 m</dd></div><div><dt>Full fare</dt><dd>CHF 82</dd></div><div><dt>With pass</dt><dd>Free</dd></div><div><dt>Last down</dt><dd>17:15</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Stanserhorn%2C+Stans%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.stanserhorn.ch/en/" target="_blank" rel="noopener">Stanserhorn</a></div><details><summary>Fine print, fares and alternatives</summary><p>Runs daily 11 April to 22 November, first funicular 08:15, mostly every 30 minutes. Sources conflict on whether the Travel Pass gives 50% or full coverage here — the operator lists the pass as valid and says you may board directly without exchanging a ticket. Worth confirming at the counter.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Luzern%20asv2022-10%20Kapellbr%C3%BCcke%20img1.jpg?width=1100" alt="Rain plan: Verkehrshaus and the Glacier Garden"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Luzern_asv2022-10_Kapellbr%C3%BCcke_img1.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">14:00</span><span class="tag t-easy">easy</span></div><h3>Rain plan: Verkehrshaus and the Glacier Garden</h3><p>Switzerland's most visited museum is the transport museum in Lucerne — rail, road, air and water, plus a planetarium. The Glacier Garden next door is a set of glacial potholes discovered in 1872. Both are indoors and the Glacier Garden is free with the pass.</p>
+<dl class="stats"><div><dt>Verkehrshaus</dt><dd>CHF 37</dd></div><div><dt>Glacier Garden</dt><dd>Free with pass</dd></div><div><dt>Hours</dt><dd>10:00–18:00</dd></div><div><dt>Days</dt><dd>365</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Verkehrshaus+der+Schweiz%2C+Lucerne" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.verkehrshaus.ch/en/" target="_blank" rel="noopener">Verkehrshaus</a></div><details><summary>Fine print, fares and alternatives</summary><p>The Travel Pass discounts the Verkehrshaus rather than covering it. Ballenberg open-air museum, the Olympic Museum in Lausanne and Château de Chillon are all fully free with the pass if you would rather spend a wet day further afield.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 4" src="https://maps.google.com/maps?q=Stanserhorn%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d5"><header class="dhead">
+<div class="sign s-rail"><span class="signn">Day 5</span><span class="signd">Sat 31 Jul</span></div>
+<div class="dmeta"><h2>To Wengen, and the shopping day</h2><p class="lede">A scenic transfer that costs nothing extra, then an afternoon in the valley. Buy food today — tomorrow is a Sunday and a federal holiday at the same time.</p>
+<ul class="dfacts"><li><b>Base</b> Wengen</li><li><b>Getting about</b> 1h50, no supplement</li><li><b>Governed by</b> <span class="gate g-rail">Rail</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Lucerne/Interlaken/Lauterbrunnen/Wengen/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/00%201426%20Wengernalpbahn%20-%20Berner%20Oberland%20%28Schweiz%29.jpg?width=1100" alt="Luzern–Interlaken Express, then up to Wengen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:00_1426_Wengernalpbahn_-_Berner_Oberland_%28Schweiz%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Luzern–Interlaken Express, then up to Wengen</h3><p>Two hours through the Brünig pass on one of the country's genuinely scenic lines, and it carries no seat supplement at all with a pass. Change at Interlaken Ost for Lauterbrunnen, then the Wengernalp rack railway climbs the valley wall in eleven minutes.</p>
+<dl class="stats"><div><dt>Total</dt><dd>~1h50</dd></div><div><dt>Supplement</dt><dd>CHF 0</dd></div><div><dt>Final leg</dt><dd>11 min</dd></div><div><dt>Frequency</dt><dd>Every 30 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Wengen%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://wengen.swiss/en/" target="_blank" rel="noopener">Wengen</a><a class="btn" href="https://www.google.com/maps/dir/Lucerne/Interlaken+Ost/Lauterbrunnen/Wengen/" target="_blank" rel="noopener">Day route</a></div><details><summary>Fine print, fares and alternatives</summary><p>Wengen is car-free — the village states it can be reached only by public transport, on foot or by bicycle. If you were driving, Lauterbrunnen's garage is CHF 18 a day or CHF 93 a week, and the church lot is CHF 12. Grindelwald Terminal is CHF 245 a week for the same region, which is the single worst-value car park in the Oberland.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lauterbrunnen%20Staubbach%20Falls.jpg?width=1100" alt="The valley of 72 waterfalls"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Lauterbrunnen_Staubbach_Falls.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">14:30</span><span class="tag t-added">added</span></div><h3>The valley of 72 waterfalls</h3><p>Eight kilometres of flat valley floor from Lauterbrunnen to Stechelberg, buggy-friendly, with the Staubbach falling 300 m off the cliff above the village. Trümmelbach is the one to pay for: ten glacial cascades carved <i>inside</i> the mountain, reached by a lift cut into the rock.</p>
+<dl class="stats"><div><dt>Walk</dt><dd>8 km flat</dd></div><div><dt>Trümmelbach</dt><dd>CHF 18</dd></div><div><dt>Hours</dt><dd>08:30–18:00 in Aug</dd></div><div><dt>Bus back</dt><dd>Line 141</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Tr%C3%BCmmelbachf%C3%A4lle%2C+Lauterbrunnen%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://truemmelbachfaelle.ch/" target="_blank" rel="noopener">Trümmelbach</a></div><details><summary>Fine print, fares and alternatives</summary><p>Trümmelbach drains the Eiger, Mönch and Jungfrau and moves up to 20,000 litres a second. Door sales only, no advance tickets, and children under four and dogs are not admitted. It is the best genuinely rainy-day option in the region — better in rain, and early August is peak melt. Note the Staubbach itself runs noticeably weaker in August than in June.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 5" src="https://maps.google.com/maps?q=Lauterbrunnen%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d6"><header class="dhead">
+<div class="sign s-fixed"><span class="signn">Day 6</span><span class="signd">Sun 1 Aug</span></div>
+<div class="dmeta"><h2>National Day — the panorama trail</h2><p class="lede">Shops are shut and the trains run a Sunday timetable, so today is deliberately simple: one cableway, one gentle walk, and an evening in the village. Do not attempt to move bases or travel far.</p>
+<ul class="dfacts"><li><b>Base</b> Wengen</li><li><b>Getting about</b> Cableway, no transfers</li><li><b>Governed by</b> <span class="gate g-fixed">Date-locked</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Wengen/Männlichen/Kleine+Scheidegg/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Eiger%2C%20M%C3%B6nch%20und%20Jungfrau%20von%20der%20kleinen%20Scheidegg%20aus.jpg?width=1100" alt="Männlichen to Kleine Scheidegg"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Eiger%2C_M%C3%B6nch_und_Jungfrau_von_der_kleinen_Scheidegg_aus.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Männlichen to Kleine Scheidegg</h3><p>4.9 km, 200 m of descent, ninety minutes on a stroller-grade gravel path with zero exposure — and the Eiger, Mönch and Jungfrau stand in front of you the entire way. The best effort-to-reward ratio in the Bernese Oberland by a wide margin.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>4.9 km</dd></div><div><dt>Descent</dt><dd>200 m</dd></div><div><dt>Time</dt><dd>1h30</dd></div><div><dt>Cableway</dt><dd>CHF 31 w/ pass</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=M%C3%A4nnlichen%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.maennlichen.ch/" target="_blank" rel="noopener">Männlichen</a><a class="btn" href="https://www.alltrails.com/trail/switzerland/bern/panoramaweg-mannlichen-kleine-scheidegg" target="_blank" rel="noopener">Trail</a></div><details><summary>Fine print, fares and alternatives</summary><p>Wengen–Männlichen cableway runs every 20 minutes, roughly 08:10–17:10, CHF 62 return or CHF 31 with a Travel Pass. Walk in the Männlichen→Kleine Scheidegg direction so the three peaks face you. The Royal Walk adds 2 km and 30–45 minutes to the summit viewpoint. Compare with Jungfraujoch at CHF 234.80 plus a compulsory CHF 10 reservation from Interlaken Ost — this is the same wall for a fraction of the money and none of the queue.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%BCrren%20view.jpg?width=1100" alt="The 1 August evening"><figcaption><a href="https://commons.wikimedia.org/wiki/File:M%C3%BCrren_view.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">20:00</span><span class="tag t-added">added</span></div><h3>The 1 August evening</h3><p>Grindelwald runs a torchlight and cowbell procession from the church to the Eiger Nordwandplatz — free, finishing around 22:30, and its page is already dated for 2027. Bonfires and paper lanterns are the tradition; the holiday has been official since 1994 and marks the 1291 Federal Charter.</p>
+<dl class="stats"><div><dt>Trains</dt><dd>Sunday timetable</dd></div><div><dt>Shops</dt><dd>Closed</dd></div><div><dt>Restaurants</dt><dd>Open, packed</dd></div><div><dt>Sunset</dt><dd>21:07</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Grindelwald%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.myswitzerland.com/en-us/experiences/events/august-1-national-day/" target="_blank" rel="noopener">National Day events</a></div><details><summary>Fine print, fares and alternatives</summary><p>An alternative worth booking early: over 250 farms open for a 1 August brunch, 09:00–13:00, reserved directly with the farm. Places are limited. One caveat with precedent — in the drought summer of 2018 open-fire bans cancelled bonfires and fireworks across much of German-speaking Switzerland. If 2027 is dry, expect the same.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 6" src="https://maps.google.com/maps?q=Kleine+Scheidegg%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d7"><header class="dhead">
+<div class="sign s-cable"><span class="signn">Day 7</span><span class="signd">Mon 2 Aug</span></div>
+<div class="dmeta"><h2>Schilthorn and the North Face Trail</h2><p class="lede">Ninety percent of the Jungfraujoch view for a fraction of the price, and the walk below it is the quiet counterpart to yesterday's.</p>
+<ul class="dfacts"><li><b>Base</b> Wengen</li><li><b>Getting about</b> Cableway from Mürren</li><li><b>Governed by</b> <span class="gate g-cable">Cable car</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Wengen/Lauterbrunnen/Mürren/Schilthorn/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Schilthorn%20with%20Bernese%20Alps%2C%202012%20August.jpg?width=1100" alt="Piz Gloria, 2,970 m"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Schilthorn_with_Bernese_Alps%2C_2012_August.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Piz Gloria, 2,970 m</h3><p>The revolving summit restaurant with its Bond history, and a panorama that takes in the Eiger, Mönch and Jungfrau across the valley rather than from underneath. The new Stechelberg–Mürren cableway now runs the lower section in under four minutes.</p>
+<dl class="stats"><div><dt>Summit</dt><dd>2,970 m</dd></div><div><dt>From Mürren</dt><dd>CHF 91.40</dd></div><div><dt>With pass</dt><dd>CHF 45.70</dd></div><div><dt>Rösti + beer</dt><dd>CHF 29</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Schilthorn+Piz+Gloria%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://schilthorn.ch/en/Infos/Timetable__and__Tariff" target="_blank" rel="noopener">Schilthornbahn</a></div><details><summary>Fine print, fares and alternatives</summary><p>Schilthornbahn 20XX is complete on all three sections and fully operational for 2027; the published 2027 revisions fall in late April and late October, clear of this window. Food at 2,970 m is cheaper than you would guess — rösti with vegetables and sour cream is CHF 22 and a half-litre of Rugenbräu is CHF 7, against CHF 25 for an inexpensive valley meal. The all-you-can-eat brunch until 14:00 is CHF 38.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%BCrren%20view.jpg?width=1100" alt="The North Face Trail"><figcaption><a href="https://commons.wikimedia.org/wiki/File:M%C3%BCrren_view.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">13:30</span><span class="tag t-hidden">hidden</span></div><h3>The North Face Trail</h3><p>6.5 km with 170 m up and 420 m down, two to three hours, T1 to T2 from Allmendhubel above Mürren. Alp huts, honesty shops and the north walls opposite the whole way. The Sprutz waterfall detour takes you behind the falling water.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>6.5–7.4 km</dd></div><div><dt>Descent</dt><dd>420 m</dd></div><div><dt>Time</dt><dd>2–3 h</dd></div><div><dt>Funicular</dt><dd>CHF 8.80</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Allmendhubel%2C+M%C3%BCrren%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.earthtrekkers.com/northface-trail-murren-switzerland/" target="_blank" rel="noopener">Trail notes</a></div><details><summary>Fine print, fares and alternatives</summary><p>The Sprutz detour is the one real hazard — steep, unrailed, wet and slippery, and you walk under the fall. Skip it in rain. Suppenalp, Schiltalp and Spielbodenalp all serve food on the route. Extend to Gimmelwald, which is car-free with 109 residents and where Schilthornbahn is contractually bound to run at least hourly, 06:00 to midnight, year-round until 2035.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 7" src="https://maps.google.com/maps?q=Schilthorn%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d8"><header class="dhead">
+<div class="sign s-foot"><span class="signn">Day 8</span><span class="signd">Tue 3 Aug</span></div>
+<div class="dmeta"><h2>The Faulhorn traverse</h2><p class="lede">The big day. Sixteen kilometres of ridge with a lift at each end, the Bernese giants on one side and the lakes on the other. It needs a clear forecast — there is nowhere to hide up there.</p>
+<ul class="dfacts"><li><b>Base</b> Wengen</li><li><b>Getting about</b> Two cog railways, one long ridge</li><li><b>Governed by</b> <span class="gate g-foot">On foot</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Grindelwald/First/Bachalpsee/Faulhorn/Schynige+Platte/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bachalp%20Lake%20%28%20Bachalpsee%20%29.jpg?width=1100" alt="First → Bachalpsee → Faulhorn → Schynige Platte"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Bachalp_Lake_(_Bachalpsee_).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">07:30</span><span class="tag t-unmissable">unmissable</span></div><h3>First → Bachalpsee → Faulhorn → Schynige Platte</h3><p>16 km, about 860 m of ascent and 690 m of descent, five to six hours moving and closer to seven with stops. T2 with some loose sections. The high point is Faulhorn at 2,681 m, and the payoff is distributed across the whole traverse rather than waiting at the end.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>16 km</dd></div><div><dt>Ascent</dt><dd>860 m</dd></div><div><dt>Time</dt><dd>6–7 h</dd></div><div><dt>Grade</dt><dd>T2</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Faulhorn%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.jungfrau.ch/en-gb/schynige-platte/" target="_blank" rel="noopener">Schynige Platte</a><a class="btn" href="https://www.earthtrekkers.com/hike-schynige-platte-to-faulhorn-to-first-switzerland/" target="_blank" rel="noopener">Route</a></div><details><summary>Fine print, fares and alternatives</summary><p>Schynige Platte Bahn runs 13 June to 25 October, every 40 minutes, 52 minutes each way, CHF 68 return or CHF 34 with a pass. First gondola is about CHF 72 return, 50% with a pass. No chains and no glacier, but the entire ridge is weather-exposed. Berghaus Männdlenen is the only shelter mid-route. Start early and watch the sky.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Eiger%2C%20M%C3%B6nch%20und%20Jungfrau%20von%20der%20kleinen%20Scheidegg%20aus.jpg?width=1100" alt="Short version: Bachalpsee and back"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Eiger%2C_M%C3%B6nch_und_Jungfrau_von_der_kleinen_Scheidegg_aus.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">—</span><span class="tag t-easy">easy</span></div><h3>Short version: Bachalpsee and back</h3><p>If the forecast is unsettled or legs are tired, First to Bachalpsee is 5.9 km return with 188 m of ascent, about two hours. The lake reflects the Schreckhorn and Wetterhorn and it is the single most photographed spot in the region.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>5.9 km return</dd></div><div><dt>Ascent</dt><dd>188 m</dd></div><div><dt>Time</dt><dd>2 h</dd></div><div><dt>Gondola</dt><dd>25 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Bachalpsee%2C+Grindelwald%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.jungfrau.ch/en-gb/grindelwald-first/" target="_blank" rel="noopener">Grindelwald First</a></div><details><summary>Fine print, fares and alternatives</summary><p>Bachalpsee wants either civil dawn or sunset, because the peaks behind it face east-southeast and the sun comes up beside them rather than behind. For dawn you would sleep at Berghotel Faulhorn, 45 minutes above the lake and open from 20 June — Switzerland's oldest mountain hotel. For sunset you walk down in the long twilight, which lasts until 21:33.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 8" src="https://maps.google.com/maps?q=Faulhorn%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d9"><header class="dhead">
+<div class="sign s-foot"><span class="signn">Day 9</span><span class="signd">Wed 4 Aug</span></div>
+<div class="dmeta"><h2>Oeschinensee, on foot</h2><p class="lede">A turquoise lake under a 2,000 m wall — and a booking system you can simply walk around.</p>
+<ul class="dfacts"><li><b>Base</b> Wengen</li><li><b>Getting about</b> Train to Kandersteg, then walk</li><li><b>Governed by</b> <span class="gate g-foot">On foot</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Wengen/Lauterbrunnen/Kandersteg/Oeschinensee/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/20190725%20Oeschinensee-Panorama%2C%20Kandersteg%20%2806540-42%20stitch%29.jpg?width=1100" alt="Walk up from Kandersteg"><figcaption><a href="https://commons.wikimedia.org/wiki/File:20190725_Oeschinensee-Panorama%2C_Kandersteg_%2806540-42_stitch%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">08:00</span><span class="tag t-hidden">hidden</span></div><h3>Walk up from Kandersteg</h3><p>An hour and twenty minutes on foot from the village, against a gondola that needs a compulsory timed slot between 20 June and 20 September. <b>Walkers need no slot at all.</b> Same-day online sales close at 06:00 and the operator's own advice when a slot fills is to visit on another day.</p>
+<dl class="stats"><div><dt>Walk up</dt><dd>1h20</dd></div><div><dt>Gondola</dt><dd>CHF 40</dd></div><div><dt>With pass</dt><dd>CHF 22.50</dd></div><div><dt>Slot</dt><dd>Not needed on foot</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Oeschinensee%2C+Kandersteg%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.oeschinensee.ch/en/tarife-fahrplan/" target="_blank" rel="noopener">Booking and fares</a></div><details><summary>Fine print, fares and alternatives</summary><p>The car park fills around 11:00 and the Bernese Oberland Pass gives no discount from 2026. The lake wants sunrise or overcast — the turquoise reads best without hard sun. Rowing boats run 10:00–17:30. Above the lake, the Blüemlisalphütte at 2,840 m is a four-hour T2 climb over the Hohtürli pass with 1,270 m of ascent, if you want the serious version.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 9" src="https://maps.google.com/maps?q=Oeschinensee%2C+Kandersteg%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d10"><header class="dhead">
+<div class="sign s-rail"><span class="signn">Day 10</span><span class="signd">Thu 5 Aug</span></div>
+<div class="dmeta"><h2>Across to Zermatt</h2><p class="lede">The move that buys you drier weather. The Valais is the driest region in Switzerland — Sion gets 603 mm a year against Locarno's 1,897 — and Zermatt runs 29–32% wet days against Interlaken's 41%.</p>
+<ul class="dfacts"><li><b>Base</b> Zermatt</li><li><b>Getting about</b> ~2h15, two changes</li><li><b>Governed by</b> <span class="gate g-rail">Rail</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Wengen/Lauterbrunnen/Interlaken/Visp/Zermatt/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/00%20106%200607%20Zmutt%20-%20Zermatt%20%28CH%29.jpg?width=1100" alt="Down the valley and up the Mattertal"><figcaption><a href="https://commons.wikimedia.org/wiki/File:00_106_0607_Zmutt_-_Zermatt_(CH).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:30</span></div><h3>Down the valley and up the Mattertal</h3><p>Lauterbrunnen to Interlaken, along the lakes to Visp, then the Matterhorn Gotthard Bahn climbs the single-track Mattertal to Zermatt. Around two and a quarter hours with two changes, all covered by the pass.</p>
+<dl class="stats"><div><dt>Total</dt><dd>~2h15</dd></div><div><dt>Changes</dt><dd>2</dd></div><div><dt>Zermatt</dt><dd>1,608 m</dd></div><div><dt>Base</dt><dd>5 nights</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Zermatt%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://zermatt.swiss/en/" target="_blank" rel="noopener">Zermatt</a></div><details><summary>Fine print, fares and alternatives</summary><p>Zermatt is car-free — private vehicles stop at Täsch, five kilometres short, where the Matterhorn Terminal has 2,100 covered spaces at CHF 17 a day. The shuttle train runs every 20 minutes from 05:55 to 21:55, takes 12 minutes, and is free with a Travel Pass. One planning note: the Visp–Zermatt line is the sole land access and has a history of weather closures, so keep a buffer day before any international departure.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stellisee%2020190716%20102635.jpg?width=1100" alt="First look, from the bridge"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Stellisee_20190716_102635.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">17:00</span><span class="tag t-value">value</span></div><h3>First look, from the bridge</h3><p>The Kirchbrücke over the Matter Vispa gives you the Matterhorn straight down the valley, five minutes' walk from the station. It is the one sunrise in Zermatt that needs no lift, no booking and no alarm beyond 05:40.</p>
+<dl class="stats"><div><dt>Walk</dt><dd>5 min</dd></div><div><dt>Cost</dt><dd>Free</dd></div><div><dt>Sunrise window</dt><dd>05:40–06:25</dd></div><div><dt>Sunset</dt><dd>20:53</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Kirchbr%C3%BCcke%2C+Zermatt%2C+Switzerland" target="_blank" rel="noopener">Map</a></div><details><summary>Fine print, fares and alternatives</summary><p>Zermatt's tourist tax is CHF 4.00 per person per night, children under 9 free, and the reporting is blunt that Zermatt gives no discounts in return. Worth knowing: valley floor at 1,608 m with walls to 3,000 m within two kilometres means the village loses direct sun well before the ephemeris sunset — but the summits light on schedule, which is what you are photographing.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 10" src="https://maps.google.com/maps?q=Zermatt%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d11"><header class="dhead">
+<div class="sign s-early"><span class="signn">Day 11</span><span class="signd">Fri 6 Aug</span></div>
+<div class="dmeta"><h2>Gornergrat and the Riffelsee</h2><p class="lede">Europe's highest open-air railway, and the reflection everyone comes for. The catch is that the first train leaves 48 minutes after sunrise — so this is a morning of compromise unless you sleep up there.</p>
+<ul class="dfacts"><li><b>Base</b> Zermatt</li><li><b>Getting about</b> First train 07:00</li><li><b>Governed by</b> <span class="gate g-early">Dawn start</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Zermatt/Gornergrat/Rotenboden/Riffelberg/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Gornergletscher%20-%20panoramio.jpg?width=1100" alt="Up to 3,089 m"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Gornergletscher_-_panoramio.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">07:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Up to 3,089 m</h3><p>Thirty-three minutes of cogwheel to a terrace facing the Gorner Glacier and a wall of 4,000 m peaks — the largest concentration of them in the Alps. Then walk down: Rotenboden to Riffelberg is 4.7 km with 556 m of descent, an easy T1 to T2 on the signed Riffelseeweg.</p>
+<dl class="stats"><div><dt>Summit</dt><dd>3,089 m</dd></div><div><dt>Full fare</dt><dd>CHF 132</dd></div><div><dt>With pass</dt><dd>50%</dd></div><div><dt>Walk down</dt><dd>4.7 km</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Gornergrat%2C+Zermatt%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.gornergrat.ch/en/" target="_blank" rel="noopener">Gornergrat Bahn</a></div><details><summary>Fine print, fares and alternatives</summary><p>The Riffelsee is about ten minutes below Rotenboden, and the upper pool is the one that reflects. Go early — wind kills the reflection by mid-morning. If you want it at actual dawn, sleep at the 3100 Kulmhotel Gornergrat, the highest hotel in the Swiss Alps and 30 minutes above the lake, or at Riffelhaus 1853, 45 minutes below. Junior Card children travel free.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 11" src="https://maps.google.com/maps?q=Gornergrat%2C+Zermatt%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d12"><header class="dhead">
+<div class="sign s-fixed"><span class="signn">Day 12</span><span class="signd">Sat 7 Aug</span></div>
+<div class="dmeta"><h2>Five Lakes — and staying put</h2><p class="lede">Sierre-Zinal locks down the next valley today and fills every train through Sierre. This is the day to stay in the Mattertal and let it pass.</p>
+<ul class="dfacts"><li><b>Base</b> Zermatt</li><li><b>Getting about</b> Funicular + gondola</li><li><b>Governed by</b> <span class="gate g-fixed">Date-locked</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Zermatt/Blauherd/Stellisee/Grünsee/Sunnegga/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stellisee%2020190716%20102635.jpg?width=1100" alt="The Five Lakes Walk"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Stellisee_20190716_102635.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">08:30</span><span class="tag t-unmissable">unmissable</span></div><h3>The Five Lakes Walk</h3><p>11 km with 380 m up and 660 m down, three to four hours, T2 with no real exposure. Blauherd down through Stellisee, Grindjisee, Grünsee, Moosjisee and Leisee to Sunnegga. The good news is front-loaded: <b>Stellisee, the classic reflection, is the first lake, 25 minutes in.</b></p>
+<dl class="stats"><div><dt>Distance</dt><dd>11 km</dd></div><div><dt>Descent</dt><dd>660 m</dd></div><div><dt>Time</dt><dd>3–4 h</dd></div><div><dt>Lift</dt><dd>CHF 33</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Stellisee%2C+Zermatt%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.matterhornparadise.ch/en/experience/hiking/5-lakes-walk" target="_blank" rel="noopener">Five Lakes</a></div><details><summary>Fine print, fares and alternatives</summary><p>Only Stellisee, Grindjisee and Leisee actually reflect. Sunnegga at CHF 33 return — CHF 16.50 with a pass — gives you the same Matterhorn against CHF 132 for Matterhorn Glacier Paradise, which is the single best value decision in Zermatt. Swimming is allowed in Grünsee and Leisee. The short version is Blauherd to Stellisee and back: 3 km, one hour. For a dawn shot, Berggasthaus Fluhalp is 15 minutes from the lake.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 12" src="https://maps.google.com/maps?q=Stellisee%2C+Zermatt%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d13"><header class="dhead">
+<div class="sign s-foot"><span class="signn">Day 13</span><span class="signd">Sun 8 Aug</span></div>
+<div class="dmeta"><h2>Höhbalmen, the connoisseur&#x27;s day</h2><p class="lede">Repeatedly named the best walk in Zermatt, and the reason is simple: there is no lift on this side of the valley, so almost nobody is on it.</p>
+<ul class="dfacts"><li><b>Base</b> Zermatt</li><li><b>Getting about</b> No lift at all</li><li><b>Governed by</b> <span class="gate g-foot">On foot</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Zermatt/Trift/Höhbalmen/Zmutt/Zermatt/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Riffelhorn%20oberhalb%20von%20Zermatt%20im%20Mattertal%20-%20Gornergrat%20und%20Hoht%C3%A4lligrat%20zum%20Hoht%C3%A4lli%20-%20Stockhorn%20mit%20Gornergletscher%20im%20Jahr%202008%20-%20Mischabel-Gruppe%20%28cropped%20Breithorn-Panorama%29.jpg?width=1100" alt="The Höhbalmen high traverse"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Riffelhorn_oberhalb_von_Zermatt_im_Mattertal_-_Gornergrat_und_Hoht%C3%A4lligrat_zum_Hoht%C3%A4lli_-_Stockhorn_mit_Gornergletscher_im_Jahr_2008_-_Mischabel-Gruppe_%28cropped_Breithorn-Panorama%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">07:00</span><span class="tag t-hidden">hidden</span></div><h3>The Höhbalmen high traverse</h3><p>17.5 to 20 km with about 1,194 m of ascent, seven hours moving and eight to nine with breaks. T2 to T3 — a high balcony contouring steep ground, narrow in places, but the real difficulty is the length and the climb. A loop from the village centre with no lift required.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>17.5–20 km</dd></div><div><dt>Ascent</dt><dd>1,194 m</dd></div><div><dt>High point</dt><dd>2,750 m</dd></div><div><dt>Time</dt><dd>8–9 h</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=H%C3%B6hbalmen%2C+Zermatt%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.moonhoneytravel.com/edelweissweg-hohbalmen-hike-zermatt/" target="_blank" rel="noopener">Route</a></div><details><summary>Fine print, fares and alternatives</summary><p>Walk it counter-clockwise so the Matterhorn faces you all day; it bursts into view at the Höhbalmen plateau. Berghaus du Trift at 2,337 m and Restaurant Z'Mutt both serve food. One caveat: the Triftbach gorge ascent was storm-damaged in September 2024 and the Hubel variant bypasses it — verify the 2027 status before setting out.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/00%20106%200607%20Zmutt%20-%20Zermatt%20%28CH%29.jpg?width=1100" alt="Easier alternative: the Matterhorn Glacier Trail"><figcaption><a href="https://commons.wikimedia.org/wiki/File:00_106_0607_Zmutt_-_Zermatt_(CH).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">—</span><span class="tag t-easy">easy</span></div><h3>Easier alternative: the Matterhorn Glacier Trail</h3><p>6.6 km and 356 m of descent, about three hours from Trockener Steg to Schwarzsee, cableways at both ends. Themed on glacier retreat — you walk beside the ice, not on it, past markers showing where it used to reach.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>6.6 km</dd></div><div><dt>Descent</dt><dd>356 m</dd></div><div><dt>Time</dt><dd>3 h</dd></div><div><dt>Grade</dt><dd>Moderate</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Matterhorn+Glacier+Trail%2C+Zermatt" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.moonhoneytravel.com/zermatt-hikes/" target="_blank" rel="noopener">Zermatt hikes</a></div><details><summary>Fine print, fares and alternatives</summary><p>If it is raining, the Gorner Gorge with Blatten and Zum See is a 9.2 km circuit, 3.5 hours, no lift needed, and is explicitly the cloudy-day Zermatt option.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 13" src="https://maps.google.com/maps?q=Zermatt%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d14"><header class="dhead">
+<div class="sign s-early"><span class="signn">Day 14</span><span class="signd">Mon 9 Aug</span></div>
+<div class="dmeta"><h2>Buffer, or the one you skipped</h2><p class="lede">Deliberately unplanned. Fourteen days in the Alps will have cost you at least one to weather, and the day before an international flight is the right place to absorb it.</p>
+<ul class="dfacts"><li><b>Base</b> Zermatt</li><li><b>Getting about</b> Your choice</li><li><b>Governed by</b> <span class="gate g-early">Dawn start</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Zermatt/Riffelberg/Zermatt/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Matterhorn%20Riffelsee%20Spiegelung.jpg?width=1100" alt="Whatever the fortnight owed you"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Matterhorn_Riffelsee_Spiegelung.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">Open</span></div><h3>Whatever the fortnight owed you</h3><p>If the weather has been kind, this is the Riffelsee at dawn from a night at the Kulmhotel, or the Breithorn at 4,164 m — CHF 240 guided with Zermatters, six hours, crampons and harness provided, no prior climbing needed. If it has not, this is the day you get back what a storm took.</p>
+<dl class="stats"><div><dt>Breithorn</dt><dd>4,164 m</dd></div><div><dt>Guided</dt><dd>CHF 240</dd></div><div><dt>Group</dt><dd>3–6, min age 18</dd></div><div><dt>Duration</dt><dd>6 h</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Breithorn%2C+Zermatt%2C+Switzerland" target="_blank" rel="noopener">Map</a><a class="btn" href="https://zermatt.swiss/en/p/breithorn-ascent-4164m-zermatters-01tVj000004sJoFIAU" target="_blank" rel="noopener">Zermatters</a></div><details><summary>Fine print, fares and alternatives</summary><p>The Breithorn is the most accessible 4,000er in the Alps because the lift does the vertical — Matterhorn Glacier Paradise is already at 3,883 m. That makes altitude, not technique, the real challenge, so it is only sensible guided and only after a week of acclimatising. Mountain railway tickets are not included. Also keep this day free because the Visp–Zermatt line is single-track and weather-vulnerable; you do not want a debris flow between you and the airport.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 14" src="https://maps.google.com/maps?q=Zermatt%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d15"><header class="dhead">
+<div class="sign s-rail"><span class="signn">Day 15</span><span class="signd">Tue 10 Aug</span></div>
+<div class="dmeta"><h2>Zermatt to Zurich</h2><p class="lede">Three and a half hours from a car-free alpine village to the airport check-in desk, with no parking to return and no fuel to top up.</p>
+<ul class="dfacts"><li><b>Base</b> Flying home</li><li><b>Getting about</b> ~3h30 by train</li><li><b>Governed by</b> <span class="gate g-rail">Rail</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Zermatt/Visp/Bern/Zurich+Airport/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Wengernalpbahn%20Eigerwand%202016-09-02.jpg?width=1100" alt="Down the Mattertal and home"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Wengernalpbahn_Eigerwand_2016-09-02.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">07:00</span></div><h3>Down the Mattertal and home</h3><p>Zermatt to Visp, Visp to Bern, Bern to Zurich Airport — the station is under the terminal. Trains run at least hourly the whole way and the pass covers all of it. Toronto is the only nonstop from Zurich: Air Canada seven a week plus SWISS five, about eight hours eastbound.</p>
+<dl class="stats"><div><dt>Total</dt><dd>~3h30</dd></div><div><dt>Changes</dt><dd>2</dd></div><div><dt>To terminal</dt><dd>0 min walk</dd></div><div><dt>Flight</dt><dd>~8h</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Zurich+Airport+railway+station" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.sbb.ch/en" target="_blank" rel="noopener">SBB</a></div><details><summary>Fine print, fares and alternatives</summary><p>If this is chained to the Dolomites trip ending 26 July, the flights become open-jaw — Toronto to Venice out, Zurich to Toronto home, both nonstop, which no other pairing gives you. Note the Schengen 90/180 allowance is cumulative across both countries; two chained trips use about 28 days of the 90.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 15" src="https://maps.google.com/maps?q=Zurich+Airport%2C+Switzerland&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="pane">
+  <p class="kicker">Honest accounting</p>
+  <h2>What this plan leaves out</h2>
+  <div class="prose"><p>Fourteen nights buys three regions properly, not six shallowly. These are the real omissions, so the choice is yours rather than mine.</p></div>
+  <ul class="cuts"><li><b>The Engadin and Bernina</b><span>The best guest card in the country — 10 lifts free with two nights. Needs its own three nights and a long transfer.</span></li><li><b>Ticino — Verzasca and Val Bavona</b><span>The weather hedge: when the Oberland is socked in, Ticino is often clear. Worth building in if you extend.</span></li><li><b>Aletsch glacier panorama</b><span>The longest glacier in the Alps, on a car-free plateau. A clean three-day village-to-village trek in its own right.</span></li><li><b>Appenzell — Seealpsee and Äscher</b><span>And the Säntis cable car is closed for renewal with no confirmed reopening.</span></li><li><b>Saas-Fee</b><span>Car-free, cheaper, same dry valley, and all nine cable cars free from night one. The value alternative to Zermatt.</span></li><li><b>Val d&#x27;Anniviers and Lac de Moiry</b><span>Deliberately cut — Sierre-Zinal locks the valley down on 7 August.</span></li><li><b>Hut-to-hut on the Haute Route</b><span>Stages 5–7, Le Châble to Arolla, is the best three-day extract in the country.</span></li><li><b>Creux du Van, Lavaux, Gruyères</b><span>The western third. Lavaux is the one location here with no early-start problem.</span></li><li><b>Jungfraujoch</b><span>CHF 234.80 from Interlaken plus a compulsory reservation. Männlichen gives the same wall for CHF 31.</span></li></ul>
+</section>
+<section class="pane">
+  <p class="kicker">Before you go</p>
+  <h2>Booking calendar and kit</h2>
+  <div class="prose"><p>Ticks save in this browser. The autumn items are real deadlines — and note that from 1 January 2027 SAC huts add a <b>CHF 10 per person per night reservation fee that is non-refundable on cancellation</b>, which removes the old "book speculatively" advantage.</p></div>
+  <ul class="cklist"><li><label><input type="checkbox" data-ck="c0"><span class="when">Now</span> Open-jaw flights — Zurich is the only nonstop from Toronto</label></li><li><label><input type="checkbox" data-ck="c1"><span class="when">Now</span> Accommodation for 31 Jul – 2 Aug. The National Day weekend sells out; guidance is 4–6 months ahead</label></li><li><label><input type="checkbox" data-ck="c2"><span class="when">Now</span> Price the real transfers, then choose: Swiss Travel Pass CHF 499 vs Half Fare Card CHF 150</label></li><li><label><input type="checkbox" data-ck="c3"><span class="when">Nov 2026</span> SAC hut reservations for 2027 open</label></li><li><label><input type="checkbox" data-ck="c4"><span class="when">Nov–Feb</span> The high nights: Fluhalp, Kulmhotel Gornergrat or Riffelhaus, Berghotel Faulhorn</label></li><li><label><input type="checkbox" data-ck="c5"><span class="when">Jan 2027</span> Re-check ETIAS — not open yet, no confirmed date, 2027 likely. Plan on needing it</label></li><li><label><input type="checkbox" data-ck="c6"><span class="when">Mar 2027</span> 2027 lift seasons and hut dates publish. Re-verify Säntis and the Europaweg</label></li><li><label><input type="checkbox" data-ck="c7"><span class="when">Apr 2027</span> Buy Rega patronage, CHF 40/adult, and the Air Zermatt card, CHF 35</label></li><li><label><input type="checkbox" data-ck="c8"><span class="when">2 weeks</span> Oeschinensee slot — or plan to walk up and skip it entirely</label></li><li><label><input type="checkbox" data-ck="c9"><span class="when">31 Jul</span> Shop for National Day. Supermarkets shut on the 1st</label></li><li><label><input type="checkbox" data-ck="c10"><span class="when">Pack</span> Hard shell and an insulated midlayer — non-negotiable at 2,500 m before dawn</label></li><li><label><input type="checkbox" data-ck="c11"><span class="when">Pack</span> Gloves and a beanie. A dawn wait at Stellisee feels like 0 to +3 °C</label></li><li><label><input type="checkbox" data-ck="c12"><span class="when">Pack</span> Boots with a stiff sole; old snowfields above 2,500 m are plausible in late July</label></li><li><label><input type="checkbox" data-ck="c13"><span class="when">Pack</span> Type J or two-pin Type C adapter — Schuko will not fit</label></li><li><label><input type="checkbox" data-ck="c14"><span class="when">Pack</span> A refillable bottle. Restaurant water is CHF 4 for 330 ml against CHF 1.16 for 1.5 L</label></li><li><label><input type="checkbox" data-ck="c15"><span class="when">Pack</span> Cash in CHF for huts — many take cards but price them at +2%</label></li><li><label><input type="checkbox" data-ck="c16"><span class="when">Phone</span> Swiss-specific eSIM, ~USD 50 for 15 days unlimited on all three networks</label></li><li><label><input type="checkbox" data-ck="c17"><span class="when">Apps</span> MeteoSwiss for storm warnings, Rega for GPS emergency, SBB Mobile for timetables</label></li></ul>
+</section>
+<section class="pane">
+  <p class="kicker">Verify closer to the date</p>
+  <h2>Everything here is 2026 data</h2>
+  <div class="prose">
+    <p>2027 lift seasons and hut dates publish between March and May 2027. Two live risks: the <b>Säntis cable car</b> closed for renewal from May 2026 with no confirmed reopening, and the <b>Europaweg</b> between Springelboden and Eggenstadel has been shut since 2024 "until further notice" — assume it stays closed. Good news on the one I worried about most: the published 2027 timetable shows <b>both Mürren routes running every day across July and August 2027</b>.</p>
+    <p><b>Live sources:</b> <a href="https://www.meteoswiss.admin.ch/weather/hazards/hazard-map.html" target="_blank" rel="noopener">MeteoSwiss hazard map</a> · <a href="https://www.natural-hazards.ch/" target="_blank" rel="noopener">federal all-hazards portal</a> · <a href="https://map.schweizmobil.ch/" target="_blank" rel="noopener">SwitzerlandMobility closure layer</a> · <a href="https://www.sac-cas.ch/en/huts-and-tours/sac-route-portal/?type=hut" target="_blank" rel="noopener">SAC hut portal</a> · <a href="https://zermatt.roundshot.com/gornergrat/" target="_blank" rel="noopener">Gornergrat webcam</a>. Scrub the 05:30–07:00 frames from the previous three mornings on that last one — it tells you whether the Matterhorn is clearing at dawn, which no forecast will.</p>
+    <p><b>Hazard to check two days out:</b> <b>Spitze Stei above Kandersteg</b> — roughly 16 million cubic metres of rock in motion, several metres a year, with a permanent restricted zone and a status report reissued weekly. It sits above Oeschinensee.</p>
+    <p><b>Rescue:</b> dial <b>1414 (Rega)</b> for a mountain emergency, not 112 — that is what the SAC prints on its own card. <b>Rega patronage is CHF 40 a year per adult, children free, and foreigners can join</b>; it covers air rescue inside Switzerland but not repatriation. In the Valais, Air Zermatt usually flies the mission — their card is CHF 35 and covers residual costs regardless of which organisation responds. Buy both.</p>
+  </div>
+</section>
+</main>
+<footer><div class="fwrap">
+  <h3>Switzerland, 27 July – 10 August 2027</h3>
+  <p>Built from seven parallel research passes — trails and huts, transport and passes, villages and sights, seasonal conditions, active and adventure, practicalities and costs, and car-free access. Raw findings with sources are kept alongside this page.</p>
+  <p>Photography from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> under their respective licences. All prices, hours and timetables are summer 2026 figures used as a 2027 proxy and must be re-verified.</p>
+</div></footer>
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script></body></html>

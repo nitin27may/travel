@@ -1,0 +1,334 @@
+{
+ "trip": "iceland-ring-road-repl",
+ "places": [
+  {
+   "place": "Laugarvatn",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Die Lava Bäckerei in Laugarvatn Fontana. 02.jpg",
+     "author": "Holger Uwe Schmitt",
+     "license": "CC BY-SA 4.0",
+     "w": 5906,
+     "h": 3365
+    },
+    {
+     "file": "Die Lava Bäckerei in Laugarvatn Fontana. 04.jpg",
+     "author": "Holger Uwe Schmitt",
+     "license": "CC BY-SA 4.0",
+     "w": 5906,
+     "h": 3528
+    },
+    {
+     "file": "Fontana spa.jpg",
+     "author": "Reykholt",
+     "license": "CC BY-SA 4.0",
+     "w": 2200,
+     "h": 1320
+    },
+    {
+     "file": "Laugarvatn - starting a new day - Iceland - panoramio.jpg",
+     "author": "diego_cue",
+     "license": "CC BY-SA 3.0",
+     "w": 3648,
+     "h": 2736
+    },
+    {
+     "file": "Aerial panorama of Laugarvatn (crop2).jpg",
+     "author": "Bob T",
+     "license": "CC BY-SA 4.0",
+     "w": 2636,
+     "h": 1276
+    },
+    {
+     "file": "Laugarvatn 02.jpg",
+     "author": "Christian Bickel fingalo",
+     "license": "CC BY-SA 2.0 de",
+     "w": 5175,
+     "h": 3891
+    },
+    {
+     "file": "Laugarvatn 03.jpg",
+     "author": "Christian Bickel fingalo",
+     "license": "CC BY-SA 2.0 de",
+     "w": 5434,
+     "h": 4290
+    },
+    {
+     "file": "Laugarvatn Gymnasium 01.jpg",
+     "author": "Christian Bickel fingalo",
+     "license": "CC BY-SA 2.0 de",
+     "w": 5434,
+     "h": 4290
+    }
+   ]
+  },
+  {
+   "place": "Solheimajokull",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Sólheimajökull-Glacier-Pistol-Squat.jpg",
+     "author": "FeldBum",
+     "license": "CC BY-SA 4.0",
+     "w": 4080,
+     "h": 3072
+    },
+    {
+     "file": "Sólheimajökull glacier 23.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 3648,
+     "h": 2736
+    },
+    {
+     "file": "Sólheimajökull glacier 20.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 5120,
+     "h": 3840
+    },
+    {
+     "file": "Sólheimajökull glacier 25.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 5120,
+     "h": 3840
+    },
+    {
+     "file": "Sólheimajökull glacier 12.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 3648,
+     "h": 2736
+    },
+    {
+     "file": "Sólheimajökull glacier 11.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 5120,
+     "h": 3840
+    },
+    {
+     "file": "Sólheimajökull glacier 19.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 3648,
+     "h": 2736
+    },
+    {
+     "file": "Sólheimajökull glacier 21.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 3648,
+     "h": 2736
+    }
+   ]
+  },
+  {
+   "place": "Svinafellsjokull",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Svínafellsjökull glacier at sunset.jpg",
+     "author": "Mikołaj Bańka",
+     "license": "CC BY 4.0",
+     "w": 4048,
+     "h": 2277
+    },
+    {
+     "file": "Svínafellsjökull.JPG",
+     "author": "Bromr",
+     "license": "CC BY-SA 3.0",
+     "w": 3264,
+     "h": 2448
+    },
+    {
+     "file": "Svínafellsjökull closer view from Road 1, Iceland (July 2019).jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 3567,
+     "h": 2367
+    },
+    {
+     "file": "Svínafellsjökull (26915561094).jpg",
+     "author": "David Elliott from UK",
+     "license": "CC BY 2.0",
+     "w": 4572,
+     "h": 3433
+    },
+    {
+     "file": "2005-05-29 Svínafellsjökull glacier.jpg",
+     "author": "Hansueli Krapf",
+     "license": "CC BY-SA 3.0",
+     "w": 3514,
+     "h": 1372
+    },
+    {
+     "file": "Svínafellsjökull and Svínafell view from Road 1, Iceland (July 2019).jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 3568,
+     "h": 2368
+    },
+    {
+     "file": "Island Svinafellsjökull 04.JPG",
+     "author": "Zairon",
+     "license": "CC BY-SA 3.0",
+     "w": 3444,
+     "h": 2586
+    },
+    {
+     "file": "Decaying glacier (19157542726).jpg",
+     "author": "David Elliott from UK",
+     "license": "CC BY 2.0",
+     "w": 4587,
+     "h": 3437
+    }
+   ]
+  },
+  {
+   "place": "Hofn",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Panorama of Hornafjörður from Höfn.jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 8192,
+     "h": 1856
+    },
+    {
+     "file": "Hofn and Hornafjörður.jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 8192,
+     "h": 1856
+    },
+    {
+     "file": "View of glacier over Hornafjörður from Höfn.jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 3568,
+     "h": 2368
+    },
+    {
+     "file": "View of glaciers over Hornafjörður from Höfn.jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 3568,
+     "h": 2368
+    },
+    {
+     "file": "View of Höfn (Ránarslóð and Sandbakkavegur).jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 3568,
+     "h": 2368
+    },
+    {
+     "file": "2400 Menschen leben in Höfn. 18.jpg",
+     "author": "Holger Uwe Schmitt",
+     "license": "CC BY-SA 4.0",
+     "w": 5906,
+     "h": 3937
+    },
+    {
+     "file": "2400 Menschen leben in Höfn. 16.jpg",
+     "author": "Holger Uwe Schmitt",
+     "license": "CC BY-SA 4.0",
+     "w": 5906,
+     "h": 3939
+    },
+    {
+     "file": "2400 Menschen leben in Höfn. 11.jpg",
+     "author": "Holger Uwe Schmitt",
+     "license": "CC BY-SA 4.0",
+     "w": 5757,
+     "h": 3392
+    }
+   ]
+  },
+  {
+   "place": "Thingvellir",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Roca de la Ley, Parque Nacional de Þingvellir, Suðurland, Islandia, 2014-08-16, DD 019.jpg",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Roca de la Ley, Parque Nacional de Þingvellir, Suðurland, Islandia, 2014-08-16, DD 022.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5368,
+     "h": 3579
+    },
+    {
+     "file": "Almannagjá gorge at Þingvellir National Park.jpg",
+     "author": "Olga Ernst",
+     "license": "CC BY-SA 4.0",
+     "w": 4928,
+     "h": 3264
+    },
+    {
+     "file": "Þingvellir, Almannagjá 01.jpg",
+     "author": "Syrio",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Þingvellir, Almannagjá 07.jpg",
+     "author": "Syrio",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Þingvellir, Almannagjá 04.jpg",
+     "author": "Syrio",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Þingvellir, Almannagjá 06.jpg",
+     "author": "Syrio",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Lögberg, Þingvellir National Park, Iceland, 20230502 0928 4122.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 6016,
+     "h": 4016
+    }
+   ]
+  },
+  {
+   "place": "Djupalonssandur",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Djupalonssandur Beach Iceland Travel Photography (212306465).jpeg",
+     "author": "Giuseppe Milo",
+     "license": "CC BY 3.0",
+     "w": 2000,
+     "h": 1333
+    }
+   ]
+  }
+ ]
+}

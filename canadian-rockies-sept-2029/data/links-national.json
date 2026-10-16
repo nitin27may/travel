@@ -1,0 +1,442 @@
+{
+  "trails": {
+    "larch-valley-sentinel-pass": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/sentinel-pass-trail-2",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "AllTrails page is Sentinel Pass via Larch Valley; official URL is the Lake Louise day-hikes page; alltrails not fetched (search result only)"
+    },
+    "plain-of-six-glaciers": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/plain-of-six-glaciers-trail",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "lake-agnes": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/lake-agnes-trail-to-plain-of-six-glaciers-trail-loop",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "AllTrails URL is the Agnes plus Plain of Six loop; no standalone Lake Agnes trail page was returned in search; alltrails not fetched (search result only)"
+    },
+    "iceline-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/iceline-summit",
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "AllTrails page is Iceline Summit out-and-back; loop version not linked; alltrails not fetched (search result only)"
+    },
+    "emerald-triangle-wapta-highline": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/emerald-triangle",
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "AllTrails lists some pages as closed (fire, 2026); check Parks Canada; alltrails not fetched (search result only)"
+    },
+    "sunshine-meadows-citadel-pass": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/sunshine-meadows-via-banff-ave-and-citadel-pass",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "Official URL is the Banff hiking page, which lists Sunshine Meadows trails; alltrails not fetched (search result only)"
+    },
+    "cory-pass-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/cory-pass",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "mount-fairview": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/mount-fairview",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "Official URL is the Banff hiking page (lists Fairview Mountain and Fairview Lookout); alltrails not fetched (search result only)"
+    },
+    "bourgeau-lake": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/bourgeau-lake-trail",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "crypt-lake": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/crypt-lake-trail-loop",
+      "official_url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "bears-hump": {
+      "alltrails_url": null,
+      "official_url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/promenades-walks",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "No AllTrails trail page found in two searches (only park-level lists)"
+    },
+    "skyline-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/skyline-trail-jasper",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/passez-stay/arrierepays-backcountry/sugg-sentiers_trip-ideas/skyline",
+      "km": null,
+      "mi": null,
+      "gain_m": 1650,
+      "stats_source": "https://www.alltrails.com/trail/canada/alberta/skyline-trail-jasper (search result, 5,413 ft)",
+      "note": "gain_m from AllTrails 5,413 ft converted; Parks Canada page gave no gain; alltrails not fetched (search result only)"
+    },
+    "opal-hills": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/opal-hills-loop-trail--2",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "AllTrails Opal Hills Loop Trail page; Parks Canada lists it closed for grizzly as of 2026-10-08; alltrails not fetched (search result only)"
+    },
+    "sulphur-skyline": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/sulphur-skyline-trail",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "wilcox-pass": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/wilcox-viewpoint-via-wilcox-pass",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "AllTrails page is Wilcox Viewpoint via Wilcox Pass; the longer Wilcox Pass Trail page is alberta/wilcox-pass-trail; alltrails not fetched (search result only)"
+    },
+    "parker-ridge": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/parker-ridge--3",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "Official URL is the Jasper day-hiking page; trail is just inside Banff; alltrails not fetched (search result only)"
+    },
+    "bald-hills": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/bald-hills-trail-loop",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "cavell-meadows": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/edith-cavell-meadows-trail",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell",
+      "km": 7.7,
+      "mi": 4.8,
+      "gain_m": 553,
+      "stats_source": "https://www.alltrails.com/en-gb/trail/canada/alberta/edith-cavell-meadows-trail (search result: 7.7 km, 553 m)",
+      "note": "AllTrails page marked CLOSED; Cavell Road closed for 2026 per Parks Canada. Parks Canada gives 6-7 km return, ~500 m gain; AllTrails figures used; alltrails not fetched (search result only)"
+    },
+    "fryatt-valley": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/fryatt-valley-trail-via-geraldine",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/passez-stay/arrierepays-backcountry/sugg-sentiers_trip-ideas/fryatt",
+      "km": 22,
+      "mi": 13.7,
+      "gain_m": null,
+      "stats_source": "https://parks.canada.ca/pn-np/ab/jasper/activ/passez-stay/arrierepays-backcountry/sugg-sentiers_trip-ideas/fryatt (search result)",
+      "note": "km is the Parks Canada one-way figure (22 km, 2-3 days; about 44 km return). Gain not set: AllTrails 6,217 ft is for the 31.1 mi Geraldine route; alltrails not fetched (search result only)"
+    },
+    "moraine-lakeshore": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/moraine-lake-trail",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "AllTrails page is Moraine Lake Shoreline Trail; alltrails not fetched (search result only)"
+    },
+    "lake-louise-lakeshore": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/lake-louise-lakeshore",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "Official listing on Lake Louise page not confirmed for this exact trail; alltrails not fetched (search result only)"
+    },
+    "fenland-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/fenland-trail--3",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "johnson-lake-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/johnson-lake",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "peyto-lake-lookout": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/peyto-lake-viewpoint",
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "Banff hiking page lists Peyto Lake Lookout Trail; alltrails not fetched (search result only)"
+    },
+    "marble-canyon-walk": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/marble-canyon",
+      "official_url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/courte-short",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "paint-pots-walk": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/paint-pots",
+      "official_url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/courte-short",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "wapta-falls-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/wapta-falls",
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "takakkaw-falls-walk": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/takakkaw-falls-trail",
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "emerald-lakeshore": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/emerald-lake-loop",
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "lake-annette-loop": {
+      "alltrails_url": "https://www.alltrails.com/explore/trail/canada/alberta/lake-annette-loop",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/riviere-river",
+      "km": null,
+      "mi": null,
+      "gain_m": 90,
+      "stats_source": "https://www.alltrails.com/explore/trail/canada/alberta/lake-annette-loop (search result)",
+      "note": "AllTrails URL is the /explore/trail/ form returned by search; gain from AllTrails (295 ft); alltrails not fetched (search result only)"
+    },
+    "mary-schaffer-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/mary-schaeffer-loop",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "km": null,
+      "mi": null,
+      "gain_m": 84,
+      "stats_source": "https://www.alltrails.com/trail/canada/alberta/mary-schaeffer-loop (search result)",
+      "note": "AllTrails spells it Schaeffer; gain from an AllTrails listing (84 m); alltrails not fetched (search result only)"
+    },
+    "moose-lake-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/moose-lake-loop",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "athabasca-falls-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/athabasca-falls",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "toe-glacier-walk": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/toe-of-the-glacier-athabasca",
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "red-rock-canyon-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/red-rock-canyon-trail",
+      "official_url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/promenades-walks",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched (search result only)"
+    },
+    "jasper-miette-mine-trail": {
+      "alltrails_url": null,
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "No exact AllTrails page; nearest are alberta/pocahontas-trail and alberta/pocahontas-upper-loop-to-punch-bowl-falls (different routes), not used"
+    }
+  },
+  "sights": {
+    "johnston-canyon": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "note": "Hiking page lists Johnston Canyon; Parks Canada closure bulletin f156912a-e1a2-462f-86c8-bc60c704438d (2026) also exists"
+    },
+    "peyto-lake": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "note": ""
+    },
+    "bow-lake": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+      "note": "Icefields Parkway page"
+    },
+    "vermilion-lakes": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/nautiques-sports",
+      "note": "Water activities page mentions Vermilion Lakes Drive"
+    },
+    "cave-and-basin": {
+      "official_url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin",
+      "note": ""
+    },
+    "banff-gondola": {
+      "official_url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+      "note": "Operator site, not Parks Canada"
+    },
+    "lake-minnewanka": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/nautiques-sports",
+      "note": "Water activities page"
+    },
+    "icefields-parkway-drive": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+      "note": ""
+    },
+    "columbia-icefield-athabasca-glacier": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+      "note": "Jasper Icefields Parkway page"
+    },
+    "sunwapta-falls": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/sunwapta",
+      "note": ""
+    },
+    "athabasca-falls": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+      "note": ""
+    },
+    "maligne-lake-spirit-island": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
+      "note": ""
+    },
+    "maligne-canyon": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "note": "Maligne area page; Maligne Canyon closed for 2026 per Parks Canada"
+    },
+    "pyramid-lake": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/ete-summer/activitesnautiques-wateractivities/plages-beaches",
+      "note": "Beaches page"
+    },
+    "jasper-townsite": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries",
+      "note": "Points of interest page"
+    },
+    "miette-hot-springs": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs",
+      "note": ""
+    },
+    "mount-edith-cavell": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell",
+      "note": "Cavell Road closed for 2026"
+    },
+    "emerald-lake": {
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "note": ""
+    },
+    "takakkaw-falls": {
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "note": ""
+    },
+    "natural-bridge": {
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "note": ""
+    },
+    "wapta-falls": {
+      "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "note": ""
+    },
+    "marble-canyon": {
+      "official_url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
+      "note": ""
+    },
+    "paint-pots": {
+      "official_url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
+      "note": ""
+    },
+    "radium-hot-springs": {
+      "official_url": "https://parks.canada.ca/hotsprings/",
+      "note": "Parks Canada hot springs page"
+    },
+    "waterton-townsite": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/waterton/visit/pointe-interest-points",
+      "note": "Points of interest page"
+    },
+    "red-rock-parkway": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/waterton/visit/pointe-interest-points",
+      "note": "Points of interest page"
+    },
+    "cameron-lake": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving/akamina",
+      "note": "Akamina Parkway page"
+    },
+    "prince-of-wales-hotel": {
+      "official_url": "https://parks.canada.ca/pn-np/ab/waterton/visit/pointe-interest-points",
+      "note": "Points of interest page"
+    }
+  }
+}

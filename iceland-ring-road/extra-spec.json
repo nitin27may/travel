@@ -1,0 +1,60 @@
+{
+ "trip": "iceland-ring-road-extra",
+ "out": "extra-candidates.json",
+ "places": [
+  {
+   "place": "Golden Circle: Gullfoss and Geysir",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Gullfoss waterfall summer",
+    "Strokkur geysir eruption"
+   ]
+  },
+  {
+   "place": "Thingvellir",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Thingvellir National Park rift Almannagja",
+    "Thingvellir Oxararfoss"
+   ]
+  },
+  {
+   "place": "Seljalandsfoss and Reynisfjara",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Seljalandsfoss",
+    "Reynisfjara Reynisdrangar"
+   ]
+  },
+  {
+   "place": "Solheimajokull and Skaftafell",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Sólheimajökull glacier hikers",
+    "Svartifoss basalt"
+   ]
+  },
+  {
+   "place": "Diamond Beach",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Diamond Beach Breiðamerkursandur ice"
+   ]
+  },
+  {
+   "place": "Godafoss Dimmuborgir Hverir",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Goðafoss waterfall",
+    "Dimmuborgir lava",
+    "Hverir Námafjall steam"
+   ]
+  }
+ ]
+}

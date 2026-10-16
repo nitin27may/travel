@@ -1,0 +1,326 @@
+{
+ "trip": "iceland-ring-road-extra",
+ "places": [
+  {
+   "place": "Golden Circle: Gullfoss and Geysir",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Gullfoss, Suðurland, Islandia, 2014-08-16, DD 123.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5390,
+     "h": 3329
+    },
+    {
+     "file": "Gullfoss, Suðurland, Islandia, 2014-08-16, DD 119.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5161,
+     "h": 3441
+    },
+    {
+     "file": "Gullfoss Waterfall (24852505304).jpg",
+     "author": "Tony Hisgett from Birmingham, UK",
+     "license": "CC BY 2.0",
+     "w": 5103,
+     "h": 3360
+    },
+    {
+     "file": "GULLFOSS WATERFALL-ICELAND (43880264884).jpg",
+     "author": "INDIGO WOLFSBANE from Newry..., NORTHERN IRELAND....",
+     "license": "Public domain",
+     "w": 2048,
+     "h": 1535
+    },
+    {
+     "file": "Gullfoss (28332994606).jpg",
+     "author": "Marco Nürnberger from Nuremberg, Germany",
+     "license": "CC BY 2.0",
+     "w": 2000,
+     "h": 1333
+    },
+    {
+     "file": "Strokkur in eruption, Geysir Geothermal Field, Haukadalur, Iceland, 20230501 0902 3743.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 4334,
+     "h": 2894
+    },
+    {
+     "file": "Strokkur in eruption, Geysir Geothermal Field, Haukadalur, Iceland, 20230501 0902 3745.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 4186,
+     "h": 2794
+    },
+    {
+     "file": "Strokkur in eruption, Geysir Geothermal Field, Haukadalur, Iceland, 20230501 0902 3742.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 3639,
+     "h": 2429
+    }
+   ]
+  },
+  {
+   "place": "Thingvellir",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Thingvellir National Park rift valley.jpg",
+     "author": "Pi3.124",
+     "license": "CC BY-SA 3.0",
+     "w": 3264,
+     "h": 2448
+    },
+    {
+     "file": "Öxarárfoss, Parque Nacional de Þingvellir, Suðurland, Islandia, 2014-08-16, DD 029.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5502,
+     "h": 3386
+    },
+    {
+     "file": "Öxarárfoss, Parque Nacional de Þingvellir, Suðurland, Islandia, 2014-08-16, DD 027.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5557,
+     "h": 3632
+    },
+    {
+     "file": "Öxarárfoss, Parque Nacional de Þingvellir, Suðurland, Islandia, 2014-08-16, DD 026.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5361,
+     "h": 3657
+    },
+    {
+     "file": "Öxarárfoss, Þingvellir National Park, Iceland, 20230502 0950 4138.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 6016,
+     "h": 4016
+    },
+    {
+     "file": "Öxarárfoss, Þingvellir National Park, Iceland, 20230502 0948 4129.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 6016,
+     "h": 4016
+    },
+    {
+     "file": "Thingvellir Öxarárfoss.jpg",
+     "author": "No machine-readable author provided. Juhasz peter~commonswiki assumed (based on ",
+     "license": "CC BY-SA 3.0",
+     "w": 1984,
+     "h": 1488
+    },
+    {
+     "file": "Oxararfoss Waterfall Thingvellir Iceland Travel Photography (207631071).jpeg",
+     "author": "Giuseppe Milo",
+     "license": "CC BY 3.0",
+     "w": 2000,
+     "h": 1125
+    }
+   ]
+  },
+  {
+   "place": "Seljalandsfoss and Reynisfjara",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Seljalandsfoss Waterfall, Iceland, 20240720 1522 3138.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5291,
+     "h": 3289
+    },
+    {
+     "file": "Seljalandsfoss - panoramio (7).jpg",
+     "author": "Zoran Kurelić Rabko",
+     "license": "CC BY-SA 3.0",
+     "w": 2000,
+     "h": 1202
+    },
+    {
+     "file": "Seljalandsfoss and Gljúfrabúi, July 2019.jpg",
+     "author": "Alexander Grebenkov",
+     "license": "CC BY 3.0",
+     "w": 3568,
+     "h": 2368
+    },
+    {
+     "file": "Seljalandsfoss, Iceland, 20230501 1341 3950.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 5400,
+     "h": 3605
+    },
+    {
+     "file": "Seljalandsfoss, Iceland, 20230501 1324 3923.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 3735,
+     "h": 3394
+    },
+    {
+     "file": "Seljalandsfoss, Iceland, 20230501 1332 3943.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 5868,
+     "h": 3918
+    },
+    {
+     "file": "Reynisfjara, Suðurland, Islandia, 2014-08-17, DD 164.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5015,
+     "h": 2738
+    },
+    {
+     "file": "Reynisfjara, Iceland, 20230501 1641 4049.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 5656,
+     "h": 3775
+    }
+   ]
+  },
+  {
+   "place": "Solheimajokull and Skaftafell",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Sólheimajökull-Glacier-Pistol-Squat.jpg",
+     "author": "FeldBum",
+     "license": "CC BY-SA 4.0",
+     "w": 4080,
+     "h": 3072
+    },
+    {
+     "file": "Sólheimajökull glacier 01.jpg",
+     "author": "Netha Hussain",
+     "license": "CC BY-SA 4.0",
+     "w": 5120,
+     "h": 3840
+    },
+    {
+     "file": "038 Svartifoss waterfall (Iceland) Photo by Giles Laurent.jpg",
+     "author": "Giles Laurent",
+     "license": "CC BY-SA 4.0",
+     "w": 7952,
+     "h": 5304
+    },
+    {
+     "file": "Island Svartifoss 05.JPG",
+     "author": "Zairon",
+     "license": "CC BY-SA 3.0",
+     "w": 3444,
+     "h": 2586
+    },
+    {
+     "file": "SvartifossSummer.jpg",
+     "author": "Andreas Tille",
+     "license": "CC BY-SA 4.0",
+     "w": 2980,
+     "h": 1976
+    },
+    {
+     "file": "Island Svartifoss 19.JPG",
+     "author": "Zairon",
+     "license": "CC BY-SA 3.0",
+     "w": 3444,
+     "h": 2586
+    },
+    {
+     "file": "Svartifoss Iceland 2016.jpg",
+     "author": "Unukorno",
+     "license": "CC BY 4.0",
+     "w": 3010,
+     "h": 2006
+    },
+    {
+     "file": "Basalt columns - Svartifoss - Iceland - panoramio.jpg",
+     "author": "diego_cue",
+     "license": "CC BY-SA 3.0",
+     "w": 3648,
+     "h": 2736
+    }
+   ]
+  },
+  {
+   "place": "Diamond Beach",
+   "days": "",
+   "blurb": "",
+   "candidates": []
+  },
+  {
+   "place": "Godafoss Dimmuborgir Hverir",
+   "days": "",
+   "blurb": "",
+   "candidates": [
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0921 1217.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5636,
+     "h": 3763
+    },
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0852 1131.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5093,
+     "h": 3378
+    },
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0916 1210.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6046,
+     "h": 4016
+    },
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0912 1174.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6056,
+     "h": 4016
+    },
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0832 1077.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5477,
+     "h": 3638
+    },
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0920 1213.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6017,
+     "h": 4016
+    },
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0921 1218.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5684,
+     "h": 3795
+    },
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0854 1138.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6016,
+     "h": 4016
+    }
+   ]
+  }
+ ]
+}

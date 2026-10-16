@@ -1,0 +1,293 @@
+{
+  "trails": {
+    "rawson-lake": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/rawson-lake--11",
+      "official_url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/rawson-lake/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks: 3.9 km one-way, ~320 m. Bear closure notice from 5 Jul 2026 for Rawson Lake and Sarrail Ridge; check status."
+    },
+    "sarrail-ridge": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/sarrail-ridge-via-rawson-lake-trail",
+      "official_url": null,
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. No dedicated Alberta Parks page found; covered only by bear closure advisories (5 Jul 2026, until further notice)."
+    },
+    "interlakes-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/interlakes-trail",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Official URL is the Upper Lake Trail report (Interlakes is a section of it). AllTrails lists 4.2 mi out-and-back; gain not found. Closure North Interlakes to White Spruce affects this stretch."
+    },
+    "upper-kananaskis-lake-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/upper-kananaskis-lake-trail",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks loop 15.7 km. Gain not set: AllTrails pages conflict (866 ft vs 1,568 ft). Partially closed for bears, see checks."
+    },
+    "rockwall-lookout": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/rockwall",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rockwall",
+      "km": null,
+      "mi": null,
+      "gain_m": 7,
+      "stats_source": "https://www.alltrails.com/trail/canada/alberta/rockwall (22 ft in search snippet)",
+      "note": "alltrails not fetched. Paved, wheelchair accessible; Alberta Parks 0.5 km."
+    },
+    "chester-lake": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/chester-lake-loop",
+      "official_url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/chester-lake/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks: 4.6 km one-way, ~300 m. Annual closure 1 May - 29 Jun."
+    },
+    "ptarmigan-cirque": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/ptarmigan-cirque-interpretive",
+      "official_url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/ptarmigan-cirque-interpretive/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks 4.5 km, 210 m. Hwy 40 closed Dec 1 - Jun 20."
+    },
+    "grassi-lakes-upper": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/grassi-lake-trail",
+      "official_url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. AllTrails title 'Upper Grassi Lakes Trail'. Rockslide closure of Hwy 742 / Grassi Lakes slope reported since June 2026; verify before the trip."
+    },
+    "troll-falls": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/troll-falls",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/kananaskis-valley/troll-falls/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks lists the trail as 1.4 km (one-way). Upper Troll Falls reported closed after June 2026 flooding."
+    },
+    "ribbon-creek": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/ribbon-creek-kovach-and-terrace-loop",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/ribbon-creek-summer/",
+      "km": 8.8,
+      "mi": 5.5,
+      "gain_m": null,
+      "stats_source": "Alberta Parks Ribbon Creek (Summer) trail report: 8.8 km one-way to Ribbon Falls (+2.0 km to Ribbon Lake)",
+      "note": "alltrails not fetched. AllTrails URL is the Ribbon Creek, Kovach and Terrace Loop (3.5 mi), the closest match found. km/mi are ONE-WAY to Ribbon Falls. Gain not found. Washed-out bridge detour since 30 Jul 2026."
+    },
+    "mount-indefatigable-viewpoint": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/indefatigable-trail",
+      "official_url": null,
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. AllTrails marks the trail [CLOSED]; reviewers say it was decommissioned (2005) for grizzly habitat. No Alberta Parks page found. Reconsider including it."
+    },
+    "mount-lorette-ponds-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/mount-lorette-pond-trail",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/mt-lorette-ponds/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks: 1 km paved loop. Bear advisory/closure reported Aug 2026."
+    },
+    "elbow-falls-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/elbow-falls-loop",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/elbow-valley/elbow-falls-interpretive/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks 0.8 km; day-use area partial closure for flood debris reported."
+    },
+    "wedge-pond-loop": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/wedge-pond-loop-trail",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/wedge-pond/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Trail closed for flooding per Alberta Parks notice of 21 Jul 2026, until further notice."
+    },
+    "ha-ling-peak": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/ha-ling-peak",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks: 3.9 km one-way to summit, 810 m. Canmore Hill / Hwy 742 closure affects access."
+    },
+    "tent-ridge-horseshoe": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/tent-ridge-horseshoe?mobileMap=false",
+      "official_url": null,
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. URL copied exactly from search result incl. query string. No Alberta Parks page found."
+    },
+    "burstall-pass": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/burstall-pass--3",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/burstall-pass/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Alberta Parks 7.4 km one-way, 470 m."
+    },
+    "lillian-lake": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/galatea-creek-to-lillian-lake",
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/galatea-creek/",
+      "km": 6.0,
+      "mi": 3.7,
+      "gain_m": 457,
+      "stats_source": "Alberta Parks Galatea Creek trail report (6.0 km one-way to Lillian Lake, 457 m; campground page says 475 m)",
+      "note": "alltrails not fetched. AllTrails: 12.4 km out-and-back, ~577 m (1,893 ft). Annual closure 1 May - late June. km/mi are ONE-WAY."
+    },
+    "kinney-lake": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/kinney-lake",
+      "official_url": "https://bcparks.ca/mount-robson-park/berg-lake-trail/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Official URL is the Berg Lake Trail page (Kinney Lake is its first 4.2 km). No day-use fee for day hiking per BC Parks."
+    },
+    "overlander-falls-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/overlander-falls",
+      "official_url": null,
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. AllTrails short trail is ~0.6 mi, long trail ~3.9 mi (overlander-falls-long-trail); record's 2.3 km fits neither. No BC Parks page found for it."
+    },
+    "berg-lake-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/berg-lake-trail",
+      "official_url": "https://bcparks.ca/mount-robson-park/berg-lake-trail/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. BC Parks: 21 km to Berg Lake campsite, ~800 m gain over 23 km."
+    },
+    "assiniboine-mount-shark-to-magog": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/lake-magog-to-mt-shark-trailhead-via-wonder-pass",
+      "official_url": "https://bcparks.ca/mount-assiniboine-park/hiking/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. AllTrails ~17 mi via Wonder Pass; BC Parks page covers the park's hiking in general."
+    },
+    "sunburst-lake-magog": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/sunburst-and-cerulean-lake-via-lake-magog-campground",
+      "official_url": "https://bcparks.ca/mount-assiniboine-park/hiking/",
+      "km": 6.8,
+      "mi": 4.2,
+      "gain_m": 271,
+      "stats_source": "https://www.alltrails.com/trail/canada/british-columbia/sunburst-and-cerulean-lake-via-lake-magog-campground (4.2 mi, 889 ft; loop including Cerulean Lake)",
+      "note": "alltrails not fetched. Figures are AllTrails loop via Cerulean Lake, not a pure Sunburst-Magog leg."
+    },
+    "elk-lakes-lower-upper": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/lower-elk-lake",
+      "official_url": "https://bcparks.ca/elk-lakes-park/hiking/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. BC Parks: trailhead to Lower Elk Lake ~1 km; Upper Elk Lake to waterfall 3 km, 30 m."
+    },
+    "elk-lakes-viewpoint": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/british-columbia/lower-elk-lake-viewpoint-trail",
+      "official_url": "https://bcparks.ca/elk-lakes-park/hiking/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. BC Parks Viewpoint Trail 1.2 km one-way, 122 m."
+    },
+    "beauvais-lake-trail": {
+      "alltrails_url": "https://www.alltrails.com/trail/canada/alberta/beauvais-lake-park-trail",
+      "official_url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/trails/",
+      "km": null,
+      "mi": null,
+      "gain_m": null,
+      "stats_source": null,
+      "note": "alltrails not fetched. Official URL is the park trails listing; bear advisory since 3 Jun 2026."
+    }
+  },
+  "sights": {
+    "elbow-falls": {
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/elbow-falls-pra/information-facilities/day-use/elbow-falls/",
+      "note": ""
+    },
+    "wedge-pond": {
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond/",
+      "note": ""
+    },
+    "mount-lorette-ponds": {
+      "official_url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/mt-lorette-ponds/",
+      "note": ""
+    },
+    "smith-dorrien-trail": {
+      "official_url": null,
+      "note": "No dedicated official page found; Alberta Parks Spray Valley pages only mention Hwy 742 closures."
+    },
+    "overlander-falls-view": {
+      "official_url": null,
+      "note": "BC Parks search returned nothing specific; only the Mount Robson park page, which sight record already may use."
+    },
+    "beauvais-lake-pp": {
+      "official_url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/",
+      "note": ""
+    },
+    "whiteswan-lussier-hot-springs": {
+      "official_url": "https://bcparks.ca/whiteswan-lake-park/",
+      "note": ""
+    },
+    "castle-provincial-park": {
+      "official_url": "https://www.albertaparks.ca/parks/south/castle-pp/information-facilities/",
+      "note": ""
+    },
+    "top-of-the-world-pp": {
+      "official_url": "https://bcparks.ca/top-of-the-world-park/",
+      "note": ""
+    }
+  },
+  "checks": {
+    "kananaskis_conservation_pass": {
+      "source": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "fetched": true,
+      "personal_vehicle_day_cad": 15,
+      "personal_vehicle_year_cad": 90,
+      "note": "Page says yearly pass registers up to 3 vehicles (Alberta Parks fee guidelines snippet said 2). Commercial <=15 people: $22.50 day / $135 year. No future price change mentioned. Multi-day shop prices $15-$75 for 1-5 days. Checked 2026-10-12; 2029 price unknown."
+    },
+    "mount_robson_day_use_pass": {
+      "source": "https://bcparks.ca/mount-robson-park/berg-lake-trail/ and https://bcparks.ca/mount-robson-park/",
+      "status": "No day-use pass or fee found for Mount Robson / Berg Lake day hiking; BC Parks says no permit or day-use fee for day-hiking Berg Lake Trail. Overnight needs reservation plus trail fee. Not confirmed on the BC day-use pass program list (https://reserve.bcparks.ca/dayuse/)."
+    },
+    "upper_kananaskis_lake_circuit_closure": {
+      "source": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/",
+      "status": "Partially closed: Upper Kananaskis Lake Circuit between North Interlakes and White Spruce Day Use, bear closure (several grizzlies with cubs), notice dated 15 Jul 2026, until further notice, still listed on trail report updated 30 Sep 2026. Also Rawson Lake/Sarrail Ridge bear closure from 5 Jul 2026, Three Isle Lake trail bridge washed out. Not verified for 2029."
+    }
+  }
+}

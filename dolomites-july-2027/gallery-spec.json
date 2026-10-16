@@ -1,0 +1,81 @@
+{
+ "trip": "dolomites-july-2027",
+ "places": [
+  {
+   "place": "San Candido and the Sesto valley",
+   "days": "1-4",
+   "blurb": "Tyrolean border town at the head of the Puster valley, base for the Sesto Dolomites.",
+   "queries": [
+    "San Candido Innichen",
+    "Sesto Sexten Dolomites",
+    "Drei Zinnen Sexten"
+   ]
+  },
+  {
+   "place": "Lago di Braies",
+   "days": "",
+   "blurb": "Emerald lake in the Fanes-Senes-Braies park, the most photographed lake in the range.",
+   "queries": [
+    "Lago di Braies Pragser Wildsee",
+    "Pragser Wildsee boats"
+   ]
+  },
+  {
+   "place": "Tre Cime di Lavaredo",
+   "days": "",
+   "blurb": "Three limestone towers on the Veneto and South Tyrol border, circuit walk from Rifugio Auronzo.",
+   "queries": [
+    "Tre Cime di Lavaredo",
+    "Drei Zinnen Lavaredohütte"
+   ]
+  },
+  {
+   "place": "Cortina d'Ampezzo and Cinque Torri",
+   "days": "5-8",
+   "blurb": "Ampezzo valley town ringed by the Tofane, Cristallo and Pomagagnon, with the Cinque Torri rock group above.",
+   "queries": [
+    "Cortina d'Ampezzo panorama",
+    "Cinque Torri Dolomites",
+    "Tofane Cortina"
+   ]
+  },
+  {
+   "place": "Lago di Sorapis",
+   "days": "",
+   "blurb": "Milky blue glacial-flour lake under the Sorapiss massif, reached on a ledge path.",
+   "queries": [
+    "Lago di Sorapis",
+    "Sorapiss lake"
+   ]
+  },
+  {
+   "place": "Sella group and the passes",
+   "days": "",
+   "blurb": "A single block massif circled by four passes: Pordoi, Sella, Gardena and Campolongo.",
+   "queries": [
+    "Sella group Dolomites Passo Pordoi",
+    "Passo Gardena Sella",
+    "Piz Boè Sass Pordoi"
+   ]
+  },
+  {
+   "place": "Seceda and the Odle",
+   "days": "9-12",
+   "blurb": "A 2,500 m ridge above Ortisei with the jagged Odle group beyond green meadows.",
+   "queries": [
+    "Seceda Odle Dolomites",
+    "Seceda ridge Val Gardena",
+    "Ortisei Sankt Ulrich"
+   ]
+  },
+  {
+   "place": "Alpe di Siusi",
+   "days": "",
+   "blurb": "Europe's largest high alpine meadow, under the Sciliar and Sassolungo.",
+   "queries": [
+    "Alpe di Siusi Seiser Alm",
+    "Seiser Alm Schlern Langkofel"
+   ]
+  }
+ ]
+}

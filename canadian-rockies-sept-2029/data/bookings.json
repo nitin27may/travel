@@ -1,0 +1,625 @@
+[
+ {
+  "id": "pass-discovery",
+  "item": "Parks Canada Discovery Pass or daily entry",
+  "provider": "Parks Canada",
+  "applies_to": "All national parks (Banff, Yoho, Kootenay, Jasper, Waterton)",
+  "must_do": true,
+  "opens_2026_pattern": "No booking window; buy any time online or at gate. Fees rose 1 Jan 2026.",
+  "sells_out_note": "No sell-out; no timed entry.",
+  "cost_cad_2026": "Annual adult $83.50, senior $71.50, family/group $167.50. Daily adult $12.25, senior $10.75, family $24.50 (up to 7 per vehicle). Youth 0-17 free (2026, secondary sources).",
+  "deadline_note": "INFERENCE 2029: buy at first park gate or online before trip; next scheduled increase reported 1 Jan 2028, so 2029 prices will be at or above 2026. For a 2-week trip across 4 parks the annual family pass is likely cheaper than daily passes.",
+  "refund_note": "Not verified (GAP).",
+  "book_url": null,
+  "source_urls": [
+   "https://banffbound.com/blog/parks-canada-discovery-pass-price-2026",
+   "https://thebanffguide.com/banff-park-pass-kananaskis-conservation-pass/"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "pass-canada-strong",
+  "item": "Canada Strong Pass (free park admission promotion)",
+  "provider": "Government of Canada / Parks Canada",
+  "applies_to": "All Parks Canada places",
+  "must_do": false,
+  "opens_2026_pattern": "Ran 19 Jun - 7 Sep 2026; free admission and 25% off camping/roofed accommodation (summaries).",
+  "sells_out_note": "n/a",
+  "cost_cad_2026": "Free admission in window; parking, reservations, hot springs entry not covered.",
+  "deadline_note": "INFERENCE 2029: do not rely on it; no information on 2027-2029 editions (GAP). 2026 window ended on Labour Day.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://www.canada.ca/en/canadian-heritage/campaigns/canada-pass.html"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "shuttle-moraine-lakelouise",
+  "item": "Parks Canada Lake Louise / Moraine Lake shuttle (incl. Lake Connector, Alpine Start)",
+  "provider": "Parks Canada",
+  "applies_to": "Lake Louise and Moraine Lake (Banff NP)",
+  "must_do": true,
+  "opens_2026_pattern": "Wed 15 Apr 2026 08:00 MDT: 40% of seats released; remaining 60% released 08:00 MDT two days before each departure.",
+  "sells_out_note": "Reported ~40,000 seats booked on launch day 2026 (search title only); usually sold out; waits 30-60 min. September-specific sell-out: GAP.",
+  "cost_cad_2026": "Shuttle seat adult $12.75, senior $6, youth $4 (Banff Blog); plus booking fee $3.50 online or $5.50 phone (Parks Canada). Entry fee extra.",
+  "deadline_note": "INFERENCE 2029: launch about mid-April 2029; book the Moraine/Lake Louise days on launch day; be ready for the 08:00 two-days-ahead release for any day missed. Season ends about Thanksgiving (8 Oct 2029), so 1-15 Sep is in season.",
+  "refund_note": "Change or cancel $3.50 online / $5.50 phone up to 1 hour before departure window; booking fee non-refundable; fare refund: GAP.",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://parks.canada.ca/lakelouise-transit",
+   "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise?gccf=true",
+   "https://thebanffblog.com/moraine-lake-shuttle/",
+   "https://www.parks.canada.ca/voyage-travel/reserve"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "moraine-private-access",
+  "item": "Moraine Lake Road private vehicle ban and commercial/Roam options",
+  "provider": "Parks Canada; Roam Transit; licensed commercial operators",
+  "applies_to": "Moraine Lake",
+  "must_do": true,
+  "opens_2026_pattern": "Road closed to personal vehicles year-round; commercial list at CarFreeBanff.ca; Roam Reservable Super Pass is the only Roam fare for Lake Connector.",
+  "sells_out_note": "Roam and commercial seats not documented (GAP).",
+  "cost_cad_2026": "Roam Reservable Super Pass one-day $30; Moraine Lake Bus Company from $49 (Banff Blog).",
+  "deadline_note": "INFERENCE 2029: have the Parks Canada shuttle reservation as primary and a commercial backup priced; the Banff-Lake Louise Roam 8X runs year-round.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://parks.canada.ca/lakelouise-transit",
+   "https://thebanffblog.com/moraine-lake-shuttle/"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "lakelouise-lakeshore-parking",
+  "item": "Lake Louise Lakeshore parking and Park and Ride",
+  "provider": "Parks Canada",
+  "applies_to": "Lake Louise (Banff NP)",
+  "must_do": false,
+  "opens_2026_pattern": "Park and Ride free for shuttle reservation holders; Lakeshore lot paid, fills before sunrise; about 75% of vehicles turned away in summer 2025.",
+  "sells_out_note": "Lakeshore lot full before sunrise.",
+  "cost_cad_2026": "Alpine Start Lakeshore parking $36.75 (Banff Blog); other rate not listed.",
+  "deadline_note": "INFERENCE 2029: do not plan to drive to the Lakeshore lot; use shuttle.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://parks.canada.ca/lakelouise-transit",
+   "https://thebanffblog.com/moraine-lake-shuttle/"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "shuttle-banff-lakelouise-roam",
+  "item": "Banff to Lake Louise: Roam 8X Lake Louise Express",
+  "provider": "Roam Transit",
+  "applies_to": "Banff town to Lake Louise",
+  "must_do": false,
+  "opens_2026_pattern": "Runs year-round; reservations recommended in summer (roamtransit.com not fetched).",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "Adult $12.50 (Banff Blog); no Parks Canada Banff shuttle found.",
+  "deadline_note": "INFERENCE 2029: only needed if not driving; rental car makes it optional.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://parks.canada.ca/lakelouise-transit",
+   "https://thebanffblog.com/moraine-lake-shuttle/"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "johnston-canyon",
+  "item": "Johnston Canyon parking and shuttle",
+  "provider": "Parks Canada / Roam",
+  "applies_to": "Banff NP, Bow Valley Parkway",
+  "must_do": false,
+  "opens_2026_pattern": "No Parks Canada reservation or shuttle found for 2026. Bow Valley Parkway vehicle restriction ran 30 Apr - 25 Jun 2026 only.",
+  "sells_out_note": "Parking fills early (general, unsourced). Official sell-out data: GAP.",
+  "cost_cad_2026": "Parking free per one local guide; park pass required.",
+  "deadline_note": "INFERENCE 2029: no booking expected; arrive before 08:00; check Banff bulletins for rockfall or trail closure (an unofficial report of a 3-month closure after Thanksgiving 2026, GAP).",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://parks.canada.ca/voyage-travel/securite-safety/bulletins/0fb4c673-78a8-447c-8722-08d021915744",
+   "https://travelbanffcanada.com/johnston-canyon-hike-banff-national-park/"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "lake-ohara-bus",
+  "item": "Lake O'Hara day-use bus (lottery)",
+  "provider": "Parks Canada",
+  "applies_to": "Yoho NP",
+  "must_do": false,
+  "opens_2026_pattern": "Random draw: apply 08:00 2 Mar to 23:59 MDT 23 Mar 2026; $10 per application (search summary). Max 6 per reservation; children 1-16 must be included.",
+  "sells_out_note": "Lottery; sell-out rate: GAP.",
+  "cost_cad_2026": "$10 application; bus fare not listed.",
+  "deadline_note": "INFERENCE 2029: apply first three weeks of March 2029 if wanted. 2026 season 19 Jun - 4 Oct; 2027 season 18 Jun - 3 Oct.",
+  "refund_note": "Draw policy link only (GAP).",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+   "https://www.parks.canada.ca/voyage-travel/reserve"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "lake-ohara-camp",
+  "item": "Lake O'Hara campground",
+  "provider": "Parks Canada",
+  "applies_to": "Yoho NP",
+  "must_do": false,
+  "opens_2026_pattern": "Tue 10 Feb 2026 08:00 MT per official pages (one blog said Thu 22 Jan).",
+  "sells_out_note": "Fill rate: GAP.",
+  "cost_cad_2026": "Not listed.",
+  "deadline_note": "INFERENCE 2029: early Feb 2029; max 3 nights, 2 reservations per household per season.",
+  "refund_note": "GAP",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/ohara/visit",
+   "https://www.parks.canada.ca/voyage-travel/reserve",
+   "https://www.vancouvertrails.com/blog/2026-parks-canada-camping-reservations-dates"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "larch-valley-group",
+  "item": "Larch Valley / Sentinel Pass group-of-four rule",
+  "provider": "Parks Canada",
+  "applies_to": "Moraine Lake trails (Banff NP)",
+  "must_do": false,
+  "opens_2026_pattern": "No booking. Restriction typically mid-July to mid-October; sign at trailhead says mandatory or recommended.",
+  "sells_out_note": "n/a",
+  "cost_cad_2026": "Free.",
+  "deadline_note": "INFERENCE 2029: a family of 3 cannot hike when the rule is mandatory unless joining others; whether a 6-year-old counts is GAP.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://www.pc.gc.ca/pn-np/mtn/ours-bears/gestion-management/ours-bears/moraine",
+   "https://canadianrockiestrailguide.com/larch-valley-hike-on-the-busiest-day-of-the-year/"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "camp-banff-front",
+  "item": "Banff front-country campgrounds (Tunnel Mountain, Lake Louise, Two Jack, Johnston Canyon, etc.)",
+  "provider": "Parks Canada",
+  "applies_to": "Banff NP",
+  "must_do": false,
+  "opens_2026_pattern": "Thu 12 Feb 2026 08:00 MT (rescheduled date, queue).",
+  "sells_out_note": "Fill rate: GAP.",
+  "cost_cad_2026": "Not listed.",
+  "deadline_note": "INFERENCE 2029: Jan-Feb 2029; only needed if camping. Lake Louise trailer campground bans tents/soft-sided units 25 Mar - 15 Dec 2026.",
+  "refund_note": "GAP",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://www.parks.canada.ca/voyage-travel/reserve",
+   "https://parks.canada.ca/pn-np/ab/banff/bulletins/4250141b-2e7c-47d6-b258-cf05d84d5223"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "camp-yoho-kootenay",
+  "item": "Yoho and Kootenay front-country campgrounds",
+  "provider": "Parks Canada",
+  "applies_to": "Yoho, Kootenay NP",
+  "must_do": false,
+  "opens_2026_pattern": "Tue 20 Jan 2026 08:00 MT (Kicking Horse, Monarch, Redstreak, Marble Canyon, McLeod Meadows). Takakkaw Falls listed 20 Jan on one source and 26 Jan on the official list.",
+  "sells_out_note": "Yoho demand highest July-August (search summary).",
+  "cost_cad_2026": "Not listed.",
+  "deadline_note": "INFERENCE 2029: Jan 2029. 2026 closings: Takakkaw Falls 16 Sep, Marble Canyon 7 Sep, McLeod Meadows 13 Sep, Hoodoo Creek 11 Sep.",
+  "refund_note": "GAP",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://www.parks.canada.ca/voyage-travel/reserve",
+   "https://www.vancouvertrails.com/blog/2026-parks-canada-camping-reservations-dates"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "camp-jasper",
+  "item": "Jasper front-country (Whistlers, Wapiti, Miette, Overflow)",
+  "provider": "Parks Canada",
+  "applies_to": "Jasper NP",
+  "must_do": false,
+  "opens_2026_pattern": "Tue 27 Jan 2026 08:00 MT.",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "Not listed.",
+  "deadline_note": "INFERENCE 2029: late Jan 2029; Whistlers campground open per Parks Canada page.",
+  "refund_note": "GAP",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://www.parks.canada.ca/voyage-travel/reserve",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "camp-waterton",
+  "item": "Waterton Townsite campground and backcountry",
+  "provider": "Parks Canada",
+  "applies_to": "Waterton Lakes NP",
+  "must_do": false,
+  "opens_2026_pattern": "Tue 3 Feb 2026 08:00 MT (rescheduled). One search summary says Townsite is first-come self-registration (conflict).",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "Not listed.",
+  "deadline_note": "INFERENCE 2029: early Feb 2029.",
+  "refund_note": "GAP",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://www.parks.canada.ca/voyage-travel/reserve"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "backcountry-parks-canada",
+  "item": "Parks Canada backcountry camping (Banff, Yoho, Kootenay; Jasper separately)",
+  "provider": "Parks Canada",
+  "applies_to": "Banff/Yoho/Kootenay; Jasper",
+  "must_do": false,
+  "opens_2026_pattern": "Mon 26 Jan 2026 08:00 MT (Banff, Yoho, Kootenay); Wed 28 Jan (Jasper).",
+  "sells_out_note": "Demand highest July-August (Yoho page).",
+  "cost_cad_2026": "Not listed.",
+  "deadline_note": "INFERENCE 2029: late Jan 2029; unrealistic with a 6-year-old unless short trips.",
+  "refund_note": "GAP",
+  "book_url": "https://www.parks.canada.ca/voyage-travel/reserve",
+  "source_urls": [
+   "https://www.parks.canada.ca/voyage-travel/reserve",
+   "https://www.parks.canada.ca/pn-np/bc/yoho/activ/arrierepays-backcountry/reservations"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "berg-lake",
+  "item": "Berg Lake Trail campsites (BC Parks)",
+  "provider": "BC Parks",
+  "applies_to": "Mount Robson Provincial Park",
+  "must_do": false,
+  "opens_2026_pattern": "07:00 PT Tue 2 Dec 2025 for 2026 peak season (27 May - 29 Sep).",
+  "sells_out_note": "Reservations often fill up fast (BC release).",
+  "cost_cad_2026": "Not listed.",
+  "deadline_note": "INFERENCE 2029: likely Dec 2028. Probably out of scope for a Banff-based family trip.",
+  "refund_note": "GAP",
+  "book_url": "https://camping.bcparks.ca",
+  "source_urls": [
+   "https://news.gov.bc.ca/releases/2025ENV0037-001143",
+   "https://bcparks.ca/reservations/backcountry-camping/reservations/"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "assiniboine-lodge",
+  "item": "Mount Assiniboine Lodge and Naiset Huts",
+  "provider": "Assiniboine Lodge / BC Parks",
+  "applies_to": "Mount Assiniboine Provincial Park",
+  "must_do": false,
+  "opens_2026_pattern": "Lodge: 2027 booking requests accepted only 1-31 Aug 2026; replies mid-Dec. Naiset huts summer 2027 open 12 Jan 2027 08:30 MT.",
+  "sells_out_note": "Lodge gets about 4x as many requests as it can place; no waitlist for 2027.",
+  "cost_cad_2026": "GAP (rates page not fetched).",
+  "deadline_note": "INFERENCE 2029: lodge request window likely Aug 2028; huts Jan 2029. Child policy GAP. BC Parks camping reservations: GAP.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://assiniboinelodge.com"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "kananaskis-pass",
+  "item": "Kananaskis Conservation Pass",
+  "provider": "Alberta Government",
+  "applies_to": "Kananaskis Country",
+  "must_do": false,
+  "opens_2026_pattern": "Buy online or at visitor centres any time.",
+  "sells_out_note": "No sell-out.",
+  "cost_cad_2026": "$15/day (one vehicle) or $90/year (up to 3 vehicles).",
+  "deadline_note": "INFERENCE 2029: buy online on the day.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://www.alberta.ca/ConservationPass"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "pl-campgrounds",
+  "item": "Peter Lougheed Provincial Park campgrounds (Interlakes, Lower Lake, Canyon)",
+  "provider": "Alberta Parks",
+  "applies_to": "Peter Lougheed PP",
+  "must_do": false,
+  "opens_2026_pattern": "Interlakes reservations opened 30 Mar 2026 09:00 on shop.albertaparks.ca, 90-day rolling window.",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "Interlakes $31/night, season 14 May - 12 Oct; Canyon first-come 5 Jun - 12 Sep; Lower Lake 8 May - 13 Sep.",
+  "deadline_note": "INFERENCE 2029: for 1 Sep arrival book about 3 Jun 2029; Canyon not reservable.",
+  "refund_note": "GAP",
+  "book_url": "https://shop.albertaparks.ca",
+  "source_urls": [
+   "https://albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/camping/interlakes/",
+   "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/camping/canyon/",
+   "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/information-facilities/camping/lower-lake"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "yoho-valley-road",
+  "item": "Yoho Valley Road and Takakkaw Falls",
+  "provider": "Parks Canada",
+  "applies_to": "Yoho NP",
+  "must_do": false,
+  "opens_2026_pattern": "No booking; seasonally closed until mid-June (2026), open July 2026; closes typically around Thanksgiving week (blog rule).",
+  "sells_out_note": "Parking at Takakkaw and Emerald Lake fills early (Parks Canada trail page).",
+  "cost_cad_2026": "Free.",
+  "deadline_note": "INFERENCE 2029: open throughout 1-15 Sep.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/etat-sentiers-trail-conditions",
+   "https://thebanffblog.com/takakkaw-falls-in-yoho/"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "icefields-parkway",
+  "item": "Icefields Parkway status and Columbia Icefield Adventure",
+  "provider": "Parks Canada; Banff Jasper Collection",
+  "applies_to": "Banff/Jasper NP",
+  "must_do": false,
+  "opens_2026_pattern": "No booking for road. 2026 avalanche closure in March, reopened 26 Mar. Glacier Adventure 1 May - 12 Oct 2026, weather dependent.",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "Tour pricing not fetched.",
+  "deadline_note": "INFERENCE 2029: road should be open in September; pre-book icefield tour for chosen day (GAP on lead time).",
+  "refund_note": "Ice Odyssey 2026 closed with full refund (operator page).",
+  "book_url": "https://www.banffjaspercollection.com/attractions/columbia-icefield-glacier-adventure/",
+  "source_urls": [
+   "https://www.jasperlocal.com/2026/03/22/icefields-parkway-remains-closed-until-further-notice/",
+   "https://www.banffjaspercollection.com/attractions/columbia-icefield-glacier-adventure/",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "maligne-cruise",
+  "item": "Maligne Lake cruise and Maligne Road",
+  "provider": "Banff Jasper Collection",
+  "applies_to": "Jasper NP",
+  "must_do": false,
+  "opens_2026_pattern": "2026 season 29 May - 11 Oct; hours 7 Sep - 3 Oct 09:00-17:30. Maligne Road open since 11 Oct 2024.",
+  "sells_out_note": "Specific times only guaranteed with pre-purchased tickets (operator).",
+  "cost_cad_2026": "Not fetched.",
+  "deadline_note": "INFERENCE 2029: buy a few weeks ahead for the chosen day. Maligne Canyon trailhead and Cavell Road closed for 2026.",
+  "refund_note": "Tickets non-refundable (operator, via search summary).",
+  "book_url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/",
+  "source_urls": [
+   "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/location-hours/",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "jasper-skytram",
+  "item": "Jasper SkyTram",
+  "provider": "Jasper SkyTram",
+  "applies_to": "Jasper NP",
+  "must_do": false,
+  "opens_2026_pattern": "Fall hours 3 Sep - 27 Oct 10:00-17:00 per official site (another operator listed 7 Sep - 26 Oct).",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "Not fetched.",
+  "deadline_note": "INFERENCE 2029: no advance booking needed beyond timed ticket (GAP).",
+  "refund_note": "GAP",
+  "book_url": "https://jasperskytram.com/plan-your-visit/hours",
+  "source_urls": [
+   "https://jasperskytram.com/plan-your-visit/hours"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "jasper-lodging",
+  "item": "Jasper accommodations after 2024 wildfire",
+  "provider": "Various",
+  "applies_to": "Jasper",
+  "must_do": true,
+  "opens_2026_pattern": "No window found.",
+  "sells_out_note": "Occupancy 96% summer 2025 (Travel Weekly); some hotels being rebuilt for 2027.",
+  "cost_cad_2026": "GAP",
+  "deadline_note": "INFERENCE 2029: book Jasper lodging at the same time as Banff; 20% of accommodations were lost in 2024.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://www.jasper.travel/wild-fire",
+   "https://travelweekly.co.uk/all-content/jasper-alberta-canada-wildfires"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "lodging-banff-ll-canmore-field",
+  "item": "Hotels in Banff, Lake Louise, Canmore, Field (Fairmont, Deer Lodge, Emerald Lake Lodge, etc.)",
+  "provider": "Various",
+  "applies_to": "Banff/Lake Louise/Canmore/Field",
+  "must_do": true,
+  "opens_2026_pattern": "No lead-time or sell-out data found for named properties.",
+  "sells_out_note": "GAP; Labour Day weekend is a Canada-wide long weekend (INFERENCE).",
+  "cost_cad_2026": "GAP; Fairmont CLL summer offer covers 1 Jun - 30 Sep 2026.",
+  "deadline_note": "INFERENCE 2029: book as soon as 2029 inventory opens (about 12 months ahead typical, unverified), refundable rates, especially 1-3 Sep.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://www.fairmont.com/en/hotels/lake-louise/fairmont-chateau-lake-louise/offers/fall-getaways.html",
+   "https://thebanffblog.com/lake-louise-hotels"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "backcountry-lodges-kananaskis",
+  "item": "Skoki, Mount Engadine, Shadow Lake, Sundance, Num-Ti-Jah, Glacier View lodges",
+  "provider": "Various",
+  "applies_to": "Banff/Kananaskis",
+  "must_do": false,
+  "opens_2026_pattern": "No booking-open dates found. Skoki hiking season 25 Jun - 25 Sep.",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "GAP",
+  "deadline_note": "INFERENCE 2029: call or check each lodge's site; child policy GAP.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://www.banfflakelouise.com/accommodation/backcountry-lodges/skoki-lodge"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "waterton-crypt-lake",
+  "item": "Crypt Lake hiker boat shuttle",
+  "provider": "Waterton Shoreline Cruise",
+  "applies_to": "Waterton Lakes NP",
+  "must_do": false,
+  "opens_2026_pattern": "2025 schedule: daily to 5 Oct; 2026 booking opening not found.",
+  "sells_out_note": "Advance booking strongly recommended (operator).",
+  "cost_cad_2026": "2025: $34 all ages 3+ (excl. GST).",
+  "deadline_note": "INFERENCE 2029: book once schedule is posted; hike suitability for a 6-year-old GAP.",
+  "refund_note": "GAP",
+  "book_url": "https://watertoncruise.com",
+  "source_urls": [
+   "https://watertoncruise.com"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "waterton-pow",
+  "item": "Prince of Wales Hotel, Waterton",
+  "provider": "Glacier Park Collection",
+  "applies_to": "Waterton Lakes NP",
+  "must_do": false,
+  "opens_2026_pattern": "2026 season 11 May - 12 Oct (another source 5 Oct).",
+  "sells_out_note": "GAP",
+  "cost_cad_2026": "GAP",
+  "deadline_note": "INFERENCE 2029: book with the rest of lodging.",
+  "refund_note": "GAP",
+  "book_url": "https://www.glacierparkcollection.com/lodging/prince-of-wales-hotel/",
+  "source_urls": [
+   "https://www.glacierparkcollection.com/lodging/prince-of-wales-hotel/"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "waterton-roads-shuttle",
+  "item": "Waterton Red Rock/Akamina roads and shuttle",
+  "provider": "Parks Canada",
+  "applies_to": "Waterton Lakes NP",
+  "must_do": false,
+  "opens_2026_pattern": "Roads typically open 1 May - 1 Nov (2024-25 schedule); no public Waterton shuttle found for 2026.",
+  "sells_out_note": "n/a",
+  "cost_cad_2026": "Free.",
+  "deadline_note": "INFERENCE 2029: no booking.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://pc.gc.ca/pn-np/ab/waterton/visit/routessaisonnieres-seasonalroad"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "radium-pools",
+  "item": "Radium Hot Springs pools",
+  "provider": "Parks Canada",
+  "applies_to": "Kootenay NP",
+  "must_do": false,
+  "opens_2026_pattern": "No booking; summer hours 08:30-22:00 to September; winter hours around 15 Oct.",
+  "sells_out_note": "n/a",
+  "cost_cad_2026": "Entry not fetched.",
+  "deadline_note": "INFERENCE 2029: summer hours should apply 1-15 Sep.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/bc/kootenay/sources-radium-springs/heures-hours"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "calgary-rental-car",
+  "item": "Calgary rental car and Edmonton one-way fee",
+  "provider": "Rental companies",
+  "applies_to": "Calgary YYC / Edmonton YEG",
+  "must_do": true,
+  "opens_2026_pattern": "No data.",
+  "sells_out_note": "No 2026 shortage found; 2022 shortage only.",
+  "cost_cad_2026": "GAP; $1.25/km default one-way at one operator.",
+  "deadline_note": "INFERENCE 2029: reserve with free cancellation once lodging is booked; price Calgary to Edmonton one-way versus loop.",
+  "refund_note": "GAP",
+  "book_url": null,
+  "source_urls": [
+   "https://www.authentikcanada.com/en/faq/drop-off-fees-discount"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "wildlife-orders",
+  "item": "Wildlife and bear orders (Hillsdale split, Lake Louise campground, Moraine group access)",
+  "provider": "Parks Canada",
+  "applies_to": "Banff NP",
+  "must_do": false,
+  "opens_2026_pattern": "2026 Hillsdale closure bulletin 16 Jul - 31 Aug (bulletin URL not mapped); Bow Valley Parkway overnight closure 1 Mar - 25 Jun.",
+  "sells_out_note": "n/a",
+  "cost_cad_2026": "Penalty up to $25,000.",
+  "deadline_note": "INFERENCE 2029: check bulletins in the week before; carry bear spray.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://www.rmotoday.com/banff/bow-valley-parkway-restriction-resumes-to-give-wildlife-space-security-6626842",
+   "https://parks.canada.ca/pn-np/ab/banff/bulletins/4250141b-2e7c-47d6-b258-cf05d84d5223"
+  ],
+  "status": "GAP",
+  "checked": "2026-10-12"
+ },
+ {
+  "id": "closures-after-labour-day",
+  "item": "Closures and reduced hours after Labour Day",
+  "provider": "Various",
+  "applies_to": "Banff, Jasper, Kootenay",
+  "must_do": false,
+  "opens_2026_pattern": "2026: Banff Gondola 8 Sep - 12 Oct 09:00-21:00; Lake Minnewanka cruise 1-17 Sep 10:00-18:00 and 18 Sep - 12 Oct to 17:00; free Minnewanka shuttle ended 7 Sep; Lake Louise gondola 5 Jun - 11 Oct; Marble Canyon campground ended 7 Sep.",
+  "sells_out_note": "n/a",
+  "cost_cad_2026": "n/a",
+  "deadline_note": "INFERENCE 2029: most services run through 15 Sep; check for Two Jack Main (2 Sep) and Marble Canyon (7 Sep) closings.",
+  "refund_note": "n/a",
+  "book_url": null,
+  "source_urls": [
+   "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location/",
+   "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours/",
+   "https://www.skilouise.com/explore-summer/sightseeing-gondola/summer-tickets/",
+   "https://www.vancouvertrails.com/blog/2026-parks-canada-camping-reservations-dates"
+  ],
+  "status": "VERIFIED",
+  "checked": "2026-10-12"
+ }
+]

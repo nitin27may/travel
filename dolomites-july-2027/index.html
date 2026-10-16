@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="trip-date" content="2027-07-13">
+<meta name="trip-dates" content="13 – 26 Jul 2027">
+<meta name="trip-duration" content="14 days">
+<meta name="trip-region" content="Dolomites, Italy">
+<title>Dolomites — 13 to 26 July 2027</title>
+<meta name="description" content="A researched 14-day Dolomites itinerary for mid-July 2027: Alta Pusteria, Cortina, Val Gardena and Bolzano, built around the access rules, lift dates and parking caps that actually govern the days.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* theme: alpenglow */
+/* alpenglow — enrosadira: the pink fire on dolomitic limestone at dawn and dusk.
+   Source palette: Dolomites (Jul 2027).
+   Good for: high alpine limestone, via ferrata, rifugio-to-rifugio. */
+/* @fonts: Archivo:wght@500;700;800|Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600|JetBrains+Mono:wght@400;500;700 */
+:root{
+  --font-display:"Archivo",sans-serif;
+  --font-body:"Newsreader",Georgia,serif;
+  --font-mono:"JetBrains Mono",monospace;
+
+  --bg:#f5f3ef;
+  --surface:#fffefb;
+  --bg-deep:#191d26;
+  --bg-deep-2:#262c38;
+
+  --ink:#242932;
+  --ink-on-deep:#c9ced8;
+  --muted:#69707c;
+  --muted-on-deep:#98a0ac;
+  --line:#dfdbd3;
+
+  --accent:#1f6b78;
+  --accent-dark:#16505a;
+  --accent-ink:#ffffff;
+  --accent-soft:#e2eef0;
+
+  --header:#3b4d80;
+  --header-ink:#ffffff;
+  --header-sub:#ccd4ea;
+
+  --warn:#a8412a;
+  --warn-soft:#f9ece8;
+
+  --highlight:#c08a2e;
+  --highlight-ink:#312406;
+  --highlight-soft:#f8f1de;
+  --highlight-on-deep:#eec372;
+
+  --class-1:#c2566d;   /* rosa — the alpenglow itself */
+  --class-2:#f0ece4;
+  --class-3:#3b4d80;
+  --class-4:#c08a2e;
+  --class-5:#1f6b78;
+  --class-6:#8b9199;
+}
+
+
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.sign,.btn,.tag,nav a b{font-family:"Archivo",system-ui,sans-serif}
+.mono,.time,.stats dt,.stats dd,.dfacts,.when,.gate,nav a span,figcaption{font-family:"JetBrains Mono",ui-monospace,monospace}
+a{color:var(--accent)}
+img{max-width:100%;display:block}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;background:var(--bg-deep);overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.62}
+.hero .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(25,29,38,.55) 0%,rgba(25,29,38,.15) 38%,rgba(25,29,38,.92) 100%)}
+.hwrap{position:relative;max-width:1080px;margin:0 auto;padding:0 22px 54px;width:100%;color:#fff}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#e8c9cf;margin:0 0 14px}
+.hero h1{font-size:clamp(2.6rem,7.5vw,5.1rem);line-height:.95;font-weight:800;letter-spacing:-.02em;margin:0 0 8px;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--class-1)}
+.sub{font-size:clamp(1.05rem,2.3vw,1.3rem);max-width:44ch;color:#e9e6e0;margin:0 0 26px}
+.hstats{display:flex;flex-wrap:wrap;gap:26px;font-family:"JetBrains Mono",monospace;font-size:13px;color:#cfd3d8}
+.hstats b{display:block;font-size:22px;color:#fff;font-weight:500}
+.credit{position:absolute;right:12px;bottom:6px;font-family:"JetBrains Mono",monospace;font-size:10px;color:rgba(255,255,255,.5)}
+.credit a{color:inherit}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:60;background:rgba(245,243,239,.96);backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+.nwrap{max-width:1080px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 10px;scrollbar-width:thin}
+nav a{flex:0 0 auto;padding:9px 11px;text-decoration:none;color:var(--muted);text-align:center;border-bottom:3px solid transparent}
+nav a b{display:block;font-size:15px;font-weight:700;color:var(--ink);line-height:1.1}
+nav a span{display:block;font-size:10px;letter-spacing:.04em}
+nav a.on{border-bottom-color:var(--class-1)}
+nav a.on b{color:var(--class-1)}
+
+/* ---------- layout ---------- */
+main{max-width:1080px;margin:0 auto;padding:0 22px}
+section.pane{padding:52px 0;border-bottom:1px solid var(--line)}
+.pane h2{font-size:clamp(1.5rem,3.6vw,2.1rem);text-transform:uppercase;letter-spacing:-.01em;margin:0 0 6px}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--class-1);margin:0 0 12px}
+.prose{max-width:66ch}
+.callout{border-left:4px solid var(--warn);background:#fff;padding:16px 20px;margin:22px 0;border-radius:0 6px 6px 0}
+.callout h3{margin:0 0 6px;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em}
+.callout.good{border-left-color:var(--accent)}
+
+/* legend */
+.legend{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px}
+.legend li{display:flex;gap:12px;align-items:baseline;font-size:.94rem;color:var(--muted)}
+.gate{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;color:#fff;white-space:nowrap}
+.g-book{background:var(--highlight)} .g-dawn{background:var(--header)} .g-open{background:var(--muted-on-deep)}
+.g-shut{background:var(--warn)} .g-check{background:var(--class-1)} .g-high{background:var(--accent)}
+
+/* ---------- days ---------- */
+section.day{padding-top:46px;padding-bottom:10px;scroll-margin-top:64px;border-top:1px solid var(--line)}
+.dhead{display:grid;grid-template-columns:132px 1fr;gap:26px;align-items:start;margin-bottom:26px}
+.sign{background:var(--bg-deep);color:#fff;border-radius:8px;padding:14px 10px;text-align:center;position:sticky;top:76px}
+.sign .signn{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.66}
+.sign .signd{display:block;font-size:19px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-top:2px}
+.s-book{background:var(--highlight)} .s-dawn{background:var(--header)} .s-open{background:var(--bg-deep)}
+.s-shut{background:var(--warn)} .s-check{background:var(--class-1)} .s-high{background:var(--accent)}
+.dmeta h2{font-size:clamp(1.45rem,3.4vw,2rem);margin:0 0 8px;text-transform:uppercase;letter-spacing:-.015em}
+.lede{margin:0 0 14px;color:#3c434e;max-width:62ch}
+.dfacts{list-style:none;display:flex;flex-wrap:wrap;gap:8px 22px;padding:0;margin:0 0 14px;font-size:12px;color:var(--muted)}
+.dfacts b{color:var(--ink);font-weight:500;margin-right:5px}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+ display:grid;grid-template-columns:300px 1fr;margin:0 0 18px}
+.card.nofig{grid-template-columns:1fr}
+.card.nofig .cbody{padding:20px 24px}
+.card figure{margin:0;position:relative;min-height:230px;overflow:hidden}
+.card figure img{width:100%;height:100%;object-fit:cover}
+.card figcaption{position:absolute;left:0;bottom:0;background:rgba(25,29,38,.72);color:#fff;font-size:9px;padding:2px 7px}
+.card figcaption a{color:#fff;text-decoration:none}
+.cbody{padding:20px 22px}
+.chead{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.time{font-size:12px;font-weight:700;background:var(--bg-deep);color:#fff;padding:3px 9px;border-radius:4px;letter-spacing:.04em}
+.tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:700}
+.t-unmissable{background:#f4dfe4;color:#8e2f45}
+.t-hidden{background:#dceaec;color:#155a63}
+.t-added{background:#f6e9cf;color:#8a6113}
+.t-optional,.t-easy,.t-drive{background:#e7e9ec;color:#4a525e}
+.t-high{background:#d6e6e8;color:#155a63}
+.cbody h3{margin:0 0 8px;font-size:1.16rem;letter-spacing:-.01em}
+.cbody p{margin:0 0 14px;color:#3c434e}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats div{min-width:0}
+.stats dt{font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin:0}
+.stats dd{margin:2px 0 0;font-size:13px;font-weight:500}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+ text-decoration:none;padding:7px 13px;border-radius:5px;border:1px solid var(--accent);color:var(--accent);background:#fff}
+.btn:hover{background:var(--accent);color:#fff}
+.btn-map{background:var(--accent);color:#fff}
+.btn-map:hover{background:#17555f}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+details p{margin:10px 0 0;font-size:.94rem;color:#4a525e}
+
+.mapwrap{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:6px 0 8px;background:#e9e7e2}
+.mapwrap iframe{width:100%;height:300px;border:0;display:block}
+
+/* checklist + cuts */
+.cklist{list-style:none;padding:0;margin:16px 0 0;columns:2;column-gap:34px}
+.cklist li{break-inside:avoid;margin:0 0 9px}
+.cklist label{display:flex;gap:9px;align-items:baseline;font-size:.94rem;cursor:pointer}
+.cklist input{margin:0;accent-color:var(--accent);flex:0 0 auto;transform:translateY(2px)}
+.cklist .when{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--muted-on-deep);padding:2px 7px;border-radius:20px;white-space:nowrap}
+.cklist input:checked+.when{background:var(--accent)}
+.cklist label:has(input:checked){opacity:.45;text-decoration:line-through}
+.cuts{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px}
+.cuts li{display:grid;grid-template-columns:280px 1fr;gap:18px;padding-bottom:11px;border-bottom:1px solid var(--line);font-size:.95rem}
+.cuts b{font-family:"Archivo",sans-serif}
+.cuts span{color:var(--muted)}
+
+
+/* ---- orientation ---- */
+.introwide{margin:24px 0 6px;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover;display:block}
+.introwide figcaption{position:absolute;right:0;bottom:0;background:rgba(25,29,38,.74);color:#fff;font-family:"JetBrains Mono",monospace;font-size:9px;padding:3px 8px}
+.introwide figcaption a{color:#e8c9cf;text-decoration:none}
+.numstrip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:26px 0 6px;padding:18px 0;border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep)}
+.numstrip div{min-width:0}
+.numstrip b{display:block;font-family:"Archivo",sans-serif;font-weight:800;font-size:1.85rem;line-height:1;color:var(--accent)}
+.numstrip span{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;margin:22px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.area figure{margin:0;position:relative}
+.area img{width:100%;height:148px;object-fit:cover;display:block}
+.area figcaption{position:absolute;left:0;bottom:0;background:rgba(25,29,38,.74);color:#fff;font-family:"JetBrains Mono",monospace;font-size:8px;padding:2px 6px}
+.area figcaption a{color:#e8c9cf;text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{font-family:"Archivo",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.02em;font-size:1.05rem;margin:0 0 5px;line-height:1.12}
+.area .days{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#fff;background:var(--bg-deep);border-radius:4px;padding:2px 7px;display:inline-block;margin-bottom:7px}
+.area p{margin:0;font-size:.9rem;color:var(--muted)}
+.know{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:11px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.96rem}
+.know li b{font-family:"Archivo",sans-serif;font-size:1.2rem;color:var(--class-1);line-height:1.1}
+@media(max-width:760px){.numstrip{grid-template-columns:repeat(3,1fr);gap:14px}.area img{height:130px}}
+
+footer{background:var(--bg-deep);color:#b9bec6;padding:40px 22px 56px;font-size:.9rem}
+.fwrap{max-width:1080px;margin:0 auto}
+footer h3{color:#fff;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px}
+footer a{color:#e8c9cf}
+
+@media(max-width:820px){
+ body{font-size:17px}
+ .dhead{grid-template-columns:1fr;gap:14px}
+ .sign{position:static;display:flex;gap:10px;justify-content:center;align-items:baseline;padding:9px}
+ .card{grid-template-columns:1fr}
+ .card figure{min-height:200px;max-height:230px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .cklist{columns:1}
+ .cuts li{grid-template-columns:1fr;gap:2px}
+ .hero{min-height:68vh}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+@media print{
+ nav,.mapwrap,.hero img,.hero .grad,.toggle{display:none}
+ body{background:#fff;font-size:11pt}
+ .hero{min-height:auto;background:#fff;color:#000}
+ .hwrap{color:#000;padding:0}
+ .hero h1,.sub,.hstats{color:#000}
+ .card{grid-template-columns:1fr;break-inside:avoid;border:1px solid #999}
+ .card figure{display:none}
+ details{display:block}
+ details p{display:block!important}
+ section.day{break-before:page}
+}
+
+/* home link back to the hub dashboard */
+nav a.home{color:var(--accent);font-weight:600;border-right:1px solid var(--line);margin-right:6px}
+nav a.home:hover{color:var(--accent)}
+</style>
+</head>
+<body data-slug="dolomites-july-2027" data-ck-legacy="dolo27-">
+
+<header class="hero">
+  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Drei%20Zinnen%20Tre%20Cime%20di%20Lavaredo%20Dolomites.jpg?width=1100" alt="The Tre Cime di Lavaredo">
+  <div class="grad"></div>
+  <div class="hwrap">
+    <p class="eyebrow">Tuesday 13 — Monday 26 July 2027 · 13 nights</p>
+    <h1>The <em>Dolomites</em><br>wide open</h1>
+    <p class="sub">Fourteen days built backwards from the things that actually govern them — a lot that holds twenty cars, a lift that runs 08:30 to 17:30, and a lake you have to pay to park beside.</p>
+    <div class="hstats">
+      <div><b id="cd">—</b>until departure</div>
+      <div><b>4</b>bases, 3 sub-ranges</div>
+      <div><b>15h32m</b>daylight on day one</div>
+      <div><b>05:32</b>sunrise, 21:04 sunset</div>
+    </div>
+  </div>
+  <span class="credit"><a href="https://commons.wikimedia.org/wiki/File:Drei_Zinnen_Tre_Cime_di_Lavaredo_Dolomites.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></span>
+</header>
+
+<nav><div class="nwrap" id="nav"><a class="home" href="/"><b>&#8592;</b><span>all plans</span></a><a href="#about"><b>·</b><span>intro</span></a><a href="#gallery"><b>&#9632;</b><span>photos</span></a><a href="#adventure"><b>&#9650;</b><span>adventure</span></a><a href="#d1"><b>1</b><span>13 Jul</span></a><a href="#d2"><b>2</b><span>14 Jul</span></a><a href="#d3"><b>3</b><span>15 Jul</span></a><a href="#d4"><b>4</b><span>16 Jul</span></a><a href="#d5"><b>5</b><span>17 Jul</span></a><a href="#d6"><b>6</b><span>18 Jul</span></a><a href="#d7"><b>7</b><span>19 Jul</span></a><a href="#d8"><b>8</b><span>20 Jul</span></a><a href="#d9"><b>9</b><span>21 Jul</span></a><a href="#d10"><b>10</b><span>22 Jul</span></a><a href="#d11"><b>11</b><span>23 Jul</span></a><a href="#d12"><b>12</b><span>24 Jul</span></a><a href="#d13"><b>13</b><span>25 Jul</span></a><a href="#d14"><b>14</b><span>26 Jul</span></a></div></nav>
+
+<main>
+
+
+<section class="pane" id="about">
+  <p class="kicker">Before day one</p>
+  <h2>What you are actually going to see</h2>
+  <div class="prose">
+    <p>The Dolomites are a fossilised coral reef. Two hundred and fifty million years ago this was a warm shallow sea with reefs and lagoons in it; the reefs were buried, turned to rock, then shoved upward and tilted when Africa collided with Europe. The rock is <b>dolomite</b> — a calcium-magnesium carbonate named after the French geologist who first described it in 1791 — and it is why this range looks like nowhere else in the Alps. Instead of the gradual snow-and-granite of Mont Blanc or the Bernese Oberland, you get pale vertical towers and thousand-metre walls standing straight up out of green meadow. UNESCO listed them in 2009, specifically for that.</p>
+    <p>The thing they are famous for has a local name: <b><i>enrosadira</i></b>. The magnesium in the rock refracts low-angle light, so at dawn and dusk the walls turn pink, then orange, then violet — more intensely and for much longer than granite ranges manage. It is the reason this plan puts you at Braies before five in the morning and walking out from Lago di Limides in the dark.</p>
+    <p>What you cannot get anywhere else is the combination. There is a network of <b>rifugi</b> where you can eat a proper cooked lunch at 2,700 metres. The <b>WWI front line ran straight through here</b>, so the trenches at Cinque Torri and Monte Piana and the tunnels blasted inside Lagazuoi are still walkable. And the culture is genuinely its own: this was Austria-Hungary until 1919, most of South Tyrol speaks German first, the food is Tyrolean rather than Italian, and in five valleys people still speak <b>Ladin</b>, a Rhaeto-Romance language with roughly 30,000 speakers and official status alongside the other two.</p>
+  </div>
+
+  <figure class="introwide">
+    <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sella%20group%20-%20View%20from%20SW.jpg?width=1600" alt="The Sella massif rising out of alpine meadow">
+    <figcaption><a href="https://commons.wikimedia.org/wiki/File:Sella_group_-_View_from_SW.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></figcaption>
+  </figure>
+
+  <div class="numstrip">
+    <div><b>14</b><span>days</span></div>
+    <div><b>4</b><span>bases</span></div>
+    <div><b>3</b><span>languages</span></div>
+    <div><b>3,152</b><span>m, Piz Boè</span></div>
+    <div><b>~1,100</b><span>km driving total</span></div>
+    <div><b>1,400</b><span>m, biggest climb</span></div>
+  </div>
+
+  <div class="areas"><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Braies%20South%20Tyrol%203.jpg?width=1100" alt="Alta Pusteria &amp; Sesto"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_3.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Days 1–4</span><h3>Alta Pusteria &amp; Sesto</h3><p>German-speaking valley country on the Austrian border. Lago di Braies, the Tre Cime, and the Sesto Dolomites — the sharpest, most photographed skyline in the range.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cinque%20Torri%2001.jpg?width=1100" alt="Ampezzo &amp; the Falzarego road"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Cinque_Torri_01.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Days 5–8</span><h3>Ampezzo &amp; the Falzarego road</h3><p>Cortina and the old front line. Three WWI open-air museums, a tunnel system inside Lagazuoi, and the turquoise of Lago di Sorapis.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sas%20dla%20Crusc%202.jpg?width=1100" alt="Alta Badia &amp; the passes"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sas_dla_Crusc_2.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Day 9</span><h3>Alta Badia &amp; the passes</h3><p>The Ladin heartland, and the four-pass drive through the Sella massif. Stone-and-timber <i>viles</i> hamlets under the Sas dla Crusc wall.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seiser%20Alm%20Alpe%20di%20Siusi%20Sassolungo%20Langkofel%20Val%20Gardena%20S%C3%BCdtirol%20Alto%20Adige%20Italia%20Italy%20%282017.09.21%29.jpg?width=1100" alt="Val Gardena &amp; Alpe di Siusi"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Seiser_Alm_Alpe_di_Siusi_Sassolungo_Langkofel_Val_Gardena_S%C3%BCdtirol_Alto_Adige_Italia_Italy_%282017.09.21%29.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Days 10–13</span><h3>Val Gardena &amp; Alpe di Siusi</h3><p>Europe's largest high alpine pasture, the Seceda ridge, and the Odle wall above Val di Funes. Woodcarving villages and the best lift network.</p></div></article></div>
+
+  <ul class="know">
+    <li><b>1</b><span><b>Nearly everything good is now pre-booked.</b> Tre Cime, Braies, Seceda and Alpe di Siusi all sell timed slots or capped parking, most with no same-day option. This is new, it tightens every year, and it is the single biggest change from older guidebooks.</span></li>
+    <li><b>2</b><span><b>Afternoon storms are a daily pattern, not a risk.</b> Mornings are almost always clear, cloud builds late morning, and storms arrive between two and five. Start at first light and be off exposed ground by two — which conveniently also solves parking.</span></li>
+    <li><b>3</b><span><b>Three languages, three bus networks, and they do not interoperate.</b> South Tyrol runs Südtirolmobil, Cortina is Veneto and runs DolomitiBus, and the Fassa valley is Trentino. A ticket or pass for one is worthless on the next.</span></li>
+    <li><b>4</b><span><b>Carry cash.</b> Many rifugi take no cards at all, and the ones that do have terminals that fail when the connection drops. Rifugio Vandelli and Rifugio Locatelli are both cash-only.</span></li>
+    <li><b>5</b><span><b>The passes take about twice as long as your phone says.</b> Thirty-three hairpins on Pordoi, sustained low gear, and heavy fast motorcycle traffic crossing the centre line on blind corners all summer.</span></li>
+  </ul>
+</section>
+<!-- gallery:start -->
+
+<style>
+#gallery{padding:50px 0;border-bottom:1px solid var(--line,#ddd)}
+#gallery .gwrap{max-width:1080px;margin:0 auto;padding:0 20px}
+#gallery h2{margin:0 0 6px}
+#gallery .gnote{color:var(--muted,#666);margin:0 0 26px;max-width:62ch}
+#gallery .gplace{margin:0 0 34px}
+#gallery .gplace h3{margin:0;font-size:1.2rem;letter-spacing:-.01em}
+#gallery .gplace .gdays{font-family:var(--font-mono,monospace);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#666);margin-left:8px;white-space:nowrap}
+#gallery .gplace p{margin:3px 0 12px;color:var(--muted,#666);font-size:.95rem}
+#gallery .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;background:var(--surface,#fff);border:1px solid var(--line,#ddd)}
+#gallery figure a.gimg{display:block;aspect-ratio:3/2;overflow:hidden}
+#gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+#gallery figure:hover img{transform:scale(1.03)}
+#gallery figcaption{padding:7px 9px 8px;font-size:.78rem;line-height:1.35;color:var(--ink,#222)}
+#gallery figcaption small{display:block;color:var(--muted,#666);font-size:.68rem;margin-top:2px}
+#gallery figcaption small a{color:inherit}
+@media (prefers-reduced-motion:reduce){#gallery img{transition:none}}
+@media print{#gallery{break-inside:avoid}}
+
+#glb{position:fixed;inset:0;z-index:1000;display:none;background:rgba(10,12,14,.97);color:#fff;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-body,Georgia,serif)}
+#glb.open{display:flex}
+#glb .gl-stage{position:relative;flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center;padding:44px 64px 8px;box-sizing:border-box;touch-action:pan-y}
+#glb img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:3px;transition:opacity .2s}
+#glb img.loading{opacity:.25}
+#glb .gl-cap{width:100%;max-width:900px;padding:8px 20px 18px;box-sizing:border-box;text-align:center;font-size:.9rem;line-height:1.4}
+#glb .gl-cap small{display:block;color:#b8c0c8;font-size:.75rem;margin-top:3px}
+#glb .gl-cap a{color:#cfe3ee}
+#glb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center}
+#glb button:hover,#glb button:focus-visible{background:rgba(255,255,255,.28);outline:2px solid #fff}
+#glb .gl-prev{left:10px;top:50%;margin-top:-23px}
+#glb .gl-next{right:10px;top:50%;margin-top:-23px}
+#glb .gl-close{right:10px;top:10px;font-size:1.3rem}
+#glb .gl-fs{right:64px;top:10px;font-size:1.1rem}
+#glb .gl-count{position:absolute;left:16px;top:18px;font-family:var(--font-mono,monospace);font-size:.75rem;letter-spacing:.08em;color:#b8c0c8}
+@media (max-width:620px){#glb .gl-stage{padding:48px 6px 4px}#glb .gl-prev,#glb .gl-next{top:auto;bottom:86px;margin:0}#glb .gl-prev{left:12px}#glb .gl-next{right:12px}}
+@media (prefers-reduced-motion:reduce){#glb img{transition:none}}
+@media print{#glb{display:none!important}}
+</style>
+
+<section id="gallery"><div class="gwrap">
+<p class="kicker">Where you are going</p>
+<h2>Photo gallery</h2>
+<p class="gnote">The places on this plan, in the order you reach them. Click a photo to view it full size, then use the arrows, arrow keys or a swipe to move through the gallery. These show typical views, not conditions on your dates.</p>
+<div class="gplace"><h3>San Candido and the Sesto valley<span class="gdays">1-4</span></h3><p>Tyrolean border town at the head of the Puster valley, base for the Sesto Dolomites.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Caserma_Druso_a_San_Candido_5.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Caserma_Druso_a_San_Candido_5.jpg?width=1600" data-cap="San Candido (Innichen) from the hillside above the town" data-place="San Candido and the Sesto valley" data-credit="Llorenzi &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Caserma_Druso_a_San_Candido_5.jpg?width=900" alt="San Candido (Innichen) from the hillside above the town"></a><figcaption>San Candido (Innichen) from the hillside above the town<small>Llorenzi &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Caserma_Druso_a_San_Candido_5.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:San_Candido_-_i_due_campanili.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/San_Candido_-_i_due_campanili.jpg?width=1600" data-cap="San Candido, the two church towers of the old town" data-place="San Candido and the Sesto valley" data-credit="Llorenzi &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/San_Candido_-_i_due_campanili.jpg?width=900" alt="San Candido, the two church towers of the old town"></a><figcaption>San Candido, the two church towers of the old town<small>Llorenzi &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:San_Candido_-_i_due_campanili.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Lago di Braies</h3><p>Emerald lake in the Fanes-Senes-Braies park, the most photographed lake in the range.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_6.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Braies_South_Tyrol_6.jpg?width=1600" data-cap="Rowing boats on Lago di Braies" data-place="Lago di Braies" data-credit="kallerna &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Braies_South_Tyrol_6.jpg?width=900" alt="Rowing boats on Lago di Braies"></a><figcaption>Rowing boats on Lago di Braies<small>kallerna &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_6.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_7.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Braies_South_Tyrol_7.jpg?width=1600" data-cap="Lago di Braies with the Croda del Becco ridge" data-place="Lago di Braies" data-credit="kallerna &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Braies_South_Tyrol_7.jpg?width=900" alt="Lago di Braies with the Croda del Becco ridge"></a><figcaption>Lago di Braies with the Croda del Becco ridge<small>kallerna &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_7.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:20050829046DR_Braies_%28I%29_Kapelle_Pragser_Wildsee%2C_Lago_di_Braies.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/20050829046DR_Braies_%28I%29_Kapelle_Pragser_Wildsee%2C_Lago_di_Braies.jpg?width=1600" data-cap="The lakeside chapel at Lago di Braies" data-place="Lago di Braies" data-credit="Jörg Blobelt &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/20050829046DR_Braies_%28I%29_Kapelle_Pragser_Wildsee%2C_Lago_di_Braies.jpg?width=900" alt="The lakeside chapel at Lago di Braies"></a><figcaption>The lakeside chapel at Lago di Braies<small>Jörg Blobelt &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:20050829046DR_Braies_%28I%29_Kapelle_Pragser_Wildsee%2C_Lago_di_Braies.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Tre Cime di Lavaredo</h3><p>Three limestone towers on the Veneto and South Tyrol border, circuit walk from Rifugio Auronzo.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg?width=1600" data-cap="Lago di Misurina with the Tre Cime behind" data-place="Tre Cime di Lavaredo" data-credit="kallerna &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg?width=900" alt="Lago di Misurina with the Tre Cime behind"></a><figcaption>Lago di Misurina with the Tre Cime behind<small>kallerna &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Tre_Cime_di_Lavaredo_from_Monte_Specie%2C_Val_Pusteria%2C_Trentino-Alto_Adige%2C_Italy%2C_2025_October.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Tre_Cime_di_Lavaredo_from_Monte_Specie%2C_Val_Pusteria%2C_Trentino-Alto_Adige%2C_Italy%2C_2025_October.jpg?width=1600" data-cap="The Tre Cime from Monte Specie in the Val Pusteria" data-place="Tre Cime di Lavaredo" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tre_Cime_di_Lavaredo_from_Monte_Specie%2C_Val_Pusteria%2C_Trentino-Alto_Adige%2C_Italy%2C_2025_October.jpg?width=900" alt="The Tre Cime from Monte Specie in the Val Pusteria"></a><figcaption>The Tre Cime from Monte Specie in the Val Pusteria<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Tre_Cime_di_Lavaredo_from_Monte_Specie%2C_Val_Pusteria%2C_Trentino-Alto_Adige%2C_Italy%2C_2025_October.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Tri_Cime_panorama_2.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Tri_Cime_panorama_2.jpg?width=1600" data-cap="The Tre Cime di Lavaredo, wide view" data-place="Tre Cime di Lavaredo" data-credit="kallerna &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tri_Cime_panorama_2.jpg?width=900" alt="The Tre Cime di Lavaredo, wide view"></a><figcaption>The Tre Cime di Lavaredo, wide view<small>kallerna &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Tri_Cime_panorama_2.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Cortina d&#x27;Ampezzo and Cinque Torri<span class="gdays">5-8</span></h3><p>Ampezzo valley town ringed by the Tofane, Cristallo and Pomagagnon, with the Cinque Torri rock group above.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Faloria_Cortina_d%27Ampezzo_29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Faloria_Cortina_d%27Ampezzo_29.jpg?width=1600" data-cap="Cortina d&#x27;Ampezzo and its ring of peaks from Faloria" data-place="Cortina d&#x27;Ampezzo and Cinque Torri" data-credit="kallerna &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Faloria_Cortina_d%27Ampezzo_29.jpg?width=900" alt="Cortina d&#x27;Ampezzo and its ring of peaks from Faloria"></a><figcaption>Cortina d&#x27;Ampezzo and its ring of peaks from Faloria<small>kallerna &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Faloria_Cortina_d%27Ampezzo_29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Panorama_da_Grava_di_Sotto.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Panorama_da_Grava_di_Sotto.JPG?width=1600" data-cap="The Ampezzo valley from Grava di Sotto" data-place="Cortina d&#x27;Ampezzo and Cinque Torri" data-credit="MaiDireLollo &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Panorama_da_Grava_di_Sotto.JPG?width=900" alt="The Ampezzo valley from Grava di Sotto"></a><figcaption>The Ampezzo valley from Grava di Sotto<small>MaiDireLollo &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Panorama_da_Grava_di_Sotto.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Lago di Sorapis</h3><p>Milky blue glacial-flour lake under the Sorapiss massif, reached on a ledge path.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_3.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Sorapis_3.jpg?width=1600" data-cap="Lago di Sorapis and the slopes above it" data-place="Lago di Sorapis" data-credit="kallerna &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Sorapis_3.jpg?width=900" alt="Lago di Sorapis and the slopes above it"></a><figcaption>Lago di Sorapis and the slopes above it<small>kallerna &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_3.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Monte_Cristallo_Lago_di_Sorapis_hike.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Monte_Cristallo_Lago_di_Sorapis_hike.jpg?width=1600" data-cap="Monte Cristallo seen from the Sorapis trail" data-place="Lago di Sorapis" data-credit="kallerna &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Monte_Cristallo_Lago_di_Sorapis_hike.jpg?width=900" alt="Monte Cristallo seen from the Sorapis trail"></a><figcaption>Monte Cristallo seen from the Sorapis trail<small>kallerna &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Monte_Cristallo_Lago_di_Sorapis_hike.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_con_fiori.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Sorapis_con_fiori.jpg?width=1600" data-cap="Lago di Sorapis with alpine flowers on the shore" data-place="Lago di Sorapis" data-credit="Samuel Boatto &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Sorapis_con_fiori.jpg?width=900" alt="Lago di Sorapis with alpine flowers on the shore"></a><figcaption>Lago di Sorapis with alpine flowers on the shore<small>Samuel Boatto &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_con_fiori.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Sella group and the passes</h3><p>A single block massif circled by four passes: Pordoi, Sella, Gardena and Campolongo.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Passo_Pordoi-bops_01.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Passo_Pordoi-bops_01.jpg?width=1600" data-cap="Passo Pordoi area in the Sella group" data-place="Sella group and the passes" data-credit="Bops92 &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Passo_Pordoi-bops_01.jpg?width=900" alt="Passo Pordoi area in the Sella group"></a><figcaption>Passo Pordoi area in the Sella group<small>Bops92 &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Passo_Pordoi-bops_01.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Sella_group_-_View_from_West.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Sella_group_-_View_from_West.jpg?width=1600" data-cap="The Sella group seen from the west" data-place="Sella group and the passes" data-credit="H. Zell &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sella_group_-_View_from_West.jpg?width=900" alt="The Sella group seen from the west"></a><figcaption>The Sella group seen from the west<small>H. Zell &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Sella_group_-_View_from_West.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Sella_Group_-_Citt%C3%A0_dei_Sassi.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Sella_Group_-_Citt%C3%A0_dei_Sassi.jpg?width=1600" data-cap="The rock field of the Citta dei Sassi on the Sella" data-place="Sella group and the passes" data-credit="H. Zell &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sella_Group_-_Citt%C3%A0_dei_Sassi.jpg?width=900" alt="The rock field of the Citta dei Sassi on the Sella"></a><figcaption>The rock field of the Citta dei Sassi on the Sella<small>H. Zell &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Sella_Group_-_Citt%C3%A0_dei_Sassi.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Seceda and the Odle<span class="gdays">9-12</span></h3><p>A 2,500 m ridge above Ortisei with the jagged Odle group beyond green meadows.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Odles_as_seen_from_Seceda.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Odles_as_seen_from_Seceda.JPG?width=1600" data-cap="The jagged Odle from the ridge at Seceda" data-place="Seceda and the Odle" data-credit="Wolfgang Moroder &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Odles_as_seen_from_Seceda.JPG?width=900" alt="The jagged Odle from the ridge at Seceda"></a><figcaption>The jagged Odle from the ridge at Seceda<small>Wolfgang Moroder &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Odles_as_seen_from_Seceda.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Odle%2C_Puez_and_Sella_groups_from_Seceda%2C_South_Tyrol_-_panorama.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Odle%2C_Puez_and_Sella_groups_from_Seceda%2C_South_Tyrol_-_panorama.jpg?width=1600" data-cap="Odle, Puez and Sella groups from Seceda, wide view" data-place="Seceda and the Odle" data-credit="NorbertNagel &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Odle%2C_Puez_and_Sella_groups_from_Seceda%2C_South_Tyrol_-_panorama.jpg?width=900" alt="Odle, Puez and Sella groups from Seceda, wide view"></a><figcaption>Odle, Puez and Sella groups from Seceda, wide view<small>NorbertNagel &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Odle%2C_Puez_and_Sella_groups_from_Seceda%2C_South_Tyrol_-_panorama.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg?width=1600" data-cap="Odle, Puez, Sella and Sassolungo from the Seceda ridge" data-place="Seceda and the Odle" data-credit="NorbertNagel &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg?width=900" alt="Odle, Puez, Sella and Sassolungo from the Seceda ridge"></a><figcaption>Odle, Puez, Sella and Sassolungo from the Seceda ridge<small>NorbertNagel &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Alpe di Siusi</h3><p>Europe&#x27;s largest high alpine meadow, under the Sciliar and Sassolungo.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Seiser_Alm_04.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Seiser_Alm_04.jpg?width=1600" data-cap="Alpe di Siusi meadow with the Sassolungo group" data-place="Alpe di Siusi" data-credit="H. Zell &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seiser_Alm_04.jpg?width=900" alt="Alpe di Siusi meadow with the Sassolungo group"></a><figcaption>Alpe di Siusi meadow with the Sassolungo group<small>H. Zell &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Seiser_Alm_04.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Saslonch_y_Sela_da_Mont_S%C3%ABuc.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Saslonch_y_Sela_da_Mont_S%C3%ABuc.jpg?width=1600" data-cap="Sassolungo and Sella from Mont Seuc on the Alpe di Siusi" data-place="Alpe di Siusi" data-credit="Wolfgang Moroder &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Saslonch_y_Sela_da_Mont_S%C3%ABuc.jpg?width=900" alt="Sassolungo and Sella from Mont Seuc on the Alpe di Siusi"></a><figcaption>Sassolungo and Sella from Mont Seuc on the Alpe di Siusi<small>Wolfgang Moroder &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Saslonch_y_Sela_da_Mont_S%C3%ABuc.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Seiser_Alm_11.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Seiser_Alm_11.jpg?width=1600" data-cap="Cows on the Alpe di Siusi with the Sassolungo behind" data-place="Alpe di Siusi" data-credit="H. Zell &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seiser_Alm_11.jpg?width=900" alt="Cows on the Alpe di Siusi with the Sassolungo behind"></a><figcaption>Cows on the Alpe di Siusi with the Sassolungo behind<small>H. Zell &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Seiser_Alm_11.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+</div></section>
+
+<script>
+(function(){
+  var root=document.getElementById('gallery'); if(!root) return;
+  var links=[].slice.call(root.querySelectorAll('a.gimg'));
+  if(!links.length) return;
+  var box=document.createElement('div');
+  box.id='glb'; box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-label','Photo viewer');
+  box.innerHTML='<div class="gl-count"></div><button class="gl-fs" type="button" aria-label="Full screen">&#x26F6;</button><button class="gl-close" type="button" aria-label="Close">&times;</button>'
+   +'<div class="gl-stage"><button class="gl-prev" type="button" aria-label="Previous photo">&#8249;</button><img alt=""><button class="gl-next" type="button" aria-label="Next photo">&#8250;</button></div><div class="gl-cap"></div>';
+  document.body.appendChild(box);
+  var img=box.querySelector('img'), cap=box.querySelector('.gl-cap'), cnt=box.querySelector('.gl-count'), cur=0, opener=null;
+  function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+  function show(i){
+    cur=(i+links.length)%links.length; var a=links[cur];
+    img.classList.add('loading'); img.onload=function(){img.classList.remove('loading')};
+    img.src=a.getAttribute('data-full'); img.alt=a.getAttribute('data-cap')||'';
+    cap.innerHTML=esc(a.getAttribute('data-cap')||'')+'<small>'+esc(a.getAttribute('data-place')||'')+' &middot; '+esc(a.getAttribute('data-credit')||'')+' &middot; <a href="'+a.href+'" target="_blank" rel="noopener">Commons page</a></small>';
+    cnt.textContent=(cur+1)+' / '+links.length;
+    [1,-1].forEach(function(d){var n=links[(cur+d+links.length)%links.length]; (new Image()).src=n.getAttribute('data-full')});
+  }
+  function open(i,from){opener=from; box.classList.add('open'); document.documentElement.style.overflow='hidden'; show(i); box.querySelector('.gl-close').focus()}
+  function close(){
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
+    box.classList.remove('open'); document.documentElement.style.overflow=''; img.removeAttribute('src'); if(opener) opener.focus();
+  }
+  links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault(); open(i,a)})});
+  box.querySelector('.gl-prev').addEventListener('click',function(){show(cur-1)});
+  box.querySelector('.gl-next').addEventListener('click',function(){show(cur+1)});
+  box.querySelector('.gl-close').addEventListener('click',close);
+  box.querySelector('.gl-fs').addEventListener('click',function(){
+    if(document.fullscreenElement){document.exitFullscreen()} else if(box.requestFullscreen){box.requestFullscreen()}
+  });
+  box.addEventListener('click',function(e){ if(e.target===box||e.target.classList.contains('gl-stage')||e.target===cap) close() });
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('open')) return;
+    if(e.key==='Escape') close(); else if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='Tab'){ var f=[].slice.call(box.querySelectorAll('button')); var i=f.indexOf(document.activeElement); e.preventDefault(); f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus() }
+  });
+  var x0=null;
+  box.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1)) },{passive:true});
+})();
+</script>
+
+<!-- gallery:end -->
+
+
+
+
+<section class="pane">
+  <p class="kicker">Start here</p>
+  <h2>Why mid-July, and what it costs</h2>
+  <div class="prose">
+    <p>These dates moved back from late June for one reason: <b>everything is open.</b> The Fedare chairlift at Passo Giau starts on the 13th, Faloria on the 11th, and every rifugio on the route is running. More importantly, north-facing snow above 2,300&nbsp;m is gone — which is what actually buys you <b>Croda del Becco, Piz Boè and the high plateaus</b>. In late June those are a gamble; now they are a walk. The Maratona is past, and no car-free pass day falls inside the window, so mid-July is clean of road closures.</p>
+    <p>The bill comes in four parts. <b>Lago di Braies is no longer free</b> — from 1 July it is a €44 prepaid booking, or an arrival before 09:00 with no guaranteed space. <b>Malga Ra Stua's road is shut</b> to private cars until September. <b>Wildflowers are past peak</b>, which is non-recoverable. And you are <b>inside the school-holiday wave</b>: Italian schools broke on 17 June, Austrian Tirol on 10 July, most German states on 1 July. Bavaria does not break until 2 August, so it is busy rather than peak.</p>
+    <p>Fourteen days is well matched to this, not generous. The Dolomites are three sub-ranges that do not feel like each other, and each holds six to eight days of real material. This plan covers all three with two soft days. Apart from the airport runs at each end, the longest single transfer is about ninety minutes, and days 2, 3, 6, 7, 8, 11 and 12 are loops from whichever base you are already sleeping in.</p>
+  </div>
+</section>
+
+<section class="pane">
+  <p class="kicker">What runs the trip</p>
+  <h2>What decides every day</h2>
+  <div class="prose">
+    <p>Almost nothing here is scheduled by the map. It is scheduled by access rules, opening dates, parking caps and light. Each day below carries a badge saying what governs it.</p>
+  </div>
+  <ul class="legend"><li><span class="gate g-book">Pre-booked</span> Needs a slot, toll or reservation bought in advance</li><li><span class="gate g-dawn">Dawn start</span> Governed by first light, or by a lot that fills before 07:00</li><li><span class="gate g-open">Free-moving</span> No gate. Weather and legs are the only constraints</li><li><span class="gate g-high">High route</span> Only possible because the dates moved — snow-free above 2,500 m</li><li><span class="gate g-check">Unresolved</span> A 2027 rule that must be re-verified before you travel</li></ul>
+
+  <div class="callout good">
+    <h3>Every access rule that matters, in one place</h3>
+    <p><b>Lago di Braies</b> — car ban 09:00–16:00, prepaid booking €44, no payment at the gate. <b>Tre Cime</b> — €40 toll, booked 30 days out at pass.auronzo.info, no same-day sales. <b>Seceda</b> — pre-booked 30-minute slot, €74 return plus a €5 ridge turnstile, excluded from DolomitiSuperSummer. <b>Alpe di Siusi</b> — cars banned 09:00–17:00 and parking pre-booked, which is why you take the cable car instead. <b>Val di Funes</b> — barriers stop non-residents driving to the church; park and walk 20–30 minutes.</p>
+  </div>
+  <div class="callout">
+    <h3>Two car parks decide two mornings</h3>
+    <p><b>Passo Tre Croci holds about twenty cars and fills by 06:00–06:30</b>, which is what sets the 05:30 departure for Sorapis — not the light. <b>Prato Piazza caps the road at 100 cars</b> and closes the Braies valley to private traffic between 10:00 and 15:00. Everywhere else, being parked by 08:00 solves the problem.</p>
+  </div>
+  <div class="callout">
+    <h3>The one unresolved rule</h3>
+    <p>A pilot from 1 September 2026 capped non-resident cars at <b>Passo Gardena</b> to 150 pre-booked slots a day, and was explicitly described as a trial for a full May-to-October closure planned for 2027, pending provincial approval. It sits on your Cortina to Val Gardena transfer. Two backups exist, both about two hours. Re-check in spring.</p>
+  </div>
+</section>
+
+
+<section class="pane" id="adventure">
+  <p class="kicker">Adventure</p>
+  <h2>What to book, and who can actually do it</h2>
+  <div class="prose">
+    <p>Verified from operators, 29 Aug 2026 &mdash; all figures are 2026 and need re-checking in
+    spring 2027. Detail and sources in <code>research-adventure.md</code>.</p>
+    <p><b>A Dolomites mountain guide charges per group, not per person, and the fee is split.</b>
+    Via ferrata is &euro;380&ndash;500 for the group: a pair pays about &euro;200 each, a four pays
+    about &euro;110 each. Group size changes the per-head cost more than the route does.</p>
+  </div>
+
+  <div class="callout good"><b>The Dolomites suit a ten-year-old better than the Swiss trip does.</b>
+  Guides here take roughly ten as the working minimum on easy routes, and describe the constraint as
+  psychological &mdash; following safety instructions under stress at height &mdash; rather than
+  strength. Nothing in this section is age-barred to him except the advanced Isarco rafting.</div>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">Cortina &middot; already in the plan</span></div>
+  <h3>Cinque Torri beginner via ferrata <span class="tag t-added">the find</span></h3>
+  <p>Cinque Torri is already on the itinerary for the WWI rock towers and the Nuvolau panorama.
+  There is a <b>beginner via ferrata at the base of the towers, graded A/B &mdash; the easiest
+  Italian grade</b> &mdash; and it is the route most often named as this region's family
+  introduction, explicitly suitable for ten-year-olds who are comfortable with heights.
+  <b>It turns a stop you are already making into the trip's adventure centrepiece, with no extra day.</b></p>
+  <dl class="stats"><div><dt>Grade</dt><dd>A/B &middot; easiest Italian</dd></div><div><dt>Guided</dt><dd>&euro;380&ndash;500 per group</dd></div><div><dt>Junior kit</dt><dd>&euro;15&ndash;20/day</dd></div><div><dt>Adult kit</dt><dd>&euro;25&ndash;35/day</dd></div></dl>
+  <div class="callout">Guide fee <b>includes</b> harness, helmet and via ferrata set. It does
+  <b>not</b> include lift tickets, and several ferrata approaches start from a paid cable car.
+  Prices exclude 5% VAT. Max 3&ndash;4 per guide on medium routes, 5&ndash;6 on very easy ones.</div>
+  <div class="btns"><a class="btn btn-map" href="https://www.guidedolomiti.com/en/rates/" target="_blank" rel="noopener">Guide rates</a><a class="btn" href="https://maps.google.com/?q=Cinque+Torri%2C+Cortina+d%27Ampezzo" target="_blank" rel="noopener">Map</a></div>
+  </div></article>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">San Candido &middot; base 1</span></div>
+  <h3>Funbob, Monte Baranci</h3>
+  <p><b>The longest rail toboggan in South Tyrol, and it is in your first base village.</b>
+  1,739&nbsp;m of track, 314&nbsp;m of drop, 40&nbsp;km/h, on new Mountain Coaster 2.0 sleds.
+  Four-seater chairlift up from the village. No booking needed.</p>
+  <dl class="stats"><div><dt>1 ride</dt><dd>&euro;21.50 &middot; junior &euro;15</dd></div><div><dt>3 rides</dt><dd>&euro;48.50 &middot; junior &euro;34</dd></div><div><dt>Morning unlimited</dt><dd>&euro;60 &middot; junior &euro;43.50</dd></div><div><dt>Hours, 13&ndash;16 Jul</dt><dd>09:00&ndash;18:30</dd></div></dl>
+  <div class="callout"><b>From age eight he rides alone</b> (ID required); under eight must ride with
+  an adult; under three not permitted. Height limit not published &mdash; ask at the lift.</div>
+  <div class="btns"><a class="btn btn-map" href="https://www.dreizinnen.com/en/the-cable-cars/the-cable-cars/funbob" target="_blank" rel="noopener">Official</a><a class="btn" href="https://maps.google.com/?q=Funbob+Monte+Baranci+San+Candido" target="_blank" rel="noopener">Map</a></div>
+  </div></article>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">Ortisei &middot; base 3</span></div>
+  <h3>Paragliding over Seceda</h3>
+  <p>Gardenafly fly from <b>Seceda</b>, which is the Val Gardena view. Panoramic, Thermal and
+  Superior flights. <b>Age four upwards with no upper limit</b> &mdash; comfortably the most
+  inclusive activity of the trip.</p>
+  <dl class="stats"><div><dt>Age</dt><dd>4+, no upper limit</dd></div><div><dt>Flights</dt><dd>Panoramic / Thermal / Superior</dd></div><div><dt>Price</dt><dd>GAP &mdash; call</dd></div><div><dt>Weight limit</dt><dd>GAP &mdash; call</dd></div></dl>
+  <div class="callout">Price, weight limit and cancellation terms are all unverified. Ring
+  <b>+39 392 1286600</b> before the trip rather than on the day.</div>
+  <div class="btns"><a class="btn btn-map" href="https://www.val-gardena.net/en/paragliding.asp" target="_blank" rel="noopener">Operator</a><a class="btn" href="tel:+393921286600">+39 392 1286600</a></div>
+  </div></article>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">From San Candido</span></div>
+  <h3>Rafting, Val Pusteria</h3>
+  <p>Two grades, and the age limits separate them cleanly. <b>The Rienza takes him at six; the
+  advanced Isarco does not take him until fourteen.</b></p>
+  <dl class="stats"><div><dt>Rienza</dt><dd>min age 6</dd></div><div><dt>Isarco, advanced</dt><dd>min age 14 &mdash; too young</dd></div><div><dt>Operator</dt><dd>Rafting Club Aktiv</dd></div><div><dt>Price</dt><dd>GAP</dd></div></dl>
+  <div class="btns"><a class="btn btn-map" href="https://www.rafting-club-activ.com/en/touren/" target="_blank" rel="noopener">Operator</a></div>
+  </div></article>
+
+  <article class="card nofig"><div class="cbody"><div class="chead"><span class="time">Cortina &middot; base 2</span></div>
+  <h3>Lifts and bike park &mdash; and one thing that does not exist</h3>
+  <p>Tofana lifts and the bike park both run through the Cortina stay. <b>There is no zipline in
+  Cortina</b> &mdash; searched repeatedly and found none. The adrenaline offering here is via
+  ferrata, bike park and paragliding. Worth stating plainly so nobody goes hunting for one.</p>
+  <dl class="stats"><div><dt>Tofana lifts</dt><dd>13 Jun &ndash; 29 Sep, 09:00&ndash;17:00</dd></div><div><dt>Bike Park Dolomiti</dt><dd>31 km, 4,000 m vertical</dd></div><div><dt>Zipline</dt><dd>None found</dd></div><div><dt>Paragliding</dt><dd>Available &middot; price GAP</dd></div></dl>
+  <div class="btns"><a class="btn btn-map" href="https://www.freccianelcielo.com/en/what-to-do-in-summer/summer-hours-and-prices/" target="_blank" rel="noopener">Lift hours &amp; prices</a></div>
+  </div></article>
+
+  <div class="callout"><b>Ruled out:</b> the Alpine Coaster Gardon&egrave; (&euro;6, min height
+  105&nbsp;cm) is good but sits at Obereggen south of Bolzano &mdash; off every base bar the single
+  Bolzano night, and a detour even then. The Funbob is longer, closer and already at base 1.</div>
+
+  <div class="callout info"><b>The gap running through this whole lane:</b> no Dolomites operator
+  publishes weather-cancellation or refund terms &mdash; the same hole the Switzerland research hit.
+  Given the afternoon-storm pattern these dates sit in, ask at booking every single time.</div>
+</section>
+
+<section class="day" id="d1" data-gate="open"><header class="dhead">
+<div class="sign s-open"><span class="signn">Day 1</span><span class="signd">Tue 13 Jul</span></div>
+<div class="dmeta"><h2>Venice to the Alta Pusteria</h2><p class="lede">Land mid-morning, collect the car, drive north without touching a mountain pass. Jet lag and hairpins do not mix, so day one is deliberately flat.</p>
+<ul class="dfacts"><li><b>Base</b> San Candido</li><li><b>Driving</b> 195 km · 2h30</li><li><b>Governed by</b> <span class="gate g-open">Free-moving</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Venice+Marco+Polo+Airport/Pieve+di+Cadore/Lago+di+Landro/San+Candido/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Panorama%20of%20Canal%20Grande%20and%20Ponte%20di%20Rialto%2C%20Venice%20-%20September%202017.jpg?width=1100" alt="Venice Marco Polo — collect the car"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Panorama_of_Canal_Grande_and_Ponte_di_Rialto%2C_Venice_-_September_2017.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">10:30</span></div><h3>Venice Marco Polo — collect the car</h3><p>The only nonstop from Toronto lands here mid-morning after an overnight flight. Book an automatic months ahead: they are genuinely scarce in Italy and Marco Polo is a high-demand branch. Take a compact — village streets and mountain garages are sized for European cars.</p>
+<dl class="stats"><div><dt>Drive</dt><dd>2h30</dd></div><div><dt>Distance</dt><dd>195 km</dd></div><div><dt>Route</dt><dd>A27 then SS51</dd></div><div><dt>Tolls</dt><dd>~€15</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Venice+Marco+Polo+Airport" target="_blank" rel="noopener">Map</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Carry the IDP from CAA alongside your licence. Canada&#x27;s own travel advice requires it, and driving without one can void the rental collision cover after a mountain accident. Pay tolls in the blue Carte lanes; never enter a yellow Telepass lane.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Italia%20TAA%20Lago%20di%20Landro%20D%C3%BCrrensee%20IMG%208264.JPG?width=1100" alt="Lago di Landro"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Italia_TAA_Lago_di_Landro_D%C3%BCrrensee_IMG_8264.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">13:30</span><span class="tag t-added">added</span></div><h3>Lago di Landro</h3><p>A roadside lake directly on the SS51 that gives you the Cristallo massif head-on with zero walking. Five minutes, no parking problem, and the first moment the Dolomites actually look like the Dolomites.</p>
+<dl class="stats"><div><dt>Walk</dt><dd>0 min</dd></div><div><dt>Parking</dt><dd>Roadside</dd></div><div><dt>Cost</dt><dd>Free</dd></div><div><dt>Stop</dt><dd>10 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Lago+di+Landro%2C+Dobbiaco%2C+Italy" target="_blank" rel="noopener">Map</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Pieve di Cadore, Titian&#x27;s birthplace, is also on this road if you want a longer leg-stretch.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dolomites%20-%20San%20Candido%20area%20-%20%2811059285755%29.jpg?width=1100" alt="San Candido — check in, then shop"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Dolomites_-_San_Candido_area_-_%2811059285755%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">16:00</span></div><h3>San Candido — check in, then shop</h3><p>Four nights here. Buy groceries on arrival: South Tyrol&#x27;s retail rules are stricter than the rest of Italy, small shops close 13:00–15:00, and in smaller towns virtually everything shuts on Sunday.</p>
+<dl class="stats"><div><dt>Base</dt><dd>4 nights</dd></div><div><dt>Altitude</dt><dd>1,175 m</dd></div><div><dt>To Braies</dt><dd>20 min</dd></div><div><dt>To Cortina</dt><dd>45 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=San+Candido+Innichen%2C+South+Tyrol%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.pustertal.org/en/" target="_blank" rel="noopener">Val Pusteria</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Evening options: the flat 3.5 km boardwalk at Lago di Dobbiaco, or San Candido&#x27;s Romanesque collegiate church. Filter South Tyrol hotels for the Südtirol Guest Pass — it is free, included in the room rate, and covers nearly all regional public transport.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 1" src="https://maps.google.com/maps?q=Lago+di+Landro%2C+Dobbiaco%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d2" data-gate="book"><header class="dhead">
+<div class="sign s-book"><span class="signn">Day 2</span><span class="signd">Wed 14 Jul</span></div>
+<div class="dmeta"><h2>Lago di Braies, early</h2><p class="lede">The rules changed on 1 July, so this is no longer the free run it would have been in June. Book, or arrive very early and accept that a space is not guaranteed.</p>
+<ul class="dfacts"><li><b>Base</b> San Candido</li><li><b>Driving</b> 60 km · 1h30 total</li><li><b>Governed by</b> <span class="gate g-book">Pre-booked</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/San+Candido/Lago+di+Braies/San+Candido/Val+Fiscalina/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Braies%20South%20Tyrol%203.jpg?width=1100" alt="Lago di Braies at first light"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_3.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">05:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Lago di Braies at first light</h3><p>Civil dawn is 04:54 and sunrise 05:32, but the alpenglow fires on the Seekofel a quarter of an hour before the sun appears. The rowing boats sit in their photogenic row only before 08:00, and the lot is full by half past seven.</p>
+<dl class="stats"><div><dt>Dawn</dt><dd>04:54</dd></div><div><dt>Sunrise</dt><dd>05:32</dd></div><div><dt>Lake loop</dt><dd>3.7 km flat</dd></div><div><dt>Booking</dt><dd>€44 car</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Lago+di+Braies%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.prags.bz/en/" target="_blank" rel="noopener">Access rules</a><a class="btn" href="https://www.pragsparking.com/en" target="_blank" rel="noopener">Parking booking</a><a class="btn" href="https://www.la-palafitta.com/en/sunrise-boat-experience" target="_blank" rel="noopener">Boat rental</a></div><details><summary>Fine print, hazards and alternatives</summary><p>From 1 July to 15 September the valley closes to cars 09:00–16:00 and a prepaid online booking is mandatory — €44 for a car, including a €22 restaurant voucher, with no same-day payment at the gate. Arriving before 09:00 is still legal and unbooked, but the published rule is explicit that it does not guarantee a space. Boats €20 shared or €55 private per 45 minutes, 08:00–18:00, walk-up only; queues reach two hours later in the day. Bring a polarizer. Swimming is prohibited, drones illegal in the nature park.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Val%20Fiscalina%20dopo%20il%20temporale.jpg?width=1100" alt="Val Fiscalina — the flat valley floor"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Val_Fiscalina_dopo_il_temporale.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">14:00</span><span class="tag t-easy">easy</span></div><h3>Val Fiscalina — the flat valley floor</h3><p>After a pre-dawn start you want an afternoon that asks nothing. Twenty to thirty minutes of level path reaches the Talschlusshütte at the valley head, directly beneath the Croda dei Toni, and that is the whole payoff.</p>
+<dl class="stats"><div><dt>Walk</dt><dd>20–30 min</dd></div><div><dt>Gain</dt><dd>Negligible</dd></div><div><dt>Parking</dt><dd>€8–18</dd></div><div><dt>Grade</dt><dd>Stroller-fine</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Val+Fiscalina+Fischleintal%2C+Sesto%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.dreizinnen.com/en/" target="_blank" rel="noopener">Three Peaks</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Car traffic is restricted mid-June to early October. Shuttle lines 440 and 446 run from Sesto and San Candido with no booking and tickets on board. No motorhome or coach parking at all.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 2" src="https://maps.google.com/maps?q=Lago+di+Braies%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d3" data-gate="book"><header class="dhead">
+<div class="sign s-book"><span class="signn">Day 3</span><span class="signd">Thu 15 Jul</span></div>
+<div class="dmeta"><h2>Tre Cime di Lavaredo</h2><p class="lede">In late June this day carried a real risk that Rifugio Locatelli would still be shut. In mid-July that risk is gone — every hut on the loop is open.</p>
+<ul class="dfacts"><li><b>Base</b> San Candido</li><li><b>Driving</b> 70 km · 1h30 total</li><li><b>Governed by</b> <span class="gate g-book">Pre-booked</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/San+Candido/Misurina/Rifugio+Auronzo/Rifugio+Locatelli/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tre%20cime%20di%20Lavaredo%20dietro%20al%20Rifugio%20Locatelli.jpg?width=1100" alt="The Tre Cime loop"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tre_cime_di_Lavaredo_dietro_al_Rifugio_Locatelli.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">12:00</span><span class="tag t-unmissable">unmissable</span></div><h3>The Tre Cime loop</h3><p>Book the toll slot thirty days out; there are no same-day sales, so the question is not when the lot fills but when the slots sell out. Wide gravel the whole way with no exposure, and the postcard north face is at Forcella Lavaredo, mid-route, not at the car park.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>9.5–10.5 km</dd></div><div><dt>Gain</dt><dd>400–480 m</dd></div><div><dt>Time</dt><dd>3.5–4.5 h</dd></div><div><dt>Toll</dt><dd>€40 / car</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Rifugio+Auronzo%2C+Misurina%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://pass.auronzo.info" target="_blank" rel="noopener">Book the toll</a><a class="btn" href="https://www.alltrails.com/trail/italy/veneto/rifugio-auronzo-cadini-di-misurina" target="_blank" rel="noopener">AllTrails</a><a class="btn" href="https://www.dreizinnenhuette.com/rifugio-locatelli.php" target="_blank" rel="noopener">Rifugio Locatelli</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Decision rule — settled forecast: take a midday slot, walk clockwise, and reach Locatelli in mid-afternoon when the north faces are lit and the 09:00–12:00 crush has gone. Unsettled: earliest slot and off the loop by 14:00 before the storm cycle. The ticket is valid 12 hours from the booked slot, not from arrival. The road is open 24 hours, so a pre-dawn approach for the Cadini at sunrise is legal. Locatelli is cash only.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cadini%20di%20Misurina%20panorama.jpg?width=1100" alt="Cadini di Misurina viewpoint"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Cadini_di_Misurina_panorama.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">16:00</span><span class="tag t-optional">optional</span></div><h3>Cadini di Misurina viewpoint</h3><p>Thirty to forty minutes out on trail 117 from the same car park, and the most recognisable view in the range. Know what it is before you go: not a summit but a narrow rocky spur, and the viewpoint itself is a drop-off.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>3.2–3.9 km</dd></div><div><dt>Gain</dt><dd>144–210 m</dd></div><div><dt>Time</dt><dd>1.5–2 h</dd></div><div><dt>Exposure</dt><dd>Real</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Cadini+di+Misurina+viewpoint%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.alltrails.com/trail/italy/veneto/rifugio-auronzo-cadini-di-misurina" target="_blank" rel="noopener">AllTrails</a><a class="btn" href="https://www.outdooractive.com/en/route/hiking-trail/belluno/panoramic-viewpoint-cadini-di-misurina-via-auronzo-refuge/810966498/" target="_blank" rel="noopener">Outdooractive</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Do not continue past the viewpoint. The full Sentiero Bonacossa becomes a graded via ferrata at 16 km and seven and a half hours, and people walk onto it by accident. Skip entirely if anyone is uneasy with heights.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 3" src="https://maps.google.com/maps?q=Tre+Cime+di+Lavaredo%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d4" data-gate="high"><header class="dhead">
+<div class="sign s-high"><span class="signn">Day 4</span><span class="signd">Fri 16 Jul</span></div>
+<div class="dmeta"><h2>Croda del Becco — or the Drava</h2><p class="lede">A genuine fork. One of these is the hardest day of the trip and only exists because the dates moved; the other is the easiest.</p>
+<ul class="dfacts"><li><b>Base</b> San Candido</li><li><b>Driving</b> varies</li><li><b>Governed by</b> <span class="gate g-high">High route</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/San+Candido/Lago+di+Braies/Rifugio+Biella/Croda+del+Becco/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Croda%20del%20Becco%20and%20Rifugio%20Biella%20202008.jpg?width=1100" alt="Croda del Becco / Seekofel, 2,810 m"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Croda_del_Becco_and_Rifugio_Biella_202008.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">06:30</span><span class="tag t-high">high</span></div><h3>Croda del Becco / Seekofel, 2,810 m</h3><p>Steep gorge to Forcella Sora Forno, then sustained ascent with short cable-protected steps near the top. In late June that gorge holds snow and ice. In mid-July it does not — which is precisely the point of moving the dates. The summit panorama takes in the whole Fanes-Sennes-Braies plateau and the Tre Cime.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>14.6 km</dd></div><div><dt>Gain</dt><dd>1,300–1,400 m</dd></div><div><dt>Time</dt><dd>7–8.5 h</dd></div><div><dt>Grade</dt><dd>Strenuous</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Croda+del+Becco+Seekofel%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://rifugiobiella.it/en/" target="_blank" rel="noopener">Rifugio Biella</a><a class="btn" href="https://www.alltrails.com/poi/italy/croda-del-becco-seekofel" target="_blank" rel="noopener">AllTrails</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Starts from Lago di Braies, so the parking booking applies again. Rifugio Biella at 2,327 m is roughly two-thirds of the way and serves lunch. Take this only if the group is fit and the forecast is clean — there is no quick bail-out above the forcella.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Drauradweg.jpg?width=1100" alt="Or: San Candido to Lienz on the Drava path"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Drauradweg.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:30</span><span class="tag t-added">added</span></div><h3>Or: San Candido to Lienz on the Drava path</h3><p>Forty-three kilometres with fifteen metres of climbing and five hundred of descent, crossing into Austria at Prato alla Drava. Rent at the station, ride to Lienz, drop the bike there for €7, take the train home as a foot passenger.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>43.4 km</dd></div><div><dt>Climb</dt><dd>+15 m</dd></div><div><dt>Descent</dt><dd>−517 m</dd></div><div><dt>Time</dt><dd>~2h50</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Drauradweg+San+Candido+to+Lienz" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.papinsport.com/en/" target="_blank" rel="noopener">Papin Sport</a><a class="btn" href="https://www.pustertal.org/en/leisure-activities/mountain-biking-and-cycling/cycle-paths/drava-cycle-path-san-candido-lienz/" target="_blank" rel="noopener">Route detail</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Your dates sit inside the cheap tariff band that ends 26 July: trekking €25/day, road €32, e-MTB €50, helmet €2 extra, one-way drop €7, and 40% off at seven days. Because Lienz is across the border, südtirolmobil fares do not apply — buy the combined bike-and-person ticket at Lienz station. Bikes cannot be reserved and staff can refuse them on crowded trains.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 4" src="https://maps.google.com/maps?q=Croda+del+Becco+Seekofel%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d5" data-gate="open"><header class="dhead">
+<div class="sign s-open"><span class="signn">Day 5</span><span class="signd">Sat 17 Jul</span></div>
+<div class="dmeta"><h2>To Cortina, via the front line</h2><p class="lede">A 45-minute transfer, so the day&#x27;s real content is the hike inside it.</p>
+<ul class="dfacts"><li><b>Base</b> Cortina d&#x27;Ampezzo</li><li><b>Driving</b> 45 km · 45 min</li><li><b>Governed by</b> <span class="gate g-open">Free-moving</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/San+Candido/Lago+d%27Antorno/Monte+Piana/Cortina+d%27Ampezzo/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Monte%20Piana%20barbed%20wire.jpg?width=1100" alt="Monte Piana — an open-air WWI museum"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Monte_Piana_barbed_wire.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-hidden">hidden</span></div><h3>Monte Piana — an open-air WWI museum</h3><p>The entire summit plateau is the site: restored trenches, tunnels and gun emplacements spread across the top, from a battle that killed around 14,000 men between 1915 and 1917. There is no single viewpoint to reach — you walk through it.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>9.2 km</dd></div><div><dt>Gain</dt><dd>~600 m</dd></div><div><dt>Time</dt><dd>4–5 h</dd></div><div><dt>Shuttle</dt><dd>Jeep from Misurina</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Monte+Piana%2C+Misurina%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.alltrails.com/trail/italy/veneto/monte-piana-via-lago-d-antorno" target="_blank" rel="noopener">AllTrails</a><a class="btn" href="https://www.dreizinnen.com/en/activity/theme-path-monte-piano-museum-of-the-1st-world-war_22273" target="_blank" rel="noopener">Museum path</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Trailhead at the Lago d&#x27;Antorno / Fonda Savio car park, or take the jeep shuttle from Misurina. A small headlamp is useful for the tunnel remnants. Rifugio Bosi serves lunch.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cortina%20d%E2%80%99Ampezzo%20Panorama.jpg?width=1100" alt="Check in to Cortina"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Cortina_d%E2%80%99Ampezzo_Panorama.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">17:00</span></div><h3>Check in to Cortina</h3><p>Four nights in the most expensive town in the Dolomites. San Vito di Cadore, fifteen minutes south, runs roughly 40% cheaper — the trade is fifteen extra minutes on tomorrow&#x27;s 05:30 start.</p>
+<dl class="stats"><div><dt>Base</dt><dd>4 nights</dd></div><div><dt>Altitude</dt><dd>1,224 m</dd></div><div><dt>To Falzarego</dt><dd>25 min</dd></div><div><dt>To Tre Croci</dt><dd>15 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Cortina+d%27Ampezzo%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://cortinadampezzo.it/en/" target="_blank" rel="noopener">Cortina tourism</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Cortina is in Veneto, so the South Tyrol Guest Pass does not apply here. Corso Italia is a pedestrian zone. The town has a hospital and late pharmacies, which no other base on this trip does. Watch for the Coppa d&#x27;Oro delle Dolomiti rally, which ran 16–19 July in 2026 — it closes no roads but fills the town.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 5" src="https://maps.google.com/maps?q=Monte+Piana%2C+Misurina%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d6" data-gate="dawn"><header class="dhead">
+<div class="sign s-dawn"><span class="signn">Day 6</span><span class="signd">Sun 18 Jul</span></div>
+<div class="dmeta"><h2>Lago di Sorapis</h2><p class="lede">The one hike whose departure time is set by a car park rather than by light — and in July that car park is worse, not better.</p>
+<ul class="dfacts"><li><b>Base</b> Cortina</li><li><b>Driving</b> 20 km · 30 min total</li><li><b>Governed by</b> <span class="gate g-dawn">Dawn start</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Cortina+d%27Ampezzo/Passo+Tre+Croci/Lago+di+Sorapis/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Sorapis%201.jpg?width=1100" alt="Path 215 to the lake"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_1.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">05:30</span></div><h3>Path 215 to the lake</h3><p>Only 114 metres of net gain to the lake: this is a traverse, not a climb, and the difficulty is entirely exposure. Ladders, boards and cabled ledges, with the Cengia del Banco a genuine drop. The water saturates to full turquoise between nine and eleven, which is also peak crowd.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>11–12.6 km</dd></div><div><dt>Gain</dt><dd>460–630 m</dd></div><div><dt>Time</dt><dd>4.5–6 h</dd></div><div><dt>Parking</dt><dd>~20 spaces</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Passo+Tre+Croci%2C+Cortina+d%27Ampezzo%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.alltrails.com/trail/italy/veneto/passo-tre-croci-lago-sorapis" target="_blank" rel="noopener">AllTrails</a><a class="btn" href="https://www.moonhoneytravel.com/lago-di-sorapis-hike/" target="_blank" rel="noopener">Route notes</a></div><details><summary>Fine print, hazards and alternatives</summary><p>The lot holds about twenty cars and fills by 06:00–06:30. Do not use the 216 as a return loop — steep rubble, an exposed ledge, no cables, rated difficult. Reviewers report passing 900 descending hikers and ten-minute waits where the path is too narrow to pass, so the early start buys solitude as well as a space. Rifugio Vandelli serves lunch 11:30–14:30, cash only.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 6" src="https://maps.google.com/maps?q=Lago+di+Sorapis%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d7" data-gate="open"><header class="dhead">
+<div class="sign s-open"><span class="signn">Day 7</span><span class="signd">Mon 19 Jul</span></div>
+<div class="dmeta"><h2>Lagazuoi and Scotoni</h2><p class="lede">A morning inside the mountain and an afternoon at the best grill hut in the range. Parking at the pass is free all summer.</p>
+<ul class="dfacts"><li><b>Base</b> Cortina</li><li><b>Driving</b> 45 km · 1h total</li><li><b>Governed by</b> <span class="gate g-open">Free-moving</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Cortina+d%27Ampezzo/Passo+Falzarego/Rifugio+Lagazuoi/Capanna+Alpina/Rifugio+Scotoni/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Funivia%20del%20Lagazuoi%20%28passo%20Falzarego%29.jpg?width=1100" alt="The Lagazuoi WWI tunnels"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Funivia_del_Lagazuoi_%28passo_Falzarego%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-unmissable">unmissable</span></div><h3>The Lagazuoi WWI tunnels</h3><p>Ride the cable car up in under three minutes, then descend 647 metres through the inside of the mountain on rock-cut stairs the Italian army blasted in 1917. The payoff is not the summit panorama — it is the tunnel interior, halfway down.</p>
+<dl class="stats"><div><dt>Descent</dt><dd>647 m</dd></div><div><dt>In tunnels</dt><dd>1–1.5 h</dd></div><div><dt>Total</dt><dd>2–2.5 h</dd></div><div><dt>Parking</dt><dd>Free</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Passo+Falzarego%2C+Cortina+d%27Ampezzo%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://lagazuoi.it/EN/Information-Prices-and-useful-information-page20-Lagazuoi-cable-car" target="_blank" rel="noopener">Cable car</a><a class="btn" href="https://lagazuoi.it/EN/percorso6-The-Lagazuoi-Tunnels" target="_blank" rel="noopener">Tunnel route</a></div><details><summary>Fine print, hazards and alternatives</summary><p>A headlamp is mandatory, not advisable — it is pitch black. Helmet recommended. Cold, damp and steep, with a cable handrail. Not for claustrophobia or serious vertigo. First cabin up 09:00, last down 17:00.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Verso%20il%20rifugio%20Lavarella.jpg?width=1100" alt="Rifugio Scotoni"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Verso_il_rifugio_Lavarella.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">13:30</span></div><h3>Rifugio Scotoni</h3><p>Fifty minutes up from Capanna Alpina, and the open-grill meat is what the place has been known for across fifty years of the Agreiter family running it. Their own spring water, and alpacas in the field.</p>
+<dl class="stats"><div><dt>Walk up</dt><dd>~50 min</dd></div><div><dt>Distance</dt><dd>2 km</dd></div><div><dt>From Lagazuoi</dt><dd>4.5 km downhill</dd></div><div><dt>Season</dt><dd>to 4 Oct</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Rifugio+Scotoni%2C+Alta+Badia%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.scotoni.it" target="_blank" rel="noopener">Rifugio Scotoni</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Three ways in: Capanna Alpina on trail 20, the short way at 2 km; Passo Valparola on 18B, 3.3 km; or from the top of the Lagazuoi lift on trails 20 and 20A, 4.5 km and all downhill — but that exit needs a second car. Alternative afternoon: Passo Valparola, Forte Tre Sassi and Lago di Valparola, five minutes from the road.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 7" src="https://maps.google.com/maps?q=Passo+Falzarego%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d8" data-gate="high"><header class="dhead">
+<div class="sign s-high"><span class="signn">Day 8</span><span class="signd">Tue 20 Jul</span></div>
+<div class="dmeta"><h2>Nuvolau and Averau — by chairlift at last</h2><p class="lede">This is the day the date change pays for itself. The Fedare chairlift at Passo Giau opened on 13 July — in the June plan it was shut and this was a long walk from Bai de Dones.</p>
+<ul class="dfacts"><li><b>Base</b> Cortina</li><li><b>Driving</b> 40 km · 1h total</li><li><b>Governed by</b> <span class="gate g-high">High route</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Cortina+d%27Ampezzo/Passo+Giau/Rifugio+Averau/Rifugio+Nuvolau/Lago+di+Limides/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rifugio%20Nuvolau%20Dolomiti.JPG?width=1100" alt="Rifugio Nuvolau, 2,575 m"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Rifugio_Nuvolau_Dolomiti.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:30</span><span class="tag t-high">high</span></div><h3>Rifugio Nuvolau, 2,575 m</h3><p>A refuge perched on a pinnacle with nothing around it, and a 360-degree panorama that takes in the Tofane, Marmolada, Civetta and Pelmo. Rifugio Averau, twenty minutes below, is the better lunch of the two.</p>
+<dl class="stats"><div><dt>Loop</dt><dd>11.3 km full</dd></div><div><dt>Gain</dt><dd>680 m</dd></div><div><dt>Time</dt><dd>3.5–5 h</dd></div><div><dt>Lift</dt><dd>Fedare, open 13 Jul</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Rifugio+Nuvolau%2C+Cortina+d%27Ampezzo%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.rifugioaverau.it" target="_blank" rel="noopener">Rifugio Averau</a><a class="btn" href="https://rifugionuvolau.it/en/booking/" target="_blank" rel="noopener">Rifugio Nuvolau</a><a class="btn" href="https://www.alltrails.com/trail/italy/veneto/via-ferrata-ra-gusela-cima-averau-via-rifugio-piezza" target="_blank" rel="noopener">AllTrails</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Book Averau on +39 0436 4660. If you want to sleep at Nuvolau, its rooms release on a staggered calendar in early February and sell out — summer 2026 was fully booked. Do not confuse the walking route with the Ra Gusela and Averau via ferrata from Passo Giau, which needs a full kit and includes a chimney climb.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cinque%20Torri%2001.jpg?width=1100" alt="Cinque Torri and its trenches"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Cinque_Torri_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">13:30</span></div><h3>Cinque Torri and its trenches</h3><p>The chairlift from Bai de Dones puts you at the top of a flat, free, open-air museum of reconstructed Italian WWI positions. The best history-for-no-effort site in the Dolomites, on the same road.</p>
+<dl class="stats"><div><dt>Chairlift</dt><dd>~€27.50–30</dd></div><div><dt>Top loop</dt><dd>1.9 km</dd></div><div><dt>Museum</dt><dd>Free</dd></div><div><dt>Season</dt><dd>to 11 Oct</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Cinque+Torri%2C+Cortina+d%27Ampezzo%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://5torri.it/EN/p38-Lift-facilities-Summer" target="_blank" rel="noopener">Lift info</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Chairlift closes at 17:00. The five towers themselves are a long-standing climbing school landmark, so expect ropes on them.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lago%20di%20Limides%20e%20Tofana%20di%20Rozes.jpg?width=1100" alt="Lago di Limides at sunset"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Limides_e_Tofana_di_Rozes.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">20:40</span><span class="tag t-hidden">hidden</span></div><h3>Lago di Limides at sunset</h3><p>A small tarn twenty minutes off the Falzarego road that mirrors Tofana di Rozes. It shrinks as summer dries it out, so mid-July is about the last reliable window. Needs dead calm to work at all.</p>
+<dl class="stats"><div><dt>Walk</dt><dd>20–30 min</dd></div><div><dt>Gain</dt><dd>~80 m</dd></div><div><dt>Sunset</dt><dd>20:59</dd></div><div><dt>Colour to</dt><dd>~21:30</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Lago+di+Limides%2C+Cortina+d%27Ampezzo%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.alltrails.com/trail/italy/veneto/lago-limides-via-passo-falzarego" target="_blank" rel="noopener">AllTrails</a></div><details><summary>Fine print, hazards and alternatives</summary><p>A rare case where the payoff is near the start rather than the end. Headlamp for the walk out — you will be leaving in the dark.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 8" src="https://maps.google.com/maps?q=Passo+Giau%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d9" data-gate="check"><header class="dhead">
+<div class="sign s-check"><span class="signn">Day 9</span><span class="signd">Wed 21 Jul</span></div>
+<div class="dmeta"><h2>Cortina to Val Gardena, the scenic way</h2><p class="lede">The best drive of the trip and the one with the biggest open question. Verify Passo Gardena&#x27;s 2027 status before you commit to this route.</p>
+<ul class="dfacts"><li><b>Base</b> Ortisei or Selva</li><li><b>Driving</b> 65 km · 1h30</li><li><b>Governed by</b> <span class="gate g-check">Unresolved</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Cortina+d%27Ampezzo/Passo+Falzarego/Passo+Valparola/San+Cassiano/La+Val/Corvara/Passo+Gardena/Ortisei/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Groedner%20Joch%20-%20Cirspitzen.jpg?width=1100" alt="Falzarego, Valparola, Campolongo, Gardena"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Groedner_Joch_-_Cirspitzen.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-drive">drive</span></div><h3>Falzarego, Valparola, Campolongo, Gardena</h3><p>Four passes in ninety minutes of driving, through the heart of the Sella massif. Expect roughly twice the mapping-app time: sustained first and second gear, 33 turns on Pordoi, and heavy fast motorcycle traffic crossing the centre line on blind hairpins all summer.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>65 km</dd></div><div><dt>Time</dt><dd>1h30+</dd></div><div><dt>High point</dt><dd>2,192 m</dd></div><div><dt>Passes</dt><dd>4</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Passo+Gardena+Groedner+Joch%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://verkehr.provinz.bz.it/" target="_blank" rel="noopener">Road status</a><a class="btn" href="https://www.google.com/maps/dir/Cortina+d%27Ampezzo/Passo+Falzarego/Passo+Valparola/Corvara/Passo+Gardena/Ortisei/" target="_blank" rel="noopener">Full route</a></div><details><summary>Fine print, hazards and alternatives</summary><p>A pilot from 1 September 2026 capped non-resident day-trippers at 150 pre-booked slots per day at Passo Gardena, and was explicitly described as a trial for a full May-to-October closure planned for 2027, pending provincial approval. Two backups if it lands: Campolongo–Pordoi–Sella at about two hours, or north via Brunico and Bressanone, also about two hours. Roadside parking is prohibited at Sella and Gardena; the pass lot has 60 spaces at €4/hour with a €20 daily cap.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pedraces%20-%20Badia%20-%20-%20View%20to%20Sasso%20di%20Santa%20Croce%20-%20panoramio.jpg?width=1100" alt="La Val and the Armentara meadows"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Pedraces_-_Badia_-_-_View_to_Sasso_di_Santa_Croce_-_panoramio.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">11:30</span><span class="tag t-hidden">hidden</span></div><h3>La Val and the Armentara meadows</h3><p>A European Hiking Village at 1,300 metres with centuries-old viles — clustered stone-and-timber hamlets — and open meadows beneath the Sas dla Crusc wall. Almost nobody stops here.</p>
+<dl class="stats"><div><dt>Altitude</dt><dd>1,300 m</dd></div><div><dt>Effort</dt><dd>Low</dd></div><div><dt>Crowds</dt><dd>None</dd></div><div><dt>Lunch</dt><dd>Ütia de Bioch</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=La+Val+La+Valle%2C+Alta+Badia%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.altabadia.org/en/dolomites/hiking-village-la-val-dolomites" target="_blank" rel="noopener">Hiking village</a><a class="btn" href="https://www.bioch.it" target="_blank" rel="noopener">Ütia de Bioch</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Ütia de Bioch is 30 minutes on foot from the Piz Sorega lift, open 08:30–17:30: Josper-oven grill, 1,700 wine labels, cold boards €19.50, tortelli €20.50, strudel around €7.50. All approaches from the lifts are stroller-suitable.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 9" src="https://maps.google.com/maps?q=Passo+Gardena%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d10" data-gate="high"><header class="dhead">
+<div class="sign s-high"><span class="signn">Day 10</span><span class="signd">Thu 22 Jul</span></div>
+<div class="dmeta"><h2>Sass Pordoi and Piz Boè, 3,152 m</h2><p class="lede">The second reason the dates moved. In late June the summit push holds ice and wants crampons; in mid-July it is a walk with cables.</p>
+<ul class="dfacts"><li><b>Base</b> Val Gardena</li><li><b>Driving</b> 70 km · 1h30 total</li><li><b>Governed by</b> <span class="gate g-high">High route</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Ortisei/Passo+Sella/Passo+Pordoi/Sass+Pordoi/Piz+Boe/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hiking%20trail%20from%20Sass%20Pordoi%20to%20Piz%20Bo%C3%A8%2003.jpg?width=1100" alt="Piz Boè, the high point of the Sella"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Hiking_trail_from_Sass_Pordoi_to_Piz_Bo%C3%A8_03.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-high">high</span></div><h3>Piz Boè, the high point of the Sella</h3><p>Four minutes in the cable car to 2,950 metres — the best effort-to-view ratio in the range — then Forcella Pordoi and the ridge to the summit. Moderate to difficult, with exposed sections and short cable-protected ferratine, and a steep exposed final stretch.</p>
+<dl class="stats"><div><dt>Summit</dt><dd>3,152 m</dd></div><div><dt>Cable car</dt><dd>€18 / €32 return</dd></div><div><dt>Time</dt><dd>4–5 h</dd></div><div><dt>Hours</dt><dd>09:00–17:00</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Sass+Pordoi%2C+Canazei%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.sasspordoi.it/en/info-times-and-prices/" target="_blank" rel="noopener">Cable car</a><a class="btn" href="https://www.rifugiocapannapizfassa.com/en/il-rifugio/" target="_blank" rel="noopener">Summit rifugio</a><a class="btn" href="https://www.alltrails.com/trail/italy/trentino/piz-boe-via-sasso-pordoi" target="_blank" rel="noopener">AllTrails</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Rifugio Capanna Piz Fassa sits on the summit and is the highest staffed rifugio in the Dolomites — bar and restaurant always open. Valley to 2,950 m in four minutes with no acclimatisation, so expect twenty minutes of breathlessness at the top station. Easier alternative from the same pass: the Viel dal Pan / Bindelweg balcony traverse, 7.5–9.2 km and 250–513 m, where the Marmolada glacier and Lago di Fedaia unfold continuously along the route rather than at an endpoint.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 10" src="https://maps.google.com/maps?q=Sass+Pordoi%2C+Canazei%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d11" data-gate="open"><header class="dhead">
+<div class="sign s-open"><span class="signn">Day 11</span><span class="signd">Fri 23 Jul</span></div>
+<div class="dmeta"><h2>Alpe di Siusi</h2><p class="lede">Europe&#x27;s largest high alpine pasture. The flowers have passed their peak by late July, but the plateau and its Sassolungo backdrop have not.</p>
+<ul class="dfacts"><li><b>Base</b> Val Gardena</li><li><b>Driving</b> 30 km · 40 min total</li><li><b>Governed by</b> <span class="gate g-open">Free-moving</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Ortisei/Siusi+allo+Sciliar/Compatsch/Rifugio+Alpe+di+Tires/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seiser%20Alm%20Alpe%20di%20Siusi%20Sassolungo%20Langkofel%20Val%20Gardena%20S%C3%BCdtirol%20Alto%20Adige%20Italia%20Italy%20%282017.09.21%29.jpg?width=1100" alt="Up by cable car, not by car"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Seiser_Alm_Alpe_di_Siusi_Sassolungo_Langkofel_Val_Gardena_S%C3%BCdtirol_Alto_Adige_Italia_Italy_%282017.09.21%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">08:30</span><span class="tag t-unmissable">unmissable</span></div><h3>Up by cable car, not by car</h3><p>Thirty euros return, fifteen minutes, free parking at the base station — and it sidesteps both the 09:00 to 17:00 driving ban and the €30 pre-booked parking slot at Compatsch entirely. Driving up here is a solved problem you do not need to solve.</p>
+<dl class="stats"><div><dt>Cable car</dt><dd>€30 return</dd></div><div><dt>Hours</dt><dd>08:00–19:00</dd></div><div><dt>Journey</dt><dd>15 min</dd></div><div><dt>Base parking</dt><dd>Free</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Cabinovia+Alpe+di+Siusi%2C+Siusi+allo+Sciliar%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.seiseralm-dolomites.com/en/cable-car/summer.html" target="_blank" rel="noopener">Cable car</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Three walks by appetite. Easy: a 6.8 km rolling loop, mostly downhill, 2–3 h. Short and scenic: Bullaccia and the Witches&#x27; Benches, 4.8 km, 152 m, 1.5–2.5 h. Long: Forcella Denti di Terrarossa at 2,499 m under the Rosszähne spires, 6–8 h and about 1,000 m. Do not confuse the Terrarossa walk with Via Ferrata Maximilian on the ridge above it — long unprotected scrambling despite a beginner billing. The night barrier is shut 23:00–06:00, so sunrise here means sleeping on the alp.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 11" src="https://maps.google.com/maps?q=Alpe+di+Siusi+Seiser+Alm%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d12" data-gate="book"><header class="dhead">
+<div class="sign s-book"><span class="signn">Day 12</span><span class="signd">Sat 24 Jul</span></div>
+<div class="dmeta"><h2>Seceda, then Funes at sunset</h2><p class="lede">Two of the most photographed places in the Alps in one day, arranged so each gets the light it needs. Seceda wants morning; Santa Maddalena wants sunset.</p>
+<ul class="dfacts"><li><b>Base</b> Val Gardena</li><li><b>Driving</b> 60 km · 1h20 total</li><li><b>Governed by</b> <span class="gate g-book">Pre-booked</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Ortisei/Seceda/Santa+Cristina/Santa+Maddalena+Funes/San+Giovanni+in+Ranui/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Odles%20da%20Sec%C3%ABda%20Gherd%C3%ABina.jpg?width=1100" alt="The Seceda ridge"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Odles_da_Sec%C3%ABda_Gherd%C3%ABina.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">08:30</span><span class="tag t-unmissable">unmissable</span></div><h3>The Seceda ridge</h3><p>The picture everybody comes for is not at the top station. Walk out along the ridge toward the Fermeda towers — the tilted grass slab falling away beneath the Odle spires only composes from further along. Bring a telephoto, not a wide angle.</p>
+<dl class="stats"><div><dt>Cable car</dt><dd>€74 return</dd></div><div><dt>Ridge fee</dt><dd>€5 pp</dd></div><div><dt>Hours</dt><dd>08:30–17:30</dd></div><div><dt>Loop</dt><dd>7.5 km / 410 m</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Seceda%2C+Ortisei%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.seceda.it/en/summer" target="_blank" rel="noopener">Book a slot</a><a class="btn" href="https://www.colraiser.it/en/info.asp" target="_blank" rel="noopener">Col Raiser (cheaper)</a><a class="btn" href="https://www.alltrails.com/trail/italy/south-tyrol/col-raiser-seceda-pieralongia-rifugio-firenze" target="_blank" rel="noopener">AllTrails</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Pre-booked 30-minute slots are mandatory and non-refundable. €74 return or €49 one-way, plus €5 per person at the ridge turnstile. Specifically excluded from the DolomitiSuperSummer card — only the Gardena Card includes it. The cheaper, quieter door is Col Raiser from Santa Cristina at €34 return plus about an hour uphill. Meadows are off-limits and rangers enforce; drones are illegal in the nature park, fines from €3,000. Because the lift runs 08:30–17:30 the ridge is empty at both ends of the day, but only on foot.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Santa%20Maddalena%20Church%20Dolomites%20Funes%20Italy%20-%20panoramio%20%281%29.jpg?width=1100" alt="Santa Maddalena and San Giovanni in Ranui"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Santa_Maddalena_Church_Dolomites_Funes_Italy_-_panoramio_%281%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">19:15</span></div><h3>Santa Maddalena and San Giovanni in Ranui</h3><p>The two churches of Val di Funes, both under the full Odle wall, both best in evening light. Use a 70–200 mm to compress the church against the mountain — the wide-angle version of this shot never works.</p>
+<dl class="stats"><div><dt>Drive</dt><dd>~40 min</dd></div><div><dt>Walk</dt><dd>20–30 min</dd></div><div><dt>Sunset</dt><dd>20:55</dd></div><div><dt>Lens</dt><dd>70–200 mm</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Santa+Maddalena%2C+Funes%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://maps.google.com/?q=San+Giovanni+in+Ranui%2C+Funes%2C+Italy" target="_blank" rel="noopener">San Giovanni in Ranui</a><a class="btn" href="https://www.villnoess.com/en/" target="_blank" rel="noopener">Valley info</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Barriers block non-residents from driving toward Santa Maddalena church from May to November — park in the village and walk 20 to 30 minutes to the panorama viewpoint. San Giovanni in Ranui sits on private Ranuihof land with a designated paid viewing enclosure; the exact rule and fee could not be confirmed from any published source, so call +39 339 604 46 85 before you go. Do not enter the meadow.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 12" src="https://maps.google.com/maps?q=Seceda%2C+Ortisei%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d13" data-gate="check"><header class="dhead">
+<div class="sign s-check"><span class="signn">Day 13</span><span class="signd">Sun 25 Jul</span></div>
+<div class="dmeta"><h2>Under the Odle, then down to Bolzano</h2><p class="lede">A last mountain morning with no exposure at all, then a deliberate repositioning south that takes an hour off tomorrow&#x27;s airport drive.</p>
+<ul class="dfacts"><li><b>Base</b> Bolzano</li><li><b>Driving</b> 90 km · 1h40</li><li><b>Governed by</b> <span class="gate g-check">Unresolved</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Ortisei/Zanser+Alm+Zannes/Rifugio+Odle+Geisleralm/Bolzano/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Geislergruppe%20-%20Gruppo%20delle%20Odle..jpg?width=1100" alt="Adolf Munkel Weg"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Geislergruppe_-_Gruppo_delle_Odle..jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">08:30</span><span class="tag t-easy">easy</span></div><h3>Adolf Munkel Weg</h3><p>Three hours directly beneath the Odle wall with zero exposure — the payoff is the entire trail rather than any endpoint, a continuous close-up of Sass Rigais and the Furchetta above meadow and larch. The right last hike: memorable without asking anything of tired legs.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>7.5–9 km</dd></div><div><dt>Gain</dt><dd>~420 m</dd></div><div><dt>Time</dt><dd>~3 h</dd></div><div><dt>Exposure</dt><dd>None</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Zanser+Alm+Zannes%2C+Funes%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.alltrails.com/trail/italy/south-tyrol/via-delle-odle-zanser-alm-rifugio-delle-odle-malga-dusler" target="_blank" rel="noopener">AllTrails</a><a class="btn" href="https://www.odlesdolomites.com/en/parking-reservation/" target="_blank" rel="noopener">Parking booking</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Zanser Alm parking runs on a traffic light at Ranui: green means drive up and pay on arrival, red means only pre-booked reservations get through. If it is red, park at Ranui or in the village and take Bus 330, hourly from Bressanone. Lunch at Geisler Alm at the midpoint, walk-in. This is also the best marginal-weather hike on the trip.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozen%20Waltherplatz.jpg?width=1100" alt="Bolzano and Ötzi"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Bozen_Waltherplatz.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">15:00</span></div><h3>Bolzano and Ötzi</h3><p>The South Tyrol Museum of Archaeology holds the 5,300-year-old Iceman found in the Ötztal glacier, and it is the one indoor thing in the region that is genuinely unmissable. Then Piazza Erbe, the arcades, and a proper Alto Adige wine list.</p>
+<dl class="stats"><div><dt>Drive</dt><dd>~50 min</dd></div><div><dt>Entry</dt><dd>€13</dd></div><div><dt>Hours</dt><dd>10:00–18:00</dd></div><div><dt>Last entry</dt><dd>17:30</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=South+Tyrol+Museum+of+Archaeology%2C+Bolzano%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.iceman.it/en/opening-times-and-fees/" target="_blank" rel="noopener">Ötzi museum</a><a class="btn" href="https://www.kellereibozen.com" target="_blank" rel="noopener">Cantina Bolzano</a></div><details><summary>Fine print, hazards and alternatives</summary><p>Open daily in July. Reservations recommended to skip the queue; the booking office answers 09:00–13:00 weekdays only. Bolzano has an active ZTL — park in a garage and walk, or the fine arrives at your Canadian address six months later at €100 plus a rental admin fee. Cantina Bolzano is in the city and is Italy&#x27;s first climate-certified cellar.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 13" src="https://maps.google.com/maps?q=Zanser+Alm+Zannes%2C+Funes%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d14" data-gate="open"><header class="dhead">
+<div class="sign s-open"><span class="signn">Day 14</span><span class="signd">Mon 26 Jul</span></div>
+<div class="dmeta"><h2>Bolzano to Venice</h2><p class="lede">The reason the last night is in Bolzano rather than Ortisei: an hour less driving and no mountain descent in the dark before an international check-in.</p>
+<ul class="dfacts"><li><b>Base</b> Flying home</li><li><b>Driving</b> 280 km · 2h40</li><li><b>Governed by</b> <span class="gate g-open">Free-moving</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Bolzano/Verona/Venice+Marco+Polo+Airport/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Panorama%20of%20Canal%20Grande%20and%20Ponte%20di%20Rialto%2C%20Venice%20-%20September%202017.jpg?width=1100" alt="A22 and A4 to Marco Polo"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Panorama_of_Canal_Grande_and_Ponte_di_Rialto%2C_Venice_-_September_2017.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">07:30</span></div><h3>A22 and A4 to Marco Polo</h3><p>Two hours forty on motorway the whole way. Fill up before the airport — the return-with-full-tank penalty at Italian rental desks is punitive — and leave the toll payment to a card in the blue lanes.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>~280 km</dd></div><div><dt>Time</dt><dd>2h40</dd></div><div><dt>Tolls</dt><dd>~€20</dd></div><div><dt>Fuel</dt><dd>Fill before</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Venice+Marco+Polo+Airport%2C+Italy" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.google.com/maps/dir/Bolzano/Venice+Marco+Polo+Airport/" target="_blank" rel="noopener">Route</a></div><details><summary>Fine print, hazards and alternatives</summary><p>If the flight is late enough, Verona is directly on this road and worth two hours. If it is early, this drive is why you slept in Bolzano.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 14" src="https://maps.google.com/maps?q=Venice+Marco+Polo+Airport%2C+Italy&amp;z=11&amp;output=embed"></iframe></div></section>
+
+<section class="pane">
+  <p class="kicker">Honest accounting</p>
+  <h2>What this plan leaves out</h2>
+  <div class="prose"><p>Cut for time, not for quality. Any of these can displace something above — they are listed so the choice is yours rather than mine.</p></div>
+  <ul class="cuts"><li><b>Sassolungo circuit</b><span>10.8–17 km depending which loop you believe; needs its own Gardena day.</span></li><li><b>Puez plateau from Passo Gardena</b><span>15.8 km and 1,018 m, and the pass access is unresolved for 2027.</span></li><li><b>Marmolada Punta Rocca</b><span>€38 to 3,265 m with the glacier and its WWI museum. A half-day detour from Canazei.</span></li><li><b>Lago di Federa</b><span>Its fame is October larches. You will not have them.</span></li><li><b>Catinaccio, Vajolet Towers, Carezza, Latemar</b><span>An entire sub-range. Belongs to a Val di Fassa trip.</span></li><li><b>Prato Piazza and Monte Specie</b><span>The Tre Cime from the west. First thing I would restore with a fifth Pusteria night.</span></li><li><b>Civetta, Val di Zoldo, Rifugio Tissi</b><span>Peripheral to all four bases.</span></li><li><b>Bletterbach UNESCO canyon</b><span>€9 with a free helmet, 40 min from Bolzano. The strongest rain-day swap.</span></li><li><b>The southern Dolomites</b><span>San Martino, the Pale, Val Venegia. A separate three nights at the front, if you ever extend.</span></li></ul>
+</section>
+
+<section class="pane">
+  <p class="kicker">Before you go</p>
+  <h2>Booking calendar and kit</h2>
+  <div class="prose"><p>Ticks are saved in this browser. The February items are real deadlines — Rifugio Nuvolau releases its summer rooms on a staggered February calendar and sells out.</p></div>
+  <ul class="cklist"><li><label><input type="checkbox" data-ck="c0"><span class="when">Nov 2026</span> Rifugio Biella opens bookings 1 November — the gate for Option B</label></li><li><label><input type="checkbox" data-ck="c1"><span class="when">Now</span> Book YYZ–VCE nonstop; mid-July is high season, so earlier is cheaper</label></li><li><label><input type="checkbox" data-ck="c2"><span class="when">Nov–Feb</span> Phone every rifugio you want. Do not email — Locatelli gets ~10,000 enquiries a year</label></li><li><label><input type="checkbox" data-ck="c3"><span class="when">Feb 2027</span> Rifugio Nuvolau releases summer rooms on a staggered February calendar and sells out</label></li><li><label><input type="checkbox" data-ck="c4"><span class="when">Feb 2027</span> Book an automatic car — scarce in Italy, +10–15%/day, take a compact</label></li><li><label><input type="checkbox" data-ck="c5"><span class="when">Mar 2027</span> IDP from CAA (~CAD 25) — must be obtained in Canada</label></li><li><label><input type="checkbox" data-ck="c6"><span class="when">Mar 2027</span> Re-check ETIAS status, €20, valid 3 years</label></li><li><label><input type="checkbox" data-ck="c7"><span class="when">Apr 2027</span> Hotels for all four bases; verify the Coppa d&#x27;Oro rally dates for Cortina</label></li><li><label><input type="checkbox" data-ck="c8"><span class="when">Apr 2027</span> Verify Passo Gardena 2027 access at verkehr.provinz.bz.it</label></li><li><label><input type="checkbox" data-ck="c9"><span class="when">30 days out</span> Tre Cime toll slot at pass.auronzo.info — no same-day sales</label></li><li><label><input type="checkbox" data-ck="c10"><span class="when">30 days out</span> Lago di Braies parking — €44, mandatory 1 Jul to 15 Sep</label></li><li><label><input type="checkbox" data-ck="c11"><span class="when">2 weeks out</span> Seceda time slot</label></li><li><label><input type="checkbox" data-ck="c12"><span class="when">Pack</span> Boots with a heel welt. Microspikes are no longer needed — that was a June problem</label></li><li><label><input type="checkbox" data-ck="c13"><span class="when">Pack</span> Headlamp — mandatory in the Lagazuoi tunnels and for 21:30 sunsets</label></li><li><label><input type="checkbox" data-ck="c14"><span class="when">Pack</span> Waterproof jacket AND pants; hat and gloves for dawn at 2,500 m</label></li><li><label><input type="checkbox" data-ck="c15"><span class="when">Pack</span> Polarizer, and a 100–400 mm telephoto for Seceda</label></li><li><label><input type="checkbox" data-ck="c16"><span class="when">Pack</span> Cash for rifugi — many are cash-only and card terminals fail on connectivity</label></li><li><label><input type="checkbox" data-ck="c17"><span class="when">Pack</span> Sleeping bag liner, if you take Option B</label></li><li><label><input type="checkbox" data-ck="c18"><span class="when">Pack</span> TIM-leaning Italian eSIM (~USD 33/30 days vs ~CAD 230 roaming)</label></li><li><label><input type="checkbox" data-ck="c19"><span class="when">Insurance</span> Confirm helicopter mountain rescue and repatriation are covered</label></li></ul>
+</section>
+
+<section class="pane">
+  <p class="kicker">Verify closer to the date</p>
+  <h2>Everything here is 2026 data</h2>
+  <div class="prose">
+    <p>2027 timetables publish between March and May 2027, and the trend is unambiguously toward more restriction, not less. Assume at least one additional pass or trailhead gains a new rule before you travel.</p>
+    <p><b>Access:</b> <a href="https://www.prags.bz/en/" target="_blank" rel="noopener">Braies</a> · <a href="https://www.seiseralm.it/en/info/getting-around/traffic-regulation.html" target="_blank" rel="noopener">Alpe di Siusi</a> · <a href="https://pass.auronzo.info" target="_blank" rel="noopener">Tre Cime toll</a> · <a href="https://verkehr.provinz.bz.it/" target="_blank" rel="noopener">Passo Gardena</a> · <a href="https://www.maratona.it/en/traffic" target="_blank" rel="noopener">Maratona closures</a> · <a href="https://www.seceda.it/en/summer" target="_blank" rel="noopener">Seceda slots</a></p>
+    <p><b>Conditions, two days out:</b> <a href="https://wetter.provinz.bz.it/en/mountain-weather" target="_blank" rel="noopener">South Tyrol mountain weather</a> · <a href="https://www.mountain-forecast.com/peaks/Tre-Cime-di-Lavaredo" target="_blank" rel="noopener">Mountain-Forecast by peak</a> · the webcam at <a href="https://www.dolomitisuperski.com/en/live-info/webcam/webcam-three-zinnen" target="_blank" rel="noopener">Rifugio Locatelli</a>, north-facing at 2,405 m, is the best snow-line read in the range.</p>
+    <p><b>Rifugi:</b> phone the guardians. Opening dates are not reliably published, and email replies can take three weeks.</p>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="fwrap">
+  <h3>Dolomites, 26 June – 9 July 2027</h3>
+  <p>Built from five parallel research passes — trails and rifugi, route and logistics, sights and hidden gems, cycling and rentals, seasonal conditions. Raw findings with sources are kept alongside this page.</p>
+  <p>Photography from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> under their respective licences. Prices, hours and access rules are summer 2026 figures and must be re-verified for 2027.</p>
+</div></footer>
+
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script>
+</body>
+</html>

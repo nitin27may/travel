@@ -1,0 +1,43 @@
+/* coastal — sea light: pale sand, wet slate, deep Atlantic.
+   New curated theme. Good for: shorelines, islands, harbours, cliff walks. */
+/* @fonts: Space+Grotesk:wght@500;700|Literata:opsz,wght@7..72,400;7..72,600|Space+Mono:wght@400;700 */
+:root{
+  --font-display:"Space Grotesk",sans-serif;
+  --font-body:"Literata",Georgia,serif;
+  --font-mono:"Space Mono",monospace;
+
+  --bg:#f4f6f5;
+  --surface:#ffffff;
+  --bg-deep:#132029;
+  --bg-deep-2:#1f303b;
+
+  --ink:#1f2d33;
+  --ink-on-deep:#c6d3d9;
+  --muted:#64737b;
+  --muted-on-deep:#93a5ac;
+  --line:#d8dfdd;
+
+  --accent:#186b7e;
+  --accent-dark:#0f4f5e;
+  --accent-ink:#ffffff;
+  --accent-soft:#e0eff2;
+
+  --header:#1c5a68;
+  --header-ink:#ffffff;
+  --header-sub:#cbe4e9;
+
+  --warn:#b3452a;
+  --warn-soft:#fbeae5;
+
+  --highlight:#c98f2e;
+  --highlight-ink:#31240a;
+  --highlight-soft:#f8f1de;
+  --highlight-on-deep:#eec478;
+
+  --class-1:#186b7e;
+  --class-2:#eaefee;
+  --class-3:#5f8f7a;
+  --class-4:#c98f2e;
+  --class-5:#7a6b9c;
+  --class-6:#8a9aa2;
+}

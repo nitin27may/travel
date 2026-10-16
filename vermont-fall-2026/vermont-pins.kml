@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document>
+<name>Vermont Fall Trip — Oct 1-4, 2026</name>
+<description>Every destination plus parking. Folders by day. Import into Google My Maps.</description>
+<Style id="s_orange"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/orange-blank.png</href></Icon></IconStyle></Style>
+<Style id="s_wht"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style>
+<Style id="s_grn"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon></IconStyle></Style>
+<Style id="s_purple"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/purple-blank.png</href></Icon></IconStyle></Style>
+<Style id="s_red"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-blank.png</href></Icon></IconStyle></Style>
+<Style id="s_ylw"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href></Icon></IconStyle></Style>
+<Style id="s_blu"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-blank.png</href></Icon></IconStyle></Style>
+<Style id="s_park"><IconStyle><Icon><href>http://maps.google.com/mapfiles/kml/shapes/parking_lot.png</href></Icon></IconStyle></Style>
+<Folder><name>Base</name>
+<Placemark><name>Base — 1592 Center Rd, Hyde Park</name><description>Day: Base | Logistics
+Score: -/10
+Trail: -
+Time: -
+Hotel</description><styleUrl>#s_ylw</styleUrl><Point><coordinates>-72.5745682,44.601828,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Thu</name>
+<Placemark><name>Hannaford, Morrisville</name><description>Day: Thu | Logistics
+Score: -/10
+Trail: No
+Time: 30 m
+Thu picnic shop</description><styleUrl>#s_grn</styleUrl><Point><coordinates>-72.5967606,44.5727869,0</coordinates></Point></Placemark>
+<Placemark><name>Moss Glen Falls (Stowe)</name><description>Day: Thu | Waterfall
+Score: 8/10
+Trail: Yes — 0.8 km RT, 17 m (O&amp;B)
+Time: 60 m
+Rim spur steep/eroded</description><styleUrl>#s_grn</styleUrl><Point><coordinates>-72.6245046,44.4823794,0</coordinates></Point></Placemark>
+<Placemark><name>P — Moss Glen Falls lot</name><description>Day: Thu | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Moss Glen Falls (Stowe). Small gravel lot, 380 m from the falls</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.627263,44.485243,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Fri</name>
+<Placemark><name>Barnes Camp boardwalk</name><description>Day: Fri | Boardwalk
+Score: 6/10
+Trail: Yes — 1.1 km RT, flat m (Boardwalk)
+Time: 20 m
+Wetland + beaver dam</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.7884842,44.5378709,0</coordinates></Point></Placemark>
+<Placemark><name>Bingham Falls</name><description>Day: Fri | Waterfall
+Score: 8/10
+Trail: Yes — 0.8 km RT, 46 down m (O&amp;B)
+Time: 45 m
+STEEP WET STAIRS - grip matters</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.7660351,44.5167269,0</coordinates></Point></Placemark>
+<Placemark><name>Emily&#x27;s Bridge (Gold Brook)</name><description>Day: Fri | Covered bridge
+Score: 6/10
+Trail: No
+Time: 15 m
+1844; the flex item</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.6798624,44.4404009,0</coordinates></Point></Placemark>
+<Placemark><name>Pinnacle Meadows overflow lot</name><description>Day: Fri | Parking
+Score: -/10
+Trail: No
+Time: -
+OVERFLOW, Stowe Land Trust, Pinnacle Rd. 1.6 km EAST of the trailhead by road | Stowe Land Trust. User-supplied pin</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.64712,44.43779,0</coordinates></Point></Placemark>
+<Placemark><name>Smugglers&#x27; Notch</name><description>Day: Fri | Scenic drive
+Score: 10/10
+Trail: No
+Time: 60 m
+Top of pass. No vehicles over 40 ft | corrected: OSM saddle, 675 m. Nominatim returned the RESORT in Jeffersonville, 3.5 km away on the wrong side</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.79587,44.5553,0</coordinates></Point></Placemark>
+<Placemark><name>Stowe Community Church</name><description>Day: Fri | Village
+Score: 8/10
+Trail: Stroll — 1.5 km RT, flat m (-)
+Time: 45 m
+Village + viewpoint</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.6846447,44.4656466,0</coordinates></Point></Placemark>
+<Placemark><name>Stowe Gondola SkyRide</name><description>Day: Fri | Lift
+Score: 7/10
+Trail: No
+Time: 90 m
+10:00-16:30, $40-43, book online | Mansfield Base Lodge</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.78428,44.52903,0</coordinates></Point></Placemark>
+<Placemark><name>Stowe Pinnacle trailhead</name><description>Day: Fri | Hike
+Score: 9/10
+Trail: Yes — 5.5 km RT, 457 m (O&amp;B)
+Time: 3 h
+MAIN LOT - holds ~9 cars, fills before 09:00 on weekdays | corrected from user-supplied Google pin - Nominatim was ~970 m off, on the trail line not the lot</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.66764,44.43882,0</coordinates></Point></Placemark>
+<Placemark><name>Sunset Rock, Stowe</name><description>Day: Fri | Viewpoint
+Score: 8/10
+Trail: Yes — 0.8 km RT, 40 m (O&amp;B)
+Time: 45 m
+10 min walk from Sunset St</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.6786046,44.4650363,0</coordinates></Point></Placemark>
+<Placemark><name>von Trapp Bierhall</name><description>Day: Fri | Food
+Score: 7/10
+Trail: No
+Time: 90 m
+11:30-21:00, Resy. Thin on veg</description><styleUrl>#s_blu</styleUrl><Point><coordinates>-72.7451481,44.4654369,0</coordinates></Point></Placemark>
+<Placemark><name>P — Bingham Falls Parking</name><description>Day: Fri | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Bingham Falls. Named lot on VT-108, 340 m from the gorge. ~15 cars</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.769776,44.518223,0</coordinates></Point></Placemark>
+<Placemark><name>P — Notch top parking</name><description>Day: Fri | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Smugglers&#x27; Notch. 219 m from the saddle, free. Smallest lot of the week</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.79404,44.556784,0</coordinates></Point></Placemark>
+<Placemark><name>P — Barnes Camp lot</name><description>Day: Fri | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Barnes Camp boardwalk. 290 m from the visitor centre</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.791161,44.539655,0</coordinates></Point></Placemark>
+<Placemark><name>P — Sunset St lot</name><description>Day: Fri | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Sunset Rock, Stowe. CAPACITY 10, free, unpaved. Or park behind the Community Church</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.67677,44.463912,0</coordinates></Point></Placemark>
+<Placemark><name>P — Church lot</name><description>Day: Fri | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Stowe Community Church. Free, public, 6 m. The village anchor lot</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.684581,44.465681,0</coordinates></Point></Placemark>
+<Placemark><name>P — Mansfield base lot</name><description>Day: Fri | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Stowe Gondola SkyRide. 170 m. NB Lower Barnes Lot nearby is access=private</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.785668,44.530203,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Sat</name>
+<Placemark><name>Barr Hill Natural Area</name><description>Day: Sat | Viewpoint
+Score: 9/10
+Trail: Yes — 1.1 km RT, 27 m (Loop)
+Time: 50 m
+VIEW IS AT THE TRAILHEAD FIELD</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.289919,44.6080645,0</coordinates></Point></Placemark>
+<Placemark><name>Craftsbury Common</name><description>Day: Sat | Village
+Score: 8/10
+Trail: Stroll — 1.0 km RT, flat m (-)
+Time: 45 m
+White-fenced hilltop green</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.3827342,44.6535578,0</coordinates></Point></Placemark>
+<Placemark><name>Fisher Covered Railroad Bridge</name><description>Day: Sat | Covered bridge
+Score: 7/10
+Trail: No
+Time: 15 m
+Last covered RR bridge used in the US</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.4277306,44.5323138,0</coordinates></Point></Placemark>
+<Placemark><name>Lake Willoughby North Beach</name><description>Day: Sat | Viewpoint
+Score: 7/10
+Trail: No
+Time: 15 m
+Quick look from the north end</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.0548723,44.7711201,0</coordinates></Point></Placemark>
+<Placemark><name>Lake Willoughby South Beach</name><description>Day: Sat | Viewpoint
+Score: 10/10
+Trail: No
+Time: 60 m
+Picnic. Cold in October</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.0597399,44.748209,0</coordinates></Point></Placemark>
+<Placemark><name>Mount Pisgah South trailhead</name><description>Day: Sat | Hike
+Score: 9/10
+Trail: Yes — 3.5 km RT, 274 m (O&amp;B)
+Time: 2 h
+TRIMMED to Pulpit Rock</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.0306816,44.7297412,0</coordinates></Point></Placemark>
+<Placemark><name>Pulpit Rock (Pisgah)</name><description>Day: Sat | Viewpoint
+Score: 9/10
+Trail: Yes — 3.5 km RT, 274 m (O&amp;B)
+Time: -
+Ledge 650 ft above the lake</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.0272121,44.7207664,0</coordinates></Point></Placemark>
+<Placemark><name>P — North Beach lot</name><description>Day: Sat | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Lake Willoughby North Beach. 40 m from the beach</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.054463,44.771335,0</coordinates></Point></Placemark>
+<Placemark><name>P — Common parking</name><description>Day: Sat | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Craftsbury Common. 79 m from the green</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.38275,44.65427,0</coordinates></Point></Placemark>
+<Placemark><name>P — Barr Hill trailhead lot</name><description>Day: Sat | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Barr Hill Natural Area. 185 m. The view is from the field right here</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.287795,44.60877,0</coordinates></Point></Placemark>
+<Placemark><name>P — Fisher Bridge pull-off</name><description>Day: Sat | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Fisher Covered Railroad Bridge. 64 m, free</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.427605,44.532889,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Sat opt</name>
+<Placemark><name>Craftsbury General Store</name><description>Day: Sat opt | Food
+Score: 7/10
+Trail: No
+Time: 30 m
+OPTIONAL. Sat 7:00-21:00. Only staffed food in the Kingdom - skip it and there is nothing until Morrisville</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.3718867,44.6345579,0</coordinates></Point></Placemark>
+<Placemark><name>Prospect Rock, Johnson</name><description>Day: Sat opt | Hike
+Score: 7/10
+Trail: Yes — 4.2 km RT, 140 m (O&amp;B)
+Time: 70 m
+Suspension bridge over the Lamoille</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.7221615,44.6552188,0</coordinates></Point></Placemark>
+<Placemark><name>Ten Bends Beer, Hyde Park</name><description>Day: Sat opt | Food
+Score: 5/10
+Trail: No
+Time: 60 m
+At the doorstep</description><styleUrl>#s_red</styleUrl><Point><coordinates>-72.6057439,44.5885536,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Sun</name>
+<Placemark><name>Cambridge Junction / Poland Bridge</name><description>Day: Sun | Covered bridge
+Score: 7/10
+Trail: Walk-through — 0.3 km RT, flat m (-)
+Time: 20 m
+1887, 2nd-largest single span in VT</description><styleUrl>#s_purple</styleUrl><Point><coordinates>-72.8146024,44.6510988,0</coordinates></Point></Placemark>
+<Placemark><name>Comstock Covered Bridge</name><description>Day: Sun | Covered bridge
+Score: 7/10
+Trail: No
+Time: 10 m
+1883. Off VT-118 N</description><styleUrl>#s_purple</styleUrl><Point><coordinates>-72.6446362,44.8996622,0</coordinates></Point></Placemark>
+<Placemark><name>Fuller Covered Bridge</name><description>Day: Sun | Covered bridge
+Score: 7/10
+Trail: No
+Time: 10 m
+1890. South Richford Rd</description><styleUrl>#s_purple</styleUrl><Point><coordinates>-72.6397131,44.9032472,0</coordinates></Point></Placemark>
+<Placemark><name>Gates Farm Covered Bridge</name><description>Day: Sun | Covered bridge
+Score: 5/10
+Trail: No
+Time: 10 m
+1897, last Burr arch of the era</description><styleUrl>#s_purple</styleUrl><Point><coordinates>-72.8722716,44.6457214,0</coordinates></Point></Placemark>
+<Placemark><name>Hutchins Covered Bridge</name><description>Day: Sun | Covered bridge
+Score: 6/10
+Trail: No
+Time: 15 m
+1883. DIRT after 50 yards</description><styleUrl>#s_purple</styleUrl><Point><coordinates>-72.6125419,44.8585853,0</coordinates></Point></Placemark>
+<Placemark><name>Longley Covered Bridge</name><description>Day: Sun | Covered bridge
+Score: 7/10
+Trail: No
+Time: 10 m
+1863. VT-118 + Longley Bridge Rd</description><styleUrl>#s_purple</styleUrl><Point><coordinates>-72.6556465,44.9072383,0</coordinates></Point></Placemark>
+<Placemark><name>P — Poland Bridge lot</name><description>Day: Sun | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Cambridge Junction / Poland Bridge. 60 m</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.814207,44.650638,0</coordinates></Point></Placemark>
+<Placemark><name>P — Nearest lot</name><description>Day: Sun | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Gates Farm Covered Bridge. 350 m — otherwise roadside on VT-15</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.87635,44.644491,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Sun opt</name>
+<Placemark><name>Missisquoi NWR visitor centre</name><description>Day: Sun opt | Nature
+Score: 5/10
+Trail: Yes — 2.0 km RT, flat m (Boardwalk)
+Time: 20 m
+6,729 acres, peak migration</description><styleUrl>#s_purple</styleUrl><Point><coordinates>-73.168301,44.9630979,0</coordinates></Point></Placemark>
+<Placemark><name>P — Macs Bend Parking</name><description>Day: Sun opt | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Missisquoi NWR visitor centre. 227 m</description><styleUrl>#s_park</styleUrl><Point><coordinates>-73.166283,44.964558,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Backup</name>
+<Placemark><name>Appalachian Gap overlook</name><description>Day: Backup | Viewpoint
+Score: 9/10
+Trail: No
+Time: 45 m
+DRIVE-UP. 20 m from the car</description><styleUrl>#s_orange</styleUrl><Point><coordinates>-72.9312953,44.2110741,0</coordinates></Point></Placemark>
+<Placemark><name>Lincoln Gap (top of pass)</name><description>Day: Backup | Scenic drive
+Score: 6/10
+Trail: No
+Time: 20 m
+WOODED - no view from the car</description><styleUrl>#s_orange</styleUrl><Point><coordinates>-72.9290382,44.0950338,0</coordinates></Point></Placemark>
+<Placemark><name>Sunset Ledge trailhead</name><description>Day: Backup | Hike
+Score: 8/10
+Trail: Yes — 3.5 km RT, 119 m (O&amp;B)
+Time: 75 m
+LT SOUTH. West to Champlain/Adirondacks</description><styleUrl>#s_orange</styleUrl><Point><coordinates>-72.9275429,44.0879167,0</coordinates></Point></Placemark>
+<Placemark><name>Warren Falls</name><description>Day: Backup | Waterfall
+Score: 7/10
+Trail: Yes — 0.3 km RT, 20 m (O&amp;B)
+Time: 45 m
+Carved-granite gorge</description><styleUrl>#s_orange</styleUrl><Point><coordinates>-72.8643766,44.0955039,0</coordinates></Point></Placemark>
+<Placemark><name>Warren Store / Warren village</name><description>Day: Backup | Village
+Score: 7/10
+Trail: Stroll — 0.8 km RT, flat m (-)
+Time: -
+Village + covered bridge</description><styleUrl>#s_orange</styleUrl><Point><coordinates>-72.8560776,44.1145085,0</coordinates></Point></Placemark>
+<Placemark><name>P — Sunset Ledge Trail Head Parking</name><description>Day: Backup | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Sunset Ledge trailhead. NAMED lot. LT South starts here</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.927931,44.094732,0</coordinates></Point></Placemark>
+<Placemark><name>P — Lincoln Gap Long Trail Trailhead Parking</name><description>Day: Backup | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Lincoln Gap (top of pass). NAMED. The two gap lots are 94 m apart</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.928308,44.094898,0</coordinates></Point></Placemark>
+<Placemark><name>P — App Gap overlook lot</name><description>Day: Backup | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Appalachian Gap overlook. 14 m, asphalt, public. The drive-up view</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.931333,44.211202,0</coordinates></Point></Placemark>
+<Placemark><name>P — Warren Falls pull-off</name><description>Day: Backup | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Warren Falls. 175 m</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.863858,44.093967,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Backup opt</name>
+<Placemark><name>Mad River Glen</name><description>Day: Backup opt | Lift
+Score: 7/10
+Trail: No
+Time: 60 m
+$20. LAST CHAIR LOADS 14:30</description><styleUrl>#s_orange</styleUrl><Point><coordinates>-72.9238018,44.1975661,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Backup only</name>
+<Placemark><name>Cold Hollow Cider Mill</name><description>Day: Backup only | Food
+Score: 6/10
+Trail: No
+Time: 60 m
+BACKUP DAY ONLY - dropped from Sunday</description><styleUrl>#s_orange</styleUrl><Point><coordinates>-72.7197344,44.3813667,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Reserve</name>
+<Placemark><name>Barnet</name><description>Day: Reserve | Village
+Score: 8/10
+Trail: No
+Time: 2 h
+RESERVE. NEK festival Sat Oct 3</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.0495301,44.2966923,0</coordinates></Point></Placemark>
+<Placemark><name>Grand Isle (Champlain Islands)</name><description>Day: Reserve | Scenic drive
+Score: 8/10
+Trail: No
+Time: 2 h
+RESERVE. Sunday alternative route</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-73.2931129,44.722515,0</coordinates></Point></Placemark>
+<Placemark><name>Jay Peak tram</name><description>Day: Reserve | Lift
+Score: 8/10
+Trail: No
+Time: 2 h
+RESERVE. $15, weekends to Oct 11</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.5079214,44.9360212,0</coordinates></Point></Placemark>
+<Placemark><name>Laraway Lookout trailhead</name><description>Day: Reserve | Hike
+Score: 6/10
+Trail: Yes — 5.8 km RT, 424 m (O&amp;B)
+Time: 3 h
+RESERVE</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.7372733,44.7337105,0</coordinates></Point></Placemark>
+<Placemark><name>Molly Stark Mountain</name><description>Day: Reserve | Hike
+Score: 6/10
+Trail: Yes — 4.0 km RT, 314 m (O&amp;B)
+Time: 2 h
+RESERVE. Molly Stark&#x27;s Balcony</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.9270626,44.2220019,0</coordinates></Point></Placemark>
+<Placemark><name>Mount Abraham</name><description>Day: Reserve | Hike
+Score: 10/10
+Trail: Yes — 8.4 km RT, 762 m (O&amp;B)
+Time: 4 h
+RESERVE. Above treeline, 4,006 ft</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.9361931,44.1203955,0</coordinates></Point></Placemark>
+<Placemark><name>Mount Elmore / Elmore State Park</name><description>Day: Reserve | Hike
+Score: 9/10
+Trail: Yes — 6.0-6.8 km RT, 448 m (Loop)
+Time: 3 h
+RESERVE. GATE OPENS 10:00</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.5488003,44.5313055,0</coordinates></Point></Placemark>
+<Placemark><name>Peacham village</name><description>Day: Reserve | Village
+Score: 8/10
+Trail: No
+Time: 2 h
+RESERVE. NEK festival Fri Oct 2</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.1703611,44.3284703,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Thu/Fri/Sat</name>
+<Placemark><name>Raja Indian &amp; Nepali, Stowe</name><description>Day: Thu/Fri/Sat | Food
+Score: -/10
+Trail: No
+Time: 75 m
+Closed Wed AND Sun</description><styleUrl>#s_grn</styleUrl><Point><coordinates>-72.6843216,44.4656857,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>Thu/Sun</name>
+<Placemark><name>Le Tandoor, Brossard QC</name><description>Day: Thu/Sun | Food
+Score: -/10
+Trail: No
+Time: 60 m
+Only good veg meal on the drive</description><styleUrl>#s_grn</styleUrl><Point><coordinates>-73.4747521,45.4732652,0</coordinates></Point></Placemark>
+</Folder>
+<Folder><name>?</name>
+<Placemark><name>Boyden Valley Winery</name><description>Day: ? | ?
+Score: 5/10
+Trail: No
+Time: 30 m
+VERIFY SUNDAY HOURS | 64 VT Route 104</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.88916,44.64887,0</coordinates></Point></Placemark>
+<Placemark><name>Creamery Covered Bridge, Montgomery</name><description>Day: ? | ?
+Score: 6/10
+Trail: No
+Time: 15 m
+1883. WEST HILL RD not Hill West Rd | Creamery Bridge Rd, West Hill</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.65252,44.86724,0</coordinates></Point></Placemark>
+<Placemark><name>Great Eddy Covered Bridge, Waitsfield</name><description>Day: ? | ?
+Score: 7/10
+Trail: No
+Time: 45 m
+1833, oldest still in service | Bridge Street</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.8235,44.18937,0</coordinates></Point></Placemark>
+<Placemark><name>Highgate Springs border crossing</name><description>Day: ? | ?
+Score: -/10
+Trail: No
+Time: 15-30 m
+24 h port | APPROX - this is the village; the I-89 port of entry is ~3 km north at the 45th parallel</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-73.1053,44.97932,0</coordinates></Point></Placemark>
+<Placemark><name>Mount Mansfield Auto Toll Road</name><description>Day: ? | ?
+Score: 7/10
+Trail: No
+Time: 90 m
+$37/veh + $14/pax, 9:30-16:30 | APPROX - entrance off Mountain Rd/VT-108</description><styleUrl>#s_wht</styleUrl><Point><coordinates>-72.7908,44.5375,0</coordinates></Point></Placemark>
+<Placemark><name>P — Village lot</name><description>Day: ? | Parking
+Score: -/10
+Trail: No
+Time: -
+Parking for Great Eddy Covered Bridge, Waitsfield. 64 m, free, public</description><styleUrl>#s_park</styleUrl><Point><coordinates>-72.824248,44.189597,0</coordinates></Point></Placemark>
+</Folder>
+</Document></kml>

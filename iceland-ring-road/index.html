@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="trip-date" content="2027-09-04">
+<meta name="trip-dates" content="4&ndash;15 September 2027">
+<meta name="trip-duration" content="11 nights">
+<meta name="trip-region" content="Ring Road &amp; Sn&aelig;fellsnes">
+<title>Iceland — the Ring Road by camper van, 4–15 September 2027</title>
+<meta name="description" content="The full Ring Road plus Snæfellsnes in a camper van, timed to the first week Iceland is actually dark. Eleven nights, ten campsites, no hotels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='16' height='24' rx='2' fill='%230e6b6e'/%3E%3C/svg%3E">
+<style>
+/* theme: alpine-snow */
+/* alpine-snow — glacier blue, pine, brass funicular, and one flag red.
+   Source palette: Switzerland (Jul–Aug 2027).
+   Good for: high mountains with rail/cable access, glaciers, car-free resorts. */
+/* @fonts: Space+Grotesk:wght@500;700|Literata:opsz,wght@7..72,400;7..72,600|Space+Mono:wght@400;700 */
+:root{
+  --font-display:"Space Grotesk",sans-serif;
+  --font-body:"Literata",Georgia,serif;
+  --font-mono:"Space Mono",monospace;
+
+  --bg:#f5f5f2;
+  --surface:#fffefc;
+  --bg-deep:#1a2028;
+  --bg-deep-2:#28303a;
+
+  --ink:#232a30;
+  --ink-on-deep:#ccd2d8;
+  --muted:#68717a;
+  --muted-on-deep:#98a3ac;
+  --line:#dde0da;
+
+  --accent:#2d7f9e;
+  --accent-dark:#1f5f77;
+  --accent-ink:#ffffff;
+  --accent-soft:#e3f0f5;
+
+  --header:#1f5d4c;
+  --header-ink:#ffffff;
+  --header-sub:#cbe0d8;
+
+  --warn:#d12a1d;
+  --warn-soft:#fdeceb;
+
+  --highlight:#a8792c;
+  --highlight-ink:#221804;
+  --highlight-soft:#f6efdf;
+  --highlight-on-deep:#e6c179;
+
+  --class-1:#2d7f9e;   /* cable */
+  --class-2:#eeefe9;   /* rail */
+  --class-3:#1f5d4c;   /* on foot */
+  --class-4:#a8792c;
+  --class-5:#d52b1e;
+  --class-6:#5f6b75;
+}
+
+
+/* ======================================================================================
+   base.css — shared structure for every trip plan.
+
+   HARD RULE: no colour literals in this file. Colour comes from _system/themes/*.css
+   via the token contract in build.py. Overlays use color-mix() so they still track the
+   theme. The build fails if a hex literal appears here.
+
+   This is the union of the two component families that had drifted apart:
+     - Vermont / Niagara : .card .split .content, .sign, .trail/.stop/.blaze, .links/.btn
+     - Quebec / Dolomites / Switzerland : .card .chead .cbody, .day/.dhead sticky sign,
+       .btns/.btn, s- day status + g- legend swatches
+   Both are expressed here once. The classifier (.mark) replaces the old .blaze rules
+   and the old s- day-status / g- legend rules alike.
+   ====================================================================================== */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16.5px;
+  line-height:1.6;
+}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+  outline:3px solid var(--highlight);
+  outline-offset:2px;
+  border-radius:3px;
+}
+.mono{font-family:var(--font-mono)}
+main{width:min(1080px,92%);margin:0 auto;padding-bottom:60px}
+
+/* ---------- hero ------------------------------------------------------------------ */
+.hero{
+  position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:flex-end;
+  color:var(--header-ink);
+  background-color:var(--bg-deep);
+  background-position:center 35%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--bg-deep) 45%, transparent) 0%,
+    color-mix(in srgb, var(--bg-deep) 20%, transparent) 40%,
+    color-mix(in srgb, var(--bg-deep) 88%, transparent) 100%);
+}
+.hero-inner{position:relative;width:min(1080px,92%);margin:0 auto;padding:56px 0 42px}
+.hero .eyebrow{
+  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--highlight-on-deep);margin-bottom:14px;
+}
+.hero h1{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  line-height:.95;font-size:clamp(3rem,9vw,6.4rem);letter-spacing:.015em;
+  text-shadow:0 2px 24px color-mix(in srgb, var(--bg-deep) 55%, transparent);
+}
+.hero h1 .amp{color:var(--highlight-on-deep)}
+.hero .sub{margin-top:16px;max-width:660px;font-size:1.05rem;color:var(--ink-on-deep)}
+.hero .credit{position:absolute;right:12px;bottom:8px;font-size:.66rem;opacity:.78}
+.hero .credit a{color:var(--ink-on-deep)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;padding:8px 14px;
+  border:1px solid color-mix(in srgb, var(--header-ink) 35%, transparent);
+  border-radius:999px;
+  background:color-mix(in srgb, var(--bg-deep) 45%, transparent);
+  backdrop-filter:blur(4px);
+}
+.chip strong{color:var(--highlight-on-deep);font-weight:600}
+
+/* ---------- sticky nav ------------------------------------------------------------- */
+nav{position:sticky;top:0;z-index:50;background:var(--bg-deep);border-bottom:3px solid var(--highlight)}
+nav .wrap{
+  width:min(1080px,94%);margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:10px 0;
+  -webkit-overflow-scrolling:touch;
+}
+nav a{
+  flex:0 0 auto;font-family:var(--font-display);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;font-size:1.02rem;
+  color:var(--ink-on-deep);text-decoration:none;padding:8px 16px;border-radius:6px;
+  transition:background .15s,color .15s;
+}
+nav a:hover{color:var(--header-ink);background:var(--bg-deep-2)}
+nav a.active{color:var(--header-ink);background:var(--header)}
+nav a .d{
+  display:block;font-family:var(--font-mono);font-weight:450;font-size:.62rem;
+  letter-spacing:.08em;color:var(--muted-on-deep);text-transform:none;
+}
+
+/* ---------- orientation / intro ---------------------------------------------------- */
+.intro{padding:6px 0 10px;scroll-margin-top:64px}
+.intro .kick{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--warn);margin:0 0 10px;
+}
+.intro h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.7rem,4.4vw,2.6rem);line-height:1.02;margin:0 0 14px;
+  color:var(--bg-deep);
+}
+.intro .lead{max-width:64ch;font-size:1.06rem}
+.intro .lead p{margin:0 0 14px}
+
+.introwide{margin:22px 0 6px;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover;display:block}
+.introwide figcaption{
+  position:absolute;right:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.6rem;padding:3px 8px;
+}
+.introwide figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+
+/* ---------- stat strip -------------------------------------------------------------- */
+.numstrip{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0 6px;padding:16px 0;
+  border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep);
+}
+.numstrip div{min-width:0}
+.numstrip b{
+  display:block;font-family:var(--font-display);font-weight:800;font-size:1.85rem;
+  line-height:1;color:var(--header);
+}
+.numstrip span{
+  font-family:var(--font-mono);font-size:.63rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ---------- area / sub-region cards -------------------------------------------------- */
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.area figure{margin:0;position:relative}
+.area img{width:100%;height:150px;object-fit:cover;display:block}
+.area figcaption{
+  position:absolute;left:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.55rem;padding:2px 6px;
+}
+.area figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin:0 0 5px;line-height:1.1;
+}
+.area .days{
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:4px;padding:2px 7px;
+  display:inline-block;margin-bottom:7px;
+}
+.area p{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* ---------- "what to know" list ------------------------------------------------------ */
+.know{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.96rem}
+.know li b{font-family:var(--font-display);font-size:1.25rem;color:var(--warn);line-height:1}
+
+/* ---------- day section + sign -------------------------------------------------------- */
+section.day{padding-top:46px;scroll-margin-top:64px}
+.sign{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;
+  box-shadow:0 6px 18px color-mix(in srgb, var(--bg-deep) 18%, transparent)}
+.sign .date{
+  background:var(--bg-deep);color:var(--highlight-on-deep);display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:18px 20px;min-width:118px;
+}
+.sign .date .dow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
+.sign .date .num{
+  font-family:var(--font-display);font-weight:800;font-size:2.6rem;line-height:1;
+  color:var(--header-ink);
+}
+.sign .body{background:var(--header);color:var(--header-ink);flex:1;padding:16px 22px;
+  display:flex;flex-direction:column;justify-content:center}
+.sign h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.05;
+}
+.sign .route{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.05em;
+  color:var(--header-sub);margin-top:6px}
+
+/* sticky variant, promoted from the Dolomites/Switzerland pages */
+.sign--sticky{position:sticky;top:76px;z-index:20}
+
+.daymeta{
+  display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--font-mono);
+  font-size:.74rem;color:var(--muted);padding:14px 4px 4px;
+}
+.daymeta b{color:var(--ink);font-weight:600}
+
+/* ---------- classifier: replaces the old .blaze and s-/g- systems --------------------- */
+/* Each trip declares its own vocabulary; the theme supplies the colour for each slot. */
+.mark{
+  display:inline-block;width:20px;height:32px;border-radius:3px;
+  border:2px solid var(--bg-deep-2);
+  box-shadow:0 2px 5px color-mix(in srgb, var(--bg-deep) 22%, transparent);
+}
+.mark--1{background:var(--class-1)}
+.mark--2{background:var(--class-2)}
+.mark--3{background:var(--class-3)}
+.mark--4{background:var(--class-4)}
+.mark--5{background:var(--class-5)}
+.mark--6{background:var(--class-6)}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:34px 0 0;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.legend .b{
+  width:13px;height:20px;border-radius:2px;border:1.5px solid var(--bg-deep-2);
+  display:inline-block;vertical-align:-5px;margin-right:6px;
+}
+
+/* ---------- timeline ------------------------------------------------------------------- */
+.trail{position:relative;margin-top:18px;padding-left:44px}
+.trail::before{
+  content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;
+  background:repeating-linear-gradient(180deg,var(--bg-deep-2) 0 14px,transparent 14px 22px);
+  opacity:.35;border-radius:2px;
+}
+.stop{position:relative;margin-bottom:26px}
+.stop > .mark{position:absolute;left:-44px;top:14px}
+
+/* ---------- stop card ------------------------------------------------------------------ */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 10px color-mix(in srgb, var(--bg-deep) 6%, transparent);
+}
+.card .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr)}
+.card .split.noimg{grid-template-columns:1fr}
+.card .content{padding:20px 24px}
+.card .split figure:first-child{grid-column:2;grid-row:1}
+.card figure{position:relative;min-height:220px;overflow:hidden}
+.card figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card figcaption{
+  position:absolute;left:0;right:0;bottom:0;font-size:.64rem;color:var(--header-ink);
+  background:linear-gradient(transparent, color-mix(in srgb, var(--bg-deep) 85%, transparent));
+  padding:18px 12px 7px;
+}
+.card figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.card h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.035em;font-size:1.45rem;line-height:1.1;
+}
+.card p{margin-top:8px;font-size:.97rem}
+
+.time{
+  font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.06em;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:6px;padding:3px 9px;
+  display:inline-block;margin-bottom:8px;
+}
+.time.opt{color:var(--highlight-ink);background:var(--highlight-soft)}
+
+.tag{
+  display:inline-block;vertical-align:3px;margin-left:8px;font-family:var(--font-mono);
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--header-ink);
+  background:var(--warn);border-radius:4px;padding:2px 7px;
+}
+.tag--added,.tag--optional{background:var(--highlight);color:var(--highlight-ink)}
+.tag--unmissable{background:var(--warn);color:var(--header-ink)}
+.tag--easy{background:var(--header);color:var(--header-ink)}
+.tag--hidden{background:var(--bg-deep-2);color:var(--ink-on-deep)}
+
+.stats{
+  display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+.stats b{color:var(--ink);font-weight:600}
+
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-decoration:none;
+  border-radius:7px;padding:7px 12px;border:1.5px solid var(--accent);color:var(--accent-dark);
+  background:var(--surface);transition:background .15s;
+}
+.btn:hover{background:var(--accent-soft)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-dark)}
+
+details.more{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.more summary{
+  cursor:pointer;font-family:var(--font-mono);font-size:.74rem;
+  color:var(--accent-dark);list-style:none;
+}
+details.more summary::before{content:"+ "}
+details.more[open] summary::before{content:"\2212 "}
+details.more p,details.more ul{font-size:.9rem;margin-top:8px;color:var(--ink)}
+details.more ul{padding-left:20px}
+
+/* ---------- callouts, maps, panels ------------------------------------------------------ */
+.note{
+  margin-top:16px;background:var(--warn-soft);border-left:4px solid var(--warn);
+  border-radius:0 8px 8px 0;padding:12px 16px;font-size:.92rem;
+}
+.note.gold{background:var(--highlight-soft);border-left-color:var(--highlight)}
+
+.mapframe{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mapframe iframe{display:block;width:100%;height:330px;border:0}
+.mapframe .bar{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;
+  background:var(--surface);font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+.panel h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;font-size:1.3rem;margin-bottom:10px;
+}
+
+.check label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:.94rem;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:0 0 auto}
+.check label.done{color:var(--muted);text-decoration:line-through}
+
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:6px}
+th{
+  text-align:left;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:2px solid var(--line);
+}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.linklist a{display:block;padding:6px 0;font-size:.9rem}
+
+/* ---------- A/B plan toggle -------------------------------------------------------------- */
+.toggle{display:flex;margin:20px 0 4px;border:2px solid var(--header);border-radius:10px;
+  overflow:hidden;width:fit-content;max-width:100%}
+.toggle button{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1rem;padding:10px 20px;border:0;background:var(--surface);
+  color:var(--header);cursor:pointer;
+}
+.toggle button.on{background:var(--header);color:var(--header-ink)}
+.planwrap .plan{display:none}
+.planwrap .plan.show{display:block}
+
+/* ---------- day-of quick links ------------------------------------------------------------ */
+.quick{margin:26px 0 6px;scroll-margin-top:64px}
+.quick h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--bg-deep);margin-bottom:4px;
+}
+.quick .qsub{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:16px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.qcard h4{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1.02rem;color:var(--header);margin-bottom:9px;
+  display:flex;align-items:center;gap:7px;
+}
+.qcard h4 .dot{width:9px;height:14px;border-radius:2px;border:1.5px solid var(--bg-deep-2);flex:0 0 auto}
+.qcard a{
+  display:block;font-family:var(--font-mono);font-size:.76rem;line-height:1.35;
+  text-decoration:none;color:var(--accent-dark);border:1.5px solid var(--line);border-radius:7px;
+  padding:9px 11px;margin-bottom:7px;transition:background .15s,border-color .15s;
+}
+.qcard a:hover{background:var(--accent-soft);border-color:var(--accent)}
+.qcard a:last-child{margin-bottom:0}
+.qcard a b{display:block;font-weight:600;color:var(--ink);font-size:.82rem;margin-bottom:1px}
+.qcard a.warn{border-color:var(--warn);color:var(--warn)}
+.qcard a.warn b{color:var(--warn)}
+.qcard a.tel{border-color:var(--highlight);background:var(--highlight-soft)}
+
+/* ---------- footer -------------------------------------------------------------------------- */
+section#essentials{padding-top:46px;scroll-margin-top:64px}
+section#essentials>h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.6rem,4vw,2.3rem);color:var(--bg-deep);
+}
+footer{background:var(--bg-deep);color:var(--muted-on-deep);margin-top:60px;padding:34px 0;font-size:.8rem}
+footer .wrap{width:min(1080px,92%);margin:0 auto}
+footer a{color:var(--ink-on-deep)}
+
+/* ---------- responsive ------------------------------------------------------------------------ */
+@media(max-width:760px){
+  .numstrip{grid-template-columns:repeat(3,1fr);gap:14px}
+  .area img{height:130px}
+  .card .split{grid-template-columns:1fr}
+  .card figure{min-height:190px;order:-1}
+  .card .split figure:first-child{grid-column:1;grid-row:auto}
+  .grid2{grid-template-columns:1fr}
+  .hero{min-height:64vh}
+  .trail{padding-left:36px}
+  .stop > .mark{left:-36px;width:16px;height:26px}
+  .trail::before{left:12px}
+  .sign--sticky{position:static}
+  .qcard a{padding:11px 12px;font-size:.8rem}
+}
+
+@media print{
+  nav,.mapframe iframe,.hero{display:none}
+  body{background:var(--surface);font-size:11pt}
+  .card{box-shadow:none;break-inside:avoid}
+  .planwrap .plan{display:block!important}
+  .sign--sticky{position:static}
+}
+
+
+/* trip-local additions */
+nav a.home{color:var(--highlight-on-deep);font-weight:600;border-right:1px solid color-mix(in srgb, var(--highlight-on-deep) 32%, transparent);margin-right:6px}nav a.home:hover{color:var(--header-ink)}.panel p + p{margin-top:11px}.panel ul{margin:6px 0 0 18px}.panel li{margin-bottom:7px;font-size:.94rem}.panel table{margin-top:8px}.panel li > b:first-child{margin-right:7px;color:var(--accent)}.panel .fine{margin-top:10px;font-size:.86rem;color:var(--warn)}.hero::before{background:linear-gradient(180deg,color-mix(in srgb, var(--bg-deep) 26%, transparent) 0%,color-mix(in srgb, var(--bg-deep) 14%, transparent) 40%,color-mix(in srgb, var(--bg-deep) 88%, transparent) 100%)}.area .days{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em}.knowh{margin:34px 0 0;font-family:var(--font-display);font-size:1.15rem;letter-spacing:.01em}.know li span b{font-family:inherit;font-size:inherit;font-weight:700;color:var(--ink)}.know li span b:first-child{color:var(--warn)}
+</style>
+</head>
+<body data-slug="iceland-ring-road">
+
+<header class="hero" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Aurora_Borealis_activity_on_top_of_the_Kirkjufell_mountain_in_September_2018.jpg?width=2000')">
+  <div class="hero-inner">
+    <p class="eyebrow">4&ndash;15 September 2027 &middot; first van trip</p>
+    <h1>Iceland</h1>
+    <p class="sub">The Ring Road by camper van, timed to the first week of the year the sky is actually dark.</p>
+    <div class="chips"><span class="chip"><strong>11</strong> nights</span><span class="chip"><strong>10</strong> campsites</span><span class="chip"><strong>~2,190</strong> km</span><span class="chip"><strong>0</strong> hotels</span><span class="chip"><strong>1.3&ndash;3 h</strong> of true dark</span></div>
+  </div>
+  <p class="credit"><a href="https://commons.wikimedia.org/wiki/File:Aurora_Borealis_activity_on_top_of_the_Kirkjufell_mountain_in_September_2018.jpg">Aurora over Kirkjufell, September &middot; Wikimedia Commons</a></p>
+</header>
+
+<nav aria-label="Sections">
+  <div class="wrap"><a class="home" href="/">&#8592; All plans<span class="d">dashboard</span></a><a href="#orient"><span class="d">Read first</span>Orientation</a><a href="#gallery"><b>&#9632;</b><span>photos</span></a><a href="#window"><span class="d">Decide</span>Why September</a><a href="#van"><span class="d">Rules &amp; limits</span>The van</a><a href="#d1"><span class="d">Days 1&ndash;2</span>Golden Circle</a><a href="#d3"><span class="d">Days 3&ndash;4</span>South coast</a><a href="#d5"><span class="d">Day 5</span>Glacier lagoons</a><a href="#d6"><span class="d">Days 6&ndash;7</span>East &amp; north</a><a href="#d8"><span class="d">Days 8&ndash;9</span>M&yacute;vatn &amp; Akureyri</a><a href="#d10"><span class="d">Days 10&ndash;12</span>Sn&aelig;fellsnes &amp; home</a><a href="#quick"><span class="d">In the field</span>Day-of links</a><a href="#essentials"><span class="d">Money &amp; kit</span>Essentials</a></div>
+</nav>
+
+<main>
+
+<section class="intro" id="orient">
+  <p class="kick">Before the days start</p>
+  <h2>What Iceland physically is</h2>
+  <div class="lead">
+    <p>Iceland is the only place on earth where a <b>mid-ocean ridge sits above sea level</b>. The
+    Mid-Atlantic Ridge runs the length of the island and a mantle plume sits underneath it &mdash;
+    that combination is the only reason there is land here at all instead of two and a half
+    kilometres of water. The North American and Eurasian plates are pulling apart at roughly
+    <b>2 cm a year</b>, and at &THORN;ingvellir you walk down into the rift they leave behind.</p>
+    <p>Everything else follows from that one fact. The fissure eruptions. The geothermal fields you
+    can smell before you see. The black sand, which is basalt ground down by ice and sea. And the
+    glaciers sitting directly <i>on top of</i> active volcanoes &mdash; which is why Icelandic has a
+    word, <span class="mono">j&ouml;kulhlaup</span>, for the flood that happens when one erupts
+    underneath the other.</p>
+    <p><b>Why it is famous, specifically.</b> Not &ldquo;waterfalls&rdquo;. The compression. You can
+    stand between two continental plates in the morning, walk on a glacier tongue after lunch, and
+    sleep beside a lava field that was liquid within living memory &mdash; without driving more than
+    three hours.</p>
+    <p><b>What you cannot get anywhere else.</b> &THORN;ingvellir is both the rift valley and the site
+    of the <b>Al&thorn;ingi, founded in 930 AD</b> &mdash; the oldest surviving parliament in the
+    world, held in a crack between two continents. And the pool culture: every town has a heated
+    outdoor pool with hot pots, open late, at roughly a tenth of the price of the tourist lagoons.
+    In a van, that is your daily shower <i>and</i> your evening out.</p>
+  </div>
+
+  <div class="areas"><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Almannagj%C3%A1_rift_at_%C3%9Eingvellir_National_Park.jpg?width=900" alt="Reykjanes &amp; the Golden Circle"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Almannagj%C3%A1_rift_at_%C3%9Eingvellir_National_Park.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Reykjanes &amp; the Golden Circle</h3><p class="days">Days 1&ndash;2</p><p>Where you land, and the only place on the trip you can walk down inside the plate boundary itself.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Reynisfjara_and_Reynisdrangar%2C_Iceland.jpg?width=900" alt="The South Coast"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Reynisfjara_and_Reynisdrangar%2C_Iceland.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>The South Coast</h3><p class="days">Days 3&ndash;4</p><p>Waterfalls you walk behind, black sand, and the one beach on this island that kills people.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Icebergs_in_the_J%C3%B6kuls%C3%A1rl%C3%B3n_Glacier_Lagoon%2C_Iceland.jpg?width=900" alt="Vatnaj&ouml;kull &amp; the lagoons"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Icebergs_in_the_J%C3%B6kuls%C3%A1rl%C3%B3n_Glacier_Lagoon%2C_Iceland.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Vatnaj&ouml;kull &amp; the lagoons</h3><p class="days">Days 4&ndash;5</p><p>Europe&rsquo;s largest ice cap, its glacier tongues reaching down to the road, and icebergs on a black beach.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sey%C3%B0isfj%C3%B6r%C3%B0ur_Panorama_01.jpg?width=900" alt="The East Fjords &amp; M&yacute;vatn"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sey%C3%B0isfj%C3%B6r%C3%B0ur_Panorama_01.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>The East Fjords &amp; M&yacute;vatn</h3><p class="days">Days 6&ndash;9</p><p>The empty half. Hairpin fjord roads, then boiling mud and lava labyrinths &mdash; and the first real darkness.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Iceland%2C_20240714_1631_0713.jpg?width=900" alt="Sn&aelig;fellsnes &amp; the west"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Iceland%2C_20240714_1631_0713.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Sn&aelig;fellsnes &amp; the west</h3><p class="days">Days 10&ndash;12</p><p>&ldquo;Iceland in miniature&rdquo; &mdash; glacier volcano, black pebble beach, shipwreck, one famous mountain.</p></div></div></div>
+
+  <div class="numstrip"><div class="num"><b>11</b><span>nights</span></div><div class="num"><b>10</b><span>campsites</span></div><div class="num"><b>~2,190</b><span>km driven</span></div><div class="num"><b>1,332</b><span>km &mdash; Route 1 itself</span></div><div class="num"><b>390</b><span>km &mdash; longest day</span></div><div class="num"><b>0</b><span>hotels</span></div></div>
+
+  <h3 class="knowh">Six things that change how you read every day below</h3>
+  <ul class="know">
+    <li><b>1</b><span><b>You cannot sleep outside a campsite.</b> Since 2015 it has been illegal for
+      vans and motorhomes, full stop, and it is enforced. That removes the evening scramble &mdash;
+      but it also means <b>every day here is ordered around where the campsite is</b>, not where the
+      last waterfall is. That is the reverse of every other plan in this folder.</span></li>
+    <li><b>2</b><span><b>Wind is the hazard, not cold.</b> Gusts over 50&nbsp;km/h are routine and
+      can pass 80. <b>Never open a van door into the wind</b> &mdash; doors bent backwards on their
+      hinges are the classic Icelandic rental claim. Park nose into it.</span></li>
+    <li><b>3</b><span><b>No F-roads.</b> A 2WD camper is not permitted on them, driving one there
+      voids the whole insurance policy, and <b>no Icelandic insurer sells river-crossing cover at any
+      price</b>. Landmannalaugar, &THORN;&oacute;rsm&ouml;rk and Askja are out. That is a vehicle
+      limit, not a scheduling one.</span></li>
+    <li><b>4</b><span><b>Get the heater.</b> Nights run 4&ndash;7&nbsp;&deg;C. It is the cheapest
+      upgrade on the rental sheet and the one that decides whether the trip is fun.</span></li>
+    <li><b>5</b><span><b>The Camping Card expires 15 September</b>, every year. The window is built
+      to end inside it, with one day to spare.</span></li>
+    <li><b>6</b><span><b>Shop properly on day one.</b> B&oacute;nus or Kr&oacute;nan in Selfoss.
+      Prices climb steeply the moment you leave the southwest, and several days below have no useful
+      supermarket at all.</span></li>
+  </ul>
+</section>
+<!-- gallery:start -->
+
+<style>
+#gallery{padding:50px 0;border-bottom:1px solid var(--line,#ddd)}
+#gallery .gwrap{max-width:1080px;margin:0 auto;padding:0 20px}
+#gallery h2{margin:0 0 6px}
+#gallery .gnote{color:var(--muted,#666);margin:0 0 26px;max-width:62ch}
+#gallery .gplace{margin:0 0 34px}
+#gallery .gplace h3{margin:0;font-size:1.2rem;letter-spacing:-.01em}
+#gallery .gplace .gdays{font-family:var(--font-mono,monospace);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#666);margin-left:8px;white-space:nowrap}
+#gallery .gplace p{margin:3px 0 12px;color:var(--muted,#666);font-size:.95rem}
+#gallery .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;background:var(--surface,#fff);border:1px solid var(--line,#ddd)}
+#gallery figure a.gimg{display:block;aspect-ratio:3/2;overflow:hidden}
+#gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+#gallery figure:hover img{transform:scale(1.03)}
+#gallery figcaption{padding:7px 9px 8px;font-size:.78rem;line-height:1.35;color:var(--ink,#222)}
+#gallery figcaption small{display:block;color:var(--muted,#666);font-size:.68rem;margin-top:2px}
+#gallery figcaption small a{color:inherit}
+@media (prefers-reduced-motion:reduce){#gallery img{transition:none}}
+@media print{#gallery{break-inside:avoid}}
+
+#glb{position:fixed;inset:0;z-index:1000;display:none;background:rgba(10,12,14,.97);color:#fff;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-body,Georgia,serif)}
+#glb.open{display:flex}
+#glb .gl-stage{position:relative;flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center;padding:44px 64px 8px;box-sizing:border-box;touch-action:pan-y}
+#glb img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:3px;transition:opacity .2s}
+#glb img.loading{opacity:.25}
+#glb .gl-cap{width:100%;max-width:900px;padding:8px 20px 18px;box-sizing:border-box;text-align:center;font-size:.9rem;line-height:1.4}
+#glb .gl-cap small{display:block;color:#b8c0c8;font-size:.75rem;margin-top:3px}
+#glb .gl-cap a{color:#cfe3ee}
+#glb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center}
+#glb button:hover,#glb button:focus-visible{background:rgba(255,255,255,.28);outline:2px solid #fff}
+#glb .gl-prev{left:10px;top:50%;margin-top:-23px}
+#glb .gl-next{right:10px;top:50%;margin-top:-23px}
+#glb .gl-close{right:10px;top:10px;font-size:1.3rem}
+#glb .gl-fs{right:64px;top:10px;font-size:1.1rem}
+#glb .gl-count{position:absolute;left:16px;top:18px;font-family:var(--font-mono,monospace);font-size:.75rem;letter-spacing:.08em;color:#b8c0c8}
+@media (max-width:620px){#glb .gl-stage{padding:48px 6px 4px}#glb .gl-prev,#glb .gl-next{top:auto;bottom:86px;margin:0}#glb .gl-prev{left:12px}#glb .gl-next{right:12px}}
+@media (prefers-reduced-motion:reduce){#glb img{transition:none}}
+@media print{#glb{display:none!important}}
+</style>
+
+<section id="gallery"><div class="gwrap">
+<p class="kicker">Where you are going</p>
+<h2>Photo gallery</h2>
+<p class="gnote">The places on this plan, in the order you reach them. Click a photo to view it full size, then use the arrows, arrow keys or a swipe to move through the gallery. These show typical views, not conditions on your dates.</p>
+<div class="gplace"><h3>Reykjavik</h3><p>Capital and the starting point; Hallgrimskirkja is its landmark.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:View_of_Reykjav%C3%ADk_from_Hallgr%C3%ADmskirkja%2C_20230507_1229_5733.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Reykjav%C3%ADk_from_Hallgr%C3%ADmskirkja%2C_20230507_1229_5733.jpg?width=1600" data-cap="Reykjavik from the tower of Hallgrimskirkja" data-place="Reykjavik" data-credit="Jakub Hałun &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Reykjav%C3%ADk_from_Hallgr%C3%ADmskirkja%2C_20230507_1229_5733.jpg?width=900" alt="Reykjavik from the tower of Hallgrimskirkja"></a><figcaption>Reykjavik from the tower of Hallgrimskirkja<small>Jakub Hałun &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:View_of_Reykjav%C3%ADk_from_Hallgr%C3%ADmskirkja%2C_20230507_1229_5733.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Iceland_-_Reykjavik_043_-_Hallgrimskirkja_cathedral_%286571026853%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Iceland_-_Reykjavik_043_-_Hallgrimskirkja_cathedral_%286571026853%29.jpg?width=1600" data-cap="Hallgrimskirkja church" data-place="Reykjavik" data-credit="McKay Savage from London, UK &middot; Public domain"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Iceland_-_Reykjavik_043_-_Hallgrimskirkja_cathedral_%286571026853%29.jpg?width=900" alt="Hallgrimskirkja church"></a><figcaption>Hallgrimskirkja church<small>McKay Savage from London, UK &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Iceland_-_Reykjavik_043_-_Hallgrimskirkja_cathedral_%286571026853%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Golden Circle</h3><p>Three stops within two hours of Reykjavik: Thingvellir, Geysir and Gullfoss.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:GULLFOSS_WATERFALL-ICELAND_%2843880264884%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/GULLFOSS_WATERFALL-ICELAND_%2843880264884%29.jpg?width=1600" data-cap="Gullfoss with a rainbow in the spray" data-place="Golden Circle" data-credit="INDIGO WOLFSBANE from Newry..., NORTHERN IRELAND.... &middot; Public domain"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/GULLFOSS_WATERFALL-ICELAND_%2843880264884%29.jpg?width=900" alt="Gullfoss with a rainbow in the spray"></a><figcaption>Gullfoss with a rainbow in the spray<small>INDIGO WOLFSBANE from Newry..., NORTHERN IRELAND.... &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:GULLFOSS_WATERFALL-ICELAND_%2843880264884%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:%C3%96xar%C3%A1rfoss%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_029.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96xar%C3%A1rfoss%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_029.JPG?width=1600" data-cap="Oxararfoss at Thingvellir" data-place="Golden Circle" data-credit="Diego Delso &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96xar%C3%A1rfoss%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_029.JPG?width=900" alt="Oxararfoss at Thingvellir"></a><figcaption>Oxararfoss at Thingvellir<small>Diego Delso &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:%C3%96xar%C3%A1rfoss%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_029.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Strokkur_in_eruption%2C_Geysir_Geothermal_Field%2C_Haukadalur%2C_Iceland%2C_20230501_0902_3743.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Strokkur_in_eruption%2C_Geysir_Geothermal_Field%2C_Haukadalur%2C_Iceland%2C_20230501_0902_3743.jpg?width=1600" data-cap="Strokkur in eruption at the Geysir geothermal field" data-place="Golden Circle" data-credit="Jakub Hałun &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Strokkur_in_eruption%2C_Geysir_Geothermal_Field%2C_Haukadalur%2C_Iceland%2C_20230501_0902_3743.jpg?width=900" alt="Strokkur in eruption at the Geysir geothermal field"></a><figcaption>Strokkur in eruption at the Geysir geothermal field<small>Jakub Hałun &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Strokkur_in_eruption%2C_Geysir_Geothermal_Field%2C_Haukadalur%2C_Iceland%2C_20230501_0902_3743.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>South Coast</h3><p>Waterfalls and basalt coast between Hvolsvollur and Vik.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Sk%C3%B3gafoss_Waterfall%2C_Iceland%2C_20240720_1330_2993.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Sk%C3%B3gafoss_Waterfall%2C_Iceland%2C_20240720_1330_2993.jpg?width=1600" data-cap="Skogafoss from above, with a rainbow in the spray" data-place="South Coast" data-credit="Jakub Hałun &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sk%C3%B3gafoss_Waterfall%2C_Iceland%2C_20240720_1330_2993.jpg?width=900" alt="Skogafoss from above, with a rainbow in the spray"></a><figcaption>Skogafoss from above, with a rainbow in the spray<small>Jakub Hałun &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Sk%C3%B3gafoss_Waterfall%2C_Iceland%2C_20240720_1330_2993.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Seljalandsfoss_-_panoramio_%287%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Seljalandsfoss_-_panoramio_%287%29.jpg?width=1600" data-cap="Seljalandsfoss, which you can walk behind" data-place="South Coast" data-credit="Zoran Kurelić Rabko &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seljalandsfoss_-_panoramio_%287%29.jpg?width=900" alt="Seljalandsfoss, which you can walk behind"></a><figcaption>Seljalandsfoss, which you can walk behind<small>Zoran Kurelić Rabko &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Seljalandsfoss_-_panoramio_%287%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Reynisfjara%2C_Iceland%2C_20230501_1641_4049.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Reynisfjara%2C_Iceland%2C_20230501_1641_4049.jpg?width=1600" data-cap="Basalt columns and sea stacks at Reynisfjara" data-place="South Coast" data-credit="Jakub Hałun &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Reynisfjara%2C_Iceland%2C_20230501_1641_4049.jpg?width=900" alt="Basalt columns and sea stacks at Reynisfjara"></a><figcaption>Basalt columns and sea stacks at Reynisfjara<small>Jakub Hałun &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Reynisfjara%2C_Iceland%2C_20230501_1641_4049.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Skaftafell and Jokulsarlon</h3><p>The glacier coast under Vatnajokull, from Svartifoss to the iceberg lagoon.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:038_Svartifoss_waterfall_%28Iceland%29_Photo_by_Giles_Laurent.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/038_Svartifoss_waterfall_%28Iceland%29_Photo_by_Giles_Laurent.jpg?width=1600" data-cap="Svartifoss, falling over basalt columns at Skaftafell" data-place="Skaftafell and Jokulsarlon" data-credit="Giles Laurent &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/038_Svartifoss_waterfall_%28Iceland%29_Photo_by_Giles_Laurent.jpg?width=900" alt="Svartifoss, falling over basalt columns at Skaftafell"></a><figcaption>Svartifoss, falling over basalt columns at Skaftafell<small>Giles Laurent &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:038_Svartifoss_waterfall_%28Iceland%29_Photo_by_Giles_Laurent.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240719_0935_2448.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240719_0935_2448.jpg?width=1600" data-cap="Icebergs in Jokulsarlon glacier lagoon" data-place="Skaftafell and Jokulsarlon" data-credit="Jakub Hałun &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240719_0935_2448.jpg?width=900" alt="Icebergs in Jokulsarlon glacier lagoon"></a><figcaption>Icebergs in Jokulsarlon glacier lagoon<small>Jakub Hałun &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240719_0935_2448.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240718_1620_2403.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240718_1620_2403.jpg?width=1600" data-cap="A blue iceberg in Jokulsarlon" data-place="Skaftafell and Jokulsarlon" data-credit="Jakub Hałun &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240718_1620_2403.jpg?width=900" alt="A blue iceberg in Jokulsarlon"></a><figcaption>A blue iceberg in Jokulsarlon<small>Jakub Hałun &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240718_1620_2403.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>East Fjords</h3><p>Steep fjord towns between the glacier coast and the north.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Sey%C3%B0isfj%C3%B6r%C3%B0ur_Sept_2019_1.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Sey%C3%B0isfj%C3%B6r%C3%B0ur_Sept_2019_1.jpg?width=1600" data-cap="Seydisfjordur from above in September" data-place="East Fjords" data-credit="Kasa Fue &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sey%C3%B0isfj%C3%B6r%C3%B0ur_Sept_2019_1.jpg?width=900" alt="Seydisfjordur from above in September"></a><figcaption>Seydisfjordur from above in September<small>Kasa Fue &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Sey%C3%B0isfj%C3%B6r%C3%B0ur_Sept_2019_1.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Sey%C3%B0isfj%C3%B6r%C3%B0ur%2C_Iceland%2C_20240717_1453_1755.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Sey%C3%B0isfj%C3%B6r%C3%B0ur%2C_Iceland%2C_20240717_1453_1755.jpg?width=1600" data-cap="Painted wooden houses in Seydisfjordur" data-place="East Fjords" data-credit="Jakub Hałun &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sey%C3%B0isfj%C3%B6r%C3%B0ur%2C_Iceland%2C_20240717_1453_1755.jpg?width=900" alt="Painted wooden houses in Seydisfjordur"></a><figcaption>Painted wooden houses in Seydisfjordur<small>Jakub Hałun &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Sey%C3%B0isfj%C3%B6r%C3%B0ur%2C_Iceland%2C_20240717_1453_1755.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Myvatn and Godafoss</h3><p>Volcanic lake district with lava formations and a wide waterfall.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Go%C3%B0afoss_Waterfall%2C_Iceland%2C_20240716_0921_1217.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Go%C3%B0afoss_Waterfall%2C_Iceland%2C_20240716_0921_1217.jpg?width=1600" data-cap="Godafoss" data-place="Myvatn and Godafoss" data-credit="Jakub Hałun &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Go%C3%B0afoss_Waterfall%2C_Iceland%2C_20240716_0921_1217.jpg?width=900" alt="Godafoss"></a><figcaption>Godafoss<small>Jakub Hałun &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Go%C3%B0afoss_Waterfall%2C_Iceland%2C_20240716_0921_1217.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Myvatn_Iceland_01.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Myvatn_Iceland_01.jpg?width=1600" data-cap="Lava formations in the water at Myvatn" data-place="Myvatn and Godafoss" data-credit="Kilmer &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Myvatn_Iceland_01.jpg?width=900" alt="Lava formations in the water at Myvatn"></a><figcaption>Lava formations in the water at Myvatn<small>Kilmer &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Myvatn_Iceland_01.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Lake_Myvatn_-_Iceland_-_panoramio_%281%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Myvatn_-_Iceland_-_panoramio_%281%29.jpg?width=1600" data-cap="Lake Myvatn" data-place="Myvatn and Godafoss" data-credit="diego_cue &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Myvatn_-_Iceland_-_panoramio_%281%29.jpg?width=900" alt="Lake Myvatn"></a><figcaption>Lake Myvatn<small>diego_cue &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Lake_Myvatn_-_Iceland_-_panoramio_%281%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Akureyri</h3><p>The largest town in the north, at the head of Eyjafjordur.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Akureyri%2C_Iceland_%2872893%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Akureyri%2C_Iceland_%2872893%29.jpg?width=1600" data-cap="The harbour front at Akureyri" data-place="Akureyri" data-credit="Lee Vilenski &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Akureyri%2C_Iceland_%2872893%29.jpg?width=900" alt="The harbour front at Akureyri"></a><figcaption>The harbour front at Akureyri<small>Lee Vilenski &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Akureyri%2C_Iceland_%2872893%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Akureyri%2C_Iceland_%2881237%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Akureyri%2C_Iceland_%2881237%29.jpg?width=1600" data-cap="Akureyri from the fjord shore" data-place="Akureyri" data-credit="Lee Vilenski &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Akureyri%2C_Iceland_%2881237%29.jpg?width=900" alt="Akureyri from the fjord shore"></a><figcaption>Akureyri from the fjord shore<small>Lee Vilenski &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Akureyri%2C_Iceland_%2881237%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Snaefellsnes</h3><p>Peninsula with Kirkjufell, lava coasts and fishing villages.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Iceland_%28Unsplash_LoKG7kKx7Zc%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Iceland_%28Unsplash_LoKG7kKx7Zc%29.jpg?width=1600" data-cap="Kirkjufell and its waterfall" data-place="Snaefellsnes" data-credit="Steven Diaz stevendiazphoto &middot; CC0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Iceland_%28Unsplash_LoKG7kKx7Zc%29.jpg?width=900" alt="Kirkjufell and its waterfall"></a><figcaption>Kirkjufell and its waterfall<small>Steven Diaz stevendiazphoto &middot; CC0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Iceland_%28Unsplash_LoKG7kKx7Zc%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_091.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_091.JPG?width=1600" data-cap="Kirkjufell on the Snaefellsnes coast" data-place="Snaefellsnes" data-credit="Diego Delso &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_091.JPG?width=900" alt="Kirkjufell on the Snaefellsnes coast"></a><figcaption>Kirkjufell on the Snaefellsnes coast<small>Diego Delso &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_091.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_094.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_094.JPG?width=1600" data-cap="Kirkjufell from the shore" data-place="Snaefellsnes" data-credit="Diego Delso &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_094.JPG?width=900" alt="Kirkjufell from the shore"></a><figcaption>Kirkjufell from the shore<small>Diego Delso &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Vesturland%2C_Islandia%2C_2014-08-14%2C_DD_094.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+</div></section>
+
+<script>
+(function(){
+  var root=document.getElementById('gallery'); if(!root) return;
+  var links=[].slice.call(root.querySelectorAll('a.gimg'));
+  if(!links.length) return;
+  var box=document.createElement('div');
+  box.id='glb'; box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-label','Photo viewer');
+  box.innerHTML='<div class="gl-count"></div><button class="gl-fs" type="button" aria-label="Full screen">&#x26F6;</button><button class="gl-close" type="button" aria-label="Close">&times;</button>'
+   +'<div class="gl-stage"><button class="gl-prev" type="button" aria-label="Previous photo">&#8249;</button><img alt=""><button class="gl-next" type="button" aria-label="Next photo">&#8250;</button></div><div class="gl-cap"></div>';
+  document.body.appendChild(box);
+  var img=box.querySelector('img'), cap=box.querySelector('.gl-cap'), cnt=box.querySelector('.gl-count'), cur=0, opener=null;
+  function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+  function show(i){
+    cur=(i+links.length)%links.length; var a=links[cur];
+    img.classList.add('loading'); img.onload=function(){img.classList.remove('loading')};
+    img.src=a.getAttribute('data-full'); img.alt=a.getAttribute('data-cap')||'';
+    cap.innerHTML=esc(a.getAttribute('data-cap')||'')+'<small>'+esc(a.getAttribute('data-place')||'')+' &middot; '+esc(a.getAttribute('data-credit')||'')+' &middot; <a href="'+a.href+'" target="_blank" rel="noopener">Commons page</a></small>';
+    cnt.textContent=(cur+1)+' / '+links.length;
+    [1,-1].forEach(function(d){var n=links[(cur+d+links.length)%links.length]; (new Image()).src=n.getAttribute('data-full')});
+  }
+  function open(i,from){opener=from; box.classList.add('open'); document.documentElement.style.overflow='hidden'; show(i); box.querySelector('.gl-close').focus()}
+  function close(){
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
+    box.classList.remove('open'); document.documentElement.style.overflow=''; img.removeAttribute('src'); if(opener) opener.focus();
+  }
+  links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault(); open(i,a)})});
+  box.querySelector('.gl-prev').addEventListener('click',function(){show(cur-1)});
+  box.querySelector('.gl-next').addEventListener('click',function(){show(cur+1)});
+  box.querySelector('.gl-close').addEventListener('click',close);
+  box.querySelector('.gl-fs').addEventListener('click',function(){
+    if(document.fullscreenElement){document.exitFullscreen()} else if(box.requestFullscreen){box.requestFullscreen()}
+  });
+  box.addEventListener('click',function(e){ if(e.target===box||e.target.classList.contains('gl-stage')||e.target===cap) close() });
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('open')) return;
+    if(e.key==='Escape') close(); else if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='Tab'){ var f=[].slice.call(box.querySelectorAll('button')); var i=f.indexOf(document.activeElement); e.preventDefault(); f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus() }
+  });
+  var x0=null;
+  box.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1)) },{passive:true});
+})();
+</script>
+
+<!-- gallery:end -->
+
+<section class="intro" id="window">
+  <p class="kick">The one decision that set everything else</p>
+  <h2>Why early September, and not summer</h2>
+  <div class="lead">
+    <p>I computed the sun angles for eight points on this route with the NOAA algorithm
+    (<span class="mono">sun-times.py</span> and <span class="mono">dark-times.py</span> in the trip
+    folder &mdash; reproducible, nothing quoted). Iceland is <b>UTC+0 all year</b>, so there is no
+    daylight-saving correction to argue about.</p>
+    <p>The result is blunter than expected: <b>Iceland gets no astronomical darkness at all before
+    about 3 September.</b> In mid-July it does not even reach the <i>end of civil twilight</i>. An
+    aurora on a summer van trip is not unlikely &mdash; it is physically impossible.</p>
+    <p>That pushes the trip later. Three things push it earlier: campsites shut through September
+    (<b>50 close during the month</b>, 22 more in October, and only ~23 publish an all-year season);
+    <b>the Camping Card expires 15 September</b>; and the weather degrades. <b>The two curves cross
+    in a narrow band, and this window sits in it.</b></p>
+    <table>
+      <tr><th>Date</th><th>Reykjav&iacute;k &mdash; true dark (sun &lt; &minus;18&deg;)</th><th>M&yacute;vatn</th></tr>
+      <tr><td>15 Jul</td><td>none &mdash; light all night, no civil twilight end</td><td>none</td></tr>
+      <tr><td>28 Aug</td><td>none</td><td>none</td></tr>
+      <tr><td>1 Sep</td><td>none</td><td>none</td></tr>
+      <tr><td>4 Sep</td><td>21:53 &ndash; 23:10 &nbsp;(1.3&nbsp;h)</td><td>none</td></tr>
+      <tr><td>8 Sep</td><td>21:04 &ndash; 23:57 &nbsp;(2.9&nbsp;h)</td><td>22:11 &ndash; 23:30 (1.3&nbsp;h)</td></tr>
+      <tr><td>12 Sep</td><td>20:32 &ndash; 00:26 &nbsp;(3.9&nbsp;h)</td><td>21:19 &ndash; 00:18 (3.0&nbsp;h)</td></tr>
+      <tr><td>15 Sep</td><td>20:12 &ndash; 00:43 &nbsp;(4.5&nbsp;h)</td><td>20:54 &ndash; 00:41 (3.8&nbsp;h)</td></tr>
+    </table>
+  </div>
+
+  <div class="toggle">
+    <button data-plan-btn="a">Window A &middot; recommended</button>
+    <button data-plan-btn="b">Window B</button>
+  </div>
+
+  <div class="planwrap">
+    <div class="plan" data-plan="a">
+      <div class="panel">
+        <h3>4 &ndash; 15 September 2027 &middot; 11 nights</h3>
+        <p><b>The route is deliberately counter-clockwise, and the reason is the darkness table
+        above.</b> The south coast comes first, when there is barely any dark and it does not matter.
+        By the time the trip reaches M&yacute;vatn and the north on nights 7&ndash;9
+        (10&ndash;12 September), true darkness has arrived: 1.3&nbsp;h, then 3.0&nbsp;h.
+        The aurora chances land in the half of the trip that is furthest from city light.</p>
+        <p>It also puts the most weather-exposed stretch &mdash; the south coast, where the gusts are
+        worst &mdash; on the earliest and statistically driest days of the window.</p>
+        <p><b>Last camping night is 14 September</b>, one day inside the Camping Card&rsquo;s
+        validity. That is not a coincidence; it is the constraint that fixed the end date.</p>
+        <table>
+          <tr><th></th><th>Window A</th><th>Window B</th></tr>
+          <tr><td>True dark by the north nights</td><td>1.3 &rarr; 3.0 h</td><td>3.8 &rarr; 4.5 h</td></tr>
+          <tr><td>Camping Card valid</td><td><b>Yes, throughout</b></td><td>No &mdash; expires mid-trip</td></tr>
+          <tr><td>Campsite closure risk</td><td>Low</td><td><b>Real</b></td></tr>
+          <tr><td>Rain and wind odds</td><td>Lower</td><td>Higher</td></tr>
+          <tr><td>Crowds</td><td>Falling</td><td>Gone</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="plan" data-plan="b">
+      <div class="panel">
+        <h3>11 &ndash; 22 September 2027 &middot; one week later</h3>
+        <p>Same route, same direction, shifted seven days. It buys <b>4.5 hours of true darkness
+        instead of 1.3</b> and roads that are genuinely empty.</p>
+        <p>It costs the <b>Camping Card entirely</b> &mdash; the card stops working on 15 September,
+        which is day five &mdash; and it exposes the back half of the trip to the September campsite
+        closures. It also raises the odds of a wet, windy week, and mountain snow starts appearing
+        late in the month.</p>
+        <p><b>Take this one only if the aurora is the point of the trip</b> and you are willing to
+        phone every campsite from Day 6 onward to confirm it is still open. Egilssta&eth;ir,
+        Borgarnes and Reykjav&iacute;k Laugardalur are the year-round fallbacks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="intro" id="van">
+  <p class="kick">First van trip &mdash; read this before booking anything</p>
+  <h2>The van rules, and the limits that decide who can do what</h2>
+  <div class="lead">
+    <p>Three constraints do more to shape this trip than any scenery does. Two are legal and one is
+    physical, and none of them are negotiable.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>You sleep at a campsite or you break the law</h3>
+      <p>Since the 2015 tightening of the Nature Conservation Act, <b>overnighting in a campervan or
+      motorhome is legal only at a marked campsite</b>. The Icelandic right to roam does not extend
+      to vehicles. Pulling over somewhere remote for the night is not a grey area; enforcement is
+      active, fines are real, and illegal parking can compromise the rental&rsquo;s insurance.</p>
+      <p><b>Read it as a feature.</b> There are 170+ registered campsites and one is almost always
+      within reach, so the worst part of first-time van travel &mdash; the 18:00 scramble for
+      somewhere legal &mdash; simply does not happen here.</p>
+      <p><b>But it cancels the usual van superpower.</b> You cannot wake up at a trailhead. Days get
+      planned around campsite locations, and campsites are in towns.</p>
+    </div>
+    <div class="panel">
+      <h3>F-roads are off the table in this vehicle</h3>
+      <p><b>2WD vehicles are not permitted on F-roads.</b> Taking one up there voids the entire
+      insurance policy and risks a fine under Icelandic traffic law.</p>
+      <p>Behind that sits a harder limit: <b>no Icelandic insurer offers river-crossing cover at any
+      price.</b> Not as an add-on, not at all. F-roads have unbridged rivers. Flood the van and you
+      have bought it &mdash; they are worth <b>8&ndash;12 million ISK</b>.</p>
+      <p>So Landmannalaugar, &THORN;&oacute;rsm&ouml;rk, Askja and Kerlingarfj&ouml;ll are out of this
+      trip. <b>Accepted deliberately:</b> remote unsignposted country with no phone signal is not
+      where you learn what a van does. If the interior matters later, it needs an F-road-legal 4x4
+      camper, or a highland bus with the van left in town.</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>Silfra snorkel &mdash; the hard limits <span class="tag tag--optional">optional</span></h3>
+      <p>Drifting between the North American and Eurasian plates in 2&nbsp;&deg;C glacial meltwater,
+      in a dry suit. The limits are dry-suit fit limits, not policy, so there is no arguing them.</p>
+      <table>
+        <tr><th>Minimum age</th><td><b>12</b> &mdash; under-18s need a parent on the same tour</td></tr>
+        <tr><th>Height</th><td><b>150 &ndash; 200 cm</b></td></tr>
+        <tr><th>Weight</th><td><b>45 &ndash; 120 kg</b></td></tr>
+        <tr><th>Swimming</th><td>Competent swimmer, comfortable in water</td></tr>
+      </table>
+      <p class="fine"><b>The medical form is the part that catches people, and it is mandatory
+      before booking.</b> A &ldquo;yes&rdquo; to anything in Section&nbsp;1 &mdash; heart or
+      blood-vessel disease, heart attack, cardiac or vascular surgery, angina, <b>pregnancy</b>, lung
+      disease, collapsed lung, chest surgery, epilepsy or seizures &mdash; <b>disqualifies you
+      outright</b>. A &ldquo;yes&rdquo; in Section&nbsp;2 &mdash; including <b>being 60 or older</b>,
+      high blood pressure, fainting spells, cancer or cancer treatment within two years, high
+      cholesterol, or a family history of heart disease &mdash; requires <b>written doctor&rsquo;s
+      clearance in advance</b>. Check the form against everyone in the group before paying.</p>
+    </div>
+    <div class="panel">
+      <h3>Glacier walks &mdash; pick one, not both <span class="tag tag--optional">optional</span></h3>
+      <p>S&oacute;lheimaj&ouml;kull sits on Day&nbsp;3, Fallj&ouml;kull at Skaftafell on Day&nbsp;4.
+      Doing both is repetition; the plan books one.</p>
+      <table>
+        <tr><th>Tour</th><th>Min age</th><th>On ice</th><th>Price</th></tr>
+        <tr><td>Easy hike, 3 h</td><td><b>8</b></td><td>~90 min</td><td>~US$105</td></tr>
+        <tr><td>Advanced hike, 5 h</td><td><b>12</b></td><td>~3 h</td><td>~US$162</td></tr>
+        <tr><td>Ice climb</td><td>12</td><td>&mdash;</td><td>~US$251</td></tr>
+      </table>
+      <p class="fine">Fallj&ouml;kull tours run from the Tr&ouml;ll base at Skaftafell with
+      <b>groups capped at ten</b> and a <b>minimum age of 12</b>, so it is the one that sells out.
+      Prices are 2026 figures &mdash; <span class="mono">GAP</span>, no 2027 rates published.</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>Reynisfjara &mdash; the one that is actually dangerous</h3>
+      <p>Sneaker waves here run far higher up the beach than the previous ten waves suggest, and
+      people have died. <b>It also changed this year:</b> a landslide and severe coastal erosion in
+      <b>February 2026</b> narrowed the shoreline and largely destroyed one of the viewing platforms.
+      Access is now managed by safety zone and can be restricted depending on surf, tide and wind.</p>
+      <p class="fine">Since <b>August 2025, entering H&aacute;lsanefshellir cave is prohibited
+      whenever the red warning light is flashing.</b> Stay high on the beach. Never turn your back
+      on the water. This is the single stop on the trip where the rule matters more than the photo.</p>
+    </div>
+    <div class="panel">
+      <h3>What September costs you, honestly</h3>
+      <p><b>The puffins are gone.</b> They leave Iceland from about mid-August, and from 15 August
+      operators stop selling combined whale-and-puffin trips altogether. Dyrh&oacute;laey will have
+      empty cliffs.</p>
+      <p>There is no window that has both puffins and aurora &mdash; one needs summer, the other
+      needs darkness, and in Iceland those never overlap. This plan chooses the aurora.</p>
+      <p><b>Whale watching still works:</b> humpback and minke are the September species at
+      H&uacute;sav&iacute;k. Blue whales are early-season only.</p>
+    </div>
+  </div>
+</section>
+<section class="day" id="d1">
+  <div class="sign">
+    <div class="date"><span class="dow">Sat&ndash;Sun</span><span class="num">4&ndash;5</span></div>
+    <div class="body"><h2>Reykjanes and the Golden Circle</h2><p class="route">KEF &rarr; Reykjanes tip &rarr; Selfoss &rarr; &THORN;ingvellir &rarr; Geysir &rarr; Gullfoss &rarr; Laugarvatn</p></div>
+  </div>
+  <div class="daymeta"><span>Driving <b>~290 km</b></span><span>Nights <b>Selfoss, Laugarvatn</b></span><span>Daylight <b>14.4 h</b></span><span>True dark <b>1.3 h &mdash; barely</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Gunnuhver_Geothermal_Area%2C_Iceland%2C_20230430_1340_3616.jpg?width=900" alt="Gunnuhver geothermal field, Reykjanes"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Gunnuhver_Geothermal_Area%2C_Iceland%2C_20230430_1340_3616.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">06:00</span><h3>Land at Keflav&iacute;k, collect the van</h3><p>You arrive on a night of aeroplane sleep. <b>Day 1 is deliberately the lightest of the trip</b> &mdash; the mistake first-timers make is booking a full day on top of a red-eye.</p><p>Before driving anywhere, sit in the car park and find everything: gas hob, water tank and filler, waste tap, heater switch and its fuel source, the 12V and 230V circuits, and where the electric hook-up cable lives. Ten minutes here saves an evening later.</p><div class="stats"><span><b>YYZ&rarr;KEF</b> 5 h 35 m</span><span><b>Arrival</b> 06:00&ndash;09:00</span><span><b>Flights</b> ~19/week</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Keflavik+International+Airport%2C+Iceland">Keflav&iacute;k Airport</a></div><details class="more"><summary>Fuel and the first shop</summary><p>Fill the tank before leaving the peninsula and do the big shop at <b>B&oacute;nus or Kr&oacute;nan in Selfoss</b>. Prices climb sharply once you leave the southwest, and several days on this route have no useful supermarket at all. Buy for at least five days.</p></details></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">08:00</span><h3>Reykjanes tip &mdash; Gunnuhver and Brimketill <span class="tag tag--added">added</span></h3><p>Boiling mud at <b>Gunnuhver</b>, and <b>Brimketill</b>, a lava rock pool the Atlantic breaks straight into. The <b>Bridge Between Continents</b> is two minutes and mildly silly, but it is the literal version of what &THORN;ingvellir shows you properly tomorrow.</p><p>Wind is at its most exposed here and the Brimketill platform sits right above the surf.</p><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Gunnuhver%2C+Reykjanes%2C+Iceland">Gunnuhver</a><a class="btn" href="https://maps.google.com/?q=Brimketill%2C+Grindavik%2C+Iceland">Brimketill</a><a class="btn" href="https://safetravel.is/">safetravel.is</a></div><details class="more"><summary>The volcano question, answered honestly</summary><p>No eruption is under way. The Sundhn&uacute;kur sequence that began in December 2023 has slowed &mdash; the ninth eruption ran <b>16 July &ndash; 5 August 2025</b>. But <b>uplift continues at Svartsengi and the magma volume is the highest since the sequence started</b>, so another eruption or dike intrusion is possible.</p><p>Grind&aacute;v&iacute;k and the Blue Lagoon are open; the town has crevasses, so stay on paths. <b>Treat this whole peninsula as a bonus, never a dependency</b> &mdash; check safetravel.is the morning of, and if it is shut, drive straight to Selfoss and lose nothing that matters.</p></details></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Roca_de_la_Ley%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_022.JPG?width=900" alt="The path down through the Almannagj&aacute; rift, &THORN;ingvellir"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Roca_de_la_Ley%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_022.JPG">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">09:30</span><h3>&THORN;ingvellir &mdash; walk down into the rift <span class="tag tag--unmissable">the point</span></h3><p>Almannagj&aacute; is the eastern edge of the North American plate, and the path runs along the bottom of it. The valley floor between here and the Eurasian wall has dropped as the two pulled apart.</p><p>At the foot of it sits the <b>Al&thorn;ingi site, founded 930 AD</b> &mdash; the oldest surviving parliament in the world, held annually in a crack between two continents. That combination does not exist anywhere else, and it is why this is the first real stop.</p><div class="stats"><span><b>Plate drift</b> ~2 cm/yr</span><span><b>Parking</b> P1&ndash;P5, paid</span><span><b>Walk</b> ~2 km, easy</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Thingvellir+National+Park%2C+Iceland">&THORN;ingvellir</a><a class="btn" href="https://www.thingvellir.is/en/">Official park site</a></div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split noimg"><div class="content"><span class="time opt">11:00 (optional)</span><h3>Silfra &mdash; snorkel the plate boundary <span class="tag tag--optional">book ahead</span></h3><p>Glacial meltwater filtered through lava for decades, at 2&nbsp;&deg;C, with visibility over 100&nbsp;m. You drift between the two plates in a dry suit.</p><p><b>The limits are strict and the medical form disqualifies people outright</b> &mdash; see the van section above and check it against everyone before paying.</p><div class="stats"><span><b>Min age</b> 12</span><span><b>Height</b> 150&ndash;200 cm</span><span><b>Weight</b> 45&ndash;120 kg</span><span><b>Water</b> 2 &deg;C</span></div><div class="links"><a class="btn primary" href="https://www.dive.is/faq">Requirements &amp; medical form</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Strokkur_geyser_eruption%2C_close-up_view.jpg?width=900" alt="Strokkur erupting, Haukadalur"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Strokkur_geyser_eruption%2C_close-up_view.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">13:30</span><h3>Geysir, Gullfoss and Keri&eth;</h3><p><b>Strokkur</b> goes every 5&ndash;10 minutes; Geysir itself is dormant, which surprises people who came for it by name. <b>Gullfoss</b> drops in two tiers into a canyon &mdash; the upper and lower viewpoints are genuinely different photographs, so do both.</p><p><b>Keri&eth;</b> is a small red crater lake, a small fee, and ten minutes. Worth it on the way to Laugarvatn.</p><div class="stats"><span><b>Strokkur</b> every 5&ndash;10 min</span><span><b>Gullfoss</b> two tiers</span><span><b>Keri&eth;</b> ~10 min</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Geysir%2C+Haukadalur%2C+Iceland">Geysir</a><a class="btn" href="https://maps.google.com/?q=Gullfoss%2C+Iceland">Gullfoss</a><a class="btn" href="https://maps.google.com/?q=Kerid+crater%2C+Selfoss%2C+Iceland">Keri&eth;</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_panorama_of_Laugarvatn_%28crop2%29.jpg?width=900" alt="Laugarvatn, Golden Circle"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Aerial_panorama_of_Laugarvatn_%28crop2%29.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">18:00</span><h3>Laugarvatn &mdash; and the pool habit starts here</h3><p>Lakeside campsite with <b>Fontana</b> geothermal baths on the shore. This is where the trip establishes its rhythm: <b>the pool is the shower</b>.</p><p>Every Icelandic town has a heated outdoor pool with hot pots, open late, at roughly a tenth of the price of the tourist lagoons. In a van that solves washing, warming up and the evening in one stop. Shower naked and thoroughly before entering &mdash; it is enforced and it is not a suggestion.</p><div class="stats"><span><b>Night</b> 1&ndash;2</span><span><b>Altitude</b> sea level</span><span><b>Fontana</b> on site</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Laugarvatn%2C+Iceland">Laugarvatn campsite</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Thingvellir National Park" src="https://maps.google.com/maps?q=Thingvellir+National+Park%2C+Iceland&z=8&output=embed"></iframe>
+    <div class="bar"><span>Thingvellir National Park</span><a href="https://maps.google.com/?q=Thingvellir+National+Park%2C+Iceland">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Geothermal water &mdash; and the day&rsquo;s shower</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>On foot &mdash; real footing</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead &mdash; fixed group size or sailing</span><span><i class="b" style="background:var(--class-5)"></i>Wind, wave or surf hazard &mdash; check before you go</span><span><i class="b" style="background:var(--class-6)"></i>Needs the night &mdash; aurora-dependent</span></div>
+</section>
+<section class="day" id="d3">
+  <div class="sign">
+    <div class="date"><span class="dow">Mon&ndash;Tue</span><span class="num">6&ndash;7</span></div>
+    <div class="body"><h2>The south coast, and the one that is dangerous</h2><p class="route">Laugarvatn &rarr; Seljalandsfoss &rarr; Sk&oacute;gafoss &rarr; Reynisfjara &rarr; V&iacute;k &rarr; Skaftafell</p></div>
+  </div>
+  <div class="daymeta"><span>Driving <b>~290 km</b></span><span>Nights <b>V&iacute;k, Skaftafell</b></span><span>Longest walk <b>Svartifoss</b></span><span>Hazard <b>wind &amp; surf</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Glj%C3%BAfrab%C3%BAi%2C_July_2019.jpg?width=900" alt="Glj&uacute;frab&uacute;i inside its cleft"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Glj%C3%BAfrab%C3%BAi%2C_July_2019.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">09:00</span><h3>Seljalandsfoss &mdash; and the one beside it nobody finds</h3><p>You walk behind Seljalandsfoss. <b>You will get soaked</b> &mdash; this needs waterproof trousers and a proper shell, not a jacket, and the path is slick.</p><p>Then walk <b>500 m north along the same path to Glj&uacute;frab&uacute;i</b>, which is hidden inside a cleft in the cliff. You wade a shallow stream into a chamber with the fall coming down through a hole in the roof. Most visitors never see it because it is invisible from the car park.</p><div class="stats"><span><b>Behind the fall</b> yes, get wet</span><span><b>Glj&uacute;frab&uacute;i</b> 500 m north</span><span><b>Parking</b> paid</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Seljalandsfoss%2C+Iceland">Seljalandsfoss</a><a class="btn" href="https://maps.google.com/?q=Gljufrabui%2C+Iceland">Glj&uacute;frab&uacute;i</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sk%C3%B3gafoss_July_2014.JPG?width=900" alt="Sk&oacute;gafoss"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sk%C3%B3gafoss_July_2014.JPG">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">11:00</span><h3>Sk&oacute;gafoss and Kvernufoss</h3><p>Sk&oacute;gafoss is 60 m and thunderous, with stairs up the side to a top-down view and the start of the Fimmv&ouml;r&eth;uh&aacute;ls trail. It is also crowded by mid-morning.</p><p><b>Kvernufoss is the fix.</b> Behind the Sk&oacute;gar museum, twenty minutes on foot, another waterfall you can walk behind &mdash; and usually almost empty.</p><div class="stats"><span><b>Sk&oacute;gafoss</b> 60 m</span><span><b>Stairs</b> ~370 steps</span><span><b>Kvernufoss</b> ~20 min walk</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Skogafoss%2C+Iceland">Sk&oacute;gafoss</a><a class="btn" href="https://maps.google.com/?q=Kvernufoss%2C+Skogar%2C+Iceland">Kvernufoss</a></div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B3lheimaj%C3%B6kull_glacier_19.jpg?width=900" alt="S&oacute;lheimaj&ouml;kull glacier tongue"><figcaption><a href="https://commons.wikimedia.org/wiki/File:S%C3%B3lheimaj%C3%B6kull_glacier_19.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time opt">13:00 (optional)</span><h3>S&oacute;lheimaj&ouml;kull glacier walk <span class="tag tag--optional">book ahead</span></h3><p>A glacier tongue you can walk onto with crampons and a guide, twenty minutes off Route 1. <b>Never walk onto a glacier unguided</b> &mdash; the crevasses are covered and the terminus is unstable.</p><p>Book <b>either</b> this <b>or</b> Fallj&ouml;kull at Skaftafell tomorrow. Doing both is repetition at US$105 a head.</p><div class="stats"><span><b>Easy, 3 h</b> age 8+, ~US$105</span><span><b>Advanced, 5 h</b> age 12+, ~US$162</span><span><b>On ice</b> 90 min / 3 h</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Solheimajokull%2C+Iceland">S&oacute;lheimaj&ouml;kull</a><a class="btn" href="https://adventures.is/iceland/day-tours/glacier-tours/">Tours and ages</a></div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Reynisfjara_and_Reynisdrangar%2C_Iceland.jpg?width=900" alt="Reynisfjara and the Reynisdrangar stacks"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Reynisfjara_and_Reynisdrangar%2C_Iceland.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">15:30</span><h3>Dyrh&oacute;laey and Reynisfjara <span class="tag tag--unmissable">care needed</span></h3><p><b>Dyrh&oacute;laey</b> is a sea arch you can drive up to; the cliffs will be empty because the puffins left in mid-August.</p><p><b>Reynisfjara is the one stop on this trip where the rule matters more than the photograph.</b> Sneaker waves run far higher up the beach than the previous ten suggest, and people have died here. A landslide and severe erosion in <b>February 2026</b> narrowed the shoreline and largely destroyed one viewing platform, so access is now managed by safety zone.</p><div class="stats"><span><b>Reynisdrangar</b> sea stacks</span><span><b>Cave</b> shut on red light</span><span><b>Rule</b> stay high, watch the sea</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Reynisfjara+Beach%2C+Vik%2C+Iceland">Reynisfjara</a><a class="btn" href="https://safetravel.is/">SafeTravel alerts</a></div><details class="more"><summary>The specific rules, as of now</summary><p>Since <b>August 2025 it is prohibited to enter H&aacute;lsanefshellir cave whenever the red warning light is flashing.</b> Depending on surf, tide and wind, other areas near the basalt columns can be restricted or closed outright.</p><p>Practical version: stay on the dry sand well above the highest wet line, keep the sea in front of you at all times, and do not walk out onto the black sand to take a picture facing inland. That is the posture people are in when they get taken.</p></details><div class="note">Check the wind forecast for V&iacute;k on vedur.is before you commit to this stop. In a strong onshore southerly, look from Dyrh&oacute;laey instead and skip the beach.</div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%ADkurkirkja_in_Iceland.jpg?width=900" alt="V&iacute;kurkirkja above V&iacute;k"><figcaption><a href="https://commons.wikimedia.org/wiki/File:V%C3%ADkurkirkja_in_Iceland.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">18:00</span><h3>V&iacute;k &mdash; night 3</h3><p>Big campsite, and <b>Kr&oacute;nan is across the road</b>, which makes this the best restock point between Selfoss and H&ouml;fn. The black church on the hill above town is the photograph everyone takes of V&iacute;k itself.</p><div class="stats"><span><b>Night</b> 3</span><span><b>Supermarket</b> across the road</span><span><b>Pool</b> in town</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Vik+i+Myrdal%2C+Iceland">V&iacute;k campsite</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fja%C3%B0r%C3%A1rglj%C3%BAfur_01.jpg?width=900" alt="Fja&eth;r&aacute;rglj&uacute;fur canyon"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Fja%C3%B0r%C3%A1rglj%C3%BAfur_01.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 7 &middot; 09:00</span><h3>Fja&eth;r&aacute;rglj&uacute;fur and the Laki lava</h3><p><b>Fja&eth;r&aacute;rglj&uacute;fur</b> is a 100 m serpentine canyon lined with moss, with a rim path along the top. No entrance fee; <b>lower car park 1,000 ISK, upper car park free</b>.</p><p>Then Route 1 crosses <b>Eldhraun</b> &mdash; the moss-covered lava from the 1783 Laki eruption, which killed roughly a fifth of Iceland&rsquo;s population and cooled European harvests badly enough to show up in French bread prices. <b>Do not walk on the moss</b>; it takes decades to regrow.</p><div class="stats"><span><b>Canyon</b> ~100 m deep</span><span><b>Parking</b> 1,000 ISK lower / free upper</span><span><b>Entry</b> free</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Fjadrargljufur%2C+Iceland">Fja&eth;r&aacute;rglj&uacute;fur</a><a class="btn" href="https://ust.is/">Closure status &mdash; ust.is</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Svartifoss_July_2014.JPG?width=900" alt="Svartifoss and its basalt columns"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Svartifoss_July_2014.JPG">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">13:00</span><h3>Svartifoss &mdash; the biggest walk of the trip</h3><p>Basalt columns fan out behind the fall like organ pipes; the same geometry inspired the ceiling of Hallgr&iacute;mskirkja, which you see on the last day.</p><p>Sources disagree on the route, so take the range: <b>5.4 km return with ~120 m of gain</b> on the direct path, or <b>7.1 km with 310 m</b> for the full Sj&oacute;narn&iacute;pa circuit with the glacier viewpoint. Decide at the visitor centre based on the weather.</p><div class="stats"><span><b>Direct</b> 5.4 km / ~120 m</span><span><b>Full circuit</b> 7.1 km / 310 m</span><span><b>Time</b> 2&ndash;3 h</span><span><b>Start</b> Skaftafellsstofa</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Skaftafell+Visitor+Centre%2C+Iceland">Skaftafell</a><a class="btn" href="https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarnipa-s6">Vatnaj&ouml;kull NP &mdash; official</a><a class="btn" href="https://www.alltrails.com/trail/iceland/eastern/svartifoss-and-manusafoss">AllTrails</a></div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sv%C3%ADnafellsj%C3%B6kull_%2826915561094%29.jpg?width=900" alt="Sv&iacute;nafellsj&ouml;kull glacier from Route 1"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sv%C3%ADnafellsj%C3%B6kull_%2826915561094%29.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">18:00</span><h3>Skaftafell campsite &mdash; night 4</h3><p>Inside Vatnaj&ouml;kull National Park, <b>at the trailhead</b> &mdash; which is as close to the usual van advantage as Iceland&rsquo;s campsite rule allows you to get. Fallj&ouml;kull glacier tours leave from the Tr&ouml;ll base here: groups of ten, minimum age 12.</p><div class="stats"><span><b>Night</b> 4</span><span><b>Glacier tours</b> from site</span><span><b>Group cap</b> 10</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Skaftafell+campsite%2C+Iceland">Skaftafell campsite</a><a class="btn" href="https://falljokullglacier.com/">Fallj&ouml;kull tours</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Vik i Myrdal" src="https://maps.google.com/maps?q=Vik+i+Myrdal%2C+Iceland&z=8&output=embed"></iframe>
+    <div class="bar"><span>Vik i Myrdal</span><a href="https://maps.google.com/?q=Vik+i+Myrdal%2C+Iceland">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Geothermal water &mdash; and the day&rsquo;s shower</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>On foot &mdash; real footing</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead &mdash; fixed group size or sailing</span><span><i class="b" style="background:var(--class-5)"></i>Wind, wave or surf hazard &mdash; check before you go</span><span><i class="b" style="background:var(--class-6)"></i>Needs the night &mdash; aurora-dependent</span></div>
+</section>
+<section class="day" id="d5">
+  <div class="sign">
+    <div class="date"><span class="dow">Wed</span><span class="num">8</span></div>
+    <div class="body"><h2>The glacier lagoons</h2><p class="route">Skaftafell &rarr; Fjalls&aacute;rl&oacute;n &rarr; J&ouml;kuls&aacute;rl&oacute;n &rarr; Stokksnes &rarr; H&ouml;fn</p></div>
+  </div>
+  <div class="daymeta"><span>Driving <b>~130 km</b></span><span>Night <b>H&ouml;fn</b></span><span>Pace <b>the easiest day</b></span><span>True dark <b>2.9 h</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fjallsarlon_-_Iceberg_Lagoon.jpg?width=900" alt="Fjalls&aacute;rl&oacute;n glacier lagoon"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Fjallsarlon_-_Iceberg_Lagoon.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">09:00</span><h3>Fjalls&aacute;rl&oacute;n first &mdash; deliberately <span class="tag tag--added">added</span></h3><p>Six kilometres before the famous one, and almost nobody stops. Smaller lagoon, glacier wall much closer, and you will often have it to yourself.</p><p><b>Order matters here.</b> Going to Fjalls&aacute;rl&oacute;n after J&ouml;kuls&aacute;rl&oacute;n makes it feel like a lesser version. Going before makes J&ouml;kuls&aacute;rl&oacute;n feel enormous.</p><div class="stats"><span><b>Detour</b> ~6 km</span><span><b>Crowds</b> few</span><span><b>Zodiac</b> seasonal</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Fjallsarlon%2C+Iceland">Fjalls&aacute;rl&oacute;n</a></div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Icebergs_in_the_J%C3%B6kuls%C3%A1rl%C3%B3n_Glacier_Lagoon%2C_Iceland.jpg?width=900" alt="Icebergs on J&ouml;kuls&aacute;rl&oacute;n"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Icebergs_in_the_J%C3%B6kuls%C3%A1rl%C3%B3n_Glacier_Lagoon%2C_Iceland.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">10:30</span><h3>J&ouml;kuls&aacute;rl&oacute;n <span class="tag tag--unmissable">the big one</span></h3><p>Icebergs calve off Brei&eth;amerkurj&ouml;kull and drift across a lagoon that did not exist a century ago &mdash; it is meltwater, and it is still growing. The channel out to the sea runs under the road bridge; watch a berg go through it.</p><p>Amphibious and Zodiac boat trips run in September. Weather-dependent, so <b>book same-day if the morning looks settled</b> rather than committing in advance.</p><div class="stats"><span><b>Depth</b> &gt;240 m</span><span><b>Boats</b> same-day if calm</span><span><b>Seals</b> common</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Jokulsarlon+Glacier+Lagoon%2C+Iceland">J&ouml;kuls&aacute;rl&oacute;n</a></div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Glacier_in_Diamond_Beach_%28J%C3%B6kuls%C3%A1rl%C3%B3n%29_Iceland.jpg?width=900" alt="Ice on the black sand at Diamond Beach"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Glacier_in_Diamond_Beach_%28J%C3%B6kuls%C3%A1rl%C3%B3n%29_Iceland.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">12:30</span><h3>Diamond Beach &mdash; manage the expectation</h3><p>Icebergs washed back ashore onto black sand, across the road from the lagoon. It is the picture everyone has seen.</p><p><b>It is also entirely dependent on what happened to wash up that morning.</b> Some days it is covered in car-sized blocks lit like glass; other days it is bare sand. If it is bare, it is bare &mdash; do not spend an hour waiting for ice to arrive. The surf here is the same Atlantic that makes Reynisfjara dangerous.</p><div class="stats"><span><b>Ice</b> luck, not season</span><span><b>Best light</b> low sun</span><span><b>Surf</b> treat as Reynisfjara</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Diamond+Beach%2C+Jokulsarlon%2C+Iceland">Diamond Beach</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Klifatindur_Vestrahorn_Island_B%C3%B6hringer.jpg?width=900" alt="Vestrahorn from Stokksnes"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Klifatindur_Vestrahorn_Island_B%C3%B6hringer.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">15:00</span><h3>Stokksnes and Vestrahorn <span class="tag tag--added">added</span></h3><p>A 454 m black gabbro massif rising straight off a black dune beach, with a tidal lagoon in front of it that mirrors the peaks when the wind drops. It is the best mountain photograph in Iceland and it is a ten-minute detour off Route 1.</p><p>Private land &mdash; there is a gate fee, paid at the Viking Caf&eacute;. Flat walking on sand and boardwalk, no climb.</p><div class="stats"><span><b>Vestrahorn</b> 454 m</span><span><b>Access</b> private, gate fee</span><span><b>Walking</b> flat sand</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Stokksnes%2C+Hofn%2C+Iceland">Stokksnes</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/2400_Menschen_leben_in_H%C3%B6fn._16.jpg?width=900" alt="H&ouml;fn harbour under the ice cap"><figcaption><a href="https://commons.wikimedia.org/wiki/File:2400_Menschen_leben_in_H%C3%B6fn._16.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">18:00</span><h3>H&ouml;fn &mdash; night 5</h3><p>Harbour town under the ice cap, and the langoustine capital of Iceland &mdash; this is the one night worth eating out rather than cooking in the van. Pool in town for the shower.</p><div class="stats"><span><b>Night</b> 5</span><span><b>Eat</b> langoustine</span><span><b>Pool</b> yes</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Hofn%2C+Hornafjordur%2C+Iceland">H&ouml;fn</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Jokulsarlon Glacier Lagoon" src="https://maps.google.com/maps?q=Jokulsarlon+Glacier+Lagoon%2C+Iceland&z=8&output=embed"></iframe>
+    <div class="bar"><span>Jokulsarlon Glacier Lagoon</span><a href="https://maps.google.com/?q=Jokulsarlon+Glacier+Lagoon%2C+Iceland">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Geothermal water &mdash; and the day&rsquo;s shower</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>On foot &mdash; real footing</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead &mdash; fixed group size or sailing</span><span><i class="b" style="background:var(--class-5)"></i>Wind, wave or surf hazard &mdash; check before you go</span><span><i class="b" style="background:var(--class-6)"></i>Needs the night &mdash; aurora-dependent</span></div>
+</section>
+<section class="day" id="d6">
+  <div class="sign">
+    <div class="date"><span class="dow">Thu&ndash;Fri</span><span class="num">9&ndash;10</span></div>
+    <div class="body"><h2>The East Fjords, and north across the high desert</h2><p class="route">H&ouml;fn &rarr; Dj&uacute;pivogur &rarr; Sey&eth;isfj&ouml;r&eth;ur &rarr; Dettifoss &rarr; M&yacute;vatn</p></div>
+  </div>
+  <div class="daymeta"><span>Driving <b>~530 km over two days</b></span><span>Nights <b>Sey&eth;isfj&ouml;r&eth;ur, M&yacute;vatn</b></span><span>Longest legs <b>270 km, then 260</b></span><span>First aurora night <b>10 Sep</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">Day 9 &middot; 09:00</span><h3>The fjord road &mdash; do not sprint it <span class="tag tag--added">added</span></h3><p>Most itineraries treat the east as the boring bit between the glaciers and M&yacute;vatn and drive Route 1 inland. <b>Take the coast instead.</b> Hairpin after hairpin around each fjord, fishing villages of forty people, and almost no traffic.</p><p>The direct inland run H&ouml;fn&rarr;Egilssta&eth;ir is 187 km in 2 h 46 m. The fjord route is around 400 km and 5&ndash;6 hours with stops. <b>The extra three hours is the point of the day</b>, not a cost.</p><div class="stats"><span><b>Direct</b> 187 km / 2 h 46 m</span><span><b>Via fjords</b> ~400 km / 5&ndash;6 h</span><span><b>Traffic</b> almost none</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Djupivogur%2C+Iceland">Dj&uacute;pivogur</a><a class="btn" href="https://maps.google.com/?q=Stodvarfjordur%2C+Iceland">St&ouml;&eth;varfj&ouml;r&eth;ur</a></div><details class="more"><summary>Three stops worth making</summary><p><b>Dj&uacute;pivogur</b> &mdash; a Citta Slow town with the Eggin &iacute; Gle&eth;ivik sculpture, 34 oversized stone eggs, one per local bird species.</p><p><b>F&aacute;skr&uacute;&eth;sfj&ouml;r&eth;ur</b> &mdash; a French fishing station; the street signs are still in French.</p><p><b>St&ouml;&eth;varfj&ouml;r&eth;ur</b> &mdash; Petra&rsquo;s stone collection, a lifetime of rocks gathered by one woman and left in her garden. Genuinely strange and worth the stop.</p></details></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sey%C3%B0isfj%C3%B6r%C3%B0ur_church_1.jpg?width=900" alt="The blue church at the top of the rainbow street"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sey%C3%B0isfj%C3%B6r%C3%B0ur_church_1.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">16:00</span><h3>Over the pass to Sey&eth;isfj&ouml;r&eth;ur &mdash; night 6</h3><p>From Egilssta&eth;ir, Route 93 climbs over a 620 m pass and drops in switchbacks to a fjord town with a rainbow-painted street leading to a blue wooden church. It is the prettiest small town in Iceland and the ferry from Denmark still docks here.</p><div class="stats"><span><b>Night</b> 6</span><span><b>Pass</b> Route 93, ~620 m</span><span><b>Fallback</b> Egilssta&eth;ir</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Seydisfjordur%2C+Iceland">Sey&eth;isfj&ouml;r&eth;ur</a><a class="btn" href="https://www.road.is/">Road status &mdash; road.is</a></div><div class="note"><b>Decision rule:</b> the Route 93 pass is exposed and closes in bad weather. If the forecast is wild, stop at Egilssta&eth;ir instead and drive over first thing on Day 10 &mdash; you lose an evening, not the town.</div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">Day 10 &middot; 09:00</span><h3>M&ouml;&eth;rudals&ouml;r&aelig;fi &mdash; the emptiest road</h3><p>Route 1 climbs onto a high interior desert of black gravel and almost nothing else. This is the closest the trip gets to the highlands, and it is the one stretch where the fuel gauge matters. <b>Fill up in Egilssta&eth;ir.</b></p><div class="stats"><span><b>Terrain</b> high gravel desert</span><span><b>Services</b> almost none</span><span><b>Rule</b> fill up first</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Modrudalur%2C+Iceland">M&ouml;&eth;rudalur</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dettifoss_Waterfall%2C_Iceland%2C_20240716_1514_1598.jpg?width=900" alt="Dettifoss"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Dettifoss_Waterfall%2C_Iceland%2C_20240716_1514_1598.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">12:00</span><h3>Dettifoss &mdash; take the west road <span class="tag tag--unmissable">the loudest</span></h3><p>The most powerful waterfall in Europe by volume &mdash; roughly 193 m wide and 44 m high, carrying grey glacial meltwater off Vatnaj&ouml;kull. You feel it through the ground before you see it.</p><p><b>The road choice matters in a camper.</b> Route <b>862 on the west bank is paved</b> and is the one to take. Route <b>864 on the east bank is gravel</b> &mdash; legal in a 2WD but rough, slow, and the kind of surface that generates windscreen and underbody claims. The west side also has the better viewing platforms.</p><div class="stats"><span><b>Width</b> ~193 m</span><span><b>Drop</b> ~44 m</span><span><b>Take</b> Rd 862, paved</span><span><b>Avoid</b> Rd 864, gravel</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Dettifoss+west%2C+Route+862%2C+Iceland">Dettifoss west side</a><a class="btn" href="https://www.road.is/">Road status</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Asbyrgi-Eyjan-June2022.jpg?width=900" alt="The Eyjan rock island inside &Aacute;sbyrgi"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Asbyrgi-Eyjan-June2022.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">15:00</span><h3>&Aacute;sbyrgi <span class="tag tag--added">added</span></h3><p>A horseshoe canyon 3.5 km long with 100 m walls and a wooded floor. Geologically it was cut by catastrophic glacial floods; Norse myth says it is a hoofprint left by Sleipnir, Odin&rsquo;s eight-legged horse. Short flat walks from the car park.</p><div class="stats"><span><b>Length</b> ~3.5 km</span><span><b>Walls</b> ~100 m</span><span><b>Walking</b> flat, easy</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Asbyrgi%2C+Iceland">&Aacute;sbyrgi</a></div></div></div></div></div><div class="stop"><span class="mark mark--6"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/039_Northern_lights_over_M%C3%BDvatn_%28Iceland%29_Photo_by_Giles_Laurent.jpg?width=900" alt="Aurora over M&yacute;vatn"><figcaption><a href="https://commons.wikimedia.org/wiki/File:039_Northern_lights_over_M%C3%BDvatn_%28Iceland%29_Photo_by_Giles_Laurent.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">22:11</span><h3>M&yacute;vatn &mdash; night 7, and the first night it is actually dark</h3><p><b>Astronomical darkness at M&yacute;vatn on 10 September runs 22:11&ndash;23:30</b> &mdash; 1 h 19 m. It is the first genuinely dark night of the trip, and there is no town light for tens of kilometres.</p><p>Set an alarm. Check <b>vedur.is</b>&rsquo;s aurora page before bed: it maps cloud cover against activity, which is the combination that decides it. Clear sky beats high activity every time.</p><div class="stats"><span><b>Dark from</b> 22:11</span><span><b>Duration</b> 1 h 19 m</span><span><b>Sites</b> Vogar or Hl&iacute;&eth;</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Reykjahlid%2C+Myvatn%2C+Iceland">M&yacute;vatn</a><a class="btn" href="https://en.vedur.is/weather/forecasts/aurora/">Aurora forecast &mdash; vedur.is</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Seydisfjordur" src="https://maps.google.com/maps?q=Seydisfjordur%2C+Iceland&z=7&output=embed"></iframe>
+    <div class="bar"><span>Seydisfjordur</span><a href="https://maps.google.com/?q=Seydisfjordur%2C+Iceland">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Geothermal water &mdash; and the day&rsquo;s shower</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>On foot &mdash; real footing</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead &mdash; fixed group size or sailing</span><span><i class="b" style="background:var(--class-5)"></i>Wind, wave or surf hazard &mdash; check before you go</span><span><i class="b" style="background:var(--class-6)"></i>Needs the night &mdash; aurora-dependent</span></div>
+</section>
+<section class="day" id="d8">
+  <div class="sign">
+    <div class="date"><span class="dow">Sat&ndash;Sun</span><span class="num">11&ndash;12</span></div>
+    <div class="body"><h2>M&yacute;vatn, whales, and the northern capital</h2><p class="route">M&yacute;vatn loop &rarr; H&uacute;sav&iacute;k &rarr; Go&eth;afoss &rarr; Akureyri</p></div>
+  </div>
+  <div class="daymeta"><span>Driving <b>~240 km over two days</b></span><span>Nights <b>M&yacute;vatn, Akureyri</b></span><span>Day 11 <b>~60 km &mdash; rest day</b></span><span>True dark <b>3.0 h on 12 Sep</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hverir_Geothermal_Area_2.jpg?width=900" alt="Mud pots and steam vents at Hverir"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Hverir_Geothermal_Area_2.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 11 &middot; 09:00</span><h3>Hverir &mdash; the one that smells <span class="tag tag--unmissable">unlike anywhere</span></h3><p>A geothermal field at the foot of N&aacute;mafj&ouml;ll: ochre and grey mud pots boiling at the surface, steam vents roaring out of the ground under pressure, and no vegetation at all because the soil is too acidic to support any.</p><p>It smells strongly of hydrogen sulphide and that is the honest experience of it. <b>Stay on the marked paths</b> &mdash; the crust between the pots is thin and the mud underneath is at boiling point. Day 11 is deliberately a ~60 km rest day after two 260 km-plus ones.</p><div class="stats"><span><b>Walking</b> flat, marked</span><span><b>Ground</b> boiling &mdash; stay on path</span><span><b>Day total</b> ~60 km</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Hverir%2C+Namafjall%2C+Iceland">Hverir</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dimmuborgir_lava_field%2C_Iceland%2C_20240716_1314_1462.jpg?width=900" alt="Lava pillars at Dimmuborgir"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Dimmuborgir_lava_field%2C_Iceland%2C_20240716_1314_1462.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">11:00</span><h3>Dimmuborgir, Hverfjall and Grj&oacute;tagj&aacute;</h3><p><b>Dimmuborgir</b> is a labyrinth of lava pillars formed when a lava lake drained away and left the hollow columns standing. Marked loops from 10 minutes to an hour.</p><p><b>Hverfjall</b> is a 2,500-year-old tephra crater you can walk the rim of &mdash; the rim is about <b>3 km around</b>, 30&ndash;45 minutes up from the car park, roughly an hour to circle, <b>1.5&ndash;2 hours total</b>. It is exposed; skip it in strong wind.</p><p><b>Grj&oacute;tagj&aacute;</b> is a hot spring in a lava cave. <b>Look, do not swim</b> &mdash; it has run too hot since the Kr&ouml;flu fires and it is private land.</p><div class="stats"><span><b>Hverfjall rim</b> ~3 km around</span><span><b>Up</b> 30&ndash;45 min</span><span><b>Total</b> 1.5&ndash;2 h</span><span><b>Grj&oacute;tagj&aacute;</b> no swimming</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Dimmuborgir%2C+Iceland">Dimmuborgir</a><a class="btn" href="https://maps.google.com/?q=Hverfjall%2C+Iceland">Hverfjall</a><a class="btn" href="https://maps.google.com/?q=Grjotagja%2C+Iceland">Grj&oacute;tagj&aacute;</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Myvatn_Nature_Baths_by_Bruce_McAdam.jpg?width=900" alt="M&yacute;vatn Nature Baths"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Myvatn_Nature_Baths_by_Bruce_McAdam.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">17:00</span><h3>M&yacute;vatn Nature Baths <span class="tag tag--added">added</span></h3><p>The northern answer to the Blue Lagoon: same milky alkaline water, a fraction of the price, a fraction of the queue, and a view over the lake and the lava field instead of a car park.</p><p>Go at dusk. You are in warm water when the sky goes dark, which sets you up for the second aurora night without having to get cold first.</p><div class="stats"><span><b>Night</b> 8</span><span><b>vs Blue Lagoon</b> cheaper, emptier</span><span><b>Best</b> at dusk</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Myvatn+Nature+Baths%2C+Iceland">M&yacute;vatn Nature Baths</a></div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%BAsav%C3%ADk_-_Anlegestelle_f%C3%BCr_Whale_watching_Boote.jpg?width=900" alt="Whale-watching boats at H&uacute;sav&iacute;k"><figcaption><a href="https://commons.wikimedia.org/wiki/File:H%C3%BAsav%C3%ADk_-_Anlegestelle_f%C3%BCr_Whale_watching_Boote.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 12 &middot; 08:30</span><h3>H&uacute;sav&iacute;k &mdash; whales <span class="tag tag--optional">book ahead</span></h3><p>Sk&aacute;lfandi bay is the most reliable whale water in Iceland. <b>September species are humpback and minke</b>; blue whales are early-season only, and <b>the puffins have gone</b> &mdash; operators stop selling combined whale-and-puffin trips from 15 August.</p><p>Take the morning sailing: the bay is calmest early, and it leaves the afternoon for Go&eth;afoss and Akureyri.</p><p><b>GeoSea</b> afterwards &mdash; clifftop geothermal seawater baths looking out over the same bay you have just been on.</p><div class="stats"><span><b>Species</b> humpback, minke</span><span><b>Puffins</b> gone by Sep</span><span><b>Sailing</b> morning</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Husavik+harbour%2C+Iceland">H&uacute;sav&iacute;k harbour</a><a class="btn" href="https://www.northsailing.is/">North Sailing</a><a class="btn" href="https://maps.google.com/?q=GeoSea%2C+Husavik%2C+Iceland">GeoSea</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Go%C3%B0afoss_July_2014.JPG?width=900" alt="Go&eth;afoss"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Go%C3%B0afoss_July_2014.JPG">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">14:00</span><h3>Go&eth;afoss</h3><p>Right on Route 1, thirty seconds from the car park, and still one of the best waterfalls on the island &mdash; a 12 m horseshoe in the Skj&aacute;lfandaflj&oacute;t.</p><p>The name means &ldquo;waterfall of the gods&rdquo;: when Iceland converted to Christianity around the year 1000, the lawspeaker &THORN;orgeir is said to have thrown his pagan idols in.</p><div class="stats"><span><b>Drop</b> ~12 m</span><span><b>Walk</b> minutes</span><span><b>Both banks</b> worth it</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Godafoss%2C+Iceland">Go&eth;afoss</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Akureyri-08-Panorama-2018-gje.jpg?width=900" alt="Akureyri on Eyjafj&ouml;r&eth;ur"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Akureyri-08-Panorama-2018-gje.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">16:00</span><h3>Akureyri &mdash; night 9, and laundry</h3><p>The north&rsquo;s real town: proper restaurants, a botanical garden that grows things it should not at this latitude, and the traffic lights with red hearts instead of circles.</p><p><b>Hamrar campsite is the best facilities on the route</b> &mdash; forested, hot showers, clean toilets, laundry, wi-fi, cooking shelter, around US$18 an adult. <b>Do the laundry here.</b> It is day 9 and there is not a better chance before the flight home.</p><div class="stats"><span><b>Night</b> 9</span><span><b>Campsite</b> Hamrar</span><span><b>~US$18</b> per adult</span><span><b>Laundry</b> yes &mdash; use it</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Hamrar+campsite%2C+Akureyri%2C+Iceland">Hamrar campsite</a><a class="btn" href="https://maps.google.com/?q=Sundlaug+Akureyrar%2C+Iceland">Akureyri pool</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Myvatn" src="https://maps.google.com/maps?q=Myvatn%2C+Iceland&z=8&output=embed"></iframe>
+    <div class="bar"><span>Myvatn</span><a href="https://maps.google.com/?q=Myvatn%2C+Iceland">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Geothermal water &mdash; and the day&rsquo;s shower</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>On foot &mdash; real footing</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead &mdash; fixed group size or sailing</span><span><i class="b" style="background:var(--class-5)"></i>Wind, wave or surf hazard &mdash; check before you go</span><span><i class="b" style="background:var(--class-6)"></i>Needs the night &mdash; aurora-dependent</span></div>
+</section>
+<section class="day" id="d10">
+  <div class="sign">
+    <div class="date"><span class="dow">Mon&ndash;Wed</span><span class="num">13&ndash;15</span></div>
+    <div class="body"><h2>The long run west, Sn&aelig;fellsnes, and home</h2><p class="route">Akureyri &rarr; Hv&iacute;tserkur &rarr; Grundarfj&ouml;r&eth;ur &rarr; Sn&aelig;fellsnes &rarr; Reykjav&iacute;k &rarr; KEF</p></div>
+  </div>
+  <div class="daymeta"><span>Driving <b>~710 km over three days</b></span><span>Nights <b>Grundarfj&ouml;r&eth;ur, Reykjav&iacute;k</b></span><span>Day 13 <b>~390 km &mdash; the longest</b></span><span>True dark <b>4.5 h by 15 Sep</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hraunfossar%2C_Iceland%2C_20240715_0846_0765.jpg?width=900" alt="Hraunfossar seeping from the lava field"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Hraunfossar%2C_Iceland%2C_20240715_0846_0765.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 13 &middot; 08:00</span><h3>The longest drive of the trip &mdash; break it on purpose</h3><p><b>~390 km, about five hours of driving.</b> This is the day the trip could go wrong: it is long, it is mostly transit, and it comes after eight days of early starts.</p><p>Leave early, and stop three times whether or not you feel like it. <b>Hv&iacute;tserkur</b>, a 15 m basalt sea stack that looks like an animal drinking; the <b>Hvammstangi</b> seal colony on the way past; then <b>Hraunfossar</b>, where a waterfall seeps out of the face of a lava field along nearly a kilometre of cliff, with <b>Deildartunguhver</b> &mdash; Europe&rsquo;s highest-flow hot spring &mdash; a few minutes further on.</p><div class="stats"><span><b>Distance</b> ~390 km</span><span><b>Driving</b> ~5 h</span><span><b>Stops</b> 3, non-negotiable</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Hvitserkur%2C+Iceland">Hv&iacute;tserkur</a><a class="btn" href="https://maps.google.com/?q=Hraunfossar%2C+Iceland">Hraunfossar</a><a class="btn" href="https://maps.google.com/?q=Deildartunguhver%2C+Iceland">Deildartunguhver</a></div><details class="more"><summary>If the day is too much</summary><p>Split it. Stop at <b>Borgarnes</b> instead of pushing to Grundarfj&ouml;r&eth;ur, then do Sn&aelig;fellsnes as a loop out and back on Day 14 and drive to Reykjav&iacute;k that evening. It costs you the Kirkjufell sunrise and nothing else. Borgarnes campsite is also one of the year-round sites, so it is the safest fallback on the whole route.</p></details></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kirkjufell%2C_Iceland%2C_20240714_1631_0713.jpg?width=900" alt="Kirkjufell above Grundarfj&ouml;r&eth;ur"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kirkjufell%2C_Iceland%2C_20240714_1631_0713.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 14 &middot; 08:00</span><h3>Kirkjufell, and Sn&aelig;fellsnes properly <span class="tag tag--unmissable">best value</span></h3><p>Sn&aelig;fellsnes is called &ldquo;Iceland in miniature&rdquo; and it earns it &mdash; glacier, volcano, lava field, black beach, bird cliffs and fishing villages inside 90 km.</p><p><b>Kirkjufell</b> with Kirkjufellsfoss in front of it is the most photographed mountain in the country; it is a two-minute walk from a car park across the road from the campsite. Go at first light, before the Reykjav&iacute;k day-tour buses arrive around 11:00.</p><div class="stats"><span><b>Kirkjufell</b> 463 m</span><span><b>Walk</b> 2 min from the car park</span><span><b>Buses arrive</b> ~11:00</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Kirkjufell%2C+Grundarfjordur%2C+Iceland">Kirkjufell</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Djupalonssandur_Beach_Iceland_Travel_Photography_%28212306465%29.jpeg?width=900" alt="Dj&uacute;pal&oacute;nssandur black pebble beach"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Djupalonssandur_Beach_Iceland_Travel_Photography_%28212306465%29.jpeg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">10:30</span><h3>Dj&uacute;pal&oacute;nssandur and Sn&aelig;fellsj&ouml;kull</h3><p>A black pebble beach with the rusted remains of the trawler <b>Epine GY7</b>, wrecked in 1948, still lying scattered across it &mdash; left deliberately as a memorial, so do not move anything. Four <b>lifting stones</b> sit at the top of the path; fishermen were graded by which one they could get onto a ledge, and the lightest is 23 kg.</p><p>Above it, <b>Sn&aelig;fellsj&ouml;kull</b> &mdash; the glacier-capped volcano Jules Verne used as the way in to the centre of the earth.</p><div class="stats"><span><b>Wreck</b> Epine GY7, 1948</span><span><b>Stones</b> 23 &ndash; 154 kg</span><span><b>Path</b> steep, loose</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Djupalonssandur%2C+Iceland">Dj&uacute;pal&oacute;nssandur</a></div><div class="note">Same Atlantic, same rule as Reynisfjara. The waves come a long way up this beach and there is no lifeguard on the peninsula.</div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Arnarstapi_%28port%29.jpg?width=900" alt="The coast at Arnarstapi"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Arnarstapi_%28port%29.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">13:00</span><h3>Arnarstapi to Hellnar, and the black church</h3><p>A <b>2.5 km coastal path</b> between two villages along columnar basalt cliffs, sea arches and a fulmar colony &mdash; flat, easy, and the best short walk on the trip. Walk it one way and back, or leave the van at one end.</p><p>Then <b>B&uacute;&eth;akirkja</b>, a small black timber church standing alone on a lava field, which is the other photograph everyone takes on this peninsula.</p><div class="stats"><span><b>Path</b> ~2.5 km each way</span><span><b>Terrain</b> flat clifftop</span><span><b>B&uacute;&eth;ir</b> black church</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Arnarstapi%2C+Iceland">Arnarstapi</a><a class="btn" href="https://maps.google.com/?q=Budakirkja%2C+Budir%2C+Iceland">B&uacute;&eth;akirkja</a></div></div></div></div></div><div class="stop"><span class="mark mark--6"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hallgr%C3%ADmskirkja%2C_Reykjav%C3%ADk%2C_Iceland%2C_20230506_1701_5380.jpg?width=900" alt="Hallgr&iacute;mskirkja, Reykjav&iacute;k"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Hallgr%C3%ADmskirkja%2C_Reykjav%C3%ADk%2C_Iceland%2C_20230506_1701_5380.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">22:00</span><h3>Reykjav&iacute;k, Laugardalur &mdash; night 11</h3><p>Year-round campsite next to the city&rsquo;s biggest pool, a short hop from the van depot in the morning. <b>Sleeping here rather than out on the peninsula is deliberate</b> &mdash; it removes a two-and-a-half-hour drive from the departure day.</p><p>By 15 September Reykjav&iacute;k has <b>4.5 hours of astronomical dark</b>. City light spoils it, but if the vedur.is map is green, drive fifteen minutes out to Grótta on the Seltjarnarnes point.</p><div class="stats"><span><b>Night</b> 11</span><span><b>Dark</b> 4.5 h by 15 Sep</span><span><b>Depot</b> short hop</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Reykjavik+Campsite%2C+Laugardalur%2C+Iceland">Laugardalur campsite</a><a class="btn" href="https://maps.google.com/?q=Grotta+lighthouse%2C+Seltjarnarnes%2C+Iceland">Gr&oacute;tta</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sky_Lagoon_Cold_Plunge.jpg?width=900" alt="Sky Lagoon, Reykjav&iacute;k"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sky_Lagoon_Cold_Plunge.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 15 &middot; 09:00</span><h3>Reykjav&iacute;k, Sky Lagoon, and the drive to KEF</h3><p><b>Hallgr&iacute;mskirkja</b>&rsquo;s tower for the coloured-roof view &mdash; and note the facade, which is basalt columns, the same geometry you walked up to at Svartifoss on day 7. Then Harpa and the old harbour.</p><p><b>Sky Lagoon</b> if the flight is late enough: better designed than the Blue Lagoon, an infinity edge onto the Atlantic, and it is on the road to Keflav&iacute;k rather than a detour.</p><p><b>Refuel before the depot, not at it.</b> Rental fuel charges are punitive, and the station at the airport knows exactly who its customers are.</p><div class="stats"><span><b>Tower</b> coloured roofs</span><span><b>Sky Lagoon</b> on the way to KEF</span><span><b>Van</b> return full</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Hallgrimskirkja%2C+Reykjavik%2C+Iceland">Hallgr&iacute;mskirkja</a><a class="btn" href="https://maps.google.com/?q=Sky+Lagoon%2C+Kopavogur%2C+Iceland">Sky Lagoon</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Snaefellsnes" src="https://maps.google.com/maps?q=Snaefellsnes%2C+Iceland&z=8&output=embed"></iframe>
+    <div class="bar"><span>Snaefellsnes</span><a href="https://maps.google.com/?q=Snaefellsnes%2C+Iceland">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Geothermal water &mdash; and the day&rsquo;s shower</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>On foot &mdash; real footing</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead &mdash; fixed group size or sailing</span><span><i class="b" style="background:var(--class-5)"></i>Wind, wave or surf hazard &mdash; check before you go</span><span><i class="b" style="background:var(--class-6)"></i>Needs the night &mdash; aurora-dependent</span></div>
+</section>
+<section class="quick" id="quick">
+  <h2>Day-of links</h2>
+  <p class="qsub">The handful actually tapped from the van</p>
+  <div class="qgrid">
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-5)"></span>Before you drive</h4>
+      <a class="warn" href="https://www.road.is/"><b>road.is</b>Road status and closures, segment by segment</a>
+      <a class="warn" href="https://safetravel.is/"><b>SafeTravel</b>Alerts, volcano status, beach warnings</a>
+      <a href="https://en.vedur.is/"><b>vedur.is</b>The Met Office &mdash; wind speed is the number that matters</a>
+      <a class="tel" href="tel:112"><b>112</b>Emergency &mdash; and the 112 Iceland app sends your position</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-6)"></span>Aurora</h4>
+      <a href="https://en.vedur.is/weather/forecasts/aurora/"><b>vedur.is aurora</b>Activity mapped against cloud &mdash; clear sky beats high KP</a>
+      <a href="https://www.timeanddate.com/astronomy/iceland/reykjavik"><b>Dark hours</b>Cross-check against the table in this plan</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-2)"></span>Campsites &amp; the van</h4>
+      <a href="https://www.tjalda.is/en/"><b>tjalda.is</b>Campsite directory &mdash; and the closing dates</a>
+      <a href="https://www.campingcard.is/"><b>Camping Card</b>Participating sites. Expires 15 September</a>
+      <a href="https://www.n1.is/"><b>N1 stations</b>Fuel, and the dump/fill points</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-1)"></span>Pools &amp; food</h4>
+      <a href="https://www.swimminginiceland.com/"><b>Swimming in Iceland</b>Every municipal pool, with hours</a>
+      <a href="https://bonus.is/"><b>B&oacute;nus</b>Cheapest supermarket. Note the short opening hours</a>
+      <a href="https://www.vinbudin.is/"><b>V&iacute;nb&uacute;&eth;in</b>The only place to buy alcohol. Closed Sundays</a>
+    </div>
+  </div>
+</section>
+<section id="essentials">
+  <h2>Essentials</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Book ahead, in this order</h3>
+      <table>
+        <tr><th>#</th><th>What</th><th>Why it is here</th></tr>
+        <tr><td>1</td><td>Flights, YYZ&rarr;KEF</td><td>Overnight, 5 h 35 m, ~19/week between Icelandair and Air Canada</td></tr>
+        <tr><td>2</td><td><b>The van, with a heater</b></td><td>Shoulder pricing US$75&ndash;125/day; the heater is +US$50&ndash;100 and worth all of it</td></tr>
+        <tr><td>3</td><td>Camping Card</td><td>~26,000 ISK, 28 nights, 40+ sites &mdash; <b>expires 15 September</b></td></tr>
+        <tr><td>4</td><td>Silfra <i>(if doing it)</i></td><td>Check the medical form against the group <b>before</b> paying</td></tr>
+        <tr><td>5</td><td>One glacier walk</td><td>Fallj&ouml;kull caps groups at ten, so it sells out first</td></tr>
+        <tr><td>6</td><td>H&uacute;sav&iacute;k whales</td><td>Morning sailing, day 12</td></tr>
+      </table>
+      <p class="mono" style="font-size:.74rem;margin-top:10px">
+      Everything else on this route is same-day. Campsites are not bookable and do not need to be
+      &mdash; but they do need to be <b>confirmed open</b>.</p>
+    </div>
+    <div class="panel">
+      <h3>What it costs</h3>
+      <table>
+        <tr><th>Item</th><th>2026 rate</th></tr>
+        <tr><td>Camper, 2-berth, September</td><td>US$75&ndash;125 / day</td></tr>
+        <tr><td>Heater or shower upgrade</td><td>+US$50&ndash;100 / day</td></tr>
+        <tr><td>Campsite, unserviced</td><td>US$10&ndash;20 / night per van</td></tr>
+        <tr><td>Campsite, electric hook-up</td><td>US$20&ndash;40 / night per person</td></tr>
+        <tr><td>Camping Card</td><td>~26,000 ISK (~US$187&ndash;206)</td></tr>
+        <tr><td>Municipal pool</td><td>~1,200 ISK &mdash; the daily shower</td></tr>
+        <tr><td>Glacier walk</td><td>US$105 easy / US$162 advanced</td></tr>
+        <tr><td>Paid stops</td><td>Fja&eth;r&aacute;rglj&uacute;fur parking 1,000 ISK; Stokksnes gate fee; Keri&eth;</td></tr>
+      </table>
+      <p class="mono" style="font-size:.74rem;margin-top:10px">
+      <b>All figures are 2026.</b> Marked <span class="mono">GAP</span> &mdash; no 2027 rates
+      published for the van, the card or the tours. Re-quote before booking.</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel check">
+      <h3>Before you go</h3>
+      <div id="checklist"><label><input type="checkbox" data-k="flights"><span>Flights booked &mdash; YYZ&rarr;KEF overnight, evening of <b>3 Sep</b></span></label><label><input type="checkbox" data-k="van"><span>Camper booked <b>with the heater</b> &mdash; nights run 4&ndash;7&nbsp;&deg;C</span></label><label><input type="checkbox" data-k="insure"><span>Rental insurance read: what does <b>wind damage</b> cover, and is sand/ash included?</span></label><label><input type="checkbox" data-k="card"><span>Camping Card bought &mdash; check it against the actual sites on this route</span></label><label><input type="checkbox" data-k="sites"><span><b>Every campsite phoned</b> to confirm it is open to 14 September 2027</span></label><label><input type="checkbox" data-k="silfra"><span>Silfra medical form checked against everyone &mdash; age 12+, 150&ndash;200 cm, 45&ndash;120 kg</span></label><label><input type="checkbox" data-k="glacier"><span><b>One</b> glacier walk booked &mdash; S&oacute;lheimaj&ouml;kull or Fallj&ouml;kull, not both</span></label><label><input type="checkbox" data-k="whale"><span>H&uacute;sav&iacute;k whale watching, morning sailing on day 12</span></label><label><input type="checkbox" data-k="offline"><span>Offline maps downloaded &mdash; the east fjords and M&ouml;&eth;rudals&ouml;r&aelig;fi have thin signal</span></label><label><input type="checkbox" data-k="app"><span>112 Iceland app installed on every phone</span></label><label><input type="checkbox" data-k="waterproof"><span>Waterproof <b>trousers</b>, not just a jacket &mdash; you walk behind two waterfalls</span></label><label><input type="checkbox" data-k="layers"><span>Proper wind shell. Wind, not cold, is what makes Iceland unpleasant</span></label><label><input type="checkbox" data-k="adapter"><span>Type F plug adapter and a 12V USB hub for the van</span></label><label><input type="checkbox" data-k="torch"><span>Head torch with a <b>red</b> mode &mdash; white light kills your night vision on the aurora nights</span></label><label><input type="checkbox" data-k="shop"><span>Plan the day-1 B&oacute;nus/Kr&oacute;nan shop for at least five days of food</span></label><label><input type="checkbox" data-k="fuel"><span>Fuel rule agreed: never pass Egilssta&eth;ir or M&ouml;&eth;rudalur below half a tank</span></label></div>
+      <p class="mono" style="font-size:.72rem;margin-top:10px">Ticks are saved in this browser.</p>
+    </div>
+    <div class="panel">
+      <h3>Still open &mdash; the honest state</h3>
+      <ul>
+        <li><b>1</b><span><b>Campsite closing dates for September 2027 are unverified for every site
+          on this route.</b> Fifty Icelandic campsites shut during September. This is the highest-risk
+          item in the plan and the only one that could break a night&rsquo;s sleep. Phone each one.
+          Egilssta&eth;ir, Borgarnes and Reykjav&iacute;k Laugardalur are the year-round fallbacks.</span></li>
+        <li><b>2</b><span><b>Leg distances are estimated off the map, not routed</b>, except
+          V&iacute;k&rarr;H&ouml;fn (273 km / 3 h 24 m), H&ouml;fn&rarr;Egilssta&eth;ir (187 km /
+          2 h 46 m) and Akureyri&rarr;M&yacute;vatn (73 km). <b>Verify day 13 in particular</b> &mdash;
+          it is the one that is genuinely long.</span></li>
+        <li><b>3</b><span><b>Group size is undecided</b>, and it sets van size, the Silfra headcount
+          and whether the Fallj&ouml;kull ten-person cap is a problem.</span></li>
+        <li><b>4</b><span><b>Every price is a 2026 figure.</b> Nothing for 2027 has published.</span></li>
+        <li><b>5</b><span><b>Reykjanes is volatile.</b> Magma volume at Svartsengi is the highest
+          since December 2023. Day 1 is built so that losing the peninsula entirely costs nothing.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Planned from three research files in <span class="mono">~/workspace/travel/iceland-ring-road/</span>. Every daylight and darkness figure was computed with <span class="mono">sun-times.py</span> and <span class="mono">dark-times.py</span> in that folder, not quoted from anywhere. Photographs from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, each linked at its caption. Rules and prices verified September 2026 &mdash; <b>every price here is a 2026 figure, and no campsite has been confirmed open for September 2027.</b></div>
+</footer>
+
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script>
+</body>
+</html>

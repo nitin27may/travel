@@ -1,0 +1,355 @@
+{
+ "trip": "patagonia-feb-mar-2027",
+ "sections": [
+  {
+   "place": "Fitz Roy at sunrise",
+   "blurb": "Fitz Roy's east face turns red at first light; the skyline is visible from El Chalten itself.",
+   "days": "Days 7-9",
+   "photos": [
+    {
+     "file": "Fitz Roy El Chalten sunrise-5.jpg",
+     "caption": "Fitz Roy at sunrise from El Chalten",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-13.jpg",
+     "caption": "First light on the Fitz Roy massif",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-17.jpg",
+     "caption": "Fitz Roy over the village of El Chalten at sunrise",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Cerro Torre and Laguna Torre",
+   "blurb": "Cerro Torre with its ice cap over a glacial lagoon dotted with icebergs.",
+   "days": "Day 7",
+   "photos": [
+    {
+     "file": "Cerro torre laguna torre.jpg",
+     "caption": "Cerro Torre over Laguna Torre",
+     "author": "Stefan.straub",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Laguna Torre reflection.jpg",
+     "caption": "Laguna Torre reflection",
+     "author": "360around",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Laguna Torre reflection, Argentina.jpg",
+     "caption": "Cerro Torre and icebergs in Laguna Torre",
+     "author": "Phil Venditti",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Laguna de los Tres",
+   "blurb": "The turquoise lake directly under Fitz Roy at the end of the classic hike.",
+   "days": "Day 8",
+   "photos": [
+    {
+     "file": "Laguna de los Tres color.jpg",
+     "caption": "Laguna de los Tres",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Los Glaciares - Fitz Roy 005.jpg",
+     "caption": "Fitz Roy over Laguna de los Tres, Los Glaciares National Park",
+     "author": "Gedankenstuecke",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Hike to Mount Fitz Roy (5464294666).jpg",
+     "caption": "On the hike to Fitz Roy",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Perito Moreno Glacier",
+   "blurb": "The 60 m ice front seen from the walkways on the Magallanes Peninsula.",
+   "days": "Day 11",
+   "photos": [
+    {
+     "file": "153 - Glacier Perito Moreno - Grotte glaciaire - Janvier 2010.jpg",
+     "caption": "Ice cave at the front of Perito Moreno Glacier",
+     "author": "Martin St-Amant (S23678)",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Glaciar Perito Moreno icetrekking.JPG",
+     "caption": "Walking on Perito Moreno Glacier (the minitrekking route)",
+     "author": "Adiel lo",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Desprendimiento de témpano de hielo agita el agua en el Glaciar Perito Moreno.jpg",
+     "caption": "A calving from the Perito Moreno front",
+     "author": "Brandon Antonio Segura Torres & Priscilla Vieto Bonilla",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Upsala and Spegazzini",
+   "blurb": "Icebergs and ice fronts in the northern arms of Lago Argentino.",
+   "days": "Optional day",
+   "photos": [
+    {
+     "file": "Upsala glacier near icebergs.jpg",
+     "caption": "Icebergs near the Upsala Glacier",
+     "author": "Gorkaazk",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Upsala icebergs.jpg",
+     "caption": "Upsala icebergs",
+     "author": "Gorkaazk",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Upsala boat iceberg.jpg",
+     "caption": "Iceberg from the boat to Upsala",
+     "author": "Gorkaazk",
+     "license": "CC BY 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Lago Argentino and El Calafate",
+   "blurb": "The milky turquoise lake, and the flamingos of Laguna Nimez.",
+   "days": "Days 10-12",
+   "photos": [
+    {
+     "file": "Lago Argentino - El Calafate - Patagonie - panoramio.jpg",
+     "caption": "Lago Argentino near El Calafate",
+     "author": "Pavel Špindler",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "El Calafate - jezero Lago Argentino - panoramio.jpg",
+     "caption": "Lago Argentino and the steppe shore",
+     "author": "Pavel Špindler",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Lago Argentino u El Calafate - panoramio.jpg",
+     "caption": "Wetlands beside Lago Argentino",
+     "author": "Martin Cígler",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Tierra del Fuego National Park",
+   "blurb": "Bahia Lapataia and the end of Ruta 3 on the Beagle Channel.",
+   "days": "Days 4-5",
+   "photos": [
+    {
+     "file": "Lapataia Bay, Tierra del Fuego National Park (5536617808).jpg",
+     "caption": "Lapataia Bay, Tierra del Fuego National Park",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Lapataia Bay, Tierra del Fuego National Park (5536605072).jpg",
+     "caption": "Lapataia Bay with snow on the peaks",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Bahía Lapataia, Parque Nacional Tierra del Fuego, Argentina 20181110 114145.jpg",
+     "caption": "Bahia Lapataia and the Beagle Channel mountains",
+     "author": "Josefito123",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Beagle Channel",
+   "blurb": "Les Eclaireurs lighthouse and sea lions in the channel.",
+   "days": "Day 2",
+   "photos": [
+    {
+     "file": "\"Les Eclaireurs\" Lighthouse in the Beagle Channel (5525329294).jpg",
+     "caption": "Les Eclaireurs lighthouse, Beagle Channel",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Farol Les Éclaireurs.jpg",
+     "caption": "Les Eclaireurs lighthouse on its rock",
+     "author": "Fabiana Lima",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Beagle Canal, Argentinien (10613926506).jpg",
+     "caption": "The lighthouse reflected in the Beagle Channel",
+     "author": "M M from Switzerland",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Isla Martillo penguins",
+   "blurb": "Magellanic and gentoo penguins on the beach at Isla Martillo.",
+   "days": "Day 3",
+   "photos": [
+    {
+     "file": "Gentoo Penguins (and a few Magellanic Penguins) (5541420886).jpg",
+     "caption": "Gentoo and Magellanic penguins",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Magellanic Penguins (5541511496).jpg",
+     "caption": "Magellanic penguins on a beach",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Magellanic Penguins (5540800197).jpg",
+     "caption": "Magellanic penguins at the water's edge",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Ushuaia",
+   "blurb": "The southernmost city, between the Martial range and the channel.",
+   "days": "Days 2-6",
+   "photos": [
+    {
+     "file": "Ushuaia6a (js) (bannerportada esvoy).jpg",
+     "caption": "Ushuaia waterfront",
+     "author": "Jerzy Strzelecki",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Ushuaia5a (js).jpg",
+     "caption": "Ushuaia and the Beagle Channel under the Martial range",
+     "author": "Jerzy Strzelecki",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Ushuaia (8089441076).jpg",
+     "caption": "Chairlift among lenga beech in autumn colour (usually April, not early March)",
+     "author": "Jorge Láscar from Australia",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Laguna Esmeralda",
+   "blurb": "The turquoise lagoon at the end of the Esmeralda trail.",
+   "days": "Day 5",
+   "photos": [
+    {
+     "file": "Laguna Esmeralda, Ushuaia, Tierra del Fuego, Argentina.jpg",
+     "caption": "Laguna Esmeralda",
+     "author": "Márcio Motta",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Laguna Esmeralda Landscape.jpg",
+     "caption": "Beaver ponds on the Esmeralda trail",
+     "author": "Justraveling.com",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Hike to Laguna Esmeralda-Ushuaia.jpg",
+     "caption": "The trail to Laguna Esmeralda",
+     "author": "https://www.flickr.com/photos/inmyflippiefloppies/",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Recoleta and Buenos Aires",
+   "blurb": "The cemetery of mausoleums and El Ateneo, a theatre turned bookshop.",
+   "days": "Days 1 and 13",
+   "photos": [
+    {
+     "file": "Buenos Aires - Cementerio de la Recoleta - 200808a.jpg",
+     "caption": "Mausoleum avenue, Recoleta Cemetery",
+     "author": "Andrew Currie from Toronto, Canada",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Tomb of Rufina Cambaceres at Cementerio de la Recoleta in Buenos Aires in 2014.jpg",
+     "caption": "Tomb of Rufina Cambaceres, Recoleta",
+     "author": "Tim Adams",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "2018-10-19 Cementerio de la Recoleta, Buenos Aires, Argentina (Martin Rulsch) 13.jpg",
+     "caption": "Street between mausoleums in Recoleta",
+     "author": "DerHexer",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "La Boca",
+   "blurb": "Caminito's painted houses.",
+   "days": "Day 13",
+   "photos": [
+    {
+     "file": "Casa en Caminito, La Boca, Buenos Aires.jpg",
+     "caption": "A house on Caminito, La Boca",
+     "author": "Sombra Inquieta",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Calle Caminito in La Boca, Buenos Aires-4.JPG",
+     "caption": "The Caminito street market",
+     "author": "Lars Curfs (Grashoofd)",
+     "license": "CC BY-SA 3.0 nl"
+    },
+    {
+     "file": "Calle Caminito in La Boca, Buenos Aires-5.JPG",
+     "caption": "Painted houses on Calle Caminito",
+     "author": "Lars Curfs (Grashoofd)",
+     "license": "CC BY-SA 3.0 nl"
+    }
+   ]
+  },
+  {
+   "place": "Teatro Colon",
+   "blurb": "The opera house, one of the best acoustically in the world.",
+   "days": "Day 13",
+   "photos": [
+    {
+     "file": "Teatro Colón - Columbus Theatre - Buenos Aires - Argentina.jpg",
+     "caption": "The auditorium of Teatro Colon",
+     "author": "Jimmy Baikovicius",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Teatro Colón de Buenos Aires, vista interior 04.JPG",
+     "caption": "Stained-glass dome at Teatro Colon",
+     "author": "Pablomolo",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Buenos Aires Teatro Colon 2.jpg",
+     "caption": "Teatro Colon from the street",
+     "author": "Andrzej Otrębski",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,896 @@
+[
+ {
+  "id": "moraine-lake",
+  "name": "Moraine Lake",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Glacier-fed lake in the Valley of the Ten Peaks, reached from Lake Louise by Parks Canada shuttle or commercial tour only.",
+  "why_must_do": "Most photographed lake in the Rockies; Rockpile viewpoint and canoes.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Moraine+Lake,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+  "best_time": "Early morning; larches late Sept",
+  "booking_needed": "Yes: Parks Canada shuttle (2026: opened 15 Apr 2026 8am MT, 40% of seats, rest released 48h ahead; ran 1 Jun-12 Oct 2026; adult 12.75, youth 4.00, +3.50 online fee). Private vehicles not allowed on Moraine Lake Road year-round.",
+  "child_note": "Flat lakeshore (1.3 km one way) and Rockpile (0.7 km loop) suit a 6 year old. Shuttle fare tiers for youth: GAP age bands not verified.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "lake-louise",
+  "name": "Lake Louise",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Turquoise glacial lake below Victoria Glacier with a flat lakeshore trail.",
+  "why_must_do": "Iconic Rockies lake; lakeshore walk and Fairview Lookout.",
+  "time_needed_hours": 2.5,
+  "map_url": "https://maps.google.com/?q=Lake+Louise,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+  "best_time": "Morning, early Sept before crowds",
+  "booking_needed": "Parking at lake is pay/limited; Lakeshore shuttle ran 15 May-12 Oct 2026 via Park and Ride (reserve)",
+  "child_note": "Lakeshore trail 2.3 km one way is easy; stroller-capable surface not verified (GAP).",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+   "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/louise",
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "johnston-canyon",
+  "name": "Johnston Canyon",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Catwalk trail through a limestone canyon to Lower and Upper Falls.",
+  "why_must_do": "Easy catwalk walk with waterfalls; Ink Pots beyond.",
+  "time_needed_hours": 2.5,
+  "map_url": "https://maps.google.com/?q=Johnston+Canyon,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+  "best_time": "Early morning or evening",
+  "booking_needed": "No",
+  "child_note": "Lower Falls 1.1 km one way, 85 m: fine for a 6 year old; exposed catwalks, hold hands. 2026 pattern: Johnston Canyon Trail closed from 13 Oct 2026 for rock slope work, status for Sept 2029 is GAP.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "peyto-lake",
+  "name": "Peyto Lake Lookout",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Viewpoint over a bright blue wolf-head-shaped lake from Bow Summit.",
+  "why_must_do": "Best easy view on the Icefields Parkway.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Peyto+Lake+Lookout,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+  "best_time": "Morning, light is best before noon",
+  "booking_needed": "No",
+  "child_note": "0.6 km one way, 30 m gain; paved to lookout is GAP (not verified).",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "bow-lake",
+  "name": "Bow Lake",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Large lake on the Icefields Parkway below Crowfoot Glacier, trailhead for Bow Glacier Falls.",
+  "why_must_do": "Roadside lake, picnic, Num-Ti-Jah Lodge.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Bow+Lake,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+  "best_time": "Morning calm for reflections",
+  "booking_needed": "No",
+  "child_note": "Bow Glacier Falls trail 3.8 km one way, 95 m (too long for the little one, lakeside strolling is fine).",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "vermilion-lakes",
+  "name": "Vermilion Lakes Drive",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Scenic drive and wetland lakes on the edge of Banff townsite facing Mount Rundle.",
+  "why_must_do": "Sunrise/sunset views and elk and bird watching.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Vermilion+Lakes+Drive,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/nautiques-sports",
+  "best_time": "Sunrise or sunset",
+  "booking_needed": "No",
+  "child_note": "Short stops, flat. GAP: no official page fetched for this sight; description is general knowledge.",
+  "source_urls": [],
+  "status": "GAP"
+ },
+ {
+  "id": "cave-and-basin",
+  "name": "Cave and Basin National Historic Site",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Birthplace of Canada's national park system with a warm mineral spring cave.",
+  "why_must_do": "History plus boardwalk walks to marsh.",
+  "time_needed_hours": 1.5,
+  "map_url": "https://maps.google.com/?q=Cave+and+Basin+National+Historic+Site,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin",
+  "best_time": "Midday or rainy day",
+  "booking_needed": "GAP: admission/hours not verified",
+  "child_note": "Good rainy-day child stop. GAP: no official page fetched for this sight; description is general knowledge.",
+  "source_urls": [],
+  "status": "GAP"
+ },
+ {
+  "id": "banff-gondola",
+  "name": "Banff Gondola (Sulphur Mountain)",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Gondola to the summit of Sulphur Mountain with boardwalk and viewing deck.",
+  "why_must_do": "Big views with almost no walking; replaces the 4.8 km one-way, 655 m Sulphur Mountain trail.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Banff+Gondola+(Sulphur+Mountain),+Banff+National+Park,+Alberta",
+  "official_url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+  "best_time": "Clear morning",
+  "booking_needed": "Private operator, book ahead in Sept long weekend; GAP: price/hours not verified",
+  "child_note": "Height requirements: GAP. Private operator, not Parks Canada.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "INFERENCE"
+ },
+ {
+  "id": "lake-minnewanka",
+  "name": "Lake Minnewanka",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "Largest lake in Banff National Park with a short Stewart Canyon trail and cruise.",
+  "why_must_do": "Easy lake walk, scenic cruise.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Lake+Minnewanka,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/activ/nautiques-sports",
+  "best_time": "Morning",
+  "booking_needed": "Cruise is private operator: GAP",
+  "child_note": "Lake Minnewanka Trail to Stewart Canyon bridge is 1.6 km one way, 30 m. 2026: trail past Stewart Canyon bridge, Aylmer Pass and several campgrounds closed from 16 Sep until further notice; Aylmer trails have group restriction 10 Jul-15 Sep.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "icefields-parkway-drive",
+  "name": "Icefields Parkway (Hwy 93N) scenic drive",
+  "park": "Banff",
+  "jurisdiction": "national",
+  "what": "230 km scenic drive between Lake Louise and Jasper through the Banff and Jasper icefields.",
+  "why_must_do": "Spine of the trip, with Peyto, Bow Lake, Columbia Icefield, Athabasca and Sunwapta Falls.",
+  "time_needed_hours": 6,
+  "map_url": "https://maps.google.com/?q=Icefields+Parkway+(Hwy+93N)+scenic+drive,+Banff+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+  "best_time": "Early morning start, Sept snow possible at Bow Summit",
+  "booking_needed": "No",
+  "child_note": "Long drive for a 6 year old, plan frequent stops. Gas stations limited: GAP not verified.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed",
+   "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking"
+  ],
+  "status": "INFERENCE"
+ },
+ {
+  "id": "columbia-icefield-athabasca-glacier",
+  "name": "Athabasca Glacier and Columbia Icefield",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Toe of the Athabasca Glacier and the Columbia Icefield, roadside viewing with a walk to the glacier toe.",
+  "why_must_do": "Walk to the toe of a glacier you can see from the road.",
+  "time_needed_hours": 2.5,
+  "map_url": "https://maps.google.com/?q=Athabasca+Glacier+and+Columbia+Icefield,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+  "best_time": "Midday; Sept can be snowy",
+  "booking_needed": "Glacier Adventure tours are private operator, book ahead: GAP not verified",
+  "child_note": "Toe trail 1.8 km round trip, 60 m: feasible. Do not walk on the ice. Icefield Centre information desk closed per 2026 page.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "sunwapta-falls",
+  "name": "Sunwapta Falls",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Powerful waterfall on the Sunwapta River just off the Icefields Parkway.",
+  "why_must_do": "Easy roadside falls.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Sunwapta+Falls,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/sunwapta",
+  "best_time": "Anytime, spray in morning light",
+  "booking_needed": "No",
+  "child_note": "Upper falls viewpoint is short and fenced; Lower Sunwapta Falls trail 2.6 km round trip, 87 m. Trailhead and picnic site open per 2026 page.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "athabasca-falls",
+  "name": "Athabasca Falls",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Powerful falls and canyon on the Athabasca River.",
+  "why_must_do": "Very short walk, big water.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Athabasca+Falls,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+  "best_time": "Anytime",
+  "booking_needed": "No",
+  "child_note": "200 m walk, fenced viewpoints; hold hands near canyon edges. Day-use area open per 2026 page.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "maligne-lake-spirit-island",
+  "name": "Maligne Lake and Spirit Island",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Largest lake in Jasper, boat cruise to Spirit Island.",
+  "why_must_do": "One of the most photographed spots in the Rockies.",
+  "time_needed_hours": 4,
+  "map_url": "https://maps.google.com/?q=Maligne+Lake+and+Spirit+Island,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
+  "best_time": "Morning; Sept cruises run until end of season GAP",
+  "booking_needed": "Cruise is private operator, book ahead: GAP not verified",
+  "child_note": "Cruise requires little walking; life jackets for child supplied by operator: GAP. Maligne Road reopened 11 Oct 2024; trailhead, boathouse picnic site open per 2026 page; Spirit Island cruise not confirmed on the page.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed",
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails"
+  ],
+  "status": "INFERENCE"
+ },
+ {
+  "id": "maligne-canyon",
+  "name": "Maligne Canyon",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Deep limestone canyon with waterfalls and bridges near Jasper.",
+  "why_must_do": "Normally a top family walk.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Maligne+Canyon,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+  "best_time": "GAP closed",
+  "booking_needed": "No",
+  "child_note": "CLOSED 2026: Superintendent closure, no public access (2026-10-08 trail conditions) and 'closed until further notice' on the Across the River page. Status in Sept 2029 is GAP.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/etat-sentiers-trail-conditions",
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/riviere-river",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "pyramid-lake",
+  "name": "Pyramid Lake",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Lake and island with the iconic Pyramid Mountain backdrop near Jasper townsite.",
+  "why_must_do": "Easy sunset spot, picnic, boat rental.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Pyramid+Lake,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/ete-summer/activitesnautiques-wateractivities/plages-beaches",
+  "best_time": "Evening or morning calm",
+  "booking_needed": "No",
+  "child_note": "Pyramid Bench trails reopened per 2026 page; trailhead open. Lake Annette Loop (2.4 km flat) is nearby.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed",
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "jasper-townsite",
+  "name": "Jasper Townsite",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Mountain town and park base, rebuilt after the July 2024 wildfire.",
+  "why_must_do": "Town services, dining, base for Maligne and Icefields.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Jasper+Townsite,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries",
+  "best_time": "Anytime",
+  "booking_needed": "Accommodation: book early for Sept long weekend",
+  "child_note": "Town stroll. Post-wildfire burn area safety guidance: see Parks Canada page.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed",
+   "https://parks.canada.ca/pn-np/ab/jasper/securite-safety/apres-incendie-post-wildfire"
+  ],
+  "status": "INFERENCE"
+ },
+ {
+  "id": "miette-hot-springs",
+  "name": "Miette Hot Springs",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Hot springs pools at the end of Miette Road east of Jasper.",
+  "why_must_do": "Soak after hiking; Sulphur Skyline trail nearby.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Miette+Hot+Springs,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs",
+  "best_time": "Afternoon or evening",
+  "booking_needed": "GAP: pool hours/reservation not verified",
+  "child_note": "Miette Hot Springs open per 2026 page. Water temperature for a 6 year old: GAP.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed",
+   "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "mount-edith-cavell",
+  "name": "Mount Edith Cavell and Cavell Meadows",
+  "park": "Jasper",
+  "jurisdiction": "national",
+  "what": "Cavell Road to Angel Glacier viewpoint and the Path of the Glacier.",
+  "why_must_do": "Glacier views.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Mount+Edith+Cavell+and+Cavell+Meadows,+Jasper+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell",
+  "best_time": "GAP closed",
+  "booking_needed": "No",
+  "child_note": "CLOSED 2026: Cavell Road and day-use area closed; trails 41 Path of the Glacier and 42 Cavell Meadows closed (debris flow risk). Sept 2029 status GAP.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/ab/jasper/bulletins/2601a019-af00-4e39-b10c-0985e10fa7e6",
+   "https://www.parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "emerald-lake",
+  "name": "Emerald Lake",
+  "park": "Yoho",
+  "jurisdiction": "national",
+  "what": "Emerald-green lake with a flat 5.2 km shoreline loop and lodge.",
+  "why_must_do": "Easy flat loop, canoe rental.",
+  "time_needed_hours": 2.5,
+  "map_url": "https://maps.google.com/?q=Emerald+Lake,+Yoho+National+Park,+British+Columbia",
+  "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+  "best_time": "Morning",
+  "booking_needed": "Canoe rental private: GAP",
+  "child_note": "Emerald Lakeshore 5.2 km loop, minimal gain, muddy and rooty on east side.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "takakkaw-falls",
+  "name": "Takakkaw Falls",
+  "park": "Yoho",
+  "jurisdiction": "national",
+  "what": "373 m waterfall at the end of Yoho Valley Road.",
+  "why_must_do": "Tallest falls on the trip, flat paved walk to base.",
+  "time_needed_hours": 1.5,
+  "map_url": "https://maps.google.com/?q=Takakkaw+Falls,+Yoho+National+Park,+British+Columbia",
+  "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+  "best_time": "Road open mid-June to mid-October; late-day cloud",
+  "booking_needed": "No",
+  "child_note": "0.9 km one way flat paved path. Yoho Valley Road switchbacks: trailers not allowed GAP.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+   "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "natural-bridge",
+  "name": "Natural Bridge",
+  "park": "Yoho",
+  "jurisdiction": "national",
+  "what": "Rock bridge carved by the Kicking Horse River, near the Emerald Lake road turnoff.",
+  "why_must_do": "Roadside quick stop.",
+  "time_needed_hours": 0.5,
+  "map_url": "https://maps.google.com/?q=Natural+Bridge,+Yoho+National+Park,+British+Columbia",
+  "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+  "best_time": "Anytime",
+  "booking_needed": "No",
+  "child_note": "Almost no walking. Parking is about 4 km west of Field on Emerald Lake Road. Distance to bridge: GAP.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day"
+  ],
+  "status": "INFERENCE"
+ },
+ {
+  "id": "wapta-falls",
+  "name": "Wapta Falls",
+  "park": "Yoho",
+  "jurisdiction": "national",
+  "what": "Broad 30 m waterfall on the Kicking Horse River.",
+  "why_must_do": "Easy forest walk to a large falls.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Wapta+Falls,+Yoho+National+Park,+British+Columbia",
+  "official_url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+  "best_time": "Anytime; road closed late Oct to late May",
+  "booking_needed": "No",
+  "child_note": "2.2 km one way, 80 m gain: family-friendly per Parks Canada. Eastbound access only from the highway.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "marble-canyon",
+  "name": "Marble Canyon",
+  "park": "Kootenay",
+  "jurisdiction": "national",
+  "what": "Narrow marble canyon with bridges and a rim walk.",
+  "why_must_do": "Short, easy, high impact.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Marble+Canyon,+Kootenay+National+Park,+British+Columbia",
+  "official_url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
+  "best_time": "Anytime",
+  "booking_needed": "No",
+  "child_note": "0.9 km one way, 65 m. Fenced bridges.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+   "https://parks.canada.ca/pn-np/bc/kootenay/activ/places"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "paint-pots",
+  "name": "Paint Pots",
+  "park": "Kootenay",
+  "jurisdiction": "national",
+  "what": "Three iron-rich mineral springs staining ochre ground.",
+  "why_must_do": "Easy flat walk; Indigenous cultural site.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Paint+Pots,+Kootenay+National+Park,+British+Columbia",
+  "official_url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
+  "best_time": "Anytime",
+  "booking_needed": "No",
+  "child_note": "1 km one way, 35 m. Good for 6 year old.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+   "https://parks.canada.ca/pn-np/bc/kootenay/activ/places"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "radium-hot-springs",
+  "name": "Radium Hot Springs",
+  "park": "Kootenay",
+  "jurisdiction": "national",
+  "what": "Hot mineral pools at the park's west gate in Sinclair Canyon.",
+  "why_must_do": "Soak and swim break.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Radium+Hot+Springs,+Kootenay+National+Park,+British+Columbia",
+  "official_url": "https://parks.canada.ca/hotsprings/",
+  "best_time": "Afternoon or evening",
+  "booking_needed": "GAP: hours/prices not verified",
+  "child_note": "Pool depth/age rules: GAP. 2026 note: Hot Springs trail connector to Sinclair Canyon closed for road construction.",
+  "source_urls": [
+   "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+   "https://parks.canada.ca/pn-np/bc/kootenay/activ/places"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "waterton-townsite",
+  "name": "Waterton Townsite",
+  "park": "Waterton Lakes",
+  "jurisdiction": "national",
+  "what": "Lakeside village in Waterton Lakes National Park with shoreline cruise and Bear's Hump trail.",
+  "why_must_do": "Compact base; wildlife and prairie-meets-mountain scenery.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Waterton+Townsite,+Waterton+Lakes+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/waterton/visit/pointe-interest-points",
+  "best_time": "Anytime",
+  "booking_needed": "Cruise private operator: GAP",
+  "child_note": "Town shoreline paths flat. Wildlife corridor caution on Entrance Road per 2026 notice.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/etat-sentiers-trail-conditions"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "red-rock-parkway",
+  "name": "Red Rock Parkway and Red Rock Canyon",
+  "park": "Waterton Lakes",
+  "jurisdiction": "national",
+  "what": "15 km scenic drive to Red Rock Canyon with a short loop and Blakiston Falls.",
+  "why_must_do": "Easy red argillite canyon walk.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Red+Rock+Parkway+and+Red+Rock+Canyon,+Waterton+Lakes+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/waterton/visit/pointe-interest-points",
+  "best_time": "Open until October; closed to motor vehicles Oct-May",
+  "booking_needed": "No",
+  "child_note": "Red Rock Canyon Loop open per 2026 page. Loop length: GAP, INFERENCE 0.7 km.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/etat-sentiers-trail-conditions"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "cameron-lake",
+  "name": "Cameron Lake",
+  "park": "Waterton Lakes",
+  "jurisdiction": "national",
+  "what": "Subalpine lake at the end of Akamina Parkway on the Continental Divide.",
+  "why_must_do": "Boat rental, grizzly habitat, flat shore walk.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Cameron+Lake,+Waterton+Lakes+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/waterton/activ/experiences/conduite-driving/akamina",
+  "best_time": "Morning for wildlife",
+  "booking_needed": "Boat rental private: GAP",
+  "child_note": "Cameron Lakeshore Trail listed open (2026-10-12). Bear warning: GAP no specific warning listed for it.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/etat-sentiers-trail-conditions"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "prince-of-wales-hotel",
+  "name": "Prince of Wales Hotel",
+  "park": "Waterton Lakes",
+  "jurisdiction": "national",
+  "what": "Historic 1927 hotel on a bluff with a view of Upper Waterton Lake.",
+  "why_must_do": "Classic photo; afternoon tea.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Prince+of+Wales+Hotel,+Waterton+Lakes+National+Park,+Alberta",
+  "official_url": "https://parks.canada.ca/pn-np/ab/waterton/visit/pointe-interest-points",
+  "best_time": "Sunset",
+  "booking_needed": "Tea reservations: GAP",
+  "child_note": "Prince of Wales Loop Trail open per 2026 page.",
+  "source_urls": [
+   "https://www.parks.canada.ca/pn-np/ab/waterton/activ/experiences/randonee-hiking/etat-sentiers-trail-conditions"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "kananaskis-lakes-day-use",
+  "name": "Upper and Lower Kananaskis Lakes",
+  "park": "Peter Lougheed Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Two large glacial lakes with day-use areas, boat launch and short paved and gravel lakeside walks in Peter Lougheed Provincial Park.",
+  "why_must_do": "Classic Kananaskis lake and Opal Range scenery with easy lakeside access for a child.",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Upper+and+Lower+Kananaskis+Lakes,+Peter+Lougheed+Provincial+Park,+Alberta",
+  "official_url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/",
+  "best_time": "Weekdays; larch colour late Sept",
+  "booking_needed": false,
+  "child_note": "Lakeside strolls at Lower Lake and Interlakes are flat; keep away from shoreline in bear closure zones.",
+  "source_urls": [
+   "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp/",
+   "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/1982-canadian-mount-everest-expedition-interpretive/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "elbow-falls",
+  "name": "Elbow Falls",
+  "park": "Elbow-Sheep Wildland",
+  "jurisdiction": "provincial",
+  "what": "Waterfall viewpoint on the Elbow River reached by a short loop (0.8 km, about 27 m gain).",
+  "why_must_do": "Easiest roadside waterfall near Calgary; pram-free short loop.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Elbow+Falls,+Elbow-Sheep+Wildland,+Alberta",
+  "official_url": "https://www.albertaparks.ca/parks/kananaskis/elbow-falls-pra/information-facilities/day-use/elbow-falls/",
+  "best_time": "Any dry day; Hwy 66 closed Dec 1 - May 14, open in Sept",
+  "booking_needed": false,
+  "child_note": "Fenced viewpoints; hold hands near rail.",
+  "source_urls": [
+   "https://explorekananaskis.com/?p=3418",
+   "https://www.explorecanmore.ca/blog/discover-the-best-waterfall-and-lakeside-hikes-in-kananaskis/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "wedge-pond",
+  "name": "Wedge Pond",
+  "park": "Spray Valley Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "1 km flat loop around a pond under Mount Kidd, on Hwy 40 north of Kananaskis Village.",
+  "why_must_do": "Reflection photo stop with no climbing.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Wedge+Pond,+Spray+Valley+Provincial+Park,+Alberta",
+  "official_url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond/",
+  "best_time": "Morning for calm water",
+  "booking_needed": false,
+  "child_note": "Flat, 20-45 min.",
+  "source_urls": [
+   "https://explorekananaskis.com/?p=3418",
+   "https://www.explorecanmore.ca/blog/discover-the-best-waterfall-and-lakeside-hikes-in-kananaskis/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "mount-lorette-ponds",
+  "name": "Mount Lorette Ponds",
+  "park": "Bow Valley Wildland / Kananaskis Country",
+  "jurisdiction": "provincial",
+  "what": "Short loop (about 1 km) around small ponds near the Kananaskis River.",
+  "why_must_do": "Quick easy picnic and pond stop for a young child.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Mount+Lorette+Ponds,+Bow+Valley+Wildland+/+Kananaskis+Country,+Alberta",
+  "official_url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/mt-lorette-ponds/",
+  "best_time": "Any dry day",
+  "booking_needed": false,
+  "child_note": "Easy flat loop; check closure notices (day use appears in Alberta Parks closure notice).",
+  "source_urls": [
+   "https://explorekananaskis.com/?p=17780",
+   "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "canmore-nordic-centre",
+  "name": "Canmore Nordic Centre Provincial Park",
+  "park": "Canmore Nordic Centre Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "GAP: summer use not verified (park has events pages on albertaparks.ca).",
+  "why_must_do": "Base for Grassi Lakes access and trail network (INFERENCE).",
+  "time_needed_hours": 2,
+  "map_url": "https://maps.google.com/?q=Canmore+Nordic+Centre+Provincial+Park,+Canmore+Nordic+Centre+Provincial+Park,+Alberta",
+  "official_url": "https://albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/",
+  "best_time": "Summer",
+  "booking_needed": false,
+  "child_note": "GAP",
+  "source_urls": [
+   "https://albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/events/events/calforex-2026/"
+  ],
+  "status": "GAP"
+ },
+ {
+  "id": "highwood-pass-summit",
+  "name": "Highwood Pass and Hwy 40 corridor",
+  "park": "Peter Lougheed Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Hwy 40 pass area with trailheads for Ptarmigan Cirque and Pocaterra; road closed Dec 1 - Jun 14.",
+  "why_must_do": "Gateway to larch cirque hiking; scenic drive.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Highwood+Pass,+Peter+Lougheed+Provincial+Park,+Alberta",
+  "official_url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/annual-road-closures/",
+  "best_time": "Mid-Sept to early Oct for larches",
+  "booking_needed": false,
+  "child_note": "Parking lot busy and construction reported; go early on weekdays.",
+  "source_urls": [
+   "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/annual-road-closures/",
+   "https://www.albertaparks.ca/albertaparks-ca/learning/parks-blog/golden-larch-season-guide-to-fall-hiking-in-alberta-parks/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "smith-dorrien-trail",
+  "name": "Smith-Dorrien / Spray Trail (Hwy 742)",
+  "park": "Spray Valley Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Unpaved scenic road between Canmore and Kananaskis Lakes giving access to Chester Lake, Burstall, Tent Ridge.",
+  "why_must_do": "Access road for several Sept larch and family hikes.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Smith-Dorrien+Trail,+Spray+Valley+Provincial+Park,+Alberta",
+  "official_url": null,
+  "best_time": "Dry weather",
+  "booking_needed": false,
+  "child_note": "Gravel, dusty, washboard, no cell service; GAP: Alberta Parks closure chart does not list it.",
+  "source_urls": [
+   "https://hikebiketravel.com/chester-lake-hike/",
+   "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/annual-road-closures/"
+  ],
+  "status": "INFERENCE"
+ },
+ {
+  "id": "mount-robson-viewpoint",
+  "name": "Mount Robson Visitor Centre viewpoint",
+  "park": "Mount Robson Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Visitor centre back deck gives a clear view of Mount Robson (3,954 m, tallest in the Canadian Rockies).",
+  "why_must_do": "Easiest look at the highest Rockies peak.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Mount+Robson+Visitor+Centre,+Mount+Robson+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/mount-robson-park/",
+  "best_time": "Clear morning",
+  "booking_needed": false,
+  "child_note": "Zero walking; clouds often cover summit.",
+  "source_urls": [
+   "https://engage.gov.bc.ca/bcparksblog/2022/03/02/awesome-camping-and-hiking-opportunities-in-the-robson-valley/",
+   "https://bcparks.ca/mount-robson-park/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "overlander-falls-view",
+  "name": "Overlander Falls",
+  "park": "Mount Robson Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Waterfall on the Fraser River reached by a short walk of roughly 1.4 miles round trip near the visitor centre.",
+  "why_must_do": "Short family walk in Robson Valley.",
+  "time_needed_hours": 1,
+  "map_url": "https://maps.google.com/?q=Overlander+Falls,+Mount+Robson+Provincial+Park,+British+Columbia",
+  "official_url": null,
+  "best_time": "Any dry day",
+  "booking_needed": false,
+  "child_note": "Easy for 6 year old; BC Parks lists it as a short family hike.",
+  "source_urls": [
+   "https://engage.gov.bc.ca/bcparksblog/2022/03/02/awesome-camping-and-hiking-opportunities-in-the-robson-valley/",
+   "https://www.hikingproject.com/trail/gpx/7038948"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "kinney-lake-view",
+  "name": "Kinney Lake",
+  "park": "Mount Robson Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Turquoise lake about 7 km along the Berg Lake Trail; cycling permitted to Kinney Lake.",
+  "why_must_do": "Most accessible lake on the Berg Lake trail.",
+  "time_needed_hours": 4,
+  "map_url": "https://maps.google.com/?q=Kinney+Lake,+Mount+Robson+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/mount-robson-park/",
+  "best_time": "Sept clear days",
+  "booking_needed": false,
+  "child_note": "Long but flat; 9-10 km return; see trail kinney-lake.",
+  "source_urls": [
+   "https://offtracktravel.ca/kinney-lake-hiking-guide/",
+   "https://bcparks.ca/mount-robson-park/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "berg-lake",
+  "name": "Berg Lake",
+  "park": "Mount Robson Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Lake below Mount Robson reached by 23 km one-way trail; fully reopened June 2025 after 2021 flood repairs, reservations required May 27 - Sept 29 (2026 pattern).",
+  "why_must_do": "Signature BC Rockies backpack; adult-only for this trip.",
+  "time_needed_hours": 24,
+  "map_url": "https://maps.google.com/?q=Berg+Lake,+Mount+Robson+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/mount-robson-park/",
+  "best_time": "Late Aug to mid Sept",
+  "booking_needed": true,
+  "child_note": "Not suitable for a 6 year old in a day; multi-day only with reservations.",
+  "source_urls": [
+   "https://news.gov.bc.ca/releases/2025ENV0005-000247",
+   "https://richmondsentinel.ca/article-detail/55317/camping-reservations-will-open-for-entire-berg-lake-trail-in-mount-robson-park",
+   "https://canadianrockiestrailguide.com/berg-lake-trail-reopens/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "assiniboine-lodge-helicopter",
+  "name": "Mount Assiniboine helicopter access",
+  "park": "Mount Assiniboine Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Helicopter flights from Mount Shark helipad run Wed, Fri and Sun; need a valid camping reservation to fly to the core area.",
+  "why_must_do": "Only practical non-hiking access to Lake Magog.",
+  "time_needed_hours": 8,
+  "map_url": "https://maps.google.com/?q=Mount+Shark+Helipad,+Mount+Assiniboine+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/mount-assiniboine-park/",
+  "best_time": "Early to mid Sept",
+  "booking_needed": true,
+  "child_note": "GAP: child weight/fare and lodge pricing not found (Assiniboine Lodge site not fetched).",
+  "source_urls": [
+   "https://bcparks.ca/mount-assiniboine-park/",
+   "https://kootenayrockies.com/planning-for-your-mount-assiniboine-adventure"
+  ],
+  "status": "GAP"
+ },
+ {
+  "id": "lake-magog",
+  "name": "Lake Magog and Assiniboine core area",
+  "park": "Mount Assiniboine Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Core area with Magog Lake and Og Lake campgrounds; Sunburst Lake about 20 min walk away.",
+  "why_must_do": "Matterhorn-style Mount Assiniboine view.",
+  "time_needed_hours": 24,
+  "map_url": "https://maps.google.com/?q=Lake+Magog+and+Assiniboine+core+area,+Mount+Assiniboine+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/mount-assiniboine-park/",
+  "best_time": "Early Sept for larches near Wonder Pass (INFERENCE)",
+  "booking_needed": true,
+  "child_note": "Camping reservation via BC Parks; core sites sell out within seconds; huts via lodge.",
+  "source_urls": [
+   "https://bcparks.ca/mount-assiniboine-park/",
+   "https://pixeoapp.com/photography-guides/north-america/canada/british-columbia/magog-lake-and-mount-assiniboine"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "elk-lakes-park",
+  "name": "Elk Lakes Provincial Park",
+  "park": "Elk Lakes Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Remote lakes reached by a roughly 67 km Forest Service Road; short flat trails (1 km to Lower Elk Lake).",
+  "why_must_do": "Quiet alternative with easy lake walk.",
+  "time_needed_hours": 4,
+  "map_url": "https://maps.google.com/?q=Elk+Lakes+Provincial+Park,+Elk+Lakes+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/elk-lakes-park/hiking/",
+  "best_time": "Aug-Sept when road dry",
+  "booking_needed": false,
+  "child_note": "Medium clearance vehicle, radio recommended; industrial traffic.",
+  "source_urls": [
+   "https://nrs.objectstore.gov.bc.ca/kuwyyf/elk_lakes_trail_report_a59d6de1b6.pdf?d=20260515",
+   "https://bcparks.ca/elk-lakes-park/hiking/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "beauvais-lake-pp",
+  "name": "Beauvais Lake Provincial Park",
+  "park": "Beauvais Lake Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Foothills lake park near Pincher Creek with Beauvais Lake Trail (about 6 miles) and Piney Point loop.",
+  "why_must_do": "Info only for this trip; far south.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Beauvais+Lake+Provincial+Park,+Beauvais+Lake+Provincial+Park,+Alberta",
+  "official_url": "https://www.albertaparks.ca/parks/south/beauvais-lake-pp/information-facilities/",
+  "best_time": "Sept",
+  "booking_needed": false,
+  "child_note": "Listing marks main trail for older children.",
+  "source_urls": [
+   "https://www.10adventures.com/hikes/castle/beauvais-lake-trail",
+   "https://cms.10adventures.com/hikes/castle"
+  ],
+  "status": "INFERENCE"
+ },
+ {
+  "id": "whiteswan-lussier-hot-springs",
+  "name": "Whiteswan Lake and Lussier Hot Springs",
+  "park": "Whiteswan Lake Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Free natural hot springs plus lake camping, via a logging road with heavy logging traffic.",
+  "why_must_do": "Family friendly soak; swimsuit required, no dogs.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Whiteswan+Lake+and+Lussier+Hot+Springs,+Whiteswan+Lake+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/whiteswan-lake-park/",
+  "best_time": "Sept",
+  "booking_needed": false,
+  "child_note": "Steep path to springs; hot water 43 C - supervise child.",
+  "source_urls": [
+   "https://thecanadianrockies.com/whiteswan-lake-provincial-park/",
+   "https://britishcolumbia.com/things-to-do-and-see/parks-and-trails/kootenay-rockies/whiteswan-lake-provincial-park/"
+  ],
+  "status": "VERIFIED"
+ },
+ {
+  "id": "castle-provincial-park",
+  "name": "Castle Provincial Park",
+  "park": "Castle Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "GAP: official park info not fetched; third-party lists Paradise Lake via Castle Mountain Resort as family-friendly.",
+  "why_must_do": "Info only.",
+  "time_needed_hours": 3,
+  "map_url": "https://maps.google.com/?q=Castle+Provincial+Park,+Castle+Provincial+Park,+Alberta",
+  "official_url": "https://www.albertaparks.ca/parks/south/castle-pp/information-facilities/",
+  "best_time": "GAP",
+  "booking_needed": false,
+  "child_note": "GAP",
+  "source_urls": [
+   "https://10adventures.com/hikes/castle"
+  ],
+  "status": "GAP"
+ },
+ {
+  "id": "top-of-the-world-pp",
+  "name": "Top of the World Provincial Park",
+  "park": "Top of the World Provincial Park",
+  "jurisdiction": "provincial",
+  "what": "Remote park at the end of the Whiteswan logging road, trailhead at km 52.",
+  "why_must_do": "Info only.",
+  "time_needed_hours": 6,
+  "map_url": "https://maps.google.com/?q=Top+of+the+World+Provincial+Park,+Top+of+the+World+Provincial+Park,+British+Columbia",
+  "official_url": "https://bcparks.ca/top-of-the-world-park/",
+  "best_time": "GAP",
+  "booking_needed": false,
+  "child_note": "Remote; not for this trip.",
+  "source_urls": [
+   "https://thecanadianrockies.com/whiteswan-lake-provincial-park/"
+  ],
+  "status": "GAP"
+ }
+]

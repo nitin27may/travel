@@ -1,0 +1,44 @@
+/* alpenglow — enrosadira: the pink fire on dolomitic limestone at dawn and dusk.
+   Source palette: Dolomites (Jul 2027).
+   Good for: high alpine limestone, via ferrata, rifugio-to-rifugio. */
+/* @fonts: Archivo:wght@500;700;800|Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600|JetBrains+Mono:wght@400;500;700 */
+:root{
+  --font-display:"Archivo",sans-serif;
+  --font-body:"Newsreader",Georgia,serif;
+  --font-mono:"JetBrains Mono",monospace;
+
+  --bg:#f5f3ef;
+  --surface:#fffefb;
+  --bg-deep:#191d26;
+  --bg-deep-2:#262c38;
+
+  --ink:#242932;
+  --ink-on-deep:#c9ced8;
+  --muted:#69707c;
+  --muted-on-deep:#98a0ac;
+  --line:#dfdbd3;
+
+  --accent:#1f6b78;
+  --accent-dark:#16505a;
+  --accent-ink:#ffffff;
+  --accent-soft:#e2eef0;
+
+  --header:#3b4d80;
+  --header-ink:#ffffff;
+  --header-sub:#ccd4ea;
+
+  --warn:#a8412a;
+  --warn-soft:#f9ece8;
+
+  --highlight:#c08a2e;
+  --highlight-ink:#312406;
+  --highlight-soft:#f8f1de;
+  --highlight-on-deep:#eec372;
+
+  --class-1:#c2566d;   /* rosa — the alpenglow itself */
+  --class-2:#f0ece4;
+  --class-3:#3b4d80;
+  --class-4:#c08a2e;
+  --class-5:#1f6b78;
+  --class-6:#8b9199;
+}

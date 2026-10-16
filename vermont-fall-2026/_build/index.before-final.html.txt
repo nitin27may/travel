@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="trip-date" content="2026-10-01">
+<meta name="trip-dates" content="1 – 4 Oct 2026">
+<meta name="trip-duration" content="4 days">
+<meta name="trip-region" content="Vermont, USA">
+<title>The Notch and the Kingdom (Vermont) — October 1–4, 2026</title>
+<meta name="description" content="The Notch and the Kingdom (Vermont) — October 1–4, 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@450;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='16' height='24' rx='2' fill='%230e6b6e'/%3E%3C/svg%3E">
+<style>
+/* theme: forest */
+/* forest — temperate woodland, sugar maple, deep conifer.
+   Source palette: Vermont (Oct 2026) and Niagara (Aug 2026).
+   Good for: hiking, fall foliage, gorges, national/provincial parks. */
+/* @fonts: Big+Shoulders+Display:wght@600;700;800|Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400|IBM+Plex+Mono:wght@450;600 */
+:root{
+  --font-display:"Big Shoulders Display",sans-serif;
+  --font-body:"Source Serif 4",Georgia,serif;
+  --font-mono:"IBM Plex Mono",monospace;
+
+  /* surfaces */
+  --bg:#f6f4ee;
+  --surface:#ffffff;
+  --bg-deep:#14251d;
+  --bg-deep-2:#1d3529;
+
+  /* text */
+  --ink:#24312b;
+  --ink-on-deep:#cfd8d2;
+  --muted:#66736b;
+  --muted-on-deep:#93a69b;
+  --line:#dcd9cf;
+
+  /* accent — buttons, links */
+  --accent:#0e6b6e;
+  --accent-dark:#0a5254;
+  --accent-ink:#ffffff;
+  --accent-soft:#e5efec;
+
+  /* day headers */
+  --header:#1e5c46;
+  --header-ink:#ffffff;
+  --header-sub:#cfe4d4;
+
+  /* hazards */
+  --warn:#b64118;
+  --warn-soft:#fdf1e8;
+
+  /* added / optional */
+  --highlight:#d69329;
+  --highlight-ink:#3c2c07;
+  --highlight-soft:#faf3e2;
+  --highlight-on-deep:#f0c86b;
+
+  /* classifier slots */
+  --class-1:#2f6fb4;   /* trail on foot */
+  --class-2:#f2efe6;   /* road leg */
+  --class-3:#7aa87f;   /* town walking */
+  --class-4:#d69329;   /* food */
+  --class-5:#8d6fb4;
+  --class-6:#4f8f8a;
+}
+
+
+/* ======================================================================================
+   base.css — shared structure for every trip plan.
+
+   HARD RULE: no colour literals in this file. Colour comes from _system/themes/*.css
+   via the token contract in build.py. Overlays use color-mix() so they still track the
+   theme. The build fails if a hex literal appears here.
+
+   This is the union of the two component families that had drifted apart:
+     - Vermont / Niagara : .card .split .content, .sign, .trail/.stop/.blaze, .links/.btn
+     - Quebec / Dolomites / Switzerland : .card .chead .cbody, .day/.dhead sticky sign,
+       .btns/.btn, s- day status + g- legend swatches
+   Both are expressed here once. The classifier (.mark) replaces the old .blaze rules
+   and the old s- day-status / g- legend rules alike.
+   ====================================================================================== */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16.5px;
+  line-height:1.6;
+}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+  outline:3px solid var(--highlight);
+  outline-offset:2px;
+  border-radius:3px;
+}
+.mono{font-family:var(--font-mono)}
+main{width:min(1080px,92%);margin:0 auto;padding-bottom:60px}
+
+/* ---------- hero ------------------------------------------------------------------ */
+.hero{
+  position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:flex-end;
+  color:var(--header-ink);
+  background-color:var(--bg-deep);
+  background-position:center 35%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--bg-deep) 45%, transparent) 0%,
+    color-mix(in srgb, var(--bg-deep) 20%, transparent) 40%,
+    color-mix(in srgb, var(--bg-deep) 88%, transparent) 100%);
+}
+.hero-inner{position:relative;width:min(1080px,92%);margin:0 auto;padding:56px 0 42px}
+.hero .eyebrow{
+  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--highlight-on-deep);margin-bottom:14px;
+}
+.hero h1{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  line-height:.95;font-size:clamp(3rem,9vw,6.4rem);letter-spacing:.015em;
+  text-shadow:0 2px 24px color-mix(in srgb, var(--bg-deep) 55%, transparent);
+}
+.hero h1 .amp{color:var(--highlight-on-deep)}
+.hero .sub{margin-top:16px;max-width:660px;font-size:1.05rem;color:var(--ink-on-deep)}
+.hero .credit{position:absolute;right:12px;bottom:8px;font-size:.66rem;opacity:.78}
+.hero .credit a{color:var(--ink-on-deep)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;padding:8px 14px;
+  border:1px solid color-mix(in srgb, var(--header-ink) 35%, transparent);
+  border-radius:999px;
+  background:color-mix(in srgb, var(--bg-deep) 45%, transparent);
+  backdrop-filter:blur(4px);
+}
+.chip strong{color:var(--highlight-on-deep);font-weight:600}
+
+/* ---------- sticky nav ------------------------------------------------------------- */
+nav{position:sticky;top:0;z-index:50;background:var(--bg-deep);border-bottom:3px solid var(--highlight)}
+nav .wrap{
+  width:min(1080px,94%);margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:10px 0;
+  -webkit-overflow-scrolling:touch;
+}
+nav a{
+  flex:0 0 auto;font-family:var(--font-display);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;font-size:1.02rem;
+  color:var(--ink-on-deep);text-decoration:none;padding:8px 16px;border-radius:6px;
+  transition:background .15s,color .15s;
+}
+nav a:hover{color:var(--header-ink);background:var(--bg-deep-2)}
+nav a.active{color:var(--header-ink);background:var(--header)}
+nav a .d{
+  display:block;font-family:var(--font-mono);font-weight:450;font-size:.62rem;
+  letter-spacing:.08em;color:var(--muted-on-deep);text-transform:none;
+}
+
+/* ---------- orientation / intro ---------------------------------------------------- */
+.intro{padding:6px 0 10px;scroll-margin-top:64px}
+.intro .kick{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--warn);margin:0 0 10px;
+}
+.intro h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.7rem,4.4vw,2.6rem);line-height:1.02;margin:0 0 14px;
+  color:var(--bg-deep);
+}
+.intro .lead{max-width:64ch;font-size:1.06rem}
+.intro .lead p{margin:0 0 14px}
+
+.introwide{margin:22px 0 6px;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover;display:block}
+.introwide figcaption{
+  position:absolute;right:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.6rem;padding:3px 8px;
+}
+.introwide figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+
+/* ---------- stat strip -------------------------------------------------------------- */
+.numstrip{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0 6px;padding:16px 0;
+  border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep);
+}
+.numstrip div{min-width:0}
+.numstrip b{
+  display:block;font-family:var(--font-display);font-weight:800;font-size:1.85rem;
+  line-height:1;color:var(--header);
+}
+.numstrip span{
+  font-family:var(--font-mono);font-size:.63rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ---------- area / sub-region cards -------------------------------------------------- */
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.area figure{margin:0;position:relative}
+.area img{width:100%;height:150px;object-fit:cover;display:block}
+.area figcaption{
+  position:absolute;left:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.55rem;padding:2px 6px;
+}
+.area figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin:0 0 5px;line-height:1.1;
+}
+.area .days{
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:4px;padding:2px 7px;
+  display:inline-block;margin-bottom:7px;
+}
+.area p{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* ---------- "what to know" list ------------------------------------------------------ */
+.know{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.96rem}
+.know li b{font-family:var(--font-display);font-size:1.25rem;color:var(--warn);line-height:1}
+
+/* ---------- day section + sign -------------------------------------------------------- */
+section.day{padding-top:46px;scroll-margin-top:64px}
+.sign{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;
+  box-shadow:0 6px 18px color-mix(in srgb, var(--bg-deep) 18%, transparent)}
+.sign .date{
+  background:var(--bg-deep);color:var(--highlight-on-deep);display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:18px 20px;min-width:118px;
+}
+.sign .date .dow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
+.sign .date .num{
+  font-family:var(--font-display);font-weight:800;font-size:2.6rem;line-height:1;
+  color:var(--header-ink);
+}
+.sign .body{background:var(--header);color:var(--header-ink);flex:1;padding:16px 22px;
+  display:flex;flex-direction:column;justify-content:center}
+.sign h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.05;
+}
+.sign .route{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.05em;
+  color:var(--header-sub);margin-top:6px}
+
+/* sticky variant, promoted from the Dolomites/Switzerland pages */
+.sign--sticky{position:sticky;top:76px;z-index:20}
+
+.daymeta{
+  display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--font-mono);
+  font-size:.74rem;color:var(--muted);padding:14px 4px 4px;
+}
+.daymeta b{color:var(--ink);font-weight:600}
+
+/* ---------- classifier: replaces the old .blaze and s-/g- systems --------------------- */
+/* Each trip declares its own vocabulary; the theme supplies the colour for each slot. */
+.mark{
+  display:inline-block;width:20px;height:32px;border-radius:3px;
+  border:2px solid var(--bg-deep-2);
+  box-shadow:0 2px 5px color-mix(in srgb, var(--bg-deep) 22%, transparent);
+}
+.mark--1{background:var(--class-1)}
+.mark--2{background:var(--class-2)}
+.mark--3{background:var(--class-3)}
+.mark--4{background:var(--class-4)}
+.mark--5{background:var(--class-5)}
+.mark--6{background:var(--class-6)}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:34px 0 0;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.legend .b{
+  width:13px;height:20px;border-radius:2px;border:1.5px solid var(--bg-deep-2);
+  display:inline-block;vertical-align:-5px;margin-right:6px;
+}
+
+/* ---------- timeline ------------------------------------------------------------------- */
+.trail{position:relative;margin-top:18px;padding-left:44px}
+.trail::before{
+  content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;
+  background:repeating-linear-gradient(180deg,var(--bg-deep-2) 0 14px,transparent 14px 22px);
+  opacity:.35;border-radius:2px;
+}
+.stop{position:relative;margin-bottom:26px}
+.stop > .mark{position:absolute;left:-44px;top:14px}
+
+/* ---------- stop card ------------------------------------------------------------------ */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 10px color-mix(in srgb, var(--bg-deep) 6%, transparent);
+}
+.card .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr)}
+.card .split.noimg{grid-template-columns:1fr}
+.card .content{padding:20px 24px}
+.card .split figure:first-child{grid-column:2;grid-row:1}
+.card figure{position:relative;min-height:220px;overflow:hidden}
+.card figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card figcaption{
+  position:absolute;left:0;right:0;bottom:0;font-size:.64rem;color:var(--header-ink);
+  background:linear-gradient(transparent, color-mix(in srgb, var(--bg-deep) 85%, transparent));
+  padding:18px 12px 7px;
+}
+.card figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.card h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.035em;font-size:1.45rem;line-height:1.1;
+}
+.card p{margin-top:8px;font-size:.97rem}
+
+.time{
+  font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.06em;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:6px;padding:3px 9px;
+  display:inline-block;margin-bottom:8px;
+}
+.time.opt{color:var(--highlight-ink);background:var(--highlight-soft)}
+
+.tag{
+  display:inline-block;vertical-align:3px;margin-left:8px;font-family:var(--font-mono);
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--header-ink);
+  background:var(--warn);border-radius:4px;padding:2px 7px;
+}
+.tag--added,.tag--optional{background:var(--highlight);color:var(--highlight-ink)}
+.tag--unmissable{background:var(--warn);color:var(--header-ink)}
+.tag--easy{background:var(--header);color:var(--header-ink)}
+.tag--hidden{background:var(--bg-deep-2);color:var(--ink-on-deep)}
+
+.stats{
+  display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+.stats b{color:var(--ink);font-weight:600}
+
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-decoration:none;
+  border-radius:7px;padding:7px 12px;border:1.5px solid var(--accent);color:var(--accent-dark);
+  background:var(--surface);transition:background .15s;
+}
+.btn:hover{background:var(--accent-soft)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-dark)}
+
+details.more{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.more summary{
+  cursor:pointer;font-family:var(--font-mono);font-size:.74rem;
+  color:var(--accent-dark);list-style:none;
+}
+details.more summary::before{content:"+ "}
+details.more[open] summary::before{content:"\2212 "}
+details.more p,details.more ul{font-size:.9rem;margin-top:8px;color:var(--ink)}
+details.more ul{padding-left:20px}
+
+/* ---------- callouts, maps, panels ------------------------------------------------------ */
+.note{
+  margin-top:16px;background:var(--warn-soft);border-left:4px solid var(--warn);
+  border-radius:0 8px 8px 0;padding:12px 16px;font-size:.92rem;
+}
+.note.gold{background:var(--highlight-soft);border-left-color:var(--highlight)}
+
+.mapframe{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mapframe iframe{display:block;width:100%;height:330px;border:0}
+.mapframe .bar{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;
+  background:var(--surface);font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+.panel h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;font-size:1.3rem;margin-bottom:10px;
+}
+
+.check label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:.94rem;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:0 0 auto}
+.check label.done{color:var(--muted);text-decoration:line-through}
+
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:6px}
+th{
+  text-align:left;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:2px solid var(--line);
+}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.linklist a{display:block;padding:6px 0;font-size:.9rem}
+
+/* ---------- A/B plan toggle -------------------------------------------------------------- */
+.toggle{display:flex;margin:20px 0 4px;border:2px solid var(--header);border-radius:10px;
+  overflow:hidden;width:fit-content;max-width:100%}
+.toggle button{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1rem;padding:10px 20px;border:0;background:var(--surface);
+  color:var(--header);cursor:pointer;
+}
+.toggle button.on{background:var(--header);color:var(--header-ink)}
+.planwrap .plan{display:none}
+.planwrap .plan.show{display:block}
+
+/* ---------- day-of quick links ------------------------------------------------------------ */
+.quick{margin:26px 0 6px;scroll-margin-top:64px}
+.quick h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--bg-deep);margin-bottom:4px;
+}
+.quick .qsub{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:16px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.qcard h4{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1.02rem;color:var(--header);margin-bottom:9px;
+  display:flex;align-items:center;gap:7px;
+}
+.qcard h4 .dot{width:9px;height:14px;border-radius:2px;border:1.5px solid var(--bg-deep-2);flex:0 0 auto}
+.qcard a{
+  display:block;font-family:var(--font-mono);font-size:.76rem;line-height:1.35;
+  text-decoration:none;color:var(--accent-dark);border:1.5px solid var(--line);border-radius:7px;
+  padding:9px 11px;margin-bottom:7px;transition:background .15s,border-color .15s;
+}
+.qcard a:hover{background:var(--accent-soft);border-color:var(--accent)}
+.qcard a:last-child{margin-bottom:0}
+.qcard a b{display:block;font-weight:600;color:var(--ink);font-size:.82rem;margin-bottom:1px}
+.qcard a.warn{border-color:var(--warn);color:var(--warn)}
+.qcard a.warn b{color:var(--warn)}
+.qcard a.tel{border-color:var(--highlight);background:var(--highlight-soft)}
+
+/* ---------- footer -------------------------------------------------------------------------- */
+section#essentials{padding-top:46px;scroll-margin-top:64px}
+section#essentials>h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.6rem,4vw,2.3rem);color:var(--bg-deep);
+}
+footer{background:var(--bg-deep);color:var(--muted-on-deep);margin-top:60px;padding:34px 0;font-size:.8rem}
+footer .wrap{width:min(1080px,92%);margin:0 auto}
+footer a{color:var(--ink-on-deep)}
+
+/* ---------- responsive ------------------------------------------------------------------------ */
+@media(max-width:760px){
+  .numstrip{grid-template-columns:repeat(3,1fr);gap:14px}
+  .area img{height:130px}
+  .card .split{grid-template-columns:1fr}
+  .card figure{min-height:190px;order:-1}
+  .card .split figure:first-child{grid-column:1;grid-row:auto}
+  .grid2{grid-template-columns:1fr}
+  .hero{min-height:64vh}
+  .trail{padding-left:36px}
+  .stop > .mark{left:-36px;width:16px;height:26px}
+  .trail::before{left:12px}
+  .sign--sticky{position:static}
+  .qcard a{padding:11px 12px;font-size:.8rem}
+}
+
+@media print{
+  nav,.mapframe iframe,.hero{display:none}
+  body{background:var(--surface);font-size:11pt}
+  .card{box-shadow:none;break-inside:avoid}
+  .planwrap .plan{display:block!important}
+  .sign--sticky{position:static}
+}
+
+
+/* trip-local additions */
+
+
+/* home link back to the hub dashboard */
+nav a.home{color:var(--highlight-on-deep);font-weight:600;border-right:1px solid color-mix(in srgb, var(--highlight-on-deep) 32%, transparent);margin-right:6px}
+nav a.home:hover{color:var(--header-ink)}
+
+.hero h1 .place{display:block;font-size:.40em;line-height:1.5;color:var(--highlight-on-deep);letter-spacing:.03em}
+.time--opt{opacity:.85;font-style:italic}
+</style>
+</head>
+<body data-slug="vermont-fall-2026">
+
+<header class="hero" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Smuggler%27s%20Notch%20Vermont%20Fall%20Foliage%20October%202020%20-%20Flickr%20-%20Anthony%20Quintano.jpg?width=1800')">
+  <div class="hero-inner">
+    <p class="eyebrow">A field plan · Whitby, Ontario → Hyde Park, Vermont</p>
+    <h1>The Notch <span class="amp">&amp;</span><br>the Kingdom<span class="place">Vermont</span></h1>
+    <p class="sub">Four days chasing peak color through Stowe, Smugglers' Notch, and the Northeast Kingdom. October 1–4, 2026. Base camp: 1592 Center Rd, Hyde Park, VT.</p>
+    <div class="chips"><span class="chip"><strong id="countdown">—</strong></span>
+      <span class="chip">Sunrise <strong>~6:49</strong> · Sunset <strong>~6:31</strong></span>
+      <span class="chip">Foliage check emails <strong>Sept 29, 7:30 AM</strong></span>
+      <span class="chip">NEK <strong>peak</strong> · Stowe <strong>near-peak</strong> · Rte 100 <strong>building</strong></span></div>
+  </div>
+  <p class="credit">Smugglers' Notch, October 2020 — <a href="https://commons.wikimedia.org/wiki/File:Smuggler's_Notch_Vermont_Fall_Foliage_October_2020_-_Flickr_-_Anthony_Quintano.jpg">A. Quintano / Wikimedia Commons</a></p>
+</header>
+
+<nav aria-label="Sections">
+  <div class="wrap">
+    <a class="home" href="/">&#8592; All plans<span class="d">dashboard</span></a>
+    <a href="#about">Overview<span class="d">what &amp; why</span></a>
+    <a href="#day1">Thu Oct 1<span class="d">the drive down</span></a>
+    <a href="#day2">Fri Oct 2<span class="d">Stowe loop</span></a>
+    <a href="#day3">Sat Oct 3<span class="d">the Kingdom</span></a>
+    <a href="#day4">Sun Oct 4<span class="d">cider &amp; home</span></a>
+    <a href="#villages">Villages<span class="d">all 19, ranked</span></a>
+    <a href="#essentials">Essentials<span class="d">checklist · live links</span></a>
+  </div>
+</nav>
+
+<main>
+
+
+
+<section class="intro" id="about">
+  <p class="kick">Before day one</p>
+  <h2>What you are actually going to see</h2>
+  <div class="lead">
+    <p>The Green Mountains are old — Appalachian rock, folded up something like 400 million years ago, then worn down by erosion and scraped over by ice sheets. That history is why they look the way they do: rounded, forested right over the summits, more ridge than peak. Vermont is roughly three-quarters woodland, and it is the trees rather than the rock that do the work here.</p>
+    <p>What makes the state famous in October is one species. <b>Sugar maple</b> dominates these hillsides in a way it does not anywhere else, and it turns orange and scarlet rather than the flat yellow that birch and aspen give the western ranges. The same tree pays the bills the rest of the year — Vermont produces around half of all the maple syrup in the United States.</p>
+    <p>Peak color is not a date, it is a wave. It moves from north to south and from high ground down into the valleys over about three weeks, which is why this trip is built around a conditions check two days before you leave rather than a fixed plan. <b>October 1–4 puts you in the Northeast Kingdom's window</b> — the northernmost, highest and coldest corner, and reliably the first to turn.</p>
+  </div>
+
+  <figure class="introwide">
+    <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/1%20vermont%20fall%20foliage%20panorama%202010.jpg?width=1600" alt="Vermont hillsides in full autumn color">
+    <figcaption><a href="https://commons.wikimedia.org/wiki/File:1_vermont_fall_foliage_panorama_2010.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></figcaption>
+  </figure>
+
+  <div class="numstrip">
+    <div><b>4</b><span>days</span></div>
+    <div><b>3</b><span>regions</span></div>
+    <div><b>1</b><span>base &#183; days 2&#8211;3 are loops</span></div>
+    <div><b>4,393</b><span>ft, Mt Mansfield</span></div>
+    <div><b>6h40</b><span>drive each way, 660 km</span></div>
+    <div><b>61&deg;/41&deg;F</b><span>16&deg;/5&deg;C &middot; typical high &middot; low</span></div>
+  </div>
+
+  <div class="areas"><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Camel%27s%20Hump%20and%20Winooski%20River%2C%20Green%20Mountains%2C%20Vermont%20%282381062779%29.jpg?width=1100" alt="Stowe &amp; the Notch"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Camel%27s_Hump_and_Winooski_River%2C_Green_Mountains%2C_Vermont_%282381062779%29.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Days 1–2</span><h3>Stowe &amp; the Notch</h3><p>Mount Mansfield, Vermont's high point at 4,393&nbsp;ft, with the state's only true alpine terrain on its ridge. Smugglers' Notch squeezes the road between house-sized boulders — a former Prohibition smuggling route to Canada.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fall%20Foliage%20Along%20Norton%20Pond%20Northeast%20Kingdom%20Vermont%202021%20Season%20%2851585141337%29.jpg?width=1100" alt="The Northeast Kingdom"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Fall_Foliage_Along_Norton_Pond_Northeast_Kingdom_Vermont_2021_Season_%2851585141337%29.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Day 3</span><h3>The Northeast Kingdom</h3><p>The emptiest corner of the state and the first to turn. Lake Willoughby sits in a glacially carved trough between two cliffs, which is why people call it a fjord even though it is not one.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Downtown%20Brandon%20on%20an%20autumn%20day.jpg?width=1100" alt="Lamoille Valley &amp; the villages"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Downtown_Brandon_on_an_autumn_day.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Base, all four days</span><h3>Lamoille Valley &amp; the villages</h3><p>Hyde Park, Morrisville, Craftsbury Common — white clapboard, a green, a general store. Vermont banned billboards in 1968, so the roadside stays the thing you came to look at.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Maple%20syrup%20producer%20in%20Vermont%20%2815603268415%29.jpg?width=1100" alt="Sugar maple country"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Maple_syrup_producer_in_Vermont_%2815603268415%29.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Throughout</span><h3>Sugar maple country</h3><p>Vermont makes roughly half of all US maple syrup. The same tree that produces it, <i>Acer saccharum</i>, is what turns the hills scarlet rather than the plain yellow of birch and aspen ranges.</p></div></article></div>
+
+  <ul class="know">
+    <li><b>1</b><span><b>Peak color is a moving target.</b> A scheduled check on September 29 emails a foliage, weather and road report ending in one verdict — keep the plan, swap Friday and Saturday, or fall back to Route 100. Read that before you drive.</span></li>
+    <li><b>2</b><span><b>The trailhead lots are tiny.</b> Stowe Pinnacle holds about nine cars and fills before nine on an October weekend &mdash; and its overflow lot is a mile away by road, not next door. That constraint, not the map, sets the order of every day.</span></li>
+    <li><b>3</b><span><b>Smugglers' Notch is a road, not a hike.</b> It threads between fallen boulders on tight switchbacks, closes for winter, and is open in early October. No trailers, no RVs.</span></li>
+    <li><b>4</b><span><b>Expect 61&deg;F (16&deg;C) by day and near 40&deg;F (4&deg;C) at night &mdash; and much colder up high.</b> Early October in Stowe averages a high of <b>61&deg;F (16&deg;C)</b> falling to a low of <b>40&ndash;43&deg;F (4&ndash;6&deg;C)</b>, with about a <b>32&#37; chance of a wet day</b>. The summit of Mansfield runs roughly 12&deg;F colder than the village &mdash; that is a <b>6.7&deg;C</b> drop, not a 12-degree one &mdash; so the gondola top is near <b>49&deg;F (9&deg;C) by day and freezing at dawn</b> &mdash; people step out of the cabin in a t-shirt and regret it. Daylight is down to 11 h 43 m, sunrise 6:48, sunset 6:31.</span></li>
+    <li><b>5</b><span><b>Only two days involve real driving.</b> The 660&nbsp;km run down on Thursday and the same back on Sunday, about 6h40 behind the wheel each way before the border and stops. Friday and Saturday are loops from one base &mdash; Stowe village is 18 minutes away, and the whole Northeast Kingdom circuit on Saturday is about 150&nbsp;km with no leg longer than about an hour. You unpack once.</span></li>
+    <li><b>6</b><span><b>Sunset is early and it comes fast.</b> The light that makes these hills worth photographing lasts about forty minutes, and the last hour of any day should be somewhere you meant to be.</span></li>
+  </ul>
+</section>
+
+<div class="legend">
+  <span><span class="b" style="background:var(--class-2)"></span>white blaze — drive / village leg</span>
+  <span><span class="b" style="background:var(--class-1)"></span>blue blaze — trail on foot</span>
+  <span><span class="b" style="background:var(--class-4)"></span>gold blaze — food stop</span>
+  <span>· blaze colors as painted on real Vermont trails</span>
+</div>
+
+<!-- ============ DAY 1 ============ -->
+<section class="day" id="day1">
+  <div class="sign">
+    <div class="date"><span class="dow">Thursday</span><span class="num">OCT 1</span></div>
+    <div class="body">
+      <h2>Whitby → Hyde Park</h2>
+      <p class="route">ON-401 E · A-30 bypass · A-35 S · Highgate Springs · I-89 · VT-15 — 660 km, ~6 h 40 m driving</p>
+    </div>
+  </div>
+  <div class="daymeta">
+    <span>Border wait (Thu midday) <b>0&ndash;15 min</b></span>
+    <span>Typical <b>61&deg;F / 43&deg;F</b> &middot; 16&deg;C / 6&deg;C</span>
+    <span>A-30 toll <b>$4.40 CAD, card in lane</b></span>
+    <span>Sunset Stowe <b>6:33 PM</b></span>
+    <span><a href="https://www.google.com/maps/dir/Whitby,+ON/Saint-Armand,+QC/1592+Center+Rd,+Hyde+Park,+VT+05655/">Full route on Google Maps</a></span>
+      <span><a href="https://www.google.com/maps/dir/Whitby,%20ON/1555%20Provencher%20Blvd,%20Brossard,%20QC/Saint-Armand,%20QC/Highgate%20Springs,%20VT/St.%20Albans,%20VT/44.601828,-72.5745682/44.4823794,-72.6245046/44.5727869,-72.5967606/44.4656857,-72.6843216/44.601828,-72.5745682/">Full day 1 route, in order &rarr;</a></span>
+  </div>
+
+  <div class="trail">
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time time--opt">3:15 &ndash; 7:20 PM &mdash; alternative arrival</span>
+          <h3>Arrive over the Appalachian Gap <span class="tag tag--added">tested &middot; rejected unless the Qu&eacute;bec leg runs</span></h3>
+          <p>Instead of I-89 straight down: <b>Richmond exit 11 &rarr; VT-116 S &rarr; Bristol &rarr; VT-17 east over the gap &rarr; Waitsfield &rarr; VT-100 N to base.</b> A true traverse, no backtracking. <b>+142&nbsp;km, about two hours</b>, putting you at base at 19:20 instead of 16:45.</p>
+          <p><b>Why it tempts:</b> you approach <b>westbound</b> and stand on a west-facing overlook at 17:00 with sunset at 18:33 &mdash; App Gap in its best light, which <b>Sunday Route B structurally cannot give you</b>. It would also free Sunday for the covered bridges, so you get both.</p>
+          <div class="stats"><span><b>+142 km</b> / +2 h</span><span>Day <b>8h45 &rarr; 11h15</b></span><span>Base at <b>19:20</b></span><span>Sunset <b>18:33</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://www.google.com/maps/dir/Highgate+Springs,+VT/Richmond,+VT/Bristol,+VT/44.2110741,-72.9312953/Waitsfield,+VT/1592+Center+Rd,+Hyde+Park,+VT/">Alternative route</a>
+            <a class="btn" href="https://maps.google.com/?q=44.2110741,-72.9312953">App Gap overlook</a>
+          </div>
+          <details class="more"><summary>Why it is rejected &mdash; and the one condition that flips it</summary>
+            <ol>
+              <li><b>Sleep.</b> Base at 19:20, then a <b>06:45 Friday departure</b> for the Pinnacle &mdash; about six hours before the biggest hike of the trip, and that nine-car lot does not forgive a late start.</li>
+              <li><b>A 15% hairpin gap road at dusk at the end of an eleven-hour travel day.</b> Every other decision here is built around fatigue; this one cuts against it, and it is the riskiest thing anyone would do all week.</li>
+              <li><b>1 October is the worst foliage day of the trip for that valley.</b> The Mad River Valley runs pre-peak to near-peak across the four days and improves daily.</li>
+            </ol>
+            <p>It also displaces Moss Glen Falls, whose only fallback was Sunday &mdash; and Sunday is now full either way.</p>
+            <p><b>THE FLIP CONDITION.</b> If the Qu&eacute;bec prologue runs &mdash; Whitby &rarr; &Icirc;le d'Orl&eacute;ans two nights &rarr; Derby Line &rarr; Hyde Park &mdash; Thursday stops being a haul. Derby Line to base is about <b>1 h 15</b>, so you arrive around <b>14:00 rested with a free afternoon</b>. App Gap becomes an easy out-and-back leaving 15:45, on the overlook for golden hour, back by 19:30. <b>Reasons 1 and 2 both vanish.</b> In that case do it on Thursday and take Route A on Sunday. If you are weighing the Qu&eacute;bec leg at all, this is a point in its favour.</p>
+            <p><b>Decision made: the gap is on Saturday evening</b> &mdash; see Day 3. It gives you the gap in the right light <i>and</i> leaves Sunday free for the bridges.</p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/The%20Appalachian%20Gap%2C%20looking%20west%20in%20summer%202022.jpg?width=900" alt="Looking west from the Appalachian Gap">
+          <figcaption>App Gap, looking west &mdash; <a href="https://commons.wikimedia.org/wiki/File:The_Appalachian_Gap,_looking_west_in_summer_2022.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Ontario%20Highway%20401%20%2831782979321%29.jpg?width=900" alt="Highway 401 eastbound in Ontario"><figcaption>The 401 east — <a href="https://commons.wikimedia.org/wiki/File:Ontario_Highway_401_(31782979321).jpg">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">8:00 AM</span>
+        <h3>Depart Whitby — full tank</h3>
+        <p>ON-401 east. Fuel and coffee at ONroute Napanee (~10:10) or Mallorytown North (~11:15) — the last big stop before Quebec. The A-30 bypass skips Montreal island entirely; with the Napanee stop you cross the toll bridge about 1:00, comfortably between rush peaks, which puts you at the Brossard lunch exit at 1:15. A-35 is now freeway all the way to Saint-Armand (opened Sept 2025 — ignore older trip reports about slow Route 133 villages).</p>
+        <div class="stats"><span>Fill up in <b>Ontario</b></span><span>Skip <b>Quebec gas (~1.80/L)</b></span><span>Refill <b>St. Albans VT (~1.50 CAD/L)</b></span></div>
+        <details class="more"><summary>Border and documents</summary>
+          <ul>
+            <li>Cross at Highgate Springs (quiet), not Lacolle. <a href="https://bwt.cbp.gov/details/05021201/POV">Live wait times</a>.</li>
+            <li>Passports (or NEXUS / enhanced licence); PR card as well if applicable.</li>
+            <li>Download offline Google Maps for northern Vermont before crossing — real dead zones in the NEK, the Notch, and along VT-15.</li>
+            <li>Roaming: Rogers ~$15–18/day, Bell/Telus $14/day; a US eSIM is cheaper for four days.</li>
+          </ul>
+        </details>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">optional &middot; ~10:10 AM</span>
+          <h3>ONroute Napanee &mdash; coffee and legs <span class="tag tag--optional">optional</span></h3>
+          <p>Tim Hortons and Starbucks under one roof, and the last painless stop before Quebec &mdash; Mallorytown North at ~11:15 is the alternative. Keep it to twenty minutes: the real stop is lunch on the South Shore. Fill the tank here regardless, Ontario fuel is ~9&cent;/L cheaper than Quebec.</p>
+          <div class="stats"><span>Stop <b>20 min</b></span><span>Rolling again <b>10:30</b></span><span><b>~200 km</b> in</span><span>Veg <b>coffee + pastry only</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=ONroute+Napanee,+ON-401,+Napanee,+ON">Map</a>
+          </div>
+          <details class="more"><summary>Why not eat here</summary>
+            <p>Highway-service vegetarian on the 401 is a cheese bagel and a hash brown. Brossard is only three hours further and has actual food &mdash; hold out. If the car needs a stop sooner, Mallorytown North is the better-stocked of the two.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">1:15 &ndash; 2:15 PM</span>
+          <h3>Lunch &mdash; Brossard, right on the A-30 <span class="tag tag--added">added</span></h3>
+          <p>The route already passes the Brossard interchange at about 1:15, which makes this the one genuinely good vegetarian meal available on the whole drive. Two Indian kitchens sit within five minutes of the highway, and after this it is gas-station food until Vermont.</p>
+          <div class="stats"><span><b>Le Tandoor</b> &middot; Thu 12&ndash;9</span><span><b>Shaan Tandoori</b> &middot; lunch 11:30&ndash;2:30</span><span>Budget <b>60 min</b></span><span>Costs the day <b>+45 min</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Le+Tandoor,+1555+Provencher+Blvd,+Brossard,+QC">Le Tandoor map</a>
+            <a class="btn" href="https://www.letandoor.ca/en">Le Tandoor</a>
+            <a class="btn" href="https://maps.google.com/?q=Shaan+Tandoori,+2550+Boulevard+Lapiniere,+Brossard,+QC">Shaan map</a>
+          </div>
+          <details class="more"><summary>The two options, and the faster alternative</summary>
+            <ul>
+              <li><b>Le Tandoor</b> &mdash; 1555 Provencher Blvd #4, Brossard. Thu&ndash;Mon 12:00&ndash;9:00 PM, Fri/Sat to 10. Ph <b>450-672-6112</b>. Separate vegetarian section; the naan gets the loudest reviews.</li>
+              <li><b>Shaan Tandoori</b> &mdash; 2550 Boul Lapini&egrave;re, Brossard. Lunch service <b>11:30&ndash;2:30</b> only, then reopens 5:00. Ph <b>450-678-9322</b>. Bring-your-own-wine. Strong vegetarian and vegan range.</li>
+              <li><b>If you would rather not lose the hour:</b> eat what you packed at the Aire de service on the A-30 or in the car at the border approach. Be honest about the cost though &mdash; a packed lunch with a washroom stop is still <b>25&ndash;30 minutes</b>, not zero. The saving over a sit-down meal is about half an hour, not a full one.</li>
+            </ul>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">optional &middot; ~3:40 PM</span>
+          <h3>St. Albans &mdash; fuel, and coffee if you want it <span class="tag tag--optional">optional</span></h3>
+          <p>The fuel stop is not optional &mdash; Vermont gas runs about 1.50 CAD/L against Quebec's 1.80, and this is the first US town off I-89 exit 19. The coffee is. Ten minutes for fuel alone; thirty if you sit down.</p>
+          <div class="stats"><span>Fuel <b>10 min</b></span><span>With coffee <b>30 min</b></span><span>To Hyde Park <b>~1 h 05</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Catalyst+Coffee+Bar,+St+Albans,+VT">Catalyst Coffee</a>
+            <a class="btn" href="https://maps.google.com/?q=Charlie's+Coffee+and+Company,+St+Albans,+VT">Charlie's Coffee</a>
+          </div>
+          <details class="more"><summary>Where to sit</summary>
+            <p><b>Catalyst Coffee Bar</b> and <b>The Traveled Cup</b> are the two specialty options in town. <b>Charlie's Coffee &amp; Company</b> is the better bet if anyone wants actual food &mdash; all-day breakfast and lunch with vegetarian and gluten-free options flagged on the menu. Verify hours before detouring; small-town Vermont closes early midweek.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hyde%20park%20courthouse%2020040313.jpg?width=900" alt="Lamoille County Courthouse in Hyde Park village"><figcaption>Hyde Park village — <a href="https://commons.wikimedia.org/wiki/File:Hyde_park_courthouse_20040313.jpg">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">~4:45 PM</span>
+        <h3>Check in — Hyde Park base camp</h3>
+        <p>1592 Center Rd, Hyde Park. Drop bags, quick reset. Stowe village is 18 minutes south; the Lamoille Valley Rail Trail is effectively at the doorstep.</p>
+        <div class="stats"><span>Was <b>4:30</b> before the lunch hour</span><span>Moss Glen cut-off <b>5:30 PM</b></span><span>Still <b>45 min</b> in hand</span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=1592+Center+Rd,+Hyde+Park,+VT+05655">Map</a>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--1"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">5:15 – 6:15 PM</span>
+          <h3>Moss Glen Falls, Stowe <span class="tag">golden hour</span></h3>
+          <p>A 100-plus-foot cascade through a mossy gorge, 15 minutes from the hotel and a half-mile round trip — the perfect first taste while there's still light (sunset 6:33, usable light to ~7:00). Meadow boardwalk to the brook; the left-fork rim climb is steep and eroded — stay back from the edge.</p>
+          <div class="stats"><span><b>0.5 mi</b> RT</span><span><b>~30–45</b> min</span><span>Lot <b>~8–10 cars</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Moss+Glen+Falls+Trailhead,+Moss+Glen+Falls+Rd,+Stowe,+VT">Map</a>
+            <a class="btn" href="https://maps.google.com/?q=44.485243,-72.627263">Parking</a>
+            <a class="btn" href="https://www.alltrails.com/trail/us/vermont/moss-glen-falls-2">AllTrails</a>
+            <a class="btn" href="https://gostowe.com/things-to-do/outdoor-activities/moss-glen-falls">GoStowe</a>
+          </div>
+          <details class="more"><summary>Decision rule</summary>
+            <p>Arriving after ~5:30 PM, or fried from the drive? Skip it — it's slotted as the Sunday-morning fallback. Directions: VT-100 south, left on Randolph Rd, first right on Moss Glen Falls Rd, gravel lot on the left.</p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Moss%20Glen%20Falls%2C%20VT.jpg?width=900" alt="Moss Glen Falls cascading through a narrow mossy gorge in Stowe">
+          <figcaption><a href="https://commons.wikimedia.org/wiki/File:Moss_Glen_Falls,_VT.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Downtown%20Morrisville%20wide.JPG?width=900" alt="Downtown Morrisville, Vermont"><figcaption>Downtown Morrisville — <a href="https://commons.wikimedia.org/wiki/File:Downtown_Morrisville_wide.JPG">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">6:45 PM</span>
+        <h3>Groceries, then dinner</h3>
+        <p>Hannaford in Morrisville (open to 10) for Saturday's summit picnic &mdash; see the Saturday morning card for the list. Then dinner: <b>Raja</b> on Stowe Main St is the pick, and Thursday is one of the four nights it is open.</p>
+        <div class="stats"><span><b>Raja</b> &middot; Thu 11&ndash;9</span><span>10 veg mains <b>$12.99&ndash;14.99</b></span><span>Base &rarr; Stowe <b>18 min</b></span><span>Hannaford to <b>10 PM</b></span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=Raja+Indian+Restaurant,+151+Main+St,+Stowe,+VT">Raja map</a>
+          <a class="btn" href="https://rajaindiannepalistowe.com/menu/">Raja menu</a>
+          <a class="btn" href="https://maps.google.com/?q=Hannaford,+80+Fairgrounds+Plaza,+Morrisville,+VT">Hannaford map</a>
+        </div>
+        <details class="more"><summary>Raja, and the fallbacks</summary>
+          <ul>
+            <li><b>Raja Indian &amp; Nepali</b> &mdash; 151 Main St, Stowe. Ph <b>802-760-6685</b>. Open <b>11:00&ndash;9:00, Thursday through Saturday</b>, closed Wednesday and Sunday. A dedicated ten-dish vegetarian section: dal makhani, chana masala, malai kofta, paneer matar, saag paneer, veg korma, aloo gobi, aloo bhanta, paneer tikka masala, yellow dal tadka &mdash; $12.99&ndash;14.99. Plus veg momos, veg pakora, samosa chole, cauliflower 65. This works Thursday, Friday <i>and</i> Saturday, so it can carry as many of the three nights as you want it to.</li>
+            <li>Ring ahead for a foliage-season Friday &mdash; it is a small room and reservations were not confirmable online.</li>
+            <li><b>Non-Indian fallbacks:</b> Black Diamond BBQ, Morristown (Thu 5&ndash;8:30) and Lost Nation Brewing (to 8) are both close to base but meat-led &mdash; sides and a salad rather than a meal. If Raja is shut, the better vegetarian night is Piecasso in Stowe (pizza, daily).</li>
+          </ul>
+        </details>
+      </div></div></div>
+    </div>
+  </div>
+
+  <div class="mapframe">
+    <iframe title="Whitby to Hyde Park route" loading="lazy" src="https://maps.google.com/maps?saddr=Whitby%2C%20ON&amp;daddr=Saint-Armand%2C%20QC%20to%3A1592%20Center%20Rd%2C%20Hyde%20Park%2C%20VT&amp;output=embed"></iframe>
+    <div class="bar"><span>Map 1 &mdash; Whitby, all Thursday stops</span><a href="https://www.google.com/maps/dir/Whitby,%20ON/1555%20Provencher%20Blvd,%20Brossard,%20QC/Saint-Armand,%20QC/Highgate%20Springs,%20VT/St.%20Albans,%20VT/44.601828,-72.5745682/44.4823794,-72.6245046/44.5727869,-72.5967606/44.4656857,-72.6843216/44.601828,-72.5745682/">Open all stops in Google Maps</a></div>
+  </div>
+  <p class="note" style="margin:8px 2px 0"><b>Distance:</b> about 660 km / 410 mi to the base, 6 h 40 driving (plan figure, matches a Whitby-Montreal-Hyde Park sum of 666 km); the Moss Glen, Hannaford and Raja loop adds roughly 60 km on top. Map 1 order: Whitby, Le Tandoor (Brossard), Saint-Armand (forces the quiet Highgate crossing), Highgate Springs border, St. Albans fuel, base check-in, Moss Glen Falls, Hannaford, Raja, back to base. The embed above shows the road only; the button opens every stop.</p>
+
+  <div class="mapframe">
+    <iframe title="Dayton NJ to Hyde Park route" loading="lazy" src="https://maps.google.com/maps?saddr=106%20Blossom%20Circle%2C%20Dayton%2C%20NJ%2008810&amp;daddr=1592%20Center%20Rd%2C%20Hyde%20Park%2C%20VT&amp;output=embed"></iframe>
+    <div class="bar"><span>Map 2 &mdash; Koushik, from Dayton NJ</span><a href="https://www.google.com/maps/dir/106+Blossom+Circle,+Dayton,+NJ+08810/1592+Center+Rd,+Hyde+Park,+VT+05655/">Open route in Google Maps</a></div>
+  </div>
+  <p class="note" style="margin:8px 2px 0"><b>Distance:</b> about 385 mi / 620 km, roughly 7 hours (estimate from Jersey City to Stowe figures, not a routed number; confirm in Maps). Koushik drives from 106 Blossom Circle, Dayton, NJ 08810 to the same base, 1592 Center Rd, Hyde Park. It is the opposite direction from Whitby, and Google picks the road. Check the drive time in Maps on the day and add stops (fuel, food) once his plan is set. Open question: does he meet you at Moss Glen Falls or Raja on Thursday, or just at base?</p>
+</div>
+</section>
+
+<!-- ============ DAY 2 ============ -->
+<section class="day" id="day2">
+  <div class="sign">
+    <div class="date"><span class="dow">Friday</span><span class="num">OCT 2</span></div>
+    <div class="body">
+      <h2>The Stowe Loop</h2>
+      <p class="route">Pinnacle at dawn · Emily's Bridge · village · gondola · Bingham Falls · VT-108 through the Notch · Sunset Rock</p>
+    </div>
+  </div>
+  <div class="daymeta">
+    <span>Sunrise <b>6:49</b> &middot; Sunset <b>6:31</b></span>
+    <span>Typical <b>61&deg;F / 42&deg;F</b> &middot; 16&deg;C / 6&deg;C &middot; summit <b>~49&deg;F (9&deg;C)</b></span>
+    <span>Rule of the day: <b>every lot is tiny &mdash; start early</b></span>
+    <span>Trail buffer <b>+30 min on the Pinnacle</b></span>
+    <span><a href="https://www.google.com/maps/dir/44.601828,-72.5745682/44.43882,-72.66764/44.4404009,-72.6798624/44.4656466,-72.6846447/44.52903,-72.78428/44.5167269,-72.7660351/44.5553,-72.79587/44.4650363,-72.6786046/44.4654369,-72.7451481/44.601828,-72.5745682/">Full loop on Google Maps</a></span>
+      <span><a href="https://www.google.com/maps/dir/44.601828,-72.5745682/44.43882,-72.66764/44.4404009,-72.6798624/44.4656466,-72.6846447/44.52903,-72.78428/44.5167269,-72.7660351/44.5553,-72.79587/44.4650363,-72.6786046/44.4654369,-72.7451481/44.601828,-72.5745682/">Full day 2 loop, in order &rarr;</a></span>
+  </div>
+
+  <div class="trail">
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">6:00 &ndash; 6:45 AM</span>
+          <h3>Coffee and breakfast at the property</h3>
+          <p>Nothing in the valley opens before 7:00 &mdash; Black Cap in Stowe and Morrisville both start at 7, and you are on the trail by then. So this one happens at the base: kettle on, eat something real, and put the trail food in the pack before you leave rather than after.</p>
+          <div class="stats"><span>Depart <b>6:45</b></span><span>Sunrise <b>6:49</b></span><span>To trailhead <b>25 min</b></span><span>First cafe open <b>7:00</b></span></div>
+          <details class="more"><summary>What to have in the pack</summary>
+            <ul>
+              <li>Two litres of water between you &mdash; there is nothing on the Pinnacle.</li>
+              <li>Something to eat at the top. It is a three-hour hike and lunch is not until 11:30.</li>
+              <li>Layers and a wind shell: the knob is exposed and the valley is near freezing at dawn.</li>
+              <li>Grippy shoes &mdash; the upper third is dew-wet rock at that hour.</li>
+            </ul>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--1"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">7:15 – 10:45 AM</span>
+          <h3>Stowe Pinnacle <span class="tag">main hike</span></h3>
+          <p>The panoramic payoff of the Stowe side: an open rock knob facing Mansfield, Camel's Hump, and the Worcester Range, with morning sun front-lighting the ridgeline and valley color. Steep, stair-like, rocky in the upper third. The Upper Hollow Rd lot holds ~9 cars and fills before 9 even on weekdays — be there by 7:10.</p>
+          <div class="stats"><span><b>~3.4 mi / 5.5 km</b> RT</span><span><b>~1,500 ft / 457 m</b> gain</span><span>Moving <b>2.5–3 h</b></span><span>Buffer <b>+30 min</b></span><span>Main lot <b>~9 cars</b></span><span>Overflow <b>1.6 km away</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.app.goo.gl/D7669yKyCB4n5fhw6">Main trailhead lot</a>
+            <a class="btn" href="https://maps.app.goo.gl/EUgqbNiy8ozLqxDC6">Overflow: Pinnacle Meadows</a>
+            <a class="btn" href="https://www.alltrails.com/trail/us/vermont/stowe-pinnacle-trail">AllTrails</a>
+            <a class="btn" href="https://gostowe.com/things-to-do/outdoor-activities/stowe-pinnacle">GoStowe</a>
+            <a class="btn" href="https://www.trailfinder.info/trails/trail/stowe-pinnacle">Trail Finder</a>
+          </div>
+          <details class="more"><summary>Trail notes</summary>
+            <ul><li>Blue-blazed; half a mile of gentle meadow, then the staircase begins.</li>
+            <li>Note the fork about a mile up so you take the same branch down.</li>
+            <li>Light scrambling near the top; grippy shoes for dew-wet rock.</li></ul>
+            <p><b>Parking &mdash; two lots, and they are not next door.</b> The <b>main trailhead lot</b> (44.43882, &minus;72.66764) holds about nine cars. <b>Pinnacle Meadows</b>, the Stowe Land Trust overflow off Pinnacle Rd (44.43779, &minus;72.64712), is <b>1.6 km &mdash; a full mile &mdash; east of it by road</b>, not a short walk across a field. Falling back to it costs roughly twenty minutes of road walking each way; better to drop the walkers at the trailhead and shuttle the car back. This is the whole reason the departure is 6:45 and not 7:30.</p>
+            <p><b>Buffer and turnaround.</b> The window is 3 h 30 for a hike that moves in 2.5&ndash;3 h, so there is a real half-hour of slack in it &mdash; for the summit, for photographs, for the lot being full and having to drop to Pinnacle Meadows. Spend it. The one hard rule: <b>if you are not on the summit knob by 9:00, turn around.</b> The gondola is the fixed point of the afternoon, not this hike, and everything after 10:45 is built on getting down on time.</p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stowe%20Pinnacle%20%2821804282308%29.jpg?width=1400" style="transform:scale(1.35);transform-origin:center 88%" alt="View from Stowe Pinnacle over the Stowe valley">
+          <figcaption><a href="https://commons.wikimedia.org/wiki/File:Stowe_Pinnacle_(21804282308).jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">11:00 AM &middot; the flex item</span>
+          <h3>Emily's Bridge <span class="tag tag--added">added</span></h3>
+          <p>Gold Brook Covered Bridge, 1844 — five minutes from the trailhead in Stowe Hollow, spanning rocky ledges. Vermont's most storied "haunted" bridge and a fast, worthwhile photo stop on the way into town.</p>
+          <p class="mono" style="font-size:.72rem;color:var(--muted)">This is the block that absorbs a slow morning. Ten minutes if the hike ran long, twenty-five if it did not — drop it entirely and you are still fine.</p>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Emily's+Covered+Bridge,+Covered+Bridge+Rd,+Stowe,+VT">Map</a>
+            <a class="btn" href="https://www.scenicvermontphotography.com/gold-brook-covered-bridge-stowe-hollow-bridge-emilys-bridge-in-stowe-vermont/">Photo gallery</a>
+          </div>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Emilys%20Bridge.jpg?width=900" alt="Emily's Bridge, the Gold Brook covered bridge in Stowe Hollow">
+          <figcaption><a href="https://commons.wikimedia.org/wiki/File:Emilys_Bridge.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">11:30 AM &ndash; 1:00 PM</span>
+          <h3>Stowe village — coffee, then lunch</h3>
+          <p>The Community Church steeple framed in maples. <b>Shoot it from the mapped "Stowe Community Church View Point"</b> &mdash; that is a separate pin from the church itself and the reason the picture works, so use the Viewpoint button, not the church one. Then Main Street and a short stroll on the Rec Path from Lintilhac Park behind the church. <b>Black Cap Coffee at 144 Main St</b> is the coffee stop, thirty seconds from the church and open 7&ndash;6 daily. Lunch is on the same street.</p>
+          <div class="stats"><span><b>Black Cap</b> &middot; 144 Main, 7&ndash;6</span><span><b>Raja</b> &middot; 151 Main, opens 11</span><span><b>Green Goddess</b> &middot; 7:30&ndash;3</span><span>Gondola at <b>1:15</b> &mdash; hard edge</span></div>
+          <div class="links">
+            <a class="btn primary" href="https://share.google/JglcjAOLx1XIpeHL1">Viewpoint map</a>
+            <a class="btn" href="https://maps.google.com/?q=Stowe+Community+Church,+Main+St,+Stowe,+VT">Church map</a>
+            <a class="btn" href="https://maps.google.com/?q=Black+Cap+Coffee,+144+Main+St,+Stowe,+VT">Black Cap map</a>
+            <a class="btn" href="https://maps.google.com/?q=Green+Goddess+Cafe,+618+S+Main+St,+Stowe,+VT">Green Goddess map</a>
+            <a class="btn" href="https://gostowe.com/blog-fall-foliage-northern-vermont-photographers-dream/">Fall photo guide</a>
+          </div>
+          <details class="more"><summary>Lunch options, vegetarian first</summary>
+            <ul>
+              <li><b>Raja</b>, 151 Main St &mdash; opens at 11:00, so it is available the moment you come off the hill, and it is four doors from the coffee. Ten vegetarian mains. The obvious pick if you want the proper meal at lunch and something lighter at night.</li>
+              <li><b>Green Goddess Caf&eacute;</b>, 618 S Main St &mdash; <b>7:30 AM to 3:00 PM daily</b>. Salads, sandwiches, smoothies, a genuinely wide vegetarian and vegan range. The faster and lighter option, and the better one if the gondola is the priority.</li>
+              <li><b>von Trapp Bierhall</b>, 1333 Luce Hill Rd &mdash; opens 11:30, ten minutes up the hill. Lagers and the meadow view are the draw; the food is brats-and-schnitzel with a thin vegetarian edge. Better as a drink stop than a meal for you.</li>
+              <li><b>Piecasso</b> &mdash; pizza, in town, daily, reliably vegetarian.</li>
+              <li><b>The viewpoint is not the church.</b> Google carries a separate place, "Stowe Community Church View Point", and that is the spot the classic steeple-against-the-maples shot is taken from. Navigating to the church address puts you at the building, not at the angle. Both buttons are above &mdash; take the Viewpoint one first.</li>
+              <li><b>Timing:</b> 90 minutes covers coffee, the church, Main Street and a sit-down lunch. If the Pinnacle ate its buffer, drop the Rec Path stroll first and Emily's Bridge second &mdash; do not compress lunch, the next food is dinner.</li>
+            </ul>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stowe%20VT%20Community%20Church%20%2851626887231%29.jpg?width=900" alt="White steeple of Stowe Community Church on Main Street">
+          <figcaption><a href="https://commons.wikimedia.org/wiki/File:Stowe_VT_Community_Church_(51626887231).jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">1:15 PM</span>
+          <h3>Gondola SkyRide, Mt. Mansfield</h3>
+          <p>Confirmed operating fall 2026 (the gondola was not replaced — cabins upgraded for 2025–26). Daily 10:00–4:30, last ticket 4:15, ~US$40–43 adult. Buy online in advance — foliage-season queues are real. Cliff House at the top, ~3,625 ft, foliage from above.</p>
+          <div class="stats"><span><b>~1.5 h</b> with summit time</span><span>Status: <b>stowe.com/alerts</b></span><span>Ph <b>1-800-842-8062</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Stowe+Gondola+SkyRide,+Mountain+Rd,+Stowe,+VT">Map</a>
+            <a class="btn" href="https://gostowe.com/things-to-do/gondola-skyride">Details</a>
+            <a class="btn" href="https://www.stowe.com/the-mountain/mountain-conditions/mountain-cams.aspx">Summit cams</a>
+          </div>
+          <details class="more"><summary>Why this is the item to cut if Friday runs long</summary>
+            <p>Friday is the heaviest day of the trip &mdash; roughly twelve and a half hours door to door and 9.7&nbsp;km on foot. Of everything on it, the gondola is the one thing that is neither a hike nor a view you cannot get another way, and it costs ninety minutes and around US$85 for two. The Notch and the Pinnacle are the day. <b>If something has to go, this goes.</b> The card below is the cheaper, more flexible substitute for the same mountain.</p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/2017-09-11%2013%2010%2001%20View%20east-southeast%20towards%20Stowe%20Ski%20Resort%20from%20the%20Long%20Trail%20between%20the%20Nose%20and%20the%20Chin%20of%20Mount%20Mansfield%20within%20Mount%20Mansfield%20State%20Forest%20in%20Stowe%2C%20Lamoille%20County%2C%20Vermont.jpg?width=900" alt="Early fall view from the Mount Mansfield ridgeline toward Stowe">
+          <figcaption>Mansfield ridge, September — <a href="https://commons.wikimedia.org/wiki/File:2017-09-11_13_10_01_View_east-southeast_towards_Stowe_Ski_Resort_from_the_Long_Trail_between_the_Nose_and_the_Chin_of_Mount_Mansfield_within_Mount_Mansfield_State_Forest_in_Stowe,_Lamoille_County,_Vermont.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time time--opt">1:15 PM &mdash; instead of the gondola</span>
+          <h3>Mount Mansfield Auto Toll Road <span class="tag tag--added">alternative</span></h3>
+          <p>The same mountain, driven rather than ridden. <b>4.5 miles of winding gravel</b>, about twenty minutes up, entrance off VT-108 just past the cross-country centre. It puts you on the ridge at <b>3,850&nbsp;ft</b> at the Summit Station, where Green Mountain Club caretakers can tell you what the ridgeline is doing that day.</p>
+          <p><b>The real reason to prefer it:</b> from the Summit Station the Chin &mdash; <b>Vermont's highest point at 4,395&nbsp;ft</b> &mdash; is <b>1.4 miles north along the Long Trail, 546&nbsp;ft of gain</b>. That is genuine alpine ridge walking, and it is the only way on this trip to stand on the state's high point. The gondola cannot give you that.</p>
+          <div class="stats"><span><b>$37</b> vehicle + <b>$14</b>/passenger</span><span>vs gondola <b>~$85 for two</b></span><span>Road <b>4.5 mi gravel</b></span><span>Chin <b>1.4 mi / 546 ft</b></span><span>Season <b>to mid-Oct</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Mount+Mansfield+Auto+Toll+Road,+VT-108,+Stowe,+VT">Toll road map</a>
+            <a class="btn" href="https://gostowe.com/things-to-do/auto-toll-road">GoStowe details</a>
+            <a class="btn" href="https://greenmountainclub.org/hikes/toll-road/">GMC ridge hikes</a>
+          </div>
+          <details class="more"><summary>Gondola or toll road &mdash; how to pick</summary>
+            <ul>
+              <li><b>Cheaper for two or more.</b> $37 + $14 = <b>$51</b> against roughly $80&ndash;86 for two gondola tickets. The gap widens with every extra person.</li>
+              <li><b>No queue and no booking.</b> The gondola wants tickets bought in advance and has real foliage-season lines; you just drive up to the toll house.</li>
+              <li><b>Higher, and it goes somewhere.</b> 3,850&nbsp;ft against the Cliff House at ~3,625&nbsp;ft, and the ridge to the Chin continues from it.</li>
+              <li><b>Carry cash.</b> Reports conflict &mdash; one source states all Vermont toll roads are cash-only and GoStowe does not specify. <b>Bring both cash and card.</b></li>
+              <li><b>No food at the top.</b> The Cliff House restaurant is a gondola thing. Pack something, or eat in the village first as the plan already has you doing.</li>
+              <li><b>Gravel, and steep.</b> Fine for a normal car in the dry; it is not a road for a nervous driver in rain or fog. If the summit cams show cloud, both options are pointless &mdash; spend the time in the Notch instead.</li>
+              <li><b>Season ends mid-October</b>, weather permitting, so 2 October is comfortably inside it.</li>
+            </ul>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/View%20from%20toll%20road%20on%20Mt.%20Mansfield%2C%202007.jpg?width=900" alt="View out over the valley from the Mount Mansfield auto toll road">
+          <figcaption>From the toll road &mdash; <a href="https://commons.wikimedia.org/wiki/File:View_from_toll_road_on_Mt._Mansfield,_2007.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--1"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">3:00 PM</span>
+          <h3>Bingham Falls</h3>
+          <p>Half-mile round trip off VT-108 to a 25-ft plunge in a carved gorge with emerald pools. The steep rock staircases down are notoriously slick — doubly so under fallen leaves. Dirt pull-offs on both sides of the road, ~15 cars.</p>
+          <div class="stats"><span><b>0.5 mi</b> RT</span><span><b>~45</b> min</span><span><b>Wet rock warning</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Bingham+Falls+Trailhead,+Mountain+Rd,+Stowe,+VT">Map</a>
+            <a class="btn" href="https://maps.google.com/?q=44.518223,-72.769776">Parking</a>
+            <a class="btn" href="https://www.alltrails.com/trail/us/vermont/bingham-falls-trail">AllTrails</a>
+          </div>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bingham%20Falls%20-%20panoramio.jpg?width=900" alt="Bingham Falls plunging into its gorge near Stowe">
+          <figcaption><a href="https://commons.wikimedia.org/wiki/File:Bingham_Falls_-_panoramio.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">4:00 PM</span>
+          <h3>Smugglers' Notch — VT-108</h3>
+          <p>The signature drive: hairpins threading giant fallen boulders under 1,000-ft cliffs, at peak color up high. Late afternoon is the quiet window (midday is gridlock), and the shaded slot actually photographs better in even light. Pull-offs along the climb; park at the top and walk among the boulders. Optionally roll down to Jeffersonville and loop home via VT-15 — no backtracking.</p>
+          <div class="stats"><span>Open thru <b>~mid-Nov</b></span><span>No vehicles <b>&gt;40 ft</b></span><span>Best light <b>even/shaded</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Smugglers'+Notch+State+Park,+Stowe,+VT">Map</a>
+            <a class="btn" href="https://maps.google.com/?q=44.556784,-72.79404">Parking</a>
+            <a class="btn" href="https://vtrans.vermont.gov/notch">Road status</a>
+            <a class="btn" href="https://jeff-foliage.com/2019/06/12/tips-exploring-smugglers-notch/">Photo tips</a>
+          </div>
+          <details class="more"><summary>Sterling Pond — optional, read first</summary>
+            <p>From the top-of-Notch lot: 2.2 mi RT but a hard ~1,000 ft on eroded, slippery rock staircase, with an active bear situation at the pond shelter. Worth it only as a substitute for the gondola, from the Notch top at ~7 AM on a clear morning — not appended to a full day. <a href="https://www.alltrails.com/trail/us/vermont/sterling-pond-trail">AllTrails</a></p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Smugglers%20Notch%20Rd.jpg?width=900" alt="VT-108 winding through the boulders of Smugglers' Notch">
+          <figcaption><a href="https://commons.wikimedia.org/wiki/File:Smugglers_Notch_Rd.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--1"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Mt.%20Mansfield%20from%20north%20of%20Stowe%2C%20VT.jpg?width=900" alt="Mount Mansfield rising above the Stowe valley"><figcaption>Mansfield above Stowe — the sunset view from the ledge. <a href="https://commons.wikimedia.org/wiki/File:Mt._Mansfield_from_north_of_Stowe,_VT.jpg">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">5:45 PM</span>
+        <h3>Sunset Rock <span class="tag tag--added">added</span></h3>
+        <p>Back in the village: a 10-minute walk from the end of Sunset Street (park behind the Community Church) to a west-facing ledge directly above town — the white steeple below, Mansfield behind, sunset at 6:31. The easiest big view of the trip.</p>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=Sunset+Rock,+Stowe,+VT">Map</a>
+            <a class="btn" href="https://maps.google.com/?q=44.463912,-72.67677">Parking</a>
+          <a class="btn" href="https://gostowe.com/things-to-do/outdoor-activities/sunset-rock">GoStowe</a>
+        </div>
+        <p style="margin-top:10px">Alternative dinners on Mountain Rd: <a href="https://www.piecasso.com/">Piecasso</a> or <a href="https://idletymebrewing.com/">Idletyme</a>.</p>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Trapp%20Family%20Lodge%20-%20Flickr%20-%20S.%20Rae.jpg?width=900" alt="The Trapp Family Lodge above Stowe"><figcaption>Trapp Family Lodge &mdash; <a href="https://commons.wikimedia.org/wiki/File:Trapp_Family_Lodge_-_Flickr_-_S._Rae.jpg">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">7:15 PM</span>
+        <h3>von Trapp Bierhall, then dinner at Raja <span class="tag tag--added">Raja moved here from Saturday</span></h3>
+        <p>Yes, <i>that</i> von Trapp family &mdash; they left Austria, toured America singing, and settled here in the 1950s because the mountains reminded them of home. The lodge sits on a hillside above Stowe with 60&nbsp;km of private trails; the Bierhall is a separate building down the road brewing Austrian-style lagers, with a beer garden looking at the same view. The right end to the biggest day of the trip. <b>The drink is here; dinner is at Raja</b> on Main St, which is open to 9:00 on Friday.</p>
+        <div class="stats"><span>Open <b>11:30 AM &ndash; 9 PM</b></span><span>1333 <b>Luce Hill Rd</b></span><span>From Sunset Rock <b>~10 min</b></span><span>Dinner <b>Raja, by 8:00</b></span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=von+Trapp+Brewing+Bierhall,+1333+Luce+Hill+Rd,+Stowe,+VT">Map</a>
+          <a class="btn" href="https://www.vontrappbrewing.com/bierhall.htm">Bierhall</a>
+          <a class="btn" href="https://www.vontrappresort.com/">The lodge</a>
+          <a class="btn primary" href="https://maps.google.com/?q=Raja+Indian+Restaurant,+151+Main+St,+Stowe,+VT">Raja map</a>
+        </div>
+        <details class="more"><summary>Why dinner is at Raja and not the Bierhall</summary>
+          <p>The Bierhall is a view and a beer garden more than it is a vegetarian dinner &mdash; the kitchen is Austrian, which means brats, schnitzel and one or two meatless plates. So the plan is <b>drink there at 7:00, dinner at Raja at 8:00</b> (151 Main St, ph <b>802-760-6685</b>, open to 9:00 on Friday). <b>Ring Raja ahead:</b> it is a small room on a foliage Friday and reservations were not confirmable online. Book the Bierhall on Resy either way; it is one of the most contested tables in Stowe at peak foliage.</p>
+        </details>
+        <details class="more"><summary>Daytime alternative &mdash; the Chapel Hill walk</summary>
+          <p>A day pass gets you onto the lodge grounds and its trail network. The short one is <b>Chapel Hill: about half a mile, steep</b>, to the chapel Werner von Trapp built with his family &mdash; a good leg-stretch if the Pinnacle gets rained out and you want something gentler. Bierhall reservations go through Resy; walk-ins are taken when there is space, but this is one of the most popular tables in Stowe at peak foliage, so book it.</p>
+        </details>
+      </div></div></div>
+    </div>
+  </div>
+
+  <div class="mapframe">
+    <iframe title="Smugglers' Notch area map" loading="lazy" src="https://maps.google.com/maps?q=Smugglers%20Notch%20State%20Park%2C%20Stowe%20VT&z=11&output=embed"></iframe>
+    <div class="bar"><span>Stowe — Mansfield — the Notch</span><a href="https://www.google.com/maps/dir/44.601828,-72.5745682/44.43882,-72.66764/44.4404009,-72.6798624/44.4656466,-72.6846447/44.52903,-72.78428/44.5167269,-72.7660351/44.5553,-72.79587/44.4650363,-72.6786046/44.4654369,-72.7451481/44.601828,-72.5745682/">Open full loop directions</a></div>
+  </div>
+</section>
+
+<!-- ============ DAY 3 ============ -->
+<section class="day" id="day3">
+  <div class="sign">
+    <div class="date"><span class="dow">Saturday</span><span class="num">OCT 3</span></div>
+    <div class="body">
+      <h2>The Northeast Kingdom</h2>
+      <p class="route">Pulpit Rock · Lake Willoughby · VT-5A · Craftsbury Common · Barr Hill · Fisher Bridge — the low-crowd Saturday, at full peak</p>
+    </div>
+  </div>
+  <div class="daymeta">
+    <span>Sunrise <b>6:50</b> &middot; Sunset <b>6:30</b></span>
+    <span>Typical <b>61&deg;F / 41&deg;F</b> &middot; 16&deg;C / 5&deg;C &middot; Pisgah top colder</span>
+    <span>Pack the <b>summit picnic</b> — Westmore has no lunch spots</span>
+    <span>Clifftops: <b>cold, windy — bring the shell</b></span>
+    <span>Hike <b>3.5 km / 274 m</b> &mdash; trimmed</span>
+    <span>Loop <b>~152 km</b> &middot; home <b>3:45</b></span>
+      <span><a href="https://www.google.com/maps/dir/44.601828,-72.5745682/44.7297412,-72.0306816/44.748209,-72.0597399/44.7711201,-72.0548723/44.6535578,-72.3827342/44.6345579,-72.3718867/44.6080645,-72.289919/44.5323138,-72.4277306/44.601828,-72.5745682/">Full day 3 loop, in order &rarr;</a></span>
+  </div>
+
+  <div class="toggle" role="tablist" aria-label="Saturday plan">
+    <button data-plan-btn="A" class="on">Plan A — the Kingdom</button>
+    <button data-plan-btn="C">Plan C — Two Gaps day</button>
+  </div>
+  <p class="mono" style="font-size:.72rem;color:var(--muted)">The Sept 29 foliage email picks the winner. Plan A unless the Kingdom is past peak or socked in.</p>
+
+  <div class="planwrap">
+  <div class="plan show" data-plan="A">
+  <div class="trail">
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">5:45 &ndash; 6:15 AM</span>
+          <h3>Breakfast at the property, and build the picnic</h3>
+          <p>The earliest start of the trip, and the one day where getting food right actually matters: <b>Westmore has nothing</b>. No cafe, no store, no gas station worth the name &mdash; VT-5A runs five shoulder-less miles under a cliff and that is the whole settlement. Whatever you eat between now and Craftsbury at 2 PM, you are carrying up the mountain this morning.</p>
+          <div class="stats"><span>Depart <b>6:15</b></span><span>Sunrise <b>6:50</b></span><span>Drive <b>1 h 05</b></span><span>Next real food <b>1:15 PM</b></span></div>
+          <details class="more"><summary>The picnic list — bought at Hannaford on Thursday</summary>
+            <ul>
+              <li>Bread or rolls, a good cheese, hummus, a tub of olives &mdash; the Morrisville Hannaford carries all of it and is open to 10 PM.</li>
+              <li>Fruit, nuts, and something salty. The clifftops are cold and windy; sweet-only does not hold up.</li>
+              <li>Two litres of water each &mdash; there is no source on the mountain.</li>
+              <li>Hot drink in a flask. South Beach at 10:00 in early October is genuinely cold sitting still.</li>
+              <li>A bin bag. There is no service at the trailhead or the beach; everything comes back down with you.</li>
+            </ul>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--1"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">7:35 &ndash; 9:45 AM</span>
+          <h3>Mount Pisgah &rarr; Pulpit Rock <span class="tag tag--added">trimmed</span></h3>
+          <p><b>Pulpit Rock at ~1 mile hangs 650 ft directly over Lake Willoughby</b> &mdash; the vertigo shot, and the one view this mountain uniquely owns. <b>Turn around there.</b> The summit is treed and has no view; the good overlooks are a further 0.3&ndash;0.4 mi past it, and going for them is what turns this into a 3 h 45 morning. Depart 6:15 with the picnic; trailhead lots sit on both sides of VT-5A.</p>
+          <p><b>Extension, only if the legs are fresh and the sky is clear:</b> continue to the North and West overlooks &mdash; past the FIRST North Overlook to the second &mdash; for the full fjord panorama. 7.1 km / 503 m, back at 11:20 instead of 9:45. <b>It costs Barr Hill.</b></p>
+          <p class="mono" style="font-size:.72rem;color:var(--muted)">Trimming this is what pays for Barr Hill and Fisher Bridge and gets you home at 3:45 instead of after 4. It also removes the second of two back-to-back 450&nbsp;m+ climbs. <b>If you take the extension: not at Pulpit Rock by 8:30, turn around anyway.</b></p>
+          <div class="stats"><span><b>3.5 km / 2.2 mi</b> RT</span><span><b>274 m / 900 ft</b> gain</span><span>Moving <b>~2 h</b></span><span>Full hike <b>7.1 km / 503 m</b></span><span>Drive <b>~1 h 05</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Mount+Pisgah+South+Trailhead,+VT-5A,+Westmore,+VT">Map</a>
+            <a class="btn" href="https://www.alltrails.com/trail/us/vermont/mount-pisgah-trail">AllTrails</a>
+            <a class="btn" href="https://www.trailfinder.info/trails/trail/willoughby-state-forest-mount-pisgah">Trail Finder</a>
+            <a class="btn" href="https://adventuresofaplusk.com/hiking-to-mount-pisgah-vermont/">Hike guide + photos</a>
+          </div>
+          <details class="more"><summary>Conditions</summary>
+            <ul><li>Muddy start near the beaver-pond boardwalk; steep and rooty from there.</li>
+            <li>No closures — peregrine restrictions end Aug 1 and Pisgah isn't on the 2026 list anyway.</li>
+            <li>Mid-morning at Pulpit Rock often catches valley fog burning off the lake.</li></ul>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Mt%20Pisgah%20VT%2010-04-2025.jpg?width=900" alt="Mount Pisgah above Lake Willoughby in fall color">
+          <figcaption>Taken Oct 4, 2025 — this exact weekend last year. <a href="https://commons.wikimedia.org/wiki/File:Mt_Pisgah_VT_10-04-2025.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">10:00 &ndash; 11:00 AM</span>
+          <h3>South Beach + picnic</h3>
+          <p>The classic shot: looking north up the glacial trench between the cliffs of Pisgah and Hor — Vermont's fjord. This is lunch, and it is the picnic you built at 5:45 — there is no alternative within twenty minutes. Parking free (a fee was only "in talks" spring 2026 — check signage).</p>
+          <div class="stats"><span>Lunch <b>55 min</b></span><span>Nearest cafe <b>Craftsbury, 1:15</b></span><span>Bring the <b>flask</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Lake+Willoughby+South+Beach,+VT-5A,+Westmore,+VT">Map</a>
+            <a class="btn" href="https://herresphotography.com/autumn-colors-and-wildlife-at-willoughby-lake-vermont/">Fall gallery</a>
+          </div>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Willoughby%20October%202021%20001.jpg?width=900" alt="Lake Willoughby in October between Mount Pisgah and Mount Hor">
+          <figcaption>October at Willoughby — <a href="https://commons.wikimedia.org/wiki/File:Lake_Willoughby_October_2021_001.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">11:00 AM</span>
+          <h3>VT-5A shore drive + North Beach <span class="tag tag--added">added</span></h3>
+          <p>Five shoulder-less miles under Pisgah's cliff wall along the east shore — one of Vermont's best short drives. Limited pull-offs; take the look back down the lake from North Beach at the far end.</p>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Lake+Willoughby+North+Beach,+Westmore,+VT">Map</a>
+          </div>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Willoughby%20October%202021%20003.jpg?width=900" alt="October foliage along the shore of Lake Willoughby">
+          <figcaption><a href="https://commons.wikimedia.org/wiki/File:Lake_Willoughby_October_2021_003.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">12:30 PM</span>
+          <h3>Craftsbury Common</h3>
+          <p>VT-58 west through Orleans and Irasburg, VT-14 south (~50 min) to the white-fenced hilltop green — church, Academy, Sterling College, old sugar maples. Repeatedly named among Vermont's prettiest foliage villages. Stroll 30–45 min, then home via Hardwick and VT-15 (~35 min).</p>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Craftsbury+Common,+VT">Map</a>
+            <a class="btn" href="https://newengland.com/travel/vermont/prettiest-fall-foliage-villages-in-vermont/">Village gallery</a>
+          </div>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Craftsbury%20Common%20-%209-13-25.jpg?width=900" alt="The white-fenced green at Craftsbury Common">
+          <figcaption>September at the Common — <a href="https://commons.wikimedia.org/wiki/File:Craftsbury_Common_-_9-13-25.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time time--opt">1:15 PM &mdash; optional</span>
+          <h3>Craftsbury General Store &mdash; "The Genny" <span class="tag tag--added">optional</span></h3>
+          <p>A 150-year-old general store with a dining alcove at the back, open <b>7 AM to 9 PM on a Saturday</b> &mdash; scratch baking, a localvore menu, and a pesto margarita pizza that gets compared to Parker Pie's. A hundred metres from the Common you are already walking. Porch seating if the weather holds.</p>
+          <div class="stats"><span>118 <b>S Craftsbury Rd</b></span><span>Sat <b>7 AM &ndash; 9 PM</b></span><span>Stop <b>20&ndash;30 min</b></span><span>Skip it &rarr; home <b>3:15</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Craftsbury+General+Store,+118+S+Craftsbury+Rd,+Craftsbury,+VT">Map</a>
+            <a class="btn" href="https://www.gennyvt.com/">The Genny</a>
+          </div>
+          <details class="more"><summary>Vegetarian, and why this stop matters</summary>
+            <p>Daily specials rotate through pasta, shepherd's pie and salads, so the vegetarian offer varies day to day &mdash; the pizza and the baked goods are the dependable part.</p>
+            <p><b>Why it is optional now.</b> You ate the picnic at 10:00, so this is a coffee-and-a-pastry stop rather than a meal. Take it if the morning ran cold on the clifftop or the Common was worth lingering over. Skip it and you gain half an hour and reach base at 3:15 &mdash; time that is better spent at <b>Barr Hill</b>, which is the higher-scoring stop of the two.</p>
+            <p><b>The one caveat if you skip.</b> This is the only staffed food between Westmore and Morrisville. There is nothing else on the road until you are nearly home, so on a skip-it day the picnic has to carry you from 6:15 to dinner.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">1:50 &ndash; 2:40 PM</span>
+          <h3>Barr Hill Natural Area, Greensboro <span class="tag tag--added">added</span></h3>
+          <p>256 acres of Nature Conservancy land, and <b>the near-panorama is from the open field at the trailhead</b> &mdash; you barely walk. Mansfield, Camel's Hump, Elmore, Woodbury Mountain, the Groton peaks, Lake Caspian and Long Pond. <b>Best view-per-step of anything on this trip</b>, and it is fifteen minutes off the road you are already driving.</p>
+          <div class="stats"><span><b>1.1 km</b> loop</span><span><b>27 m</b> gain</span><span><b>Free</b>, dawn&ndash;dusk</span><span>Score <b>9/10</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=1521+Barr+Hill+Rd,+Greensboro,+VT+05841">Map</a>
+            <a class="btn" href="https://maps.google.com/?q=44.60877,-72.287795">Trailhead parking</a>
+            <a class="btn" href="https://www.nature.org/en-us/get-involved/how-to-help/places-we-protect/barr-hill-natural-area/">Nature Conservancy</a>
+          </div>
+          <details class="more"><summary>Finding it &mdash; the turns are easy to miss</summary>
+            <p>North out of Greensboro on East Craftsbury Rd, <b>bear right onto Lauredon Ave at the town hall</b>, 0.6 mi to the first fork, then <b>left onto Barr Hill Rd</b>. You pass a dairy farm and a red barn just before the entrance. Dirt road, fine in a car. There is a 0.3&nbsp;mi and a 0.8&nbsp;mi loop if you want more than the field view.</p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fall%20Foliage%20Along%20Norton%20Pond%20Northeast%20Kingdom%20Vermont%202021%20Season%20%2851585141337%29.jpg?width=900" alt="Northeast Kingdom foliage">
+          <figcaption>Northeast Kingdom &mdash; <a href="https://commons.wikimedia.org/wiki/File:Fall_Foliage_Along_Norton_Pond_Northeast_Kingdom_Vermont_2021_Season_(51585141337).jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">3:25 PM</span>
+          <h3>Fisher Covered Railroad Bridge, Wolcott <span class="tag tag--added">added</span></h3>
+          <p><b>Directly on VT-15 on the way home</b>, ten minutes from base. Built 1908, a rare double Town lattice truss, and <b>the last covered railroad bridge in use in the United States</b> &mdash; it carried trains until 1994 and is now part of the Lamoille Valley Rail Trail. On the National Register since 1974. A fifteen-minute stop that costs nothing because you drive past it.</p>
+          <div class="stats"><span><b>1908</b></span><span>Stop <b>15 min</b></span><span>Free pull-off <b>64 m</b></span><span>Base by <b>3:45</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=44.532889,-72.427605">Map &amp; parking</a>
+            <a class="btn" href="https://vermonthistory.org/fisher-covered-railroad-bridge">Vermont Historical Society</a>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Joes%20Pond%20-%20Rail%20Trail%20-%208-26-25.jpg?width=900" alt="The Lamoille Valley Rail Trail in late summer"><figcaption>Lamoille Valley Rail Trail — <a href="https://commons.wikimedia.org/wiki/File:Joes_Pond_-_Rail_Trail_-_8-26-25.jpg">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time opt">4:00 PM on &mdash; FALLBACK evening</span>
+        <h3>Hyde Park evening <span class="tag tag--easy">fallback &middot; rain or tired</span></h3>
+        <p><b>Saturday evening is now the Appalachian Gap (next card).</b> Use this one only if it rains, the sky is socked in at 4:00, or nobody has the legs for another drive. Back at 3:45 by design. Ten Bends Beer is in Hyde Park itself, and the Lamoille Valley Rail Trail access toward Johnson is <b>3.2&nbsp;km from base &mdash; a five-minute drive, not a walk out of the door</b>. Park once: <b>Ten Bends is 473&nbsp;m from the trail access</b>, so the walk and the drink share a car park.</p>
+        <p><b>The clash to know about:</b> dinner is pencilled at 6:30 and <b>sunset is 6:30</b>. Eat at 5:00 and walk after, or walk first and eat at 7:15. Raja is no longer a Saturday meal &mdash; it moved to Friday.</p>
+        <div class="stats"><span>Dinner <b>optional 5:00 or 7:15</b></span><span><b>Raja</b> &middot; Sat, to 9</span><span>Sunset <b>6:30</b></span><span>Trail access <b>3.2 km</b></span><span>Ten Bends <b>473 m</b> from it</span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=Raja+Indian+Restaurant,+151+Main+St,+Stowe,+VT">Raja map</a>
+          <a class="btn" href="https://maps.google.com/?q=Ten+Bends+Beer,+Hyde+Park,+VT">Ten Bends map</a>
+          <a class="btn" href="https://www.outdoorproject.com/united-states/vermont/lamoille-valley-rail-trail-hyde-park-johnson">Rail trail guide</a>
+        </div>
+        <details class="more"><summary>Dinner on the fallback evening</summary>
+          <ul>
+            <li><b>Raja</b> is open to 9:00 on a Saturday if the fallback evening runs and you want a second visit, but the plan now eats there on Friday. It is <b>closed Sunday</b>. Ph 802-760-6685.</li>
+            <li><b>10 Railroad Street</b>, Morrisville &mdash; the local special-occasion room, Resy, closed Sundays. Ask about vegetarian when you book; the menu is not built around it.</li>
+            <li>Black Diamond BBQ (Sat 5&ndash;9) is five minutes from base but is a barbecue joint &mdash; sides only.</li>
+            <li>If the day ran long and nobody wants to drive to Stowe, Hannaford in Morrisville is open to 10 and you already know where it is.</li>
+          </ul>
+        </details>
+      </div></div></div>
+    </div>
+  </div>
+
+  <div class="mapframe">
+    <iframe title="Lake Willoughby area map" loading="lazy" src="https://maps.google.com/maps?q=Lake%20Willoughby%2C%20Westmore%20VT&z=11&output=embed"></iframe>
+    <div class="bar"><span>Willoughby — the Kingdom</span><a href="https://www.google.com/maps/dir/44.601828,-72.5745682/44.7297412,-72.0306816/44.748209,-72.0597399/44.7711201,-72.0548723/44.6535578,-72.3827342/44.6345579,-72.3718867/44.6080645,-72.289919/44.5323138,-72.4277306/44.601828,-72.5745682/">Open full loop directions</a></div>
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">4:00 &ndash; 7:50 PM &mdash; LOCKED evening</span>
+          <h3>Appalachian Gap at golden hour <span class="tag tag--added">locked &middot; Saturday evening</span></h3>
+          <p><b>This is Saturday's evening.</b> The Hyde Park evening above is the fallback for rain or tired legs; it does not run as well.</p>
+          <p>Trimming Pisgah changed this. Saturday now carries only a two-hour hike and finishes at 15:45, so it absorbs the detour better than any other day: <b>depart 16:00, on the overlook by 17:15, sunset 18:30, back by 19:50.</b></p>
+          <p><b>It is strictly better than Sunday Route B.</b> You get the gap in the right light &mdash; it faces west &mdash; <i>and</i> Sunday stays free for Route A and the seven covered bridges. Route B gives you a badly-lit gap and no bridges.</p>
+          <div class="stats"><span><b>+2 h 30</b> round trip</span><span>Day <b>9h30 &rarr; 12h</b></span><span>Sunset <b>18:30</b></span><span>Faces <b>west</b> &mdash; right light</span></div>
+          <div class="links">
+            <a class="btn primary" href="https://www.google.com/maps/dir/1592+Center+Rd,+Hyde+Park,+VT/Waitsfield,+VT/44.2110741,-72.9312953/1592+Center+Rd,+Hyde+Park,+VT/">Evening route</a>
+            <a class="btn" href="https://maps.google.com/?q=44.211202,-72.931333">Overlook parking</a>
+          </div>
+          <details class="more"><summary>Dinner, and why Sunday no longer needs the gap</summary>
+            <p><b>Raja moved to Friday</b>, so nothing is lost by getting back at 19:50. Saturday dinner is a late, simple meal: <b>Piecasso</b> (pizza, Mountain Rd, Stowe, listed as daily; tonight's hours not checked) as you pass through Stowe on VT-100, or <b>Hannaford</b> in Morrisville, which is open to 10 PM and is the safe fallback.</p>
+            <p><b>Sunday:</b> with the gap done on Saturday, Sunday is Route A, the covered bridges. Route B (the App Gap traverse) is redundant and only stays on the page as history.</p>
+            <p><b>Why not the other days:</b> Friday would run to 14 h 30 and costs Sunset Rock, since you cannot have two sunsets. Thursday puts you at base at 19:20 with a 06:45 start for the Pinnacle. Sunday is impossible &mdash; you are in Qu&eacute;bec by 18:29.</p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Appalachian%20Gap%20%28Green%20Mountains%2C%20Vermont%2C%20USA%29%201.jpg?width=900" alt="The Appalachian Gap in the Green Mountains">
+          <figcaption>Appalachian Gap &mdash; <a href="https://commons.wikimedia.org/wiki/File:Appalachian_Gap_(Green_Mountains,_Vermont,_USA)_1.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+  </div>
+  </div><!-- /planA -->
+
+  <div class="plan" data-plan="C">
+  <div class="note">Run this instead of the Kingdom only if the Sept 29 report says Willoughby is past peak or fogged in. <b>This replaced the old Route 100 chase</b> &mdash; same corridor, materially better payoff. Granville Gulf is dropped; the two gaps take its place.</div>
+  <div class="trail">
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split"><div class="content">
+        <span class="time">8:45 &ndash; 10:30 AM</span>
+        <h3>Waitsfield and Warren</h3>
+        <p>Down VT-100 through Stowe and Waterbury into the Mad River Valley. <b>Great Eddy Covered Bridge</b> in Waitsfield &mdash; 1833, the oldest covered bridge still in service in Vermont. Then Warren village, its own covered bridge, and <b>Warren Falls</b>, a carved-granite gorge just south of town.</p>
+        <div class="stats"><span>Drive <b>~1 h 15</b></span><span>Great Eddy <b>1833</b></span><span>Warren Falls <b>0.3 km</b></span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=44.189597,-72.824248">Great Eddy + parking</a>
+          <a class="btn" href="https://maps.google.com/?q=44.093967,-72.863858">Warren Falls parking</a>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--1"></span>
+      <div class="card"><div class="split"><div class="content">
+        <span class="time">10:45 AM &ndash; 12:30 PM</span>
+        <h3>Lincoln Gap and Sunset Ledge</h3>
+        <p>Climb the <b>paved Warren side</b> &mdash; the steepest paved mile of public highway in the United States, about 1,800 ft of gain at up to 24%. <b>The top is wooded and there is no view from the car</b>, so the hike is the entire reason to go up: <b>Sunset Ledge</b>, Long Trail <b>south</b>, 3.5 km round trip and 119 m, to open ledges facing west over Lake Champlain and the Adirondacks.</p>
+        <div class="stats"><span><b>3.5 km</b> RT</span><span><b>119 m</b> gain</span><span>~<b>1 h 15</b></span><span>Two lots, <b>94 m apart</b></span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=44.094732,-72.927931">Sunset Ledge lot</a>
+          <a class="btn" href="https://maps.google.com/?q=44.094898,-72.928308">Lincoln Gap LT lot</a>
+          <a class="btn" href="https://greenmountainclub.org/hikes/sunset-ledge/">Green Mountain Club</a>
+        </div>
+        <details class="more"><summary>Before you drive it</summary>
+          <p><b>Seasonal road.</b> Lincoln Gap closes for winter around <b>15 October</b>, so 3 October has about eleven days of margin. But a <b>full culvert replacement was scheduled for 2026</b> and neither town site posted a resolution &mdash; <b>ring Warren highway dept on 802-496-2709 before committing the day.</b></p>
+          <p>Paved on the Warren side, <b>dirt on the Lincoln side</b>. Narrow, blind hairpins, no guardrail in places, and foliage-season cyclists on the same width. <b>No trailers.</b> Descend in low gear, not on the brakes. If nobody wants to hike, skip Lincoln Gap entirely &mdash; without Sunset Ledge there is nothing at the top to see.</p>
+        </details>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split"><div class="content">
+        <span class="time">2:15 &ndash; 3:15 PM</span>
+        <h3>Appalachian Gap overlook</h3>
+        <p>Back down to the valley, north on VT-100, then <b>west up VT-17</b>. A large asphalt lot sits <b>14 metres from the viewpoint</b> at 2,375 ft &mdash; car door, twenty paces, and the Champlain Valley, Lake Champlain and the Adirondacks open up west. No trail, no fee. <b>The best view-per-effort on the trip.</b></p>
+        <div class="stats"><span><b>2,375 ft</b></span><span>Walk <b>~20 m</b></span><span>Free</span><span>Score <b>9/10</b></span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=44.2110741,-72.9312953">Overlook</a>
+          <a class="btn" href="https://maps.google.com/?q=44.211202,-72.931333">Parking</a>
+        </div>
+        <details class="more"><summary>If the day is running early, stay for the light</summary>
+          <p>It faces <b>west</b> and sunset is 6:30, so 2:15 is not its best hour. If you are ahead of schedule, push it later &mdash; golden hour here is the whole point, and the drive home is 1 h 15 whenever you leave.</p>
+          <p><b>Optional, weekends:</b> the <b>Mad River Glen single chair</b> below the gap runs foliage weekends, $20 adult, <b>first chair 10:00 and last chair loaded 14:30</b>. 2026 dates were not confirmable &mdash; ring 802-496-3551.</p>
+        </details>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split"><div class="content">
+        <span class="time">3:30 PM</span>
+        <h3>Home via Waterbury &mdash; and this is the only day Cold Hollow works</h3>
+        <p>Down the east side to Waitsfield, then VT-100 north. <b>Cold Hollow Cider Mill and Cabot Creamery are dropped from Sunday</b> because they sit in the wrong direction &mdash; but this route drives straight past them. If you want cider donuts on this trip, it happens here or not at all.</p>
+        <div class="stats"><span>Day <b>~120 mi</b></span><span>Driving <b>~3 h</b></span><span>Cold Hollow <b>8&ndash;6</b></span><span>Cabot <b>from 10:30</b>, shut Mon</span></div>
+        <div class="links">
+          <a class="btn primary" href="https://www.google.com/maps/dir/44.601828,-72.5745682/44.18937,-72.8235/44.1145085,-72.8560776/44.0955039,-72.8643766/44.0950338,-72.9290382/44.0879167,-72.9275429/44.2110741,-72.9312953/Waitsfield,%20VT/44.601828,-72.5745682/">Full Two Gaps loop</a>
+          <a class="btn" href="https://maps.google.com/?q=Cold+Hollow+Cider+Mill,+Waterbury+Center,+VT">Cold Hollow</a>
+        </div>
+      </div></div></div>
+    </div>
+  </div>
+  </div><!-- /planC -->
+  </div>
+</section>
+
+<!-- ============ DAY 4 ============ -->
+<section class="day" id="day4">
+  <div class="sign">
+    <div class="date"><span class="dow">Sunday</span><span class="num">OCT 4</span></div>
+    <div class="body">
+      <h2>Two ways home</h2>
+      <p class="route"><b>A &mdash; covered bridges:</b> Cambridge Junction &middot; Gates Farm &middot; Montgomery &times;5 &middot; Swanton &middot; Highgate Springs &middot; Whitby ~6:30 PM<br>
+      <b>B &mdash; Appalachian Gap traverse:</b> Waitsfield &middot; App Gap overlook &middot; Bristol &middot; Champlain Valley &middot; Highgate Springs &middot; Whitby ~7:00 PM</p>
+    </div>
+  </div>
+  <div class="daymeta">
+    <span>Typical <b>61&deg;F / 40&deg;F</b> &middot; 16&deg;C / 4&deg;C</span>
+    <span>Beat the leaf-season <b>Sunday border queue</b> &mdash; cross before noon</span>
+    <span>Exemption after 48 h: <b>CAD $800/person</b></span>
+    <span><b>Cold Hollow is dropped</b> &mdash; it was a 40-min detour the wrong way</span>
+  </div>
+
+  <div class="trail">
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/NewEngland%20Fall.jpg?width=900" alt="New England hillside in full fall color"><figcaption>One last Vermont morning — <a href="https://commons.wikimedia.org/wiki/File:NewEngland_Fall.jpg">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">8:00 AM</span>
+        <h3>Checkout, bags in the car</h3>
+        <p>If Moss Glen Falls (Stowe) didn't happen Thursday, it goes here: 8:15–9:00, then continue south — the routing home runs through Waterbury anyway, so nothing backtracks.</p>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--1"></span>
+      <div class="card"><div class="split"><div class="content">
+        <span class="time">8:15 AM &mdash; pick one</span>
+        <h3>The route choice <span class="tag tag--added">decide the night before</span></h3>
+        <p><b>Cold Hollow Cider Mill and Cabot Creamery are dropped from this day.</b> Both sit south in Waterbury, and with nothing else pulling you that way they cost a 40-minute detour in the wrong direction on a morning built around beating the leaf-season border queue. They are still reachable &mdash; but only on the Two Gaps day, which drives past them.</p>
+        <p><b>Update:</b> the Appalachian Gap is now locked for Saturday evening, so <b>Route A (covered bridges) is Sunday</b>. Route B stays below only for the record.</p>
+        <p>What replaces them is a genuine fork. Both routes end at Highgate Springs; they differ in what you look at on the way and by about half an hour.</p>
+        <div class="stats"><span>A <b>~75 mi</b> &middot; border 12:10</span><span>B <b>~127 mi</b> &middot; border 12:40</span><span>A: <b>7 covered bridges</b></span><span>B: <b>the App Gap overlook</b></span></div>
+        <div class="links">
+          <a class="btn primary" href="https://www.google.com/maps/dir/44.601828,-72.5745682/44.6510988,-72.8146024/44.6457214,-72.8722716/44.9072383,-72.6556465/44.8996622,-72.6446362/44.9032472,-72.6397131/44.8585853,-72.6125419/44.86724,-72.65252/Swanton,%20VT/Highgate%20Springs,%20VT/">Route A on Maps</a>
+          <a class="btn" href="https://www.google.com/maps/dir/44.601828,-72.5745682/Waitsfield,%20VT/44.2110741,-72.9312953/Bristol,%20VT/Burlington,%20VT/Highgate%20Springs,%20VT/">Route B on Maps</a>
+        </div>
+        <details class="more"><summary>How to choose</summary>
+          <p><b>A &mdash; covered bridges (the default).</b> West on VT-15 to Cambridge Junction, whose <b>Poland Bridge</b> is a 140-ft Burr arch from 1887, the second-largest single span in Vermont &mdash; closed to cars, so you walk through it. Then Gates Farm, then north to <b>Montgomery</b>, which has more covered bridges than any other town in the country and made Yankee's Top-25 foliage towns. Five are findable; Hectorville has been removed and is in storage. This route is <b>shorter than the old cider run</b> and reaches the border half an hour earlier &mdash; you add six bridges and lose nothing.</p>
+          <p><b>B &mdash; the Appalachian Gap traverse.</b> The one way to get App Gap into this trip without giving up the Willoughby day. South on VT-100 to Waitsfield, up VT-17 over the gap &mdash; the overlook lot is on the right just over the crest &mdash; then <b>down the west side and never back</b>: Bristol, the Champlain Valley, Burlington, and north on I-89 to the border. It is a traverse, not an out-and-back, which is why it only costs about half an hour more than Route A. Morning light is behind you at a west-facing overlook, so this is the one compromise: App Gap is better at golden hour.</p>
+          <p><b>The honest trade:</b> Route B buys one drive-up 9 and the Champlain Valley for the price of seven covered bridges and the covered-bridge capital. If foliage in the Mad River Valley is still short of peak on the Sept 29 check &mdash; which the historical pattern suggests &mdash; take Route A.</p>
+        </details>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time time--opt">9:15 &ndash; 10:00 AM &mdash; Route B only</span>
+          <h3>Appalachian Gap overlook <span class="tag tag--added">the only place it fits</span></h3>
+          <p>2,375&nbsp;ft, on VT-17 in Buels Gore. A <b>large asphalt overlook lot sits 14 metres from the viewpoint</b> &mdash; car door, twenty paces, and you are looking west across the Champlain Valley to Lake Champlain and the Adirondacks. No trail, no gate, no fee. It is the best view-per-effort on the entire trip and the reason Route B exists.</p>
+          <p>The Long Trail crosses here, between Stark Mountain to the south and Baby Stark to the north, and Mad River Glen sits just below on the east side.</p>
+          <div class="stats"><span><b>2,375 ft</b> pass</span><span>Walk <b>~20 m</b></span><span><b>Free</b>, no booking</span><span>Faces <b>west</b></span><span>Score <b>9/10</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=44.2110741,-72.9312953">Overlook map</a>
+            <a class="btn" href="https://maps.google.com/?q=44.211202,-72.931333">Parking lot</a>
+            <a class="btn" href="https://www.komoot.com/highlight/6146814">Photos</a>
+          </div>
+          <details class="more"><summary>Why it is here and not somewhere better</summary>
+            <p><b>It does not fit anywhere else.</b> App Gap is 1&nbsp;h&nbsp;15 from the Hyde Park base, and Friday and Saturday both start before seven because the trailhead lots are tiny. There is no spare half-day. Three placements were tested:</p>
+            <ul>
+              <li><b>Sunday Route B</b> &mdash; costs about thirty minutes over the bridge route, because it is a <b>traverse</b>: you go over the gap and down the west side into the Champlain Valley rather than turning round. <b>Superseded:</b> the gap is now on Saturday evening, in better light.</li>
+              <li><b>Saturday evening</b> &mdash; <b>chosen (locked).</b> Home 15:45, at the gap by 17:15, sunset 18:30, back at 19:50. It is the <b>best possible light</b>, because the view faces west. It turns a 9&nbsp;h&nbsp;30 day into twelve hours, which is the price. Route B below is therefore not needed.</li>
+              <li><b>The Two Gaps backup day</b> &mdash; where it also appears, but that only runs if the Sept 29 check kills the Northeast Kingdom.</li>
+            </ul>
+            <p><b>The honest cost of Route B:</b> a 9:15 arrival at a west-facing overlook means the sun is behind you &mdash; this is the gap's worst hour, not its best. And you give up seven covered bridges and Montgomery. If the Sept 29 check says the Mad River Valley is still short of peak, take Route A instead; the gap sits 1,000&nbsp;ft above the valley floor and turns well ahead of it, but green is green.</p>
+          </details>
+        </div>
+        <figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/The%20Appalachian%20Gap%2C%20looking%20west%20in%20summer%202022.jpg?width=900" alt="Looking west from the Appalachian Gap over the Champlain Valley">
+          <figcaption>App Gap, looking west &mdash; <a href="https://commons.wikimedia.org/wiki/File:The_Appalachian_Gap,_looking_west_in_summer_2022.jpg">Wikimedia Commons</a></figcaption></figure>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Artist%20Farmers%20Market%20every%20Saturday%20%2848709655506%29.jpg?width=900" alt="A farmers market produce stall"><figcaption>Farmers market stall &mdash; <a href="https://commons.wikimedia.org/wiki/File:Artist_Farmers_Market_every_Saturday_%2848709655506%29.jpg">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">optional &middot; 10 AM</span>
+        <h3>Stowe Farmers Market <span class="tag tag--added">added</span></h3>
+        <p>Sundays only, and <b>4 October is a Sunday</b> &mdash; the season runs to 18 October, so this is one of its last weekends. It sits on Mountain Road with the mountains right behind the stalls at peak colour, and there is usually someone pressing cider on a hand-cranked press. This is the single best thing the trip could add if you are willing to leave late.</p>
+        <div class="stats"><span><b>Sundays 10 AM &ndash; 2 PM</b></span><span>3420 <b>Mountain Rd</b></span><span>Season to <b>18 Oct</b></span><span>Costs you <b>~2 h</b></span></div>
+        <div class="links">
+          <a class="btn primary" href="https://maps.google.com/?q=Stowe+Farmers+Market,+3420+Mountain+Rd,+Stowe,+VT">Map</a>
+          <a class="btn" href="https://www.stowefarmersmarket.com/">stowefarmersmarket.com</a>
+        </div>
+        <details class="more"><summary>You cannot have this and an early border crossing</summary>
+          <p>The market opens at 10:00, which is after Cabot and well after Cold Hollow. Doing all three means leaving Waterbury around noon, crossing at Highgate Springs in the early afternoon &mdash; exactly the Sunday leaf-season window the plan is built to avoid &mdash; and reaching Whitby closer to 8:30&nbsp;PM. <b>The honest trade: pick the market or pick the early crossing.</b> If you want the market, do Cold Hollow at 8:00, the market at 10:00, and skip Cabot; or move the whole departure to Monday if the dates allow.</p>
+        </details>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Interstate%2089%20southbound%20near%20QC%20border.JPG?width=900" alt="Interstate 89 near the Quebec border"><figcaption>I-89 near the border — <a href="https://commons.wikimedia.org/wiki/File:Interstate_89_southbound_near_QC_border.JPG">Wikimedia Commons</a></figcaption></figure><div class="content">
+        <span class="time">11:00 AM</span>
+        <h3>The border, then Whitby</h3>
+        <p>I-89 north to Highgate Springs (check the CBSA northbound wait before rolling — Sunday leaf-season afternoons are the one queue risk; a pre-noon crossing beats it). Declare purchases: after 48+ hours it's CAD $800 per person plus 1.5 L wine or 1.14 L spirits or 8.5 L beer. Fuel in St. Albans before the border. Lunch is the next card; Whitby around 7:15&nbsp;PM with the Cabot stop, 6:30 without it.</p>
+        <div class="links">
+          <a class="btn primary" href="https://www.google.com/maps/dir/Highgate+Springs,+VT/1555+Provencher+Blvd,+Brossard,+QC/Whitby,+ON/">Route home</a>
+          <a class="btn" href="https://www.cbsa-asfc.gc.ca/bwt-taf/menu-eng.html">CBSA wait times</a>
+        </div>
+        <details class="more"><summary>Tempted to linger?</summary>
+          <p>Stowe Farmers Market runs Sundays 10–2 at Topnotch Field — lovely, but it costs roughly two hours of arrival time. Your call that morning.</p>
+        </details>
+      </div></div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--4"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">~1:30 &ndash; 2:15 PM</span>
+          <h3>Lunch &mdash; Brossard, the same exit as Thursday <span class="tag tag--added">added</span></h3>
+          <p>Border around 11:45, Brossard about an hour and a quarter later. Same two kitchens as the drive down, and this time it matters more: <b>Raja is closed on Sundays</b>, so this is the last proper meal of the trip &mdash; after Brossard it is 401 service centres for five hours.</p>
+          <div class="stats"><span><b>Le Tandoor</b> &middot; Sun 12&ndash;9</span><span><b>Shaan Tandoori</b> &middot; confirm Sun</span><span>Budget <b>45 min</b></span><span>Whitby <b>6:30&ndash;7:15 PM</b></span></div>
+          <div class="links">
+            <a class="btn primary" href="https://maps.google.com/?q=Le+Tandoor,+1555+Provencher+Blvd,+Brossard,+QC">Le Tandoor map</a>
+            <a class="btn" href="https://www.letandoor.ca/en">Le Tandoor</a>
+          </div>
+          <details class="more"><summary>Sunday specifics</summary>
+            <ul>
+              <li><b>Le Tandoor</b> &mdash; 1555 Provencher Blvd #4, Brossard. <b>Sunday 12:00&ndash;9:00 PM</b>, so a 1:30 arrival is comfortably inside service. Ph 450-672-6112.</li>
+              <li><b>Shaan Tandoori</b> &mdash; 2550 Boul Lapini&egrave;re. Weekday lunch runs 11:30&ndash;2:30 but <b>Sunday hours were not confirmable</b> &mdash; phone 450-678-9322 before counting on it.</li>
+              <li>If you would rather keep driving, the honest comparison is the same as Thursday: a packed lunch plus washroom is still 25&ndash;30 minutes. You save half an hour, not the full 45.</li>
+              <li>Skip it entirely only if the CBSA queue at Highgate Springs ate the morning &mdash; then eat at ONroute Mallorytown and accept it.</li>
+            </ul>
+          </details>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VILLAGES ============ -->
+<section class="day" id="villages">
+  <div class="sign">
+    <div class="date"><span class="dow">Trip</span><span class="num">VILLAGES</span></div>
+    <div class="body">
+      <h2>The villages — all of them, ranked by what they cost you</h2>
+      <p class="route">Every village within reach of Hyde Park · what is already yours, what is free, what costs a detour, and what has to go</p>
+    </div>
+  </div>
+
+  <div class="note">Vermont's villages are why most people come in October, so this covers every one within reach of the base rather than only those that happened to land on the route. Drive times are estimates from Hyde Park, not routed — treat them as &plusmn;15 minutes.</div>
+
+  <div class="legend">
+    <span><span class="b" style="background:var(--class-2)"></span>already on the plan</span>
+    <span><span class="b" style="background:var(--class-3)"></span>free — on a road you already drive</span>
+    <span><span class="b" style="background:var(--class-5)"></span>costs a detour</span>
+    <span><span class="b" style="background:var(--class-6)"></span>cut, with the arithmetic</span>
+  </div>
+
+  <div class="trail">
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Fri 11:30 AM</span>
+          <h3>Stowe village <span class="tag tag--easy">on the plan</span></h3>
+          <p>The Community Church steeple against the maples is the picture most people mean when they say "Vermont". Main Street, the Rec Path, and the mountain behind it. Already the centre of Friday.</p>
+          <div class="stats"><span>Day <b>2</b></span><span>From base <b>18 min</b></span><span>Also <b>coffee + lunch</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Stowe+Community+Church,+Main+St,+Stowe,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Sat 12:30 PM</span>
+          <h3>Craftsbury Common <span class="tag tag--easy">on the plan</span></h3>
+          <p>The white-fenced hilltop green with the church, the Academy and Sterling College, repeatedly named among the prettiest foliage villages in the state. One of three Craftsburys — this is the one on the hill.</p>
+          <div class="stats"><span>Day <b>3</b></span><span>Stroll <b>30&ndash;45 min</b></span><span>The Genny <b>optional, 1:15</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Craftsbury+Common,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Sun 9:30 AM</span>
+          <h3>Waterbury Center <span class="tag tag--easy">on the plan</span></h3>
+          <p>Not a classic green-and-steeple village, but Route 100 through it is the spine of Vermont foliage tourism — Cold Hollow, Cabot and Ben &amp; Jerry's all sit within a mile.</p>
+          <div class="stats"><span>Day <b>4</b></span><span>Cold Hollow <b>8&ndash;6</b></span><span>Cabot <b>from 10:30</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Waterbury+Center,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">your doorstep</span>
+          <h3>Hyde Park &amp; Morrisville <span class="tag tag--easy">on the plan</span></h3>
+          <p>Where you sleep. Hyde Park has the 1910 Lamoille County courthouse and an opera house; Morrisville next door has the groceries, Black Cap Coffee and most of the dinner options. The rail trail runs straight out of both.</p>
+          <div class="stats"><span>Base</span><span>LVRT <b>at the door</b></span><span>Hannaford <b>to 10 PM</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Hyde+Park,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--2"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Plan C</span>
+          <h3>Waitsfield &amp; Warren <span class="tag tag--easy">backup day only</span></h3>
+          <p>The Mad River Valley pair — Waitsfield has the Great Eddy Covered Bridge (1833, the oldest still in service), Warren has its own covered bridge and Warren Falls. Only reached on the Two Gaps backup day (Plan C).</p>
+          <div class="stats"><span>Plan <b>C</b></span><span>Great Eddy <b>1833</b></span><span>~<b>104 mi</b> round trip</span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Warren,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--3"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Sat ~3:15 PM</span>
+          <h3>Greensboro &amp; Caspian Lake <span class="tag tag--added">free — on your road</span></h3>
+          <p>Sits directly between Craftsbury and Hardwick, which is the road you already drive home on Saturday. White picket fences, farmland, and Caspian Lake — often called Vermont's most peaceful. <b>Willey's Store</b> on the corner of Breezy Ave has been run by one family since 1900 and has a coffee bar and bakery inside.</p>
+          <div class="stats"><span>Detour <b>~0 min</b></span><span>Willey's <b>7 Breezy Ave</b></span><span>Lake <b>789 acres</b></span><span>One family since <b>1900</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Greensboro,+VT">Map</a><a class="btn" href="https://maps.google.com/?q=Willeys+Store,+7+Breezy+Ave,+Greensboro,+VT">Willey's Store</a></div>
+          <details class="more"><summary>How it slots in</summary>
+            <p>Saturday runs Craftsbury Common at 12:30, The Genny <b>optionally</b> at 1:15, then Barr Hill and home via Hardwick and VT-15. Greensboro is <b>on that road</b>, roughly ten minutes past Craftsbury. Take it instead of the direct VT-14 run and you add about ten minutes to the drive for a second village and a lake. If The Genny is heaving &mdash; or you skipped it &mdash; Willey's coffee bar in Greensboro is the alternative.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--3"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Sat ~1:10 PM</span>
+          <h3>Barton <span class="tag tag--added">free — on your road</span></h3>
+          <p>At the northern tip of Lake Willoughby, on the VT-5A north / VT-58 west leg the Saturday loop already takes to reach Craftsbury. Historic small downtown, and the natural place for fuel or a washroom between the lake and the Common.</p>
+          <div class="stats"><span>Detour <b>~0 min</b></span><span>Day <b>3</b></span><span>Between <b>lake and Craftsbury</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Barton,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--3"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Sat ~3:30 PM</span>
+          <h3>Hardwick <span class="tag tag--added">free — on your road</span></h3>
+          <p>The working town of the group rather than the pretty one, and you drive through it on the way home from the Kingdom either way. Worth knowing it is there: it has the last real services before base.</p>
+          <div class="stats"><span>Detour <b>0 min</b></span><span>On <b>VT-14 / VT-15</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Hardwick,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--3"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">any evening</span>
+          <h3>Johnson <span class="tag tag--added">free — 10 min from base</span></h3>
+          <p>Ten minutes west of the base on VT-15, and the far end of the Lamoille Valley Rail Trail segment already in Saturday's plan. A mill village on the Lamoille with the river running through it — the rail trail gives you the reflections without driving at all.</p>
+          <div class="stats"><span>From base <b>10 min</b></span><span>LVRT <b>Hyde Park &rarr; Johnson</b></span><span>Flat, <b>any length</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Johnson,+VT">Map</a><a class="btn" href="https://www.outdoorproject.com/united-states/vermont/lamoille-valley-rail-trail-hyde-park-johnson">Rail trail</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--3"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time">Fri ~5:00 PM</span>
+          <h3>Jeffersonville &amp; Cambridge <span class="tag tag--added">free — on the Notch descent</span></h3>
+          <p>Friday already offers the option of continuing down through the Notch to Jeffersonville and looping home on VT-15 instead of backtracking. Do that and you get the village plus the <b>Grist Mill Covered Bridge</b> — 1872, a Burr arch truss, on Canyon Road off VT-108, one of only three left in Cambridge from an original thirteen.</p>
+          <div class="stats"><span>Detour <b>~0 min</b></span><span>Grist Mill <b>1872</b></span><span>Burr arch <b>truss</b></span><span>Loop home <b>VT-15</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Grist+Mill+Covered+Bridge,+Canyon+Rd,+Jeffersonville,+VT">Grist Mill Bridge</a><a class="btn" href="https://maps.google.com/?q=Jeffersonville,+VT">Jeffersonville</a></div>
+          <details class="more"><summary>The catch on a Friday</summary>
+            <p>Sunset Rock is scheduled at 5:45 back in Stowe village, and the Jeffersonville loop takes you the other way round the mountain. You can have the bridge <b>or</b> Sunset Rock, not both. If the Notch has been the highlight of the day, take the loop and skip the ledge; if the light is doing something, keep Sunset Rock and pick the bridge up another day.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--5"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">Sat, if you extend</span>
+          <h3>Peacham <span class="tag tag--optional">detour · +1 h 15</span></h3>
+          <p>The one genuinely famous village you are within reach of and not currently visiting. Population under 750, and the <b>1806 Olde Meeting House</b> is routinely called the most photographed church in New England — Peacham is the most photographed small town in Vermont. It is a film-set village that happens to be real.</p>
+          <div class="stats"><span>Round trip <b>~1 h 15</b></span><span>Via <b>Hardwick &rarr; Danville</b></span><span>Meeting House <b>1806</b></span><span>Pop. <b>~731</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Peacham,+VT">Map</a><a class="btn" href="https://www.peachamchurch.org/">The church</a></div>
+          <details class="more"><summary>The honest arithmetic</summary>
+            <p>From Craftsbury it is Hardwick &rarr; Danville &rarr; Peacham and back to base on US-2/VT-15 — roughly <b>an hour and a quarter of extra driving</b> on a day that already starts at 5:45 and includes a 3 h 45 hike. It fits on paper: leave Craftsbury at 2:30, Peacham by 3:30, base by 5:00, dinner at 6:30. Whether it fits in practice depends entirely on how the Pisgah buffer went. <b>Decision rule: only if you are off the mountain by 11:20 and out of Craftsbury by 2:30.</b> Otherwise leave it — it deserves its own morning, not the tail of a long day.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--5"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">Sat, at the start</span>
+          <h3>East Burke &amp; Burke Hollow <span class="tag tag--optional">detour · +30 min</span></h3>
+          <p>Closer than it looks. VT-5A — the road the whole Saturday runs on — leaves US-5 at <b>West Burke</b>, so the Burke villages sit at the foot of the corridor you are already driving. East Burke is the prettiest of the three, home to Burke Mountain and the Kingdom Trails.</p>
+          <div class="stats"><span>Round trip <b>~30 min</b></span><span>From <b>Pisgah trailhead</b></span><span>Three villages: <b>East, West, Hollow</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=East+Burke,+VT">Map</a></div>
+          <details class="more"><summary>When to take it</summary>
+            <p>Best folded in <b>before</b> the hike rather than after — but that means leaving base at 5:30 in the dark to gain a village you would see in flat pre-sunrise light. The better version is on the way home: from North Beach, drop south on VT-5A instead of north on VT-58, take East Burke, and return via US-5 and Hardwick. That trades Barton, Craftsbury Common and Greensboro for the Burkes — <b>a swap, not an addition</b>. Craftsbury is the better village; take the Burkes only if the Sept 29 report puts the colour further south.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--5"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">Fri, or swap Sunday</span>
+          <h3>Montgomery — the covered bridges <span class="tag tag--optional">detour · +45 min</span></h3>
+          <p>Vermont's covered-bridge capital, and by some distance: <b>six covered bridges inside the town limits plus a seventh on the Enosburg line — the most of any town in the United States.</b> Reached on VT-118 north from Jeffersonville, the far side of the Notch from you. Remote enough that most leaf peepers never get there.</p>
+          <div class="stats"><span>Round trip <b>~45&ndash;50 min</b></span><span>Bridges <b>6 + 1</b></span><span>Via <b>VT-118</b></span><span>Most in the <b>US</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Montgomery,+VT">Map</a><a class="btn" href="https://jeff-foliage.com/2021/10/09/a-drive-north-of-stowe-with-seven-or-more-covered-bridges/">Bridge guide</a></div>
+          <details class="more"><summary>It does not fit Friday — but it fits Sunday</summary>
+            <p>Friday already ends at Sunset Rock at 5:45 and dinner at 7:15, and Montgomery is 45 minutes beyond Jeffersonville on the wrong side of the mountain. There is no honest way to append it to that day.</p><p><b>Where it does fit: Sunday morning.</b> Skip Cold Hollow and Cabot, leave base at 8:00 over the Notch, do Jeffersonville and the VT-118 bridges, then join I-89 at St. Albans instead of Waterbury. It costs roughly 40 minutes against the planned route and swaps a cider mill for seven covered bridges. If covered bridges are what you came for, that is the better Sunday.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--5"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">any spare hour</span>
+          <h3>Elmore <span class="tag tag--optional">detour · +25 min</span></h3>
+          <p>The nearest village to base that is not Morrisville — Lake Elmore and its state park sit ten minutes east on VT-12, with Elmore Mountain behind. Small, quiet and genuinely local: the fallback if a day collapses and you want something twenty minutes from the door.</p>
+          <div class="stats"><span>Round trip <b>~25 min</b></span><span>Via <b>VT-12</b></span><span>Lake + <b>state park</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Lake+Elmore+State+Park,+Elmore,+VT">Map</a></div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--6"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">~1 h 50 each way</span>
+          <h3>Woodstock &amp; Pomfret <span class="tag tag--hidden">cut — twice over</span></h3>
+          <p>The most famous village in Vermont, and the one you should <b>not</b> drive to. Two independent reasons, either enough on its own.</p>
+          <div class="stats"><span>Each way <b>~1 h 50</b></span><span>Cloudland Rd <b>closed to you</b></span><span>Closure <b>25 Sep &ndash; 16 Oct</b></span><span>Your dates <b>inside it</b></span></div>
+          <div class="links"><a class="btn primary" href="https://www.vermontpublic.org/local-news/2025-08-22/pomfret-restricts-foliage-season-traffic-once-again">The closure</a></div>
+          <details class="more"><summary>Why it is cut</summary>
+            <ol>
+   <li><b>The drive.</b> Roughly an hour and fifty each way from Hyde Park via I-89 — three and a half to four hours of transit out of a four-day trip, on a day that would have to give up either Stowe or the Kingdom to pay for it.</li>
+   <li><b>Sleepy Hollow Farm is closed to you.</b> Pomfret and Woodstock have voted since 2023 to shut <b>Cloudland Road to non-residents through peak foliage</b> — the 2025 window ran <b>25 September to 16 October</b>, with sheriff patrols directing 60&#37; of enforcement there and parking bans alongside. October 1&ndash;4 sits squarely inside that window. The single image that makes people drive to Pomfret is the one thing you would be unable to reach.</li>
+ </ol>
+ <p>Confirm the exact 2026 dates before dismissing it entirely — but plan on it being closed, because it has been three years running.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="stop"><span class="mark mark--6"></span>
+      <div class="card"><div class="split">
+        <div class="content">
+          <span class="time opt">2 h 20 &ndash; 2 h 45 each way</span>
+          <h3>Grafton, Weston &amp; Newfane <span class="tag tag--hidden">cut — too far</span></h3>
+          <p>Southern Vermont's postcard trio — Grafton's restored white village, Weston's green and the Vermont Country Store, Newfane's Federal and Greek Revival common with the Williamsville covered bridge. All genuinely first-rank, all in the wrong half of the state.</p>
+          <div class="stats"><span>Each way <b>2 h 20&ndash;2 h 45</b></span><span>Round trip <b>5 h+</b></span><span>Verdict <b>needs its own trip</b></span></div>
+          <div class="links"><a class="btn primary" href="https://maps.google.com/?q=Grafton,+VT">Grafton</a><a class="btn" href="https://maps.google.com/?q=Weston,+VT">Weston</a><a class="btn" href="https://maps.google.com/?q=Newfane,+VT">Newfane</a></div>
+          <details class="more"><summary>Listed so the choice is visible</summary>
+            <p>Five hours of driving to see a village green, on a trip whose whole logic is that the Northeast Kingdom peaks first and you are staying inside it. These belong to a southern-Vermont trip based around Woodstock or Manchester, in a different week. Manchester (~2 h 30) is cut on the same arithmetic.</p>
+          </details>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ ESSENTIALS ============ -->
+<section class="day" id="essentials">
+  <div class="sign">
+    <div class="date"><span class="dow">Trip</span><span class="num">KIT</span></div>
+    <div class="body">
+      <h2>Essentials</h2>
+      <p class="route">Checklist · live conditions · dinner hours · the fine print</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel check" id="checklist">
+      <h3>Pre-trip checklist</h3>
+      <label><input type="checkbox" data-k="c1"><span>Passports (+ PR card if applicable), car docs</span></label>
+      <label><input type="checkbox" data-k="c2"><span>Gondola tickets online for Fri Oct 2 — book once the Sept 29 email confirms weather</span></label>
+      <label><input type="checkbox" data-k="c3"><span>Resy: 10 Railroad Street for Sat Oct 3</span></label>
+      <label><input type="checkbox" data-k="c4"><span>Offline Google Maps: northern Vermont</span></label>
+      <label><input type="checkbox" data-k="c5"><span>Roaming plan or US eSIM</span></label>
+      <label><input type="checkbox" data-k="c6"><span>Grippy hiking shoes, layers + wind shell, headlamp</span></label>
+      <label><input type="checkbox" data-k="c7"><span>USD cash + credit card; CAD card for the A-30 toll lane</span></label>
+      <label><input type="checkbox" data-k="c8"><span>Cooler + picnic kit for Saturday's summit lunch</span></label>
+      <p class="mono" style="font-size:.68rem;color:var(--muted);margin-top:10px">Ticks save in this browser.</p>
+    </div>
+
+    <div class="panel linklist">
+      <h3>Live conditions — check Sept 29</h3>
+      <a href="https://vermontvacation.com/vermont-seasons/fall/fall-foliage-report/">Vermont official foliage report</a>
+      <a href="https://www.explorefall.com/fall-foliage-map">Explore Fall — daily live map</a>
+      <a href="https://newengland.com/foliage/foliage/peak-fall-foliage-map/">Yankee peak foliage map</a>
+      <a href="https://www.stowe.com/the-mountain/mountain-conditions/mountain-cams.aspx">Stowe mountain webcams</a>
+      <a href="https://vtrans.vermont.gov/notch">VT-108 Notch road status</a>
+      <a href="https://www.greenmountainclub.org/hiking/trail-updates/">Green Mountain Club trail alerts</a>
+      <a href="https://bwt.cbp.gov/details/05021201/POV">Border wait — US-bound (Highgate)</a>
+      <a href="https://www.cbsa-asfc.gc.ca/bwt-taf/menu-eng.html">Border wait — return to Canada</a>
+      <p style="font-size:.85rem;margin-top:10px;color:var(--muted)">A scheduled agent checks all of this on Sept 29 at 7:30 AM and emails a keep / swap / Route-100 verdict.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:20px">
+    <h3>Dinner hours — the catches</h3>
+    <table>
+      <tr><th>Place</th><th>Where</th><th>Watch out</th></tr>
+      <tr><td>Black Diamond BBQ</td><td>Morristown</td><td>Thu 5–8:30, Fri/Sat 5–9 only</td></tr>
+      <tr><td>Lost Nation Brewing</td><td>Morrisville</td><td>Thu–Sun 12–8 only</td></tr>
+      <tr><td>10 Railroad Street</td><td>Morrisville</td><td>Closed Sunday — book Saturday on Resy</td></tr>
+      <tr><td>Piecasso / Idletyme</td><td>Stowe</td><td>Open daily</td></tr>
+      <tr><td>von Trapp Bierhall</td><td>Trapp Family Lodge</td><td>Daily 11:30–9</td></tr>
+      <tr><td>Butler's Pantry (breakfast)</td><td>Stowe Main St</td><td>8–12, walk-in line; closed Tue–Wed</td></tr>
+      <tr><td>Hannaford grocery</td><td>Morrisville</td><td>Daily 7–10 (Sun to 9)</td></tr>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:20px"><strong>The six gotchas.</strong> Tiny trailhead lots make the early starts non-negotiable. Bingham Falls and the Moss Glen rim are the wet-rock hazards. Carry cash and card — small vendors and the toll road disagree on payment. If stowe.com won't sell tickets, call 1-800-842-8062. Sunday dinner options thin out. And there are two Moss Glen Falls — Stowe and Granville — do not let the GPS pick.</div>
+</section>
+
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Full research notes: ~/workspace/travel/vermont-fall-2026/ (PLAN.md + four research files). Automated foliage check: Sept 29, 2026, 7:30 AM Toronto — emailed verdict, or manage the routine <a href="https://claude.ai/code/routines/trig_01XZPgWV5iHm54Pwcvme6XzG">here</a>.</p>
+    <p style="margin-top:8px">Photographs via Wikimedia Commons, each linked from its caption. Trail figures cross-checked against AllTrails, GoStowe, Trail Finder, and the Green Mountain Club, August 2026.</p>
+  </div>
+</footer>
+
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script>
+</body>
+</html>

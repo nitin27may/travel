@@ -1,0 +1,370 @@
+[
+ {
+  "name": "Base \u2014 1592 Center Rd, Hyde Park",
+  "lat": 44.601828,
+  "lon": -72.5745682,
+  "day": "Base",
+  "category": "Logistics",
+  "matched": "1592, Center Road, Cleveland Corners, Hyde Park, Lamoille County, Vermont, 05655, United States"
+ },
+ {
+  "name": "Hannaford, Morrisville",
+  "lat": 44.5727869,
+  "lon": -72.5967606,
+  "day": "Thu",
+  "category": "Logistics",
+  "matched": "Hannaford, 80, Fairgrounds Plaza, Morristown, Lamoille County, Vermont, 05661, United States"
+ },
+ {
+  "name": "Le Tandoor, Brossard QC",
+  "lat": 45.4732652,
+  "lon": -73.4747521,
+  "day": "Thu/Sun",
+  "category": "Food",
+  "matched": "1555, Boulevard Provencher, P, Brossard, Agglom\u00e9ration de Longueuil, Mont\u00e9r\u00e9gie, Qu\u00e9bec, J4W 0A1, Canada"
+ },
+ {
+  "name": "Moss Glen Falls (Stowe)",
+  "lat": 44.4823794,
+  "lon": -72.6245046,
+  "day": "Thu",
+  "category": "Waterfall",
+  "matched": "Moss Glen Falls, Stowe, Lamoille County, Vermont, United States"
+ },
+ {
+  "name": "Raja Indian & Nepali, Stowe",
+  "lat": 44.4656857,
+  "lon": -72.6843216,
+  "day": "Thu/Fri/Sat",
+  "category": "Food",
+  "matched": "151, Main Street, Stowe Village Historic District, Lower Village, Stowe, Lamoille County, Vermont, 05672, United States"
+ },
+ {
+  "name": "Stowe Pinnacle trailhead",
+  "lat": 44.4336073,
+  "lon": -72.6551836,
+  "day": "Fri",
+  "category": "Hike",
+  "matched": "Stowe Pinnacle Trail, Stowe, Lamoille County, Vermont, 05672, United States"
+ },
+ {
+  "name": "Emily's Bridge (Gold Brook)",
+  "lat": 44.4404009,
+  "lon": -72.6798624,
+  "day": "Fri",
+  "category": "Covered bridge",
+  "matched": "Gold Brook Covered Bridge, Covered Bridge Road, Stowe, Lamoille County, Vermont, 05672, United States"
+ },
+ {
+  "name": "Stowe Community Church",
+  "lat": 44.4656466,
+  "lon": -72.6846447,
+  "day": "Fri",
+  "category": "Village",
+  "matched": "Stowe Community Church, 137, Main Street, Stowe Village Historic District, Lower Village, Stowe, Lamoille County, Vermont, 05672, United States"
+ },
+ {
+  "name": "Stowe Gondola SkyRide",
+  "lat": 44.5297676,
+  "lon": -72.7936843,
+  "day": "Fri",
+  "category": "Lift",
+  "matched": "Stowe Mountain Resort, Red Sled Drive, Stowe, Lamoille County, Vermont, United States"
+ },
+ {
+  "name": "Bingham Falls",
+  "lat": 44.5167269,
+  "lon": -72.7660351,
+  "day": "Fri",
+  "category": "Waterfall",
+  "matched": "Bingham Falls, Stowe, Lamoille County, Vermont, 05672, United States"
+ },
+ {
+  "name": "Smugglers' Notch",
+  "lat": 44.5726967,
+  "lon": -72.7676473,
+  "day": "Fri",
+  "category": "Scenic drive",
+  "matched": "Smugglers' Notch Resort, 4323, Morristown, Lamoille County, Vermont, 05464, United States"
+ },
+ {
+  "name": "Barnes Camp boardwalk",
+  "lat": 44.5378709,
+  "lon": -72.7884842,
+  "day": "Fri",
+  "category": "Boardwalk",
+  "matched": "Barnes Camp Loop, Stowe, Lamoille County, Vermont, United States"
+ },
+ {
+  "name": "Sunset Rock, Stowe",
+  "lat": 44.4650363,
+  "lon": -72.6786046,
+  "day": "Fri",
+  "category": "Viewpoint",
+  "matched": "Sunset Rock Park, Lower Village, Stowe, Lamoille County, Vermont, United States"
+ },
+ {
+  "name": "von Trapp Bierhall",
+  "lat": 44.4654369,
+  "lon": -72.7451481,
+  "day": "Fri",
+  "category": "Food",
+  "matched": "Trapp Family Lodge, 700, Trapp Hill Road, Stowe, Lamoille County, Vermont, 05672, United States"
+ },
+ {
+  "name": "Mount Pisgah South trailhead",
+  "lat": 44.7297412,
+  "lon": -72.0306816,
+  "day": "Sat",
+  "category": "Hike",
+  "matched": "Mount Pisgah, Westmore, Orleans County, Vermont, 05851, United States"
+ },
+ {
+  "name": "Pulpit Rock (Pisgah)",
+  "lat": 44.7207664,
+  "lon": -72.0272121,
+  "day": "Sat",
+  "category": "Viewpoint",
+  "matched": "Pulpit Rock, South Trail, Westmore, Orleans County, Vermont, 05851, United States"
+ },
+ {
+  "name": "Lake Willoughby South Beach",
+  "lat": 44.748209,
+  "lon": -72.0597399,
+  "day": "Sat",
+  "category": "Viewpoint",
+  "matched": "Lake Willoughby, Westmore, Orleans County, Vermont, United States"
+ },
+ {
+  "name": "Lake Willoughby North Beach",
+  "lat": 44.7711201,
+  "lon": -72.0548723,
+  "day": "Sat",
+  "category": "Viewpoint",
+  "matched": "Westmore, Orleans County, Vermont, United States"
+ },
+ {
+  "name": "Craftsbury Common",
+  "lat": 44.6535578,
+  "lon": -72.3827342,
+  "day": "Sat",
+  "category": "Village",
+  "matched": "Craftsbury Common, Craftsbury, Orleans County, Vermont, 05826, United States"
+ },
+ {
+  "name": "Craftsbury General Store",
+  "lat": 44.6345579,
+  "lon": -72.3718867,
+  "day": "Sat opt",
+  "category": "Food",
+  "matched": "Craftsbury General Store, 118, South Craftsbury Road, Craftsbury, Orleans County, Vermont, 05826, United States"
+ },
+ {
+  "name": "Barr Hill Natural Area",
+  "lat": 44.6080645,
+  "lon": -72.289919,
+  "day": "Sat",
+  "category": "Viewpoint",
+  "matched": "Barr Hill Natural Area, Greensboro, Orleans County, Vermont, United States"
+ },
+ {
+  "name": "Fisher Covered Railroad Bridge",
+  "lat": 44.5323138,
+  "lon": -72.4277306,
+  "day": "Sat",
+  "category": "Covered bridge",
+  "matched": "Fisher Covered Railroad Bridge, Lamoille Valley Rail Trail, Wolcott, Lamoille County, Vermont, 05680, United States"
+ },
+ {
+  "name": "Prospect Rock, Johnson",
+  "lat": 44.6552188,
+  "lon": -72.7221615,
+  "day": "Sat opt",
+  "category": "Hike",
+  "matched": "Prospect Rock, Johnson, Lamoille County, Vermont, 05656, United States"
+ },
+ {
+  "name": "Ten Bends Beer, Hyde Park",
+  "lat": 44.5885536,
+  "lon": -72.6057439,
+  "day": "Sat opt",
+  "category": "Food",
+  "matched": "Ten Bends Beer, 590, East Main Street, Hyde Park Village, Hyde Park, Lamoille County, Vermont, 05655, United States"
+ },
+ {
+  "name": "Cambridge Junction / Poland Bridge",
+  "lat": 44.6510988,
+  "lon": -72.8146024,
+  "day": "Sun",
+  "category": "Covered bridge",
+  "matched": "Poland Covered Bridge, Cambridge Junction Road, Cambridge Junction, Cambridge, Lamoille County, Vermont, 05464, United States"
+ },
+ {
+  "name": "Gates Farm Covered Bridge",
+  "lat": 44.6457214,
+  "lon": -72.8722716,
+  "day": "Sun",
+  "category": "Covered bridge",
+  "matched": "Gates Farm Covered Bridge, Cambridge Village, Cambridge, Lamoille County, Vermont, 05444, United States"
+ },
+ {
+  "name": "Longley Covered Bridge",
+  "lat": 44.9072383,
+  "lon": -72.6556465,
+  "day": "Sun",
+  "category": "Covered bridge",
+  "matched": "Longley Covered Bridge, Longley Bridge Road, East Enosburg, Montgomery, Franklin County, Vermont, 05447, United States"
+ },
+ {
+  "name": "Comstock Covered Bridge",
+  "lat": 44.8996622,
+  "lon": -72.6446362,
+  "day": "Sun",
+  "category": "Covered bridge",
+  "matched": "Comstock Covered Bridge, Comstock Bridge Road, Montgomery, Franklin County, Vermont, 05470, United States"
+ },
+ {
+  "name": "Fuller Covered Bridge",
+  "lat": 44.9032472,
+  "lon": -72.6397131,
+  "day": "Sun",
+  "category": "Covered bridge",
+  "matched": "Fuller Covered Bridge, Fuller Bridge Road, Montgomery, Franklin County, Vermont, 05476, United States"
+ },
+ {
+  "name": "Hutchins Covered Bridge",
+  "lat": 44.8585853,
+  "lon": -72.6125419,
+  "day": "Sun",
+  "category": "Covered bridge",
+  "matched": "Hutchins Covered Bridge, Hutchins Bridge Road, Hutchins, Montgomery, Franklin County, Vermont, 05471, United States"
+ },
+ {
+  "name": "Missisquoi NWR visitor centre",
+  "lat": 44.9630979,
+  "lon": -73.168301,
+  "day": "Sun opt",
+  "category": "Nature",
+  "matched": "Missisquoi National Wildlife Refuge, 29, Swanton, Franklin County, Vermont, 05488, United States"
+ },
+ {
+  "name": "Warren Store / Warren village",
+  "lat": 44.1145085,
+  "lon": -72.8560776,
+  "day": "Backup",
+  "category": "Village",
+  "matched": "The Warren Store, 284, Main Street, Warren, Washington County, Vermont, 05674, United States"
+ },
+ {
+  "name": "Warren Falls",
+  "lat": 44.0955039,
+  "lon": -72.8643766,
+  "day": "Backup",
+  "category": "Waterfall",
+  "matched": "Warren Falls, Warren, Washington County, Vermont, 05674, United States"
+ },
+ {
+  "name": "Lincoln Gap (top of pass)",
+  "lat": 44.0950338,
+  "lon": -72.9290382,
+  "day": "Backup",
+  "category": "Scenic drive",
+  "matched": "Lincoln Gap, Lincoln, Addison County, Vermont, United States"
+ },
+ {
+  "name": "Sunset Ledge trailhead",
+  "lat": 44.0879167,
+  "lon": -72.9275429,
+  "day": "Backup",
+  "category": "Hike",
+  "matched": "Sunset Ledge, Lincoln, Addison County, Vermont, United States"
+ },
+ {
+  "name": "Appalachian Gap overlook",
+  "lat": 44.2110741,
+  "lon": -72.9312953,
+  "day": "Backup",
+  "category": "Viewpoint",
+  "matched": "Appalachian Gap, Chittenden County, Vermont, United States"
+ },
+ {
+  "name": "Mad River Glen",
+  "lat": 44.1975661,
+  "lon": -72.9238018,
+  "day": "Backup opt",
+  "category": "Lift",
+  "matched": "Mad River Glen, Fayston, Washington County, Vermont, United States"
+ },
+ {
+  "name": "Cold Hollow Cider Mill",
+  "lat": 44.3813667,
+  "lon": -72.7197344,
+  "day": "Backup only",
+  "category": "Food",
+  "matched": "Cold Hollow Cider Mill, 3600, Waterbury Stowe Road, Waterbury Center, Waterbury, Washington County, Vermont, 05677, United States"
+ },
+ {
+  "name": "Mount Elmore / Elmore State Park",
+  "lat": 44.5313055,
+  "lon": -72.5488003,
+  "day": "Reserve",
+  "category": "Hike",
+  "matched": "Elmore State Park, 856, Morristown, Lamoille County, Vermont, United States"
+ },
+ {
+  "name": "Laraway Lookout trailhead",
+  "lat": 44.7337105,
+  "lon": -72.7372733,
+  "day": "Reserve",
+  "category": "Hike",
+  "matched": "Laraway Mountain Road, Belvidere, Waterville, Lamoille County, Vermont, 05492, United States"
+ },
+ {
+  "name": "Molly Stark Mountain",
+  "lat": 44.2220019,
+  "lon": -72.9270626,
+  "day": "Reserve",
+  "category": "Hike",
+  "matched": "Molly Stark Mountain, Chittenden County, Vermont, United States"
+ },
+ {
+  "name": "Mount Abraham",
+  "lat": 44.1203955,
+  "lon": -72.9361931,
+  "day": "Reserve",
+  "category": "Hike",
+  "matched": "Mount Abraham, Lincoln, Addison County, Vermont, United States"
+ },
+ {
+  "name": "Jay Peak tram",
+  "lat": 44.9360212,
+  "lon": -72.5079214,
+  "day": "Reserve",
+  "category": "Lift",
+  "matched": "Jay Peak Resort, Jay, Orleans County, Vermont, United States"
+ },
+ {
+  "name": "Peacham village",
+  "lat": 44.3284703,
+  "lon": -72.1703611,
+  "day": "Reserve",
+  "category": "Village",
+  "matched": "Peacham, Caledonia County, Vermont, 05862, United States"
+ },
+ {
+  "name": "Barnet",
+  "lat": 44.2966923,
+  "lon": -72.0495301,
+  "day": "Reserve",
+  "category": "Village",
+  "matched": "Barnet, Caledonia County, Vermont, United States"
+ },
+ {
+  "name": "Grand Isle (Champlain Islands)",
+  "lat": 44.722515,
+  "lon": -73.2931129,
+  "day": "Reserve",
+  "category": "Scenic drive",
+  "matched": "Grand Isle, Grand Isle County, Vermont, 05458, United States"
+ }
+]

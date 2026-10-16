@@ -1,0 +1,33 @@
+{
+ "trip": "switzerland-2027-repl",
+ "places": [
+  {
+   "place": "Bachalpsee",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Bachalpsee First Grindelwald",
+    "Bachalpsee Schreckhorn"
+   ]
+  },
+  {
+   "place": "Zermatt Matterhorn view",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Zermatt Matterhorn village view",
+    "Zermatt Matterhorn Gornergrat railway"
+   ]
+  },
+  {
+   "place": "Stoos",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Stoos Switzerland village",
+    "Stoos ridge Fronalpstock"
+   ]
+  }
+ ],
+ "out": "repl-candidates.json"
+}

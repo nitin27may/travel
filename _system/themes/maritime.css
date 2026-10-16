@@ -1,0 +1,44 @@
+/* maritime — walled city, river light, fleur-de-lis blue and copper roof.
+   Source palette: Québec (Sep 2026).
+   Good for: historic cities, coastal/river towns, cold-water shorelines. */
+/* @fonts: Fraunces:opsz,wght@9..144,500;9..144,700|Lora:wght@400;600|DM+Mono:wght@400;500 */
+:root{
+  --font-display:"Fraunces",serif;
+  --font-body:"Lora",Georgia,serif;
+  --font-mono:"DM Mono",monospace;
+
+  --bg:#f7f4ee;
+  --surface:#fffdf9;
+  --bg-deep:#1d2328;
+  --bg-deep-2:#2b333a;
+
+  --ink:#252b31;
+  --ink-on-deep:#cdd4da;
+  --muted:#6b7076;
+  --muted-on-deep:#94a0a8;
+  --line:#ded9cf;
+
+  --accent:#1e4d8c;
+  --accent-dark:#163a6a;
+  --accent-ink:#ffffff;
+  --accent-soft:#e4ebf5;
+
+  --header:#3f7a6c;
+  --header-ink:#ffffff;
+  --header-sub:#cfe2dc;
+
+  --warn:#b4472c;
+  --warn-soft:#fbeee9;
+
+  --highlight:#b8862c;
+  --highlight-ink:#2f2205;
+  --highlight-soft:#f7f0dd;
+  --highlight-on-deep:#e8c46e;
+
+  --class-1:#1e4d8c;
+  --class-2:#efeade;
+  --class-3:#3f7a6c;
+  --class-4:#b8862c;
+  --class-5:#7a5b8c;
+  --class-6:#5d7f96;
+}

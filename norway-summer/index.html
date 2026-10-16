@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="trip-date" content="">
+<meta name="trip-dates" content="Summer 2028 &middot; dates open">
+<meta name="trip-duration" content="14 nights">
+<meta name="trip-region" content="Lofoten, Senja &amp; Fjord Norway">
+<title>Norway — 14 nights, summer 2028</title>
+<meta name="description" content="Arctic first under the midnight sun — Lofoten, Andøya and Senja — then Fjord Norway north to south. Fourteen nights, eight bases, dates open.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='16' height='24' rx='2' fill='%230e6b6e'/%3E%3C/svg%3E">
+<style>
+/* theme: coastal */
+/* coastal — sea light: pale sand, wet slate, deep Atlantic.
+   New curated theme. Good for: shorelines, islands, harbours, cliff walks. */
+/* @fonts: Space+Grotesk:wght@500;700|Literata:opsz,wght@7..72,400;7..72,600|Space+Mono:wght@400;700 */
+:root{
+  --font-display:"Space Grotesk",sans-serif;
+  --font-body:"Literata",Georgia,serif;
+  --font-mono:"Space Mono",monospace;
+
+  --bg:#f4f6f5;
+  --surface:#ffffff;
+  --bg-deep:#132029;
+  --bg-deep-2:#1f303b;
+
+  --ink:#1f2d33;
+  --ink-on-deep:#c6d3d9;
+  --muted:#64737b;
+  --muted-on-deep:#93a5ac;
+  --line:#d8dfdd;
+
+  --accent:#186b7e;
+  --accent-dark:#0f4f5e;
+  --accent-ink:#ffffff;
+  --accent-soft:#e0eff2;
+
+  --header:#1c5a68;
+  --header-ink:#ffffff;
+  --header-sub:#cbe4e9;
+
+  --warn:#b3452a;
+  --warn-soft:#fbeae5;
+
+  --highlight:#c98f2e;
+  --highlight-ink:#31240a;
+  --highlight-soft:#f8f1de;
+  --highlight-on-deep:#eec478;
+
+  --class-1:#186b7e;
+  --class-2:#eaefee;
+  --class-3:#5f8f7a;
+  --class-4:#c98f2e;
+  --class-5:#7a6b9c;
+  --class-6:#8a9aa2;
+}
+
+
+/* ======================================================================================
+   base.css — shared structure for every trip plan.
+
+   HARD RULE: no colour literals in this file. Colour comes from _system/themes/*.css
+   via the token contract in build.py. Overlays use color-mix() so they still track the
+   theme. The build fails if a hex literal appears here.
+
+   This is the union of the two component families that had drifted apart:
+     - Vermont / Niagara : .card .split .content, .sign, .trail/.stop/.blaze, .links/.btn
+     - Quebec / Dolomites / Switzerland : .card .chead .cbody, .day/.dhead sticky sign,
+       .btns/.btn, s- day status + g- legend swatches
+   Both are expressed here once. The classifier (.mark) replaces the old .blaze rules
+   and the old s- day-status / g- legend rules alike.
+   ====================================================================================== */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16.5px;
+  line-height:1.6;
+}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+  outline:3px solid var(--highlight);
+  outline-offset:2px;
+  border-radius:3px;
+}
+.mono{font-family:var(--font-mono)}
+main{width:min(1080px,92%);margin:0 auto;padding-bottom:60px}
+
+/* ---------- hero ------------------------------------------------------------------ */
+.hero{
+  position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:flex-end;
+  color:var(--header-ink);
+  background-color:var(--bg-deep);
+  background-position:center 35%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--bg-deep) 45%, transparent) 0%,
+    color-mix(in srgb, var(--bg-deep) 20%, transparent) 40%,
+    color-mix(in srgb, var(--bg-deep) 88%, transparent) 100%);
+}
+.hero-inner{position:relative;width:min(1080px,92%);margin:0 auto;padding:56px 0 42px}
+.hero .eyebrow{
+  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--highlight-on-deep);margin-bottom:14px;
+}
+.hero h1{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  line-height:.95;font-size:clamp(3rem,9vw,6.4rem);letter-spacing:.015em;
+  text-shadow:0 2px 24px color-mix(in srgb, var(--bg-deep) 55%, transparent);
+}
+.hero h1 .amp{color:var(--highlight-on-deep)}
+.hero .sub{margin-top:16px;max-width:660px;font-size:1.05rem;color:var(--ink-on-deep)}
+.hero .credit{position:absolute;right:12px;bottom:8px;font-size:.66rem;opacity:.78}
+.hero .credit a{color:var(--ink-on-deep)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;padding:8px 14px;
+  border:1px solid color-mix(in srgb, var(--header-ink) 35%, transparent);
+  border-radius:999px;
+  background:color-mix(in srgb, var(--bg-deep) 45%, transparent);
+  backdrop-filter:blur(4px);
+}
+.chip strong{color:var(--highlight-on-deep);font-weight:600}
+
+/* ---------- sticky nav ------------------------------------------------------------- */
+nav{position:sticky;top:0;z-index:50;background:var(--bg-deep);border-bottom:3px solid var(--highlight)}
+nav .wrap{
+  width:min(1080px,94%);margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:10px 0;
+  -webkit-overflow-scrolling:touch;
+}
+nav a{
+  flex:0 0 auto;font-family:var(--font-display);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;font-size:1.02rem;
+  color:var(--ink-on-deep);text-decoration:none;padding:8px 16px;border-radius:6px;
+  transition:background .15s,color .15s;
+}
+nav a:hover{color:var(--header-ink);background:var(--bg-deep-2)}
+nav a.active{color:var(--header-ink);background:var(--header)}
+nav a .d{
+  display:block;font-family:var(--font-mono);font-weight:450;font-size:.62rem;
+  letter-spacing:.08em;color:var(--muted-on-deep);text-transform:none;
+}
+
+/* ---------- orientation / intro ---------------------------------------------------- */
+.intro{padding:6px 0 10px;scroll-margin-top:64px}
+.intro .kick{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--warn);margin:0 0 10px;
+}
+.intro h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.7rem,4.4vw,2.6rem);line-height:1.02;margin:0 0 14px;
+  color:var(--bg-deep);
+}
+.intro .lead{max-width:64ch;font-size:1.06rem}
+.intro .lead p{margin:0 0 14px}
+
+.introwide{margin:22px 0 6px;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover;display:block}
+.introwide figcaption{
+  position:absolute;right:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.6rem;padding:3px 8px;
+}
+.introwide figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+
+/* ---------- stat strip -------------------------------------------------------------- */
+.numstrip{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0 6px;padding:16px 0;
+  border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep);
+}
+.numstrip div{min-width:0}
+.numstrip b{
+  display:block;font-family:var(--font-display);font-weight:800;font-size:1.85rem;
+  line-height:1;color:var(--header);
+}
+.numstrip span{
+  font-family:var(--font-mono);font-size:.63rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ---------- area / sub-region cards -------------------------------------------------- */
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.area figure{margin:0;position:relative}
+.area img{width:100%;height:150px;object-fit:cover;display:block}
+.area figcaption{
+  position:absolute;left:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.55rem;padding:2px 6px;
+}
+.area figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin:0 0 5px;line-height:1.1;
+}
+.area .days{
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:4px;padding:2px 7px;
+  display:inline-block;margin-bottom:7px;
+}
+.area p{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* ---------- "what to know" list ------------------------------------------------------ */
+.know{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.96rem}
+.know li b{font-family:var(--font-display);font-size:1.25rem;color:var(--warn);line-height:1}
+
+/* ---------- day section + sign -------------------------------------------------------- */
+section.day{padding-top:46px;scroll-margin-top:64px}
+.sign{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;
+  box-shadow:0 6px 18px color-mix(in srgb, var(--bg-deep) 18%, transparent)}
+.sign .date{
+  background:var(--bg-deep);color:var(--highlight-on-deep);display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:18px 20px;min-width:118px;
+}
+.sign .date .dow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
+.sign .date .num{
+  font-family:var(--font-display);font-weight:800;font-size:2.6rem;line-height:1;
+  color:var(--header-ink);
+}
+.sign .body{background:var(--header);color:var(--header-ink);flex:1;padding:16px 22px;
+  display:flex;flex-direction:column;justify-content:center}
+.sign h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.05;
+}
+.sign .route{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.05em;
+  color:var(--header-sub);margin-top:6px}
+
+/* sticky variant, promoted from the Dolomites/Switzerland pages */
+.sign--sticky{position:sticky;top:76px;z-index:20}
+
+.daymeta{
+  display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--font-mono);
+  font-size:.74rem;color:var(--muted);padding:14px 4px 4px;
+}
+.daymeta b{color:var(--ink);font-weight:600}
+
+/* ---------- classifier: replaces the old .blaze and s-/g- systems --------------------- */
+/* Each trip declares its own vocabulary; the theme supplies the colour for each slot. */
+.mark{
+  display:inline-block;width:20px;height:32px;border-radius:3px;
+  border:2px solid var(--bg-deep-2);
+  box-shadow:0 2px 5px color-mix(in srgb, var(--bg-deep) 22%, transparent);
+}
+.mark--1{background:var(--class-1)}
+.mark--2{background:var(--class-2)}
+.mark--3{background:var(--class-3)}
+.mark--4{background:var(--class-4)}
+.mark--5{background:var(--class-5)}
+.mark--6{background:var(--class-6)}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:34px 0 0;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.legend .b{
+  width:13px;height:20px;border-radius:2px;border:1.5px solid var(--bg-deep-2);
+  display:inline-block;vertical-align:-5px;margin-right:6px;
+}
+
+/* ---------- timeline ------------------------------------------------------------------- */
+.trail{position:relative;margin-top:18px;padding-left:44px}
+.trail::before{
+  content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;
+  background:repeating-linear-gradient(180deg,var(--bg-deep-2) 0 14px,transparent 14px 22px);
+  opacity:.35;border-radius:2px;
+}
+.stop{position:relative;margin-bottom:26px}
+.stop > .mark{position:absolute;left:-44px;top:14px}
+
+/* ---------- stop card ------------------------------------------------------------------ */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 10px color-mix(in srgb, var(--bg-deep) 6%, transparent);
+}
+.card .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr)}
+.card .split.noimg{grid-template-columns:1fr}
+.card .content{padding:20px 24px}
+.card .split figure:first-child{grid-column:2;grid-row:1}
+.card figure{position:relative;min-height:220px;overflow:hidden}
+.card figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card figcaption{
+  position:absolute;left:0;right:0;bottom:0;font-size:.64rem;color:var(--header-ink);
+  background:linear-gradient(transparent, color-mix(in srgb, var(--bg-deep) 85%, transparent));
+  padding:18px 12px 7px;
+}
+.card figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.card h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.035em;font-size:1.45rem;line-height:1.1;
+}
+.card p{margin-top:8px;font-size:.97rem}
+
+.time{
+  font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.06em;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:6px;padding:3px 9px;
+  display:inline-block;margin-bottom:8px;
+}
+.time.opt{color:var(--highlight-ink);background:var(--highlight-soft)}
+
+.tag{
+  display:inline-block;vertical-align:3px;margin-left:8px;font-family:var(--font-mono);
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--header-ink);
+  background:var(--warn);border-radius:4px;padding:2px 7px;
+}
+.tag--added,.tag--optional{background:var(--highlight);color:var(--highlight-ink)}
+.tag--unmissable{background:var(--warn);color:var(--header-ink)}
+.tag--easy{background:var(--header);color:var(--header-ink)}
+.tag--hidden{background:var(--bg-deep-2);color:var(--ink-on-deep)}
+
+.stats{
+  display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+.stats b{color:var(--ink);font-weight:600}
+
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-decoration:none;
+  border-radius:7px;padding:7px 12px;border:1.5px solid var(--accent);color:var(--accent-dark);
+  background:var(--surface);transition:background .15s;
+}
+.btn:hover{background:var(--accent-soft)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-dark)}
+
+details.more{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.more summary{
+  cursor:pointer;font-family:var(--font-mono);font-size:.74rem;
+  color:var(--accent-dark);list-style:none;
+}
+details.more summary::before{content:"+ "}
+details.more[open] summary::before{content:"\2212 "}
+details.more p,details.more ul{font-size:.9rem;margin-top:8px;color:var(--ink)}
+details.more ul{padding-left:20px}
+
+/* ---------- callouts, maps, panels ------------------------------------------------------ */
+.note{
+  margin-top:16px;background:var(--warn-soft);border-left:4px solid var(--warn);
+  border-radius:0 8px 8px 0;padding:12px 16px;font-size:.92rem;
+}
+.note.gold{background:var(--highlight-soft);border-left-color:var(--highlight)}
+
+.mapframe{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mapframe iframe{display:block;width:100%;height:330px;border:0}
+.mapframe .bar{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;
+  background:var(--surface);font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+.panel h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;font-size:1.3rem;margin-bottom:10px;
+}
+
+.check label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:.94rem;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:0 0 auto}
+.check label.done{color:var(--muted);text-decoration:line-through}
+
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:6px}
+th{
+  text-align:left;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:2px solid var(--line);
+}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.linklist a{display:block;padding:6px 0;font-size:.9rem}
+
+/* ---------- A/B plan toggle -------------------------------------------------------------- */
+.toggle{display:flex;margin:20px 0 4px;border:2px solid var(--header);border-radius:10px;
+  overflow:hidden;width:fit-content;max-width:100%}
+.toggle button{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1rem;padding:10px 20px;border:0;background:var(--surface);
+  color:var(--header);cursor:pointer;
+}
+.toggle button.on{background:var(--header);color:var(--header-ink)}
+.planwrap .plan{display:none}
+.planwrap .plan.show{display:block}
+
+/* ---------- day-of quick links ------------------------------------------------------------ */
+.quick{margin:26px 0 6px;scroll-margin-top:64px}
+.quick h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--bg-deep);margin-bottom:4px;
+}
+.quick .qsub{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:16px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.qcard h4{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1.02rem;color:var(--header);margin-bottom:9px;
+  display:flex;align-items:center;gap:7px;
+}
+.qcard h4 .dot{width:9px;height:14px;border-radius:2px;border:1.5px solid var(--bg-deep-2);flex:0 0 auto}
+.qcard a{
+  display:block;font-family:var(--font-mono);font-size:.76rem;line-height:1.35;
+  text-decoration:none;color:var(--accent-dark);border:1.5px solid var(--line);border-radius:7px;
+  padding:9px 11px;margin-bottom:7px;transition:background .15s,border-color .15s;
+}
+.qcard a:hover{background:var(--accent-soft);border-color:var(--accent)}
+.qcard a:last-child{margin-bottom:0}
+.qcard a b{display:block;font-weight:600;color:var(--ink);font-size:.82rem;margin-bottom:1px}
+.qcard a.warn{border-color:var(--warn);color:var(--warn)}
+.qcard a.warn b{color:var(--warn)}
+.qcard a.tel{border-color:var(--highlight);background:var(--highlight-soft)}
+
+/* ---------- footer -------------------------------------------------------------------------- */
+section#essentials{padding-top:46px;scroll-margin-top:64px}
+section#essentials>h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.6rem,4vw,2.3rem);color:var(--bg-deep);
+}
+footer{background:var(--bg-deep);color:var(--muted-on-deep);margin-top:60px;padding:34px 0;font-size:.8rem}
+footer .wrap{width:min(1080px,92%);margin:0 auto}
+footer a{color:var(--ink-on-deep)}
+
+/* ---------- responsive ------------------------------------------------------------------------ */
+@media(max-width:760px){
+  .numstrip{grid-template-columns:repeat(3,1fr);gap:14px}
+  .area img{height:130px}
+  .card .split{grid-template-columns:1fr}
+  .card figure{min-height:190px;order:-1}
+  .card .split figure:first-child{grid-column:1;grid-row:auto}
+  .grid2{grid-template-columns:1fr}
+  .hero{min-height:64vh}
+  .trail{padding-left:36px}
+  .stop > .mark{left:-36px;width:16px;height:26px}
+  .trail::before{left:12px}
+  .sign--sticky{position:static}
+  .qcard a{padding:11px 12px;font-size:.8rem}
+}
+
+@media print{
+  nav,.mapframe iframe,.hero{display:none}
+  body{background:var(--surface);font-size:11pt}
+  .card{box-shadow:none;break-inside:avoid}
+  .planwrap .plan{display:block!important}
+  .sign--sticky{position:static}
+}
+
+
+/* trip-local additions */
+nav a.home{color:var(--highlight-on-deep);font-weight:600;border-right:1px solid color-mix(in srgb, var(--highlight-on-deep) 32%, transparent);margin-right:6px}nav a.home:hover{color:var(--header-ink)}.panel p + p{margin-top:11px}.hero::before{background:linear-gradient(180deg,color-mix(in srgb, var(--bg-deep) 52%, transparent) 0%,color-mix(in srgb, var(--bg-deep) 30%, transparent) 34%,color-mix(in srgb, var(--bg-deep) 93%, transparent) 100%)}.area .days{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em}.panel ul{margin:6px 0 0 18px}.panel li{margin-bottom:7px;font-size:.94rem}.panel table{margin-top:8px}
+</style>
+</head>
+<body data-slug="norway-summer">
+
+<header class="hero" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Hamn%C3%B8ya_of_Reine_in_Moskenes%2C_Nordland%2C_Norway%2C_2022_June.jpg?width=2000')">
+  <div class="hero-inner">
+    <p class="eyebrow">Summer 2028 &middot; dates open</p>
+    <h1>Norway</h1>
+    <p class="sub">Arctic first, while the sun does not set — then the fjords, north to south.</p>
+    <div class="chips"><span class="chip"><strong>14</strong> nights</span><span class="chip"><strong>10</strong> bases</span><span class="chip"><strong>2</strong> cars</span><span class="chip"><strong>6</strong> nights with no sunset</span><span class="chip"><strong>12</strong> km hike ceiling</span></div>
+  </div>
+  <p class="credit"><a href="https://commons.wikimedia.org/wiki/File:Hamn%C3%B8ya_of_Reine_in_Moskenes%2C_Nordland%2C_Norway%2C_2022_June.jpg">Reine, Lofoten &middot; Wikimedia Commons</a></p>
+</header>
+
+<nav aria-label="Sections">
+  <div class="wrap"><a class="home" href="/">&#8592; All plans<span class="d">dashboard</span></a><a href="#orient"><span class="d">Read first</span>Orientation</a><a href="#gallery"><b>&#9632;</b><span>photos</span></a><a href="#window"><span class="d">Decide</span>Which fortnight</a><a href="#adventure"><span class="d">Book &amp; limits</span>Adventure</a><a href="#d1"><span class="d">Days 1–3</span>Lofoten</a><a href="#d4"><span class="d">Days 4–6</span>Andøya &amp; Senja</a><a href="#d7"><span class="d">Day 7</span>The pivot</a><a href="#d8"><span class="d">Days 8–9</span>Romsdal</a><a href="#d10"><span class="d">Days 10–11</span>Geiranger</a><a href="#d12"><span class="d">Days 12–13</span>Nordfjord &amp; Sogn</a><a href="#d14"><span class="d">Days 14–15</span>Nærøyfjord &amp; Bergen</a><a href="#quick"><span class="d">In the field</span>Day-of links</a><a href="#essentials"><span class="d">Money &amp; kit</span>Essentials</a></div>
+</nav>
+
+<main>
+
+<section class="intro" id="orient">
+  <p class="kick">Before the days start</p>
+  <h2>What Norway physically is</h2>
+  <div class="lead">
+    <p>The fjords are <b>glacial, not tectonic</b>. Ice a kilometre thick ground down river
+    valleys and cut <b>below sea level</b>; when it left, the sea flooded in. That is why the
+    walls are vertical rather than V-shaped, why the water is over a kilometre deep in places
+    while the mouth is shallow — and why waterfalls hang in mid-air off truncated side valleys.
+    The tributary glaciers simply could not cut as deep as the trunk glacier did.</p>
+
+    <p>The Arctic islands are a different thing entirely. <b>Lofoten and Senja are gneiss and
+    granite billions of years old, rising straight out of the sea with no foothills.</b> That is
+    why the peaks read as impossibly steep for their modest height: Segla is 639 m and looks
+    Himalayan because it starts at zero.</p>
+
+    <p><b>The specific famous thing is not &ldquo;the fjords&rdquo;.</b> Two of them carry the
+    UNESCO listing — <b>Nærøyfjord</b> and <b>Geirangerfjord</b> — and everything else markets
+    itself in their language. And the thing Norway has that the Alps do not is the light: in the
+    last week of June, north of the Arctic Circle, <b>the sun does not set at all</b>. Not
+    &ldquo;stays light late&rdquo;. Does not set.</p>
+
+    <p><b>What you cannot get anywhere else</b> is that combination — Alpine relief standing in
+    open ocean, under a sun that circles the horizon instead of crossing it. The cultural half
+    is the fishing coast: stockfish racks, rorbuer built for cod season, villages on skerries
+    with no land to speak of.</p>
+  </div>
+
+  <figure class="introwide"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/N%C3%A6r%C3%B8yfjorden_mot_Gudvangen.jpg?width=1400"
+    alt="Nærøyfjord toward Gudvangen">
+    <figcaption><a href="https://commons.wikimedia.org/wiki/File:N%C3%A6r%C3%B8yfjorden_mot_Gudvangen.jpg">Wikimedia Commons</a></figcaption></figure>
+
+  <div class="areas"><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Houses_of_Reine_by_Gravdalsbukta%2C_Moskenes%2C_Nordland%2C_Norway%2C_2022_June.jpg?width=900" alt="Lofoten"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Houses_of_Reine_by_Gravdalsbukta%2C_Moskenes%2C_Nordland%2C_Norway%2C_2022_June.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Lofoten</h3><p class="days">Days 1–4</p><p>Granite straight out of the sea, red rorbuer, no foothills. The postcard, and the crowds that come with it.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/View_towards_Segla_from_ridge_at_Hesten_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August.jpg?width=900" alt="Vesterålen &amp; Senja"><figcaption><a href="https://commons.wikimedia.org/wiki/File:View_towards_Segla_from_ridge_at_Hesten_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Vesterålen &amp; Senja</h3><p class="days">Days 4–7</p><p>The same landscape with a fraction of the traffic, plus sperm whales off Andenes.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Trolltindane_and_Romsdalen_from_Litlefjellet%2C_2013_June.jpg?width=900" alt="Romsdal"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Trolltindane_and_Romsdalen_from_Litlefjellet%2C_2013_June.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Romsdal</h3><p class="days">Days 7–10</p><p>Trollveggen, Europe&rsquo;s tallest vertical face, and the best ridge walk in fjord Norway.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Geirangerfjord_from_%C3%98rnesvingen%2C_2013_June.jpg?width=900" alt="Geiranger &amp; Nordfjord"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Geirangerfjord_from_%C3%98rnesvingen%2C_2013_June.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Geiranger &amp; Nordfjord</h3><p class="days">Days 10–12</p><p>UNESCO fjord, hanging waterfalls, cliff farms — and a glacier arm an hour inland.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aurlandsfjord_in_August_2019_77.jpg?width=900" alt="Sogn &amp; Bergen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Aurlandsfjord_in_August_2019_77.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Sogn &amp; Bergen</h3><p class="days">Days 13–15</p><p>Nærøyfjord at 250 m wide, and the wettest city in Europe as the flexible last stop.</p></div></div></div>
+
+  <div class="numstrip">
+    <div><b>14</b><span>nights</span></div>
+    <div><b>10</b><span>bases</span></div>
+    <div><b>~1,740</b><span>km driven</span></div>
+    <div><b>1,500</b><span>m highest road</span></div>
+    <div><b>12</b><span>km hike ceiling</span></div>
+    <div><b>0</b><span>nights of darkness</span></div>
+  </div>
+
+  <ul class="know">
+    <li><b>1</b><span><b>Trollstigen is a bonus, never a plan.</b> Shut for all of 2024, opened
+      only on 11 July in 2025, shut again by a landslide in August 2026 &mdash; and an approved
+      three-season securing programme closes it <b>from 15 August every year of the works</b>.
+      It also closes preemptively in heavy rain by design. Geiranger is reached by
+      <b>Ørnevegen, the only year-round road in</b>.</span></li>
+    <li><b>2</b><span><b>Do not enter Lofoten by the Bodø–Moskenes ferry.</b> Only part of its
+      capacity is reservable; the rest is a queue that packs out. Fly to <b>Evenes</b> —
+      road-connected on the E10, no ferry.</span></li>
+    <li><b>3</b><span><b>The best light is 22:00–02:00 and almost nobody uses it.</b> There is no
+      true night north of Ålesund in this window. Loen Skylift runs to 22:00; Reinebringen at
+      23:00 is empty. The plan runs a deliberate second shift.</span></li>
+    <li><b>4</b><span><b>Sleep in Aurland, not Flåm.</b> Flåm is a cruise port with a railway
+      attached. Aurland is ten minutes away and quiet after six.</span></li>
+    <li><b>5</b><span><b>Speed cameras have a ~3 km/h tolerance</b> and section control is
+      standard in tunnels. NOK 3,350 for 6–10 km/h over. This is not a place to drive
+      motorway-style.</span></li>
+    <li><b>6</b><span><b>There is no summer aurora.</b> Anywhere in Norway, in any summer
+      window. If someone sells you one, walk away.</span></li>
+    <li><b>7</b><span><b>Every hike here is inside a 12 km round-trip ceiling</b>, and two
+      things were cut to hold it: the descent from Ryten down to Kvalvika beach (12&ndash;13 km)
+      and the Vidden traverse in Bergen (13&ndash;15 km). Romsdalseggen at 10&ndash;11 km is the
+      biggest day and it sits inside the line.</span></li>
+  </ul>
+</section>
+<!-- gallery:start -->
+
+<style>
+#gallery{padding:50px 0;border-bottom:1px solid var(--line,#ddd)}
+#gallery .gwrap{max-width:1080px;margin:0 auto;padding:0 20px}
+#gallery h2{margin:0 0 6px}
+#gallery .gnote{color:var(--muted,#666);margin:0 0 26px;max-width:62ch}
+#gallery .gplace{margin:0 0 34px}
+#gallery .gplace h3{margin:0;font-size:1.2rem;letter-spacing:-.01em}
+#gallery .gplace .gdays{font-family:var(--font-mono,monospace);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#666);margin-left:8px;white-space:nowrap}
+#gallery .gplace p{margin:3px 0 12px;color:var(--muted,#666);font-size:.95rem}
+#gallery .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;background:var(--surface,#fff);border:1px solid var(--line,#ddd)}
+#gallery figure a.gimg{display:block;aspect-ratio:3/2;overflow:hidden}
+#gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+#gallery figure:hover img{transform:scale(1.03)}
+#gallery figcaption{padding:7px 9px 8px;font-size:.78rem;line-height:1.35;color:var(--ink,#222)}
+#gallery figcaption small{display:block;color:var(--muted,#666);font-size:.68rem;margin-top:2px}
+#gallery figcaption small a{color:inherit}
+@media (prefers-reduced-motion:reduce){#gallery img{transition:none}}
+@media print{#gallery{break-inside:avoid}}
+
+#glb{position:fixed;inset:0;z-index:1000;display:none;background:rgba(10,12,14,.97);color:#fff;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-body,Georgia,serif)}
+#glb.open{display:flex}
+#glb .gl-stage{position:relative;flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center;padding:44px 64px 8px;box-sizing:border-box;touch-action:pan-y}
+#glb img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:3px;transition:opacity .2s}
+#glb img.loading{opacity:.25}
+#glb .gl-cap{width:100%;max-width:900px;padding:8px 20px 18px;box-sizing:border-box;text-align:center;font-size:.9rem;line-height:1.4}
+#glb .gl-cap small{display:block;color:#b8c0c8;font-size:.75rem;margin-top:3px}
+#glb .gl-cap a{color:#cfe3ee}
+#glb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center}
+#glb button:hover,#glb button:focus-visible{background:rgba(255,255,255,.28);outline:2px solid #fff}
+#glb .gl-prev{left:10px;top:50%;margin-top:-23px}
+#glb .gl-next{right:10px;top:50%;margin-top:-23px}
+#glb .gl-close{right:10px;top:10px;font-size:1.3rem}
+#glb .gl-fs{right:64px;top:10px;font-size:1.1rem}
+#glb .gl-count{position:absolute;left:16px;top:18px;font-family:var(--font-mono,monospace);font-size:.75rem;letter-spacing:.08em;color:#b8c0c8}
+@media (max-width:620px){#glb .gl-stage{padding:48px 6px 4px}#glb .gl-prev,#glb .gl-next{top:auto;bottom:86px;margin:0}#glb .gl-prev{left:12px}#glb .gl-next{right:12px}}
+@media (prefers-reduced-motion:reduce){#glb img{transition:none}}
+@media print{#glb{display:none!important}}
+</style>
+
+<section id="gallery"><div class="gwrap">
+<p class="kicker">Where you are going</p>
+<h2>Photo gallery</h2>
+<p class="gnote">The places on this plan, in the order you reach them. Click a photo to view it full size, then use the arrows, arrow keys or a swipe to move through the gallery. These show typical views, not conditions on your dates.</p>
+<div class="gplace"><h3>Lofoten</h3><p>Arctic archipelago of steep peaks, red fishing cabins and white beaches.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Reine_Lofoten_2009.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Reine_Lofoten_2009.JPG?width=1600" data-cap="Reine and its fjord, Lofoten" data-place="Lofoten" data-credit="Sveter &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Reine_Lofoten_2009.JPG?width=900" alt="Reine and its fjord, Lofoten"></a><figcaption>Reine and its fjord, Lofoten<small>Sveter &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Reine_Lofoten_2009.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Reine_in_Lofoten%2C_Norway%2C_2012_October.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Reine_in_Lofoten%2C_Norway%2C_2012_October.jpg?width=1600" data-cap="The red cabins of Reine under the Lofoten peaks" data-place="Lofoten" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Reine_in_Lofoten%2C_Norway%2C_2012_October.jpg?width=900" alt="The red cabins of Reine under the Lofoten peaks"></a><figcaption>The red cabins of Reine under the Lofoten peaks<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Reine_in_Lofoten%2C_Norway%2C_2012_October.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Boat_dock_in_Reine%2C_Lofoten%2C_Norway%2C_2015_September.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Boat_dock_in_Reine%2C_Lofoten%2C_Norway%2C_2015_September.jpg?width=1600" data-cap="The harbour dock at Reine with the peak behind" data-place="Lofoten" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Boat_dock_in_Reine%2C_Lofoten%2C_Norway%2C_2015_September.jpg?width=900" alt="The harbour dock at Reine with the peak behind"></a><figcaption>The harbour dock at Reine with the peak behind<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Boat_dock_in_Reine%2C_Lofoten%2C_Norway%2C_2015_September.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Andenes and Vesterålen</h3><p>The northern tip of Andøya, a whale-watching base.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Andenes%2C_Norway_2006.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Andenes%2C_Norway_2006.jpg?width=1600" data-cap="Andenes on the north tip of Andoya, seen from the hillside" data-place="Andenes and Vesterålen" data-credit="Unknown &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Andenes%2C_Norway_2006.jpg?width=900" alt="Andenes on the north tip of Andoya, seen from the hillside"></a><figcaption>Andenes on the north tip of Andoya, seen from the hillside<small>Unknown &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Andenes%2C_Norway_2006.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Andenes_fyr_and_the_sea.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Andenes_fyr_and_the_sea.jpg?width=1600" data-cap="Andenes lighthouse at sunset" data-place="Andenes and Vesterålen" data-credit="Wolfgang Hägele &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Andenes_fyr_and_the_sea.jpg?width=900" alt="Andenes lighthouse at sunset"></a><figcaption>Andenes lighthouse at sunset<small>Wolfgang Hägele &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Andenes_fyr_and_the_sea.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Senja</h3><p>Norway&#x27;s second largest island, with sharp peaks rising straight from the sea.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Seggelskaret_walls_and_Segla_by_Mefjorden%2C_Senja%2C_Norway%2C_2015_September.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Seggelskaret_walls_and_Segla_by_Mefjorden%2C_Senja%2C_Norway%2C_2015_September.jpg?width=1600" data-cap="Segla and the Seggelskaret walls above Mefjorden" data-place="Senja" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seggelskaret_walls_and_Segla_by_Mefjorden%2C_Senja%2C_Norway%2C_2015_September.jpg?width=900" alt="Segla and the Seggelskaret walls above Mefjorden"></a><figcaption>Segla and the Seggelskaret walls above Mefjorden<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Seggelskaret_walls_and_Segla_by_Mefjorden%2C_Senja%2C_Norway%2C_2015_September.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Segla_over_Mefjorden_from_Mefjordv%C3%A6r_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August_-_2.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Segla_over_Mefjorden_from_Mefjordv%C3%A6r_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August_-_2.jpg?width=1600" data-cap="Segla over Mefjorden from Mefjordvaer" data-place="Senja" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Segla_over_Mefjorden_from_Mefjordv%C3%A6r_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August_-_2.jpg?width=900" alt="Segla over Mefjorden from Mefjordvaer"></a><figcaption>Segla over Mefjorden from Mefjordvaer<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Segla_over_Mefjorden_from_Mefjordv%C3%A6r_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August_-_2.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Segla_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Segla_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August.jpg?width=1600" data-cap="Segla, the sharp peak on Senja" data-place="Senja" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Segla_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August.jpg?width=900" alt="Segla, the sharp peak on Senja"></a><figcaption>Segla, the sharp peak on Senja<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Segla_in_Senja%2C_Troms_og_Finnmark%2C_Norway%2C_2022_August.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Ålesund</h3><p>Art Nouveau harbour town rebuilt after the 1904 fire.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:%C3%85lesund%2C_ville_Art_nouveau_20100325_150629.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85lesund%2C_ville_Art_nouveau_20100325_150629.jpg?width=1600" data-cap="Alesund and its Art Nouveau centre from above" data-place="Ålesund" data-credit="Bruno Jargot from Lyon, France &middot; CC BY 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85lesund%2C_ville_Art_nouveau_20100325_150629.jpg?width=900" alt="Alesund and its Art Nouveau centre from above"></a><figcaption>Alesund and its Art Nouveau centre from above<small>Bruno Jargot from Lyon, France &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:%C3%85lesund%2C_ville_Art_nouveau_20100325_150629.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:%C3%85lesund_%2814012468746%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85lesund_%2814012468746%29.jpg?width=1600" data-cap="An Art Nouveau street corner in Alesund" data-place="Ålesund" data-credit="Laurent Guyot &middot; CC BY 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85lesund_%2814012468746%29.jpg?width=900" alt="An Art Nouveau street corner in Alesund"></a><figcaption>An Art Nouveau street corner in Alesund<small>Laurent Guyot &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:%C3%85lesund_%2814012468746%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Åndalsnes and Romsdalen</h3><p>Valley under the Trollveggen and the Romsdalseggen ridge.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Rauma%2C_Norway_-_panoramio_%2868%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Rauma%2C_Norway_-_panoramio_%2868%29.jpg?width=1600" data-cap="The Rauma valley and fjord from a ridge near Andalsnes" data-place="Åndalsnes and Romsdalen" data-credit="Any (Panoramio) &middot; CC BY 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rauma%2C_Norway_-_panoramio_%2868%29.jpg?width=900" alt="The Rauma valley and fjord from a ridge near Andalsnes"></a><figcaption>The Rauma valley and fjord from a ridge near Andalsnes<small>Any (Panoramio) &middot; CC BY 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Rauma%2C_Norway_-_panoramio_%2868%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Rauma%2C_Norway_-_panoramio_%2859%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Rauma%2C_Norway_-_panoramio_%2859%29.jpg?width=1600" data-cap="Mountains above the Rauma valley near Andalsnes" data-place="Åndalsnes and Romsdalen" data-credit="Any (Panoramio) &middot; CC BY 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rauma%2C_Norway_-_panoramio_%2859%29.jpg?width=900" alt="Mountains above the Rauma valley near Andalsnes"></a><figcaption>Mountains above the Rauma valley near Andalsnes<small>Any (Panoramio) &middot; CC BY 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Rauma%2C_Norway_-_panoramio_%2859%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Geiranger</h3><p>UNESCO fjord with waterfalls and abandoned mountain farms.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_59.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_59.jpg?width=1600" data-cap="Geirangerfjord from the Flydalsjuvet viewpoint" data-place="Geiranger" data-credit="Diego Delso &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_59.jpg?width=900" alt="Geirangerfjord from the Flydalsjuvet viewpoint"></a><figcaption>Geirangerfjord from the Flydalsjuvet viewpoint<small>Diego Delso &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_59.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_61.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_61.jpg?width=1600" data-cap="Geirangerfjord and the village from Flydalsjuvet" data-place="Geiranger" data-credit="Diego Delso &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_61.jpg?width=900" alt="Geirangerfjord and the village from Flydalsjuvet"></a><figcaption>Geirangerfjord and the village from Flydalsjuvet<small>Diego Delso &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Fiordo_de_Geiranger_desde_Flydalsjuvet%2C_Noruega%2C_2019-09-07%2C_DD_61.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Geirangerfjord_1.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Geirangerfjord_1.jpg?width=1600" data-cap="Geirangerfjord from the shore above the village" data-place="Geiranger" data-credit="Sundgot &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Geirangerfjord_1.jpg?width=900" alt="Geirangerfjord from the shore above the village"></a><figcaption>Geirangerfjord from the shore above the village<small>Sundgot &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Geirangerfjord_1.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Loen and Nordfjord</h3><p>Fjord village below the Loen Skylift and the Jostedalsbreen glacier arms.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Blick_Vom_Skylift_Loen_%28229108063%29.jpeg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Blick_Vom_Skylift_Loen_%28229108063%29.jpeg?width=1600" data-cap="The fjord from the Loen Skylift top station" data-place="Loen and Nordfjord" data-credit="Heike Kranacher &middot; CC BY 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Blick_Vom_Skylift_Loen_%28229108063%29.jpeg?width=900" alt="The fjord from the Loen Skylift top station"></a><figcaption>The fjord from the Loen Skylift top station<small>Heike Kranacher &middot; CC BY 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Blick_Vom_Skylift_Loen_%28229108063%29.jpeg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:LoenSky188BG23.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/LoenSky188BG23.jpg?width=1600" data-cap="A Loen Skylift gondola above the Nordfjord" data-place="Loen and Nordfjord" data-credit="Bingar1234 &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/LoenSky188BG23.jpg?width=900" alt="A Loen Skylift gondola above the Nordfjord"></a><figcaption>A Loen Skylift gondola above the Nordfjord<small>Bingar1234 &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:LoenSky188BG23.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Briksdalsbreen_in_Briksdalen%2C_Sogn_og_Fjordane%2C_Norway%2C_2013_June_-_2.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Briksdalsbreen_in_Briksdalen%2C_Sogn_og_Fjordane%2C_Norway%2C_2013_June_-_2.jpg?width=1600" data-cap="The Briksdalsbreen glacier arm of Jostedalsbreen" data-place="Loen and Nordfjord" data-credit="Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Briksdalsbreen_in_Briksdalen%2C_Sogn_og_Fjordane%2C_Norway%2C_2013_June_-_2.jpg?width=900" alt="The Briksdalsbreen glacier arm of Jostedalsbreen"></a><figcaption>The Briksdalsbreen glacier arm of Jostedalsbreen<small>Ximonic (Simo Räsänen) &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Briksdalsbreen_in_Briksdalen%2C_Sogn_og_Fjordane%2C_Norway%2C_2013_June_-_2.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Aurland and Sognefjord</h3><p>Narrow fjord arm with the Stegastein viewpoint.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:2023-07-05-Aurlandsfjord-6854.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/2023-07-05-Aurlandsfjord-6854.jpg?width=1600" data-cap="Aurlandsfjord from above" data-place="Aurland and Sognefjord" data-credit="Superbass &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/2023-07-05-Aurlandsfjord-6854.jpg?width=900" alt="Aurlandsfjord from above"></a><figcaption>Aurlandsfjord from above<small>Superbass &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:2023-07-05-Aurlandsfjord-6854.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Aurlandsfjord_in_evening_light.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Aurlandsfjord_in_evening_light.jpg?width=1600" data-cap="Aurlandsfjord in evening light" data-place="Aurland and Sognefjord" data-credit="ThartmannWiki &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aurlandsfjord_in_evening_light.jpg?width=900" alt="Aurlandsfjord in evening light"></a><figcaption>Aurlandsfjord in evening light<small>ThartmannWiki &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Aurlandsfjord_in_evening_light.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Stigastein.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Stigastein.JPG?width=1600" data-cap="The Stegastein platform over Aurlandsfjord" data-place="Aurland and Sognefjord" data-credit="Wolfgang Hammel &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stigastein.JPG?width=900" alt="The Stegastein platform over Aurlandsfjord"></a><figcaption>The Stegastein platform over Aurlandsfjord<small>Wolfgang Hammel &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Stigastein.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Bergen</h3><p>Hanseatic harbour with the Bryggen wharf and the Fløibanen funicular.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Bryggen%2C_Bergen%2C_Noruega%2C_2019-09-08%2C_DD_115-117_PAN.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Bryggen%2C_Bergen%2C_Noruega%2C_2019-09-08%2C_DD_115-117_PAN.jpg?width=1600" data-cap="Bryggen, the Hanseatic wharf in Bergen" data-place="Bergen" data-credit="Diego Delso &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bryggen%2C_Bergen%2C_Noruega%2C_2019-09-08%2C_DD_115-117_PAN.jpg?width=900" alt="Bryggen, the Hanseatic wharf in Bergen"></a><figcaption>Bryggen, the Hanseatic wharf in Bergen<small>Diego Delso &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Bryggen%2C_Bergen%2C_Noruega%2C_2019-09-08%2C_DD_115-117_PAN.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Bryggen%2C_Bergen3.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Bryggen%2C_Bergen3.JPG?width=1600" data-cap="The wooden gables of Bryggen, Bergen" data-place="Bergen" data-credit="Unknown &middot; CC BY-SA 2.5"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bryggen%2C_Bergen3.JPG?width=900" alt="The wooden gables of Bryggen, Bergen"></a><figcaption>The wooden gables of Bryggen, Bergen<small>Unknown &middot; CC BY-SA 2.5 &middot; <a href="https://commons.wikimedia.org/wiki/File:Bryggen%2C_Bergen3.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Bergen_Bryggen_night_tunliweb.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Bergen_Bryggen_night_tunliweb.jpg?width=1600" data-cap="Bryggen reflected in a rain-wet square at night" data-place="Bergen" data-credit="Svein Magne Tunli &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bergen_Bryggen_night_tunliweb.jpg?width=900" alt="Bryggen reflected in a rain-wet square at night"></a><figcaption>Bryggen reflected in a rain-wet square at night<small>Svein Magne Tunli &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Bergen_Bryggen_night_tunliweb.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+</div></section>
+
+<script>
+(function(){
+  var root=document.getElementById('gallery'); if(!root) return;
+  var links=[].slice.call(root.querySelectorAll('a.gimg'));
+  if(!links.length) return;
+  var box=document.createElement('div');
+  box.id='glb'; box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-label','Photo viewer');
+  box.innerHTML='<div class="gl-count"></div><button class="gl-fs" type="button" aria-label="Full screen">&#x26F6;</button><button class="gl-close" type="button" aria-label="Close">&times;</button>'
+   +'<div class="gl-stage"><button class="gl-prev" type="button" aria-label="Previous photo">&#8249;</button><img alt=""><button class="gl-next" type="button" aria-label="Next photo">&#8250;</button></div><div class="gl-cap"></div>';
+  document.body.appendChild(box);
+  var img=box.querySelector('img'), cap=box.querySelector('.gl-cap'), cnt=box.querySelector('.gl-count'), cur=0, opener=null;
+  function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+  function show(i){
+    cur=(i+links.length)%links.length; var a=links[cur];
+    img.classList.add('loading'); img.onload=function(){img.classList.remove('loading')};
+    img.src=a.getAttribute('data-full'); img.alt=a.getAttribute('data-cap')||'';
+    cap.innerHTML=esc(a.getAttribute('data-cap')||'')+'<small>'+esc(a.getAttribute('data-place')||'')+' &middot; '+esc(a.getAttribute('data-credit')||'')+' &middot; <a href="'+a.href+'" target="_blank" rel="noopener">Commons page</a></small>';
+    cnt.textContent=(cur+1)+' / '+links.length;
+    [1,-1].forEach(function(d){var n=links[(cur+d+links.length)%links.length]; (new Image()).src=n.getAttribute('data-full')});
+  }
+  function open(i,from){opener=from; box.classList.add('open'); document.documentElement.style.overflow='hidden'; show(i); box.querySelector('.gl-close').focus()}
+  function close(){
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
+    box.classList.remove('open'); document.documentElement.style.overflow=''; img.removeAttribute('src'); if(opener) opener.focus();
+  }
+  links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault(); open(i,a)})});
+  box.querySelector('.gl-prev').addEventListener('click',function(){show(cur-1)});
+  box.querySelector('.gl-next').addEventListener('click',function(){show(cur+1)});
+  box.querySelector('.gl-close').addEventListener('click',close);
+  box.querySelector('.gl-fs').addEventListener('click',function(){
+    if(document.fullscreenElement){document.exitFullscreen()} else if(box.requestFullscreen){box.requestFullscreen()}
+  });
+  box.addEventListener('click',function(e){ if(e.target===box||e.target.classList.contains('gl-stage')||e.target===cap) close() });
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('open')) return;
+    if(e.key==='Escape') close(); else if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='Tab'){ var f=[].slice.call(box.querySelectorAll('button')); var i=f.indexOf(document.activeElement); e.preventDefault(); f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus() }
+  });
+  var x0=null;
+  box.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1)) },{passive:true});
+})();
+</script>
+
+<!-- gallery:end -->
+
+<section class="intro" id="window">
+  <p class="kick">The one decision that changes everything</p>
+  <h2>Which fortnight of summer 2028</h2>
+  <div class="lead"><p><i>Fellesferie</i> — Norway&rsquo;s three-week national shutdown — is ISO
+  weeks 28–30 every year. In 2028 that computes to <b>10–30 July</b>, a full week later than
+  2026&rsquo;s 6–24 July. That one week of drift creates a window 2026 did not have.</p></div>
+
+  <div class="toggle">
+    <button data-plan-btn="a">Window A &middot; recommended</button>
+    <button data-plan-btn="b">Window B</button>
+  </div>
+
+  <div class="planwrap">
+    <div class="plan" data-plan="a">
+      <div class="panel">
+        <h3>~24 June – 8 July 2028 · Arctic first</h3>
+        <p><b>Entirely ahead of the Norwegian domestic surge, and entirely inside the midnight
+        sun.</b> Svolvær runs 25 May – 18 July, Reine 27 May – 16 July, Senja to 24 July,
+        Tromsø to 25 July. A window ending 8 July clears all five with margin.</p>
+        <p>The usual objection to late June is snow on the high ridges — and it does not apply
+        here, because <b>no high inland ridge is in this plan</b>. What is in it opens earlier:
+        the Romsdalseggen bus runs from <b>12 June</b>, the Nibbevegen up Dalsnibba opens
+        <b>mid-to-late May</b>, and Loen and Nigardsbreen run from spring.</p>
+        <p><b>This is why the trip is built Arctic-first</b> — reach Lofoten and Senja while the
+        sun does not set, then come south to the fjords.</p>
+        <table>
+          <tr><th>Place</th><th>Sun never sets</th><th>Days</th></tr>
+          <tr><td>Tromsø</td><td>18 May – 25 July</td><td>69</td></tr>
+          <tr><td>Senja (Fjordgård)</td><td>19 May – 24 July</td><td>67</td></tr>
+          <tr><td>Svolvær</td><td>25 May – 18 July</td><td>55</td></tr>
+          <tr><td>Reine</td><td>27 May – 16 July</td><td>51</td></tr>
+          <tr><td>Bodø</td><td>31 May – 12 July</td><td>43</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="plan" data-plan="b">
+      <div class="panel">
+        <h3>~29 July – 12 August 2028 · fjords first</h3>
+        <p>Arrives as <i>fellesferie</i> ends on 30 July. Every ridge snow-free, every lift and
+        mountain road running, and Lofoten still has <b>no astronomical darkness</b> — civil dusk
+        01:41, civil dawn 04:14 on 12 August. What you lose is the midnight sun itself, which is
+        gone from Lofoten by 18 July.</p>
+        <p><b>Take this only if</b> someone in the group genuinely cannot sleep in continuous
+        daylight, or if a high inland ridge — Besseggen, Trolltunga, Galdhøpiggen — gets added
+        to the plan later. Either would flip the answer.</p>
+        <p>If you take it, <b>reverse the whole itinerary</b>: fly in to Bergen, drive the fjords
+        north, fly Ålesund → Evenes, and come home from Tromsø. The single-stop Icelandair leg
+        then lands on the way out instead of the way home.</p>
+        <table>
+          <tr><th></th><th>Window A</th><th>Window B</th></tr>
+          <tr><td>Midnight sun, Lofoten</td><td>Yes</td><td>No</td></tr>
+          <tr><td>Fellesferie 10–30 Jul</td><td>Before it</td><td>After it</td></tr>
+          <tr><td>High-route snow</td><td>Lingering &gt;1,400 m</td><td>Gone</td></tr>
+          <tr><td>Rain odds</td><td>Lower</td><td>Slightly higher</td></tr>
+          <tr><td>Direction</td><td>Arctic &#8594; fjords</td><td>Fjords &#8594; Arctic</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="intro" id="adventure">
+  <p class="kick">What to book, and who can actually do it</p>
+  <h2>Adventure</h2>
+  <div class="lead">
+    <p><b>Norway prices adventure per person, not per group.</b> That is the opposite of the
+    Dolomites, where a mountain guide charges a group fee that a party of four splits four ways.
+    Here a second person doubles the bill and a fourth quadruples it &mdash; so group size drives
+    the total and never the unit cost. Budget accordingly.</p>
+
+    <p><b>The thing that disqualifies people is weight and age, not fitness.</b> Via Ferrata Loen
+    turns on a <b>40&ndash;120 kg</b> window set by the harness and lanyard system, not by policy,
+    so there is nothing to negotiate on the day. Check that first, before anyone books a flight
+    around it.</p>
+
+    <p>Two of these compete for the same slot. <b>Day 12 is the ferrata <i>or</i> the glacier, not
+    both</b> &mdash; Nigardsbreen is an hour and twenty from Loen and its walks start between 09:45
+    and 12:30, which collides with the 09:00&ndash;11:00 ferrata departures.</p>
+  </div>
+
+  <table>
+    <tr><th>Activity</th><th>Price</th><th>Age / weight</th><th>Booking</th><th>Season</th></tr>
+    <tr><td><b>Via Ferrata Loen</b><br><span class="mono">day 12, option A</span></td>
+        <td>NOK <b>2,380</b> pp<br><span class="mono">incl. guide, kit, Skylift down</span></td>
+        <td><b>12+ · 40&ndash;120 kg</b></td>
+        <td>Ahead. Departs Loen Active <b>09:00 / 10:00 / 11:00</b></td>
+        <td>Daily in season</td></tr>
+    <tr><td><b>Nigardsbreen blue ice</b><br><span class="mono">day 12, option B</span></td>
+        <td><span class="mono">GAP &mdash; unpublished</span><br>+6% booking fee</td>
+        <td><b>8+</b> on the short walk</td>
+        <td>By <b>email</b>. Starts 09:45&ndash;12:30</td>
+        <td>Summer</td></tr>
+    <tr><td><b>Whale safari</b>, Andenes<br><span class="mono">day 5</span></td>
+        <td>from <b>USD 199</b> catamaran<br>USD 194 speedboat + puffins</td>
+        <td><span class="mono">GAP</span></td>
+        <td>Ahead</td>
+        <td>late May &ndash; mid Sep<br><b>puffins to late Aug</b></td></tr>
+    <tr><td><b>Trollfjord sea-eagle RIB</b><br><span class="mono">day 2</span></td>
+        <td>from <b>USD 122</b></td>
+        <td><span class="mono">GAP</span></td>
+        <td>Ahead</td><td>Summer</td></tr>
+    <tr><td><b>Rallarvegen</b> by bike<br><span class="mono">day 14, optional swap</span></td>
+        <td><span class="mono">GAP &mdash; rental</span></td>
+        <td>&mdash;</td>
+        <td>Rent at Finse or Haugastøl, <b>drop in Flåm</b></td>
+        <td>Summer</td></tr>
+    <tr><td><b>Loen Skylift</b><br><span class="mono">day 11</span></td>
+        <td>NOK <b>650</b> adult return<br>345 child 6&ndash;15 · 1,665 family 2+2</td>
+        <td>Under 6 free</td>
+        <td>Walk-up</td>
+        <td>1 May &ndash; 11 Oct<br><b>runs to 22:00</b></td></tr>
+    <tr><td><b>Romsdalen gondola</b><br><span class="mono">day 8 / weather backup</span></td>
+        <td>NOK <b>300</b> one way · <b>450</b> return</td>
+        <td>&mdash;</td><td>Walk-up</td><td>Summer</td></tr>
+    <tr><td><b>Via Ferrata Romsdalsstigen</b><br><span class="mono">day 9 alternative</span></td>
+        <td><span class="mono">GAP</span></td>
+        <td><span class="mono">GAP</span></td>
+        <td>Ahead</td>
+        <td>Reputedly Norway&rsquo;s hardest</td></tr>
+  </table>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>The day-12 choice</h3>
+      <p><b>Ferrata</b> if the group clears 40 kg and wants exposure with a rope on it. Loen&rsquo;s
+      route ends at Hoven and you ride the Skylift down, so there is no descent on tired arms.</p>
+      <p><b>Glacier</b> if anyone is under 12, or over 120 kg, or would rather walk on ice than
+      climb rock. Nigardsbreen takes children from <b>8</b> on the short walk, and the grades
+      differ by <i>time on the ice</i> &mdash; 1.5 h, 2.5 h or 4 h &mdash; not by how hard the
+      approach is.</p>
+      <p>Either way, book before you go: both run small groups with fixed start times, and the
+      ice-climbing variant caps at six people.</p>
+    </div>
+    <div class="panel">
+      <h3>The two sea days</h3>
+      <p>The <b>Trollfjord RIB</b> on day 2 is a rigid inflatable in open water &mdash; cold and
+      exposed even in July, suits provided. It runs into a fjord 100 m wide with walls to 1,000 m,
+      through one of Europe&rsquo;s densest white-tailed eagle populations.</p>
+      <p>The <b>Andenes whale safari</b> on day 5 goes out to the continental shelf edge, which is
+      why sperm whales are there reliably rather than seasonally. <b>It is genuinely rough
+      water.</b> If anyone is prone to seasickness this is the day it will show, and it lands
+      immediately before a two-hour ferry crossing.</p>
+    </div>
+  </div>
+
+  <ul class="know">
+    <li><b>1</b><span><b>Check the 40&ndash;120 kg window before anything else.</b> It is the only
+      hard gate in the trip and it is set by equipment, not by policy.</span></li>
+    <li><b>2</b><span><b>Per-person pricing means the adventure budget scales with the group.</b>
+      Two people doing the ferrata and one whale safari is roughly NOK 6,800 before anything
+      else.</span></li>
+    <li><b>3</b><span><b>Four prices here are still unverified</b> &mdash; Nigardsbreen, the
+      Rallarvegen rental, Romsdalsstigen, and the Nærøyfjord day kayak. All are marked
+      <span class="mono">GAP</span> and none can be pinned down until 2028 rates publish.</span></li>
+  </ul>
+</section>
+<section class="day" id="d1">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">1–3</span></div>
+    <div class="body"><h2>Into Lofoten while the sun does not set</h2><p class="route">Evenes &#8594; Svolvær &#8594; Henningsvær &#8594; Nusfjord &#8594; Reine</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>~5 h total</b></span><span>Nights <b>Svolvær 1 · Reine 2</b></span><span>Sun sets <b>not at all</b></span><span>Ferries <b>none — that is the point</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Svolv%C3%A6r%2C_Lofoten%2C_Noruega%2C_2019-09-05%2C_DD_43.jpg?width=900" alt="Svolvær harbour"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Svolv%C3%A6r%2C_Lofoten%2C_Noruega%2C_2019-09-05%2C_DD_43.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 1 &middot; arrive</span><h3>Fly to Evenes, drive the E10</h3><p>Evenes is road-connected to Lofoten. That single fact removes the queue at Bodø–Moskenes, where only part of the ferry&rsquo;s capacity is reservable and the rest packs out. It will be broad daylight whatever the clock says — do not treat the arrival hour as a constraint.</p><div class="stats"><span><b>~180</b> km</span><span><b>2 h 45</b> drive</span><span><b>0</b> ferries</span><span><b>24 h</b> daylight</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Evenes+Airport/Svolvær/">Map — Evenes to Svolvær</a></div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/White_tailed_eagle_raftsund_square_crop.jpg?width=900" alt="White-tailed eagle over Raftsundet"><figcaption><a href="https://commons.wikimedia.org/wiki/File:White_tailed_eagle_raftsund_square_crop.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 2 &middot; morning</span><h3>Trollfjord sea-eagle RIB <span class="tag tag--added">book ahead</span></h3><p>A fjord 100 m wide with walls to 1,000 m, and one of Europe&rsquo;s densest white-tailed eagle populations. It is a rigid inflatable in open water — cold and exposed even in July, suits provided.</p><div class="stats"><span><b>~USD 122</b> from</span><span><b>~2 h</b> duration</span><span><b>Svolvær</b> departs</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Svolv%C3%A6r%2C+Lofoten%2C+Norway">Map — Svolvær harbour</a></div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Henningsv%C3%A6r_p%C3%A5_Austv%C3%A5g%C3%B8y.jpg?width=900" alt="Henningsvær"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Henningsv%C3%A6r_p%C3%A5_Austv%C3%A5g%C3%B8y.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 2 &middot; afternoon</span><h3>West through Henningsvær and Nusfjord</h3><p>Henningsvær sits on skerries with barely any land — the football pitch ringed by drying racks is there, and so are the only decent coffee places for an hour in either direction. Nusfjord is one of Norway&rsquo;s oldest preserved fishing villages and takes forty minutes, not a morning.</p><div class="stats"><span><b>~130</b> km</span><span><b>2 h 15</b> driving</span><span><b>+2 h</b> with stops</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Svolvær/Henningsvær/Nusfjord/Reine/">Map — the day&rsquo;s run</a></div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kvalvika_-_view.jpg?width=900" alt="Kvalvika beach from above"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kvalvika_-_view.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 3 &middot; daytime</span><h3>Ryten — the viewpoint, not the beach</h3><p>The overhead view down onto Kvalvika, on the Fredvang side, half an hour from Reine.</p><p><b>Stop at the viewpoint.</b> Ryten on its own is 8.7 km return. Carrying on down to the beach and back turns it into a <b>12–13 km loop with about 930 m of gain and 5–7 hours</b> — over the 12 km ceiling, and the view you came for is from the top anyway.</p><div class="stats"><span><b>8.7</b> km return</span><span><b>680</b> m gain</span><span><b>3–5</b> hours</span><span><b>~16</b> spaces at Torsfjord</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Torsfjord%2C+Fredvang%2C+Lofoten%2C+Norway">Map — Torsfjord trailhead</a><a class="btn" href="https://www.alltrails.com/norway/nordland/ryten">AllTrails — Ryten</a></div><details class="more"><summary>Parking, and the numbers behind the cut</summary><ul><li><b>Torsfjorden trailhead</b> — about <b>sixteen marked spaces</b>. Treat it as full from mid-morning.</li><li><b>End of Fv806</b>, the Peat Museum lot — the main alternative.</li><li><b>Innersand</b> — paid, NOK 100, plus NOK 100 to leave a vehicle overnight.</li></ul><p>Some sources give the viewpoint as 7 km and 543 m rather than 8.7 km and 680 m, depending on which lot you start from. Either fits; the beach loop does not.</p></details></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Reine_i_Lofoten_LC0148.jpg?width=900" alt="Reine from Reinebringen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Reine_i_Lofoten_LC0148.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 3 &middot; 22:00</span><h3>Reinebringen — walk it at night <span class="tag tag--added">timed</span></h3><p><b>1,978 Sherpa-built stone steps</b> — 2 km round trip on the trail itself, about 5 km if you count the walk from the nearest paid lot. 448 m of gain, 1.5–3.5 hours. Not technical, just relentless. And <b>the parking is harder than the hike</b>. All of Reine is now a no-parking zone outside the paid lots. Going at 22:00 solves both problems at once: the stairs are empty, the lots have turned over, and the sun is sitting on the horizon behind the peaks rather than straight overhead.</p><div class="stats"><span><b>2</b> km return</span><span><b>1,978</b> steps</span><span><b>448</b> m gain</span><span><b>1.5–3.5</b> hours</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Reinebringen%2C+Reine%2C+Lofoten%2C+Norway">Map — Reine</a><a class="btn" href="https://guidetolofoten.com/reinebringen-hike/">Guide to Lofoten</a></div><details class="more"><summary>Where to actually park</summary><ul><li><b>Steffenakken</b> — free, tiny, gone by breakfast. A lottery.</li><li><b>Reine Kulturhus</b> — NOK 150 for 3–5 hours. The reliable option.</li><li><b>Reine harbour / Ytre Havn</b> — EasyPark, NOK 25–40 per hour.</li></ul><p>Do not improvise a roadside spot. The village-wide ban exists precisely because visitors kept doing that.</p></details><div class="note">Rorbuer here run <b>NOK 2,000–4,000 a night</b> in summer, plus the 3% visitor levy Lofoten has now adopted. This is the scarcest accommodation on the trip — book it first.</div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Reine, Lofoten" src="https://maps.google.com/maps?q=Reine%2C+Lofoten%2C+Norway&z=8&output=embed"></iframe>
+    <div class="bar"><span>Reine, Lofoten</span><a href="https://maps.google.com/?q=Reine%2C+Lofoten%2C+Norway">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn, dusk or midnight sun</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Fixed sailing timetable</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — sells out or fixed group size</span><span><i class="b" style="background:var(--class-5)"></i>On foot — real footing</span><span><i class="b" style="background:var(--class-6)"></i>Weather- or closure-dependent</span></div>
+</section>
+<section class="day" id="d4">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">4–6</span></div>
+    <div class="body"><h2>North to the whales, then across to Senja</h2><p class="route">Å &#8594; Andenes &#8594; <span class='mono'>ferry</span> &#8594; Senja</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>~5 h on day 4</b></span><span>Ferry <b>Andenes–Gryllefjord, 100 min</b></span><span>Nights <b>Andenes 1 · Senja 2</b></span><span>Season <b>ferry 13 May – 27 Sep only</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Codfish_Drying_Flake%2C_%C3%85_i_Lofoten_20150608_1.jpg?width=900" alt="Stockfish racks at Å"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Codfish_Drying_Flake%2C_%C3%85_i_Lofoten_20150608_1.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 4 &middot; morning</span><h3>Å i Lofoten, then the long leg north</h3><p>Å is literally the end of the E10 — one letter, a stockfish museum, and no road onward. Then the drive that this itinerary pays for: Reine to Andenes, four to five hours up the E10 and Rv85/82 through Vesterålen.</p><p><b>Confirmed in</b> — the whales and the Gryllefjord crossing are worth the day.</p><div class="stats"><span><b>~250</b> km</span><span><b>4–5 h</b> driving</span><span><b>free</b> Fiskebøl–Melbu ferry</span><span><b>every 2 h</b> sailings</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Reine/Andenes/">Map — Reine to Andenes</a></div><details class="more"><summary>The Fiskebøl–Melbu ferry — worth it only if you time it</summary><p>It is <b>free</b> — cars, vans, motorcycles and passengers alike, no AutoPASS registration — takes <b>25 minutes</b>, runs <b>every two hours from 06:20</b> (last from Melbu 21:30), and takes no reservations. It cuts the corner across Hadselfjorden.</p><p><b>But the popular claim that it saves &ldquo;at least two hours&rdquo; does not apply to this leg.</b> That figure compares against a 200 km detour via Sortland <i>and Lødingen</i>; the all-road route from Lofoten to Andenes already runs via Sortland and never touches Lødingen. The real saving here is plausibly 45&ndash;60 minutes.</p><p><b>And on a two-hourly service, arriving five minutes after a sailing costs more than the shortcut saves.</b> Check the departure before committing; otherwise just drive.</p></details></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Buiobuione-Norway_-Vesteralen_-Andenes_-_Physeter_macrocephalus_-_Capodoglio.jpg?width=900" alt="Sperm whale off Andenes"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Buiobuione-Norway_-Vesteralen_-Andenes_-_Physeter_macrocephalus_-_Capodoglio.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 5 &middot; morning</span><h3>Whale safari, Andenes <span class="tag tag--added">book ahead</span></h3><p>Andenes sits beside the continental shelf edge, which is why sperm whales are here reliably rather than seasonally. Puffins run to late August on the combined trips.</p><p>It is genuinely rough water. If anyone in the group is prone to seasickness, this is the day it will matter.</p><div class="stats"><span><b>~USD 199</b> catamaran</span><span><b>~USD 194</b> speedboat + puffins</span><span><b>late May</b> season opens</span><span><b>mid-Sep</b> season ends</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Andenes%2C+And%C3%B8ya%2C+Norway">Map — Andenes</a><a class="btn" href="https://whalesafari.no/trips-andenes">Whalesafari Andenes</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bergsbotn_seen_from_lookout_point_at_Molteb%C3%A6rhagen_by_Norwegian_County_Road_862.jpg?width=900" alt="Bergsbotn, Senja"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Bergsbotn_seen_from_lookout_point_at_Molteb%C3%A6rhagen_by_Norwegian_County_Road_862.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 5 &middot; 17:00</span><h3>Andenes → Gryllefjord ferry <span class="tag tag--added">timetable</span></h3><p>Summer only. Take the last sailing after the whales and arrive on Senja in bright evening light — this crossing is the reason the Arctic half has no backtracking in it.</p><div class="stats"><span><b>NOK ~925</b> car + driver</span><span><b>100</b> minutes</span><span><b>2–3</b> weekday sailings</span><span><b>08:45–17:00</b> first/last</span></div><div class="links"><a class="btn primary" href="https://havspor.no/en/rute/andenes-gryllefjord">Timetable — Havspor</a><a class="btn" href="https://maps.google.com/?q=Gryllefjord%2C+Senja%2C+Norway">Map — Gryllefjord</a></div><div class="note">Runs <b>13 May – 27 September</b> only. Pay on board with card or AutoPASS; booking is not normally needed.</div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/View_from_a_ridge_between_Segla_and_Hesten%2C_Senja%2C_Norway%2C_2014_August.jpg?width=900" alt="Segla from the Hesten ridge"><figcaption><a href="https://commons.wikimedia.org/wiki/File:View_from_a_ridge_between_Segla_and_Hesten%2C_Senja%2C_Norway%2C_2014_August.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 6</span><h3>Hesten — and Segla too, if you want it</h3><p><b>Climb Hesten, not Segla.</b> The famous photograph <i>of</i> Segla is taken from Hesten; from Segla&rsquo;s own summit you cannot see the thing that makes it famous. Hesten is graded hard despite the modest numbers and <b>is not for anyone uneasy with exposure</b>.</p><p><b>Both fit in one day.</b> Segla&rsquo;s summit is 5 km return and 610 m — about 10.3 km for the pair, inside the ceiling. The catch: the trailheads sit 600 m apart in Fjordgård and <b>the two routes cannot be linked</b>; each is its own out-and-back.</p><p>Then <b>Tungeneset</b> and <b>Bergsbotn</b> on the National Tourist Route. Senja is the deliberate anti-Lofoten: the same landscape with a fraction of the traffic. The trade is thin accommodation, thin restaurants, and narrow roads full of campervans — so drive the route early or late, which the light makes trivial.</p><div class="stats"><span><b>5.3</b> km Hesten</span><span><b>510–550</b> m gain</span><span><b>5</b> km Segla</span><span><b>610</b> m gain</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Fjordg%C3%A5rd%2C+Senja%2C+Norway">Map — Fjordgård</a><a class="btn" href="https://maps.google.com/?q=Tungeneset%2C+Senja%2C+Norway">Map — Tungeneset</a><a class="btn" href="https://maps.google.com/?q=Bergsbotn%2C+Senja%2C+Norway">Map — Bergsbotn</a></div><details class="more"><summary>Which one, and what is still unverified</summary><table><tr><th></th><th>Distance</th><th>Gain</th><th>Time</th></tr><tr><td>Hesten &mdash; the view <i>of</i> Segla</td><td>5.3 km return</td><td>510&ndash;550 m</td><td>2&ndash;3 h</td></tr><tr><td>Segla &mdash; the summit</td><td>5 km return</td><td>610 m</td><td>3&ndash;4 h, strenuous</td></tr></table><p>Large paid lot at Fjordgård via EasyPark. Segla&rsquo;s upper section is rocky and steep but needs no technical climbing.</p><p><span class='mono'>GAP:</span> Husfjellet and Barden still have no verified numbers. Only worth closing if either gets added.</p></details></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Senja" src="https://maps.google.com/maps?q=Senja%2C+Norway&z=7&output=embed"></iframe>
+    <div class="bar"><span>Senja</span><a href="https://maps.google.com/?q=Senja%2C+Norway">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn, dusk or midnight sun</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Fixed sailing timetable</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — sells out or fixed group size</span><span><i class="b" style="background:var(--class-5)"></i>On foot — real footing</span><span><i class="b" style="background:var(--class-6)"></i>Weather- or closure-dependent</span></div>
+</section>
+<section class="day" id="d7">
+  <div class="sign">
+    <div class="date"><span class="dow">Day</span><span class="num">7</span></div>
+    <div class="body"><h2>The pivot — Arctic to fjords in an afternoon</h2><p class="route">Senja &#8594; Tromsø &#8594; <span class='mono'>fly</span> &#8594; Ålesund</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>~3 h</b></span><span>Flight <b>TOS &#8594; AES</b></span><span>Cars <b>drop A, collect B</b></span><span>Night <b>Ålesund</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Troms%C3%B8%2C_Storsteinen_Mountain_from_Troms%C3%B8brua_Bridge%2C_July_2025.jpg?width=900" alt="Storsteinen above Tromsø"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Troms%C3%B8%2C_Storsteinen_Mountain_from_Troms%C3%B8brua_Bridge%2C_July_2025.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Morning</span><h3>Senja to Tromsø, drop Car A</h3><p>Three hours, and the last of the Arctic. If the flight is late enough, <b>Fjellheisen</b> lifts you 50 m to 421 m in four minutes; the walking version is <b>Sherpatrappa</b>, 1,200 stone steps up Storsteinen.</p><div class="stats"><span><b>~200</b> km</span><span><b>3 h</b> drive</span><span><b>421</b> m Storsteinen</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Fjordgård/Tromsø/">Map — Senja to Tromsø</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vista_de_%C3%85lesund_desde_Aksla%2C_Noruega%2C_2019-09-01%2C_DD_16.jpg?width=900" alt="Ålesund from Aksla"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Vista_de_%C3%85lesund_desde_Aksla%2C_Noruega%2C_2019-09-01%2C_DD_16.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Evening</span><h3>Ålesund — 418 steps up Aksla <span class="tag tag--added">timed</span></h3><p>Ålesund burned down in 1904 and was rebuilt entirely in Art Nouveau, which is why it looks like nowhere else in Norway. The 418 stone steps from Byparken are the best cheap view in the country and the right way to meet the fjords: the whole Sunnmøre Alps range stands up behind the archipelago.</p><div class="stats"><span><b>418</b> steps</span><span><b>~30</b> min up</span><span><b>free</b> cost</span><span><b>23:2x</b> sunset</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Byparken%2C+%C3%85lesund%2C+Norway">Map — Byparken, Ålesund</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Ålesund" src="https://maps.google.com/maps?q=%C3%85lesund%2C+Norway&z=8&output=embed"></iframe>
+    <div class="bar"><span>Ålesund</span><a href="https://maps.google.com/?q=%C3%85lesund%2C+Norway">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn, dusk or midnight sun</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Fixed sailing timetable</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — sells out or fixed group size</span><span><i class="b" style="background:var(--class-5)"></i>On foot — real footing</span><span><i class="b" style="background:var(--class-6)"></i>Weather- or closure-dependent</span></div>
+</section>
+<section class="day" id="d8">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">8–9</span></div>
+    <div class="body"><h2>Romsdal — the best ridge in fjord Norway</h2><p class="route">Ålesund &#8594; Åndalsnes &#8594; Romsdalseggen</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>~2 h</b></span><span>Hike <b>10 km / 970 m</b></span><span>Nights <b>Åndalsnes 2</b></span><span>Bus <b>daily from 12 June</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--6"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Storseisundbrua%2C_Southwest_view_20150604_2.jpg?width=900" alt="Storseisundet Bridge"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Storseisundbrua%2C_Southwest_view_20150604_2.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time opt">Day 8 &middot; optional</span><h3>The Atlantic Road <span class="tag tag--optional">adds ~2 h</span></h3><p>8.3 km, eight bridges, and Storseisundet — the one in every photograph. Eldhusøya has a suspended walkway loop around the islet.</p><p><b>It is better in weather than in sun.</b> It is built across Hustadvika, a shipwreck coast, and it should look like one. If day 8 dawns grey, this is where to spend it.</p><div class="stats"><span><b>8.3</b> km</span><span><b>8</b> bridges</span><span><b>+2 h</b> detour</span><span><b>free</b> cost</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Storseisundbrua%2C+Aver%C3%B8y%2C+Norway">Map — Storseisundet</a></div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/View_to_Romsdalen_from_Litlefjellet%2C_2013_June.jpg?width=900" alt="Romsdalen and Trollveggen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:View_to_Romsdalen_from_Litlefjellet%2C_2013_June.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 8 &middot; afternoon</span><h3>Rampestreken, or the gondola</h3><p>The first look down Romsdalen at <b>Trollveggen</b>, Europe&rsquo;s tallest vertical rock face. Walk up to Rampestreken, or ride the Romsdalen gondola to the same summit area — no shame in it on a transfer day, and it is the weather backup for tomorrow.</p><div class="stats"><span><b>NOK 300</b> gondola one way</span><span><b>NOK 450</b> return</span><span><b>~1,000</b> m face</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Rampestreken%2C+%C3%85ndalsnes%2C+Norway">Map — Åndalsnes</a></div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Trolltindan_and_Trollveggen_above_sideroad_in_Romsdalen%2C_Rauma%2C_M%C3%B8re_og_Romsdal%2C_Norway%2C_2025_May.jpg?width=900" alt="Trollveggen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Trolltindan_and_Trollveggen_above_sideroad_in_Romsdalen%2C_Rauma%2C_M%C3%B8re_og_Romsdal%2C_Norway%2C_2025_May.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 9 &middot; all day</span><h3>Romsdalseggen <span class="tag tag--added">the big one</span></h3><p>Ten kilometres along a ridge with Trollveggen on one side and Romsdalsfjord on the other. <b>The logistics are already solved</b>, which is why this beats Trolltunga on a trip like this: a dedicated bus leaves <b>platform 5 at Norsk Tindesenter</b>, twenty minutes to the Vengedalen start, and you walk back down into town. No car shuttle, no second driver, no 11:00 cut-off to miss.</p><div class="stats"><span><b>10–11</b> km</span><span><b>970</b> m up</span><span><b>1,277</b> m down</span><span><b>7–8</b> hours</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Norsk+Tindesenter%2C+%C3%85ndalsnes%2C+Norway">Map — Norsk Tindesenter</a><a class="btn" href="https://www.fjordnorway.com/en/transport/romsdalseggen-bus">The Romsdalseggen bus</a><a class="btn" href="https://www.visitnorway.com/places-to-go/fjord-norway/northwest/hiking-the-romsdalseggen-ridge/">VisitNorway — route &amp; safety</a></div><details class="more"><summary>The descent is the longer half</summary><p>It climbs 970 m and <b>drops 1,277 m</b> into Åndalsnes. The descent is bigger than the ascent and it is what will be felt the next day &mdash; poles are worth carrying. Distance is quoted between 10 and 11 km depending on the source; all of them sit inside the 12 km ceiling.</p><p>Exposed ridge, no shelter. The same base gives three fallbacks that need no weather: the gondola, Rampestreken, and <b>Via Ferrata Romsdalsstigen</b> &mdash; reputedly the hardest via ferrata in Norway.</p></details><div class="note">Bus runs <b>daily from 12 June</b> to mid-October and tickets go on sale in advance. <span class='mono'>GAP: 2028 fare and sale-opening date.</span></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Åndalsnes" src="https://maps.google.com/maps?q=%C3%85ndalsnes%2C+Norway&z=9&output=embed"></iframe>
+    <div class="bar"><span>Åndalsnes</span><a href="https://maps.google.com/?q=%C3%85ndalsnes%2C+Norway">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn, dusk or midnight sun</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Fixed sailing timetable</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — sells out or fixed group size</span><span><i class="b" style="background:var(--class-5)"></i>On foot — real footing</span><span><i class="b" style="background:var(--class-6)"></i>Weather- or closure-dependent</span></div>
+</section>
+<section class="day" id="d10">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">10–11</span></div>
+    <div class="body"><h2>Geiranger, taken at the hours nobody is there</h2><p class="route">Åndalsnes &#8594; Ørnevegen &#8594; Geiranger &#8594; Dalsnibba &#8594; Loen</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>~4 h over two days</b></span><span>Ferry <b>Eidsdal–Linge</b></span><span>Nights <b>Geiranger 1 · Loen 1</b></span><span>Highest <b>Dalsnibba 1,500 m</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--6"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Trollstigen_HochPanno.jpg?width=900" alt="Trollstigen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Trollstigen_HochPanno.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 10 &middot; morning</span><h3>Over to Geiranger — and the Trollstigen question <span class="tag tag--added">check first</span></h3><p>The route is Valldal, the <b>Eidsdal–Linge ferry</b>, then <b>Ørnevegen</b> — eleven hairpins and 620 m of climb, and <b>the only road into Geiranger open year-round</b>.</p><p><b>Drive Trollstigen only if it is open that morning.</b> It was shut for all of 2024, opened only on 11 July in 2025, and a landslide closed it again in August 2026. An approved three-season securing programme shuts it from 15 August every year of the works, and it closes preemptively in heavy rain by design. Nothing here depends on it.</p><div class="stats"><span><b>~105</b> km</span><span><b>2 h 15</b> drive</span><span><b>620</b> m Ørnevegen climb</span><span><b>11</b> hairpins</span></div><div class="links"><a class="btn primary" href="https://www.vegvesen.no/trafikk/">Road status — vegvesen</a><a class="btn" href="https://www.nasjonaleturistveger.no/en/routes/geiranger--trollstigen/">Nasjonale turistveger — Trollstigen</a><a class="btn" href="https://maps.google.com/?q=%C3%98rnesvingen%2C+Geiranger%2C+Norway">Map — Ørnesvingen</a></div><details class="more"><summary>If Trollstigen is shut — unverified detour</summary><p>The likely line is E136 west to Sjøholt, Rv650 to Liabygda, the Liabygda–Stranda ferry, then Stranda–Hellesylt. <b>This has not been verified.</b> Check vegvesen.no and Entur before committing a day to it — and note that Ørnevegen means Geiranger is reachable regardless.</p></details></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Panoramic_view_of_Geirangerfjorden_from_%C3%98rnesvingen_20150604_1.jpg?width=900" alt="Geirangerfjord from Ørnesvingen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Geirangerfjorden_from_%C3%98rnesvingen_20150604_1.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 10 &middot; 21:00</span><h3>Ørnesvingen, after the ships have gone <span class="tag tag--added">timed</span></h3><p>Geiranger is a cruise and day-trip town. Ships berth mid-morning, the tour-bus system runs until late afternoon, and the lot at Flydalsjuvet is small and fills instantly. So the plan takes exactly one night here and uses the two hours at each end of it.</p><p>At 21:00 the Seven Sisters are lit and the viewpoint is yours.</p><div class="stats"><span><b>620</b> m up</span><span><b>21:00</b> go at</span><span><b>free</b> cost</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=%C3%98rnesvingen+viewpoint%2C+Geiranger%2C+Norway">Map — Ørnesvingen</a></div><div class="note"><b>Before booking this night, pull Geiranger&rsquo;s cruise-call list for the date.</b> Shifting to a zero-ship or one-ship day is worth more than every other crowd tactic on this trip combined.</div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Seven_Sisters_LC0187.jpg?width=900" alt="The Seven Sisters, Geirangerfjord"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Seven_Sisters_LC0187.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 11 &middot; 06:30</span><h3>Flydalsjuvet at dawn <span class="tag tag--added">timed</span></h3><p>The classic Geirangerfjord photograph, from a lot that holds very few cars and fills the moment the buses start. Early morning or after seven in the evening — not in between. You are already here; use it.</p><div class="stats"><span><b>06:30</b> be there</span><span><b>small</b> car park</span><span><b>free</b> cost</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Flydalsjuvet%2C+Geiranger%2C+Norway">Map — Flydalsjuvet</a></div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stranda_Dalsnibba_lub_2025-07-29_img09.jpg?width=900" alt="Dalsnibba"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Stranda_Dalsnibba_lub_2025-07-29_img09.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 11 &middot; late morning</span><h3>Dalsnibba, then over to Loen</h3><p>Up the Nibbevegen toll road to <b>1,500 m and the Geiranger Skywalk</b> — the highest fjord view in Europe reachable by car. Then Grotli and Videseter down into Nordfjord.</p><div class="stats"><span><b>1,500</b> m</span><span><b>~85</b> km to Loen</span><span><b>1 h 45</b> drive</span><span><b>mid-May</b> road opens</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Dalsnibba%2C+Geiranger%2C+Norway">Map — Dalsnibba</a><a class="btn" href="https://www.google.com/maps/dir/Geiranger/Dalsnibba/Grotli/Loen/">Map — the run to Loen</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Loen_Skylift.jpg?width=900" alt="Loen Skylift"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Loen_Skylift.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 11 &middot; evening</span><h3>Loen Skylift, after everyone has left <span class="tag tag--added">timed</span></h3><p>1,011 m out of the fjord in five minutes, and it runs to <b>22:00 with the last car down at 22:30</b>. Which means the mountain is available two hours after the tour coaches have gone and the light is at its best.</p><div class="stats"><span><b>NOK 650</b> adult return</span><span><b>NOK 345</b> child 6–15</span><span><b>NOK 1,665</b> family 2+2</span><span><b>22:00</b> last up</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Loen+Skylift%2C+Loen%2C+Norway">Map — Loen Skylift</a><a class="btn" href="https://en.loenskylift.no/opening-hours-and-prices">Hours &amp; prices</a></div><div class="note">Summer season <b>1 May – 11 October</b>. Under-6s free. A day pass is NOK 865 if you want to go up twice.</div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Geiranger" src="https://maps.google.com/maps?q=Geiranger%2C+Norway&z=9&output=embed"></iframe>
+    <div class="bar"><span>Geiranger</span><a href="https://maps.google.com/?q=Geiranger%2C+Norway">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn, dusk or midnight sun</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Fixed sailing timetable</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — sells out or fixed group size</span><span><i class="b" style="background:var(--class-5)"></i>On foot — real footing</span><span><i class="b" style="background:var(--class-6)"></i>Weather- or closure-dependent</span></div>
+</section>
+<section class="day" id="d12">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">12–13</span></div>
+    <div class="body"><h2>One big Nordfjord day, then down to Sogn</h2><p class="route">Loen &#8594; <span class='mono'>ferrata or glacier</span> &#8594; Aurland</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>~3 h on day 13</b></span><span>Choose <b>one, not both</b></span><span>Nights <b>Loen 1 · Aurland 1</b></span><span>Book <b>both sell out</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/LoenSky117BG23.jpg?width=900" alt="Above Loen from the Skylift"><figcaption><a href="https://commons.wikimedia.org/wiki/File:LoenSky117BG23.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 12 &middot; option A</span><h3>Via Ferrata Loen <span class="tag tag--added">book ahead</span></h3><p>Up the mountain on cable and rung with an instructor, descending by the Skylift. Departures leave the Loen Active shop in the village at <b>09:00, 10:00 and 11:00</b>, daily in season.</p><div class="stats"><span><b>NOK 2,380</b> with instructor</span><span><b>age 12+</b> recommended</span><span><b>40–120</b> kg limits</span><span><b>09/10/11</b> departures</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Loen+Active%2C+Loen%2C+Norway">Map — Loen Active</a><a class="btn" href="https://en.loenskylift.no/viaferrataloen">Via Ferrata Loen</a></div><details class="more"><summary>The limits — checked, and not negotiable</summary><p><b>Recommended from age 12. Minimum weight 40 kg, maximum 120 kg.</b> Both weights are set by the harness and lanyard system rather than by policy, so there is no arguing them on the day. No height limit is published.</p><p>Bring a pack with <b>at least 1.5 L of water per person</b>, food, gloves, long trousers, a windproof and a buff. Low hiking shoes with Vibram soles are recommended; Loen Active rents La Sportiva shoes and sells gloves on site.</p></details></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Nigardsbreen_2021.jpg?width=900" alt="Nigardsbreen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Nigardsbreen_2021.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 12 &middot; option B</span><h3>Nigardsbreen blue ice <span class="tag tag--added">book ahead</span></h3><p>An arm of <b>Jostedalsbreen, mainland Europe&rsquo;s largest glacier</b>, about an hour and twenty from Loen. Four grades, and the difference between them is time actually on the ice, not difficulty of approach.</p><div class="stats"><span><b>4.5 h</b> x-tra short · 1.5 h on ice</span><span><b>5.5 h</b> short · 2.5 h</span><span><b>6 h</b> long · 4 h</span><span><b>age 8+</b> minimum</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Nigardsbreen%2C+Jostedal%2C+Norway">Map — Nigardsbreen</a><a class="btn" href="https://www.bfl.no/en/nigardsbreen-glacier-hikes/">Jostedalen Breførarlag</a></div><div class="note">Book by email; start times <b>09:45–12:30</b>; the booking system adds 6%. <span class='mono'>GAP: prices.</span></div></div></div></div></div><div class="stop"><span class="mark mark--6"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Oppland_Gamle_Strynefjellsvegen_10.JPG?width=900" alt="Gamle Strynefjellsvegen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Oppland_Gamle_Strynefjellsvegen_10.JPG">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 12 &middot; weather fallback</span><h3>Gamle Strynefjellsvegen <span class="tag tag--optional">if grey</span></h3><p>The old summer-only gravel road over Strynefjellet, protected as a heritage route. <b>Not suitable for motorhomes or caravans</b> — and in a rental car it is the right thing to do with an afternoon that is too wet for rock or ice.</p><div class="stats"><span><b>summer</b> only</span><span><b>gravel</b> surface</span><span><b>free</b> cost</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Gamle+Strynefjellsvegen%2C+Stryn%2C+Norway">Map — Gamle Strynefjellsvegen</a></div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Stegastein_viewpoint_showing_Aurlandsfjord.jpg?width=900" alt="Stegastein over Aurlandsfjord"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Stegastein_viewpoint_showing_Aurlandsfjord.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 13 &middot; afternoon</span><h3>Down to Sogn, and Stegastein</h3><p>Three hours to Aurland. Then <b>Stegastein</b> — a platform cantilevered 650 m above Aurlandsfjord. <b>Take the shuttle from Flåm</b>, ninety minutes round trip: the road up is narrow with vehicle-size limits, and this is a case where the bus is the right call rather than a cop-out.</p><p>Sleep in <b>Aurland, not Flåm</b>. Flåm is a cruise port with a railway attached; Aurland is ten minutes away and quiet after six.</p><div class="stats"><span><b>~200</b> km</span><span><b>3 h</b> drive</span><span><b>650</b> m platform</span><span><b>90</b> min shuttle</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Stegastein%2C+Aurland%2C+Norway">Map — Stegastein</a><a class="btn" href="https://www.norwaysbest.com/en/flam/things-to-do/stegastein-viewpoint">Shuttle from Flåm</a></div><div class="note">Shuttle runs <b>1 June – 31 August</b>.</div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Loen" src="https://maps.google.com/maps?q=Loen%2C+Norway&z=9&output=embed"></iframe>
+    <div class="bar"><span>Loen</span><a href="https://maps.google.com/?q=Loen%2C+Norway">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn, dusk or midnight sun</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Fixed sailing timetable</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — sells out or fixed group size</span><span><i class="b" style="background:var(--class-5)"></i>On foot — real footing</span><span><i class="b" style="background:var(--class-6)"></i>Weather- or closure-dependent</span></div>
+</section>
+<section class="day" id="d14">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">14–15</span></div>
+    <div class="body"><h2>Nærøyfjord in silence, then out through Bergen</h2><p class="route">Flåm &#8594; Gudvangen &#8594; Bergen &#8594; <span class='mono'>fly</span></p></div>
+  </div>
+  <div class="daymeta"><span>Sail <b>08:30, back on the 11:00</b></span><span>Drive <b>~2 h 45</b></span><span>Night <b>Bergen</b></span><span>Rain <b>15–20 days a month</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/N%C3%A6r%C3%B8yfjord-cruise-view.jpg?width=900" alt="Nærøyfjord"><figcaption><a href="https://commons.wikimedia.org/wiki/File:N%C3%A6r%C3%B8yfjord-cruise-view.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 14 &middot; 08:30</span><h3>Nærøyfjord on the electric ferry <span class="tag tag--added">timetable</span></h3><p>UNESCO, 250 m wide at the narrowest, walls to 1,400 m. <b>The vessels are electric, and that is the entire difference from every diesel fjord cruise</b> — with the engine gone you hear the waterfalls and the birds instead of a diesel.</p><p>Summer sailings are 08:30, 11:00, 13:30 and 16:00 each way. <b>Take the 08:30 out and the 11:00 back</b>; the later boats carry the coach tours.</p><div class="stats"><span><b>NOK 550</b> adult one way</span><span><b>NOK 815</b> return</span><span><b>250</b> m at narrowest</span><span><b>1,400</b> m walls</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Fl%C3%A5m+ferry+terminal%2C+Fl%C3%A5m%2C+Norway">Map — Flåm quay</a><a class="btn" href="https://havspor.no/en/stopp/gudvangen-ferjekai">Timetable — Havspor</a></div><div class="note">Flåm sells out weeks ahead in summer on the popular departures. Book this one.</div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Two_Fl%C3%A5msbana_Trains_meet_and_pass_as_the_Brekkefossen_Waterfall_cascades_above.jpg?width=900" alt="Flåm Railway"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Two_Fl%C3%A5msbana_Trains_meet_and_pass_as_the_Brekkefossen_Waterfall_cascades_above.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 14 &middot; swap</span><h3>Rallarvegen instead, if you would rather ride <span class="tag tag--optional">added — veto freely</span></h3><p>The Flåm Railway up to Myrdal — 20 km and among the steepest standard-gauge lines anywhere — then <b>57 km of downhill from Finse at 1,222 m back to the fjord</b>, dropping the bike in Flåm. One-way is built into the rental system; you do not have to ride back up anything.</p><div class="stats"><span><b>57</b> km</span><span><b>1,222</b> m start</span><span><b>~0</b> m finish</span><span><b>one-way</b> bike drop</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Finse%2C+Norway%2C+Norway">Map — Finse</a><a class="btn" href="https://www.norwaysbest.com/en/flam/things-to-do/finse-bike-rental">Finse bike rental</a></div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aurlandsfjord_-_Norway.jpg?width=900" alt="Aurlandsfjord"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Aurlandsfjord_-_Norway.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 14 &middot; afternoon</span><h3>Aurland to Bergen</h3><p>Two and three-quarter hours on the E16. Bergen is deliberately last: it sees rain on <b>15–20 days a month</b> in summer, and it is the one base where a wet day costs you nothing at all.</p><div class="stats"><span><b>~165</b> km</span><span><b>2 h 45</b> drive</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Aurland/Bergen/">Map — Aurland to Bergen</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fassaden_in_Bryggen%2C_Bergen_N.jpg?width=900" alt="Bryggen, Bergen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Fassaden_in_Bryggen%2C_Bergen_N.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 15 &middot; morning</span><h3>Bryggen, Fløibanen, and out</h3><p><b>Bryggen</b> is UNESCO — the surviving timber wharf of a Hanseatic trading capital. <b>Fløibanen</b> is six minutes to the ridge above the city. Then drop Car B at Bergen airport and fly <b>BGO → Keflavík → Toronto</b>, the one single-stop leg of the trip, deliberately placed on the way home.</p><div class="stats"><span><b>6</b> min funicular</span><span><b>320</b> m Fløyen</span><span><b>1</b> stop home</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Bryggen%2C+Bergen%2C+Norway">Map — Bryggen</a><a class="btn" href="https://maps.google.com/?q=Fl%C3%B8ibanen%2C+Bergen%2C+Norway">Map — Fløibanen</a></div></div></div></div></div><div class="stop"><span class="mark mark--6"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vista_de_Bergen_desde_la_monta%C3%B1a_Fl%C3%B8yen%2C_Noruega%2C_2019-09-08%2C_DD_27-31_PAN.jpg?width=900" alt="Bergen from Fløyen"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Vista_de_Bergen_desde_la_monta%C3%B1a_Fl%C3%B8yen%2C_Noruega%2C_2019-09-08%2C_DD_27-31_PAN.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Day 15 &middot; only if clear</span><h3>Ulriken by cable car — Vidden is cut <span class="tag tag--optional">weather lottery</span></h3><p><b>The Vidden traverse is out.</b> Ulriken across the plateau to Fløyen is <b>13–15 km</b> — one source says 18 — and the quoted 4–6 hours becomes 7–8 for most people. That is over the ceiling, on the last morning, with a flight to catch.</p><p><b>Take the cable car to Ulriken, 643 m, and come back down the same way.</b> Same view over city, fjord and islands, no distance, and nothing at risk.</p><div class="stats"><span><b>643</b> m Ulriken</span><span><b>0</b> km on foot</span><span><b>13–15</b> km if you traversed</span><span><b>53–66%</b> days with rain</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Ulriken643%2C+Bergen%2C+Norway">Map — Ulriken</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Bergen" src="https://maps.google.com/maps?q=Bergen%2C+Norway&z=9&output=embed"></iframe>
+    <div class="bar"><span>Bergen</span><a href="https://maps.google.com/?q=Bergen%2C+Norway">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn, dusk or midnight sun</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Fixed sailing timetable</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — sells out or fixed group size</span><span><i class="b" style="background:var(--class-5)"></i>On foot — real footing</span><span><i class="b" style="background:var(--class-6)"></i>Weather- or closure-dependent</span></div>
+</section>
+<section class="quick" id="quick">
+  <h2>Day-of links</h2>
+  <p class="qsub">The handful actually tapped in the field</p>
+  <div class="qgrid">
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-6)"></span>Is the road open</h4>
+      <a class="warn" href="https://www.vegvesen.no/trafikk/"><b>Vegvesen live traffic</b>Road closures, Trollstigen, mountain passes</a>
+      <a class="tel" href="tel:+4722175175"><b>+47 22 175 175</b>Road conditions, spoken</a>
+      <a href="https://www.nasjonaleturistveger.no/en/routes/geiranger--trollstigen/"><b>Trollstigen status</b>Nasjonale turistveger</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-3)"></span>Boats</h4>
+      <a href="https://havspor.no/en/rute/andenes-gryllefjord"><b>Andenes &#8594; Gryllefjord</b>Summer only, 13 May – 27 Sep</a>
+      <a href="https://havspor.no/en/stopp/gudvangen-ferjekai"><b>Flåm &#8211; Gudvangen</b>Nærøyfjord electric ferry</a>
+      <a href="https://www.fergeruter.info/"><b>fergeruter.info</b>Every other crossing</a>
+      <a href="https://entur.no/"><b>Entur</b>Trains, buses, no operator surcharge</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-1)"></span>Weather &amp; light</h4>
+      <a href="https://www.yr.no/en"><b>yr.no</b>The Norwegian forecast everyone actually uses</a>
+      <a href="https://www.yr.no/en/forecast/daily-table/2-3143242/Norway/M%C3%B8re%20og%20Romsdal/Rauma/%C3%85ndalsnes"><b>yr — Åndalsnes</b>Check the night before Romsdalseggen</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-4)"></span>Crowds</h4>
+      <a href="https://www.cruisetimetables.com/geiranger-norway-cruise-ship-schedule-2026.html"><b>Geiranger cruise calls</b>Pick a zero-ship day before booking</a>
+      <a href="https://www.vinmonopolet.no/"><b>Vinmonopolet</b>Closed Sundays. Saturday to 16:00.</a>
+    </div>
+  </div>
+</section>
+<section id="essentials">
+  <h2>Essentials</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Book ahead, in this order</h3>
+      <table>
+        <tr><th>#</th><th>What</th><th>Why it is here</th></tr>
+        <tr><td>1</td><td>Open-jaw flights</td><td>No nonstop from Toronto either way; routing beats price</td></tr>
+        <tr><td>2</td><td>Reine / Hamnøy rorbu</td><td>NOK 2,000–4,000/night + 3% levy, and it sells out</td></tr>
+        <tr><td>3</td><td>Romsdalseggen bus</td><td>Sale opens in advance; daily from 12 June</td></tr>
+        <tr><td>4</td><td>Whale safari &amp; Trollfjord RIB</td><td>Small boats, fixed departures</td></tr>
+        <tr><td>5</td><td>Ferrata or glacier</td><td>Fixed group sizes and start times</td></tr>
+        <tr><td>6</td><td>Cars and the internal flight</td><td>Two rentals beat one long one-way</td></tr>
+      </table>
+      <p class="mono" style="font-size:.74rem;margin-top:10px">
+      Flåm sells out weeks ahead on popular departures. The Andenes–Gryllefjord ferry does not
+      normally need booking.</p>
+    </div>
+
+    <div class="panel">
+      <h3>What it costs</h3>
+      <p>Mid-range, two people, 14 nights on the ground: <b>NOK 52,000–69,000</b>
+      (~CAD 6,900–9,100) before flights and cars.</p>
+      <table>
+        <tr><th>Item</th><th>NOK</th></tr>
+        <tr><td>Hotel, double with breakfast</td><td>~1,725 / night</td></tr>
+        <tr><td>Lofoten rorbu, summer</td><td>2,000–4,000 / night</td></tr>
+        <tr><td>Groceries, self-catering</td><td>112–195 pp / day</td></tr>
+        <tr><td>Restaurant main, budget</td><td>190–350</td></tr>
+        <tr><td>Beer in a bar <i>vs</i> Vinmonopolet</td><td>90–130 <i>vs</i> 35–60</td></tr>
+        <tr><td>Petrol</td><td>~22 / litre</td></tr>
+        <tr><td>Ferries across the trip</td><td>4,000–6,000</td></tr>
+      </table>
+      <p style="margin-top:10px"><b>Three levers that actually move it:</b> self-cater breakfast
+      and lunch (book kitchens — this beats any pass or card); buy alcohol at Vinmonopolet, which
+      is <b>closed Sundays</b> and Saturdays only to 16:00; and remember the best hours are free —
+      Ørnesvingen, Flydalsjuvet, Aksla, every hike here, and the whole tourist-route viewpoint
+      network.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Driving in Norway</h3>
+      <ul>
+        <li><b>~3 km/h camera tolerance</b>, and section control is standard in tunnels.
+        NOK 3,350 for 6–10 km/h over; about NOK 10,100 at 20 over.</li>
+        <li>Limits: 50 urban, 30 residential, 80 rural, 90–100 motorway.</li>
+        <li><b>Tolls are automatic</b> via AutoPASS and billed back through the rental with a
+        <b>NOK 30–80/day handling fee</b> on days you incur any.</li>
+        <li>Ferries bill the same way. The full 50% ferry discount needs a prepaid agreement a
+        visitor in a rental generally cannot get — <b>assume full fare</b>.</li>
+        <li><b>EVs are the default rental.</b> 10,000+ fast chargers at NOK 4–8/kWh, and EVs pay
+        materially less on ferries. <span class="mono">GAP: charger density on Sognefjellet and
+        the Senja route.</span></li>
+      </ul>
+    </div>
+
+    <div class="panel check">
+      <h3>Before you go</h3>
+      <div id="checklist"><label><input type="checkbox" data-k="flights"><span>Open-jaw flights booked — YYZ&#8594;EVE out, BGO&#8594;YYZ home</span></label><label><input type="checkbox" data-k="rorbu"><span>Reine / Hamnøy rorbu — the scarcest thing on the trip</span></label><label><input type="checkbox" data-k="bus"><span>Romsdalseggen bus tickets (daily from 12 June)</span></label><label><input type="checkbox" data-k="whale"><span>Whale safari, Andenes</span></label><label><input type="checkbox" data-k="rib"><span>Trollfjord sea-eagle RIB, Svolvær</span></label><label><input type="checkbox" data-k="ferrata"><span>Via Ferrata Loen <b>or</b> Nigardsbreen — everyone between <b>40 and 120 kg</b>, age 12+</span></label><label><input type="checkbox" data-k="naeroy"><span>Nærøyfjord 08:30 ferry, Flåm</span></label><label><input type="checkbox" data-k="cars"><span>Both cars: Evenes&#8594;Tromsø, Ålesund&#8594;Bergen</span></label><label><input type="checkbox" data-k="internal"><span>Internal flight TOS&#8594;AES</span></label><label><input type="checkbox" data-k="cruise"><span>Geiranger cruise-call list checked for the chosen date</span></label><label><input type="checkbox" data-k="eyemask"><span>Blackout eye masks — there is no darkness for six nights</span></label><label><input type="checkbox" data-k="headnet"><span>Head net for inland stops; coast is fine</span></label><label><input type="checkbox" data-k="vinmono"><span>Vinmonopolet run done on a Saturday morning</span></label><label><input type="checkbox" data-k="offline"><span>Offline maps downloaded — Senja and inner Lofoten have thin signal</span></label><label><input type="checkbox" data-k="poles"><span>Poles packed — Romsdalseggen drops 1,277 m into Åndalsnes</span></label><label><input type="checkbox" data-k="melbu"><span>Fiskebøl&#8211;Melbu sailing time checked for day 4 (every 2 h)</span></label></div>
+      <p class="mono" style="font-size:.72rem;margin-top:10px">Ticks are saved in this browser.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:20px">
+    <h3>Still open</h3>
+    <p><b>Settled.</b> Year 2028 · Window A · <b>12 km round-trip hiking ceiling</b> ·
+    the day-4 drive to Andenes stays, whales included.</p>
+    <p><b>Still to decide.</b> Exact dates inside Window A, and <b>group size</b> — the one
+    remaining unknown, and it drives the ferrata headcount, the rorbu booking and the ferry
+    fares.</p>
+    <p><b>Closed on 31 August 2026.</b> Via Ferrata Loen&rsquo;s age and weight limits ·
+    Reinebringen&rsquo;s and Ryten&rsquo;s numbers · Hesten and Segla distances · the
+    Fiskebøl–Melbu ferry · Romsdalseggen&rsquo;s true ascent/descent split.</p>
+    <p><b>Facts still marked <span class="mono">GAP</span> in the research files.</b> Nigardsbreen
+    prices · the Trollstigen detour route · Husfjellet and Barden on Senja · door-to-door timing
+    for Reine &rarr; Andenes with and without the ferry · when each fjord valley floor loses the
+    sun · per-branch Vinmonopolet hours · official 2028 <i>fellesferie</i> dates · and every live
+    fare, which cannot be checked until the dates are set.</p>
+    <p><b>Left out deliberately.</b> Trolltunga, Preikestolen and Kjeragbolten sit 3–6 hours south
+    of Bergen and are not on this route; Trolltunga alone costs about two days with positioning.
+    Besseggen and Galdhøpiggen are inland east — and adding either would flip the recommended
+    window back to late July.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Planned from five research files in <span class="mono">~/workspace/travel/norway-summer/</span>. Light figures computed with <span class="mono">sun-times.py</span>, not quoted. Photographs from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, each linked at its caption. Prices and timetables verified August 2026 — <b>re-check every fare and sailing once the dates are fixed.</b></div>
+</footer>
+
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script>
+</body>
+</html>

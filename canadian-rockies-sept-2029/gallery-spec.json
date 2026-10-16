@@ -1,0 +1,152 @@
+{
+ "trip": "canadian-rockies-sept-2029",
+ "places": [
+  {
+   "place": "Moraine Lake and the Valley of the Ten Peaks",
+   "days": "",
+   "blurb": "Glacial lake at 1,885 m under ten peaks, reached by shuttle only.",
+   "queries": [
+    "Moraine Lake Banff",
+    "Moraine Lake Valley of the Ten Peaks",
+    "Moraine Lake rockpile"
+   ]
+  },
+  {
+   "place": "Lake Louise and Lake Agnes",
+   "days": "",
+   "blurb": "Turquoise lake below Victoria Glacier, with the Lake Agnes tea house above.",
+   "queries": [
+    "Lake Louise Alberta Victoria Glacier",
+    "Lake Agnes Teahouse",
+    "Lake Louise Banff canoe"
+   ]
+  },
+  {
+   "place": "Banff townsite and Sulphur Mountain",
+   "days": "",
+   "blurb": "The Bow Valley town under Cascade Mountain, with a gondola to the Sulphur Mountain summit.",
+   "queries": [
+    "Banff Avenue Cascade Mountain",
+    "Banff Gondola Sulphur Mountain",
+    "Vermilion Lakes Banff",
+    "Bow Falls Banff"
+   ]
+  },
+  {
+   "place": "Johnston Canyon and Lake Minnewanka",
+   "days": "",
+   "blurb": "A limestone canyon with catwalks and a glacial lake with a boat cruise.",
+   "queries": [
+    "Johnston Canyon Lower Falls",
+    "Lake Minnewanka Banff",
+    "Two Jack Lake"
+   ]
+  },
+  {
+   "place": "Icefields Parkway: Bow Lake and Peyto Lake",
+   "days": "",
+   "blurb": "The 232 km highway between Lake Louise and Jasper, with glacial lakes along it.",
+   "queries": [
+    "Peyto Lake viewpoint",
+    "Bow Lake Num-Ti-Jah",
+    "Icefields Parkway Alberta",
+    "Mistaya Canyon"
+   ]
+  },
+  {
+   "place": "Columbia Icefield and the Athabasca Glacier",
+   "days": "",
+   "blurb": "The largest ice field in the Rockies, reached by an Ice Explorer bus.",
+   "queries": [
+    "Athabasca Glacier Columbia Icefield",
+    "Columbia Icefield Glacier Skywalk",
+    "Sunwapta Falls",
+    "Athabasca Falls Jasper"
+   ]
+  },
+  {
+   "place": "Jasper, Maligne Lake and Maligne Canyon",
+   "days": "",
+   "blurb": "Mountain town with a lake and a cruise to Spirit Island.",
+   "queries": [
+    "Maligne Lake Spirit Island",
+    "Jasper Alberta town",
+    "Pyramid Lake Jasper",
+    "Medicine Lake Jasper"
+   ]
+  },
+  {
+   "place": "Mount Robson and Berg Lake",
+   "days": "",
+   "blurb": "The highest peak in the Canadian Rockies, in BC.",
+   "queries": [
+    "Mount Robson British Columbia",
+    "Kinney Lake Mount Robson",
+    "Overlander Falls"
+   ]
+  },
+  {
+   "place": "Yoho: Emerald Lake and Takakkaw Falls",
+   "days": "",
+   "blurb": "BC park with a green lake and the third-highest waterfall in Canada.",
+   "queries": [
+    "Emerald Lake Yoho",
+    "Takakkaw Falls",
+    "Natural Bridge Yoho",
+    "Wapta Falls"
+   ]
+  },
+  {
+   "place": "Kootenay: Marble Canyon and Radium Hot Springs",
+   "days": "",
+   "blurb": "BC park with a limestone canyon and the Paint Pots, south of the divide.",
+   "queries": [
+    "Marble Canyon Kootenay",
+    "Paint Pots Kootenay",
+    "Radium Hot Springs"
+   ]
+  },
+  {
+   "place": "Kananaskis Country and Peter Lougheed Provincial Park",
+   "days": "",
+   "blurb": "Alberta provincial park system, with the Upper Kananaskis Lake and Highwood Pass.",
+   "queries": [
+    "Upper Kananaskis Lake",
+    "Peter Lougheed Provincial Park",
+    "Kananaskis Elbow Falls",
+    "Highwood Pass"
+   ]
+  },
+  {
+   "place": "Waterton Lakes",
+   "days": "",
+   "blurb": "The park at the Montana border with the Prince of Wales Hotel.",
+   "queries": [
+    "Waterton Lakes National Park",
+    "Prince of Wales Hotel Waterton",
+    "Cameron Lake Waterton",
+    "Red Rock Canyon Waterton"
+   ]
+  },
+  {
+   "place": "Mount Assiniboine and the Sunshine Meadows",
+   "days": "",
+   "blurb": "A pyramid peak on the BC border and an alpine meadow reached by gondola.",
+   "queries": [
+    "Mount Assiniboine",
+    "Sunshine Meadows Banff",
+    "Lake Magog Assiniboine"
+   ]
+  },
+  {
+   "place": "Larches and early autumn",
+   "days": "",
+   "blurb": "Alpine larches turn gold in late September, with snow on the peaks.",
+   "queries": [
+    "Larch Valley Banff",
+    "Larch trees autumn Alberta",
+    "Sentinel Pass"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "trip": "usa-southwest-rockies-repl",
+ "places": [
+  {
+   "place": "Las Vegas",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Las Vegas Strip skyline daytime",
+    "Las Vegas Bellagio fountains"
+   ]
+  },
+  {
+   "place": "Zion Narrows",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Zion Narrows Virgin River hikers",
+    "The Narrows Zion canyon walls"
+   ]
+  },
+  {
+   "place": "Calf Creek Falls",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Lower Calf Creek Falls Utah"
+   ]
+  },
+  {
+   "place": "Scenic Byway 12",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Highway 12 Utah Hogsback",
+    "Scenic Byway 12 Grand Staircase view",
+    "Highway 12 Boulder Mountain"
+   ]
+  },
+  {
+   "place": "Capitol Reef roadside",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Capitol Reef Highway 24 cliffs",
+    "Capitol Reef Chimney Rock",
+    "Capitol Reef Cathedral Valley"
+   ]
+  },
+  {
+   "place": "Mesa Arch",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Mesa Arch sunrise Canyonlands"
+   ]
+  },
+  {
+   "place": "Corona Arch",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Corona Arch Moab Utah"
+   ]
+  },
+  {
+   "place": "Angels Landing and Goblin Valley",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Angels Landing Zion summit",
+    "Goblin Valley State Park hoodoos"
+   ]
+  },
+  {
+   "place": "Great Salt Lake",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Great Salt Lake sunset",
+    "Great Salt Lake Spiral Jetty"
+   ]
+  }
+ ],
+ "out": "repl-candidates.json"
+}

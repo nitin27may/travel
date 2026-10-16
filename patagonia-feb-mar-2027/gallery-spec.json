@@ -1,0 +1,142 @@
+{
+ "trip": "patagonia-feb-mar-2027",
+ "places": [
+  {
+   "place": "Fitz Roy at sunrise",
+   "days": "Days 7-9",
+   "blurb": "Fitz Roy's east face turns red at first light; the skyline is visible from El Chalten itself.",
+   "queries": [
+    "Fitz Roy sunrise El Chalten",
+    "Monte Fitz Roy Laguna Capri dawn",
+    "Cerro Fitz Roy El Chalten panorama"
+   ]
+  },
+  {
+   "place": "Cerro Torre and Laguna Torre",
+   "days": "Day 7",
+   "blurb": "Cerro Torre with its ice cap over a glacial lagoon dotted with icebergs.",
+   "queries": [
+    "Cerro Torre Laguna Torre",
+    "Laguna Torre icebergs Cerro Torre",
+    "Mirador Maestri Cerro Torre"
+   ]
+  },
+  {
+   "place": "Laguna de los Tres",
+   "days": "Day 8",
+   "blurb": "The turquoise lake directly under Fitz Roy at the end of the classic hike.",
+   "queries": [
+    "Laguna de los Tres Fitz Roy",
+    "Laguna Sucia Fitz Roy",
+    "Laguna de los Tres hikers"
+   ]
+  },
+  {
+   "place": "Perito Moreno Glacier",
+   "days": "Day 11",
+   "blurb": "The 60 m ice front seen from the walkways on the Magallanes Peninsula.",
+   "queries": [
+    "Perito Moreno glacier passerelas",
+    "Perito Moreno glacier ice front",
+    "Glaciar Perito Moreno Lago Argentino"
+   ]
+  },
+  {
+   "place": "Upsala and Spegazzini",
+   "days": "Optional day",
+   "blurb": "Icebergs and ice fronts in the northern arms of Lago Argentino.",
+   "queries": [
+    "Upsala glacier icebergs",
+    "Spegazzini glacier",
+    "Lago Argentino icebergs Upsala"
+   ]
+  },
+  {
+   "place": "Lago Argentino and El Calafate",
+   "days": "Days 10-12",
+   "blurb": "The milky turquoise lake, and the flamingos of Laguna Nimez.",
+   "queries": [
+    "Lago Argentino El Calafate",
+    "Laguna Nimez flamingos El Calafate",
+    "El Calafate Patagonia steppe"
+   ]
+  },
+  {
+   "place": "Tierra del Fuego National Park",
+   "days": "Days 4-5",
+   "blurb": "Bahia Lapataia and the end of Ruta 3 on the Beagle Channel.",
+   "queries": [
+    "Bahia Lapataia Tierra del Fuego",
+    "Tierra del Fuego National Park Lapataia",
+    "Lago Roca Tierra del Fuego"
+   ]
+  },
+  {
+   "place": "Beagle Channel",
+   "days": "Day 2",
+   "blurb": "Les Eclaireurs lighthouse and sea lions in the channel.",
+   "queries": [
+    "Les Eclaireurs lighthouse Beagle Channel",
+    "Isla de los Lobos Ushuaia sea lions",
+    "Beagle Channel Ushuaia boat"
+   ]
+  },
+  {
+   "place": "Isla Martillo penguins",
+   "days": "Day 3",
+   "blurb": "Magellanic and gentoo penguins on the beach at Isla Martillo.",
+   "queries": [
+    "Isla Martillo penguins",
+    "Magellanic penguin Isla Martillo Beagle Channel",
+    "Gentoo penguin Isla Martillo"
+   ]
+  },
+  {
+   "place": "Ushuaia",
+   "days": "Days 2-6",
+   "blurb": "The southernmost city, between the Martial range and the channel.",
+   "queries": [
+    "Ushuaia panorama harbour",
+    "Ushuaia Tierra del Fuego mountains city",
+    "Glaciar Martial Ushuaia"
+   ]
+  },
+  {
+   "place": "Laguna Esmeralda",
+   "days": "Day 5",
+   "blurb": "The turquoise lagoon at the end of the Esmeralda trail.",
+   "queries": [
+    "Laguna Esmeralda Ushuaia",
+    "Laguna Esmeralda Tierra del Fuego trail"
+   ]
+  },
+  {
+   "place": "Recoleta and Buenos Aires",
+   "days": "Days 1 and 13",
+   "blurb": "The cemetery of mausoleums and El Ateneo, a theatre turned bookshop.",
+   "queries": [
+    "Cementerio de la Recoleta Buenos Aires",
+    "El Ateneo Grand Splendid",
+    "Recoleta cemetery mausoleums"
+   ]
+  },
+  {
+   "place": "La Boca",
+   "days": "Day 13",
+   "blurb": "Caminito's painted houses.",
+   "queries": [
+    "Caminito La Boca Buenos Aires",
+    "La Boca Buenos Aires houses"
+   ]
+  },
+  {
+   "place": "Teatro Colon",
+   "days": "Day 13",
+   "blurb": "The opera house, one of the best acoustically in the world.",
+   "queries": [
+    "Teatro Colon Buenos Aires interior",
+    "Teatro Colon Buenos Aires facade"
+   ]
+  }
+ ]
+}

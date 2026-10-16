@@ -1,0 +1,75 @@
+{
+ "trip": "usa-southwest-rockies",
+ "places": [
+  {
+   "place": "Zion and Springdale",
+   "days": "",
+   "blurb": "Sandstone canyon park entered from Springdale, with the Virgin River Narrows.",
+   "queries": [
+    "Zion National Park Court of the Patriarchs",
+    "Zion Canyon Virgin River",
+    "Zion Angels Landing view"
+   ]
+  },
+  {
+   "place": "Bryce Canyon",
+   "days": "",
+   "blurb": "Amphitheatres of hoodoos at 2,400 to 2,700 m on the Paunsaugunt Plateau.",
+   "queries": [
+    "Bryce Canyon hoodoos sunrise",
+    "Bryce Canyon Navajo Loop",
+    "Bryce Canyon Sunset Point"
+   ]
+  },
+  {
+   "place": "Scenic Byway 12",
+   "days": "",
+   "blurb": "The road from Bryce to Torrey over the Hogsback and past Calf Creek.",
+   "queries": [
+    "Scenic Byway 12 Hogsback Utah",
+    "Lower Calf Creek Falls",
+    "Highway 12 Utah Boulder"
+   ]
+  },
+  {
+   "place": "Capitol Reef",
+   "days": "",
+   "blurb": "A 100-mile wrinkle in the earth, the Waterpocket Fold, with orchards at Fruita.",
+   "queries": [
+    "Capitol Reef Waterpocket Fold",
+    "Capitol Reef Fruita",
+    "Capitol Reef Hickman Bridge"
+   ]
+  },
+  {
+   "place": "Arches and Moab",
+   "days": "",
+   "blurb": "Over 2,000 sandstone arches north of Moab.",
+   "queries": [
+    "Delicate Arch Arches National Park",
+    "Arches National Park Windows",
+    "Landscape Arch Devils Garden"
+   ]
+  },
+  {
+   "place": "Canyonlands Island in the Sky",
+   "days": "",
+   "blurb": "A mesa 600 m above the Green and Colorado rivers.",
+   "queries": [
+    "Canyonlands Island in the Sky Mesa Arch",
+    "Canyonlands Grand View Point",
+    "Canyonlands Green River Overlook"
+   ]
+  },
+  {
+   "place": "Salt Lake City and the Great Salt Lake",
+   "days": "",
+   "blurb": "Final night; the lake is 4,200 ft up and shrinking.",
+   "queries": [
+    "Salt Lake City skyline Wasatch",
+    "Great Salt Lake Antelope Island",
+    "Salt Lake Temple"
+   ]
+  }
+ ]
+}

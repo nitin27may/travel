@@ -1,0 +1,43 @@
+/* urban — city stone, transit ink, one bright wayfinding accent.
+   New curated theme. Good for: capitals, museum days, food-led city trips. */
+/* @fonts: Archivo:wght@500;700;800|Literata:opsz,wght@7..72,400;7..72,600|Space+Mono:wght@400;700 */
+:root{
+  --font-display:"Archivo",sans-serif;
+  --font-body:"Literata",Georgia,serif;
+  --font-mono:"Space Mono",monospace;
+
+  --bg:#f4f4f5;
+  --surface:#ffffff;
+  --bg-deep:#17191c;
+  --bg-deep-2:#25282d;
+
+  --ink:#212429;
+  --ink-on-deep:#c9ccd1;
+  --muted:#6b6f76;
+  --muted-on-deep:#969aa1;
+  --line:#dcdde0;
+
+  --accent:#2f5fb0;
+  --accent-dark:#22488a;
+  --accent-ink:#ffffff;
+  --accent-soft:#e6ecf7;
+
+  --header:#33383f;
+  --header-ink:#ffffff;
+  --header-sub:#c9ccd1;
+
+  --warn:#c0392b;
+  --warn-soft:#fbeceb;
+
+  --highlight:#c78c1c;
+  --highlight-ink:#312302;
+  --highlight-soft:#f9f1da;
+  --highlight-on-deep:#e9c26a;
+
+  --class-1:#2f5fb0;
+  --class-2:#eceded;
+  --class-3:#3f8a6b;
+  --class-4:#c78c1c;
+  --class-5:#9c4a8a;
+  --class-6:#6b7079;
+}

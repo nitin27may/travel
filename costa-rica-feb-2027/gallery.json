@@ -1,0 +1,149 @@
+{
+ "trip": "costa-rica-feb-2027",
+ "sections": [
+  {
+   "place": "Rincon de la Vieja and Guachipelin",
+   "blurb": "Volcano and dry-forest national park near Liberia with fumaroles, mud pots and river hot springs.",
+   "days": "1-3",
+   "photos": [
+    {
+     "file": "Rincón de la Vieja Volcano Costa Rica Mud Bubble bursting 7860.jpg",
+     "caption": "A mud bubble bursting in a mud pot at Rincon de la Vieja",
+     "author": "Paul Harrison",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Clouds Gather on Rincón de la Vieja Volcano (crater-052025-loiacono-4358).jpg",
+     "caption": "Clouds gathering over the Rincon de la Vieja summit",
+     "author": "NASA / Milan Loiacono",
+     "license": "Public domain"
+    },
+    {
+     "file": "Rincón de la Vieja Hot Spring.jpg",
+     "caption": "A steaming hot spring in the Rincon de la Vieja park",
+     "author": "Flicka",
+     "license": "CC BY 2.5"
+    }
+   ]
+  },
+  {
+   "place": "Arenal Volcano and La Fortuna",
+   "blurb": "Cone-shaped stratovolcano above Lake Arenal, with hanging bridges, waterfalls and hot springs below.",
+   "days": "3-6",
+   "photos": [
+    {
+     "file": "Arenal volcano (70785p) (cropped).jpg",
+     "caption": "Arenal, the cone seen from the La Fortuna side",
+     "author": "Rhododendrites",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Arenal Volcano 02.jpg",
+     "caption": "Arenal under cloud from the surrounding forest",
+     "author": "Bernard Gagnon",
+     "license": "CC0"
+    },
+    {
+     "file": "CostaRica Arenal Volcano 1968Flow (pixinn.net).jpg",
+     "caption": "Arenal and its 1968 lava flow, now overgrown",
+     "author": "Christophe Meneboeuf",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Tabacon and the Arenal hot springs",
+   "blurb": "Volcanically heated rivers and pools on the flank of Arenal.",
+   "days": "5",
+   "photos": [
+    {
+     "file": "Bar in pool at Tabacón.gk.jpg",
+     "caption": "The pool bar at Tabacon at night",
+     "author": "Grendelkhan",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Tabacón - panoramio (1).jpg",
+     "caption": "A warm stream through the gardens at Tabacon",
+     "author": "kajikawa",
+     "license": "CC BY 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Manuel Antonio National Park",
+   "blurb": "Small Pacific coast park of white-sand coves and rainforest, known for capuchin monkeys and sloths.",
+   "days": "6-8",
+   "photos": [
+    {
+     "file": "Manuel Antonio National Park.jpg",
+     "caption": "A white sand cove in Manuel Antonio National Park",
+     "author": "RAMDOM X",
+     "license": "Public domain"
+    },
+    {
+     "file": "Beach at Manuel Antonio Park - panoramio (1).jpg",
+     "caption": "The beach at Manuel Antonio National Park",
+     "author": "Mark Cowell",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Manuel-antonio-quepos-costa-rica-second-beach.JPG",
+     "caption": "The second beach at Manuel Antonio, near Quepos",
+     "author": "Tarrazu",
+     "license": "Public domain"
+    }
+   ]
+  },
+  {
+   "place": "Wildlife of the rainforest",
+   "blurb": "Animals common on the Arenal and Manuel Antonio routes, shown for reference, not a promise of sightings.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Brown-throated three-toed sloth female.JPG",
+     "caption": "A brown-throated three-toed sloth, female",
+     "author": "Charles J. Sharp",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Costa Rican Three-Toed Sloth.jpg",
+     "caption": "A three-toed sloth hanging from a branch",
+     "author": "Urak-Tou",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "Three toed sloth female.JPG",
+     "caption": "A three-toed sloth in the canopy",
+     "author": "Charles J. Sharp",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Uvita and Marino Ballena",
+   "blurb": "Pacific coast park with a sandbar shaped like a whale's tail at low tide, a humpback breeding area.",
+   "days": "9-11",
+   "photos": [
+    {
+     "file": "Scarlet Macaws at Uvita Beach, Costa Rica 03.jpg",
+     "caption": "Scarlet macaws at Uvita beach",
+     "author": "Satdeep Gill",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Near Uvita Beach, Costa Rica - panoramio.jpg",
+     "caption": "The coast near Uvita seen from the hills",
+     "author": "belemita",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Playa Uvita, Costa Rica.jpg",
+     "caption": "Playa Uvita, palms behind the beach",
+     "author": "Alfarjores",
+     "license": "CC BY 4.0"
+    }
+   ]
+  }
+ ]
+}

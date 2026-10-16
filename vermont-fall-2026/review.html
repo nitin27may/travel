@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vermont Oct 1–4, 2026 — plan review &amp; decisions</title>
+<meta name="trip-date" content="2026-10-01"><meta name="trip-duration" content="4 days">
+<meta name="trip-region" content="Vermont, USA">
+<style>
+:root{
+  --font-display:"Big Shoulders Display",sans-serif;
+  --font-body:"Source Serif 4",Georgia,serif;
+  --font-mono:"IBM Plex Mono",monospace;
+
+  --bg:#f7f3ea;
+  --surface:#fffdf7;
+  --bg-deep:#25201a;
+  --bg-deep-2:#342c23;
+
+  --ink:#2b241d;
+  --ink-on-deep:#d6ccbe;
+  --muted:#776d61;
+  --muted-on-deep:#a89b8b;
+  --line:#e0d7c6;
+
+  --accent:#8a4b1f;
+  --accent-dark:#6a3915;
+  --accent-ink:#ffffff;
+  --accent-soft:#f4e7d9;
+
+  --header:#7a4420;
+  --header-ink:#ffffff;
+  --header-sub:#eed9c4;
+
+  --warn:#a32d16;
+  --warn-soft:#fae9e4;
+
+  --highlight:#c9962b;
+  --highlight-ink:#332405;
+  --highlight-soft:#faf2dd;
+  --highlight-on-deep:#eec77a;
+
+  --class-1:#8a4b1f;
+  --class-2:#f1e9db;
+  --class-3:#6b7a3a;
+  --class-4:#c9962b;
+  --class-5:#9c5f7a;
+  --class-6:#5f6b70;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-body),Georgia,"Times New Roman",serif;line-height:1.6;
+  -webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:var(--font-display),"Helvetica Neue",Arial,sans-serif;
+  letter-spacing:.01em;line-height:1.12;margin:0 0 .4em}
+h1{font-size:clamp(1.9rem,5vw,3rem)}h2{font-size:clamp(1.4rem,3.4vw,2rem);margin-top:0}
+h3{font-size:1.12rem}
+.mono,.num,.sc,td.mono{font-family:var(--font-mono),ui-monospace,"SF Mono",Menlo,monospace;
+  font-size:.86em;font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+header.hero{background:var(--bg-deep);color:var(--ink-on-deep);padding:44px 0 38px;
+  border-bottom:5px solid var(--accent)}
+header.hero h1{color:#fff}
+header.hero p{color:var(--muted-on-deep);max-width:64ch;margin:.5em 0 0}
+.kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.kpi{background:var(--bg-deep-2);border:1px solid #4a4034;border-radius:8px;padding:9px 14px}
+.kpi b{display:block;font-family:var(--font-mono),monospace;font-size:1.3rem;color:var(--highlight-on-deep)}
+.kpi span{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted-on-deep)}
+nav.sticky{position:sticky;top:0;z-index:50;background:var(--surface);
+  border-bottom:1px solid var(--line);padding:9px 0;overflow-x:auto}
+nav.sticky .wrap{display:flex;gap:6px;white-space:nowrap}
+nav.sticky a{font-family:var(--font-mono),monospace;font-size:.78rem;text-decoration:none;
+  color:var(--muted);padding:6px 11px;border-radius:6px;border:1px solid transparent}
+nav.sticky a:hover{background:var(--accent-soft);color:var(--accent-dark);border-color:var(--line)}
+section{padding:46px 0;border-bottom:1px solid var(--line);scroll-margin-top:56px}
+.lede{font-size:1.08rem;max-width:72ch;color:var(--ink)}
+.muted{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.card h3{margin-top:0}
+.card.warn{border-left:5px solid var(--warn);background:var(--warn-soft)}
+.card.pick{border-left:5px solid var(--class-3)}
+.opts{margin:14px 0 0;padding:0;list-style:none}
+.opts li{padding:9px 0;border-top:1px dashed var(--line);font-size:.95rem}
+.opts li:first-child{border-top:0}
+.tag{display:inline-block;font-family:var(--font-mono),monospace;font-size:.68rem;
+  text-transform:uppercase;letter-spacing:.07em;padding:2px 7px;border-radius:4px;
+  background:var(--highlight-soft);color:var(--highlight-ink);border:1px solid var(--highlight);
+  vertical-align:2px;margin-left:6px}
+.tag.rec{background:#e7efe0;color:#33421f;border-color:var(--class-3)}
+.pinmap{width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.pinmap .grid{font-family:var(--font-mono),monospace;font-size:10px;fill:var(--muted)}
+.pinmap .lbl{font-family:var(--font-mono),monospace;font-size:11px;fill:var(--ink);paint-order:stroke;
+  stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.pin{cursor:pointer;transition:r .12s}
+.pin:hover{r:11}
+.pin.dim{opacity:.13}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.lg{display:flex;align-items:center;gap:7px;font-size:.8rem;font-family:var(--font-mono),monospace;
+  border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:5px 13px;cursor:pointer}
+.lg .dot{width:11px;height:11px;border-radius:50%}
+.lg[aria-pressed=false]{opacity:.4}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:20px 0 12px}
+.controls input[type=search]{font:inherit;font-size:.92rem;padding:9px 13px;border:1px solid var(--line);
+  border-radius:8px;background:var(--surface);color:var(--ink);min-width:210px}
+button.f{font-family:var(--font-mono),monospace;font-size:.78rem;padding:8px 13px;border-radius:8px;
+  border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+button.f[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent-dark)}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:940px;font-size:.9rem}
+th{background:var(--header);color:var(--header-ink);font-family:var(--font-display),sans-serif;
+  font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:11px 10px;
+  position:sticky;top:0;cursor:pointer;white-space:nowrap}
+th:hover{background:var(--accent-dark)}
+th::after{content:"";opacity:.5;margin-left:5px}
+th[data-dir=asc]::after{content:"^"}th[data-dir=desc]::after{content:"v"}
+td{padding:10px;border-top:1px solid var(--line);vertical-align:top}
+tr.hi td{background:var(--highlight-soft)}
+tr:hover td{background:var(--accent-soft)}
+.nm b{display:block;font-family:var(--font-display),sans-serif;font-size:1rem;font-weight:700}
+.nm .sub{display:block;color:var(--muted);font-size:.78rem;line-height:1.4;margin-top:2px;max-width:46ch}
+.chip{display:inline-block;font-family:var(--font-mono),monospace;font-size:.7rem;padding:3px 8px;
+  border-radius:20px;color:#fff;background:var(--c);white-space:nowrap}
+td.tw{color:var(--accent-dark);font-weight:600}
+td.nw{color:var(--muted)}
+td.sc{font-weight:700;font-size:1rem}
+a.mp{font-family:var(--font-mono),monospace;font-size:.74rem;text-decoration:none;color:var(--accent-dark);
+  border:1px solid var(--line);border-radius:6px;padding:4px 9px;display:inline-block}
+a.mp:hover{background:var(--accent);color:#fff}
+.count{font-family:var(--font-mono),monospace;font-size:.8rem;color:var(--muted);margin-left:auto}
+.loops{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-top:18px}
+.loop{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--c,var(--accent));
+  border-radius:10px;padding:16px}
+.loop a{color:var(--accent-dark);font-family:var(--font-mono),monospace;font-size:.8rem;word-break:break-all}
+.budget{width:100%;border-collapse:collapse;margin-top:16px;font-size:.92rem;min-width:0}
+.budget th{position:static;cursor:default}
+.budget td,.budget th{padding:9px 11px}
+details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-family:var(--font-mono),monospace;font-size:.8rem;color:var(--accent-dark)}
+footer{padding:34px 0 60px;color:var(--muted);font-size:.86rem}
+@media(max-width:640px){section{padding:32px 0}.nm .sub{display:none}}
+@media print{nav.sticky,.controls,.legend{display:none}section{page-break-inside:avoid}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+
+<header class="hero"><div class="wrap">
+<h1>Vermont, 1–4 October 2026</h1>
+<p>Plan review and open decisions. Every destination researched so far — scheduled and reserve —
+with what it costs, whether you have to walk, and what it is worth. Base: 1592 Center Rd, Hyde Park.</p>
+<div class="kpis">
+<div class="kpi"><b>51</b><span>destinations</span></div>
+<div class="kpi"><b>43</b><span>in the plan</span></div>
+<div class="kpi"><b>12</b><span>need a trail</span></div>
+<div class="kpi"><b>26</b><span>no walking</span></div>
+<div class="kpi"><b>17 km</b><span>on foot, 4 days</span></div>
+<div class="kpi"><b>4</b><span>decisions open</span></div>
+</div></div></header>
+
+<nav class="sticky"><div class="wrap">
+<a href="#decide">Decisions</a><a href="#map">Map</a><a href="#table">All destinations</a>
+<a href="#budget">Time budget</a><a href="#loops">Loop links</a><a href="#files">Files</a>
+</div></nav>
+
+<section id="decide"><div class="wrap">
+<h2>Four decisions to make</h2>
+<p class="lede">Everything else is settled. These four change the shape of the trip, and each one
+is a genuine trade rather than an obvious call.</p>
+<div class="grid2">
+
+<div class="card warn"><h3>1. Friday is overloaded</h3>
+<p>12 h 30 door to door, ~9 h on site, 9.7 km on foot. It carries the 3-hour hike
+<em>and</em> the gondola <em>and</em> the Notch.</p>
+<ul class="opts">
+<li><b>Cut the gondola</b> <span class="tag rec">recommended</span> — score 7, 90 min, $40–43,
+foliage queues. Frees the day without touching a 9 or a 10.</li>
+<li><b>Keep it, cut Emily's Bridge and Barnes Camp</b> — saves only 35 min. Doesn't really solve it.</li>
+<li><b>Keep everything</b> — accept a 13-hour day on the back of Thursday's 8.75-hour drive.</li>
+</ul></div>
+
+<div class="card pick"><h3>2. Mount Pisgah — how far up</h3>
+<p>Currently trimmed to <b>Pulpit Rock, 3.5 km / 274 m / 2 h</b>. The full hike is 7.1 km / 503 m / 3 h 45.</p>
+<ul class="opts">
+<li><b>Pulpit Rock only</b> <span class="tag rec">current</span> — the ledge 650 ft above the lake
+is the shot. The summit is treed and has no view.</li>
+<li><b>Full hike</b> — adds the North and West overlooks and the full-length lake panorama.
+<b>Costs Barr Hill</b>, which scores 9 for 1.1 km.</li>
+</ul></div>
+
+<div class="card"><h3>3. Saturday — Willoughby or the gaps</h3>
+<p>The Two Gaps day is currently the weather backup, triggered by the Sept 29 check.</p>
+<ul class="opts">
+<li><b>Willoughby stays primary</b> <span class="tag rec">current</span> — it holds the trip's only
+other 10, and the gaps day peaks at 9.</li>
+<li><b>Swap them</b> — a real choice, but you would be trading a 10 for a 9.</li>
+<li><b>Note:</b> the NEK Fall Foliage Festival runs Sept 27 – Oct 4 — Peacham Fri, Barnet Sat,
+Groton Sun. Wrong corner of the Kingdom, 1 h 15+ away, and it conflicts with Willoughby.</li>
+</ul></div>
+
+<div class="card"><h3>4. Sunday — bridges or the islands</h3>
+<p>Cold Hollow is dropped, so the Waterbury detour is gone either way.</p>
+<ul class="opts">
+<li><b>Covered-bridge route</b> <span class="tag rec">current</span> — five bridges plus Montgomery,
+on the road you were driving anyway, and it reaches the border ~30 min earlier.</li>
+<li><b>Lake Champlain Islands</b> — the islands peak exactly Oct 4, but +1 h 30–2 h puts you in the
+Sunday afternoon border queue. Home ~20:30.</li>
+</ul></div>
+
+</div>
+<details><summary>Two things to verify by phone before any of this is fixed</summary>
+<p><b>Warren highway dept 802-496-2709</b> — a full Lincoln Gap culvert replacement was scheduled
+for 2026 and neither town site posted a resolution. The road otherwise closes ~Oct 15, so the dates
+are fine.<br>
+<b>Mad River Glen 802-496-3551</b> — 2026 single chair foliage dates, only if the gaps day happens.
+Last chair loads 14:30.</p></details>
+</div></section>
+
+<section id="map"><div class="wrap">
+<h2>Every destination, mapped</h2>
+<p class="lede">Larger dots score 9 or 10. Tap any pin to open it in Google Maps. Use the legend to
+isolate a day.</p>
+<div class="legend" id="legend">
+<button class="lg" data-g="thu" aria-pressed="true"><span class="dot" style="background:var(--class-3)"></span>Thu</button>
+<button class="lg" data-g="fri" aria-pressed="true"><span class="dot" style="background:var(--class-1)"></span>Fri — Stowe</button>
+<button class="lg" data-g="sat" aria-pressed="true"><span class="dot" style="background:var(--class-4)"></span>Sat — Kingdom</button>
+<button class="lg" data-g="sun" aria-pressed="true"><span class="dot" style="background:var(--class-5)"></span>Sun — bridges</button>
+<button class="lg" data-g="backup" aria-pressed="true"><span class="dot" style="background:var(--class-6)"></span>Backup — gaps</button>
+<button class="lg" data-g="reserve" aria-pressed="true"><span class="dot" style="background:var(--muted)"></span>Reserve</button>
+</div>
+<svg viewBox="0 0 980 760" class="pinmap" role="img" aria-label="Map of all trip destinations">
+<rect width="980" height="760" fill="var(--surface)"/>
+<line x1="12" y1="0" x2="12" y2="760" stroke="var(--line)" stroke-width="1"/><text x="15" y="754" class="grid">-73.50</text>
+<line x1="154" y1="0" x2="154" y2="760" stroke="var(--line)" stroke-width="1"/><text x="157" y="754" class="grid">-73.25</text>
+<line x1="296" y1="0" x2="296" y2="760" stroke="var(--line)" stroke-width="1"/><text x="299" y="754" class="grid">-73.00</text>
+<line x1="439" y1="0" x2="439" y2="760" stroke="var(--line)" stroke-width="1"/><text x="442" y="754" class="grid">-72.75</text>
+<line x1="581" y1="0" x2="581" y2="760" stroke="var(--line)" stroke-width="1"/><text x="584" y="754" class="grid">-72.50</text>
+<line x1="724" y1="0" x2="724" y2="760" stroke="var(--line)" stroke-width="1"/><text x="727" y="754" class="grid">-72.25</text>
+<line x1="866" y1="0" x2="866" y2="760" stroke="var(--line)" stroke-width="1"/><text x="869" y="754" class="grid">-72.00</text>
+<line x1="0" y1="607" x2="980" y2="607" stroke="var(--line)" stroke-width="1"/><text x="4" y="603" class="grid">44.25</text>
+<line x1="0" y1="407" x2="980" y2="407" stroke="var(--line)" stroke-width="1"/><text x="4" y="403" class="grid">44.50</text>
+<line x1="0" y1="207" x2="980" y2="207" stroke="var(--line)" stroke-width="1"/><text x="4" y="203" class="grid">44.75</text>
+<line x1="0" y1="7" x2="980" y2="7" stroke="var(--line)" stroke-width="1"/><text x="4" y="3" class="grid">45.00</text>
+<line x1="820" y1="720" x2="892" y2="720" stroke="var(--ink)" stroke-width="3"/><text x="820" y="712" class="grid">10 km</text>
+<a href="https://maps.google.com/?q=44.97932,-73.1053" target="_blank" rel="noopener"><circle cx="236.5" cy="24.0" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="x"><title>Highgate Springs border crossing — ? — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.964558,-73.166283" target="_blank" rel="noopener"><circle cx="201.8" cy="35.8" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>P — Macs Bend Parking — Sun opt — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.9630979,-73.168301" target="_blank" rel="noopener"><circle cx="200.7" cy="36.9" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>Missisquoi NWR visitor centre — Sun opt — score 5</title></circle></a>
+<a href="https://maps.google.com/?q=44.9360212,-72.5079214" target="_blank" rel="noopener"><circle cx="576.7" cy="58.6" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Jay Peak tram — Reserve — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.9072383,-72.6556465" target="_blank" rel="noopener"><circle cx="492.6" cy="81.5" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>Longley Covered Bridge — Sun — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.9032472,-72.6397131" target="_blank" rel="noopener"><circle cx="501.6" cy="84.7" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>Fuller Covered Bridge — Sun — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.8996622,-72.6446362" target="_blank" rel="noopener"><circle cx="498.8" cy="87.6" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>Comstock Covered Bridge — Sun — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.86724,-72.65252" target="_blank" rel="noopener"><circle cx="494.4" cy="113.5" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="x"><title>Creamery Covered Bridge, Montgomery — ? — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.8585853,-72.6125419" target="_blank" rel="noopener"><circle cx="517.1" cy="120.4" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>Hutchins Covered Bridge — Sun — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.771335,-72.054463" target="_blank" rel="noopener"><circle cx="834.9" cy="190.1" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>P — North Beach lot — Sat — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.7711201,-72.0548723" target="_blank" rel="noopener"><circle cx="834.7" cy="190.3" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Lake Willoughby North Beach — Sat — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.748209,-72.0597399" target="_blank" rel="noopener"><circle cx="831.9" cy="208.6" r="8" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Lake Willoughby South Beach — Sat — score 10</title></circle></a>
+<text x="843" y="213" class="lbl">Lake Willoughby South Beach</text>
+<a href="https://maps.google.com/?q=44.7337105,-72.7372733" target="_blank" rel="noopener"><circle cx="446.1" cy="220.2" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Laraway Lookout trailhead — Reserve — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.7297412,-72.0306816" target="_blank" rel="noopener"><circle cx="848.4" cy="223.3" r="8" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Mount Pisgah South trailhead — Sat — score 9</title></circle></a>
+<text x="859" y="227" class="lbl">Mount Pisgah South trailhead</text>
+<a href="https://maps.google.com/?q=44.722515,-73.2931129" target="_blank" rel="noopener"><circle cx="129.6" cy="229.1" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Grand Isle (Champlain Islands) — Reserve — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.7207664,-72.0272121" target="_blank" rel="noopener"><circle cx="850.4" cy="230.5" r="8" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Pulpit Rock (Pisgah) — Sat — score 9</title></circle></a>
+<text x="861" y="235" class="lbl">Pulpit Rock</text>
+<a href="https://maps.google.com/?q=44.6552188,-72.7221615" target="_blank" rel="noopener"><circle cx="454.7" cy="282.9" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Prospect Rock, Johnson — Sat opt — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.65427,-72.38275" target="_blank" rel="noopener"><circle cx="648.0" cy="283.6" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>P — Common parking — Sat — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.6535578,-72.3827342" target="_blank" rel="noopener"><circle cx="648.0" cy="284.2" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Craftsbury Common — Sat — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.6510988,-72.8146024" target="_blank" rel="noopener"><circle cx="402.1" cy="286.2" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>Cambridge Junction / Poland Bridge — Sun — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.650638,-72.814207" target="_blank" rel="noopener"><circle cx="402.3" cy="286.5" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>P — Poland Bridge lot — Sun — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.64887,-72.88916" target="_blank" rel="noopener"><circle cx="359.6" cy="287.9" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="x"><title>Boyden Valley Winery — ? — score 5</title></circle></a>
+<a href="https://maps.google.com/?q=44.6457214,-72.8722716" target="_blank" rel="noopener"><circle cx="369.2" cy="290.4" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>Gates Farm Covered Bridge — Sun — score 5</title></circle></a>
+<a href="https://maps.google.com/?q=44.644491,-72.87635" target="_blank" rel="noopener"><circle cx="366.9" cy="291.4" r="5.5" fill="var(--class-5)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sun"><title>P — Nearest lot — Sun — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.6345579,-72.3718867" target="_blank" rel="noopener"><circle cx="654.2" cy="299.4" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Craftsbury General Store — Sat opt — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.60877,-72.287795" target="_blank" rel="noopener"><circle cx="702.0" cy="320.0" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>P — Barr Hill trailhead lot — Sat — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.6080645,-72.289919" target="_blank" rel="noopener"><circle cx="700.8" cy="320.5" r="8" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Barr Hill Natural Area — Sat — score 9</title></circle></a>
+<text x="712" y="325" class="lbl">Barr Hill Natural Area</text>
+<a href="https://maps.google.com/?q=44.601828,-72.5745682" target="_blank" rel="noopener"><circle cx="538.7" cy="325.5" r="5.5" fill="var(--ink)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="base"><title>Base — 1592 Center Rd, Hyde Park — Base — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.5885536,-72.6057439" target="_blank" rel="noopener"><circle cx="521.0" cy="336.1" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Ten Bends Beer, Hyde Park — Sat opt — score 5</title></circle></a>
+<a href="https://maps.google.com/?q=44.5727869,-72.5967606" target="_blank" rel="noopener"><circle cx="526.1" cy="348.7" r="5.5" fill="var(--class-3)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="thu"><title>Hannaford, Morrisville — Thu — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.556784,-72.79404" target="_blank" rel="noopener"><circle cx="413.8" cy="361.5" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>P — Notch top parking — Fri — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.5553,-72.79587" target="_blank" rel="noopener"><circle cx="412.7" cy="362.7" r="8" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Smugglers&#x27; Notch — Fri — score 10</title></circle></a>
+<text x="424" y="367" class="lbl">Smugglers&#x27; Notch</text>
+<a href="https://maps.google.com/?q=44.539655,-72.791161" target="_blank" rel="noopener"><circle cx="415.4" cy="375.2" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>P — Barnes Camp lot — Fri — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.5378709,-72.7884842" target="_blank" rel="noopener"><circle cx="416.9" cy="376.6" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Barnes Camp boardwalk — Fri — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.5375,-72.7908" target="_blank" rel="noopener"><circle cx="415.6" cy="376.9" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="x"><title>Mount Mansfield Auto Toll Road — ? — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.532889,-72.427605" target="_blank" rel="noopener"><circle cx="622.4" cy="380.6" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>P — Fisher Bridge pull-off — Sat — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.5323138,-72.4277306" target="_blank" rel="noopener"><circle cx="622.4" cy="381.0" r="5.5" fill="var(--class-4)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="sat"><title>Fisher Covered Railroad Bridge — Sat — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.5313055,-72.5488003" target="_blank" rel="noopener"><circle cx="553.4" cy="381.8" r="8" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Mount Elmore / Elmore State Park — Reserve — score 9</title></circle></a>
+<text x="564" y="386" class="lbl">Mount Elmore / Elmore State Park</text>
+<a href="https://maps.google.com/?q=44.530203,-72.785668" target="_blank" rel="noopener"><circle cx="418.5" cy="382.7" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>P — Mansfield base lot — Fri — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.52903,-72.78428" target="_blank" rel="noopener"><circle cx="419.3" cy="383.7" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Stowe Gondola SkyRide — Fri — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.518223,-72.769776" target="_blank" rel="noopener"><circle cx="427.6" cy="392.3" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>P — Bingham Falls Parking — Fri — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.5167269,-72.7660351" target="_blank" rel="noopener"><circle cx="429.7" cy="393.5" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Bingham Falls — Fri — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.485243,-72.627263" target="_blank" rel="noopener"><circle cx="508.7" cy="418.6" r="5.5" fill="var(--class-3)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="thu"><title>P — Moss Glen Falls lot — Thu — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.4823794,-72.6245046" target="_blank" rel="noopener"><circle cx="510.3" cy="420.9" r="5.5" fill="var(--class-3)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="thu"><title>Moss Glen Falls (Stowe) — Thu — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.4656857,-72.6843216" target="_blank" rel="noopener"><circle cx="476.2" cy="434.3" r="5.5" fill="var(--class-3)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="thu"><title>Raja Indian &amp; Nepali, Stowe — Thu/Fri/Sat — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.465681,-72.684581" target="_blank" rel="noopener"><circle cx="476.1" cy="434.3" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>P — Church lot — Fri — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.4656466,-72.6846447" target="_blank" rel="noopener"><circle cx="476.1" cy="434.3" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Stowe Community Church — Fri — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.4654369,-72.7451481" target="_blank" rel="noopener"><circle cx="441.6" cy="434.5" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>von Trapp Bierhall — Fri — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.4650363,-72.6786046" target="_blank" rel="noopener"><circle cx="479.5" cy="434.8" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Sunset Rock, Stowe — Fri — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.463912,-72.67677" target="_blank" rel="noopener"><circle cx="480.5" cy="435.7" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>P — Sunset St lot — Fri — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.4404009,-72.6798624" target="_blank" rel="noopener"><circle cx="478.8" cy="454.5" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Emily&#x27;s Bridge (Gold Brook) — Fri — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.43882,-72.66764" target="_blank" rel="noopener"><circle cx="485.7" cy="455.7" r="8" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Stowe Pinnacle trailhead — Fri — score 9</title></circle></a>
+<text x="497" y="460" class="lbl">Stowe Pinnacle trailhead</text>
+<a href="https://maps.google.com/?q=44.43779,-72.64712" target="_blank" rel="noopener"><circle cx="497.4" cy="456.5" r="5.5" fill="var(--class-1)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="fri"><title>Pinnacle Meadows overflow lot — Fri — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.3813667,-72.7197344" target="_blank" rel="noopener"><circle cx="456.1" cy="501.6" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>Cold Hollow Cider Mill — Backup only — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.3284703,-72.1703611" target="_blank" rel="noopener"><circle cx="768.9" cy="543.9" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Peacham village — Reserve — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.2966923,-72.0495301" target="_blank" rel="noopener"><circle cx="837.7" cy="569.3" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Barnet — Reserve — score 8</title></circle></a>
+<a href="https://maps.google.com/?q=44.2220019,-72.9270626" target="_blank" rel="noopener"><circle cx="338.0" cy="628.9" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Molly Stark Mountain — Reserve — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.211202,-72.931333" target="_blank" rel="noopener"><circle cx="335.6" cy="637.6" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>P — App Gap overlook lot — Backup — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.2110741,-72.9312953" target="_blank" rel="noopener"><circle cx="335.6" cy="637.7" r="8" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>Appalachian Gap overlook — Backup — score 9</title></circle></a>
+<text x="347" y="642" class="lbl">Appalachian Gap overlook</text>
+<a href="https://maps.google.com/?q=44.1975661,-72.9238018" target="_blank" rel="noopener"><circle cx="339.9" cy="648.4" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>Mad River Glen — Backup opt — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.189597,-72.824248" target="_blank" rel="noopener"><circle cx="396.6" cy="654.8" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="x"><title>P — Village lot — ? — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.18937,-72.8235" target="_blank" rel="noopener"><circle cx="397.0" cy="655.0" r="5.5" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="x"><title>Great Eddy Covered Bridge, Waitsfield — ? — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.1203955,-72.9361931" target="_blank" rel="noopener"><circle cx="332.8" cy="710.1" r="8" fill="var(--muted)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="reserve"><title>Mount Abraham — Reserve — score 10</title></circle></a>
+<text x="344" y="714" class="lbl">Mount Abraham</text>
+<a href="https://maps.google.com/?q=44.1145085,-72.8560776" target="_blank" rel="noopener"><circle cx="378.4" cy="714.8" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>Warren Store / Warren village — Backup — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.0955039,-72.8643766" target="_blank" rel="noopener"><circle cx="373.7" cy="730.0" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>Warren Falls — Backup — score 7</title></circle></a>
+<a href="https://maps.google.com/?q=44.0950338,-72.9290382" target="_blank" rel="noopener"><circle cx="336.9" cy="730.4" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>Lincoln Gap (top of pass) — Backup — score 6</title></circle></a>
+<a href="https://maps.google.com/?q=44.094898,-72.928308" target="_blank" rel="noopener"><circle cx="337.3" cy="730.5" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>P — Lincoln Gap Long Trail Trailhead Parking — Backup — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.094732,-72.927931" target="_blank" rel="noopener"><circle cx="337.5" cy="730.6" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>P — Sunset Ledge Trail Head Parking — Backup — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.093967,-72.863858" target="_blank" rel="noopener"><circle cx="374.0" cy="731.2" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>P — Warren Falls pull-off — Backup — score -</title></circle></a>
+<a href="https://maps.google.com/?q=44.0879167,-72.9275429" target="_blank" rel="noopener"><circle cx="337.7" cy="736.0" r="5.5" fill="var(--class-6)" stroke="var(--surface)" stroke-width="2" class="pin" data-g="backup"><title>Sunset Ledge trailhead — Backup — score 8</title></circle></a>
+</svg>
+<p class="muted" style="font-size:.84rem;margin-top:10px">Coordinates geocoded from OpenStreetMap.
+<b>Smugglers' Notch is corrected</b> — every geocoder returns the ski resort in Jeffersonville,
+3.5 km away on the wrong side; this uses the actual pass saddle at 44.5553, −72.7959.
+Highgate Springs and the Mansfield toll road are approximate and marked as such in the table.</p>
+</div></section>
+
+<section id="table"><div class="wrap">
+<h2>All 51 destinations</h2>
+<p class="lede">Click a column heading to sort. <b>Trail</b> tells you whether you leave the car park:
+<span class="mono">No</span> is pure sightseeing, <span class="mono">Yes</span> means you walk to the view.
+Distances are round trip.</p>
+<div class="controls">
+<input type="search" id="q" placeholder="Search name or note..." aria-label="Search destinations">
+<button class="f" data-w="1" aria-pressed="false">Trail only</button>
+<button class="f" data-w="0" aria-pressed="false">No walking only</button>
+<button class="f" data-s="9" aria-pressed="false">Score 9+</button>
+<button class="f" data-s="8" aria-pressed="false">Score 8+</button>
+<button class="f" data-hide="reserve" aria-pressed="false">Hide reserve</button>
+<span class="count" id="count"></span>
+</div>
+<div class="tblwrap"><table id="t"><thead><tr>
+<th data-t="n">#</th><th data-t="s">Location</th><th data-t="s">Day</th><th data-t="s">Type</th>
+<th data-t="s">Trail</th><th data-t="v">km RT</th><th data-t="s">Ascent</th><th data-t="s">Time</th>
+<th data-t="v">Score</th><th>Map</th></tr></thead>
+<tbody>
+<tr data-g="base" data-w="0" data-s="0" class=""><td class="num">1</td><td class="nm"><b>Base — 1592 Center Rd, Hyde Park</b><span class="sub">Hotel</span></td><td><span class="chip" style="--c:var(--ink)">Base</span></td><td>Logistics</td><td class="nw">-</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.601828,-72.5745682" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="thu" data-w="0" data-s="0" class=""><td class="num">2</td><td class="nm"><b>Hannaford, Morrisville</b><span class="sub">Thu picnic shop</span></td><td><span class="chip" style="--c:var(--class-3)">Thu</span></td><td>Logistics</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">30 m</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.5727869,-72.5967606" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="thu" data-w="1" data-s="8" class=""><td class="num">3</td><td class="nm"><b>Moss Glen Falls (Stowe)</b><span class="sub">Rim spur steep/eroded</span></td><td><span class="chip" style="--c:var(--class-3)">Thu</span></td><td>Waterfall</td><td class="tw">Yes</td><td class="mono" data-v="0.8">0.8</td><td class="mono">17</td><td class="mono">60 m</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.4823794,-72.6245046" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="thu" data-w="0" data-s="0" class=""><td class="num">4</td><td class="nm"><b>P — Moss Glen Falls lot</b><span class="sub">Parking for Moss Glen Falls (Stowe). Small gravel lot, 380 m from the falls</span></td><td><span class="chip" style="--c:var(--class-3)">Thu</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.485243,-72.627263" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="thu" data-w="0" data-s="0" class=""><td class="num">5</td><td class="nm"><b>Raja Indian &amp; Nepali, Stowe</b><span class="sub">Closed Wed AND Sun</span></td><td><span class="chip" style="--c:var(--class-3)">Thu/Fri/Sat</span></td><td>Food</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">75 m</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.4656857,-72.6843216" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="thu" data-w="0" data-s="0" class=""><td class="num">6</td><td class="nm"><b>Le Tandoor, Brossard QC</b><span class="sub">Only good veg meal on the drive</span></td><td><span class="chip" style="--c:var(--class-3)">Thu/Sun</span></td><td>Food</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">60 m</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=45.4732652,-73.4747521" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="1" data-s="6" class=""><td class="num">7</td><td class="nm"><b>Barnes Camp boardwalk</b><span class="sub">Wetland + beaver dam</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Boardwalk</td><td class="tw">Yes</td><td class="mono" data-v="1.1">1.1</td><td class="mono">flat</td><td class="mono">20 m</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.5378709,-72.7884842" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="1" data-s="8" class=""><td class="num">8</td><td class="nm"><b>Bingham Falls</b><span class="sub">STEEP WET STAIRS - grip matters</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Waterfall</td><td class="tw">Yes</td><td class="mono" data-v="0.8">0.8</td><td class="mono">46 down</td><td class="mono">45 m</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.5167269,-72.7660351" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="6" class=""><td class="num">9</td><td class="nm"><b>Emily&#x27;s Bridge (Gold Brook)</b><span class="sub">1844; the flex item</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Covered bridge</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">15 m</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.4404009,-72.6798624" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="0" class=""><td class="num">10</td><td class="nm"><b>P — Barnes Camp lot</b><span class="sub">Parking for Barnes Camp boardwalk. 290 m from the visitor centre</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.539655,-72.791161" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="0" class=""><td class="num">11</td><td class="nm"><b>P — Bingham Falls Parking</b><span class="sub">Parking for Bingham Falls. Named lot on VT-108, 340 m from the gorge. ~15 cars</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.518223,-72.769776" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="0" class=""><td class="num">12</td><td class="nm"><b>P — Church lot</b><span class="sub">Parking for Stowe Community Church. Free, public, 6 m. The village anchor lot</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.465681,-72.684581" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="0" class=""><td class="num">13</td><td class="nm"><b>P — Mansfield base lot</b><span class="sub">Parking for Stowe Gondola SkyRide. 170 m. NB Lower Barnes Lot nearby is access=private</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.530203,-72.785668" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="0" class=""><td class="num">14</td><td class="nm"><b>P — Notch top parking</b><span class="sub">Parking for Smugglers&#x27; Notch. 219 m from the saddle, free. Smallest lot of the week</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.556784,-72.79404" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="0" class=""><td class="num">15</td><td class="nm"><b>P — Sunset St lot</b><span class="sub">Parking for Sunset Rock, Stowe. CAPACITY 10, free, unpaved. Or park behind the Community Church</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.463912,-72.67677" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="0" class=""><td class="num">16</td><td class="nm"><b>Pinnacle Meadows overflow lot</b><span class="sub">OVERFLOW, Stowe Land Trust, Pinnacle Rd. 1.6 km EAST of the trailhead by road | Stowe Land Trust. User-supplied pin</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.43779,-72.64712" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="10" class="hi"><td class="num">17</td><td class="nm"><b>Smugglers&#x27; Notch</b><span class="sub">Top of pass. No vehicles over 40 ft | corrected: OSM saddle, 675 m. Nominatim returned the RESORT in Jeffersonville, 3.5 km away on the wrong side</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Scenic drive</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">60 m</td><td class="mono sc" data-v="10">10</td><td><a class="mp" href="https://maps.google.com/?q=44.5553,-72.79587" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="1" data-s="8" class=""><td class="num">18</td><td class="nm"><b>Stowe Community Church</b><span class="sub">Village + viewpoint</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Village</td><td class="tw">Stroll</td><td class="mono" data-v="1.5">1.5</td><td class="mono">flat</td><td class="mono">45 m</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.4656466,-72.6846447" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="7" class=""><td class="num">19</td><td class="nm"><b>Stowe Gondola SkyRide</b><span class="sub">10:00-16:30, $40-43, book online | Mansfield Base Lodge</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Lift</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">90 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.52903,-72.78428" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="1" data-s="9" class="hi"><td class="num">20</td><td class="nm"><b>Stowe Pinnacle trailhead</b><span class="sub">MAIN LOT - holds ~9 cars, fills before 09:00 on weekdays | corrected from user-supplied Google pin - Nominatim was ~970 m off, on the trail line not the lot</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="5.5">5.5</td><td class="mono">457</td><td class="mono">3 h</td><td class="mono sc" data-v="9">9</td><td><a class="mp" href="https://maps.google.com/?q=44.43882,-72.66764" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="1" data-s="8" class=""><td class="num">21</td><td class="nm"><b>Sunset Rock, Stowe</b><span class="sub">10 min walk from Sunset St</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Viewpoint</td><td class="tw">Yes</td><td class="mono" data-v="0.8">0.8</td><td class="mono">40</td><td class="mono">45 m</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.4650363,-72.6786046" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="fri" data-w="0" data-s="7" class=""><td class="num">22</td><td class="nm"><b>von Trapp Bierhall</b><span class="sub">11:30-21:00, Resy. Thin on veg</span></td><td><span class="chip" style="--c:var(--class-1)">Fri</span></td><td>Food</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">90 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.4654369,-72.7451481" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="1" data-s="9" class="hi"><td class="num">23</td><td class="nm"><b>Barr Hill Natural Area</b><span class="sub">VIEW IS AT THE TRAILHEAD FIELD</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Viewpoint</td><td class="tw">Yes</td><td class="mono" data-v="1.1">1.1</td><td class="mono">27</td><td class="mono">50 m</td><td class="mono sc" data-v="9">9</td><td><a class="mp" href="https://maps.google.com/?q=44.6080645,-72.289919" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="1" data-s="8" class=""><td class="num">24</td><td class="nm"><b>Craftsbury Common</b><span class="sub">White-fenced hilltop green</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Village</td><td class="tw">Stroll</td><td class="mono" data-v="1.0">1.0</td><td class="mono">flat</td><td class="mono">45 m</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.6535578,-72.3827342" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="7" class=""><td class="num">25</td><td class="nm"><b>Fisher Covered Railroad Bridge</b><span class="sub">Last covered RR bridge used in the US</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Covered bridge</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">15 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.5323138,-72.4277306" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="7" class=""><td class="num">26</td><td class="nm"><b>Lake Willoughby North Beach</b><span class="sub">Quick look from the north end</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Viewpoint</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">15 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.7711201,-72.0548723" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="10" class="hi"><td class="num">27</td><td class="nm"><b>Lake Willoughby South Beach</b><span class="sub">Picnic. Cold in October</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Viewpoint</td><td class="nw">No</td><td class="mono" data-v="0.3">0.3</td><td class="mono">flat</td><td class="mono">60 m</td><td class="mono sc" data-v="10">10</td><td><a class="mp" href="https://maps.google.com/?q=44.748209,-72.0597399" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="1" data-s="9" class="hi"><td class="num">28</td><td class="nm"><b>Mount Pisgah South trailhead</b><span class="sub">TRIMMED to Pulpit Rock</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="3.5">3.5</td><td class="mono">274</td><td class="mono">2 h</td><td class="mono sc" data-v="9">9</td><td><a class="mp" href="https://maps.google.com/?q=44.7297412,-72.0306816" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="0" class=""><td class="num">29</td><td class="nm"><b>P — Barr Hill trailhead lot</b><span class="sub">Parking for Barr Hill Natural Area. 185 m. The view is from the field right here</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.60877,-72.287795" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="0" class=""><td class="num">30</td><td class="nm"><b>P — Common parking</b><span class="sub">Parking for Craftsbury Common. 79 m from the green</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.65427,-72.38275" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="0" class=""><td class="num">31</td><td class="nm"><b>P — Fisher Bridge pull-off</b><span class="sub">Parking for Fisher Covered Railroad Bridge. 64 m, free</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.532889,-72.427605" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="0" class=""><td class="num">32</td><td class="nm"><b>P — North Beach lot</b><span class="sub">Parking for Lake Willoughby North Beach. 40 m from the beach</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.771335,-72.054463" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="1" data-s="9" class="hi"><td class="num">33</td><td class="nm"><b>Pulpit Rock (Pisgah)</b><span class="sub">Ledge 650 ft above the lake</span></td><td><span class="chip" style="--c:var(--class-4)">Sat</span></td><td>Viewpoint</td><td class="tw">Yes</td><td class="mono" data-v="3.5">3.5</td><td class="mono">274</td><td class="mono">-</td><td class="mono sc" data-v="9">9</td><td><a class="mp" href="https://maps.google.com/?q=44.7207664,-72.0272121" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="7" class=""><td class="num">34</td><td class="nm"><b>Craftsbury General Store</b><span class="sub">OPTIONAL. Sat 7:00-21:00. Only staffed food in the Kingdom - skip it and there is nothing until Morrisville</span></td><td><span class="chip" style="--c:var(--class-4)">Sat opt</span></td><td>Food</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">30 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.6345579,-72.3718867" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="1" data-s="7" class=""><td class="num">35</td><td class="nm"><b>Prospect Rock, Johnson</b><span class="sub">Suspension bridge over the Lamoille</span></td><td><span class="chip" style="--c:var(--class-4)">Sat opt</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="4.2">4.2</td><td class="mono">140</td><td class="mono">70 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.6552188,-72.7221615" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sat" data-w="0" data-s="5" class=""><td class="num">36</td><td class="nm"><b>Ten Bends Beer, Hyde Park</b><span class="sub">At the doorstep</span></td><td><span class="chip" style="--c:var(--class-4)">Sat opt</span></td><td>Food</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">60 m</td><td class="mono sc" data-v="5">5</td><td><a class="mp" href="https://maps.google.com/?q=44.5885536,-72.6057439" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="1" data-s="7" class=""><td class="num">37</td><td class="nm"><b>Cambridge Junction / Poland Bridge</b><span class="sub">1887, 2nd-largest single span in VT</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Covered bridge</td><td class="tw">Walk-through</td><td class="mono" data-v="0.3">0.3</td><td class="mono">flat</td><td class="mono">20 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.6510988,-72.8146024" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="7" class=""><td class="num">38</td><td class="nm"><b>Comstock Covered Bridge</b><span class="sub">1883. Off VT-118 N</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Covered bridge</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">10 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.8996622,-72.6446362" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="7" class=""><td class="num">39</td><td class="nm"><b>Fuller Covered Bridge</b><span class="sub">1890. South Richford Rd</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Covered bridge</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">10 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.9032472,-72.6397131" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="5" class=""><td class="num">40</td><td class="nm"><b>Gates Farm Covered Bridge</b><span class="sub">1897, last Burr arch of the era</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Covered bridge</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">10 m</td><td class="mono sc" data-v="5">5</td><td><a class="mp" href="https://maps.google.com/?q=44.6457214,-72.8722716" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="6" class=""><td class="num">41</td><td class="nm"><b>Hutchins Covered Bridge</b><span class="sub">1883. DIRT after 50 yards</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Covered bridge</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">15 m</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.8585853,-72.6125419" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="7" class=""><td class="num">42</td><td class="nm"><b>Longley Covered Bridge</b><span class="sub">1863. VT-118 + Longley Bridge Rd</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Covered bridge</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">10 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.9072383,-72.6556465" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="0" class=""><td class="num">43</td><td class="nm"><b>P — Nearest lot</b><span class="sub">Parking for Gates Farm Covered Bridge. 350 m — otherwise roadside on VT-15</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.644491,-72.87635" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="0" class=""><td class="num">44</td><td class="nm"><b>P — Poland Bridge lot</b><span class="sub">Parking for Cambridge Junction / Poland Bridge. 60 m</span></td><td><span class="chip" style="--c:var(--class-5)">Sun</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.650638,-72.814207" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="1" data-s="5" class=""><td class="num">45</td><td class="nm"><b>Missisquoi NWR visitor centre</b><span class="sub">6,729 acres, peak migration</span></td><td><span class="chip" style="--c:var(--class-5)">Sun opt</span></td><td>Nature</td><td class="tw">Yes</td><td class="mono" data-v="2.0">2.0</td><td class="mono">flat</td><td class="mono">20 m</td><td class="mono sc" data-v="5">5</td><td><a class="mp" href="https://maps.google.com/?q=44.9630979,-73.168301" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="sun" data-w="0" data-s="0" class=""><td class="num">46</td><td class="nm"><b>P — Macs Bend Parking</b><span class="sub">Parking for Missisquoi NWR visitor centre. 227 m</span></td><td><span class="chip" style="--c:var(--class-5)">Sun opt</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.964558,-73.166283" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="9" class="hi"><td class="num">47</td><td class="nm"><b>Appalachian Gap overlook</b><span class="sub">DRIVE-UP. 20 m from the car</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Viewpoint</td><td class="nw">No</td><td class="mono" data-v="0.02">0.02</td><td class="mono">-</td><td class="mono">45 m</td><td class="mono sc" data-v="9">9</td><td><a class="mp" href="https://maps.google.com/?q=44.2110741,-72.9312953" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="6" class=""><td class="num">48</td><td class="nm"><b>Lincoln Gap (top of pass)</b><span class="sub">WOODED - no view from the car</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Scenic drive</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">20 m</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.0950338,-72.9290382" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="0" class=""><td class="num">49</td><td class="nm"><b>P — App Gap overlook lot</b><span class="sub">Parking for Appalachian Gap overlook. 14 m, asphalt, public. The drive-up view</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.211202,-72.931333" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="0" class=""><td class="num">50</td><td class="nm"><b>P — Lincoln Gap Long Trail Trailhead Parking</b><span class="sub">Parking for Lincoln Gap (top of pass). NAMED. The two gap lots are 94 m apart</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.094898,-72.928308" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="0" class=""><td class="num">51</td><td class="nm"><b>P — Sunset Ledge Trail Head Parking</b><span class="sub">Parking for Sunset Ledge trailhead. NAMED lot. LT South starts here</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.094732,-72.927931" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="0" class=""><td class="num">52</td><td class="nm"><b>P — Warren Falls pull-off</b><span class="sub">Parking for Warren Falls. 175 m</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.093967,-72.863858" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="1" data-s="8" class=""><td class="num">53</td><td class="nm"><b>Sunset Ledge trailhead</b><span class="sub">LT SOUTH. West to Champlain/Adirondacks</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="3.5">3.5</td><td class="mono">119</td><td class="mono">75 m</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.0879167,-72.9275429" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="1" data-s="7" class=""><td class="num">54</td><td class="nm"><b>Warren Falls</b><span class="sub">Carved-granite gorge</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Waterfall</td><td class="tw">Yes</td><td class="mono" data-v="0.3">0.3</td><td class="mono">20</td><td class="mono">45 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.0955039,-72.8643766" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="1" data-s="7" class=""><td class="num">55</td><td class="nm"><b>Warren Store / Warren village</b><span class="sub">Village + covered bridge</span></td><td><span class="chip" style="--c:var(--class-6)">Backup</span></td><td>Village</td><td class="tw">Stroll</td><td class="mono" data-v="0.8">0.8</td><td class="mono">flat</td><td class="mono">-</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.1145085,-72.8560776" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="7" class=""><td class="num">56</td><td class="nm"><b>Mad River Glen</b><span class="sub">$20. LAST CHAIR LOADS 14:30</span></td><td><span class="chip" style="--c:var(--class-6)">Backup opt</span></td><td>Lift</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">60 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.1975661,-72.9238018" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="backup" data-w="0" data-s="6" class=""><td class="num">57</td><td class="nm"><b>Cold Hollow Cider Mill</b><span class="sub">BACKUP DAY ONLY - dropped from Sunday</span></td><td><span class="chip" style="--c:var(--class-6)">Backup only</span></td><td>Food</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">60 m</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.3813667,-72.7197344" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="0" data-s="8" class=""><td class="num">58</td><td class="nm"><b>Barnet</b><span class="sub">RESERVE. NEK festival Sat Oct 3</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Village</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">2 h</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.2966923,-72.0495301" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="0" data-s="8" class=""><td class="num">59</td><td class="nm"><b>Grand Isle (Champlain Islands)</b><span class="sub">RESERVE. Sunday alternative route</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Scenic drive</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">2 h</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.722515,-73.2931129" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="0" data-s="8" class=""><td class="num">60</td><td class="nm"><b>Jay Peak tram</b><span class="sub">RESERVE. $15, weekends to Oct 11</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Lift</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">2 h</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.9360212,-72.5079214" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="1" data-s="6" class=""><td class="num">61</td><td class="nm"><b>Laraway Lookout trailhead</b><span class="sub">RESERVE</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="5.8">5.8</td><td class="mono">424</td><td class="mono">3 h</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.7337105,-72.7372733" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="1" data-s="6" class=""><td class="num">62</td><td class="nm"><b>Molly Stark Mountain</b><span class="sub">RESERVE. Molly Stark&#x27;s Balcony</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="4.0">4.0</td><td class="mono">314</td><td class="mono">2 h</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.2220019,-72.9270626" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="1" data-s="10" class="hi"><td class="num">63</td><td class="nm"><b>Mount Abraham</b><span class="sub">RESERVE. Above treeline, 4,006 ft</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="8.4">8.4</td><td class="mono">762</td><td class="mono">4 h</td><td class="mono sc" data-v="10">10</td><td><a class="mp" href="https://maps.google.com/?q=44.1203955,-72.9361931" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="1" data-s="9" class="hi"><td class="num">64</td><td class="nm"><b>Mount Elmore / Elmore State Park</b><span class="sub">RESERVE. GATE OPENS 10:00</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Hike</td><td class="tw">Yes</td><td class="mono" data-v="6.0">6.0-6.8</td><td class="mono">448</td><td class="mono">3 h</td><td class="mono sc" data-v="9">9</td><td><a class="mp" href="https://maps.google.com/?q=44.5313055,-72.5488003" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="reserve" data-w="0" data-s="8" class=""><td class="num">65</td><td class="nm"><b>Peacham village</b><span class="sub">RESERVE. NEK festival Fri Oct 2</span></td><td><span class="chip" style="--c:var(--muted)">Reserve</span></td><td>Village</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">2 h</td><td class="mono sc" data-v="8">8</td><td><a class="mp" href="https://maps.google.com/?q=44.3284703,-72.1703611" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="x" data-w="0" data-s="5" class=""><td class="num">66</td><td class="nm"><b>Boyden Valley Winery</b><span class="sub">VERIFY SUNDAY HOURS | 64 VT Route 104</span></td><td><span class="chip" style="--c:var(--muted)">?</span></td><td>?</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">30 m</td><td class="mono sc" data-v="5">5</td><td><a class="mp" href="https://maps.google.com/?q=44.64887,-72.88916" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="x" data-w="0" data-s="6" class=""><td class="num">67</td><td class="nm"><b>Creamery Covered Bridge, Montgomery</b><span class="sub">1883. WEST HILL RD not Hill West Rd | Creamery Bridge Rd, West Hill</span></td><td><span class="chip" style="--c:var(--muted)">?</span></td><td>?</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">15 m</td><td class="mono sc" data-v="6">6</td><td><a class="mp" href="https://maps.google.com/?q=44.86724,-72.65252" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="x" data-w="0" data-s="7" class=""><td class="num">68</td><td class="nm"><b>Great Eddy Covered Bridge, Waitsfield</b><span class="sub">1833, oldest still in service | Bridge Street</span></td><td><span class="chip" style="--c:var(--muted)">?</span></td><td>?</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">45 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.18937,-72.8235" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="x" data-w="0" data-s="0" class=""><td class="num">69</td><td class="nm"><b>Highgate Springs border crossing</b><span class="sub">24 h port | APPROX - this is the village; the I-89 port of entry is ~3 km north at the 45th parallel</span></td><td><span class="chip" style="--c:var(--muted)">?</span></td><td>?</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">15-30 m</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.97932,-73.1053" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="x" data-w="0" data-s="7" class=""><td class="num">70</td><td class="nm"><b>Mount Mansfield Auto Toll Road</b><span class="sub">$37/veh + $14/pax, 9:30-16:30 | APPROX - entrance off Mountain Rd/VT-108</span></td><td><span class="chip" style="--c:var(--muted)">?</span></td><td>?</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">90 m</td><td class="mono sc" data-v="7">7</td><td><a class="mp" href="https://maps.google.com/?q=44.5375,-72.7908" target="_blank" rel="noopener">map</a></td></tr>
+<tr data-g="x" data-w="0" data-s="0" class=""><td class="num">71</td><td class="nm"><b>P — Village lot</b><span class="sub">Parking for Great Eddy Covered Bridge, Waitsfield. 64 m, free, public</span></td><td><span class="chip" style="--c:var(--muted)">?</span></td><td>Parking</td><td class="nw">No</td><td class="mono" data-v="0">-</td><td class="mono">-</td><td class="mono">-</td><td class="mono sc" data-v="0">-</td><td><a class="mp" href="https://maps.google.com/?q=44.189597,-72.824248" target="_blank" rel="noopener">map</a></td></tr>
+</tbody></table></div>
+<p class="muted" style="font-size:.84rem;margin-top:12px"><b>Scoring:</b> 10 = unmissable and cheap ·
+9 = unmissable but costs effort · 8 = strong · 7 = worth the stop, first to cut ·
+6 = only because it's on the road · 5 = filler.</p>
+</div></section>
+
+<section id="budget"><div class="wrap">
+<h2>Time budget by day</h2>
+<table class="budget">
+<thead><tr><th>Day</th><th>Driving</th><th>On site</th><th>On foot</th><th>Ascent</th><th>Door to door</th></tr></thead>
+<tbody>
+<tr><td>Thu 1 — arrival evening</td><td class="mono">55 m</td><td class="mono">2 h 45</td><td class="mono">0.8 km</td><td class="mono">17 m</td><td class="mono">after 6 h 40 driving</td></tr>
+<tr class="hi"><td><b>Fri 2 — Stowe</b></td><td class="mono">2 h 05</td><td class="mono">~9 h</td><td class="mono"><b>9.7 km</b></td><td class="mono"><b>~500 m</b></td><td class="mono"><b>12 h 30</b></td></tr>
+<tr><td>Sat 3 — Northeast Kingdom</td><td class="mono">3 h 02</td><td class="mono">4 h 30</td><td class="mono">5.9 km</td><td class="mono">~300 m</td><td class="mono">9 h 30, home 15:45</td></tr>
+<tr><td>Sun 4 — bridges home</td><td class="mono">2 h 20</td><td class="mono">2 h 20</td><td class="mono">0.5 km</td><td class="mono">—</td><td class="mono">+ drive to Whitby</td></tr>
+<tr><td class="muted">Backup — Two Gaps</td><td class="mono">3 h 20</td><td class="mono">4 h 30</td><td class="mono">4.9 km</td><td class="mono">~140 m</td><td class="mono">~9 h 30</td></tr>
+</tbody></table>
+<p class="lede" style="margin-top:18px"><b>~17 km on foot across four days, and Friday carries 57% of it.</b>
+That is the right shape — one committed day, one moderate, two easy — but it is also why Friday is
+decision one. Only one stop on the whole trip exceeds 5 km.</p>
+</div></section>
+
+<section id="loops"><div class="wrap">
+<h2>Loop links</h2>
+<div class="loops">
+<div class="loop" style="--c:var(--class-1)"><h3>Friday — Stowe</h3>
+<a href="https://www.google.com/maps/dir/1592+Center+Rd,+Hyde+Park,+VT/Stowe+Pinnacle+Trailhead,+Upper+Hollow+Rd,+Stowe,+VT/Emily's+Covered+Bridge,+Covered+Bridge+Rd,+Stowe,+VT/Stowe+Community+Church,+Main+St,+Stowe,+VT/Stowe+Mountain+Resort,+Stowe,+VT/Bingham+Falls+Trailhead,+Mountain+Rd,+Stowe,+VT/Smugglers'+Notch+State+Park,+Stowe,+VT/1592+Center+Rd,+Hyde+Park,+VT/" target="_blank" rel="noopener">Open loop directions</a></div>
+<div class="loop" style="--c:var(--class-4)"><h3>Saturday — Northeast Kingdom</h3>
+<a href="https://www.google.com/maps/dir/1592+Center+Rd,+Hyde+Park,+VT/Mount+Pisgah+South+Trailhead,+VT-5A,+Westmore,+VT/Lake+Willoughby+South+Beach,+VT-5A,+Westmore,+VT/Craftsbury+Common,+VT/1521+Barr+Hill+Rd,+Greensboro,+VT/Fisher+Covered+Railroad+Bridge,+Wolcott,+VT/1592+Center+Rd,+Hyde+Park,+VT/" target="_blank" rel="noopener">Open loop directions</a></div>
+<div class="loop" style="--c:var(--class-5)"><h3>Sunday — covered bridges home</h3>
+<a href="https://www.google.com/maps/dir/1592+Center+Rd,+Hyde+Park,+VT/Cambridge+Junction+Covered+Bridge,+Cambridge,+VT/Gates+Farm+Covered+Bridge,+Cambridge,+VT/Longley+Covered+Bridge,+Montgomery,+VT/Comstock+Covered+Bridge,+Montgomery,+VT/Fuller+Covered+Bridge,+Montgomery,+VT/Enosburg+Falls,+VT/Swanton,+VT/Highgate+Springs,+VT/" target="_blank" rel="noopener">Open route directions</a></div>
+<div class="loop" style="--c:var(--class-6)"><h3>Backup — Two Gaps</h3>
+<a href="https://www.google.com/maps/dir/1592+Center+Rd,+Hyde+Park,+VT/Great+Eddy+Covered+Bridge,+Waitsfield,+VT/Warren+Falls,+Warren,+VT/Lincoln+Gap+Road,+Warren,+VT/Appalachian+Gap,+VT-17,+Buels+Gore,+VT/Waitsfield,+VT/1592+Center+Rd,+Hyde+Park,+VT/" target="_blank" rel="noopener">Open loop directions</a></div>
+</div></div></section>
+
+<section id="files"><div class="wrap">
+<h2>Files</h2>
+<p class="lede"><b>vermont-pins.kml</b> — import into Google My Maps (Create New Map, Import) for a
+real pin map, foldered by day, with scores and trail data in every pin description.
+<b>vermont-pins.csv</b> is the same data if you prefer CSV import.</p>
+<p class="muted"><b>PLAN.md</b> the full itinerary · <b>MASTER-TABLE.md</b> this table in markdown ·
+<b>MASTER-MAP-AND-SCORES.md</b> time budgets and scoring rationale ·
+<b>OPTIONS-viewpoints.md</b> drive-vs-hike analysis ·
+<b>research-gaps-and-viewpoints.md</b> sources for everything above.</p>
+</div></section>
+
+<footer><div class="wrap">
+Generated 7 September 2026 from <span class="mono">pins-final.json</span>. Regenerate with
+<span class="mono">python3 build_review.py &amp;&amp; python3 assemble_review.py</span>.
+Scores are judgements, not facts — argue with them.
+</div></footer>
+
+<script>
+(function(){
+var tb=document.querySelector('#t tbody'),rows=[].slice.call(tb.rows),
+    q=document.getElementById('q'),cnt=document.getElementById('count'),
+    fs=[].slice.call(document.querySelectorAll('button.f')),
+    lg=[].slice.call(document.querySelectorAll('.lg')),
+    pins=[].slice.call(document.querySelectorAll('.pin'));
+function on(b){return b.getAttribute('aria-pressed')==='true';}
+function apply(){
+  var term=(q.value||'').toLowerCase(),
+      w=fs.filter(function(b){return on(b)&&b.dataset.w!==undefined;}).map(function(b){return b.dataset.w;}),
+      s=fs.filter(function(b){return on(b)&&b.dataset.s;}).map(function(b){return +b.dataset.s;}),
+      hide=fs.filter(function(b){return on(b)&&b.dataset.hide;}).map(function(b){return b.dataset.hide;}),
+      minS=s.length?Math.max.apply(null,s):0,n=0;
+  rows.forEach(function(r){
+    var ok=true;
+    if(term&&r.textContent.toLowerCase().indexOf(term)<0)ok=false;
+    if(w.length&&w.indexOf(r.dataset.w)<0)ok=false;
+    if(minS&&+r.dataset.s<minS)ok=false;
+    if(hide.indexOf(r.dataset.g)>=0)ok=false;
+    r.style.display=ok?'':'none';if(ok)n++;
+  });
+  cnt.textContent=n+' of '+rows.length+' shown';
+}
+q.addEventListener('input',apply);
+fs.forEach(function(b){b.addEventListener('click',function(){
+  if(b.dataset.w!==undefined)fs.forEach(function(o){if(o!==b&&o.dataset.w!==undefined)o.setAttribute('aria-pressed','false');});
+  if(b.dataset.s)fs.forEach(function(o){if(o!==b&&o.dataset.s)o.setAttribute('aria-pressed','false');});
+  b.setAttribute('aria-pressed',on(b)?'false':'true');apply();});});
+lg.forEach(function(b){b.addEventListener('click',function(){
+  b.setAttribute('aria-pressed',on(b)?'false':'true');
+  var off=lg.filter(function(x){return !on(x);}).map(function(x){return x.dataset.g;});
+  pins.forEach(function(p){p.classList.toggle('dim',off.indexOf(p.dataset.g)>=0);});});});
+[].slice.call(document.querySelectorAll('#t th[data-t]')).forEach(function(th,i){
+  th.addEventListener('click',function(){
+    var dir=th.getAttribute('data-dir')==='asc'?'desc':'asc',t=th.dataset.t;
+    [].slice.call(th.parentNode.children).forEach(function(o){o.removeAttribute('data-dir');});
+    th.setAttribute('data-dir',dir);
+    rows.sort(function(a,b){
+      var x=a.cells[i],y=b.cells[i],va,vb;
+      if(t==='v'){va=parseFloat(x.dataset.v!==undefined?x.dataset.v:x.textContent)||0;
+                  vb=parseFloat(y.dataset.v!==undefined?y.dataset.v:y.textContent)||0;}
+      else if(t==='n'){va=+x.textContent;vb=+y.textContent;}
+      else{va=x.textContent.trim().toLowerCase();vb=y.textContent.trim().toLowerCase();}
+      return (va<vb?-1:va>vb?1:0)*(dir==='asc'?1:-1);});
+    rows.forEach(function(r){tb.appendChild(r);});});});
+apply();
+})();
+</script>
+</body></html>

@@ -1,0 +1,94 @@
+{
+ "trip": "norway-summer",
+ "places": [
+  {
+   "place": "Lofoten",
+   "days": "",
+   "blurb": "Arctic archipelago of steep peaks, red fishing cabins and white beaches.",
+   "queries": [
+    "Lofoten Reine",
+    "Lofoten Henningsvær",
+    "Lofoten Hamnøy"
+   ]
+  },
+  {
+   "place": "Andenes and Vesterålen",
+   "days": "",
+   "blurb": "The northern tip of Andøya, a whale-watching base.",
+   "queries": [
+    "Andenes Norway",
+    "Andøya lighthouse Andenes",
+    "Vesterålen Norway"
+   ]
+  },
+  {
+   "place": "Senja",
+   "days": "",
+   "blurb": "Norway's second largest island, with sharp peaks rising straight from the sea.",
+   "queries": [
+    "Senja Segla Hesten",
+    "Senja Norway Tungeneset",
+    "Senja Norway Ersfjordstranda"
+   ]
+  },
+  {
+   "place": "Ålesund",
+   "days": "",
+   "blurb": "Art Nouveau harbour town rebuilt after the 1904 fire.",
+   "queries": [
+    "Ålesund Art Nouveau",
+    "Ålesund Aksla viewpoint"
+   ]
+  },
+  {
+   "place": "Åndalsnes and Romsdalen",
+   "days": "",
+   "blurb": "Valley under the Trollveggen and the Romsdalseggen ridge.",
+   "queries": [
+    "Romsdalseggen",
+    "Åndalsnes Romsdalen",
+    "Trollstigen"
+   ]
+  },
+  {
+   "place": "Geiranger",
+   "days": "",
+   "blurb": "UNESCO fjord with waterfalls and abandoned mountain farms.",
+   "queries": [
+    "Geirangerfjord",
+    "Geiranger Seven Sisters",
+    "Geiranger Flydalsjuvet"
+   ]
+  },
+  {
+   "place": "Loen and Nordfjord",
+   "days": "",
+   "blurb": "Fjord village below the Loen Skylift and the Jostedalsbreen glacier arms.",
+   "queries": [
+    "Loen Skylift Norway",
+    "Briksdalsbreen",
+    "Nordfjord Loen"
+   ]
+  },
+  {
+   "place": "Aurland and Sognefjord",
+   "days": "",
+   "blurb": "Narrow fjord arm with the Stegastein viewpoint.",
+   "queries": [
+    "Aurlandsfjord Stegastein",
+    "Flåm Norway fjord",
+    "Nærøyfjord"
+   ]
+  },
+  {
+   "place": "Bergen",
+   "days": "",
+   "blurb": "Hanseatic harbour with the Bryggen wharf and the Fløibanen funicular.",
+   "queries": [
+    "Bergen Bryggen",
+    "Bergen Fløyen view",
+    "Bergen Norway harbour"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="trip-date" content="2026-09-29">
+<meta name="trip-dates" content="29 Sep – 1 Oct 2026">
+<meta name="trip-duration" content="3 days">
+<meta name="trip-region" content="Québec">
+<title>Québec — 29 September to 1 October 2026</title>
+<meta name="description" content="The Québec leg: Whitby to Île d'Orléans, two nights on the St. Lawrence, a first look at Old Québec, and the drive south into Vermont. Where to stay, where to walk, and what is actually open in late September.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Lora:wght@400;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* theme: maritime */
+/* maritime — walled city, river light, fleur-de-lis blue and copper roof.
+   Source palette: Québec (Sep 2026).
+   Good for: historic cities, coastal/river towns, cold-water shorelines. */
+/* @fonts: Fraunces:opsz,wght@9..144,500;9..144,700|Lora:wght@400;600|DM+Mono:wght@400;500 */
+:root{
+  --font-display:"Fraunces",serif;
+  --font-body:"Lora",Georgia,serif;
+  --font-mono:"DM Mono",monospace;
+
+  --bg:#f7f4ee;
+  --surface:#fffdf9;
+  --bg-deep:#1d2328;
+  --bg-deep-2:#2b333a;
+
+  --ink:#252b31;
+  --ink-on-deep:#cdd4da;
+  --muted:#6b7076;
+  --muted-on-deep:#94a0a8;
+  --line:#ded9cf;
+
+  --accent:#1e4d8c;
+  --accent-dark:#163a6a;
+  --accent-ink:#ffffff;
+  --accent-soft:#e4ebf5;
+
+  --header:#3f7a6c;
+  --header-ink:#ffffff;
+  --header-sub:#cfe2dc;
+
+  --warn:#b4472c;
+  --warn-soft:#fbeee9;
+
+  --highlight:#b8862c;
+  --highlight-ink:#2f2205;
+  --highlight-soft:#f7f0dd;
+  --highlight-on-deep:#e8c46e;
+
+  --class-1:#1e4d8c;
+  --class-2:#efeade;
+  --class-3:#3f7a6c;
+  --class-4:#b8862c;
+  --class-5:#7a5b8c;
+  --class-6:#5d7f96;
+}
+
+
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Lora",Georgia,serif;font-size:17.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.sign,.btn,.tag{font-family:"Fraunces",Georgia,serif}
+.time,.stats dt,.stats dd,.dfacts,.when,.gate,nav a span,figcaption,.kicker,.eyebrow,.numstrip span,.days,.km{font-family:"DM Mono",ui-monospace,monospace}
+a{color:var(--accent)}img{max-width:100%;display:block}
+.hero{position:relative;min-height:76vh;display:flex;align-items:flex-end;background:var(--bg-deep);overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
+.hero .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,35,40,.55) 0%,rgba(29,35,40,.12) 36%,rgba(29,35,40,.94) 100%)}
+.hwrap{position:relative;max-width:1080px;margin:0 auto;padding:0 22px 52px;width:100%;color:#fff}
+.eyebrow{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#e6bfa8;margin:0 0 14px}
+.hero h1{font-size:clamp(2.5rem,7vw,4.9rem);line-height:1;font-weight:700;letter-spacing:-.02em;margin:0 0 10px}
+.hero h1 em{font-style:italic;color:#e6bfa8}
+.sub{font-size:clamp(1.02rem,2.2vw,1.24rem);max-width:47ch;color:#eae7e1;margin:0 0 26px}
+.hstats{display:flex;flex-wrap:wrap;gap:26px;font-family:"DM Mono",monospace;font-size:12.5px;color:#c9ccd0}
+.hstats b{display:block;font-size:21px;color:#fff;font-weight:500}
+.credit{position:absolute;right:12px;bottom:6px;font-family:"DM Mono",monospace;font-size:10px;color:rgba(255,255,255,.5)}.credit a{color:inherit}
+nav{position:sticky;top:0;z-index:60;background:rgba(247,244,238,.96);backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+.nwrap{max-width:1080px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 10px}
+nav a{flex:0 0 auto;padding:10px 13px;text-decoration:none;color:var(--muted);text-align:center;border-bottom:3px solid transparent;font-family:"Fraunces",serif;font-size:15px}
+nav a span{display:block;font-size:9.5px;letter-spacing:.05em;color:var(--muted)}
+nav a.on{border-bottom-color:var(--warn);color:var(--warn)}
+main{max-width:1080px;margin:0 auto;padding:0 22px}
+section.pane{padding:50px 0;border-bottom:1px solid var(--line)}
+.pane h2{font-size:clamp(1.55rem,3.7vw,2.2rem);letter-spacing:-.02em;margin:0 0 8px;font-weight:700}
+.kicker{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--warn);margin:0 0 12px}
+.prose{max-width:66ch}.prose p{margin:0 0 14px}
+.callout{border-left:4px solid var(--warn);background:var(--surface);padding:16px 20px;margin:20px 0;border-radius:0 6px 6px 0}
+.callout h3{margin:0 0 6px;font-size:1.05rem}
+.callout.good{border-left-color:var(--header)}.callout.info{border-left-color:var(--accent)}
+.legend{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px}
+.legend li{display:flex;gap:12px;align-items:baseline;font-size:.93rem;color:var(--muted)}
+.gate{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;color:#fff;white-space:nowrap;font-weight:500}
+.g-road{background:var(--muted)}.g-water{background:var(--accent)}.g-stone{background:var(--bg-deep)}
+.g-harvest{background:var(--highlight)}.g-border{background:var(--warn)}
+.introwide{margin:24px 0 6px;border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover}
+.introwide figcaption{position:absolute;right:0;bottom:0;background:rgba(29,35,40,.76);color:#fff;font-size:9px;padding:3px 8px}
+.introwide figcaption a{color:#e6bfa8;text-decoration:none}
+.numstrip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:26px 0 6px;padding:18px 0;border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep)}
+.numstrip b{display:block;font-family:"Fraunces",serif;font-weight:700;font-size:1.8rem;line-height:1;color:var(--accent)}
+.numstrip span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;margin:22px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.area figure{margin:0;position:relative}.area img{width:100%;height:150px;object-fit:cover}
+.area figcaption{position:absolute;left:0;bottom:0;background:rgba(29,35,40,.76);color:#fff;font-size:8px;padding:2px 6px}
+.area figcaption a{color:#e6bfa8;text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{font-size:1.06rem;margin:0 0 5px;line-height:1.18}
+.area .days{font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#fff;background:var(--bg-deep);border-radius:3px;padding:2px 7px;display:inline-block;margin-bottom:7px}
+.area p{margin:0;font-size:.9rem;color:var(--muted)}
+.know{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:11px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.95rem}
+.know li b{font-family:"Fraunces",serif;font-size:1.2rem;color:var(--warn)}
+/* stays */
+.stays{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin:24px 0 0}
+.stay{background:var(--surface);border:1px solid var(--line);border-radius:9px;overflow:hidden;display:flex;flex-direction:column}
+.stay.pick{border:2px solid var(--header)}
+.stay figure{margin:0;position:relative}.stay img{width:100%;height:180px;object-fit:cover}
+.stay figcaption{position:absolute;left:0;bottom:0;background:rgba(29,35,40,.76);color:#fff;font-size:8px;padding:2px 6px}
+.stay figcaption a{color:#e6bfa8;text-decoration:none}
+.stay .sb{padding:16px 18px;display:flex;flex-direction:column;flex:1}
+.stay .rank{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:#fff;background:var(--header);padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:8px;align-self:flex-start}
+.stay .rank.alt{background:var(--muted)}.stay .rank.no{background:var(--warn)}
+.stay h3{margin:0 0 3px;font-size:1.14rem;line-height:1.2}
+.stay .loc{font-family:"DM Mono",monospace;font-size:10.5px;color:var(--muted);margin:0 0 9px}
+.stay p{margin:0 0 12px;font-size:.92rem;color:#3d444b;flex:1}
+.stay dl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px;padding:11px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stay dt{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0;font-family:"DM Mono",monospace}
+.stay dd{margin:2px 0 0;font-size:12.5px;font-family:"DM Mono",monospace}
+/* days */
+section.day{padding-top:46px;padding-bottom:10px;scroll-margin-top:62px;border-top:1px solid var(--line)}
+.dhead{display:grid;grid-template-columns:132px 1fr;gap:26px;align-items:start;margin-bottom:24px}
+.sign{background:var(--bg-deep);color:#fff;border-radius:6px;padding:15px 10px;text-align:center;position:sticky;top:74px}
+.sign .signn{display:block;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;opacity:.65}
+.sign .signd{display:block;font-size:19px;font-weight:700;margin-top:3px;font-family:"Fraunces",serif}
+.s-road{background:var(--muted)}.s-water{background:var(--accent)}.s-stone{background:var(--bg-deep)}
+.s-harvest{background:var(--highlight)}.s-border{background:var(--warn)}
+.dmeta h2{font-size:clamp(1.42rem,3.4vw,2rem);margin:0 0 8px;letter-spacing:-.02em;font-weight:700}
+.lede{margin:0 0 14px;color:#3d444b;max-width:62ch}
+.dfacts{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;padding:0;margin:0 0 14px;font-size:11.5px;color:var(--muted)}
+.dfacts b{color:var(--ink);font-weight:400;margin-right:5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:grid;grid-template-columns:295px 1fr;margin:0 0 18px}
+.card figure{margin:0;position:relative;min-height:230px;overflow:hidden}
+.card figure img{width:100%;height:100%;object-fit:cover}
+.card figcaption{position:absolute;left:0;bottom:0;background:rgba(29,35,40,.75);color:#fff;font-size:8.5px;padding:2px 7px}
+.card figcaption a{color:#fff;text-decoration:none}
+.cbody{padding:20px 22px}
+.chead{display:flex;align-items:center;gap:9px;margin-bottom:6px;flex-wrap:wrap}
+.time{font-size:11.5px;font-weight:500;background:var(--bg-deep);color:#fff;padding:3px 9px;border-radius:3px}
+.km{font-size:10px;color:var(--muted);letter-spacing:.05em}
+.tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;font-weight:700}
+.t-unmissable{background:#f4ddd6;color:#8e3520}.t-hidden{background:#d9eae5;color:#255f52}
+.t-added{background:#f2e6cd;color:#7d5c15}.t-optional,.t-easy,.t-evening{background:#e6e7e4;color:#4a5158}
+.cbody h3{margin:0 0 8px;font-size:1.16rem;letter-spacing:-.01em}
+.cbody p{margin:0 0 14px;color:#3d444b}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats dt{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
+.stats dd{margin:2px 0 0;font-size:12.5px;font-weight:500}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-block;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;text-decoration:none;padding:7px 13px;border-radius:4px;border:1px solid var(--accent);color:var(--accent);background:#fff;font-family:"DM Mono",monospace}
+.btn:hover{background:var(--accent);color:#fff}.btn-map{background:var(--accent);color:#fff}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+details p{margin:10px 0 0;font-size:.93rem;color:#4a5158}
+.mapwrap{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:6px 0 8px;background:#eae7e0}
+.mapwrap iframe{width:100%;height:300px;border:0;display:block}
+.cklist{list-style:none;padding:0;margin:16px 0 0;columns:2;column-gap:34px}
+.cklist li{break-inside:avoid;margin:0 0 9px}
+.cklist label{display:flex;gap:9px;align-items:baseline;font-size:.93rem;cursor:pointer}
+.cklist input{margin:0;accent-color:var(--header);flex:0 0 auto;transform:translateY(2px)}
+.cklist .when{font-family:"DM Mono",monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--muted);padding:2px 7px;border-radius:3px;white-space:nowrap}
+.cklist input:checked+.when{background:var(--header)}
+.cklist label:has(input:checked){opacity:.45;text-decoration:line-through}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:18px}
+.twocol h3{font-size:1.05rem;margin:0 0 8px}
+.twocol ul{margin:0;padding-left:18px;font-size:.94rem}.twocol li{margin-bottom:7px}
+footer{background:var(--bg-deep);color:#b7bcc1;padding:40px 22px 54px;font-size:.89rem}
+.fwrap{max-width:1080px;margin:0 auto}
+footer h3{color:#fff;font-size:1rem;margin:0 0 8px}footer a{color:#e6bfa8}
+@media(max-width:820px){body{font-size:16.5px}.dhead{grid-template-columns:1fr;gap:14px}
+ .sign{position:static;display:flex;gap:10px;justify-content:center;align-items:baseline;padding:9px}
+ .card{grid-template-columns:1fr}.card figure{min-height:200px;max-height:230px}
+ .stats{grid-template-columns:repeat(2,1fr)}.cklist{columns:1}.twocol{grid-template-columns:1fr;gap:16px}
+ .numstrip{grid-template-columns:repeat(3,1fr);gap:14px}.area img{height:130px}.hero{min-height:66vh}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+@media print{nav,.mapwrap,.hero img,.hero .grad{display:none}body{background:#fff;font-size:11pt}
+ .hero{min-height:auto;background:#fff}.hwrap{color:#000;padding:0}.hero h1,.sub,.hstats{color:#000}
+ .card,.stay{grid-template-columns:1fr;break-inside:avoid}.card figure,.stay figure{display:none}
+ details{display:block}details p{display:block!important}section.day{break-before:page}}
+
+/* home link back to the hub dashboard */
+nav a.home{color:var(--accent);font-weight:600;border-right:1px solid var(--line);margin-right:6px}
+nav a.home:hover{color:var(--accent)}
+
+/* adventure section: closed/unverified tag + fine print */
+.tag.t-shut{background:color-mix(in srgb, var(--warn) 14%, transparent);color:var(--warn);border:1px solid color-mix(in srgb, var(--warn) 38%, transparent)}
+.card .fine{margin-top:10px;font-size:.82rem;color:var(--warn)}
+#adventure .prose ul{margin:8px 0 0 18px}
+#adventure .prose li{margin-bottom:9px}
+#adventure .prose h3{margin-bottom:6px}
+</style></head>
+<body data-slug="quebec-sept-2026" data-ck-legacy="qc26-">
+<header class="hero">
+  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Autumn%20in%20Quebec%20City%20%28in%20autumn%2001%29.jpg?width=1800" alt="Old Québec in autumn">
+  <div class="grad"></div>
+  <div class="hwrap">
+    <p class="eyebrow">Tuesday 29 September — Thursday 1 October 2026 · two nights · the prologue</p>
+    <h1>Two nights on the <em>St. Lawrence</em></h1>
+    <p class="sub">Whitby to Île d'Orléans, a first look at the only walled city north of Mexico, and the road south into Vermont. Deliberately unhurried — one long drive, one slow day, one waterfall on the way out.</p>
+    <div class="hstats">
+      <div><b id="cd">—</b>until departure</div>
+      <div><b>1,117</b>km to Hyde Park</div>
+      <div><b>2</b>nights, one base</div>
+      <div><b>18:30</b>sunset on arrival</div>
+    </div>
+  </div>
+  <span class="credit"><a href="https://commons.wikimedia.org/wiki/File:Autumn_in_Quebec_City_%28in_autumn_01%29.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></span>
+</header>
+<nav><div class="nwrap" id="nav">
+  <a class="home" href="/">&#8592; All plans<span>dashboard</span></a>
+  <a href="#about">Intro<span>what &amp; why</span></a>
+  <a href="#stays">Stays<span>where to sleep</span></a>
+  <a href="#adventure">Adventure<span>what is open</span></a>
+  <a href="#d1">Tue 29<span>the drive</span></a>
+  <a href="#d2">Wed 30<span>island &amp; city</span></a>
+  <a href="#d3">Thu 1<span>falls &amp; south</span></a>
+  <a href="#kit">Kit<span>booking · closed</span></a>
+</div></nav>
+<main>
+<section class="pane" id="about">
+  <p class="kicker">Before you go</p>
+  <h2>What you are actually going to see</h2>
+  <div class="prose">
+    <p>Québec City is where France landed and stayed. Champlain founded it in 1608 at the narrowest point of the St. Lawrence — <i>kébec</i> is an Algonquin word meaning where the river narrows — on a headland that could be defended. Four centuries later it is still <b>the only city north of Mexico with its defensive walls intact</b>, which is why UNESCO listed it in 1985 as an almost complete fortified colonial town.</p>
+    <p>The thing that makes it unlike anywhere else in North America is that it is <b>built in two storeys</b>. The Upper Town sits on the cliff at Cap Diamant behind the ramparts; the Lower Town is squeezed onto the strip of shore below, where the wharves were. Sixty vertical metres separate them, crossed by a stairway built in 1635, a funicular running at 45 degrees, and a handful of very steep lanes. Nothing about it reads as Canadian, and that is the point.</p>
+    <p>Around it: an island in the river that has been farmed since the 1600s, a waterfall taller than Niagara at the edge of the suburbs, and behind all of it the Laurentian plateau, cut by a glacial trench 550 metres deep. You are here at the front edge of peak foliage — Tourisme Québec puts the region's mid-point in the last week of September and its peak in the first week of October.</p>
+  </div>
+  <figure class="introwide"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Quebec%20-%20QC%20-%20Blick%20auf%20die%20Altstadt2.jpg?width=1600" alt="Old Québec seen from across the St. Lawrence"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Quebec_-_QC_-_Blick_auf_die_Altstadt2.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></figcaption></figure>
+  <div class="numstrip">
+    <div><b>2</b><span>nights</span></div><div><b>754</b><span>km, Whitby–Québec</span></div>
+    <div><b>363</b><span>km on to Vermont</span></div><div><b>15°C</b><span>day, 5°C night</span></div>
+    <div><b>11h50</b><span>daylight</span></div><div><b>1608</b><span>founded</span></div>
+  </div>
+  <div class="areas"><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%8Ele%20d%27Orl%C3%A9ans%20009.jpg?width=1100" alt="Île d&#x27;Orléans"><figcaption><a href="https://commons.wikimedia.org/wiki/File:%C3%8Ele_d%27Orl%C3%A9ans_009.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Your base</span><h3>Île d'Orléans</h3><p>An island 34 km long in the middle of the St. Lawrence, ringed by a road built in 1744, with six villages, orchards and cider houses. Fifteen minutes from the city and a different century.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rue%20du%20Petit-Champlain%20in%20Quebec%20City%2C%20a%20pedestrian%20shopping%20street.jpg?width=1100" alt="Old Québec"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Rue_du_Petit-Champlain_in_Quebec_City%2C_a_pedestrian_shopping_street.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Wednesday</span><h3>Old Québec</h3><p>The only city north of Mexico that still has its walls. UNESCO-listed since 1985 for being an almost complete fortified colonial town, in two tiers joined by stairs and a funicular.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montmorency%20waterfall%2C%20Qu%C3%A9bec%2C%20Qu%C3%A9bec.jpg?width=1100" alt="The Beaupré coast"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Montmorency_waterfall%2C_Qu%C3%A9bec%2C_Qu%C3%A9bec.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">Thursday</span><h3>The Beaupré coast</h3><p>Montmorency Falls, thirty metres taller than Niagara, then a shore road running east under the cliff to a basilica and a canyon with three suspension bridges.</p></div></article><article class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Panoramic%20view%20of%20Jacques-Cartier%20National%20Park%20from%20the%20Wolves%20peak%20%28Les%20Loups%29%2C%20Quebec%2C%20Canada.jpg?width=1100" alt="Jacques-Cartier"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Jacques-Cartier_National_Park_from_the_Wolves_peak_%28Les_Loups%29%2C_Quebec%2C_Canada.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure><div class="ab"><span class="days">If you want mountains</span><h3>Jacques-Cartier</h3><p>A glacial trench over 550 m deep, thirty minutes north. The alternative Wednesday for anyone who would rather walk a valley than a city.</p></div></article></div>
+  <ul class="know">
+    <li><b>1</b><span><b>You are twelve days before Canadian Thanksgiving, and that is the sweet spot.</b> Thanksgiving on 12 October is Québec's biggest leaf-peeping surge and the hard season-end for a lot of operators — several close on the 11th or 12th. Arriving on a Tuesday before it means everything still runs and the crowds have not come.</span></li>
+    <li><b>2</b><span><b>But late September has already closed the set pieces.</b> The Citadelle's changing of the guard ended 30 August. Artillery Park and the Dauphine Redoubt closed 7 September. Notre-Dame-des-Victoires shuts its interior to visitors after August. The Musée du Fort is closed indefinitely. What you lose in ceremony you gain in hotel rates 15–30&#37; below summer.</span></li>
+    <li><b>3</b><span><b>Two things could undo the shoulder-season assumption.</b> A materials-science convention occupies the city across all three of your days, tightening downtown hotels; and late September is peak cruise season, with five ships calling on the 26th. A single large call refills Petit-Champlain for a day.</span></li>
+    <li><b>4</b><span><b>Sunset is 18:30 and it is dark by seven.</b> That shapes everything — Tuesday is dinner and sleep, Wednesday's evening walk starts at six, and there is no such thing as a late-afternoon excursion here in October.</span></li>
+    <li><b>5</b><span><b>Bring cash and expect French first.</b> The funicular takes no cards at all. Menus and signage are French-first by law, though tourist-facing staff are commonly bilingual — opening with <i>bonjour</i> and then switching to English is the local courtesy. Tip 15–20&#37; on the pre-tax total; terminals often suggest a figure calculated on the post-tax amount, which over-tips by about 15&#37;.</span></li>
+  </ul>
+</section>
+<section class="pane" id="stays">
+  <p class="kicker">Where to sleep</p>
+  <h2>Six options, one recommendation</h2>
+  <div class="prose">
+    <p>You asked for countryside rather than city, ideally near water. The island delivers that better than anywhere else within reach — you are fifteen minutes from Old Québec but sleeping among farms with the river outside the window. Every property below was checked as trading in August 2026.</p>
+  </div>
+  <div class="stays"><article class="stay pick"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%89glise%20Sainte-P%C3%A9tronille%20%28%C3%8Ele%20d%27Orl%C3%A9ans%29.jpg?width=1100" alt="Auberge La Goéliche"><figcaption><a href="https://commons.wikimedia.org/wiki/File:%C3%89glise_Sainte-P%C3%A9tronille_%28%C3%8Ele_d%27Orl%C3%A9ans%29.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure>
+<div class="sb"><span class="rank ">The pick</span><h3>Auberge La Goéliche</h3><p class="loc">Sainte-Pétronille, Île d&#x27;Orléans · 15 min to Old Québec</p><p>The only property that ticks every box at once. It stands right on the water at the western tip of the island, and <b>every one of its nineteen rooms faces the St. Lawrence</b> — you look back across the channel at the Québec City skyline with Montmorency Falls off to the left. Sixteen rooms plus two apartments, so it is an inn rather than a resort. The glass-walled dining room and terrace run <b>May to October</b>, which means a 5 PM arrival ends with dinner and a sunset rather than a hunt for food.</p>
+<dl><div><dt>Rate band</dt><dd>$89–$273</dd></div><div><dt>Rooms</dt><dd>19</dd></div><div><dt>Parking</dt><dd>Free + EV</dd></div><div><dt>Thursday cost</dt><dd>+25–35 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://www.goeliche.ca/en" target="_blank" rel="noopener">Website</a><a class="btn btn-map" href="https://maps.google.com/?q=Auberge+La+Goeliche%2C+22+rue+du+Quai%2C+Sainte-Petronille%2C+QC" target="_blank" rel="noopener">Map</a><a class="btn" href="https://tourisme.iledorleans.com/en/businesses/auberge-la-goeliche-accommodation/" target="_blank" rel="noopener">Island tourism</a></div>
+<details><summary>The fine print</summary><p>Restaurant daily 11:00–22:00 with the kitchen running to 19:30, closed Tuesday evenings — worth checking, since you arrive on a Tuesday. Weekend brunch 11:00–14:00. Seasonal outdoor pool, lift, free Wi-Fi, no pets. Ten minutes from Montmorency Falls, five from the chocolaterie.</p></details></div></article><article class="stay"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dining%20room%20at%20the%20inn%20Dans%20les%20bras%20de%20Morph%C3%A9e%2C%20located%20on%20%C3%8Ele%20d%27Orl%C3%A9ans.jpg?width=1100" alt="Dans les bras de Morphée"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Dining_room_at_the_inn_Dans_les_bras_de_Morph%C3%A9e%2C_located_on_%C3%8Ele_d%27Orl%C3%A9ans.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure>
+<div class="sb"><span class="rank alt">If you want a farmhouse</span><h3>Dans les bras de Morphée</h3><p class="loc">Saint-Jean, Île d&#x27;Orléans · overlooking the river</p><p>Four rooms, a three-course breakfast cooked from historical New France recipes, a spa on site, and actual sheep, goats, ducks and chickens in the yard. Provincial tourism award winner three years running and rated five suns. This is the version for people who would rather stay in someone's beautiful house than a hotel.</p>
+<dl><div><dt>Rate band</dt><dd>$158–$198</dd></div><div><dt>Rooms</dt><dd>4</dd></div><div><dt>Breakfast</dt><dd>Included, 3-course</dd></div><div><dt>Dinner</dt><dd>None on site</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://danslesbrasdemorphee.com/en/" target="_blank" rel="noopener">Website</a><a class="btn btn-map" href="https://maps.google.com/?q=Dans+les+bras+de+Morphee%2C+5474+chemin+Royal%2C+Saint-Jean-de-l%27Ile-d%27Orleans%2C+QC" target="_blank" rel="noopener">Map</a></div>
+<details><summary>The fine print</summary><p>The catch is no dinner service, so both evenings need a plan — and the island's restaurant options thin out midweek in late September. If you take this one, book dinner somewhere before you arrive. The photograph here is the inn's own dining room.</p></details></div></article><article class="stay"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pow%20Wow%20in%20Wendake%202016.jpg?width=1100" alt="Hôtel-Musée Premières Nations"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Pow_Wow_in_Wendake_2016.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure>
+<div class="sb"><span class="rank alt">If the island is full</span><h3>Hôtel-Musée Premières Nations</h3><p class="loc">Wendake · 15 km from downtown, on the Akiawenrahk&#x27; river</p><p>The Huron-Wendat Nation's own hotel, seventy-nine rooms facing the river, with a museum attached and the reconstructed Ekionkiestha' longhouse on the grounds. The restaurant, <b>La Traite</b>, cooks First Nations terroir — game, boreal herbs, native berries — under chef Marc de Passorio, and it is Michelin-listed. The traditional site next door is open daily to 31 October.</p>
+<dl><div><dt>From</dt><dd>~$135 pp</dd></div><div><dt>Rooms</dt><dd>79</dd></div><div><dt>Parking</dt><dd>Free outdoor</dd></div><div><dt>Thursday cost</dt><dd>+5–10 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://hotelpremieresnations.ca/en/" target="_blank" rel="noopener">Website</a><a class="btn btn-map" href="https://maps.google.com/?q=Hotel-Musee+Premieres+Nations%2C+5+Place+de+la+Rencontre%2C+Wendake%2C+QC" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.huron-wendat.qc.ca/en/" target="_blank" rel="noopener">Traditional site</a></div>
+<details><summary>The fine print</summary><p>The island has perhaps twenty-five beds in total across three properties, so it fills. This is the best fallback and arguably a more interesting stay — it is also the one option that adds something you cannot get anywhere else on this trip. Guided tours of the traditional site are by reservation only, roughly 10:30, 12:30 and 14:30.</p></details></div></article><article class="stay"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vieux%20couvent%20de%20Chateau-Richer.jpg?width=1100" alt="Auberge Baker"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Vieux_couvent_de_Chateau-Richer.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure>
+<div class="sb"><span class="rank alt">Historic alternative</span><h3>Auberge Baker</h3><p class="loc">Château-Richer, Côte-de-Beaupré · 25–35 min to Old Québec</p><p>An 1840 ancestral stone house that has been an inn since 1935, with five rooms in the old building plus two cottages and a second house dating to 1776 in the village. The restaurant is the best-rated in Château-Richer and does Québec cuisine with local produce. Rooftop terrace.</p>
+<dl><div><dt>Rate band</dt><dd>~$170–240</dd></div><div><dt>Units</dt><dd>7</dd></div><div><dt>Parking</dt><dd>Free, breakfast incl.</dd></div><div><dt>Thursday cost</dt><dd>+35–45 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://en.aubergebaker.com/auberge" target="_blank" rel="noopener">Website</a><a class="btn btn-map" href="https://maps.google.com/?q=Auberge+Baker%2C+8790+avenue+Royale%2C+Chateau-Richer%2C+QC" target="_blank" rel="noopener">Map</a></div>
+<details><summary>The fine print</summary><p>Rooms face garden or mountain, not the river — despite Avenue Royale being the shore road, it runs along the terrace above the water. Restaurant Mon–Sat 17:30–21:00, so a 5 PM arrival walks in almost at opening. Puts you closest to Canyon Sainte-Anne and the basilica.</p></details></div></article><article class="stay"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lac%20Beauport-Canada.JPG?width=1100" alt="Entourage sur-le-Lac"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Lac_Beauport-Canada.JPG" target="_blank" rel="noopener">Commons</a></figcaption></figure>
+<div class="sb"><span class="rank alt">Lakeside resort</span><h3>Entourage sur-le-Lac</h3><p class="loc">Lac-Beauport · 15 min north of the city</p><p>On the lake, 166 rooms with balconies, a nordic spa, a heated outdoor pool, and free kayaks and paddleboards. Fifteen minutes from downtown and the natural base if you would rather point at Jacques-Cartier National Park than at the island.</p>
+<dl><div><dt>From</dt><dd>~$142</dd></div><div><dt>Rooms</dt><dd>166</dd></div><div><dt>Parking</dt><dd>Free outdoor</dd></div><div><dt>Thursday cost</dt><dd>+15–25 min</dd></div></dl><div class="btns"><a class="btn" href="https://www.quebec-cite.com/en/businesses/entourage-sur-le-lac" target="_blank" rel="noopener">Listing</a><a class="btn btn-map" href="https://maps.google.com/?q=Entourage+sur-le-Lac%2C+99+chemin+du+Tour-du-Lac%2C+Lac-Beauport%2C+QC" target="_blank" rel="noopener">Map</a></div>
+<details><summary>The fine print</summary><p>It is a resort with a conference clientele rather than a country inn — 166 rooms is a different experience from La Goéliche's nineteen. Restaurant L'îlot Repère gourmand looks over the lake and needs a reservation. Their own website was refusing connections when I checked, so book through an agent or by phone.</p></details></div></article><article class="stay"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Baie%20St-Paul%20%28Charlevoix-QC%29-Vue%20de%20la%20baie%20%C3%A0%20partir%20du%20belv%C3%A9daire%20Est-2014-07-21.jpg?width=1100" alt="Charlevoix: Le Germain, Manoir Richelieu"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Baie_St-Paul_%28Charlevoix-QC%29-Vue_de_la_baie_%C3%A0_partir_du_belv%C3%A9daire_Est-2014-07-21.jpg" target="_blank" rel="noopener">Commons</a></figcaption></figure>
+<div class="sb"><span class="rank no">Cut — too far</span><h3>Charlevoix: Le Germain, Manoir Richelieu</h3><p class="loc">Baie-Saint-Paul 1h07 · La Malbaie ~1h45</p><p>Genuinely the best hotels in the whole search — Le Germain Charlevoix has a nordic spa, two restaurants and a Michelin Key; the Fairmont Manoir Richelieu overlooks the river with four restaurants and a famous golf course. <b>But the arithmetic kills it.</b> La Malbaie costs an hour and three quarters each way, which is three and a half hours of transit tax on a two-night stay, and you cannot day-trip back to the island or Montmorency from there.</p>
+<dl><div><dt>Le Germain</dt><dd>from ~$226</dd></div><div><dt>Manoir Richelieu</dt><dd>from ~$236</dd></div><div><dt>Falaises 2-night</dt><dd>~$280 pp</dd></div><div><dt>Verdict</dt><dd>Needs 3 nights</dd></div></dl><div class="btns"><a class="btn" href="https://www.germainhotels.com/en/le-germain-hotel-and-spa/charlevoix" target="_blank" rel="noopener">Le Germain</a><a class="btn" href="https://www.fairmont.com/en/hotels/charlevoix/fairmont-le-manoir-richelieu.html" target="_blank" rel="noopener">Manoir Richelieu</a><a class="btn" href="https://aubergedesfalaises.com/en/rates-packages/" target="_blank" rel="noopener">Auberge des Falaises</a></div>
+<details><summary>The fine print</summary><p>Listed so the choice is visible rather than silently dropped. Auberge des Falaises at La Malbaie has the best-value package found anywhere in this research — a two-night getaway from about $280 per person with a river-view room and breakfast. Save Charlevoix for a trip that gives it three nights and the Route 362 corniche drive it deserves.</p></details></div></article></div>
+  <div class="callout">
+    <h3>One property to verify before you book</h3>
+    <p><b>Auberge Le Canard Huppé</b> at Saint-Laurent still appears on booking sites at around $143 a night, but Yelp lists it as closed as of September 2025 at a different address, and Québec's own tourism board now 404s its page. Online travel agents often keep listings live after a closure. <b>Phone 418-828-2292 before relying on it.</b> Similarly, <b>Auberge La Grange de l'Île</b> now presents itself as a restaurant and vineyard only — its evening table runs Saturdays, which does not help on a Tuesday or Wednesday.</p>
+  </div>
+</section>
+
+<section class="pane" id="adventure">
+  <p class="kicker">What is actually open</p>
+  <h2>Adventure &mdash; and the calendar that kills most of it</h2>
+  <div class="prose">
+    <p>Your three days are <b>Tuesday, Wednesday and Thursday</b> at the turn of October, and that
+    is precisely when this coast switches to a weekend-only schedule or shuts for the year.
+    <b>Four of the five adventures within reach are unavailable on your days.</b> One is open, it is
+    cheap, and it is already on your route along the Beaupr&eacute; coast.</p>
+    <p>Everything below was checked against the 2026 season; the two figures still unconfirmed are
+    marked as such rather than guessed.</p>
+  </div>
+
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sainte_Anne_Falls_%283957766554%29.jpg?width=1100" alt="Canyon Sainte-Anne"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sainte_Anne_Falls_%283957766554%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">Open</span><span class='tag t-unmissable'>the one that works</span></div><h3>Canyon Sainte-Anne &mdash; open, and on your road</h3><p>A 74-metre waterfall in a granite gorge, crossed by <b>three suspension bridges</b> including one of the tallest in Qu&eacute;bec. The <b>Air Canyon</b> double zipline runs 90 m above the canyon floor at up to 50 km/h.</p><p>It sits on the Beaupr&eacute; coast, which day 3 already crosses &mdash; so this costs you no detour and no extra day. At $15 a head it is also the cheapest thing in this section by a wide margin.</p><p><b>Air Canyon limits:</b> age <b>5+</b>, minimum height <b>107 cm</b>; riders between 107 and 120 cm must be accompanied by an adult. Maximum <b>136 kg</b> solo, <b>205 kg</b> for a pair. Barred if pregnant, or with back or heart problems, or after recent surgery.</p><dl class="stats"><div><dt>Season</dt><dd>7 May &ndash; 25 Oct 2026</dd></div><div><dt>Hours from 8 Sep</dt><dd>09:00 &ndash; 16:00</dd></div><div><dt>Adult / child 6&ndash;17</dt><dd>$15 / $10</dd></div><div><dt>Under 6</dt><dd>free</dd></div><div><dt>Air Canyon</dt><dd>+$11</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Canyon+Sainte-Anne,+Beaupr%C3%A9,+QC" target="_blank" rel="noopener">Map</a><a class="btn" href="https://canyonsa.qc.ca/en/rates-and-schedule/" target="_blank" rel="noopener">Rates &amp; schedule</a></div><p class="fine"><b>Unconfirmed:</b> the park is open midweek, but Air Canyon&rsquo;s own late-season operating days are not published. Phone before you count on the zipline specifically.</p></div></article>
+
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montmorency_waterfall%2C_Qu%C3%A9bec%2C_Qu%C3%A9bec.jpg?width=1100" alt="Montmorency Falls"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Montmorency_waterfall%2C_Qu%C3%A9bec%2C_Qu%C3%A9bec.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">Shut on your days</span><span class='tag t-shut'>weekends &amp; Mondays only</span></div><h3>Montmorency double zipline &mdash; not on a Tuesday</h3><p>Three hundred metres straight across the cove, landing near the La Baronne deck. The season runs late May to early October, so the dates look fine &mdash; but <b>from 8 September it drops to weekends and Mondays only</b>.</p><p>Your days are Tuesday, Wednesday and Thursday. It is shut for this trip. Worth knowing now rather than discovering it at the ticket window, because the falls themselves are still very much worth the stop.</p><dl class="stats"><div><dt>Length</dt><dd>300 m</dd></div><div><dt>Season</dt><dd>late May &ndash; early Oct</dd></div><div><dt>From 8 Sep</dt><dd>weekends + Mondays</dd></div><div><dt>Your days</dt><dd>Tue / Wed / Thu &mdash; closed</dd></div></dl></div></article>
+
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Parc_de_la_Chute_Montmorency_-.jpg?width=1100" alt="Montmorency Falls and the suspension bridge"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Parc_de_la_Chute_Montmorency_-.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">Unverified</span><span class='tag t-shut'>confirm by phone</span></div><h3>Montmorency via ferrata &mdash; status genuinely unclear</h3><p>Three routes on the Boischatel crevasse, looking out at the falls, the river and &Icirc;le d&rsquo;Orl&eacute;ans. If it is running it is the best adventure near your base.</p><p><b>But I could not confirm it is running.</b> One aggregator lists the circuits as closed indefinitely; a S&eacute;paq listing still shows them bookable; and S&eacute;paq blocks automated checks, so neither could be settled. The park is also mid-way through a <b>$19.8M redevelopment running to summer 2026</b> &mdash; the panoramic staircase was shut until the end of May 2026.</p><p><b>Phone before building a morning around it.</b> Limits, if it runs: age <b>8+</b>, under-14s need a parent present or a signed consent form, and riders must weigh <b>41&ndash;99 kg</b> &mdash; a window that tightens further in bad weather.</p><dl class="stats"><div><dt>Adult / child 17&amp;under</dt><dd>$31 / $23.25</dd></div><div><dt>Plus</dt><dd>tax + park access</dd></div><div><dt>Age</dt><dd>8+</dd></div><div><dt>Weight</dt><dd>41 &ndash; 99 kg</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Parc+de+la+Chute-Montmorency,+QC" target="_blank" rel="noopener">Map</a></div></div></article>
+
+  <div class="prose" style="margin-top:18px">
+    <h3>Already closed for the season</h3>
+    <ul>
+      <li><b>Jacques-Cartier guided canoe and kayak</b> &mdash; guided paddling ends <b>30 August
+      2026</b>. The calm-water rental centre at km 3 runs 09:30&ndash;17:00 with the last boat out at
+      16:00 in season; whether self-serve rental continues into late September is
+      <b>unconfirmed</b>.</li>
+      <li><b>Via du Manoir, Charlevoix</b> (Projet Vertical, at the Fairmont Manoir Richelieu)
+      &mdash; a 500 m route on the cliff facing the St. Lawrence, but the low season from September
+      to March is <b>Saturdays and Sundays only</b>.</li>
+      <li><b>Free kayaks and paddleboards</b> are included for guests at Entourage sur-le-Lac, if you
+      take that option from the stays section.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="day" id="d1"><header class="dhead">
+<div class="sign s-road"><span class="signn">Day 1</span><span class="signd">Tue 29 Sep</span></div>
+<div class="dmeta"><h2>Whitby to the island</h2><p class="lede">A long day, but only about an hour longer than the drive you were already doing to Vermont. Leave early, pass Montréal at lunchtime, and be on the island in time for dinner.</p>
+<ul class="dfacts"><li><b>Base</b> Île d&#x27;Orléans</li><li><b>Moving</b> 754 km · ~7h45</li><li><b>Governed by</b> <span class="gate g-road">On the road</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Whitby,+ON/Kingston,+ON/Montreal,+QC/Sainte-P%C3%A9tronille,+QC/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Quebec%20Autoroute%2020%20dark%20clouds.jpg?width=1100" alt="Leave Whitby — and skip the bypass"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Quebec_Autoroute_20_dark_clouds.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">07:00</span><span class="km">0 km</span></div><h3>Leave Whitby — and skip the bypass</h3><p>ON-401 east, becoming Autoroute 20 at the Québec line. One counter-intuitive point: <b>do not take the A-30 bypass around Montréal on this leg.</b> It is 25 km longer and about nineteen minutes slower in free-flowing traffic, and it only wins when the island is jammed. Leaving at seven puts you through Montréal near midday, comfortably between both rush hours.</p>
+<dl class="stats"><div><dt>To Montréal</dt><dd>500 km</dd></div><div><dt>Montréal rush</dt><dd>07:00–09:30, 16:00–18:30</dd></div><div><dt>Tolls</dt><dd>$0</dd></div><div><dt>Fuel</dt><dd>Fill in Ontario</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Whitby%2C+Ontario" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.google.com/maps/dir/Whitby,+ON/Montreal,+QC/Sainte-P%C3%A9tronille,+QC/" target="_blank" rel="noopener">Full route</a></div><details><summary>Fine print, hours and alternatives</summary><p>Ontario's fuel tax is 9¢ a litre against Québec's 19.2¢, plus Québec's cap-and-trade adds another 8–10¢ to the wholesale price — so fill up before the border. Québec never posts above 100 km/h anywhere, which is a real step down from the 401, and the province is quadrupling its mobile photo-radar fleet from this autumn. Radar detectors are illegal to carry in Québec even switched off, with fines from $500.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Waterfront%2C%20Kingston%2C%20East%20view%2020170416%201.jpg?width=1100" alt="Kingston — the natural leg-stretch"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Waterfront%2C_Kingston%2C_East_view_20170416_1.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">11:00</span><span class="km">270 km</span><span class="tag t-easy">easy</span></div><h3>Kingston — the natural leg-stretch</h3><p>About a third of the way, and only six minutes off the highway — the smallest detour of any worthwhile stop on this route. Limestone buildings, the waterfront where Lake Ontario becomes the St. Lawrence, and the first hint of the river you will be sleeping beside tonight.</p>
+<dl class="stats"><div><dt>Off route</dt><dd>6 min</dd></div><div><dt>Of the drive</dt><dd>28%</dd></div><div><dt>Stop</dt><dd>30–45 min</dd></div><div><dt>Next stop</dt><dd>Montréal</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Kingston%2C+Ontario+waterfront" target="_blank" rel="noopener">Map</a></div><details><summary>Fine print, hours and alternatives</summary><p>Alternatives if you would rather push on: Brockville and Cornwall sit directly on the 401 with no detour at all, and Drummondville sits on the A-20 between Montréal and Québec. Trois-Rivières is often suggested as the halfway point but it is on the north-shore A-40, so taking it means committing to a different route out of Montréal.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%89glise%20Sainte-P%C3%A9tronille%20%28%C3%8Ele%20d%27Orl%C3%A9ans%29.jpg?width=1100" alt="Arrive Sainte-Pétronille"><figcaption><a href="https://commons.wikimedia.org/wiki/File:%C3%89glise_Sainte-P%C3%A9tronille_%28%C3%8Ele_d%27Orl%C3%A9ans%29.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">16:00–17:00</span><span class="km">754 km</span><span class="tag t-unmissable">unmissable</span></div><h3>Arrive Sainte-Pétronille</h3><p>Cross the bridge onto Île d'Orléans and turn right — Sainte-Pétronille is the first village, at the island's western tip, facing back at the city. Check in, and that is the day. After nearly eight hours of driving this is not the moment to go sightseeing.</p>
+<dl class="stats"><div><dt>Sunset</dt><dd>18:30</dd></div><div><dt>Dark by</dt><dd>19:00</dd></div><div><dt>To Old Québec</dt><dd>15 min</dd></div><div><dt>To Montmorency</dt><dd>10 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Sainte-Petronille%2C+Ile+d%27Orleans%2C+QC" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.goeliche.ca/en" target="_blank" rel="noopener">Auberge La Goéliche</a></div><details><summary>Fine print, hours and alternatives</summary><p>Sunset is 18:30, not the 18:35 you might assume, with full dark just before seven. If you arrive nearer four rather than five, Montmorency Falls is ten minutes back down the road and worth twenty minutes — but do not build the evening around it, and its late-September hours could not be verified.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%C3%8Ele%20d%27Orl%C3%A9ans%20048.jpg?width=1100" alt="Dinner with the light going"><figcaption><a href="https://commons.wikimedia.org/wiki/File:%C3%8Ele_d%27Orl%C3%A9ans_048.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">18:15</span><span class="tag t-evening">evening</span></div><h3>Dinner with the light going</h3><p>The whole argument for staying at a place with its own kitchen. La Goéliche's dining room is glass on the river side, so you eat looking across the channel at the Québec City skyline while the last light goes off the water. Kitchen runs to 19:30, dining room to 22:00.</p>
+<dl class="stats"><div><dt>Kitchen to</dt><dd>19:30</dd></div><div><dt>Dining to</dt><dd>22:00</dd></div><div><dt>Style</dt><dd>Local French</dd></div><div><dt>Booking</dt><dd>Recommended</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Auberge+La+Goeliche%2C+Sainte-Petronille%2C+QC" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.goeliche.ca/en" target="_blank" rel="noopener">Menu</a></div><details><summary>Fine print, hours and alternatives</summary><p>One thing to check when booking: the dining room is listed as closed on Tuesday evenings, and you arrive on a Tuesday. Confirm when you reserve the room. If it is shut, Auberge Baker on the Beaupré coast serves from 17:30, or drive fifteen minutes into the city — but that turns a restful evening into more driving.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 1" src="https://maps.google.com/maps?q=Sainte-Petronille%2C+Quebec&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d2"><header class="dhead">
+<div class="sign s-stone"><span class="signn">Day 2</span><span class="signd">Wed 30 Sep</span></div>
+<div class="dmeta"><h2>Orchards, then the old city</h2><p class="lede">Half the day in the country, half in the city, and the evening in Old Québec with the lights on. This is the balance — one loop drive and one city, both taken slowly, rather than four things done at a run.</p>
+<ul class="dfacts"><li><b>Base</b> Île d&#x27;Orléans</li><li><b>Moving</b> ~60 km · easy</li><li><b>Governed by</b> <span class="gate g-stone">Old Québec</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Sainte-P%C3%A9tronille,+QC/Cidrerie+Verger+Bilodeau,+Saint-Pierre-de-l&#x27;%C3%8Ele-d&#x27;Orl%C3%A9ans/Vieux-Qu%C3%A9bec,+Qu%C3%A9bec/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Quebec%20Ice%20Cider.jpg?width=1100" alt="The Chemin Royal and an orchard"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Quebec_Ice_Cider.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:30</span><span class="tag t-harvest">harvest</span></div><h3>The Chemin Royal and an orchard</h3><p>The island's ring road is 72 km through six villages, most of them on the list of Québec's prettiest. You do not need to do all of it. Head east along the south shore as far as an orchard and turn back — <b>apple season runs late August to mid-October and you are in the middle of it.</b> Cidrerie Verger Bilodeau is open daily 09:00 to 18:00, presses eight kinds of cider including ice cider, and lets you pick your own.</p>
+<dl class="stats"><div><dt>Full loop</dt><dd>72 km</dd></div><div><dt>Suggested</dt><dd>Half loop, 2 h</dd></div><div><dt>Bilodeau</dt><dd>09:00–18:00</dd></div><div><dt>Season</dt><dd>to mid-Oct</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Cidrerie+Verger+Bilodeau%2C+Saint-Pierre-de-l%27Ile-d%27Orleans%2C+QC" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.cidreriebilodeau.com/en/" target="_blank" rel="noopener">Bilodeau</a><a class="btn" href="https://tourisme.iledorleans.com/en/" target="_blank" rel="noopener">Island tourism</a></div><details><summary>Fine print, hours and alternatives</summary><p>Ice cider is a genuinely Québec-only thing — a protected designation, made from apples concentrated by natural winter cold. It travels well and it is the best souvenir on this trip. <b>Keep the labelled bag or the farm receipt</b>: US border rules admit Canadian commercially-grown produce between 1 May and 31 October, but you need to show origin. The Chocolaterie at Sainte-Pétronille is open year-round and is five minutes from the inn.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Terrasse%20Dufferin%2001.jpg?width=1100" alt="Into Old Québec — park once, walk everything"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Terrasse_Dufferin_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">12:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Into Old Québec — park once, walk everything</h3><p>Fifteen minutes back across the bridge. Park in a garage and leave the car there: the walled city is small, and the two halves are joined by stairs, steep lanes and a funicular rather than roads you want to drive. Start high on <b>Dufferin Terrace</b>, the boardwalk under the Château Frontenac with the river 60 m below.</p>
+<dl class="stats"><div><dt>Garages</dt><dd>$15–24/day</dd></div><div><dt>Street</dt><dd>$3.50/h, 09:00–21:00</dd></div><div><dt>Walk</dt><dd>8,000–12,000 steps</dd></div><div><dt>Two towns</dt><dd>60 m apart vertically</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Terrasse+Dufferin%2C+Quebec+City" target="_blank" rel="noopener">Map</a><a class="btn" href="https://maps.google.com/?q=Stationnement+Vinci+Park+Samson%2C+270+rue+Saint-Paul%2C+Quebec+City" target="_blank" rel="noopener">Garage — Vinci Samson</a><a class="btn" href="https://www.quebec-cite.com/en/what-to-do-quebec-city" target="_blank" rel="noopener">Old Québec</a></div><details><summary>Fine print, hours and alternatives</summary><p>Cheapest garages: Vinci Park Samson on rue Saint-Paul at about $15 a day, the SPAQ lot at the Vieux-Port at $18, and the Hôtel de Ville garage at $21.50. There is no free parking inside the walls, and street spaces are metered until 21:00 and realistically hard to find. Right turn on red is legal here, unlike on the island of Montréal.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Place%20Royale%20at%20night%2C%20Vieux-Qu%C3%A9bec%2C%20Quebec%20ville%2C%20Canada.jpg?width=1100" alt="Under the terrace, and down to the Lower Town"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Place_Royale_at_night%2C_Vieux-Qu%C3%A9bec%2C_Quebec_ville%2C_Canada.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">13:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Under the terrace, and down to the Lower Town</h3><p>Beneath Dufferin Terrace is the archaeological crypt of the <b>Saint-Louis Forts and Châteaux</b> — the excavated remains of the governors' residences, with English tours at 10:00, 13:00 and 15:00 daily to 12 October, free for under-18s. Then take the <b>Breakneck Steps</b>, built in 1635 and the oldest stairway in the city, down into the Lower Town to <b>Place Royale</b>, where Champlain founded the settlement in 1608.</p>
+<dl class="stats"><div><dt>Crypt tours EN</dt><dd>10:00 · 13:00 · 15:00</dd></div><div><dt>Steps</dt><dd>59, from 1635</dd></div><div><dt>Place Royale</dt><dd>Founded 1608</dd></div><div><dt>Funicular</dt><dd>Cash only</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Place+Royale%2C+Quebec+City" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.parks.canada.ca/lhn-nhs/qc/saintlouisforts/visit/heures-hours" target="_blank" rel="noopener">Crypt tours</a></div><details><summary>Fine print, hours and alternatives</summary><p>The funicular runs 09:00 to 21:00 and takes about a minute up the 45-degree cliff — but it is <b>cash only</b>, and sources disagree on the fare, so carry about $5 a head. Note that the interior of Notre-Dame-des-Victoires, the oldest stone church in Canada, closes to visitors after 30 August — you get the square and the exterior, not the inside.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rue%20du%20Petit-Champlain%20in%20Quebec%20City%2C%20a%20pedestrian%20shopping%20street.jpg?width=1100" alt="Petit-Champlain"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Rue_du_Petit-Champlain_in_Quebec_City%2C_a_pedestrian_shopping_street.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">15:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Petit-Champlain</h3><p>The narrow pedestrian lane below the cliff, and the reason most people's photograph of Québec looks the way it does. Independent shops rather than chains, and the <b>Umbrella Alley</b> installation on rue du Cul-de-Sac runs June through October, so it should still be overhead.</p>
+<dl class="stats"><div><dt>Street</dt><dd>Pedestrian</dd></div><div><dt>Umbrellas</dt><dd>Jun–Oct</dd></div><div><dt>To the Château</dt><dd>5 min walk</dd></div><div><dt>Best light</dt><dd>Late afternoon</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Rue+du+Petit-Champlain%2C+Quebec+City" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.quartierpetitchamplain.com/en/" target="_blank" rel="noopener">Quartier</a></div><details><summary>Fine print, hours and alternatives</summary><p>Late September is cruise season on the St. Lawrence — five ships called on 26 September and three on the 27th, and the schedule for the 28th to 30th could not be read. A single large call turns this lane back into August for the day. If it is heaving at three, come back after six when the ships have sailed.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Terrasse%20Dufferin%2001.jpg?width=1100" alt="The evening walk"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Terrasse_Dufferin_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">18:00</span><span class="tag t-evening">evening</span></div><h3>The evening walk</h3><p>This is the one to do properly, and it is the answer to your question about where to walk. <b>Start on Dufferin Terrace around six as the light goes</b>, with the Château lit above you and the river black below. Walk the length of the boardwalk, then down the Breakneck Steps into Petit-Champlain — the lane is lit and the shops stay open — through Place Royale, and back up by funicular. About 1.5 km, mostly flat except the stairs, and it is the most atmospheric hour in the city.</p>
+<dl class="stats"><div><dt>Start</dt><dd>18:00</dd></div><div><dt>Sunset</dt><dd>18:28</dd></div><div><dt>Dark</dt><dd>18:57</dd></div><div><dt>Distance</dt><dd>~1.5 km</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Terrasse+Dufferin%2C+Quebec+City" target="_blank" rel="noopener">Map</a><a class="btn" href="https://promenadesfantomes.com/en/our-tours/" target="_blank" rel="noopener">Ghost tours</a></div><details><summary>Fine print, hours and alternatives</summary><p>If you want more: <b>ghost tours run nightly at 20:00</b> through October, which suits a city that is dark by seven. <b>Halloween on the Plains of Abraham</b> opens on 29 September — the evening you arrive — and runs free at the Joan of Arc Garden. And the Promenade des Gouverneurs, the cliff boardwalk continuing from the terrace toward the Plains, stays open until late November. Dinner afterwards in the Lower Town, or up on rue Saint-Jean.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 2" src="https://maps.google.com/maps?q=Vieux-Quebec%2C+Quebec+City&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="day" id="d3"><header class="dhead">
+<div class="sign s-border"><span class="signn">Day 3</span><span class="signd">Thu 1 Oct</span></div>
+<div class="dmeta"><h2>The falls, then south</h2><p class="lede">One proper thing in the morning, then the road. You have three or four hours to use before the drive, and the best use of them is ten minutes from the inn.</p>
+<ul class="dfacts"><li><b>Base</b> → Hyde Park, VT</li><li><b>Moving</b> 363 km · ~4h30</li><li><b>Governed by</b> <span class="gate g-border">Border day</span></li></ul>
+<div class="btns"><a class="btn btn-map" href="https://www.google.com/maps/dir/Sainte-P%C3%A9tronille,+QC/Parc+de+la+Chute-Montmorency/Sherbrooke,+QC/Derby+Line,+VT/Hyde+Park,+VT/" target="_blank" rel="noopener">Open the day's route</a></div></div></header>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Montmorency%20waterfall%2C%20Qu%C3%A9bec%2C%20Qu%C3%A9bec.jpg?width=1100" alt="Montmorency Falls"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Montmorency_waterfall%2C_Qu%C3%A9bec%2C_Qu%C3%A9bec.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">09:00</span><span class="tag t-unmissable">unmissable</span></div><h3>Montmorency Falls</h3><p>Eighty-three metres — <b>thirty metres taller than Niagara</b> — dropping straight into the St. Lawrence ten minutes from where you slept. The cable car opens at nine. There is a suspension bridge directly over the lip of the falls, a panoramic staircase of 487 steps cut into the cliff face with landings cantilevered over the gorge, and viewing platforms at several levels. Ninety minutes covers it comfortably.</p>
+<dl class="stats"><div><dt>Height</dt><dd>83 m</dd></div><div><dt>Park entry</dt><dd>$13.90 adult</dd></div><div><dt>Cable car</dt><dd>$14.95 return</dd></div><div><dt>Under 18</dt><dd>Free</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Parc+de+la+Chute-Montmorency%2C+Quebec" target="_blank" rel="noopener">Map</a><a class="btn" href="https://www.sepaq.com/destinations/parc-chute-montmorency/" target="_blank" rel="noopener">Sépaq</a><a class="btn" href="https://www.sepaq.com/destinations/parc-chute-montmorency/planifier/heures-ouverture.dot?language_id=1" target="_blank" rel="noopener">Hours &amp; fares</a></div><details><summary>Fine print, hours and alternatives</summary><p>Cable car runs 09:00–17:30 daily through 12 October. Children up to 17 enter free. Sépaq strongly recommends buying park access online in advance. Two things are <b>not</b> available on a Thursday: the zipline runs weekends and Mondays only from 8 September, and the Pain de Sucre and Redoute snack bars closed for the season on 20 September — the Manoir restaurant, 11:30–15:00, is the only food on site.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rock%20Island%20Quebec%20Border%20Station.jpg?width=1100" alt="South to Derby Line"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Rock_Island_Quebec_Border_Station.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">11:00</span><span class="tag t-unmissable">unmissable</span></div><h3>South to Derby Line</h3><p>A-20 west, A-55 south at Drummondville, and across at <b>Derby Line</b> where the autoroute becomes I-91. This is both the faster and the prettier of the two crossings — about 25 minutes quicker than Highgate Springs, and it runs the length of the Eastern Townships before dropping you into Vermont's Northeast Kingdom.</p>
+<dl class="stats"><div><dt>Distance</dt><dd>363 km</dd></div><div><dt>Driving</dt><dd>~4h30</dd></div><div><dt>Crossing</dt><dd>Derby Line, I-91</dd></div><div><dt>Expect</dt><dd>5–15 min</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Derby+Line+Vermont+border+crossing" target="_blank" rel="noopener">Map</a><a class="btn" href="https://bwt.cbp.gov/details/05020901/POV" target="_blank" rel="noopener">Live wait times</a><a class="btn" href="https://www.google.com/maps/dir/Parc+de+la+Chute-Montmorency/Sherbrooke,+QC/Derby+Line,+VT/Hyde+Park,+VT/" target="_blank" rel="noopener">Route</a></div><details><summary>Fine print, hours and alternatives</summary><p>Thursday, midweek, after Labour Day and nearly two weeks before Canadian Thanksgiving — expect five to fifteen minutes. <b>Declare the cider and the apples.</b> Canadian commercially-grown produce is admissible 1 May to 31 October with proof of origin, so keep the labelled bag or receipt; cheese is fine with its label; undeclared agricultural items get confiscated and can carry a penalty. Avoid the 9–12 October weekend entirely, which you are.</p></details></div></article>
+<article class="card"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherbrooke%2C%20Quebec%20-%20centre-ville%20en%20automne%20-%201.jpg?width=1100" alt="Into the Northeast Kingdom"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sherbrooke%2C_Quebec_-_centre-ville_en_automne_-_1.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>
+<div class="cbody"><div class="chead"><span class="time">14:30</span><span class="tag t-easy">easy</span></div><h3>Into the Northeast Kingdom</h3><p>I-91 south through Newport, then west to Hyde Park. <b>One routing trap: do not let the sat-nav send you over Hazen's Notch on VT-58</b> — part of it is unpaved and seasonally gated. Take VT-105 west from Newport, or US-2 across to VT-15, and you stay on pavement the whole way.</p>
+<dl class="stats"><div><dt>Newport → Hyde Park</dt><dd>~65 km</dd></div><div><dt>Arrive</dt><dd>Mid-afternoon</dd></div><div><dt>Avoid</dt><dd>VT-58 Hazen&#x27;s Notch</dd></div><div><dt>Use</dt><dd>VT-105 or US-2/VT-15</dd></div></dl><div class="btns"><a class="btn btn-map" href="https://maps.google.com/?q=Hyde+Park%2C+Vermont" target="_blank" rel="noopener">Map</a><a class="btn" href="/vermont-fall-2026/" target="_blank" rel="noopener">Vermont plan</a></div><details><summary>Fine print, hours and alternatives</summary><p>You will reach Hyde Park in mid-afternoon rather than 4:30, so the only casualty is the Moss Glen Falls golden-hour stop on the Vermont plan's first evening. Friday's Stowe loop, Saturday's Northeast Kingdom day and Sunday's drive home are all untouched.</p></details></div></article><div class="mapwrap"><iframe loading="lazy" title="Map for day 3" src="https://maps.google.com/maps?q=Chute-Montmorency%2C+Quebec&amp;z=11&amp;output=embed"></iframe></div></section>
+<section class="pane" id="kit">
+  <p class="kicker">Before you go</p>
+  <h2>Booking, and what is open</h2>
+  <div class="prose"><p>Ticks save in this browser. The season turns hard at the end of September here, so the open-and-closed lists below matter more than they would in July.</p></div>
+  <ul class="cklist"><li><label><input type="checkbox" data-ck="c0"><span class="when">Now</span> Book the inn — Île d&#x27;Orléans has ~25 beds in total across three properties</label></li><li><label><input type="checkbox" data-ck="c1"><span class="when">Now</span> Confirm La Goéliche&#x27;s dining room is open Tuesday evening — it is listed as closed Tue</label></li><li><label><input type="checkbox" data-ck="c2"><span class="when">Now</span> Check the convention: hotel supply in the city is tight 27 Sep – 1 Oct</label></li><li><label><input type="checkbox" data-ck="c3"><span class="when">Before</span> Phone 418-828-2292 if you are considering Auberge Le Canard Huppé — status doubtful</label></li><li><label><input type="checkbox" data-ck="c4"><span class="when">Before</span> Reserve the Wendake traditional site if you go — guided tours by reservation only</label></li><li><label><input type="checkbox" data-ck="c5"><span class="when">Before</span> Move the Vermont foliage-check routine from 29 Sept to 27 Sept</label></li><li><label><input type="checkbox" data-ck="c6"><span class="when">Pack</span> Cash in CAD — the funicular takes no cards</label></li><li><label><input type="checkbox" data-ck="c7"><span class="when">Pack</span> Layers for 15°C day and 5°C night; average first frost is 28 September</label></li><li><label><input type="checkbox" data-ck="c8"><span class="when">Pack</span> A waterproof shell — September is Québec City&#x27;s wettest month</label></li><li><label><input type="checkbox" data-ck="c9"><span class="when">Pack</span> Comfortable shoes; a full day in the old city is 8,000–12,000 steps on hills</label></li><li><label><input type="checkbox" data-ck="c10"><span class="when">Pack</span> Room in the boot for cider, apples and cheese</label></li><li><label><input type="checkbox" data-ck="c11"><span class="when">Border</span> Keep the labelled bag or farm receipt for anything bought at an orchard</label></li><li><label><input type="checkbox" data-ck="c12"><span class="when">Border</span> Declare all food. Produce is admissible 1 May – 31 Oct with proof of Canadian origin</label></li><li><label><input type="checkbox" data-ck="c13"><span class="when">Driving</span> Fill up in Ontario — Québec fuel tax is more than double</label></li><li><label><input type="checkbox" data-ck="c14"><span class="when">Driving</span> Québec never posts above 100 km/h; photo radar is expanding this autumn</label></li><li><label><input type="checkbox" data-ck="c15"><span class="when">Driving</span> Radar detectors are illegal to carry in Québec, even switched off</label></li></ul>
+  <div class="twocol">
+    <div><h3>Closed on your dates</h3><ul><li>Citadelle changing of the guard — ended 30 August</li><li>Artillery Park, Dauphine Redoubt, Arsenal Foundry — closed after 7 September</li><li>Notre-Dame-des-Victoires interior — visitor season ends 30 August</li><li>Musée du Fort — closed indefinitely</li><li>Montmorency zipline — weekends and Mondays only from 8 September</li><li>Jacques-Cartier canoe and kayak rental — closes 28 September, the day before you arrive</li><li>Sept-Chutes — interpretation centre closed, trail listed as closed, domain dead</li><li>Duchesnay day pass — summer only, and its spa is permanently closed</li><li>Sugar shacks — spring only. La Sucrerie Blouin on the island does the meal year-round by reservation</li></ul></div>
+    <div><h3>Open and worth it</h3><ul><li>Montmorency Falls — park to 1 November, cable car 09:00–17:30 to 12 October</li><li>Canyon Sainte-Anne — to 25 October, 09:00–16:00, last entry 16:00, $15</li><li>Saint-Louis Forts and Châteaux crypt — English tours 10:00, 13:00, 15:00 daily to 12 October</li><li>Dufferin Terrace and the Promenade des Gouverneurs — open until late November</li><li>Funicular — daily 09:00–21:00, cash only</li><li>Umbrella Alley — June through October</li><li>Ghost tours — nightly at 20:00 through October</li><li>Halloween on the Plains of Abraham — opens 29 September, free</li><li>Île d&#x27;Orléans orchards and cider houses — to mid-October</li><li>Basilique Sainte-Anne-de-Beaupré — year-round, Mon–Fri 09:00–16:00</li><li>Huron Traditional Site, Wendake — daily 09:15–17:00 to 31 October, tours by reservation</li></ul></div>
+  </div>
+  <div class="callout info">
+    <h3>If you would rather have mountains than a city on Wednesday</h3>
+    <p><b>Parc national de la Jacques-Cartier</b> is thirty minutes north — a glacial trench over 550 m deep, $10.30 a head. The famous trail is <b>Les Loups</b>: 5 km and about two hours to the first belvedere, or 11 km and three and a half hours for the full thing, rated difficult with 447 m of climbing. It has a <b>hard cap on hiker numbers</b> and closes when full, so arrive early. The visitor centre runs 09:00–16:30 on a Wednesday. Canoe rental closed on the 28th.</p>
+    <p>Two gentler nature options: <b>Canyon Sainte-Anne</b> on the Beaupré coast, three suspension bridges with one 60 m above the gorge, and <b>Wendake</b> twenty minutes north, where the Huron-Wendat traditional site sits beside the Kabir Kouba falls — a 28 m drop into a canyon 42 m deep.</p>
+  </div>
+</section>
+</main>
+<footer><div class="fwrap">
+  <h3>Québec, 29 September – 1 October 2026</h3>
+  <p>The prologue to the <a href="/vermont-fall-2026/">Vermont trip</a>. Built from four parallel research passes — the city, foliage timing and day trips, routing and border, and countryside lodging.</p>
+  <p>Photography from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> under their respective licences. Hours, prices and rates are 2026 figures and should be re-checked before booking; the properties below were verified as trading in August 2026 except where flagged.</p>
+</div></footer>
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script></body></html>

@@ -1,0 +1,32 @@
+{
+ "trip": "norway-summer-repl",
+ "places": [
+  {
+   "place": "Dalsnibba",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Dalsnibba Geiranger viewpoint"
+   ]
+  },
+  {
+   "place": "Trollveggen",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Trollveggen Romsdalen",
+    "Trollveggen wall"
+   ]
+  },
+  {
+   "place": "Aurlandsfjord",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Aurlandsfjord Norway",
+    "Aurland fjord Flåm"
+   ]
+  }
+ ],
+ "out": "repl-candidates.json"
+}

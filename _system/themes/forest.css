@@ -1,0 +1,51 @@
+/* forest — temperate woodland, sugar maple, deep conifer.
+   Source palette: Vermont (Oct 2026) and Niagara (Aug 2026).
+   Good for: hiking, fall foliage, gorges, national/provincial parks. */
+/* @fonts: Big+Shoulders+Display:wght@600;700;800|Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400|IBM+Plex+Mono:wght@450;600 */
+:root{
+  --font-display:"Big Shoulders Display",sans-serif;
+  --font-body:"Source Serif 4",Georgia,serif;
+  --font-mono:"IBM Plex Mono",monospace;
+
+  /* surfaces */
+  --bg:#f6f4ee;
+  --surface:#ffffff;
+  --bg-deep:#14251d;
+  --bg-deep-2:#1d3529;
+
+  /* text */
+  --ink:#24312b;
+  --ink-on-deep:#cfd8d2;
+  --muted:#66736b;
+  --muted-on-deep:#93a69b;
+  --line:#dcd9cf;
+
+  /* accent — buttons, links */
+  --accent:#0e6b6e;
+  --accent-dark:#0a5254;
+  --accent-ink:#ffffff;
+  --accent-soft:#e5efec;
+
+  /* day headers */
+  --header:#1e5c46;
+  --header-ink:#ffffff;
+  --header-sub:#cfe4d4;
+
+  /* hazards */
+  --warn:#b64118;
+  --warn-soft:#fdf1e8;
+
+  /* added / optional */
+  --highlight:#d69329;
+  --highlight-ink:#3c2c07;
+  --highlight-soft:#faf3e2;
+  --highlight-on-deep:#f0c86b;
+
+  /* classifier slots */
+  --class-1:#2f6fb4;   /* trail on foot */
+  --class-2:#f2efe6;   /* road leg */
+  --class-3:#7aa87f;   /* town walking */
+  --class-4:#d69329;   /* food */
+  --class-5:#8d6fb4;
+  --class-6:#4f8f8a;
+}

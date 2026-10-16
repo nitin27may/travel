@@ -1,0 +1,43 @@
+/* autumn — late-season hardwood: rust, ochre, bare branch grey.
+   New curated theme. Good for: foliage drives, vineyards at harvest, orchards. */
+/* @fonts: Big+Shoulders+Display:wght@600;700;800|Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400|IBM+Plex+Mono:wght@450;600 */
+:root{
+  --font-display:"Big Shoulders Display",sans-serif;
+  --font-body:"Source Serif 4",Georgia,serif;
+  --font-mono:"IBM Plex Mono",monospace;
+
+  --bg:#f7f3ea;
+  --surface:#fffdf7;
+  --bg-deep:#25201a;
+  --bg-deep-2:#342c23;
+
+  --ink:#2b241d;
+  --ink-on-deep:#d6ccbe;
+  --muted:#776d61;
+  --muted-on-deep:#a89b8b;
+  --line:#e0d7c6;
+
+  --accent:#8a4b1f;
+  --accent-dark:#6a3915;
+  --accent-ink:#ffffff;
+  --accent-soft:#f4e7d9;
+
+  --header:#7a4420;
+  --header-ink:#ffffff;
+  --header-sub:#eed9c4;
+
+  --warn:#a32d16;
+  --warn-soft:#fae9e4;
+
+  --highlight:#c9962b;
+  --highlight-ink:#332405;
+  --highlight-soft:#faf2dd;
+  --highlight-on-deep:#eec77a;
+
+  --class-1:#8a4b1f;
+  --class-2:#f1e9db;
+  --class-3:#6b7a3a;
+  --class-4:#c9962b;
+  --class-5:#9c5f7a;
+  --class-6:#5f6b70;
+}

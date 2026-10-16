@@ -1,0 +1,187 @@
+{
+ "trip": "switzerland-2027",
+ "sections": [
+  {
+   "place": "Lucerne Old Town and Kapellbrücke",
+   "blurb": "A covered wooden footbridge across the Reuss, dating from the 14th century, with 17th-century painted panels under its roof.",
+   "days": "1-4",
+   "photos": [
+    {
+     "file": "Lucerne Kapellbrücke and Rathausquai from Bahnhofstrasse.jpg",
+     "caption": "Kapellbrücke and Rathausquai facades along the Reuss, Lucerne",
+     "author": "Ymblanter",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Chapel Bridge (Kapellbrücke), Lucerne, Switzerland 02.jpg",
+     "caption": "Kapellbrücke and Wasserturm (water tower) over the Reuss",
+     "author": "Godot13",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Luzern Kapellbruecke.jpg",
+     "caption": "Kapellbrücke and Wasserturm with flower boxes on the bridge rail",
+     "author": "Ikiwaner",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Rigi Kulm",
+   "blurb": "Rigi is the summit reached by the Vitznau and Arth-Goldau rail lines, and it is free with the Travel Pass.",
+   "days": "1-4",
+   "photos": [
+    {
+     "file": "20240906.Rigi Kulm.-019.jpg",
+     "caption": "Rigi Kulm summit view over cloud-filled valleys toward the Alpine skyline",
+     "author": "Bybbisch94",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "20240906.Rigi Kulm.-036.jpg",
+     "caption": "Rigi Kulm summit terraces and station with the Alps beyond the cloud layer",
+     "author": "Bybbisch94",
+     "license": "CC BY 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Stoos and Fronalpstock",
+   "blurb": "Stoos is a car-free ridge village above Schwyz, reached by the world's steepest funicular, with the Fronalpstock ridge above it.",
+   "days": "1-4",
+   "photos": [
+    {
+     "file": "Stoos Fronalpstock Canton Schwyz.jpg",
+     "caption": "Fronalpstock with the Mythen peaks rising above cloud over the Schwyz valleys",
+     "author": "Waldindu",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Fronalpstock Stoos 0859.jpg",
+     "caption": "Alpine pasture and switchback path on the Stoos side of the ridge",
+     "author": "Badener",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Lauterbrunnen valley and Staubbach",
+   "blurb": "Lauterbrunnen is a valley-floor village under 300 m cliffs, with the Staubbach Falls dropping about 300 m from the rock face above it.",
+   "days": "5-9",
+   "photos": [
+    {
+     "file": "043 Lauterbrunnen Photo by Giles Laurent.jpg",
+     "caption": "Staubbach Falls above the church and meadows of Lauterbrunnen in spring",
+     "author": "Giles Laurent",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Lauterbrunnen from the River.jpg",
+     "caption": "Lauterbrunnen church and the Staubbach Falls above the river in autumn",
+     "author": "Sergio Ligregni",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "1 lauterbrunnen valley 2012.jpg",
+     "caption": "Lauterbrunnen valley with the village and falls under cloud, from a hillside view",
+     "author": "chensiyuan",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Jungfrau railway and the Eiger, Mönch and Jungfrau",
+   "blurb": "The Wengernalp railway climbs from Lauterbrunnen toward the Eiger, Mönch and Jungfrau above Kleine Scheidegg.",
+   "days": "5-9",
+   "photos": [
+    {
+     "file": "Blick auf Eiger, Mönch, Jungfraujoch Bahnfahrt.jpg",
+     "caption": "Wengernalpbahn train on the climb below the Eiger-Mönch-Jungfrau massif",
+     "author": "LiLaLu13",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Blick auf Eiger, Mönch, jungfraujoch Fallbodensee.jpg",
+     "caption": "Fallbodensee reservoir with the Eiger and Mönch faces above it, in summer",
+     "author": "LiLaLu13",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Eiger Mönch und Jungfrau.jpg",
+     "caption": "Eiger, Mönch and Jungfrau massif above alpine meadows and switchback roads",
+     "author": "Daniel Reust",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Schilthorn and Mürren",
+   "blurb": "Mürren is a car-free village at about 1,650 m, and the Schilthornbahn climbs from it to the Schilthorn at 2,970 m.",
+   "days": "5-9",
+   "photos": [
+    {
+     "file": "Kabine Schilthorn TUD5778 webalbum 1 print.jpg",
+     "caption": "Schilthorn cable car and glass walkway with the Jungfrau massif behind",
+     "author": "Schilthornbahn",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Mürren is a Walser mountain village in Bernese Oberland, Switzerland.jpg",
+     "caption": "Mürren village street with steep rock faces rising behind the chalets",
+     "author": "Rosser1954",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Riffelsee and the Matterhorn",
+   "blurb": "The Riffelsee is a small lake on the Gornergrat side of Zermatt, and the Matterhorn is reflected in it on calm days.",
+   "days": "10-14",
+   "photos": [
+    {
+     "file": "Matterhorn+Riffelsee 2.jpg",
+     "caption": "Matterhorn reflected in the Riffelsee on a clear summer day",
+     "author": "BECK François",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Matterhorn and Riffelhorn reflection in the Riffelsee at sunset and a red sky.jpg",
+     "caption": "Matterhorn reflected in the Riffelsee at sunset, with a pink sky",
+     "author": "Deralpinbergsteiger",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Matterhorn reflection in the Riffelsee with the Milky Way galaxy.jpg",
+     "caption": "Matterhorn and the Riffelsee under the Milky Way at night",
+     "author": "Deralpinbergsteiger",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Gornergrat",
+   "blurb": "The Gornergrat is a rack-railway summit at 3,089 m above Zermatt, with the Gorner Glacier falling away below it.",
+   "days": "10-14",
+   "photos": [
+    {
+     "file": "Aerial panorama of the Gornergrat 170622.jpg",
+     "caption": "Aerial panorama of the Gornergrat, with the Riffelsee lake and Gorner Glacier",
+     "author": "Bob Tan",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Gornergrat in Wallis, Switzerland, 2012 August.jpg",
+     "caption": "Gornergrat Kulm observatory and hotel, with the Matterhorn behind",
+     "author": "Ximonic (Simo Räsänen)",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Klein Matterhorn looking toward Gornergrat.jpg",
+     "caption": "Glacier and rock ridges from the Klein Matterhorn area looking toward Gornergrat",
+     "author": "Andrew Bossi (edited by Herzi Pinki)",
+     "license": "CC BY-SA 2.5"
+    }
+   ]
+  }
+ ]
+}

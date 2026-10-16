@@ -1,0 +1,672 @@
+{
+  "recommended": {
+    "nights": 14,
+    "start": "2029-09-08",
+    "end": "2029-09-22",
+    "rationale": "14 nights covers every park in scope except Waterton (Banff, Lake Louise and Moraine, Yoho, Kootenay north, the full Icefields Parkway, Jasper, Mount Robson, Kananaskis and Peter Lougheed) while keeping long drives to the two Parkway days and averaging about 1h45 of driving and 3.2 km of family walking a day (INFERENCE). Window B (Sat 8-Sat 22 Sep) is chosen over Sat 1-Sat 15 Sep because it avoids the Labour Day weekend in Banff, gives the Larch Valley (Day 11) and Ptarmigan Cirque (Day 14) days a chance of first larch colour (peak usually about 20 Sep-5 Oct, first trees about mid-Sep), and costs one more school day (10 vs 9, INFERENCE, 2029-30 calendar GAP). Costs: Moraine canoe borderline, Kananaskis raft likely ended, colder mornings, more snow risk on the high adult hikes. All dates and hours are 2026 patterns; nothing for 2029 is published."
+  },
+  "options": [
+    {
+      "nights": 8,
+      "parks": "Banff, Lake Louise and Moraine, Yoho, Kootenay north, Icefields Parkway south half as an out-and-back from Lake Louise",
+      "cuts": "Jasper, Mount Robson, Kananaskis, Waterton, the Parkway north of the Columbia Icefield",
+      "longest_drive": "Lake Louise to the Columbia Icefield and back, about 4 h (INFERENCE, not in the matrix); Lake Louise to Calgary 125 min on departure day (matrix)",
+      "verdict": "Best value per day and only 5 school days, but it is Banff and Yoho rather than the Canadian Rockies. Take it only if school absence must stay at one week."
+    },
+    {
+      "nights": 10,
+      "parks": "Banff, Lake Louise and Moraine, Yoho, Kootenay north, full Icefields Parkway, Jasper, Mount Robson",
+      "cuts": "Kananaskis, Waterton, every flex day, one split day",
+      "longest_drive": "Jasper to Canmore 235 min non-stop, 8+ h with Parkway stops (matrix); or Jasper to Edmonton 225 min on departure day with a one-way rental fee (GAP)",
+      "verdict": "Weakest option: buys Jasper by deleting all slack, and ends with a 4-5 h drive or a one-way fee. Jasper risk is highest because no other base can absorb a closure."
+    },
+    {
+      "nights": 12,
+      "parks": "Banff, Lake Louise and Moraine, Yoho, Kootenay north, full Icefields Parkway both ways, Jasper, Kananaskis (Highwood Pass only)",
+      "cuts": "Mount Robson (or Miette), the Peter Lougheed lakes split day, Waterton",
+      "longest_drive": "Jasper to Lake Louise 175 min non-stop, 7-8 h with stops, twice (matrix plus icefieldsparkway.com)",
+      "verdict": "Honest fallback. Keeps every headliner; drop Day 6 (Robson) and Day 13 (Peter Lougheed lakes) from the 14-night plan."
+    },
+    {
+      "nights": 14,
+      "parks": "Banff, Lake Louise and Moraine, Yoho, Kootenay north, full Icefields Parkway both ways, Jasper, Mount Robson, Kananaskis and Peter Lougheed",
+      "cuts": "Waterton, Radium Hot Springs, Lake O'Hara (unless the March lottery is won), Assiniboine, Elk Lakes, Hamber",
+      "longest_drive": "Lake Louise to Jasper (Day 4) and Jasper to Lake Louise (Day 8): 175 min non-stop each, 7-8 h with 4-5 stops (matrix plus icefieldsparkway.com)",
+      "verdict": "Recommended. Every park in scope except Waterton, one flex day in Jasper, seven split days so each adult gets three or four big hikes, and the family larch walk on the second-to-last day."
+    },
+    {
+      "nights": 16,
+      "parks": "All of the 14-night plan plus Waterton (2 nights)",
+      "cuts": "Radium Hot Springs, Lake O'Hara, Assiniboine, Elk Lakes, Hamber",
+      "longest_drive": "Kananaskis Village to Waterton 200 min, then Waterton to Calgary 195 min on departure day (matrix)",
+      "verdict": "Only if Waterton matters. In late September Waterton is thinning (2026: Goat Haunt cruise ended 20 Sep; border cruise one 14:00 sailing a day 8-20 Sep; Crypt Lake had no boat access on 12 Oct). If Waterton is a must, do it in the 1-15 Sep window instead."
+    }
+  ],
+  "bases": [
+    {
+      "base_id": "banff",
+      "nights": 2,
+      "dates": "Sat 8 and Sun 9 Sep (check out Mon 10)",
+      "why": "Walkable town, Roam buses, and a first night at 1,383 m before the Sunshine day at 2,159-2,385 m. Elk rut in town: 30 m rule."
+    },
+    {
+      "base_id": "lake-louise",
+      "nights": 1,
+      "dates": "Mon 10 Sep (check out Tue 11)",
+      "why": "Starts the Parkway 35 min closer than Banff (175 vs 210 min to Jasper, matrix) and puts the family at Bow Lake around 08:15 for still water."
+    },
+    {
+      "base_id": "jasper",
+      "nights": 4,
+      "dates": "Tue 11 to Fri 14 Sep (check out Sat 15)",
+      "why": "Three full days (Maligne, Robson, Miette) at the far end of the loop, with Robson as the swap day. Lodging is the tightest in the Rockies after the 2024 fire (about 20% of rooms lost, about 96% summer occupancy): book it with Banff. Fallbacks Hinton or Valemount."
+    },
+    {
+      "base_id": "lake-louise",
+      "nights": 4,
+      "dates": "Sat 15 to Tue 18 Sep (check out Wed 19)",
+      "why": "Yoho, Lake Louise and Moraine as three split days from the Moraine shuttle's Park and Ride. Field is the cheaper fallback (25 min, lodging GAP). Village groceries are thin and pricey: stock up in Jasper."
+    },
+    {
+      "base_id": "kananaskis-village",
+      "nights": 3,
+      "dates": "Wed 19 to Fri 21 Sep (check out Sat 22)",
+      "why": "Closest base to the Peter Lougheed lakes and Highwood Pass, where the family's best larch walk is, and 70 min from Calgary airport (matrix). Almost no groceries: shop in Canmore on Day 12. Lodging GAP."
+    }
+  ],
+  "days": [
+    {
+      "n": 1,
+      "date": "Sat 8 Sep",
+      "base_id": "banff",
+      "drive": "calgary-banff, 90 min (matrix INFERENCE; Rome2Rio gives 1h25-1h45), plus car pickup at YYC and a Calgary grocery stop",
+      "summary": "Fly Toronto to Calgary, collect the car and bear spray, drive to Banff and keep the first evening flat and short.",
+      "track_a": null,
+      "track_b": {
+        "title": "Fenland Loop and Vermilion Lakes at sunset",
+        "trail_ids": ["fenland-loop"],
+        "sight_ids": ["vermilion-lakes"],
+        "adventure_ids": ["elk-rut"],
+        "notes": "No Track A: arrival day after a 4h15 flight (INFERENCE), nothing adult-only fits. Fenland Loop 1.9 km, 20 m, 45 min, flat. Vermilion Lakes Drive for the last hour before sunset (20:16 CALC). Buy or rent bear spray in Calgary, Canmore or Banff today: it is not allowed on any commercial flight, even checked (Parks Canada). Rental about C$10-12 a day at Banff shops (2025-26 blogs, low confidence). Elk rut: stay at least 30 m from all elk (a Banff specialist suggests 60 m in rut), keep the child within arm's reach, never park between a bull and cows."
+      },
+      "track_c": {
+        "title": "Banff Gondola if energy is left",
+        "sight_ids": ["banff-gondola"],
+        "adventure_ids": ["banff-gondola"],
+        "notes": "Zero walking. 2026 hours 8 Sep-12 Oct 09:00-21:00, last ride up 19:30. A 6-year-old pays the child fare (5 and under free). The child's body clock is 2 h ahead, so expect a crash around 19:00 local time (INFERENCE)."
+      },
+      "needs_split": false,
+      "rejoin": "Together all day",
+      "booking_ids": ["calgary-rental-car", "pass-discovery", "lodging-banff-ll-canmore-field"],
+      "light": "Banff sunrise 07:05, sunset 20:16 (CALC, flat horizon; the research table gives 07:06 and 20:13 for this date)",
+      "decision_rule": "If the flight lands after about 15:00 (2029 schedules GAP), skip Vermilion Lakes and go straight to the hotel.",
+      "wet_weather": "Cave and Basin (cave-and-basin; hours and admission GAP) or the hotel pool.",
+      "status_flags": [
+        "GAP: 2029 flight times and fares",
+        "GAP: Banff lodging availability and price for Sept 2029",
+        "INFERENCE: drive time from the matrix",
+        "GAP: 2029 Parks Canada pass price; the 2026 Canada Strong free-entry window ended on Labour Day and may not exist in 2029",
+        "GAP: Banff Gondola 2029 hours and price (2026 hours used)"
+      ]
+    },
+    {
+      "n": 2,
+      "date": "Sun 9 Sep",
+      "base_id": "banff",
+      "drive": "banff to the Sunshine Village gondola base and back, about 15-20 min each way (INFERENCE, not in the matrix); the family adds a mid-day round trip to Lake Minnewanka (INFERENCE)",
+      "summary": "Split day at Sunshine Meadows: one adult walks to Citadel Pass while the other adult and the child ride the gondola, stroll the meadows and spend the afternoon on the Minnewanka cruise.",
+      "track_a": {
+        "title": "Sunshine Meadows to Citadel Pass",
+        "trail_ids": ["sunshine-meadows-citadel-pass"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "10.2 km, 580 m, 4-6 h from Sunshine Village (dataset figures, status INFERENCE). Gondola up with the family at 08:00 (2026: 6 Jul-20 Sep, 08:00-18:00, no pre-booking needed; price GAP; the gondola has no id in the dataset). Turn around by 13:30 to be back at the gondola by about 15:30. Larches here usually turn mid to late September, so expect green on 9 Sep. Solo in bear country: carry bear spray and agree the turnaround time. Adult alternative in Banff with a guide: norquay-via-ferrata (age 12+, minimum 40 kg)."
+      },
+      "track_b": {
+        "title": "Sunshine Meadows stroll, then the Lake Minnewanka cruise",
+        "trail_ids": [],
+        "sight_ids": ["lake-minnewanka"],
+        "adventure_ids": ["lake-minnewanka-cruise"],
+        "notes": "Ride up together at 08:00 and walk the short meadow paths near the village for 1-2 h (no family trail id or distance for Sunshine Meadows in the dataset: GAP). Down by about 11:30. Afternoon Lake Minnewanka Classic cruise (2026: 1-17 Sep 10:00-18:00; a 6-15 child needs a seat; no strollers; the Junior Explorer kids' cruise ended 31 Aug). Stewart Canyon bridge is 1.6 km one way if legs remain (2026: trail beyond the bridge closed from 16 Sep). Altitude 2,159-2,385 m: low risk after a night at 1,383 m (researcher INFERENCE). The free Minnewanka shuttle ended on Labour Day in 2026, so drive."
+      },
+      "track_c": {
+        "title": "Banff Gondola and Cave and Basin",
+        "sight_ids": ["banff-gondola", "cave-and-basin"],
+        "adventure_ids": ["banff-gondola", "banff-upper-hot-springs"],
+        "notes": "If the child is still jet-lagged or Sunshine is in cloud: gondola up Sulphur Mountain, Cave and Basin (good rainy-day stop; hours GAP), Upper Hot Springs (2026: 13:00-22:00, last entry 21:30; youth 13 and under with an adult; adult 19.75, youth 17.25)."
+      },
+      "needs_split": true,
+      "rejoin": "Sunshine Village gondola base car park, about 15:30-16:00; then Banff Upper Hot Springs together",
+      "booking_ids": ["pass-discovery", "closures-after-labour-day", "wildlife-orders"],
+      "light": "Banff sunrise 07:06, sunset 20:13 (CALC)",
+      "decision_rule": "Sunshine goes on the first full day because its 2029 closing date is unknown: 2025 and 2026 both closed on the third Sunday of September, which is Sun 16 Sep 2029 (INFERENCE). At 07:00 check the forecast and webcams (directory: thecanadianrockies.com). Cloud or fresh snow on the meadows: everyone takes Track C and Citadel Pass is dropped, not moved.",
+      "wet_weather": "Track C: Cave and Basin and Banff Upper Hot Springs both work in rain.",
+      "status_flags": [
+        "GAP: Sunshine gondola 2029 season, hours and price (no adventure id)",
+        "INFERENCE: 2029 Sunshine closing by the third-Sunday pattern",
+        "INFERENCE: Citadel Pass figures (status INFERENCE in trails.json)",
+        "GAP: Minnewanka cruise 2029 hours and prices",
+        "GAP: Sunshine Meadows family loop distance"
+      ]
+    },
+    {
+      "n": 3,
+      "date": "Mon 10 Sep",
+      "base_id": "lake-louise",
+      "drive": "banff-lake-louise 40 min direct (matrix; Canadream also 40); the Castle Junction to Johnston Canyon and Hwy 93S Marble Canyon detours add about 60-75 min (INFERENCE, not in the matrix)",
+      "summary": "Move to Lake Louise by way of Johnston Canyon before the crowds and the two short Kootenay walks, then an early night before the Parkway.",
+      "track_a": {
+        "title": "Bourgeau Lake (optional, only if both adults want a second split in two days)",
+        "trail_ids": ["bourgeau-lake"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "13.4 km, 730 m, 5-6 h; trailhead on the Trans-Canada west of Banff, on today's route. Drop at 07:00, collect about 13:30 on the way back from Kootenay. The dataset's listed family alternative is johnson-lake-loop (east of Banff); the same-corridor family option is Track B. Larches present, timing GAP."
+      },
+      "track_b": {
+        "title": "Johnston Canyon Lower Falls, Marble Canyon, Paint Pots",
+        "trail_ids": ["marble-canyon-walk", "paint-pots-walk"],
+        "sight_ids": ["johnston-canyon", "marble-canyon", "paint-pots"],
+        "adventure_ids": [],
+        "notes": "Johnston Canyon first, on the trail by 08:00 on a weekday: Lower Falls 1.1 km one way, 85 m; exposed catwalks, hold hands. A seasonal vehicle restriction on the eastern 17 km of the Bow Valley Parkway (Parks Canada 28 Aug-2 Oct; a blog says 1 Sep-6 Oct; 2026, conflict) means reaching Johnston from Castle Junction, not from Banff. Then Hwy 93S into Kootenay: Marble Canyon 1.8 km, 65 m, fenced bridges; Paint Pots 2.0 km, 35 m. About 6 km of walking in three short pieces."
+      },
+      "track_c": {
+        "title": "Marble Canyon only, then Lake Louise",
+        "sight_ids": ["marble-canyon", "lake-louise"],
+        "adventure_ids": [],
+        "notes": "Marble Canyon is 0.9 km one way with fenced bridges. Lake Louise lakeshore in the evening for a first look only (evening parking at the lake is GAP; the lot fills before sunrise)."
+      },
+      "needs_split": false,
+      "rejoin": "Together all day; if Track A is taken, Bourgeau Lake trailhead lot on Hwy 1, about 13:30",
+      "booking_ids": ["johnston-canyon", "lodging-banff-ll-canmore-field"],
+      "light": "Lake Louise sunrise 07:10, sunset 20:14 (CALC)",
+      "decision_rule": "If Johnston Canyon is still closed in 2029 (closed from 13 Oct 2026 for rock-slope work, end date not stated) or the lot is full at 08:00, go straight to Marble Canyon and Paint Pots.",
+      "wet_weather": "Marble Canyon works in light rain (short, fenced). Skip Paint Pots mud. Early check-in at Lake Louise.",
+      "status_flags": [
+        "GAP: Johnston Canyon trail status in 2029",
+        "GAP: Bow Valley Parkway fall vehicle restriction dates (Parks Canada vs blog conflict, 2026)",
+        "INFERENCE: detour drive times not in the matrix",
+        "GAP: Stanley Glacier and other Kootenay adult hikes are not in trails.json"
+      ]
+    },
+    {
+      "n": 4,
+      "date": "Tue 11 Sep",
+      "base_id": "jasper",
+      "drive": "lake-louise-jasper 175 min non-stop (matrix INFERENCE), 232 km; plan 8-9 h door to door with stops (icefieldsparkway.com: 6-8 h with stops)",
+      "summary": "Icefields Parkway north in four stops plus fuel: Bow Lake, Peyto Lake, Saskatchewan Crossing, and the Columbia Icefield with the Ice Explorer.",
+      "track_a": {
+        "title": "Wilcox Pass while the others ride the Ice Explorer (optional)",
+        "trail_ids": ["wilcox-pass"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "8 km, 390 m, 3-4 h from the Wilcox Campground trailhead just south of the Icefield Centre (distance between them GAP). Fits inside the family's 3 h Ice Explorer and Skywalk block, so it costs no extra time. Fair with snow patches on 8 Oct 2026. Bighorn sheep on the trail. Only if that adult is happy to skip the Ice Explorer."
+      },
+      "track_b": {
+        "title": "Bow Lake, Peyto Lake, Ice Explorer and Skywalk",
+        "trail_ids": ["peyto-lake-lookout"],
+        "sight_ids": ["bow-lake", "peyto-lake", "icefields-parkway-drive", "columbia-icefield-athabasca-glacier"],
+        "adventure_ids": ["columbia-icefield-ice-explorer", "glacier-skywalk"],
+        "notes": "Fill the tank in Lake Louise. Leave 07:30. Stop 1 Bow Lake about 08:15 for still water (lakeside only; Bow Glacier Falls is 3.8 km each way, too long). Stop 2 Peyto Lake lookout, 1.2 km and 30 m, by 09:30: parking eases before 10:00 and the light is best before noon. Stop 3 Saskatchewan River Crossing about 11:00: the only fuel on the Parkway (seasonal, usually April-October, pricier), full toilets, early lunch. Stop 4 Columbia Icefield about 12:30 for a booked Ice Explorer plus Skywalk (2026 standalone about 126 adult, 82 child 6-15, third-party prices; after 15:30 about 20% cheaper; 5 and under free). Icefield Centre has full plumbing; elsewhere pit toilets roughly every 15-20 min of driving. Jasper about 18:00. No cell signal on the Parkway except at the Icefield (second-hand): download offline maps the night before."
+      },
+      "track_c": {
+        "title": "Same stops, viewpoints only",
+        "sight_ids": ["bow-lake", "peyto-lake", "columbia-icefield-athabasca-glacier"],
+        "adventure_ids": ["glacier-skywalk"],
+        "notes": "If the child is car-sick or done: Bow Lake from the car park, Peyto lookout only if the 1.2 km is acceptable, Skywalk instead of the Ice Explorer. Shaves about 2 h."
+      },
+      "needs_split": false,
+      "rejoin": "Together; if Track A is taken, Icefield Centre about 16:00",
+      "booking_ids": ["icefields-parkway", "jasper-lodging"],
+      "light": "Lake Louise sunrise about 07:12, Jasper sunset 20:21 (CALC)",
+      "decision_rule": "If the Parkway is closed (Parks Canada Jasper open/closed page), stay a second night in Lake Louise and run Day 10 now: the detour via Hwy 1, 22 and 16 is 7-8 h. If there is snow at Bow Summit, skip Peyto. If the Ice Explorer is cancelled for weather, Brewster refunds the attraction portion (2026 terms) and the toe walk (toe-glacier-walk) replaces it.",
+      "wet_weather": "Fewer stops, same order. The Ice Explorer is weather dependent (threshold GAP); the Skywalk in cloud is not worth the ticket.",
+      "status_flags": [
+        "INFERENCE: drive time from the matrix",
+        "GAP: Saskatchewan Crossing 2029 fuel hours",
+        "GAP: Columbia Icefield Adventure 2029 dates, prices, child rules (FAQ returned 404)",
+        "GAP: Num-Ti-Jah Lodge open status",
+        "GAP: Wilcox to Icefield Centre distance"
+      ]
+    },
+    {
+      "n": 5,
+      "date": "Wed 12 Sep",
+      "base_id": "jasper",
+      "drive": "jasper to Maligne Lake and back, about 1 h each way (INFERENCE, not in the matrix)",
+      "summary": "Split day at Maligne Lake: one adult on the Bald Hills, the other adult and the child on the Spirit Island cruise and the Mary Schaffer Loop.",
+      "track_a": {
+        "title": "Bald Hills",
+        "trail_ids": ["bald-hills"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "10.4 km, 500 m, 4-5 h from Maligne Lake; rated Poor on 8 Oct 2026 (2029 GAP). Opal Hills (opal-hills, 8.2 km, 460 m) is the shorter loop but was closed for grizzly activity on 8 Oct 2026: a 2029 unknown. The Skyline Trail is two days and info only."
+      },
+      "track_b": {
+        "title": "Spirit Island cruise and Mary Schaffer Loop",
+        "trail_ids": ["mary-schaffer-loop", "moose-lake-loop"],
+        "sight_ids": ["maligne-lake-spirit-island", "pyramid-lake"],
+        "adventure_ids": ["maligne-lake-cruise"],
+        "notes": "Leave Jasper 07:30. Book a 10:00 cruise (2026: 7 Sep-3 Oct, 09:00-17:30; morning calm is the common advice). The boat stops at an overlook; nobody walks on Spirit Island; no toilet on board; no strollers. Then Mary Schaffer Loop 3.2 km, 84 m. Moose Lake Loop 2.7 km, 59 m on the drive out if the child wants more. Maligne Road: wildlife, slow down, stay in the car. Evening: Pyramid Lake for calm water."
+      },
+      "track_c": {
+        "title": "Cruise only",
+        "sight_ids": ["maligne-lake-spirit-island"],
+        "adventure_ids": ["maligne-lake-cruise"],
+        "notes": "The cruise needs almost no walking. Return to Jasper for a rest afternoon."
+      },
+      "needs_split": true,
+      "rejoin": "Maligne Lake boathouse car park, about 14:00",
+      "booking_ids": ["maligne-cruise"],
+      "light": "Jasper sunrise 07:19, sunset 20:18 (CALC)",
+      "decision_rule": "If Maligne Canyon (maligne-canyon) has reopened by 2029, stop on the drive back at about 15:00. If the Bald Hills report is Poor with snow or a closure is posted, the hiking adult joins the cruise.",
+      "wet_weather": "The cruise runs in rain (weather policy GAP). Alternative: Jasper wildlife tour (jasper-wildlife-tour; 2026 about 69-74 adult, 35-39 child, 3-3.5 h).",
+      "status_flags": [
+        "GAP: Maligne Canyon status in 2029 (closed until further notice in 2026)",
+        "GAP: Opal Hills status in 2029 (grizzly closure in 2026)",
+        "GAP: Maligne cruise 2029 dates and prices; one 2026 page said the cruise was closed for 2026 and showed 2027 dates (conflict)",
+        "INFERENCE: Jasper-Maligne Lake drive time"
+      ]
+    },
+    {
+      "n": 6,
+      "date": "Thu 13 Sep",
+      "base_id": "jasper",
+      "drive": "jasper-mount-robson 60 min each way (matrix INFERENCE)",
+      "summary": "Mount Robson in the morning for the best chance of a clear summit, back to Jasper for the SkyTram in the afternoon.",
+      "track_a": {
+        "title": "Kinney Lake (one adult, or the whole family if the child's ceiling is 10 km)",
+        "trail_ids": ["kinney-lake"],
+        "sight_ids": ["kinney-lake-view"],
+        "adventure_ids": [],
+        "notes": "10 km, 131 m, 3-3.5 h, nearly flat; audience 'both' in the dataset. BC Parks: elk and moose can be aggressive in the September-October rut. Berg Lake Trail is 46 km and multi-day with reservations: info only."
+      },
+      "track_b": {
+        "title": "Robson viewpoint, Overlander Falls, then the Jasper SkyTram",
+        "trail_ids": ["overlander-falls-trail"],
+        "sight_ids": ["mount-robson-viewpoint", "overlander-falls-view"],
+        "adventure_ids": ["jasper-skytram"],
+        "notes": "Leave 07:30. Visitor centre viewpoint, zero walking (cloud often hides the summit). Overlander Falls 2.3 km, 90 m. Back in Jasper by about 14:00 for the SkyTram (2026 fall hours 10:00-17:00 on the official site; another listing says 10:00-18:00 with last ride up 16:30). Allow 90 min between up and down. A 6-15 child pays youth fare (2026 blog: 50). Mount Robson is probably on Pacific time (GAP): clocks go back one hour at the BC line."
+      },
+      "track_c": {
+        "title": "Viewpoint and SkyTram",
+        "sight_ids": ["mount-robson-viewpoint"],
+        "adventure_ids": ["jasper-skytram"],
+        "notes": "Drive, look, drive back, ride up the mountain."
+      },
+      "needs_split": false,
+      "rejoin": "Together; if Track A is taken, Berg Lake trailhead lot about 11:30 while the family does the viewpoint and Overlander Falls",
+      "booking_ids": ["jasper-skytram"],
+      "light": "Jasper sunrise 07:21, sunset 20:16 MDT (CALC); Robson 07:26 and 20:21 MDT, which is 06:26 and 19:21 if Robson is on Pacific time",
+      "decision_rule": "This is the Jasper swap day. At 07:00, if the forecast puts Robson in cloud, swap Days 6 and 7 (Miette works under cloud). If a Day 4 or Day 5 activity was lost, it takes this slot.",
+      "wet_weather": "Swap with Day 7: the hot springs work in rain.",
+      "status_flags": [
+        "GAP: Mount Robson time zone",
+        "GAP: Jasper SkyTram 2029 hours (two 2026 listings conflict)",
+        "GAP: Berg Lake day-use pass status (2023-24 news vs 2026 BC Parks page)",
+        "INFERENCE: whether a 6-year-old manages 10 km"
+      ]
+    },
+    {
+      "n": 7,
+      "date": "Fri 14 Sep",
+      "base_id": "jasper",
+      "drive": "jasper to Miette Hot Springs about 1 h each way via Hwy 16 east (INFERENCE, not in the matrix)",
+      "summary": "Slow morning in town, then a split day at Miette: one adult climbs Sulphur Skyline from the pools while the other adult and the child walk to the old mine and soak; evening at Lake Annette.",
+      "track_a": {
+        "title": "Sulphur Skyline",
+        "trail_ids": ["sulphur-skyline"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "8 km, 700 m, 3-4 h from the Miette Hot Springs lot; exposed ridge; open per the 2026 page. Start about 11:30 after the drive."
+      },
+      "track_b": {
+        "title": "Miette Mine trail and the pools, Lake Annette in the evening",
+        "trail_ids": ["jasper-miette-mine-trail", "lake-annette-loop"],
+        "sight_ids": ["jasper-townsite", "miette-hot-springs", "pyramid-lake"],
+        "adventure_ids": ["miette-hot-springs", "jasper-dark-sky"],
+        "notes": "Morning in Jasper townsite: laundry, groceries for the Lake Louise block, rest (day 7 of 15). Leave 10:30; on Hwy 16 east watch for bighorn sheep (research). Pools 2026: 8 Sep-12 Oct, 11:00-21:00, last entry 20:30; adult 19.75, youth 17.25; 13 and under with an adult. Miette Mine trail 0.8 km. Evening: Lake Annette Loop 2.4 km, 90 m, flat; then dark-sky watching if clear (sunset 20:13; moon phase not computed, GAP)."
+      },
+      "track_c": {
+        "title": "Soak only",
+        "sight_ids": ["miette-hot-springs"],
+        "adventure_ids": ["miette-hot-springs"],
+        "notes": "Pools are the whole outing."
+      },
+      "needs_split": true,
+      "rejoin": "Miette Hot Springs pools car park, about 15:30",
+      "booking_ids": ["wildlife-orders"],
+      "light": "Jasper sunrise 07:23, sunset 20:13 (CALC)",
+      "decision_rule": "If smoke is forecast (Environment Canada special air quality statement), the pools and the town are the day; nobody climbs. Elk rut in Jasper townsite: 30 m, never between bull and cows; Jasper dispatch 780-852-6155.",
+      "wet_weather": "Pools work in rain. Skip the ridge if there is lightning.",
+      "status_flags": [
+        "INFERENCE: Jasper-Miette drive time",
+        "GAP: Miette 2029 hours and prices",
+        "GAP: post-fire Jasper grocery and service list",
+        "GAP: 2029 moon phase for stargazing"
+      ]
+    },
+    {
+      "n": 8,
+      "date": "Sat 15 Sep",
+      "base_id": "lake-louise",
+      "drive": "jasper-lake-louise 175 min non-stop (matrix INFERENCE); plan 7-8 h with stops",
+      "summary": "Parkway south with the waterfalls in the morning, the glacier toe at midday and fuel at Saskatchewan Crossing; book Monday's Lake Louise shuttle seats before leaving Jasper.",
+      "track_a": {
+        "title": "Parker Ridge while the family walks to the glacier toe (optional)",
+        "trail_ids": ["parker-ridge"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "5.4 km, 250 m, 2-3 h; wind and cold on top. Trailhead a short way south of the Icefield (distance GAP). Only if the car reaches the Icefield by 12:00."
+      },
+      "track_b": {
+        "title": "Athabasca Falls, Sunwapta Falls, toe of the Athabasca Glacier",
+        "trail_ids": ["athabasca-falls-trail", "toe-glacier-walk"],
+        "sight_ids": ["athabasca-falls", "sunwapta-falls", "columbia-icefield-athabasca-glacier", "icefields-parkway-drive"],
+        "adventure_ids": [],
+        "notes": "08:00 in Jasper: book Monday's Lake Louise shuttle seats in the 60% release (there is no cell on the Parkway). Fill the tank. Stop 1 Athabasca Falls about 08:45: 0.2 km, fenced; hold hands at the canyon edge. Stop 2 Sunwapta Falls: upper viewpoint short and fenced; Lower Sunwapta 2.6 km return if wanted. Stop 3 Columbia Icefield about 11:30: toe of the glacier 1.8 km, 60 m; stay behind signs and ropes (a child died in a crevasse in 1990 and a backcountry skier in May 2026); lunch and full toilets at the Icefield Centre. Stop 4 Saskatchewan Crossing about 14:30: fuel, toilets. Lake Louise by about 16:30. The Mount Kerkeslin goat lick is past its June-August peak."
+      },
+      "track_c": {
+        "title": "Viewpoints from the car parks",
+        "sight_ids": ["athabasca-falls", "sunwapta-falls", "columbia-icefield-athabasca-glacier"],
+        "adventure_ids": [],
+        "notes": "Athabasca Falls is 200 m; Sunwapta upper falls is a few steps; the Icefield from the Centre terrace."
+      },
+      "needs_split": false,
+      "rejoin": "Together; if Track A is taken, Parker Ridge trailhead lot about 14:00",
+      "booking_ids": ["shuttle-moraine-lakelouise", "icefields-parkway", "lodging-banff-ll-canmore-field"],
+      "light": "Jasper sunrise about 07:25; Lake Louise sunset 20:02 (CALC)",
+      "decision_rule": "If Day 4 lost Bow Lake or Peyto to weather, add them back today and drop Sunwapta. If the Parkway is closed, stay one more night in Jasper (call both hotels) and drop Day 9 (Yoho), the only Lake Louise-block day with no shuttle seat attached.",
+      "wet_weather": "Same stops, shorter. Athabasca Falls is better in rain than most stops.",
+      "status_flags": [
+        "INFERENCE: drive time from the matrix",
+        "GAP: Saskatchewan Crossing 2029 hours",
+        "GAP: Parker Ridge trailhead distance from the Icefield",
+        "INFERENCE: 2029 shuttle release follows the 2026 08:00 MDT two-days-ahead rule"
+      ]
+    },
+    {
+      "n": 9,
+      "date": "Sun 16 Sep",
+      "base_id": "lake-louise",
+      "drive": "lake-louise-field 25 min (matrix INFERENCE); the Yoho Valley Road to Takakkaw and the Emerald Lake road add about 20-30 min each (INFERENCE, not in the matrix)",
+      "summary": "Split day in Yoho: one adult on the Iceline from Takakkaw Falls, the other adult and the child at Takakkaw, Emerald Lake by canoe and Natural Bridge.",
+      "track_a": {
+        "title": "Iceline Trail",
+        "trail_ids": ["iceline-trail"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "Parks Canada gives two sets of figures: 20.3 km and 1,090 m, or 20.8 km and 710 m; the Celeste Lake bypass is 17.4 km and 970 m. Allow 7-8 h. Fair with deadfall and snow at high elevation on 5 Oct 2026. Drop at the Takakkaw lot 07:30, back by 15:30. Same-park alternatives: Emerald Triangle via the Wapta Highline (emerald-triangle-wapta-highline, 18.8 km, 1,285 m) keeps the car at Emerald Lake; the Burgess Shale Walcott Quarry guided hike (burgess-walcott, 11 h, adult 131) had a 2026 access prohibition."
+      },
+      "track_b": {
+        "title": "Takakkaw Falls, Emerald Lake canoe, Natural Bridge",
+        "trail_ids": ["takakkaw-falls-walk", "emerald-lakeshore"],
+        "sight_ids": ["takakkaw-falls", "emerald-lake", "natural-bridge"],
+        "adventure_ids": ["emerald-lake-canoe"],
+        "notes": "08:00 at Lake Louise: book Tuesday's Moraine shuttle seats in the 60% release before driving into the Yoho Valley (cell coverage there GAP). Takakkaw Falls walk 1.8 km flat at 08:00 while it is quiet (late-day cloud is typical). Emerald Lake about 10:00: canoe (2026: 10:00-16:45 but the page also says last rental 14:00; 70-100 per hour; one adult 19+ per canoe; 2 adults plus 2 children under 30 kg allowed). Lakeshore loop 5.2 km with a muddy, rooty east side: walk the west side out and back. Natural Bridge on the way back, almost no walking. Back at Takakkaw for 15:30. The Burgess Shale Mt Stephen hike is age 8+, so not for the child."
+      },
+      "track_c": {
+        "title": "Viewpoints and a canoe",
+        "sight_ids": ["takakkaw-falls", "natural-bridge", "emerald-lake"],
+        "adventure_ids": ["emerald-lake-canoe"],
+        "notes": "The canoe counts as low-walking. Takakkaw viewpoint is 0.9 km each way on a flat paved path."
+      },
+      "needs_split": true,
+      "rejoin": "Takakkaw Falls car park, about 15:30",
+      "booking_ids": ["yoho-valley-road", "shuttle-moraine-lakelouise", "lake-ohara-bus"],
+      "light": "Lake Louise sunrise 07:19, sunset 20:00 (CALC)",
+      "decision_rule": "If the March 2029 Lake O'Hara lottery is won for this date, replace the day with O'Hara (children 1-16 must be on the reservation; no O'Hara trail ids in this dataset). If the Iceline report shows snow on the high section, the hiking adult turns back at the first viewpoint (distance GAP) or joins Track B.",
+      "wet_weather": "Wapta Falls (wapta-falls-trail, 4.4 km, 80 m; eastbound access only) under cloud; or Golden (40 min from Field): Kicking Horse gondola and the grizzly refuge (kicking-horse-gondola-grizzly; Thu-Mon only from 10 Sep in 2026, so Sunday works) and Golden Skybridge (golden-skybridge; the zipline needs 23 kg, so the child fails it; Railrider coaster passenger minimum 92 cm is fine).",
+      "status_flags": [
+        "GAP: Iceline figures conflict between two Parks Canada pages",
+        "GAP: Yoho Valley Road 2029 closing date (blog rule: Tuesday after Thanksgiving)",
+        "GAP: Emerald Lake canoe last-rental time conflict",
+        "INFERENCE: Yoho side-road drive times",
+        "GAP: Field and Yoho time zone (verify Mountain)"
+      ]
+    },
+    {
+      "n": 10,
+      "date": "Mon 17 Sep",
+      "base_id": "lake-louise",
+      "drive": "Lake Louise village to the Park and Ride at 1 Whitehorn Rd, a few minutes (INFERENCE); Lakeshore shuttle to the lake",
+      "summary": "Split day at Lake Louise on a weekday: one adult to the Plain of Six Glaciers, the other adult and the child on the lakeshore and in a canoe, then everyone up the Lake Louise Gondola.",
+      "track_a": {
+        "title": "Plain of Six Glaciers",
+        "trail_ids": ["plain-of-six-glaciers"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "11.8 km, 595 m, 5-6 h; teahouse operating dates GAP; avalanche debris and exposed sections near the end GAP. The busiest trail in the plan, which makes it the best one for a solo adult. Shorter: Lake Agnes Tea House (lake-agnes, 7.8 km, 495 m; tea house closing date GAP). Steeper: Mount Fairview (mount-fairview, 10 km, 990 m)."
+      },
+      "track_b": {
+        "title": "Lake Louise lakeshore, canoe, and the Lake Louise Gondola",
+        "trail_ids": ["lake-louise-lakeshore"],
+        "sight_ids": ["lake-louise"],
+        "adventure_ids": ["lake-louise-canoe", "lake-louise-gondola"],
+        "notes": "First Lakeshore shuttle from the Park and Ride (check in at the kiosk inside the 1-hour window; reservation holders park free). Lakeshore trail 4.6 km return, 175 m (dataset). Canoe about 160 per hour (blog, unverified; season end GAP). After the rejoin, everyone back to the Park and Ride and up the Lake Louise Gondola (2026: 09:00-16:30; adult 65, child 6-12 16, before tax, 10% off online; under 12 or under 106 cm must ride with an adult; views over the Whitehorn grizzly corridor)."
+      },
+      "track_c": {
+        "title": "Short lakeshore walk and the gondola",
+        "sight_ids": ["lake-louise"],
+        "adventure_ids": ["lake-louise-gondola"],
+        "notes": "Chateau end of the lake only, then the gondola."
+      },
+      "needs_split": true,
+      "rejoin": "Lake Louise lakeshore (Chateau end), about 13:30; then the shuttle to the Park and Ride and the gondola together",
+      "booking_ids": ["shuttle-moraine-lakelouise", "lakelouise-lakeshore-parking"],
+      "light": "Lake Louise sunrise 07:21, sunset 19:58 (CALC)",
+      "decision_rule": "Do not plan to drive to the Lakeshore lot: about 75% of vehicles were turned away in summer 2025 (Parks Canada). If Tuesday's forecast is clearly better than Monday's for Moraine, try to swap Days 10 and 11 at the 08:00 release on Sat 15 (change fee 3.50; allowed up to 1 h before departure; seats permitting).",
+      "wet_weather": "The lakeshore works in rain; the gondola in cloud does not. Banff Upper Hot Springs is 40 min away (banff-upper-hot-springs).",
+      "status_flags": [
+        "GAP: Lakeshore shuttle 2029 fares and first departure time",
+        "GAP: Plain of Six and Lake Agnes teahouse 2029 dates",
+        "GAP: Lake Louise canoe season end and price",
+        "GAP: Lake Louise Gondola 2029 dates"
+      ]
+    },
+    {
+      "n": 11,
+      "date": "Tue 18 Sep",
+      "base_id": "lake-louise",
+      "drive": "Park and Ride; Moraine Lake shuttle only (no private vehicles on Moraine Lake Road, year-round)",
+      "summary": "Moraine Lake on the latest possible day for first larch colour: one adult up Larch Valley to Sentinel Pass, the other adult and the child at the Rockpile at first light, on the lakeshore and, if it is still running, in a canoe.",
+      "track_a": {
+        "title": "Larch Valley to Sentinel Pass",
+        "trail_ids": ["larch-valley-sentinel-pass"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "11.2 km, 750 m, 5-6 h. Group access rule: Larch Valley, Sentinel Pass, Consolation Lakes, Paradise Valley and others require a tight group of four or more when the trailhead sign says mandatory; typically in effect mid-July to mid-October (Parks Canada page, search snippet only). A solo adult must join three others at the trailhead. Whether a 6-year-old counts toward four is a GAP. Larches: first trees yellow about mid-September, peak about 10 days later (2026 guide), so 18 Sep is the edge of colour at best. Snow possible above treeline."
+      },
+      "track_b": {
+        "title": "Rockpile at first light, Moraine lakeshore, canoe if open",
+        "trail_ids": ["moraine-lakeshore"],
+        "sight_ids": ["moraine-lake"],
+        "adventure_ids": ["moraine-lake-canoe"],
+        "notes": "Regular Moraine shuttle from the Park and Ride at about 06:30 (2026; seat fares adult 12.75, youth 4.00 per the Banff Blog, plus a 3.50 online fee; Parks Canada did not show the fare). Sunrise 07:23 on a flat horizon, later behind the Ten Peaks. Rockpile 0.7 km loop with stairs at first light, then the lakeshore 2.6 km. Canoe: first come, about 160 per hour, mid-June to mid-September, so it may be closed by 18 Sep (GAP); own boats banned since 2026. The Lake Connector to Lake Louise is included in the ticket."
+      },
+      "track_c": {
+        "title": "Rockpile only",
+        "sight_ids": ["moraine-lake"],
+        "adventure_ids": [],
+        "notes": "Rockpile viewpoint, then the next shuttle down."
+      },
+      "needs_split": true,
+      "rejoin": "Moraine Lake shuttle stop, about 13:00",
+      "booking_ids": ["shuttle-moraine-lakelouise", "moraine-private-access", "larch-valley-group"],
+      "light": "Lake Louise sunrise 07:23, sunset 19:55 (CALC); real sunrise on the peaks later because of terrain",
+      "decision_rule": "Book this date on launch day in mid-April 2029. If the group rule is mandatory and no group forms by about 08:30, the hiking adult takes the Lake Connector to Lake Louise and walks to Lake Agnes (lake-agnes), which is outside the Moraine group-access area, and rejoins at Lake Louise at 13:00.",
+      "wet_weather": "Moraine in rain is Rockpile only. Use the Day 10 swap rule if the forecast is known 48 h out.",
+      "status_flags": [
+        "GAP: whether a 6-year-old counts in the group-of-four rule",
+        "GAP: 2029 status of the group rule (mandatory or recommended)",
+        "GAP: Moraine canoe 2029 season end",
+        "GAP: 2029 shuttle fare and first departure",
+        "INFERENCE: larch timing for 18 Sep"
+      ]
+    },
+    {
+      "n": 12,
+      "date": "Wed 19 Sep",
+      "base_id": "kananaskis-village",
+      "drive": "lake-louise-canmore 60 min plus canmore-kananaskis-village 45 min (matrix INFERENCE), plus the short Grassi Lakes detour above Canmore",
+      "summary": "Move to Kananaskis via Canmore: groceries, Grassi Lakes for the family and the option of Ha Ling for one adult.",
+      "track_a": {
+        "title": "Ha Ling Peak (optional)",
+        "trail_ids": ["ha-ling-peak"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "7 km, 780 m, 4-5 h; steep, exposed scree; summit snow possible. Trailhead lot at the start of the Smith-Dorrien road above Canmore, close to Grassi Lakes (INFERENCE). Only if both adults want a fourth split."
+      },
+      "track_b": {
+        "title": "Grassi Lakes and the Canmore Nordic Centre",
+        "trail_ids": ["grassi-lakes-upper"],
+        "sight_ids": ["canmore-nordic-centre"],
+        "adventure_ids": ["canmore-nordic-centre"],
+        "notes": "Grassi Lakes easy route 3.8 km, 125 m; Kananaskis Conservation Pass needed to park; wildlife corridor, stay on the trail. Canmore groceries (Safeway, Save-On-Foods, the IGA that opened in April 2026): Kananaskis Village has almost none. The Nordic Centre skills park is free."
+      },
+      "track_c": {
+        "title": "Mount Lorette Ponds on the way in",
+        "sight_ids": ["mount-lorette-ponds", "canmore-nordic-centre"],
+        "adventure_ids": [],
+        "notes": "Mount Lorette Ponds is a 1 km flat loop on Hwy 40 (check the Alberta Parks closure notice first)."
+      },
+      "needs_split": false,
+      "rejoin": "Together; if Track A is taken, Grassi Lakes and Ha Ling trailhead area, about 14:00",
+      "booking_ids": ["kananaskis-pass"],
+      "light": "Kananaskis Village sunrise 07:20, sunset 19:49 (CALC for 50.93 N, 115.14 W; coordinates INFERENCE)",
+      "decision_rule": "Buy the Kananaskis Conservation Pass online this morning (2026: 15 a day per vehicle or 90 a year; four parking days cost 60 at day rates). The Parks Canada pass does not cover it.",
+      "wet_weather": "Canmore indoor pools (Pocaterra Inn waterslide, Canmore Inn and Suites; day-use access GAP); Troll Falls if it clears.",
+      "status_flags": [
+        "INFERENCE: drive times from the matrix",
+        "GAP: Kananaskis Village lodging and restaurants",
+        "GAP: Mount Lorette Ponds closure status",
+        "GAP: 2029 Kananaskis Conservation Pass price"
+      ]
+    },
+    {
+      "n": 13,
+      "date": "Thu 20 Sep",
+      "base_id": "kananaskis-village",
+      "drive": "kananaskis-village to Upper Kananaskis Lake about 35-40 min each way (INFERENCE, not in the matrix)",
+      "summary": "Split day at the Kananaskis Lakes: one adult to Sarrail Ridge, the other adult and the child on the Interlakes trail and the Rockwall lookout.",
+      "track_a": {
+        "title": "Sarrail Ridge",
+        "trail_ids": ["sarrail-ridge"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "11.3 km, 675 m, 5-6 h; steep slippery gully, exposed. Shares the Rawson Lake trailhead. 2026: Rawson and Sarrail grizzly advisory from 5 Jul, and the Upper Kananaskis Lake circuit (upper-kananaskis-lake-loop) closed from North Interlakes to White Spruce for a grizzly with cubs. Both are 2029 unknowns."
+      },
+      "track_b": {
+        "title": "Interlakes trail, Rockwall lookout, Lower Lake",
+        "trail_ids": ["interlakes-trail", "rockwall-lookout"],
+        "sight_ids": ["kananaskis-lakes-day-use"],
+        "adventure_ids": [],
+        "notes": "Interlakes is flat (8.6 km full length; the 4.3 km section between the two lots); walk part of it out and back, about 4 km. Rockwall lookout 0.5 km at the Peter Lougheed Discovery Centre. Rawson Lake (rawson-lake, 7.8 km, 300 m, audience 'both') is the stretch goal if the child's ceiling allows. Bears: keep the child close and walk in a tight group."
+      },
+      "track_c": {
+        "title": "Lower Lake lakeside",
+        "sight_ids": ["kananaskis-lakes-day-use"],
+        "adventure_ids": [],
+        "notes": "Flat lakeside strolls and a picnic at the Lower Lake day use."
+      },
+      "needs_split": true,
+      "rejoin": "Rawson Lake and Upper Lake trailhead lot (North Interlakes), about 14:30",
+      "booking_ids": ["kananaskis-pass"],
+      "light": "Kananaskis Village sunrise 07:22, sunset 19:46 (CALC)",
+      "decision_rule": "Read the Peter Lougheed trail report the evening before. If Rawson and Sarrail are closed, the adult goes to Chester Lake (chester-lake) or Burstall Pass (burstall-pass) on the Smith-Dorrien gravel road (check the rental contract allows gravel), and the family keeps Track B. Days 13 and 14 swap freely on weather.",
+      "wet_weather": "Troll Falls (troll-falls, 3.4 km, 155 m) from Kananaskis Village.",
+      "status_flags": [
+        "GAP: Upper Kananaskis Lake circuit and Rawson/Sarrail status in 2029",
+        "INFERENCE: drive time",
+        "GAP: rental contract terms for Hwy 742 gravel",
+        "GAP: Rawson Lake larches (sources do not confirm them)"
+      ]
+    },
+    {
+      "n": 14,
+      "date": "Fri 21 Sep",
+      "base_id": "kananaskis-village",
+      "drive": "kananaskis-village to Highwood Pass about 50 min each way (INFERENCE, not in the matrix)",
+      "summary": "The whole family's alpine larch walk: Ptarmigan Cirque from Highwood Pass, then Wedge Pond on the way back.",
+      "track_a": null,
+      "track_b": {
+        "title": "Ptarmigan Cirque from Highwood Pass, Wedge Pond",
+        "trail_ids": ["ptarmigan-cirque", "wedge-pond-loop"],
+        "sight_ids": ["highwood-pass-summit", "wedge-pond"],
+        "adventure_ids": [],
+        "notes": "No Track A: this is a family-together day by design. Ptarmigan Cirque is the one larch walk in the plan sized for the child, and the dataset has no adult-only trail at Highwood Pass (Arethusa Cirque is named in the research but not in trails.json). Ptarmigan Cirque 4.5 km, 210 m, 2-3 h, starting at 2,206 m; larches turn mid-September to early October (Alberta Parks), so 21 Sep is plausibly early colour (INFERENCE). Closed in snow or wet. The Highwood lot is busy, with construction reported and an overflow lot added: arrive by 09:00 (Friday helps). At 2,000-2,500 m expect day highs of 9-12 C and nights below freezing (INFERENCE, lapse rate). Wedge Pond on the way back: 1 km, flat."
+      },
+      "track_c": {
+        "title": "Highwood Pass and Wedge Pond from the car",
+        "sight_ids": ["highwood-pass-summit", "wedge-pond"],
+        "adventure_ids": [],
+        "notes": "The pass is a roadside stop; Wedge Pond is 20-45 min of flat walking."
+      },
+      "needs_split": false,
+      "rejoin": "Together all day",
+      "booking_ids": ["kananaskis-pass"],
+      "light": "Kananaskis Village sunrise 07:23, sunset 19:44 (CALC)",
+      "decision_rule": "If snow or rain is forecast on Highwood Pass, swap with Day 13. If both days are poor, Troll Falls and Wedge Pond in the valley. This is the last flex point of the trip.",
+      "wet_weather": "Troll Falls (troll-falls) and Mount Lorette Ponds (mount-lorette-ponds-loop) in the valley.",
+      "status_flags": [
+        "INFERENCE: larch colour on 21 Sep 2029",
+        "INFERENCE: drive time",
+        "GAP: Highwood Pass parking capacity and construction status in 2029",
+        "INFERENCE: temperatures from a lapse rate"
+      ]
+    },
+    {
+      "n": 15,
+      "date": "Sat 22 Sep",
+      "base_id": "kananaskis-village",
+      "drive": "kananaskis-village-calgary 70 min (matrix INFERENCE) to YYC, plus car return",
+      "summary": "Short morning walk if the flight is late, then Calgary airport.",
+      "track_a": null,
+      "track_b": {
+        "title": "Troll Falls if the flight leaves after about 15:00",
+        "trail_ids": ["troll-falls"],
+        "sight_ids": [],
+        "adventure_ids": [],
+        "notes": "No Track A: departure day. Troll Falls 3.4 km, 155 m, 1-1.5 h from the Stoney trailhead at Kananaskis Village; slippery near the upper falls. Refuel in Calgary before the car return."
+      },
+      "track_c": {
+        "title": "Straight to the airport",
+        "sight_ids": ["wedge-pond"],
+        "adventure_ids": [],
+        "notes": "Wedge Pond (on Hwy 40, 20-45 min) only if there is time; otherwise drive."
+      },
+      "needs_split": false,
+      "rejoin": "Together all day",
+      "booking_ids": ["calgary-rental-car", "kananaskis-pass"],
+      "light": "Kananaskis Village sunrise 07:25, sunset 19:42 (CALC)",
+      "decision_rule": "Leave Kananaskis Village at least 3 h before departure (70 min drive plus car return and security; INFERENCE).",
+      "wet_weather": "Drive straight to Calgary.",
+      "status_flags": [
+        "GAP: 2029 return flight times",
+        "INFERENCE: drive time from the matrix"
+      ]
+    }
+  ],
+  "split_days": [2, 5, 7, 9, 10, 11, 13],
+  "deadlines": [
+    {"when": "1-31 Aug 2028 (INFERENCE from the 2026 window; only if wanted)", "what": "Mount Assiniboine Lodge booking requests for summer 2029. Not in this plan; child policy GAP.", "booking_id": "assiniboine-lodge"},
+    {"when": "As soon as 2029 inventory opens, about Sep-Oct 2028 (INFERENCE; about 12 months ahead is typical but unverified)", "what": "All lodging on refundable rates: Banff 2 nights, Lake Louise 1 + 4, Kananaskis Village 3.", "booking_id": "lodging-banff-ll-canmore-field"},
+    {"when": "Same day as the Banff and Lake Louise bookings (INFERENCE)", "what": "Jasper 4 nights. About 20% of Jasper rooms were lost in 2024; occupancy was about 96% in summer. Fallbacks: Hinton, Valemount.", "booking_id": "jasper-lodging"},
+    {"when": "About Sep-Oct 2028 (INFERENCE, schedules usually open about 11 months out)", "what": "Flights YYZ-YYC return; decide Calgary vs Edmonton out first.", "booking_id": ""},
+    {"when": "Once lodging is fixed (INFERENCE)", "what": "Rental car from YYC with free cancellation; ask in writing about gravel roads (Hwy 742) and animal-strike cover; bring the child's own booster (required in BC to age 9 or 145 cm).", "booking_id": "calgary-rental-car"},
+    {"when": "Early Dec 2028 (INFERENCE; 2026 season opened 2 Dec 2025, 07:00 PT; info only)", "what": "Berg Lake Trail campsites. Not in this plan.", "booking_id": "berg-lake"},
+    {"when": "Late Jan to mid Feb 2029 (INFERENCE; 2026: Yoho and Kootenay 20 Jan, Jasper 27 Jan, Banff 12 Feb, 08:00 MT)", "what": "Parks Canada front-country campgrounds, only if you switch any night to camping.", "booking_id": "camp-banff-front"},
+    {"when": "About 2-23 Mar 2029 (INFERENCE; 2026 window 2-23 Mar, 10 per application)", "what": "Lake O'Hara day-bus lottery for Sun 16 Sep (optional; replaces Day 9 if won; child must be on the reservation).", "booking_id": "lake-ohara-bus"},
+    {"when": "Spring 2029", "what": "Confirm the 2029-30 school calendar and ask the school about a 10-day absence.", "booking_id": ""},
+    {"when": "Mid-April 2029, 08:00 MDT (2026: Wed 15 Apr; 15 Apr 2029 is a Sunday, so the 2029 date will differ: GAP)", "what": "Parks Canada shuttle seats: Lakeshore for Mon 17 Sep and Moraine for Tue 18 Sep. Only 40% of seats are released on launch day; be logged in at 08:00. Nearly 40,000 seats went on opening day in 2026.", "booking_id": "shuttle-moraine-lakelouise"},
+    {"when": "Spring 2029 and the week before departure", "what": "Check 2029 status: Johnston Canyon, Maligne Canyon, Edith Cavell, Opal Hills, Upper Kananaskis Lake circuit, Larch Valley group rule, Sunshine gondola closing date, Bow Valley Parkway fall restriction.", "booking_id": "wildlife-orders"},
+    {"when": "About Jun-Jul 2029 (lead time GAP)", "what": "Columbia Icefield Adventure (Ice Explorer plus Skywalk) for Tue 11 Sep, early afternoon.", "booking_id": "icefields-parkway"},
+    {"when": "About Aug 2029, a few weeks ahead (INFERENCE)", "what": "Maligne Lake cruise, 10:00 on Wed 12 Sep. Non-refundable.", "booking_id": "maligne-cruise"},
+    {"when": "Before the trip or at the first gate", "what": "Parks Canada Discovery Pass, family annual (2026: 167.50; daily family 24.50 x 14 days would cost more). Child 0-17 free.", "booking_id": "pass-discovery"},
+    {"when": "At booking", "what": "Travel medical (OHIP does not fully cover out-of-province care) and trip cancellation including wildfire evacuation and smoke clauses.", "booking_id": ""},
+    {"when": "About Thu 6 Sep 2029", "what": "Conditions re-check routine (trip-planner Phase 2; not yet scheduled): closures, smoke, snow, larch reports, shuttle status.", "booking_id": ""},
+    {"when": "Sat 8 Sep 2029, Day 1", "what": "Buy or rent bear spray (not allowed on any flight).", "booking_id": ""},
+    {"when": "Sat 15 Sep 2029, 08:00 MDT, in Jasper before driving", "what": "60% shuttle release for Mon 17 Sep (Lake Louise lakeshore), if not booked in April. No cell on the Parkway.", "booking_id": "shuttle-moraine-lakelouise"},
+    {"when": "Sun 16 Sep 2029, 08:00 MDT, at Lake Louise before Yoho", "what": "60% shuttle release for Tue 18 Sep (Moraine), if not booked in April.", "booking_id": "shuttle-moraine-lakelouise"},
+    {"when": "Wed 19 Sep 2029 morning", "what": "Kananaskis Conservation Pass, online, for Wed 19 to Sat 22 Sep.", "booking_id": "kananaskis-pass"}
+  ]
+}

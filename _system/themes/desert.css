@@ -1,0 +1,43 @@
+/* desert — high sun, red rock, bleached sky.
+   New curated theme. Good for: canyons, arid parks, badlands, road trips south. */
+/* @fonts: Archivo:wght@500;700;800|Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600|JetBrains+Mono:wght@400;500;700 */
+:root{
+  --font-display:"Archivo",sans-serif;
+  --font-body:"Newsreader",Georgia,serif;
+  --font-mono:"JetBrains Mono",monospace;
+
+  --bg:#f8f4ee;
+  --surface:#fffefa;
+  --bg-deep:#2a1e18;
+  --bg-deep-2:#3a2a21;
+
+  --ink:#2e241d;
+  --ink-on-deep:#dbcdc0;
+  --muted:#7b6e62;
+  --muted-on-deep:#a89a8b;
+  --line:#e3d9ca;
+
+  --accent:#9c4a2c;
+  --accent-dark:#7a3620;
+  --accent-ink:#ffffff;
+  --accent-soft:#f5e5dc;
+
+  --header:#8a3f2a;
+  --header-ink:#ffffff;
+  --header-sub:#f0d5c8;
+
+  --warn:#a8281c;
+  --warn-soft:#fae8e5;
+
+  --highlight:#c98a22;
+  --highlight-ink:#332204;
+  --highlight-soft:#faf1d9;
+  --highlight-on-deep:#f0c473;
+
+  --class-1:#9c4a2c;
+  --class-2:#f2ebdd;
+  --class-3:#7d8a4a;
+  --class-4:#c98a22;
+  --class-5:#6b6f9c;
+  --class-6:#8a7a6a;
+}

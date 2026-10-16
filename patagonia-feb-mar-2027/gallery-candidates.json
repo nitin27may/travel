@@ -1,0 +1,859 @@
+{
+ "trip": "patagonia-feb-mar-2027",
+ "places": [
+  {
+   "place": "Fitz Roy at sunrise",
+   "days": "Days 7-9",
+   "blurb": "Fitz Roy's east face turns red at first light; the skyline is visible from El Chalten itself.",
+   "candidates": [
+    {
+     "file": "Fitz Roy El Chalten sunrise-5.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5587,
+     "h": 3725
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-13.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-17.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-15.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-7.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5497,
+     "h": 3664
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-14.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Fitz Roy El Chalten sunrise-9.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Sunrise Cerro Fitz Roy 3,375m Chalten Argentina - panoramio.jpg",
+     "author": "Hiroki Ogawa",
+     "license": "CC BY 3.0",
+     "w": 2400,
+     "h": 1800
+    }
+   ]
+  },
+  {
+   "place": "Cerro Torre and Laguna Torre",
+   "days": "Day 7",
+   "blurb": "Cerro Torre with its ice cap over a glacial lagoon dotted with icebergs.",
+   "candidates": [
+    {
+     "file": "Cerro torre laguna torre.jpg",
+     "author": "Stefan.straub",
+     "license": "CC BY-SA 4.0",
+     "w": 1800,
+     "h": 1226
+    },
+    {
+     "file": "Laguna Torre and Cerro Torre (6952701790).jpg",
+     "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+     "license": "CC BY-SA 2.0",
+     "w": 1920,
+     "h": 1080
+    },
+    {
+     "file": "Laguna Torre reflection.jpg",
+     "author": "360around",
+     "license": "CC BY 2.0",
+     "w": 2864,
+     "h": 2049
+    },
+    {
+     "file": "Cerro torre banner.jpg",
+     "author": "Stefan.straub",
+     "license": "CC BY-SA 4.0",
+     "w": 1800,
+     "h": 257
+    },
+    {
+     "file": "Málaga from Cerro Torre del Atabal viewpoint just before sunrise.jpg",
+     "author": "Alan Grant",
+     "license": "CC BY 4.0",
+     "w": 3000,
+     "h": 2250
+    },
+    {
+     "file": "ISS060-E-58845 - View of Argentina - El Chaltén - Fitz Roy massif - Aguja Saint-Exupery - lake Laguna Torre - Cerro Torre - Adela West Point - Cerro Grande - Cerro Solo (Patagonia) - Glaciar Rio Tunel Inferior (cropped).jpg",
+     "author": "Earth Science and Remote Sensing Unit, NASA Johnson Space Center",
+     "license": "Public domain",
+     "w": 2478,
+     "h": 1427
+    },
+    {
+     "file": "Laguna Torre reflection, Argentina.jpg",
+     "author": "Phil Venditti",
+     "license": "CC BY 2.0",
+     "w": 4253,
+     "h": 3507
+    },
+    {
+     "file": "ISS060-E-58845 - View of Argentina - El Chaltén valley - Andes in Patagonia - Monte Fitz Roy - Aguja Saint-Exupery - lake Laguna Torre - Cerro Grande - Cerro Rincón - Cerro Aniversario (cropped).jpg",
+     "author": "Earth Science and Remote Sensing Unit, NASA Johnson Space Center",
+     "license": "Public domain",
+     "w": 2409,
+     "h": 1966
+    }
+   ]
+  },
+  {
+   "place": "Laguna de los Tres",
+   "days": "Day 8",
+   "blurb": "The turquoise lake directly under Fitz Roy at the end of the classic hike.",
+   "candidates": [
+    {
+     "file": "Laguna de los Tres color.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5411,
+     "h": 3607
+    },
+    {
+     "file": "Los Glaciares - Fitz Roy 005.jpg",
+     "author": "Gedankenstuecke",
+     "license": "CC BY-SA 4.0",
+     "w": 5976,
+     "h": 3984
+    },
+    {
+     "file": "Laguna de los Tres mono.jpg",
+     "author": "Almonroth",
+     "license": "CC BY-SA 3.0",
+     "w": 5529,
+     "h": 3686
+    },
+    {
+     "file": "Fitz Roy massif 2015 1.JPG",
+     "author": "Fredlyfish4",
+     "license": "CC BY-SA 4.0",
+     "w": 10181,
+     "h": 2566
+    },
+    {
+     "file": "Fitz Roy massif 2015 2.JPG",
+     "author": "Fredlyfish4",
+     "license": "CC BY-SA 4.0",
+     "w": 5744,
+     "h": 2541
+    },
+    {
+     "file": "Hike to Mount Fitz Roy (5464294666).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Hike to Mount Fitz Roy (5464307892).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Zorro en Laguna de los Tres. El Chaltén. Argentina.jpg",
+     "author": "CamiPetenatti",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    }
+   ]
+  },
+  {
+   "place": "Perito Moreno Glacier",
+   "days": "Day 11",
+   "blurb": "The 60 m ice front seen from the walkways on the Magallanes Peninsula.",
+   "candidates": [
+    {
+     "file": "153 - Glacier Perito Moreno - Grotte glaciaire - Janvier 2010.jpg",
+     "author": "Martin St-Amant (S23678)",
+     "license": "CC BY-SA 3.0",
+     "w": 3000,
+     "h": 2055
+    },
+    {
+     "file": "Glaciar Perito Moreno con montañas gigantes a lo lejos.jpg",
+     "author": "Brandon Antonio Segura Torres & Priscilla Vieto Bonilla",
+     "license": "CC BY-SA 4.0",
+     "w": 5906,
+     "h": 3938
+    },
+    {
+     "file": "Glaciar Perito Moreno icetrekking.JPG",
+     "author": "Adiel lo",
+     "license": "CC BY-SA 3.0",
+     "w": 4272,
+     "h": 2848
+    },
+    {
+     "file": "Muralla de hielo en el Glaciar Perito Moreno.jpg",
+     "author": "Brandon Antonio Segura Torres & Priscilla Vieto Bonilla",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Glaciar Perito Moreno con Bandera argentina ondenante en búsqueda de dragon argentino Andiperla willinki.jpg",
+     "author": "Brandon Antonio Segura Torres & Priscilla Vieto Bonilla",
+     "license": "CC BY-SA 4.0",
+     "w": 8160,
+     "h": 4592
+    },
+    {
+     "file": "Perito Moreno - panoramio - CARLOS SALGADO MELLA (1).jpg",
+     "author": "CARLOS SALGADO MELLA",
+     "license": "CC BY-SA 3.0",
+     "w": 2592,
+     "h": 1944
+    },
+    {
+     "file": "Perito Moreno - panoramio - CARLOS SALGADO MELLA (3).jpg",
+     "author": "CARLOS SALGADO MELLA",
+     "license": "CC BY-SA 3.0",
+     "w": 2592,
+     "h": 1944
+    },
+    {
+     "file": "Desprendimiento de témpano de hielo agita el agua en el Glaciar Perito Moreno.jpg",
+     "author": "Brandon Antonio Segura Torres & Priscilla Vieto Bonilla",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    }
+   ]
+  },
+  {
+   "place": "Upsala and Spegazzini",
+   "days": "Optional day",
+   "blurb": "Icebergs and ice fronts in the northern arms of Lago Argentino.",
+   "candidates": [
+    {
+     "file": "Upsala Glacier, Argentina.jpg",
+     "author": "Image acquired with a Nikon D2Xs digital camera fitted with a 400 mm lens, and i",
+     "license": "Public domain",
+     "w": 4288,
+     "h": 2848
+    },
+    {
+     "file": "Upsala glacier near icebergs.jpg",
+     "author": "Gorkaazk",
+     "license": "CC BY 3.0",
+     "w": 2272,
+     "h": 1704
+    },
+    {
+     "file": "Upsala icebergs.jpg",
+     "author": "Gorkaazk",
+     "license": "CC BY 3.0",
+     "w": 2272,
+     "h": 1704
+    },
+    {
+     "file": "Upsala boat iceberg.jpg",
+     "author": "Gorkaazk",
+     "license": "CC BY 3.0",
+     "w": 2272,
+     "h": 1704
+    },
+    {
+     "file": "ISS-37 Upsala Glacier Retreat and Patagonia Icefield.jpg",
+     "author": "NASA",
+     "license": "Public domain",
+     "w": 4256,
+     "h": 2832
+    },
+    {
+     "file": "ISS075-E-103994 - View of Earth - Glaciar Bertachi - mountain Cerro MacAndrews - Upsala Glacier - Brazo Upsala (Lago Argentino) (cropped).jpg",
+     "author": "Earth Science and Remote Sensing Unit, Lyndon B. Johnson Space Center",
+     "license": "Public domain",
+     "w": 2922,
+     "h": 2557
+    },
+    {
+     "file": "Chunks (8459044411).jpg",
+     "author": "Ryan Smith",
+     "license": "CC BY-SA 2.0",
+     "w": 4288,
+     "h": 2848
+    },
+    {
+     "file": "ISS022-E-73076 - View of Argentina.jpg",
+     "author": "Earth Science and Remote Sensing Unit, Lyndon B. Johnson Space Center",
+     "license": "Public domain",
+     "w": 4288,
+     "h": 2848
+    }
+   ]
+  },
+  {
+   "place": "Lago Argentino and El Calafate",
+   "days": "Days 10-12",
+   "blurb": "The milky turquoise lake, and the flamingos of Laguna Nimez.",
+   "candidates": [
+    {
+     "file": "Lago Argentino - El Calafate - Patagonie - panoramio.jpg",
+     "author": "Pavel Špindler",
+     "license": "CC BY 3.0",
+     "w": 3872,
+     "h": 2592
+    },
+    {
+     "file": "Lago Argentino El Calafate (28058292026).jpg",
+     "author": "Miguel",
+     "license": "CC BY-SA 2.0",
+     "w": 4640,
+     "h": 3104
+    },
+    {
+     "file": "Lago Argentino El Calafate (27812332160).jpg",
+     "author": "Miguel",
+     "license": "CC BY-SA 2.0",
+     "w": 4640,
+     "h": 3104
+    },
+    {
+     "file": "Lago Argentino El Calafate (27478112564).jpg",
+     "author": "Miguel",
+     "license": "CC BY-SA 2.0",
+     "w": 4640,
+     "h": 3104
+    },
+    {
+     "file": "Lago Argentino El Calafate (28014764071).jpg",
+     "author": "Miguel",
+     "license": "CC BY-SA 2.0",
+     "w": 4640,
+     "h": 3104
+    },
+    {
+     "file": "El Calafate - jezero Lago Argentino - panoramio.jpg",
+     "author": "Pavel Špindler",
+     "license": "CC BY 3.0",
+     "w": 3872,
+     "h": 2592
+    },
+    {
+     "file": "Lago Argentino u El Calafate - panoramio.jpg",
+     "author": "Martin Cígler",
+     "license": "CC BY-SA 3.0",
+     "w": 6480,
+     "h": 4320
+    },
+    {
+     "file": "Lago Argentino - Vista central desde El Calafate.jpg",
+     "author": "Fernando de Gorocica",
+     "license": "CC BY-SA 4.0",
+     "w": 4128,
+     "h": 2322
+    }
+   ]
+  },
+  {
+   "place": "Tierra del Fuego National Park",
+   "days": "Days 4-5",
+   "blurb": "Bahia Lapataia and the end of Ruta 3 on the Beagle Channel.",
+   "candidates": [
+    {
+     "file": "Lapataia Bay, Tierra del Fuego National Park (5536617808).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Bahia Lapataia, Parque Nacional Tierra del Fuego, Argentina.jpg",
+     "author": "Claudio Elias",
+     "license": "CC BY-SA 3.0",
+     "w": 3264,
+     "h": 2448
+    },
+    {
+     "file": "Lapataia Bay, Tierra del Fuego National Park (5536605072).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Bahia Lapataia en Tierra del Fuego.JPG",
+     "author": "Zuarin",
+     "license": "CC BY 3.0",
+     "w": 2560,
+     "h": 1440
+    },
+    {
+     "file": "Bahía Lapataia, Parque Nacional Tierra del Fuego, Argentina 20181110 114145.jpg",
+     "author": "Josefito123",
+     "license": "CC BY-SA 4.0",
+     "w": 4128,
+     "h": 3096
+    },
+    {
+     "file": "Bahía Lapataia, Parque Nacional de Tierra del Fuego, Argentina 20181110 103437.jpg",
+     "author": "Josefito123",
+     "license": "CC BY-SA 4.0",
+     "w": 4128,
+     "h": 3096
+    },
+    {
+     "file": "Bahía Lapataia, Parque Nacional de Tierra del Fuego, Argentina 20181110 103434.jpg",
+     "author": "Josefito123",
+     "license": "CC BY-SA 4.0",
+     "w": 4128,
+     "h": 3096
+    },
+    {
+     "file": "Bahía Lapataia, Parque Nacional de Tierra del Fuego, Argentina 20181110 103302.jpg",
+     "author": "Josefito123",
+     "license": "CC BY-SA 4.0",
+     "w": 4128,
+     "h": 3096
+    }
+   ]
+  },
+  {
+   "place": "Beagle Channel",
+   "days": "Day 2",
+   "blurb": "Les Eclaireurs lighthouse and sea lions in the channel.",
+   "candidates": [
+    {
+     "file": "\"Les Eclaireurs\" Lighthouse in the Beagle Channel (5525329294).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Les Eclaireurs Lighthouse.jpg",
+     "author": "Ricardo Martins",
+     "license": "CC BY 2.0",
+     "w": 3072,
+     "h": 2304
+    },
+    {
+     "file": "Les Eclaireurs Lighthouse of Ushuaia, Argentina.jpg",
+     "author": "McKay Savage",
+     "license": "CC BY 2.0",
+     "w": 2321,
+     "h": 1547
+    },
+    {
+     "file": "Les Eclaireurs Lighthouse aerial 1.JPG",
+     "author": "Fredlyfish4",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Faro Les Eclaireurs (5466931524).jpg",
+     "author": "Leandro Neumann Ciuffo",
+     "license": "CC BY 2.0",
+     "w": 2896,
+     "h": 1944
+    },
+    {
+     "file": "A lonely bird by El Faro \"Les Eclaireurs\" (3529706508).jpg",
+     "author": "Leonora (Ellie) Enking from East Preston, United Kingdom",
+     "license": "CC BY-SA 2.0",
+     "w": 1722,
+     "h": 1133
+    },
+    {
+     "file": "Farol Les Éclaireurs.jpg",
+     "author": "Fabiana Lima",
+     "license": "CC BY-SA 4.0",
+     "w": 4288,
+     "h": 3216
+    },
+    {
+     "file": "Beagle Canal, Argentinien (10613926506).jpg",
+     "author": "M M from Switzerland",
+     "license": "CC BY-SA 2.0",
+     "w": 4496,
+     "h": 3000
+    }
+   ]
+  },
+  {
+   "place": "Isla Martillo penguins",
+   "days": "Day 3",
+   "blurb": "Magellanic and gentoo penguins on the beach at Isla Martillo.",
+   "candidates": [
+    {
+     "file": "Gentoo Penguins (and a few Magellanic Penguins) (5541420886).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Magellanic Penguins (5540902501).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Magellanic Penguins (5541464792).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Magellanic Penguins (5540863275).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Magellanic Penguins (5541470446).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Magellanic Penguins (5540872543).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Magellanic Penguins (5541511496).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    },
+    {
+     "file": "Magellanic Penguins (5540800197).jpg",
+     "author": "Liam Quinn from Canada",
+     "license": "CC BY-SA 2.0",
+     "w": 5616,
+     "h": 3744
+    }
+   ]
+  },
+  {
+   "place": "Ushuaia",
+   "days": "Days 2-6",
+   "blurb": "The southernmost city, between the Martial range and the channel.",
+   "candidates": [
+    {
+     "file": "Ushuaia6a (js) (bannerportada esvoy).jpg",
+     "author": "Jerzy Strzelecki",
+     "license": "CC BY-SA 3.0",
+     "w": 1700,
+     "h": 567
+    },
+    {
+     "file": "Ushuaia5a (js).jpg",
+     "author": "Jerzy Strzelecki",
+     "license": "CC BY-SA 3.0",
+     "w": 3000,
+     "h": 1940
+    },
+    {
+     "file": "Ushuaia (8089448221).jpg",
+     "author": "Jorge Láscar from Australia",
+     "license": "CC BY 2.0",
+     "w": 4288,
+     "h": 2848
+    },
+    {
+     "file": "Ushuaia (8089447906).jpg",
+     "author": "Jorge Láscar from Australia",
+     "license": "CC BY 2.0",
+     "w": 4288,
+     "h": 2848
+    },
+    {
+     "file": "Ushuaia (8089535627).jpg",
+     "author": "Jorge Láscar from Australia",
+     "license": "CC BY 2.0",
+     "w": 4288,
+     "h": 2848
+    },
+    {
+     "file": "Ushuaia (8089441076).jpg",
+     "author": "Jorge Láscar from Australia",
+     "license": "CC BY 2.0",
+     "w": 4288,
+     "h": 2848
+    },
+    {
+     "file": "Ushuaia (8089548495).jpg",
+     "author": "Jorge Láscar from Australia",
+     "license": "CC BY 2.0",
+     "w": 4178,
+     "h": 2775
+    },
+    {
+     "file": "Ushuaia (8089446638).jpg",
+     "author": "Jorge Láscar from Australia",
+     "license": "CC BY 2.0",
+     "w": 4288,
+     "h": 2848
+    }
+   ]
+  },
+  {
+   "place": "Laguna Esmeralda",
+   "days": "Day 5",
+   "blurb": "The turquoise lagoon at the end of the Esmeralda trail.",
+   "candidates": [
+    {
+     "file": "Laguna Esmeralda, Ushuaia, Tierra del Fuego, Argentina.jpg",
+     "author": "Márcio Motta",
+     "license": "CC BY 2.0",
+     "w": 10966,
+     "h": 3878
+    },
+    {
+     "file": "Laguna Esmeralda Landscape.jpg",
+     "author": "Justraveling.com",
+     "license": "CC BY-SA 4.0",
+     "w": 5312,
+     "h": 2988
+    },
+    {
+     "file": "Hike to Laguna Esmeralda-Ushuaia.jpg",
+     "author": "https://www.flickr.com/photos/inmyflippiefloppies/",
+     "license": "CC BY 2.0",
+     "w": 4000,
+     "h": 3000
+    },
+    {
+     "file": "Laguna Esmeralda en otoño.JPG",
+     "author": "Eugeniabaccaro",
+     "license": "CC BY-SA 4.0",
+     "w": 4320,
+     "h": 3240
+    }
+   ]
+  },
+  {
+   "place": "Recoleta and Buenos Aires",
+   "days": "Days 1 and 13",
+   "blurb": "The cemetery of mausoleums and El Ateneo, a theatre turned bookshop.",
+   "candidates": [
+    {
+     "file": "Buenos Aires - Cementerio de la Recoleta - 200808a.jpg",
+     "author": "Andrew Currie from Toronto, Canada",
+     "license": "CC BY 2.0",
+     "w": 1800,
+     "h": 1200
+    },
+    {
+     "file": "Tomb of Rufina Cambaceres at Cementerio de la Recoleta in Buenos Aires in 2014.jpg",
+     "author": "Tim Adams",
+     "license": "CC BY 3.0",
+     "w": 3088,
+     "h": 2740
+    },
+    {
+     "file": "Cementerio de la Recoleta - Buenos Aires - Argentina.jpg",
+     "author": "Unknown",
+     "license": "CC BY-SA 3.0",
+     "w": 1600,
+     "h": 1200
+    },
+    {
+     "file": "2018-10-19 Cementerio de la Recoleta, Buenos Aires, Argentina (Martin Rulsch) 15.jpg",
+     "author": "DerHexer",
+     "license": "CC BY-SA 4.0",
+     "w": 5728,
+     "h": 4480
+    },
+    {
+     "file": "2018-10-19 Cementerio de la Recoleta, Buenos Aires, Argentina (Martin Rulsch) 14.jpg",
+     "author": "DerHexer",
+     "license": "CC BY-SA 4.0",
+     "w": 6720,
+     "h": 4314
+    },
+    {
+     "file": "2018-10-19 Cementerio de la Recoleta, Buenos Aires, Argentina (Martin Rulsch) 13.jpg",
+     "author": "DerHexer",
+     "license": "CC BY-SA 4.0",
+     "w": 6720,
+     "h": 4480
+    },
+    {
+     "file": "2018-10-19 Cementerio de la Recoleta, Buenos Aires, Argentina (Martin Rulsch) 01.jpg",
+     "author": "DerHexer",
+     "license": "CC BY-SA 4.0",
+     "w": 6720,
+     "h": 4067
+    },
+    {
+     "file": "Buenos Aires - Cementerio de la Recoleta - Placa Pablo Nogués.JPG",
+     "author": "Galio",
+     "license": "CC BY-SA 4.0",
+     "w": 4000,
+     "h": 3000
+    }
+   ]
+  },
+  {
+   "place": "La Boca",
+   "days": "Day 13",
+   "blurb": "Caminito's painted houses.",
+   "candidates": [
+    {
+     "file": "El caminito2 - Buenos Aires - Argentina.jpg",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 3.0",
+     "w": 3402,
+     "h": 2424
+    },
+    {
+     "file": "Casa en Caminito, La Boca, Buenos Aires.jpg",
+     "author": "Sombra Inquieta",
+     "license": "CC BY-SA 4.0",
+     "w": 4160,
+     "h": 3120
+    },
+    {
+     "file": "Buenos Aires - La Boca - Caminito - 200807i.jpg",
+     "author": "Luis Argerich from Buenos Aires, Argentina",
+     "license": "CC BY 2.0",
+     "w": 3906,
+     "h": 2602
+    },
+    {
+     "file": "Calle Caminito in La Boca, Buenos Aires-2.JPG",
+     "author": "Lars Curfs (Grashoofd)",
+     "license": "CC BY-SA 3.0 nl",
+     "w": 5184,
+     "h": 3456
+    },
+    {
+     "file": "Calle Caminito in La Boca, Buenos Aires-4.JPG",
+     "author": "Lars Curfs (Grashoofd)",
+     "license": "CC BY-SA 3.0 nl",
+     "w": 5184,
+     "h": 3456
+    },
+    {
+     "file": "Calle Caminito in La Boca, Buenos Aires-5.JPG",
+     "author": "Lars Curfs (Grashoofd)",
+     "license": "CC BY-SA 3.0 nl",
+     "w": 5184,
+     "h": 3456
+    },
+    {
+     "file": "Calle Caminito in La Boca, Buenos Aires-3.JPG",
+     "author": "Lars Curfs (Grashoofd)",
+     "license": "CC BY-SA 3.0 nl",
+     "w": 5184,
+     "h": 3456
+    },
+    {
+     "file": "Calle Caminito in La Boca, Buenos Aires-1.JPG",
+     "author": "Lars Curfs (Grashoofd)",
+     "license": "CC BY-SA 3.0 nl",
+     "w": 5184,
+     "h": 3456
+    }
+   ]
+  },
+  {
+   "place": "Teatro Colon",
+   "days": "Day 13",
+   "blurb": "The opera house, one of the best acoustically in the world.",
+   "candidates": [
+    {
+     "file": "Teatro Colón, Buenos Aires 02.jpg",
+     "author": "Bernard Gagnon",
+     "license": "CC BY-SA 4.0",
+     "w": 3570,
+     "h": 1738
+    },
+    {
+     "file": "Teatro Colón - Columbus Theatre - Buenos Aires - Argentina.jpg",
+     "author": "Jimmy Baikovicius",
+     "license": "CC BY-SA 2.0",
+     "w": 2999,
+     "h": 1986
+    },
+    {
+     "file": "Argentina - Buenos Aires - Teatro Colón (Editatón).JPG",
+     "author": "Leandro Kibisz",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Teatro Colón de Buenos Aires, vista interior 04.JPG",
+     "author": "Pablomolo",
+     "license": "CC BY-SA 3.0",
+     "w": 2592,
+     "h": 1944
+    },
+    {
+     "file": "Argentina - Buenos Aires - Teatro Colón (escenario).JPG",
+     "author": "Leandro Kibisz",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Argentina - Buenos Aires - Teatro Colón (sala) 02.JPG",
+     "author": "Leandro Kibisz",
+     "license": "CC BY-SA 4.0",
+     "w": 6000,
+     "h": 4000
+    },
+    {
+     "file": "Buenos Aires - Recova, Plaza de la Victoria y Teatro Colón,.JPG",
+     "author": "Archivo General de la Nación Argentina",
+     "license": "Public domain",
+     "w": 1736,
+     "h": 1340
+    },
+    {
+     "file": "Buenos Aires Teatro Colon 2.jpg",
+     "author": "Andrzej Otrębski",
+     "license": "CC BY-SA 4.0",
+     "w": 3648,
+     "h": 2736
+    }
+   ]
+  }
+ ]
+}

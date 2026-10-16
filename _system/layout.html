@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="trip-date" content="{{trip_date}}">
+<meta name="trip-dates" content="{{trip_dates}}">
+<meta name="trip-duration" content="{{trip_duration}}">
+<meta name="trip-region" content="{{trip_region}}">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="{{fonts_href}}" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='16' height='24' rx='2' fill='%230e6b6e'/%3E%3C/svg%3E">
+<style>
+/* theme: {{theme_name}} */
+{{theme_css}}
+
+{{base_css}}
+
+/* trip-local additions */
+{{extra_css}}
+</style>
+</head>
+<body data-slug="{{slug}}">
+
+<header class="hero" style="background-image:url('{{hero_image}}')">
+  <div class="hero-inner">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{headline}}</h1>
+    <p class="sub">{{sub}}</p>
+    <div class="chips">{{chips}}</div>
+  </div>
+  <p class="credit">{{hero_credit}}</p>
+</header>
+
+<nav aria-label="Sections">
+  <div class="wrap">{{nav}}</div>
+</nav>
+
+<main>
+{{body}}
+</main>
+
+<footer>
+  <div class="wrap">{{footer}}</div>
+</footer>
+
+<script>
+{{base_js}}
+</script>
+</body>
+</html>

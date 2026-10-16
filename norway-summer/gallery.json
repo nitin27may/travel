@@ -1,0 +1,212 @@
+{
+ "trip": "norway-summer",
+ "sections": [
+  {
+   "place": "Lofoten",
+   "blurb": "Arctic archipelago of steep peaks, red fishing cabins and white beaches.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Reine Lofoten 2009.JPG",
+     "caption": "Reine and its fjord, Lofoten",
+     "author": "Sveter",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Reine in Lofoten, Norway, 2012 October.jpg",
+     "caption": "The red cabins of Reine under the Lofoten peaks",
+     "author": "Ximonic (Simo Räsänen)",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Boat dock in Reine, Lofoten, Norway, 2015 September.jpg",
+     "caption": "The harbour dock at Reine with the peak behind",
+     "author": "Ximonic (Simo Räsänen)",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Andenes and Vesterålen",
+   "blurb": "The northern tip of Andøya, a whale-watching base.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Andenes, Norway 2006.jpg",
+     "caption": "Andenes on the north tip of Andoya, seen from the hillside",
+     "author": "Unknown",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Andenes fyr and the sea.jpg",
+     "caption": "Andenes lighthouse at sunset",
+     "author": "Wolfgang Hägele",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Senja",
+   "blurb": "Norway's second largest island, with sharp peaks rising straight from the sea.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Seggelskaret walls and Segla by Mefjorden, Senja, Norway, 2015 September.jpg",
+     "caption": "Segla and the Seggelskaret walls above Mefjorden",
+     "author": "Ximonic (Simo Räsänen)",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Segla over Mefjorden from Mefjordvær in Senja, Troms og Finnmark, Norway, 2022 August - 2.jpg",
+     "caption": "Segla over Mefjorden from Mefjordvaer",
+     "author": "Ximonic (Simo Räsänen)",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Segla in Senja, Troms og Finnmark, Norway, 2022 August.jpg",
+     "caption": "Segla, the sharp peak on Senja",
+     "author": "Ximonic (Simo Räsänen)",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Ålesund",
+   "blurb": "Art Nouveau harbour town rebuilt after the 1904 fire.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Ålesund, ville Art nouveau 20100325 150629.jpg",
+     "caption": "Alesund and its Art Nouveau centre from above",
+     "author": "Bruno Jargot from Lyon, France",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Ålesund (14012468746).jpg",
+     "caption": "An Art Nouveau street corner in Alesund",
+     "author": "Laurent Guyot",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Åndalsnes and Romsdalen",
+   "blurb": "Valley under the Trollveggen and the Romsdalseggen ridge.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Rauma, Norway - panoramio (68).jpg",
+     "caption": "The Rauma valley and fjord from a ridge near Andalsnes",
+     "author": "Any (Panoramio)",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Rauma, Norway - panoramio (59).jpg",
+     "caption": "Mountains above the Rauma valley near Andalsnes",
+     "author": "Any (Panoramio)",
+     "license": "CC BY 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Geiranger",
+   "blurb": "UNESCO fjord with waterfalls and abandoned mountain farms.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Fiordo de Geiranger desde Flydalsjuvet, Noruega, 2019-09-07, DD 59.jpg",
+     "caption": "Geirangerfjord from the Flydalsjuvet viewpoint",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Fiordo de Geiranger desde Flydalsjuvet, Noruega, 2019-09-07, DD 61.jpg",
+     "caption": "Geirangerfjord and the village from Flydalsjuvet",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Geirangerfjord 1.jpg",
+     "caption": "Geirangerfjord from the shore above the village",
+     "author": "Sundgot",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Loen and Nordfjord",
+   "blurb": "Fjord village below the Loen Skylift and the Jostedalsbreen glacier arms.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Blick Vom Skylift Loen (229108063).jpeg",
+     "caption": "The fjord from the Loen Skylift top station",
+     "author": "Heike Kranacher",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "LoenSky188BG23.jpg",
+     "caption": "A Loen Skylift gondola above the Nordfjord",
+     "author": "Bingar1234",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Briksdalsbreen in Briksdalen, Sogn og Fjordane, Norway, 2013 June - 2.jpg",
+     "caption": "The Briksdalsbreen glacier arm of Jostedalsbreen",
+     "author": "Ximonic (Simo Räsänen)",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Aurland and Sognefjord",
+   "blurb": "Narrow fjord arm with the Stegastein viewpoint.",
+   "days": "",
+   "photos": [
+    {
+     "file": "2023-07-05-Aurlandsfjord-6854.jpg",
+     "caption": "Aurlandsfjord from above",
+     "author": "Superbass",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Aurlandsfjord in evening light.jpg",
+     "caption": "Aurlandsfjord in evening light",
+     "author": "ThartmannWiki",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Stigastein.JPG",
+     "caption": "The Stegastein platform over Aurlandsfjord",
+     "author": "Wolfgang Hammel",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Bergen",
+   "blurb": "Hanseatic harbour with the Bryggen wharf and the Fløibanen funicular.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Bryggen, Bergen, Noruega, 2019-09-08, DD 115-117 PAN.jpg",
+     "caption": "Bryggen, the Hanseatic wharf in Bergen",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Bryggen, Bergen3.JPG",
+     "caption": "The wooden gables of Bryggen, Bergen",
+     "author": "Unknown",
+     "license": "CC BY-SA 2.5"
+    },
+    {
+     "file": "Bergen Bryggen night tunliweb.jpg",
+     "caption": "Bryggen reflected in a rain-wet square at night",
+     "author": "Svein Magne Tunli",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  }
+ ]
+}

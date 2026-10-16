@@ -1,0 +1,224 @@
+{
+ "trip": "chamonix-mont-blanc-sept-2028",
+ "sections": [
+  {
+   "place": "Chamonix and the Mont Blanc massif",
+   "blurb": "The valley sits at about 1,000 m with the Mont Blanc range on one side and the Aiguilles Rouges on the other.",
+   "days": "Days 1-9",
+   "photos": [
+    {
+     "file": "Chamonix valley from la Flégère,2010 07.JPG",
+     "caption": "Mont Blanc above the Chamonix valley",
+     "author": "Ximonic, Simo Räsänen",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Massif du Mont-Blanc @ Frêtes de la Vogealle.jpg",
+     "caption": "The Mont Blanc range from a grassy ridge",
+     "author": "Rémih",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Mont-Blanc depuis Brévent 2006.jpg",
+     "caption": "Mont Blanc and its glaciers",
+     "author": "Yann",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Les Praz",
+   "blurb": "Quiet hamlet at the foot of the Flegere gondola, on the Mont-Blanc Express line.",
+   "days": "Days 1-3",
+   "photos": [
+    {
+     "file": "Arveyron, railway line Chemin de fer du Montenvers, Signal Forbes, Grand Balcon Nord and Montagne de Blaitière, Les Praz-de-Chamonix (cropped).jpg",
+     "caption": "Les Praz with the Arveyron, the Montenvers railway line and the Grand Balcon Nord behind",
+     "author": "Tangopaso",
+     "license": "Public domain"
+    },
+    {
+     "file": "Gare des Praz-de-Chamonix.jpg",
+     "caption": "Les Praz de Chamonix railway station",
+     "author": "Tiia Monto",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Brevent and Flegere",
+   "blurb": "Two lifts on the Aiguilles Rouges side that face the whole Mont Blanc range across the valley.",
+   "days": "Days 2",
+   "photos": [
+    {
+     "file": "Chamonix-Mont-Blanc Brévent Vue sur Chamonix 2.jpg",
+     "caption": "Chamonix from Le Brevent",
+     "author": "Zairon",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Le Brévent @ Chamonix-Mont-Blanc 02.jpg",
+     "caption": "The summit station at Le Brevent",
+     "author": "Rémih",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "La Flégère station, 2010 07.JPG",
+     "caption": "The Flegere station with the Aiguilles de Chamonix behind",
+     "author": "Ximonic, Simo Räsänen",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Grand Balcon Sud 2.jpg",
+     "caption": "A trail in the Aiguilles Rouges with the Mont Blanc range beyond",
+     "author": "Tiia Monto",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Aiguillette des Houches",
+   "blurb": "A lift-free summit above Les Houches with a long view of the massif.",
+   "days": "Days 3",
+   "photos": [
+    {
+     "file": "Aiguillette des Houches antécime @ Aiguillette des Houches.jpg",
+     "caption": "The ridge to the Aiguillette des Houches",
+     "author": "Rémih",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Aiguillette des Houches antécime.jpg",
+     "caption": "The Aiguillette des Houches summit ridge",
+     "author": "Rémih",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Aiguillette des Houches - img 40656.jpg",
+     "caption": "The Aiguillette des Houches with the Aiguilles de Chamonix behind",
+     "author": "Pmau",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Lac Blanc",
+   "blurb": "A lake at 2,352 m on the Aiguilles Rouges, known for its view of the Mont Blanc range.",
+   "days": "Days 4-5",
+   "photos": [
+    {
+     "file": "Lac Blanc.JPG",
+     "caption": "Lac Blanc with the refuge and the range beyond",
+     "author": "Mrvoyage",
+     "license": "Public domain"
+    },
+    {
+     "file": "Chamonix - Lac Blanc 4.jpg",
+     "caption": "Lac Blanc from above",
+     "author": "Tiia Monto",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Chamonix - Lac Blanc 6.jpg",
+     "caption": "Lac Blanc, turquoise water among rock",
+     "author": "Tiia Monto",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Aiguille du Midi",
+   "blurb": "A cable car and a granite needle at 3,842 m.",
+   "days": "Days 6",
+   "photos": [
+    {
+     "file": "Aiguille du Midi, Top of Piton Central, Chamonix, Haute-Savoie.jpg",
+     "caption": "The Aiguille du Midi summit station on its needle of granite",
+     "author": "Christian David",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "AiguilleDuMidiTM.jpg",
+     "caption": "The Aiguille du Midi station seen from above",
+     "author": "Nicolas Sanchez",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Aiguille du Midi, Piton Sud, Chamonix, Haute-Savoie, France.jpg",
+     "caption": "The walkway to the Piton Sud viewing terrace",
+     "author": "Christian David",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Mer de Glace and Montenvers",
+   "blurb": "France's longest glacier, seen from the Montenvers rack railway terminus.",
+   "days": "Days 6",
+   "photos": [
+    {
+     "file": "Panorama of Mer de Glace from Montenvers, Chamonix, Haute-Savoie.jpg",
+     "caption": "Panorama of the Mer de Glace from Montenvers",
+     "author": "Christian David",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Mer de Glace from Montenvers, Chamonix, Haute-Savoie.jpg",
+     "caption": "The Mer de Glace and the cable car from Montenvers",
+     "author": "Christian David",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Mer de Glace Ice Cave.jpg",
+     "caption": "The ice cave in the Mer de Glace",
+     "author": "Tiia Monto",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Glacier des Bossons",
+   "blurb": "The glacier that falls from Mont Blanc toward the valley floor.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Glacier des Bossons depuis Les Bossons (juin 2022).JPG",
+     "caption": "The Bossons glacier",
+     "author": "Florian Pépellin",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Glacier des Bossons 0521.jpg",
+     "caption": "Seracs on the Bossons glacier",
+     "author": "Pierre.berendes",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Col de Balme and Le Tour",
+   "blurb": "A Swiss border col at 2,191 m, reached from Le Tour, with the Glacier du Tour on the Vallorcine side.",
+   "days": "Days 7",
+   "photos": [
+    {
+     "file": "Col de Balme & Le Tour @ Chamonix (51484422105).jpg",
+     "caption": "Col de Balme and Le Tour",
+     "author": "Guilhem Vellut from Annecy, France",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Col de Balme @ Plan de la Grange.jpg",
+     "caption": "The Col de Balme from Plan de la Grange",
+     "author": "Rémih",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Glacier du Tour @ Hike to Refuge Albert 1er @ Domaine de Balme - Vallorcine @ Chamonix - Flickr - ^.jpg",
+     "caption": "The Glacier du Tour on the hike to Refuge Albert 1er",
+     "author": "Guilhem Vellut from Annecy, France",
+     "license": "CC BY 2.0"
+    }
+   ]
+  }
+ ]
+}

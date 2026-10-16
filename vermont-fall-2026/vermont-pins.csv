@@ -1,0 +1,72 @@
+Name,Latitude,Longitude,Day,Category,Trail,Trail km RT,Ascent m,Walk type,Time on site,Score /10,Notes
+"Base — 1592 Center Rd, Hyde Park",44.601828,-72.5745682,Base,Logistics,-,-,-,-,-,-,Hotel
+"Hannaford, Morrisville",44.5727869,-72.5967606,Thu,Logistics,No,-,-,-,30 m,-,Thu picnic shop
+Moss Glen Falls (Stowe),44.4823794,-72.6245046,Thu,Waterfall,Yes,0.8,17,O&B,60 m,8,Rim spur steep/eroded
+Barnes Camp boardwalk,44.5378709,-72.7884842,Fri,Boardwalk,Yes,1.1,flat,Boardwalk,20 m,6,Wetland + beaver dam
+Bingham Falls,44.5167269,-72.7660351,Fri,Waterfall,Yes,0.8,46 down,O&B,45 m,8,STEEP WET STAIRS - grip matters
+Emily's Bridge (Gold Brook),44.4404009,-72.6798624,Fri,Covered bridge,No,-,-,-,15 m,6,1844; the flex item
+Pinnacle Meadows overflow lot,44.43779,-72.64712,Fri,Parking,No,-,-,-,-,-,"OVERFLOW, Stowe Land Trust, Pinnacle Rd. 1.6 km EAST of the trailhead by road | Stowe Land Trust. User-supplied pin"
+Smugglers' Notch,44.5553,-72.79587,Fri,Scenic drive,No,-,-,Pull-offs,60 m,10,"Top of pass. No vehicles over 40 ft | corrected: OSM saddle, 675 m. Nominatim returned the RESORT in Jeffersonville, 3.5 km away on the wrong side"
+Stowe Community Church,44.4656466,-72.6846447,Fri,Village,Stroll,1.5,flat,-,45 m,8,Village + viewpoint
+Stowe Gondola SkyRide,44.52903,-72.78428,Fri,Lift,No,-,-,Lift,90 m,7,"10:00-16:30, $40-43, book online | Mansfield Base Lodge"
+Stowe Pinnacle trailhead,44.43882,-72.66764,Fri,Hike,Yes,5.5,457,O&B,3 h,9,"MAIN LOT - holds ~9 cars, fills before 09:00 on weekdays | corrected from user-supplied Google pin - Nominatim was ~970 m off, on the trail line not the lot"
+"Sunset Rock, Stowe",44.4650363,-72.6786046,Fri,Viewpoint,Yes,0.8,40,O&B,45 m,8,10 min walk from Sunset St
+von Trapp Bierhall,44.4654369,-72.7451481,Fri,Food,No,-,-,-,90 m,7,"11:30-21:00, Resy. Thin on veg"
+Barr Hill Natural Area,44.6080645,-72.289919,Sat,Viewpoint,Yes,1.1,27,Loop,50 m,9,VIEW IS AT THE TRAILHEAD FIELD
+Craftsbury Common,44.6535578,-72.3827342,Sat,Village,Stroll,1.0,flat,-,45 m,8,White-fenced hilltop green
+Fisher Covered Railroad Bridge,44.5323138,-72.4277306,Sat,Covered bridge,No,-,-,-,15 m,7,Last covered RR bridge used in the US
+Lake Willoughby North Beach,44.7711201,-72.0548723,Sat,Viewpoint,No,-,-,-,15 m,7,Quick look from the north end
+Lake Willoughby South Beach,44.748209,-72.0597399,Sat,Viewpoint,No,0.3,flat,-,60 m,10,Picnic. Cold in October
+Mount Pisgah South trailhead,44.7297412,-72.0306816,Sat,Hike,Yes,3.5,274,O&B,2 h,9,TRIMMED to Pulpit Rock
+Pulpit Rock (Pisgah),44.7207664,-72.0272121,Sat,Viewpoint,Yes,3.5,274,O&B,-,9,Ledge 650 ft above the lake
+Craftsbury General Store,44.6345579,-72.3718867,Sat opt,Food,No,-,-,-,30 m,7,OPTIONAL. Sat 7:00-21:00. Only staffed food in the Kingdom - skip it and there is nothing until Morrisville
+"Prospect Rock, Johnson",44.6552188,-72.7221615,Sat opt,Hike,Yes,4.2,140,O&B,70 m,7,Suspension bridge over the Lamoille
+"Ten Bends Beer, Hyde Park",44.5885536,-72.6057439,Sat opt,Food,No,-,-,-,60 m,5,At the doorstep
+Cambridge Junction / Poland Bridge,44.6510988,-72.8146024,Sun,Covered bridge,Walk-through,0.3,flat,-,20 m,7,"1887, 2nd-largest single span in VT"
+Comstock Covered Bridge,44.8996622,-72.6446362,Sun,Covered bridge,No,-,-,-,10 m,7,1883. Off VT-118 N
+Fuller Covered Bridge,44.9032472,-72.6397131,Sun,Covered bridge,No,-,-,-,10 m,7,1890. South Richford Rd
+Gates Farm Covered Bridge,44.6457214,-72.8722716,Sun,Covered bridge,No,-,-,-,10 m,5,"1897, last Burr arch of the era"
+Hutchins Covered Bridge,44.8585853,-72.6125419,Sun,Covered bridge,No,-,-,-,15 m,6,1883. DIRT after 50 yards
+Longley Covered Bridge,44.9072383,-72.6556465,Sun,Covered bridge,No,-,-,-,10 m,7,1863. VT-118 + Longley Bridge Rd
+Missisquoi NWR visitor centre,44.9630979,-73.168301,Sun opt,Nature,Yes,2.0,flat,Boardwalk,20 m,5,"6,729 acres, peak migration"
+Appalachian Gap overlook,44.2110741,-72.9312953,Backup,Viewpoint,No,0.02,-,-,45 m,9,DRIVE-UP. 20 m from the car
+Lincoln Gap (top of pass),44.0950338,-72.9290382,Backup,Scenic drive,No,-,-,Drive,20 m,6,WOODED - no view from the car
+Sunset Ledge trailhead,44.0879167,-72.9275429,Backup,Hike,Yes,3.5,119,O&B,75 m,8,LT SOUTH. West to Champlain/Adirondacks
+Warren Falls,44.0955039,-72.8643766,Backup,Waterfall,Yes,0.3,20,O&B,45 m,7,Carved-granite gorge
+Warren Store / Warren village,44.1145085,-72.8560776,Backup,Village,Stroll,0.8,flat,-,-,7,Village + covered bridge
+Mad River Glen,44.1975661,-72.9238018,Backup opt,Lift,No,-,-,Lift,60 m,7,$20. LAST CHAIR LOADS 14:30
+Cold Hollow Cider Mill,44.3813667,-72.7197344,Backup only,Food,No,-,-,-,60 m,6,BACKUP DAY ONLY - dropped from Sunday
+Barnet,44.2966923,-72.0495301,Reserve,Village,No,-,-,-,2 h,8,RESERVE. NEK festival Sat Oct 3
+Grand Isle (Champlain Islands),44.722515,-73.2931129,Reserve,Scenic drive,No,-,-,Drive,2 h,8,RESERVE. Sunday alternative route
+Jay Peak tram,44.9360212,-72.5079214,Reserve,Lift,No,-,-,Lift,2 h,8,"RESERVE. $15, weekends to Oct 11"
+Laraway Lookout trailhead,44.7337105,-72.7372733,Reserve,Hike,Yes,5.8,424,O&B,3 h,6,RESERVE
+Molly Stark Mountain,44.2220019,-72.9270626,Reserve,Hike,Yes,4.0,314,O&B,2 h,6,RESERVE. Molly Stark's Balcony
+Mount Abraham,44.1203955,-72.9361931,Reserve,Hike,Yes,8.4,762,O&B,4 h,10,"RESERVE. Above treeline, 4,006 ft"
+Mount Elmore / Elmore State Park,44.5313055,-72.5488003,Reserve,Hike,Yes,6.0-6.8,448,Loop,3 h,9,RESERVE. GATE OPENS 10:00
+Peacham village,44.3284703,-72.1703611,Reserve,Village,No,-,-,-,2 h,8,RESERVE. NEK festival Fri Oct 2
+"Raja Indian & Nepali, Stowe",44.4656857,-72.6843216,Thu/Fri/Sat,Food,No,-,-,-,75 m,-,Closed Wed AND Sun
+"Le Tandoor, Brossard QC",45.4732652,-73.4747521,Thu/Sun,Food,No,-,-,-,60 m,-,Only good veg meal on the drive
+Boyden Valley Winery,44.64887,-72.88916,?,?,No,-,-,-,30 m,5,VERIFY SUNDAY HOURS | 64 VT Route 104
+"Creamery Covered Bridge, Montgomery",44.86724,-72.65252,?,?,No,-,-,-,15 m,6,"1883. WEST HILL RD not Hill West Rd | Creamery Bridge Rd, West Hill"
+"Great Eddy Covered Bridge, Waitsfield",44.18937,-72.8235,?,?,No,-,-,-,45 m,7,"1833, oldest still in service | Bridge Street"
+Highgate Springs border crossing,44.97932,-73.1053,?,?,No,-,-,-,15-30 m,-,24 h port | APPROX - this is the village; the I-89 port of entry is ~3 km north at the 45th parallel
+Mount Mansfield Auto Toll Road,44.5375,-72.7908,?,?,No,-,-,Drive,90 m,7,"$37/veh + $14/pax, 9:30-16:30 | APPROX - entrance off Mountain Rd/VT-108"
+P — Moss Glen Falls lot,44.485243,-72.627263,Thu,Parking,No,-,-,-,-,-,"Parking for Moss Glen Falls (Stowe). Small gravel lot, 380 m from the falls"
+P — Bingham Falls Parking,44.518223,-72.769776,Fri,Parking,No,-,-,-,-,-,"Parking for Bingham Falls. Named lot on VT-108, 340 m from the gorge. ~15 cars"
+P — Notch top parking,44.556784,-72.79404,Fri,Parking,No,-,-,-,-,-,"Parking for Smugglers' Notch. 219 m from the saddle, free. Smallest lot of the week"
+P — Barnes Camp lot,44.539655,-72.791161,Fri,Parking,No,-,-,-,-,-,Parking for Barnes Camp boardwalk. 290 m from the visitor centre
+P — Sunset St lot,44.463912,-72.67677,Fri,Parking,No,-,-,-,-,-,"Parking for Sunset Rock, Stowe. CAPACITY 10, free, unpaved. Or park behind the Community Church"
+P — Church lot,44.465681,-72.684581,Fri,Parking,No,-,-,-,-,-,"Parking for Stowe Community Church. Free, public, 6 m. The village anchor lot"
+P — Mansfield base lot,44.530203,-72.785668,Fri,Parking,No,-,-,-,-,-,Parking for Stowe Gondola SkyRide. 170 m. NB Lower Barnes Lot nearby is access=private
+P — North Beach lot,44.771335,-72.054463,Sat,Parking,No,-,-,-,-,-,Parking for Lake Willoughby North Beach. 40 m from the beach
+P — Common parking,44.65427,-72.38275,Sat,Parking,No,-,-,-,-,-,Parking for Craftsbury Common. 79 m from the green
+P — Barr Hill trailhead lot,44.60877,-72.287795,Sat,Parking,No,-,-,-,-,-,Parking for Barr Hill Natural Area. 185 m. The view is from the field right here
+P — Fisher Bridge pull-off,44.532889,-72.427605,Sat,Parking,No,-,-,-,-,-,"Parking for Fisher Covered Railroad Bridge. 64 m, free"
+P — Poland Bridge lot,44.650638,-72.814207,Sun,Parking,No,-,-,-,-,-,Parking for Cambridge Junction / Poland Bridge. 60 m
+P — Nearest lot,44.644491,-72.87635,Sun,Parking,No,-,-,-,-,-,Parking for Gates Farm Covered Bridge. 350 m — otherwise roadside on VT-15
+P — Sunset Ledge Trail Head Parking,44.094732,-72.927931,Backup,Parking,No,-,-,-,-,-,Parking for Sunset Ledge trailhead. NAMED lot. LT South starts here
+P — Lincoln Gap Long Trail Trailhead Parking,44.094898,-72.928308,Backup,Parking,No,-,-,-,-,-,Parking for Lincoln Gap (top of pass). NAMED. The two gap lots are 94 m apart
+P — App Gap overlook lot,44.211202,-72.931333,Backup,Parking,No,-,-,-,-,-,"Parking for Appalachian Gap overlook. 14 m, asphalt, public. The drive-up view"
+P — Warren Falls pull-off,44.093967,-72.863858,Backup,Parking,No,-,-,-,-,-,Parking for Warren Falls. 175 m
+P — Village lot,44.189597,-72.824248,?,Parking,No,-,-,-,-,-,"Parking for Great Eddy Covered Bridge, Waitsfield. 64 m, free, public"
+P — Macs Bend Parking,44.964558,-73.166283,Sun opt,Parking,No,-,-,-,-,-,Parking for Missisquoi NWR visitor centre. 227 m

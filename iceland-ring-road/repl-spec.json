@@ -1,0 +1,57 @@
+{
+ "trip": "iceland-ring-road-repl",
+ "places": [
+  {
+   "place": "Laugarvatn",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Laugarvatn Fontana",
+    "Laugarvatn lake Iceland"
+   ]
+  },
+  {
+   "place": "Solheimajokull",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Sólheimajökull glacier"
+   ]
+  },
+  {
+   "place": "Svinafellsjokull",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Svínafellsjökull glacier"
+   ]
+  },
+  {
+   "place": "Hofn",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Höfn Hornafjörður",
+    "Hofn Iceland Vatnajökull"
+   ]
+  },
+  {
+   "place": "Thingvellir",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Almannagjá Þingvellir",
+    "Thingvellir rift valley"
+   ]
+  },
+  {
+   "place": "Djupalonssandur",
+   "days": "",
+   "blurb": "",
+   "queries": [
+    "Djúpalónssandur beach"
+   ]
+  }
+ ],
+ "out": "repl-candidates.json"
+}

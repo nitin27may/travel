@@ -1,0 +1,44 @@
+/* alpine-snow — glacier blue, pine, brass funicular, and one flag red.
+   Source palette: Switzerland (Jul–Aug 2027).
+   Good for: high mountains with rail/cable access, glaciers, car-free resorts. */
+/* @fonts: Space+Grotesk:wght@500;700|Literata:opsz,wght@7..72,400;7..72,600|Space+Mono:wght@400;700 */
+:root{
+  --font-display:"Space Grotesk",sans-serif;
+  --font-body:"Literata",Georgia,serif;
+  --font-mono:"Space Mono",monospace;
+
+  --bg:#f5f5f2;
+  --surface:#fffefc;
+  --bg-deep:#1a2028;
+  --bg-deep-2:#28303a;
+
+  --ink:#232a30;
+  --ink-on-deep:#ccd2d8;
+  --muted:#68717a;
+  --muted-on-deep:#98a3ac;
+  --line:#dde0da;
+
+  --accent:#2d7f9e;
+  --accent-dark:#1f5f77;
+  --accent-ink:#ffffff;
+  --accent-soft:#e3f0f5;
+
+  --header:#1f5d4c;
+  --header-ink:#ffffff;
+  --header-sub:#cbe0d8;
+
+  --warn:#d12a1d;
+  --warn-soft:#fdeceb;
+
+  --highlight:#a8792c;
+  --highlight-ink:#221804;
+  --highlight-soft:#f6efdf;
+  --highlight-on-deep:#e6c179;
+
+  --class-1:#2d7f9e;   /* cable */
+  --class-2:#eeefe9;   /* rail */
+  --class-3:#1f5d4c;   /* on foot */
+  --class-4:#a8792c;
+  --class-5:#d52b1e;
+  --class-6:#5f6b75;
+}

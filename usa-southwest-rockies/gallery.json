@@ -1,0 +1,180 @@
+{
+ "trip": "usa-southwest-rockies",
+ "sections": [
+  {
+   "place": "Zion and Springdale",
+   "blurb": "Sandstone canyon park entered from Springdale, with the Virgin River Narrows.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Three Patriarchs, Zion Canyon, Zion National Park, Utah (1026077696).jpg",
+     "caption": "The Three Patriarchs in Zion Canyon",
+     "author": "Ken Lund from Reno, Nevada, USA",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Three Patriarchs, Zion Canyon, Zion National Park, Utah (1025201277).jpg",
+     "caption": "The Three Patriarchs from the canyon floor",
+     "author": "Ken Lund from Reno, Nevada, USA",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Court of the Patriarchs from Above.jpg",
+     "caption": "The Court of the Patriarchs seen from above",
+     "author": "au_ears",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Bryce Canyon",
+   "blurb": "Amphitheatres of hoodoos at 2,400 to 2,700 m on the Paunsaugunt Plateau.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Bryce Canon Sunrise very early morning MC.jpg",
+     "caption": "Bryce Canyon in the first light",
+     "author": "Christian Mehlfuhrer",
+     "license": "CC BY 2.5"
+    },
+    {
+     "file": "Bryce Amphitheater from Sunrise Point, Bryce Canyon National Park, Utah.jpg",
+     "caption": "Bryce Amphitheater from Sunrise Point",
+     "author": "Christian David",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Bryce Canyon View of the Hoodoos from Inspiration.jpg",
+     "caption": "Hoodoos seen from Inspiration Point",
+     "author": "Pierre André Leclercq",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Scenic Byway 12",
+   "blurb": "The road from Bryce to Torrey over the Hogsback and past Calf Creek.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Scenic Byway 12 - Scenic Byway 12 Across the Hogsback - NARA - 7721853.jpg",
+     "caption": "Scenic Byway 12 across the Hogsback",
+     "author": "A. E. Crane, U.S. Department of Agriculture",
+     "license": "Public domain"
+    },
+    {
+     "file": "Calf Creek Falls hike 03.jpg",
+     "caption": "The Calf Creek Falls trail",
+     "author": "Mramoeba",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Lower Calf Creek Falls (4080891798).jpg",
+     "caption": "Lower Calf Creek Falls",
+     "author": "Greg Willis from Denver, CO, usa",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Capitol Reef",
+   "blurb": "A 100-mile wrinkle in the earth, the Waterpocket Fold, with orchards at Fruita.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Waterpocket Fold from above Capitol Reef Scenic Drive.jpeg",
+     "caption": "The Waterpocket Fold from the Scenic Drive",
+     "author": "Unknown",
+     "license": "CC BY-SA 2.5"
+    },
+    {
+     "file": "Waterpocket Fold Cliffs in Capitol Reef Nat'l Park - (20084529946).jpg",
+     "caption": "Streaked cliffs of the Waterpocket Fold",
+     "author": "Murray Foubister",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Waterpocket Fold Cliffs in Capitol Reef Nat'l Park - (20116153061).jpg",
+     "caption": "Waterpocket Fold cliffs in Capitol Reef",
+     "author": "Murray Foubister",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Arches and Moab",
+   "blurb": "Over 2,000 sandstone arches north of Moab.",
+   "days": "",
+   "photos": [
+    {
+     "file": "USA Arches NP Delicate Arch(1).jpg",
+     "caption": "Delicate Arch",
+     "author": "Thomas Schoch",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Delicate Arch sunset.jpg",
+     "caption": "Delicate Arch at sunset",
+     "author": "Ymaup",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Parque Nacional de los-Arcos-Utah2508.JPG",
+     "caption": "Delicate Arch framed by another arch",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Canyonlands Island in the Sky",
+   "blurb": "A mesa 600 m above the Green and Colorado rivers.",
+   "days": "",
+   "photos": [
+    {
+     "file": "View Through Mesa Arch Canyonlands NP Utah 2023.jpg",
+     "caption": "The view through Mesa Arch",
+     "author": "Larry D. Moore",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "Mesa Arch (Island in the Sky) (7167155236).jpg",
+     "caption": "Mesa Arch on the Island in the Sky",
+     "author": "CanyonlandsNPS",
+     "license": "Public domain"
+    },
+    {
+     "file": "View From Mesa Arch, Island in the Sky District, Canyonlands National Park, Utah (2439652720).jpg",
+     "caption": "The view from Mesa Arch over the canyons",
+     "author": "Ken Lund from Reno, Nevada, USA",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Salt Lake City and the Great Salt Lake",
+   "blurb": "Final night; the lake is 4,200 ft up and shrinking.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Salt Lake City skyline (2020) from Ensign Peak.jpg",
+     "caption": "Salt Lake City from Ensign Peak",
+     "author": "Iansmh98",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Salt Lake City, August 2012 (7707261420) (cropped).jpg",
+     "caption": "The Salt Lake City skyline under the Wasatch",
+     "author": "Garrett from Salt Lake City",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Free creative commons White Rock, Buffalo Point, Antelope Island, Great Salt Lake (4593685931).jpg",
+     "caption": "White Rock, Antelope Island, on the Great Salt Lake",
+     "author": "Pink Sherbet Photography from USA",
+     "license": "CC BY 2.0"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="trip-date" content="">
+<meta name="trip-dates" content="13 &ndash; 23 Feb 2027">
+<meta name="trip-duration" content="10 nights">
+<meta name="trip-region" content="Rincón, Arenal, Manuel Antonio &amp; Uvita">
+<title>Costa Rica — 10 nights, February 2027</title>
+<meta name="description" content="Volcanoes, hot springs, canyoning and humpback whales across four bases, flying into Liberia and out of San José. Ten nights with an eight-night alternative, built for two adults and a ten-year-old.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@450;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='16' height='24' rx='2' fill='%230e6b6e'/%3E%3C/svg%3E">
+<style>
+/* theme: forest */
+/* forest — temperate woodland, sugar maple, deep conifer.
+   Source palette: Vermont (Oct 2026) and Niagara (Aug 2026).
+   Good for: hiking, fall foliage, gorges, national/provincial parks. */
+/* @fonts: Big+Shoulders+Display:wght@600;700;800|Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400|IBM+Plex+Mono:wght@450;600 */
+:root{
+  --font-display:"Big Shoulders Display",sans-serif;
+  --font-body:"Source Serif 4",Georgia,serif;
+  --font-mono:"IBM Plex Mono",monospace;
+
+  /* surfaces */
+  --bg:#f6f4ee;
+  --surface:#ffffff;
+  --bg-deep:#14251d;
+  --bg-deep-2:#1d3529;
+
+  /* text */
+  --ink:#24312b;
+  --ink-on-deep:#cfd8d2;
+  --muted:#66736b;
+  --muted-on-deep:#93a69b;
+  --line:#dcd9cf;
+
+  /* accent — buttons, links */
+  --accent:#0e6b6e;
+  --accent-dark:#0a5254;
+  --accent-ink:#ffffff;
+  --accent-soft:#e5efec;
+
+  /* day headers */
+  --header:#1e5c46;
+  --header-ink:#ffffff;
+  --header-sub:#cfe4d4;
+
+  /* hazards */
+  --warn:#b64118;
+  --warn-soft:#fdf1e8;
+
+  /* added / optional */
+  --highlight:#d69329;
+  --highlight-ink:#3c2c07;
+  --highlight-soft:#faf3e2;
+  --highlight-on-deep:#f0c86b;
+
+  /* classifier slots */
+  --class-1:#2f6fb4;   /* trail on foot */
+  --class-2:#f2efe6;   /* road leg */
+  --class-3:#7aa87f;   /* town walking */
+  --class-4:#d69329;   /* food */
+  --class-5:#8d6fb4;
+  --class-6:#4f8f8a;
+}
+
+
+/* ======================================================================================
+   base.css — shared structure for every trip plan.
+
+   HARD RULE: no colour literals in this file. Colour comes from _system/themes/*.css
+   via the token contract in build.py. Overlays use color-mix() so they still track the
+   theme. The build fails if a hex literal appears here.
+
+   This is the union of the two component families that had drifted apart:
+     - Vermont / Niagara : .card .split .content, .sign, .trail/.stop/.blaze, .links/.btn
+     - Quebec / Dolomites / Switzerland : .card .chead .cbody, .day/.dhead sticky sign,
+       .btns/.btn, s- day status + g- legend swatches
+   Both are expressed here once. The classifier (.mark) replaces the old .blaze rules
+   and the old s- day-status / g- legend rules alike.
+   ====================================================================================== */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16.5px;
+  line-height:1.6;
+}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+  outline:3px solid var(--highlight);
+  outline-offset:2px;
+  border-radius:3px;
+}
+.mono{font-family:var(--font-mono)}
+main{width:min(1080px,92%);margin:0 auto;padding-bottom:60px}
+
+/* ---------- hero ------------------------------------------------------------------ */
+.hero{
+  position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:flex-end;
+  color:var(--header-ink);
+  background-color:var(--bg-deep);
+  background-position:center 35%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--bg-deep) 45%, transparent) 0%,
+    color-mix(in srgb, var(--bg-deep) 20%, transparent) 40%,
+    color-mix(in srgb, var(--bg-deep) 88%, transparent) 100%);
+}
+.hero-inner{position:relative;width:min(1080px,92%);margin:0 auto;padding:56px 0 42px}
+.hero .eyebrow{
+  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--highlight-on-deep);margin-bottom:14px;
+}
+.hero h1{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  line-height:.95;font-size:clamp(3rem,9vw,6.4rem);letter-spacing:.015em;
+  text-shadow:0 2px 24px color-mix(in srgb, var(--bg-deep) 55%, transparent);
+}
+.hero h1 .amp{color:var(--highlight-on-deep)}
+.hero .sub{margin-top:16px;max-width:660px;font-size:1.05rem;color:var(--ink-on-deep)}
+.hero .credit{position:absolute;right:12px;bottom:8px;font-size:.66rem;opacity:.78}
+.hero .credit a{color:var(--ink-on-deep)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;padding:8px 14px;
+  border:1px solid color-mix(in srgb, var(--header-ink) 35%, transparent);
+  border-radius:999px;
+  background:color-mix(in srgb, var(--bg-deep) 45%, transparent);
+  backdrop-filter:blur(4px);
+}
+.chip strong{color:var(--highlight-on-deep);font-weight:600}
+
+/* ---------- sticky nav ------------------------------------------------------------- */
+nav{position:sticky;top:0;z-index:50;background:var(--bg-deep);border-bottom:3px solid var(--highlight)}
+nav .wrap{
+  width:min(1080px,94%);margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:10px 0;
+  -webkit-overflow-scrolling:touch;
+}
+nav a{
+  flex:0 0 auto;font-family:var(--font-display);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;font-size:1.02rem;
+  color:var(--ink-on-deep);text-decoration:none;padding:8px 16px;border-radius:6px;
+  transition:background .15s,color .15s;
+}
+nav a:hover{color:var(--header-ink);background:var(--bg-deep-2)}
+nav a.active{color:var(--header-ink);background:var(--header)}
+nav a .d{
+  display:block;font-family:var(--font-mono);font-weight:450;font-size:.62rem;
+  letter-spacing:.08em;color:var(--muted-on-deep);text-transform:none;
+}
+
+/* ---------- orientation / intro ---------------------------------------------------- */
+.intro{padding:6px 0 10px;scroll-margin-top:64px}
+.intro .kick{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--warn);margin:0 0 10px;
+}
+.intro h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.7rem,4.4vw,2.6rem);line-height:1.02;margin:0 0 14px;
+  color:var(--bg-deep);
+}
+.intro .lead{max-width:64ch;font-size:1.06rem}
+.intro .lead p{margin:0 0 14px}
+
+.introwide{margin:22px 0 6px;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover;display:block}
+.introwide figcaption{
+  position:absolute;right:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.6rem;padding:3px 8px;
+}
+.introwide figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+
+/* ---------- stat strip -------------------------------------------------------------- */
+.numstrip{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0 6px;padding:16px 0;
+  border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep);
+}
+.numstrip div{min-width:0}
+.numstrip b{
+  display:block;font-family:var(--font-display);font-weight:800;font-size:1.85rem;
+  line-height:1;color:var(--header);
+}
+.numstrip span{
+  font-family:var(--font-mono);font-size:.63rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ---------- area / sub-region cards -------------------------------------------------- */
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.area figure{margin:0;position:relative}
+.area img{width:100%;height:150px;object-fit:cover;display:block}
+.area figcaption{
+  position:absolute;left:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.55rem;padding:2px 6px;
+}
+.area figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin:0 0 5px;line-height:1.1;
+}
+.area .days{
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:4px;padding:2px 7px;
+  display:inline-block;margin-bottom:7px;
+}
+.area p{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* ---------- "what to know" list ------------------------------------------------------ */
+.know{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.96rem}
+.know li b{font-family:var(--font-display);font-size:1.25rem;color:var(--warn);line-height:1}
+
+/* ---------- day section + sign -------------------------------------------------------- */
+section.day{padding-top:46px;scroll-margin-top:64px}
+.sign{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;
+  box-shadow:0 6px 18px color-mix(in srgb, var(--bg-deep) 18%, transparent)}
+.sign .date{
+  background:var(--bg-deep);color:var(--highlight-on-deep);display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:18px 20px;min-width:118px;
+}
+.sign .date .dow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
+.sign .date .num{
+  font-family:var(--font-display);font-weight:800;font-size:2.6rem;line-height:1;
+  color:var(--header-ink);
+}
+.sign .body{background:var(--header);color:var(--header-ink);flex:1;padding:16px 22px;
+  display:flex;flex-direction:column;justify-content:center}
+.sign h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.05;
+}
+.sign .route{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.05em;
+  color:var(--header-sub);margin-top:6px}
+
+/* sticky variant, promoted from the Dolomites/Switzerland pages */
+.sign--sticky{position:sticky;top:76px;z-index:20}
+
+.daymeta{
+  display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--font-mono);
+  font-size:.74rem;color:var(--muted);padding:14px 4px 4px;
+}
+.daymeta b{color:var(--ink);font-weight:600}
+
+/* ---------- classifier: replaces the old .blaze and s-/g- systems --------------------- */
+/* Each trip declares its own vocabulary; the theme supplies the colour for each slot. */
+.mark{
+  display:inline-block;width:20px;height:32px;border-radius:3px;
+  border:2px solid var(--bg-deep-2);
+  box-shadow:0 2px 5px color-mix(in srgb, var(--bg-deep) 22%, transparent);
+}
+.mark--1{background:var(--class-1)}
+.mark--2{background:var(--class-2)}
+.mark--3{background:var(--class-3)}
+.mark--4{background:var(--class-4)}
+.mark--5{background:var(--class-5)}
+.mark--6{background:var(--class-6)}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:34px 0 0;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.legend .b{
+  width:13px;height:20px;border-radius:2px;border:1.5px solid var(--bg-deep-2);
+  display:inline-block;vertical-align:-5px;margin-right:6px;
+}
+
+/* ---------- timeline ------------------------------------------------------------------- */
+.trail{position:relative;margin-top:18px;padding-left:44px}
+.trail::before{
+  content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;
+  background:repeating-linear-gradient(180deg,var(--bg-deep-2) 0 14px,transparent 14px 22px);
+  opacity:.35;border-radius:2px;
+}
+.stop{position:relative;margin-bottom:26px}
+.stop > .mark{position:absolute;left:-44px;top:14px}
+
+/* ---------- stop card ------------------------------------------------------------------ */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 10px color-mix(in srgb, var(--bg-deep) 6%, transparent);
+}
+.card .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr)}
+.card .split.noimg{grid-template-columns:1fr}
+.card .content{padding:20px 24px}
+.card .split figure:first-child{grid-column:2;grid-row:1}
+.card figure{position:relative;min-height:220px;overflow:hidden}
+.card figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card figcaption{
+  position:absolute;left:0;right:0;bottom:0;font-size:.64rem;color:var(--header-ink);
+  background:linear-gradient(transparent, color-mix(in srgb, var(--bg-deep) 85%, transparent));
+  padding:18px 12px 7px;
+}
+.card figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.card h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.035em;font-size:1.45rem;line-height:1.1;
+}
+.card p{margin-top:8px;font-size:.97rem}
+
+.time{
+  font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.06em;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:6px;padding:3px 9px;
+  display:inline-block;margin-bottom:8px;
+}
+.time.opt{color:var(--highlight-ink);background:var(--highlight-soft)}
+
+.tag{
+  display:inline-block;vertical-align:3px;margin-left:8px;font-family:var(--font-mono);
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--header-ink);
+  background:var(--warn);border-radius:4px;padding:2px 7px;
+}
+.tag--added,.tag--optional{background:var(--highlight);color:var(--highlight-ink)}
+.tag--unmissable{background:var(--warn);color:var(--header-ink)}
+.tag--easy{background:var(--header);color:var(--header-ink)}
+.tag--hidden{background:var(--bg-deep-2);color:var(--ink-on-deep)}
+
+.stats{
+  display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+.stats b{color:var(--ink);font-weight:600}
+
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-decoration:none;
+  border-radius:7px;padding:7px 12px;border:1.5px solid var(--accent);color:var(--accent-dark);
+  background:var(--surface);transition:background .15s;
+}
+.btn:hover{background:var(--accent-soft)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-dark)}
+
+details.more{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.more summary{
+  cursor:pointer;font-family:var(--font-mono);font-size:.74rem;
+  color:var(--accent-dark);list-style:none;
+}
+details.more summary::before{content:"+ "}
+details.more[open] summary::before{content:"\2212 "}
+details.more p,details.more ul{font-size:.9rem;margin-top:8px;color:var(--ink)}
+details.more ul{padding-left:20px}
+
+/* ---------- callouts, maps, panels ------------------------------------------------------ */
+.note{
+  margin-top:16px;background:var(--warn-soft);border-left:4px solid var(--warn);
+  border-radius:0 8px 8px 0;padding:12px 16px;font-size:.92rem;
+}
+.note.gold{background:var(--highlight-soft);border-left-color:var(--highlight)}
+
+.mapframe{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mapframe iframe{display:block;width:100%;height:330px;border:0}
+.mapframe .bar{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;
+  background:var(--surface);font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+.panel h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;font-size:1.3rem;margin-bottom:10px;
+}
+
+.check label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:.94rem;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:0 0 auto}
+.check label.done{color:var(--muted);text-decoration:line-through}
+
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:6px}
+th{
+  text-align:left;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:2px solid var(--line);
+}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.linklist a{display:block;padding:6px 0;font-size:.9rem}
+
+/* ---------- A/B plan toggle -------------------------------------------------------------- */
+.toggle{display:flex;margin:20px 0 4px;border:2px solid var(--header);border-radius:10px;
+  overflow:hidden;width:fit-content;max-width:100%}
+.toggle button{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1rem;padding:10px 20px;border:0;background:var(--surface);
+  color:var(--header);cursor:pointer;
+}
+.toggle button.on{background:var(--header);color:var(--header-ink)}
+.planwrap .plan{display:none}
+.planwrap .plan.show{display:block}
+
+/* ---------- day-of quick links ------------------------------------------------------------ */
+.quick{margin:26px 0 6px;scroll-margin-top:64px}
+.quick h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--bg-deep);margin-bottom:4px;
+}
+.quick .qsub{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:16px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.qcard h4{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1.02rem;color:var(--header);margin-bottom:9px;
+  display:flex;align-items:center;gap:7px;
+}
+.qcard h4 .dot{width:9px;height:14px;border-radius:2px;border:1.5px solid var(--bg-deep-2);flex:0 0 auto}
+.qcard a{
+  display:block;font-family:var(--font-mono);font-size:.76rem;line-height:1.35;
+  text-decoration:none;color:var(--accent-dark);border:1.5px solid var(--line);border-radius:7px;
+  padding:9px 11px;margin-bottom:7px;transition:background .15s,border-color .15s;
+}
+.qcard a:hover{background:var(--accent-soft);border-color:var(--accent)}
+.qcard a:last-child{margin-bottom:0}
+.qcard a b{display:block;font-weight:600;color:var(--ink);font-size:.82rem;margin-bottom:1px}
+.qcard a.warn{border-color:var(--warn);color:var(--warn)}
+.qcard a.warn b{color:var(--warn)}
+.qcard a.tel{border-color:var(--highlight);background:var(--highlight-soft)}
+
+/* ---------- footer -------------------------------------------------------------------------- */
+section#essentials{padding-top:46px;scroll-margin-top:64px}
+section#essentials>h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.6rem,4vw,2.3rem);color:var(--bg-deep);
+}
+footer{background:var(--bg-deep);color:var(--muted-on-deep);margin-top:60px;padding:34px 0;font-size:.8rem}
+footer .wrap{width:min(1080px,92%);margin:0 auto}
+footer a{color:var(--ink-on-deep)}
+
+/* ---------- responsive ------------------------------------------------------------------------ */
+@media(max-width:760px){
+  .numstrip{grid-template-columns:repeat(3,1fr);gap:14px}
+  .area img{height:130px}
+  .card .split{grid-template-columns:1fr}
+  .card figure{min-height:190px;order:-1}
+  .card .split figure:first-child{grid-column:1;grid-row:auto}
+  .grid2{grid-template-columns:1fr}
+  .hero{min-height:64vh}
+  .trail{padding-left:36px}
+  .stop > .mark{left:-36px;width:16px;height:26px}
+  .trail::before{left:12px}
+  .sign--sticky{position:static}
+  .qcard a{padding:11px 12px;font-size:.8rem}
+}
+
+@media print{
+  nav,.mapframe iframe,.hero{display:none}
+  body{background:var(--surface);font-size:11pt}
+  .card{box-shadow:none;break-inside:avoid}
+  .planwrap .plan{display:block!important}
+  .sign--sticky{position:static}
+}
+
+
+/* trip-local additions */
+nav a.home{color:var(--highlight-on-deep);font-weight:600;border-right:1px solid color-mix(in srgb, var(--highlight-on-deep) 32%, transparent);margin-right:6px}nav a.home:hover{color:var(--header-ink)}.panel p + p{margin-top:11px}.area .days{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em}.panel ul{margin:6px 0 0 18px}.panel li{margin-bottom:7px;font-size:.94rem}.panel table{margin-top:8px}
+</style>
+</head>
+<body data-slug="costa-rica-feb-2027">
+
+<header class="hero" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_volcano_%2870785p%29.jpg?width=2000')">
+  <div class="hero-inner">
+    <p class="eyebrow">13 &ndash; 23 Feb 2027 &middot; two adults and a ten-year-old</p>
+    <h1>Costa Rica</h1>
+    <p class="sub">Volcanoes, hot springs and whales, one big adventure a day.</p>
+    <div class="chips"><span class="chip"><strong>10</strong> nights (or 8)</span><span class="chip"><strong>4</strong> bases</span><span class="chip"><strong>3</strong> travellers</span><span class="chip"><strong>1</strong> big activity a day</span></div>
+  </div>
+  <p class="credit"><a href="https://commons.wikimedia.org/wiki/File:Arenal_volcano_%2870785p%29.jpg">Arenal volcano &middot; Wikimedia Commons</a></p>
+</header>
+
+<nav aria-label="Sections">
+  <div class="wrap"><a class="home" href="/">&#8592; All plans<span class="d">dashboard</span></a><a href="#orient"><span class="d">Read first</span>Orientation</a><a href="#gallery"><b>&#9632;</b><span>photos</span></a><a href="#plan"><span class="d">Decide</span>10 or 8</a><a href="#adventure"><span class="d">Book &amp; limits</span>Adventure</a><a href="#springs"><span class="d">Soak</span>Hot springs</a><a href="#d1"><span class="d">Nights 1&ndash;2</span>Rincón</a><a href="#d3"><span class="d">Nights 3&ndash;5</span>La Fortuna</a><a href="#d6"><span class="d">Nights 6&ndash;7</span>Manuel Antonio</a><a href="#d8"><span class="d">Nights 8&ndash;10</span>Uvita</a><a href="#quick"><span class="d">In the field</span>Day-of links</a><a href="#essentials"><span class="d">Money &amp; kit</span>Essentials</a></div>
+</nav>
+
+<main>
+
+<section class="intro" id="orient">
+  <p class="kick">Before the days start</p>
+  <h2>What this trip physically is</h2>
+  <div class="lead">
+    <p>Costa Rica is a narrow country with a spine of volcanoes. <b>Rincón de la Vieja and Arenal are
+    both active-arc volcanoes</b>, which is why there are hot rivers and steaming ground in the
+    north and why the springs here are fed by the mountain, not heated in a tank.</p>
+
+    <p>The route is a line down the country, not a loop: <b>fly into Liberia (LIR), fly out of
+    San José (SJO)</b>, and drive about 600 km between. February is the dry season on the
+    Guanacaste side and around La Fortuna. <b>The Pacific south is not especially dry</b> — Uvita
+    sees roughly 60 to 150 mm over a week in February, so pack a rain layer for the last leg.</p>
+
+    <p><b>What is specific here</b> is the humpback season. Whales come up from the Northern
+    Hemisphere between December and April, and Ballena Marine National Park is where the
+    Whale&rsquo;s Tail sandbar shows at low tide. That, not the beaches, is the reason the plan ends
+    in Uvita.</p>
+
+    <p>Costa Rica sells itself on adventure and nature, and both are here. The skill is choosing:
+    with a ten-year-old, <b>one big activity a day, and two long drives that carry nothing</b>.</p>
+  </div>
+
+  <figure class="introwide"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_Lake_%2860159p%29.jpg?width=1400"
+    alt="Lake Arenal">
+    <figcaption><a href="https://commons.wikimedia.org/wiki/File:Arenal_Lake_%2860159p%29.jpg">Wikimedia Commons</a></figcaption></figure>
+
+  <div class="areas"><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fumerolles.JPG?width=900" alt="Rincón de la Vieja"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Fumerolles.JPG">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Rincón de la Vieja</h3><p class="days">Nights 1–2</p><p>Active volcano, steaming ground at Las Pailas and rivers warm enough to bathe in. The easy start, 45 minutes from the airport.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/La_Fortuna_Waterfall_in_Alajuela_province%2C_Costa_Rica.jpg?width=900" alt="La Fortuna &amp; Arenal"><figcaption><a href="https://commons.wikimedia.org/wiki/File:La_Fortuna_Waterfall_in_Alajuela_province%2C_Costa_Rica.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>La Fortuna &amp; Arenal</h3><p class="days">Nights 3–5</p><p>The adventure base: canyoning, a balsa float, ziplines and a night in the springs. Arenal has not glowed since 2010.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Main_Beach_Manuel_Antonio_National_Park_Costa_Rica.JPG?width=900" alt="Manuel Antonio"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Main_Beach_Manuel_Antonio_National_Park_Costa_Rica.JPG">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Manuel Antonio</h3><p class="days">Nights 6–7</p><p>Rainforest that runs down onto a beach, with sloths and capuchins on the path. Shut on Tuesdays.</p></div></div><div class="area"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Costa_Rica_Nationalpark_Marino_Ballena.JPG?width=900" alt="Uvita &amp; Ballena"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Costa_Rica_Nationalpark_Marino_Ballena.JPG">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Uvita &amp; Ballena</h3><p class="days">Nights 8–10</p><p>The Whale&rsquo;s Tail sandbar, humpbacks offshore and scarlet macaws in the almond trees.</p></div></div></div>
+
+  <div class="numstrip">
+    <div><b>10</b><span>nights (8 on plan B)</span></div>
+    <div><b>4</b><span>bases</span></div>
+    <div><b>~600</b><span>km driven</span></div>
+    <div><b>17:45</b><span>sunset, be in by 17:00</span></div>
+    <div><b>2</b><span>days with no tide to use</span></div>
+    <div><b>0</b><span>Feb 2027 prices in hand</span></div>
+  </div>
+
+  <ul class="know">
+    <li><b>1</b><span><b>Manuel Antonio is shut on Tuesday</b>, and Las Pailas on Monday. The
+      order of the days is built around that, not around preference.</span></li>
+    <li><b>2</b><span><b>Whale&rsquo;s Tail is a low-tide walk.</b> The best mornings are
+      Sun 21 and Mon 22 Feb (lows 08:33 and 09:20). Mid-February has only afternoon or pre-dawn
+      lows.</span></li>
+    <li><b>3</b><span><b>Arenal does not glow.</b> The last lava was in 2010; the night soak is
+      stars, not fire. Rio Celeste&rsquo;s waterfall trail has been closed or partly closed since mid-2025,
+      so it is a bonus, not a plan.</span></li>
+    <li><b>4</b><span><b>He is on the line for two things.</b> Tubing at Guachipelin needs 140 cm and age 8; Sky
+      Trek&rsquo;s child harness covers 10 to 40 kg. Measure and weigh him before booking.</span></li>
+    <li><b>5</b><span><b>Rental insurance is the surprise cost.</b> Third-party liability is mandatory and
+      cannot be covered by a credit card.</span></li>
+    <li><b>6</b><span><b>Every price here is a 2026 figure.</b> No February 2027 quote exists for any hotel or
+      operator. Treat totals as shape, not budget, until you have quotes.</span></li>
+  </ul>
+</section>
+<!-- gallery:start -->
+
+<style>
+#gallery{padding:50px 0;border-bottom:1px solid var(--line,#ddd)}
+#gallery .gwrap{max-width:1080px;margin:0 auto;padding:0 20px}
+#gallery h2{margin:0 0 6px}
+#gallery .gnote{color:var(--muted,#666);margin:0 0 26px;max-width:62ch}
+#gallery .gplace{margin:0 0 34px}
+#gallery .gplace h3{margin:0;font-size:1.2rem;letter-spacing:-.01em}
+#gallery .gplace .gdays{font-family:var(--font-mono,monospace);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#666);margin-left:8px;white-space:nowrap}
+#gallery .gplace p{margin:3px 0 12px;color:var(--muted,#666);font-size:.95rem}
+#gallery .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;background:var(--surface,#fff);border:1px solid var(--line,#ddd)}
+#gallery figure a.gimg{display:block;aspect-ratio:3/2;overflow:hidden}
+#gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+#gallery figure:hover img{transform:scale(1.03)}
+#gallery figcaption{padding:7px 9px 8px;font-size:.78rem;line-height:1.35;color:var(--ink,#222)}
+#gallery figcaption small{display:block;color:var(--muted,#666);font-size:.68rem;margin-top:2px}
+#gallery figcaption small a{color:inherit}
+@media (prefers-reduced-motion:reduce){#gallery img{transition:none}}
+@media print{#gallery{break-inside:avoid}}
+
+#glb{position:fixed;inset:0;z-index:1000;display:none;background:rgba(10,12,14,.97);color:#fff;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-body,Georgia,serif)}
+#glb.open{display:flex}
+#glb .gl-stage{position:relative;flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center;padding:44px 64px 8px;box-sizing:border-box;touch-action:pan-y}
+#glb img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:3px;transition:opacity .2s}
+#glb img.loading{opacity:.25}
+#glb .gl-cap{width:100%;max-width:900px;padding:8px 20px 18px;box-sizing:border-box;text-align:center;font-size:.9rem;line-height:1.4}
+#glb .gl-cap small{display:block;color:#b8c0c8;font-size:.75rem;margin-top:3px}
+#glb .gl-cap a{color:#cfe3ee}
+#glb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center}
+#glb button:hover,#glb button:focus-visible{background:rgba(255,255,255,.28);outline:2px solid #fff}
+#glb .gl-prev{left:10px;top:50%;margin-top:-23px}
+#glb .gl-next{right:10px;top:50%;margin-top:-23px}
+#glb .gl-close{right:10px;top:10px;font-size:1.3rem}
+#glb .gl-fs{right:64px;top:10px;font-size:1.1rem}
+#glb .gl-count{position:absolute;left:16px;top:18px;font-family:var(--font-mono,monospace);font-size:.75rem;letter-spacing:.08em;color:#b8c0c8}
+@media (max-width:620px){#glb .gl-stage{padding:48px 6px 4px}#glb .gl-prev,#glb .gl-next{top:auto;bottom:86px;margin:0}#glb .gl-prev{left:12px}#glb .gl-next{right:12px}}
+@media (prefers-reduced-motion:reduce){#glb img{transition:none}}
+@media print{#glb{display:none!important}}
+</style>
+
+<section id="gallery"><div class="gwrap">
+<p class="kicker">Where you are going</p>
+<h2>Photo gallery</h2>
+<p class="gnote">The places on this plan, in the order you reach them. Click a photo to view it full size, then use the arrows, arrow keys or a swipe to move through the gallery. These show typical views, not conditions on your dates.</p>
+<div class="gplace"><h3>Rincon de la Vieja and Guachipelin<span class="gdays">1-3</span></h3><p>Volcano and dry-forest national park near Liberia with fumaroles, mud pots and river hot springs.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Rinc%C3%B3n_de_la_Vieja_Volcano_Costa_Rica_Mud_Bubble_bursting_7860.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Rinc%C3%B3n_de_la_Vieja_Volcano_Costa_Rica_Mud_Bubble_bursting_7860.jpg?width=1600" data-cap="A mud bubble bursting in a mud pot at Rincon de la Vieja" data-place="Rincon de la Vieja and Guachipelin" data-credit="Paul Harrison &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rinc%C3%B3n_de_la_Vieja_Volcano_Costa_Rica_Mud_Bubble_bursting_7860.jpg?width=900" alt="A mud bubble bursting in a mud pot at Rincon de la Vieja"></a><figcaption>A mud bubble bursting in a mud pot at Rincon de la Vieja<small>Paul Harrison &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Rinc%C3%B3n_de_la_Vieja_Volcano_Costa_Rica_Mud_Bubble_bursting_7860.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Clouds_Gather_on_Rinc%C3%B3n_de_la_Vieja_Volcano_%28crater-052025-loiacono-4358%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Clouds_Gather_on_Rinc%C3%B3n_de_la_Vieja_Volcano_%28crater-052025-loiacono-4358%29.jpg?width=1600" data-cap="Clouds gathering over the Rincon de la Vieja summit" data-place="Rincon de la Vieja and Guachipelin" data-credit="NASA / Milan Loiacono &middot; Public domain"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Clouds_Gather_on_Rinc%C3%B3n_de_la_Vieja_Volcano_%28crater-052025-loiacono-4358%29.jpg?width=900" alt="Clouds gathering over the Rincon de la Vieja summit"></a><figcaption>Clouds gathering over the Rincon de la Vieja summit<small>NASA / Milan Loiacono &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Clouds_Gather_on_Rinc%C3%B3n_de_la_Vieja_Volcano_%28crater-052025-loiacono-4358%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Rinc%C3%B3n_de_la_Vieja_Hot_Spring.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Rinc%C3%B3n_de_la_Vieja_Hot_Spring.jpg?width=1600" data-cap="A steaming hot spring in the Rincon de la Vieja park" data-place="Rincon de la Vieja and Guachipelin" data-credit="Flicka &middot; CC BY 2.5"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rinc%C3%B3n_de_la_Vieja_Hot_Spring.jpg?width=900" alt="A steaming hot spring in the Rincon de la Vieja park"></a><figcaption>A steaming hot spring in the Rincon de la Vieja park<small>Flicka &middot; CC BY 2.5 &middot; <a href="https://commons.wikimedia.org/wiki/File:Rinc%C3%B3n_de_la_Vieja_Hot_Spring.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Arenal Volcano and La Fortuna<span class="gdays">3-6</span></h3><p>Cone-shaped stratovolcano above Lake Arenal, with hanging bridges, waterfalls and hot springs below.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Arenal_volcano_%2870785p%29_%28cropped%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_volcano_%2870785p%29_%28cropped%29.jpg?width=1600" data-cap="Arenal, the cone seen from the La Fortuna side" data-place="Arenal Volcano and La Fortuna" data-credit="Rhododendrites &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_volcano_%2870785p%29_%28cropped%29.jpg?width=900" alt="Arenal, the cone seen from the La Fortuna side"></a><figcaption>Arenal, the cone seen from the La Fortuna side<small>Rhododendrites &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Arenal_volcano_%2870785p%29_%28cropped%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Arenal_Volcano_02.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_Volcano_02.jpg?width=1600" data-cap="Arenal under cloud from the surrounding forest" data-place="Arenal Volcano and La Fortuna" data-credit="Bernard Gagnon &middot; CC0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_Volcano_02.jpg?width=900" alt="Arenal under cloud from the surrounding forest"></a><figcaption>Arenal under cloud from the surrounding forest<small>Bernard Gagnon &middot; CC0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Arenal_Volcano_02.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:CostaRica_Arenal_Volcano_1968Flow_%28pixinn.net%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/CostaRica_Arenal_Volcano_1968Flow_%28pixinn.net%29.jpg?width=1600" data-cap="Arenal and its 1968 lava flow, now overgrown" data-place="Arenal Volcano and La Fortuna" data-credit="Christophe Meneboeuf &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/CostaRica_Arenal_Volcano_1968Flow_%28pixinn.net%29.jpg?width=900" alt="Arenal and its 1968 lava flow, now overgrown"></a><figcaption>Arenal and its 1968 lava flow, now overgrown<small>Christophe Meneboeuf &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:CostaRica_Arenal_Volcano_1968Flow_%28pixinn.net%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Tabacon and the Arenal hot springs<span class="gdays">5</span></h3><p>Volcanically heated rivers and pools on the flank of Arenal.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Bar_in_pool_at_Tabac%C3%B3n.gk.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Bar_in_pool_at_Tabac%C3%B3n.gk.jpg?width=1600" data-cap="The pool bar at Tabacon at night" data-place="Tabacon and the Arenal hot springs" data-credit="Grendelkhan &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bar_in_pool_at_Tabac%C3%B3n.gk.jpg?width=900" alt="The pool bar at Tabacon at night"></a><figcaption>The pool bar at Tabacon at night<small>Grendelkhan &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Bar_in_pool_at_Tabac%C3%B3n.gk.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Tabac%C3%B3n_-_panoramio_%281%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Tabac%C3%B3n_-_panoramio_%281%29.jpg?width=1600" data-cap="A warm stream through the gardens at Tabacon" data-place="Tabacon and the Arenal hot springs" data-credit="kajikawa &middot; CC BY 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tabac%C3%B3n_-_panoramio_%281%29.jpg?width=900" alt="A warm stream through the gardens at Tabacon"></a><figcaption>A warm stream through the gardens at Tabacon<small>kajikawa &middot; CC BY 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Tabac%C3%B3n_-_panoramio_%281%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Manuel Antonio National Park<span class="gdays">6-8</span></h3><p>Small Pacific coast park of white-sand coves and rainforest, known for capuchin monkeys and sloths.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Manuel_Antonio_National_Park.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Manuel_Antonio_National_Park.jpg?width=1600" data-cap="A white sand cove in Manuel Antonio National Park" data-place="Manuel Antonio National Park" data-credit="RAMDOM X &middot; Public domain"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Manuel_Antonio_National_Park.jpg?width=900" alt="A white sand cove in Manuel Antonio National Park"></a><figcaption>A white sand cove in Manuel Antonio National Park<small>RAMDOM X &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Manuel_Antonio_National_Park.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Beach_at_Manuel_Antonio_Park_-_panoramio_%281%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Beach_at_Manuel_Antonio_Park_-_panoramio_%281%29.jpg?width=1600" data-cap="The beach at Manuel Antonio National Park" data-place="Manuel Antonio National Park" data-credit="Mark Cowell &middot; CC BY 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Beach_at_Manuel_Antonio_Park_-_panoramio_%281%29.jpg?width=900" alt="The beach at Manuel Antonio National Park"></a><figcaption>The beach at Manuel Antonio National Park<small>Mark Cowell &middot; CC BY 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Beach_at_Manuel_Antonio_Park_-_panoramio_%281%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Manuel-antonio-quepos-costa-rica-second-beach.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Manuel-antonio-quepos-costa-rica-second-beach.JPG?width=1600" data-cap="The second beach at Manuel Antonio, near Quepos" data-place="Manuel Antonio National Park" data-credit="Tarrazu &middot; Public domain"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Manuel-antonio-quepos-costa-rica-second-beach.JPG?width=900" alt="The second beach at Manuel Antonio, near Quepos"></a><figcaption>The second beach at Manuel Antonio, near Quepos<small>Tarrazu &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Manuel-antonio-quepos-costa-rica-second-beach.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Wildlife of the rainforest</h3><p>Animals common on the Arenal and Manuel Antonio routes, shown for reference, not a promise of sightings.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Brown-throated_three-toed_sloth_female.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Brown-throated_three-toed_sloth_female.JPG?width=1600" data-cap="A brown-throated three-toed sloth, female" data-place="Wildlife of the rainforest" data-credit="Charles J. Sharp &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Brown-throated_three-toed_sloth_female.JPG?width=900" alt="A brown-throated three-toed sloth, female"></a><figcaption>A brown-throated three-toed sloth, female<small>Charles J. Sharp &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Brown-throated_three-toed_sloth_female.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Costa_Rican_Three-Toed_Sloth.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Costa_Rican_Three-Toed_Sloth.jpg?width=1600" data-cap="A three-toed sloth hanging from a branch" data-place="Wildlife of the rainforest" data-credit="Urak-Tou &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Costa_Rican_Three-Toed_Sloth.jpg?width=900" alt="A three-toed sloth hanging from a branch"></a><figcaption>A three-toed sloth hanging from a branch<small>Urak-Tou &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Costa_Rican_Three-Toed_Sloth.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Three_toed_sloth_female.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Three_toed_sloth_female.JPG?width=1600" data-cap="A three-toed sloth in the canopy" data-place="Wildlife of the rainforest" data-credit="Charles J. Sharp &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Three_toed_sloth_female.JPG?width=900" alt="A three-toed sloth in the canopy"></a><figcaption>A three-toed sloth in the canopy<small>Charles J. Sharp &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Three_toed_sloth_female.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Uvita and Marino Ballena<span class="gdays">9-11</span></h3><p>Pacific coast park with a sandbar shaped like a whale&#x27;s tail at low tide, a humpback breeding area.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Scarlet_Macaws_at_Uvita_Beach%2C_Costa_Rica_03.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Scarlet_Macaws_at_Uvita_Beach%2C_Costa_Rica_03.jpg?width=1600" data-cap="Scarlet macaws at Uvita beach" data-place="Uvita and Marino Ballena" data-credit="Satdeep Gill &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Scarlet_Macaws_at_Uvita_Beach%2C_Costa_Rica_03.jpg?width=900" alt="Scarlet macaws at Uvita beach"></a><figcaption>Scarlet macaws at Uvita beach<small>Satdeep Gill &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Scarlet_Macaws_at_Uvita_Beach%2C_Costa_Rica_03.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Near_Uvita_Beach%2C_Costa_Rica_-_panoramio.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Near_Uvita_Beach%2C_Costa_Rica_-_panoramio.jpg?width=1600" data-cap="The coast near Uvita seen from the hills" data-place="Uvita and Marino Ballena" data-credit="belemita &middot; CC BY 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Near_Uvita_Beach%2C_Costa_Rica_-_panoramio.jpg?width=900" alt="The coast near Uvita seen from the hills"></a><figcaption>The coast near Uvita seen from the hills<small>belemita &middot; CC BY 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Near_Uvita_Beach%2C_Costa_Rica_-_panoramio.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Playa_Uvita%2C_Costa_Rica.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Playa_Uvita%2C_Costa_Rica.jpg?width=1600" data-cap="Playa Uvita, palms behind the beach" data-place="Uvita and Marino Ballena" data-credit="Alfarjores &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Playa_Uvita%2C_Costa_Rica.jpg?width=900" alt="Playa Uvita, palms behind the beach"></a><figcaption>Playa Uvita, palms behind the beach<small>Alfarjores &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Playa_Uvita%2C_Costa_Rica.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+</div></section>
+
+<script>
+(function(){
+  var root=document.getElementById('gallery'); if(!root) return;
+  var links=[].slice.call(root.querySelectorAll('a.gimg'));
+  if(!links.length) return;
+  var box=document.createElement('div');
+  box.id='glb'; box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-label','Photo viewer');
+  box.innerHTML='<div class="gl-count"></div><button class="gl-fs" type="button" aria-label="Full screen">&#x26F6;</button><button class="gl-close" type="button" aria-label="Close">&times;</button>'
+   +'<div class="gl-stage"><button class="gl-prev" type="button" aria-label="Previous photo">&#8249;</button><img alt=""><button class="gl-next" type="button" aria-label="Next photo">&#8250;</button></div><div class="gl-cap"></div>';
+  document.body.appendChild(box);
+  var img=box.querySelector('img'), cap=box.querySelector('.gl-cap'), cnt=box.querySelector('.gl-count'), cur=0, opener=null;
+  function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+  function show(i){
+    cur=(i+links.length)%links.length; var a=links[cur];
+    img.classList.add('loading'); img.onload=function(){img.classList.remove('loading')};
+    img.src=a.getAttribute('data-full'); img.alt=a.getAttribute('data-cap')||'';
+    cap.innerHTML=esc(a.getAttribute('data-cap')||'')+'<small>'+esc(a.getAttribute('data-place')||'')+' &middot; '+esc(a.getAttribute('data-credit')||'')+' &middot; <a href="'+a.href+'" target="_blank" rel="noopener">Commons page</a></small>';
+    cnt.textContent=(cur+1)+' / '+links.length;
+    [1,-1].forEach(function(d){var n=links[(cur+d+links.length)%links.length]; (new Image()).src=n.getAttribute('data-full')});
+  }
+  function open(i,from){opener=from; box.classList.add('open'); document.documentElement.style.overflow='hidden'; show(i); box.querySelector('.gl-close').focus()}
+  function close(){
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
+    box.classList.remove('open'); document.documentElement.style.overflow=''; img.removeAttribute('src'); if(opener) opener.focus();
+  }
+  links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault(); open(i,a)})});
+  box.querySelector('.gl-prev').addEventListener('click',function(){show(cur-1)});
+  box.querySelector('.gl-next').addEventListener('click',function(){show(cur+1)});
+  box.querySelector('.gl-close').addEventListener('click',close);
+  box.querySelector('.gl-fs').addEventListener('click',function(){
+    if(document.fullscreenElement){document.exitFullscreen()} else if(box.requestFullscreen){box.requestFullscreen()}
+  });
+  box.addEventListener('click',function(e){ if(e.target===box||e.target.classList.contains('gl-stage')||e.target===cap) close() });
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('open')) return;
+    if(e.key==='Escape') close(); else if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='Tab'){ var f=[].slice.call(box.querySelectorAll('button')); var i=f.indexOf(document.activeElement); e.preventDefault(); f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus() }
+  });
+  var x0=null;
+  box.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1)) },{passive:true});
+})();
+</script>
+
+<!-- gallery:end -->
+
+
+
+<section class="intro" id="plan">
+  <p class="kick">The one decision that changes the shape</p>
+  <h2>10 nights or 8</h2>
+  <div class="lead"><p>The first eight nights are identical. The last two nights are Uvita, and
+  they carry the whales, the Whale&rsquo;s Tail and the macaws. Pick the version you want to read;
+  the day-by-day below is the 10-night plan, and plan B is the same days with the south shortened.</p></div>
+
+  <div class="toggle">
+    <button data-plan-btn="a">10 nights &middot; recommended</button>
+    <button data-plan-btn="b">8 nights</button>
+  </div>
+
+  <div class="planwrap">
+    <div class="plan" data-plan="a">
+      <div class="panel">
+        <h3>Sat 13 &ndash; Tue 23 Feb 2027</h3>
+        <p><b>Rincón 2, Arenal 3, Manuel Antonio 2, Uvita 3.</b> Whale&rsquo;s Tail on the lowest
+        daytime tides, a whale tour on the Monday, and a three-and-a-half-hour drive to SJO on the
+        last day.</p>
+        <table>
+          <tr><th>Night</th><th>Date</th><th>Base</th></tr>
+          <tr><td>1&ndash;2</td><td>Sat 13, Sun 14</td><td>Rincón de la Vieja</td></tr>
+          <tr><td>3&ndash;5</td><td>Mon 15, Tue 16, Wed 17</td><td>La Fortuna</td></tr>
+          <tr><td>6&ndash;7</td><td>Thu 18, Fri 19</td><td>Manuel Antonio</td></tr>
+          <tr><td>8&ndash;10</td><td>Sat 20, Sun 21, Mon 22</td><td>Uvita</td></tr>
+        </table>
+        <p>Lodging at 2026 from-rates: about <b>$2,336</b> before tax.</p>
+      </div>
+    </div>
+    <div class="plan" data-plan="b">
+      <div class="panel">
+        <h3>Sat 13 &ndash; Sun 21 Feb 2027</h3>
+        <p><b>Rincón 2, Arenal 3, Manuel Antonio 3</b>, flying home from SJO on Sunday. This costs
+        you Uvita: no Whale&rsquo;s Tail, no whale tour, no macaws. What you gain is two fewer days
+        and one drive less. Manuel Antonio to SJO is shorter than Uvita to SJO, but the figure is not sourced.</p>
+        <table>
+          <tr><th>Night</th><th>Date</th><th>Base</th></tr>
+          <tr><td>1&ndash;2</td><td>Sat 13, Sun 14</td><td>Rincón de la Vieja</td></tr>
+          <tr><td>3&ndash;5</td><td>Mon 15, Tue 16, Wed 17</td><td>La Fortuna</td></tr>
+          <tr><td>6&ndash;8</td><td>Thu 18, Fri 19, Sat 20</td><td>Manuel Antonio</td></tr>
+        </table>
+        <p>Spare Manuel Antonio day (Sat 20): Damas Island mangrove kayak, or the Quepos canopy.
+        Lodging at 2026 from-rates: about <b>$1,947</b> before tax.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="intro" id="adventure">
+  <p class="kick">What to book, and what he can do</p>
+  <h2>Adventure</h2>
+  <div class="lead">
+    <p>The limits are age, height and harness weight, not fitness. Two of them sit exactly on his
+    numbers, so <b>measure and weigh him before anything is booked</b>. Prices are 2026 and per person.</p>
+  </div>
+  <table>
+    <tr><th>Activity</th><th>Price</th><th>Limit</th><th>Where</th></tr>
+    <tr><td><b>Pure Trek canyoning</b></td><td>$117 incl. tax</td><td>5+, four rappels</td><td>La Fortuna</td></tr>
+    <tr><td><b>Balsa float II&ndash;III</b></td><td>$65&ndash;85</td><td>6+ / 8+ / 10+ by operator</td><td>La Fortuna, La Virgen</td></tr>
+    <tr><td><b>Sky Trek</b></td><td>~$60&ndash;65 child</td><td>5+, <b>child gear 10&ndash;40 kg</b></td><td>La Fortuna</td></tr>
+    <tr><td><b>Guachipelin canyoning</b></td><td>$50</td><td><b>10+</b></td><td>Rincón</td></tr>
+    <tr><td><b>Rio Negro tubing</b></td><td>GAP</td><td><b>140 cm, 8+</b></td><td>Rincón</td></tr>
+    <tr><td><b>Guachipelin canopy</b></td><td>$65 / $45</td><td>4&ndash;12</td><td>Rincón</td></tr>
+    <tr><td><b>Humpback tour</b></td><td>$80&ndash;85 / $45</td><td>child 4&ndash;10</td><td>Uvita</td></tr>
+    <tr><td><b>Damas mangrove kayak</b></td><td>~$90 + tax</td><td>GAP</td><td>Quepos</td></tr>
+    <tr><td><b>Papa&rsquo;s Place night walk</b></td><td>from ~$40</td><td>child 5&ndash;11</td><td>Manuel Antonio</td></tr>
+  </table>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Ruled out for him</h3>
+      <ul><li>Pacuare rafting: 12+.</li><li>Class III&ndash;IV Sarapiqui sections.</li>
+      <li>Selvatura Superman add-on: 55 kg.</li><li>Costa Canyoning Dominical: 11+.</li>
+      <li>Isla del Cano: 7&ndash;9 h boat day, no toilets.</li></ul>
+    </div>
+    <div class="panel">
+      <h3>Ranked</h3>
+      <p>1) Guachipelin day. 2) Pure Trek canyoning. 3) Balsa float. 4) Sky Trek with the tram.
+      5) Uvita whales. 6) Night walk, or the mangrove kayak.</p>
+      <p>No incident was found for the shortlisted operators from 2023 to 2026. Boat operators were not searched
+      and no independent certification was verified.</p>
+    </div>
+  </div>
+</section>
+<section class="intro" id="springs">
+  <p class="kick">The soak plan</p>
+  <h2>Hot springs</h2>
+  <div class="lead">
+    <p>Two of the four hotels include springs, so <b>you only need to pay for one</b>, and that one is a
+    night at Tabacón. Everything else is free with the room.</p>
+  </div>
+  <table>
+    <tr><th>Place</th><th>Child</th><th>Adult</th><th>Know</th></tr>
+    <tr><td><b>Rio Negro</b> (Guachipelin)</td><td>$30 (4&ndash;12)</td><td>&mdash;</td><td>Free for guests; 10 pools, 37&ndash;40 C</td></tr>
+    <tr><td><b>Titoku</b> (Kioro)</td><td>$24</td><td>&mdash;</td><td>Free for guests, ends 18:00; page says no availability</td></tr>
+    <tr><td><b>Tabacón</b></td><td>$55 (6&ndash;11)</td><td>$115 ($129 from 9 Jan)</td><td>Open to 22:00; the night soak</td></tr>
+    <tr><td><b>Baldi</b></td><td>$29 + 13%</td><td>~$58 with meal</td><td>Kids&rsquo; area closes 18:00</td></tr>
+    <tr><td><b>Ecotermales</b></td><td>$25</td><td>~$59</td><td>Evening 17:00&ndash;22:00; a review says poor for kids</td></tr>
+  </table>
+  <div class="panel" style="margin-top:20px">
+    <h3>Adults-only, avoid</h3>
+    <p>Royal Corin (16+), Tabacón Shangri-La Gardens (18+), Baldi upper level, Paradise Premium,
+    Costa Verde II and Cockpit Cabana, Oxygen Jungle Villas, El Castillo Ojochal, Gaia Manuel Antonio (13+).</p>
+  </div>
+</section>
+<section class="day" id="d1">
+  <div class="sign">
+    <div class="date"><span class="dow">Nights</span><span class="num">1–2</span></div>
+    <div class="body"><h2>Liberia to Rincón de la Vieja</h2><p class="route">LIR &#8594; Hacienda Guachipelin &#8594; Las Pailas &#8594; Rio Negro springs</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>45–60 min</b></span><span>Nights <b>Rincón 2</b></span><span>Open <b>Las Pailas Tue–Sun</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">Sat 13 &middot; arrive</span><h3>Collect the car, drive to Guachipelin</h3><p>The base is 34 km from the airport. The last stretch is unpaved and its length is not confirmed, so ask the hotel when you book. Sunset is about 17:45; do this in daylight.</p><div class="stats"><span><b>34</b> km</span><span><b>45–60</b> min</span><span><b>~17:45</b> sunset</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Liberia+Airport+Costa+Rica/Hacienda+Guachipelin/">Map — LIR to Guachipelin</a></div><div class="note">Hacienda Guachipelin family room from <b>$153</b> a night (king, double, twin; breakfast, A/C, pool). Borinquen from $199 is the alternative.</div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fumerolles.JPG?width=900" alt="Fumaroles at Las Pailas"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Fumerolles.JPG">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Sun 14 &middot; 08:00</span><h3>Las Pailas loop <span class="tag tag--risk">volcano status</span></h3><p>A short loop through steaming ground and mud pots. <b>The crater trail has been closed since 2011</b>, so this is the walk, not a summit. The volcano is on OVSICORI level 3 and the CNE issued a yellow alert on 1 October 2026, so <b>check status the week before</b>.</p><p>Open Tuesday to Sunday only, so Sunday works and Monday does not.</p><div class="stats"><span><b>$16.95 / $5.65</b> adult / child</span><span><b>08:00–15:00</b> Tue–Sun</span><span><b>online</b> tickets only</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Las+Pailas%2C+Rinc%C3%B3n+de+la+Vieja+National+Park%2C+Costa+Rica">Map — Las Pailas</a></div><div class="note">February 2027 trail and alert status is a <span class='mono'>GAP</span>.</div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">Sun 14 &middot; afternoon</span><h3>Guachipelin: canopy, tubing or canyoning <span class="tag tag--added">book ahead</span></h3><p>Pick two. <b>Canopy $65 / $45</b> (ages 4 to 12). <b>Canyoning $50, minimum age 10</b>, so he just qualifies. <b>Rio Negro tubing needs 140 cm and age 8</b>: he is on the line, so measure him. Horseback is from age 4 with a 240 lb limit, and a booking inside 48 hours is a full cancellation charge.</p><div class="stats"><span><b>$65 / $45</b> canopy</span><span><b>$50</b> canyoning, 10+</span><span><b>140 cm</b> tubing min</span></div><div class="links"><a class="btn primary" href="https://www.guachipelin.com/">Hacienda Guachipelin</a><a class="btn" href="https://maps.google.com/?q=Hacienda+Guachipelin%2C+Costa+Rica">Map — Guachipelin</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">Sun 14 &middot; evening</span><h3>Rio Negro hot springs</h3><p>Ten pools at 37 to 40 C. <b>Free for Guachipelin guests</b>; otherwise $30 for a child (4 to 12). The guest-access claim is not on the hotel&rsquo;s own page, so confirm when you book.</p><div class="stats"><span><b>10</b> pools</span><span><b>37–40</b> C</span><span><b>$30</b> child, non-guest</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Rio+Negro+hot+springs%2C+Guachipelin%2C+Costa+Rica">Map — Rio Negro springs</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Hacienda Guachipelin" src="https://maps.google.com/maps?q=Hacienda+Guachipelin%2C+Costa+Rica&z=10&output=embed"></iframe>
+    <div class="bar"><span>Hacienda Guachipelin</span><a href="https://maps.google.com/?q=Hacienda+Guachipelin%2C+Costa+Rica">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>On foot or on a rope</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Hot springs</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — fixed slot or group size</span><span><i class="b" style="background:var(--class-5)"></i>Tide- or boat-dependent</span><span><i class="b" style="background:var(--class-6)"></i>Closure- or weather-dependent</span></div>
+</section>
+<section class="day" id="d3">
+  <div class="sign">
+    <div class="date"><span class="dow">Nights</span><span class="num">3–5</span></div>
+    <div class="body"><h2>La Fortuna and Arenal</h2><p class="route">Rincón &#8594; La Fortuna &#8594; canyoning &#8594; Arenal NP &#8594; Tabacón at night</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>3–3.5 h on Mon</b></span><span>Nights <b>Fortuna 3</b></span><span>Volcano <b>no glow since 2010</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_Lake_%2860159p%29.jpg?width=900" alt="Lake Arenal"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Arenal_Lake_%2860159p%29.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Mon 15</span><h3>Drive Rincón to La Fortuna</h3><p>About 155 km. Leave after breakfast, arrive early afternoon. Canadian Family Day falls on this Monday, which affects flights, not Costa Rican roads.</p><div class="stats"><span><b>~155</b> km</span><span><b>3–3.5</b> h</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Rincon+de+la+Vieja/La+Fortuna+Costa+Rica/">Map — Rincón to La Fortuna</a></div><div class="note">Arenal Kioro suite for four from <b>$351</b> (A/C, breakfast, 7 pools). Fallback: Arenal Springs $355 to $396. Stay on the volcano road, about 10 minutes from town.</div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/La_Fortuna_Waterfall_Pool.jpg?width=900" alt="Waterfall pool near La Fortuna"><figcaption><a href="https://commons.wikimedia.org/wiki/File:La_Fortuna_Waterfall_Pool.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Tue 16 &middot; morning</span><h3>Canyoning with Pure Trek <span class="tag tag--added">book ahead</span></h3><p>Four rappels, minimum age 5, <b>$117 including tax</b>. Free cancellation within 24 hours through resellers. This is the one thing on the trip that gets a ten-year-old properly wet and scared in a good way.</p><div class="stats"><span><b>$117</b> incl. tax</span><span><b>4</b> rappels</span><span><b>5+</b> min age</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Pure+Trek+Canyoning%2C+La+Fortuna%2C+Costa+Rica">Map — La Fortuna</a></div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_volcano_%2870785p%29.jpg?width=900" alt="Arenal volcano"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Arenal_volcano_%2870785p%29.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Wed 17 &middot; 08:00</span><h3>Arenal National Park</h3><p>Open daily 08:00 to 16:00. <b>Tickets are bought at the booth, by card only</b>, even though some blogs say online. Go early; the lava-flow trails are the point.</p><div class="stats"><span><b>$15 / $5</b> adult / child</span><span><b>08:00–16:00</b> daily</span><span><b>card</b> only</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Arenal+Volcano+National+Park%2C+Costa+Rica">Map — Arenal NP</a></div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">Wed 17 &middot; pick one</span><h3>Balsa float <i>or</i> Sky Trek <span class="tag tag--added">book ahead</span></h3><p><b>Balsa float, class II–III:</b> Arenal Rafting Co (6+) $65 + IVA; Desafio (8+) $82 / $74; Rios Adventure La Virgen is exactly 10+ at $85. <b>Sky Trek:</b> about $93 adult / $60–65 child, min age 5, child gear covers 10 to 40 kg and he is near the top. Tickets are hard to get December to April.</p><p>Out for him: Pacuare (12+), Class III–IV sections, Selvatura Superman (55 kg).</p><div class="stats"><span><b>$65–85</b> float</span><span><b>$60–65</b> Sky Trek child</span><span><b>40 kg</b> harness top</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Sky+Adventures+Arenal%2C+Costa+Rica">Map — La Fortuna</a></div></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tabac%C3%B3n_Hot_Springs%2C_Costa_Rica.jpg?width=900" alt="Tabacón hot springs"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tabac%C3%B3n_Hot_Springs%2C_Costa_Rica.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Wed 17 &middot; night</span><h3>Tabacón night soak <span class="tag tag--added">book ahead</span></h3><p>Open to 22:00, so this is the one to do after dark. <b>$115 adult / $55 child</b> (6 to 11), or $184 / $90 with a meal. From 9 Jan 2027 the adult price is $129; the child price after 8 Jan is not stated, and whether tax is included is unresolved. Shangri-La Gardens is 18+. It is stars, not lava.</p><div class="stats"><span><b>$115 / $55</b> day pass</span><span><b>22:00</b> closes</span><span><b>$129</b> adult from 9 Jan</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Tabacon+Hot+Springs%2C+Costa+Rica">Map — Tabacón</a></div><div class="note">Free alternative: Titoku with a Kioro stay, ends 18:00; its page currently says no availability this season.</div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Arenal Volcano National Park" src="https://maps.google.com/maps?q=Arenal+Volcano+National+Park%2C+Costa+Rica&z=10&output=embed"></iframe>
+    <div class="bar"><span>Arenal Volcano National Park</span><a href="https://maps.google.com/?q=Arenal+Volcano+National+Park%2C+Costa+Rica">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>On foot or on a rope</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Hot springs</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — fixed slot or group size</span><span><i class="b" style="background:var(--class-5)"></i>Tide- or boat-dependent</span><span><i class="b" style="background:var(--class-6)"></i>Closure- or weather-dependent</span></div>
+</section>
+<section class="day" id="d6">
+  <div class="sign">
+    <div class="date"><span class="dow">Nights</span><span class="num">6–7</span></div>
+    <div class="body"><h2>South to Manuel Antonio</h2><p class="route">La Fortuna &#8594; Quepos &#8594; Manuel Antonio NP</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>4–6 h on Thu</b></span><span>Nights <b>Manuel Antonio 2</b></span><span>Shut <b>Tuesdays</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split noimg"><div class="content"><span class="time">Thu 18</span><h3>The long drive <span class="tag tag--risk">daylight</span></h3><p>About 215 to 245 km via Ruta 702 and 142, then 1, 23 and 27, 34 and 235. Going via Bajos del Toro is no faster. Leave early; sunset is about 17:45 and this is not a road for the dark.</p><div class="stats"><span><b>215–245</b> km</span><span><b>4–6</b> h</span><span><b>17:00</b> be in by</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/La+Fortuna+Costa+Rica/Manuel+Antonio+Costa+Rica/">Map — La Fortuna to Manuel Antonio</a></div><div class="note">Costa Verde family area, Studio A8 (sleeps 5) from <b>$196</b>. Avoid its adults-only units.</div></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Parque_Nacional_Manuel_Antonio_02.jpg?width=900" alt="Manuel Antonio National Park"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Parque_Nacional_Manuel_Antonio_02.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Fri 19 &middot; 07:00</span><h3>Manuel Antonio National Park <span class="tag tag--risk">shut Tuesdays</span></h3><p>Open Wednesday to Monday, 07:00 to 15:00, <b>shut Tuesday</b> (16 and 23 Feb). <b>$16 adult / $5 child + 13% IVA</b>, online timed tickets only. A guided walk is $65 / $45 under 10; ask whether a ten-year-old gets the child rate. Sloths, capuchins and raccoons are on the path.</p><div class="stats"><span><b>$16 / $5</b> +13% IVA</span><span><b>07:00–15:00</b> Wed–Mon</span><span><b>online</b> tickets</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Manuel+Antonio+National+Park%2C+Costa+Rica">Map — Manuel Antonio NP</a></div><div class="note">An old tariff PDF conflicts on the fee. Check the SINAC page when you book.</div></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Raccoon_in_Manuel_Antonio_National_Park.jpg?width=900" alt="Raccoon in Manuel Antonio National Park"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Raccoon_in_Manuel_Antonio_National_Park.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Fri 19 &middot; evening</span><h3>Night walk at Papa&rsquo;s Place <span class="tag tag--added">optional</span></h3><p>Child tier 5 to 11, from about $40 through resellers. Optional; skip if the morning in the park wore him out.</p><div class="stats"><span><b>~$40</b> from</span><span><b>5–11</b> child tier</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Papa%27s+Place%2C+Manuel+Antonio%2C+Costa+Rica">Map — Manuel Antonio</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Manuel Antonio National Park" src="https://maps.google.com/maps?q=Manuel+Antonio+National+Park%2C+Costa+Rica&z=10&output=embed"></iframe>
+    <div class="bar"><span>Manuel Antonio National Park</span><a href="https://maps.google.com/?q=Manuel+Antonio+National+Park%2C+Costa+Rica">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>On foot or on a rope</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Hot springs</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — fixed slot or group size</span><span><i class="b" style="background:var(--class-5)"></i>Tide- or boat-dependent</span><span><i class="b" style="background:var(--class-6)"></i>Closure- or weather-dependent</span></div>
+</section>
+<section class="day" id="d8">
+  <div class="sign">
+    <div class="date"><span class="dow">Nights</span><span class="num">8–10</span></div>
+    <div class="body"><h2>Uvita, the whales and home</h2><p class="route">Quepos &#8594; Uvita &#8594; Whale&rsquo;s Tail &#8594; whale tour &#8594; SJO</p></div>
+  </div>
+  <div class="daymeta"><span>Drive <b>~1 h 15 on Sat</b></span><span>Nights <b>Uvita 3</b></span><span>Last drive <b>3.5–4 h</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Scarlet_Macaws_at_Uvita_Beach%2C_Costa_Rica_01.jpg?width=900" alt="Scarlet macaws at Uvita Beach"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Scarlet_Macaws_at_Uvita_Beach%2C_Costa_Rica_01.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Sat 20</span><h3>Mangrove kayak, then drive to Uvita <span class="tag tag--added">book ahead</span></h3><p>Damas Island mangrove kayak at Quepos is about $90 + tax. Then 64 km, 1 h 10 to 1 h 25, to Uvita. Playa Uvita at sunset, with scarlet macaws in the almond trees.</p><div class="stats"><span><b>~$90</b> kayak</span><span><b>64</b> km</span><span><b>1 h 10–25</b> drive</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Damas+Island%2C+Quepos%2C+Costa+Rica">Map — Damas Island</a></div><div class="note">Cristal Ballena family suite, 75 m2, from <b>$195</b> (A/C). Avoid adults-only El Castillo Ojochal.</div></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Costa_Rica_Nationalpark_Marino_Ballena.JPG?width=900" alt="Whale's Tail at Ballena Marine National Park"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Costa_Rica_Nationalpark_Marino_Ballena.JPG">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Sun 21 &middot; ~07:30</span><h3>Whale&rsquo;s Tail at low tide <span class="tag tag--risk">tide</span></h3><p>Walkable around low tide only. <b>Daytime low on Sun 21 is 08:33&ndash;08:54</b>, so arrive about an hour before. Sources agree on the pattern and differ by about 20 minutes. <b>$6 adult, under 11 free</b>, not sold online; open 07:00 to 16:00.</p><div class="stats"><span><b>08:33–08:54</b> low, Sun 21</span><span><b>$6</b> adult</span><span><b>free</b> under 11</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Ballena+Marine+National+Park%2C+Uvita%2C+Costa+Rica">Map — Ballena Marine NP</a></div><details class="more"><summary>Tide table for the week</summary><table><tr><th>Date</th><th>Daytime low</th></tr><tr><td>Fri 19</td><td>06:49&ndash;07:10</td></tr><tr><td>Sat 20</td><td>07:44&ndash;08:05</td></tr><tr><td>Sun 21</td><td>08:33&ndash;08:54</td></tr><tr><td>Mon 22</td><td>09:20&ndash;09:40</td></tr><tr><td>Tue 23</td><td>10:04&ndash;10:24</td></tr></table><p>NOAA TWC0341 and seatemperatu.re. 13&ndash;17 Feb have only afternoon or pre-dawn lows.</p></details></div></div></div></div><div class="stop"><span class="mark mark--5"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/073_Humpback_whale_tail_in_Ballena_Marine_National_Park_Photo_by_Giles_Laurent.jpg?width=900" alt="Humpback whale tail"><figcaption><a href="https://commons.wikimedia.org/wiki/File:073_Humpback_whale_tail_in_Ballena_Marine_National_Park_Photo_by_Giles_Laurent.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Mon 22 &middot; morning</span><h3>Humpback whale tour <span class="tag tag--added">book ahead</span></h3><p>About $79.50 to $85 adult / $45 child (4 to 10), 3 to 4 hours, park fee included. <b>&ldquo;95% success&rdquo; is marketing.</b> Northern humpback season runs December to April, so February is in it. Boat operators were not safety-checked.</p><div class="stats"><span><b>$80–85 / $45</b> adult / child</span><span><b>3–4</b> h</span><span><b>Dec–Apr</b> season</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Uvita+whale+watching%2C+Costa+Rica">Map — Uvita</a></div></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="split"><figure><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sunset_over_Playa_Uvita%2C_Costa_Rica.jpg?width=900" alt="Sunset over Playa Uvita"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sunset_over_Playa_Uvita%2C_Costa_Rica.jpg">Wikimedia Commons</a></figcaption></figure><div class="content"><span class="time">Tue 23</span><h3>Drive to SJO <span class="tag tag--risk">flight day</span></h3><p>3.5 to 4 hours via Ruta 34 and 27. <b>Do not use Ruta 2 on a flight day.</b> Allow for the $29 exit tax if the fare does not include it, and leave a large margin; the flight time is not fixed yet.</p><div class="stats"><span><b>3.5–4</b> h</span><span><b>$29</b> exit tax</span></div><div class="links"><a class="btn primary" href="https://www.google.com/maps/dir/Uvita+Costa+Rica/Juan+Santamaria+Airport/">Map — Uvita to SJO</a></div></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Uvita, Puntarenas" src="https://maps.google.com/maps?q=Uvita%2C+Puntarenas%2C+Costa+Rica&z=10&output=embed"></iframe>
+    <div class="bar"><span>Uvita, Puntarenas</span><a href="https://maps.google.com/?q=Uvita%2C+Puntarenas%2C+Costa+Rica">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>On foot or on a rope</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Hot springs</span><span><i class="b" style="background:var(--class-4)"></i>Book ahead — fixed slot or group size</span><span><i class="b" style="background:var(--class-5)"></i>Tide- or boat-dependent</span><span><i class="b" style="background:var(--class-6)"></i>Closure- or weather-dependent</span></div>
+</section>
+<section class="quick" id="quick">
+  <h2>Day-of links</h2>
+  <p class="qsub">The handful actually tapped in the field</p>
+  <div class="qgrid">
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-6)"></span>Is it open</h4>
+      <a href="https://www.sinac.go.cr/"><b>SINAC</b>National park status and fees</a>
+      <a href="https://www.ovsicori.una.ac.cr/"><b>OVSICORI</b>Volcano status, Rincón de la Vieja</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-5)"></span>Tides</h4>
+      <a href="https://tides.mobilegeographics.com/"><b>Tide table</b>Check Uvita the evening before</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-2)"></span>Roads</h4>
+      <a href="https://www.waze.com/"><b>Waze</b>Used for live closures in Costa Rica</a>
+      <a href="tel:911"><b>911</b>Emergency</a>
+    </div>
+    <div class="qcard">
+      <h4><span class="dot" style="background:var(--class-1)"></span>Weather</h4>
+      <a href="https://www.imn.ac.cr/"><b>IMN</b>National weather institute</a>
+    </div>
+  </div>
+</section>
+<section id="essentials">
+  <h2>Essentials</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Book ahead, in this order</h3>
+      <table>
+        <tr><th>#</th><th>What</th><th>Why it is here</th></tr>
+        <tr><td>1</td><td>Open-jaw flights</td><td>Nonstop on Air Canada, Air Transat, WestJet (LIR), Porter</td></tr>
+        <tr><td>2</td><td>Four hotels</td><td>Popular dates go 3&ndash;6 months out</td></tr>
+        <tr><td>3</td><td>Rental car</td><td>Open-jaw drop fee ~$50, waived by Adobe on 3+ days</td></tr>
+        <tr><td>4</td><td>Manuel Antonio ticket</td><td>Timed and online only</td></tr>
+        <tr><td>5</td><td>Sky Trek, whale tour</td><td>Fixed slots; Sky Trek is scarce Dec&ndash;Apr</td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h3>What it costs</h3>
+      <p>Lodging at 2026 from-rates is about <b>$2,336</b> for 10 nights and <b>$1,947</b> for 8, before tax.
+      Flights, car and activities are on top. No February 2027 quote exists, so treat these as a floor.</p>
+      <table>
+        <tr><th>Item</th><th>Figure</th></tr>
+        <tr><td>Flights, YYZ&ndash;LIR return</td><td>C$522&ndash;848 pp typical</td></tr>
+        <tr><td>Flights, YYZ&ndash;SJO return</td><td>C$622&ndash;1,004 pp typical</td></tr>
+        <tr><td>Rental, 10 days</td><td>~$880 (Alec)</td></tr>
+        <tr><td>Third-party liability</td><td>$15.95 / day at Vamos</td></tr>
+        <tr><td>Exit tax</td><td>$29 pp</td></tr>
+        <tr><td>Park fees, family</td><td>~$37 + IVA at Manuel Antonio</td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h3>Driving</h3>
+      <ul>
+        <li><b>Third-party liability is mandatory</b> and a credit card cannot cover it.</li>
+        <li>Card CDW covers the deductible only, needs a letter naming the renter and last 4 digits,
+        and <b>any agency CDW voids it</b>. Scotiabank caps at 48 days and excludes trucks and vans.</li>
+        <li>Compact SUV is the common choice; nothing on the route needs a 4x4.</li>
+        <li>Never Ruta 2, Ruta 606 or the Monteverde road at night.</li>
+      </ul>
+    </div>
+
+    <div class="panel check">
+      <h3>Before you go</h3>
+      <div id="checklist"><label><input type="checkbox" data-k="flights"><span>Open-jaw flights booked, YYZ&#8594;LIR out and SJO&#8594;YYZ home</span></label><label><input type="checkbox" data-k="rooms"><span>Four rooms booked (3&ndash;6 months out is normal for these dates)</span></label><label><input type="checkbox" data-k="car"><span>Rental booked with third-party liability; credit-card CDW letter ordered</span></label><label><input type="checkbox" data-k="measure"><span>He is measured (140 cm) and weighed (10&ndash;40 kg harness) before booking tubing and Sky Trek</span></label><label><input type="checkbox" data-k="ma"><span>Manuel Antonio timed ticket for Fri 19</span></label><label><input type="checkbox" data-k="pailas"><span>Las Pailas online ticket for Sun 14, after checking volcano status</span></label><label><input type="checkbox" data-k="canyon"><span>Pure Trek canyoning, Tue 16</span></label><label><input type="checkbox" data-k="sky"><span>Sky Trek <b>or</b> balsa float, Wed 17</span></label><label><input type="checkbox" data-k="tabacon"><span>Tabacón night soak, Wed 17</span></label><label><input type="checkbox" data-k="whale"><span>Whale tour, Mon 22</span></label><label><input type="checkbox" data-k="insure"><span>Travel insurance sorted (no longer required, still sensible)</span></label><label><input type="checkbox" data-k="offline"><span>Offline maps downloaded</span></label><label><input type="checkbox" data-k="rain"><span>Rain layers packed for Uvita</span></label></div>
+      <p class="mono" style="font-size:.72rem;margin-top:10px">Ticks are saved in this browser.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:20px">
+    <h3>Entry</h3>
+    <p>Canadians need no visa for up to 180 days and an onward ticket may be asked for. The e-health form was
+    repealed on 1 April 2022 and travel insurance is no longer required (travel.gc.ca, 31 Aug 2026).
+    <span class="mono">GAP: migracion.go.cr not read.</span></p>
+  </div>
+
+  <div class="panel" style="margin-top:20px">
+    <h3>Still open</h3>
+    <p><b>Not yet known.</b> February 2027 rates for every property; operator prices and cancellation
+    terms; Guachipelin zip and canyon ages; Poás and Rincón trail status; the unpaved Guachipelin
+    access length; the open-jaw fare; the Tabacón child price after 8 Jan 2027; the Manuel
+    Antonio to SJO drive time for plan B.</p>
+    <p><b>Left out deliberately.</b> Monteverde (3&ndash;3.5 h from La Fortuna, windy and misty in February),
+    Corcovado (guide and permits, needs a Drake Bay night), Isla del Cano, Tortuguero, Chirripó,
+    quetzals (breeding starts mid-February).</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Planned from nine research files in <span class="mono">~/workspace/travel/costa-rica-feb-2027/</span>. Photographs from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, each linked at its caption. <b>Every price is a 2026 figure; no February 2027 quote exists. Re-check rates, park status and volcano alerts before booking.</b></div>
+</footer>
+
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script>
+</body>
+</html>

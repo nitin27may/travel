@@ -1,0 +1,349 @@
+{
+ "trip": "canadian-rockies-sept-2029",
+ "sections": [
+  {
+   "place": "Moraine Lake and the Valley of the Ten Peaks",
+   "blurb": "Glacial lake at 1,885 m under ten peaks, reached by shuttle only.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Moraine Lake-Banff NP.JPG",
+     "caption": "Moraine Lake, turquoise water under the Valley of the Ten Peaks",
+     "author": "Tobias Alt",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Moraine Lake, Banff - Flickr - Jaykhuang.jpg",
+     "caption": "Moraine Lake at sunrise",
+     "author": "Jay Huang",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Moraine Lake at evening4.jpg",
+     "caption": "Moraine Lake in the evening",
+     "author": "David Zhang",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Lake Louise and Lake Agnes",
+   "blurb": "Turquoise lake below Victoria Glacier, with the Lake Agnes tea house above.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Victoria Glacier Above Lake Louise (15411558337).jpg",
+     "caption": "Victoria Glacier above Lake Louise",
+     "author": "Wilson Hui from Calgary, Canada",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Chateau Lake Louise from the Other End of Lake Louise.JPG",
+     "caption": "Chateau Lake Louise seen from the far end of the lake",
+     "author": "Wingchi Poon",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Banff townsite and Sulphur Mountain",
+   "blurb": "The Bow Valley town under Cascade Mountain, with a gondola to the Sulphur Mountain summit.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Banff Avenue (3866849216).jpg",
+     "caption": "Banff Avenue with Cascade Mountain at the end",
+     "author": "Phil Whitehouse from London, United Kingdom",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Banff Avenue, Banff (7853823354).jpg",
+     "caption": "Banff Avenue in summer",
+     "author": "InSapphoWeTrust from Los Angeles, California, USA",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Banff Sunshine and Sunflowers.jpg",
+     "caption": "Sunflowers on Banff Avenue",
+     "author": "KirstKG",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Johnston Canyon and Lake Minnewanka",
+   "blurb": "A limestone canyon with catwalks and a glacial lake with a boat cruise.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Johnston Canyon-Lower Falls.jpg",
+     "caption": "Johnston Canyon, Lower Falls",
+     "author": "Florian Fuchs",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Johnston Canyon trip Alberta Aug 2013 (9592829471).jpg",
+     "caption": "The Johnston Canyon trail in August",
+     "author": "Flickr user via Wikimedia Commons",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Johnston Canyon trip Alberta Aug 2013 (9592856403).jpg",
+     "caption": "The catwalks along Johnston Canyon",
+     "author": "Flickr user via Wikimedia Commons",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Icefields Parkway: Bow Lake and Peyto Lake",
+   "blurb": "The 232 km highway between Lake Louise and Jasper, with glacial lakes along it.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Peyto Lake 2025.jpg",
+     "caption": "Peyto Lake in summer",
+     "author": "Douglaspperkins",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Lac Peyto.jpg",
+     "caption": "Peyto Lake from the viewpoint",
+     "author": "Christian Abend from Laufen an der Salzach, Bayern / Deutschland",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Simpson's Num-Ti-Jah Lodge -- Bow Lake Alberta September 2019 (49415785768).jpg",
+     "caption": "Num-Ti-Jah Lodge at Bow Lake",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Columbia Icefield and the Athabasca Glacier",
+   "blurb": "The largest ice field in the Rockies, reached by an Ice Explorer bus.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Athabasca Glacier from the valley floor, Jasper National Park, Alberta, Canada.jpg",
+     "caption": "The Athabasca Glacier from the valley floor",
+     "author": "Ethan Sahagun",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "Mount Andromeda from the Athabasca Glacier, Jasper National Park, Alberta, Canada.jpg",
+     "caption": "Mount Andromeda from the Athabasca Glacier",
+     "author": "Ethan Sahagun",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "Ice Explorer vehicles on the Athabasca Glacier 20240824 1.jpg",
+     "caption": "Ice Explorer vehicles on the Athabasca Glacier",
+     "author": "DXR",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Jasper, Maligne Lake and Maligne Canyon",
+   "blurb": "Mountain town with a lake and a cruise to Spirit Island.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Spirit Island, Maligne Lake, Jasper NP.jpg",
+     "caption": "Spirit Island and the Maligne Lake mountains",
+     "author": "Christian Abend from Laufen /, Bayern / Deutschland",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "Spirit Island on Maligne Lake1.jpg",
+     "caption": "Spirit Island on Maligne Lake",
+     "author": "Bernd Thaller",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Tour Boats -- Spirit Island Maligne Lake Alberta (CA) (49124780677).jpg",
+     "caption": "Tour boats at Spirit Island, Maligne Lake",
+     "author": "Ron Cogswell from Arlington, Virginia, USA",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Mount Robson and Berg Lake",
+   "blurb": "The highest peak in the Canadian Rockies, in BC.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Mount Robson Park-British Columbia-Canada.JPG",
+     "caption": "The entrance sign of Mount Robson Provincial Park with the peak behind",
+     "author": "Tobi 87",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Mount Robson panorama.jpg",
+     "caption": "Mount Robson, the highest peak in the Canadian Rockies",
+     "author": "The Cosmonaut",
+     "license": "CC BY-SA 2.5 ca"
+    },
+    {
+     "file": "Mount Robson 08122005.jpg",
+     "caption": "Mount Robson and its glaciers",
+     "author": "Michael Konen",
+     "license": "CC BY 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Yoho: Emerald Lake and Takakkaw Falls",
+   "blurb": "BC park with a green lake and the third-highest waterfall in Canada.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Emerald lake Yoho national park.jpg",
+     "caption": "Emerald Lake in Yoho National Park",
+     "author": "Soumya.deo",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Emerald lake yoho nationalpark.JPG",
+     "caption": "Emerald Lake in Yoho National Park",
+     "author": "HylgeriaK",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Emerald Lake - Yoho National Park.JPG",
+     "caption": "Emerald Lake reflecting the mountains of Yoho",
+     "author": "JZ85",
+     "license": "CC BY 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Kootenay: Marble Canyon and Radium Hot Springs",
+   "blurb": "BC park with a limestone canyon and the Paint Pots, south of the divide.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 07.jpg",
+     "caption": "Marble Canyon, Kootenay National Park",
+     "author": "Chris Woodrich",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 01.jpg",
+     "caption": "The narrow gorge at Marble Canyon",
+     "author": "Chris Woodrich",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Marble Canyon, Kootenay National Park, British Columbia, 2025-07-11 02.jpg",
+     "caption": "The river at Marble Canyon",
+     "author": "Chris Woodrich",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Kananaskis Country and Peter Lougheed Provincial Park",
+   "blurb": "Alberta provincial park system, with the Upper Kananaskis Lake and Highwood Pass.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Upper Kananaskis Lake aerial1.jpg",
+     "caption": "Upper Kananaskis Lake from the air",
+     "author": "Unknown",
+     "license": "CC BY-SA 2.5"
+    },
+    {
+     "file": "Upper-kananaskis-lake-1440134.jpg",
+     "caption": "Upper Kananaskis Lake, Peter Lougheed Provincial Park",
+     "author": "Akiroq",
+     "license": "CC0"
+    },
+    {
+     "file": "Upper Kananaskis Lake (35773828686).jpg",
+     "caption": "The shore of Upper Kananaskis Lake",
+     "author": "Flickr user via Wikimedia Commons",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Waterton Lakes",
+   "blurb": "The park at the Montana border with the Prince of Wales Hotel.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Waterton Lakes National Park (48490188676).jpg",
+     "caption": "Waterton Lakes National Park",
+     "author": "GlacierNPS",
+     "license": "Public domain"
+    },
+    {
+     "file": "Visit Goat Haunt and Waterton Lakes National Park (53171825635).jpg",
+     "caption": "Upper Waterton Lake toward Goat Haunt",
+     "author": "GlacierNPS",
+     "license": "Public domain"
+    },
+    {
+     "file": "Waterton lakes national park.jpg",
+     "caption": "Waterton townsite and Upper Waterton Lake from above",
+     "author": "Khoshhat",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Mount Assiniboine and the Sunshine Meadows",
+   "blurb": "A pyramid peak on the BC border and an alpine meadow reached by gondola.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Mount Assiniboine Provincial Park (7987371327).jpg",
+     "caption": "Mount Assiniboine Provincial Park",
+     "author": "Edna Winti",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Mount Assiniboine Sunburst Lake.jpg",
+     "caption": "Mount Assiniboine above Sunburst Lake",
+     "author": "Kurt Stegmüller",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "Mount Assiniboine and Lake Magog.jpg",
+     "caption": "Mount Assiniboine and Lake Magog",
+     "author": "Jeffrey Pang from Madison, NJ, USA",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  {
+   "place": "Larches and early autumn",
+   "blurb": "Alpine larches turn gold in late September, with snow on the peaks.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Larch Valley, Alberta, Canada.jpg",
+     "caption": "Larch trees in Larch Valley",
+     "author": "Paul Anthony Stewart",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Sentinel Pass - Larch Valley (15809969418).jpg",
+     "caption": "Sentinel Pass and the Valley of the Ten Peaks from Larch Valley",
+     "author": "Wilson Hui from Calgary, Canada",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "Larch Valley.jpg",
+     "caption": "Larch Valley in autumn colour",
+     "author": "Nancymcmillan",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  }
+ ]
+}

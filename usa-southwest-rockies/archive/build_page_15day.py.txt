@@ -1,0 +1,738 @@
+#!/usr/bin/env python3
+"""Build usa-southwest-rockies/index.html from _system components.
+Run: python3 build_page.py
+Photos come from photos.json, produced by fetch_photos.py — every URL there was returned
+by the Commons imageinfo API, so it resolves. Nothing is hand-typed into the page."""
+import sys, json, urllib.parse
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent / "_system"))
+import build as S   # noqa: E402
+
+THEME = "desert"
+PH = json.loads((HERE / "photos.json").read_text())
+
+
+# ---------- helpers -------------------------------------------------------------------
+def filepage(fn):
+    return "https://commons.wikimedia.org/wiki/File:" + urllib.parse.quote(fn.replace(" ", "_"))
+
+
+def _pretty(fn):
+    t = fn.rsplit(".", 1)[0].replace("_", " ")
+    return (t[:70] + "…") if len(t) > 70 else t
+
+
+def gal(key, n=4, alt=""):
+    """Scroll-snap gallery. CSS only — base.js owns behaviour, pages do not add script."""
+    items = PH.get(key, [])[:n]
+    if not items:
+        return ""
+    figs = "".join(
+        f'<figure><a href="{filepage(i["file"])}" target="_blank" rel="noopener">'
+        f'<img loading="lazy" src="{i["thumb"]}" alt="{alt or _pretty(i["file"])}"></a>'
+        f'<figcaption>{_pretty(i["file"])}</figcaption></figure>'
+        for i in items)
+    return f'<div class="gal" role="group" aria-label="Photos: {alt or key}">{figs}</div>'
+
+
+def lead(key, alt=""):
+    """Single establishing image for the orientation area cards."""
+    items = PH.get(key, [])
+    if not items:
+        return ""
+    i = items[0]
+    return (f'<figure><img loading="lazy" src="{i["thumb"]}" alt="{alt}">'
+            f'<figcaption><a href="{filepage(i["file"])}">Wikimedia Commons</a></figcaption></figure>')
+
+
+def mapq(*parts):
+    return "https://maps.google.com/?q=" + urllib.parse.quote_plus(", ".join(parts))
+
+
+def embed(place, z=9):
+    return f"https://maps.google.com/maps?q={urllib.parse.quote_plus(place)}&z={z}&output=embed"
+
+
+def stop(cls, time, title, body, tag=None, stats=None, links=None, photos=None,
+         more=None, note=None):
+    t = f'<span class="time">{time}</span>' if time else ""
+    tg = f' <span class="tag tag--{tag[0]}">{tag[1]}</span>' if tag else ""
+    st = ('<div class="stats">' + "".join(f"<span><b>{a}</b> {b}</span>" for a, b in stats)
+          + "</div>") if stats else ""
+    lk = ('<div class="links">' + "".join(
+        f'<a class="btn{" primary" if p else ""}" href="{u}" target="_blank" rel="noopener">{n}</a>'
+        for n, u, p in links) + "</div>") if links else ""
+    md = f'<details class="more"><summary>{more[0]}</summary>{more[1]}</details>' if more else ""
+    nt = f'<div class="note">{note}</div>' if note else ""
+    g = gal(*photos) if photos else ""
+    return (f'<div class="stop"><span class="mark mark--{cls}"></span>'
+            f'<div class="card"><div class="content">{t}<h3>{title}{tg}</h3>{body}'
+            f'{st}{lk}{g}{md}{nt}</div></div></div>')
+
+
+CLASSES = [
+    ("light", "Timed to the light — dawn or dusk, not negotiable"),
+    ("road",  "Driving leg"),
+    ("book",  "Book ahead — lottery, cap or sell-out"),
+    ("trail", "On foot — real footing"),
+    ("dirt",  "Unpaved — vehicle and weather dependent"),
+    ("clock", "Clock trap — time zone or closing time"),
+]
+LEGEND = '<div class="legend">' + "".join(
+    f'<span><i class="b" style="background:var(--class-{i+1})"></i>{n}</span>'
+    for i, (_, n) in enumerate(CLASSES)) + "</div>"
+
+
+def day(sid, dow, num, h2, route, meta, stops, place, z=9):
+    m = "".join(f"<span>{a} <b>{b}</b></span>" for a, b in meta)
+    return f"""
+<section class="day" id="{sid}">
+  <div class="sign">
+    <div class="date"><span class="dow">{dow}</span><span class="num">{num}</span></div>
+    <div class="body"><h2>{h2}</h2><p class="route">{route}</p></div>
+  </div>
+  <div class="daymeta">{m}</div>
+  <div class="trail">{"".join(stops)}</div>
+  <div class="mapframe"><iframe loading="lazy" title="{place}" src="{embed(place, z)}"></iframe>
+    <div class="bar"><span>{place}</span>
+    <a href="{mapq(place)}" target="_blank" rel="noopener">Open in Maps</a></div></div>
+  {LEGEND}
+</section>"""
+
+
+# ---------- orientation ---------------------------------------------------------------
+AREAS = [
+    ("zion", "Zion &amp; Bryce", "Days 1–5",
+     "Canyon from the inside, then hoodoo amphitheatre from the rim. The two most vertical "
+     "experiences of the trip, 90 minutes apart."),
+    ("monument", "Page &amp; Monument Valley", "Days 5–8",
+     "Slot canyons, Lake Powell and the landscape that taught the world what a Western looks "
+     "like. Navajo Nation — its own fees, its own hours, its own clock."),
+    ("factorybutte", "Hanksville badlands", "Days 8–9",
+     "The strangest and emptiest terrain on the route. Bentonite clay, Factory Butte, a Mars "
+     "analogue station. Almost nobody who saves this itinerary actually goes here."),
+    ("capitolreef", "Capitol Reef", "Days 9–11",
+     "A hundred-mile buckle in the earth's crust, with a Mormon orchard settlement in the "
+     "middle of it. The quietest of Utah's five parks by a wide margin."),
+    ("delicate", "Moab", "Days 11–14",
+     "Arch density found nowhere else on earth, plus the Island in the Sky mesa and the best "
+     "sunrise on the Colorado Plateau. The trip ends on its strongest ground."),
+]
+areas_html = "".join(
+    f'<div class="area">{lead(k, name)}<div class="ab"><h3>{name}</h3>'
+    f'<p class="days">{days}</p><p>{txt}</p></div></div>'
+    for k, name, days, txt in AREAS)
+
+ORIENT = f"""
+<section id="orient">
+  <h2>What this place actually is</h2>
+  <div class="intro">
+    <p>One landscape, understood properly, rather than three glimpsed in passing.</p>
+    <p>The <b>Colorado Plateau</b> is a slab of sedimentary rock roughly the size of Poland,
+    lifted almost intact and almost level about 1,500&nbsp;m into the sky. Because it rose
+    without crumpling, the layers stayed flat — so rivers cut <i>down</i> through them instead
+    of being deflected sideways. Everything you look at for fifteen days follows from that:
+    canyons with squared-off walls, mesas with flat tops, arches and spires left standing where
+    soft rock eroded from beneath a hard cap. The colours are iron and manganese staining the
+    sandstone.</p>
+    <p>Two places break the pattern, and both are on this route. The <b>Hanksville badlands</b>
+    are <b>bentonite</b> — clay formed from volcanic ash, which is exactly why those roads
+    become impassable when wet. And the <b>Waterpocket Fold</b> at Capitol Reef is a
+    hundred-mile wrinkle where the crust did buckle, tilting the layers on edge so you drive
+    past a cross-section of 200 million years in an afternoon.</p>
+    <p>Fifteen days is enough to see one province properly. It is not enough to also cross the
+    Rockies — which is why this plan does not try.</p>
+  </div>
+
+  <h2>Why it is famous — the specific things</h2>
+  <div class="intro">
+    <p><b>Reflected light.</b> In a deep canyon the sun never reaches the floor directly; it
+    hits one wall and bounces, and the bounced light is orange. That is the whole reason
+    Antelope Canyon glows, and the entire reason Mesa Arch is photographed at sunrise —
+    the underside of the arch is lit from below, by light reflected off a cliff 500&nbsp;m
+    beneath it.</p>
+    <p><b>Monument Valley is the visual grammar of the Western.</b> John Ford shot nine films
+    there from 1939 onward. When a landscape &ldquo;looks like a cowboy film&rdquo;, this is
+    the landscape it looks like. It is the original, not an example of the type.</p>
+    <p><b>And the layer most itineraries skip:</b> Monument Valley and Antelope Canyon are not
+    parks. They are <b>Navajo Nation</b> — sovereign land with its own fees, hours and clock.
+    This is inhabited, administered land, and the plan treats it that way.</p>
+  </div>
+
+  <h2>The five regions</h2>
+  <div class="areas">{areas_html}</div>
+
+  <h2>The trip in numbers</h2>
+  <div class="numstrip">
+    <span><b>14</b> nights</span><span><b>8</b> bases</span>
+    <span><b>~1,500</b> mi driven</span><span><b>~2,400</b> km</span>
+    <span><b>5</b> Utah parks — all of them</span><span><b>2</b> tribal parks</span>
+  </div>
+</section>"""
+
+KNOW = """
+<section id="know">
+  <h2>Six things to know before reading the days</h2>
+  <div class="know">
+    <div class="qcard"><h3>1 &middot; There are two clocks</h3><p>Arizona does not observe
+    daylight saving. <b>The Navajo Nation does.</b> Page and Horseshoe Bend are MST; Antelope
+    Canyon and Monument Valley are MDT. <b>Days 5–8 cross that one-hour boundary twice
+    without leaving Arizona.</b> This is how people miss booked tours.</p></div>
+
+    <div class="qcard"><h3>2 &middot; Bentonite closes roads for days</h3><p>Not hours —
+    BLM's own wording is <i>&ldquo;impassable for days&rdquo;</i>. Days 8–9 depend on dry
+    dirt. There is no webcam, and UDOT's road-conditions product only runs 1&nbsp;Nov–30&nbsp;Apr,
+    so it is dark for these dates. Use the check chain in the day-of block.</p></div>
+
+    <div class="qcard"><h3>3 &middot; Your rental is not insured off pavement</h3>
+    <p><b>No major company permits UT-261.</b> A Nevada pickup narrows the exclusion —
+    state law limits it to damage <i>directly caused by</i> the road — but does not remove
+    it. The Moki Dugway is a deliberate, bounded risk; the Shafer Trail is done in a hired
+    Jeep instead. Avis and Budget publish no Nevada block and should not be booked.</p></div>
+
+    <div class="qcard"><h3>4 &middot; Fuel is a real constraint once</h3>
+    <p><b>UT-95 Hanksville→Blanding is 121 miles with no fuel</b>, and Hite is permanently
+    closed — NPS states verbatim that all services there are shut. Hanksville itself has
+    exactly two public stations, Hollow Mountain and Stan's, and the 24-hour UDOT pump there
+    is fleet-card only. Fill up before day&nbsp;8.</p></div>
+
+    <div class="qcard"><h3>5 &middot; &ldquo;Later is quieter&rdquo; is false here</h3>
+    <p>NPS visitation data shows <b>October is busier than September at Zion and Arches</b>.
+    Shifting the trip later in autumn buys you nothing crowd-wise in Utah — it only costs you
+    warmth and daylight. The quiet-season argument applies to Wyoming, which this trip does
+    not go anywhere near.</p></div>
+
+    <div class="qcard"><h3>6 &middot; This trip is not hostage to a closure wall</h3>
+    <p>The early-October closures that dominate any Rockies itinerary — Grand Teton lodges,
+    the Jenny Lake boat, Dunraven Pass — are <b>Wyoming and Colorado</b> problems.
+    <b>Nothing on this route shuts in early October.</b> Utah's parks are open year-round.
+    The real binding constraints here are heat at the front of the season, the Kanarra Falls
+    permit cap, and two Navajo cutoffs on 1&nbsp;October — see the dates panel.</p></div>
+  </div>
+</section>"""
+
+DATES = """
+<section id="dates">
+  <h2>When to go — the window is wide</h2>
+  <div class="panel">
+    <p>Because this version drops Wyoming, the date decision changes completely. The 25-day
+    plan was pinned to a hard early-October wall. <b>This one is not</b>, and that reopens
+    years and seasons the long version could not use.</p>
+    <p><b>Best: the second half of September.</b> Utah has cooled from its 100–110&nbsp;°F
+    summer to roughly 75–85&nbsp;°F, Antelope Canyon is still inside its light-beam season,
+    and the Monument Valley loop still takes late-afternoon entries.</p>
+    <p><b>Three dates that actually bite, all on 1 October:</b> the Monument Valley loop's last
+    entry drops from <b>16:30 to 14:30</b>; Narrows outfitters switch to dry suits as the water
+    hits 3–7&nbsp;°C; and Antelope Canyon's beam season is winding down. Cross that line and
+    three of the trip's best hours get worse.</p>
+    <p><b>Also workable: mid-May to early June</b> — before the heat, with long days and full
+    water in the Narrows, though spring runoff can close the Narrows entirely and Kanarra
+    Falls runs cold and high.</p>
+    <p><b>Avoid July and August.</b> Moab at 105&nbsp;°F is not a holiday, and it is monsoon
+    season, which is the one thing that genuinely threatens the Hanksville badlands.</p>
+  </div>
+</section>"""
+
+ASSUME = """
+<section id="assume">
+  <h2>Assumptions taken</h2>
+  <p class="introwide">Dates are not booked and one decision was left open, so the plan takes
+  a position rather than stalling. <b>Every one is a real choice that can be reversed</b> —
+  none is a silent default.</p>
+  <div class="panel">
+  <table>
+  <tr><th>Assumption</th><th>Why, and how to reverse it</th></tr>
+  <tr><td><b>Angels Landing → plan Scout Lookout</b>, but enter the permit lottery anyway</td>
+      <td>The chains have sustained exposure above a ~1,000&nbsp;ft drop. Scout Lookout gives
+      the same canyon view and stops before them. The permit is $6&nbsp;+&nbsp;$3/person —
+      apply in the <b>1–20 July</b> lottery regardless and decide at the junction on the day.
+      Reversing costs nothing.</td></tr>
+  <tr><td><b>Capitol Reef comes BEFORE Moab, not after</b></td>
+      <td>It groups the Fremont River country together — the Hanksville badlands and the
+      Waterpocket Fold are the same landscape — and it saves Arches and Canyonlands for the
+      finish, which is the stronger ending. It also means the last full morning of the trip is
+      Mesa Arch at sunrise rather than a drive.</td></tr>
+  <tr><td><b>Two nights at Capitol Reef, one at Salt Lake</b></td>
+      <td>The obvious cut of the long plan left two nights in Salt Lake, which is an exit city.
+      Those nights are worth more in Torrey, where a full Capitol Reef day fits.</td></tr>
+  <tr><td><b>Bryce: Queen's Garden out-and-back</b>, not the classic combination</td>
+      <td>The <b>Navajo Loop has been closed since Feb 2026</b> with no reopening date.
+      Re-check at the visitor centre; if it has reopened, do the loop instead.</td></tr>
+  <tr><td><b>One $250 non-resident America the Beautiful pass</b></td>
+      <td>Covers the holder plus all passengers. The +$100 non-resident surcharge applies
+      only to those 16+, so the child is exempt either way. Does not work at Monument Valley
+      or Horseshoe Bend.</td></tr>
+  </table></div>
+</section>"""
+
+# ---------- the days ------------------------------------------------------------------
+D1 = day("d1", "Days", "1–3", "Zion", "Las Vegas → Springdale · 165 mi / 2h40",
+  [("Nights", "3 · Springdale"), ("Drive", "165 mi"), ("Note", "Shuttle-only canyon")],
+  [
+   stop(2, "Day 1", "Fly in, collect the car, drive to Springdale",
+     "<p>Emerald Aisle lets you inspect the badge before taking the keys — <b>confirm it is "
+     "actually AWD</b>, because plain &lsquo;Full Size SUV&rsquo; is published as 2WD. Also "
+     "confirm the contract permits US-wide use: the Nevada waiver block excludes operation "
+     "outside NV/AZ/CA/ID/OR/UT, and your Colorado and Wyoming legs depend on that clause.</p>",
+     stats=[("165 mi", "LAS → Springdale"), ("2h40", "drive"), ("$250", "buy the pass")],
+     links=[("Map", mapq("Springdale, Utah"), True)], photos=("vegas", 3, "Las Vegas")),
+   stop(4, "Day 2", "Zion — the high day",
+     "<p><b>Zion Canyon is shuttle-only in this season.</b> Private cars cannot drive the "
+     "Scenic Drive, so the day is planned around shuttle timing, not parking. Start at the "
+     "first shuttle: the West Rim switchbacks face east and cook by mid-morning.</p>"
+     "<p>Scout Lookout is the baseline; the chains beyond it are a decision for the day.</p>",
+     tag=("added", "Scout Lookout baseline"),
+     stats=[("8.7 km", "Angels Landing RT"), ("~1,000 ft", "exposure beyond Scout"),
+            ("$6 + $3pp", "permit lottery")],
+     links=[("Angels Landing permit", "https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm", True),
+            ("Zion alerts", "https://www.nps.gov/zion/planyourvisit/conditions.htm", False)],
+     photos=("angels", 4, "Angels Landing"),
+     more=("Why Canyon Overlook is the evening, not the morning",
+       "<p>Canyon Overlook is on SR-9 and is <b>not</b> shuttle-restricted, so you drive to "
+       "it. That makes it the one piece of the day you control entirely — which is why it "
+       "holds the sunset slot rather than competing with shuttle queues at dawn.</p>")),
+   stop(4, "Day 3", "Zion — the water day",
+     "<p><b>The Narrows, bottom-up</b> from Temple of Sinawava. This is an out-and-back, so "
+     "the 12&nbsp;km ceiling manages itself — turn round when you have had enough.</p>"
+     "<p><b>Water is 3–7&nbsp;°C.</b> Outfitters switch to dry suits on 1 October; in "
+     "mid-September you are in the wetsuit-and-boots window. Rent boots and a stick — "
+     "trainers do not work on that riverbed.</p>",
+     stats=[("9.7 km", "to Wall Street"), ("16.1 km", "Big Spring — over ceiling"),
+            ("3–7 °C", "water")],
+     links=[("Narrows conditions", "https://www.nps.gov/zion/planyourvisit/thenarrows.htm", True)],
+     photos=("narrows", 4, "The Narrows"),
+     note="<b>Decision rule — flash flood.</b> The Narrows closes on flow rate and forecast, "
+          "not on whether it is raining where you stand. Check the flash-flood potential "
+          "rating that morning. If it reads &ldquo;Expected&rdquo; or above, the Narrows is "
+          "off — substitute the Watchman Trail and move Canyon Overlook into this day."),
+  ], "Zion National Park, Utah", 10)
+
+D4 = day("d4", "Days", "4–5", "Kanarra Falls &amp; Bryce", "Zion → Kanarraville → Bryce → Page · 245 mi",
+  [("Nights", "1 · Bryce area"), ("Drive", "245 mi"), ("Note", "Book Kanarra in January")],
+  [
+   stop(3, "Day 4 · early", "Kanarra Falls",
+     "<p>A creek walk with ladders, 40 minutes north of Zion. Wet feet are guaranteed and "
+     "that is the point — it is the trip's best &lsquo;we did something unusual&rsquo; day "
+     "and it suits an 11-year-old better than anything else in Utah.</p>",
+     tag=("unmissable", "150 permits/day"),
+     stats=[("$15", "per person"), ("150/day", "hard cap"), ("1 Jan", "whole year releases")],
+     links=[("Permits", "https://kanarrafalls.com/", True)], photos=("kanarra", 4, "Kanarra Creek"),
+     note="<b>Book this in January.</b> The entire year releases on 1 January and most peak "
+          "days sell out roughly a month ahead. Miss it and there is no substitute."),
+   stop(1, "Day 4 · sunset", "Bryce — Sunset Point",
+     "<p>Drive Kanarraville → Bryce, 90&nbsp;mi / 1h45. Sunset Point is named for a reason, "
+     "though Inspiration Point is the better light if there is cloud.</p>",
+     stats=[("90 mi", "drive"), ("~8,000 ft", "elevation")],
+     links=[("Map", mapq("Bryce Canyon National Park, Utah"), True)],
+     photos=("bryce", 4, "Bryce Canyon")),
+   stop(1, "Day 5 · dawn", "Bryce sunrise, then down into the amphitheatre",
+     "<p>The amphitheatre faces east — this is the best sunrise of the Utah block and worth "
+     "the cold start. At ~8,000&nbsp;ft it will be near freezing at dawn in mid-September.</p>"
+     "<p>Then <b>Queen's Garden down and back up the same way</b>, plus a Rim Trail segment.</p>",
+     stats=[("2.9 km", "Queen's Garden RT"), ("600 ft", "climb back out")],
+     photos=("queensgarden", 4, "Queen's Garden"),
+     note="<b>GPX trap.</b> The Queen's Garden/Navajo combination is the most-downloaded route "
+          "in Bryce, and <b>the Navajo arm has been closed since February 2026</b>. Every "
+          "saved track leads you down and into a barrier with a 600&nbsp;ft climb back out and "
+          "no signal. Verify at the visitor centre that morning."),
+  ], "Bryce Canyon National Park, Utah", 10)
+
+D5 = day("d5", "Days", "5–7", "Page &amp; Monument Valley", "Bryce → Page → Monument Valley · 280 mi",
+  [("Nights", "2 · Page &nbsp;+&nbsp; 1 · The View"), ("Drive", "280 mi"),
+   ("Clock", "MST ⇄ MDT twice")],
+  [
+   stop(6, "Day 5 · evening", "Horseshoe Bend — and the first clock trap",
+     "<p>Bryce → Page is 155&nbsp;mi / 2h45 via Kanab. <b>Page is MST year-round.</b></p>"
+     "<p>Horseshoe Bend is <b>$10 per vehicle to the City of Page — the America the Beautiful "
+     "pass does not work here</b>, which catches people who assume every viewpoint is federal.</p>",
+     tag=("hidden", "pass not valid"),
+     stats=[("155 mi", "from Bryce"), ("$10", "per vehicle"), ("MST", "Page time")],
+     links=[("Map", mapq("Horseshoe Bend, Page, Arizona"), True)],
+     photos=("horseshoe", 4, "Horseshoe Bend")),
+   stop(6, "Day 6", "Antelope Canyon — one hour ahead of your hotel",
+     "<p><b>Antelope Canyon is on Navajo land and runs MDT — one hour ahead of Page.</b> "
+     "A 10:00 tour is 09:00 by your hotel clock. Set a second phone clock to Navajo time for "
+     "days 6–8 and leave it there.</p>"
+     "<p>Light beams need high sun: roughly <b>11:00–13:00 MDT on a clear day</b>. "
+     "Mid-September is inside the beam season; mid-October is not.</p>",
+     tag=("unmissable", "books 1–2 months out"),
+     stats=[("MDT", "Navajo time"), ("11:00–13:00", "beam window"), ("6+ / 8+", "age minimums")],
+     links=[("Navajo Parks", "https://navajonationparks.org/", True)],
+     photos=("antelope", 4, "Antelope Canyon"),
+     more=("Which canyon, and the afternoon",
+       "<p>Upper is the beam canyon and the busiest; Lower is ladders and narrower passages; "
+       "Canyon X and Secret Canyon are quieter alternatives with their own age floors "
+       "(Secret is 6+, Adventurous Antelope 8+). All are fine at 11.</p>"
+       "<p>Afternoon is Lake Powell — Wahweap, or an hour on the water. "
+       "<b>Alstrom Point is deliberately not in this plan:</b> no official source describes "
+       "the road, and no NPS page for it exists. Guided, or dropped.</p>")),
+   stop(2, "Day 7", "Page → Monument Valley — you lose an hour on the way",
+     "<p>125&nbsp;mi / 2h15, and <b>the clock jumps forward crossing into the Navajo Nation.</b> "
+     "Leave earlier than feels necessary.</p>"
+     "<p>The 17-mile Valley Drive has a <b>last entry of 16:30 in this season — it drops to "
+     "14:30 on 1 October</b>, which is one more reason the dates matter. The surface is rough "
+     "with deep sand, and <b>RVs, camper vans, motorcycles and large SUVs are prohibited</b>.</p>",
+     tag=("hidden", "pass not valid"),
+     stats=[("125 mi", "drive"), ("16:30", "last loop entry"), ("17 mi", "Valley Drive")],
+     links=[("Monument Valley", "https://navajonationparks.org/tribal-parks/monument-valley/", True)],
+     photos=("monument", 4, "Monument Valley"),
+     note="<b>Sleep at The View, inside the gate.</b> This is not a preference. The tribal "
+          "park gate does not open until 08:00, so <b>sunrise from inside the valley is only "
+          "possible if you sleep inside it</b>. It is also the trip's worst sell-out risk and "
+          "publishes no booking window — call early."),
+  ], "Monument Valley Navajo Tribal Park", 8)
+
+D8 = day("d8", "Days", "8–9", "The Moki Dugway &amp; the Hanksville badlands",
+  "Monument Valley → Natural Bridges → Hanksville → Torrey · 235 mi",
+  [("Nights", "1 · Hanksville"), ("Drive", "235 mi"), ("Fuel", "121 mi with none")],
+  [
+   stop(5, "Day 8 · midday", "UT-261 — the Moki Dugway",
+     "<p>Three miles of unpaved switchbacks climbing ~1,100&nbsp;ft onto Cedar Mesa. "
+     "<b>This single road is what makes all 17 stops routable</b> — without it, Page and "
+     "Monument Valley sit on one arc and Hanksville on another, and you must drop one.</p>"
+     "<p>Your rental is not covered for damage <i>directly caused by</i> this road. Drive it "
+     "slowly and deliberately, or bypass via US-163/US-191 at a cost of about an hour.</p>",
+     tag=("added", "the routing fix"),
+     stats=[("3 mi", "unpaved"), ("1,100 ft", "climb"), ("~1 h", "cost to bypass")],
+     links=[("Map", mapq("Moki Dugway, Utah"), True)], photos=("moki", 3, "Moki Dugway")),
+   stop(4, "Day 8 · afternoon", "Natural Bridges — viewpoints only",
+     "<p>The full loop is 19.3&nbsp;km and over the ceiling. The viewpoints give you Owachomo "
+     "and Sipapu without the commitment, and it is a certified Dark Sky park if the night is "
+     "clear.</p>",
+     stats=[("19.3 km", "full loop — skipped"), ("Dark Sky", "certified")],
+     photos=("natbridges", 3, "Natural Bridges")),
+   stop(2, "Day 8 · fuel stop", "UT-95 — 121 miles with no fuel",
+     "<p><b>Hanksville→Blanding has no fuel and Hite is permanently closed</b> — NPS states "
+     "verbatim that all services there are shut until further notice. Fill up before you "
+     "commit to this stretch.</p>",
+     tag=("unmissable", "fill up first"),
+     stats=[("121 mi", "no services"), ("2", "public stations in Hanksville")]),
+   stop(1, "Day 8 · sunset", "Factory Butte",
+     "<p>Shot from <b>Coal Mine Road / Factory Bench Road</b>. Note this is a <i>different</i> "
+     "golden hour from Moonscape — the two cannot share an evening, which is why they are "
+     "split across tonight and tomorrow morning.</p>"
+     "<p>If there is time, <b>Blue Valley Spire</b> — the stop the reel calls &ldquo;Long Dong "
+     "Silver&rdquo; — is 1.2&nbsp;mi of dirt off UT-24 to a wooden-fence trailhead, then a "
+     "short walk on a closed roadbed.</p>",
+     stats=[("1.6–2.3 mi", "spire RT"), ("173 ft", "gain"), ("38°22'10\"N", "110°49'55\"W")],
+     links=[("BLM Henry Mtns", "https://www.blm.gov/office/henry-mountains-field-station", True)],
+     photos=("factorybutte", 4, "Factory Butte")),
+   stop(5, "Day 9 · dawn", "Moonscape Overlook",
+     "<p>10&nbsp;mi west on UT-24 → BLM Rd 0091 (signed &ldquo;6650 East&rdquo;) → 3&nbsp;mi → "
+     "right on BLM Rd 0913, where <b>BLM states a high-clearance vehicle is recommended beyond "
+     "that point</b> → Skyline View Rd. About 6&nbsp;mi of dirt, 16&nbsp;mi total.</p>",
+     tag=("unmissable", "unfenced rim"),
+     stats=[("~6 mi", "dirt"), ("≥8 in", "NPS high-clearance spec")],
+     photos=("moonscape", 3, "Hanksville badlands"),
+     note="<b>Child safety — the highest-consequence stop of the trip.</b> BLM's own wording: "
+          "<i>&ldquo;Sandstone can be unstable, avoid playing around cliff edges.&rdquo;</i> "
+          "The rim is <b>unfenced and undercut</b>, at the end of six miles of dirt with "
+          "scarce cell coverage. Hold hands at the edge, or stay back from it entirely."),
+   stop(5, "Day 9 · morning", "Bentonite Hills — on Cow Dung Road, not the other one",
+     "<p>About 4&nbsp;mi up <b>Cow Dung Road</b>, an unmarked turnoff after MP&nbsp;113. "
+     "<b>This is BLM land: no ford, no fee.</b></p>"
+     "<p><b>There are two places called Bentonite Hills.</b> The other is on the NPS Hartnet "
+     "road, needs the Fremont River ford, and is currently listed <b>Impassable</b>. You want "
+     "Cow Dung Road.</p>",
+     tag=("added", "Mars station + dinosaur quarry"),
+     stats=[("3.2 mi", "Mars Desert Research Stn"), ("7.3 mi", "Burpee dinosaur quarry")],
+     photos=("bentonite", 4, "Bentonite Hills"),
+     more=("Two additions the reel did not have",
+       "<p>The same road passes the <b>Mars Desert Research Station</b> viewing area at "
+       "3.2&nbsp;mi — a working Mars analogue habitat — and the <b>Burpee dinosaur quarry</b> "
+       "at 7.3&nbsp;mi. Neither was on the original list; both are strong at eleven.</p>"
+       "<p>Both sit <i>west</i> of Hanksville, which is the direction you are already going — "
+       "Cow Dung Road points at Capitol Reef, so nothing here is a detour.</p>")),
+   stop(2, "Day 9 · afternoon", "On to Torrey",
+     "<p>45 minutes west and the landscape changes completely: badlands give way to the "
+     "<b>Waterpocket Fold</b>, a hundred-mile buckle where the crust actually folded instead "
+     "of staying flat. Torrey has the restaurants Hanksville does not.</p>",
+     stats=[("45 min", "Hanksville → Torrey"), ("~6,800 ft", "Torrey elevation")]),
+  ], "Hanksville, Utah", 9)
+
+DCR = day("dcr", "Day", "10", "Capitol Reef", "Torrey · the quietest of Utah's five parks",
+  [("Nights", "2 · Torrey"), ("Drive", "park only"), ("Note", "No timed entry, no queue")],
+  [
+   stop(4, "Day 10 · morning", "Hickman Bridge and the Hwy 24 corridor",
+     "<p><b>Hickman Bridge — ~3&nbsp;km round trip, 400&nbsp;ft up</b> to a 133&nbsp;ft natural "
+     "bridge. Short, and the best value walk in the park.</p>"
+     "<p>Along Hwy&nbsp;24 itself: the <b>Fremont petroglyph panel</b> on a boardwalk right by "
+     "the road, and the Behunin cabin. This is the one park on the trip where the roadside "
+     "stops are genuinely worth stopping for.</p>",
+     stats=[("3 km", "Hickman RT"), ("400 ft", "gain"), ("133 ft", "bridge span")],
+     links=[("Capitol Reef", "https://www.nps.gov/care/index.htm", True)],
+     photos=("capitolreef", 4, "Capitol Reef")),
+   stop(4, "Day 10 · midday", "The Scenic Drive, Grand Wash and Fruita",
+     "<p>The <b>Scenic Drive</b> runs 8&nbsp;mi south along the fold, with <b>Grand Wash</b> — a "
+     "flat walk into a narrow canyon, easy and shaded — off it. <b>Cassidy Arch</b> is the "
+     "bigger objective at ~5.5&nbsp;km with 670&nbsp;ft of climb, ending on top of the arch "
+     "rather than under it.</p>"
+     "<p><b>Fruita</b> is a Mormon orchard settlement inside the park. In season you can pick "
+     "fruit in the historic orchards, and the Gifford House sells pie that is not a gimmick.</p>",
+     tag=("easy", "no permits, no lottery"),
+     stats=[("8 mi", "Scenic Drive"), ("5.5 km", "Cassidy Arch RT"), ("670 ft", "gain")],
+     note="<b>Cathedral Valley is out.</b> The loop fords the Fremont River and NPS lists it "
+          "<b>Impassable</b>. The Bentonite Hills you saw on day 9 are the accessible ones, on "
+          "Cow Dung Road — do not let a blog route you into the ford. "
+          "<i>Unverified: the Scenic Drive fee and the Gifford House seasonal closing date.</i>",
+     more=("Why this park is empty and the others are not",
+       "<p>Capitol Reef takes roughly a fifth of Zion's visitors. It has no timed entry, no "
+       "shuttle and no permit lottery, because it has never needed them. After eleven days of "
+       "queues and reservation windows, that is the actual attraction.</p>")),
+  ], "Capitol Reef National Park, Utah", 10)
+
+D9 = day("d9", "Days", "11–13", "Moab — Arches &amp; Canyonlands",
+  "Torrey → Moab · 145 mi, then two full park days",
+  [("Nights", "3 · north of town"), ("Drive", "145 mi + park"), ("Note", "Mesa Arch is dawn")],
+  [
+   stop(1, "Day 11 · sunset", "Delicate Arch",
+     "<p>Torrey → Moab is 145&nbsp;mi / 2h20 back east through Hanksville — the one stretch "
+     "you drive twice, and the price of putting Capitol Reef before Moab.</p>"
+     "<p>Then straight out to Delicate Arch: 4.8&nbsp;km round trip over open slickrock with "
+     "no shade. The arch faces west, so it is a sunset subject and everyone knows it — expect "
+     "company at the bowl.</p>",
+     stats=[("4.8 km", "round trip"), ("480 ft", "gain"), ("no shade", "carry water")],
+     links=[("Arches", "https://www.nps.gov/arch/index.htm", True)],
+     photos=("delicate", 4, "Delicate Arch")),
+   stop(4, "Day 12", "Devils Garden and The Windows",
+     "<p><b>Double O out-and-back, 6.4&nbsp;km</b>, which keeps every named arch. The primitive "
+     "loop is 12.7&nbsp;km and over the ceiling for no extra payoff.</p>"
+     "<p>The Windows section has the highest arch density per step anywhere on earth.</p>",
+     stats=[("6.4 km", "Double O RT"), ("12.7 km", "primitive loop — skipped")],
+     photos=("devilsgarden", 4, "Devils Garden"),
+     more=("Fiery Furnace, if you want it",
+       "<p>Ranger-led $16 / self-guided $10, <b>released only 7 days out</b>, self-guided must "
+       "be booked by day&nbsp;−2. Age 5+, max group 6. <b>NPS states GPS does not work "
+       "inside it</b> — it is a genuine maze, and with a child the ranger-led option is the "
+       "right one.</p><p><i>Unresolved: whether Arches timed entry returns for 2028. It was "
+       "dropped entirely for 2026. Re-check about six months out.</i></p>")),
+   stop(1, "Day 13 · dawn", "Mesa Arch — the signature photograph",
+     "<p>Arrive in the dark. The underside of the arch glows because it is lit by light "
+     "bounced off the cliff 500&nbsp;m below — that is the whole trick, and it lasts minutes. "
+     "It is a 1&nbsp;km walk and it will be crowded; that is the price.</p>",
+     tag=("unmissable", "dawn only"),
+     stats=[("1 km", "walk in"), ("minutes", "the light window")],
+     photos=("mesaarch", 4, "Mesa Arch")),
+   stop(4, "Day 13", "Island in the Sky, then Dead Horse Point",
+     "<p>Grand View Point, Green River Overlook, Upheaval Dome — then Dead Horse Point for "
+     "sunset over the Colorado gooseneck.</p>",
+     stats=[("$55", "Arches+Canyonlands pass"), ("state park", "Dead Horse — pass not valid")],
+     photos=("canyonlands", 4, "Canyonlands"),
+     note="<b>GPX trap.</b> Mapping apps route &ldquo;Island in the Sky&rdquo; drives down the "
+          "<b>Shafer Trail switchbacks</b> — a 4WD high-clearance road with severe exposure. "
+          "It is not a shortcut to Moab. Do not let an app put you on it; if you want it, "
+          "that is what a hired Jeep day in Moab is for."),
+  ], "Moab, Utah", 9)
+
+BOOKING = """
+<section id="booking">
+  <h2>The booking calendar</h2>
+  <p class="introwide">Ordered by when the window <i>opens</i>, not by when the trip happens.
+  Only three things on this trip genuinely sell out — but all three are unrecoverable if missed.</p>
+  <div class="panel"><table>
+  <tr><th>When</th><th>What</th></tr>
+  <tr><td><b>As early as possible</b></td><td><b>The View Hotel</b>, Monument Valley. No
+      published booking window, notorious sell-out, and night 7 has no substitute — the tribal
+      park gate does not open until 08:00, so sunrise inside the valley is only possible if you
+      sleep inside it.</td></tr>
+  <tr><td><b>1 January</b></td><td><b>Kanarra Falls</b> — the entire year releases at once,
+      capped at 150 people a day, and peak days sell out about a month ahead.</td></tr>
+  <tr><td><b>1–20 July</b></td><td><b>Angels Landing</b> seasonal lottery, $6 + $3/person.
+      The day-before lottery closes 15:00 MT.</td></tr>
+  <tr><td><b>~2–3 months out</b></td><td><b>Antelope Canyon</b> — the main Upper operator
+      releases only 1–2 months ahead. Remember it runs on <b>Navajo MDT</b>.</td></tr>
+  <tr><td><b>7 days out</b></td><td><b>Fiery Furnace</b>, Arches — self-guided must be booked
+      by day −2. Ranger-led is the right option with a child.</td></tr>
+  <tr><td><b>~12 months out</b></td><td>Car hire. Re-quote the <b>LAS→SLC one-way drop fee</b>;
+      budget $0–600. Book an <b>explicit AWD class</b> — plain &ldquo;Full Size SUV&rdquo; is
+      published as 2WD.</td></tr>
+  <tr><td><b>Nothing else</b></td><td>Capitol Reef needs no reservation of any kind, and Moab
+      lodging is only tight around a handful of autumn events — the Moab 240 ultra in
+      mid-October is the one to avoid outright.</td></tr>
+  </table></div>
+</section>"""
+
+DAYOF = """
+<section id="dayof">
+  <h2>Day-of links</h2>
+  <p class="introwide">The handful of things actually tapped in the field. Everything else on
+  this page is for reading beforehand.</p>
+  <div class="linklist">
+    <a href="https://www.nps.gov/zion/planyourvisit/conditions.htm">Zion conditions &amp; flash-flood rating</a>
+    <a href="https://www.nps.gov/brca/planyourvisit/conditions.htm">Bryce trail status <b>— check Navajo Loop</b></a>
+    <a href="https://www.nps.gov/cany/planyourvisit/road-conditions.htm">Canyonlands road conditions</a>
+    <a href="https://www.blm.gov/office/henry-mountains-field-station">BLM Henry Mountains — Hanksville dirt</a>
+    <a href="https://www.nps.gov/care/planyourvisit/conditions.htm">Capitol Reef conditions</a>
+    <a href="https://navajonationparks.org/">Navajo Parks — hours &amp; fees <b>(MDT)</b></a>
+    <a href="tel:+14355423461">BLM Henry Mountains &middot; (435) 542-3461</a>
+    <a href="tel:+14354253791">Capitol Reef road line, 24/7 &middot; (435) 425-3791 press 4</a>
+  </div>
+  <div class="panel">
+    <h3>The wet-clay check — run it the night before days 8–9</h3>
+    <p>1 &middot; <b>Goblin Valley COOP gauge <span class="mono">USC00423254</span></b> via the
+    ACIS API for observed 72&nbsp;h rain. <b>Do not use KHVE</b> — it reports null precipitation
+    and its record ended 31 Aug 2025, so the obvious station is the wrong one.<br>
+    2 &middot; <b>NWS zone UTZ130 &ldquo;Western Canyonlands&rdquo;</b>, grid SLC/128,63 — PoP ≥ 20%.<br>
+    3 &middot; Then the two phone numbers above.</p>
+    <p><b>If wet:</b> skip all Hanksville dirt, drive straight to Moab, and gain half a day in
+    Arches. BLM's own wording is <i>&ldquo;impassable for days&rdquo;</i>, not hours.</p>
+  </div>
+</section>"""
+
+CHECK = """
+<section id="check">
+  <h2>Before you go</h2>
+  <div class="check">
+    <label><input type="checkbox" data-k="pass"> $250 non-resident America the Beautiful pass</label>
+    <label><input type="checkbox" data-k="awd"> Rental booked as an explicit <b>AWD</b> class — not plain &ldquo;Full Size SUV&rdquo;</label>
+    <label><input type="checkbox" data-k="uswide"> Confirmed at the counter: contract permits US-wide use (CO + WY legs)</label>
+    <label><input type="checkbox" data-k="view"> The View Hotel, Monument Valley — inside the gate</label>
+    <label><input type="checkbox" data-k="kanarra"> Kanarra Falls permits (1 Jan)</label>
+    <label><input type="checkbox" data-k="angels"> Angels Landing lottery entered (1–20 July)</label>
+    <label><input type="checkbox" data-k="antelope"> Antelope Canyon tour — note it runs on <b>Navajo MDT</b></label>
+    <label><input type="checkbox" data-k="clock"> Second phone clock set to Navajo time for days 5–8 <b>— set it and leave it</b></label>
+    <label><input type="checkbox" data-k="offline"> Offline maps downloaded — UT-95, the Hanksville dirt, Cow Dung Road</label>
+    <label><input type="checkbox" data-k="reverify"> Whole closure table re-verified ~6 months out</label>
+  </div>
+</section>"""
+
+HONEST = """
+<section id="honest">
+  <h2>What is verified, and what is not</h2>
+  <div class="grid2">
+    <div class="panel"><h3>Sourced</h3>
+      <p>Every seasonal closure and cutoff date on this route. The Hanksville access roads and
+      coordinates, taken from BLM primary documents rather than blogs. The rental contract
+      clauses and the Nevada statute that narrows them. Child-seat law in every state crossed.
+      Park fees and the non-resident pass arithmetic. Zion, Bryce, Arches and Canyonlands trail
+      distances against the 12&nbsp;km ceiling.</p></div>
+    <div class="panel"><h3>Not verified — do not treat as fact</h3>
+      <p><b>The View Hotel's rate and booking window</b> (two sources differ by 2×, and night 7
+      depends on it). <b>Monument Valley's entry fee</b> — their own site quotes three different
+      figures. <b>Dead Horse Point's fees and hours</b> — Utah's own site misroutes the page.
+      <b>Alstrom Point</b> — no official road description exists anywhere, which is why it is
+      not in the plan. Whether <b>Arches timed entry</b> returns. <b>Capitol Reef's Scenic Drive
+      fee and the Gifford House closing date.</b> The <b>Moonscape turnaround size</b> and a
+      3.5-vs-6.0-mile conflict on its approach — one call to BLM Henry Mountains settles it.</p></div>
+  </div>
+  <div class="panel" style="margin-top:18px">
+    <h3>The standing caveat</h3>
+    <p>NPS and concessioner dates shift year to year with weather and staffing, and everything
+    here is drawn from published 2026 and 2027 schedules. <b>Re-verify before booking.</b></p>
+    <p>The plan is <b>day-numbered rather than date-locked</b>, and unlike the 25-day version it
+    was cut from, <b>it is not pinned to a closure wall</b> — nothing on this route shuts in
+    early October. It can move by weeks, or by years, without the structure breaking. The only
+    hard line is <b>1 October</b>, when three separate things get worse at once: the Monument
+    Valley loop's last entry drops two hours, the Narrows turns dry-suit cold, and Antelope
+    Canyon's beam season ends.</p>
+  </div>
+</section>"""
+
+
+# ---------- plan B: the 14-night Southwest cut ----------------------------------------
+
+DEND = day("dend", "Days", "14–15", "Great Salt Lake, then home",
+  "Moab → Salt Lake City · 235 mi / 4h",
+  [("Nights", "1 · Salt Lake City"), ("Drive", "235 mi"), ("Note", "One night, not two")],
+  [
+   stop(2, "Day 14", "Moab → Salt Lake City",
+     "<p>4 hours north on US-191 and I-70. Leave after breakfast and you are in the city by "
+     "mid-afternoon — the first pavement-and-restaurants day in two weeks, and deliberately "
+     "soft after thirteen days of dawn starts.</p>",
+     stats=[("235 mi", "distance"), ("4h", "drive")]),
+   stop(1, "Day 14 · sunset", "Stansbury Island &amp; the Great Salt Lake",
+     "<p>45 minutes west of the city. Honest framing: this is the last stop because it is on "
+     "the way to the airport, not because it competes with what came before. The lake is "
+     "hypersaline and its north arm runs pink from the algae and bacteria that tolerate it — "
+     "worth an evening, not worth a day.</p>",
+     stats=[("45 min", "from SLC"), ("sunset", "the reason to go")],
+     photos=("saltlake", 3, "Great Salt Lake"),
+     note="<b>Only one night here, on purpose.</b> The obvious way to cut a longer trip leaves "
+          "two nights in Salt Lake, which is an exit city. That second night is worth far more "
+          "in Torrey — which is where it went."),
+   stop(2, "Day 15", "SLC → YYZ",
+     "<p>Drop the car at the airport. <b>Check the one-way drop fee when you book</b> — "
+     "National, Enterprise and Alamo are the only group publicly stating there is typically "
+     "no drop charge between airport locations.</p>"),
+  ], "Great Salt Lake, Utah", 9)
+
+# ---------- shell ---------------------------------------------------------------------
+HERO = PH["monument"][0]
+NAV_ITEMS = [("#orient", "Orientation"), ("#know", "Know first"), ("#dates", "When to go"),
+             ("#assume", "Assumptions"), ("#d1", "1–3 Zion"), ("#d4", "4–5 Bryce"),
+             ("#d5", "5–7 Page &amp; MV"), ("#d8", "8–9 Hanksville"), ("#dcr", "10 Capitol Reef"),
+             ("#d9", "11–13 Moab"), ("#dend", "14–15 Salt Lake"),
+             ("#booking", "Booking"), ("#dayof", "Day-of"), ("#honest", "Honest state")]
+NAV = ('<a class="home" href="../">All trips</a>'
+       + "".join(f'<a href="{h}">{n}</a>' for h, n in NAV_ITEMS))
+CHIPS = "".join(f'<span class="chip">{c}</span>' for c in [
+    "15 days &middot; 14 nights", "~1,500 mi / 2,400 km", "8 bases",
+    "All 5 Utah parks", "2 adults + 1 child (11)", "Dates open"])
+
+CTX = {
+    "slug": "usa-southwest-rockies",
+    "trip_date": "",
+    "trip_dates": "15 days &middot; dates open",
+    "trip_duration": "14 nights",
+    "trip_region": "Utah &amp; Arizona — the Colorado Plateau",
+    "title": "Utah &amp; Arizona — 15 days on the Colorado Plateau",
+    "description": ("Zion, Bryce, Page, Monument Valley, the Hanksville badlands, Capitol Reef, "
+                    "Arches and Canyonlands. Fifteen days, ~1,500 miles, all five Utah national "
+                    "parks, Las Vegas in and Salt Lake out."),
+    "hero_image": HERO["thumb"].replace("/1400px-", "/2000px-"),
+    "hero_credit": f'<a href="{filepage(HERO["file"])}">Monument Valley &middot; Wikimedia Commons</a>',
+    "eyebrow": "15 days &middot; 14 nights &middot; dates open",
+    "headline": "The Colorado Plateau",
+    "sub": ("One landscape province, seen properly — all five Utah parks, two Navajo tribal "
+            "parks, and the badlands almost nobody stops for."),
+    "chips": CHIPS,
+    "nav": NAV,
+    "body": (ORIENT + KNOW + DATES + ASSUME + D1 + D4 + D5 + D8 + DCR + D9 + DEND
+             + BOOKING + DAYOF + CHECK + HONEST),
+    "footer": ('Planned from twelve research files in <span class="mono">~/workspace/travel/'
+               'usa-southwest-rockies/</span>. Closure dates, trail distances, BLM road access '
+               'and rental-contract clauses are sourced, not recalled. Photographs from '
+               '<a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, each linked at '
+               'its caption. <b>Re-verify seasonal hours before booking — NPS and concessioner '
+               'dates move year to year.</b>'),
+    "extra_css":
+        "nav a.home{color:var(--highlight-on-deep);font-weight:600;"
+        "border-right:1px solid color-mix(in srgb, var(--highlight-on-deep) 32%, transparent);"
+        "margin-right:6px}"
+        "nav a.home:hover{color:var(--header-ink)}"
+        # .card figure is position:relative with min-height:220px and absolutely-positioned
+        # images + overlay captions. The gallery lives inside .card, so every one of those has
+        # to be unwound — and at a specificity that beats `.card figure img` (0,1,2), which is
+        # why every rule below is prefixed .card rather than bare .gal.
+        ".card .gal{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,1fr);"
+        "gap:10px;margin-top:14px;overflow-x:auto;scroll-snap-type:x mandatory;"
+        "padding-bottom:6px;scrollbar-width:thin}"
+        ".card .gal figure{position:static;min-height:0;overflow:visible;margin:0;"
+        "scroll-snap-align:start;min-width:0}"
+        ".card .gal a{display:block;overflow:hidden;border-radius:8px;border:1px solid var(--line)}"
+        ".card .gal img{position:static;inset:auto;width:100%;height:148px;object-fit:cover;"
+        "display:block;transition:transform .35s ease}"
+        ".card .gal a:hover img{transform:scale(1.04)}"
+        ".card .gal figcaption{position:static;background:none;padding:4px 1px 0;"
+        "font-size:.66rem;line-height:1.35;color:var(--muted);"
+        "overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}"
+        "@media(max-width:700px){.card .gal{grid-auto-columns:minmax(170px,78%)}"
+        ".card .gal img{height:128px}}"
+        ".panel p + p{margin-top:11px}"
+        ".intro p + p{margin-top:12px}"
+        ".hero::before{background:linear-gradient(180deg,"
+        "color-mix(in srgb, var(--bg-deep) 34%, transparent) 0%,"
+        "color-mix(in srgb, var(--bg-deep) 78%, transparent) 100%)}"
+        ".more table{margin-top:10px}"
+        ".more td,.more th{padding:4px 8px;border-bottom:1px solid var(--line)}",
+}
+
+html_out = S.assemble(CTX, THEME)
+problems = S.check_output_is_self_contained(html_out)
+if problems:
+    raise SystemExit("SELF-CONTAINMENT FAILED:\n  " + "\n  ".join(problems))
+out = HERE / "index.html"
+out.write_text(html_out, encoding="utf-8")
+print(f"wrote {out}  ({len(html_out):,} bytes, theme={THEME})")

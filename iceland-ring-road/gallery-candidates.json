@@ -1,0 +1,446 @@
+{
+ "trip": "iceland-ring-road",
+ "places": [
+  {
+   "place": "Reykjavik and the Golden Circle",
+   "days": "",
+   "blurb": "Capital and the Thingvellir, Geysir and Gullfoss triangle.",
+   "candidates": [
+    {
+     "file": "View of Reykjavík from Hallgrímskirkja, 20230507 1229 5733.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 5693,
+     "h": 3800
+    },
+    {
+     "file": "View of Reykjavík from Hallgrímskirkja, 20230507 1227 5715.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0",
+     "w": 5436,
+     "h": 3628
+    },
+    {
+     "file": "+Die Hallgrimskirkja ist das markanteste Bauwerk Reykjaviks. 03.jpg",
+     "author": "Holger Uwe Schmitt",
+     "license": "CC BY-SA 4.0",
+     "w": 5906,
+     "h": 5885
+    },
+    {
+     "file": "+Die Hallgrimskirkja ist das markanteste Bauwerk Reykjaviks. 02.jpg",
+     "author": "Holger Uwe Schmitt",
+     "license": "CC BY-SA 4.0",
+     "w": 5906,
+     "h": 4132
+    },
+    {
+     "file": "Iceland - Reykjavik 043 - Hallgrimskirkja cathedral (6571026853).jpg",
+     "author": "McKay Savage from London, UK",
+     "license": "Public domain",
+     "w": 2221,
+     "h": 2017
+    },
+    {
+     "file": "Hallgrímskirkja Reykjavik Iceland 360 degree panorama 2026-02-08 08-00-31 1.jpg",
+     "author": "G. Edward Johnson",
+     "license": "CC BY 4.0",
+     "w": 5760,
+     "h": 2880
+    },
+    {
+     "file": "Shadows and windows at Hallgrimskirkja Reykjavik Iceland 2026-02-07 21-21-01 1.jpg",
+     "author": "G. Edward Johnson",
+     "license": "CC BY 4.0",
+     "w": 8160,
+     "h": 6144
+    },
+    {
+     "file": "Hallgrímskirkja Reykjavík Iceland HDSR 2019 10 20 9999 439.jpg",
+     "author": "Hyppolyte de Saint-Rambert",
+     "license": "CC BY-SA 4.0",
+     "w": 5133,
+     "h": 3422
+    }
+   ]
+  },
+  {
+   "place": "South Coast",
+   "days": "",
+   "blurb": "Waterfalls, black sand and the glacier tongues of Vatnajokull.",
+   "candidates": [
+    {
+     "file": "Skógafoss Waterfall, Iceland, 20240720 1330 2993.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5700,
+     "h": 3786
+    },
+    {
+     "file": "Skógafoss Waterfall, Iceland, 20240720 1411 3075.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6016,
+     "h": 4016
+    },
+    {
+     "file": "Skógafoss Waterfall, Iceland, 20240720 1318 2975.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5276,
+     "h": 3523
+    },
+    {
+     "file": "Skogafoss in winter.jpg",
+     "author": "Martyn Smith",
+     "license": "CC BY 2.0",
+     "w": 4452,
+     "h": 2781
+    },
+    {
+     "file": "Skogafoss-02-2018-gje.jpg",
+     "author": "Gerd Eichmann",
+     "license": "CC BY-SA 4.0",
+     "w": 5156,
+     "h": 2921
+    },
+    {
+     "file": "Skogafoss in winter aerial view.jpg",
+     "author": "Martyn Smith",
+     "license": "CC BY 2.0",
+     "w": 3927,
+     "h": 2641
+    },
+    {
+     "file": "Skogafoss iceland hdsr 2019 10 18 9999 188.jpg",
+     "author": "Hyppolyte de Saint-Rambert",
+     "license": "CC BY-SA 4.0",
+     "w": 5184,
+     "h": 3456
+    },
+    {
+     "file": "Skogafoss iceland hdsr 2019 10 18 9999 159.jpg",
+     "author": "Hyppolyte de Saint-Rambert",
+     "license": "CC BY-SA 4.0",
+     "w": 5184,
+     "h": 3456
+    }
+   ]
+  },
+  {
+   "place": "Vatnajokull and Jokulsarlon",
+   "days": "",
+   "blurb": "Europe's largest ice cap and its glacier lagoon.",
+   "candidates": [
+    {
+     "file": "021 Wild smiling harbor seal at Jökulsárlón (Iceland) Photo by Giles Laurent.jpg",
+     "author": "Giles Laurent",
+     "license": "CC BY-SA 4.0",
+     "w": 5014,
+     "h": 3345
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240719 0937 2454.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5366,
+     "h": 3558
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240718 1620 2403.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5291,
+     "h": 3532
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240718 1607 2323.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5121,
+     "h": 3419
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240719 0935 2448.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5206,
+     "h": 3475
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240719 1057 2501.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5784,
+     "h": 3862
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240719 0947 2477.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5402,
+     "h": 3607
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240719 1141 2541.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6016,
+     "h": 4017
+    }
+   ]
+  },
+  {
+   "place": "East Fjords",
+   "days": "",
+   "blurb": "Steep fjords between the glacier coast and Myvatn.",
+   "candidates": [
+    {
+     "file": "Seyðisfjörður, Iceland, 20240717 1454 1758.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 4919,
+     "h": 2952
+    },
+    {
+     "file": "Seyðisfjörður, Iceland, 20240717 1453 1755.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 5621,
+     "h": 3753
+    },
+    {
+     "file": "Seydisfjordur, East Iceland (51441184230).jpg",
+     "author": "Fabio Achilli from Milano, Italy",
+     "license": "CC BY 2.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Seydisfjordur, East Iceland (51440969579).jpg",
+     "author": "Fabio Achilli from Milano, Italy",
+     "license": "CC BY 2.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Seydisfjordur, East Iceland (51439471272).jpg",
+     "author": "Fabio Achilli from Milano, Italy",
+     "license": "CC BY 2.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Seyðisfjörður Sept 2019 1.jpg",
+     "author": "Kasa Fue",
+     "license": "CC BY-SA 4.0",
+     "w": 5464,
+     "h": 3640
+    },
+    {
+     "file": "Seyðisfjörður Panorama 02.jpg",
+     "author": "Spike",
+     "license": "CC BY-SA 4.0",
+     "w": 13022,
+     "h": 3061
+    },
+    {
+     "file": "Seyðisfjörður, Iceland (28328269217).jpg",
+     "author": "Joe deSousa",
+     "license": "CC0",
+     "w": 6016,
+     "h": 4016
+    }
+   ]
+  },
+  {
+   "place": "Myvatn and Godafoss",
+   "days": "",
+   "blurb": "Volcanic lake district with craters, steam fields and a waterfall.",
+   "candidates": [
+    {
+     "file": "037 Northern lights over Mývatn (Iceland) Photo by Giles Laurent.jpg",
+     "author": "Giles Laurent",
+     "license": "CC BY-SA 4.0",
+     "w": 7241,
+     "h": 4830
+    },
+    {
+     "file": "Myvatn Iceland 01.jpg",
+     "author": "Kilmer",
+     "license": "CC BY-SA 3.0",
+     "w": 3008,
+     "h": 2008
+    },
+    {
+     "file": "Mývatn Dimmuborgir Panorama 01.jpg",
+     "author": "Spike",
+     "license": "CC BY-SA 4.0",
+     "w": 22559,
+     "h": 2456
+    },
+    {
+     "file": "Lake Myvatn - Iceland - panoramio.jpg",
+     "author": "diego_cue",
+     "license": "CC BY-SA 3.0",
+     "w": 3648,
+     "h": 2736
+    },
+    {
+     "file": "Lake Myvatn - Iceland - panoramio (1).jpg",
+     "author": "diego_cue",
+     "license": "CC BY-SA 3.0",
+     "w": 3648,
+     "h": 2736
+    },
+    {
+     "file": "Pseudocraters - Lake Myvatn - Iceland - panoramio.jpg",
+     "author": "diego_cue",
+     "license": "CC BY-SA 3.0",
+     "w": 3648,
+     "h": 2736
+    },
+    {
+     "file": "Islande - Le lac Mivatn.JPG",
+     "author": "Unknown",
+     "license": "CC BY-SA 3.0",
+     "w": 2048,
+     "h": 1536
+    },
+    {
+     "file": "Myvatn-Skutustathagigar-26-2018-gje.jpg",
+     "author": "Gerd Eichmann",
+     "license": "CC BY-SA 4.0",
+     "w": 5184,
+     "h": 2537
+    }
+   ]
+  },
+  {
+   "place": "Akureyri and Skagafjordur",
+   "days": "",
+   "blurb": "Largest town in the north, at the head of Eyjafjordur.",
+   "candidates": [
+    {
+     "file": "03613 ISL Akureyri cruise vessel vapors V P.jpg",
+     "author": "Virtual-Pano",
+     "license": "CC BY-SA 4.0",
+     "w": 6298,
+     "h": 3149
+    },
+    {
+     "file": "Akureyri, Iceland (72893).jpg",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Akureyri, Iceland (67888).jpg",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Akureyri, Iceland (77304).jpg",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Akureyri, Iceland (16141).jpg",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Akureyri, Iceland (70532).jpg",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Akureyri, Iceland (81237).jpg",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    },
+    {
+     "file": "Akureyri, Iceland (69573).jpg",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0",
+     "w": 4032,
+     "h": 3024
+    }
+   ]
+  },
+  {
+   "place": "Snaefellsnes",
+   "days": "",
+   "blurb": "Peninsula with Kirkjufell, lava coasts and fishing villages.",
+   "candidates": [
+    {
+     "file": "Kirkjufell, Iceland, 20240714 1631 0710.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6035,
+     "h": 4016
+    },
+    {
+     "file": "Kirkjufell, Vesturland, Islandia, 2014-08-14, DD 091.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5558,
+     "h": 3192
+    },
+    {
+     "file": "Kirkjufell, Vesturland, Islandia, 2014-08-14, DD 094.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "w": 5616,
+     "h": 2401
+    },
+    {
+     "file": "Kirkjufell, Iceland, 20240714 1630 0702.jpg",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0",
+     "w": 6035,
+     "h": 4016
+    },
+    {
+     "file": "Kirkjufell, Iceland (Unsplash LoKG7kKx7Zc).jpg",
+     "author": "Steven Diaz stevendiazphoto",
+     "license": "CC0",
+     "w": 3463,
+     "h": 2309
+    },
+    {
+     "file": "Kirkjufell in winter.jpg",
+     "author": "Beardhatcode",
+     "license": "CC0",
+     "w": 4000,
+     "h": 2252
+    },
+    {
+     "file": "Kirkjufell mvp.jpg",
+     "author": "Miquelvp",
+     "license": "CC BY 4.0",
+     "w": 4898,
+     "h": 3265
+    },
+    {
+     "file": "2008-05-17 06 Kirkjufell at Grundarfjörður.jpg",
+     "author": "Hansueli Krapf",
+     "license": "CC BY 2.5",
+     "w": 4264,
+     "h": 1383
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="trip-date" content="">
+<meta name="trip-dates" content="11 days &middot; dates open">
+<meta name="trip-duration" content="10 nights">
+<meta name="trip-region" content="Utah — the five national parks">
+<title>Utah's five national parks — 11 days</title>
+<meta name="description" content="Zion, Bryce, Capitol Reef, Arches and Canyonlands. Eleven days, ~800 miles, all paved, Las Vegas in and Salt Lake out.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='16' height='24' rx='2' fill='%230e6b6e'/%3E%3C/svg%3E">
+<style>
+/* theme: desert */
+/* desert — high sun, red rock, bleached sky.
+   New curated theme. Good for: canyons, arid parks, badlands, road trips south. */
+/* @fonts: Archivo:wght@500;700;800|Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600|JetBrains+Mono:wght@400;500;700 */
+:root{
+  --font-display:"Archivo",sans-serif;
+  --font-body:"Newsreader",Georgia,serif;
+  --font-mono:"JetBrains Mono",monospace;
+
+  --bg:#f8f4ee;
+  --surface:#fffefa;
+  --bg-deep:#2a1e18;
+  --bg-deep-2:#3a2a21;
+
+  --ink:#2e241d;
+  --ink-on-deep:#dbcdc0;
+  --muted:#7b6e62;
+  --muted-on-deep:#a89a8b;
+  --line:#e3d9ca;
+
+  --accent:#9c4a2c;
+  --accent-dark:#7a3620;
+  --accent-ink:#ffffff;
+  --accent-soft:#f5e5dc;
+
+  --header:#8a3f2a;
+  --header-ink:#ffffff;
+  --header-sub:#f0d5c8;
+
+  --warn:#a8281c;
+  --warn-soft:#fae8e5;
+
+  --highlight:#c98a22;
+  --highlight-ink:#332204;
+  --highlight-soft:#faf1d9;
+  --highlight-on-deep:#f0c473;
+
+  --class-1:#9c4a2c;
+  --class-2:#f2ebdd;
+  --class-3:#7d8a4a;
+  --class-4:#c98a22;
+  --class-5:#6b6f9c;
+  --class-6:#8a7a6a;
+}
+
+
+/* ======================================================================================
+   base.css — shared structure for every trip plan.
+
+   HARD RULE: no colour literals in this file. Colour comes from _system/themes/*.css
+   via the token contract in build.py. Overlays use color-mix() so they still track the
+   theme. The build fails if a hex literal appears here.
+
+   This is the union of the two component families that had drifted apart:
+     - Vermont / Niagara : .card .split .content, .sign, .trail/.stop/.blaze, .links/.btn
+     - Quebec / Dolomites / Switzerland : .card .chead .cbody, .day/.dhead sticky sign,
+       .btns/.btn, s- day status + g- legend swatches
+   Both are expressed here once. The classifier (.mark) replaces the old .blaze rules
+   and the old s- day-status / g- legend rules alike.
+   ====================================================================================== */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16.5px;
+  line-height:1.6;
+}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+  outline:3px solid var(--highlight);
+  outline-offset:2px;
+  border-radius:3px;
+}
+.mono{font-family:var(--font-mono)}
+main{width:min(1080px,92%);margin:0 auto;padding-bottom:60px}
+
+/* ---------- hero ------------------------------------------------------------------ */
+.hero{
+  position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:flex-end;
+  color:var(--header-ink);
+  background-color:var(--bg-deep);
+  background-position:center 35%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--bg-deep) 45%, transparent) 0%,
+    color-mix(in srgb, var(--bg-deep) 20%, transparent) 40%,
+    color-mix(in srgb, var(--bg-deep) 88%, transparent) 100%);
+}
+.hero-inner{position:relative;width:min(1080px,92%);margin:0 auto;padding:56px 0 42px}
+.hero .eyebrow{
+  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--highlight-on-deep);margin-bottom:14px;
+}
+.hero h1{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  line-height:.95;font-size:clamp(3rem,9vw,6.4rem);letter-spacing:.015em;
+  text-shadow:0 2px 24px color-mix(in srgb, var(--bg-deep) 55%, transparent);
+}
+.hero h1 .amp{color:var(--highlight-on-deep)}
+.hero .sub{margin-top:16px;max-width:660px;font-size:1.05rem;color:var(--ink-on-deep)}
+.hero .credit{position:absolute;right:12px;bottom:8px;font-size:.66rem;opacity:.78}
+.hero .credit a{color:var(--ink-on-deep)}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;padding:8px 14px;
+  border:1px solid color-mix(in srgb, var(--header-ink) 35%, transparent);
+  border-radius:999px;
+  background:color-mix(in srgb, var(--bg-deep) 45%, transparent);
+  backdrop-filter:blur(4px);
+}
+.chip strong{color:var(--highlight-on-deep);font-weight:600}
+
+/* ---------- sticky nav ------------------------------------------------------------- */
+nav{position:sticky;top:0;z-index:50;background:var(--bg-deep);border-bottom:3px solid var(--highlight)}
+nav .wrap{
+  width:min(1080px,94%);margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:10px 0;
+  -webkit-overflow-scrolling:touch;
+}
+nav a{
+  flex:0 0 auto;font-family:var(--font-display);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;font-size:1.02rem;
+  color:var(--ink-on-deep);text-decoration:none;padding:8px 16px;border-radius:6px;
+  transition:background .15s,color .15s;
+}
+nav a:hover{color:var(--header-ink);background:var(--bg-deep-2)}
+nav a.active{color:var(--header-ink);background:var(--header)}
+nav a .d{
+  display:block;font-family:var(--font-mono);font-weight:450;font-size:.62rem;
+  letter-spacing:.08em;color:var(--muted-on-deep);text-transform:none;
+}
+
+/* ---------- orientation / intro ---------------------------------------------------- */
+.intro{padding:6px 0 10px;scroll-margin-top:64px}
+.intro .kick{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--warn);margin:0 0 10px;
+}
+.intro h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.7rem,4.4vw,2.6rem);line-height:1.02;margin:0 0 14px;
+  color:var(--bg-deep);
+}
+.intro .lead{max-width:64ch;font-size:1.06rem}
+.intro .lead p{margin:0 0 14px}
+
+.introwide{margin:22px 0 6px;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.introwide img{width:100%;height:clamp(220px,34vw,380px);object-fit:cover;display:block}
+.introwide figcaption{
+  position:absolute;right:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.6rem;padding:3px 8px;
+}
+.introwide figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+
+/* ---------- stat strip -------------------------------------------------------------- */
+.numstrip{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0 6px;padding:16px 0;
+  border-top:2px solid var(--bg-deep);border-bottom:2px solid var(--bg-deep);
+}
+.numstrip div{min-width:0}
+.numstrip b{
+  display:block;font-family:var(--font-display);font-weight:800;font-size:1.85rem;
+  line-height:1;color:var(--header);
+}
+.numstrip span{
+  font-family:var(--font-mono);font-size:.63rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ---------- area / sub-region cards -------------------------------------------------- */
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0 0}
+.area{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.area figure{margin:0;position:relative}
+.area img{width:100%;height:150px;object-fit:cover;display:block}
+.area figcaption{
+  position:absolute;left:0;bottom:0;
+  background:color-mix(in srgb, var(--bg-deep) 74%, transparent);
+  color:var(--header-ink);font-family:var(--font-mono);font-size:.55rem;padding:2px 6px;
+}
+.area figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.area .ab{padding:13px 15px}
+.area h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin:0 0 5px;line-height:1.1;
+}
+.area .days{
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:4px;padding:2px 7px;
+  display:inline-block;margin-bottom:7px;
+}
+.area p{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* ---------- "what to know" list ------------------------------------------------------ */
+.know{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.know li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:.96rem}
+.know li b{font-family:var(--font-display);font-size:1.25rem;color:var(--warn);line-height:1}
+
+/* ---------- day section + sign -------------------------------------------------------- */
+section.day{padding-top:46px;scroll-margin-top:64px}
+.sign{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;
+  box-shadow:0 6px 18px color-mix(in srgb, var(--bg-deep) 18%, transparent)}
+.sign .date{
+  background:var(--bg-deep);color:var(--highlight-on-deep);display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:18px 20px;min-width:118px;
+}
+.sign .date .dow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
+.sign .date .num{
+  font-family:var(--font-display);font-weight:800;font-size:2.6rem;line-height:1;
+  color:var(--header-ink);
+}
+.sign .body{background:var(--header);color:var(--header-ink);flex:1;padding:16px 22px;
+  display:flex;flex-direction:column;justify-content:center}
+.sign h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.05;
+}
+.sign .route{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.05em;
+  color:var(--header-sub);margin-top:6px}
+
+/* sticky variant, promoted from the Dolomites/Switzerland pages */
+.sign--sticky{position:sticky;top:76px;z-index:20}
+
+.daymeta{
+  display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--font-mono);
+  font-size:.74rem;color:var(--muted);padding:14px 4px 4px;
+}
+.daymeta b{color:var(--ink);font-weight:600}
+
+/* ---------- classifier: replaces the old .blaze and s-/g- systems --------------------- */
+/* Each trip declares its own vocabulary; the theme supplies the colour for each slot. */
+.mark{
+  display:inline-block;width:20px;height:32px;border-radius:3px;
+  border:2px solid var(--bg-deep-2);
+  box-shadow:0 2px 5px color-mix(in srgb, var(--bg-deep) 22%, transparent);
+}
+.mark--1{background:var(--class-1)}
+.mark--2{background:var(--class-2)}
+.mark--3{background:var(--class-3)}
+.mark--4{background:var(--class-4)}
+.mark--5{background:var(--class-5)}
+.mark--6{background:var(--class-6)}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:34px 0 0;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.legend .b{
+  width:13px;height:20px;border-radius:2px;border:1.5px solid var(--bg-deep-2);
+  display:inline-block;vertical-align:-5px;margin-right:6px;
+}
+
+/* ---------- timeline ------------------------------------------------------------------- */
+.trail{position:relative;margin-top:18px;padding-left:44px}
+.trail::before{
+  content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;
+  background:repeating-linear-gradient(180deg,var(--bg-deep-2) 0 14px,transparent 14px 22px);
+  opacity:.35;border-radius:2px;
+}
+.stop{position:relative;margin-bottom:26px}
+.stop > .mark{position:absolute;left:-44px;top:14px}
+
+/* ---------- stop card ------------------------------------------------------------------ */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 10px color-mix(in srgb, var(--bg-deep) 6%, transparent);
+}
+.card .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr)}
+.card .split.noimg{grid-template-columns:1fr}
+.card .content{padding:20px 24px}
+.card .split figure:first-child{grid-column:2;grid-row:1}
+.card figure{position:relative;min-height:220px;overflow:hidden}
+.card figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card figcaption{
+  position:absolute;left:0;right:0;bottom:0;font-size:.64rem;color:var(--header-ink);
+  background:linear-gradient(transparent, color-mix(in srgb, var(--bg-deep) 85%, transparent));
+  padding:18px 12px 7px;
+}
+.card figcaption a{color:var(--highlight-on-deep);text-decoration:none}
+.card h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.035em;font-size:1.45rem;line-height:1.1;
+}
+.card p{margin-top:8px;font-size:.97rem}
+
+.time{
+  font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.06em;
+  color:var(--accent-dark);background:var(--accent-soft);border-radius:6px;padding:3px 9px;
+  display:inline-block;margin-bottom:8px;
+}
+.time.opt{color:var(--highlight-ink);background:var(--highlight-soft)}
+
+.tag{
+  display:inline-block;vertical-align:3px;margin-left:8px;font-family:var(--font-mono);
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--header-ink);
+  background:var(--warn);border-radius:4px;padding:2px 7px;
+}
+.tag--added,.tag--optional{background:var(--highlight);color:var(--highlight-ink)}
+.tag--unmissable{background:var(--warn);color:var(--header-ink)}
+.tag--easy{background:var(--header);color:var(--header-ink)}
+.tag--hidden{background:var(--bg-deep-2);color:var(--ink-on-deep)}
+
+.stats{
+  display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+.stats b{color:var(--ink);font-weight:600}
+
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.03em;text-decoration:none;
+  border-radius:7px;padding:7px 12px;border:1.5px solid var(--accent);color:var(--accent-dark);
+  background:var(--surface);transition:background .15s;
+}
+.btn:hover{background:var(--accent-soft)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-dark)}
+
+details.more{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+details.more summary{
+  cursor:pointer;font-family:var(--font-mono);font-size:.74rem;
+  color:var(--accent-dark);list-style:none;
+}
+details.more summary::before{content:"+ "}
+details.more[open] summary::before{content:"\2212 "}
+details.more p,details.more ul{font-size:.9rem;margin-top:8px;color:var(--ink)}
+details.more ul{padding-left:20px}
+
+/* ---------- callouts, maps, panels ------------------------------------------------------ */
+.note{
+  margin-top:16px;background:var(--warn-soft);border-left:4px solid var(--warn);
+  border-radius:0 8px 8px 0;padding:12px 16px;font-size:.92rem;
+}
+.note.gold{background:var(--highlight-soft);border-left-color:var(--highlight)}
+
+.mapframe{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mapframe iframe{display:block;width:100%;height:330px;border:0}
+.mapframe .bar{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 14px;
+  background:var(--surface);font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+.panel h3{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.04em;font-size:1.3rem;margin-bottom:10px;
+}
+
+.check label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:.94rem;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent);width:16px;height:16px;flex:0 0 auto}
+.check label.done{color:var(--muted);text-decoration:line-through}
+
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:6px}
+th{
+  text-align:left;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:2px solid var(--line);
+}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.linklist a{display:block;padding:6px 0;font-size:.9rem}
+
+/* ---------- A/B plan toggle -------------------------------------------------------------- */
+.toggle{display:flex;margin:20px 0 4px;border:2px solid var(--header);border-radius:10px;
+  overflow:hidden;width:fit-content;max-width:100%}
+.toggle button{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1rem;padding:10px 20px;border:0;background:var(--surface);
+  color:var(--header);cursor:pointer;
+}
+.toggle button.on{background:var(--header);color:var(--header-ink)}
+.planwrap .plan{display:none}
+.planwrap .plan.show{display:block}
+
+/* ---------- day-of quick links ------------------------------------------------------------ */
+.quick{margin:26px 0 6px;scroll-margin-top:64px}
+.quick h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  letter-spacing:.02em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--bg-deep);margin-bottom:4px;
+}
+.quick .qsub{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;
+  color:var(--muted);margin-bottom:16px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.qcard h4{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1.02rem;color:var(--header);margin-bottom:9px;
+  display:flex;align-items:center;gap:7px;
+}
+.qcard h4 .dot{width:9px;height:14px;border-radius:2px;border:1.5px solid var(--bg-deep-2);flex:0 0 auto}
+.qcard a{
+  display:block;font-family:var(--font-mono);font-size:.76rem;line-height:1.35;
+  text-decoration:none;color:var(--accent-dark);border:1.5px solid var(--line);border-radius:7px;
+  padding:9px 11px;margin-bottom:7px;transition:background .15s,border-color .15s;
+}
+.qcard a:hover{background:var(--accent-soft);border-color:var(--accent)}
+.qcard a:last-child{margin-bottom:0}
+.qcard a b{display:block;font-weight:600;color:var(--ink);font-size:.82rem;margin-bottom:1px}
+.qcard a.warn{border-color:var(--warn);color:var(--warn)}
+.qcard a.warn b{color:var(--warn)}
+.qcard a.tel{border-color:var(--highlight);background:var(--highlight-soft)}
+
+/* ---------- footer -------------------------------------------------------------------------- */
+section#essentials{padding-top:46px;scroll-margin-top:64px}
+section#essentials>h2{
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.6rem,4vw,2.3rem);color:var(--bg-deep);
+}
+footer{background:var(--bg-deep);color:var(--muted-on-deep);margin-top:60px;padding:34px 0;font-size:.8rem}
+footer .wrap{width:min(1080px,92%);margin:0 auto}
+footer a{color:var(--ink-on-deep)}
+
+/* ---------- responsive ------------------------------------------------------------------------ */
+@media(max-width:760px){
+  .numstrip{grid-template-columns:repeat(3,1fr);gap:14px}
+  .area img{height:130px}
+  .card .split{grid-template-columns:1fr}
+  .card figure{min-height:190px;order:-1}
+  .card .split figure:first-child{grid-column:1;grid-row:auto}
+  .grid2{grid-template-columns:1fr}
+  .hero{min-height:64vh}
+  .trail{padding-left:36px}
+  .stop > .mark{left:-36px;width:16px;height:26px}
+  .trail::before{left:12px}
+  .sign--sticky{position:static}
+  .qcard a{padding:11px 12px;font-size:.8rem}
+}
+
+@media print{
+  nav,.mapframe iframe,.hero{display:none}
+  body{background:var(--surface);font-size:11pt}
+  .card{box-shadow:none;break-inside:avoid}
+  .planwrap .plan{display:block!important}
+  .sign--sticky{position:static}
+}
+
+
+/* trip-local additions */
+nav a.home{color:var(--highlight-on-deep);font-weight:600;border-right:1px solid color-mix(in srgb, var(--highlight-on-deep) 32%, transparent);margin-right:6px}nav a.home:hover{color:var(--header-ink)}.card .gal{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,1fr);gap:10px;margin-top:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}.card .gal figure{position:static;min-height:0;overflow:visible;margin:0;scroll-snap-align:start;min-width:0}.card .gal a{display:block;overflow:hidden;border-radius:8px;border:1px solid var(--line)}.card .gal img{position:static;inset:auto;width:100%;height:148px;object-fit:cover;display:block;transition:transform .35s ease}.card .gal a:hover img{transform:scale(1.04)}.card .gal figcaption{position:static;background:none;padding:4px 1px 0;font-size:.66rem;line-height:1.35;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}@media(max-width:700px){.card .gal{grid-auto-columns:minmax(170px,78%)}.card .gal img{height:128px}}.panel p + p{margin-top:11px}.intro p + p{margin-top:12px}.hero::before{background:linear-gradient(180deg,color-mix(in srgb, var(--bg-deep) 34%, transparent) 0%,color-mix(in srgb, var(--bg-deep) 78%, transparent) 100%)}.more table{margin-top:10px}.more td,.more th{padding:4px 8px;border-bottom:1px solid var(--line)}
+</style>
+</head>
+<body data-slug="usa-southwest-rockies">
+
+<header class="hero" style="background-image:url('https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/ArchesNationalParkDelicateArch.jpg/1920px-ArchesNationalParkDelicateArch.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail')">
+  <div class="hero-inner">
+    <p class="eyebrow">11 days &middot; 10 nights &middot; dates open</p>
+    <h1>Utah's Five Parks</h1>
+    <p class="sub">Zion, Bryce, Capitol Reef, Arches and Canyonlands — one base per park, Highway 12 in the middle, no dirt roads.</p>
+    <div class="chips"><span class="chip">11 days &middot; 10 nights</span><span class="chip">~800 mi / 1,300 km</span><span class="chip">5 bases</span><span class="chip">All 5 Utah parks</span><span class="chip">2 adults + 1 child (11)</span><span class="chip">Dates open</span></div>
+  </div>
+  <p class="credit"><a href="https://commons.wikimedia.org/wiki/File:ArchesNationalParkDelicateArch.jpg">Delicate Arch &middot; Wikimedia Commons</a></p>
+</header>
+
+<nav aria-label="Sections">
+  <div class="wrap"><a class="home" href="../">All trips</a><a href="#orient">Orientation</a><a href="#gallery"><b>&#9632;</b><span>photos</span></a><a href="#know">Know first</a><a href="#dates">When to go</a><a href="#assume">Assumptions</a><a href="#d1">1–3 Zion</a><a href="#d4">4–5 Bryce</a><a href="#d5">5 Highway 12</a><a href="#dcr">6 Capitol Reef</a><a href="#d9">7–9 Moab</a><a href="#dend">10–11 Salt Lake</a><a href="#booking">Booking</a><a href="#dayof">Day-of</a><a href="#honest">Honest state</a></div>
+</nav>
+
+<main>
+
+<section id="orient">
+  <h2>What this place actually is</h2>
+  <div class="intro">
+    <p>Five national parks in eleven days, with one base per park and no day spent only in the
+    car.</p>
+    <p>The <b>Colorado Plateau</b> is a slab of sedimentary rock roughly the size of Poland,
+    lifted almost intact and almost level about 1,500&nbsp;m into the sky. Because it rose
+    without crumpling, the layers stayed flat — so rivers cut <i>down</i> through them instead
+    of being deflected sideways. Everything you look at follows from that: canyons with
+    squared-off walls, mesas with flat tops, arches and spires left standing where soft rock
+    eroded from beneath a hard cap. The colours are iron and manganese staining the
+    sandstone.</p>
+    <p>One place breaks the pattern, and it is on this route. The <b>Waterpocket Fold</b> at
+    Capitol Reef is a hundred-mile wrinkle where the crust did buckle, tilting the layers on
+    edge so you drive past a cross-section of 200 million years in an afternoon.</p>
+  </div>
+
+  <h2>Why it is famous — the specific things</h2>
+  <div class="intro">
+    <p><b>Reflected light.</b> In a deep canyon the sun never reaches the floor directly; it
+    hits one wall and bounces, and the bounced light is orange. That is the whole reason
+    Mesa Arch is photographed at sunrise — the underside of the arch is lit from below, by
+    light reflected off a cliff 500&nbsp;m beneath it.</p>
+    <p><b>Density.</b> The Windows section of Arches has the highest arch density per step anywhere. Bryce is a huge field of hoodoos
+    seen from above; Zion is the opposite view, from the floor
+    of the canyon looking up.</p>
+    <p><b>What was left out, and why it is not a loss.</b> The earlier version of this plan also
+    ran through Page and Monument Valley. Antelope Canyon, Horseshoe Bend and Monument Valley
+    are among the most photographed places in the Southwest, and cutting them is a real
+    trade. What they cost was <b>four nights, an hour of clock confusion twice, the trip's
+    hardest sell-out and a Navajo-time booking</b>. They make a good trip of their own later.</p>
+  </div>
+
+  <h2>The four regions</h2>
+  <div class="areas"><div class="area"><figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Bryce_Canyon%2C_UT_9-09_%2814668429161%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Zion &amp; Bryce"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon%2C_UT_9-09_%2814668429161%29.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Zion &amp; Bryce</h3><p class="days">Days 1–5</p><p>Canyon from the inside, then hoodoo amphitheatre from the rim. The two most vertical experiences of the trip, 90 minutes apart.</p></div></div><div class="area"><figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/3/30/Scenic_Byway_12_-_Driving_the_Hogsback_-_NARA_-_7721775.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Scenic Byway 12"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Scenic_Byway_12_-_Driving_the_Hogsback_-_NARA_-_7721775.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Scenic Byway 12</h3><p class="days">Day 5</p><p>A 123-mile drive over the Hogback and Boulder Mountain, with a waterfall walk in the middle. It replaces the old Hanksville detour and is a destination in its own right.</p></div></div><div class="area"><figure><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/e/ef/A136%2C_Capitol_Reef_National_Park%2C_Utah%2C_USA%2C_2001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Capitol Reef"><figcaption><a href="https://commons.wikimedia.org/wiki/File:A136%2C_Capitol_Reef_National_Park%2C_Utah%2C_USA%2C_2001.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Capitol Reef</h3><p class="days">Days 5–7</p><p>A hundred-mile buckle in the earth's crust, with a Mormon orchard settlement in the middle of it. The quietest of Utah's five parks by a wide margin.</p></div></div><div class="area"><figure><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/ArchesNationalParkDelicateArch.jpg/1920px-ArchesNationalParkDelicateArch.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Moab"><figcaption><a href="https://commons.wikimedia.org/wiki/File:ArchesNationalParkDelicateArch.jpg">Wikimedia Commons</a></figcaption></figure><div class="ab"><h3>Moab</h3><p class="days">Days 7–10</p><p>Arch density found nowhere else on earth, plus the Island in the Sky mesa and the best sunrise on the Colorado Plateau. The trip ends on its strongest ground.</p></div></div></div>
+
+  <h2>The trip in numbers</h2>
+  <div class="numstrip">
+    <span><b>10</b> nights</span><span><b>5</b> bases</span>
+    <span><b>~800</b> mi road driving</span><span><b>~1,300</b> km</span>
+    <span><b>5</b> Utah parks — all of them</span><span><b>0</b> dirt roads</span>
+  </div>
+</section>
+<!-- gallery:start -->
+
+<style>
+#gallery{padding:50px 0;border-bottom:1px solid var(--line,#ddd)}
+#gallery .gwrap{max-width:1080px;margin:0 auto;padding:0 20px}
+#gallery h2{margin:0 0 6px}
+#gallery .gnote{color:var(--muted,#666);margin:0 0 26px;max-width:62ch}
+#gallery .gplace{margin:0 0 34px}
+#gallery .gplace h3{margin:0;font-size:1.2rem;letter-spacing:-.01em}
+#gallery .gplace .gdays{font-family:var(--font-mono,monospace);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#666);margin-left:8px;white-space:nowrap}
+#gallery .gplace p{margin:3px 0 12px;color:var(--muted,#666);font-size:.95rem}
+#gallery .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;background:var(--surface,#fff);border:1px solid var(--line,#ddd)}
+#gallery figure a.gimg{display:block;aspect-ratio:3/2;overflow:hidden}
+#gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+#gallery figure:hover img{transform:scale(1.03)}
+#gallery figcaption{padding:7px 9px 8px;font-size:.78rem;line-height:1.35;color:var(--ink,#222)}
+#gallery figcaption small{display:block;color:var(--muted,#666);font-size:.68rem;margin-top:2px}
+#gallery figcaption small a{color:inherit}
+@media (prefers-reduced-motion:reduce){#gallery img{transition:none}}
+@media print{#gallery{break-inside:avoid}}
+
+#glb{position:fixed;inset:0;z-index:1000;display:none;background:rgba(10,12,14,.97);color:#fff;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-body,Georgia,serif)}
+#glb.open{display:flex}
+#glb .gl-stage{position:relative;flex:1;width:100%;min-height:0;display:flex;align-items:center;justify-content:center;padding:44px 64px 8px;box-sizing:border-box;touch-action:pan-y}
+#glb img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:3px;transition:opacity .2s}
+#glb img.loading{opacity:.25}
+#glb .gl-cap{width:100%;max-width:900px;padding:8px 20px 18px;box-sizing:border-box;text-align:center;font-size:.9rem;line-height:1.4}
+#glb .gl-cap small{display:block;color:#b8c0c8;font-size:.75rem;margin-top:3px}
+#glb .gl-cap a{color:#cfe3ee}
+#glb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center}
+#glb button:hover,#glb button:focus-visible{background:rgba(255,255,255,.28);outline:2px solid #fff}
+#glb .gl-prev{left:10px;top:50%;margin-top:-23px}
+#glb .gl-next{right:10px;top:50%;margin-top:-23px}
+#glb .gl-close{right:10px;top:10px;font-size:1.3rem}
+#glb .gl-fs{right:64px;top:10px;font-size:1.1rem}
+#glb .gl-count{position:absolute;left:16px;top:18px;font-family:var(--font-mono,monospace);font-size:.75rem;letter-spacing:.08em;color:#b8c0c8}
+@media (max-width:620px){#glb .gl-stage{padding:48px 6px 4px}#glb .gl-prev,#glb .gl-next{top:auto;bottom:86px;margin:0}#glb .gl-prev{left:12px}#glb .gl-next{right:12px}}
+@media (prefers-reduced-motion:reduce){#glb img{transition:none}}
+@media print{#glb{display:none!important}}
+</style>
+
+<section id="gallery"><div class="gwrap">
+<p class="kicker">Where you are going</p>
+<h2>Photo gallery</h2>
+<p class="gnote">The places on this plan, in the order you reach them. Click a photo to view it full size, then use the arrows, arrow keys or a swipe to move through the gallery. These show typical views, not conditions on your dates.</p>
+<div class="gplace"><h3>Zion and Springdale</h3><p>Sandstone canyon park entered from Springdale, with the Virgin River Narrows.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281026077696%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281026077696%29.jpg?width=1600" data-cap="The Three Patriarchs in Zion Canyon" data-place="Zion and Springdale" data-credit="Ken Lund from Reno, Nevada, USA &middot; CC BY-SA 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281026077696%29.jpg?width=900" alt="The Three Patriarchs in Zion Canyon"></a><figcaption>The Three Patriarchs in Zion Canyon<small>Ken Lund from Reno, Nevada, USA &middot; CC BY-SA 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281026077696%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281025201277%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281025201277%29.jpg?width=1600" data-cap="The Three Patriarchs from the canyon floor" data-place="Zion and Springdale" data-credit="Ken Lund from Reno, Nevada, USA &middot; CC BY-SA 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281025201277%29.jpg?width=900" alt="The Three Patriarchs from the canyon floor"></a><figcaption>The Three Patriarchs from the canyon floor<small>Ken Lund from Reno, Nevada, USA &middot; CC BY-SA 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Three_Patriarchs%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281025201277%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Court_of_the_Patriarchs_from_Above.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Court_of_the_Patriarchs_from_Above.jpg?width=1600" data-cap="The Court of the Patriarchs seen from above" data-place="Zion and Springdale" data-credit="au_ears &middot; CC BY-SA 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Court_of_the_Patriarchs_from_Above.jpg?width=900" alt="The Court of the Patriarchs seen from above"></a><figcaption>The Court of the Patriarchs seen from above<small>au_ears &middot; CC BY-SA 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Court_of_the_Patriarchs_from_Above.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Bryce Canyon</h3><p>Amphitheatres of hoodoos at 2,400 to 2,700 m on the Paunsaugunt Plateau.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Bryce_Canon_Sunrise_very_early_morning_MC.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Canon_Sunrise_very_early_morning_MC.jpg?width=1600" data-cap="Bryce Canyon in the first light" data-place="Bryce Canyon" data-credit="Christian Mehlfuhrer &middot; CC BY 2.5"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Canon_Sunrise_very_early_morning_MC.jpg?width=900" alt="Bryce Canyon in the first light"></a><figcaption>Bryce Canyon in the first light<small>Christian Mehlfuhrer &middot; CC BY 2.5 &middot; <a href="https://commons.wikimedia.org/wiki/File:Bryce_Canon_Sunrise_very_early_morning_MC.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Bryce_Amphitheater_from_Sunrise_Point%2C_Bryce_Canyon_National_Park%2C_Utah.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Amphitheater_from_Sunrise_Point%2C_Bryce_Canyon_National_Park%2C_Utah.jpg?width=1600" data-cap="Bryce Amphitheater from Sunrise Point" data-place="Bryce Canyon" data-credit="Christian David &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Amphitheater_from_Sunrise_Point%2C_Bryce_Canyon_National_Park%2C_Utah.jpg?width=900" alt="Bryce Amphitheater from Sunrise Point"></a><figcaption>Bryce Amphitheater from Sunrise Point<small>Christian David &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Bryce_Amphitheater_from_Sunrise_Point%2C_Bryce_Canyon_National_Park%2C_Utah.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon_View_of_the_Hoodoos_from_Inspiration.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Canyon_View_of_the_Hoodoos_from_Inspiration.jpg?width=1600" data-cap="Hoodoos seen from Inspiration Point" data-place="Bryce Canyon" data-credit="Pierre André Leclercq &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Canyon_View_of_the_Hoodoos_from_Inspiration.jpg?width=900" alt="Hoodoos seen from Inspiration Point"></a><figcaption>Hoodoos seen from Inspiration Point<small>Pierre André Leclercq &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon_View_of_the_Hoodoos_from_Inspiration.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Scenic Byway 12</h3><p>The road from Bryce to Torrey over the Hogsback and past Calf Creek.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Calf_Creek_Falls_hike_03.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Calf_Creek_Falls_hike_03.jpg?width=1600" data-cap="The Calf Creek Falls trail" data-place="Scenic Byway 12" data-credit="Mramoeba &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Calf_Creek_Falls_hike_03.jpg?width=900" alt="The Calf Creek Falls trail"></a><figcaption>The Calf Creek Falls trail<small>Mramoeba &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Calf_Creek_Falls_hike_03.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Capitol Reef</h3><p>A 100-mile wrinkle in the earth, the Waterpocket Fold, with orchards at Fruita.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Waterpocket_Fold_from_above_Capitol_Reef_Scenic_Drive.jpeg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Waterpocket_Fold_from_above_Capitol_Reef_Scenic_Drive.jpeg?width=1600" data-cap="The Waterpocket Fold from the Scenic Drive" data-place="Capitol Reef" data-credit="Unknown &middot; CC BY-SA 2.5"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Waterpocket_Fold_from_above_Capitol_Reef_Scenic_Drive.jpeg?width=900" alt="The Waterpocket Fold from the Scenic Drive"></a><figcaption>The Waterpocket Fold from the Scenic Drive<small>Unknown &middot; CC BY-SA 2.5 &middot; <a href="https://commons.wikimedia.org/wiki/File:Waterpocket_Fold_from_above_Capitol_Reef_Scenic_Drive.jpeg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820084529946%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820084529946%29.jpg?width=1600" data-cap="Streaked cliffs of the Waterpocket Fold" data-place="Capitol Reef" data-credit="Murray Foubister &middot; CC BY-SA 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820084529946%29.jpg?width=900" alt="Streaked cliffs of the Waterpocket Fold"></a><figcaption>Streaked cliffs of the Waterpocket Fold<small>Murray Foubister &middot; CC BY-SA 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820084529946%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820116153061%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820116153061%29.jpg?width=1600" data-cap="Waterpocket Fold cliffs in Capitol Reef" data-place="Capitol Reef" data-credit="Murray Foubister &middot; CC BY-SA 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820116153061%29.jpg?width=900" alt="Waterpocket Fold cliffs in Capitol Reef"></a><figcaption>Waterpocket Fold cliffs in Capitol Reef<small>Murray Foubister &middot; CC BY-SA 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Waterpocket_Fold_Cliffs_in_Capitol_Reef_Nat%27l_Park_-_%2820116153061%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Arches and Moab</h3><p>Over 2,000 sandstone arches north of Moab.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:USA_Arches_NP_Delicate_Arch%281%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/USA_Arches_NP_Delicate_Arch%281%29.jpg?width=1600" data-cap="Delicate Arch" data-place="Arches and Moab" data-credit="Thomas Schoch &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/USA_Arches_NP_Delicate_Arch%281%29.jpg?width=900" alt="Delicate Arch"></a><figcaption>Delicate Arch<small>Thomas Schoch &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:USA_Arches_NP_Delicate_Arch%281%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Delicate_Arch_sunset.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Delicate_Arch_sunset.jpg?width=1600" data-cap="Delicate Arch at sunset" data-place="Arches and Moab" data-credit="Ymaup &middot; CC BY-SA 3.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Delicate_Arch_sunset.jpg?width=900" alt="Delicate Arch at sunset"></a><figcaption>Delicate Arch at sunset<small>Ymaup &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Delicate_Arch_sunset.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Parque_Nacional_de_los-Arcos-Utah2508.JPG" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Parque_Nacional_de_los-Arcos-Utah2508.JPG?width=1600" data-cap="Delicate Arch framed by another arch" data-place="Arches and Moab" data-credit="Diego Delso &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Parque_Nacional_de_los-Arcos-Utah2508.JPG?width=900" alt="Delicate Arch framed by another arch"></a><figcaption>Delicate Arch framed by another arch<small>Diego Delso &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Parque_Nacional_de_los-Arcos-Utah2508.JPG" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Canyonlands Island in the Sky</h3><p>A mesa 600 m above the Green and Colorado rivers.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:View_Through_Mesa_Arch_Canyonlands_NP_Utah_2023.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/View_Through_Mesa_Arch_Canyonlands_NP_Utah_2023.jpg?width=1600" data-cap="The view through Mesa Arch" data-place="Canyonlands Island in the Sky" data-credit="Larry D. Moore &middot; CC BY 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/View_Through_Mesa_Arch_Canyonlands_NP_Utah_2023.jpg?width=900" alt="The view through Mesa Arch"></a><figcaption>The view through Mesa Arch<small>Larry D. Moore &middot; CC BY 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:View_Through_Mesa_Arch_Canyonlands_NP_Utah_2023.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Mesa_Arch_%28Island_in_the_Sky%29_%287167155236%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Mesa_Arch_%28Island_in_the_Sky%29_%287167155236%29.jpg?width=1600" data-cap="Mesa Arch on the Island in the Sky" data-place="Canyonlands Island in the Sky" data-credit="CanyonlandsNPS &middot; Public domain"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Mesa_Arch_%28Island_in_the_Sky%29_%287167155236%29.jpg?width=900" alt="Mesa Arch on the Island in the Sky"></a><figcaption>Mesa Arch on the Island in the Sky<small>CanyonlandsNPS &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Mesa_Arch_%28Island_in_the_Sky%29_%287167155236%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+<div class="gplace"><h3>Salt Lake City and the Great Salt Lake</h3><p>Final night; the lake is 4,200 ft up and shrinking.</p><div class="ggrid">
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Salt_Lake_City_skyline_%282020%29_from_Ensign_Peak.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Salt_Lake_City_skyline_%282020%29_from_Ensign_Peak.jpg?width=1600" data-cap="Salt Lake City from Ensign Peak" data-place="Salt Lake City and the Great Salt Lake" data-credit="Iansmh98 &middot; CC BY-SA 4.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Salt_Lake_City_skyline_%282020%29_from_Ensign_Peak.jpg?width=900" alt="Salt Lake City from Ensign Peak"></a><figcaption>Salt Lake City from Ensign Peak<small>Iansmh98 &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Salt_Lake_City_skyline_%282020%29_from_Ensign_Peak.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Salt_Lake_City%2C_August_2012_%287707261420%29_%28cropped%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Salt_Lake_City%2C_August_2012_%287707261420%29_%28cropped%29.jpg?width=1600" data-cap="The Salt Lake City skyline under the Wasatch" data-place="Salt Lake City and the Great Salt Lake" data-credit="Garrett from Salt Lake City &middot; CC BY 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Salt_Lake_City%2C_August_2012_%287707261420%29_%28cropped%29.jpg?width=900" alt="The Salt Lake City skyline under the Wasatch"></a><figcaption>The Salt Lake City skyline under the Wasatch<small>Garrett from Salt Lake City &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Salt_Lake_City%2C_August_2012_%287707261420%29_%28cropped%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+<figure><a class="gimg" href="https://commons.wikimedia.org/wiki/File:Free_creative_commons_White_Rock%2C_Buffalo_Point%2C_Antelope_Island%2C_Great_Salt_Lake_%284593685931%29.jpg" target="_blank" rel="noopener" data-full="https://commons.wikimedia.org/wiki/Special:FilePath/Free_creative_commons_White_Rock%2C_Buffalo_Point%2C_Antelope_Island%2C_Great_Salt_Lake_%284593685931%29.jpg?width=1600" data-cap="White Rock, Antelope Island, on the Great Salt Lake" data-place="Salt Lake City and the Great Salt Lake" data-credit="Pink Sherbet Photography from USA &middot; CC BY 2.0"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Free_creative_commons_White_Rock%2C_Buffalo_Point%2C_Antelope_Island%2C_Great_Salt_Lake_%284593685931%29.jpg?width=900" alt="White Rock, Antelope Island, on the Great Salt Lake"></a><figcaption>White Rock, Antelope Island, on the Great Salt Lake<small>Pink Sherbet Photography from USA &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Free_creative_commons_White_Rock%2C_Buffalo_Point%2C_Antelope_Island%2C_Great_Salt_Lake_%284593685931%29.jpg" target="_blank" rel="noopener">Commons</a></small></figcaption></figure>
+</div></div>
+</div></section>
+
+<script>
+(function(){
+  var root=document.getElementById('gallery'); if(!root) return;
+  var links=[].slice.call(root.querySelectorAll('a.gimg'));
+  if(!links.length) return;
+  var box=document.createElement('div');
+  box.id='glb'; box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-label','Photo viewer');
+  box.innerHTML='<div class="gl-count"></div><button class="gl-fs" type="button" aria-label="Full screen">&#x26F6;</button><button class="gl-close" type="button" aria-label="Close">&times;</button>'
+   +'<div class="gl-stage"><button class="gl-prev" type="button" aria-label="Previous photo">&#8249;</button><img alt=""><button class="gl-next" type="button" aria-label="Next photo">&#8250;</button></div><div class="gl-cap"></div>';
+  document.body.appendChild(box);
+  var img=box.querySelector('img'), cap=box.querySelector('.gl-cap'), cnt=box.querySelector('.gl-count'), cur=0, opener=null;
+  function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+  function show(i){
+    cur=(i+links.length)%links.length; var a=links[cur];
+    img.classList.add('loading'); img.onload=function(){img.classList.remove('loading')};
+    img.src=a.getAttribute('data-full'); img.alt=a.getAttribute('data-cap')||'';
+    cap.innerHTML=esc(a.getAttribute('data-cap')||'')+'<small>'+esc(a.getAttribute('data-place')||'')+' &middot; '+esc(a.getAttribute('data-credit')||'')+' &middot; <a href="'+a.href+'" target="_blank" rel="noopener">Commons page</a></small>';
+    cnt.textContent=(cur+1)+' / '+links.length;
+    [1,-1].forEach(function(d){var n=links[(cur+d+links.length)%links.length]; (new Image()).src=n.getAttribute('data-full')});
+  }
+  function open(i,from){opener=from; box.classList.add('open'); document.documentElement.style.overflow='hidden'; show(i); box.querySelector('.gl-close').focus()}
+  function close(){
+    if(document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen();
+    box.classList.remove('open'); document.documentElement.style.overflow=''; img.removeAttribute('src'); if(opener) opener.focus();
+  }
+  links.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault(); open(i,a)})});
+  box.querySelector('.gl-prev').addEventListener('click',function(){show(cur-1)});
+  box.querySelector('.gl-next').addEventListener('click',function(){show(cur+1)});
+  box.querySelector('.gl-close').addEventListener('click',close);
+  box.querySelector('.gl-fs').addEventListener('click',function(){
+    if(document.fullscreenElement){document.exitFullscreen()} else if(box.requestFullscreen){box.requestFullscreen()}
+  });
+  box.addEventListener('click',function(e){ if(e.target===box||e.target.classList.contains('gl-stage')||e.target===cap) close() });
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('open')) return;
+    if(e.key==='Escape') close(); else if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1);
+    else if(e.key==='Tab'){ var f=[].slice.call(box.querySelectorAll('button')); var i=f.indexOf(document.activeElement); e.preventDefault(); f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus() }
+  });
+  var x0=null;
+  box.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1)) },{passive:true});
+})();
+</script>
+
+<!-- gallery:end -->
+
+<section id="know">
+  <h2>Six things to know before reading the days</h2>
+  <div class="know">
+    <div class="qcard"><h3>1 &middot; Nights per park, and the evidence</h3><p>No official
+    source publishes a recommended number of days for any of these parks — the split here comes
+    from NPS hour and distance figures plus about a dozen trip reports. <b>Bryce: one night</b>,
+    near-universal. <b>Capitol Reef: two</b>, the park people most often wish they had given
+    more. <b>Moab: three</b>, the common split for Arches plus Island in the Sky. <b>Zion:
+    three</b>, because the Narrows is a firm goal — two is the mainstream answer without it.</p></div>
+
+    <div class="qcard"><h3>2 &middot; Highway 12 is the longest day</h3><p>Bryce to Torrey is
+    123&nbsp;mi and about 3&nbsp;h without stopping; add Lower Calf Creek Falls and it is a
+    full day. The route is fully paved and peaks near 9,600&nbsp;ft. The <b>Hogback section has
+    no guardrail</b> — drive it, do not photograph it from the driver's seat.</p></div>
+
+    <div class="qcard"><h3>3 &middot; Fuel gaps are short but real</h3>
+    <p>One source describes a <b>40-mile stretch between Torrey and Escalante with no
+    services</b>; whether Boulder has a working pump is unverified. Fill up in Escalante or
+    Torrey. Between Torrey and I-70 the only fuel is <b>Hanksville</b> (about 81&nbsp;mi), which
+    has two public stations, Hollow Mountain and Stan's.</p></div>
+
+    <div class="qcard"><h3>4 &middot; Everything is paved now</h3>
+    <p>Dropping the Hanksville badlands and Moki Dugway takes out every dirt road on the plan,
+    and with them the rental-insurance problem on unpaved roads. <b>Burr Trail is paved only
+    to the Capitol Reef boundary and Hell's Backbone is gravel</b>, so both stay off the list.
+    Mapping apps will still offer the <b>Shafer Trail</b> — see day 9.</p></div>
+
+    <div class="qcard"><h3>5 &middot; &ldquo;Later is quieter&rdquo; is false here</h3>
+    <p>NPS visitation data shows <b>October is busier than September at Zion and Arches</b>.
+    Shifting the trip later in autumn buys you nothing crowd-wise in Utah — it only costs you
+    warmth and daylight.</p></div>
+
+    <div class="qcard"><h3>6 &middot; Almost nothing pins the dates</h3>
+    <p>With the Navajo parks gone, <b>the only date-sensitive item found in the research is the
+    Narrows</b>, which turns dry-suit cold around 1&nbsp;October. Utah's parks are open
+    year-round, and no 2026–27 closure was found on UT-12 or UT-24. The other real constraints
+    are heat in summer and the Kanarra Falls permit cap.</p></div>
+  </div>
+</section>
+<section id="dates">
+  <h2>When to go — the window is wide</h2>
+  <div class="panel">
+    <p><b>Best: the second half of September.</b> Utah has cooled from its 100–110&nbsp;°F
+    summer to roughly 75–85&nbsp;°F, the Narrows is still in the wetsuit-and-boots window, and
+    Bryce is near freezing only at dawn.</p>
+    <p><b>The one date that bites is 1 October:</b> Narrows outfitters switch to dry suits as
+    the water hits 3–7&nbsp;°C. If the Narrows is the point of the Zion days, book before it.
+    If it is not, the plan barely cares.</p>
+    <p><b>Also workable: mid-May to early June</b> — before the heat and with long days,
+    though spring runoff can close the Narrows entirely and Kanarra Falls runs cold and high.</p>
+    <p><b>Avoid July and August.</b> Moab at 105&nbsp;°F is not a holiday, and Zion and Arches
+    are at their busiest.</p>
+  </div>
+</section>
+<section id="assume">
+  <h2>Assumptions taken</h2>
+  <p class="introwide">Dates are not booked and a few decisions were left open, so the plan takes
+  a position rather than stalling. <b>Every one is a real choice that can be reversed</b> —
+  none is a silent default.</p>
+  <div class="panel">
+  <table>
+  <tr><th>Assumption</th><th>Why, and how to reverse it</th></tr>
+  <tr><td><b>Utah only: Page, Antelope Canyon, Horseshoe Bend and Monument Valley are
+      out</b></td>
+      <td>Four nights, two clock changes and the trip's worst sell-out saved. To put one back,
+      the cheapest is Page for one night between Bryce and Torrey — but that gives up
+      Highway 12, so it is a swap, not an addition.</td></tr>
+  <tr><td><b>Angels Landing → plan Scout Lookout</b>, but enter the permit lottery anyway</td>
+      <td>The chains have sustained exposure above a ~1,000&nbsp;ft drop. Scout Lookout gives
+      the same canyon view and stops before them. The permit is $6&nbsp;+&nbsp;$3/person —
+      apply in the <b>1–20 July</b> lottery regardless and decide at the junction on the day.
+      Reversing costs nothing.</td></tr>
+  <tr><td><b>Bryce to Torrey by Highway 12</b></td>
+      <td>It is the direct road, about 3&nbsp;h without stops, and the best drive on the trip. Lower Calf Creek
+      Falls is optional — if you are not at its trailhead by 12:30, skip it and go straight
+      to Torrey.</td></tr>
+  <tr><td><b>Three nights at Zion, two at Capitol Reef, three at Moab</b></td>
+      <td>Zion gets two full days (Narrows; Scout Lookout and Emerald Pools) plus an arrival
+      night. Capitol Reef gets one full day, which the official trail list fills, and the second
+      night is the arrival evening. Moab could be two nights on the official figures — Arches
+      is about a day and Island in the Sky half a day — but Mesa Arch at dawn and Dead Horse
+      at sunset cannot share a day comfortably. <b>Cutting Moab to two nights makes this a
+      10-day trip.</b></td></tr>
+  <tr><td><b>A regular SUV, not AWD</b></td>
+      <td>The AWD requirement existed for the Moki Dugway and the Hanksville dirt. Every leg
+      here is paved, so a standard SUV is enough.</td></tr>
+  <tr><td><b>Bryce: Queen's Garden out-and-back</b>, not the classic combination</td>
+      <td>The <b>Navajo Loop has been closed since Feb 2026</b> with no reopening date.
+      Re-check at the visitor centre; if it has reopened, do the loop instead.</td></tr>
+  <tr><td><b>One $250 non-resident America the Beautiful pass</b></td>
+      <td>Covers the holder plus all passengers at all five parks. The +$100 non-resident
+      surcharge applies only to those 16+, so the child is exempt either way. It does not cover
+      Dead Horse Point, which is a state park.</td></tr>
+  </table></div>
+</section>
+<section class="day" id="d1">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">1–3</span></div>
+    <div class="body"><h2>Zion</h2><p class="route">Las Vegas → Springdale · 165 mi / 2h40</p></div>
+  </div>
+  <div class="daymeta"><span>Nights <b>3 · Springdale</b></span><span>Drive <b>165 mi</b></span><span>Note <b>Shuttle-only canyon</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="content"><span class="time">Day 1</span><h3>Fly in, collect the car, drive to Springdale</h3><p><b>A standard SUV is enough</b> now that every leg is paved, so AWD is optional. Confirm the contract permits US-wide use: the Nevada waiver block excludes operation outside NV/AZ/CA/ID/OR/UT — this route stays in NV and UT, so it is a check, not a risk.</p><div class="stats"><span><b>165 mi</b> LAS → Springdale</span><span><b>2h40</b> drive</span><span><b>$250</b> buy the pass</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Springdale%2C+Utah" target="_blank" rel="noopener">Map</a></div><div class="gal" role="group" aria-label="Photos: Las Vegas"><figure><a href="https://commons.wikimedia.org/wiki/File:Fountains_of_Bellagio%2C_Las_Vegas%2C_Nevada.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Fountains_of_Bellagio%2C_Las_Vegas%2C_Nevada.jpg/1920px-Fountains_of_Bellagio%2C_Las_Vegas%2C_Nevada.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Las Vegas"></a><figcaption>Fountains of Bellagio, Las Vegas, Nevada</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:The_Fountains_of_Bellagio._Las_Vegas._%2829862698483%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/The_Fountains_of_Bellagio._Las_Vegas._%2829862698483%29.jpg/1920px-The_Fountains_of_Bellagio._Las_Vegas._%2829862698483%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Las Vegas"></a><figcaption>The Fountains of Bellagio. Las Vegas. (29862698483)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Las_Vegas%2C_Bellagio_Fountains%2C_2018.11.24_%2815%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Las_Vegas%2C_Bellagio_Fountains%2C_2018.11.24_%2815%29.jpg/1920px-Las_Vegas%2C_Bellagio_Fountains%2C_2018.11.24_%2815%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Las Vegas"></a><figcaption>Las Vegas, Bellagio Fountains, 2018.11.24 (15)</figcaption></figure></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 2</span><h3>Zion — the high day <span class="tag tag--added">Scout Lookout baseline</span></h3><p><b>Zion Canyon is shuttle-only in this season.</b> Private cars cannot drive the Scenic Drive, so the day is planned around shuttle timing, not parking. Start at the first shuttle: the West Rim switchbacks face east and cook by mid-morning.</p><p>Scout Lookout is the baseline; the chains beyond it are a decision for the day.</p><div class="stats"><span><b>8.7 km</b> Angels Landing RT</span><span><b>~1,000 ft</b> exposure beyond Scout</span><span><b>$6 + $3pp</b> permit lottery</span></div><div class="links"><a class="btn primary" href="https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm" target="_blank" rel="noopener">Angels Landing permit</a><a class="btn" href="https://www.nps.gov/zion/planyourvisit/conditions.htm" target="_blank" rel="noopener">Zion alerts</a></div><div class="gal" role="group" aria-label="Photos: Angels Landing"><figure><a href="https://commons.wikimedia.org/wiki/File:Angel%27s_Landing_-_Zion_National_Park.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Angel%27s_Landing_-_Zion_National_Park.jpg/1920px-Angel%27s_Landing_-_Zion_National_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Angels Landing"></a><figcaption>Angel's Landing - Zion National Park</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Angels-Landing-zion.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Angels-Landing-zion.jpg/1920px-Angels-Landing-zion.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Angels Landing"></a><figcaption>Angels-Landing-zion</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Angel%27s_Landing_Summit.JPG" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Angel%27s_Landing_Summit.JPG/1920px-Angel%27s_Landing_Summit.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Angels Landing"></a><figcaption>Angel's Landing Summit</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Angels_Landing%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281026162022%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Angels_Landing%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%281026162022%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Angels Landing"></a><figcaption>Angels Landing, Zion Canyon, Zion National Park, Utah (1026162022)</figcaption></figure></div><details class="more"><summary>Why Canyon Overlook is the evening, not the morning</summary><p>Canyon Overlook is on SR-9 and is <b>not</b> shuttle-restricted, so you drive to it. That makes it the one piece of the day you control entirely — which is why it holds the sunset slot rather than competing with shuttle queues at dawn.</p></details></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 3</span><h3>Zion — the water day</h3><p><b>The Narrows, bottom-up</b> from Temple of Sinawava. This is an out-and-back, so the 12&nbsp;km ceiling manages itself — turn round when you have had enough.</p><p><b>Water is 3–7&nbsp;°C.</b> Outfitters switch to dry suits on 1 October; in mid-September you are in the wetsuit-and-boots window. Rent boots and a stick — trainers do not work on that riverbed.</p><div class="stats"><span><b>9.7 km</b> to Wall Street</span><span><b>16.1 km</b> Big Spring — over ceiling</span><span><b>3–7 °C</b> water</span></div><div class="links"><a class="btn primary" href="https://www.nps.gov/zion/planyourvisit/thenarrows.htm" target="_blank" rel="noopener">Narrows conditions</a></div><div class="gal" role="group" aria-label="Photos: The Narrows"><figure><a href="https://commons.wikimedia.org/wiki/File:Zion_Narrows_Panorama.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Zion_Narrows_Panorama.jpg/1920px-Zion_Narrows_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="The Narrows"></a><figcaption>Zion Narrows Panorama</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Hiking_the_Narrows_in_Zion_National_Park.JPG" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Hiking_the_Narrows_in_Zion_National_Park.JPG/1920px-Hiking_the_Narrows_in_Zion_National_Park.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="The Narrows"></a><figcaption>Hiking the Narrows in Zion National Park</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Virgin_River_Zion_NP._%2830595616656%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Virgin_River_Zion_NP._%2830595616656%29.jpg/1920px-Virgin_River_Zion_NP._%2830595616656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="The Narrows"></a><figcaption>Virgin River Zion NP. (30595616656)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Riverside_Walk_to_Zion_Narrows%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%288096054301%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Riverside_Walk_to_Zion_Narrows%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%288096054301%29.jpg/1920px-Riverside_Walk_to_Zion_Narrows%2C_Zion_Canyon%2C_Zion_National_Park%2C_Utah_%288096054301%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="The Narrows"></a><figcaption>Riverside Walk to Zion Narrows, Zion Canyon, Zion National Park, Utah …</figcaption></figure></div><div class="note"><b>Decision rule — flash flood.</b> The Narrows closes on flow rate and forecast, not on whether it is raining where you stand. Check the flash-flood potential rating that morning. If it reads &ldquo;Expected&rdquo; or above, the Narrows is off — substitute the Watchman Trail and move Canyon Overlook into this day.</div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Zion National Park, Utah" src="https://maps.google.com/maps?q=Zion+National+Park%2C+Utah&z=10&output=embed"></iframe>
+    <div class="bar"><span>Zion National Park, Utah</span>
+    <a href="https://maps.google.com/?q=Zion+National+Park%2C+Utah" target="_blank" rel="noopener">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn or dusk, not negotiable</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Book ahead — lottery, cap or sell-out</span><span><i class="b" style="background:var(--class-4)"></i>On foot — real footing</span></div>
+</section>
+<section class="day" id="d4">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">4–5</span></div>
+    <div class="body"><h2>Kanarra Falls &amp; Bryce</h2><p class="route">Zion → Kanarraville → Bryce · ~135 mi</p></div>
+  </div>
+  <div class="daymeta"><span>Nights <b>1 · Bryce area</b></span><span>Drive <b>~135 mi</b></span><span>Note <b>Book Kanarra in January</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="content"><span class="time">Day 4 · early</span><h3>Kanarra Falls <span class="tag tag--unmissable">150 permits/day</span></h3><p>A creek walk with ladders, 40 minutes north of Zion. Wet feet are guaranteed and that is the point — it is the trip's best &lsquo;we did something unusual&rsquo; day and it suits an 11-year-old better than anything else in Utah.</p><div class="stats"><span><b>$15</b> per person</span><span><b>150/day</b> hard cap</span><span><b>1 Jan</b> whole year releases</span></div><div class="links"><a class="btn primary" href="https://kanarrafalls.com/" target="_blank" rel="noopener">Permits</a></div><div class="gal" role="group" aria-label="Photos: Kanarra Creek"><figure><a href="https://commons.wikimedia.org/wiki/File:A_Small_Waterfall_in_Kanarra_Canyon_DyeClan.com_-_panoramio.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/A_Small_Waterfall_in_Kanarra_Canyon_DyeClan.com_-_panoramio.jpg/1920px-A_Small_Waterfall_in_Kanarra_Canyon_DyeClan.com_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Kanarra Creek"></a><figcaption>A Small Waterfall in Kanarra Canyon DyeClan.com - panoramio</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:A_Small_Waterfall_in_Kanarra_Canyon_DyeClan.com_-_panoramio_%281%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/A_Small_Waterfall_in_Kanarra_Canyon_DyeClan.com_-_panoramio_%281%29.jpg/1920px-A_Small_Waterfall_in_Kanarra_Canyon_DyeClan.com_-_panoramio_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Kanarra Creek"></a><figcaption>A Small Waterfall in Kanarra Canyon DyeClan.com - panoramio (1)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Fall_Leaves_in_Kanarra_Canyon_DyeClan.com_-_panoramio_%281%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Fall_Leaves_in_Kanarra_Canyon_DyeClan.com_-_panoramio_%281%29.jpg/1920px-Fall_Leaves_in_Kanarra_Canyon_DyeClan.com_-_panoramio_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Kanarra Creek"></a><figcaption>Fall Leaves in Kanarra Canyon DyeClan.com - panoramio (1)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Kanarra_Canyon%2C_DyeClan.com_-_panoramio.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Kanarra_Canyon%2C_DyeClan.com_-_panoramio.jpg/1920px-Kanarra_Canyon%2C_DyeClan.com_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Kanarra Creek"></a><figcaption>Kanarra Canyon, DyeClan.com - panoramio</figcaption></figure></div><div class="note"><b>Book this in January.</b> The entire year releases on 1 January and most peak days sell out roughly a month ahead. Miss it and there is no substitute.</div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="content"><span class="time">Day 4 · sunset</span><h3>Bryce — Sunset Point</h3><p>Drive Kanarraville → Bryce, 90&nbsp;mi / 1h45. Sunset Point is named for a reason, though Inspiration Point is the better light if there is cloud.</p><div class="stats"><span><b>90 mi</b> drive</span><span><b>~8,000 ft</b> elevation</span></div><div class="links"><a class="btn primary" href="https://maps.google.com/?q=Bryce+Canyon+National+Park%2C+Utah" target="_blank" rel="noopener">Map</a></div><div class="gal" role="group" aria-label="Photos: Bryce Canyon"><figure><a href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon%2C_UT_9-09_%2814668429161%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Bryce_Canyon%2C_UT_9-09_%2814668429161%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Bryce Canyon"></a><figcaption>Bryce Canyon, UT 9-09 (14668429161)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon_2011_amphith%C3%A9%C3%A2tre_de_Hoodoo.JPG" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Bryce_Canyon_2011_amphith%C3%A9%C3%A2tre_de_Hoodoo.JPG/1920px-Bryce_Canyon_2011_amphith%C3%A9%C3%A2tre_de_Hoodoo.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Bryce Canyon"></a><figcaption>Bryce Canyon 2011 amphithéâtre de Hoodoo</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon_Amphitheater_1.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Bryce_Canyon_Amphitheater_1.jpg/1920px-Bryce_Canyon_Amphitheater_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Bryce Canyon"></a><figcaption>Bryce Canyon Amphitheater 1</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon_Amphitheater_Hoodoos_Panorama.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Bryce_Canyon_Amphitheater_Hoodoos_Panorama.jpg/1920px-Bryce_Canyon_Amphitheater_Hoodoos_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Bryce Canyon"></a><figcaption>Bryce Canyon Amphitheater Hoodoos Panorama</figcaption></figure></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="content"><span class="time">Day 5 · dawn</span><h3>Bryce sunrise, then down into the amphitheatre, then Highway 12</h3><p>The amphitheatre faces east — this is the best sunrise of the Utah block and worth the cold start. At ~8,000&nbsp;ft it will be near freezing at dawn in mid-September.</p><p>Then <b>Queen's Garden down and back up the same way</b>, plus a Rim Trail segment.</p><div class="stats"><span><b>2.9 km</b> Queen's Garden RT</span><span><b>600 ft</b> climb back out</span></div><div class="gal" role="group" aria-label="Photos: Queen's Garden"><figure><a href="https://commons.wikimedia.org/wiki/File:Bryce_Canyon_Queens_Garden_Trail_2_verkl.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Bryce_Canyon_Queens_Garden_Trail_2_verkl.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Queen's Garden"></a><figcaption>Bryce Canyon Queens Garden Trail 2 verkl</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Queens_Garden_Trail%2C_Bryce_Canyon_%2820784571804%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Queens_Garden_Trail%2C_Bryce_Canyon_%2820784571804%29.jpg/1920px-Queens_Garden_Trail%2C_Bryce_Canyon_%2820784571804%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Queen's Garden"></a><figcaption>Queens Garden Trail, Bryce Canyon (20784571804)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Queens_Garden_Trail%2C_Bryce_Canyon_%2820784726834%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Queens_Garden_Trail%2C_Bryce_Canyon_%2820784726834%29.jpg/1920px-Queens_Garden_Trail%2C_Bryce_Canyon_%2820784726834%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Queen's Garden"></a><figcaption>Queens Garden Trail, Bryce Canyon (20784726834)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Queens_Garden_Trail%2C_Bryce_Canyon_%2820785726164%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Queens_Garden_Trail%2C_Bryce_Canyon_%2820785726164%29.jpg/1920px-Queens_Garden_Trail%2C_Bryce_Canyon_%2820785726164%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Queen's Garden"></a><figcaption>Queens Garden Trail, Bryce Canyon (20785726164)</figcaption></figure></div><div class="note"><b>GPX trap.</b> The Queen's Garden/Navajo combination is the most-downloaded route in Bryce, and <b>the Navajo arm has been closed since February 2026</b>. Every saved track leads you down and into a barrier with a 600&nbsp;ft climb back out and no signal. Verify at the visitor centre that morning.</div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Bryce Canyon National Park, Utah" src="https://maps.google.com/maps?q=Bryce+Canyon+National+Park%2C+Utah&z=10&output=embed"></iframe>
+    <div class="bar"><span>Bryce Canyon National Park, Utah</span>
+    <a href="https://maps.google.com/?q=Bryce+Canyon+National+Park%2C+Utah" target="_blank" rel="noopener">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn or dusk, not negotiable</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Book ahead — lottery, cap or sell-out</span><span><i class="b" style="background:var(--class-4)"></i>On foot — real footing</span></div>
+</section>
+<section class="day" id="d5">
+  <div class="sign">
+    <div class="date"><span class="dow">Day</span><span class="num">5</span></div>
+    <div class="body"><h2>Scenic Byway 12</h2><p class="route">Bryce → Escalante → Boulder → Torrey · 123 mi / ~3h without stops</p></div>
+  </div>
+  <div class="daymeta"><span>Nights <b>1 of 2 · Torrey</b></span><span>Drive <b>123 mi</b></span><span>Note <b>Longest day of the trip</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="content"><span class="time">Day 5 · morning</span><h3>Bryce sunrise, then leave</h3><p>Sunrise and the Queen's Garden descent are on the day 4–5 card above. Whatever you do at the rim, <b>be on the road by about 10:00</b> — the rest of the day is a schedule.</p><div class="stats"><span><b>123 mi</b> Bryce → Torrey</span><span><b>~3 h</b> no stops</span><span><b>9,600 ft</b> highest point</span></div></div></div></div><div class="stop"><span class="mark mark--3"></span><div class="card"><div class="content"><span class="time">Day 5 · midday</span><h3>Lower Calf Creek Falls <span class="tag tag--added">replaces the Hanksville detour</span></h3><p>A 126&nbsp;ft waterfall at the end of a sandy canyon walk. <b>6.0&nbsp;mi (9.7&nbsp;km) round trip</b>, about 500&nbsp;ft of gain, and BLM calls it a good introductory Escalante hike suitable for families. It is under the 12&nbsp;km ceiling but it is soft sand and usually unshaded, so start with all the water you own.</p><p>Budget <b>3–3.5 hours</b> including the walk to the trailhead. The day-use fee is $5 per vehicle, and the pass does not cover it.</p><div class="stats"><span><b>9.7 km</b> round trip</span><span><b>126 ft</b> falls</span><span><b>$5</b> per vehicle</span></div><div class="links"><a class="btn primary" href="https://www.blm.gov/visit/lower-calf-creek-falls-trail" target="_blank" rel="noopener">BLM Lower Calf Creek</a></div><div class="gal" role="group" aria-label="Photos: Calf Creek"><figure><a href="https://commons.wikimedia.org/wiki/File:Lower_Calf_Creek_Falls_%284080891798%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Lower_Calf_Creek_Falls_%284080891798%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Calf Creek"></a><figcaption>Lower Calf Creek Falls (4080891798)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Calf_Creek_Canyon01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Calf_Creek_Canyon01.jpg/1920px-Calf_Creek_Canyon01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Calf Creek"></a><figcaption>Calf Creek Canyon01</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Calf_Creek_Canyon03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/2/29/Calf_Creek_Canyon03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Calf Creek"></a><figcaption>Calf Creek Canyon03</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Calf_Creek_Canyon04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Calf_Creek_Canyon04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Calf Creek"></a><figcaption>Calf Creek Canyon04</figcaption></figure></div><div class="note"><b>Decision rule — optional.</b> If you are not at the trailhead by 12:30, skip it: Bryce to Torrey is about 3&nbsp;h without stops, and a 3.5&nbsp;h hike on top pushes arrival past 17:00. <i>Unverified: the elevation gain and the 2.5–3 h hike time came from search-result summaries of BLM's brochure, and the site reopened in September 2024 after a closure — check the BLM page before going.</i></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="content"><span class="time">Day 5 · afternoon</span><h3>The Hogback, Boulder Mountain and into Torrey</h3><p>The road tops out near 9,600&nbsp;ft on Boulder Mountain and crosses the <b>Hogback</b>, a narrow ridge with <b>no guardrail</b>. It is fully paved, and the one UDOT culvert job on it (mile 6–7) finished in June 2026; no other 2026–27 closure was found on UT-12.</p><p><b>Fuel:</b> one guide describes a 40-mile stretch between Torrey and Escalante with no services, and Boulder's pump is unverified. Fill in Escalante or Torrey.</p><div class="stats"><span><b>40 mi</b> possibly no services</span><span><b>no rail</b> the Hogback</span></div><div class="gal" role="group" aria-label="Photos: Scenic Byway 12"><figure><a href="https://commons.wikimedia.org/wiki/File:Scenic_Byway_12_-_Driving_the_Hogsback_-_NARA_-_7721775.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/3/30/Scenic_Byway_12_-_Driving_the_Hogsback_-_NARA_-_7721775.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Scenic Byway 12"></a><figcaption>Scenic Byway 12 - Driving the Hogsback - NARA - 7721775</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Scenic_Byway_12_-_Scenic_Byway_12_Across_the_Hogsback_-_NARA_-_7721853.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Scenic_Byway_12_-_Scenic_Byway_12_Across_the_Hogsback_-_NARA_-_7721853.jpg/1920px-Scenic_Byway_12_-_Scenic_Byway_12_Across_the_Hogsback_-_NARA_-_7721853.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Scenic Byway 12"></a><figcaption>Scenic Byway 12 - Scenic Byway 12 Across the Hogsback - NARA - 7721853</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Scenic_Byway_12_-_Scenic_Byway_12_Across_the_Hogsback_-_NARA_-_7721855.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Scenic_Byway_12_-_Scenic_Byway_12_Across_the_Hogsback_-_NARA_-_7721855.jpg/1920px-Scenic_Byway_12_-_Scenic_Byway_12_Across_the_Hogsback_-_NARA_-_7721855.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Scenic Byway 12"></a><figcaption>Scenic Byway 12 - Scenic Byway 12 Across the Hogsback - NARA - 7721855</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Utah_Scenic_Byway_12_%2828784994365%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Utah_Scenic_Byway_12_%2828784994365%29.jpg/1920px-Utah_Scenic_Byway_12_%2828784994365%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Scenic Byway 12"></a><figcaption>Utah Scenic Byway 12 (28784994365)</figcaption></figure></div><details class="more"><summary>Other stops on the way, if a child needs a break</summary><p>Anasazi State Park museum in Boulder takes 1–2&nbsp;h, and Kiva Koffee is a 30–45 minute stop. <b>Skip Burr Trail and Hell's Backbone:</b> Burr Trail is paved only to the Capitol Reef boundary and NPS lists it as high-clearance today, and Hell's Backbone is gravel.</p></details></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Boulder, Utah" src="https://maps.google.com/maps?q=Boulder%2C+Utah&z=9&output=embed"></iframe>
+    <div class="bar"><span>Boulder, Utah</span>
+    <a href="https://maps.google.com/?q=Boulder%2C+Utah" target="_blank" rel="noopener">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn or dusk, not negotiable</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Book ahead — lottery, cap or sell-out</span><span><i class="b" style="background:var(--class-4)"></i>On foot — real footing</span></div>
+</section>
+<section class="day" id="dcr">
+  <div class="sign">
+    <div class="date"><span class="dow">Day</span><span class="num">6</span></div>
+    <div class="body"><h2>Capitol Reef</h2><p class="route">Torrey · the quietest of Utah's five parks</p></div>
+  </div>
+  <div class="daymeta"><span>Nights <b>2 · Torrey</b></span><span>Drive <b>park only</b></span><span>Note <b>No timed entry, no queue</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 6 · morning</span><h3>Hickman Bridge and the Hwy 24 corridor</h3><p><b>Hickman Bridge — ~3&nbsp;km round trip, 400&nbsp;ft up</b> to a 133&nbsp;ft natural bridge. Short, and the best value walk in the park.</p><p>Along Hwy&nbsp;24 itself: the <b>Fremont petroglyph panel</b> on a boardwalk right by the road, and the Behunin cabin. This is the one park on the trip where the roadside stops are genuinely worth stopping for.</p><div class="stats"><span><b>3 km</b> Hickman RT</span><span><b>400 ft</b> gain</span><span><b>133 ft</b> bridge span</span></div><div class="links"><a class="btn primary" href="https://www.nps.gov/care/index.htm" target="_blank" rel="noopener">Capitol Reef</a></div><div class="gal" role="group" aria-label="Photos: Capitol Reef"><figure><a href="https://commons.wikimedia.org/wiki/File:A136%2C_Capitol_Reef_National_Park%2C_Utah%2C_USA%2C_2001.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/e/ef/A136%2C_Capitol_Reef_National_Park%2C_Utah%2C_USA%2C_2001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Capitol Reef"></a><figcaption>A136, Capitol Reef National Park, Utah, USA, 2001</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Capitol_Reef_-_Hickman_Bridge.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/d/df/Capitol_Reef_-_Hickman_Bridge.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Capitol Reef"></a><figcaption>Capitol Reef - Hickman Bridge</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Capitol_Reef_National_Park.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Capitol_Reef_National_Park.jpg/1920px-Capitol_Reef_National_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Capitol Reef"></a><figcaption>Capitol Reef National Park</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Chimney_Rock%2C_Capitol_Reef_NP.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Chimney_Rock%2C_Capitol_Reef_NP.jpg/1920px-Chimney_Rock%2C_Capitol_Reef_NP.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Capitol Reef"></a><figcaption>Chimney Rock, Capitol Reef NP</figcaption></figure></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 6 · midday</span><h3>The Scenic Drive, Grand Wash and Fruita <span class="tag tag--easy">no permits, no lottery</span></h3><p>The <b>Scenic Drive</b> runs 8&nbsp;mi south along the fold, with <b>Grand Wash</b> — a flat walk into a narrow canyon, easy and shaded — off it. <b>Cassidy Arch</b> is the bigger objective at ~5.5&nbsp;km with 670&nbsp;ft of climb, ending on top of the arch rather than under it.</p><p><b>Fruita</b> is a Mormon orchard settlement inside the park. In season you can pick fruit in the historic orchards, and the Gifford House sells pie that is not a gimmick.</p><div class="stats"><span><b>8 mi</b> Scenic Drive</span><span><b>5.5 km</b> Cassidy Arch RT</span><span><b>670 ft</b> gain</span></div><details class="more"><summary>Why this park is empty and the others are not</summary><p>Capitol Reef takes roughly a fifth of Zion's visitors. It has no timed entry, no shuttle and no permit lottery, because it has never needed them. After five days of queues and reservation windows, that is the actual attraction.</p></details><div class="note"><b>Cathedral Valley is out.</b> The loop fords the Fremont River and NPS lists it <b>Impassable</b>. Do not let a blog route you into the ford. <i>Unverified: the Scenic Drive fee and the Gifford House seasonal closing date.</i></div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Capitol Reef National Park, Utah" src="https://maps.google.com/maps?q=Capitol+Reef+National+Park%2C+Utah&z=10&output=embed"></iframe>
+    <div class="bar"><span>Capitol Reef National Park, Utah</span>
+    <a href="https://maps.google.com/?q=Capitol+Reef+National+Park%2C+Utah" target="_blank" rel="noopener">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn or dusk, not negotiable</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Book ahead — lottery, cap or sell-out</span><span><i class="b" style="background:var(--class-4)"></i>On foot — real footing</span></div>
+</section>
+<section class="day" id="d9">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">7–9</span></div>
+    <div class="body"><h2>Moab — Arches &amp; Canyonlands</h2><p class="route">Torrey → Moab · 145 mi, then two full park days</p></div>
+  </div>
+  <div class="daymeta"><span>Nights <b>3 · north of town</b></span><span>Drive <b>145 mi + park</b></span><span>Note <b>Mesa Arch is dawn</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 7 · optional</span><h3>Optional: Goblin Valley State Park <span class="tag tag--added">optional</span></h3><p><b>Not part of the core plan — take it only if the morning is going well.</b> It sits on the Torrey → Moab drive: a <b>12-mile paved dead-end spur</b> off UT-24 (Temple Mountain Road, then Goblin Valley Road), about 20&nbsp;mi north of Hanksville. The valley is a free-roaming field of small mushroom-shaped hoodoos, and the best place on the route for an 11-year-old to run around. If the GPS sends you onto dirt, it is the wrong road.</p><p><b>Time added: about 2–2.5 h</b> — 24 extra miles (30–35 min, my estimate) plus about 1.5 h on foot. Three Sisters is 250&nbsp;yd; a family covered ~1.3&nbsp;mi in the valleys in 90 minutes; add Carmel Canyon (2.4&nbsp;km loop, scrambling) for a 2-hour visit. Leave Torrey by about 08:30 and you reach Moab around 14:30, which still leaves Delicate Arch at sunset (about 19:18).</p><div class="stats"><span><b>$20</b> per vehicle</span><span><b>+24 mi</b> extra driving</span><span><b>no shade</b> 90–100 °F possible</span></div><div class="links"><a class="btn primary" href="https://stateparks.utah.gov/parks/goblin-valley/" target="_blank" rel="noopener">Goblin Valley</a></div><div class="gal" role="group" aria-label="Photos: Goblin Valley"><figure><a href="https://commons.wikimedia.org/wiki/File:Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892890322%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892890322%29.jpg/1920px-Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892890322%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Goblin Valley"></a><figcaption>Utah - North America - Goblin Valley State Park - Hoodoos (4892890322)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892238951%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892238951%29.jpg/1920px-Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892238951%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Goblin Valley"></a><figcaption>Utah - North America - Goblin Valley State Park - Hoodoos (4892238951)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:A285%2C_Goblin_Valley_State_Park%2C_Utah%2C_USA%2C_2008.JPG" target="_blank" rel="noopener"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/e/e0/A285%2C_Goblin_Valley_State_Park%2C_Utah%2C_USA%2C_2008.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Goblin Valley"></a><figcaption>A285, Goblin Valley State Park, Utah, USA, 2008</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892257941%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892257941%29.jpg/1920px-Utah_-_North_America_-_Goblin_Valley_State_Park_-_Hoodoos_%284892257941%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Goblin Valley"></a><figcaption>Utah - North America - Goblin Valley State Park - Hoodoos (4892257941)</figcaption></figure></div><div class="note"><b>Pass and rules.</b> It is a Utah state park: the America the Beautiful pass is <b>probably not valid</b> (sources conflict — call 435-259-3710). Climbing sturdy hoodoos is allowed per community sources; the official pages state no rule, so ask at the visitor centre. Goblin's Lair (3&nbsp;mi RT, slot canyon, scrambling) is rated strenuous — skip it. <b>Skip the whole stop if it is hot or rain is forecast.</b></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="content"><span class="time">Day 7 · sunset</span><h3>Delicate Arch</h3><p>Torrey → Moab is 145–156&nbsp;mi, 2h20–2h40, east through Hanksville. <b>Fuel at Hanksville</b> — it is the only stop between Torrey and I-70.</p><p>Optional pause: <b>Factory Butte</b> is visible from UT-24 for miles, and BLM's kiosk and restroom stop is 12&nbsp;mi west of Hanksville, no fee. The close-up viewing is dirt road and is dropped.</p><p>Then straight out to Delicate Arch: 4.8&nbsp;km round trip over open slickrock with no shade. The arch faces west, so it is a sunset subject and everyone knows it — expect company at the bowl.</p><div class="stats"><span><b>4.8 km</b> round trip</span><span><b>480 ft</b> gain</span><span><b>no shade</b> carry water</span></div><div class="links"><a class="btn primary" href="https://www.nps.gov/arch/index.htm" target="_blank" rel="noopener">Arches</a></div><div class="gal" role="group" aria-label="Photos: Delicate Arch"><figure><a href="https://commons.wikimedia.org/wiki/File:ArchesNationalParkDelicateArch.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/ArchesNationalParkDelicateArch.jpg/1920px-ArchesNationalParkDelicateArch.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Delicate Arch"></a><figcaption>ArchesNationalParkDelicateArch</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2810%29_%286991751949%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2810%29_%286991751949%29.jpg/1920px-Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2810%29_%286991751949%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Delicate Arch"></a><figcaption>Delicate Arch, Arches National Park, Utah (10) (6991751949)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2812%29_%286991753775%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2812%29_%286991753775%29.jpg/1920px-Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2812%29_%286991753775%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Delicate Arch"></a><figcaption>Delicate Arch, Arches National Park, Utah (12) (6991753775)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2816%29_%286991757999%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2816%29_%286991757999%29.jpg/1920px-Delicate_Arch%2C_Arches_National_Park%2C_Utah_%2816%29_%286991757999%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Delicate Arch"></a><figcaption>Delicate Arch, Arches National Park, Utah (16) (6991757999)</figcaption></figure></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 8</span><h3>Devils Garden and The Windows</h3><p><b>Double O out-and-back, 6.4&nbsp;km</b>, which keeps every named arch. The primitive loop is 12.7&nbsp;km and over the ceiling for no extra payoff.</p><p>The Windows section has the highest arch density per step anywhere on earth.</p><div class="stats"><span><b>6.4 km</b> Double O RT</span><span><b>12.7 km</b> primitive loop — skipped</span></div><div class="gal" role="group" aria-label="Photos: Devils Garden"><figure><a href="https://commons.wikimedia.org/wiki/File:00_410_Arches_National_Park_%28Utah%2C_USA%29_-_Landscape_Arch.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/00_410_Arches_National_Park_%28Utah%2C_USA%29_-_Landscape_Arch.jpg/1920px-00_410_Arches_National_Park_%28Utah%2C_USA%29_-_Landscape_Arch.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Devils Garden"></a><figcaption>00 410 Arches National Park (Utah, USA) - Landscape Arch</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Aerial_image_of_Devils_Garden_in_Arches_National_Park_%28view_from_the_southeast%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Aerial_image_of_Devils_Garden_in_Arches_National_Park_%28view_from_the_southeast%29.jpg/1920px-Aerial_image_of_Devils_Garden_in_Arches_National_Park_%28view_from_the_southeast%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Devils Garden"></a><figcaption>Aerial image of Devils Garden in Arches National Park (view from the s…</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:LandscapeArchPano.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/LandscapeArchPano.jpg/1920px-LandscapeArchPano.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Devils Garden"></a><figcaption>LandscapeArchPano</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Landscape_Arch.JPG" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Landscape_Arch.JPG/1920px-Landscape_Arch.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Devils Garden"></a><figcaption>Landscape Arch</figcaption></figure></div><details class="more"><summary>Fiery Furnace, if you want it</summary><p>Ranger-led $16 / self-guided $10, <b>released only 7 days out</b>, self-guided must be booked by day&nbsp;−2. Age 5+, max group 6. <b>NPS states GPS does not work inside it</b> — it is a genuine maze, and with a child the ranger-led option is the right one.</p><p><i>Unresolved: whether Arches timed entry returns for 2028. It was dropped entirely for 2026. Re-check about six months out.</i></p></details></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="content"><span class="time">Day 9 · dawn</span><h3>Mesa Arch — the signature photograph <span class="tag tag--unmissable">dawn only</span></h3><p>Arrive in the dark. The underside of the arch glows because it is lit by light bounced off the cliff 500&nbsp;m below — that is the whole trick, and it lasts minutes. It is a 1&nbsp;km walk and it will be crowded; that is the price.</p><div class="stats"><span><b>1 km</b> walk in</span><span><b>minutes</b> the light window</span></div><div class="gal" role="group" aria-label="Photos: Mesa Arch"><figure><a href="https://commons.wikimedia.org/wiki/File:2021_Mesa_Arch_01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/2021_Mesa_Arch_01.jpg/1920px-2021_Mesa_Arch_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Mesa Arch"></a><figcaption>2021 Mesa Arch 01</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:2021_Mesa_Arch_02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/2021_Mesa_Arch_02.jpg/1920px-2021_Mesa_Arch_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Mesa Arch"></a><figcaption>2021 Mesa Arch 02</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:2021_Mesa_Arch_03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/2021_Mesa_Arch_03.jpg/1920px-2021_Mesa_Arch_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Mesa Arch"></a><figcaption>2021 Mesa Arch 03</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Mesa_Arch_Canyonlands_sunrise.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Mesa_Arch_Canyonlands_sunrise.jpg/1920px-Mesa_Arch_Canyonlands_sunrise.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Mesa Arch"></a><figcaption>Mesa Arch Canyonlands sunrise</figcaption></figure></div></div></div></div><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 9</span><h3>Island in the Sky, then Dead Horse Point</h3><p>Grand View Point, Green River Overlook, Upheaval Dome — then Dead Horse Point for sunset over the Colorado gooseneck.</p><div class="stats"><span><b>$55</b> Arches+Canyonlands pass</span><span><b>state park</b> Dead Horse — pass not valid</span></div><div class="gal" role="group" aria-label="Photos: Canyonlands"><figure><a href="https://commons.wikimedia.org/wiki/File:Bucks_Canyon%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%282438827753%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Bucks_Canyon%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%282438827753%29.jpg/1920px-Bucks_Canyon%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%282438827753%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Canyonlands"></a><figcaption>Bucks Canyon, Island in the Sky District, Canyonlands National Park, U…</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Bucks_Canyon%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%2866212063%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Bucks_Canyon%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%2866212063%29.jpg/1920px-Bucks_Canyon%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%2866212063%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Canyonlands"></a><figcaption>Bucks Canyon, Island in the Sky District, Canyonlands National Park, U…</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:CANYONLANDS_NATIONAL_PARK%2C_UTAH_-_ISLANDS_IN_THE_SKY.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/CANYONLANDS_NATIONAL_PARK%2C_UTAH_-_ISLANDS_IN_THE_SKY.jpg/1920px-CANYONLANDS_NATIONAL_PARK%2C_UTAH_-_ISLANDS_IN_THE_SKY.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Canyonlands"></a><figcaption>CANYONLANDS NATIONAL PARK, UTAH - ISLANDS IN THE SKY</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:View_From_Mesa_Arch%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%282439652720%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/View_From_Mesa_Arch%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%282439652720%29.jpg/1920px-View_From_Mesa_Arch%2C_Island_in_the_Sky_District%2C_Canyonlands_National_Park%2C_Utah_%282439652720%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Canyonlands"></a><figcaption>View From Mesa Arch, Island in the Sky District, Canyonlands National …</figcaption></figure></div><div class="note"><b>GPX trap.</b> Mapping apps route &ldquo;Island in the Sky&rdquo; drives down the <b>Shafer Trail switchbacks</b> — a 4WD high-clearance road with severe exposure. It is not a shortcut to Moab. Do not let an app put you on it; if you want it, that is what a hired Jeep day in Moab is for.</div></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Moab, Utah" src="https://maps.google.com/maps?q=Moab%2C+Utah&z=9&output=embed"></iframe>
+    <div class="bar"><span>Moab, Utah</span>
+    <a href="https://maps.google.com/?q=Moab%2C+Utah" target="_blank" rel="noopener">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn or dusk, not negotiable</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Book ahead — lottery, cap or sell-out</span><span><i class="b" style="background:var(--class-4)"></i>On foot — real footing</span></div>
+</section>
+<section class="day" id="dend">
+  <div class="sign">
+    <div class="date"><span class="dow">Days</span><span class="num">10–11</span></div>
+    <div class="body"><h2>Great Salt Lake, then home</h2><p class="route">Moab → Salt Lake City · 235 mi / 4h</p></div>
+  </div>
+  <div class="daymeta"><span>Nights <b>1 · Salt Lake City</b></span><span>Drive <b>235 mi</b></span><span>Note <b>One night, not two</b></span></div>
+  <div class="trail"><div class="stop"><span class="mark mark--4"></span><div class="card"><div class="content"><span class="time">Day 10 · optional</span><h3>Optional: Corona Arch before you leave <span class="tag tag--added">optional</span></h3><p><b>Not part of the core plan — skip it if anyone is tired after day 9.</b> The trailhead is on <b>UT-279 (Potash Road)</b>, about 14&nbsp;mi from Moab and 25–30 minutes by car. <b>3&nbsp;mi (4.8&nbsp;km) round trip, about 2 hours</b>, free. The trail crosses a railroad track, then climbs slickrock with <b>two safety cables, steps cut into the rock and one short ladder</b>, past Pinto Arch and Bowtie Arch to Corona, whose opening is 140&nbsp;ft wide and 105&nbsp;ft high.</p><p><b>Time added: about 3–3.5 h</b> including both drives. Start by 07:00 — it is sun all day with no shade — and you are back in Moab about 10:00, leaving for Salt Lake City around 10:15 and arriving mid-afternoon.</p><div class="stats"><span><b>4.8 km</b> round trip</span><span><b>250–480 ft</b> gain — sources differ</span><span><b>free</b> BLM</span></div><div class="links"><a class="btn primary" href="https://www.blm.gov/visit/corona-arch-trail" target="_blank" rel="noopener">BLM Corona Arch</a></div><div class="gal" role="group" aria-label="Photos: Corona Arch"><figure><a href="https://commons.wikimedia.org/wiki/File:Corona_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_%2825240977976%29.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Corona_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_%2825240977976%29.jpg/1920px-Corona_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_%2825240977976%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Corona Arch"></a><figcaption>Corona Arch (west of Moab, Utah, USA) (25240977976)</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_1.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_1.jpg/1920px-Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Corona Arch"></a><figcaption>Corona Arch & Bowtie Arch (west of Moab, Utah, USA) 1</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_2.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_2.jpg/1920px-Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Corona Arch"></a><figcaption>Corona Arch & Bowtie Arch (west of Moab, Utah, USA) 2</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_3.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_3.jpg/1920px-Corona_Arch_%26_Bowtie_Arch_%28west_of_Moab%2C_Utah%2C_USA%29_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Corona Arch"></a><figcaption>Corona Arch & Bowtie Arch (west of Moab, Utah, USA) 3</figcaption></figure></div><div class="note"><b>Child safety.</b> Visit Utah warns of drop-offs on this trail, especially with children; BLM calls it moderately strenuous with mild exposure. Cables and ladder are short, but hold hands on the ledges.</div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="content"><span class="time">Day 10</span><h3>Moab → Salt Lake City</h3><p>4 hours north on US-191 and I-70. Leave after breakfast and you are in the city by mid-afternoon — the first pavement-and-restaurants day in ten, and deliberately soft after a run of dawn starts.</p><div class="stats"><span><b>235 mi</b> distance</span><span><b>4h</b> drive</span></div></div></div></div><div class="stop"><span class="mark mark--1"></span><div class="card"><div class="content"><span class="time">Day 10 · sunset</span><h3>Stansbury Island &amp; the Great Salt Lake</h3><p>45 minutes west of the city. Honest framing: this is the last stop because it is on the way to the airport, not because it competes with what came before. The lake is hypersaline and its north arm runs pink from the algae and bacteria that tolerate it — worth an evening, not worth a day.</p><div class="stats"><span><b>45 min</b> from SLC</span><span><b>sunset</b> the reason to go</span></div><div class="gal" role="group" aria-label="Photos: Great Salt Lake"><figure><a href="https://commons.wikimedia.org/wiki/File:2021_Great_Salt_Lake_01.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/2021_Great_Salt_Lake_01.jpg/1920px-2021_Great_Salt_Lake_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Great Salt Lake"></a><figcaption>2021 Great Salt Lake 01</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Salt_Lake_Sunset.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Salt_Lake_Sunset.jpg/1920px-Salt_Lake_Sunset.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Great Salt Lake"></a><figcaption>Salt Lake Sunset</figcaption></figure><figure><a href="https://commons.wikimedia.org/wiki/File:Sunset_Reflected_in_Salt_Lake.jpg" target="_blank" rel="noopener"><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Sunset_Reflected_in_Salt_Lake.jpg/1920px-Sunset_Reflected_in_Salt_Lake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" alt="Great Salt Lake"></a><figcaption>Sunset Reflected in Salt Lake</figcaption></figure></div></div></div></div><div class="stop"><span class="mark mark--2"></span><div class="card"><div class="content"><span class="time">Day 11</span><h3>SLC → YYZ</h3><p>Drop the car at the airport. <b>Check the one-way drop fee when you book</b> — National, Enterprise and Alamo are the only group publicly stating there is typically no drop charge between airport locations.</p></div></div></div></div>
+  <div class="mapframe"><iframe loading="lazy" title="Great Salt Lake, Utah" src="https://maps.google.com/maps?q=Great+Salt+Lake%2C+Utah&z=9&output=embed"></iframe>
+    <div class="bar"><span>Great Salt Lake, Utah</span>
+    <a href="https://maps.google.com/?q=Great+Salt+Lake%2C+Utah" target="_blank" rel="noopener">Open in Maps</a></div></div>
+  <div class="legend"><span><i class="b" style="background:var(--class-1)"></i>Timed to the light — dawn or dusk, not negotiable</span><span><i class="b" style="background:var(--class-2)"></i>Driving leg</span><span><i class="b" style="background:var(--class-3)"></i>Book ahead — lottery, cap or sell-out</span><span><i class="b" style="background:var(--class-4)"></i>On foot — real footing</span></div>
+</section>
+<section id="booking">
+  <h2>The booking calendar</h2>
+  <p class="introwide">Ordered by when the window <i>opens</i>, not by when the trip happens.
+  Only two things on this trip genuinely sell out — and both are unrecoverable if missed.</p>
+  <div class="panel"><table>
+  <tr><th>When</th><th>What</th></tr>
+  <tr><td><b>1 January</b></td><td><b>Kanarra Falls</b> — the entire year releases at once,
+      capped at 150 people a day, and peak days sell out about a month ahead.</td></tr>
+  <tr><td><b>1–20 July</b></td><td><b>Angels Landing</b> seasonal lottery, $6 + $3/person.
+      The day-before lottery closes 15:00 MT.</td></tr>
+  <tr><td><b>7 days out</b></td><td><b>Fiery Furnace</b>, Arches — self-guided must be booked
+      by day −2. Ranger-led is the right option with a child.</td></tr>
+  <tr><td><b>~12 months out</b></td><td>Car hire. Re-quote the <b>LAS→SLC one-way drop fee</b>;
+      budget $0–600. Every leg is paved, so a standard SUV is enough.</td></tr>
+  <tr><td><b>Not researched</b></td><td>Lodging in Springdale, Torrey and Moab. Moab is only tight
+      around a handful of autumn events — the Moab 240 ultra in mid-October is the one to avoid
+      outright — but no availability data was gathered for the other two.</td></tr>
+  <tr><td><b>Nothing else</b></td><td>Capitol Reef needs no reservation of any kind, and Arches
+      timed entry was dropped for 2026.</td></tr>
+  </table></div>
+</section>
+<section id="dayof">
+  <h2>Day-of links</h2>
+  <p class="introwide">The handful of things actually tapped in the field. Everything else on
+  this page is for reading beforehand.</p>
+  <div class="linklist">
+    <a href="https://www.nps.gov/zion/planyourvisit/conditions.htm">Zion conditions &amp; flash-flood rating</a>
+    <a href="https://www.nps.gov/brca/planyourvisit/conditions.htm">Bryce trail status <b>— check Navajo Loop</b></a>
+    <a href="https://www.blm.gov/visit/lower-calf-creek-falls-trail">BLM Lower Calf Creek Falls</a>
+    <a href="https://www.nps.gov/care/planyourvisit/conditions.htm">Capitol Reef conditions</a>
+    <a href="https://www.nps.gov/cany/planyourvisit/road-conditions.htm">Canyonlands road conditions</a>
+    <a href="tel:+14354253791">Capitol Reef road line, 24/7 &middot; (435) 425-3791 press 4</a>
+  </div>
+</section>
+<section id="check">
+  <h2>Before you go</h2>
+  <div class="check">
+    <label><input type="checkbox" data-k="pass"> $250 non-resident America the Beautiful pass</label>
+    <label><input type="checkbox" data-k="car"> Rental booked LAS→SLC, drop fee re-quoted</label>
+    <label><input type="checkbox" data-k="kanarra"> Kanarra Falls permits (1 Jan)</label>
+    <label><input type="checkbox" data-k="angels"> Angels Landing lottery entered (1–20 July)</label>
+    <label><input type="checkbox" data-k="narrows"> Narrows rental (boots, stick, wetsuit) reserved in Springdale</label>
+    <label><input type="checkbox" data-k="offline"> Offline maps downloaded — UT-12 and UT-24 have patchy coverage</label>
+    <label><input type="checkbox" data-k="reverify"> Whole closure table re-verified ~6 months out</label>
+  </div>
+</section>
+<section id="honest">
+  <h2>What is verified, and what is not</h2>
+  <div class="grid2">
+    <div class="panel"><h3>Sourced</h3>
+      <p>Every seasonal closure and cutoff date on this route. The rental contract clauses and
+      the Nevada statute that narrows them. Child-seat law in every state crossed. Park fees and
+      the non-resident pass arithmetic. Zion, Bryce, Arches and Canyonlands trail distances
+      against the 12&nbsp;km ceiling. Highway 12's length, surface and the June 2026 culvert
+      completion.</p></div>
+    <div class="panel"><h3>Not verified — do not treat as fact</h3>
+      <p><b>The night split itself.</b> No official source gives a recommended number of days
+      for any of these parks; it is drawn from NPS hour figures and about a dozen trip reports,
+      almost none of which name a child's age. <b>Lower Calf Creek's elevation gain and hike
+      time.</b> <b>Whether Boulder has fuel.</b> Most drive times between legs are aggregator
+      figures, not official ones. <b>Dead Horse Point's fees and hours.</b> For the two optional stops: <b>whether the pass works at Goblin Valley</b> (probably not), <b>Corona Arch's elevation gain</b> (250 to 482 ft by source) and the drive times to both. <b>Capitol Reef's
+      Scenic Drive fee and the Gifford House closing date.</b> Whether <b>Arches timed
+      entry</b> returns after 2026.</p></div>
+  </div>
+  <div class="panel" style="margin-top:18px">
+    <h3>The standing caveat</h3>
+    <p>NPS and concessioner dates shift year to year with weather and staffing, and everything
+    here is drawn from published 2026 and 2027 schedules. <b>Re-verify before booking.</b></p>
+    <p>The plan is <b>day-numbered rather than date-locked</b>, and the only date it cares about
+    is <b>1 October</b>, when the Narrows turns dry-suit cold. The earlier 15-day Utah and
+    Arizona version is kept in <span class="mono">PLAN-15day-superseded.md</span>.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Planned from fifteen research files in <span class="mono">~/workspace/travel/usa-southwest-rockies/</span>. Closure dates, trail distances, BLM road access and rental-contract clauses are sourced, not recalled. Photographs from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, each linked at its caption. <b>Re-verify seasonal hours before booking — NPS and concessioner dates move year to year.</b></div>
+</footer>
+
+<script>
+/* base.js — shared behaviour for every trip plan.
+   No dependencies, no build. Everything degrades gracefully if an element is absent,
+   so a page that has no checklist or no plan toggle simply skips that block.
+
+   Configuration comes from markup already on the page:
+     <meta name="trip-date" content="YYYY-MM-DD">   drives the countdown
+   The #countdown element must contain NO sibling text - this script writes the whole
+   phrase ("33 days to go" / "Tomorrow" / "Today"). Markup like
+   `<strong id="countdown"></strong> days to departure` double-prints and, because the
+   hero is bottom-aligned, the wider chip shifts every following pixel on the page.
+     <body data-slug="niagara-day-aug-2026">        namespaces localStorage keys
+   That keeps this file identical across trips. */
+(function () {
+  "use strict";
+
+  var slug = (document.body && document.body.dataset && document.body.dataset.slug) ||
+             location.pathname.replace(/\//g, "") || "trip";
+
+  var legacyPrefix = (document.body && document.body.dataset && document.body.dataset.ckLegacy) || "";
+
+  /* ---- countdown ------------------------------------------------------------------
+     Two conventions in this repo, both supported:
+       #countdown  — this script writes the WHOLE phrase; must have no sibling text
+       #cd         — number + unit only; the markup supplies "until departure" alongside
+     Ticks every minute like the original per-page scripts did.                        */
+  (function () {
+    var full = document.getElementById("countdown");
+    var num = document.getElementById("cd");
+    if (!full && !num) return;
+    var meta = document.querySelector('meta[name="trip-date"]');
+    if (!meta) return;
+    var parts = meta.content.split("-");
+    if (parts.length !== 3) return;
+    var trip = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+
+    function tick() {
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((trip - today) / 864e5);
+      if (full) {
+        full.textContent =
+          days > 1 ? days + " days to go" :
+          days === 1 ? "Tomorrow" :
+          days === 0 ? "Today" :
+          days > -7 ? "Trip week" : "Trip complete";
+      }
+      if (num) {
+        num.textContent = days > 1 ? days.toLocaleString() + " days"
+                        : days === 1 ? "1 day" : days === 0 ? "today" : "—";
+      }
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  /* ---- checklist persistence -------------------------------------------------------
+     Supports #checklist input[data-k] and the older [data-ck] convention. For [data-ck]
+     the previous per-page key is read as a fallback so ticks already made by the user
+     survive the migration.                                                             */
+  (function () {
+    function bind(box, id) {
+      var key = slug + ":" + id;
+      var legacy = legacyPrefix ? legacyPrefix + id : null;
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null && legacy) v = localStorage.getItem(legacy);
+        if (v === "1") {
+          box.checked = true;
+          if (box.parentElement) box.parentElement.classList.add("done");
+        }
+      } catch (e) { /* private mode */ }
+      box.addEventListener("change", function () {
+        if (box.parentElement) box.parentElement.classList.toggle("done", box.checked);
+        try { localStorage.setItem(key, box.checked ? "1" : "0"); } catch (e) {}
+      });
+    }
+    document.querySelectorAll("#checklist input[type=checkbox]").forEach(function (b) {
+      bind(b, b.dataset.k || b.id || "");
+    });
+    document.querySelectorAll("[data-ck]").forEach(function (b) {
+      bind(b, b.dataset.ck);
+    });
+  })();
+
+  /* ---- scrollspy -------------------------------------------------------------------
+     Marks both `active` and `on` — the two families used different class names — and
+     scrolls the active item into view in the horizontally-scrolling nav, which the older
+     pages did and the newer ones did not. Worth having everywhere.                      */
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    var links = [].slice.call(document.querySelectorAll("nav a[href^='#']"));
+    if (!links.length) return;
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) {
+          var hit = a.getAttribute("href") === "#" + e.target.id;
+          a.classList.toggle("active", hit);
+          a.classList.toggle("on", hit);
+          if (hit && a.scrollIntoView) {
+            a.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+
+    sections.forEach(function (s) { obs.observe(s); });
+  })();
+
+  /* ---- A/B plan toggle -------------------------------------------------------------- */
+  (function () {
+    var buttons = document.querySelectorAll("[data-plan-btn]");
+    if (!buttons.length) return;
+    var key = slug + ":plan";
+
+    function setPlan(which) {
+      document.querySelectorAll("[data-plan]").forEach(function (panel) {
+        panel.classList.toggle("show", panel.dataset.plan === which);
+      });
+      document.querySelectorAll("[data-plan-btn]").forEach(function (btn) {
+        btn.classList.toggle("on", btn.dataset.planBtn === which);
+      });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () { setPlan(btn.dataset.planBtn); });
+    });
+
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    setPlan(saved || buttons[0].dataset.planBtn);
+  })();
+})();
+
+</script>
+</body>
+</html>

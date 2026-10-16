@@ -1,0 +1,187 @@
+{
+ "trip": "iceland-ring-road",
+ "sections": [
+  {
+   "place": "Reykjavik",
+   "blurb": "Capital and the starting point; Hallgrimskirkja is its landmark.",
+   "days": "",
+   "photos": [
+    {
+     "file": "View of Reykjavík from Hallgrímskirkja, 20230507 1229 5733.jpg",
+     "caption": "Reykjavik from the tower of Hallgrimskirkja",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Iceland - Reykjavik 043 - Hallgrimskirkja cathedral (6571026853).jpg",
+     "caption": "Hallgrimskirkja church",
+     "author": "McKay Savage from London, UK",
+     "license": "Public domain"
+    }
+   ]
+  },
+  {
+   "place": "Golden Circle",
+   "blurb": "Three stops within two hours of Reykjavik: Thingvellir, Geysir and Gullfoss.",
+   "days": "",
+   "photos": [
+    {
+     "file": "GULLFOSS WATERFALL-ICELAND (43880264884).jpg",
+     "caption": "Gullfoss with a rainbow in the spray",
+     "author": "INDIGO WOLFSBANE from Newry..., NORTHERN IRELAND....",
+     "license": "Public domain"
+    },
+    {
+     "file": "Öxarárfoss, Parque Nacional de Þingvellir, Suðurland, Islandia, 2014-08-16, DD 029.JPG",
+     "caption": "Oxararfoss at Thingvellir",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Strokkur in eruption, Geysir Geothermal Field, Haukadalur, Iceland, 20230501 0902 3743.jpg",
+     "caption": "Strokkur in eruption at the Geysir geothermal field",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "South Coast",
+   "blurb": "Waterfalls and basalt coast between Hvolsvollur and Vik.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Skógafoss Waterfall, Iceland, 20240720 1330 2993.jpg",
+     "caption": "Skogafoss from above, with a rainbow in the spray",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "Seljalandsfoss - panoramio (7).jpg",
+     "caption": "Seljalandsfoss, which you can walk behind",
+     "author": "Zoran Kurelić Rabko",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Reynisfjara, Iceland, 20230501 1641 4049.jpg",
+     "caption": "Basalt columns and sea stacks at Reynisfjara",
+     "author": "Jakub Hałun",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Skaftafell and Jokulsarlon",
+   "blurb": "The glacier coast under Vatnajokull, from Svartifoss to the iceberg lagoon.",
+   "days": "",
+   "photos": [
+    {
+     "file": "038 Svartifoss waterfall (Iceland) Photo by Giles Laurent.jpg",
+     "caption": "Svartifoss, falling over basalt columns at Skaftafell",
+     "author": "Giles Laurent",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240719 0935 2448.jpg",
+     "caption": "Icebergs in Jokulsarlon glacier lagoon",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "Jökulsárlón glacier lagoon, Iceland, 20240718 1620 2403.jpg",
+     "caption": "A blue iceberg in Jokulsarlon",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0"
+    }
+   ]
+  },
+  {
+   "place": "East Fjords",
+   "blurb": "Steep fjord towns between the glacier coast and the north.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Seyðisfjörður Sept 2019 1.jpg",
+     "caption": "Seydisfjordur from above in September",
+     "author": "Kasa Fue",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Seyðisfjörður, Iceland, 20240717 1453 1755.jpg",
+     "caption": "Painted wooden houses in Seydisfjordur",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Myvatn and Godafoss",
+   "blurb": "Volcanic lake district with lava formations and a wide waterfall.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Goðafoss Waterfall, Iceland, 20240716 0921 1217.jpg",
+     "caption": "Godafoss",
+     "author": "Jakub Hałun",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "Myvatn Iceland 01.jpg",
+     "caption": "Lava formations in the water at Myvatn",
+     "author": "Kilmer",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "Lake Myvatn - Iceland - panoramio (1).jpg",
+     "caption": "Lake Myvatn",
+     "author": "diego_cue",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  {
+   "place": "Akureyri",
+   "blurb": "The largest town in the north, at the head of Eyjafjordur.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Akureyri, Iceland (72893).jpg",
+     "caption": "The harbour front at Akureyri",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Akureyri, Iceland (81237).jpg",
+     "caption": "Akureyri from the fjord shore",
+     "author": "Lee Vilenski",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "place": "Snaefellsnes",
+   "blurb": "Peninsula with Kirkjufell, lava coasts and fishing villages.",
+   "days": "",
+   "photos": [
+    {
+     "file": "Kirkjufell, Iceland (Unsplash LoKG7kKx7Zc).jpg",
+     "caption": "Kirkjufell and its waterfall",
+     "author": "Steven Diaz stevendiazphoto",
+     "license": "CC0"
+    },
+    {
+     "file": "Kirkjufell, Vesturland, Islandia, 2014-08-14, DD 091.JPG",
+     "caption": "Kirkjufell on the Snaefellsnes coast",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "Kirkjufell, Vesturland, Islandia, 2014-08-14, DD 094.JPG",
+     "caption": "Kirkjufell from the shore",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  }
+ ]
+}

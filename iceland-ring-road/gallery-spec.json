@@ -1,0 +1,78 @@
+{
+ "trip": "iceland-ring-road",
+ "places": [
+  {
+   "place": "Reykjavik and the Golden Circle",
+   "days": "",
+   "blurb": "Capital and the Thingvellir, Geysir and Gullfoss triangle.",
+   "queries": [
+    "Reykjavik Hallgrimskirkja",
+    "Gullfoss waterfall",
+    "Thingvellir National Park",
+    "Strokkur geysir"
+   ]
+  },
+  {
+   "place": "South Coast",
+   "days": "",
+   "blurb": "Waterfalls, black sand and the glacier tongues of Vatnajokull.",
+   "queries": [
+    "Skogafoss",
+    "Seljalandsfoss",
+    "Reynisfjara black sand beach",
+    "Solheimajokull"
+   ]
+  },
+  {
+   "place": "Vatnajokull and Jokulsarlon",
+   "days": "",
+   "blurb": "Europe's largest ice cap and its glacier lagoon.",
+   "queries": [
+    "Jökulsárlón glacier lagoon",
+    "Diamond Beach Iceland",
+    "Skaftafell Svartifoss"
+   ]
+  },
+  {
+   "place": "East Fjords",
+   "days": "",
+   "blurb": "Steep fjords between the glacier coast and Myvatn.",
+   "queries": [
+    "Seydisfjordur Iceland",
+    "East Fjords Iceland",
+    "Vestrahorn Stokksnes"
+   ]
+  },
+  {
+   "place": "Myvatn and Godafoss",
+   "days": "",
+   "blurb": "Volcanic lake district with craters, steam fields and a waterfall.",
+   "queries": [
+    "Myvatn Iceland",
+    "Godafoss",
+    "Dimmuborgir",
+    "Hverir Namafjall"
+   ]
+  },
+  {
+   "place": "Akureyri and Skagafjordur",
+   "days": "",
+   "blurb": "Largest town in the north, at the head of Eyjafjordur.",
+   "queries": [
+    "Akureyri Iceland",
+    "Hofsos Iceland",
+    "Eyjafjordur Iceland"
+   ]
+  },
+  {
+   "place": "Snaefellsnes",
+   "days": "",
+   "blurb": "Peninsula with Kirkjufell, lava coasts and fishing villages.",
+   "queries": [
+    "Kirkjufell Iceland",
+    "Snaefellsnes Arnarstapi",
+    "Djupalonssandur"
+   ]
+  }
+ ]
+}
