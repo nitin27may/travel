@@ -22,8 +22,8 @@ round trip. **Dates open.** Every leg is paved.
 ## How the split was decided
 
 No official source publishes a recommended number of days for any park. The split comes from NPS
-hour and distance figures (`research-days-official.md`), about a dozen trip reports
-(`research-days-community.md`) and leg times (`research-days-route.md`).
+hour and distance figures (`research/days-official.md`), about a dozen trip reports
+(`research/days-community.md`) and leg times (`research/days-route.md`).
 
 - **Zion 3 nights** — Utah.com says 3 days / 2 nights; community says 2 is mainstream and 3 only
   if the Narrows is a firm goal. It is, so 3.
@@ -50,7 +50,7 @@ hour and distance figures (`research-days-official.md`), about a dozen trip repo
 | 10 | Salt Lake City | **Optional: Corona Arch** (UT-279, 4.8 km RT, cables + one ladder, free, +3–3.5 h incl. drives, start 07:00). Moab → SLC 4 h. Stansbury Island / Great Salt Lake at sunset. |
 | 11 | — | Fly SLC → YYZ. |
 
-## Optional stops (2026-09-24, `research-goblin-corona.md`)
+## Optional stops (2026-09-24, `research/goblin-corona.md`)
 
 Goblin Valley (day 7) and Corona Arch (day 10) are **optional**, not part of the core route; neither adds a night.
 Goblin Valley is a state park: America the Beautiful pass probably not valid. Corona Arch elevation gain differs by

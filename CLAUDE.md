@@ -1,6 +1,6 @@
 # Travel plans repo
 
-Each trip is one folder: `<slug>/` containing `index.html` (the deliverable), `PLAN.md`, and `research-*.md`.
+Each trip is one folder: `<slug>/` containing `index.html` (the deliverable), `PLAN.md`, and `research/*.md`.
 
 **Use the `trip-planner` skill** (`.claude/skills/trip-planner/`) for any new or revised trip plan — it defines the research process, the HTML format and design system, link/photo conventions, and the publish step.
 
@@ -14,9 +14,17 @@ named for what they do (`--accent`, `--header`, `--warn`), never for a colour.
 
 Status: `norway-summer/` is the **first page built through `_system/`** — see its
 `build_page.py`, which imports `_system/build.py` and calls `assemble()`. The original five
-pages are still hand-written HTML; migrating them is Phases 1–3 of
-`~/.claude/plans/no-just-let-s-create-purring-kettle.md`. `build.py` still has no CLI
+pages are still hand-written HTML (the original plan file for the migration is gone; see
+`AUDIT-2026-10-16.md` section 2.3 for the target). `build.py` still has no CLI
 build command, so each trip supplies its own thin `build_page.py`.
+
+## Folder contract (since 16 Oct 2026)
+
+Inside a trip folder: `index.html` (published), `PLAN.md`, `research/<lane>.md`, `gallery/`
+(`gallery.json` plus the spec and picks; `*-candidates.json` is gitignored), `assets/` (the
+only other thing published: kml, csv, gpx downloads), `archive/` (superseded plans and pages,
+never published). `publish.sh` copies `index.html` and `assets/` only. Full audit and roadmap:
+`AUDIT-2026-10-16.md`.
 
 Deploy everything with `./publish.sh` → https://nks-travel.pages.dev/<slug>/
 Cloudflare login on this machine must be `npx wrangler login --device` (localhost callback fails; approval happens on phone).
@@ -49,7 +57,7 @@ Cloudflare login on this machine must be `npx wrangler login --device` (localhos
   Sept 2027**; all prices are 2026.
 - `dolomites-july-2027/` — Jul 13–26, 2027, YYZ→Venice, rental car, 4 bases. Dates moved
   back from 26 Jun so the high routes and all lifts are open; hut-to-hut considered and
-  declined. `PLAN-superseded-june.md` keeps the June reasoning.
+  declined. `archive/PLAN-superseded-june.md` keeps the June reasoning.
 
 - `chamonix-mont-blanc-sept-2028/` — **Fri 1 – Sat 9 Sep 2028, 8 nights (recommended from a 1–14 Sep window), from Toronto.**
   6 research files + PLAN.md + page built through `_system/` (theme `alpine-snow`). Shape: Les Praz 3, optional
@@ -72,7 +80,7 @@ Cloudflare login on this machine must be `npx wrangler login --device` (localhos
 
 - `patagonia-feb-mar-2027/` — **Fri 26 Feb – Thu 11 Mar 2027, 13 nights, Toronto, adults plus children 11+. Built, NOT published.**
   Seed was a video (BA, Calafate, Chalten, Ushuaia); route **reversed**: BA 1, Ushuaia 4, El Chalten 4, El Calafate 2, BA 2
-  (penguins a week earlier, walking ramps up, last domestic leg from Calafate). PLAN.md (Opus) + 7 research files + `research-sun.md`
+  (penguins a week earlier, walking ramps up, last domestic leg from Calafate). PLAN.md (Opus) + 7 research files + `research/sun.md`
   (the logistics sun table is wrong, use this one); page via `build_page.py` (theme `alpine-snow`, `photos.py` for hero/cards),
   gallery 42 photos after the trail list. Torres del Paine: NO (day tour swap costs the Chalten spare day). Big Ice 18+, rafting 16+ cut;
   minitrekking 8-65 fits. Urgent: international flight and Chalten lodging by 31 Oct, domestic flights and car 15 Nov, Piratour and
@@ -86,7 +94,7 @@ Cloudflare login on this machine must be `npx wrangler login --device` (localhos
   Page, Antelope, Horseshoe Bend, Monument Valley and the Hanksville badlands (4 nights); every leg
   is paved so AWD is no longer needed. Moab could be 2 nights (10 days) on official figures.
   Night split is inference: no official source gives days per park (`research-days-*.md`).
-  The 15-day plan is in `PLAN-15day-superseded.md`, old page and builder in `archive/`.
+  The 15-day plan, old page and builder are in `archive/`.
   `CALL-LIST.md` is from the 15-day plan and partly stale. Theme `desert`, build with
   `python3 build_page.py`. **Dates open**; the one hard line is 1 October (Narrows dry-suit cold).
 - `norway-summer/` — **summer 2028, exact dates open.** 14 nights. Research (5 files) + PLAN.md
@@ -119,7 +127,7 @@ Cloudflare login on this machine must be `npx wrangler login --device` (localhos
   Best month = **September**. The post's "October = fewer crowds" is wrong for MP specifically.
 
 ## Photo galleries
-Every page carries a photo gallery injected from `<trip>/gallery.json` by `_system/gallery.py`
+Every page carries a photo gallery injected from `<trip>/gallery/gallery.json` by `_system/gallery.py`
 (`verify`, `sheet`, `inject`). Find candidates with `_system/gallery_find.py` (one API request per query,
 cached, contact sheets for you to look at), pick with `_system/gallery_pick.py`. **Never search Commons from
 parallel agents:** one shared IP, and four agents at once got a 429 that lasted 25+ minutes (2026-10-12).
@@ -142,5 +150,6 @@ page now carries. Add a trip and the card appears; nothing to maintain by hand.
   `.blaze.*`). They also carry a different `<meta name="viewport">` string, which has already
   broken one scraping pass. `_system/` unifies both — until migration, edit each family on its
   own terms.
-- `vermont-fall-2026/Vermont-Fall-Trip-Oct-1-4-2026.html` is a stray artifact that `publish.sh`
-  currently copies into the deployed site. Delete or exclude it during Phase 4.
+- `publish.sh` used to copy every non-`.md` file in a trip folder to the public site (81 scripts,
+  JSON and scratch files were live until 16 Oct 2026). It now publishes `index.html` and `assets/`
+  only; anything else you want downloadable goes in `assets/` on purpose.

@@ -575,7 +575,7 @@ HERO_IMG = "Arenal volcano (70785p).jpg"
 
 CTX = {
     "slug": "costa-rica-feb-2027",
-    "trip_date": "",
+    "trip_date": "2027-02-13",
     "trip_dates": "13 &ndash; 23 Feb 2027",
     "trip_duration": "10 nights",
     "trip_region": "Rincón, Arenal, Manuel Antonio &amp; Uvita",
@@ -616,6 +616,6 @@ out.write_text(html_out, encoding="utf-8")
 print(f"wrote {out}  ({len(html_out):,} bytes, theme={THEME})")
 
 # Photo gallery is data (gallery.json) injected after the build; a rebuild would otherwise erase it.
-if (HERE / "gallery.json").exists():
+if (HERE / "gallery" / "gallery.json").exists():
     import gallery as G   # noqa: E402  (_system/gallery.py)
-    G.inject(G.load(str(HERE / "gallery.json")), out)
+    G.inject(G.load(str(HERE / "gallery" / "gallery.json")), out)

@@ -15,8 +15,8 @@ for dir in "$ROOT"/*/; do
   [[ "$slug" == .* || ! -f "$dir/index.html" ]] && continue
   mkdir -p "$SITE/$slug"
   cp "$dir/index.html" "$SITE/$slug/index.html"
-  # carry any extra assets (images, downloadable copies)
-  find "$dir" -maxdepth 1 -type f ! -name 'index.html' ! -name '*.md' -exec cp {} "$SITE/$slug/" \; 2>/dev/null || true
+  # only index.html and an explicit assets/ folder are published; scripts, data and research never are
+  [[ -d "$dir/assets" ]] && cp -r "$dir/assets" "$SITE/$slug/assets"
   title="$(grep -o '<title>[^<]*' "$dir/index.html" | head -1 | sed 's/<title>//')"
   sub="$(grep -o 'class="sub">[^<]*' "$dir/index.html" | head -1 | sed 's/class="sub">//')"
   SLUGS+=("$slug"); TITLES+=("${title:-$slug}"); SUBS+=("${sub:-}")

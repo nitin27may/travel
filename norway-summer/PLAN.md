@@ -1,6 +1,6 @@
 # Norway — 14 nights, summer 2028. Dates open.
 
-Research lives in the five `research-*.md` files beside this; the light figures come from
+Research lives in the five `research/*.md` files beside this; the light figures come from
 `sun-times.py`, which is reproducible. The deliverable is `index.html`.
 
 ---

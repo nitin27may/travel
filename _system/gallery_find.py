@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Find gallery candidates on Wikimedia Commons with the fewest possible requests.
 
-    python3 _system/gallery_find.py <trip>/gallery-spec.json
+    python3 _system/gallery_find.py <trip>/gallery/gallery-spec.json
 
 Spec:  {"trip": "slug", "places": [{"place": "...", "days": "...", "blurb": "...", "queries": ["...", "..."]}]}
 
 One API request per query (generator=search with imageinfo inline), results cached in
 /tmp/gal/<trip>/cache.json so a rerun resumes. Filters: jpeg, landscape, >= 1600 px, reusable
-licence, not already embedded in <trip>/index.html. Writes <trip>/gallery-candidates.json and a
+licence, not already embedded in <trip>/index.html. Writes <trip>/gallery/gallery-candidates.json and a
 contact sheet /tmp/gal/<trip>/sheet-<n>.jpg per 12 candidates so a human picks by looking.
 Backs off 5 minutes on HTTP 429 and stops rather than hammering.
 """

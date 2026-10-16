@@ -31,7 +31,7 @@ ADVS = J("adventures.merged.json")["adventures"]
 BOOKS = J("bookings.json")
 BASES = {b["id"]: b for b in J("bases.json")}
 ITIN = J("itinerary.json")
-GAL = json.loads((HERE / "gallery.json").read_text(encoding="utf-8"))
+GAL = json.loads((HERE / "gallery" / "gallery.json").read_text(encoding="utf-8"))
 PLAN = (HERE / "PLAN.md").read_text(encoding="utf-8")
 
 T_BY = {t["id"]: t for t in TRAILS}
@@ -798,4 +798,4 @@ print(f"wrote {out}  ({len(html_out):,} bytes, theme={THEME})")
 
 # Photo gallery is data (gallery.json) injected after the trails section; a rebuild would otherwise erase it.
 import gallery as G   # noqa: E402  (_system/gallery.py)
-G.inject(G.load(str(HERE / "gallery.json")), out, after="trails")
+G.inject(G.load(str(HERE / "gallery" / "gallery.json")), out, after="trails")

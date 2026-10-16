@@ -1,7 +1,7 @@
 # Switzerland — Tue 27 July to Tue 10 August 2027
 
 14 nights. **Rail, not a car.** Three bases: Lucerne 4 → Wengen 5 → Zermatt 5.
-Research in the five `research-*.md` files beside this.
+Research in the five `research/*.md` files beside this.
 
 Possibly chained to `../dolomites-july-2027/` which ends 26 July — see "The join" below.
 
@@ -128,7 +128,7 @@ Marginal cost while holding a 2nd-class Travel Pass:
 ## Adventure — what to book, by base week
 
 Prices verified from operators 29 Aug 2026 unless marked indicative. Full detail and sources in
-`research-active.md` §5, §7, §8.
+`research/active.md` §5, §7, §8.
 
 ### ⚠ Travelling with a 10-year-old — read this before booking anything
 

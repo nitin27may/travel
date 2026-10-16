@@ -176,12 +176,12 @@ nothing on it. It is the price of joining the two halves.
 
 ---
 
-# Window A vs B — hard date cutoffs (from research-bookings.md, lane 2, complete)
+# Window A vs B — hard date cutoffs (from research/bookings.md, lane 2, complete)
 
 Trip-day arithmetic against the 25-day skeleton above.
 Window A = start 20 Sep 2027. Window B = start 10 Sep 2028.
 
-| Cutoff (sourced in research-bookings.md) | Window A lands | Window B lands |
+| Cutoff (sourced in research/bookings.md) | Window A lands | Window B lands |
 |---|---|---|
 | **Jenny Lake shuttle boat ends 30 Sep** | GT on days 19–20 = **8–9 Oct — MISSED** | GT = 28–29 Sep — **caught by 1 day** |
 | Yellowstone Lake & Grant lodges close 10 Oct; Old Faithful Inn 11 Oct (2027 dates published) | YS days 21–23 = **10–13 Oct — nearly all shut**, only Canyon/Snow Lodge/Mammoth | YS = 30 Sep–2 Oct — **all open** |
@@ -245,7 +245,7 @@ Jamboree and Ho-Down in late October.
 
 ## CORRECTION — lane 1 was incomplete, and one claim I made is unverified
 
-`research-trails.md` covers only **sections 1–8 (Zion → Canyonlands)**. It stopped before
+`research/trails.md` covers only **sections 1–8 (Zion → Canyonlands)**. It stopped before
 Ouray, Frisco/Breckenridge, Grand Teton and Yellowstone and never sent a completion signal.
 A follow-up agent was launched 2026-09-05 to append section 9 (Colorado + Wyoming).
 

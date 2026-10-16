@@ -4,7 +4,7 @@
 
 Every price, timetable, season and closure here is a 2026 (or older) figure used as a pattern. Nothing for 2029 has been published. GAP means not verified. INFERENCE means my reasoning, not a source. Drive times marked "matrix" come from `data/bases.json`, where the researcher estimated every leg from general road knowledge with no routing source; treat all of them as INFERENCE.
 
-The structured version of this plan is `data/itinerary.json`. The days-per-park evidence and the option arithmetic are in `research-days.md`.
+The structured version of this plan is `data/itinerary.json`. The days-per-park evidence and the option arithmetic are in `research/days.md`.
 
 ---
 

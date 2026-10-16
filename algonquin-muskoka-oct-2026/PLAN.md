@@ -3,8 +3,8 @@
 Whitby -> Port Cunnington Lodge (Lake of Bays, Dwight) -> home. Sat 10 to Mon 12 Oct, two nights, one base.
 Monday 12 October is **Canadian Thanksgiving**, which shapes almost everything below.
 
-Research files in this folder: `research-trails.md`, `research-logistics.md`, `research-attractions.md`,
-`research-foliage-photo.md`. Every figure here traces to one of them. `GAP` = unverified.
+Research files in this folder: `research/trails.md`, `research/logistics.md`, `research/attractions.md`,
+`research/foliage-photo.md`. Every figure here traces to one of them. `GAP` = unverified.
 
 ## What changed against the draft (rule zero)
 
@@ -37,7 +37,7 @@ Cache Lake lookout is about 4.1 km in.
 
 Why it is famous, specifically: **the colour sequence.** Sugar and red maple peak first (Algonquin 27 Sep on average),
 then poplar and birch gold, beech bronze and, last, **tamarack**, the larch that turns gold and drops its needles, expected
-to peak mid-October (research-foliage-photo.md s1). 10-12 Oct sits in that second act.
+to peak mid-October (research/foliage-photo.md s1). 10-12 Oct sits in that second act.
 
 What you cannot get here elsewhere in this folder: a national-park-scale corridor (Hwy 60) two hours from Whitby, with a
 lake-country base where the shoreline itself is the second half of the trip.

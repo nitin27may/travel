@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn a human selection into gallery.json.
 
-    python3 _system/gallery_pick.py <trip>/gallery-picks.json
+    python3 _system/gallery_pick.py <trip>/gallery/gallery-picks.json
 
 picks file: {"trip": "slug", "authors": {"bad author string": "Fixed Name"}, "picks": {"0.0": "caption", ...}}
 Ids are "<place>.<candidate>" from the contact sheets made by gallery_find.py. Section order

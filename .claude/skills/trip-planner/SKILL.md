@@ -11,7 +11,7 @@ Every trip in this repo is **one folder** — `~/workspace/travel/<slug>/` — c
 |---|---|
 | `index.html` | The deliverable. Self-contained interactive plan. Becomes `/<slug>/` on the live site. |
 | `PLAN.md` | Same content as markdown, for reading in the terminal/editor and for future sessions to load cheaply. |
-| `research-*.md` | Raw agent findings, one per research lane. Never delete — they justify decisions and prevent re-researching. |
+| `research/*.md` | Raw agent findings, one per research lane. Never delete — they justify decisions and prevent re-researching. |
 
 `publish.sh` at the repo root deploys every folder at once. **Never create a Pages project per trip.**
 
@@ -115,7 +115,7 @@ It must answer, in this order:
 distance, a valley, a town. Reuse from the day cards only if you must.
 
 **Do not write brochure copy.** Every claim in the intro must survive the research files.
-If the intro says a place is "unspoilt", something in `research-*.md` has to support it.
+If the intro says a place is "unspoilt", something in `research/*.md` has to support it.
 
 ### The HTML deliverable
 
@@ -190,13 +190,13 @@ Embed as `Special:FilePath/<encoded>?width=900`, always with a `<figcaption>` li
 ### Photo gallery — every trip gets one (mandatory)
 
 A gallery section sits right after the orientation section so the reader sees where they are going
-before the days start. It is **data, not hand-written HTML**: `<trip>/gallery.json` plus
+before the days start. It is **data, not hand-written HTML**: `<trip>/gallery/gallery.json` plus
 `_system/gallery.py`.
 
 ```bash
-python3 _system/gallery.py verify <trip>/gallery.json            # Commons metadata, licence, >=1600 px landscape, hotlink 200
-python3 _system/gallery.py sheet  <trip>/gallery.json /tmp/s.jpg  # contact sheet: LOOK at it before injecting
-python3 _system/gallery.py inject <trip>/gallery.json <trip>/index.html   # idempotent; also adds a "photos" nav link
+python3 _system/gallery.py verify <trip>/gallery/gallery.json            # Commons metadata, licence, >=1600 px landscape, hotlink 200
+python3 _system/gallery.py sheet  <trip>/gallery/gallery.json /tmp/s.jpg  # contact sheet: LOOK at it before injecting
+python3 _system/gallery.py inject <trip>/gallery/gallery.json <trip>/index.html   # idempotent; also adds a "photos" nav link
 ```
 
 - **Cheapest model for the finding.** Photo search, metadata checks and thumbnail viewing are

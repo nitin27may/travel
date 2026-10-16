@@ -1,5 +1,5 @@
 # Viewpoint options audit — drive vs hike, hours, and how to combine
-Sept 7, 2026. Companion to `research-gaps-and-viewpoints.md`. Written to answer three questions:
+Sept 7, 2026. Companion to `research/gaps-and-viewpoints.md`. Written to answer three questions:
 what are the hours, what is worth the drive, and where does driving beat hiking.
 
 ## 1. Map links — one per line

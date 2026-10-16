@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Photo gallery for a trip page: verify photos on Wikimedia Commons, then inject a section.
 
-    python3 _system/gallery.py verify <trip>/gallery.json
-    python3 _system/gallery.py sheet  <trip>/gallery.json /tmp/sheet.jpg   # contact sheet to eyeball
-    python3 _system/gallery.py inject <trip>/gallery.json <trip>/index.html
+    python3 _system/gallery.py verify <trip>/gallery/gallery.json
+    python3 _system/gallery.py sheet  <trip>/gallery/gallery.json /tmp/sheet.jpg   # contact sheet to eyeball
+    python3 _system/gallery.py inject <trip>/gallery/gallery.json <trip>/index.html
 
 `inject` is idempotent: it replaces everything between the gallery markers, so re-run it after
 any rebuild of index.html (build_page.py trips call it at the end of the build).

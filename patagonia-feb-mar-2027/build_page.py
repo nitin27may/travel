@@ -641,8 +641,8 @@ DATES = f"""
   <h3 class="subh">Why this window and not the others</h3>
   {md(rd_body["Why this window and not the others"])}
   <h3 class="subh">Daylight</h3>
-  <p class="smallnote">research-sun.md, computed, UTC-3.</p>
-  {md(rd_body["Daylight (research-sun.md, computed, INFERENCE, UTC-3)"])}
+  <p class="smallnote">research/sun.md, computed, UTC-3.</p>
+  {md(rd_body["Daylight (research/sun.md, computed, INFERENCE, UTC-3)"])}
 </section>"""
 
 # ---- night split and route
@@ -1094,6 +1094,6 @@ out.write_text(html_out, encoding="utf-8")
 print(f"wrote {out}  ({len(html_out):,} bytes, theme={THEME})")
 
 # Photo gallery is data (gallery.json) injected after the trails section; a rebuild would otherwise erase it.
-if (HERE / "gallery.json").exists():
+if (HERE / "gallery" / "gallery.json").exists():
     import gallery as G   # noqa: E402  (_system/gallery.py)
-    G.inject(G.load(str(HERE / "gallery.json")), out, after="trails")
+    G.inject(G.load(str(HERE / "gallery" / "gallery.json")), out, after="trails")

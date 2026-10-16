@@ -201,7 +201,7 @@ card payment; **never a yellow Telepass lane**.
 ## Adventure — prices, and the limits that decide who can go
 
 Verified 29 Aug 2026 from operators. All figures are **2026 — re-verify in spring 2027**.
-Detail and sources in `research-adventure.md`.
+Detail and sources in `research/adventure.md`.
 
 ### ⚠ Travelling with a 10-year-old — and the good news is the Dolomites suit him better
 
@@ -219,7 +219,7 @@ Detail and sources in `research-adventure.md`.
 as the ability to follow safety instructions under stress at height, not strength. That is worth
 knowing when judging whether he is ready.
 
-**The Cinque Torri find is the one to act on.** `research-trails.md` already has Cinque Torri in
+**The Cinque Torri find is the one to act on.** `research/trails.md` already has Cinque Torri in
 the itinerary for the rock towers and the Nuvolau panorama. There is a **beginner A/B-graded via
 ferrata at the base of the towers**, and it is the route most often named as the family
 introduction in this region. That turns an existing stop into the trip's adventure centrepiece
@@ -238,7 +238,7 @@ changes the per-head cost more than the route does.
 - **Lift tickets are not.** Several ferrata approaches start from a paid cable car.
 - Prices exclude 5% VAT.
 - **Self-guided:** full kit rents for **€25–35/day** in Cortina. Only for people already solid on
-  cables — `research-trails.md` is clear that several routes here are EEA-graded and the
+  cables — `research/trails.md` is clear that several routes here are EEA-graded and the
   Bonacossa traverse is explicitly not for non-expert hikers.
 - ⚠ **GAP: no guide service publishes a minimum age.** If anyone under ~14 is coming, ask before
   building a day around it.

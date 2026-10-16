@@ -27,12 +27,12 @@ The video's shape mostly holds up: two Buenos Aires days, the glacier, El Chalte
 
 ### Corrections to the research files
 
-- **research-logistics.md, section 6 (sun times) is wrong.** Both its sunrise and sunset columns are offset. This plan uses research-sun.md, and interpolates between its three dates where a day falls between them.
-- **research-logistics.md gives about 15 h for the YYZ-EZE nonstop.** The same file's 2018 Air Canada timetable (EZE 08:55, YYZ 19:00, a 2 h time difference) works out to about 12 h block time. The 15 h listings are probably one-stop itineraries. I use about 12 h (INFERENCE) and treat the 2027 schedule as a GAP.
-- **research-stay-bookings.md says the Cerro Torre trail starts via Chorrillo del Salto.** It does not. The Laguna Torre trailhead is on the west side of town (Calle Riquelme, 49.3314 S 72.8931 W, photohikes). Chorrillo del Salto starts from the north end of Av. San Martin.
-- **research-stay-bookings.md quotes Tren del Fin del Mundo at ARS 70,000 / 35,000.** Those were winter 2026 fares. The official site lists ARS 80,000 (13+) and ARS 40,000 (4-12) for Oct 2026 to Mar 2027. I use the official figures.
-- **Fossil Canyon minimum age:** pass 1 says 13+, pass 2 says 12, and a Civitatis product page says 3+. research-adventure-2.md supersedes pass 1, but the conflict is not resolved. Treat it as no for an 11-year-old.
-- **research-chile-option.md cites one source that says Martillo penguins are gone by late Feb or early March.** Piratour's season runs to 31 Mar and blogs report penguins in February 2026. The late-season count is unverified either way.
+- **research/logistics.md, section 6 (sun times) is wrong.** Both its sunrise and sunset columns are offset. This plan uses research/sun.md, and interpolates between its three dates where a day falls between them.
+- **research/logistics.md gives about 15 h for the YYZ-EZE nonstop.** The same file's 2018 Air Canada timetable (EZE 08:55, YYZ 19:00, a 2 h time difference) works out to about 12 h block time. The 15 h listings are probably one-stop itineraries. I use about 12 h (INFERENCE) and treat the 2027 schedule as a GAP.
+- **research/stay-bookings.md says the Cerro Torre trail starts via Chorrillo del Salto.** It does not. The Laguna Torre trailhead is on the west side of town (Calle Riquelme, 49.3314 S 72.8931 W, photohikes). Chorrillo del Salto starts from the north end of Av. San Martin.
+- **research/stay-bookings.md quotes Tren del Fin del Mundo at ARS 70,000 / 35,000.** Those were winter 2026 fares. The official site lists ARS 80,000 (13+) and ARS 40,000 (4-12) for Oct 2026 to Mar 2027. I use the official figures.
+- **Fossil Canyon minimum age:** pass 1 says 13+, pass 2 says 12, and a Civitatis product page says 3+. research/adventure-2.md supersedes pass 1, but the conflict is not resolved. Treat it as no for an 11-year-old.
+- **research/chile-option.md cites one source that says Martillo penguins are gone by late Feb or early March.** Piratour's season runs to 31 Mar and blogs report penguins in February 2026. The late-season count is unverified either way.
 
 ### Added (veto any of these)
 
@@ -78,7 +78,7 @@ The video's shape mostly holds up: two Buenos Aires days, the glacier, El Chalte
 
 **Autumn colour.** It starts only in late March, so this trip gets green forests and at best the first yellows (INFERENCE).
 
-### Daylight (research-sun.md, computed, INFERENCE, UTC-3)
+### Daylight (research/sun.md, computed, INFERENCE, UTC-3)
 
 | Place | 26 Feb (dawn / rise / set / dusk) | 5 Mar | 11 Mar |
 |---|---|---|---|
@@ -339,7 +339,7 @@ With children 11+, most days run as one group. The Rockies plan's idea still app
 
 ## Day by day
 
-Sunrise and sunset come from research-sun.md (computed, INFERENCE). Dates between its three columns are interpolated.
+Sunrise and sunset come from research/sun.md (computed, INFERENCE). Dates between its three columns are interpolated.
 
 ### Day 1, Fri 26 Feb: land in Buenos Aires, Recoleta
 
@@ -799,7 +799,7 @@ Prices are aggregator snapshots from unknown or mixed dates, not quotes. Some bu
 
 ## Known issues
 
-1. research-logistics.md's sun table is wrong (both columns offset); research-sun.md is used.
+1. research/logistics.md's sun table is wrong (both columns offset); research/sun.md is used.
 2. YYZ-EZE nonstop duration: 15 h in one file versus about 12 h from the 2018 timetable. The 2027 days and times are a GAP.
 3. The 2027 USH-FTE schedule is probably not loaded yet. The only timed flight is AR1895 USH 10:20 on a September 2026 date.
 4. Which Piratour product lands on Martillo, and whether the Harberton tour runs on Tuesdays, are both GAPs.
@@ -895,4 +895,4 @@ Reserves if a place has no usable photo: Laguna Esmeralda, El Chalten village, C
   - Torres del Paine declined, with the Calafate day tour as the optional swap.
   - Big Ice, rafting and Fossil Canyon cut on age.
   - Video distances corrected (Laguna de los Tres 20.9-22 km and 800-1,100 m; drive 2h45-3h30).
-  - research-logistics sun table replaced by research-sun.md.
+  - research-logistics sun table replaced by research/sun.md.

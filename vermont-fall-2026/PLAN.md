@@ -99,7 +99,7 @@ that still need a Google pin from you. Parking is the binding constraint on this
 
 **Companion files:** `MASTER-MAP-AND-SCORES.md` — every destination as a map pin, per-day loop
 links, a drive/on-site time budget and a 1–10 score for each stop.
-`research-gaps-and-viewpoints.md` and `OPTIONS-viewpoints.md` — the research behind them.
+`research/gaps-and-viewpoints.md` and `OPTIONS-viewpoints.md` — the research behind them.
 
 ## What changed from the rough plan (and why)
 
@@ -555,7 +555,7 @@ top ("it is freezing right now") supports it.
 # Addendum — the Green Mountain gaps + viewpoint audit (Sept 7, 2026)
 
 Trigger: Lincoln Gap and Appalachian Gap appeared **nowhere** in this plan. Full research and
-sources in `research-gaps-and-viewpoints.md`. This section is the decision and the schedule.
+sources in `research/gaps-and-viewpoints.md`. This section is the decision and the schedule.
 
 ## The finding in one paragraph
 
@@ -671,7 +671,7 @@ in Groton (wrong side of the state).
 # Must-see audit — what a Vermont fall trip should not miss (Sept 7, 2026)
 
 Done after Cold Hollow and Burke were dropped. The question asked was: what is genuinely
-must-see that this plan still misses. Sources in `research-gaps-and-viewpoints.md`.
+must-see that this plan still misses. Sources in `research/gaps-and-viewpoints.md`.
 
 ## The date-critical find: the NEK Fall Foliage Festival lands ON this trip
 

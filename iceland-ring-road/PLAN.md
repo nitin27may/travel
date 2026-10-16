@@ -100,7 +100,7 @@ Collect the van, learn where everything is in the car park before driving anywhe
 ### Day 2 — Sun 5 Sep · Golden Circle · ~160 km
 - **Þingvellir** — walk Almannagjá, the rift wall. The Alþingi site is at the bottom.
 - **Silfra snorkel** *(optional, book ahead)* — age 12+, 150–200 cm, 45–120 kg, medical form
-  mandatory, competent swimmers only. See `research-route.md` for the disqualifying conditions.
+  mandatory, competent swimmers only. See `research/route.md` for the disqualifying conditions.
 - **Geysir / Strokkur** — Strokkur goes every 5–10 minutes; Geysir itself is dormant
 - **Gullfoss** — two-tier, into a canyon. Upper and lower viewpoints are different pictures.
 - **Kerið** — crater lake, small fee, ten minutes
