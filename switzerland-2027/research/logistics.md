@@ -73,13 +73,13 @@ Departure times ex-YYZ cluster **16:30–21:25**, i.e. classic overnight, landin
 
 Switzerland is **Schengen but not EU**. Practical consequence: Schengen rules apply (90/180, EES, ETIAS) but EU-specific consumer rules (e.g. EU roaming) do **not**.
 
-**Government of Canada official (travel.gc.ca/destinations/switzerland):**
+**Government of Canada official (travel.gc.ca/locations/switzerland):**
 - Passport must be valid **at least 3 months beyond your planned departure from the Schengen area**.
 - "Tourist visa: **not required** for stays up to 90 days in any 180-day period."
 - 90/180 is **cumulative across all Schengen countries** — a Dolomites trip in Italy immediately before counts against the same 90 days. A 14-night Swiss trip + ~10-night Italy trip = ~25 days, well inside 90. No issue.
 - **EES (Entry/Exit System):** "the Entry/Exit System (EES) collects information about your trip as well as your facial image and fingerprints. **You don't need to take any action before you travel.**" Practical impact = slower first-entry border processing (biometric enrolment) at ZRH/VCE.
 - **ETIAS:** "Applications are not yet open. Apply only through the official EU website once the system is launched."
-- Source: https://travel.gc.ca/destinations/switzerland
+- Source: https://travel.gc.ca/locations/switzerland
 
 **ETIAS status specific to Switzerland:**
 - Switzerland **is** an ETIAS country. ETIAS covers all EU states except Ireland, **plus Iceland, Norway, Liechtenstein and Switzerland** (30 countries total).
@@ -449,7 +449,7 @@ Across the 14 nights the day shortens by ~36 minutes — the sunset moves from 2
 
 | Item | Why | When to check | Where |
 |---|---|---|---|
-| **ETIAS live date + whether Canadians need it on 27 Jul 2027** | Date has slipped from 2026; no confirmed date exists | **Jan 2027**, then again May 2027 | https://travel-europe.europa.eu/etias_en and https://travel.gc.ca/destinations/switzerland |
+| **ETIAS live date + whether Canadians need it on 27 Jul 2027** | Date has slipped from 2026; no confirmed date exists | **Jan 2027**, then again May 2027 | https://travel-europe.europa.eu/etias_en and https://travel.gc.ca/locations/switzerland |
 | **EES rollout state at ZRH/VCE** | Biometric enrolment adds border time; progressive rollout | Jun 2027 | travel.gc.ca, EU EES page |
 | **2027 Swiss Travel Pass prices** | Published ~Oct–Dec 2026 for 2027; 2026 prices used throughout this doc | **Nov 2026** | https://www.myswissalps.com/details/buy-swiss-travel-pass/ |
 | **2027 Half Fare Card price** | Jumped CHF 120→150 for 2026; another rise is plausible | Nov 2026 | https://www.sbb.ch/en/offers/swiss-half-fare-card |

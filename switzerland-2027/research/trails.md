@@ -101,7 +101,7 @@ The single best big day in the Jungfrau region and the one worth building a day 
   - **Berghaus Schynige Platte / Hotel** at the west end; restaurants at First.
   - **GAP: 2027 prices and opening dates for Faulhorn and Männdlenen not verified. Book Faulhorn early for an overnight — it is tiny and August is peak.**
 - **Note:** the traverse is Stage 15 of the **Via Berna** long-distance trail; local signage numbers are **#2 + #62**.
-- **Links:** https://www.earthtrekkers.com/hike-schynige-platte-to-faulhorn-to-first-switzerland/ · https://www.hikingwalking.com/index.php/destinations/sw/sw_bernese/grindelwald/schynige_platte/schynige_platte_detail · https://iainwalks.com/stories/faulhornweg · https://swissfamilyfun.com/faulhorn/
+- **Links:** https://www.earthtrekkers.com/hike-schynige-platte-to-faulhorn-to-first-switzerland/ · https://www.hikingwalking.com/index.php/locations/sw/sw_bernese/grindelwald/schynige_platte/schynige_platte_detail · https://iainwalks.com/stories/faulhornweg · https://swissfamilyfun.com/faulhorn/
 - **GAP:** SwitzerlandMobility route number for the Faulhornweg not confirmed.
 
 ### 3.5 Panoramaweg Schynige Platte (ridge circuit) — **SwitzerlandMobility route 345**
@@ -232,7 +232,7 @@ Repeatedly named by knowledgeable sources as the best walk in Zermatt precisely 
 - **Huts/restaurants:** **Berghaus/Hotel du Trift** (2,337 m) — 30 dormitory places, 9 private rooms, drinks, snacks and meals. **Restaurant Z'Mutt** (09:00–17:30, kitchen closes earlier). **Café Edelweiss** at Alterhaupt (1,934 m). Restaurant Kalbermatten is private/closed. Schönbielhütte reachable on an extended loop.
 - **TRAIL DAMAGE — verify:** **the Triftbach gorge ascent from Zermatt to Berghaus Trift was damaged by heavy storms in September 2024.** An alternative ascent via **Hubel** (17.5 km version) bypasses it. **Check https://wegwandern.ch or the swisstopo app for 2027 status. GAP.**
 - **Season:** June–September (October).
-- **Links:** https://www.moonhoneytravel.com/edelweissweg-hohbalmen-hike-zermatt/ · https://www.hikingwalking.com/index.php/destinations/sw/sw_valais/zermatt/hohbalm/hohbalm_detail · https://www.alltrails.com/trail/switzerland/valais/edelweissweg-hohbalmen-stafelsalp
+- **Links:** https://www.moonhoneytravel.com/edelweissweg-hohbalmen-hike-zermatt/ · https://www.hikingwalking.com/index.php/locations/sw/sw_valais/zermatt/hohbalm/hohbalm_detail · https://www.alltrails.com/trail/switzerland/valais/edelweissweg-hohbalmen-stafelsalp
 
 ### 4.6 Other strong Zermatt days (from the same source set)
 - **Matterhorn Glacier Trail** — **6.6 km / 4.1 mi, ~356 m (1,168 ft) descent, 3 h, moderate.** **Trockener Steg (2,939 m) → Schwarzsee (2,583 m).** Cableways required both ends (Kombi-Ticket). A themed trail explicitly about **glacier retreat**, weaving between meltwater lakes. **This walks BESIDE glaciers, not on them — no equipment needed.**
@@ -246,7 +246,7 @@ Repeatedly named by knowledgeable sources as the best walk in Zermatt precisely 
   - **Payoff:** continuous — you traverse flowery meadows and rugged slopes between the **Lagginhorn and Weissmies**, facing the entire **Mischabel range** and its glaciers and waterfalls across the valley.
   - **Optional Erlebnisweg / Adventure Trail variant:** **two suspension bridges, narrow wooden walkways bolted into rock walls, steep ladders and metal steps down a cliff face.** No safety equipment required, but "definitely not for the faint of heart." Effectively an unroped via-ferrata-flavoured section — **the most interesting single feature in the Saastal.**
   - **Hut:** **Almagelleralp** (small restaurant) on the valley floor; from there a long, strenuous climb reaches the **Almagellerhütte (2,894 m)**.
-  - **Links:** https://www.hikingwalking.com/index.php/destinations/sw/sw_valais/saas_fee/kreuzboden_almagell/kreuzboden_almagell_detail · https://swissfamilyfun.com/almagelleralp-hike/ · https://wegwandern.ch/wanderung/saas-almagell-almagelleralp-almagellerhuette-kreuzboden-wanderung-wandern/
+  - **Links:** https://www.hikingwalking.com/index.php/locations/sw/sw_valais/saas_fee/kreuzboden_almagell/kreuzboden_almagell_detail · https://swissfamilyfun.com/almagelleralp-hike/ · https://wegwandern.ch/wanderung/saas-almagell-almagelleralp-almagellerhuette-kreuzboden-wanderung-wandern/
 - **Mischabelhütte (3,340 m):** the classic brutal steep haul above Saas-Fee. **GAP — distance, T-grade, time, price and opening dates NOT verified in this pass.** Widely reported to be a T4-ish, fixed-rope, 1,550 m climb. Verify at https://www.mischabel.ch before using.
 - **Britannia Hütte SAC (3,030 m):** the easiest high SAC hut in the Saastal, reached from Felskinn. **Confirmed: "reservations for 2027 will be available starting November 2026."** That is the single most useful booking-window data point in this document. Other prices/dates: **GAP** — page truncated. https://britannia.ch/?lang=en
 - **Saaser Hüttentour / Saaser hut route** is a documented multi-day hut circuit: https://www.outdooractive.com/en/route/hiking-trail/saas-fee/saaser-hut-route/59065594/
@@ -259,7 +259,7 @@ Repeatedly named by knowledgeable sources as the best walk in Zermatt precisely 
 - **Context:** **Lac de Moiry sits at ~2,250 m** with the road running along it; the trail crosses meadows to its south-west end with views north across aquamarine water. Postbus serves the dam and the glacier car park in summer. **GAP: 2026/27 postbus timetable not captured.**
 - **Walker's Haute Route ties in here** — stage 9 (Les Haudères → Lac de Moiry, 15.8 km, 1,725 m gain, **very strenuous**) and stage 10 (Lac de Moiry → Zinal, 9.1 km, 605 m gain, moderate) over the **Col de Sorebois**.
 - **GAP — Cabane de Moiry prices, half-board rates, opening dates and lunch service NOT captured** (the hut's own domain did not resolve). Check https://www.cabanedemoiry.ch and the SAC portal.
-- **Links:** https://www.alltrails.com/trail/switzerland/valais/lac-de-moiry-lac-de-chateaupre-glacier-moiry-cabane-de-moiry · https://hikingwalking.com/index.php/destinations/sw/sw_valais/zinal/cabane_moiry/cabane_moiry_detail · https://www.visorando.com/en/walk-zinal-cabane-de-moiry/ · https://cristal-grimentz.ch/en/randonnee-lac-moiry/
+- **Links:** https://www.alltrails.com/trail/switzerland/valais/lac-de-moiry-lac-de-chateaupre-glacier-moiry-cabane-de-moiry · https://hikingwalking.com/index.php/locations/sw/sw_valais/zinal/cabane_moiry/cabane_moiry_detail · https://www.visorando.com/en/walk-zinal-cabane-de-moiry/ · https://cristal-grimentz.ch/en/randonnee-lac-moiry/
 
 ---
 
@@ -324,13 +324,13 @@ The Engadin's classic non-technical 3,000er and one of the best-value summits in
 - **Difficulty:** **T3.** A regular hiking trail runs to ~2,900 m and continues to the summit; steep, relentless zigzags on scree near the top. No chains or glacier. **GAP: no official SAC T-grade captured — T3 is inferred from route character and the "hard" ratings.**
 - **Hut:** **Chamanna Georgy (Georgyhütte), >3,200 m**, sits just below the summit — **food, drink and accommodation**, with a terrace facing the entire Bernina massif. Sleeping here for sunrise over Piz Palü/Bernina is a genuinely special, lesser-known option. **GAP: prices, capacity and opening dates not captured.**
 - **Payoff:** entirely at the summit — a 360° view over the Bernina 4,000ers and their glaciers.
-- **Links:** https://www.alltrails.com/trail/switzerland/grisons/piz-languard · https://www.hikingwalking.com/destinations/sw/sw_engadin/st_moritz/piz_languard · https://www.alpenwild.com/staticpage/piz-languard-a-classic-viewpoint-in-the-engadine/ · https://www.summitpost.org/piz-languard/150947
+- **Links:** https://www.alltrails.com/trail/switzerland/grisons/piz-languard · https://www.hikingwalking.com/locations/sw/sw_engadin/st_moritz/piz_languard · https://www.alpenwild.com/staticpage/piz-languard-a-classic-viewpoint-in-the-engadine/ · https://www.summitpost.org/piz-languard/150947
 
 ### 6.3 Lej da Staz and the Engadin lake walks
 - **Lej da Staz (1,809 m)** sits in the **Stazerwald** between St. Moritz, Celerina and Pontresina. From **St. Moritz station** it's a **~90-min round trip, T1**, past the dairy. Trails also start **directly from Pontresina station** (~3 km to the lake).
 - Moor lake, protected high moor around it, **swims to ~20 °C in summer**, jetty, nostalgic changing cabins, BBQ and picnic areas, restaurant, playground. Connecting trails let you finish in Celerina or Pontresina rather than doubling back.
 - **Best use:** family/easy day, evening walk, or a swim after a hard day. Spectacular in October (larches) but that's outside your window.
-- **Links:** https://www.pontresina.ch/en/guide/mountains-and-valleys/the-stazerwald-woodland-the-lej-da-staz · https://www.hikingwalking.com/destinations/sw/sw_engadin/st_moritz/lejstaz_celerina · https://swissfamilyfun.com/stazersee-st-moritz-lake-walk/
+- **Links:** https://www.pontresina.ch/en/guide/mountains-and-valleys/the-stazerwald-woodland-the-lej-da-staz · https://www.hikingwalking.com/locations/sw/sw_engadin/st_moritz/lejstaz_celerina · https://swissfamilyfun.com/stazersee-st-moritz-lake-walk/
 
 ### 6.4 Swiss National Park (Zernez) — and its unusually strict rules
 **This is the strictest protected area in the Alps. Read the rules before you plan anything here.** Officially, in the park:
@@ -348,14 +348,14 @@ The Engadin's classic non-technical 3,000er and one of the best-value summits in
   - **Val Trupchun** — the popular one, in the south near S-chanf. **14 km / 8.7 mi, ~446 m (1,463 ft) gain, 4 h 30, moderate / T2.** Best wildlife in the park: red deer, ibex, chamois, marmots. Golden larches in autumn.
   - **Lais da Macun (Macun Lakes)** — a high glacial basin with **20+ lakes and tarns** beneath 3,000 m peaks, above Lavin/Zernez. **White-blue-white / difficult = T4.** ~**1,184 m (3,885 ft) of gain**, or ~700 m if you take a taxi to the trailhead. **"A long and challenging high mountain excursion, suitable only for seasoned, sure-footed walkers with a head for heights."** **Icy paths or snow must be reckoned with at all times around Munt Baselgia — including in August.** This is the lesser-known Engadin highlight but **it is a T4 and needs to be treated as such.**
   - **Il Fuorn nature trail** — 45 information boards, family-grade, at the Pass dal Fuorn.
-- **Links:** https://nationalpark.ch/en/protection-regulations/ · https://nationalpark.ch/en/visit/educational-trails/ · https://www.alltrails.com/trail/switzerland/grisons/val-trupchun-alp-trupchun · https://www.hikingwalking.com/index.php/destinations/sw/sw_engadin/scuol/macun_lakes
+- **Links:** https://nationalpark.ch/en/protection-regulations/ · https://nationalpark.ch/en/visit/educational-trails/ · https://www.alltrails.com/trail/switzerland/grisons/val-trupchun-alp-trupchun · https://www.hikingwalking.com/index.php/locations/sw/sw_engadin/scuol/macun_lakes
 
 ### 6.5 Val Fex (Sils Maria)
 - A quiet hanging valley at **1,800–2,000 m running up to the Fex glacier**, closed to private cars. **Easy to moderate / T1–T2**, adjustable from a gentle stroll to a longer push to **Alp Muot Selvas**.
 - **Horse-drawn omnibus** on a set summer timetable from Sils: **~20 min to Fex-Platta, ~30 min to Fex-Crasta, ~50 min to the last stop Fex-Curtins.** Operator: https://www.coretti.ch
 - **Local tip:** take the **Fex-Crasta ↔ Fex-Curtins footpath** specifically — it's the one that avoids the mountain bikers.
 - **Best use:** acclimatisation day, low-effort day, bad-forecast day. Hamlets, meadows, a frescoed church, and the glacier at the head.
-- **Links:** https://www.sils.ch/en/guide/power-of-nature/val-fex · https://www.hikingwalking.com/destinations/sw/sw_engadin/st_moritz/val_fex · https://www.touringswitzerland.com/val-fex-engadins-most-beautiful-valley/
+- **Links:** https://www.sils.ch/en/guide/power-of-nature/val-fex · https://www.hikingwalking.com/locations/sw/sw_engadin/st_moritz/val_fex · https://www.touringswitzerland.com/val-fex-engadins-most-beautiful-valley/
 
 ### 6.6 Sentiero Panoramico / Via Panoramica Val Bregaglia — **SwitzerlandMobility route 796**
 The best "lesser-known but genuinely first-rate" long day in Graubünden, and it's Italian-speaking Switzerland with chestnut woods and granite.

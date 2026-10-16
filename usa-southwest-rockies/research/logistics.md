@@ -1438,7 +1438,7 @@ lands well after the tabled time.
 - **Passport required.** "Canadian citizens travelling by air to the United States must present one
   of the following documents: a passport, which must be **valid for the duration of their stay**; a
   valid NEXUS card, used at self-serve kiosks at designated airports."
-  <https://travel.gc.ca/destinations/united-states> · Regulation 8 CFR 212.1(a)(1):
+  <https://travel.gc.ca/locations/united-states> · Regulation 8 CFR 212.1(a)(1):
   <https://www.ecfr.gov/current/title-8/section-212.1>
   Note the validity rule is "valid for the duration of the stay," **not** the usual
   six-months-beyond convention.

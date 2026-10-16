@@ -134,7 +134,7 @@ Source: https://argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el
 - Climbing wall: none found in El Chalten (GAP). Guided half-day top-rope intro (~4 h, Oct-Dec and Jan-Apr), price GAP: https://www.explore-share.com/es/trip/el-chalten-escalada-en-roca-media-jornada . Bike hire: GAP.
 - Lago del Desierto: Civitatis US$32.96, 7.5 h; Desert Lake Trip US$74 5-9 h; boat extra ARS 45,000 pp cash on site; boats Thu-Tue 12:00, none Wednesday; free cancel 36 h (pass 1, same URL https://www.civitatis.com/en/el-chalten/laguna-desierto-trip). Confirmed existing on the Civitatis listing https://civitatis.com/en/el-chalten/ (min age none listed).
 - Lake Viedma glaciers boat tour: Howlanders, "suitable for all ages", children under 2 free, ~4 h without transfers (10:30-14:30) or ~5 h with, Nov-Mar, price not shown: https://www.howlanders.com/en/tours-argentina/el-chalten/viedma-glacier-boat-tour-el-chalten . Civitatis US$112, 3.5-4.5 h: https://www.civitatis.com/en/el-chalten/lake-viedma-glaciers-boat-tour . 11-year-old: Y.
-- Viedma ice trek: still GAP for 2027. Frommer's (undated) says PatagoniaAventura holds the concession (Viedma Light/Trek/Ice Trek/Pro): https://www.frommers.com/destinations/el-chalten/active-pursuits ; pass 1 had an advocate source saying it stopped. No current evidence either way. Min age GAP.
+- Viedma ice trek: still GAP for 2027. Frommer's (undated) says PatagoniaAventura holds the concession (Viedma Light/Trek/Ice Trek/Pro): https://www.frommers.com/locations/el-chalten/active-pursuits ; pass 1 had an advocate source saying it stopped. No current evidence either way. Min age GAP.
 - Cagliero Glacier trek: US$550, 10 h (Civitatis); min 15 per pass 1.
 
 ---------------------------------------------------------------
@@ -178,5 +178,5 @@ Source: https://argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el
 | Horse riding, Estancia Bonanza | none (children 7-10 band) | none | max 100 kg | Y | tur.com | https://www.tur.com/en/el-chalten-170/cabalgata-clasica-en-estancia-bonanza-en-chalten-2737 |
 | Lake Viedma boat tour | none ("all ages") | none | none | Y | Howlanders, Nov-Mar | https://www.howlanders.com/en/tours-argentina/el-chalten/viedma-glacier-boat-tour-el-chalten |
 | Lago del Desierto | none listed | none | none | Y | Civitatis US$32.96; boat ARS 45,000 cash; none Wed | https://www.civitatis.com/en/el-chalten/laguna-desierto-trip |
-| Viedma ice trek | GAP | GAP | GAP | GAP | status for 2027 unknown | https://www.frommers.com/destinations/el-chalten/active-pursuits |
+| Viedma ice trek | GAP | GAP | GAP | GAP | status for 2027 unknown | https://www.frommers.com/locations/el-chalten/active-pursuits |
 | Climbing wall / bike hire El Chalten | GAP | GAP | GAP | GAP | none found | https://www.explore-share.com/es/trip/el-chalten-escalada-en-roca-media-jornada |

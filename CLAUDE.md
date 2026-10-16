@@ -4,14 +4,14 @@ Each trip is one folder: `<slug>/` containing `index.html` (the deliverable), `P
 
 **Use the `trip-planner` skill** (`.claude/skills/trip-planner/`) for any new or revised trip plan — it defines the research process, the HTML format and design system, link/photo conventions, and the publish step.
 
-## Destinations: the laundry list — `destinations/` (since 16 Oct 2026)
+## Destinations: the laundry list — `locations/` (since 16 Oct 2026)
 
-Every place Nitin wants to remember goes in `destinations/destinations.json` through the
-`destination` skill or `python3 _system/tools/destinations.py add ...` (Wikidata then Nominatim
-resolve coordinates and the country > region > area chain). `destinations/WISHLIST.md` is
+Every place Nitin wants to remember goes in `locations/locations.json` through the
+`location` skill or `python3 _system/tools/locations.py add ...` (Wikidata then Nominatim
+resolve coordinates and the country > region > area chain). `locations/WISHLIST.md` is
 generated; a PostToolUse hook validates the store and regenerates it on every write. The Obsidian
 `Location.md` is retired and points here. Capture only; research happens when a trip adopts the
-place (`trip` field). Tests: `python3 -m pytest _system/tests -q`. Details: `destinations/README.md`.
+place (`trip` field). Tests: `python3 -m pytest _system/tests -q`. Details: `locations/README.md`.
 
 ## Shared design system — `_system/` (Phase 0 complete, Aug 29 2026)
 Components and themes are being centralised so a CSS fix lands once instead of five times.

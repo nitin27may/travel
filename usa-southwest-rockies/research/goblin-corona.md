@@ -10,9 +10,9 @@ Goblin Valley is a 12-mile paved dead-end spur off UT-24 (junction about 24 mi s
 
 ### A) Goblin Valley State Park
 - FINDING: Route. From UT-24, turn at the signed Temple Mountain junction and follow paved road about 12 mi to the park. The junction is 24 mi south of I-70 (Green River side) and about 20 mi north of Hanksville. The route is paved the entire length; if GPS sends you onto dirt, it is the wrong route. Roads: Temple Mountain Road from UT-24, then left onto Goblin Valley Road.
-  SOURCE: https://www.utah.com/destinations/state-parks/goblin-valley-state-park/ (24 mi + 12 mi paved); https://wanderlustphotosblog.com/2022/04/20/the-ultimate-goblin-valley-state-park-guide-for-visitors-to-southern-utah/ (via search summary: road names, Hanksville 20 mi, "paved entire length, dirt = wrong route"; community source, not official)
+  SOURCE: https://www.utah.com/locations/state-parks/goblin-valley-state-park/ (24 mi + 12 mi paved); https://wanderlustphotosblog.com/2022/04/20/the-ultimate-goblin-valley-state-park-guide-for-visitors-to-southern-utah/ (via search summary: road names, Hanksville 20 mi, "paved entire length, dirt = wrong route"; community source, not official)
 - FINDING: Extra distance. Because the route Torrey -> Hanksville -> UT-24 north -> I-70 already passes the junction, the detour is 12 mi in + 12 mi out = about 24 mi extra (derived from the 12 mi figure above). The park does not connect north to I-70 by paved road; you return to UT-24. (No official source describes a paved northern link; GAP: absence not confirmed by official directions page, which returned 404.)
-  SOURCE: https://www.utah.com/destinations/state-parks/goblin-valley-state-park/
+  SOURCE: https://www.utah.com/locations/state-parks/goblin-valley-state-park/
 - FINDING: Position on the route. Goblin Valley is described as about halfway between Moab (1h40m) and Capitol Reef NP (1h20m) on UT-24. That is a blog figure, not official.
   SOURCE: https://www.familycantravel.com/goblin-valley-state-park-with-kids/ (community)
 - FINDING: Hours: park 6 a.m.-10 p.m. daily; visitor center 9 a.m.-5 p.m.
@@ -65,7 +65,7 @@ Goblin Valley is a 12-mile paved dead-end spur off UT-24 (junction about 24 mi s
 - https://stateparks.utah.gov/parks/goblin-valley/hiking-and-rappelling/ - Hiking and Rappelling
 - https://stateparks.utah.gov/parks/goblin-valley/things-to-do/ - Things to do
 - https://stateparks.utah.gov/park-passes/ - Park passes
-- https://www.utah.com/destinations/state-parks/goblin-valley-state-park/ - Goblin Valley (Utah.com)
+- https://www.utah.com/locations/state-parks/goblin-valley-state-park/ - Goblin Valley (Utah.com)
 - https://www.familycantravel.com/goblin-valley-state-park-with-kids/ - community, used sparingly
 - https://wanderlustphotosblog.com/2022/04/20/the-ultimate-goblin-valley-state-park-guide-for-visitors-to-southern-utah/ - community
 - https://www.blm.gov/visit/corona-arch-trail - BLM Corona Arch Trail

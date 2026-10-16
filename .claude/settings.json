@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/_system/tools/hooks/destinations_changed.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/_system/tools/hooks/locations_changed.sh"
           }
         ]
       }

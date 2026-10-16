@@ -93,7 +93,7 @@ Reason: the only one with a confirmed 3-bed Family Room, free springs the child 
 
 ### 3.1 Hotel Costa Verde (hillside, 30 acres)
 - Own site https://www.costaverde.com : 70 rooms on ridges and cliffs, three cliffside pools, "Family area" Studios / Studio Plus; Costa Verde II units and Cockpit Cabana are ADULTS ONLY (avoid); 300 m from beach, overlooking the national park. A/C implied on homepage.
-- Via anywhere.com (https://www.anywhere.com/costa-rica/destinations/manuel-antonio/hotels/costa-verde): Studio A8 sleeps 5 (2 Queens, kitchenette, forest view, A/C) FROM $196; Bungalow A11 sleeps 6 (3 Queens); Sky Loft sleeps 8 (2 BR); breakfast-included option; A/C all rooms; private parking; babysitter service. Vacationscostarica lists FROM $209. Breakfast price/inclusion in the base rate: GAP (an option).
+- Via anywhere.com (https://www.anywhere.com/costa-rica/locations/manuel-antonio/hotels/costa-verde): Studio A8 sleeps 5 (2 Queens, kitchenette, forest view, A/C) FROM $196; Bungalow A11 sleeps 6 (3 Queens); Sky Loft sleeps 8 (2 BR); breakfast-included option; A/C all rooms; private parking; babysitter service. Vacationscostarica lists FROM $209. Breakfast price/inclusion in the base rate: GAP (an option).
 
 ### 3.2 Si Como No Resort & Wildlife Refuge
 - Own site https://www.sicomono.com : 54 rooms (Standard, Superior, Deluxe, Deluxe Plus, Honeymoon), adults-only pool area AND a family pool, private cinema, free beach shuttle, 10 min from the park. Breakfast, A/C: GAP on own site; vacationscostarica says breakfast and A/C standard across featured hotels.
@@ -124,7 +124,7 @@ Reason: only property here with a 3-bed Family Suite, A/C, breakfast, large pool
 ## 5. BAJOS DEL TORO (optional, 1 night)
 
 ### 5.1 Bosque de Paz
-- Standard Room (1 Double, sleeps 3) and Superior Room (2 Doubles, sleeps 3); Junior Suite sleeps 2; all hot water, forest view; FROM $139; free breakfast; other meals set times; 2,470 acre reserve, trails 1-7.5 km, 331 bird species, horseback, rappelling, yoga. Source: https://www.anywhere.com/costa-rica/destinations/bajos-del-toro/hotels/bosque-de-paz-lodge . Child policy, parking, heating: GAP. Earlier file listed $300; this one shows from-rate $139, so use $139-300 as band.
+- Standard Room (1 Double, sleeps 3) and Superior Room (2 Doubles, sleeps 3); Junior Suite sleeps 2; all hot water, forest view; FROM $139; free breakfast; other meals set times; 2,470 acre reserve, trails 1-7.5 km, 331 bird species, horseback, rappelling, yoga. Source: https://www.anywhere.com/costa-rica/locations/bajos-del-toro/hotels/bosque-de-paz-lodge . Child policy, parking, heating: GAP. Earlier file listed $300; this one shows from-rate $139, so use $139-300 as band.
 ### 5.2 Blue Morpho Lodge: rooms for 2 adults + 2 children; $178-203 standard (https://www.booking.com/city/cr/bajos-del-toro.html via summary). Tripadvisor page 403: GAP.
 ### 5.3 El Silencio Lodge & Spa: children welcome, "recommended minimum age 8"; full American plan (3 meals) included; family suites and villas (https://www.relaischateaux.com/us/hotel/el-silencio-lodge-spa/ via summary). Rate over $450 (research-stays.md): outside brief.
 - Not an option: Catarata del Toro no longer rents rooms (https://www.catarata-del-toro.com/rooms/).

@@ -1,6 +1,6 @@
 # Wishlist
 
-Generated from `destinations/destinations.json` on 2026-10-16. Do not edit by hand; add with `python3 _system/tools/destinations.py add ...` or the `destination` skill.
+Generated from `locations/locations.json` on 2026-10-16. Do not edit by hand; add with `python3 _system/tools/locations.py add ...` or the `location` skill.
 
 63 places in 6 countries, 4 collections. By status: idea 55, planned 8.
 

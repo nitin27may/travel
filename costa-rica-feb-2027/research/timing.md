@@ -64,7 +64,7 @@ Source: https://www.seatemperatu.re/central-america/costa-rica/uvita/tides/month
 
 Note: the 13-17 Feb daytime lows are afternoon (12:53-17:15) and the morning lows are pre-dawn (00:49-04:55). The two feet-based figures for 4-11 Feb from another site (tides4fishing/others via search) are not used.
 
-Whale's Tail rule of thumb: sandbar emerges roughly 2-3 h before low and is walkable until about 2 h after; arrive 1-2 h before low. Source: https://costaricadivers.com/blog/destinations/whale-tail-marino-ballena-national-park/ ; https://sallysees.com/uvita-whale-tail/ (search summary; exact figures vary by source).
+Whale's Tail rule of thumb: sandbar emerges roughly 2-3 h before low and is walkable until about 2 h after; arrive 1-2 h before low. Source: https://costaricadivers.com/blog/locations/whale-tail-marino-ballena-national-park/ ; https://sallysees.com/uvita-whale-tail/ (search summary; exact figures vary by source).
 - Morning low near 07:00-10:00: 19 Feb (07:10), 20 Feb (08:05), 21 Feb (08:54), 22 Feb (09:40). Also 23 Feb (10:24) works if you walk 08:30-12:00. 18 Feb (06:07) works at first light.
 - 21-23 Feb also have the lowest lows (0.19-0.25 m), best for the full walk. 13-17 Feb: no usable morning low; only an afternoon low (12:53-17:15). 14-15 Feb afternoon lows 13:40/14:39 are workable but hot; 16-17 Feb lows 15:53/17:15 are close to sunset.
 - Author's note: low tide ~8 am used for Whale's Tail morning. https://explorewithalec.com/things-to-do-in-costa-rica/

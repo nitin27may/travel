@@ -65,7 +65,7 @@ Park access and fees
 - Winter rule (not applicable in March): W and Base Torres need an authorised guide in winter, season moved to start 27 April 2026.
 - W/Q treks: need refugio/camping bookings with Vertice or Fantastico Sur plus the CONAF ticket. Season dates: O Circuit closed through 31 Oct; W products open from October (travelarbitrage). March should be inside season; GAP on official CONAF closing date for 2027.
 
-Canadian entry to Chile (official: Government of Canada https://travel.gc.ca/destinations/chile)
+Canadian entry to Chile (official: Government of Canada https://travel.gc.ca/locations/chile)
 - Tourist visa not required. Passport valid for duration of stay (airline may apply stricter rules).
 - Tourist card issued on arrival, valid up to 90 days; keep it and hand over on exit (lost card replacement via PDI).
 - Must have funds of at least US$46 per day; officials may ask for proof.

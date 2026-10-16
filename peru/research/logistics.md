@@ -98,7 +98,7 @@ fatigue** — worth paying for a full-cama seat on a reputable line.
     counters or apps only), **theft on intercity buses**, and a marked rise in violent crime in Lima.
 - None of the trip's target regions (Cusco, Sacred Valley, Ancash/Huaraz, Arequipa, Puno, Amazonas,
   the Amazon lodges) fall inside an avoid-travel zone.
-- Source: https://travel.gc.ca/destinations/peru
+- Source: https://travel.gc.ca/locations/peru
 
 ## Money
 GAP: no verified 2026 daily budget bands collected (accommodation, food, guided-day costs by

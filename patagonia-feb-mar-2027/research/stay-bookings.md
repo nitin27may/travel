@@ -14,7 +14,7 @@ All prices are "2026 data as pattern"; 2027 prices do not exist yet. ARS figures
 ## PART 1 WHERE TO STAY
 
 ### 1A. Buenos Aires
-Source for area safety (blog/rating sites, not official): https://www.buenosairesfreewalks.com/practical-information/where-to-stay-in-buenos-aires/ ; https://www.isitsafetovisit.com/cities/buenos-aires ; https://www.frommers.com/destinations/buenos-aires/hotels/neighborhoods/ ; https://www.savacations.com/best-neighborhoods-buenos-aires-palermo-puerto-madero/
+Source for area safety (blog/rating sites, not official): https://www.buenosairesfreewalks.com/practical-information/where-to-stay-in-buenos-aires/ ; https://www.isitsafetovisit.com/cities/buenos-aires ; https://www.frommers.com/locations/buenos-aires/hotels/neighborhoods/ ; https://www.savacations.com/best-neighborhoods-buenos-aires-palermo-puerto-madero/
 - Recoleta: most consistently called safest/upscale, day and night. Con: expensive, poor subway access, expect taxis/Uber/Cabify. [RESELLER/blog]
 - Palermo (Soho/Hollywood sub-areas): best food/nightlife with a safety margin; walkable on main streets day and night. Con: popular parts pricey, on the fringe of other sights, subway not great. [blog]
 - San Telmo: most atmospheric (Sunday market, tango); sources urge caution at night, side streets get sketchy; use app rides after dark. [blog]
@@ -94,7 +94,7 @@ Chile reference (Torres del Paine, see lane 6)
 ## PART 3 CROWDS, PRICES, INSURANCE, MEDICAL
 
 Crowds and pricing
-- Feb and March both flagged as the two most popular/crowded months (trekking guide); one source says March tourism volume is about a quarter lower than the Dec-Feb rush; early March often cited as shoulder season with better accommodation deals. Another widget rates March "high crowds". Sources: https://www.steppestravel.com/best-time-to-visit/argentina/ ; https://championtraveler.com/dates/best-time-to-visit-el-calafate-ar/ ; https://journeylatinamerica.com/destinations/argentina/places-to-visit/el-calafate-and-los-glaciares-national-park/when-to-go
+- Feb and March both flagged as the two most popular/crowded months (trekking guide); one source says March tourism volume is about a quarter lower than the Dec-Feb rush; early March often cited as shoulder season with better accommodation deals. Another widget rates March "high crowds". Sources: https://www.steppestravel.com/best-time-to-visit/argentina/ ; https://championtraveler.com/dates/best-time-to-visit-el-calafate-ar/ ; https://journeylatinamerica.com/locations/argentina/places-to-visit/el-calafate-and-los-glaciares-national-park/when-to-go
 - Price drop dates: GAP. No source gives a date; none of the tourism operators publish a seasonal switch date in what I retrieved. Chalten cabins open Oct-Apr (Rio de las Vueltas).
 - Late Feb vs first/second week March: relative comparison only (Feb busier). Mid-Feb Lake Argentino Festival effect is before the trip window; confirm dates: GAP.
 - Quietest weekday for Perito Moreno / Fitz Roy: GAP (no source). Do not invent.

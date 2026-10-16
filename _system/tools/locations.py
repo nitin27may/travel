@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Destination store: the laundry list of places we might go, kept as data.
 
-    python3 _system/tools/destinations.py add "Lake Louise" --country CA --tags lake,family
-    python3 _system/tools/destinations.py import destinations/inbox/batch.json
-    python3 _system/tools/destinations.py collection add --slug gaspesie-loop --name "..." --places ID,ID
-    python3 _system/tools/destinations.py validate
-    python3 _system/tools/destinations.py render            # writes destinations/WISHLIST.md
-    python3 _system/tools/destinations.py list [--country CA] [--q charlevoix]
+    python3 _system/tools/locations.py add "Lake Louise" --country CA --tags lake,family
+    python3 _system/tools/locations.py import locations/inbox/batch.json
+    python3 _system/tools/locations.py collection add --slug gaspesie-loop --name "..." --places ID,ID
+    python3 _system/tools/locations.py validate
+    python3 _system/tools/locations.py render            # writes locations/WISHLIST.md
+    python3 _system/tools/locations.py list [--country CA] [--q charlevoix]
 
-Store: destinations/destinations.json. Hierarchy is country > region > area > place, with ids like
+Store: locations/locations.json. Hierarchy is country > region > area > place, with ids like
 CA/AB/banff-national-park/lake-louise. Resolution uses Wikidata first (coordinates, parent chain,
 country), then OpenStreetMap Nominatim. Stdlib only. One network request at a time, a second apart.
 
@@ -30,9 +30,9 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-STORE = ROOT / "destinations" / "destinations.json"
-WISHLIST = ROOT / "destinations" / "WISHLIST.md"
-UA = "nks-travel-destinations/0.1 (personal trip planner; nitin27may@gmail.com)"
+STORE = ROOT / "locations" / "locations.json"
+WISHLIST = ROOT / "locations" / "WISHLIST.md"
+UA = "nks-travel-locations/0.1 (personal trip planner; nitin27may@gmail.com)"
 WD = "https://www.wikidata.org/w/api.php"
 NOMINATIM = "https://nominatim.openstreetmap.org/search"
 
@@ -553,8 +553,8 @@ def render(data: dict) -> str:
     for p in places:
         by_status[p["status"]] = by_status.get(p["status"], 0) + 1
     out = ["# Wishlist", "",
-           f"Generated from `destinations/destinations.json` on {data.get('updated', today())}. Do not edit by hand; "
-           "add with `python3 _system/tools/destinations.py add ...` or the `destination` skill.", "",
+           f"Generated from `locations/locations.json` on {data.get('updated', today())}. Do not edit by hand; "
+           "add with `python3 _system/tools/locations.py add ...` or the `location` skill.", "",
            f"{len(places)} places in {len({p['country'] for p in places})} countries, "
            f"{len(data['collections'])} collections. By status: " + ", ".join(f"{k} {v}" for k, v in sorted(by_status.items())) + ".", "",
            "Legend: kind · season · status · stats from the source post are unverified until a research lane confirms them.", ""]

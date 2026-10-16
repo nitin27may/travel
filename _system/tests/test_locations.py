@@ -1,12 +1,12 @@
-"""Offline tests for _system/tools/destinations.py. Run: python3 -m pytest _system/tests -q
-(or python3 _system/tests/test_destinations.py when pytest is not installed)."""
+"""Offline tests for _system/tools/locations.py. Run: python3 -m pytest _system/tests -q
+(or python3 _system/tests/test_locations.py when pytest is not installed)."""
 import json
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "tools"))
-import destinations as D  # noqa: E402
+import locations as D  # noqa: E402
 
 
 def _place(**kw):
