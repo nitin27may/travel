@@ -17,3 +17,6 @@ __pycache__/
 *-candidates.json
 links-report.txt
 _system/gallery.html
+
+# wrangler CLI cache (created by project/deployment list commands)
+.wrangler/

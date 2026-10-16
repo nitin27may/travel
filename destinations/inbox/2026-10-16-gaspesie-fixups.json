@@ -1,0 +1,7 @@
+{"places": [
+ {"name": "Lac aux Américains", "country": "CA", "region": "QC", "region_name": "Quebec", "area": "Parc national de la Gaspésie", "kind": "lake", "tags": ["lake", "hiking", "sepaq", "family"], "notes": "Gaspesie road trip stop 7. Short family walk to a glacial cirque lake under Mont Xalibu (from memory).", "sources": [{"type": "instagram", "url": null, "note": "Quebec to Gaspesie road trip post, 15 Oct 2026"}]},
+ {"name": "Mont Saint-Alban", "country": "CA", "region": "QC", "region_name": "Quebec", "area": "Forillon National Park", "kind": "mountain", "tags": ["hiking", "viewpoint", "parks-canada"], "notes": "Gaspesie road trip stop 13. Observation tower loop above Cap-Bon-Ami (from memory).", "sources": [{"type": "instagram", "url": null, "note": "Quebec to Gaspesie road trip post, 15 Oct 2026"}]}
+],
+ "collections": [
+ {"slug": "quebec-gaspesie-road-trip", "name": "Quebec City to Gaspesie road trip (14 stops)", "country": "CA", "places": ["Montmorency Falls","Pic Champlain","Canyon des Portes de l'Enfer","Chute du Grand-Sault","Mont-Saint-Pierre","Mont Xalibu","Lac aux Américains","La Martre Lighthouse","Cap-Bon-Ami","Sentier La Chute","Cap-Gaspé","Percé Rock","Mont Saint-Alban","Bonaventure Island"], "notes": "From a saved Instagram post (15 Oct 2026). Waterfalls, lakes, mountain hikes, lighthouses and sea cliffs between Quebec City and Perce. Stop order as posted; driving times not verified. Summer to early fall.", "sources": [{"type": "instagram", "url": null}]}
+]}

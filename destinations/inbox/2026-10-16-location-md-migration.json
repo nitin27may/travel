@@ -1,0 +1,1280 @@
+{
+ "_about": "Migration of the Obsidian Location.md bucket list (26 callouts plus two loose lines) into the destinations store, 16 Oct 2026. Stats and notes are carried over as written; sources are the Instagram saves shown in chat on 14-15 Oct 2026 (post URLs not captured). Region codes for non-North-American countries are readable slugs, not ISO numbers.",
+ "places": [
+  {
+   "name": "Stowe",
+   "country": "US",
+   "region": "VT",
+   "region_name": "Vermont",
+   "kind": "town",
+   "tags": [
+    "fall-colours",
+    "scenic-drive",
+    "villages"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "status": "planned",
+   "trip": "vermont-fall-2026",
+   "notes": "Peak fall foliage, charming villages, covered bridges. Best late Sep to mid Oct; combine with the White Mountains. Planned as vermont-fall-2026 (1-4 Oct 2026)."
+  },
+  {
+   "name": "White Mountain National Forest",
+   "country": "US",
+   "region": "NH",
+   "region_name": "New Hampshire",
+   "kind": "park",
+   "tags": [
+    "hiking",
+    "fall-colours"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "status": "planned",
+   "trip": "new-hampshire-stopover-2026",
+   "notes": "Kancamagus Highway is a must-drive; mountain hikes, fall colours."
+  },
+  {
+   "name": "Cape Cod",
+   "country": "US",
+   "region": "MA",
+   "region_name": "Massachusetts",
+   "kind": "region",
+   "tags": [
+    "beach",
+    "family",
+    "whale-watching",
+    "lighthouses"
+   ],
+   "season": [
+    "Jun",
+    "Jul",
+    "Aug"
+   ],
+   "notes": "Beaches, whale watching, seafood, lighthouses. Book whale watching in advance. 3-4 days."
+  },
+  {
+   "name": "Finger Lakes",
+   "country": "US",
+   "region": "NY",
+   "region_name": "New York",
+   "kind": "region",
+   "tags": [
+    "wine",
+    "gorges",
+    "waterfalls",
+    "lakes"
+   ],
+   "season": [
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct"
+   ],
+   "notes": "Wineries, gorges, waterfalls, scenic lakes. 3-4 days. Watkins Glen State Park is the must."
+  },
+  {
+   "name": "Watkins Glen State Park",
+   "country": "US",
+   "region": "NY",
+   "region_name": "New York",
+   "area": "Finger Lakes",
+   "kind": "park",
+   "tags": [
+    "waterfalls",
+    "hiking",
+    "gorge",
+    "family"
+   ],
+   "season": [
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "yes",
+   "notes": "Gorge trail with stone steps, tunnels and many waterfalls (from memory, unverified). Gorge trail is seasonal, roughly mid May to late Oct. Check open trails and parking fee on NY State Parks. Pairs with the Vermont and New Hampshire fall trips.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "saved post, screenshot not kept"
+    }
+   ]
+  },
+  {
+   "name": "Kennecott",
+   "display_name": "Kennecott River rafting (Wrangell-St. Elias)",
+   "country": "US",
+   "region": "AK",
+   "region_name": "Alaska",
+   "area": "Wrangell-St. Elias National Park",
+   "kind": "activity",
+   "tags": [
+    "adventure",
+    "rafting",
+    "wilderness",
+    "dream-trip"
+   ],
+   "season": [
+    "Jun",
+    "Jul",
+    "Aug"
+   ],
+   "notes": "Dream trip. World-class rafting, pristine wilderness. Requires planning well in advance; consider a guided expedition. 7+ days."
+  },
+  {
+   "name": "Manitou Incline",
+   "country": "US",
+   "region": "CO",
+   "region_name": "Colorado",
+   "area": "Manitou Springs",
+   "kind": "trail",
+   "tags": [
+    "hiking",
+    "adventure",
+    "views",
+    "stairs"
+   ],
+   "season": [
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "strong-kid",
+   "stats": {
+    "steps": "about 2,700",
+    "gain_ft": "about 2,000",
+    "miles": 1
+   },
+   "notes": "Steep stair climb on an old railway bed with views over Colorado Springs (figures from memory, unverified). Very strenuous, starts about 6,500 ft; check age limits for the kids. A reservation was required in recent years; check current rules and fee. Usual way down is the Barr Trail. Combine with Garden of the Gods and Pikes Peak.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "saved post"
+    }
+   ]
+  },
+  {
+   "name": "Havasu Falls",
+   "display_name": "Havasupai (Havasu Falls)",
+   "country": "US",
+   "region": "AZ",
+   "region_name": "Arizona",
+   "area": "Havasupai Reservation",
+   "kind": "waterfall",
+   "tags": [
+    "hiking",
+    "waterfalls",
+    "camping",
+    "adventure",
+    "permit"
+   ],
+   "season": [
+    "Mar",
+    "Apr",
+    "May",
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "strong-kid",
+   "stats": {
+    "miles_round_trip": "35+ (Hualapai Hilltop to the Confluence, per the post)"
+   },
+   "notes": "Red rock canyon walls, lush waterfalls and clear pools at the bottom of the Grand Canyon. From memory (unverified): permits required, sell out fast, open months ahead; the hike in to the village and campground is long, so check what is realistic with a 10-year-old. Check the official Havasupai Tribe site. Fits the Utah and Arizona parks ideas.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "saved post, 15 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Page",
+   "country": "US",
+   "region": "AZ",
+   "region_name": "Arizona",
+   "kind": "town",
+   "tags": [
+    "road-trip-stop"
+   ],
+   "notes": "Stop 1 of the AZ-UT-CO-WY road trip post. Base for Antelope Canyon and Horseshoe Bend.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "road trip post, 15 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Zion National Park",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "kind": "park",
+   "tags": [
+    "national-park",
+    "hiking"
+   ],
+   "status": "planned",
+   "trip": "usa-southwest-rockies",
+   "notes": "Stop 2 of the road trip post; already in the Utah parks plan."
+  },
+  {
+   "name": "Kanarra Falls",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "area": "Kanarraville",
+   "kind": "waterfall",
+   "tags": [
+    "slot-canyon",
+    "waterfall",
+    "permit"
+   ],
+   "notes": "Stop 3 of the road trip post. Permit-limited slot canyon walk (from memory, unverified)."
+  },
+  {
+   "name": "Bryce Canyon National Park",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "kind": "park",
+   "tags": [
+    "national-park",
+    "hoodoos"
+   ],
+   "status": "planned",
+   "trip": "usa-southwest-rockies",
+   "notes": "Stop 4 of the road trip post; already in the Utah parks plan."
+  },
+  {
+   "name": "Bentonite Hills",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "area": "Hanksville",
+   "kind": "place",
+   "tags": [
+    "badlands",
+    "photography",
+    "remote"
+   ],
+   "notes": "Stop 5 of the road trip post. Remote, unpaved access; check road conditions."
+  },
+  {
+   "name": "Factory Butte",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "area": "Hanksville",
+   "kind": "mountain",
+   "tags": [
+    "badlands",
+    "photography",
+    "remote"
+   ],
+   "notes": "Stop 6 of the road trip post. Remote; check road conditions."
+  },
+  {
+   "name": "Long Dong Silver",
+   "display_name": "Long Dong Silver Spire",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "area": "Hanksville",
+   "kind": "mountain",
+   "tags": [
+    "spire",
+    "photography",
+    "remote"
+   ],
+   "notes": "Stop 7 of the road trip post. Sandstone spire near Hanksville; exact location to confirm."
+  },
+  {
+   "name": "Arches National Park",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "kind": "park",
+   "tags": [
+    "national-park",
+    "arches"
+   ],
+   "status": "planned",
+   "trip": "usa-southwest-rockies",
+   "notes": "Stop 8 of the road trip post; already in the Utah parks plan."
+  },
+  {
+   "name": "Canyonlands National Park",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "kind": "park",
+   "tags": [
+    "national-park",
+    "canyons"
+   ],
+   "status": "planned",
+   "trip": "usa-southwest-rockies",
+   "notes": "Stop 9 of the road trip post; already in the Utah parks plan."
+  },
+  {
+   "name": "Monument Valley",
+   "country": "US",
+   "region": "AZ",
+   "region_name": "Arizona",
+   "area": "Navajo Nation",
+   "kind": "valley",
+   "tags": [
+    "scenic-drive",
+    "photography"
+   ],
+   "notes": "Stop 10 of the road trip post. Tribal park, fee and hours to check."
+  },
+  {
+   "name": "Durango",
+   "country": "US",
+   "region": "CO",
+   "region_name": "Colorado",
+   "kind": "town",
+   "tags": [
+    "town",
+    "railway"
+   ],
+   "notes": "Stop 11 of the road trip post. Durango and Silverton narrow-gauge railroad."
+  },
+  {
+   "name": "Million Dollar Highway",
+   "country": "US",
+   "region": "CO",
+   "region_name": "Colorado",
+   "area": "San Juan Mountains",
+   "kind": "drive",
+   "tags": [
+    "scenic-drive",
+    "mountain-pass"
+   ],
+   "notes": "Stop 12 of the road trip post. US 550 between Silverton and Ouray; exposed drops, no guardrails in places (from memory)."
+  },
+  {
+   "name": "Ouray",
+   "country": "US",
+   "region": "CO",
+   "region_name": "Colorado",
+   "area": "San Juan Mountains",
+   "kind": "town",
+   "tags": [
+    "town",
+    "hot-springs",
+    "mountains"
+   ],
+   "notes": "Stop 13 of the road trip post."
+  },
+  {
+   "name": "Breckenridge",
+   "country": "US",
+   "region": "CO",
+   "region_name": "Colorado",
+   "kind": "town",
+   "tags": [
+    "town",
+    "ski-resort",
+    "mountains"
+   ],
+   "notes": "Stop 14 of the road trip post."
+  },
+  {
+   "name": "Grand Teton National Park",
+   "country": "US",
+   "region": "WY",
+   "region_name": "Wyoming",
+   "kind": "park",
+   "tags": [
+    "national-park",
+    "mountains",
+    "hiking"
+   ],
+   "notes": "Stop 15 of the road trip post. Also covered in usa-southwest-rockies research (family-teton)."
+  },
+  {
+   "name": "Yellowstone National Park",
+   "country": "US",
+   "region": "WY",
+   "region_name": "Wyoming",
+   "kind": "park",
+   "tags": [
+    "national-park",
+    "geysers",
+    "wildlife"
+   ],
+   "notes": "Stop 16 of the road trip post. Also covered in usa-southwest-rockies research (yellowstone-supplement)."
+  },
+  {
+   "name": "Stansbury Island",
+   "country": "US",
+   "region": "UT",
+   "region_name": "Utah",
+   "area": "Great Salt Lake",
+   "kind": "island",
+   "tags": [
+    "lake",
+    "photography",
+    "remote"
+   ],
+   "notes": "Stop 17 of the road trip post. Great Salt Lake; access by causeway (from memory)."
+  },
+  {
+   "name": "Canyon Sainte-Anne",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "kind": "canyon",
+   "tags": [
+    "waterfall",
+    "family",
+    "suspension-bridges"
+   ],
+   "season": [
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "yes",
+   "notes": "74 m waterfall with suspension bridges across the gorge (from memory, unverified). About 40 min east of Quebec City; combine with Montmorency Falls and Ile d'Orleans. Check opening dates, fees and kids' rules.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "saved post, 14 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Le Massif de Charlevoix",
+   "display_name": "Le Buton lookout, Le Massif de Charlevoix",
+   "alias": "Le Buton",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Charlevoix",
+   "kind": "viewpoint",
+   "tags": [
+    "fall-colours",
+    "viewpoint",
+    "family-hike"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "yes",
+   "stats": {
+    "km": "about 2 (loop)",
+    "minutes": 45
+   },
+   "notes": "Signature lookout on a man-made mound at the summit; wide view over the St. Lawrence and the mountains. Easy 2 km loop, 45 min, from the summit (resort and trail sites). Check the gondola and mountain access run on your dates; a 2026 notice mentioned a suspension during a strike. Official: https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "saved post, 15 Oct 2026"
+    },
+    {
+     "type": "official",
+     "url": "https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton"
+    }
+   ]
+  },
+  {
+   "name": "Montagne de Marbre",
+   "display_name": "Mont Saddle and Montagne de Marbre loop",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Eastern Townships",
+   "kind": "trail",
+   "tags": [
+    "hiking",
+    "fall-colours",
+    "views",
+    "border"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "strong-kid",
+   "stats": {
+    "km": 13.7,
+    "gain_m": 480,
+    "hours": "4h28"
+   },
+   "notes": "Challenging loop with panoramic views, cliffs and a section along the Canada-US border. From the '5 iconic Quebec fall hikes' post.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "5 iconic Quebec fall hikes post, 15 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Mont du Dôme",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Zec des Martres",
+   "kind": "trail",
+   "tags": [
+    "hiking",
+    "fall-colours",
+    "views",
+    "three-summits"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "strong-kid",
+   "stats": {
+    "km": 9.5,
+    "gain_m": 543,
+    "hours": "3.5-4",
+    "level": "intermediate-advanced"
+   },
+   "notes": "Loop over three summits (Mont du Dome, Mont Orignal, Mont Saint-Michel) with panoramic views; Saint-Michel is reportedly the quietest. Mont du Dome alone: 5.8 km, 358 m, about 3 h (first post). Roadside parking, easy to find; dogs on leash. Video dated 30 Sep 2025.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "5 iconic Quebec fall hikes post"
+    },
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "Mont du Dome three-summit loop post, video 30 Sep 2025"
+    }
+   ]
+  },
+  {
+   "name": "L'Éperon",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Parc national de la Jacques-Cartier",
+   "kind": "trail",
+   "tags": [
+    "hiking",
+    "fall-colours",
+    "views",
+    "sepaq"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "yes",
+   "stats": {
+    "km": 5,
+    "gain_m": 250,
+    "hours": "1h45"
+   },
+   "notes": "Forest hike with a steep initial climb and several viewpoints over the Jacques-Cartier Valley. Near Quebec City.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "5 iconic Quebec fall hikes post"
+    }
+   ]
+  },
+  {
+   "name": "Mont-Sainte-Anne",
+   "display_name": "La Crête trail, Mont-Sainte-Anne",
+   "alias": "La Crete",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Côte-de-Beaupré",
+   "kind": "trail",
+   "tags": [
+    "hiking",
+    "fall-colours",
+    "views"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "notes": "Mountain hike with panoramic views and fall colours. The post gives no distance or time.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "5 iconic Quebec fall hikes post"
+    }
+   ]
+  },
+  {
+   "name": "Parc national du Mont-Mégantic",
+   "display_name": "Sentier des Cimes, Parc national du Mont-Mégantic",
+   "alias": "Sentier des Cimes",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Eastern Townships",
+   "kind": "trail",
+   "tags": [
+    "hiking",
+    "fall-colours",
+    "views",
+    "sepaq",
+    "dark-sky"
+   ],
+   "season": [
+    "Sep",
+    "Oct"
+   ],
+   "kid_fit": "strong-kid",
+   "stats": {
+    "km": 12.4,
+    "gain_m": 393,
+    "hours": "3h33"
+   },
+   "notes": "Mountain trail through forest with mountain scenery. The park is a dark-sky reserve (from memory).",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "5 iconic Quebec fall hikes post"
+    }
+   ]
+  },
+  {
+   "name": "Montmorency Falls",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Côte-de-Beaupré",
+   "kind": "waterfall",
+   "tags": [
+    "waterfall",
+    "family",
+    "suspension-bridge"
+   ],
+   "notes": "Gaspesie road trip stop 1. Near Quebec City, close to Canyon Sainte-Anne.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "Quebec to Gaspesie road trip post, 15 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Pic Champlain",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Parc national du Bic",
+   "kind": "mountain",
+   "tags": [
+    "hiking",
+    "viewpoint",
+    "sepaq"
+   ],
+   "notes": "Gaspesie road trip stop 2."
+  },
+  {
+   "name": "Canyon des Portes de l'Enfer",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Saint-Narcisse-de-Rimouski",
+   "kind": "canyon",
+   "tags": [
+    "canyon",
+    "suspension-bridge",
+    "waterfall"
+   ],
+   "notes": "Gaspesie road trip stop 3."
+  },
+  {
+   "name": "Chute du Grand-Sault",
+   "display_name": "Grand-Sault waterfall",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "kind": "waterfall",
+   "tags": [
+    "waterfall"
+   ],
+   "notes": "Gaspesie road trip stop 4. Location to confirm (several Grand-Sault falls in Quebec)."
+  },
+  {
+   "name": "Mont-Saint-Pierre",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Haute-Gaspésie",
+   "kind": "town",
+   "tags": [
+    "town",
+    "paragliding",
+    "coast"
+   ],
+   "notes": "Gaspesie road trip stop 5. Known for hang-gliding and paragliding (from memory)."
+  },
+  {
+   "name": "Mont Xalibu",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Parc national de la Gaspésie",
+   "kind": "mountain",
+   "tags": [
+    "hiking",
+    "sepaq",
+    "views"
+   ],
+   "notes": "Gaspesie road trip stop 6."
+  },
+  {
+   "name": "Lac aux Américains",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Parc national de la Gaspésie",
+   "kind": "lake",
+   "tags": [
+    "lake",
+    "hiking",
+    "sepaq",
+    "family"
+   ],
+   "notes": "Gaspesie road trip stop 7. Short family walk to a glacial cirque lake (from memory)."
+  },
+  {
+   "name": "La Martre Lighthouse",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Haute-Gaspésie",
+   "kind": "lighthouse",
+   "tags": [
+    "lighthouse",
+    "coast"
+   ],
+   "notes": "Gaspesie road trip stop 8. Red wooden lighthouse at La Martre."
+  },
+  {
+   "name": "Cap-Bon-Ami",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Forillon National Park",
+   "kind": "viewpoint",
+   "tags": [
+    "cliffs",
+    "coast",
+    "parks-canada"
+   ],
+   "notes": "Gaspesie road trip stop 9."
+  },
+  {
+   "name": "Sentier La Chute",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Forillon National Park",
+   "kind": "trail",
+   "tags": [
+    "hiking",
+    "waterfall",
+    "parks-canada",
+    "family"
+   ],
+   "notes": "Gaspesie road trip stop 10."
+  },
+  {
+   "name": "Cap-Gaspé",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Forillon National Park",
+   "kind": "viewpoint",
+   "tags": [
+    "hiking",
+    "coast",
+    "lighthouse",
+    "parks-canada"
+   ],
+   "notes": "Gaspesie road trip stop 11. End of the Appalachian Trail (IAT) at Land's End (from memory)."
+  },
+  {
+   "name": "Percé Rock",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Percé",
+   "kind": "island",
+   "tags": [
+    "landmark",
+    "coast",
+    "photography"
+   ],
+   "notes": "Gaspesie road trip stop 12."
+  },
+  {
+   "name": "Mont Saint-Alban",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Forillon National Park",
+   "kind": "mountain",
+   "tags": [
+    "hiking",
+    "viewpoint",
+    "parks-canada"
+   ],
+   "notes": "Gaspesie road trip stop 13. Observation tower loop (from memory)."
+  },
+  {
+   "name": "Bonaventure Island",
+   "country": "CA",
+   "region": "QC",
+   "region_name": "Quebec",
+   "area": "Percé",
+   "kind": "island",
+   "tags": [
+    "gannets",
+    "boat",
+    "sepaq",
+    "family"
+   ],
+   "notes": "Gaspesie road trip stop 14. Northern gannet colony; ferry from Perce, fee and season to check."
+  },
+  {
+   "name": "Lake Como",
+   "country": "IT",
+   "region": "lombardy",
+   "region_name": "Lombardy",
+   "kind": "lake",
+   "tags": [
+    "lake",
+    "scenic",
+    "ferries"
+   ],
+   "season": [
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+   ],
+   "notes": "Stay in Bellagio or Varenna; the ferry between towns is scenic. 2-3 days."
+  },
+  {
+   "name": "Milan",
+   "country": "IT",
+   "region": "lombardy",
+   "region_name": "Lombardy",
+   "kind": "city",
+   "tags": [
+    "city",
+    "culture"
+   ],
+   "notes": "Duomo, Last Supper (book months ahead), fashion district. Day trip from Lake Como."
+  },
+  {
+   "name": "Venice",
+   "country": "IT",
+   "region": "veneto",
+   "region_name": "Veneto",
+   "kind": "city",
+   "tags": [
+    "city",
+    "canals"
+   ],
+   "season": [
+    "Apr",
+    "May",
+    "Sep",
+    "Oct"
+   ],
+   "notes": "Stay on the main island, not Mestre; early morning walks. 2-3 days."
+  },
+  {
+   "name": "Verona",
+   "country": "IT",
+   "region": "veneto",
+   "region_name": "Veneto",
+   "kind": "city",
+   "tags": [
+    "city",
+    "history"
+   ],
+   "notes": "Roman arena, Juliet balcony, wine region. Combine with Venice. 1-2 days."
+  },
+  {
+   "name": "Florence",
+   "country": "IT",
+   "region": "tuscany",
+   "region_name": "Tuscany",
+   "kind": "city",
+   "tags": [
+    "city",
+    "art",
+    "food"
+   ],
+   "notes": "Uffizi, Duomo, David (book Uffizi and Accademia ahead); day trip to the Tuscan countryside. 3-4 days."
+  },
+  {
+   "name": "Rome",
+   "country": "IT",
+   "region": "lazio",
+   "region_name": "Lazio",
+   "kind": "city",
+   "tags": [
+    "city",
+    "history",
+    "food"
+   ],
+   "notes": "Colosseum, Vatican (advance booking), Trevi. 4-5 days."
+  },
+  {
+   "name": "Amalfi Coast",
+   "display_name": "Sorrento and the Amalfi Coast",
+   "country": "IT",
+   "region": "campania",
+   "region_name": "Campania",
+   "kind": "region",
+   "tags": [
+    "coast",
+    "scenic-drive",
+    "beach",
+    "food"
+   ],
+   "season": [
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+   ],
+   "notes": "Base in Sorrento for day trips; Positano, Ravello, limoncello; boat tour along the coast. 3-4 days."
+  },
+  {
+   "name": "Capri",
+   "country": "IT",
+   "region": "campania",
+   "region_name": "Campania",
+   "kind": "island",
+   "tags": [
+    "island",
+    "boat",
+    "scenic"
+   ],
+   "season": [
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+   ],
+   "notes": "Day trip from Sorrento or Naples; the Blue Grotto closes in waves."
+  },
+  {
+   "name": "Dolomites",
+   "country": "IT",
+   "region": "trentino-alto-adige",
+   "region_name": "Trentino-Alto Adige",
+   "kind": "mountain",
+   "tags": [
+    "mountains",
+    "hiking",
+    "via-ferrata",
+    "rifugi",
+    "dream-trip"
+   ],
+   "season": [
+    "Jul",
+    "Aug",
+    "Sep"
+   ],
+   "status": "planned",
+   "trip": "dolomites-july-2027",
+   "notes": "Tre Cime di Lavaredo is the icon. Planned as dolomites-july-2027 (13-26 Jul 2027). Hotel idea: Chalet Alfoss https://www.hotelchaletalfoss.it/en/"
+  },
+  {
+   "name": "Trento",
+   "country": "IT",
+   "region": "trentino-alto-adige",
+   "region_name": "Trentino-Alto Adige",
+   "kind": "city",
+   "tags": [
+    "city",
+    "wine",
+    "gateway"
+   ],
+   "notes": "Gateway to the Dolomites; wine region, historic centre. 1-2 days."
+  },
+  {
+   "name": "Provence",
+   "country": "FR",
+   "region": "provence-alpes-cote-d-azur",
+   "region_name": "Provence-Alpes-Côte d'Azur",
+   "kind": "region",
+   "tags": [
+    "lavender",
+    "wine",
+    "villages",
+    "dream-trip"
+   ],
+   "season": [
+    "Jun",
+    "Jul"
+   ],
+   "notes": "Peak lavender mid June to mid July. Gordes, Roussillon, Senanque Abbey. 4-5 days."
+  },
+  {
+   "name": "Paris",
+   "country": "FR",
+   "region": "ile-de-france",
+   "region_name": "Île-de-France",
+   "kind": "city",
+   "tags": [
+    "city",
+    "art",
+    "food"
+   ],
+   "season": [
+    "Apr",
+    "May",
+    "Sep",
+    "Oct"
+   ],
+   "notes": "Book the Eiffel Tower and Louvre online. Marais, Montmartre, Latin Quarter. 4-5 days."
+  },
+  {
+   "name": "Hanoi",
+   "country": "VN",
+   "region": "hanoi",
+   "region_name": "Hanoi",
+   "kind": "city",
+   "tags": [
+    "city",
+    "food",
+    "culture"
+   ],
+   "notes": "Old Quarter, Train Street (check current access rules), Hoan Kiem Lake, Temple of Literature, water puppet show. Stays named in the post: Hanoi Diamond King Hotel, Queen Cafe Hotel & Pub. Post costs in INR (Delhi traveller): 1,800-3,000 a night; 5,000-8,000 for 2 days.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "Vietnam 6-7 day budget post, 15 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Sa Pa",
+   "display_name": "Sapa",
+   "country": "VN",
+   "region": "lao-cai",
+   "region_name": "Lào Cai",
+   "kind": "town",
+   "tags": [
+    "mountains",
+    "rice-terraces",
+    "trekking",
+    "culture"
+   ],
+   "kid_fit": "yes",
+   "notes": "Four-day post: Day 1 town and Mong Village (Stone Church, Ban Mong alpine coaster, Rainbow Slide, Moana Cafe, night market); Day 2 Fansipan cable car and the mountain train at La Do Cafe; Day 3 Muong Hoa Valley trek, Lao Chai, Ta Van, Giang Ta Chai, homestay; Day 4 O Quy Ho Pass, Silver and Love waterfalls, Rong May glass bridge, paragliding. Also: Red Dao herbal bath, Cat Cat Village. Second post, INR costs: Sapa 11,000-18,000; Hanoi-Lao Cai by Laman Express 3,500-4,000 or regular train 1,200-1,500 (8 h); Muong Hao Eco Villa 3,000-6,000 for 2 nights; Topas Ecolodge 24,000-27,000. Rice terraces change by month; kids' limits for the glass bridge, coaster and paragliding not checked.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "insanyaty Sapa itinerary post, 15 Oct 2026"
+    },
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "Vietnam 6-7 day budget post, 15 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Hạ Long Bay",
+   "display_name": "Ha Long Bay",
+   "country": "VN",
+   "region": "quang-ninh",
+   "region_name": "Quảng Ninh",
+   "kind": "place",
+   "tags": [
+    "cruise",
+    "bay",
+    "kayaking",
+    "unesco"
+   ],
+   "notes": "Overnight cruise among the limestone islands; kayaking and caves usually included. Post (INR): 10,000-20,000 for 2 days; cruises named Amanda Pearl 14,000-16,000, Uni Charm about 25,000 a night, La Regina Classic about 14,000, Genesis Regal and Venus 20,000-22,000; budget alternative Ha Long Lily homestay about 2,500 a night. Post text cut off after the kayaking line.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null,
+     "note": "Vietnam 6-7 day budget post, 15 Oct 2026"
+    }
+   ]
+  },
+  {
+   "name": "Gurudongmar Lake",
+   "country": "IN",
+   "region": "sikkim",
+   "region_name": "Sikkim",
+   "kind": "lake",
+   "tags": [
+    "high-altitude",
+    "lake",
+    "permit"
+   ],
+   "notes": "Loose line in Location.md, no details. High-altitude lake in North Sikkim; permits and altitude (about 5,400 m) to check (from memory)."
+  },
+  {
+   "name": "Lake Louise",
+   "country": "CA",
+   "region": "AB",
+   "region_name": "Alberta",
+   "area": "Banff National Park",
+   "kind": "lake",
+   "tags": [
+    "lake",
+    "family",
+    "iconic"
+   ],
+   "season": [
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+   ],
+   "status": "planned",
+   "trip": "canadian-rockies-sept-2029",
+   "notes": "In the Rockies plan (Sept 2029). Added as a resolver test on 16 Oct 2026."
+  }
+ ],
+ "collections": [
+  {
+   "slug": "us-az-ut-co-wy-road-trip",
+   "name": "Arizona, Utah, Colorado and Wyoming road trip (17 stops)",
+   "country": "US",
+   "places": [
+    "Page",
+    "Zion National Park",
+    "Kanarra Falls",
+    "Bryce Canyon National Park",
+    "Bentonite Hills",
+    "Factory Butte",
+    "Long Dong Silver",
+    "Arches National Park",
+    "Canyonlands National Park",
+    "Monument Valley",
+    "Durango",
+    "Million Dollar Highway",
+    "Ouray",
+    "Breckenridge",
+    "Grand Teton National Park",
+    "Yellowstone National Park",
+    "Stansbury Island"
+   ],
+   "notes": "From a saved Instagram post (15 Oct 2026). Stop order as posted; the recommended-season line was cut off in the screenshot. Overlaps the Utah parks plan in usa-southwest-rockies.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null
+    }
+   ]
+  },
+  {
+   "slug": "quebec-gaspesie-road-trip",
+   "name": "Quebec City to Gaspesie road trip (14 stops)",
+   "country": "CA",
+   "places": [
+    "Montmorency Falls",
+    "Pic Champlain",
+    "Canyon des Portes de l'Enfer",
+    "Chute du Grand-Sault",
+    "Mont-Saint-Pierre",
+    "Mont Xalibu",
+    "Lac aux Américains",
+    "La Martre Lighthouse",
+    "Cap-Bon-Ami",
+    "Sentier La Chute",
+    "Cap-Gaspé",
+    "Percé Rock",
+    "Mont Saint-Alban",
+    "Bonaventure Island"
+   ],
+   "notes": "From a saved Instagram post (15 Oct 2026). Waterfalls, lakes, mountain hikes, lighthouses and sea cliffs between Quebec City and Perce. Stop order as posted; driving times not verified. Summer to early fall.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null
+    }
+   ]
+  },
+  {
+   "slug": "vietnam-north-loop",
+   "name": "Vietnam north loop: Hanoi, Sapa, Ha Long Bay (6-7 days)",
+   "country": "VN",
+   "places": [
+    "Hanoi",
+    "Sa Pa",
+    "Hạ Long Bay"
+   ],
+   "notes": "From a saved Instagram post (15 Oct 2026): Hanoi days 1-2, Sapa days 3-4, Ha Long Bay days 5-6, back via Hanoi. Costs in INR for a Delhi traveller (flights 24,000-30,000, e-visa 2,200), so they will not match a Toronto trip. The poster suggests 3-4 days for Sapa if time allows.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null
+    }
+   ]
+  },
+  {
+   "slug": "quebec-fall-hikes-5",
+   "name": "Five iconic Quebec fall hikes (post)",
+   "country": "CA",
+   "places": [
+    "Montagne de Marbre",
+    "Mont du Dôme",
+    "L'Éperon",
+    "La Crete",
+    "Sentier des Cimes"
+   ],
+   "notes": "The '5 of Quebec's most iconic bucket list hikes' post (15 Oct 2026). Stats as posted, unverified.",
+   "sources": [
+    {
+     "type": "instagram",
+     "url": null
+    }
+   ]
+  }
+ ]
+}

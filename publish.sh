@@ -156,6 +156,12 @@ out.append('<footer>Published from ~/workspace/travel &mdash; run ./publish.sh t
            'Add a trip by creating &lt;slug&gt;/index.html beside it; the card image is taken from that page\'s hero.</footer>')
 out.append('</body></html>')
 open(os.path.join(site,'index.html'),'w',encoding='utf-8').write('\n'.join(out))
+# A real 404 page. Without one, Cloudflare Pages serves the hub with a 200 for every unknown path,
+# which hid the fact that old files had been removed (16 Oct 2026).
+nf = ('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+      '<title>Not found</title><style>' + CSS + '</style></head><body><header><p class="eyebrow">404</p><h1>Not here</h1>'
+      '<p class="lede">That page does not exist on this site. <a href="/" style="color:#d69329">Back to the trip list</a>.</p></header></body></html>')
+open(os.path.join(site,'404.html'),'w',encoding='utf-8').write(nf)
 print(f"  hub: {len(upcoming)} upcoming, {len(past)} past")
 PYHUB
 
