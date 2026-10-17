@@ -40,6 +40,10 @@ tasks (check in, free-cancellation deadline, balance due), and live offline in a
 14. The result returns the reservation id, a link, and any check warnings caused ("no stay for night 4"), which the client can relay.
 15. Clients without the `reservations:read` scope can add a reservation including its codes (write-only) but cannot read codes back.
 
+## Sharing
+
+See [10-sharing.md](../10-sharing.md). A **reservation card** can be shared with someone outside the trip (a parent collecting you from the airport gets flight number, times and terminal) as a guest link or an image card; confirmation codes are excluded by default and need an explicit "include code" choice with a warning. A **ticket attachment** (a PDF boarding pass for one child) can be shared to one person as a time-limited signed link (default 48 h). Members see codes per their role (viewers never). Chat clients get codes only with `reservations:read`.
+
 ## Data touched
 
 `reservation`, `reservation_secret`, `reservation_segment`, `reservation_traveller`, `attachment`, `trip_item.segment_id`, `task`, `reminder`, `budget_line`, `expense`, `trip_night_base`.

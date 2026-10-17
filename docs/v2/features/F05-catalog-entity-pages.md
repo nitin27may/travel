@@ -65,6 +65,10 @@ heart of most trips in this repo (Rockies, Dolomites, Patagonia, Chamonix, Norwa
 
 27. See F04 area guides.
 
+## Sharing
+
+See [10-sharing.md](../10-sharing.md). Every entity page has a public URL (`/p/<slug>`) and a Share action: link, Web Share API sheet on phones, and an **image card** (photo, name, key numbers such as "21 km · 750 m gain · Parks Canada", map snippet) for chat apps. "Open in Google Maps / Apple Maps" shares the point. Sharing an entity from inside a trip can include the trip's context for members only ("on Day 3, Track A"), never for public links.
+
 ## Data touched
 
 `entity` (kinds trail, activity, stay, eatery, place, hub), `offer`, `relation`, `media`, `evidence`, `source`, `area`, `leg_cache`, `changeset`/`change` (corrections).

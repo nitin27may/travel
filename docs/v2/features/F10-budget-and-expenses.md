@@ -26,6 +26,10 @@ reservations; anything else is added by hand. No expense-splitting UI in v1 (fam
 8. **After the trip**: actual vs planned summary feeds the travel year totals.
 9. **Not in v1**: who paid and who owes (group balances). The `expense.paid_by` and `split_between` columns exist for a later UI on friends' trips.
 
+## Sharing
+
+See [10-sharing.md](../10-sharing.md). A **budget summary** (totals by category, planned vs actual, no receipts, no line-level notes) can be shared as a guest link or image card. Guest links to the trip hide the budget unless the "costs" include toggle is on. Receipts are never shared by link.
+
 ## Data touched
 
 `budget_line`, `expense`, `reservation` (price, paid, balance), `trip_item.cost_estimate`, `trip.currency`, `trip.budget_buffer_pct`, `membership`, `offer` (pass), `relation(covered_by)`, `attachment` (receipts), `travel_goal` (year budget).

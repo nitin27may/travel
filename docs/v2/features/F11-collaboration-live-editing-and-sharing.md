@@ -1,5 +1,9 @@
 # F11. Collaboration, live editing and sharing
 
+This is the **sharing feature page**. The full sharing design (share objects, audiences, guest links,
+exports, MCP) is [10-sharing.md](../10-sharing.md); this page summarises it, links each shareable
+object to its feature page, and specifies collaboration and live editing in detail.
+
 ## Purpose
 
 Plan together in real time like Wanderlog (decided: live co-editing), share a read-only view with
@@ -30,11 +34,27 @@ broadcast and presence (08-self-hosted.md 4), not on a separate sync engine.
 7. **Presence**: avatars at the top (who has the trip open), a small avatar on the item someone is editing, and the day someone is viewing in the outline.
 8. Channel authorisation: RLS on `realtime.messages` allows joining `trip:<id>` only for members.
 
-### Sharing outward
+### Sharing outward (summary of 10-sharing.md)
 
-9. **Viewer link**: a secret URL (`/s/<token>`), revocable and rotatable, read-only, no account needed; shows days, items, map, times; hides reservations' codes, attachments, people's ages, notes marked private, budget (toggle per link).
-10. **Public**: only via templates (F12), never a live trip.
-11. **Print view**: a clean, paper-friendly day-by-day page (also the PDF export).
+9. **Audiences**: members (owner, editor, viewer, with accounts); **guest links** (no account, read-only, expiring, revocable, optional PIN); **public** (templates only, F12); **exports** (PDF, ICS, GPX, Google Maps link, image card via the Web Share API; F15); **chat clients** through the MCP with scopes (F17).
+10. **Share objects** and where each is specified:
+
+| Object | Feature page |
+|---|---|
+| Whole trip, day range, one day, one list, one item | F06 |
+| Explore search | F04 |
+| Entity (place, trail, activity) and area guide | F05, F04 |
+| Reservation card, ticket attachment | F08 |
+| Task (by assignment), pack list, checklist | F09 |
+| Budget summary | F10 |
+| Template | F12 |
+| Today's plan, next stop | F13 |
+| Trip story (after) | F14 |
+| Route, GPX, ICS, PDF, Maps links | F15 |
+
+11. **Guest link rules**: a secret URL (`/s/<token>`) scoped to one object; expiry (default 30 days, or the trip end + 7 days), revocable and rotatable, optional 4-6 digit PIN; include toggles for costs, notes and reservation times; **never** codes, ages, heights, passport data or attachments unless the sharer explicitly chooses a ticket or code with a warning. Items and notes marked private are always excluded. Each open is logged (count and last opened, no tracking of the viewer).
+12. **Public**: only templates; never a live trip.
+13. **Print view**: a clean day-by-day page, also the PDF export (F15).
 
 ### Activity feed
 
@@ -47,13 +67,13 @@ broadcast and presence (08-self-hosted.md 4), not on a separate sync engine.
 
 ### Schema additions
 
-- `share_link (id, trip_id, token unique, role text default 'viewer', show_budget boolean default false, created_by, created_at, revoked_at)`.
+- `share_link` as defined in 10-sharing.md (object type and id, scope such as a day range, token, expiry, PIN hash, include toggles, created_by, revoked_at, open count, last opened). This page assumes that definition.
 - `trip_item.private boolean default false` and `day_note.private boolean default false` for notes hidden from viewers.
 - `op_event.batch_id text` to group the ops of one `edit_trip` or one drag.
 
 ## Operations and MCP tools
 
-Operations: `member.invite`, `member.accept`, `member.set_role`, `member.remove`, `trip.transfer_owner`, `share_link.create`, `share_link.revoke`, `op.ops_since` (query), `op.undo_batch`.
+Operations: `member.invite`, `member.accept`, `member.set_role`, `member.remove`, `trip.transfer_owner`, `share_link.create` (object, scope, expiry, PIN, includes), `share_link.update`, `share_link.revoke`, `share_link.resolve` (guest read), `op.ops_since` (query), `op.undo_batch`.
 
 MCP: changes made by a client broadcast like any other; `get_trip` returns `version` so a client can detect concurrent edits; `edit_trip` accepts `expected_version` (optional) to fail fast if the trip changed.
 
@@ -68,7 +88,7 @@ MCP: changes made by a client broadcast like any other; `get_trip` returns `vers
 
 1. Two browsers on the same trip: a move in one appears in the other in under 1 s on the home network (p95), without a page reload.
 2. A removed member's open tab loses access within 5 s.
-3. A viewer link never returns codes, attachments, ages or private notes (privacy test with sentinels).
+3. A guest link never returns codes, attachments, ages or private notes unless explicitly included, honours expiry and PIN, and stops working within 5 s of revocation (privacy test with sentinels).
 4. Undo of a batch made by Claude restores the trip exactly (snapshot compare).
 5. A client that missed 50 ops catches up with `ops_since` and ends in the same state as a fresh load.
 
