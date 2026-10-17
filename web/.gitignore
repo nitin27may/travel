@@ -1,0 +1,9 @@
+node_modules/
+out/
+.next/
+.fixture-*/
+.generated/
+test-results/
+playwright-report/
+next-env.d.ts
+*.tsbuildinfo
