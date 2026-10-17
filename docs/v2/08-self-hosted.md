@@ -6,6 +6,10 @@ This replaces Neon, Better Auth, R2, the Cloudflare trip rooms and Vercel from 0
 everything else in 04 stands. Section 1.8a's objections (a second vendor beside Neon, an auth bridge,
 free-plan pausing) do not apply when Supabase is the only backend and it runs on your own box.
 
+**Owner, 17 Oct 2026:** the home server has room for the Supabase stack, so the sizing risk below is
+not a concern. A Supabase Cloud free or trial account is also acceptable; the plan stays the same
+either way, since only the connection settings differ.
+
 ## 1. What changes from the earlier plan
 
 | Concern | Was | Now | Why it is better here |
