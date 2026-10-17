@@ -1,7 +1,10 @@
+# Reference implementation: core/src/sun (TypeScript), CLI: node core/bin/sun.ts --lat .. --lon .. --zone .. --date ..
+# Longitude is positive EAST in the NOAA formula below (Reykjavik -21.94, Bergen +5.32). Do not negate it.
+# tools/tests/test_sun_scripts.py runs this script against values taken from core/src/sun.
 import math, datetime
 
 def solar_events(lat, lon, date, tz_offset_hours):
-    # NOAA solar calculator, returns (sunrise, sunset, civil_dawn, civil_dusk, daylight_hours) local time
+    # NOAA solar calculator (lon positive EAST), returns (sunrise, sunset, civil_dawn, civil_dusk, daylight_hours) local time
     def frac_year(d):
         return 2*math.pi/365.0*(d.timetuple().tm_yday-1)
     g = frac_year(date)
@@ -36,22 +39,16 @@ def solar_events(lat, lon, date, tz_offset_hours):
         civ = f"civil dawn {fmt(c[0])} / civil dusk {fmt(c[1])}"
     return f"sunrise {fmt(sr)}  sunset {fmt(ss)}  daylight {daylight:.2f} h  |  {civ}"
 
+# Rockies bases; MDT is UTC-6 in September. Longitude positive EAST, so Canada is negative.
 places = [
-    ("Bergen",        60.39,  5.32),
-    ("Flam/Aurland",  60.86,  7.11),
-    ("Alesund",       62.47,  6.15),
-    ("Andalsnes",     62.57,  7.69),
-    ("Loen/Stryn",    61.87,  6.85),
-    ("Bodo",          67.28, 14.40),
-    ("Reine, Lofoten",67.93, 13.09),
-    ("Svolvaer",      68.23, 14.57),
-    ("Tromso",        69.65, 18.96),
-    ("Senja (Fjordgard)",69.44,17.65),
+    ("Banff",              51.18, -115.57),
+    ("Jasper",             52.87, -118.08),
+    ("Lake Louise",        51.43, -116.18),
+    ("Kananaskis Village", 50.93, -115.14),
 ]
-for d in [datetime.date(2028,6,24), datetime.date(2028,7,1), datetime.date(2028,7,8),
-          datetime.date(2028,7,18), datetime.date(2028,7,29), datetime.date(2028,8,12)]:
+for d in [datetime.date(2029,9,8), datetime.date(2029,9,11), datetime.date(2029,9,15),
+          datetime.date(2029,9,18), datetime.date(2029,9,22)]:
     print("="*78)
     print(d.isoformat())
     for name, lat, lon in places:
-        # NOAA convention: lon positive WEST -> pass -lon for east longitudes
-        print(f"  {name:20s} {solar_events(lat, -lon, d, 2)}")
+        print(f"  {name:20s} {solar_events(lat, lon, d, -6)}")
