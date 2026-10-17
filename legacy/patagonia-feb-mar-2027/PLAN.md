@@ -27,7 +27,7 @@ The video's shape mostly holds up: two Buenos Aires days, the glacier, El Chalte
 
 ### Corrections to the research files
 
-- **research/logistics.md, section 6 (sun times) is wrong.** Both its sunrise and sunset columns are offset. This plan uses research/sun.md, and interpolates between its three dates where a day falls between them.
+- **research/logistics.md, section 6 (sun times) was wrong (corrected 18 Oct 2026 to match sun.md).** Both its sunrise and sunset columns are offset. This plan uses research/sun.md, and interpolates between its three dates where a day falls between them.
 - **research/logistics.md gives about 15 h for the YYZ-EZE nonstop.** The same file's 2018 Air Canada timetable (EZE 08:55, YYZ 19:00, a 2 h time difference) works out to about 12 h block time. The 15 h listings are probably one-stop itineraries. I use about 12 h (INFERENCE) and treat the 2027 schedule as a GAP.
 - **research/stay-bookings.md says the Cerro Torre trail starts via Chorrillo del Salto.** It does not. The Laguna Torre trailhead is on the west side of town (Calle Riquelme, 49.3314 S 72.8931 W, photohikes). Chorrillo del Salto starts from the north end of Av. San Martin.
 - **research/stay-bookings.md quotes Tren del Fin del Mundo at ARS 70,000 / 35,000.** Those were winter 2026 fares. The official site lists ARS 80,000 (13+) and ARS 40,000 (4-12) for Oct 2026 to Mar 2027. I use the official figures.

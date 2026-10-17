@@ -160,7 +160,7 @@ GAP: no sourced "loses sun at X:XX" figure — the Tripadvisor thread that discu
 DERIVED (not sourced): Mount Kinesava tops out ~3,400 ft above town about 2 mi SW → apparent
 ridge angle ~18°. At 37°N in early October the sun drops ~10–11°/hour near the horizon, so
 direct sun leaves the town floor roughly **1.5–2 h before astronomical sunset** — call it
-~17:15–17:45 against a ~19:00 MDT sunset. Deeper in the canyon (Temple of Sinawava, the
+~17:15–17:45 against a ~19:14 MDT sunset (corrected from ~19:00 in the S1 sun audit; the sun-loss estimate itself is unchanged). Deeper in the canyon (Temple of Sinawava, the
 Narrows) it is worse; the Narrows is in shade far earlier and gets cold fast.
 
 **Churn vs quiet.** Population 514 against Zion's visitation — the town is a hotel and
@@ -660,7 +660,7 @@ falls slot, not the town.
 11,000–13,000 ft within 1–2 miles. Taking a representative 3,000 ft rise over 1.2 mi
 (6,340 ft horizontal) gives an apparent ridge angle of ~25°. At 38°N in early October the sun
 descends ~10–11°/hour near the horizon. That puts direct sun off the town floor roughly
-**2 to 2.5 hours before astronomical sunset** — so with sunset around 18:45 MDT in early
+**2 to 2.5 hours before astronomical sunset** — so with sunset around 18:52 MDT in early
 October, expect the town to be in full shadow from **~16:15–16:45**. Treat as an
 order-of-magnitude estimate, not a measurement. The practical consequences are real: evening
 photography in town is over by mid-afternoon, temperatures drop fast once the walls take the
