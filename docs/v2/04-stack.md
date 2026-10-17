@@ -270,7 +270,7 @@ and its tests carry straight over, and the most mature React server framework.
    offline op queue, MapLibre, PMTiles               │
         │ HTTPS (session cookie)                     │ Streamable HTTP
         ▼                                            ▼
- ┌──────────────────────── Cloudflare Worker: app ────────────────────────┐
+ ┌──────────── Next.js on Vercel (app, Hono /api, /mcp) ─────────────┐
  │  SSR pages ─┐   /api/ops/*  (OpenAPI)   /mcp  (tools, resources, prompts)│
  │             └──────────────┬──────────────────┘                         │
  │                    domain package: defineOp registry                    │

@@ -12,8 +12,8 @@ Each has a recommendation; "blocks" says which milestone cannot start without an
 |---|---|---|---|---|
 | Q1 | Data host and auth | A Supabase all-in · B Supabase as plain Postgres + Better Auth · **C Neon + Better Auth + R2 + Workers** | **C**; B if one dashboard and less to build matter more than cost and portability (04-stack.md 1.5) | M0 |
 | Q2 | Free plan for year one | stay free until outside users · pay from day one | **Free until the first outside user relies on reminders**, with our own nightly backup; then Neon Launch (~$5-20/mo) | M3 |
-| Q3 | Hosting | **Cloudflare Workers** · Vercel | **Cloudflare**: commercial use allowed on free, minute cron, legacy already there | M0 |
-| Q4 | Web framework | **React Router 7** on Workers · keep Next.js 16 (OpenNext) | **React Router 7**, unless you want to keep `web/` as is; both are React, components port either way | M0 |
+| Q3 | Hosting | **Cloudflare Workers** · Vercel | **Decided: Vercel Hobby** for the app; Cloudflare for cron and trip rooms | M0 |
+| Q4 | Web framework | **React Router 7** on Workers · keep Next.js 16 (OpenNext) | **Decided: Next.js 16 on Vercel** for year one (04-stack.md 1.9) | M0 |
 | Q5 | Source of truth | Postgres now · stay with JSON in git | **Postgres now**, pause P4c | M0 |
 | Q6 | First destination | **Banff and Lake Louise** · Patagonia | **Banff**: well mapped in OSM, your 2029 trip has the richest data to import | M1 |
 | Q7 | Accounts | now · later | **Now** (households, MCP OAuth and sharing all need them) | M0 |
