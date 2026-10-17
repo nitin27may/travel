@@ -22,7 +22,9 @@ body {
   display: flex;
   flex-direction: column;
 }
-a { color: var(--teal-text); text-underline-offset: 0.18em; }
+a { color: var(--teal-text); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
+/* links that are controls, not words in a sentence, carry no underline */
+.btn, .brand, .site-nav a, .card-open, .row-open, .card-links a, .cell-link, .skip-link, .crumbs a, .sheet-close, .seg-btn { text-decoration: none; }
 a:hover { color: var(--accent-text); }
 h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
@@ -427,7 +429,7 @@ td[data-align='right'] { text-align: right; }
   .brand { font-size: 1.25rem; }
   .site-nav { order: 3; width: 100%; margin: 0 0 0 -0.7rem; overflow-x: auto; }
   .header-tools { margin-left: auto; }
-  .seg-label { display: none; }
+  .seg-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
   .seg-btn { padding-inline: 0.7rem; }
   .page-head { padding: 0.9rem 0 0.7rem; }
   .page-head h1 { font-size: 2rem; }

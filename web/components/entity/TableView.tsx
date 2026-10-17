@@ -280,7 +280,7 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
                 {hg.headers.map((h) => {
                   const m = h.column.columnDef.meta as ColMeta | undefined;
                   const sorted = h.column.getIsSorted();
-                  const canSort = h.column.getCanSort() && Boolean(d.sorts[h.column.id]);
+                  const canSort = Boolean(d.sorts[h.column.id]); // sorting is ours (lib/entities/sort); columns have no accessors
                   return (
                     <th
                       key={h.id}
