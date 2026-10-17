@@ -44,6 +44,108 @@ Custom items are first-class: an `item` may reference a catalog entity or carry 
 | 6. Go | Phone view by day, offline download, sun times, weather, conditions check | Conditions routine before departure with one verdict |
 | 7. After | Mark done, add what really happened, publish as a template | Visits feed back to the catalog (visited, notes, corrections as proposals) |
 
+## 3A. Experience design: practical, before, during and after the trip
+
+The product is judged on two moments: the evening at home planning on a laptop, and 07:40 at a trailhead with one bar of signal and a child asking where the toilet is. Design for both, phone first.
+
+### 3A.1 The trip has four phases, and the app changes with them
+
+| Phase | When | What the app leads with |
+|---|---|---|
+| Plan | from idea until the itinerary is settled | Intent, browse and pick, day board with the map, suggestions with reasons |
+| Book | from the first booking window until everything is booked | The booking timeline: what opens when, what to book now, what sells out |
+| Prepare | the last weeks | Tasks: documents, packing, shopping, downloads for offline, a conditions check |
+| Go | the travel days | Today mode on the phone |
+| After | once home | Mark done, keep memories and corrections, publish as a template |
+
+A trip shows a **readiness bar** (Plan, Book, Prepare, Go) on its dashboard and in the trip list, so a person sees at a glance where each trip stands.
+
+### 3A.2 The trip dashboard
+
+One screen per trip, the place every visit starts:
+- **Next action**, one line, the most urgent thing: "Moraine Lake shuttle seats release Sat 15 Apr at 08:00 MT. Book within the hour; they sell out in minutes."
+- **Readiness**: days planned 12 of 14; bookings 6 of 9 (next deadline in 12 days); documents 2 of 3; packing 40 percent.
+- **Upcoming**: the next three deadlines and openings.
+- **Party**: who is going, ages, who can do what.
+- Links to the day board, tasks, bookings, map, documents.
+
+### 3A.3 Tasks: the trip as a to-do list
+
+Every trip has tasks, grouped **Book, Buy, Pack, Documents, Prepare, On the day**.
+
+| Field | Meaning |
+|---|---|
+| title, group | "Book Moraine Lake shuttle", Book |
+| due | a date, or relative to the trip ("90 days before") resolved per edition; shown as "in 12 days" |
+| source | `booking`, `booking_window`, `document_rule`, `packing_template`, `conditions`, `manual` |
+| owner | which traveller does it |
+| status | to do, done, skipped, not needed |
+| cost, link | what it costs, where to do it |
+| proof | confirmation number, ticket file, receipt photo (private) |
+| notes | free text |
+
+Tasks are created automatically and can always be edited or added by hand:
+- every bookable item in the plan creates a **Book** task with its book-by date;
+- every offer with a booking window creates an **opening** reminder;
+- the party's citizenship and the destination create **Documents** tasks (passport validity six months after return, eTA or visa, letters for minors, insurance);
+- the trip style and season create a **Pack** list from a template (hut trip, glacier, beach, city, kids), which the user edits;
+- **Buy** tasks come from the pack list ("crampons for a 10-year-old") or are added by hand;
+- **Prepare** covers offline downloads, the conditions check, currency, phone plan.
+
+Checking a task off is one tap, with an undo, and it moves the readiness bar.
+
+### 3A.4 Booking windows and reminders
+
+Bookable things carry their booking window from research: opens on a fixed date, opens N days before, released monthly on a given day and hour, by lottery, or same day only; how fast it sells out; the fallback when missed (for example a 48-hour release). For a trip edition the app computes:
+- **opens_at** in the operator's time zone, and in the traveller's;
+- **book_by**, from the opening and the sell-out speed;
+- the **reminder schedule**: a week before opening, the evening before, fifteen minutes before, at opening, and a "did you get it?" follow-up; for slow-selling items, one reminder before the book-by date.
+
+Reminders reach people three ways, chosen per trip:
+- **Calendar subscription** (an ICS feed per trip with alarms): the most reliable on any phone, works without an app install;
+- **Push** from the installed web app (supported on Android and on iOS for installed web apps);
+- **Email**, including a weekly digest during Book and Prepare.
+
+The notification centre in the app lists every reminder with its state (upcoming, due, done, missed), and every reminder links straight to the booking page and to the task to check off.
+
+### 3A.5 Today mode (the phone during the trip)
+
+During the trip's dates the app opens on **today**:
+- the **next stop**, with "leave by 07:10" computed from the travel leg and parking notes, and one tap to navigate in Google or Apple Maps;
+- the **day as a timeline**, items checking off as they happen; the current one highlighted;
+- **tickets and confirmations** for today one tap away, available offline;
+- **light and weather**: sunrise, sunset, last light, forecast, conditions alerts, and the day's weather rule ("if gusts over 50 km/h at 07:00, switch to Plan B");
+- **Plan B** as a toggle that swaps the day's affected items;
+- **running late**: shift the rest of the day by the delay; the app warns about anything that no longer fits (a closing time, a booked slot, daylight);
+- **quick note or photo**, attached to the stop;
+- an **offline badge** and what is cached.
+
+In the evening a **tomorrow briefing** card: the start time, what to pack in the day bag, bookings tomorrow, the forecast, and anything to do tonight.
+
+### 3A.6 Planning on desktop and on phone
+
+| Task | Desktop | Phone |
+|---|---|---|
+| Browse and pick | Filter bar on top, cards or table beside a map | Filters in a sheet, cards, map as a toggle |
+| Build days | Day board (columns of days) with the map beside it; drag items between days | One day at a time, swipe between days, map as a bottom sheet, long-press to move |
+| Add by hand | Search box with "add as custom", or click the map | Search, or drop a pin on the map |
+| Notes | Inline on any trip, day or item | Same, one tap |
+| Check the plan | Day checks as inline warnings with fixes | Same, as a list on the day |
+
+### 3A.7 Rules that keep it intuitive
+
+1. One primary action per screen, written as a verb ("Book the shuttle", "Add a day").
+2. Show the number where the decision is made (distance, time, cost, how many fit).
+3. Nothing basic behind an account or AI; sign-in is needed only to save or share.
+4. Every suggestion shows its reason; every warning offers a fix.
+5. Nothing is lost: autosave, undo everywhere, offline edits sync later.
+6. Dates are always relative and absolute ("in 12 days, Sat 15 Apr").
+7. Large touch targets, one-handed reachability on phones, readable in sunlight (contrast AA or better), works with reduced motion and screen readers.
+
+### 3A.8 What this adds to the domain model
+
+`task` (fields above), `reminder` (task or offer, channel, fire_at, state), `notification_pref` (per user and trip), `packing_template` and `document_rule` (reference data), `day_state` during the trip (actual times, done items, delay), and `attachment` (tickets and receipts, private). Booking windows live on `offer` as structured fields (rule, opens date or offset, release hour and zone, sell-out speed, fallback).
+
 ## 4. The MCP: a first-class product surface
 
 The MCP server is generated from the same operation catalogue as the API, plus resources and prompts. Any MCP client (Claude, ChatGPT with MCP, local clients) can research and plan; results appear in the app immediately.
