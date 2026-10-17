@@ -16,7 +16,7 @@ import urllib.parse
 from dataclasses import dataclass, field
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 VIEW_SCHEMA = "locations-view/1"
 GLOBE_SCHEMA = "globe-places/1"
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")

@@ -5,7 +5,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # regenerate the locations list, WISHLIST.md and the globe pins; a failure here must fail the publish
-python3 "$ROOT/_system/tools/locations.py" build
+python3 "$ROOT/tools/locations.py" build
 PROJECT="${1:-nks-travel}"
 SITE="$ROOT/.site"
 

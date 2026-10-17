@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Migrate locations/locations.json from schema v1 to v2.
 
-    python3 _system/tools/migrate_locations_v2.py --check   # print a summary, write nothing
-    python3 _system/tools/migrate_locations_v2.py           # rewrite the store in place
+    python3 tools/migrate_locations_v2.py --check   # print a summary, write nothing
+    python3 tools/migrate_locations_v2.py           # rewrite the store in place
 
 `migrate(v1)` is a pure function. Running on a v2 store prints "already v2" and exits 0.
 Field-by-field rules are in _system/site/PLAN-locations-g5.md section 1.4.

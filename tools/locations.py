@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Location store (schema v2): the laundry list of places we might go, kept as data.
 
-    python3 _system/tools/locations.py add "Lake Louise" --country CA --region AB --tags lake,family
-    python3 _system/tools/locations.py import locations/inbox/batch.json
-    python3 _system/tools/locations.py collection add --slug gaspesie-loop --name "..." --places ID,ID
-    python3 _system/tools/locations.py edit ID --status shortlisted --note-append "..." --tags-add a,b
-    python3 _system/tools/locations.py visit add ID --date 2026-10-02 [--end ...] [--trip SLUG]
-    python3 _system/tools/locations.py tag alias waterfalls waterfall | tag list
-    python3 _system/tools/locations.py validate
-    python3 _system/tools/locations.py build [--check]    # WISHLIST.md, locations/index.html, globe places.json
-    python3 _system/tools/locations.py list [--country CA] [--q charlevoix] [--status idea] [--tag lake]
+    python3 tools/locations.py add "Lake Louise" --country CA --region AB --tags lake,family
+    python3 tools/locations.py import locations/inbox/batch.json
+    python3 tools/locations.py collection add --slug gaspesie-loop --name "..." --places ID,ID
+    python3 tools/locations.py edit ID --status shortlisted --note-append "..." --tags-add a,b
+    python3 tools/locations.py visit add ID --date 2026-10-02 [--end ...] [--trip SLUG]
+    python3 tools/locations.py tag alias waterfalls waterfall | tag list
+    python3 tools/locations.py validate
+    python3 tools/locations.py build [--check]    # WISHLIST.md, locations/index.html, globe places.json
+    python3 tools/locations.py list [--country CA] [--q charlevoix] [--status idea] [--tag lake]
 
 Store: locations/locations.json (schema v2, one array per table, one row per line). Hierarchy is
 country > region > area > place with fixed path ids like CA/AB/banff-national-park/lake-louise.
@@ -39,7 +39,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import location_views as V  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 Paths = V.Paths
 PATHS = Paths(Path(os.environ.get("LOCATIONS_ROOT", ROOT)))   # tests: monkeypatch.setattr(D, "PATHS", D.Paths(tmp))
 UA = "nks-travel-locations/0.1 (personal trip planner; nitin27may@gmail.com)"
@@ -465,7 +465,7 @@ def save(data: dict, touch: bool = True) -> None:
 
 def ensure_v2(data: dict) -> dict:
     if data.get("schema_version") != SCHEMA_VERSION:
-        raise Fail("locations.json is schema v1: run python3 _system/tools/migrate_locations_v2.py first")
+        raise Fail("locations.json is schema v1: run python3 tools/migrate_locations_v2.py first")
     for t in TABLES:
         data.setdefault(t, [])
     return data
@@ -1113,7 +1113,7 @@ def _type_ok(v, t: str) -> bool:
 def validate(data: dict, paths: Paths | None = None) -> list[str]:
     paths = paths or PATHS
     if data.get("schema_version") != SCHEMA_VERSION:
-        return ["store is not schema v2 (v1 has `version`): run python3 _system/tools/migrate_locations_v2.py"]
+        return ["store is not schema v2 (v1 has `version`): run python3 tools/migrate_locations_v2.py"]
     errs: list[str] = []
     for k in data:
         if k not in ROOT_SCALARS and k not in TABLES:

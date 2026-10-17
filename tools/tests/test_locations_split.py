@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "tools"))
+sys.path.insert(0, str(HERE.parent))
 import locations as D  # noqa: E402
 import location_views as V  # noqa: E402
 from test_locations import run, seed  # noqa: E402
