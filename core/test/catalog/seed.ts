@@ -7,7 +7,7 @@ import { newStore } from "./util.ts";
 export const SRC = (n: number, kind = "official", read = "2026-10-01", url = `https://src${n}.example/x`): Row => ({ id: `src-${String(n).padStart(4, "0")}`, url, title: "t", publisher: "p", kind, read });
 
 export function row(entity: Entity, id: string, area: string, extra: Row = {}): Row {
-  const r = { ...blankRow(entity, "2026-10-01"), id, area_id: area, name: id.split("/").pop(), review_status: "verified", confidence: "stated", sources: ["src-0001"], ...extra };
+  const r: Row = { ...blankRow(entity, "2026-10-01"), id, area_id: area, name: id.split("/").pop(), review_status: "verified", confidence: "stated", sources: ["src-0001"], ...extra };
   if (entity === "stays" || entity === "eateries") {
     r.lat = r.lat ?? -49.3;
     r.lon = r.lon ?? -72.9;

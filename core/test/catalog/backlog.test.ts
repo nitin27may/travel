@@ -89,7 +89,7 @@ describe("backlog", () => {
     const gap = first.rows.find((r) => r.reason === "gap")!;
     const owner = { id: "bl-0123456789ab", subject_entity: null, subject_id: null, area_id: U, reason: "user-request", field: "restaurants", lane: "relax-luxury", priority: 0, status: "open", claimed_by: null, created: "2026-10-01", done: null };
     const claimed = { ...gap, status: "claimed", claimed_by: "run-7", created: "2026-10-05" };
-    const wont = { ...first.rows.find((r) => r.reason === "conflict")!, status: "wont-do" };
+    const wont: Record<string, any> = { ...first.rows.find((r) => r.reason === "conflict")!, status: "wont-do" };
     const { rows } = await fixture([], [owner, claimed, wont]);
     expect(rows.find((r) => r.id === owner.id)).toMatchObject({ reason: "user-request", priority: 1 });
     expect(rows.find((r) => r.id === gap.id)).toMatchObject({ status: "claimed", claimed_by: "run-7", created: "2026-10-05" });
