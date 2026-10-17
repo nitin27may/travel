@@ -49,6 +49,10 @@ seats release in 15 minutes"). Inline checklists cover the small stuff attached 
 16. **Inbox** lists reminders: upcoming, due, sent, acknowledged, missed; each links to the task and the reservation or booking page; "Snooze 10 min" and "Done".
 17. **Weekly digest** email during Book and Prepare phases: what is due this week, what opens, what is late.
 
+## Sharing
+
+See [10-sharing.md](../10-sharing.md). Tasks are shared by **assignment**: assigning "buy crampons for Kai" to Priya notifies her (push or email) with a link to the task. A pack list or a checklist can be shared as a guest link (read-only, tick-free) or exported as plain text for Notes or WhatsApp. Reminder emails include only the task and a link, never codes.
+
 ## Data touched
 
 `task`, `reminder`, `notification_pref`, `push_subscription`, `calendar_feed`, `pack_template`, `document_rule`, `reservation`, `offer`, `trip_item` (checklists), `attachment`.

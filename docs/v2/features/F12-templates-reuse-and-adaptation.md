@@ -78,6 +78,10 @@ different length, month, weather and party. Forks can see when the template impr
 22. `/templates`: filters by area, nights, month, trip types, party (youngest age, fitness), curated, travelled; cards show nights, bases, months, fit, curated badge.
 23. Explore and area guides show "Trips using this place" for an entity.
 
+## Sharing
+
+See [10-sharing.md](../10-sharing.md). Templates are the **public** audience: `/templates/<slug>` pages, JSON-LD, image cards and "Use this trip". A template can also be published **unlisted** (link only, not in the gallery) for friends. Publishing always goes through the privacy preview (behaviour 4). A live trip is never public; sharing a live trip uses guest links (F11).
+
 ## Data touched
 
 `trip` (is_template, forked_from), `trip_item`, `trip_list`, `day_note`, `reservation` (to-book placeholders), `offer`, `entity`, `relation` (alternative_to, part_of), `task`, `reminder`, `op_event`.

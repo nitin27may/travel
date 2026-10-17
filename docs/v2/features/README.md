@@ -8,7 +8,7 @@ Decisions every page assumes (from the numbered docs): self-hosted Supabase (Pos
 Auth, Realtime, Storage) on the home server; Next.js with Hono for `/api` and `/mcp`; the operation
 layer is the only writer; live co-editing through Realtime broadcast of committed operations; family
 first; **we never book anything** (people record reservations); no expense-splitting UI in v1; the MCP
-is a first-class front door.
+is a first-class front door. Sharing rules come from [10-sharing.md](../10-sharing.md); every page with something shareable has a **Sharing** subsection.
 
 | Page | Scope | Milestone | Status |
 |---|---|---|---|
@@ -22,7 +22,7 @@ is a first-class front door.
 | [F08 Reservations and wallet](F08-reservations-and-wallet.md) | Recorded bookings, to-book placeholders, email and chat-client entry, wallet in Today mode | M3 | draft |
 | [F09 Tasks, checklists and reminders](F09-tasks-checklists-and-reminders.md) | Generated and manual tasks, inline checklists, push/email/ICS reminders, inbox | M3 | draft |
 | [F10 Budget and expenses](F10-budget-and-expenses.md) | Planned vs actual by category, expenses, passes, home currency | M3 | draft |
-| [F11 Collaboration, live editing and sharing](F11-collaboration-live-editing-and-sharing.md) | Members and roles, live updates and presence, activity feed, viewer links | M2 | draft |
+| [F11 Collaboration, live editing and sharing](F11-collaboration-live-editing-and-sharing.md) | **The sharing feature page** (summarises [10-sharing.md](../10-sharing.md)); members and roles, live updates and presence, activity feed, guest links | M2 | draft |
 | [F12 Templates, reuse and adaptation](F12-templates-reuse-and-adaptation.md) | Curated sample trips, fork as-is, adapt to length, season, weather and party, template updates | M5 | draft |
 | [F13 Today mode and offline](F13-today-mode-and-offline.md) | The phone during the trip: next stop, leave-by, running late, wallet, offline download and sync | M4 | draft |
 | [F14 After the trip](F14-after-the-trip.md) | What happened, corrections to the catalog, memories, publish as template | M5 | draft |
@@ -48,3 +48,14 @@ Collected here so `schema.sql` can be updated in one pass once the owner reviews
 | `trip_event_note` / `item_memory` (photo, note, rating) | F14 | after-trip memories |
 | `user_settings` (units, language, quiet hours default) | F17 | per-user preferences |
 | `mcp_token` (personal access tokens, scopes, last used) | F17 | MCP fallback auth |
+| `share_link` (as defined in 10-sharing.md), `trip_item.private`, `day_note.private`, `op_event.batch_id` | F11 | guest links, private notes, batch undo |
+| `check_dismissal`, `trip.check_overrides` | F07 | dismissed checks, per-trip thresholds |
+| `fx_rate`, `trip.budget_target`, `trip.food_per_person_day`, `trip.fuel` | F10 | currencies and estimates |
+| `inbound_email`, `user_inbound_address` | F08 | forwarded confirmations |
+| `template_version`, `template_update_decision`, `trip.forked_version` | F12 | versions and fork updates |
+| `day_state`, `trip_item.actual_start/actual_end`, `offline_package` | F13 | during-trip state, offline |
+| `item_memory`, `trip_lesson`, `visit_stat` | F14 | memories, lessons, visit aggregates |
+| `entity_link` table, subkinds `trailhead` and `parking_lot` | F05 | links with checking, parking shared by trails |
+| `leg_cache.geometry` as `geography(LineString)`, `routing_budget` | F07, F15 | corridor search, quota |
+| `research_job.template`, `research_job.gaps`, `change.duplicate_of`, `ops_health` | F16 | jobs and admin health |
+| `person.weight_kg`, `trip_candidate.date_window`, `travel_goal.match`, `task.relative_to/offset_minutes`, `user_settings`, `oauth_client_seen` | F01, F03, F09, F17 | as described on those pages |

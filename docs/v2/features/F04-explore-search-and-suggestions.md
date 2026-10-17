@@ -60,6 +60,10 @@ the lens: distances are from home, the trip's base, or the user's live position.
 
 20. `/explore/<area>`: highlights per kind, seasons (what's open by month), coverage badge per kind (thin, usable, good), top picks per persona, "research this" when thin (owner only).
 
+## Sharing
+
+See [10-sharing.md](../10-sharing.md). An Explore search is shareable as its URL (lens, filters, sort, view and map bounds are all in it), so "waterfalls under 1 h from Whitby, kids 9+" can be sent as a link; signed-out recipients see the same results with straight-line distances. "Share" on the filter bar uses the Web Share API on phones (WhatsApp, Messages) and copies the link on desktop. A trip-aware search never puts traveller ages in the URL: the party is referenced by trip id and resolved only for members.
+
 ## Data touched
 
 `entity`, `offer`, `area`, `relation`, `media`, `leg_cache`, `saved_view`, `coverage`, `trip`/`traveller`/`trip_item` (for trip-aware filters and "already in trip").

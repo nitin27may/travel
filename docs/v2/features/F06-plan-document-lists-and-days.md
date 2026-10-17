@@ -76,6 +76,10 @@ catalog, from a link or from a chat client, and moved freely between lists and d
 
 28. A trip with 14 days, 3 variants per day and 150 items opens in under 2 s on a mid-range phone (cached) and keeps drag interactions under 50 ms per frame. This is the Wanderlog failure case (07-competitors.md 2).
 
+## Sharing
+
+See [10-sharing.md](../10-sharing.md) and F11. From the plan document a member can share: the **whole trip**, a **day range** ("days 3-5 for the grandparents"), **one day**, **one list** ("Restaurants"), or **one item**. Each creates a guest link scoped to that object (read-only, expiring, revocable, optional PIN) with include toggles (costs, notes, reservation times); codes, ages and attachments are never included unless explicitly chosen. A day can also be shared as a Google Maps multi-stop link (F15) and as an image card of the day's timeline. Items and notes marked private are always excluded.
+
 ## Data touched
 
 `trip`, `trip_list`, `trip_item`, `day_note`, `reservation_segment` (anchors), `leg_cache`, `op_event`, `trip_night_base` view.
