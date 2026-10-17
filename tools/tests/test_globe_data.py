@@ -1,12 +1,12 @@
-"""Offline checks on the globe's built data (globe/assets). Run: python3 -m pytest tools/tests -q
+"""Offline checks on the globe's built data (legacy/globe/assets). Run: python3 -m pytest tools/tests -q
 These guard the publish: every file the page fetches must exist, parse, and stay under the Pages limit."""
 import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-ASSETS = ROOT / "globe" / "assets"
-PAGE = ROOT / "globe" / "index.html"
+ASSETS = ROOT / "legacy" / "globe" / "assets"
+PAGE = ROOT / "legacy" / "globe" / "index.html"
 LIMIT = 20 * 1024 * 1024
 
 
@@ -83,7 +83,7 @@ def test_gazetteer_shape_and_coverage():
 def test_page_references_only_files_that_exist():
     html = PAGE.read_text(encoding="utf-8")
     for ref in set(re.findall(r"""['"](assets/[A-Za-z0-9_./-]+)['"]""", html)):
-        assert (ROOT / "globe" / ref).exists(), ref
+        assert (ROOT / "legacy" / "globe" / ref).exists(), ref
     assert "maplibre-gl.mjs" in html and "openfreemap.org" in html and "mapterhorn" in html
     assert "<script src=" not in html, "no external classic scripts; the module import is vendored"
 

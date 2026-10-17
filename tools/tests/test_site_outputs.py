@@ -10,9 +10,9 @@ import location_views  # noqa: E402
 import locations  # noqa: E402
 
 WISHLIST = ROOT / "data" / "locations" / "WISHLIST.md"
-LIST_PAGE = ROOT / "locations" / "index.html"
-PLACES = ROOT / "globe" / "assets" / "data" / "places.json"
-GLOBE_PAGE = ROOT / "globe" / "index.html"
+LIST_PAGE = ROOT / "legacy" / "locations" / "index.html"
+PLACES = ROOT / "legacy" / "globe" / "assets" / "data" / "places.json"
+GLOBE_PAGE = ROOT / "legacy" / "globe" / "index.html"
 
 
 def test_generated_files_are_fresh():
@@ -35,7 +35,7 @@ def test_published_outputs_leak_nothing_private():
 
 
 def test_locations_folder_publishes_only_the_page():
-    assert not (ROOT / "locations" / "assets").exists(), "publish.sh would copy locations/assets"
+    assert not (ROOT / "legacy" / "locations" / "assets").exists(), "publish.sh would copy locations/assets"
 
 
 def test_list_page_and_globe_link_to_each_other():
