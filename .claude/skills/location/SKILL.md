@@ -6,7 +6,7 @@ description: Capture a place, trail, viewpoint, activity or road trip into the s
 # Location capture
 
 The laundry list. Everything Nitin wants to remember goes into `data/locations/locations.json`
-as structured data (schema v2); `data/locations/WISHLIST.md`, the list page `locations/index.html` and the
+as structured data (schema v2); `data/locations/WISHLIST.md`, the list page `legacy/locations/index.html` and the
 globe's `places.json` are regenerated from it by `locations.py build`. There is one copy, in this
 repo. The Obsidian `Location.md` is retired and points here.
 

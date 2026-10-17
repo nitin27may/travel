@@ -1,4 +1,4 @@
-# `_system/` — shared components and themes for trip plans
+# `legacy/_system/` — shared components and themes for trip plans
 
 Built because five hand-authored trip pages had drifted into **two incompatible
 implementations of the same design system** (`.card .split .content` vs `.card .chead .cbody`;
@@ -22,9 +22,9 @@ artifacts, no external JS, works offline at a trailhead with no signal.**
 ## Commands
 
 ```bash
-python3 _system/build.py --check          # validate system + all themes
-python3 _system/build.py --list-themes    # themes with tightest contrast margin
-python3 _system/build.py --gallery        # regenerate gallery.html
+python3 legacy/_system/build.py --check          # validate system + all themes
+python3 legacy/_system/build.py --list-themes    # themes with tightest contrast margin
+python3 legacy/_system/build.py --gallery        # regenerate gallery.html
 ```
 
 ## The token contract
