@@ -1,6 +1,6 @@
 # Travel platform plan: research / data / web
 
-Status: DRAFT for owner approval. Written 2026-10-17. Implementation starts the week after approval; no files move before then.
+Status: APPROVED by the owner on 2026-10-17 with the plan's recommended answer for every decision in 8.2, 8.3 and 8.4 (D1 to D25), unless a later change log row says otherwise. Implementation starts the week of 2026-10-19; phase P1 (restructure) goes first and no files move before it is launched.
 
 ## 0. Summary, addenda folded in, gaps found
 
