@@ -68,3 +68,17 @@ API operation and an MCP tool, so a chat client and a person editing by hand are
 | Supabase Cloud for data, auth, storage, queues | **Self-hosted Supabase** on the owner's Ubuntu box (decided 17 Oct 2026, 08-self-hosted.md); Neon + Better Auth was the earlier answer and stays documented in 04-stack.md | Free, always on, everything in one stack for family use; Supabase Cloud or a VPS remain a dump-and-restore away |
 | Vercel for the app | Next.js in a container beside the database, reached through a Cloudflare Tunnel | server rendering next to the data; no ports opened at home; Vercel stays an option later |
 | ICS calendar feed as the most reliable reminder | ICS is the backstop; Web Push and email are primary for time-critical openings | Google Calendar refreshes subscribed feeds only every several hours, so a feed cannot deliver "opens in 15 minutes" reliably |
+
+## Detailed pages (tracker)
+
+The numbered files above are the design decisions. The folders below break the product into small
+pages that can be tracked, reviewed and built one at a time. Status: **draft** = written, not yet
+reviewed by the owner; **reviewed**; **building**; **done**.
+
+| Folder | What is in it |
+|---|---|
+| [features/](features/README.md) | One page per feature area: purpose, user stories, behaviour, data, operations and MCP tools, edge cases, acceptance criteria, milestone |
+| [ux/](ux/README.md) | Navigation and layout rules, one page per screen (desktop and phone), the component inventory, tokens, patterns and states |
+| [research/](research/README.md) | How research works from Claude Code and from any chat client: trip-type profiles, one contract per lane (trails with every link, trailhead and parking; adventure; stays; ...), sources and licences, skills and prompts |
+| [mcp/](mcp/README.md) | The MCP server in detail: auth and scopes, every tool with inputs and outputs, resources, prompts, example client sessions |
+| [migration/](migration/README.md) | What exists in this repo today and how each piece becomes catalog entries, trips or templates |
