@@ -34,6 +34,15 @@ is a first-class front door. Sharing rules come from [10-sharing.md](../10-shari
 
 Collected here so `schema.sql` can be updated in one pass once the owner reviews.
 
+**Applied to schema.sql on 17 Oct 2026:** priority, weather_sensitive, min_daylight_min, source_item_id,
+actual times, trip_types, check_overrides, budget_target, food_per_person_day, template_version /
+forked_from_version / template_meta, share_link, private flags, op_event.batch_id, user_settings,
+mcp_token, inbound_address / inbound_email, fx_rate, check_dismissal, day_state, item_memory,
+template_update_decision, person.weight_kg, entity_link (from research R2). Naming settled with
+research/README.md: parking is place subkind **`parking`** (not `parking_lot`), and the trip-type
+reference table is **`trip_type`** (not `trip_type_profile`). Still proposals: trip_lesson, visit_stat,
+offline_package, routing_budget, ops_health, change.duplicate_of, task.relative_to.
+
 | Table / column | Proposed by | Purpose |
 |---|---|---|
 | `trip_item.priority` (must, should, nice) | F06, F12 | which items survive when a trip is shortened |

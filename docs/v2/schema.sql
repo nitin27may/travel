@@ -38,6 +38,7 @@ create table person (                        -- private to the household
   id text primary key, household_id text not null references household(id) on delete cascade,
   name text not null, birth_date date, birth_year int, height_cm int, fitness smallint check (fitness between 1 and 5),
   mobility text, dietary text, citizenship text[], passport_expires date,
+  weight_kg int,                               -- optional, asked only when an activity has a weight limit
   user_id uuid references app_user(id));
 
 create table membership (                    -- passes the household holds
@@ -180,6 +181,9 @@ create table trip (
   household_id text references household(id),
   title text not null, slug text not null, cover_media_id text,
   scale text not null default 'multi_day' check (scale in ('day_trip','weekend','multi_day')),
+  trip_types text[] not null default '{}',        -- family, couple, romantic, luxury, adventure, road_trip, camper... (trip_type ids)
+  check_overrides jsonb,                          -- per-trip thresholds for day checks
+  budget_target numeric, food_per_person_day numeric,
   area_id text references area(id),
   start_date date, nights int check (nights >= 0), date_window jsonb,
   origin geography(Point,4326), origin_label text, home_tz text not null,
@@ -277,7 +281,9 @@ create table trip_item (
   checks jsonb,                                    -- kind 'checklist': [{id, text, done}]
   private boolean not null default false,          -- excluded from every shared view (10-sharing.md)
   priority text not null default 'should' check (priority in ('must','should','nice')),  -- used when adapting length
-  weather_sensitive boolean not null default false,
+  weather_sensitive boolean not null default false, min_daylight_min int,
+  source_item_id text,                             -- the template item this was forked from
+  actual_start timestamptz, actual_end timestamptz, -- recorded during the trip (Today mode)
   segment_id text references reservation_segment(id) on delete cascade,  -- anchored: times come from the reservation
   check (entity_id is not null or title is not null or kind in ('note','checklist')));
 create index on trip_item (trip_id, day, sort_key);
@@ -369,6 +375,42 @@ create table share_link (                        -- guest links (10-sharing.md);
   created_by uuid references app_user(id), created_at timestamptz not null default now(),
   view_count int not null default 0, last_viewed_at timestamptz);
 
+create table user_settings (user_id uuid primary key references app_user(id) on delete cascade,
+  units text not null default 'metric', lang text not null default 'en', quiet_hours jsonb, extra jsonb);
+
+create table mcp_token (                          -- personal access tokens (fallback to OAuth for MCP)
+  id text primary key, user_id uuid not null references app_user(id) on delete cascade,
+  name text not null, token_hash text unique not null, scopes text[] not null,
+  created_at timestamptz not null default now(), last_used_at timestamptz, revoked_at timestamptz);
+
+create table inbound_address (user_id uuid primary key references app_user(id) on delete cascade,
+  local_part text unique not null);              -- <local_part>@in.<domain> for forwarded confirmations
+create table inbound_email (id text primary key, user_id uuid not null references app_user(id) on delete cascade,
+  received_at timestamptz not null default now(), subject text, sender text, storage_key text not null,
+  parsed jsonb, status text not null default 'new' check (status in ('new','parsed','needs_review','applied','failed')),
+  trip_id text references trip(id), reservation_id text references reservation(id),
+  delete_after timestamptz not null default now() + interval '30 days');
+
+create table fx_rate (base text not null, quote text not null, on_date date not null, rate numeric not null,
+  source text not null, primary key (base, quote, on_date));
+
+create table check_dismissal (trip_id text references trip(id) on delete cascade, day int, item_id text,
+  code text not null, dismissed_by uuid references app_user(id), at timestamptz not null default now(),
+  unique (trip_id, day, item_id, code));
+
+create table day_state (trip_id text references trip(id) on delete cascade, day int not null,
+  delay_min int not null default 0, plan_b_active boolean not null default false, notes text,
+  primary key (trip_id, day));
+
+create table item_memory (id text primary key, trip_id text not null references trip(id) on delete cascade,
+  item_id text references trip_item(id) on delete set null, author uuid references app_user(id),
+  note text, rating smallint check (rating between 1 and 5), media_key text, private boolean not null default true,
+  created_at timestamptz not null default now());
+
+create table template_update_decision (trip_id text references trip(id) on delete cascade,
+  template_version int not null, change_ref text not null, decision text not null check (decision in ('applied','ignored')),
+  primary key (trip_id, template_version, change_ref));
+
 create table calendar_feed (trip_id text primary key references trip(id) on delete cascade, token text unique not null);
 
 -- ───────────── research & review ─────────────
@@ -406,7 +448,8 @@ create table backlog (id text primary key, area_id text references area(id), ent
 -- ───────────── events ─────────────
 create table op_event (id bigserial primary key, at timestamptz not null default now(),
   actor_id uuid references app_user(id), client text not null, op text not null,
-  trip_id text, entity_id text, client_op_id text, input jsonb, inverse jsonb, result_version int,
+  trip_id text, entity_id text, client_op_id text, batch_id text,   -- batch = one undo for many ops (MCP edit_trip)
+  input jsonb, inverse jsonb, result_version int,
   unique (actor_id, client_op_id));            -- idempotent replay of offline ops
 create index on op_event (trip_id, id);
 
