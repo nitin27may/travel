@@ -75,3 +75,6 @@ with party filters inside the candidate's area; `edit_trip` ops `add_candidate`,
 ## Acceptance criteria
 1. Adding a catalog area fills drive time and fit within 2 s online.
 2. Choosing a candidate sets the area, keeps the rest, and moves the trip from idea to plan phase.
+
+## Share
+"Share for a vote": a link that lets guests see the table and vote without editing (S26, scope candidates, include votes).

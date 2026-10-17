@@ -97,3 +97,6 @@ and fit per traveller; `leg_cache` for drive times; `saved_view` for persona chi
 2. Zero results always shows near misses and at least one loosen action.
 3. Filter state survives reload and is shareable by URL.
 4. Adding from Explore inside a trip shows the item in the trip immediately (optimistic).
+
+## Share
+"Share this search" copies the URL state (filters, lens, view) through S26; recipients open S27 with the filters locked or editable.

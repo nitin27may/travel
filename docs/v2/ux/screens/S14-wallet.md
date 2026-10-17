@@ -67,3 +67,6 @@ cached attachments (IndexedDB + Cache Storage).
 ## Acceptance criteria
 1. In airplane mode, a downloaded trip shows today's codes and attachments within 1 s.
 2. A card for a check-in shows the check-in window and the address with navigation.
+
+## Share
+"Share this ticket" exists only for members (sends the attachment through the native share sheet, e.g. to a spouse's phone); never as a public link.

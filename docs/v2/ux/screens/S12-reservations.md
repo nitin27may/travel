@@ -93,3 +93,6 @@ status; offer windows for to-book rows.
 1. A to-book reservation with an offer window shows the opening time in both zones.
 2. Marking booked closes its Book task and creates follow-up tasks (09-reservations.md 5).
 3. Viewers never receive secret fields from the API.
+
+## Share
+Row ⋯ "Share details" (title, time with zone, address, map; codes never; manage link only if toggled) via S26; "Share all bookings as PDF" export.
