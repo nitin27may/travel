@@ -1,0 +1,3 @@
+[
+  { "from": "/locations/*", "to": "/places/:splat", "status": 301 }
+]

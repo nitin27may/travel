@@ -1,0 +1,103 @@
+{
+  "schema": "licences/1",
+  "updated": "2026-10-17",
+  "sources": [
+    {
+      "id": "osm",
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/copyright",
+      "licence": "Open Database Licence (ODbL) 1.0",
+      "attribution": "Contains information from OpenStreetMap contributors, made available under the Open Database Licence.",
+      "covers": "The place catalog, trail and route lines derived from OpenStreetMap, and geocoding through Nominatim."
+    },
+    {
+      "id": "wikidata",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
+      "licence": "CC0 1.0 (public domain dedication)",
+      "attribution": "Coordinates and identifiers from Wikidata.",
+      "covers": "Place coordinates, elevations and identifiers resolved when a place is added."
+    },
+    {
+      "id": "ogl-canada",
+      "name": "Government of Canada open data",
+      "url": "https://open.canada.ca/en/open-government-licence-canada",
+      "licence": "Open Government Licence - Canada",
+      "attribution": "Contains information licensed under the Open Government Licence - Canada.",
+      "covers": "Canadian parks, trails and boundary data where used."
+    },
+    {
+      "id": "nps",
+      "name": "US National Park Service",
+      "url": "https://www.nps.gov/aboutus/disclaimer.htm",
+      "licence": "Public domain (US government work)",
+      "attribution": "Information from the US National Park Service.",
+      "covers": "US national park facts, trails and alerts."
+    },
+    {
+      "id": "opendata-swiss",
+      "name": "opendata.swiss",
+      "url": "https://opendata.swiss/en/terms-of-use",
+      "licence": "Open use (terms vary by dataset; attribution required for some)",
+      "attribution": "Swiss open government data from opendata.swiss, used under each dataset's terms.",
+      "covers": "Swiss trail and transport data where used."
+    },
+    {
+      "id": "open-meteo",
+      "name": "Open-Meteo",
+      "url": "https://open-meteo.com/en/license",
+      "licence": "CC BY 4.0",
+      "attribution": "Weather data by Open-Meteo.com.",
+      "covers": "Forecasts and historical weather shown on plan pages."
+    },
+    {
+      "id": "copernicus",
+      "name": "Copernicus Climate Change Service, via Open-Meteo",
+      "url": "https://climate.copernicus.eu/",
+      "licence": "Copernicus licence (free, attribution required)",
+      "attribution": "Generated using Copernicus Climate Change Service information, delivered through Open-Meteo.",
+      "covers": "Reanalysis behind the historical weather figures."
+    },
+    {
+      "id": "natural-earth",
+      "name": "Natural Earth",
+      "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "licence": "Public domain",
+      "attribution": "Made with Natural Earth.",
+      "covers": "Country outlines and the base geography of the globe."
+    },
+    {
+      "id": "geoboundaries",
+      "name": "geoBoundaries",
+      "url": "https://www.geoboundaries.org/",
+      "licence": "Per country (mostly CC BY 4.0 or ODbL)",
+      "attribution": "Administrative boundaries from geoBoundaries; the licence of each country's layer applies.",
+      "covers": "States, provinces and districts on the globe."
+    },
+    {
+      "id": "wikimedia-commons",
+      "name": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/Commons:Licensing",
+      "licence": "Per image (Creative Commons licences or public domain)",
+      "attribution": "Photographs from Wikimedia Commons; the author and licence of each image are on its Commons page.",
+      "covers": "Photographs on cards, place pages and plan galleries."
+    },
+    {
+      "id": "frankfurter-ecb",
+      "name": "Frankfurter and the European Central Bank",
+      "url": "https://frankfurter.dev/",
+      "licence": "Free use; ECB euro foreign exchange reference rates",
+      "attribution": "Exchange rates are ECB reference rates served by Frankfurter, shown with their date.",
+      "covers": "Currency conversion for display only."
+    },
+    {
+      "id": "own-words",
+      "name": "Our own words",
+      "url": "/about/data/",
+      "licence": "Written for this site; not licensed for reuse",
+      "attribution": "Notes, summaries and plans on this site are our own writing.",
+      "covers": "Place notes, trip plans and research summaries."
+    }
+  ],
+  "privacy": "Never published: traveller ages, heights, weights and citizenship; booking confirmations and contacts; prices paid; inbox captures; the research tree."
+}
