@@ -266,6 +266,6 @@ clients, sync ordering, and analytics. Retention: forever for catalog, 2 years f
 | Not modelled | Why |
 |---|---|
 | Flights as structured data with fare search | A different product (and paid APIs). Flights are trip items of kind transport with a booking and a deadline |
-| Expense splitting | Splitwise exists; we store estimates and actual cost per booking, which covers the budget question |
+| Expense splitting UI (group balances) | the family does not split costs; `expense.paid_by` and `split_between` keep it a UI addition for friends' trips later |
 | Social feed, likes, follows | Templates and forks give the sharing that matters; a feed is moderation cost with little planning value |
 | Per-user catalog copies | Personal facts are custom items or notes; shared facts go through changesets |
