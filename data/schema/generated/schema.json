@@ -2429,8 +2429,8 @@
         "name": "catalog_sources",
         "lead": [
           {
-            "name": "country",
-            "ddl": "country TEXT NOT NULL REFERENCES countries(code)"
+            "name": "file",
+            "ddl": "file TEXT NOT NULL"
           }
         ]
       },

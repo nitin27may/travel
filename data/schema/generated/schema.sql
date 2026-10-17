@@ -222,14 +222,14 @@ CREATE TABLE catalog_changes (
 );
 
 CREATE TABLE catalog_sources (
-  country TEXT NOT NULL REFERENCES countries(code),
+  file TEXT NOT NULL,
   id TEXT NOT NULL,
   url TEXT NOT NULL,
   title TEXT NOT NULL,
   publisher TEXT NOT NULL,
   kind TEXT NOT NULL CHECK (kind IN ('official', 'operator', 'reseller', 'press', 'blog', 'community', 'video', 'computed')),
   read TEXT NOT NULL,
-  PRIMARY KEY (country, id)
+  PRIMARY KEY (file, id)
 );
 
 CREATE TABLE eateries (

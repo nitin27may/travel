@@ -62,7 +62,8 @@ export const catalogSources = table("sources", {
   family: "catalog", pk: ["id"], ui: { label: "Sources" },
   sql: {
     name: "catalog_sources",
-    lead: [{ name: "country", ddl: "country TEXT NOT NULL REFERENCES countries(code)" }],
+    // ids restart in every file, so a source is keyed by the file it came from, e.g. "trails/AR"
+    lead: [{ name: "file", ddl: "file TEXT NOT NULL" }],
   },
 });
 

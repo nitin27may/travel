@@ -1,0 +1,13 @@
+{
+"schema_version": 1,
+"country": "AR",
+"offers": [
+{"name_lang":null,"kid_fit":"yes","min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"house_grade":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"accessibility":"step-free","cost_ref":null,"lat":null,"lon":null,"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","book_url":null,"other_limits":null,"opens_rule":null,"opens_evidence":null,"sellout_lead_days":null,"sellout_peak":null,"cancellation":null,"weather_refund":null,"price_variance":null,"sources":["src-0101"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17","tags":[],"season_months":[],"id":"of-fixture-glacier-trek","area_id":"AR/santa-cruz/el-chalten","name":"Glacier trek ticket","subject_entity":"activity","subject_id":"AR/santa-cruz/el-chalten/glacier-trek","category":"activity","provider":"Fixture Tours","reseller_urls":[],"limits_status":"gap","opens_kind":"rolling-lead","opens_lead_days":5,"sellout_kind":"unknown","same_day":"unknown","notes":""}
+],
+"offer_prices": [
+{"age_from":null,"age_to":null,"basis_year":null,"window":null,"id":"of-fixture-glacier-trek#1","offer_id":"of-fixture-glacier-trek","amount":200,"currency":"ARS","per":"person","valid_months":[],"read":"2026-10-13","source_id":"src-0101"}
+],
+"sources": [
+{"id":"src-0101","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}

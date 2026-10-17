@@ -1,0 +1,11 @@
+{
+"schema_version": 1,
+"country": "CA",
+"offers": [
+{"name_lang":null,"kid_fit":"yes","min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"house_grade":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"accessibility":"step-free","cost_ref":null,"lat":null,"lon":null,"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","other_limits":null,"opens_lead_days":null,"opens_rule":null,"opens_evidence":null,"sellout_lead_days":null,"sellout_peak":null,"cancellation":null,"weather_refund":null,"price_variance":null,"sources":["src-0001"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17","tags":[],"season_months":[],"id":"of-niagara-journey-behind-the-falls","area_id":"CA/ON/niagara","name":"Journey Behind the Falls ticket","subject_entity":"activity","subject_id":"CA/ON/niagara/journey-behind-the-falls","category":"timed-entry","provider":"Niagara Parks","book_url":"https://example.org/niagara","reseller_urls":[],"limits_status":"none-stated","opens_kind":"always-open","sellout_kind":"never","same_day":"yes","notes":""}
+],
+"offer_prices": [],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}
