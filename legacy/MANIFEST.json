@@ -3,7 +3,8 @@
   "folders": [
     {
       "slug": "algonquin-muskoka-oct-2026",
-      "served": true
+      "served": true,
+      "private": true
     },
     {
       "slug": "canadian-rockies-sept-2029",
@@ -37,15 +38,18 @@
     },
     {
       "slug": "new-hampshire-stopover-2026",
-      "served": true
+      "served": true,
+      "private": true
     },
     {
       "slug": "niagara-day-aug-2026",
-      "served": true
+      "served": true,
+      "private": true
     },
     {
       "slug": "norway-summer",
-      "served": true
+      "served": true,
+      "private": true
     },
     {
       "slug": "patagonia-feb-mar-2027",
@@ -53,7 +57,8 @@
     },
     {
       "slug": "quebec-sept-2026",
-      "served": true
+      "served": true,
+      "private": true
     },
     {
       "slug": "switzerland-2027",
@@ -61,11 +66,13 @@
     },
     {
       "slug": "usa-southwest-rockies",
-      "served": true
+      "served": true,
+      "private": true
     },
     {
       "slug": "vermont-fall-2026",
-      "served": true
+      "served": true,
+      "private": true
     }
   ]
 }
