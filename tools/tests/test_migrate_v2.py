@@ -112,7 +112,7 @@ def test_cli_check_writes_nothing_and_second_run_is_a_no_op(tmp_path, monkeypatc
     D.PATHS.store.parent.mkdir(parents=True)
     D.PATHS.store.write_bytes(FIXTURE.read_bytes())
     for slug in {p["trip"] for p in json.loads(FIXTURE.read_text())["places"] if p["trip"]}:
-        (tmp_path / slug).mkdir()
+        (tmp_path / "legacy" / slug).mkdir(parents=True)
     assert M.main(["--check"]) == 0
     assert D.PATHS.store.read_bytes() == FIXTURE.read_bytes()
     assert M.main([]) == 0

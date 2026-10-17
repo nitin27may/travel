@@ -16,8 +16,8 @@ import location_views as V  # noqa: E402
 @pytest.fixture
 def root(tmp_path, monkeypatch):
     monkeypatch.setattr(D, "PATHS", D.Paths(tmp_path))
-    (tmp_path / "trip-one").mkdir()
-    (tmp_path / "trip-one" / "index.html").write_text("<html></html>")
+    (tmp_path / "legacy" / "trip-one").mkdir(parents=True)
+    (tmp_path / "legacy" / "trip-one" / "index.html").write_text("<html></html>")
     return tmp_path
 
 

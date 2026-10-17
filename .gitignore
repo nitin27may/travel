@@ -16,10 +16,10 @@ __pycache__/
 # regenerable: Commons candidate lists (cached under /tmp/gal), checker reports, theme gallery
 *-candidates.json
 links-report.txt
-_system/gallery.html
+legacy/_system/gallery.html
 
 # wrangler CLI cache (created by project/deployment list commands)
 .wrangler/
 
 # raw boundary and gazetteer downloads for the globe build (regenerable)
-_system/site/cache/
+tools/.cache/

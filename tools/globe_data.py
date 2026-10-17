@@ -5,12 +5,12 @@
     python3 tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
     python3 tools/globe_data.py admin2 [ISO3..] # G2: districts for the priority list (geoBoundaries), mapshaper-simplified
     python3 tools/globe_data.py gazetteer       # G3: search index (countries, admin-1, cities, physical names)
-    python3 tools/globe_data.py places          # G5: saved-place pins (globe/assets/data/places.json), plus the list page and WISHLIST.md
+    python3 tools/globe_data.py places          # G5: saved-place pins (legacy/globe/assets/data/places.json), plus the list page and WISHLIST.md
     python3 tools/globe_data.py all
 
-Outputs go under globe/assets/ (published). Raw downloads are cached in _system/site/cache/ (gitignored).
+Outputs go under legacy/globe/assets/ (published). Raw downloads are cached in tools/.cache/ (gitignored).
 Every output must stay under 20 MB (Cloudflare Pages limit is 25 MB per file). Stdlib only; mapshaper via npx.
-See _system/site/GLOBE-RESEARCH.md for sources and licences.
+See docs/GLOBE-RESEARCH.md for sources and licences.
 """
 from __future__ import annotations
 
@@ -23,8 +23,8 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ASSETS = ROOT / "globe" / "assets"
-CACHE = ROOT / "_system" / "site" / "cache"
+ASSETS = ROOT / "legacy" / "globe" / "assets"
+CACHE = ROOT / "tools" / ".cache"
 UA = {"User-Agent": "nks-travel-globe/0.1 (personal trip planner; nitin27may@gmail.com)"}
 MAPLIBRE = "6.14.0"
 LIMIT = 20 * 1024 * 1024
@@ -92,7 +92,7 @@ def cmd_base(args) -> int:
     src = fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json", CACHE / "countries-50m.json")
     (ASSETS / "data").mkdir(parents=True, exist_ok=True)
     (ASSETS / "data" / "countries-50m.json").write_bytes(src.read_bytes())
-    print(f"  wrote globe/assets/data/countries-50m.json ({src.stat().st_size // 1024} KB)", file=sys.stderr)
+    print(f"  wrote legacy/globe/assets/data/countries-50m.json ({src.stat().st_size // 1024} KB)", file=sys.stderr)
 
     # 3. vendored MapLibre (ESM build, its worker chunks and CSS), pinned. v6 loads the worker
     #    from maplibre-gl-worker.mjs next to the main module, so all three must sit together.
@@ -100,7 +100,7 @@ def cmd_base(args) -> int:
         f = fetch(f"https://unpkg.com/maplibre-gl@{MAPLIBRE}/dist/{name}", CACHE / f"maplibre-{MAPLIBRE}-{name}")
         (ASSETS / "vendor").mkdir(parents=True, exist_ok=True)
         (ASSETS / "vendor" / name).write_bytes(f.read_bytes())
-        print(f"  wrote globe/assets/vendor/{name} ({f.stat().st_size // 1024} KB)", file=sys.stderr)
+        print(f"  wrote legacy/globe/assets/vendor/{name} ({f.stat().st_size // 1024} KB)", file=sys.stderr)
     (ASSETS / "vendor" / "VERSIONS.txt").write_text(f"maplibre-gl {MAPLIBRE} (BSD-3, https://maplibre.org)\nworld-atlas 2 countries-50m (Natural Earth, public domain)\nworld-countries 5 (CC BY-SA 4.0)\n", encoding="utf-8")
     return 0
 
