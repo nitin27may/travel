@@ -154,6 +154,7 @@ create table trip (
 create table trip_member (trip_id text references trip(id) on delete cascade,
   user_id uuid references app_user(id), invite_email text,
   role text not null check (role in ('owner','editor','viewer')),
+  can_invite boolean not null default false, budget_access boolean not null default true,
   unique (trip_id, user_id), unique (trip_id, invite_email));
 
 create table traveller (id text primary key, trip_id text not null references trip(id) on delete cascade,
@@ -232,6 +233,7 @@ create table trip_item (
   status text not null default 'planned' check (status in ('planned','done','skipped')),
   notes text, cost_estimate numeric, currency text,
   checks jsonb,                                    -- kind 'checklist': [{id, text, done}]
+  private boolean not null default false,          -- excluded from every shared view (10-sharing.md)
   segment_id text references reservation_segment(id) on delete cascade,  -- anchored: times come from the reservation
   check (entity_id is not null or title is not null or kind in ('note','checklist')));
 create index on trip_item (trip_id, day, sort_key);
@@ -249,7 +251,8 @@ left join (reservation r join reservation_segment s on s.reservation_id = r.id)
 where t.start_date is not null;
 
 create table day_note (trip_id text references trip(id) on delete cascade, day int not null,
-  title text, notes text, base_item_id text references trip_item(id) on delete set null,
+  title text, notes text, private boolean not null default false,
+  base_item_id text references trip_item(id) on delete set null,
   weather_rule text, primary key (trip_id, day));
 
 
@@ -312,6 +315,16 @@ create table push_subscription (id text primary key, user_id uuid not null refer
 create table notification_pref (user_id uuid references app_user(id) on delete cascade, trip_id text references trip(id) on delete cascade,
   channels text[] not null default '{push,email}', quiet_hours jsonb, digest text default 'weekly',
   unique (user_id, trip_id));
+create table share_link (                        -- guest links (10-sharing.md); only the token hash is stored
+  id text primary key, trip_id text not null references trip(id) on delete cascade,
+  token_hash text unique not null, name text,
+  scope jsonb not null,                            -- {kind: trip|days|today|list|item|reservation|attachment, ids, from_day, to_day}
+  includes jsonb not null default '{}',            -- {notes, stays, transport, codes:[reservation ids], attachments:[ids], costs, tasks}
+  allow_copy boolean not null default false, pin_hash text,
+  expires_at timestamptz, revoked_at timestamptz,
+  created_by uuid references app_user(id), created_at timestamptz not null default now(),
+  view_count int not null default 0, last_viewed_at timestamptz);
+
 create table calendar_feed (trip_id text primary key references trip(id) on delete cascade, token text unique not null);
 
 -- ───────────── research & review ─────────────

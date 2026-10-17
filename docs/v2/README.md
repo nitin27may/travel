@@ -15,6 +15,7 @@ several of its mechanisms were too heavy or too fragile (section "What changed f
 | [06-questions.md](06-questions.md) | Decisions and questions for the owner |
 | [08-self-hosted.md](08-self-hosted.md) | **Current deployment decision:** self-hosted Supabase on the home server, risks, containers, backups, MCP over a tunnel |
 | [09-reservations.md](09-reservations.md) | Flights, stays, cars, tickets: recorded (never sold), to-book tasks, routing from stays and flights, wallet, privacy |
+| [10-sharing.md](10-sharing.md) | Sharing everywhere: objects, audiences, guest links with includes and preview, privacy rules, exports |
 | [07-competitors.md](07-competitors.md) | Wanderlog and TripIt: what to take (plan document, email import), where to beat them |
 
 Inputs read: `docs/BLUEPRINT.md`, `docs/PLAN-platform.md`, the owner's brief of 17 Oct 2026, and the
