@@ -693,7 +693,7 @@ Hard limits that rule the child out (assuming 6 years, 115 cm, 20 kg): Norquay V
 14. The Minnewanka Junior Explorer kids' cruise ends 31 Aug, before either window.
 15. The Iceline has two official sets of figures (20.3 km / 1,090 m and 20.8 km / 710 m). Stanley Glacier figures also conflict, and it is not in the dataset.
 16. Larch Valley is about 8 km return to the meadow (researcher, unverified); the dataset's 11.2 km is to Sentinel Pass.
-17. `sun-times.py` in this folder still holds the Norway coordinates from an earlier trip. The Rockies times above used its function with the coordinates listed under Light.
+17. `sun-times.py` in this folder now holds the Rockies bases and the 2029 dates (fixed 18 Oct 2026; it used to hold the Norway coordinates). Longitude is positive east.
 18. Lake Louise village has no clear indoor pool plus breakfast option (GAP) and thin groceries. Shop in Jasper on Day 7 and Canmore on Day 12.
 
 ---
