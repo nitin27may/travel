@@ -1,0 +1,9 @@
+{"places": [
+ {"name": "Gulong Gorge", "display_name": "QQ Canyon Racer mountain coaster, Gulong Gorge", "alias": "qq-canyon-racer",
+  "country": "CN", "country_name": "China", "region": "GD", "region_name": "Guangdong", "area": "Qingyuan",
+  "kind": "activity", "lat": 23.7826, "lon": 112.9531,
+  "tags": ["mountain-coaster", "alpine-coaster", "kart", "family", "adventure"], "kid_fit": "unknown",
+  "stats": {"km_descent": 3.68, "turns": 28, "hairpins": 9},
+  "notes": "Licensed QQ Speed (Chinese kart game) themed mountain coaster: a 3.68 km descent through the mountain and forest of Gulong Gorge (古龙峡), Qingxin District, Qingyuan, with 28 turns and 9 hairpins. From a French Instagram post; figures unverified. Coordinates from OpenStreetMap (the gorge scenic area). Check minimum age and height and the operating season before planning.",
+  "sources": [{"type": "instagram", "url": null, "note": "saved post in French, 17 Oct 2026: QQ Canyon Racer / Mountain Coaster, Gulong Gorge, China", "screenshot": "locations/inbox/2026-10-17-gulong-gorge-qq-canyon-racer.png", "post_date": null}]}
+]}
