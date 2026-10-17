@@ -170,3 +170,6 @@ page now carries. Add a trip and the card appears; nothing to maintain by hand.
 - `publish.sh` used to copy every non-`.md` file in a trip folder to the public site (81 scripts,
   JSON and scratch files were live until 16 Oct 2026). It now publishes `index.html` and `assets/`
   only; anything else you want downloadable goes in `assets/` on purpose.
+
+## Platform (in progress)
+`core/` holds the schema (Zod, exported to `data/schema/generated/`) and the validator; run `bash tools/check-all.sh` before publishing.

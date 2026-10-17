@@ -1,0 +1,14 @@
+{
+"schema": "route-geometry/1",
+"polyline": "wtoj`BvtkqxEgcdGfpnzAolaNfq_d@",
+"precision": 6,
+"t_s": [0,4200,6000],
+"d_m": [0,130000,180000],
+"flags": [
+{"from_vertex":1,"to_vertex":2,"kind":"pass","label":"Seasonal closures possible (fixture)","source":"hand"}
+],
+"provider": "ors",
+"profile": "driving-car",
+"fetched": "2026-10-13",
+"licence": "ODbL 1.0, route geometry derived from OpenStreetMap data via openrouteservice (fixture)"
+}

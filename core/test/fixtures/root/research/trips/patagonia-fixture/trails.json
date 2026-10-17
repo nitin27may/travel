@@ -1,0 +1,20 @@
+{
+"schema": "research-sidecar/1",
+"lane": "trails",
+"subject": {"kind":"trip","id":"patagonia-fixture"},
+"researched": "2026-10-13",
+"agent": "research-trails",
+"model": "fixture",
+"md": "research/trips/patagonia-fixture/trails.md",
+"geo": {"countries":["AR"],"regions":["AR/santa-cruz"],"areas":["AR/santa-cruz/el-chalten"]},
+"trip_type": {"duration_shape":"week","movement_shape":"multi-base","styles":["adventure"]},
+"tags": ["hiking"],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+],
+"facts": [
+{"key":"laguna-de-los-tres.km","value":21.5,"unit":"km","confidence":"stated","src":["src-0001"],"gap_reason":null,"subject_ref":"AR/santa-cruz/el-chalten/laguna-de-los-tres"},
+{"key":"piratour.min_age","value":null,"unit":null,"confidence":"gap","src":[],"gap_reason":"not stated on operator or resellers, checked 2026-10-13","subject_ref":null}
+],
+"records": {"trails":[{"match":{"name":"Laguna de los Tres"},"src":["src-0001"],"name":"Laguna de los Tres","km":21.5,"gain_m":950}]}
+}

@@ -1,0 +1,49 @@
+{
+"schema_version": 1,
+"id": "niagara-day-fixture",
+"updated": "2026-10-17",
+"trip": {"theme":null,"hero_image":null,"answer_prose":null,"orientation_prose":null,"generated_by":null,"legacy_url":null,"slug":"niagara-day-fixture","title":"Niagara day (fixture)","subtitle":"Falls and the gorge rim","status":"idea","primary_style":"scenic-relaxed","duration_shape":"day-trip","movement_shape":"single-base","party_shape":"couple","countries":["CA"],"region_label":"Niagara, Ontario","season_months":[8,9],"season_note":"Any Saturday in late summer","nights":0,"origin":"Whitby, ON","origin_tz":"America/Toronto","base_currency":"CAD","web_published":false,"visibility":"unlisted","owner_id":"u_owner","shared_with":[],"created":"2026-10-17"},
+"profile": {"comfort":"lean","budget_target_amount":null,"budget_target_currency":null,"budget_tier":"lean","hiking_ceiling_km":null,"hiking_ceiling_gain_m":null,"max_house_grade":null,"weather_rain":"low","weather_wind_gust_kmh":null,"weather_cold_c":null,"weather_heat_c":null,"base_preference":"few-long","car_free":false,"early_starts":"never","pace":2,"transport":["own-car"],"must_do":[],"avoid":[],"daily_max_drive_min":240,"break_every_min":120,"kids_mode":"none","night_driving":false,"lanes_extra":[],"lanes_skip":[],"notes":""},
+"travellers": [
+{"age_years":null,"age_as_of":null,"height_cm":null,"weight_kg":null,"fitness":null,"id":"t1","label":"Adult 1","role":"adult","citizenship":[],"notes":""}
+],
+"trip_tags": [
+{"tag_id":"scenic-relaxed"}
+],
+"editions": [],
+"bases": [],
+"days": [
+{"prose":null,"flexible_group":null,"plan_b_text":null,"sun_note":null,"n":1,"title":"Niagara Falls and the gorge rim","kind":"sightseeing","base_id":null,"summary":"Niagara Falls and the gorge rim","decision_rules":[],"plan_b_title":"","day_of_links":[],"accepted_warnings":[]}
+],
+"day_tracks": [],
+"items": [
+{"window_start":null,"window_end":null,"tz":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d01-i01","day":1,"track":null,"seq":1,"duration_min":90,"title":"Drive to Niagara","leg_notes":"From Whitby; parking at the falls","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"transfer","start":"08:00","place_id":"CA/ON/niagara/niagara-falls","lat":43.0896,"lon":-79.0849,"leg_mode":"drive","leg_km":130,"leg_minutes":90,"leg_basis":"estimate"},
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d01-i02","day":1,"track":null,"seq":2,"duration_min":120,"title":"Gorge rim walk","leg_notes":"","closed_weekdays":[],"needs_daylight":true,"notes":"","links":[],"optional":false,"pinned":false,"type":"trail","start":"10:00","trail_id":"CA/ON/niagara/niagara-gorge-rim-trail","lat":43.1,"lon":-79.06,"leg_mode":"drive","leg_km":5,"leg_minutes":12,"leg_basis":"estimate"},
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"trail_id":null,"activity_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d01-i03","day":1,"track":null,"seq":3,"duration_min":60,"title":"Lunch","leg_notes":"","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"meal","start":"12:30","eatery_id":"CA/ON/niagara/lunch-fixture","lat":43.09,"lon":-79.08,"leg_mode":"drive","leg_km":5,"leg_minutes":10,"leg_basis":"estimate"},
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"trail_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d01-i04","day":1,"track":null,"seq":4,"duration_min":90,"title":"Journey Behind the Falls","leg_notes":"","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"activity","start":"14:00","activity_id":"CA/ON/niagara/journey-behind-the-falls","lat":43.0896,"lon":-79.0849,"leg_mode":"walk","leg_km":0.5,"leg_minutes":8,"leg_basis":"estimate"},
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d01-i05","day":1,"track":null,"seq":5,"duration_min":90,"title":"Drive home","leg_notes":"","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"transfer","start":"16:30","leg_mode":"drive","leg_km":130,"leg_minutes":90,"leg_basis":"estimate"}
+],
+"trip_trails": [],
+"trip_activities": [],
+"trip_bookings": [],
+"custom_items": [],
+"notes": [],
+"routes": [],
+"hazards": [],
+"weather_rules": [],
+"budget": [],
+"fx": [],
+"fare_windows": [],
+"fare_quotes": [],
+"documents": [],
+"emergency": [],
+"packing": [],
+"knowledge": [],
+"questions": [],
+"gotchas": [],
+"research_refs": [],
+"sources": [],
+"changelog": [
+{"seq":1,"at":"2026-10-17T12:00:00Z","actor_id":"u_owner","actor_via":"cli","op":"trip.create","summary":"Fixture created","refs":[]}
+]
+}

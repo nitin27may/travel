@@ -1,0 +1,10 @@
+{
+"schema_version": 1,
+"country": "AR",
+"area_guides": [
+{"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","id":"AR/santa-cruz/el-chalten","summary":"A fixture guide.","best_months":[2,3],"getting_there":"","hidden_gems":[{"place_id":"AR/santa-cruz/el-chalten/el-chalten","line":"Walk up at dawn."}],"what_to_know":"","safety":"","sources":["src-0001"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17"}
+],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}
