@@ -140,7 +140,7 @@ def test_outputs_never_mention_inbox_or_screenshots(data, paths):
     for c in data["collections"]:      # the fixture's own collection prose says "screenshot"; the test is about paths and fields
         c["notes"] = c["notes"].replace("screenshot", "post")
     data["sources"].append({"id": "src-99999", "place_id": pid, "collection_id": None, "type": "instagram",
-                            "url": "https://i.example/p", "note": "private source note", "screenshot": "locations/inbox/2026-secret.jpg",
+                            "url": "https://i.example/p", "note": "private source note", "screenshot": "research/inbox/2026-secret.jpg",
                             "post_date": None, "saved": "2026-10-16"})
     public = {p: b for p, b in V.render_all(data, paths).items() if p != paths.wishlist}   # WISHLIST.md is not published
     assert len(public) == 2

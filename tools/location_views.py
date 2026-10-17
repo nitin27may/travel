@@ -196,8 +196,8 @@ def wishlist_md(data: dict, paths: Paths | None = None) -> str:
         by_status[p["status"]] = by_status.get(p["status"], 0) + 1
     collections = sorted(data.get("collections", []), key=lambda c: c["name"])
     out = ["# Wishlist", "",
-           f"Generated from `locations/locations.json` on {data.get('updated', '')}. Do not edit by hand; "
-           "add with `python3 _system/tools/locations.py add ...` or the `location` skill.", "",
+           f"Generated from `data/locations/locations.json` on {data.get('updated', '')}. Do not edit by hand; "
+           "add with `python3 tools/locations.py add ...` or the `location` skill.", "",
            f"{len(entries)} places in {len({e[1] for e in entries})} countries, "
            f"{len(collections)} collections. By status: " + ", ".join(f"{k} {v}" for k, v in sorted(by_status.items())) + ".", "",
            "Legend: kind · season · status · stats from the source post are unverified until a research lane confirms them.", ""]

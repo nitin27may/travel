@@ -8,7 +8,7 @@ Every place we might go, as data. One store, one copy, every view generated from
 | `WISHLIST.md` | Generated tree: country > region > area > place, then collections. |
 | `../../legacy/locations/index.html` | Generated list page (grid and list, filters). Published at `/locations/`. Exists once the page template reads the `locations-view/1` contract. |
 | `../../legacy/globe/assets/data/places.json` | Generated places for the globe (`globe-places/1`). |
-| `../../locations/inbox/` | Raw captures: screenshots of saved posts, batch files for `import`. Never published. |
+| `../../research/inbox/` | Raw captures: screenshots of saved posts, batch files for `import`. Never published. |
 
 Do not edit the generated files. `python3 tools/locations.py build` rewrites them, and
 `build --check` exits 1 if any of them differs from what the store would produce. The build is
@@ -67,8 +67,8 @@ equal to the place's own `kind`, and drops `location-unconfirmed` (use `--unconf
 ## Commands
 
 ```bash
-python3 tools/locations.py add "Name" --country CA --region QC [--area ...] [--kind ...] [--tags a,b] [--season Sep,Oct] [--kid yes] [--stats '{"km":9}'] [--note ...] [--source URL] [--source-type instagram] [--source-note ...] [--screenshot locations/inbox/FILE] [--lat N --lon N] [--trip SLUG] [--unconfirmed] [--display-name ...] [--alias ...]
-python3 tools/locations.py import locations/inbox/2026-10-16-quebec-hikes.json
+python3 tools/locations.py add "Name" --country CA --region QC [--area ...] [--kind ...] [--tags a,b] [--season Sep,Oct] [--kid yes] [--stats '{"km":9}'] [--note ...] [--source URL] [--source-type instagram] [--source-note ...] [--screenshot research/inbox/FILE] [--lat N --lon N] [--trip SLUG] [--unconfirmed] [--display-name ...] [--alias ...]
+python3 tools/locations.py import research/inbox/2026-10-16-quebec-hikes.json
 python3 tools/locations.py collection add --slug gaspesie-loop --name "Quebec to Gaspesie" --places ID-OR-NAME,...
 python3 tools/locations.py edit ID [--name --kind --status --kid --season Sep,Oct --trip SLUG|--no-trip --area NAME --tags-add a,b --tags-remove a --note TEXT --note-append TEXT --stats JSON --lat N --lon N --unconfirmed|--confirmed --source URL --source-type T --source-note TEXT --screenshot PATH]
 python3 tools/locations.py visit add ID --date 2026-10-02 [--end 2026-10-03] [--trip SLUG] [--note ...]
