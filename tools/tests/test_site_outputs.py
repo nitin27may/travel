@@ -28,7 +28,7 @@ def test_published_outputs_leak_nothing_private():
     for path in (LIST_PAGE, PLACES):
         text = path.read_text(encoding="utf-8")
         name = path.relative_to(ROOT)
-        assert "locations/inbox/" not in text, f"{name} exposes an inbox path"
+        assert "research/inbox/" not in text, f"{name} exposes an inbox path"
         assert not re.search(r"(^|[^\w])inbox/", text), f"{name} exposes an inbox path"
         assert '"screenshot"' not in text, f"{name} carries a screenshot key"
         assert "javascript:" not in text.lower(), f"{name} contains a javascript: URL"

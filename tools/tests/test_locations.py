@@ -1,4 +1,4 @@
-"""Offline tests for tools/locations.py (schema v2). Run: python3 -m pytest tools/tests -q
+"""Offline tests for tools/locations.py (schema v3). Run: python3 -m pytest tools/tests -q
 Every test points the tool at a tmp root with monkeypatch.setattr(D, "PATHS", D.Paths(tmp_path))."""
 import copy
 import json
@@ -110,7 +110,7 @@ def test_tag_normalisation_alias_plural_kind_and_unconfirmed(root):
     data = D.empty_store()
     got = D.normalize_tags(data, ["Waterfalls", "waterfall", "Fall Colours", "lake", "location-unconfirmed", " "], "lake")
     assert got == ["fall-colours", "waterfall"]
-    assert {"id": "fall-colours", "label": "Fall colours", "alias_of": None} in data["tags"]
+    assert {"id": "fall-colours", "label": "Fall colours", "kind": "free", "alias_of": None} in data["tags"]
 
 
 def test_skill_example_command_parses_offline(root):
@@ -154,15 +154,15 @@ def test_duplicate_by_distance_and_by_name(root):
 
 def test_add_with_screenshot_and_note_makes_source_with_post_date(root):
     assert run("add", "Foo", "--country", "CA", "--region", "QC", "--area", "A", "--offline",
-               "--screenshot", "locations/inbox/2026-10-16-foo.jpg", "--source-note", "saved post, 15 Oct 2026",
+               "--screenshot", "research/inbox/2026-10-16-foo.jpg", "--source-note", "saved post, 15 Oct 2026",
                "--unconfirmed") == 0
     s = D.load()["sources"][0]
-    assert s["screenshot"] == "locations/inbox/2026-10-16-foo.jpg" and s["post_date"] == "2026-10-15" and s["url"] is None
+    assert s["screenshot"] == "research/inbox/2026-10-16-foo.jpg" and s["post_date"] == "2026-10-15" and s["url"] is None
 
 
 def test_import_batch_with_collection_by_name(root, tmp_path):
     batch = {"places": [{"name": "A One", "country": "CA", "region": "QC", "area": "X", "lat": 1, "lon": 1,
-                         "sources": [{"type": "instagram", "note": "post 3 Sep 2026", "screenshot": "locations/inbox/a.jpg"}],
+                         "sources": [{"type": "instagram", "note": "post 3 Sep 2026", "screenshot": "research/inbox/a.jpg"}],
                          "season": ["Sep"]},
                         {"name": "B Two", "country": "CA", "region": "QC", "area": "X", "lat": 2, "lon": 2, "unconfirmed": True}],
              "collections": [{"slug": "ab", "name": "AB", "places": ["A One", "B Two"], "notes": "n",
@@ -249,7 +249,8 @@ def test_store_is_one_row_per_line_and_round_trips(root):
     seed(root)
     text = D.PATHS.store.read_text(encoding="utf-8")
     lines = text.splitlines()
-    assert lines[0] == "{" and lines[1] == '"schema_version": 2,'
+    assert lines[0] == "{" and lines[1] == '"schema_version": 3,'
+    assert '"tags"' not in text and D.PATHS.vocab.is_file()      # the vocabulary lives in data/vocab/tags.json
     place_lines = [l for l in lines if l.startswith('{"id":"CA/') and '"area_id"' in l]
     assert len(place_lines) == 3
     data = D.load()
@@ -308,6 +309,11 @@ def test_validate_ok_on_seed(good):
 def test_validate_v1_store_points_at_migration(root):
     out = D.validate({"version": 1, "places": []}, D.PATHS)
     assert len(out) == 1 and "migrate_locations_v2.py" in out[0]
+
+
+def test_validate_v2_store_points_at_the_v3_migration(root):
+    out = D.validate({"schema_version": 2, "places": []}, D.PATHS)
+    assert len(out) == 1 and "migrate_locations_v3.py" in out[0]
 
 
 def test_validate_bad_foreign_key(good):
@@ -401,7 +407,7 @@ def test_validate_source_url_screenshot_and_type(good):
     s = good["sources"][0]
     s.update(url="javascript:alert(1)", screenshot="/etc/passwd", type="smoke")
     out = errs(good)
-    assert "url must be http(s)" in out and "locations/inbox/" in out and "type 'smoke'" in out
+    assert "url must be http(s)" in out and "research/inbox/" in out and "type 'smoke'" in out
 
 
 def test_validate_warns_but_passes_over_300_places(good):
@@ -421,3 +427,59 @@ def test_validate_command_exit_codes(root, capsys):
     D.PATHS.store.write_text(json.dumps({"version": 1, "places": []}))
     assert run("validate") == 1
     assert run("add", "X", "--offline") == 1       # writes refuse a v1 store
+
+
+# ----------------------------------------------------------------------------- schema v3
+def test_add_sets_the_v3_columns_and_edit_stamps_updated(root, monkeypatch):
+    data = seed(root)
+    p = next(x for x in data["places"] if x["name"] == "Lake Louise")
+    assert p["review_status"] == "proposed" and p["licence"] == "own-words" and p["contributed_by"] == ["u_owner"]
+    assert p["updated"] == D.today()
+    p["updated"] = "2000-01-01"
+    p["contributed_by"] = []
+    D.save(data, touch=False)
+    assert run("edit", "Lake Louise", "--note", "x") == 0
+    p = next(x for x in D.load()["places"] if x["name"] == "Lake Louise")
+    assert p["updated"] == D.today() and p["contributed_by"] == ["u_owner"]
+    assert run("edit", "Lake Louise", "--note", "y") == 0          # not appended twice
+    assert next(x for x in D.load()["places"] if x["name"] == "Lake Louise")["contributed_by"] == ["u_owner"]
+
+
+def test_new_tags_land_in_the_vocabulary_file_with_a_kind(root):
+    seed(root)
+    vocab = json.loads(D.PATHS.vocab.read_text(encoding="utf-8"))
+    kinds = {t["id"]: t["kind"] for t in vocab["tags"]}
+    assert kinds["iconic"] == "free" and kinds["family"] == "style" and kinds["lake"] == "free"
+    assert kinds["lakes"] == kinds["lake"]
+    assert [t["id"] for t in vocab["tags"]] == sorted(t["id"] for t in vocab["tags"])
+
+
+def test_v3_store_without_its_vocabulary_is_an_error(root, capsys):
+    seed(root)
+    D.PATHS.vocab.unlink()
+    assert run("validate") == 1
+    assert "data/vocab/tags.json" in capsys.readouterr().err
+
+
+def test_v3_store_may_not_carry_a_tags_table(root, capsys):
+    seed(root)
+    store = json.loads(D.PATHS.store.read_text(encoding="utf-8"))
+    store["tags"] = []
+    D.PATHS.store.write_text(json.dumps(store), encoding="utf-8")
+    assert run("validate") == 1
+    assert "must not hold a tags table" in capsys.readouterr().err
+
+
+def test_validate_names_a_bad_v3_enum_and_a_bad_tag_kind(good):
+    good["places"][0]["review_status"] = "maybe"
+    good["tags"][0]["kind"] = "mood"
+    out = errs(good)
+    assert "review_status 'maybe'" in out and "kind 'mood'" in out
+
+
+def test_style_kind_is_reserved_for_the_style_ids(good):
+    good["tags"][0]["kind"] = "style"
+    if good["tags"][0]["id"] in D.STYLE_IDS:
+        good["tags"][0]["id"] = "zzz-tag"
+    good["tags"][0]["alias_of"] = None
+    assert "only for the style ids" in errs(good)

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# PostToolUse hook: after any Write/Edit/MultiEdit under core/src/schema/, regenerate
+# PostToolUse hook: after any Write/Edit/MultiEdit under core/src/schema/ or core/src/ops/, regenerate
 # data/schema/generated/ and check it is byte-stable. Exit 2 feeds the problem back to Claude.
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 path="$(python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("tool_input",{}).get("file_path",""))' 2>/dev/null)"
 case "$path" in
-  */core/src/schema/*) ;;
+  */core/src/schema/* | */core/src/ops/*) ;;
   *) exit 0 ;;
 esac
 if [[ ! -d "$ROOT/core/node_modules" ]]; then

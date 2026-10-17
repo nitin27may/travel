@@ -1,0 +1,35 @@
+{
+"schema_version": 3,
+"updated": "2026-10-17",
+"layout": "single",
+"countries": [
+{"code":"AR","a3":"ARG","name":"Argentina"},
+{"code":"CA","a3":"CAN","name":"Canada"},
+{"code":"US","a3":"USA","name":"United States"}
+],
+"regions": [
+{"id":"AR/santa-cruz","country":"AR","code":"santa-cruz","name":"Santa Cruz","iso_3166_2":null},
+{"id":"AR/tierra-del-fuego","country":"AR","code":"tierra-del-fuego","name":"Tierra del Fuego","iso_3166_2":null},
+{"id":"CA/ON","country":"CA","code":"ON","name":"Ontario","iso_3166_2":"CA-ON"},
+{"id":"CA/QC","country":"CA","code":"QC","name":"Quebec","iso_3166_2":"CA-QC"}
+],
+"areas": [
+{"id":"AR/santa-cruz/el-chalten","region_id":"AR/santa-cruz","slug":"el-chalten","name":"El Chalten"},
+{"id":"AR/tierra-del-fuego/ushuaia","region_id":"AR/tierra-del-fuego","slug":"ushuaia","name":"Ushuaia"},
+{"id":"CA/ON/niagara","region_id":"CA/ON","slug":"niagara","name":"Niagara"}
+],
+"places": [
+{"name_lang":null,"min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"house_grade":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"cost_ref":null,"field_meta":{},"verified_by":null,"last_verified":null,"merged_from":[],"id":"AR/santa-cruz/el-chalten/el-chalten","area_id":"AR/santa-cruz/el-chalten","name":"El Chalten","resolved_name":"El Chalten","kind":"town","status":"idea","trip":null,"lat":-49.3315,"lon":-72.8863,"elevation_m":null,"location_status":"resolved","resolver":"manual","wikidata":null,"image":null,"season_months":[2,3,8],"kid_fit":"yes","stats":{},"stats_verified":false,"notes":"","added":"2026-10-17","accessibility":"unknown","review_status":"proposed","confidence":"stated","contributed_by":["u_owner"],"licence":"own-words","updated":"2026-10-17"},
+{"name_lang":null,"min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"house_grade":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"cost_ref":null,"field_meta":{},"verified_by":null,"last_verified":null,"merged_from":[],"id":"AR/tierra-del-fuego/ushuaia/ushuaia","area_id":"AR/tierra-del-fuego/ushuaia","name":"Ushuaia","resolved_name":"Ushuaia","kind":"city","status":"idea","trip":null,"lat":-54.8019,"lon":-68.303,"elevation_m":null,"location_status":"resolved","resolver":"manual","wikidata":null,"image":null,"season_months":[2,3,8],"kid_fit":"yes","stats":{},"stats_verified":false,"notes":"","added":"2026-10-17","accessibility":"unknown","review_status":"proposed","confidence":"stated","contributed_by":["u_owner"],"licence":"own-words","updated":"2026-10-17"},
+{"name_lang":null,"min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"house_grade":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"cost_ref":null,"field_meta":{},"verified_by":null,"last_verified":null,"merged_from":[],"id":"CA/ON/niagara/niagara-falls","area_id":"CA/ON/niagara","name":"Niagara Falls","resolved_name":"Niagara Falls","kind":"waterfall","status":"idea","trip":null,"lat":43.0896,"lon":-79.0849,"elevation_m":null,"location_status":"resolved","resolver":"manual","wikidata":null,"image":null,"season_months":[2,3,8],"kid_fit":"yes","stats":{},"stats_verified":false,"notes":"","added":"2026-10-17","accessibility":"unknown","review_status":"proposed","confidence":"stated","contributed_by":["u_owner"],"licence":"own-words","updated":"2026-10-17"}
+],
+"place_tags": [
+{"place_id":"CA/ON/niagara/niagara-falls","tag_id":"waterfall"}
+],
+"sources": [
+{"id":"src-00001","place_id":"CA/ON/niagara/niagara-falls","collection_id":null,"type":"note","url":null,"note":"fixture","screenshot":"screenshots/2026-10-17-niagara.png","post_date":null,"saved":"2026-10-17"}
+],
+"visits": [],
+"collections": [],
+"collection_places": []
+}

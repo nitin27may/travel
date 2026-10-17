@@ -1,0 +1,1 @@
+{"mcpServers": {"travel": {"command": "node", "args": ["core/bin/mcp.ts"]}}}
