@@ -7,6 +7,14 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR\"/tools/hooks/locations_changed.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/tools/hooks/data_changed.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/tools/hooks/schema_changed.sh"
           }
         ]
       }

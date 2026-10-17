@@ -13,13 +13,14 @@ import { Refs } from "./refs.ts";
 import { checkTable, err, isObj } from "./rows.ts";
 import type { Ctx } from "./rows.ts";
 import { validateTrip } from "./trip.ts";
+import { validateVocab } from "./vocab.ts";
 
 export type { Issue, Result } from "./codes.ts";
 export { ERROR_CODES, ERROR_CODE_LIST } from "./codes.ts";
 
 export interface DocInfo {
   family: Family;
-  kind?: DocumentKind | "changes" | "backlog";
+  kind?: DocumentKind | "changes" | "backlog" | "vocab";
   /** catalog folder name */
   entity?: string;
   /** country code taken from a catalog file name */
@@ -43,6 +44,7 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if ((m = r.match(/(?:^|\/)data\/catalog\/([a-z]+)\/([A-Z]{2})\.json$/)) && m[1]! in CATALOG_FILES) return { family: "catalog", entity: m[1], fileCC: m[2] };
     if (/(?:^|\/)data\/catalog\/changes\/[^/]+\.jsonl$/.test(r)) return { family: "catalog", kind: "changes" };
     if (/(?:^|\/)data\/catalog\/backlog\.json$/.test(r)) return { family: "catalog", kind: "backlog" };
+    if (/(?:^|\/)data\/vocab\/tags\.json$/.test(r)) return { family: "sidecar", kind: "vocab" };
     if (/(?:^|\/)data\/catalog\/policy\.json$/.test(r)) return { family: "sidecar", kind: "policy" };
     if (/(?:^|\/)data\/schema\/freshness\.json$/.test(r)) return { family: "sidecar", kind: "freshness" };
     if (/(?:^|\/)data\/schema\/difficulty-map\.json$/.test(r)) return { family: "sidecar", kind: "difficulty-map" };
@@ -86,6 +88,10 @@ export function validateDoc(doc: unknown, family: Family, root: string, info: Pa
       validateLocations(doc, ctx);
       break;
     case "sidecar":
+      if (info.kind === "vocab") {
+        validateVocab(doc, ctx);
+        break;
+      }
       validateDocument(doc, (info.kind ?? "research-sidecar") as DocumentKind, ctx);
       break;
   }
@@ -143,7 +149,7 @@ function walk(dir: string, out: string[]): void {
 export function allFiles(root: string): string[] {
   const all: string[] = [];
   for (const d of ["data/trips", "data/catalog", "data/locations"]) walk(join(root, d), all);
-  for (const f of ["data/schema/freshness.json", "data/schema/difficulty-map.json"]) if (existsSync(join(root, f))) all.push(join(root, f));
+  for (const f of ["data/schema/freshness.json", "data/schema/difficulty-map.json", "data/vocab/tags.json"]) if (existsSync(join(root, f))) all.push(join(root, f));
   const keep = all.filter((p) => {
     const r = norm(relative(root, p));
     if (/\/trip\.json$/.test(r) || /\/routes\/[^/]+\.json$/.test(r)) return true;
@@ -151,10 +157,9 @@ export function allFiles(root: string): string[] {
     if (/^data\/catalog\/legs\/geo\/[^/]+\.json$/.test(r)) return true;
     if (/^data\/catalog\/changes\/[^/]+\.jsonl$/.test(r)) return true;
     if (r === "data/catalog/policy.json" || r === "data/catalog/backlog.json") return true;
-    if (r === "data/schema/freshness.json" || r === "data/schema/difficulty-map.json") return true;
+    if (r === "data/schema/freshness.json" || r === "data/schema/difficulty-map.json" || r === "data/vocab/tags.json") return true;
     if (/^data\/locations\/(?:locations|[A-Z]{2})\.json$/.test(r)) return true;
     return false;
   });
-  // the policy documents are required by P2a: report a missing one rather than skipping it silently
   return [...new Set(keep)].sort();
 }
