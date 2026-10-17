@@ -173,3 +173,4 @@ page now carries. Add a trip and the card appears; nothing to maintain by hand.
 
 ## Platform (in progress)
 `core/` holds the schema (Zod, exported to `data/schema/generated/`) and the validator; run `bash tools/check-all.sh` before publishing.
+Locations are schema v3 (`data/vocab/tags.json` holds the tags, captures live in `research/inbox/`); day checks are `core/src/checks/`, the operation catalogue `core/src/ops/catalogue.ts` (exported to `data/schema/generated/ops.json`), and `.mcp.json` registers the read-only MCP server `core/bin/mcp.ts`.
