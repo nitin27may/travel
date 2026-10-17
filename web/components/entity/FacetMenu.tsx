@@ -2,6 +2,7 @@
 
 import { Popover } from '@base-ui/react/popover';
 import { useId, useState } from 'react';
+import type { ReactNode } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { FacetDef } from '@/lib/entities/types';
@@ -62,7 +63,7 @@ export function FacetOptions<Row>({ facet, options, selected, onChange, searchAb
 }
 
 interface PopoverProps<Row> extends OptionsProps<Row> {
-  summary: string;
+  summary: ReactNode;
 }
 
 /** A facet as a filter-bar button that opens its options. */
@@ -71,7 +72,7 @@ export function FacetPopover<Row>({ summary, ...rest }: PopoverProps<Row>) {
   return (
     <Popover.Root>
       <Popover.Trigger className="facet-btn" data-active={active || undefined}>
-        <span>{summary}</span>
+        {summary}
         <Icon name="chevronDown" size={14} />
       </Popover.Trigger>
       <Popover.Portal>

@@ -2,8 +2,10 @@
 the only change is that "today" is a parameter (tools/publish.py honours HUB_TODAY)."""
 from __future__ import annotations
 
+import argparse
 import datetime
 import html
+import json
 import os
 import re
 from datetime import date
@@ -88,6 +90,43 @@ footer{margin-top:54px;color:#6f8579;font-size:.78rem;max-width:1180px}
 """
 
 
+def trip_record(slug, doc):
+    t = re.search(r'<title>([^<]*)', doc)
+    sub = re.search(r'class="sub">([^<]*)', doc)
+    return {
+        'slug': slug,
+        'title': html.unescape(t.group(1)).strip() if t else slug,
+        'sub': html.unescape(sub.group(1)).strip() if sub else '',
+        'img': hero(doc),
+        'date': meta(doc, 'trip-date'),
+        'dates': meta(doc, 'trip-dates'),
+        'dur': meta(doc, 'trip-duration'),
+        'region': meta(doc, 'trip-region'),
+    }
+
+
+def write_trips_json(root: Path, out: Path, today: date) -> int:
+    """The trip list as JSON for the web app: every served legacy trip page (not the site pages),
+    sorted like the hub, with the same Today / In N days / Past trip badge the hub computes."""
+    manifest = json.loads((root / 'legacy' / 'MANIFEST.json').read_text(encoding='utf-8'))
+    trips = []
+    for f in manifest['folders']:
+        if not f.get('served') or f.get('kind') == 'site-page':
+            continue
+        page = root / 'legacy' / f['slug'] / 'index.html'
+        if not page.is_file():
+            continue
+        t = trip_record(f['slug'], page.read_text(encoding='utf-8'))
+        for k in ('dates', 'dur', 'region'):
+            t[k] = html.unescape(t[k])   # meta attributes carry entities such as &ndash;
+        t['status'], t['badge'] = status(t, today)
+        trips.append(t)
+    trips.sort(key=lambda t: (t['date'] or '9999', t['slug']))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(trips, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
+    return len(trips)
+
+
 def write_hub(site: Path, today: date) -> None:
     site = str(site)
     trips = []
@@ -97,18 +136,7 @@ def write_hub(site: Path, today: date) -> None:
         if slug in SITE_PAGES or not os.path.isdir(os.path.join(site, slug)) or not os.path.exists(f):
             continue
         doc = open(f, encoding='utf-8').read()
-        t = re.search(r'<title>([^<]*)', doc)
-        sub = re.search(r'class="sub">([^<]*)', doc)
-        trips.append({
-            'slug': slug,
-            'title': html.unescape(t.group(1)).strip() if t else slug,
-            'sub': html.unescape(sub.group(1)).strip() if sub else '',
-            'img': hero(doc),
-            'date': meta(doc, 'trip-date'),
-            'dates': meta(doc, 'trip-dates'),
-            'dur': meta(doc, 'trip-duration'),
-            'region': meta(doc, 'trip-region'),
-        })
+        trips.append(trip_record(slug, doc))
 
     def key(t):
         try:
@@ -153,3 +181,19 @@ def write_hub(site: Path, today: date) -> None:
           '<p class="lede">That page does not exist on this site. <a href="/" style="color:#d69329">Back to the trip list</a>.</p></header></body></html>')
     open(os.path.join(site,'404.html'),'w',encoding='utf-8').write(nf)
     print(f"  hub: {len(upcoming)} upcoming, {len(past)} past")
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description='Trip list for the web app (the HTML hub is written by tools/publish.py).')
+    ap.add_argument('--json', metavar='OUT', required=True, help='write the served legacy trips as JSON')
+    ap.add_argument('--root', default=str(Path(__file__).resolve().parent.parent))
+    args = ap.parse_args(argv)
+    today = date.fromisoformat(os.environ['HUB_TODAY']) if os.environ.get('HUB_TODAY') else date.today()
+    n = write_trips_json(Path(args.root), Path(args.json), today)
+    print(f'  hub json: {n} trips -> {args.json}')
+    return 0
+
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main())

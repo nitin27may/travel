@@ -68,7 +68,16 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
       }
     }
     for (const v of state.facets[facet.param] ?? []) {
-      if (!counts.has(v)) counts.set(v, { value: v, label: v, count: 0 });
+      if (counts.has(v)) continue;
+      let label = v;
+      for (const row of rows) {
+        const hit = facet.options(row).find((o) => o.value === v);
+        if (hit) {
+          label = hit.label;
+          break;
+        }
+      }
+      counts.set(v, { value: v, label, count: 0 });
     }
     const order = facet.order ?? [];
     out[facet.param] = [...counts.values()].sort((a, b) => {
