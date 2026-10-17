@@ -15,3 +15,7 @@ Travel material that lived in the vault (`Notes/life/travel/`, with a near-dupli
 | `archive/India Trip Oct-Nov 2024.md` | A past trip |
 
 These are raw notes, kept as written (Obsidian wiki links and frontmatter included). When the restructure lands they move under `research/`; places mentioned here that are not yet in `locations/` can be added with the `location` skill.
+
+## The vault's own trip-planner skill
+
+`vault-trip-planner-skill/` is a copy of `Notes/.claude/skills/trip-planner/` (intake, discovery, budget and maps references, three templates, `make_maps.py`). It is a different skill from the repo's live one at `.claude/skills/trip-planner/` and is kept here only as reference; ideas worth keeping (the intake questions, the budget structure, the day-trip template) get folded into the platform's skills and trip schema, not loaded as a second skill.
