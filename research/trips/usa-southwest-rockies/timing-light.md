@@ -622,8 +622,8 @@ row — this matters, see the Arizona note below.**
 | | B d2 11 Sep 28 | 07:11 (84.0°) | 19:44 (275.7°) | 56.9° | 06:44 | 20:11 |
 
 **Systematic pattern across every row:** Window A's sun rises **4–5° further south** and sets
-**4–5° further south** than Window B, and peaks **3.4–3.6° lower**. Day length is **~28
-minutes shorter** in Utah and **~34 minutes shorter** in Wyoming.
+**4–5° further south** than Window B, and peaks **3.4–3.6° lower**. Day length is **~22
+minutes shorter** in Utah and **~27 minutes shorter** in Wyoming.
 
 ### 6.2 Subject bearings — does the light actually hit the subject? (computed)
 
@@ -1101,7 +1101,7 @@ https://www.fs.usda.gov/r02/sanjuan/conditions/sjnf-fall-colors-report
   the last week.
 - **Antelope Canyon beams.** Window B gives 61 % more time above 50° solar altitude and a full
   hour above 55°, which Window A never reaches.
-- **Longer days.** Window B has ~28 more minutes of daylight in Utah and ~34 more in Wyoming —
+- **Longer days.** Window B has ~22 more minutes of daylight in Utah and ~27 more in Wyoming —
   material on a 25-day trip with sunrise and sunset shoots on ten of them.
 
 ### What choosing Window B costs you — be honest about it

@@ -9,7 +9,7 @@ Research date: 24 August 2026. Timetables/fares are **summer 2026 actuals used a
 ## 0. HEADLINE FINDINGS (each evidenced below)
 
 1. **The Guest Pass does NOT cover the three buses this itinerary most depends on.** The official 442 timetable states verbatim: *"Guestcards (Südtirol/Alto Adige Guest Pass etc.) are not valid!"* and südtirolmobil lists 442, 439 and 444 as excluded services.
-2. **Three days cannot be delivered by public transport at all as written**: D2 (05:00 Braies), D6 (05:30 Sorapis — first bus 08:00), D8 (21:30 sunset walk-out — last bus off Passo Giau 17:29).
+2. **Three days cannot be delivered by public transport at all as written**: D2 (05:00 Braies), D6 (05:30 Sorapis — first bus 08:00), D8 (21:30 end-of-colour walk-out; sunset is 20:58 — last bus off Passo Giau 17:29).
 3. **There is no verifiable staffed car-rental desk in Cortina d'Ampezzo.** Nearest confirmed physical branches are Bolzano city / Bolzano Airport. This alone probably kills the clean "car only for the Cortina block" hybrid.
 4. **Every confirmed South Tyrol rental branch found publishes Mon–Fri hours only** — no Saturday-afternoon or Sunday hours listed. 18 and 25 July 2027 are Sundays.
 5. **No Uber / Bolt / FreeNow anywhere in the Dolomites.** Phone-booked taxi/NCC only.
@@ -199,7 +199,7 @@ Two realistic routings:
 | D5 | San Candido→Cortina + Monte Piana | ✅ **FULL** — 445 to Cortina; Monte Piana jeep 09:00–17:00 from Misurina |
 | D6 | Sorapis **05:30** from Passo Tre Croci | ❌ **FAILS.** Line 51 first departure **08:00** |
 | D7 | Lagazuoi + Scotoni from Capanna Alpina | ⚠️ **PARTIAL** — 52 to Falzarego ✅ (08:00→08:35); Capanna Alpina needs 465 + walk, tight. Point-to-point A→B awkward |
-| D8 | Fedare/Nuvolau + Cinque Torri + **21:30 sunset** | ❌ **FAILS HARD.** Last bus off Fedare **17:29** |
+| D8 | Fedare/Nuvolau + Cinque Torri + **21:30 end of colour (sunset 20:58)** | ❌ **FAILS HARD.** Last bus off Fedare **17:29** |
 | D9 | Cortina→Val Gardena scenic, via La Val | ❌ **FAILS as written.** No direct link; ~3h30 via Pusteria with changes; no La Val stop |
 | D10 | Sass Pordoi / Piz Boè | ✅ **FULL** — 472, Ortisei 07:48 → Pordoi 09:27; last back 17:20 |
 | D11 | Alpe di Siusi via Siusi cable car | ✅ **FULL** — line 172 + cableway (**cableway not covered by pass**) |
