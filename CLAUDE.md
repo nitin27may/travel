@@ -162,7 +162,7 @@ page now carries. Add a trip and the card appears; nothing to maintain by hand.
 - `"private": true` on a `legacy/MANIFEST.json` folder takes a page down: `publish.py` stages a noindex
   placeholder and overwrites its `assets/` files (a deploy that merely omits a path leaves it live), and
   the hub skips it. Seven pages are private since 17 Oct 2026 (the five past trips, Norway, Utah); the
-  next `./publish.sh` applies it. New platform plan: `docs/v2/` (self-hosted Supabase, Next.js, MCP).
+  next `./publish.sh` applies it. Platform plan: `docs/v2/`, a working draft, not final.
 - Renaming a trip folder leaves the OLD path live on Cloudflare Pages (prior deployments'
   assets persist). The hub regenerates correctly, but the stale URL keeps serving. Delete it
   in the Pages dashboard if it matters.
