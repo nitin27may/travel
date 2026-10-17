@@ -4,6 +4,8 @@ Status: DRAFT for owner approval. Written 2026-10-17. Implementation starts the 
 
 ## 0. Summary, addenda folded in, gaps found
 
+**Revision 2 (17 Oct 2026):** the product is now a global catalog plus trips that reference it, with a research flywheel, a coverage model, multi-user-ready schema, a no-AI trip builder and a free-data price approach. Read section 0A first; sections 1, 2, 4, 6, 7 and 8 carry "Revised" subsections where they changed.
+
 **The plan in ten lines.**
 
 1. Three layers: `research/` (raw, never published), `data/` (schema-versioned JSON in git, the system of record in Phase 1), `web/` (Next.js static export on the existing Cloudflare Pages project). Python tools in `tools/`, hand-built pages in `legacy/` until each trip migrates; every current URL keeps working (1.3).
@@ -49,9 +51,335 @@ Checked against the brief and all four addenda.
 | G15 | Order of migrating the 13 other legacy trips is unstated | By next travel date (D15) |
 | G16 | "Sold out" is a booking state no tool can detect reliably | Manual status, plus the conditions routine and price-watch flag likely sell-outs as questions |
 
-## 1. Target repo layout and migration table
+## 0A. Product direction: catalog, flywheel, planner (new in revision 2)
+### 0A.0 What changed in this revision
 
-### 1.1 Target tree
+Owner direction, 17 Oct 2026: what is built for the owner today must work for other people tomorrow. The product is a **global catalog of travel knowledge plus trips that link to it**. Claude is one way to fill and use it, but a person with no AI must be able to say where, how many days, when and what kind of trip, and get an editable itinerary. Research is never lost: it feeds the catalog. Nothing paid.
+
+| Area | Before this revision | Now | Sections touched |
+|---|---|---|---|
+| What is shared | places (locations) and trails | a catalog of places, trails, activities, stays, eateries, bookable offers, route legs and area guides, each with provenance and freshness | 0A.1, 1.4, 2.8 |
+| Adventures, stays, bookings | per trip | activities, stays and **offers** are catalog entities; a trip keeps only references plus its own choices (day, time, party, notes, overrides, status, confirmation) | 2.8 (supersedes those tables in 2.3) |
+| Research | feeds one trip through proposals | feeds the catalog first, through one ingestion path with auto-accept rules; every trip, however created, contributes the same way | 0A.2, 7.6 |
+| Coverage | not modelled | a computed coverage score per area and a research backlog built from GAP markers, staleness and thin coverage | 0A.3, 4.11 |
+| Users | single owner | multi-tenant-ready schema (`owner_id`, `visibility`, contributor attribution, public and private layers), no accounts built | 0A.4, 2.8, 8 |
+| Trip creation | Claude-led (trip-planner) or by hand | plus a **deterministic no-AI trip builder** over the catalog, gated on coverage | 0A.5, 4.11, 6.1 (P7) |
+| Prices | Playwright scraping for the owner's research | deep links, stored price snapshots with staleness, user-entered prices; live data only where free and allowed (weather, FX); scraping stays an owner-only research tool | 0A.6, 11 |
+| Phases | P1-P6 | P2 widened (catalog schemas, provenance, visibility); ingestion and merge in P4; builder as P7 after coverage gates | 6.1 |
+| Decisions | D1-D16 | plus D17-D22 (personal tool or product, catalog licence, who edits, affiliate sign-ups, auth path, BYO key) | 8.3 |
+
+### 0A.1 Catalog versus trip
+
+**Rule:** a fact about the world lives once, in the catalog. A trip stores references to catalog rows plus what only that trip knows: day, time, track, party, notes, overrides, decisions, status, confirmation, and private data.
+
+#### Catalog entities
+
+| Entity | Store | Id pattern | Key fields beyond the common block |
+|---|---|---|---|
+| Geography (countries, regions, areas) | `data/locations/locations.json` (schema v2, unchanged) | `CA`, `CA/AB`, `CA/AB/banff` | as today |
+| `place` | `data/locations/` | `CA/AB/banff/lake-louise` | kind, coordinates, wikidata, image (as today) |
+| `trail` | `data/catalog/trails/<CC>.json` + `geo/` | place-style path | 2.3 trail catalogue row: km, gain, house grade, local grade, geometry ref |
+| `activity` | `data/catalog/activities/<CC>.json` | `<area_id>/<slug>` | type (the adventure enum of 2.3), operator, duration_min, indoor (bool), weather_sensitive (bool), adventure_level 1-5 |
+| `stay` | `data/catalog/stays/<CC>.json` | `<area_id>/<slug>` | kind (`hotel`, `lodge`, `cabin`, `apartment`, `hut`, `campsite`, `hostel`), comfort_tier 1-4, sleeps_max, elevation_m, car_free_access, last_transport |
+| `eatery` | `data/catalog/eateries/<CC>.json` | `<area_id>/<slug>` | cuisine, price_tier 1-4, kids_menu (bool or null), reservation (`required`, `recommended`, `walk-in`), hours |
+| `offer` | `data/catalog/offers/<CC>.json` | `of-<provider-slug>-<product-slug>` | the bookable product: everything in the bookings table of 2.3 that is not trip-specific (provider, `book_url`, `reseller_urls`, limits, `opens_*`, `sellout_*`, `same_day`, cancellation, weather refund), plus `subject` (`{entity, id}`: the activity, stay, trail permit, place ticket or leg it books) |
+| `offer_price` | `data/catalog/offers/<CC>.json`, table `offer_prices` | `<offer_id>#<n>` | amount, currency, `per`, `age_from`/`age_to` for child bands, `valid_months`, `read` date, source, `window` (for flights) |
+| `leg` | `data/catalog/legs/<CC>.json` | `<from_id>~<to_id>~<mode>` | from and to (any catalog ids with coordinates), mode, km, minutes, basis (`routed`, `timetable`, `matrix`, `inference`), seasonal notes (closures), symmetric (bool) |
+| `area_guide` | `data/catalog/areas/<CC>.json` | the area id | summary (our wording), best months, getting there, hidden gems (place ids with one line each), what to know, safety notes |
+
+#### Common block on every catalog row
+
+| Column | Type | Null? | Rule |
+|---|---|---|---|
+| id | text | no | stable once created; merges keep the surviving id and record `merged_from` |
+| area_id | text | no | FK areas (the country > region > area hierarchy); geography rows excepted |
+| tags | json | no | canonical vocabulary ids (shared with trips) |
+| kid_fit | text | no | `yes`, `strong-kid`, `no`, `unknown` |
+| min_age, max_age, min_height_cm, max_height_cm, min_weight_kg, max_weight_kg | int | yes | eligibility; on activities and offers mainly |
+| house_grade | int | yes | 1-5 (3A); on trails, activities and places of kind trail |
+| walk_km, walk_gain_m | real, int | yes | walking involved (for a sight with a long approach, an activity with a hike) |
+| accessibility | text | no | `step-free`, `partial`, `none`, `unknown` |
+| season_months | json | no | months it works; `[]` when unknown |
+| cost_ref | text | yes | an `offer_id` or a one-line reference ("free", "park pass") |
+| status | text | no | `raw` (machine-extracted, unreviewed), `proposed` (in a proposal), `verified` (reviewed or auto-accepted with an official source), `stale` (a field passed its freshness limit), `retired` |
+| confidence | text | no | `verified`, `stated`, `inference`, `gap`, `conflict` |
+| sources | json | no | source ids (table `sources` in the same file: url, title, publisher, kind, read date) |
+| field_meta | json | no | per-field provenance for fast-expiring fields: `{"hours": {"read": "2026-10-13", "src": ["src-0041"]}, "price": {...}}` |
+| verified_by | text | yes | actor id that last verified (`u_owner`, `agent:research-trails`) |
+| last_verified | date | yes | |
+| contributed_by | json | no | actor ids that created or edited the row (attribution) |
+| licence | text | no | `own-words` (our summary, default), `odbl` (OSM-derived), `ogl-ca`, `cc-by-4.0`, `public-domain` |
+| updated | date | no | |
+
+#### Freshness policy per field class (`data/schema/src/freshness.json`)
+
+| Field class | Examples | Stale after | On stale |
+|---|---|---|---|
+| prices | `offer_prices.amount`, fares | 120 days, or the next season if `valid_months` ended | badge "price read 5 months ago"; backlog item when a trip with a chosen edition uses it |
+| hours and closed days | `eatery.hours`, `open_from` | 180 days | badge; backlog item |
+| booking windows and sell-out | `opens_*`, `sellout_*` | 365 days (one season) | backlog item before the next season |
+| closures and conditions | trail closures, road status | 7 days | never trusted for planning; the conditions routine re-reads them |
+| hard limits | ages, heights, weights | 365 days | badge |
+| trail stats | km, gain, grade | 3 years | none unless a source changes |
+| geography, coordinates, geometry | ids, lat and lon, GeoJSON | never | none |
+| our summaries | area guides, place notes | 2 years | review prompt |
+
+`status` becomes `stale` when any field with a policy passes its limit; `tools/catalog.py freshness` recomputes it nightly at build time (deterministic for a given date) and writes backlog items (0A.3).
+
+#### What a trip keeps
+
+| Trip table | References | Trip-only fields |
+|---|---|---|
+| `items` | `place_id`, `trail_id`, `activity_id`, `eatery_id`, `offer_id`, `leg_id` | day, track, seq, start or window, duration, `override` (json: any catalog field replaced for this trip, e.g. a different start point), notes, Plan B pointer |
+| `bases` | `stay_id` or `place_id` | nights, why, why not |
+| `trip_activities` (replaces `adventures`) | `activity_id` | day, verdict, why, party fit (derived) |
+| `trip_bookings` (replaces `bookings`) | `offer_id` | used_days, book-by (computed from the offer and the edition, editable), priority, status, price_paid (private), confirmation (private), contact (private), notes |
+| `trip_trails` | `trail_id` | role, alternative_of, turnaround rule, party note, verdict (as 2.3) |
+
+A trip-specific fact that the world should know (a corrected trail grade, a new opening window) is not an override: it is a catalog edit (0A.2). Overrides are for genuinely trip-specific choices.
+
+### 0A.2 The flywheel: research always feeds the catalog
+
+#### One ingestion path
+
+| Step | Tool or operation | What happens |
+|---|---|---|
+| 1. Capture | any research agent, `trip-import`, the capture pipeline (section 9), a UI form | Markdown for people plus a `research-sidecar/1` sidecar (10.1) whose `records` are catalog-shaped rows (places, trails, activities, stays, eateries, offers with prices, legs, area-guide facts) |
+| 2. Normalise | `tools/catalog.py normalise` (TS twin for the API) | units to metric, currencies kept with ISO codes, enums mapped (the Rockies' `guided_hike` to `guided-hike`), tags through the vocabulary, local difficulty to the house grade (3A), dates to ISO, ids proposed from the area hierarchy |
+| 3. Match | `tools/catalog.py match` | in order: exact id; external ids (wikidata, OSM relation, operator `book_url` host + path); coordinates within 300 m plus name similarity of at least 0.85 (trigram) for places, stays, eateries; trailhead within 500 m plus name for trails; provider plus product name for offers. A match above threshold is "same entity"; between 0.6 and 0.85 is "possible duplicate" and always goes to review |
+| 4. Merge | `tools/catalog.py merge` | per field: a new value with a newer read date and an equal or better source kind (`official` > `operator` > `press` > `reseller` > `blog` > `community`) replaces; an older or weaker value is kept as an alternative in `field_meta`; disagreeing values of equal strength become `conflict` |
+| 5. Proposal | `catalog.propose` (operation, like `research.propose` in 5.4) | a diff of catalog changes plus any trip changes, each change with its sources, sidecar path and fact keys |
+| 6. Review | the "Proposed changes" queue (UI) or a skill with explicit ids | auto-accept rules below; everything else waits for the owner |
+| 7. Catalog | `catalog.apply` | rows written with `status`, `verified_by`, `contributed_by`; a `catalog_changes` row per change (who, when, op, before, after, proposal id) |
+| 8. Reuse | every later trip, the builder (0A.5), coverage (0A.3) | the next trip in the area starts from the catalog, not from zero |
+
+**New operations** (added to the catalogue of 5.3 and generated into the API and MCP like the rest): `catalog.add`, `catalog.edit`, `catalog.merge`, `catalog.retire`, `catalog.verify`, `catalog.propose`, `catalog.apply`, `catalog.coverage` (read), `backlog.list` (read), `backlog.add`, `planner.draft` (read: returns a draft, writes nothing). New MCP tools: `get_coverage`, `list_backlog`, `propose_catalog_change` (Phase 1 read tools for the first two; writes in Phase 2).
+
+**Auto-accept rules** (owner can switch each off in `data/catalog/policy.json`):
+
+| Change | Auto-accept when |
+|---|---|
+| New row (place, trail, activity, stay, eatery, offer, leg) | at least one `official` or `operator` source, no possible duplicate, all required fields present; lands as `verified` with `verified_by: agent:<lane>` |
+| New price snapshot | always (snapshots append; nothing is overwritten) |
+| New link (official, AllTrails, map links) | always |
+| Filling a null field | source kind `operator` or better |
+| Changing a non-null fact, hard limits, house grade, any deletion or merge | never; owner review |
+| A price change over 20% against the last snapshot | appended, plus a question on any trip using the offer |
+
+#### Every way of making a trip feeds the catalog the same way
+
+| Trip origin | Path into the catalog |
+|---|---|
+| Created with Claude (`trip-planner`) | lane agents write sidecars; the bookings audit consolidates; steps 2-7 run before the plan synthesis, so the plan references catalog ids |
+| Built by hand in the UI | each form that adds something new (a stay, an activity, a booking) calls `catalog.add` first and then links it from the trip (`item.add` with the new id); the form shows "This will also be added to the shared catalog" |
+| Imported from an old PLAN.md (`trip-import`) | the import writes sidecars from the PLAN.md tables and research files, runs steps 2-7, then proposes the trip with references |
+| Generated by the builder (0A.5) | reads the catalog only; it never adds facts, so there is nothing to ingest until the user adds or corrects something |
+
+#### A hand correction becomes a catalog edit
+
+Example: on the Patagonia Day 8 page the owner changes Laguna de los Tres from house grade 4 to 5 in the trail sheet.
+
+1. The sheet's edit control calls `catalog.edit` on `AR/santa-cruz/el-chalten/laguna-de-los-tres` with `{house_grade: 5, reason: "final 2.4 km is exposed scrambling in wind", source: null}` and actor `u_owner` via `ui`.
+2. A `catalog_changes` row records the before and after, actor and reason; the trail's `contributed_by` gains `u_owner`, `verified_by` becomes `u_owner`, `last_verified` today.
+3. Every trip that uses the trail sees the change; their day checks re-run (a Track B day that uses it now warns).
+4. If the edit is really a trip-only choice ("for our party treat it as grade 5"), the sheet offers "Only for this trip", which writes `trip_trails.override` instead.
+
+In Phase 1 (git), the same edit is a commit to `data/catalog/trails/AR.json` with the changelog row; in Phase 2 it is a D1 write exported nightly.
+
+### 0A.3 Coverage and the research backlog
+
+#### Coverage score per area
+
+`tools/catalog.py coverage` computes, for each area (and rolled up to region and country), a score per entity type and a weighted total. Every row counts by freshness: `verified` and fresh 1.0, `verified` but `stale` 0.5, `raw` or `proposed` 0.3, `retired` 0.
+
+| Type | Target per area (counts as full) | Weight in the total |
+|---|---|---|
+| sights (places of kinds viewpoint, waterfall, museum, town, park ...) | 8 | 0.25 |
+| trails | 6 | 0.20 |
+| activities with an offer | 4 | 0.15 |
+| stays | 3 | 0.15 |
+| eateries | 3 | 0.05 |
+| legs between the area's top 6 places and its stays (share of pairs covered) | 100% | 0.10 |
+| area guide present and fresh | 1 | 0.10 |
+
+`coverage_type = min(1, weighted_count / target)`; `coverage = sum(weight * coverage_type)`. Bands: **thin** under 0.4, **usable** 0.4-0.7, **good** 0.7 and over. Style-specific scores re-weight the same numbers (an `adventure` view weights trails 0.35 and activities 0.30; `luxury-relax` weights stays and eateries). The scores are written to `data/catalog/coverage.json` (generated, deterministic per build date).
+
+#### Research backlog
+
+`data/catalog/backlog.json` (generated from the data, plus owner-added rows):
+
+| Column | Meaning |
+|---|---|
+| id | `bl-<hash>` stable for the same subject and reason |
+| subject | `{entity, id}` or `{area_id}` |
+| reason | `gap` (a GAP marker or `confidence: gap` on a field), `stale` (freshness policy), `low-coverage` (area band thin for a type), `conflict`, `user-request` (Phase 2: requested by someone without agents) |
+| field | the field concerned, when there is one |
+| lane | suggested lane (7.2) |
+| priority | `trips_using * urgency * severity`: urgency 3 if a chosen edition starts within 120 days, 2 within a year, 1 otherwise; severity 3 for hard limits, booking windows and prices on must-book offers, 2 for hours and stats, 1 otherwise |
+| status | `open`, `claimed` (by an agent run id), `done`, `wont-do` |
+| created, done | dates |
+
+Agents work it with `trip-research --backlog [--area <id>] [--limit 10]`: the top items are grouped by area and lane and run as normal lane jobs whose sidecars flow through 0A.2. The owner sees the backlog as a table view with the usual filters.
+
+#### Coverage in the UI
+
+Area pages and the builder show the band and the per-type counts ("Banff: good. 41 sights, 38 trails, 22 activities, 9 stays; 6 prices stale"). The globe gets a coverage layer (areas tinted by band). The builder warns before it plans in a thin area (0A.5).
+
+### 0A.4 Multi-user readiness (designed now, built later)
+
+#### Two layers
+
+| Layer | Contains | Who can read | Who can write (later) |
+|---|---|---|---|
+| Public catalog | facts (coordinates, stats, limits, windows, prices with read dates), our own summaries, links, licensed geometry, licensed images | anyone; downloadable as `/data/catalog/*.json` | owner now; later contributors through proposals (D19) |
+| Private user layer | a user's trips (unless they publish one), travellers' ages, heights, weights, citizenship, booking confirmations, prices paid, contacts, notes, saved views, checklist ticks, inbox captures | the owning user (and people they share with, later) | the owning user |
+
+Never public, regardless of settings: traveller ages, heights, weights and citizenship; booking confirmations and contacts; prices paid; inbox screenshots and social captions; the raw `research/` tree; any text copied from a blog, forum or social post.
+
+#### Schema readiness, built now
+
+| Field or rule | Where | Value today |
+|---|---|---|
+| `owner_id` | `trip` row | `u_owner` on every trip |
+| `visibility` | `trip` row | `public` (the published page without private fields), `unlisted`, `private`; today's trips are `public`, matching current behaviour |
+| `actor` on every operation | ops input envelope | `{id: "u_owner", via: "ui"|"cli"|"mcp"|"agent:<lane>"}` |
+| `contributed_by`, `verified_by` | catalog common block | actor ids |
+| `catalog_changes` | catalog files | one row per change with actor |
+| Ownership checks | ops layer (D1 has no row-level security, so every read and write path filters by `owner_id` and `visibility` in the ops functions; tests assert it per operation) | trivially true with one owner |
+| `x-private` | schema | drives the export allow-list |
+
+#### Licensing
+
+| Material | Licence | Obligation |
+|---|---|---|
+| OSM-derived geometry and tags (trail lines, some coordinates) | ODbL 1.0 | attribution; the catalog partition that contains it is shared alike under ODbL |
+| geoBoundaries ADM2 (the globe's district level) | gbOpen is described as CC BY 4.0, but the geoBoundaries R package notes that gbOpen mixes CC BY, ODbL, CC BY-SA and national licences per boundary | attribution to geoBoundaries and the original source; `tools/globe_data.py` records each country's boundary licence from its metadata and the build lists them |
+| Natural Earth | public domain | credit anyway |
+| Parks Canada, NPS, Wanderland data | OGL-Canada, US public domain, opendata.swiss "must provide the source" | attribution strings (3A) |
+| Open-Meteo data | CC BY 4.0 | attribution on weather and elevation displays |
+| Our summaries, area guides, notes | our own; catalog licence decision D18 | |
+| Blog, forum, Reddit, social posts, operator marketing text | not ours | **store facts in our own words plus the link**; short quotes only as private evidence in `research/` |
+| Images | per file (Commons licences, recorded by the gallery pipeline) | attribution line per image; no images from Instagram, Facebook or blogs |
+
+Recommendation for D18: publish the catalog under **ODbL** as a whole. It contains OSM-derived data, which forces share-alike on that part anyway, and a single licence is easier for anyone reusing it than a split between CC BY facts and ODbL geometry.
+
+#### Auth beyond one owner (decision D21, not designed here)
+
+| Option | What it gives | What it costs | Recommendation |
+|---|---|---|---|
+| Cloudflare Access with an email allow-list | the owner plus a few invited people (family); no user database; free tier covers small teams | no self sign-up; identity is only an email; ownership must map emails to `owner_id` | **keep this until D17 says "product"** |
+| Auth.js (self-hosted on the Worker) with email magic links or OAuth | real accounts, sessions, free | we run sessions, account deletion, abuse handling | first choice if it becomes a product |
+| A hosted identity provider's free tier | less code | vendor limits and lock-in | second choice |
+
+What changes in any multi-user move: per-user `owner_id` on new trips, ownership checks already in the ops layer start to matter, saved views and ticks become per user, catalog edits by non-owners go through proposals only, rate limits on the API and the inbox, and a privacy policy.
+
+### 0A.5 The no-AI trip builder
+
+A deterministic planner over the catalog. It runs in the browser (pure TypeScript in `web/lib/planner/`, same day checks as 2.4), so it works on the static Phase 1 site with no server and no AI. Same inputs plus the same catalog snapshot always give the same draft (ties broken by id).
+
+#### Inputs (the first screen at `/plan/new/`)
+
+| Input | Maps to | Default |
+|---|---|---|
+| Where: one or more areas, regions or a country | `trip.countries`, candidate areas | required |
+| How many days | days 1..N, `nights = N - 1` (0 for a day trip) | required |
+| When: month(s) or exact dates | `season_months`, optional edition | month required |
+| Party: adults, children with ages (heights optional) | `travellers` (private, stored locally) | 2 adults |
+| Style tags | `primary_style`, `trip_tags` | `active-nature` |
+| Pace 1-5 | `profile.pace` | 3 |
+| Walking per day: km and gain | `hiking_ceiling_km`, `hiking_ceiling_gain_m` | 10 km, 500 m |
+| Adventure level 1-5 | max `activity.adventure_level`; `max_house_grade` | 3 |
+| Luxury level 1-4 | stay `comfort_tier`, eatery `price_tier` | 2 |
+| Budget per day for the party (optional) | filter on offer prices with fresh snapshots | none |
+| Transport | `profile.transport` | rental car |
+| Base preference | `profile.base_preference` | balanced |
+| Must-do and avoid | catalog ids or tags | none |
+
+#### Steps
+
+| # | Step | Rule |
+|---|---|---|
+| 1 | Candidates | all catalog rows in the chosen areas, plus rows within 90 minutes of them by catalog legs (or straight-line distance x 1.4 at 60 km/h where no leg exists, marked `inference`) |
+| 2 | Filter | season (`season_months` includes the month, or unknown), eligibility for the youngest and smallest traveller (ages, heights, weights; unknown limits are kept with a warning), `house_grade <= max`, `walk_km`/`walk_gain_m` within the per-day ceiling, kid fit when children are present, `adventure_level <= level`, comfort tier within one of the luxury level, `status != retired`, opening months, `avoid` |
+| 3 | Score | `score = 3*tag_match + 2*must_do + quality + 1*freshness - 2*crowding_penalty`. `tag_match` = share of the row's tags in the chosen styles and interests; `quality` = 0-2 from signals we hold (official "top 10" lists, appearance in N plans, owner rating when present); `freshness` = 1 fresh, 0.5 stale, 0.2 raw; `crowding_penalty` = 1 for rows tagged `crowded` when pace is 1-2. Weights live in `data/catalog/planner-weights.json` |
+| 4 | Bases | cluster the top-scored candidates by travel time (k-medoids over leg minutes, k from days and `base_preference`: few-long 1 base per 4-5 nights, balanced per 3, many-short per 2; single-base forced for day trips and `single-base`); pick a stay per cluster by comfort tier and score; night split proportional to the cluster's scored content, minimum 2 nights unless `many-short` |
+| 5 | Day assembly | per base night: an anchor (the best item within 90 min of the base), then greedy nearest-neighbour additions that fit opening hours, daylight (sun times computed for the month, mid-month if no dates), travel legs and the pace budget (2.4: 5-13 active hours by pace); meals inserted at 12:00-13:30 and 18:30-20:00 windows near the route; one `buffer` per day at pace 1-3; travel days between bases carry the leg plus at most one stop on the way |
+| 6 | Validate and repair | run the day checks; while a day fails, drop its lowest-scored optional item, then shorten, then move the item to a free day in the same base; never exceed the walking ceiling |
+| 7 | Plan B and swaps | for each outdoor item with `weather_sensitive`, the best-scoring `indoor` or sheltered alternative within 45 minutes becomes a track `P` item; days in the same base with weather-sensitive anchors form a `flexible_group` so the user (or the conditions routine) can swap them |
+| 8 | Bookings | each chosen offer becomes a `trip_bookings` row with the book-by date computed from its window (2.3) when dates are known |
+| 9 | Output | a normal `trip.json` draft (`status: idea`, `generated_by: planner@<version>`, `owner_id`, `visibility: private`) with an explanation per item (score breakdown and which filters it passed), opened in the editor |
+
+#### Personalisation controls
+
+Sliders and toggles re-run steps 2-7 instantly in the browser and say what changed.
+
+| Control | Effect on filters and weights | Example message |
+|---|---|---|
+| Less walking | ceiling -25% per step, `max_house_grade - 1` at the second step | "Walking cut to 6 km and 300 m a day; 12 of 40 trails remain" |
+| Less adventure | `adventure_level - 1`; activity weight x 0.7 | "Rafting and via ferrata removed; 2 boat trips added" |
+| More relaxed | pace - 1; later first start (09:00); an extra `rest` item | "Day length now 7 h; Day 4 has a free afternoon" |
+| More luxury | comfort tier + 1; eatery price tier + 1; spa activities weighted up | "3 stays upgraded; 2 nights have no stay at tier 3 (thin)" |
+| Kid-friendly | `kid_fit = yes` only; limits checked for the youngest; pace capped at 3 | "Big Ice removed (18+); minitrekking kept (8-65)" |
+
+#### When coverage is thin
+
+The planner never invents. Before planning it shows the area's band (0A.3). If the filtered candidates cannot fill the days, it fills what it can and leaves the rest as `free` days with a clear note: "Only 3 days of content for Lago del Desierto with your filters; Days 4-5 left free. Thin data: 2 trails, 0 stays." It lists the top backlog items for the area.
+
+| "Research more" | For the owner | For other users (later) |
+|---|---|---|
+| Action | runs `trip-research --backlog --area <id>` (agents, sidecars, proposals) | adds `user-request` items to the backlog queue the owner's agents work through (Phase 2), or bring-your-own-key agent runs if D22 says yes |
+| Result | new catalog rows after review | the same rows, later, for everyone |
+
+#### Where AI adds value on top
+
+Explaining a draft in plain language ("why Ushuaia first"), filling gaps (research lanes), rewriting prose and day narratives, importing old plans, and conversational editing (`trip-edit`: "make Day 3 easier for the kids" becomes slider changes or operations). AI output still lands as proposals and catalog rows; the planner itself stays deterministic.
+
+#### Demo regions and the gate
+
+The builder ships (phase P7) only when two regions reach **good** coverage for their styles. From existing research the strongest are:
+
+| Region | What exists today | Expected after import |
+|---|---|---|
+| Canadian Rockies (Banff, Yoho, Kootenay, Jasper, Kananaskis) | structured data: 48 sights, 62 trails, 43 adventures, 33 bookings, 16 bases | good in Banff, Lake Louise, Jasper and Kananaskis areas |
+| Patagonia (Ushuaia, El Chalten, El Calafate) | about 22 trails, 15 adventures, 18 bookings, stays snapshots, sun table | good in El Chalten and Ushuaia; usable in El Calafate |
+
+Dolomites, Utah parks and Vermont follow as their plans are imported.
+
+### 0A.6 Prices and live data without paid services
+
+Checked 2026-10-17. Most findings come from search results summarising official pages; where only third-party sources were found, the row says so.
+
+#### Free or free-tier options
+
+| Data | Option | What it allows | Terms and quota | Sign-up or approval | Verdict |
+|---|---|---|---|---|---|
+| Flights | Amadeus Self-Service APIs | (was) flight offers search with a free monthly test quota | **Self-service portal decommissioned 17 Jul 2026**: registrations paused, keys disabled; Enterprise unaffected (PhocusWire; apis.io) | n/a | gone |
+| Flights | Kiwi.com Tequila | (was) search API | public self-service closed in 2024 per third-party sources; partner-only now; no official statement found | partnership | not available |
+| Flights | Skyscanner Travel API | live prices | partner approval for established, high-traffic businesses; caching reportedly forbidden; affiliate links via a network (third-party sources) | approval | not available to us |
+| Flights | Travelpayouts / Aviasales Data API | **cached** prices from other users' searches, 2-7 days old, each with `expires_at`; meant for content pages, not live search; default currency RUB (set `currency=cad`) | free with a token | Travelpayouts sign-up (affiliate platform) | **optional**, as a "typical price" hint only, if the owner signs up (D20) |
+| Lodging | Booking.com Demand API | search, availability, booking | Managed Affiliate Partner contract; credentials via an account manager; booking needs extra approval; one guide reports partner terms barring AI agents from performing the agreement without approval | contract | not available |
+| Activities | Viator Partner API, Basic Access | product content and affiliate links; purchase completes on viator.com; no bulk data | free; higher access tiers need approval and certification | self-service sign-up, no prior approval | **optional** affiliate links and product facts (D20) |
+| Activities | GetYourGuide Partner API | catalog and booking | registration and a certification process; eligibility not published | approval | not now |
+| Car rental | no free API found in this pass | | | | deep links only |
+| FX | Frankfurter (ECB reference rates) | daily rates, historical series | no key, no published quota, fair use; updated once per working day around 16:00 CET; host now `frankfurter.dev` (older `api.frankfurter.app`) | none | **use** |
+| Weather and climate | Open-Meteo | forecast, historical, climate, elevation | free for non-commercial use: under 10,000 calls a day, 5,000 an hour, 600 a minute, 300,000 a month; CC BY 4.0 attribution; commercial use (ads, subscriptions) needs a paid plan | none | **use**; revisit if D17 makes it a product with ads or subscriptions |
+
+#### Recommended approach (intuitive, free)
+
+| Layer | What the user sees | How |
+|---|---|---|
+| 1. Deep links, prefilled | "Search flights", "Search stays", "Search cars", "Directions" buttons on the trip, each day and each booking row, carrying the edition dates and the party | Booking.com `searchresults.html` with `checkin`, `checkout`, `group_adults`, `group_children`, `age`, `selected_currency` (parameters verified in our 14 Oct research); Google Flights (a `q=` natural-language query, or a `tfs` built in the browser by the TS port of `tools/fares/tfs.py`; both are unofficial URL formats, P5 verifies them and keeps a test that the link opens a results page); Skyscanner and Kayak path-style search URLs (unofficial patterns, verified in P5); Google Maps URLs for directions and places (documented by Google) |
+| 2. Reference price snapshots | "From CAD 3,437 for 3 people, read 14 Oct 2026" with a freshness badge (fresh, aging, stale per 0A.1) | `offer_prices` rows for offers and fare snapshots per route and window (the `fare_quotes` of section 11 move into the catalog as route-window snapshots: `{from, to, depart, return, party, total, currency, read, source}`) |
+| 3. User-entered prices | "I found it for ..." on any booking or budget row | a private `price_paid` or a new snapshot with `source: user` (public only if the user shares it) |
+| 4. Live lookups (only where free and allowed) | weather and FX now; optional Travelpayouts "typical fare" hint after D20 | cached at the edge for 6 hours (weather), 24 hours (FX), until `expires_at` (Travelpayouts) |
+
+**The Playwright scraping of Google Flights and Booking.com is an owner-only research tool.** It stays in the `trip-fares` skill for the owner's own research and is never offered through the app, the API or MCP to other users, because: both sites' terms do not permit automated access, and offering it would put the site and its users in breach; it depends on undocumented internals (the `tfs` protobuf bytes, DOM text with non-breaking spaces) that break without notice; it uses the owner's machine and IP, so running it for others would also risk blocks on the owner's own browsing; and the result is a point-in-time price that must be shown with its read date anyway, which the snapshot layer already does. The skill checks `actor.id == u_owner` and refuses otherwise.
+
+**Weather and FX in the plan.** When the chosen edition has dates: a forecast strip per base for the days within the forecast horizon (Open-Meteo forecast), climate normals per month otherwise (Open-Meteo historical data, cached at build); every money figure converts to the user's currency with "ECB rate of <date>" (Frankfurter). Both carry their attribution lines.
+
+## 1. Target repo layout and migration table (Revised: 1.1, 1.4)
+
+### 1.1 Target tree (Revised: catalog folders)
 
 ```
 travel/
@@ -72,7 +400,14 @@ travel/
     reference/                   countries.json (moved from _system/site/), currencies.json
     vocab/tags.json              shared tag vocabulary with aliases and kinds (style, activity, feature, audience, free)
     locations/                   locations.json (schema v2 -> v3 in P2), parts when split, WISHLIST.md (generated, private)
-    trails/                      <CC>.json trail catalogue rows; geo/<trail-id>.geojson geometry + profile; NOTICE-ODbL.md
+    catalog/                     the shared catalog beyond places (0A.1); one file per country per entity
+      trails/                    <CC>.json rows; geo/<trail-id>.geojson geometry + profile; NOTICE-ODbL.md
+      activities/  stays/  eateries/  offers/ (offers + offer_prices)  legs/  areas/ (area guides)
+      policy.json                auto-accept rules (0A.2)
+      freshness.json -> data/schema/src/freshness.json (policy lives with the schema)
+      coverage.json              generated (0A.3)
+      backlog.json               generated plus owner-added rows (0A.3)
+      changes/                   catalog_changes, one JSONL file per month (who, when, op, before, after)
     trips/<slug>/
       trip.json                  one file per trip (section 2)
       prose/                     day-NN.md, orientation.md, answer.md ... long prose kept as Markdown, referenced by id
@@ -160,7 +495,16 @@ Collision rule: a slug is served from `web/out/` only when `data/trips/<slug>/tr
 
 **Acceptance for P1 in one line:** `PUBLISH_DRY_RUN=1 ./publish.sh` produces a `.site/` tree whose file list and bytes equal the pre-move tree (diffed by a script), and `python3 -m pytest tools/tests -q` reports 109 passed.
 
-## 2. trip.json schema v1
+### 1.4 Revised: catalog layout and migration additions
+
+| Today | New | When | Note |
+|---|---|---|---|
+| `locations/` (places and geography) | `data/locations/` (unchanged from 1.2) | P1 | the places and geography partition of the catalog; name kept because the brief and the 109 tests use it |
+| (none) | `data/catalog/{trails,activities,stays,eateries,offers,legs,areas}/` | P2 creates empty files and schemas; P4 fills them by importing the Rockies and Patagonia | trails moved from the earlier `data/trails/` path |
+| Rockies `data/{sights,trails,adventures,bases,bookings}.json` | sights to `data/locations/` places, trails to `data/catalog/trails/`, adventures to `data/catalog/activities/` + `offers/`, bases to `data/catalog/stays/` (where a property is named), bookings to `offers/` + the trip's `trip_bookings` | P4 | through the ingestion path (0A.2), not by hand |
+| Patagonia PLAN.md tables | the same split | P4 | |
+
+## 2. trip.json schema v1 (Revised: references into the catalog, see 2.8)
 
 ### 2.1 Decisions
 
@@ -169,7 +513,7 @@ Collision rule: a slug is served from `web/out/` only when `data/trips/<slug>/tr
 | Folder or single file | **Folder per trip:** `data/trips/<slug>/trip.json` plus `prose/*.md` plus `gallery.json` | Structured facts in one JSON file make every operation atomic (one file read, one write, one validation). Long narrative (orientation, the answer first, day narrative) stays Markdown so diffs are readable and Opus can write it naturally; JSON points at it by path. The gallery already has its own contract and tool |
 | Row shape | Relational, the locations v2 pattern: the root holds named tables (arrays of flat rows with ids); nested objects only where the value is never filtered or joined | Maps one-to-one to D1 tables; the same validator rules (FK, unique, enums, contiguous positions) as locations |
 | Dates | **Season-based.** Days are `n` (0..N, 0 = travel day before Day 1); every date-like field is relative (`offset_days` from Day 1 of an edition) or a month list. Absolute dates exist only on `editions` | A plan survives a change of year; an edition resolves real dates, the countdown, the booking calendar and the conditions routine |
-| Trails | **A global catalogue** in `data/trails/`, referenced by trips through `trip_trails` | Geometry is heavy and reused (Chamonix, Dolomites and Switzerland share valleys; the Rockies trails will be reused by any later Rockies trip); "part of N plans" falls out of the join |
+| Trails | **A global catalogue** in `data/catalog/trails/`, referenced by trips through `trip_trails` | Geometry is heavy and reused (Chamonix, Dolomites and Switzerland share valleys; the Rockies trails will be reused by any later Rockies trip); "part of N plans" falls out of the join |
 | Adventures, bookings | Per trip | Prices, limits checked, and deadlines are trip-specific; an adventure may carry a `place_id` for cross-trip lists |
 | Ids | Trip id = slug (`^[a-z0-9]+(-[a-z0-9]+)*$`, not in the reserved list). Row ids are slugs unique within their table (`laguna-esmeralda`, `bk-piratour`), except days (`n`) and items (`d03-i02`, generated) | Human-readable, stable, matches the Rockies data today |
 | Provenance | Every row may carry `src` (array of `sources.id`) and `confidence` (`verified`, `stated`, `inference`, `gap`, `conflict`) | The plans already use VERIFIED / INFERENCE / GAP / CONFLICT in prose; this makes it filterable and lets the page render the same badges |
@@ -320,7 +664,7 @@ Check-in day = `night_from`, check-out day = `night_from + nights`; on the page 
 | optional | bool | no | rendered "(optional)"; excluded from the pace check |
 | title | text | no | |
 | place_id | text | yes | FK locations places |
-| trail_id | text | yes | FK data/trails; required when type = trail |
+| trail_id | text | yes | FK data/catalog/trails; required when type = trail |
 | adventure_id | text | yes | FK adventures |
 | base_id | text | yes | required when type = checkin or checkout |
 | booking_id | text | yes | FK bookings |
@@ -345,7 +689,7 @@ Travel legs are columns on the item they arrive at, so the order and the "does t
 
 | Column | Type | Null? | Rule |
 |---|---|---|---|
-| trail_id | text | no | FK `data/trails` id |
+| trail_id | text | no | FK `data/catalog/trails` id |
 | role | text | no | `track-a`, `track-b`, `track-c`, `optional`, `listed`, `rejected` |
 | alternative_of | text | yes | trail_id this replaces for family or less walking |
 | turnaround_rule | text | yes | "At Poincenot camp by 11:00 or turn back" |
@@ -353,7 +697,7 @@ Travel legs are columns on the item they arrive at, so the order and the "does t
 | kid_fit | text | no | `yes`, `strong-kid`, `no`, `unknown` (for this party) |
 | verdict | text | no | why in, why not |
 
-**Trail catalogue row** (`data/trails/<CC>.json`, table `trails`, PK `id`)
+**Trail catalogue row** (`data/catalog/trails/<CC>.json`, table `trails`, PK `id`)
 
 | Column | Type | Null? | Rule |
 |---|---|---|---|
@@ -386,7 +730,7 @@ Travel legs are columns on the item they arrive at, so the order and the "does t
 | src | json | no | source ids (in the trail file's own `sources` table) |
 | notes | text | no | `""` |
 
-**adventures** (PK `id`): the activity as planned. Its price, hard limits and booking terms live on the linked booking row (below), because that is the bookable product and every research agent writes bookings in one shape (section 7.4).
+**adventures** (PK `id`) (superseded in revision 2 by `trip_activities` plus the catalog `activity`, see 2.8): the activity as planned. Its price, hard limits and booking terms live on the linked booking row (below), because that is the bookable product and every research agent writes bookings in one shape (section 7.4).
 
 | Column | Type | Null? | Rule |
 |---|---|---|---|
@@ -402,7 +746,7 @@ Travel legs are columns on the item they arrive at, so the order and the "does t
 
 Fit is derived per traveller at an edition from the booking's limits: a traveller fails when their age, height or weight at the edition is outside a limit. The page shows "Fits all", "Not for Child (11)" or "Limits unknown". Heights and weights are private, so the public export carries only the verdict.
 
-**bookings** (PK `id`): every bookable or payable thing: adventure, tour, permit, parking reservation, hut, hotel or lodge, timed-entry ticket, ferry, rental car, restaurant, spa, flight, pass, insurance. Written by whichever research agent found it (section 7.4), consolidated by the bookings audit, edited by the owner.
+**bookings** (PK `id`) (superseded in revision 2: the product fields move to the catalog `offer`, the trip keeps `trip_bookings`, see 2.8; the computed book-by rule below is unchanged): every bookable or payable thing: adventure, tour, permit, parking reservation, hut, hotel or lodge, timed-entry ticket, ferry, rental car, restaurant, spa, flight, pass, insurance. Written by whichever research agent found it (section 7.4), consolidated by the bookings audit, edited by the owner.
 
 | Column | Type | Null? | Rule |
 |---|---|---|---|
@@ -480,7 +824,7 @@ The Timeline (section 4.5) lists bookings by resolved book-by date with a derive
 
 ### 2.4 Validation rules beyond the per-column ones
 
-**Structural (errors):** FKs inside the file and into `data/locations` and `data/trails`; contiguous `days.n` and `items.seq`; bases cover every night exactly once (no bases and no nights for a day trip); `trip.nights` equals the sum of `bases.nights` and matches `duration_shape`; an edition's length equals the day count; at most one chosen edition; every `src` id exists; every `research_refs.path` exists; `primary_style` in `trip_tags`; items of type `trail` have a `trail_id`, `checkin` and `checkout` have a `base_id`; `rolling-lead` bookings have `opens_lead_days`; a Plan B pointer targets a track `P` item on the same day.
+**Structural (errors):** FKs inside the file and into `data/locations` and `data/catalog/trails`; contiguous `days.n` and `items.seq`; bases cover every night exactly once (no bases and no nights for a day trip); `trip.nights` equals the sum of `bases.nights` and matches `duration_shape`; an edition's length equals the day count; at most one chosen edition; every `src` id exists; every `research_refs.path` exists; `primary_style` in `trip_tags`; items of type `trail` have a `trail_id`, `checkin` and `checkout` have a `base_id`; `rolling-lead` bookings have `opens_lead_days`; a Plan B pointer targets a track `P` item on the same day.
 
 **Day checks (`tools/data.py check-days`, the same function in TS for the editor; warnings, shown on the day in the editor and listed by `validate`)**, per day and per track (whole-group items are merged into each track's timeline):
 
@@ -615,6 +959,57 @@ What the day checks report on it: Track A active time is 30 + 12 + 540 + 8 + 90 
 
 **C. Day trip versus multi-day.** A day trip (`duration_shape = day-trip`, Niagara or the Elora Gorge write-ups) has `nights = 0`, no `bases`, exactly one day `n = 1`, the first item's leg starts at `trip.origin`, the last item is a `transfer` home, and an edition is optional (an undated day trip is "any Saturday in September": `season_months` only). Validation drops the base-coverage rule, the page drops Bases, Emergency per base and the T-90/T-60 Timeline buckets, and the research lanes drop stays, entry and fares (7.3).
 
+### 2.8 Revised: what trip.json keeps once the catalog exists
+
+The catalog entities and their common block are specified in 0A.1. This section lists the trip-side changes; everything else in 2.1-2.7 stands.
+
+**trip** gains:
+
+| Column | Type | Null? | Rule |
+|---|---|---|---|
+| owner_id | text | no | `u_owner` today |
+| visibility | text | no | `public`, `unlisted`, `private` |
+| generated_by | text | yes | `planner@<version>` when the builder made the first draft; null otherwise |
+| shared_with | json | no | `[]` today; actor ids later |
+
+**items** gains `activity_id`, `eatery_id`, `offer_id`, `leg_id` (FKs into the catalog) and `override` (json: catalog fields replaced for this trip only). The inline `leg_*` columns stay as the values actually used; when `leg_id` is set they default from the catalog leg and the validator warns if they differ by more than 20% without an override note.
+
+**bases** gains `stay_id` (FK catalog stays; nullable until a property is chosen).
+
+**trip_activities** (PK `activity_id`; replaces `adventures`)
+
+| Column | Type | Null? | Rule |
+|---|---|---|---|
+| activity_id | text | no | FK catalog activities |
+| day | int | yes | |
+| verdict | text | no | `in`, `optional`, `swap`, `cut` |
+| why | text | no | |
+| offer_id | text | yes | the product chosen when an activity has several (a combo with transfer, say) |
+
+**trip_bookings** (PK `id`; replaces `bookings`)
+
+| Column | Type | Null? | Rule |
+|---|---|---|---|
+| id | text | no | `bk-piratour` |
+| offer_id | text | yes | FK catalog offers; null only for one-off private arrangements (then `item` is required) |
+| item | text | yes | label when no offer |
+| used_days | json | no | |
+| book_by_offset | offset | yes | computed from the offer's window and sell-out (2.3 rule), editable |
+| book_by_basis | text | no | `computed`, `owner`, `inference` |
+| deadline_date | date | yes | absolute rules, bound to `edition_id` |
+| edition_id | text | yes | |
+| priority | text | no | `urgent`, `must`, `should`, `optional` |
+| status | text | no | `todo`, `held`, `booked`, `paid`, `walk-up`, `sold-out`, `cancelled`, `not-needed` |
+| price_paid | json | yes | money; x-private |
+| confirmation, contact | text | yes | x-private |
+| notes | text | no | |
+
+**catalog_changes** (catalog side, `data/catalog/changes/YYYY-MM.jsonl`): `seq`, `at` (datetime), `actor` (`{id, via}`), `entity`, `id`, `op` (`add`, `edit`, `merge`, `retire`, `verify`), `before` (json), `after` (json), `reason`, `proposal_id`, `sources`.
+
+**DDL notes.** Catalog tables carry no `trip_id`; trip tables carry `trip_id` and join to the catalog by FK. `owner_id` and `visibility` are indexed on `trips`. `field_meta` and `contributed_by` are JSON columns with `json_valid` checks; `status`, `last_verified` and `area_id` are scalar and indexed for coverage queries.
+
+**Example change (Patagonia Day 3).** `items[d03-s01].booking_id: "bk-piratour"` now points to `trip_bookings[bk-piratour]`, whose `offer_id` is `of-piratour-harberton-martillo` in `data/catalog/offers/AR.json`. That offer holds the provider, `book_url`, the GAP on minimum age, the season window "to 31 Mar (2026 pattern)" and a price snapshot `{amount: 140, currency: "USD", per: "adult", read: "2026-10-13", source: blog}`; the trip row holds only `used_days: [3]`, `book_by_offset: -88`, `priority: must`, `status: todo`. A second trip to Ushuaia reuses the offer and its snapshots.
+
 ## 3. Research spikes
 ### 3A. Trail geometry, metadata and difficulty normalisation
 
@@ -655,9 +1050,9 @@ Checked 2026-10-17. Probes were run live against the Waymarked Trails and Overpa
 
 1. `research-trails` writes `research/<slug>/trails.md` as today (claims with URLs), plus one row per trail in a structured block.
 2. For each trail it runs `tools/trails.py find --name "Laguna de los Tres" --near -49.33,-72.89` (Overpass bbox search, 5 km box, cached) and records the candidate `osm_relation` with its name, or `null` with the reason.
-3. `tools/trails.py fetch <trail-id>` pulls geometry by priority: agency dataset (when `geometry.source` is `parks-canada`, `nps`, `swisstopo`) then WMT relation then a hand-supplied GPX/GeoJSON in `research/<slug>/gpx/`. It writes `data/trails/geo/<trail-id>.geojson` (simplified) and the profile, and stamps `fetched` and `source_url`.
+3. `tools/trails.py fetch <trail-id>` pulls geometry by priority: agency dataset (when `geometry.source` is `parks-canada`, `nps`, `swisstopo`) then WMT relation then a hand-supplied GPX/GeoJSON in `research/<slug>/gpx/`. It writes `data/catalog/trails/geo/<trail-id>.geojson` (simplified) and the profile, and stamps `fetched` and `source_url`.
 4. `tools/trails.py check` validates: line length within 15% of stated km (warn), start within 300 m of the trailhead coordinates (warn), the profile present.
-5. The trail row in `data/trails/` is written through the shared operation `trail.upsert` (section 5), never by hand.
+5. The trail row in `data/catalog/trails/` is written through the shared operation `trail.upsert` (section 5), never by hand.
 
 #### Difficulty normalisation: the house scale
 
@@ -685,9 +1080,9 @@ When a local grade is missing, technical defaults to null and the house grade eq
 
 | Item | Size | Note |
 |---|---|---|
-| Geometry, simplified (Douglas-Peucker 5 m, 5 decimal places, about 1 m precision) | 8-25 KB raw for a 5-20 km trail, about a third gzipped | One file per trail: `data/trails/geo/<trail-id>.geojson` |
+| Geometry, simplified (Douglas-Peucker 5 m, 5 decimal places, about 1 m precision) | 8-25 KB raw for a 5-20 km trail, about a third gzipped | One file per trail: `data/catalog/trails/geo/<trail-id>.geojson` |
 | Profile, 200 samples `[distance_m, elevation_m]` | about 3 KB | Inside the same GeoJSON as a `properties.profile` array |
-| Metadata row | about 1.5 KB | In `data/trails/<country>.json` |
+| Metadata row | about 1.5 KB | In `data/catalog/trails/<country>.json` |
 
 The Rockies (62 trails) plus Patagonia (22) is about 1.5 MB raw in git. That is acceptable; a repo-size test fails if one geometry file passes 150 KB (resample harder).
 
@@ -695,7 +1090,7 @@ Obligations:
 
 | Licence | What we must do |
 |---|---|
-| ODbL (OSM, WMT) | Visible "© OpenStreetMap contributors" on every map and profile that shows OSM-derived lines (the map attribution control does this when the source declares it); the stored GeoJSON in git is a derivative database, so the repo's `data/trails/geo/` carries an ODbL notice file and the public `/data/` download of trail lines must stay ODbL. Keep per-file `source` and `source_id` so attribution can be generated. |
+| ODbL (OSM, WMT) | Visible "© OpenStreetMap contributors" on every map and profile that shows OSM-derived lines (the map attribution control does this when the source declares it); the stored GeoJSON in git is a derivative database, so the repo's `data/catalog/trails/geo/` carries an ODbL notice file and the public `/data/` download of trail lines must stay ODbL. Keep per-file `source` and `source_id` so attribution can be generated. |
 | OGL-Canada | Attribution string "Contains information licensed under the Open Government Licence - Canada" on trail pages using Parks Canada lines |
 | opendata.swiss "open use, must provide the source" | Source line "Source: FEDRO / SchweizMobil" |
 | NPS (US federal) | No obligation; credit anyway |
@@ -749,7 +1144,7 @@ Checked 2026-10-17.
 | Auth for a single owner | Cloudflare Access can protect a hostname or path with email one-time PIN and issue service tokens (headers `CF-Access-Client-Id`, `CF-Access-Client-Secret`) | Writes and `/mcp` sit behind Access. The browser signs in with a PIN; Claude Code uses a service token passed as headers in `claude mcp add --header ...`, the secret kept in the OS keychain, never in Claude settings. The Worker also checks the `Cf-Access-Jwt-Assertion` header itself (defence in depth) |
 | D1 to git export | A Worker cron cannot run our Python tests or push to git without holding a GitHub write token | A scheduled **GitHub Action** (nightly, plus manual dispatch) calls `GET /api/v1/export` with a read token, writes `data/`, runs `tools/data.py validate` and the full test suite, and opens a PR `data: D1 export <date>`. Git history stays the audit log and nothing reaches `main` that fails a test |
 
-## 4. Web app information architecture
+## 4. Web app information architecture (Revised: 4.11)
 
 ### 4.1 Routes
 
@@ -762,7 +1157,7 @@ Checked 2026-10-17.
 | `/<slug>/edit/` | Trip editor (forms, 4.7); rendered in the export but only active when an API is reachable | same | P5 (local), Phase 2 (hosted) |
 | `/places/` | Places list, four views (replaces `/locations/`) | `data/locations` | P3 |
 | `/places/<CC>/<region>/<area>/<place>/` | Place page: map, stats, sources, "part of N plans", research links (owner-only) | same | P3 |
-| `/trails/`, `/trails/<id...>/` | Trails list and trail page (map, profile, badge, source links) | `data/trails` | P5 |
+| `/trails/`, `/trails/<id...>/` | Trails list and trail page (map, profile, badge, source links) | `data/catalog/trails` | P5 |
 | `/adventures/` | Adventures across trips, with limits and fit | all trips | P5 |
 | `/bookings/` | Every booking across trips as a Timeline and the four views | all trips with a chosen edition | P5 |
 | `/globe/` | The globe (4.6) | `data/locations`, trips, `web/public/geo/` | P6 |
@@ -958,6 +1353,22 @@ Trip pages are used at trailheads with no signal. The static export already give
 | Print stylesheet | `base.css` print rules | `/<slug>/print/` |
 | KML/CSV/GPX downloads | `assets/` | generated downloads per trip and day |
 
+### 4.11 Revised: catalog browsing, coverage and the builder UI
+
+| Route | What | Phase |
+|---|---|---|
+| `/activities/`, `/stays/`, `/eateries/`, `/offers/` | catalog lists in the four views, each from a descriptor (4.2); facets add `comfort`, `price_tier`, `adventure_level`, `accessibility`, `fresh` (fresh, aging, stale) and `status` (raw, proposed, verified, stale) | P5 |
+| `/areas/<CC>/<region>/<area>/` | area guide: summary, best months, getting there, hidden gems, coverage band and per-type counts, the area's backlog (owner) | P5 |
+| `/plan/new/` | the no-AI builder (0A.5): inputs, sliders, live counts, the draft preview with explanations; "Save draft" stores the trip in the browser (Phase 1) or D1 (Phase 2); "Open in editor" | P7 |
+| `/review/` | the proposal queue (0A.2): grouped by area and entity, each change with its diff, sources and "accept", "reject", "edit then accept" | P4 (local), Phase 2 (hosted) |
+| `/backlog/` | the research backlog as a table view (owner) | P5 |
+
+UI rules added by the catalog:
+- Every catalog row in a detail sheet shows provenance in one line ("Verified 13 Oct 2026 by agent:research-adventure from the operator page; price read 13 Oct 2026") and a freshness badge on fast-expiring fields.
+- Editing a catalog fact from a trip asks once: "Change it for everyone" (`catalog.edit`, attributed) or "Only for this trip" (`override`).
+- A "Report outdated" action on any field creates a backlog item with reason `stale`.
+- Coverage bands appear on area pages, in the builder before it plans, and as a globe layer.
+
 ## 5. One operation set: UI, API, MCP, skills
 
 ### 5.1 The rule
@@ -1071,7 +1482,7 @@ Generated: each operation in `ops.json` may carry `"mcp": {"tool": "<name>", "ph
 
 Seven dedicated write tools plus one generic one keeps the tool list short enough for an agent's context while the common edits still get a typed schema.
 
-## 6. Phases
+## 6. Phases (Revised: 6.1)
 
 Each phase is sized for one Sonnet coding agent, a branch, a PR, verified and merged before the next dependent phase starts (house rules: Opus plans, Sonnet codes; new branch per piece of work; rebase onto main before the PR; push after each verified commit group). All commands use absolute paths because agent shells reset their working directory.
 
@@ -1159,7 +1570,7 @@ cd /home/nitin27may/workspace/travel && PUBLISH_DRY_RUN=1 ./publish.sh && python
 
 ### P4. Trip schema in use: ops, import Patagonia and the Rockies
 
-Owns: `web/lib/ops/**`, `web/bin/ops.ts`, `web/bin/serve-data.ts`, `data/trips/patagonia-feb-mar-2027/**`, `data/trips/canadian-rockies-sept-2029/**`, `data/trails/**` (rows for both trips, geometry later), `research/trips/<both>/**` (sidecars generated from existing research), `tools/sun.py`, `tools/links.py`, `tools/anchors.py`, `tools/shots.py`, `tools/research.py`, `tools/lanes.py`, `.claude/skills/trip-import/`, related tests.
+Owns: `web/lib/ops/**`, `web/bin/ops.ts`, `web/bin/serve-data.ts`, `data/trips/patagonia-feb-mar-2027/**`, `data/trips/canadian-rockies-sept-2029/**`, `data/catalog/trails/**` (rows for both trips, geometry later), `research/trips/<both>/**` (sidecars generated from existing research), `tools/sun.py`, `tools/links.py`, `tools/anchors.py`, `tools/shots.py`, `tools/research.py`, `tools/lanes.py`, `.claude/skills/trip-import/`, related tests.
 
 Steps: implement the operations and the file store; the ops CLI; `trip-import` (Opus maps PLAN.md sections and Rockies `data/*.json` to a proposal; Sonnet runs it); sidecars for the existing research files; apply; day checks; `sun.py` and friends.
 
@@ -1207,7 +1618,22 @@ Acceptance: same drill paths, labels and pin counts as `legacy/globe/` (parity t
 | 2D | Inbox endpoint, iOS Shortcut, `/inbox/` review queue; `place.*` ported to TS |
 | 2E | Hosted editor enabled on the deployed site; saved views in D1 |
 
-## 7. Skills, agents, hooks and gates
+### 6.1 Revised: phase changes for the catalog, the flywheel and the builder
+
+| Phase | Change |
+|---|---|
+| P1 | unchanged; `data/catalog/` does not exist yet |
+| **P2 (widened)** | must land before any app code depends on it: the catalog entity schemas (0A.1) with the common block, `field_meta`, `status`, `licence`; `freshness.json`; `owner_id`, `visibility`, `actor` envelope on operations; catalog id patterns and the merge rule for ids (`merged_from`); `catalog_changes`; the `trip_activities` and `trip_bookings` shapes (2.8); parity tests extended. Acceptance adds: every catalog table loads in SQLite with FKs; an operation without `actor` is rejected |
+| P3 | unchanged, plus the `fresh` and `status` facets in the place descriptor |
+| **P4 (widened)** | the ingestion pipeline lands here, because the import uses it: `tools/catalog.py` (normalise, match, merge, propose, apply, freshness, coverage), `catalog.*` operations, `policy.json` auto-accept rules, `/review/` working against the local server. Both imports go through it; acceptance adds: re-running the Rockies import is a no-op proposal (idempotent); a deliberately duplicated place is detected as a possible duplicate; coverage for Banff, Lake Louise, Jasper, El Chalten and Ushuaia is computed and stored |
+| P5 | adds the catalog list routes, area pages, provenance lines, "change for everyone or this trip", the backlog view, deep links with dates and party (0A.6), Open-Meteo and Frankfurter widgets |
+| P6 | adds the coverage layer on the globe |
+| **P7 (new) No-AI trip builder** | `web/lib/planner/` (pure TS), `/plan/new/`, sliders, explanations, thin-coverage handling. **Starts only when** the Canadian Rockies and Patagonia both reach the good band for their styles in `coverage.json`. Acceptance: the same inputs give byte-identical drafts; every draft passes the day checks or carries an explained accepted warning; a 7-day "Banff, September, family with a 6-year-old, active-nature, pace 3" draft uses only kid-fit rows and stays within the walking ceiling; a thin area produces free days and backlog items, never invented rows; property tests over random inputs never exceed ceilings |
+| Phase 2 | adds hosted review, `user-request` backlog items (if D17 opens it to others), and per-user ownership checks switched on |
+
+**Deliberately deferred:** accounts and sign-up (D17, D21), public contributions to the catalog (D19), live price APIs beyond weather and FX (D20), bring-your-own-key agent runs (D22), a routing API for legs (D13).
+
+## 7. Skills, agents, hooks and gates (Revised: 7.6)
 
 ### 7.1 Skills (`.claude/skills/`)
 
@@ -1289,7 +1715,19 @@ When an agent cannot find the booking window it writes `opens_kind: "unknown"` a
 | Freshness (in `validate`, warning) | always | prices read over 180 days ago on a trip whose chosen edition is within 120 days; `opens_kind unknown` with book-by within 30 days; a sidecar older than the trip's last edit for a lane marked stale | warning on the page and in the editor |
 | Privacy (test) | build | the export contains none of the `x-private` fields, no `research/`, `inbox/` or `screenshot` strings, no traveller heights or weights | test fails |
 
-## 8. Risks, gotchas, owner decisions (ranked)
+### 7.6 Revised: agents and skills write to the catalog
+
+| Change | Detail |
+|---|---|
+| Sidecar `records` | now target catalog entities (places, trails, activities, stays, eateries, offers with `offer_prices`, legs, area-guide facts); the shared booking shape of 7.4 becomes the catalog `offer` plus its price snapshots |
+| Order in `trip-planner` | lanes, then the bookings audit, then `catalog.propose` and review (auto-accept rules apply), then the plan synthesis, which references catalog ids |
+| New skill `catalog-review` | walks the proposal queue with the owner: possible duplicates first, conflicts next, then the rest; applies with explicit ids |
+| New mode `trip-research --backlog` | works the research backlog by priority (0A.3) |
+| `trip-edit` | asks "for everyone or only this trip" on fact changes and calls `catalog.edit` or writes an `override` |
+| `trip-fares` | owner-only (actor check); writes route-window snapshots into the catalog |
+| New hook check | a Claude write to `data/catalog/**` validates the entity schema and refuses deletions (deletion is `catalog.retire`, confirmed by the owner, per the house rule on deletions) |
+
+## 8. Risks, gotchas, owner decisions (ranked) (Revised: 8.3)
 
 ### 8.1 Risks and gotchas
 
@@ -1320,7 +1758,7 @@ When an agent cannot find the booking window it writes `opens_kind: "unknown"` a
 
 | # | Decision | Recommendation | Blocks |
 |---|---|---|---|
-| D1 | Trails as a global catalogue (`data/trails/`, ids in the place hierarchy) rather than per trip | yes | P2 |
+| D1 | Trails as a global catalogue (`data/catalog/trails/`, ids in the place hierarchy) rather than per trip | yes | P2 |
 | D2 | Next.js 16 instead of the brief's 15 | 16 | P3 |
 | D3 | App plan pages keep `/<slug>/` (no redirect) rather than move to `/trips/<slug>/` | keep `/<slug>/` | P3 |
 | D4 | Is `github.com/nitin27may/travel` private? Traveller ages, heights and booking confirmations would be in git | keep it private; if public, private fields move to a gitignored `data/private/` overlay | P2 |
@@ -1336,6 +1774,58 @@ When an agent cannot find the booking window it writes `opens_kind: "unknown"` a
 | D14 | The custom domain name, and when | choose before Phase 2 | Phase 2 host move |
 | D15 | Migration order for the other 13 legacy trips after the first two | by next travel date: Costa Rica (Feb 2027), Dolomites, Iceland, Chamonix, Norway, then the rest; past trips last or never | after P5 |
 | D16 | Should public plan pages be indexed by search engines | `noindex` on plan pages, index the lists | P3 |
+
+### 8.3 Revised: added risks and decisions
+
+Added risks:
+
+| # | Risk | Likelihood / impact | Mitigation |
+|---|---|---|---|
+| R21 | Bad merges corrupt the catalog (two different "Mirador" viewpoints merged) | medium / high | possible duplicates always go to review; merges keep `merged_from` and are reversible from `catalog_changes` |
+| R22 | Auto-accept lets agent errors into `verified` | medium / medium | auto-accept only for additions with an official or operator source; `verified_by: agent:*` is shown, and the owner can filter for it |
+| R23 | Copied text from blogs or operators slips into summaries | medium / medium | sidecars carry facts and links; a test flags summaries with long overlaps against cited source snippets kept in research |
+| R24 | The builder's drafts look authoritative where data is thin | high / medium | coverage band shown before planning; free days instead of filler; explanations per item |
+| R25 | Open-Meteo's free tier is non-commercial; a move to ads or subscriptions (D17) breaks the terms | low now / medium | the decision explicitly includes the weather licence |
+| R26 | Unofficial deep-link formats (Google Flights `q=` or `tfs`, Skyscanner, Kayak) change | high / low | link tests in P5; fall back to the provider's search page with the destination only |
+| R27 | Booking.com and Viator affiliate terms constrain how links and data are shown, or bar AI use | medium / medium | no affiliate sign-up until D20; read the terms before any integration |
+
+Added decisions, and the ranking of all 22 by what they block (numbers kept so earlier references stay valid):
+
+| # | Decision | Recommendation | Blocks |
+|---|---|---|---|
+| D17 | Stay a personal tool with an open-data catalog, or become a multi-user product | personal tool with a public catalog for now; the schema is ready either way | P2 visibility defaults, Phase 2 auth |
+| D18 | Catalog licence | ODbL for the whole catalog (0A.4) | P3 (publishing `/data/catalog/*.json`) |
+| D19 | Who can edit the catalog | owner and owner's agents now; others only through proposals, if D17 opens it | Phase 2 |
+| D20 | Sign up for free affiliate programmes (Travelpayouts for cached fares, Viator Basic Access for activity links) | not before P5 ships deep links; then Travelpayouts only if the "typical fare" hint is wanted | P5 optional widgets |
+| D21 | Auth path beyond one owner | Cloudflare Access with an email allow-list; Auth.js if D17 says product | Phase 2 |
+| D22 | Bring-your-own-key agent runs for other users | no until D17 | none now |
+
+| Rank | Decision | Blocks |
+|---|---|---|
+| 1 | D1 trails (now catalog) as global entities | P2 |
+| 2 | D4 repo private | P2 |
+| 3 | D17 personal tool or product | P2 defaults |
+| 4 | D2 Next.js 16 | P3 |
+| 5 | D3 plan URLs at `/<slug>/` | P3 |
+| 6 | D18 catalog licence | P3 data downloads |
+| 7 | D8 research namespace | P1 |
+| 8 | D6 citizenship field | P2 |
+| 9 | D7 style vocabulary | P2 |
+| 10 | D16 indexing | P3 |
+| 11 | D5 local editor in Phase 1 | P5 |
+| 12 | D12 Maps Embed key | P5 |
+| 13 | D10 offline cache size | P5 |
+| 14 | D20 affiliate sign-ups | P5 optional |
+| 15 | D15 migration order | after P5 |
+| 16 | D11 capture signals | section 9 |
+| 17 | D19 who edits the catalog | Phase 2 |
+| 18 | D21 auth path | Phase 2 |
+| 19 | D13 routing API | Phase 2 |
+| 20 | D14 custom domain | Phase 2 |
+| 21 | D9 Outdooractive or Komoot partner | none |
+| 22 | D22 bring-your-own-key | none |
+
+D8 ranks below the P2 blockers only because its recommendation can be applied by default in P1; if the owner disagrees it must be answered before P1 starts.
 
 ## 9. Capture pipeline: saved social posts and phone share
 
@@ -1589,6 +2079,20 @@ Cloudflare
 - Remote MCP servers on Workers: https://developers.cloudflare.com/agents/guides/remote-mcp-server/ ; build an MCP server: https://developers.cloudflare.com/agents/guides/build-mcp-server
 - Cloudflare Access service tokens and the `Cf-Access-Jwt-Assertion` header: from Cloudflare One documentation, not re-checked for this plan
 
+Revision 2 (prices, live data, licences; checked 2026-10-17)
+- Amadeus self-service shutdown (17 Jul 2026): https://www.phocuswire.com/amadeus-shut-down-self-service-apis-portal-developers (search summary; the page returned 403 to a direct fetch) ; https://apis.io/plans/amadeus/amadeus-plans-pricing/
+- Kiwi Tequila (third-party sources only): https://ignav.com/docs/kiwi-tequila-alternative ; https://www.vervotech.com/hub/integrations/tequila-api/
+- Skyscanner partner access (third-party sources): https://supergood.ai/api-report-card/skyscanner-api ; https://www.travelpayouts.com/blog/no-more-skyscanner-api-and-white-label/amp/
+- Travelpayouts Aviasales Data API: https://support.travelpayouts.com/hc/en-us/articles/203956163 ; requirements: https://support.travelpayouts.com/hc/en-us/articles/203956083-Requirements-for-Aviasales-data-API-access
+- Booking.com Demand API prerequisites: https://developers.booking.com/demand/docs/getting-started/prerequisites ; partner terms note: https://vorplabs.com/agent-tools/booking-demand-api
+- Viator Partner API: https://docs.viator.com/partner-api/ ; https://partnerresources.viator.com/travel-commerce/technical-guide/
+- GetYourGuide Partner API spec: https://github.com/getyourguide/partner-api-spec ; https://supergood.ai/api-report-card/getyourguide
+- Frankfurter: https://frankfurter.dev
+- Open-Meteo terms (fetched): https://open-meteo.com/en/terms
+- geoBoundaries licence caveat (geobounds R package COPYRIGHTS): https://stat.ethz.ch/CRAN/web/packages/geobounds/COPYRIGHTS
+- Google Flights URL formats (unofficial, vendor blog): https://scrapegraphai.com/blog/google-flights-api ; Google Maps URLs: https://developers.google.com/maps/documentation/urls (not re-checked)
+- `_system/site/GLOBE-RESEARCH.md` for the globe's boundary sources (Natural Earth, geoBoundaries gbOpen)
+
 Repo inputs: `CLAUDE.md`, `AUDIT-2026-10-16.md` 2.1-2.5, `_system/site/PLAN-locations-g5.md`, `_system/site/GLOBE-RESEARCH.md`, `locations/README.md`, `locations/locations.json`, `patagonia-feb-mar-2027/PLAN.md`, `patagonia-feb-mar-2027/research/fares-window-compare.md`, `canadian-rockies-sept-2029/data/*.json`, `globe/index.html`, `_system/base.js`, `publish.sh`, `research/vault-notes/**`, and the fares method memory note (2026-10-14).
 
 ### Change log
@@ -1596,3 +2100,4 @@ Repo inputs: `CLAUDE.md`, `AUDIT-2026-10-16.md` 2.1-2.5, `_system/site/PLAN-loca
 | Date | Change |
 |---|---|
 | 2026-10-17 | First draft: brief plus addenda 1-4 folded in |
+| 2026-10-17 | Revision 2: section 0A (catalog, flywheel, coverage, multi-user readiness, no-AI builder, prices and live data); revised 1.1, 1.4, 2.8, 4.11, 6.1, 7.6, 8.3; trails path moved to `data/catalog/trails/` |
