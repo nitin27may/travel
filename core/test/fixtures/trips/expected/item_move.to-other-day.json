@@ -1,0 +1,25 @@
+{
+  "summary": "Moved item d05-i01 to day 6 position 1",
+  "changed": [
+    "d05-i01"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_NO_COORDS /items/2",
+    "W_NO_COORDS /items/3",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"d05-i01\",\"day\":5,\"track\":null,\"seq\":1,\"start\":\"09:00\",\"window_start\":null,\"window_end\":null,\"tz\":null,\"duration_min\":60,\"type\":\"sight\",\"optional\":false,\"pinned\":false,\"title\":\"Mirador\",\"place_id\":null,\"trail_id\":null,\"activity_id\":null,\"eatery_id\":null,\"custom_item_id\":null,\"base_id\":null,\"booking_id\":null,\"lat\":null,\"lon\":null,\"address\":null,\"leg_id\":null,\"leg_mode\":null,\"leg_km\":null,\"leg_minutes\":null,\"leg_basis\":null,\"leg_notes\":\"\",\"cost_amount\":null,\"cost_currency\":null,\"cost_per\":null,\"open_from\":null,\"open_to\":null,\"closed_weekdays\":[],\"needs_daylight\":false,\"plan_b_item_id\":null,\"override\":null,\"notes\":\"\",\"links\":[]}",
+        "{\"id\":\"d05-i02\",\"day\":5,\"track\":null,\"seq\":2,\"start\":\"11:00\",\"window_start\":null,\"window_end\":null,\"tz\":null,\"duration_min\":60,\"type\":\"sight\",\"optional\":false,\"pinned\":false,\"title\":\"Lunch\",\"place_id\":null,\"trail_id\":null,\"activity_id\":null,\"eatery_id\":null,\"custom_item_id\":null,\"base_id\":null,\"booking_id\":null,\"lat\":null,\"lon\":null,\"address\":null,\"leg_id\":null,\"leg_mode\":null,\"leg_km\":null,\"leg_minutes\":null,\"leg_basis\":null,\"leg_notes\":\"\",\"cost_amount\":null,\"cost_currency\":null,\"cost_per\":null,\"open_from\":null,\"open_to\":null,\"closed_weekdays\":[],\"needs_daylight\":false,\"plan_b_item_id\":null,\"override\":null,\"notes\":\"\",\"links\":[]}"
+      ],
+      "added": [
+        "{\"id\":\"d05-i02\",\"day\":5,\"track\":null,\"seq\":1,\"start\":\"11:00\",\"window_start\":null,\"window_end\":null,\"tz\":null,\"duration_min\":60,\"type\":\"sight\",\"optional\":false,\"pinned\":false,\"title\":\"Lunch\",\"place_id\":null,\"trail_id\":null,\"activity_id\":null,\"eatery_id\":null,\"custom_item_id\":null,\"base_id\":null,\"booking_id\":null,\"lat\":null,\"lon\":null,\"address\":null,\"leg_id\":null,\"leg_mode\":null,\"leg_km\":null,\"leg_minutes\":null,\"leg_basis\":null,\"leg_notes\":\"\",\"cost_amount\":null,\"cost_currency\":null,\"cost_per\":null,\"open_from\":null,\"open_to\":null,\"closed_weekdays\":[],\"needs_daylight\":false,\"plan_b_item_id\":null,\"override\":null,\"notes\":\"\",\"links\":[]}",
+        "{\"id\":\"d05-i01\",\"day\":6,\"track\":null,\"seq\":1,\"start\":\"09:00\",\"window_start\":null,\"window_end\":null,\"tz\":null,\"duration_min\":60,\"type\":\"sight\",\"optional\":false,\"pinned\":false,\"title\":\"Mirador\",\"place_id\":null,\"trail_id\":null,\"activity_id\":null,\"eatery_id\":null,\"custom_item_id\":null,\"base_id\":null,\"booking_id\":null,\"lat\":null,\"lon\":null,\"address\":null,\"leg_id\":null,\"leg_mode\":null,\"leg_km\":null,\"leg_minutes\":null,\"leg_basis\":null,\"leg_notes\":\"\",\"cost_amount\":null,\"cost_currency\":null,\"cost_per\":null,\"open_from\":null,\"open_to\":null,\"closed_weekdays\":[],\"needs_daylight\":false,\"plan_b_item_id\":null,\"override\":null,\"notes\":\"\",\"links\":[]}",
+        "{\"seq\":4,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"item.move\",\"summary\":\"Moved item d05-i01 to day 6 position 1\",\"refs\":[\"d05-i01\"]}"
+      ]
+    }
+  }
+}

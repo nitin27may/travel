@@ -1,0 +1,20 @@
+{
+  "summary": "Adopted Niagara Falls (status planned, trip patagonia-fixture); queued as a stop candidate",
+  "changed": [
+    "CA/ON/niagara/niagara-falls",
+    "q-stop-niagara-falls"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"q-stop-niagara-falls\",\"text\":\"Stop candidate: Niagara Falls (CA/ON/niagara/niagara-falls). Research it and place it in the days.\",\"status\":\"open\",\"answer\":null,\"asked\":\"2026-10-17\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"trip.adopt_place\",\"summary\":\"Adopted Niagara Falls (status planned, trip patagonia-fixture); queued as a stop candidate\",\"refs\":[\"CA/ON/niagara/niagara-falls\"]}"
+      ]
+    }
+  }
+}

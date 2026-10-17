@@ -1,0 +1,24 @@
+{
+  "summary": "Chose edition e2028 (e2027 back to candidate)",
+  "changed": [
+    "e2028",
+    "e2027"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"e2027\",\"label\":\"Feb-Mar 2027\",\"year\":2027,\"start\":\"2027-02-26\",\"end\":\"2027-03-07\",\"status\":\"chosen\",\"why\":\"Penguins a week earlier, walking ramps up\",\"fare_window_id\":\"fw-2027\",\"conditions_trigger\":null}",
+        "{\"id\":\"e2028\",\"label\":\"Feb-Mar 2028\",\"year\":2028,\"start\":\"2028-02-25\",\"end\":\"2028-03-05\",\"status\":\"candidate\",\"why\":\"Next year\",\"fare_window_id\":null,\"conditions_trigger\":null}"
+      ],
+      "added": [
+        "{\"id\":\"e2027\",\"label\":\"Feb-Mar 2027\",\"year\":2027,\"start\":\"2027-02-26\",\"end\":\"2027-03-07\",\"status\":\"candidate\",\"why\":\"Penguins a week earlier, walking ramps up\",\"fare_window_id\":\"fw-2027\",\"conditions_trigger\":null}",
+        "{\"id\":\"e2028\",\"label\":\"Feb-Mar 2028\",\"year\":2028,\"start\":\"2028-02-25\",\"end\":\"2028-03-05\",\"status\":\"chosen\",\"why\":\"Next year\",\"fare_window_id\":null,\"conditions_trigger\":null}",
+        "{\"seq\":3,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"edition.choose\",\"summary\":\"Chose edition e2028 (e2027 back to candidate)\",\"refs\":[\"e2028\",\"e2027\"]}"
+      ]
+    }
+  }
+}

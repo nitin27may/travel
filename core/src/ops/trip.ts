@@ -1,7 +1,7 @@
 // Trip-level operations (plan 5.3): trip.create, trip.update, trip.restore here; the rest in the files beside it.
-import { emptyTrip, patchRow, rows } from "./helpers.ts";
+import { clone, emptyTrip, patchRow, rows, upsertRow } from "./helpers.ts";
 import { OpError, tripPath } from "./types.ts";
-import type { WriteOp } from "./types.ts";
+import type { Row, WriteOp } from "./types.ts";
 
 export const TRIP_OPS: Record<string, WriteOp> = {
   "trip.create": {
@@ -52,6 +52,55 @@ export const TRIP_OPS: Record<string, WriteOp> = {
       }
       if (changed.length === 0) throw new OpError("E_NOOP", "trip.update needs at least one of trip, profile or travellers.");
       return { changed, summary: `Updated ${changed.map((c) => c.split(":")[0]).join(", ")}`, refs: [i.slug] };
+    },
+  },
+
+  "trip.copy": {
+    slug: (i) => i.new_slug,
+    async paths(i) {
+      return [tripPath(i.from_slug)];
+    },
+    apply(ws, i, ctx) {
+      if (i.from_slug === i.new_slug) throw new OpError("E_EXISTS", "trip.copy needs a new slug that differs from the source.");
+      if (ws.has(tripPath(i.new_slug))) throw new OpError("E_EXISTS", `trip "${i.new_slug}" already exists. Pick another slug.`);
+      const src = ws.trip(i.from_slug);
+      const doc = emptyTrip(i.new_slug, ctx.today);
+      const keep = (t: string) => (doc[t] = clone(rows(src, t)));
+      doc.trip = {
+        ...clone(src.trip), slug: i.new_slug, title: `${src.trip.title} (copy)`, status: "idea", web_published: false, visibility: "private",
+        shared_with: [], generated_by: null, legacy_url: null, created: ctx.today,
+      };
+      doc.profile = clone(src.profile);
+      // references only: no ages, heights, weights or citizenship
+      doc.travellers = rows(src, "travellers").map((t) => ({ ...clone(t), age_years: null, age_as_of: null, height_cm: null, weight_kg: null, fitness: null, citizenship: [], notes: "" }));
+      for (const t of ["trip_tags", "bases", "days", "day_tracks", "trip_trails", "trip_activities", "custom_items", "routes", "hazards", "weather_rules", "documents", "emergency", "packing", "knowledge", "questions", "gotchas", "research_refs", "sources", "fx"]) keep(t);
+      doc.editions = []; // no edition: dates belong to a trip that is actually going
+      // bookings stay as references to offers, back to todo, with nothing private
+      doc.trip_bookings = rows(src, "trip_bookings").map((b) => ({
+        ...clone(b), status: "todo", edition_id: null, deadline_date: null, price_paid_amount: null, price_paid_currency: null, confirmation: null, contact: null,
+      }));
+      doc.budget = rows(src, "budget").map((b) => ({ ...clone(b), fare_window_id: null }));
+      doc.items = (i.include as string[]).includes("items") ? clone(rows(src, "items")) : [];
+      doc.notes = (i.include as string[]).includes("notes") ? clone(rows(src, "notes")).filter((n: Row) => n.visibility === "shared") : [];
+      ws.set(tripPath(i.new_slug), doc);
+      return { changed: [i.new_slug], summary: `Copied ${i.from_slug} to ${i.new_slug} (references only${(i.include as string[]).length ? `, with ${(i.include as string[]).join(" and ")}` : ""})`, refs: [i.new_slug, i.from_slug] };
+    },
+  },
+
+  "trip.adopt_place": {
+    places: (i) => [i.place_id],
+    apply(ws, i, ctx) {
+      const doc = ws.trip(i.slug);
+      const place = ctx.places.get(i.place_id);
+      if (!place) throw new OpError("E_NOT_FOUND", `no place "${i.place_id}" in the laundry list. Use search to find its id.`);
+      ctx.placeEdits.push({ id: place.id, status: "planned", trip: i.slug, prev: { status: place.status, trip: place.trip } });
+      // the trip's research queue is its open questions: one per stop candidate
+      const qid = `q-stop-${place.id.split("/").pop()}`;
+      const added = !rows(doc, "questions").some((q) => q.id === qid);
+      if (added) {
+        upsertRow(doc, "questions", { id: qid, text: `Stop candidate: ${place.name} (${place.id}). Research it and place it in the days.`, status: "open", answer: null, asked: ctx.today });
+      }
+      return { changed: [place.id, ...(added ? [qid] : [])], summary: `Adopted ${place.name} (status planned, trip ${i.slug})${added ? "; queued as a stop candidate" : ""}`, refs: [place.id] };
     },
   },
 

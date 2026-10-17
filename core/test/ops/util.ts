@@ -88,7 +88,7 @@ export async function check(name: string, input: Record<string, unknown>, o: Che
   const store = o.store ?? newStore();
   const tripFile = o.tripPath ?? TRIP_PATH;
   const paths = [tripFile, ...(o.files ?? [])];
-  const before = Object.fromEntries(paths.map((p) => [p, store.text(p)]));
+  const before: Record<string, string | null> = { ...Object.fromEntries(paths.map((p) => [p, null])), ...store.snapshot() };
   const res = await run(store, name, input, o.backend);
   if (!res.ok) throw new Error(`${name} failed: ${JSON.stringify(res)}`);
   const r = res as WriteOk;
