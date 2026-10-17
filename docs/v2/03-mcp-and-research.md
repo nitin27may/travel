@@ -63,7 +63,7 @@ Every tool's input is a Zod schema exported as JSON Schema; every output is comp
 
 ## 3. Auth for MCP clients
 
-- Remote MCP over Streamable HTTP at `/mcp`, OAuth 2.1 with PKCE via Better Auth's MCP plugin.
+- Remote MCP over Streamable HTTP at `/mcp` (through the Cloudflare Tunnel), OAuth 2.1 with PKCE via Supabase Auth's OAuth 2.1 server, with personal access tokens as the fallback (08-self-hosted.md section 5; mcp/README.md).
   Clients register by **Client ID Metadata Documents** (the newer MCP profile) or, where a client still
   needs it, dynamic client registration, which we switch on deliberately.
 - The consent screen names the client and the scopes in plain words ("Claude will be able to read

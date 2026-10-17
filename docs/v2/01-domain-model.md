@@ -89,9 +89,9 @@ This is all the graph the product needs; see 04-stack.md for why it is not a gra
 
 ### 2.6 `media`
 
-Entity, storage (Commons URL or an R2 key), width, height, licence, author, attribution text, source
+Entity, storage (Commons URL or a Supabase Storage key), width, height, licence, author, attribution text, source
 URL, caption, role (hero, gallery, map, user), status (proposed, approved, hidden), perceptual hash to
-catch duplicates. Commons is linked (their thumbnails), not copied; user uploads go to R2.
+catch duplicates. Commons is linked (their thumbnails), not copied; user uploads go to Supabase Storage.
 
 ### 2.7 `leg_cache`
 

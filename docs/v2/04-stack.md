@@ -1,5 +1,14 @@
 # 04. Stack and architecture: the decisions, argued
 
+> **Current stack (working draft, 17 Oct 2026).** Sections 1.1-1.9 are the reasoning record and still
+> describe Neon, Better Auth, Vercel and Cloudflare Workers; **08-self-hosted.md replaced those.** Today:
+> self-hosted Supabase (Postgres + PostGIS, Auth with OAuth 2.1 for MCP, Realtime, Storage) on the home
+> server or Supabase Cloud; Next.js 16 with Hono at `/api` and `/mcp`, in a container; a Node worker
+> container (reminders, jobs, email import, backups); Cloudflare Tunnel for public HTTPS. Section 2's rows
+> for language, Zod, Drizzle, the operation layer, UI kit, client data, dnd-kit, fractional ordering,
+> maps, routing, geocoding, search, weather, email, push, tests and monorepo still hold; its rows for DB
+> driver, hosting, scheduling, files and live co-editing are superseded by 08.
+
 Every choice below is open source or free at our scale, and each says what we give up. Prices and
 limits were checked on 17 Oct 2026 from secondary sources that partly disagree; recheck the vendor's
 own pricing page on the day of signing up.
