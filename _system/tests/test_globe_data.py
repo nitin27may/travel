@@ -86,3 +86,26 @@ def test_page_references_only_files_that_exist():
         assert (ROOT / "globe" / ref).exists(), ref
     assert "maplibre-gl.mjs" in html and "openfreemap.org" in html and "mapterhorn" in html
     assert "<script src=" not in html, "no external classic scripts; the module import is vendored"
+
+
+def test_places_json_contract_and_counts():
+    doc = _json(ASSETS / "data" / "places.json")
+    assert doc["schema"] == "globe-places/1"
+    places = doc["places"]
+    assert doc["count"] == len(places) > 0
+    ids = [p["id"] for p in places]
+    assert len(ids) == len(set(ids)), "duplicate place ids"
+    for p in places:
+        assert p["status"] != "dropped", p["id"]
+        lat, lon = p["lat"], p["lon"]
+        assert (lat is None) == (lon is None), p["id"]
+        if lat is not None:
+            assert -90 <= lat <= 90 and -180 <= lon <= 180, p["id"]
+        for link in p.get("links") or []:
+            assert link["url"].startswith(("http://", "https://")), p["id"]
+    store = ROOT / "locations" / "locations.json"
+    if store.exists():
+        data = _json(store)
+        if "countries" in data:   # schema v2, single layout
+            kept = [x for x in data["places"] if x.get("status") != "dropped"]
+            assert doc["count"] == len(kept)

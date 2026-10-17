@@ -82,6 +82,8 @@ button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--ac
 .feat .x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:1rem;padding:2px 6px;cursor:pointer}
 .feat .x:hover{color:var(--accent)}
 .feat .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+.feat .note{color:var(--ink-2);font-size:.88rem;margin-top:6px}
+.muted-note{font-family:var(--font-mono);font-size:.68rem;color:var(--muted-2);align-self:center}
 @media(max-width:900px){.stage{grid-template-columns:1fr;grid-template-rows:62vh 1fr}#side{border-left:0;border-top:1px solid var(--line)}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -89,7 +91,7 @@ button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--ac
 <body>
 <header class="topbar">
   <a class="brand" href="../">Trip plans</a>
-  <nav><a href="../">Trips</a><a class="on" href="./">Globe</a></nav>
+  <nav><a href="../">Trips</a><a href="../locations/">Locations</a><a class="on" href="./">Globe</a></nav>
   <span class="spacer"></span>
 </header>
 
@@ -124,7 +126,7 @@ const params = new URLSearchParams(location.search);
 // OpenFreeMap styles: relief is the default; all share the same sources, so a switch keeps every tile already cached
 const STYLES = { relief: 'https://tiles.openfreemap.org/styles/liberty', light: 'https://tiles.openfreemap.org/styles/positron', dark: 'https://tiles.openfreemap.org/styles/dark' };
 const prefs = (() => { try { return JSON.parse(localStorage.getItem('globe-prefs') || '{}'); } catch (e) { return {}; } })();
-const savePrefs = () => { try { localStorage.setItem('globe-prefs', JSON.stringify({ style: state.style, terrainOn: state.terrainOn, exag: state.exag })); } catch (e) {} };
+const savePrefs = () => { try { localStorage.setItem('globe-prefs', JSON.stringify({ style: state.style, terrainOn: state.terrainOn, exag: state.exag, pinsOn: state.pinsPref })); } catch (e) {} };
 const styleKey = STYLES[params.get('style')] ? params.get('style') : (STYLES[prefs.style] ? prefs.style : 'relief');
 const STYLE = STYLES[styleKey];
 const TERRAIN = 'https://tiles.mapterhorn.com/tilejson.json';
@@ -133,11 +135,31 @@ const NE_ALIAS = { PSE: 'PSX', SSD: 'SDS', XKX: 'KOS' };   // ISO3 -> Natural Ea
 const PALETTE = ['#c9a66b', '#8fb3a1', '#a9b8d6', '#d6a79c', '#b7c48d', '#d3b7d8', '#9fc6c9', '#e0c48a'];
 const EMPTY = { type: 'FeatureCollection', features: [] };
 
-const [FACTS, WORLD, MANIFEST] = await Promise.all([
+const [FACTS, WORLD, MANIFEST, PLACES_DOC] = await Promise.all([
   fetch('assets/data/countries.json').then(r => r.json()),
   fetch('assets/data/countries-50m.json').then(r => r.json()),
   fetch('assets/admin/index.json').then(r => r.json()),
+  fetch('assets/data/places.json').then(r => r.ok ? r.json() : { places: [] }).catch(() => ({ places: [] })),   // a missing file must not blank the page (R4)
 ]);
+
+// ---- saved places (globe-places/1): pins, counts, card ----
+const PLACES = Array.isArray(PLACES_DOC && PLACES_DOC.places) ? PLACES_DOC.places : [];
+const placeById = new Map(PLACES.map(p => [p.id, p]));
+const hasXY = p => p.lat != null && p.lon != null;
+const placesOfCountry = a2 => PLACES.filter(p => p.country === a2);
+const PINS = { type: 'FeatureCollection', features: PLACES.filter(hasXY).map((p, i) => ({ type: 'Feature', id: i, geometry: { type: 'Point', coordinates: [p.lon, p.lat] }, properties: { pid: p.id, status: p.status, a3: p.country_a3, name: p.name, unc: p.location_status === 'unconfirmed' ? 1 : 0 } })) };
+const NONE_PID = '\u0000';
+const inBox = (b, [x, y]) => y >= b[0][1] && y <= b[1][1] && [x, x + 360, x - 360].some(v => v >= b[0][0] && v <= b[1][0]);
+const locate = (fc, pt) => fc.features.find(f => f._bbox && inBox(f._bbox, pt) && inFeature(f, pt));
+// counts live in properties.n (properties survive into rendered features; ad-hoc fields do not); f._pids stays JS-side for the lists
+function tally(fc, list){
+  fc.features.forEach(f => { f.properties.n = 0; f._pids = []; });
+  const outside = [];
+  list.forEach(p => { const f = hasXY(p) ? locate(fc, [p.lon, p.lat]) : null; if (f){ f.properties.n++; f._pids.push(p.id); } else if (hasXY(p)) outside.push(p); });
+  return outside;
+}
+const placesCounts = () => { const m = new Map(); PLACES.forEach(p => m.set(p.country, (m.get(p.country) || 0) + 1)); return [...m].map(([a2, n]) => ({ c: Object.values(FACTS).find(x => x.a2 === a2), n })).filter(x => x.c); };
+const safeUrl = u => /^https?:\/\//i.test(u || '') ? u : null;
 
 // ---- geometry helpers (TopoJSON decode, bbox, centroid, point in polygon) ----
 function topoFeatures(topo, obj){
@@ -192,12 +214,18 @@ const map = new maplibregl.Map({
   container: 'map', style: STYLE, center: [-40, 25], zoom: 1.35, minZoom: 0.8, maxZoom: 17, maxPitch: 70,
   attributionControl: { compact: false }, canvasContextAttributes: { antialias: true },
 });
-window.__map = map; window.__dbg = () => ({ level: state.level, a3: state.a3, s: state.s, d: state.d, adm1: !!state.adm1, adm2: state.adm2 && state.adm2.features.length });
+window.__map = map; window.__dbg = () => ({ level: state.level, a3: state.a3, s: state.s, d: state.d, adm1: !!state.adm1, adm2: state.adm2 && state.adm2.features.length,
+  pins: PINS.features.length, pinsOn: state.pinsOn, place: state.place ? state.place.id : null,
+  counts: { country: state.country != null && state.a2 ? placesOfCountry(state.a2).length : null,
+    state: state.adm1 && state.s != null ? state.adm1.features[state.s].properties.n ?? null : null,
+    district: state.adm2 && state.d != null ? state.adm2.features[state.d].properties.n ?? null : null } });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
 map.addControl(new maplibregl.GlobeControl(), 'bottom-right');
 
 const state = { level: 0, country: null, a3: null, adm1: null, adm2: null, adm2All: null, s: null, d: null, hover: null, hoverA: null, rotating: !reduced && params.get('spin') !== '0', idleTimer: 0,
-  style: styleKey, terrainOn: params.has('terrain') ? params.get('terrain') !== '0' : (prefs.terrainOn ?? true), exag: Number(prefs.exag) || 1.3, fellBack: false, firstLoad: true };
+  style: styleKey, terrainOn: params.has('terrain') ? params.get('terrain') !== '0' : (prefs.terrainOn ?? true), exag: Number(prefs.exag) || 1.3, fellBack: false, firstLoad: true,
+  a2: null, place: null, out1: [], out2: [], pinsPref: prefs.pinsOn !== false, pinsOn: true };
+state.pinsOn = params.has('pins') ? params.get('pins') !== '0' : state.pinsPref;
 // 3D terrain only once the view is close enough: on the globe at low zoom it shows seams, and relief is carried by the hillshade there
 const TERRAIN_MIN_ZOOM = 3.5;
 function applyTerrain(){
@@ -266,6 +294,19 @@ map.on('style.load', () => {
   map.addLayer({ id: 'hl-park', type: 'line', source: vectorSource, 'source-layer': 'park', filter: ['==', ['get', 'name'], '\u0000'], paint: { 'line-color': '#d69329', 'line-width': 2.5 } }, firstSymbol ? firstSymbol.id : undefined);
   if (state.feature) applyFeatureHighlight();
 
+  // saved places: always last, so pins sit above every other layer (R3: rebuilt on each style.load)
+  const pinVis = state.pinsOn ? 'visible' : 'none';
+  map.addSource('pins', { type: 'geojson', data: PINS });
+  map.addLayer({ id: 'pins', type: 'circle', source: 'pins', layout: { visibility: pinVis }, paint: {
+    'circle-color': ['case', ['==', ['get', 'unc'], 1], 'rgba(214,147,41,0)', ['match', ['get', 'status'], ['planned', 'visited'], '#2a9a9e', '#d69329']],
+    'circle-radius': ['interpolate', ['linear'], ['zoom'], 1, 3.5, 5, 5, 10, 7],
+    'circle-stroke-color': ['case', ['==', ['get', 'unc'], 1], '#d69329', '#0f1b15'], 'circle-stroke-width': 1.5 } });
+  map.addLayer({ id: 'pin-sel', type: 'circle', source: 'pins', layout: { visibility: pinVis }, filter: ['==', ['get', 'pid'], state.place ? state.place.id : NONE_PID], paint: {
+    'circle-color': 'rgba(255,210,122,0)', 'circle-radius': ['interpolate', ['linear'], ['zoom'], 1, 8, 10, 12], 'circle-stroke-color': '#ffd27a', 'circle-stroke-width': 2.5 } });
+  map.addLayer({ id: 'pin-label', type: 'symbol', source: 'pins', minzoom: 8, layout: { visibility: pinVis, 'text-field': ['get', 'name'], 'text-font': labelFont, 'text-size': 12, 'text-offset': [0, 1.1], 'text-anchor': 'top', 'text-optional': true },
+    paint: { 'text-color': dark ? '#ffd27a' : '#14302f', 'text-halo-color': dark ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,.9)', 'text-halo-width': 1.4 } });
+  applyPinFocus();
+
   // slightly deeper water on the relief style so the shading reads
   if (state.style === 'relief') for (const l of layers){ if (l.type === 'fill' && l['source-layer'] === 'water') map.setPaintProperty(l.id, 'fill-color', '#8fc3d4'); }
   if (dark){ map.setPaintProperty('adm2-label', 'text-color', '#dfe8df'); map.setPaintProperty('adm2-label', 'text-halo-color', 'rgba(0,0,0,.8)'); map.setPaintProperty('adm1-line', 'line-color', ['case', ['boolean', ['feature-state', 'selected'], false], '#d69329', '#8fa697']); }
@@ -277,6 +318,7 @@ map.on('zoomend', applyTerrain);
 
 // a style switch rebuilds the style from scratch, so put our data and selection back
 function restoreAfterStyle(){
+  setPinsVisible(); applyPinFocus(); setPinSel();
   if (state.adm1) map.getSource('adm1').setData(state.adm1);
   if (state.adm2) map.getSource('adm2').setData(state.adm2);
   if (state.country != null){
@@ -285,6 +327,14 @@ function restoreAfterStyle(){
     if (state.adm2 && state.d != null) setAll('adm2', state.adm2, x => ({ selected: x.id === state.d, dim: x.id !== state.d }));
   }
   renderSide();
+}
+function setPinsVisible(){ for (const id of ['pins', 'pin-sel', 'pin-label']) if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', state.pinsOn ? 'visible' : 'none'); }
+function setPinSel(){ if (map.getLayer('pin-sel')) map.setFilter('pin-sel', ['==', ['get', 'pid'], state.place ? state.place.id : NONE_PID]); }
+// inside a chosen country its pins stay bright and the others fade
+function applyPinFocus(){
+  if (!map.getLayer('pins')) return;
+  const op = state.level >= 1 && state.a3 ? ['case', ['==', ['get', 'a3'], state.a3], 1, 0.35] : 1;
+  map.setPaintProperty('pins', 'circle-opacity', op); map.setPaintProperty('pins', 'circle-stroke-opacity', op);
 }
 function setStyle(key){
   if (!STYLES[key] || key === state.style) return;
@@ -325,7 +375,23 @@ function basemapHit(point){
   hits.sort((a, b) => (order[a.sourceLayer] ?? 9) - (order[b.sourceLayer] ?? 9));
   return hits[0];
 }
+// a pin under the pointer wins over every polygon beneath it (R2); all admin handlers below start with this guard
+function pinHit(point){
+  if (!state.pinsOn || !map.getLayer('pins')) return null;
+  const hits = map.queryRenderedFeatures([[point.x - 6, point.y - 6], [point.x + 6, point.y + 6]], { layers: ['pins'] });
+  return hits.length ? hits[0] : null;
+}
 map.on('mousemove', e => {
+  const pf = pinHit(e.point);
+  if (pf){
+    const p = placeById.get(pf.properties.pid);
+    if (p){
+      setHover(null, null); state.tipOwner = 'pin';
+      showTip(e, `<div class="k">${esc(p.kind)} · ${esc(p.status)}</div><b>${esc(p.name)}</b><div class="sub">${esc([p.area_name, p.region_name].filter(Boolean).join(' · '))}</div>`);
+      pauseRotation(); return;
+    }
+  }
+  if (state.tipOwner === 'pin'){ state.tipOwner = null; hideTip(); }
   if (state.tipOwner === 'admin') return;
   if (ownHit(e.point)) return;
   const f = basemapHit(e.point);
@@ -334,12 +400,15 @@ map.on('mousemove', e => {
   showTip(e, `<div class="k">${esc(d.kind)}</div><b>${esc(d.name)}</b><div class="sub">${d.extra ? esc(d.extra) + ' · ' : ''}click to select</div>`);
 });
 map.on('click', e => {
+  const pf = pinHit(e.point);
+  if (pf){ openPlace(pf.properties.pid); return; }
   if (ownHit(e.point)) return;
   const f = basemapHit(e.point);
   if (f) selectFeature(f, e.lngLat); else if (state.feature) clearFeature();
 });
 function selectFeature(f, lngLat){
   const d = describe(f);
+  state.place = null; setPinSel();   // the place card and the feature card share #feature
   state.feature = { sourceLayer: f.sourceLayer, kind: d.kind, name: d.name, extra: d.extra, lngLat: [lngLat.lng, lngLat.lat], wikidata: f.properties.wikidata || null };
   applyFeatureHighlight(); renderSide();
 }
@@ -352,8 +421,23 @@ function applyFeatureHighlight(){
   if (map.getLayer('hl-park')) map.setFilter('hl-park', fe && fe.sourceLayer === 'park' ? byName : none);
 }
 function clearFeature(){ state.feature = null; applyFeatureHighlight(); renderSide(); }
+function closePlace(){ state.place = null; setPinSel(); renderSide(); writeHash(); }
+function renderPlaceCard(el, p){
+  const where = [p.area_name, p.region_name, (byA3[p.country_a3] || {}).name].filter(Boolean).join(' · ');
+  const links = [];
+  for (const l of p.links || []){ const u = safeUrl(l.url); if (u) links.push(`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l.type || 'source')}</a>`); }
+  if (p.wikidata) links.push(`<a href="https://www.wikidata.org/wiki/${esc(p.wikidata)}" target="_blank" rel="noopener">Wikidata</a>`);
+  if (hasXY(p)) links.push(`<a href="https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lon}#map=14/${p.lat}/${p.lon}" target="_blank" rel="noopener">Map</a>`);
+  if (p.trip_url) links.push(`<a href="${esc(p.trip_url)}">Trip plan</a>`);
+  links.push(`<a href="../locations/#${esc(new URLSearchParams({ focus: p.id }).toString())}">In the list</a>`);
+  if (hasXY(p)) links.unshift('<a href="#" data-fly>Fly here</a>');
+  el.innerHTML = `<div class="feat" id="placeCard"><button class="x" title="Close" aria-label="Close place card">×</button><div class="k">${esc(p.kind)} · ${esc(p.status)}</div><div class="n">${esc(p.name)}</div><div class="m">${esc(where)}</div>${p.note ? `<div class="note">${esc(p.note)}</div>` : ''}<div class="links">${links.join('')}</div></div>`;
+  el.querySelector('.x').onclick = closePlace;
+  const fly = el.querySelector('[data-fly]'); if (fly) fly.onclick = ev => { ev.preventDefault(); map.flyTo({ center: [p.lon, p.lat], zoom: Math.max(map.getZoom(), 10), duration: reduced ? 0 : 1300 }); };
+}
 function renderFeature(){
   const el = $('#feature'); const fe = state.feature;
+  if (state.place){ renderPlaceCard(el, state.place); return; }
   if (!fe){ el.innerHTML = ''; return; }
   const wiki = fe.wikidata ? `<a href="https://www.wikidata.org/wiki/${esc(fe.wikidata)}" target="_blank" rel="noopener">Wikidata</a>` : '';
   el.innerHTML = `<div class="feat"><button class="x" title="Clear selection" aria-label="Clear selection">×</button><div class="k">${esc(fe.kind)}</div><div class="n">${esc(fe.name)}</div>${fe.extra ? `<div class="m">${esc(fe.extra)}</div>` : ''}<div class="links"><a href="#" data-fly>Fly here</a><a href="https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(fe.name)}" target="_blank" rel="noopener">Wikipedia</a>${wiki}</div></div>`;
@@ -366,32 +450,35 @@ const adminTip = (e, html) => { state.tipOwner = 'admin'; showTip(e, html); };
 const setHover = (source, id) => { const cur = state.hoverA; if (cur && (cur.source !== source || cur.id !== id)) map.setFeatureState(cur, { hover: false }); if (id == null){ state.hoverA = null; return; } state.hoverA = { source, id }; map.setFeatureState(state.hoverA, { hover: true }); };
 
 map.on('mousemove', 'country-fill', e => {
+  if (pinHit(e.point)) return;
   const f = e.features[0]; if (!f) return;
   if (state.level >= 1 && f.id === state.country) return;   // the admin layers own the pointer inside the chosen country
   setHover('countries', f.id);
   const c = FACTS[f.properties.ccn3] || { name: f.properties.name };
-  adminTip(e, `<div class="k">${esc(c.region || 'country')}${c.subregion ? ' · ' + esc(c.subregion) : ''}</div><b>${c.flag ? c.flag + ' ' : ''}${esc(c.name)}</b><div class="sub">${c.capital ? 'Capital ' + esc(c.capital) + ' · ' : ''}${c.population ? fmt(c.population) + ' people' : ''}<br>click to fly in</div>`);
+  adminTip(e, `<div class="k">${esc(c.region || 'country')}${c.subregion ? ' · ' + esc(c.subregion) : ''}</div><b>${c.flag ? c.flag + ' ' : ''}${esc(c.name)}</b><div class="sub">${c.capital ? 'Capital ' + esc(c.capital) + ' · ' : ''}${c.population ? fmt(c.population) + ' people' : ''}${placesOfCountry(c.a2).length ? ' · ' + placesOfCountry(c.a2).length + ' saved' : ''}<br>click to fly in</div>`);
   pauseRotation();
 });
 map.on('mouseleave', 'country-fill', () => { if (state.hoverA && state.hoverA.source === 'countries') setHover('countries', null); hideTip(); });
-map.on('click', 'country-fill', e => { const f = e.features[0]; if (!f) return; if (state.level >= 1 && f.id === state.country) return; selectCountry(f.id); });
+map.on('click', 'country-fill', e => { if (pinHit(e.point)) return; const f = e.features[0]; if (!f) return; if (state.level >= 1 && f.id === state.country) return; selectCountry(f.id); });
 
 map.on('mousemove', 'adm1-fill', e => {
+  if (pinHit(e.point)) return;
   if (state.level < 1) return; const f = e.features[0]; if (!f) return;
   if (state.level >= 2 && f.id === state.s) return;
   setHover('adm1', f.id); const p = f.properties;
-  adminTip(e, `<div class="k">${esc(p.type || 'state / province')}</div><b>${esc(p.name)}</b><div class="sub">${p.local && p.local !== p.name ? esc(p.local) + ' · ' : ''}click to drill in</div>`);
+  adminTip(e, `<div class="k">${esc(p.type || 'state / province')}</div><b>${esc(p.name)}</b><div class="sub">${p.local && p.local !== p.name ? esc(p.local) + ' · ' : ''}${p.n ? p.n + ' saved places · ' : ''}click to drill in</div>`);
 });
 map.on('mouseleave', 'adm1-fill', () => { if (state.hoverA && state.hoverA.source === 'adm1') setHover('adm1', null); hideTip(); });
-map.on('click', 'adm1-fill', e => { if (state.level < 1) return; const f = e.features[0]; if (!f) return; if (state.level >= 2 && f.id === state.s) return; e.preventDefault && e.preventDefault(); selectState(f.id); });
+map.on('click', 'adm1-fill', e => { if (pinHit(e.point)) return; if (state.level < 1) return; const f = e.features[0]; if (!f) return; if (state.level >= 2 && f.id === state.s) return; e.preventDefault && e.preventDefault(); selectState(f.id); });
 
 map.on('mousemove', 'adm2-fill', e => {
+  if (pinHit(e.point)) return;
   if (state.level < 2) return; const f = e.features[0]; if (!f) return;
   setHover('adm2', f.id);
-  adminTip(e, `<div class="k">district</div><b>${esc(f.properties.name)}</b><div class="sub">${state.level >= 3 && f.id === state.d ? 'zoom in for towns and streets' : 'click to zoom in'}</div>`);
+  adminTip(e, `<div class="k">district</div><b>${esc(f.properties.name)}</b><div class="sub">${f.properties.n ? f.properties.n + ' saved places · ' : ''}${state.level >= 3 && f.id === state.d ? 'zoom in for towns and streets' : 'click to zoom in'}</div>`);
 });
 map.on('mouseleave', 'adm2-fill', () => { if (state.hoverA && state.hoverA.source === 'adm2') setHover('adm2', null); hideTip(); });
-map.on('click', 'adm2-fill', e => { if (state.level < 2) return; const f = e.features[0]; if (f) selectDistrict(f.id); });
+map.on('click', 'adm2-fill', e => { if (pinHit(e.point)) return; if (state.level < 2) return; const f = e.features[0]; if (f) selectDistrict(f.id); });
 
 // ---- rotation ----
 function pauseRotation(){ state.rotating = false; clearTimeout(state.idleTimer); state.idleTimer = setTimeout(() => { if (state.level === 0 && !reduced && map.getZoom() < 3.2) state.rotating = true; }, 10000); }
@@ -409,21 +496,25 @@ async function selectCountry(id, opts = {}){
   if (state.country != null) map.setFeatureState({ source: 'countries', id: state.country }, { selected: false });
   countries.features.forEach(x => map.setFeatureState({ source: 'countries', id: x.id }, { dim: x.id !== id }));
   map.setFeatureState({ source: 'countries', id }, { selected: true, hover: false });
-  Object.assign(state, { country: id, a3: c.a3, level: 1, s: null, d: null, adm2: null, rotating: false });
+  Object.assign(state, { country: id, a3: c.a3, a2: c.a2 || null, level: 1, s: null, d: null, adm1: null, adm2: null, out1: [], out2: [], rotating: false });
+  if (state.place && state.place.country_a3 !== c.a3){ state.place = null; setPinSel(); }
+  applyPinFocus();
   map.getSource('adm2').setData(EMPTY); setHover(null, null); hideTip();
   fit(bbox(f), 7);
   $('#hint').textContent = 'hover a state or province · click to drill in · scroll to zoom';
   renderSide(); crumbs(); writeHash();
   const fc = c.a3 ? await loadAdmin(c.a3, 'adm1') : null;
   if (state.country !== id) return;   // the user moved on while loading
-  state.adm1 = fc; map.getSource('adm1').setData(fc || EMPTY);
+  state.adm1 = fc;
+  if (fc) state.out1 = tally(fc, placesOfCountry(state.a2));   // counts go into properties before setData
+  map.getSource('adm1').setData(fc || EMPTY);
   renderSide();
-  if (opts.s && fc){ const i = fc.features.findIndex(x => x.properties.name === opts.s); if (i >= 0) selectState(i, opts); }
+  if (opts.s && fc){ const i = fc.features.findIndex(x => x.properties.name === opts.s || x.properties.iso === opts.s); if (i >= 0) await selectState(i, opts); }
 }
 async function selectState(i, opts = {}){
   const fc = state.adm1; const f = fc && fc.features[i]; if (!f) return;
   setAll('adm1', fc, x => ({ selected: x.id === i, dim: x.id !== i, hover: false }));
-  Object.assign(state, { level: 2, s: i, d: null, adm2: null }); setHover(null, null); hideTip();
+  Object.assign(state, { level: 2, s: i, d: null, adm2: null, out2: [] }); setHover(null, null); hideTip();
   map.getSource('adm2').setData(EMPTY);
   fit(f._bbox, 9);
   $('#hint').textContent = 'hover a district · click to zoom in · breadcrumb to go back';
@@ -433,7 +524,8 @@ async function selectState(i, opts = {}){
   state.adm2All = all;
   if (all){
     const sub = { type: 'FeatureCollection', features: all.features.filter(d => d._c && inFeature(f, d._c)) };
-    sub.features = sub.features.map((d, k) => Object.assign(Object.create(Object.getPrototypeOf(d)), d, { id: k }));
+    sub.features = sub.features.map((d, k) => Object.assign(Object.create(Object.getPrototypeOf(d)), d, { id: k, properties: { ...d.properties } }));
+    state.out2 = tally(sub, (f._pids || []).map(id => placeById.get(id)).filter(Boolean));
     state.adm2 = sub; map.getSource('adm2').setData(sub);
   }
   renderSide();
@@ -448,12 +540,34 @@ function selectDistrict(k){
   renderSide(); crumbs(); writeHash();
   map.once('moveend', () => { if (state.level === 3 && state.d === k) renderSide(); });
 }
+// country, then the state and district containing the point; each step is awaited
+async function drillToPoint(a3, pt){
+  const c = byA3[a3]; const cf = c && countries.features.find(x => x.properties.ccn3 === c.ccn3); if (!cf) return false;
+  if (state.country !== cf.id || !state.adm1) await selectCountry(cf.id);
+  if (!pt || state.country !== cf.id || !state.adm1) return false;
+  const sf = locate(state.adm1, pt); if (!sf) return false;
+  if (state.s !== sf.id || !state.adm2) await selectState(sf.id);
+  if (state.s !== sf.id || !state.adm2) return false;
+  const df = locate(state.adm2, pt);   // may be empty: Italy's district level is inverted in the data (R1)
+  if (df && state.d !== df.id) selectDistrict(df.id);
+  return true;
+}
+async function openPlace(pid){
+  const p = placeById.get(pid); if (!p) return;
+  state.feature = null; applyFeatureHighlight();   // card and feature selection are mutually exclusive
+  state.place = p; setPinSel(); hideTip(); renderSide(); writeHash();
+  if (!hasXY(p)){ await drillToPoint(p.country_a3, null).catch(() => {}); return; }
+  await drillToPoint(p.country_a3, [p.lon, p.lat]);
+  if (state.place !== p) return;
+  map.flyTo({ center: [p.lon, p.lat], zoom: Math.max(map.getZoom(), 10), duration: reduced ? 0 : 1400 });
+}
 function backTo(level){
   if (level <= 0){
     if (state.country != null) map.setFeatureState({ source: 'countries', id: state.country }, { selected: false });
     countries.features.forEach(x => map.setFeatureState({ source: 'countries', id: x.id }, { dim: false }));
     map.getSource('adm1').setData(EMPTY); map.getSource('adm2').setData(EMPTY);
-    Object.assign(state, { level: 0, country: null, a3: null, adm1: null, adm2: null, s: null, d: null });
+    Object.assign(state, { level: 0, country: null, a3: null, a2: null, adm1: null, adm2: null, s: null, d: null, out1: [], out2: [], place: null });
+    setPinSel();
     map.flyTo({ center: [map.getCenter().lng, 20], zoom: 1.35, pitch: 0, bearing: 0, duration: reduced ? 0 : 1500 });
     map.once('moveend', () => { if (!reduced) state.rotating = true; });
     $('#hint').textContent = 'drag to spin · scroll to zoom · hover a country · click to fly in';
@@ -467,6 +581,7 @@ function backTo(level){
     Object.assign(state, { level: 2, d: null });
     fit(state.adm1.features[state.s]._bbox, 9);
   }
+  applyPinFocus();
   renderSide(); crumbs(); writeHash();
 }
 
@@ -488,17 +603,43 @@ function crumbs(){
   const el = $('#crumbs'); el.innerHTML = parts.join('');
   el.querySelectorAll('a').forEach(a => a.onclick = () => backTo(Number(a.dataset.go)));
 }
+// saved places: list rows, the "Plan these" link (2.4) and the lines that keep the counts honest (R6)
+const placeItems = list => list.map(p => `<div class="item" data-pid="${esc(p.id)}"><span class="n">${esc(p.name)}</span><span class="m">${esc(p.kind)}</span></div>`).join('');
+const idsOf = f => (f && f._pids) || [];
+function planHtml(){
+  let n = 0, href = '../locations/';
+  if (state.level === 0){ n = PLACES.length; }
+  else if (state.level === 1){ n = placesOfCountry(state.a2).length; href = '../locations/#country=' + encodeURIComponent(state.a2 || ''); }
+  else {
+    const f = state.level === 2 ? state.adm1 && state.adm1.features[state.s] : state.adm2 && state.adm2.features[state.d];
+    const ids = idsOf(f); n = ids.length;
+    href = '../locations/#' + new URLSearchParams({ ids: ids.join(','), label: f ? f.properties.name : '' }).toString();
+  }
+  if (!PLACES.length) return '';
+  return n ? `<a class="btn" id="planBtn" href="${esc(href)}">${state.level === 0 ? 'Saved places' : 'Plan these'} (${n})</a>` : '<span class="muted-note" id="planNone">No saved places here</span>';
+}
+const pinsBtn = () => PLACES.length ? `<button id="pinsBtn" class="${state.pinsOn ? 'on' : ''}" title="Show or hide saved-place pins">Pins</button>` : '';
+function remainderHtml(){
+  const out = [];
+  if (state.level === 1){
+    if (state.adm1 && state.out1.length) out.push(`${state.out1.length} not inside a mapped state`);
+    const nc = placesOfCountry(state.a2).filter(p => !hasXY(p)).length; if (nc) out.push(`${nc} without coordinates`);
+  } else if (state.level === 2 && state.adm2 && state.out2.length) out.push(`${state.out2.length} not inside a mapped district`);
+  return out.map(t => `<div class="h">${esc(t)}</div>`).join('');
+}
 function renderSide(){
   renderFeature();
   const facts = $('#facts'), list = $('#list'), actions = $('#actions'), legend = $('#legend');
-  const terrainBtn = `<span class="seg" role="group" aria-label="Map style">${['relief', 'light', 'dark'].map(k => `<button data-style="${k}" class="${state.style === k ? 'on' : ''}">${k}</button>`).join('')}</span><button id="terrainBtn" class="${state.terrainOn ? 'on' : ''}" title="3D terrain, from zoom ${TERRAIN_MIN_ZOOM} in">3D terrain</button>`;
+  const terrainBtn = `<span class="seg" role="group" aria-label="Map style">${['relief', 'light', 'dark'].map(k => `<button data-style="${k}" class="${state.style === k ? 'on' : ''}">${k}</button>`).join('')}</span><button id="terrainBtn" class="${state.terrainOn ? 'on' : ''}" title="3D terrain, from zoom ${TERRAIN_MIN_ZOOM} in">3D terrain</button>${pinsBtn()}${planHtml()}`;
   const exagCtl = state.terrainOn ? `<label class="ctl">Relief <input id="exag" type="range" min="0.5" max="3" step="0.1" value="${state.exag}"><output>${state.exag.toFixed(1)}×</output></label>` : '';
   if (state.level === 0){
     $('#eyebrow').textContent = 'Globe'; $('#title').textContent = 'The world'; $('#sub').textContent = `${countries.features.length} countries. Drag to spin, hover for facts, click to fly in.`;
     actions.innerHTML = terrainBtn + `<button id="rotateBtn" class="${state.rotating ? 'on' : ''}">Auto-spin</button>` + exagCtl;
     facts.innerHTML = '';
     const byRegion = {}; Object.values(FACTS).forEach(c => { if (c.region) (byRegion[c.region] = byRegion[c.region] || []).push(c); });
-    list.innerHTML = Object.entries(byRegion).sort().map(([r, cs]) => `<div class="h">${esc(r)} · ${cs.length}</div>` + cs.sort((a, b) => (b.population || 0) - (a.population || 0)).slice(0, 8).map(c => `<div class="item" data-a3="${c.a3}"><span class="n">${c.flag || ''} ${esc(c.name)}</span><span class="m">${fmt(c.population)}</span></div>`).join('')).join('');
+    const savedByCountry = [...placesCounts()].sort((a, b) => b.n - a.n);
+    const savedBlock = savedByCountry.length ? `<div class="h">Saved places · ${PLACES.length}</div>` + savedByCountry.map(x => `<div class="item" data-a3="${x.c.a3}"><span class="n">${x.c.flag || ''} ${esc(x.c.name)}</span><span class="m">${x.n} saved</span></div>`).join('') : '';
+    list.innerHTML = savedBlock + Object.entries(byRegion).sort().map(([r, cs]) => `<div class="h">${esc(r)} · ${cs.length}</div>` + cs.sort((a, b) => (b.population || 0) - (a.population || 0)).slice(0, 8).map(c => `<div class="item" data-a3="${c.a3}"><span class="n">${c.flag || ''} ${esc(c.name)}</span><span class="m">${fmt(c.population)}</span></div>`).join('')).join('');
     legend.innerHTML = 'Basemap: OpenFreeMap (OpenStreetMap, OpenMapTiles) · Relief: Mapterhorn · Facts: world-countries, Wikidata · Countries: Natural Earth 50m · States: Natural Earth 10m · Districts: geoBoundaries (CC BY 4.0)';
   } else if (state.level === 1){
     const c = countryOf(state.country);
@@ -506,7 +647,7 @@ function renderSide(){
     actions.innerHTML = `<button data-back="0">Back to globe</button>` + terrainBtn + exagCtl;
     facts.innerHTML = [['Capital', c.capital], ['Population', fmt(c.population)], ['Area', c.area ? fmt(Math.round(c.area)) + ' km²' : '–'], ['Languages', (c.languages || []).join(', ') || '–']].map(([l, v]) => `<div class="fact"><div class="l">${l}</div><div class="v">${esc(v || '–')}</div></div>`).join('');
     const fc = state.adm1;
-    list.innerHTML = fc ? `<div class="h">${fc.features.length} ${esc(fc.features[0]?.properties.type || 'regions')}${fc.features.length > 1 ? 's' : ''}</div>` + fc.features.map(f => `<div class="item" data-s="${f.id}"><span class="n">${esc(f.properties.name)}</span><span class="m">${esc(f.properties.iso || '')}</span></div>`).join('') : (c.a3 && (MANIFEST[c.a3] || MANIFEST[NE_ALIAS[c.a3]]) ? '<div class="h">loading…</div>' : '<div class="h">no subdivisions in the data</div>');
+    list.innerHTML = fc ? remainderHtml() + `<div class="h">${fc.features.length} ${esc(fc.features[0]?.properties.type || 'regions')}${fc.features.length > 1 ? 's' : ''}</div>` + fc.features.map(f => `<div class="item" data-s="${f.id}"><span class="n">${esc(f.properties.name)}</span><span class="m">${f.properties.n ? f.properties.n + ' saved · ' : ''}${esc(f.properties.iso || '')}</span></div>`).join('') : (c.a3 && (MANIFEST[c.a3] || MANIFEST[NE_ALIAS[c.a3]]) ? '<div class="h">loading…</div>' : '<div class="h">no subdivisions in the data</div>');
     legend.innerHTML = `<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(c.wiki || c.name)}" target="_blank" rel="noopener">Wikipedia: ${esc(c.name)}</a>`;
   } else if (state.level === 2){
     const c = countryOf(state.country), f = state.adm1.features[state.s], p = f.properties;
@@ -514,7 +655,9 @@ function renderSide(){
     actions.innerHTML = `<button data-back="1">Back to ${esc(c.name)}</button>` + terrainBtn + exagCtl;
     facts.innerHTML = '';
     const fc = state.adm2;
-    list.innerHTML = fc ? `<div class="h">${fc.features.length} districts</div>` + fc.features.map(d => `<div class="item" data-d="${d.id}"><span class="n">${esc(d.properties.name)}</span></div>`).join('') : (state.adm2All === null && state.adm2 === null && !(MANIFEST[state.a3] || {}).adm2 ? '<div class="h">no district data for this country; zoom in for towns</div>' : '<div class="h">loading districts…</div>');
+    const inState = idsOf(f).map(id => placeById.get(id)).filter(Boolean);
+    const savedHere = inState.length ? `<div class="h">${inState.length} saved place${inState.length > 1 ? "s" : ""}</div>` + placeItems(inState) : '';
+    list.innerHTML = savedHere + remainderHtml() + (fc ? `<div class="h">${fc.features.length} districts</div>` + fc.features.map(d => `<div class="item" data-d="${d.id}"><span class="n">${esc(d.properties.name)}</span><span class="m">${d.properties.n ? d.properties.n + ' saved' : ''}</span></div>`).join('') : (state.adm2All === null && state.adm2 === null && !(MANIFEST[state.a3] || {}).adm2 ? '<div class="h">no district data for this country; zoom in for towns</div>' : '<div class="h">loading districts…</div>'));
     legend.innerHTML = p.wd ? `<a href="https://www.wikidata.org/wiki/${p.wd}" target="_blank" rel="noopener">Wikidata ${p.wd}</a> · <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(p.name)}" target="_blank" rel="noopener">Wikipedia</a>` : '';
   } else {
     const f = state.adm1.features[state.s], d = state.adm2.features[state.d];
@@ -522,16 +665,20 @@ function renderSide(){
     actions.innerHTML = `<button data-back="2">Back to ${esc(f.properties.name)}</button>` + terrainBtn + exagCtl;
     facts.innerHTML = '';
     const towns = visibleTowns();
-    list.innerHTML = towns.length ? `<div class="h">${towns.length} places in view</div>` + towns.map((t, i) => `<div class="item" data-t="${i}"><span class="n">${esc(t.name)}</span><span class="m">${esc(t.cls)}</span></div>`).join('') : '<div class="h">no town labels in view yet; zoom in a little</div>';
+    const here = idsOf(d).map(id => placeById.get(id)).filter(Boolean);
+    const savedHere = here.length ? `<div class="h">${here.length} saved place${here.length > 1 ? "s" : ""}</div>` + placeItems(here) : '';
+    list.innerHTML = savedHere + (towns.length ? `<div class="h">${towns.length} places in view</div>` + towns.map((t, i) => `<div class="item" data-t="${i}"><span class="n">${esc(t.name)}</span><span class="m">${esc(t.cls)}</span></div>`).join('') : '<div class="h">no town labels in view yet; zoom in a little</div>');
     list.querySelectorAll('.item[data-t]').forEach(el => el.onclick = () => { const t = towns[Number(el.dataset.t)]; map.flyTo({ center: t.lngLat, zoom: Math.max(map.getZoom(), t.cls === 'city' ? 11 : 12.5), duration: reduced ? 0 : 1200 }); });
     legend.innerHTML = `<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(d.properties.name)}" target="_blank" rel="noopener">Wikipedia: ${esc(d.properties.name)}</a>`;
   }
   const tb = $('#terrainBtn'); if (tb) tb.onclick = () => { state.terrainOn = !state.terrainOn; savePrefs(); applyTerrain(); renderSide(); };
   const ex = $('#exag'); if (ex) ex.oninput = () => { state.exag = Number(ex.value); ex.nextElementSibling.textContent = state.exag.toFixed(1) + '×'; applyTerrain(); savePrefs(); };
+  const pb = $('#pinsBtn'); if (pb) pb.onclick = () => { state.pinsOn = !state.pinsOn; state.pinsPref = state.pinsOn; savePrefs(); setPinsVisible(); if (!state.pinsOn && state.tipOwner === 'pin') hideTip(); pb.classList.toggle('on', state.pinsOn); };
   actions.querySelectorAll('[data-style]').forEach(b => b.onclick = () => setStyle(b.dataset.style));
   const rb = $('#rotateBtn'); if (rb) rb.onclick = () => { state.rotating = !state.rotating; rb.classList.toggle('on', state.rotating); clearTimeout(state.idleTimer); };
   actions.querySelectorAll('[data-back]').forEach(b => b.onclick = () => backTo(Number(b.dataset.back)));
   list.querySelectorAll('.item[data-a3]').forEach(el => el.onclick = () => { const c = byA3[el.dataset.a3]; const f = c && countries.features.find(x => x.properties.ccn3 === c.ccn3); if (f) selectCountry(f.id); });
+  list.querySelectorAll('.item[data-pid]').forEach(el => el.onclick = () => openPlace(el.dataset.pid));
   list.querySelectorAll('.item[data-s]').forEach(el => el.onclick = () => selectState(Number(el.dataset.s)));
   list.querySelectorAll('.item[data-d]').forEach(el => el.onclick = () => selectDistrict(Number(el.dataset.d)));
   list.querySelectorAll('.item').forEach(el => el.onmouseenter = () => { if (el.dataset.s != null) setHover('adm1', Number(el.dataset.s)); if (el.dataset.d != null) setHover('adm2', Number(el.dataset.d)); });
@@ -539,14 +686,21 @@ function renderSide(){
 
 // ---- deep links: #c=IND&s=Maharashtra&d=Mumbai%20Suburban ----
 function writeHash(){
-  if (state.level === 0){ history.replaceState(null, '', location.pathname + location.search); return; }
-  const h = new URLSearchParams(); h.set('c', state.a3 || '');
-  if (state.level >= 2 && state.adm1) h.set('s', state.adm1.features[state.s].properties.name);
-  if (state.level >= 3 && state.adm2) h.set('d', state.adm2.features[state.d].properties.name);
-  history.replaceState(null, '', '#' + h.toString());
+  const h = new URLSearchParams();
+  if (state.level >= 1){
+    h.set('c', state.a3 || '');
+    if (state.level >= 2 && state.adm1) h.set('s', state.adm1.features[state.s].properties.name);
+    if (state.level >= 3 && state.adm2) h.set('d', state.adm2.features[state.d].properties.name);
+  }
+  if (state.place) h.set('p', state.place.id);
+  const str = h.toString();
+  history.replaceState(null, '', location.pathname + location.search + (str ? '#' + str : ''));
 }
 function readHash(){
   const h = new URLSearchParams(location.hash.slice(1)); const a3 = (h.get('c') || '').toUpperCase();
+  const pl = placeById.get(h.get('p') || '');
+  if (pl){ if (!state.place || state.place.id !== pl.id) openPlace(pl.id); return; }
+  if (state.place){ state.place = null; setPinSel(); }   // a hash without p closes the card
   if (a3 && byA3[a3]){ const f = countries.features.find(x => x.properties.ccn3 === byA3[a3].ccn3); if (f) selectCountry(f.id, { s: h.get('s'), d: h.get('d') }); }
 }
 window.addEventListener('hashchange', readHash);
@@ -585,8 +739,7 @@ async function goTo(r){
   if (r[0] === 'admin1' && countryFeature){ await selectCountry(countryFeature.id, { s: r[1] }); if (state.level < 2) map.flyTo({ center: [r[2], r[3]], zoom: 5.5, duration: reduced ? 0 : 1400 }); return; }
   if (r[0] === 'city'){
     if (countryFeature){ await selectCountry(countryFeature.id, { s: r[5] || undefined }); }
-    // the state's districts load asynchronously; give them a moment, then drill into the one holding the city
-    for (let t = 0; t < 30 && state.level === 2 && !state.adm2; t++) await new Promise(res => setTimeout(res, 100));
+    // selectCountry now awaits the state and its districts, so no polling is needed
     if (state.level >= 2 && state.adm2){ const k = state.adm2.features.findIndex(d => inFeature(d, [r[2], r[3]])); if (k >= 0) selectDistrict(k); }
     map.flyTo({ center: [r[2], r[3]], zoom: (r[6] ?? 9) <= 2 ? 9.5 : 11, duration: reduced ? 0 : 1800 });
     $('#hint').textContent = `${r[1]}: zoom in for streets, rivers and peaks`;
