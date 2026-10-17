@@ -194,9 +194,10 @@ test.describe('pages', () => {
   test('home lists the legacy trips with date badges and links onward', async ({ page, site }) => {
     await page.goto(`${site.url}/`);
     await expect(page.getByRole('heading', { level: 1, name: 'Trip plans' })).toBeVisible();
-    await expect(page.locator('.trip-card-grid .card').first()).toBeVisible();
+    await expect(page.getByRole('complementary').getByText('Next up')).toBeVisible();
+    await expect(page.locator('.hero-feature .card')).toBeVisible();
     await expect(page.getByText(/In \d+ days|Past trip/).first()).toBeVisible();
-    const hrefs = await page.locator('.trip-card-grid a.card-open').evaluateAll((els) => els.map((e) => e.getAttribute('href')));
+    const hrefs = await page.locator('main a.card-open').evaluateAll((els) => els.map((e) => e.getAttribute('href')));
     expect(hrefs.length).toBe(14);
     expect(hrefs.every((h) => /^\/[a-z0-9-]+\/$/.test(h ?? ''))).toBe(true);
   });

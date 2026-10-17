@@ -370,7 +370,8 @@ td[data-align='right'] { text-align: right; }
 .cell-name { font-weight: 600; }
 .cell-link { color: var(--ink); text-decoration: none; }
 .cell-link:hover { color: var(--accent-text); text-decoration: underline; }
-.cell-icon { display: inline-flex; align-items: center; gap: 0.4rem; }
+.cell-icon { display: inline-flex; align-items: center; gap: 0.4rem; vertical-align: middle; line-height: 1.2; }
+.data-table td { vertical-align: middle; }
 .cell-icon svg { color: var(--muted); flex: none; }
 .cell-icon[data-status='planned'] svg { color: var(--st-planned); }
 .cell-icon[data-status='visited'] svg { color: var(--st-visited); }
@@ -400,9 +401,15 @@ td[data-align='right'] { text-align: right; }
 .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 2.5rem 0 1rem; padding-bottom: 0.45rem; border-bottom: 1px solid var(--line); }
 .section-head h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; line-height: 1; }
 .section-head a { font-family: var(--font-mono); font-size: 0.78rem; }
-.hero { padding: clamp(2rem, 6vw, 4.5rem) 0 1rem; display: grid; gap: 1.4rem; }
+.hero { padding: clamp(1.5rem, 4vw, 3rem) 0 0.5rem; display: grid; gap: 1.4rem; }
 .hero h1 { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(3rem, 9vw, 6.2rem); line-height: 0.9; letter-spacing: 0.01em; max-width: 14ch; }
 .hero .lede { font-size: 1.15rem; }
+.hero-copy { display: grid; gap: 1.4rem; align-content: center; }
+.hero-feature { display: grid; gap: 0.5rem; }
+.feature-label { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 400; color: var(--muted); }
+@media (min-width: 980px) {
+  .hero[data-featured] { grid-template-columns: minmax(0, 1fr) minmax(0, 25rem); align-items: center; gap: 3rem; }
+}
 .hero-links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .trip-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1.1rem; }
 .deadline-list { display: grid; gap: 0.5rem; }

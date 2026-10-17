@@ -13,12 +13,14 @@ export const metadata = pageMetadata({
 export default function Home() {
   const trips = loadListedTrips();
   const upcoming = trips.filter((t) => t.when !== 'past');
+  const next = upcoming[0];
   const past = trips.filter((t) => t.when === 'past').reverse();
   const places = loadPlaces();
   const countries = new Set(places.map((p) => p.country)).size;
   return (
     <>
-      <section className="hero">
+      <section className="hero" data-featured={next ? '' : undefined}>
+        <div className="hero-copy">
         <h1>Trip plans</h1>
         <p className="lede">Researched itineraries with trails, maps, timings and conditions. Each plan keeps its own address.</p>
         <div className="hero-links">
@@ -32,16 +34,25 @@ export default function Home() {
             All trips
           </Link>
         </div>
+        </div>
+        {next ? (
+          <aside className="hero-feature" aria-labelledby="next-up">
+            <h2 id="next-up" className="feature-label">
+              Next up
+            </h2>
+            <TripCard trip={next} />
+          </aside>
+        ) : null}
       </section>
 
-      {upcoming.length ? (
+      {upcoming.length > 1 ? (
         <section aria-labelledby="upcoming">
           <div className="section-head">
-            <h2 id="upcoming">Upcoming</h2>
+            <h2 id="upcoming">Also coming up</h2>
             <Link href="/trips/">All trips</Link>
           </div>
           <ul className="trip-card-grid">
-            {upcoming.map((t) => (
+            {upcoming.slice(1).map((t) => (
               <li key={t.id}>
                 <TripCard trip={t} />
               </li>

@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { PlaceRow, PlaceSource, PlaceTag } from './types';
 import { travelRoot } from './root';
 import { loadTrips } from './trips';
+import { validateStore } from './validate';
 
 interface Store {
   layout?: string;
@@ -42,7 +43,9 @@ export const PUBLIC_STAT_KEYS = ['km', 'gain_m', 'hours', 'minutes', 'level', 'm
 
 export function readStore(root = travelRoot()): Store {
   const file = path.join(root, 'data', 'locations', 'locations.json');
-  const store = JSON.parse(readFileSync(file, 'utf8')) as Store;
+  const raw = JSON.parse(readFileSync(file, 'utf8')) as Record<string, unknown>;
+  validateStore(raw);
+  const store = raw as unknown as Store;
   if (store.layout && store.layout !== 'single') {
     throw new Error(`locations layout "${store.layout}" is not supported by the web build yet`);
   }
