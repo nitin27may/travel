@@ -1,5 +1,6 @@
 # Travel platform: clean-slate blueprint (18 Oct 2026)
-\n> **Superseded in part by [docs/v2/](v2/README.md) (17 Oct 2026).** Principles kept; mechanisms and stack revised there.
+
+> **Superseded in part by [docs/v2/](v2/README.md) (17 Oct 2026).** Principles kept; mechanisms and stack revised there.
 
 Status: PROPOSAL for the owner. Written from scratch, not from the current repo layout. Section 9 says how the current work migrates into it.
 
