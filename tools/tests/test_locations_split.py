@@ -51,7 +51,7 @@ def test_root_and_part_contents(root):
     run("layout", "split")
     r = json.loads((root / "data" / "locations" / "locations.json").read_text())
     assert r["layout"] == "by-country" and r["parts"] == ["CA", "US"]
-    assert set(r) == {"schema_version", "updated", "layout", "parts", "countries", "tags", "collections",
+    assert set(r) == {"schema_version", "updated", "layout", "parts", "countries", "collections",
                       "collection_places"}
     ca = json.loads((root / "data" / "locations" / "CA.json").read_text())
     assert list(ca) == ["schema_version", "country", "regions", "areas", "places", "place_tags", "sources", "visits"]
@@ -179,6 +179,8 @@ def test_real_store_split_in_tmp_validates_and_renders(tmp_path, monkeypatch):
     dst = tmp_path / "data" / "locations"
     dst.mkdir(parents=True)
     shutil.copy(store, dst / "locations.json")
+    (tmp_path / "data" / "vocab").mkdir(parents=True)
+    shutil.copy(REPO / "data" / "vocab" / "tags.json", tmp_path / "data" / "vocab" / "tags.json")
     for d in (REPO / "legacy" / "_system" / "site",):
         (tmp_path / "legacy" / "_system").mkdir(parents=True, exist_ok=True)
         shutil.copytree(d, tmp_path / "legacy" / "_system" / "site", dirs_exist_ok=True)

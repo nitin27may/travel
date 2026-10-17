@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Location store (schema v2): the laundry list of places we might go, kept as data.
+"""Location store (schema v3): the laundry list of places we might go, kept as data.
 
     python3 tools/locations.py add "Lake Louise" --country CA --region AB --tags lake,family
     python3 tools/locations.py import research/inbox/batch.json
@@ -11,7 +11,7 @@
     python3 tools/locations.py build [--check]    # data/locations/WISHLIST.md, legacy/locations/index.html, legacy/globe places.json
     python3 tools/locations.py list [--country CA] [--q charlevoix] [--status idea] [--tag lake]
 
-Store: data/locations/locations.json (schema v2, one array per table, one row per line). Hierarchy is
+Store: data/locations/locations.json (schema v3, one array per table, one row per line). Hierarchy is
 country > region > area > place with fixed path ids like CA/AB/banff-national-park/lake-louise.
 Resolution uses Wikidata first (coordinates, parent chain, country), then OpenStreetMap Nominatim.
 Stdlib only. One network request at a time, a second apart. LOCATIONS_ROOT points the tool at
@@ -46,7 +46,9 @@ UA = "nks-travel-locations/0.1 (personal trip planner; nitin27may@gmail.com)"
 WD = "https://www.wikidata.org/w/api.php"
 NOMINATIM = "https://nominatim.openstreetmap.org/search"
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
+VOCAB_VERSION = 1
+OWNER = "u_owner"
 KINDS = ("trail", "viewpoint", "waterfall", "lake", "mountain", "park", "town", "city", "island",
          "beach", "canyon", "valley", "activity", "lodge", "drive", "museum", "lighthouse",
          "region", "place")
@@ -80,6 +82,13 @@ RESOLVERS = ("wikidata", "nominatim", "manual", "none")
 SOURCE_TYPES = ("instagram", "facebook", "tiktok", "youtube", "reddit", "blog", "article", "official",
                 "guidebook", "friend", "note")
 LAYOUTS = ("single", "by-country")
+TAG_KINDS = ("style", "activity", "feature", "audience", "free")
+STYLE_IDS = ("adventure", "active-nature", "scenic-relaxed", "luxury-relax", "relax", "city-culture", "road-trip",
+             "family", "romantic", "hidden-gems", "mixed")
+ACCESSIBILITY = ("step-free", "partial", "none", "unknown")
+REVIEW_STATUS = ("raw", "proposed", "verified", "stale", "retired")
+CONFIDENCE = ("verified", "stated", "inference", "gap", "conflict")
+LICENCE = ("own-words", "odbl", "ogl-ca", "cc-by-4.0", "public-domain")
 INITIAL_ALIASES = {"waterfalls": "waterfall", "lighthouses": "lighthouse", "gorges": "gorge", "canyons": "canyon",
                    "lakes": "lake", "suspension-bridges": "suspension-bridge", "mountains": "mountain"}
 DROP_TAGS = {"location-unconfirmed"}
@@ -96,9 +105,18 @@ COLUMNS: dict[str, list[tuple[str, str, bool]]] = {
                ("location_status", "text", False), ("resolver", "text", False), ("wikidata", "text", True),
                ("image", "text", True), ("season_months", "json", False), ("kid_fit", "text", False),
                ("stats", "json", False), ("stats_verified", "bool", False), ("notes", "text", False),
-               ("added", "date", False)],
+               ("added", "date", False),
+               # v3: the catalog common block (plan 2.3A) the wishlist rows were missing
+               ("name_lang", "text", True), ("min_age", "int", True), ("max_age", "int", True),
+               ("min_height_cm", "int", True), ("max_height_cm", "int", True),
+               ("min_weight_kg", "int", True), ("max_weight_kg", "int", True), ("house_grade", "int", True),
+               ("walk_km", "real", True), ("walk_gain_m", "int", True), ("duration_min", "int", True),
+               ("accessibility", "text", False), ("cost_ref", "text", True), ("review_status", "text", False),
+               ("confidence", "text", False), ("field_meta", "json", False), ("verified_by", "text", True),
+               ("last_verified", "date", True), ("contributed_by", "json", False), ("licence", "text", False),
+               ("merged_from", "json", False), ("updated", "date", False)],
     "place_tags": [("place_id", "text", False), ("tag_id", "text", False)],
-    "tags": [("id", "text", False), ("label", "text", False), ("alias_of", "text", True)],
+    "tags": [("id", "text", False), ("label", "text", False), ("kind", "text", False), ("alias_of", "text", True)],
     "sources": [("id", "text", False), ("place_id", "text", True), ("collection_id", "text", True),
                 ("type", "text", False), ("url", "text", True), ("note", "text", True),
                 ("screenshot", "text", True), ("post_date", "date", True), ("saved", "date", False)],
@@ -108,7 +126,17 @@ COLUMNS: dict[str, list[tuple[str, str, bool]]] = {
                     ("notes", "text", False), ("added", "date", False)],
     "collection_places": [("collection_id", "text", False), ("position", "int", False), ("place_id", "text", False)],
 }
-TABLES = tuple(COLUMNS)    # file order of the arrays
+TABLES = tuple(COLUMNS)    # in-memory tables; `tags` is loaded from the vocabulary file
+FILE_TABLES = tuple(t for t in TABLES if t != "tags")    # file order of the arrays in locations.json
+# the v2 shape of the two tables v3 changed; the v1 to v2 migration and the legacy DDL tests still speak it
+COLUMNS_V2 = {t: ([c for c in cols if c[0] not in {"kind"}] if t == "tags" else cols[:20] if t == "places" else cols)
+              for t, cols in COLUMNS.items()}
+# columns of the v3 places table added after v2, with the value the migration and `add` give them
+PLACE_V3_DEFAULTS = {"name_lang": None, "min_age": None, "max_age": None, "min_height_cm": None, "max_height_cm": None,
+                     "min_weight_kg": None, "max_weight_kg": None, "house_grade": None, "walk_km": None,
+                     "walk_gain_m": None, "duration_min": None, "accessibility": "unknown", "cost_ref": None,
+                     "review_status": "proposed", "confidence": "stated", "field_meta": {}, "verified_by": None,
+                     "last_verified": None, "contributed_by": [OWNER], "licence": "own-words", "merged_from": []}
 PK = {"countries": ("code",), "regions": ("id",), "areas": ("id",), "places": ("id",), "place_tags": ("place_id", "tag_id"),
       "tags": ("id",), "sources": ("id",), "visits": ("id",), "collections": ("id",),
       "collection_places": ("collection_id", "position")}
@@ -246,16 +274,20 @@ def empty_store() -> dict:
     return data
 
 
+def tag_kind(tid: str) -> str:
+    return "style" if tid in STYLE_IDS else "free"
+
+
 def seed_aliases(data: dict) -> None:
     for alias, target in INITIAL_ALIASES.items():
         ensure_tag(data, target)
         if not any(t["id"] == alias for t in data["tags"]):
-            data["tags"].append({"id": alias, "label": default_label(alias), "alias_of": target})
+            data["tags"].append({"id": alias, "label": default_label(alias), "kind": tag_kind(target), "alias_of": target})
 
 
 def ensure_tag(data: dict, tid: str) -> None:
     if not any(t["id"] == tid for t in data["tags"]):
-        data["tags"].append({"id": tid, "label": default_label(tid), "alias_of": None})
+        data["tags"].append({"id": tid, "label": default_label(tid), "kind": tag_kind(tid), "alias_of": None})
 
 
 def normalize_tags(data: dict, raw, kind: str | None) -> list[str]:
@@ -296,7 +328,7 @@ def dumps(data: dict) -> str:
     for k in ROOT_SCALARS:
         if k in data:
             parts.append(f"{json.dumps(k)}: {json.dumps(data[k], ensure_ascii=False)}")
-    for t in TABLES:
+    for t in FILE_TABLES:
         if t not in data:
             continue
         rows = sorted((ordered_row(t, r) for r in data[t]), key=lambda r: _sort_key(t, r))
@@ -309,7 +341,7 @@ def dumps(data: dict) -> str:
 
 
 # --- load/save IO section (single file, or one file per country when layout is by-country) ---
-ROOT_TABLES = ("countries", "tags", "collections", "collection_places")   # always live in the root file
+ROOT_TABLES = ("countries", "collections", "collection_places")   # always live in the root file
 PART_TABLES = ("regions", "areas", "places", "place_tags", "sources", "visits")
 PART_KEYS = {"schema_version", "country", *PART_TABLES}
 
@@ -348,10 +380,33 @@ def _check_part(cc: str, part: dict, schema_version) -> None:
                 raise Fail(f"{where}: {t} row {json.dumps(r, ensure_ascii=False)[:90]} belongs to {who(r)!r}, not {cc!r}")
 
 
+def vocab_text(tags: list[dict]) -> str:
+    """data/vocab/tags.json: root scalars, then one tag per line, sorted by id."""
+    rows = sorted((ordered_row("tags", r) for r in tags), key=lambda r: r["id"])
+    body = ",\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rows)
+    return f'{{\n"schema_version": {VOCAB_VERSION},\n"tags": [\n{body}\n]\n}}\n' if rows else \
+        f'{{\n"schema_version": {VOCAB_VERSION},\n"tags": []\n}}\n'
+
+
+def _attach_vocab(data: dict) -> None:
+    """v3 keeps the tag vocabulary in its own file; the rest of the tool still sees data["tags"]."""
+    if data.get("schema_version") != SCHEMA_VERSION:
+        return
+    if "tags" in data:
+        raise Fail("locations.json must not hold a tags table in schema v3: the vocabulary is data/vocab/tags.json")
+    if not PATHS.vocab.is_file():
+        raise Fail(f"{PATHS.vocab.relative_to(PATHS.root)} is missing: the v3 store keeps its tags there")
+    vocab = _read_json(PATHS.vocab)
+    if vocab.get("schema_version") != VOCAB_VERSION or not isinstance(vocab.get("tags"), list):
+        raise Fail(f"{PATHS.vocab.name} must be {{\"schema_version\": {VOCAB_VERSION}, \"tags\": [...]}}")
+    data["tags"] = vocab["tags"]
+
+
 def load() -> dict:
     if not PATHS.store.exists():
         return empty_store()
     data = _read_json(PATHS.store)
+    _attach_vocab(data)
     if data.get("layout") != "by-country":
         return data
     parts = data.get("parts")
@@ -454,6 +509,8 @@ def save(data: dict, touch: bool = True) -> None:
         text = dumps(data)
         keep = set()
     _write_if_changed(PATHS.store, text)
+    PATHS.vocab.parent.mkdir(parents=True, exist_ok=True)
+    _write_if_changed(PATHS.vocab, vocab_text(data.get("tags", [])))
     for cc in old_parts:                      # a part the store no longer lists is stale
         if cc not in keep:
             part_path(cc).unlink(missing_ok=True)
@@ -462,8 +519,11 @@ def save(data: dict, touch: bool = True) -> None:
 
 
 def ensure_v2(data: dict) -> dict:
-    if data.get("schema_version") != SCHEMA_VERSION:
-        raise Fail("locations.json is schema v1: run python3 tools/migrate_locations_v2.py first")
+    """Name kept from schema v2; it now checks for the current version."""
+    v = data.get("schema_version")
+    if v != SCHEMA_VERSION:
+        raise Fail("locations.json is schema v2: run python3 tools/migrate_locations_v3.py first" if v == 2
+                   else "locations.json is schema v1: run python3 tools/migrate_locations_v2.py first")
     for t in TABLES:
         data.setdefault(t, [])
     return data
@@ -816,6 +876,7 @@ def build_place(spec: dict, pick: int | None = None, offline: bool = False) -> d
         "stats": spec.get("stats") or {}, "stats_verified": False,
         "notes": spec.get("notes", ""), "added": today(),
     }
+    place.update(json.loads(json.dumps(PLACE_V3_DEFAULTS)), updated=today())
     return {"place": place,
             "country": {"code": country, "name": spec.get("country_name") or res["country_name"]},
             "region": {"id": f"{country}/{region_code}", "code": region_code,
@@ -842,6 +903,16 @@ def add_sources(data: dict, rows: list[dict], *, place_id: str | None = None, co
                                 "collection_id": collection_id, **s})
 
 
+def touch_place(p: dict) -> None:
+    """Every add and edit stamps `updated` and records the owner as a contributor."""
+    p["updated"] = today()
+    by = p.get("contributed_by")
+    if not isinstance(by, list):
+        by = p["contributed_by"] = []
+    if OWNER not in by:
+        by.append(OWNER)
+
+
 def insert_bundle(data: dict, b: dict) -> dict:
     """Add a built place and everything hanging off it. A colliding id gets -2, -3."""
     p = b["place"]
@@ -851,6 +922,7 @@ def insert_bundle(data: dict, b: dict) -> dict:
         pid = f"{p['id']}-{n}"
         n += 1
     p["id"] = pid
+    touch_place(p)
     ensure_geo(data, b["country"], b["region"], b["area"])
     data["places"].append(p)
     for t in normalize_tags(data, b["tags"], p["kind"]):
@@ -1032,6 +1104,7 @@ def cmd_edit(args) -> int:
         changed.append("sources")
     if not changed:
         raise Fail("nothing to change; see `edit --help`")
+    touch_place(p)
     save(data)
     print(f"edited {pid}: {', '.join(dict.fromkeys(changed))}")
     return 0
@@ -1071,9 +1144,10 @@ def cmd_tag(args) -> int:
     ensure_tag(data, canon)
     row = next((t for t in data["tags"] if t["id"] == alias), None)
     if row is None:
-        row = {"id": alias, "label": default_label(alias), "alias_of": None}
+        row = {"id": alias, "label": default_label(alias), "kind": tag_kind(canon), "alias_of": None}
         data["tags"].append(row)
     row["alias_of"] = canon
+    row["kind"] = next(t["kind"] for t in data["tags"] if t["id"] == canon)
     for t in data["tags"]:            # tags that pointed at the new alias now point past it
         if t.get("alias_of") == alias:
             t["alias_of"] = canon
@@ -1111,7 +1185,9 @@ def _type_ok(v, t: str) -> bool:
 def validate(data: dict, paths: Paths | None = None) -> list[str]:
     paths = paths or PATHS
     if data.get("schema_version") != SCHEMA_VERSION:
-        return ["store is not schema v2 (v1 has `version`): run python3 tools/migrate_locations_v2.py"]
+        if data.get("schema_version") == 2:
+            return ["store is schema v2: run python3 tools/migrate_locations_v3.py"]
+        return ["store is not schema v3 (v1 has `version`): run python3 tools/migrate_locations_v2.py, then migrate_locations_v3.py"]
     errs: list[str] = []
     for k in data:
         if k not in ROOT_SCALARS and k not in TABLES:
@@ -1222,6 +1298,15 @@ def validate(data: dict, paths: Paths | None = None) -> list[str]:
                 errs.append(f"{w}: stats values must be numbers or strings")
         elif st is not None:
             errs.append(f"{w}: stats must be an object")
+        for col, allowed in (("accessibility", ACCESSIBILITY), ("review_status", REVIEW_STATUS),
+                             ("confidence", CONFIDENCE), ("licence", LICENCE)):
+            if r.get(col) not in allowed:
+                errs.append(f"{w}: {col} {r.get(col)!r} not in {allowed}")
+        for col in ("contributed_by", "merged_from"):
+            if isinstance(r.get(col), list) and not all(isinstance(x, str) for x in r[col]):
+                errs.append(f"{w}: {col} must be a list of strings")
+        if isinstance(r.get("field_meta"), list):
+            errs.append(f"{w}: field_meta must be an object")
         trip = r.get("trip")
         if trip and not (paths.trips_root / trip).is_dir():
             errs.append(f"{w}: trip folder {trip!r} does not exist")
@@ -1231,6 +1316,10 @@ def validate(data: dict, paths: Paths | None = None) -> list[str]:
         w = f"tags {r.get('id')}"
         if not re.fullmatch(r"[a-z0-9-]+", str(r.get("id"))):
             errs.append(f"{w}: id must be a slug")
+        if r.get("kind") not in TAG_KINDS:
+            errs.append(f"{w}: kind {r.get('kind')!r} not in {TAG_KINDS}")
+        elif r["kind"] == "style" and r.get("id") not in STYLE_IDS and not r.get("alias_of"):
+            errs.append(f"{w}: kind style is only for the style ids {STYLE_IDS}")
         a = r.get("alias_of")
         if a is not None:
             if a not in tag_ids:

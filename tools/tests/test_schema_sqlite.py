@@ -15,6 +15,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import locations as D  # noqa: E402
 import migrate_locations_v2 as M  # noqa: E402
+import migrate_locations_v3 as M3  # noqa: E402
 
 ROOT = HERE.parents[1]
 LEGACY_DDL = ROOT / "data" / "schema" / "legacy" / "locations_schema.sql"
@@ -49,11 +50,12 @@ def _connect(ddl_path: Path) -> sqlite3.Connection:
     return con
 
 
-def _insert(con, table: str, rows: list[dict]) -> None:
-    cols = [c[0] for c in D.COLUMNS[table]]
+def _insert(con, table: str, rows: list[dict], columns=None) -> None:
+    columns = columns or D.COLUMNS
+    cols = [c[0] for c in columns[table]]
     for r in rows:
         vals = []
-        for name, typ, _ in D.COLUMNS[table]:
+        for name, typ, _ in columns[table]:
             v = r.get(name)
             if typ == "json":
                 v = json.dumps(v, ensure_ascii=False)
@@ -63,7 +65,12 @@ def _insert(con, table: str, rows: list[dict]) -> None:
         con.execute(f"INSERT INTO {table} ({','.join(cols)}) VALUES ({','.join('?' * len(cols))})", vals)
 
 
-def load_all(con, v2: dict) -> None:
+def load_all(con, v2: dict, ddl_path: Path = GENERATED_DDL) -> None:
+    """The legacy DDL is the v2 shape; the generated DDL is v3 (the store as P2b leaves it)."""
+    legacy = ddl_path == LEGACY_DDL
+    columns = D.COLUMNS_V2 if legacy else D.COLUMNS
+    if not legacy:
+        v2 = M3.migrate(v2)
     order = ["countries", "regions", "areas", "places", "tags", "place_tags", "collections",
              "collection_places", "sources", "visits"]
     assert set(order) == set(D.TABLES)
@@ -71,7 +78,7 @@ def load_all(con, v2: dict) -> None:
         rows = v2[t]
         if t == "tags":      # canonical rows first: alias_of is a foreign key
             rows = sorted(rows, key=lambda r: r["alias_of"] is not None)
-        _insert(con, t, rows)
+        _insert(con, t, rows, columns)
 
 
 @pytest.fixture(scope="module")
@@ -85,7 +92,7 @@ def v2():
 
 def test_every_row_loads_and_foreign_keys_hold(v2, ddl_path):
     con = _connect(ddl_path)
-    load_all(con, v2)
+    load_all(con, v2, ddl_path)
     assert con.execute("PRAGMA foreign_key_check").fetchall() == []
     for t in D.TABLES:
         assert con.execute(f"SELECT count(*) FROM {t}").fetchone()[0] == len(v2[t]), t
@@ -93,7 +100,7 @@ def test_every_row_loads_and_foreign_keys_hold(v2, ddl_path):
 
 def test_check_constraints_reject_bad_rows(v2, ddl_path):
     con = _connect(ddl_path)
-    load_all(con, v2)
+    load_all(con, v2, ddl_path)
     with pytest.raises(sqlite3.IntegrityError):      # lat without lon
         con.execute("UPDATE places SET lon = NULL WHERE lat IS NOT NULL AND id = ?", (v2["places"][0]["id"],))
     with pytest.raises(sqlite3.IntegrityError):      # source with two owners
@@ -131,7 +138,7 @@ def _insert_rows(con, table: str, rows: list[dict], extra: dict | None = None) -
                     [_scalar(full.get(c)) for c in cols])
 
 
-def load_document(con, doc: dict, file_key: str = "") -> str:
+def load_document(con, doc: dict, file_key: str = "", vocab: list[dict] | None = None) -> str:
     """Insert one trip, catalog or locations document. Returns its family.
 
     `file_key` names the catalog file ("trails/AR"): source ids restart in every file."""
@@ -155,7 +162,7 @@ def load_document(con, doc: dict, file_key: str = "") -> str:
             _insert_rows(con, CATALOG_TABLE_NAMES.get(key, key), value, extra)
         return "catalog"
     for t in D.TABLES:
-        rows = doc.get(t, [])
+        rows = doc.get(t, vocab if t == "tags" and vocab is not None else [])
         if t == "tags":      # canonical tags first so alias_of resolves
             rows = sorted(rows, key=lambda r: r["alias_of"] is not None)
         _insert_rows(con, t, rows)
@@ -179,7 +186,8 @@ def test_generated_ddl_loads_the_real_store():
     con = _connect(GENERATED_DDL)
     con.execute("PRAGMA foreign_keys = OFF")        # file order is not dependency order; the check below is the test
     store = json.loads((ROOT / "data" / "locations" / "locations.json").read_text(encoding="utf-8"))
-    load_document(con, store)
+    vocab = json.loads((ROOT / "data" / "vocab" / "tags.json").read_text(encoding="utf-8"))["tags"]
+    load_document(con, store, vocab=vocab)
     assert con.execute("SELECT count(*) FROM places").fetchone()[0] == len(store["places"])
     assert con.execute("PRAGMA foreign_key_check").fetchall() == []
 
@@ -193,7 +201,9 @@ def test_generated_ddl_loads_every_valid_fixture():
     for path in _fixture_documents():
         doc = json.loads(path.read_text(encoding="utf-8"))
         key = f"{path.parent.name}/{path.stem}"
-        families.setdefault(load_document(con, doc, key), []).append(path.name)
+        vocab_file = CORE_FIXTURES / "root" / "data" / "vocab" / "tags.json"
+        vocab = json.loads(vocab_file.read_text(encoding="utf-8"))["tags"] if vocab_file.is_file() else None
+        families.setdefault(load_document(con, doc, key, vocab), []).append(path.name)
     assert con.execute("PRAGMA foreign_key_check").fetchall() == []
     assert {"trip", "catalog", "locations"} <= set(families)
     trips = {p.stem for p in (CORE_FIXTURES / "valid").glob("*.json") if "trip" in json.loads(p.read_text())}

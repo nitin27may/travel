@@ -28,6 +28,7 @@ class Paths:
     """Every file the tool reads or writes, derived from one root so tests can point at a tmp dir."""
     root: Path
     store: Path = field(init=False)
+    vocab: Path = field(init=False)
     wishlist: Path = field(init=False)
     list_page: Path = field(init=False)
     globe_places: Path = field(init=False)
@@ -40,6 +41,7 @@ class Paths:
         self.root = Path(self.root)
         r = self.root
         self.store = r / "data" / "locations" / "locations.json"
+        self.vocab = r / "data" / "vocab" / "tags.json"
         self.wishlist = r / "data" / "locations" / "WISHLIST.md"
         self.list_page = r / "legacy" / "locations" / "index.html"
         self.globe_places = r / "legacy" / "globe" / "assets" / "data" / "places.json"

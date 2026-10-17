@@ -70,6 +70,28 @@ CREATE TABLE places (
   stats_verified INTEGER NOT NULL CHECK (stats_verified IN (0,1)),
   notes TEXT NOT NULL,
   added TEXT NOT NULL,
+  name_lang TEXT,
+  min_age INTEGER CHECK (min_age >= 0),
+  max_age INTEGER CHECK (max_age >= 0),
+  min_height_cm INTEGER CHECK (min_height_cm >= 0),
+  max_height_cm INTEGER CHECK (max_height_cm >= 0),
+  min_weight_kg INTEGER CHECK (min_weight_kg >= 0),
+  max_weight_kg INTEGER CHECK (max_weight_kg >= 0),
+  house_grade INTEGER CHECK (house_grade >= 1 AND house_grade <= 5),
+  walk_km REAL CHECK (walk_km >= 0),
+  walk_gain_m INTEGER CHECK (walk_gain_m >= 0),
+  duration_min INTEGER CHECK (duration_min >= 0),
+  accessibility TEXT NOT NULL CHECK (accessibility IN ('step-free', 'partial', 'none', 'unknown')),
+  cost_ref TEXT,
+  review_status TEXT NOT NULL CHECK (review_status IN ('raw', 'proposed', 'verified', 'stale', 'retired')),
+  confidence TEXT NOT NULL CHECK (confidence IN ('verified', 'stated', 'inference', 'gap', 'conflict')),
+  field_meta TEXT NOT NULL CHECK (json_valid(field_meta)),
+  verified_by TEXT,
+  last_verified TEXT,
+  contributed_by TEXT NOT NULL CHECK (json_valid(contributed_by)),
+  licence TEXT NOT NULL CHECK (licence IN ('own-words', 'odbl', 'ogl-ca', 'cc-by-4.0', 'public-domain')),
+  merged_from TEXT NOT NULL CHECK (json_valid(merged_from)),
+  updated TEXT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (area_id) REFERENCES areas(id),
   CHECK ((lat IS NULL) = (lon IS NULL))
@@ -105,6 +127,7 @@ CREATE TABLE sources (
 CREATE TABLE tags (
   id TEXT NOT NULL,
   label TEXT NOT NULL,
+  kind TEXT NOT NULL CHECK (kind IN ('style', 'activity', 'feature', 'audience', 'free')),
   alias_of TEXT,
   PRIMARY KEY (id),
   FOREIGN KEY (alias_of) REFERENCES tags(id)
@@ -989,6 +1012,9 @@ CREATE TABLE weather_rules (
   FOREIGN KEY (trip_id, plan_b_day) REFERENCES days(trip_id, n)
 );
 
+CREATE INDEX idx_places_review_status ON places (review_status);
+CREATE INDEX idx_places_last_verified ON places (last_verified);
+CREATE INDEX idx_places_area_id ON places (area_id);
 CREATE INDEX idx_activities_review_status ON activities (review_status);
 CREATE INDEX idx_activities_last_verified ON activities (last_verified);
 CREATE INDEX idx_activities_area_id ON activities (area_id);

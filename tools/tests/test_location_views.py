@@ -11,6 +11,7 @@ sys.path.insert(0, str(HERE.parent))
 import location_views as V  # noqa: E402
 import locations as D  # noqa: E402
 import migrate_locations_v2 as M  # noqa: E402
+import migrate_locations_v3 as M3  # noqa: E402
 
 FIXTURE = HERE / "fixtures" / "locations-v1.json"
 
@@ -29,7 +30,7 @@ def paths(tmp_path):
 
 @pytest.fixture
 def data():
-    return M.migrate(json.loads(FIXTURE.read_text(encoding="utf-8")))
+    return M3.migrate(M.migrate(json.loads(FIXTURE.read_text(encoding="utf-8"))))
 
 
 def _first(data, pid=None):

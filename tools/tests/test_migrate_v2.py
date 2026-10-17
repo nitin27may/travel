@@ -9,6 +9,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import locations as D  # noqa: E402
 import migrate_locations_v2 as M  # noqa: E402
+import migrate_locations_v3 as M3  # noqa: E402
 
 FIXTURE = HERE / "fixtures" / "locations-v1.json"
 
@@ -49,7 +50,7 @@ def test_every_v1_id_survives_and_geography_comes_from_the_joins(v1, v2):
 
 
 def test_validates_clean(v2):
-    assert D.validate(v2, D.Paths(HERE.parents[1])) == []
+    assert D.validate(M3.migrate(v2), D.Paths(HERE.parents[1])) == []
 
 
 def test_unconfirmed_place_has_status_and_no_tag(v2):
@@ -117,7 +118,7 @@ def test_cli_check_writes_nothing_and_second_run_is_a_no_op(tmp_path, monkeypatc
     assert D.PATHS.store.read_bytes() == FIXTURE.read_bytes()
     assert M.main([]) == 0
     first = D.PATHS.store.read_bytes()
-    assert json.loads(first)["schema_version"] == 2
+    assert json.loads(first)["schema_version"] == 3     # the chain ends at the current schema
     capsys.readouterr()
     assert M.main([]) == 0
     assert "already v2" in capsys.readouterr().out

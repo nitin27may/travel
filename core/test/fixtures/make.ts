@@ -83,9 +83,10 @@ function locationsStore(): Row {
   const place = (id: string, area: string, name: string, kind: string, lat: number, lon: number): Row =>
     loc("places", { id, area_id: area, name, resolved_name: name, kind, status: "idea", trip: null, lat, lon, elevation_m: null,
       location_status: "resolved", resolver: "manual", wikidata: null, image: null, season_months: [2, 3, 8], kid_fit: "yes",
-      stats: {}, stats_verified: false, notes: "", added: "2026-10-17" });
+      stats: {}, stats_verified: false, notes: "", added: "2026-10-17",
+      accessibility: "unknown", review_status: "proposed", confidence: "stated", contributed_by: ["u_owner"], licence: "own-words", updated: "2026-10-17" });
   return {
-    schema_version: 2,
+    schema_version: 3,
     updated: "2026-10-17",
     layout: "single",
     countries: [
@@ -110,11 +111,19 @@ function locationsStore(): Row {
       place(places.niagara, "CA/ON/niagara", "Niagara Falls", "waterfall", 43.0896, -79.0849),
     ],
     place_tags: [loc("place_tags", { place_id: places.niagara, tag_id: "waterfall" })],
-    tags: TAGS.map((id) => loc("tags", { id, label: id, alias_of: null })).concat([loc("tags", { id: "waterfalls", label: "Waterfalls", alias_of: "waterfall" })]),
     sources: [loc("sources", { id: "src-00001", place_id: places.niagara, collection_id: null, type: "note", url: null, note: "fixture", screenshot: null, post_date: null, saved: "2026-10-17" })],
     visits: [],
     collections: [],
     collection_places: [],
+  };
+}
+
+/** data/vocab/tags.json: the shared tag vocabulary (locations v3) */
+function vocab(): Row {
+  const kind = (id: string): string => (id === "hiking" ? "activity" : ["waterfall", "glaciers", "penguins"].includes(id) ? "feature" : "style");
+  return {
+    schema_version: 1,
+    tags: TAGS.map((id) => loc("tags", { id, label: id, kind: kind(id), alias_of: null })).concat([loc("tags", { id: "waterfalls", label: "Waterfalls", kind: "feature", alias_of: "waterfall" })]),
   };
 }
 
@@ -455,6 +464,7 @@ function clean(dir: string): void {
 function main(): void {
   for (const d of ["root", "valid", "broken"]) clean(d);
   write("root/data/locations/locations.json", locationsStore());
+  write("root/data/vocab/tags.json", vocab());
   for (const [rel, doc] of Object.entries(rootCatalog())) write(`root/data/catalog/${rel}`, doc);
   write("root/research/trips/patagonia-fixture/trails.md", TRAILS_MD);
   write("root/research/trips/patagonia-fixture/trails.json", sidecar());

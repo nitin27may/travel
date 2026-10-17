@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Migrate data/locations/locations.json from schema v1 to v2.
+"""Migrate data/locations/locations.json from schema v1 to v2 (and on to v3: it chains migrate_locations_v3).
 
     python3 tools/migrate_locations_v2.py --check   # print a summary, write nothing
     python3 tools/migrate_locations_v2.py           # rewrite the store in place
@@ -29,7 +29,7 @@ def migrate(v1: dict, a3: dict[str, str] | None = None, log: list[str] | None = 
     a3 = a3 if a3 is not None else L.load_a3()
     places_in = sorted(v1.get("places", []), key=lambda p: p["id"])
 
-    v2 = {"schema_version": L.SCHEMA_VERSION, "updated": v1["updated"], "layout": "single"}
+    v2 = {"schema_version": 2, "updated": v1["updated"], "layout": "single"}
     for t in L.TABLES:
         v2[t] = []
 
@@ -87,6 +87,8 @@ def migrate(v1: dict, a3: dict[str, str] | None = None, log: list[str] | None = 
         for n, pid in enumerate(c.get("places", []), 1):
             v2["collection_places"].append({"collection_id": c["slug"], "position": n, "place_id": pid})
         L.add_sources(v2, L._source_rows({"sources": c.get("sources", [])}, saved=c["added"]), collection_id=c["slug"])
+    for t in v2["tags"]:        # a v2 tag has no `kind`; migrate_locations_v3 adds it
+        t.pop("kind", None)
     return v2
 
 
@@ -102,14 +104,16 @@ def main(argv=None) -> int:
         print(f"no store at {L.PATHS.store}", file=sys.stderr)
         return 1
     data = json.loads(L.PATHS.store.read_text(encoding="utf-8"))
-    if data.get("schema_version") == L.SCHEMA_VERSION:
-        print("already v2")
+    if data.get("schema_version") in (2, L.SCHEMA_VERSION):
+        print("already v2 or later (a v2 store: run tools/migrate_locations_v3.py)")
         return 0
     log: list[str] = []
     v2 = migrate(data, log=log)
     for line in log:
         print("  note: " + line)
-    errs = L.validate(v2)
+    import migrate_locations_v3 as M3          # the store on disk is always the current schema
+    v3 = M3.migrate(v2)
+    errs = L.validate(v3)
     for e in errs:
         print("ERROR " + e)
     print(("would write: " if args.check else "wrote: ") + summary(v2))
@@ -117,7 +121,7 @@ def main(argv=None) -> int:
         print(f"{len(errs)} problem(s); store not changed", file=sys.stderr)
         return 1
     if not args.check:
-        L.save(v2, touch=False)
+        L.save(v3, touch=False)
     return 0
 
 
