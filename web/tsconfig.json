@@ -40,7 +40,7 @@
     "node_modules",
     "out",
     ".next",
-    ".fixture-out",
+    ".fixture-out", ".fixture-beacon",
     ".generated"
   ]
 }

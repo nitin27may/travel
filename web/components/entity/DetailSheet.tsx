@@ -8,7 +8,7 @@ import { EntityImage } from '@/components/ui/EntityImage';
 import { Icon } from '@/components/ui/Icon';
 import type { EntityDescriptor } from '@/lib/entities/types';
 
-interface Props<Row> {
+export interface DetailSheetProps<Row> {
   d: EntityDescriptor<Row>;
   row: Row | null;
   onClose: () => void;
@@ -17,7 +17,7 @@ interface Props<Row> {
 }
 
 /** One detail card for every view; deep-linked with ?focus=<id>. Side sheet on desktop, bottom sheet on phones. */
-export function DetailSheet<Row>({ d, row, onClose, trigger }: Props<Row>) {
+export function DetailSheet<Row>({ d, row, onClose, trigger }: DetailSheetProps<Row>) {
   // keep the last row mounted while the closing transition runs
   const [kept, setKept] = useState<Row | null>(row);
   if (row && row !== kept) setKept(row);

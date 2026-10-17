@@ -14,9 +14,8 @@ const PRIVATE_KEYS = ['height_cm', 'weight_kg', 'age_years', 'citizenship', 'con
 let files: string[] = [];
 
 beforeAll(() => {
-  if (!process.env.PRIVACY_REUSE || !existsSync(OUT)) {
-    execFileSync(process.execPath, [path.join(WEB, 'scripts', 'build-fixture.mjs')], { cwd: WEB, stdio: 'pipe' });
-  }
+  // tests/global-setup.ts builds the fixture app first; build it here only if someone skipped that
+  if (!existsSync(path.join(OUT, 'index.html'))) execFileSync(process.execPath, [path.join(WEB, 'scripts', 'build-fixture.mjs')], { cwd: WEB, stdio: 'pipe' });
   files = walkFiles(OUT);
 }, 300_000);
 
