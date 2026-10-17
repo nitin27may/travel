@@ -43,9 +43,10 @@ def hero(doc):
     return re.sub(r'\?width=\d+', '', m.group(1)) + '?width=900'
 
 trips = []
+SITE_PAGES = {'globe', 'locations'}   # site pages, not trips: no card, linked from the header instead
 for slug in sorted(os.listdir(site)):
     f = os.path.join(site, slug, 'index.html')
-    if not os.path.isdir(os.path.join(site, slug)) or not os.path.exists(f):
+    if slug in SITE_PAGES or not os.path.isdir(os.path.join(site, slug)) or not os.path.exists(f):
         continue
     doc = open(f, encoding='utf-8').read()
     t = re.search(r'<title>([^<]*)', doc)
@@ -142,7 +143,8 @@ out = [
 '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'%3E%3Crect x=\'8\' y=\'4\' width=\'16\' height=\'24\' rx=\'2\' fill=\'%230e6b6e\'/%3E%3C/svg%3E">',
 '<style>' + CSS + '</style></head><body>',
 '<header><p class="eyebrow">Field plans</p><h1>Trip Plans</h1>',
-'<p class="lede">Researched itineraries &mdash; trails, maps, timings and conditions. Each plan keeps its own address.</p></header>',
+'<p class="lede">Researched itineraries &mdash; trails, maps, timings and conditions. Each plan keeps its own address.</p>',
+'<p class="lede" style="margin-top:10px"><a href="globe/" style="color:#d69329">Explore the globe</a> &mdash; spin the earth, drill into countries, states and cities.</p></header>',
 ]
 if upcoming:
     out.append('<h3 class="sec">Upcoming</h3><div class="grid">')
