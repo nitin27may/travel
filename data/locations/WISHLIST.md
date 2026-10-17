@@ -13,14 +13,14 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Banff National Park
 
 - **Lake Louise** · lake · Jun,Jul,Aug,Sep · planned · [map](https://maps.google.com/?q=51.41167,-116.22806) [wd](https://www.wikidata.org/wiki/Q1367398) [trip](../canadian-rockies-sept-2029/) · #family #iconic
-  - In the Rockies plan (Sept 2029). Added as a resolver test on 16 Oct 2026.
+  - In the Canadian Rockies plan (September 2029).
   - <sub>CA/AB/banff-national-park/lake-louise</sub>
 ### Quebec
 
 #### Bas-Saint-Laurent / Gaspésie (to confirm)
 
 - **Grand-Sault waterfall** · waterfall · season ? · idea · [map](https://maps.google.com/?q=Grand-Sault+waterfall+Quebec+Canada)
-  - Gaspesie road trip stop 4. The resolver found a Chute du Grand-Sault in Minganie (north shore), which cannot be on this route; the post's fall is probably in Bas-Saint-Laurent or Gaspésie. Confirm before planning.
+  - Gaspesie road trip stop 4. Several waterfalls share this name and the post does not say which; the one on the north shore cannot be on this route, so it is probably in Bas-Saint-Laurent or Gaspesie. Confirm before planning.
   - <sub>CA/QC/bas-saint-laurent-gaspesie/chute-du-grand-sault</sub>
 #### Charlevoix
 
@@ -33,7 +33,7 @@ Legend: kind · season · status · stats from the source post are unverified un
   - 74 m waterfall with suspension bridges across the gorge (from memory, unverified). About 40 min east of Quebec City; combine with Montmorency Falls and Ile d'Orleans. Check opening dates, fees and kids' rules.
   - <sub>CA/QC/cote-de-beaupre/canyon-sainte-anne</sub>
 - **La Crête trail, Mont-Sainte-Anne** · trail · Sep,Oct · idea · [map](https://maps.google.com/?q=47.0756,-70.9036) · #fall-colours #hiking #views
-  - Mountain hike with panoramic views and fall colours. The post gives no distance or time. Resolver first matched a different Mont-Sainte-Anne in the Laurentians; coordinates set by hand to the Beaupré ski mountain summit (approximate).
+  - Mountain hike with panoramic views and fall colours. The post gives no distance or time. The pin is approximate, at the Beaupre ski mountain summit.
   - <sub>CA/QC/cote-de-beaupre/la-crete</sub>
 - **Montmorency Falls** · waterfall · season ? · idea · [map](https://maps.google.com/?q=46.89083,-71.1475) [wd](https://www.wikidata.org/wiki/Q1946396) · #family #suspension-bridge
   - Gaspesie road trip stop 1. Near Quebec City, close to Canyon Sainte-Anne.
@@ -79,7 +79,7 @@ Legend: kind · season · status · stats from the source post are unverified un
 #### Parc national de la Jacques-Cartier
 
 - **L'Éperon** · trail · Sep,Oct · idea · kids: yes · km 5 · gain_m 250 · hours 1h45 (unverified) · [map](https://maps.google.com/?q=47.17,-71.38) · #fall-colours #hiking #sepaq #views
-  - Forest hike with a steep initial climb and several viewpoints over the Jacques-Cartier Valley. Near Quebec City. Resolver matched a different L'Éperon in Lanaudière; coordinates set by hand to the park's discovery-centre area (approximate).
+  - Forest hike with a steep initial climb and several viewpoints over the Jacques-Cartier Valley. Near Quebec City. The pin is approximate, at the park's discovery-centre area.
   - <sub>CA/QC/parc-national-de-la-jacques-cartier/l-eperon</sub>
 #### Parc national du Bic
 
