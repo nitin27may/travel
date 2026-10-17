@@ -19,3 +19,7 @@ These are raw notes, kept as written (Obsidian wiki links and frontmatter includ
 ## The vault's own trip-planner skill
 
 `vault-trip-planner-skill/` is a copy of `Notes/.claude/skills/trip-planner/` (intake, discovery, budget and maps references, three templates, `make_maps.py`). It is a different skill from the repo's live one at `.claude/skills/trip-planner/` and is kept here only as reference; ideas worth keeping (the intake questions, the budget structure, the day-trip template) get folded into the platform's skills and trip schema, not loaded as a second skill.
+
+## Travel Finder (product idea)
+
+`travel-finder/` holds the six design documents for an earlier "Travel Finder" app idea (overview, architecture and stack, data model, UX and UI, AI and agent readiness, roadmap and risks), copied from the vault's `personal/projects/fun-projects/travel-finder/`. It overlaps with the platform being designed in this repo (data model, filters, agent access), so it is input for `docs/PLAN-platform.md`, not a second project.
