@@ -1,0 +1,21 @@
+{
+  "summary": "Updated activity verdict AR/tierra-del-fuego/ushuaia/piratour-harberton",
+  "changed": [
+    "AR/tierra-del-fuego/ushuaia/piratour-harberton"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"activity_id\":\"AR/tierra-del-fuego/ushuaia/piratour-harberton\",\"day\":3,\"verdict\":\"in\",\"why\":\"Penguins at Martillo\",\"offer_id\":\"of-piratour-harberton-martillo\"}"
+      ],
+      "added": [
+        "{\"activity_id\":\"AR/tierra-del-fuego/ushuaia/piratour-harberton\",\"day\":3,\"verdict\":\"optional\",\"why\":\"Weather dependent\",\"offer_id\":\"of-piratour-harberton-martillo\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"trip_activity.set\",\"summary\":\"Updated activity verdict AR/tierra-del-fuego/ushuaia/piratour-harberton\",\"refs\":[\"AR/tierra-del-fuego/ushuaia/piratour-harberton\"]}"
+      ]
+    }
+  }
+}

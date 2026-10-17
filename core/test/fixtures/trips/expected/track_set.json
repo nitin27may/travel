@@ -1,0 +1,19 @@
+{
+  "summary": "Set track A on day 3",
+  "changed": [
+    "day:3:A"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"day\":3,\"track\":\"A\",\"audience\":\"adult-only\",\"title\":\"Long way round\",\"notes\":\"\",\"split\":true}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"track.set\",\"summary\":\"Set track A on day 3\",\"refs\":[\"day:3\"]}"
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "summary": "Added weather rule wr-2",
+  "changed": [
+    "wr-2"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"wr-2\",\"day\":8,\"metric\":\"wind_kmh\",\"op\":\">\",\"value\":50,\"at\":\"06:00\",\"action\":\"Do Plan B or swap with Day 9\",\"plan_b_day\":9}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"weather_rule.upsert\",\"summary\":\"Added weather rule wr-2\",\"refs\":[\"wr-2\"]}"
+      ]
+    }
+  }
+}

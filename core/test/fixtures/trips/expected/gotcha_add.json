@@ -1,0 +1,19 @@
+{
+  "summary": "Added gotcha g-new",
+  "changed": [
+    "g-new"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"g-new\",\"text\":\"Cards are refused at the hostel\",\"src\":[]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"gotcha.add\",\"summary\":\"Added gotcha g-new\",\"refs\":[\"g-new\"]}"
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "summary": "Answered question q1",
+  "changed": [
+    "q1"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"q1\",\"text\":\"Does Piratour take children under 8?\",\"status\":\"open\",\"answer\":null,\"asked\":\"2026-10-13\"}"
+      ],
+      "added": [
+        "{\"id\":\"q1\",\"text\":\"Does Piratour take children under 8?\",\"status\":\"answered\",\"answer\":\"Yes, 8 and up.\",\"asked\":\"2026-10-13\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"question.answer\",\"summary\":\"Answered question q1\",\"refs\":[\"q1\"]}"
+      ]
+    }
+  }
+}

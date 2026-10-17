@@ -1,0 +1,21 @@
+{
+  "summary": "Updated item d03-i01: duration_min, title",
+  "changed": [
+    "d03-i01"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"d03-i01\",\"day\":3,\"track\":null,\"seq\":1,\"start\":\"08:00\",\"window_start\":null,\"window_end\":null,\"tz\":null,\"duration_min\":480,\"type\":\"activity\",\"optional\":false,\"pinned\":false,\"title\":\"Harberton and Martillo boat tour\",\"place_id\":\"AR/tierra-del-fuego/ushuaia/ushuaia\",\"trail_id\":null,\"activity_id\":\"AR/tierra-del-fuego/ushuaia/piratour-harberton\",\"eatery_id\":null,\"custom_item_id\":null,\"base_id\":null,\"booking_id\":\"bk-piratour\",\"lat\":-54.8019,\"lon\":-68.303,\"address\":null,\"leg_id\":null,\"leg_mode\":null,\"leg_km\":null,\"leg_minutes\":null,\"leg_basis\":null,\"leg_notes\":\"\",\"cost_amount\":null,\"cost_currency\":null,\"cost_per\":null,\"open_from\":null,\"open_to\":null,\"closed_weekdays\":[],\"needs_daylight\":true,\"plan_b_item_id\":null,\"override\":null,\"notes\":\"\",\"links\":[]}"
+      ],
+      "added": [
+        "{\"id\":\"d03-i01\",\"day\":3,\"track\":null,\"seq\":1,\"start\":\"08:00\",\"window_start\":null,\"window_end\":null,\"tz\":null,\"duration_min\":45,\"type\":\"activity\",\"optional\":false,\"pinned\":false,\"title\":\"Check in at the lodge\",\"place_id\":\"AR/tierra-del-fuego/ushuaia/ushuaia\",\"trail_id\":null,\"activity_id\":\"AR/tierra-del-fuego/ushuaia/piratour-harberton\",\"eatery_id\":null,\"custom_item_id\":null,\"base_id\":null,\"booking_id\":\"bk-piratour\",\"lat\":-54.8019,\"lon\":-68.303,\"address\":null,\"leg_id\":null,\"leg_mode\":null,\"leg_km\":null,\"leg_minutes\":null,\"leg_basis\":null,\"leg_notes\":\"\",\"cost_amount\":null,\"cost_currency\":null,\"cost_per\":null,\"open_from\":null,\"open_to\":null,\"closed_weekdays\":[],\"needs_daylight\":true,\"plan_b_item_id\":null,\"override\":null,\"notes\":\"\",\"links\":[]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"item.update\",\"summary\":\"Updated item d03-i01: duration_min, title\",\"refs\":[\"d03-i01\"]}"
+      ]
+    }
+  }
+}

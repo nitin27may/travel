@@ -1,0 +1,19 @@
+{
+  "summary": "Added fare quote fq-2",
+  "changed": [
+    "fq-2"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"fq-2\",\"window_id\":\"fw-2027\",\"kind\":\"flight-intl\",\"leg\":\"YYZ-EZE\",\"date_from\":\"2027-02-25\",\"date_to\":\"2027-03-08\",\"total_amount\":4100,\"total_currency\":\"CAD\",\"provider\":\"Air Canada\",\"method\":\"manual\",\"url\":null,\"read_at\":\"2026-10-13T10:00:00Z\",\"filters\":\"\",\"confidence\":\"stated\",\"notes\":\"\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"fare.add_quote\",\"summary\":\"Added fare quote fq-2\",\"refs\":[\"fq-2\"]}"
+      ]
+    }
+  }
+}

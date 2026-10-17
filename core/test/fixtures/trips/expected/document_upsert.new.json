@@ -1,0 +1,19 @@
+{
+  "summary": "Added document doc-eta",
+  "changed": [
+    "doc-eta"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"doc-eta\",\"item\":\"eta\",\"applies_to\":\"all\",\"rule\":\"Check requirements\",\"deadline_offset\":null,\"computed_rule\":null,\"status\":\"todo\",\"src\":[]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"document.upsert\",\"summary\":\"Added document doc-eta\",\"refs\":[\"doc-eta\"]}"
+      ]
+    }
+  }
+}

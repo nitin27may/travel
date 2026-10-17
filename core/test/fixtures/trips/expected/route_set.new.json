@@ -1,0 +1,19 @@
+{
+  "summary": "Added route r2",
+  "changed": [
+    "r2"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"r2\",\"days\":[10],\"waypoints\":[\"d10-i01\",{\"lat\":-50.34,\"lon\":-72.26}],\"profile\":\"car\",\"break_every_min\":120,\"daily_max_drive_min\":240,\"corridor_km\":5,\"break_types\":[\"viewpoint\"],\"avoid\":[],\"geometry_file\":null,\"provider\":null,\"computed\":null}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"route.set\",\"summary\":\"Added route r2\",\"refs\":[\"r2\"]}"
+      ]
+    }
+  }
+}

@@ -402,7 +402,7 @@ function warnFixtures(): Record<string, Row> {
   mk("W_PACE", (d) => { d.profile.pace = 3; });
   mk("W_CEILING", (d) => { d.profile.hiking_ceiling_km = 10; });
   mk("W_EARLY", (d) => { d.profile.early_starts = "never"; byId(d, "d01-i01").start = "05:30"; });
-  mk("W_DEADLINE", (d) => { d.trip_bookings.find((b: Row) => b.id === "bk-piratour").book_by_offset = -200; });
+  mk("W_DEADLINE", (d) => { d.trip_bookings.find((b: Row) => b.id === "bk-piratour").book_by_offset = -200; d.trip_bookings.find((b: Row) => b.id === "bk-piratour").book_by_basis = "owner"; });
   mk("W_NO_COORDS", (d) => { const i = byId(d, "d01-i01"); i.lat = null; i.lon = null; });
   mk("W_TZ_MISSING", (d) => {
     d.bases.find((b: Row) => b.id === "el-calafate").tz = "America/Santiago";

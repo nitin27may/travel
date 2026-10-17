@@ -1,0 +1,25 @@
+{
+  "summary": "Set 3 base(s): el-calafate 2n, el-chalten 5n, ushuaia 2n",
+  "changed": [
+    "el-calafate",
+    "el-chalten",
+    "ushuaia"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"el-calafate\",\"name\":\"El Calafate\",\"place_id\":null,\"stay_id\":null,\"lodging\":\"Hotel near the airport\",\"night_from\":9,\"nights\":1,\"lat\":-50.34,\"lon\":-72.26,\"tz\":\"America/Argentina/Rio_Gallegos\",\"elevation_m\":null,\"why\":\"Last domestic flight leaves from here\",\"why_not\":\"\"}",
+        "{\"id\":\"el-chalten\",\"name\":\"El Chalten\",\"place_id\":\"AR/santa-cruz/el-chalten/el-chalten\",\"stay_id\":\"AR/santa-cruz/el-chalten/hosteria-fixture\",\"lodging\":null,\"night_from\":3,\"nights\":6,\"lat\":null,\"lon\":null,\"tz\":\"America/Argentina/Rio_Gallegos\",\"elevation_m\":400,\"why\":\"Fitz Roy trailheads from the door\",\"why_not\":\"\"}"
+      ],
+      "added": [
+        "{\"id\":\"el-calafate\",\"name\":\"El Calafate\",\"place_id\":null,\"stay_id\":null,\"lodging\":\"Hotel near the airport\",\"night_from\":8,\"nights\":2,\"lat\":-50.34,\"lon\":-72.26,\"tz\":\"America/Argentina/Rio_Gallegos\",\"elevation_m\":null,\"why\":\"Last domestic flight leaves from here\",\"why_not\":\"\"}",
+        "{\"id\":\"el-chalten\",\"name\":\"El Chalten\",\"place_id\":\"AR/santa-cruz/el-chalten/el-chalten\",\"stay_id\":\"AR/santa-cruz/el-chalten/hosteria-fixture\",\"lodging\":null,\"night_from\":3,\"nights\":5,\"lat\":null,\"lon\":null,\"tz\":\"America/Argentina/Rio_Gallegos\",\"elevation_m\":400,\"why\":\"Fitz Roy trailheads from the door\",\"why_not\":\"\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"base.set\",\"summary\":\"Set 3 base(s): el-calafate 2n, el-chalten 5n, ushuaia 2n\",\"refs\":[\"el-calafate\",\"el-chalten\",\"ushuaia\"]}"
+      ]
+    }
+  }
+}
