@@ -53,7 +53,8 @@ create table area (
 create index on area using gist (path);
 create index on area using gist (boundary);
 
-create type entity_kind as enum ('place','trail','activity','stay','eatery','hub');
+create type entity_kind as enum ('place','trail','activity','stay','eatery','hub','event');
+-- place subkinds include trailhead, parking, shuttle_stop, meeting_point, pass, ferry_route, splash_pad... (research/README.md R14)
 
 create table entity (
   id text primary key, kind entity_kind not null, subkind text not null,
@@ -100,13 +101,45 @@ create table offer (
     check (window_rule in ('anytime','fixed_date','rolling','monthly_release','lottery','same_day')),
   window_spec jsonb not null default '{}',             -- opens_on | days_before | day_of_month, opens_time, tz, ...
   sellout text check (sellout in ('minutes','hours','days','weeks','rarely')),
-  fallback text, status text not null default 'published', version int not null default 1);
+  fallback text, eligibility jsonb,               -- per product: Norquay via ferrata routes 12+ and 14+ (R5)
+  status text not null default 'published', version int not null default 1);
 
 create table relation (
   from_id text not null references entity(id) on delete cascade,
   to_id text not null references entity(id) on delete cascade,
   kind text not null,                             -- trailhead_of, part_of, near, alternative_to, combo_with, serves, covered_by
   attrs jsonb, primary key (from_id, to_id, kind));
+
+-- research/README.md R2-R7: links, tracks, conditions, events, gaps
+create table entity_link (
+  id text primary key, entity_id text not null references entity(id) on delete cascade,
+  kind text not null,                              -- official, conditions, osm, gpx_source, alltrails, komoot, gaia, trip_report, webcam, video, booking...
+  url text not null, label text, lang text, licence text,
+  link_only boolean not null default false,        -- may link, never copy data (AllTrails, Google)
+  source_id text, last_checked date, http_status smallint, added_by uuid,
+  unique (entity_id, url));
+
+create table track (
+  id text primary key, entity_id text not null references entity(id) on delete cascade,
+  geom geography(LineString,4326) not null,
+  source text not null check (source in ('osm','park','agency','manual_gpx')), source_ref text,
+  licence text not null, fetched_on date not null,
+  length_m int, gain_m_dem int, loss_m_dem int, profile bytea);   -- compact elevation profile
+
+create table condition_report (
+  id text primary key, entity_id text references entity(id) on delete cascade, area_id text,
+  kind text not null check (kind in ('closure','warning','restriction','status')),
+  status text not null check (status in ('open','closed','caution','restricted')),
+  summary text not null, source_id text, observed_at timestamptz not null,
+  valid_from timestamptz, valid_until timestamptz, superseded_by text,
+  check (num_nonnulls(entity_id, area_id) >= 1));
+create index on condition_report (entity_id, valid_until);
+
+create table event_occurrence (
+  entity_id text not null references entity(id) on delete cascade, year int not null,
+  starts_on date not null, ends_on date not null,
+  status text not null check (status in ('confirmed','expected','cancelled')), source_id text,
+  primary key (entity_id, year, starts_on));
 
 create table source (
   id text primary key, url text not null unique, publisher text,
@@ -353,6 +386,14 @@ create table change (id text primary key, changeset_id text not null references 
   target_kind text not null check (target_kind in ('entity','offer','relation','media','area','document_rule','pack_template')),
   target_id text, temp_ref text, base_version int, patch jsonb not null,
   decision text check (decision in ('accepted','rejected','edited')), reviewer_note text);
+
+create table research_gap (id text primary key, job_id text references research_job(id),
+  entity_id text references entity(id), temp_ref text, field text not null, reason text not null,
+  tried jsonb, created_at timestamptz not null default now(), closed_by_change text, closed_at timestamptz);
+
+create table lane (id text primary key, version int not null, contract jsonb not null, updated_on date not null);
+create table trip_type (id text primary key, label text not null, lanes jsonb not null,
+  default_filters jsonb not null default '{}', defaults jsonb not null default '{}', deal_breakers jsonb not null default '[]');
 
 create table coverage (area_id text references area(id), kind entity_kind, n int not null,
   with_media numeric, fresh numeric, score text check (score in ('thin','usable','good')),
