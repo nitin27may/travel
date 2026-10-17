@@ -166,6 +166,10 @@ custom item can offer it to the catalog (a changeset) with one tap.
 - **Long trips stay fast**: days collapse to their header line (base, totals, warnings); only expanded
   days render, and the list is virtualised. A 14-night trip opens with today's or the next unplanned
   day expanded.
+- **Inline blocks**: beside every add box, *note* and *checklist* (a checklist line can become a
+  task with a due date and reminder). A "+" divider between sections inserts a new list there.
+- **Budget** is the last section of the document: planned vs actual per category, the expenses list
+  (date, amount, category, receipt) and "Add expense", which on the phone is one tap from Today mode.
 - **Per day**: "Fill this day" (draft from the trip's lists, preview first) and "Reorder to cut
   driving", both free; a missing-stay check per night ("no stay for nights 4-5") with a fix that opens
   the Stays list, not an ad.

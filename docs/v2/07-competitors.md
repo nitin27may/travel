@@ -120,13 +120,32 @@ Screenshots: `reference/wanderlog-empty-trip.webp` (a new 15-day trip, empty) an
    and a hotel-booking banner inside Day 1. The planning surface should carry only the plan.
 3. **"From the web" text with no source or date.** Ours shows where a fact came from and when it was
    read, and paraphrases instead of pasting.
-4. **Empty scaffolding**: an "Untitled" list in the sidebar, a ghost list title, and 15 empty days each
-   with its own add box make a long, hollow page. Ours creates a list on its first item and collapses
+4. **Empty scaffolding**: an "Untitled" list in the sidebar, a ghost list title, and empty days with
+   their own add boxes make a long, hollow page (later days do collapse to headers, see below). Ours creates a list on its first item and collapses
    empty days to one line.
 5. **Dates without content in the outline** ("Wed 11/4", "Thu 11/5"...). Ours shows where you sleep
    and whether the day has a problem.
 6. **A five-step tip carousel** on first open. Ours teaches through empty states that do the thing
    ("Type a place, paste a link, or drop a pin").
+
+### More screenshots (`reference/wanderlog-list-checklist.webp`, `reference/wanderlog-budgeting.png`)
+
+- Beside each add box: **Add note** and **Add checklist** buttons. A checklist is a block inside a
+  list or a day ("pack for the gondola: jackets, cash"). → we add item kind `checklist` (schema.sql),
+  distinct from trip **tasks**: a checklist is local to a place or day; a task has a due date, an owner
+  and a reminder. A checklist line can be promoted to a task with one tap.
+- A **"+" divider** between sections inserts a new list there. → same; it replaces our always-visible
+  "New list" button, which keeps the page quieter.
+- **Days after the planned ones collapse to their headers** (Mon 16th, Tue 17th, Wed 18th). This
+  corrects point 4 above in part: Wanderlog does collapse empty days. Our version adds the base town
+  and warnings to that collapsed line.
+- **Budgeting is a section at the end of the same document**: total, Set budget, Group balances, View
+  breakdown, Add tripmate, Settings, and an Expenses list sorted by date with "Add expense". → we
+  keep Budget as a section of the plan document too (and as its own view on the phone), with
+  **planned vs actual by category**, and a new `expense` table. **Group balances (splitting) is out of
+  v1** because the audience is the family; the columns exist so it is a UI addition later.
+- "Add tripmate" lives inside Budgeting, which mixes people with money. Ours keeps people in one
+  place (the People view), and the budget only asks "who paid" when splitting is turned on.
 
 ### Still to check in Wanderlog (try these before we design further)
 - Their **phone app** day view and offline behaviour (the key moment for us).
