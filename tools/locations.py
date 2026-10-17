@@ -8,10 +8,10 @@
     python3 tools/locations.py visit add ID --date 2026-10-02 [--end ...] [--trip SLUG]
     python3 tools/locations.py tag alias waterfalls waterfall | tag list
     python3 tools/locations.py validate
-    python3 tools/locations.py build [--check]    # WISHLIST.md, locations/index.html, globe places.json
+    python3 tools/locations.py build [--check]    # data/locations/WISHLIST.md, locations/index.html, globe places.json
     python3 tools/locations.py list [--country CA] [--q charlevoix] [--status idea] [--tag lake]
 
-Store: locations/locations.json (schema v2, one array per table, one row per line). Hierarchy is
+Store: data/locations/locations.json (schema v2, one array per table, one row per line). Hierarchy is
 country > region > area > place with fixed path ids like CA/AB/banff-national-park/lake-louise.
 Resolution uses Wikidata first (coordinates, parent chain, country), then OpenStreetMap Nominatim.
 Stdlib only. One network request at a time, a second apart. LOCATIONS_ROOT points the tool at
@@ -225,10 +225,8 @@ def _pdate_bounds(s: str) -> tuple[str, str]:
 
 
 def load_a3(path: Path | None = None) -> dict[str, str]:
-    """ISO alpha-2 to alpha-3 from _system/site/countries.json (keyed by numeric code)."""
+    """ISO alpha-2 to alpha-3 from data/reference/countries.json (keyed by numeric code)."""
     path = path or PATHS.countries_json
-    if not path.is_file():
-        path = ROOT / "_system" / "site" / "countries.json"
     if not path.is_file():
         return {}
     return {v["a2"]: v["a3"] for v in json.loads(path.read_text(encoding="utf-8")).values()

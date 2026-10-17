@@ -185,4 +185,4 @@ def test_wishlist_headings_and_counts(data, paths):
 
 def test_default_paths_follow_locations_root(monkeypatch, tmp_path):
     monkeypatch.setenv("LOCATIONS_ROOT", str(tmp_path))
-    assert V.default_paths().store == tmp_path / "locations" / "locations.json"
+    assert V.default_paths().store == tmp_path / "data" / "locations" / "locations.json"

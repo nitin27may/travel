@@ -39,13 +39,13 @@ class Paths:
     def __post_init__(self) -> None:
         self.root = Path(self.root)
         r = self.root
-        self.store = r / "locations" / "locations.json"
-        self.wishlist = r / "locations" / "WISHLIST.md"
+        self.store = r / "data" / "locations" / "locations.json"
+        self.wishlist = r / "data" / "locations" / "WISHLIST.md"
         self.list_page = r / "locations" / "index.html"
         self.globe_places = r / "globe" / "assets" / "data" / "places.json"
         self.template = r / "_system" / "site" / "locations.html"
         self.css = r / "_system" / "site" / "site.css"
-        self.countries_json = r / "_system" / "site" / "countries.json"
+        self.countries_json = r / "data" / "reference" / "countries.json"
         self.trips_root = r
 
 

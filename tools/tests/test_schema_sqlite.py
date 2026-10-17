@@ -11,7 +11,7 @@ sys.path.insert(0, str(HERE.parent))
 import locations as D  # noqa: E402
 import migrate_locations_v2 as M  # noqa: E402
 
-DDL = HERE.parent / "locations_schema.sql"
+DDL = HERE.parents[1] / "data" / "schema" / "legacy" / "locations_schema.sql"
 FIXTURE = HERE / "fixtures" / "locations-v1.json"
 
 

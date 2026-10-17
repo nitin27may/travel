@@ -103,7 +103,7 @@ def test_places_json_contract_and_counts():
             assert -90 <= lat <= 90 and -180 <= lon <= 180, p["id"]
         for link in p.get("links") or []:
             assert link["url"].startswith(("http://", "https://")), p["id"]
-    store = ROOT / "locations" / "locations.json"
+    store = ROOT / "data" / "locations" / "locations.json"
     if store.exists():
         data = _json(store)
         if "countries" in data:   # schema v2, single layout
