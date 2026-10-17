@@ -22,7 +22,7 @@ export function placeView(row: PlaceRow): Pick<PlaceRow, (typeof PLACE_VIEW_FIEL
   const v = pick(row, PLACE_VIEW_FIELDS);
   return {
     ...v,
-    tags: row.tags.map((t) => ({ id: t.id, label: t.label })),
+    tags: row.tags.map((t) => ({ id: t.id, label: t.label, kind: t.kind })),
     sources: row.sources.map((s) => ({ type: s.type, url: s.url, post_date: s.post_date })),
   };
 }

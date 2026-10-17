@@ -469,3 +469,4 @@ td[data-align='right'] { text-align: right; }
 .place-h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.02em; color: var(--ink-2); }
 .card[data-past] .card-media img { filter: saturate(0.6); }
 .card[data-past]:hover .card-media img { filter: none; }
+.opt-group { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); padding: 0.6rem 0.45rem 0.15rem; }

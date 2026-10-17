@@ -1,9 +1,10 @@
 'use client';
 
 import { Popover } from '@base-ui/react/popover';
-import { useId, useState } from 'react';
+import { Fragment, useId, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Icon } from '@/components/ui/Icon';
+import { TAG_KIND_LABELS } from '@/lib/entities/labels';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { FacetDef } from '@/lib/entities/types';
 
@@ -41,8 +42,14 @@ export function FacetOptions<Row>({ facet, options, selected, onChange, searchAb
             </label>
           </li>
         ) : null}
-        {shown.map((o) => (
-          <li key={o.value}>
+        {shown.map((o, i) => (
+          <Fragment key={o.value}>
+            {o.group && o.group !== shown[i - 1]?.group ? (
+              <li className="opt-group" aria-hidden="true">
+                {TAG_KIND_LABELS[o.group] ?? o.group}
+              </li>
+            ) : null}
+          <li>
             <label className="opt" data-empty={o.count === 0 || undefined}>
               <input
                 type={single ? 'radio' : 'checkbox'}
@@ -55,6 +62,7 @@ export function FacetOptions<Row>({ facet, options, selected, onChange, searchAb
               <span className="opt-count num">{o.count}</span>
             </label>
           </li>
+          </Fragment>
         ))}
         {!shown.length ? <li className="muted opt-none">Nothing matches &ldquo;{find}&rdquo;</li> : null}
       </ul>
