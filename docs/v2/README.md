@@ -13,6 +13,7 @@ several of its mechanisms were too heavy or too fragile (section "What changed f
 | [04-stack.md](04-stack.md) | Every technology choice with the alternative and why; Neo4j; Neon vs Supabase; cost |
 | [05-roadmap.md](05-roadmap.md) | Milestones with exit criteria, and how today's repo migrates |
 | [06-questions.md](06-questions.md) | Decisions and questions for the owner |
+| [07-competitors.md](07-competitors.md) | Wanderlog and TripIt: what to take (plan document, email import), where to beat them |
 
 Inputs read: `docs/BLUEPRINT.md`, `docs/PLAN-platform.md`, the owner's brief of 17 Oct 2026, and the
 owner's own intent notes in `research/vault-notes/` (Travel Finder overview, UX, data model, agent
