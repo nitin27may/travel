@@ -5,7 +5,7 @@
     python3 tools/migrate_locations_v2.py           # rewrite the store in place
 
 `migrate(v1)` is a pure function. Running on a v2 store prints "already v2" and exits 0.
-Field-by-field rules are in _system/site/PLAN-locations-g5.md section 1.4.
+Field-by-field rules are in docs/PLAN-locations-g5.md section 1.4.
 """
 from __future__ import annotations
 

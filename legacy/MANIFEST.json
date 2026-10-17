@@ -1,0 +1,75 @@
+{
+  "schema": "legacy-manifest/1",
+  "folders": [
+    {
+      "slug": "algonquin-muskoka-oct-2026",
+      "served": true
+    },
+    {
+      "slug": "canadian-rockies-sept-2029",
+      "served": true
+    },
+    {
+      "slug": "chamonix-mont-blanc-sept-2028",
+      "served": true
+    },
+    {
+      "slug": "costa-rica-feb-2027",
+      "served": true
+    },
+    {
+      "slug": "dolomites-july-2027",
+      "served": true
+    },
+    {
+      "slug": "globe",
+      "kind": "site-page",
+      "served": true
+    },
+    {
+      "slug": "iceland-ring-road",
+      "served": true
+    },
+    {
+      "slug": "locations",
+      "kind": "site-page",
+      "served": true
+    },
+    {
+      "slug": "new-hampshire-stopover-2026",
+      "served": true
+    },
+    {
+      "slug": "niagara-day-aug-2026",
+      "served": true
+    },
+    {
+      "slug": "norway-summer",
+      "served": true
+    },
+    {
+      "slug": "patagonia-feb-mar-2027",
+      "served": true
+    },
+    {
+      "slug": "peru",
+      "served": false
+    },
+    {
+      "slug": "quebec-sept-2026",
+      "served": true
+    },
+    {
+      "slug": "switzerland-2027",
+      "served": true
+    },
+    {
+      "slug": "usa-southwest-rockies",
+      "served": true
+    },
+    {
+      "slug": "vermont-fall-2026",
+      "served": true
+    }
+  ]
+}

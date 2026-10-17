@@ -8,7 +8,7 @@
     python3 tools/locations.py visit add ID --date 2026-10-02 [--end ...] [--trip SLUG]
     python3 tools/locations.py tag alias waterfalls waterfall | tag list
     python3 tools/locations.py validate
-    python3 tools/locations.py build [--check]    # data/locations/WISHLIST.md, locations/index.html, globe places.json
+    python3 tools/locations.py build [--check]    # data/locations/WISHLIST.md, legacy/locations/index.html, legacy/globe places.json
     python3 tools/locations.py list [--country CA] [--q charlevoix] [--status idea] [--tag lake]
 
 Store: data/locations/locations.json (schema v2, one array per table, one row per line). Hierarchy is

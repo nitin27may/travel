@@ -41,12 +41,12 @@ class Paths:
         r = self.root
         self.store = r / "data" / "locations" / "locations.json"
         self.wishlist = r / "data" / "locations" / "WISHLIST.md"
-        self.list_page = r / "locations" / "index.html"
-        self.globe_places = r / "globe" / "assets" / "data" / "places.json"
-        self.template = r / "_system" / "site" / "locations.html"
-        self.css = r / "_system" / "site" / "site.css"
+        self.list_page = r / "legacy" / "locations" / "index.html"
+        self.globe_places = r / "legacy" / "globe" / "assets" / "data" / "places.json"
+        self.template = r / "legacy" / "_system" / "site" / "locations.html"
+        self.css = r / "legacy" / "_system" / "site" / "site.css"
         self.countries_json = r / "data" / "reference" / "countries.json"
-        self.trips_root = r
+        self.trips_root = r / "legacy"
 
 
 def default_paths() -> Paths:
