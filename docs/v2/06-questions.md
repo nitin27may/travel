@@ -37,3 +37,106 @@ Each has a recommendation; "blocks" says which milestone cannot start without an
 | Q18 | Which **design direction** from the commissioned previews? | colour, type, density | wait for the previews |
 | Q19 | **Budget per month** you are comfortable with once others use it? | decides Neon vs Supabase Pro, email tier | $25 |
 | Q20 | Who besides you will **review research** (moderators)? | review queue permissions and volume | you only |
+
+---
+
+## Consolidated open questions from the detailed pages (17 Oct 2026)
+
+Collected from features/, ux/, research/, mcp/ and migration/, deduplicated. Each has the default the
+pages already assume; **anything not answered keeps its default.** IDs are stable for discussion.
+
+### Privacy and people
+| ID | Question | Default |
+|---|---|---|
+| P1 | The **published legacy pages show children's ages and travel dates** today. Hide the past and undated ones now? | Hide past (Algonquin, Vermont, Québec, New Hampshire, Niagara) and undated pages now; keep the rest until M5 |
+| P2 | Store a person's weight (via ferrata 40-120 kg limits)? | Optional, private, asked only when an activity has a weight limit |
+| P3 | Kids' birth year and height | Birth year + optional height, household-private (Q16) |
+| P4 | Can a second adult remove the household owner? | No; ownership transfer is explicit |
+| P5 | `people:read` and `reservations:read` for MCP clients, even the owner's own Claude | Off by default, ticked per client |
+| P6 | Background location for automatic "done" ticks | No |
+
+### Accounts, sharing and collaboration
+| ID | Question | Default |
+|---|---|---|
+| A1 | Sign-up | Invite-only until M5 |
+| A2 | Can editors invite others? | No, owner only (per-member `can_invite` switch exists) |
+| A3 | Comments on items in v1 | No; notes cover it |
+| A4 | Guest link defaults | 7-day expiry, no PIN, copy-to-my-trips allowed, costs and notes off |
+| A5 | Sharing a ticket from the wallet | Members only, as a file through the phone's share sheet, never a link |
+| A6 | Guests see the budget? | Only if the link's costs toggle is on |
+| A7 | Passkeys in year one | Only if the pinned self-hosted Supabase supports them without extra services |
+| A8 | Template and guest URL shape | `app.<domain>/templates/<slug>` and `/s/<token>` |
+
+### Planning and UX
+| ID | Question | Default |
+|---|---|---|
+| U1 | Default desktop Plan view | The plan document; board as second view; map never fully hidden |
+| U2 | Phone bottom bar inside a trip | Overview/Today · Plan · Bookings · Tasks · More (Budget, People under More) |
+| U3 | Which day is expanded when a long trip opens | Next unplanned day; today during the trip |
+| U4 | "Navigate" opens | Ask once (Google or Apple Maps), remember per device |
+| U5 | Is "vacation" a trip type? | No; it is just multi_day length |
+| U6 | Default lists on a new trip | Ideas only |
+| U7 | Day-trip "pair these stops" in v1 | "Pairs well with" chips; full route builder in M7 |
+| U8 | Typed search parsing | Rules only, no AI model, in v1 |
+| U9 | Public star ratings | No; trust badges and reasons |
+| U10 | Template adaptation | Always preview the change list first, with "Accept all" |
+| U11 | Template updates after forking | Banner to review; never applied automatically |
+| U12 | Sunlight high-contrast theme | Manual switch, remembered |
+| U13 | UI font | Decide with the design previews (Inter or Source Sans 3, self-hosted) |
+| U14 | Past trips in the list | Collapsed into "Past" by year |
+| U15 | Default walk limit for families with tweens | 12 km and 800 m gain per day, editable |
+
+### Reminders, reservations and budget
+| ID | Question | Default |
+|---|---|---|
+| R1 | Quiet hours vs a 03:00 booking opening | Ring for openings that sell out in minutes or hours; others wait for morning |
+| R2 | Tomorrow briefing | Push at 19:30 local during the trip, editable |
+| R3 | SMS reminders | No; push and email |
+| R4 | A second person also gets the alarm for time-critical bookings | Yes, optional per reservation |
+| R5 | Weekly digest recipients | All editors, opt-out each |
+| R6 | Flight lookup by number (paid API) | Not in v1 |
+| R7 | Keep forwarded emails | Parsed fields + original as attachment for 30 days, then deleted |
+| R8 | A held (provisional) stay counts for "no stay" check | Yes |
+| R9 | Food budget per person per day by style | 40 / 75 / 120 CAD, editable |
+| R10 | Fuel estimate for road trips | On by default |
+| R11 | Weather-rule thresholds | Defaults per activity type, editable per item |
+
+### Catalog, research and data
+| ID | Question | Default |
+|---|---|---|
+| D1 | **Stop writing `research/trips/<slug>/*.md` for new research; the changeset becomes the record** | Yes; existing files stay as history and are imported as evidence |
+| D2 | Auto-accept low-risk additions (official-source viewpoints, free-licence photos, link checks) | On for these only; never for facts from the owner's own Claude runs |
+| D3 | Reviewers besides the owner in year one | None |
+| D4 | Server-run research | Owner only, hard budget per job |
+| D5 | OSM data as a separate layer; licensing decided before any export or sale | Yes; no public data export until then |
+| D6 | Parking fill times from community reports | Yes, with two dated reports, shown as unverified |
+| D7 | Trail variants | One entity per destination a walker chooses; shorter versions are turnaround points |
+| D8 | Publish a destination in public Explore | Only when overview, trails or sights, stays and legs reach "usable" |
+| D9 | Conditions checks | 3 days before, evening before, daily during the trip; rules first, a model only on conflicts |
+| D10 | Community trip reports and videos | Shown as clearly labelled links |
+| D11 | GPX downloads of OSM tracks | Yes, with attribution in the file |
+| D12 | Elevation profiles | Computed on the server once per track |
+| D13 | Public holidays source | Bundled JSON for Canada and the US, refreshed yearly; school calendars per household |
+| D14 | Flight time for candidates abroad | Straight-line estimate labelled "approx." |
+| D15 | Routing | OpenRouteService first; self-host Valhalla when needed; transit as Google Maps links only |
+| D16 | Media finding | Cheapest model finds, owner picks on a contact sheet (as the gallery tools do now) |
+| D17 | Who tunes trip-type profiles | Owner only, in admin |
+
+### Templates and migration
+| ID | Question | Default |
+|---|---|---|
+| M1 | Past trips (Algonquin, Vermont, Québec, Niagara) become templates? | Yes; New Hampshire stays a done trip (too thin) |
+| M2 | "Travelled" templates only from finished trips | Yes; researched-only templates carry a "not travelled" badge |
+| M3 | Budget ranges on templates | Yes, per category, with the year of the prices |
+| M4 | Non-owners publishing templates in year one | No |
+| M5 | Wishlist (64 places) | Private household list; the places themselves join the shared catalog |
+| M6 | 126 Rockies rows without coordinates | Geocode from OSM; owner pins failures on a "needs a pin" admin screen |
+| M7 | Hand-written trips imported | Assisted import when each trip is next revised, Patagonia first |
+| M8 | The globe page | Kept, regenerated from the catalog, low priority |
+
+### Limits on the home server
+| ID | Question | Default |
+|---|---|---|
+| H1 | Offline map tiles per trip | 300 MB, adjustable 100 MB to 1 GB |
+| H2 | Photos per trip | 200 at 2048 px; originals not kept |
+| H3 | After-trip ratings affect public suggestions | Not in year one |
