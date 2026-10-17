@@ -48,9 +48,9 @@ confirm against a Norwegian source once 2028 calendars appear.
 
 | Place | Sun never sets | Days |
 |---|---|---|
-| **Tromsø** | 18 May – 25 July | 69 |
-| **Senja (Fjordgård)** | 19 May – 24 July | 67 |
-| **Svolvær** | 25 May – 18 July | 55 |
+| **Tromsø** | midnight sun | midnight sun | midnight sun | midnight sun | 01:58–23:43 | 03:31–22:08 |
+| **Senja (Fjordgård)** | midnight sun | midnight sun | midnight sun | midnight sun | 02:11–23:41 | 03:39–22:10 |
+| **Svolvær** | midnight sun | midnight sun | midnight sun | midnight sun | 02:57–23:19 | 04:07–22:07 |
 | **Reine** | 27 May – 16 July | 51 |
 | **Bodø** | 31 May – 12 July | 43 |
 
@@ -75,15 +75,15 @@ Sunrise / sunset, local time, CEST. Computed with the NOAA solar algorithm
 | | 24 Jun | 1 Jul | 8 Jul | 18 Jul | 29 Jul | 12 Aug |
 |---|---|---|---|---|---|---|
 | | ← Window A → | | | | ← Window B → | |
-| **Bergen** | 04:53–23:54 | 04:59–23:51 | 05:09–23:44 | 05:27–23:27 | 05:53–23:03 | 06:27–22:26 |
-| **Flåm / Aurland** | 04:54–00:07 | 05:00–00:04 | 05:10–23:56 | 05:30–23:39 | 05:56–23:14 | 06:31–22:36 |
-| **Loen / Stryn** | 04:39–00:20 | 04:46–00:16 | 04:57–00:08 | 05:19–23:48 | 05:47–23:21 | 06:25–22:41 |
-| **Åndalsnes** | 04:32–00:34 | 04:39–00:30 | 04:51–00:20 | 05:14–00:00 | 05:44–23:31 | 06:24–22:48 |
-| **Ålesund** | 04:27–00:27 | 04:34–00:22 | 04:46–00:13 | 05:09–23:52 | 05:39–23:23 | 06:18–22:42 |
-| **Reine, Lofoten** | midnight sun | midnight sun | midnight sun | 03:34–02:24 | 04:54–01:04 | 06:01–23:54 |
-| **Svolvær** | midnight sun | midnight sun | midnight sun | midnight sun | 04:54–01:16 | 06:03–00:04 |
-| **Senja (Fjordgård)** | midnight sun | midnight sun | midnight sun | midnight sun | 04:32–02:02 | 06:00–00:31 |
-| **Tromsø** | midnight sun | midnight sun | midnight sun | midnight sun | 04:30–02:15 | 06:03–00:39 |
+| **Bergen** | 04:11–23:11 | 04:16–23:09 | 04:26–23:01 | 04:45–22:45 | 05:10–22:21 | 05:44–21:44 |
+| **Flåm / Aurland** | 03:58–23:10 | 04:03–23:07 | 04:14–22:59 | 04:33–22:42 | 04:59–22:17 | 05:35–21:39 |
+| **Loen / Stryn** | 03:45–23:25 | 03:51–23:21 | 04:02–23:13 | 04:24–22:54 | 04:52–22:26 | 05:30–21:46 |
+| **Åndalsnes** | 03:30–23:33 | 03:37–23:29 | 03:49–23:19 | 04:13–22:58 | 04:43–22:29 | 05:22–21:47 |
+| **Ålesund** | 03:38–23:37 | 03:45–23:33 | 03:57–23:24 | 04:20–23:03 | 04:50–22:34 | 05:29–21:52 |
+| **Reine, Lofoten** | midnight sun | midnight sun | midnight sun | 01:49–00:39 | 03:09–23:19 | 04:16–22:10 |
+| **Svolvær** | midnight sun | midnight sun | midnight sun | midnight sun | 02:57–23:19 | 04:07–22:07 |
+| **Senja (Fjordgård)** | midnight sun | midnight sun | midnight sun | midnight sun | 02:11–23:41 | 03:39–22:10 |
+| **Tromsø** | midnight sun | midnight sun | midnight sun | midnight sun | 01:58–23:43 | 03:31–22:08 |
 
 **Three things this table tells you that a guidebook will not:**
 
@@ -92,11 +92,11 @@ Sunrise / sunset, local time, CEST. Computed with the NOAA solar algorithm
    whole west coast, not just in the Arctic. This is the single biggest scheduling lever
    in a Norwegian summer — the day is 20 hours long and the crowds occupy six of them.
 2. **Golden hour is enormous and lands at antisocial times.** In Lofoten on 29 July the
-   sun sets at 01:04 and rises at 04:54, and in Window A it does not set at all — it just
+   sun sets at 23:19 and rises at 03:09, and in Window A the sun does not set at all until after 8 July — it just
    tracks the horizon at a shallow angle all night. The light everyone photographs Reine in is a **22:00–01:00** light,
    not an 18:00 one.
-3. **Even on 12 August Lofoten has no astronomical darkness** (civil dusk 01:41, civil
-   dawn 04:14). Northern lights are not on the table for any summer trip in either window.
+3. **Even on 12 August Lofoten has no astronomical darkness** (civil dusk 23:56, civil
+   dawn 02:29). Northern lights are not on the table for any summer trip in either window.
    Do not let anyone sell you a summer aurora tour.
 
 ## Weather, honestly
