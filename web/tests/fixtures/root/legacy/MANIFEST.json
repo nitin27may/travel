@@ -1,0 +1,9 @@
+{
+ "schema": "legacy-manifest/1",
+ "folders": [
+  {
+   "slug": "legacy-one",
+   "served": true
+  }
+ ]
+}
