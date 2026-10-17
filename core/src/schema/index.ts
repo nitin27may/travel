@@ -19,7 +19,7 @@ import { research_sidecar } from "./researchSidecar.ts";
 import { route_geometry } from "./routeGeometry.ts";
 
 export { TRIP_TABLES } from "./trip.ts";
-export { LOCATION_TABLES } from "./locations.ts";
+export { LOCATION_TABLES, LOCATION_FILE_TABLES } from "./locations.ts";
 export * from "./meta.ts";
 
 /** catalog tables in the order they appear in a file of the same name */

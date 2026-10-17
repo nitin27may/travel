@@ -120,9 +120,10 @@ describe("removedRows", () => {
 
 describe("tag vocabulary", () => {
   it("accepts canonical tags and rejects an alias that points at an alias", () => {
-    const ok = { tags: [{ id: "waterfall", alias_of: null }, { id: "waterfalls", alias_of: "waterfall" }] };
+    const t = (id: string, alias_of: string | null) => ({ id, label: id, kind: "feature", alias_of });
+    const ok = { schema_version: 1, tags: [t("waterfall", null), t("waterfalls", "waterfall")] };
     expect(validateDoc(ok, "sidecar", FIX, { kind: "vocab" }).errors).toEqual([]);
-    const bad = { tags: [{ id: "a", alias_of: null }, { id: "b", alias_of: "a" }, { id: "c", alias_of: "b" }] };
+    const bad = { schema_version: 1, tags: [t("a", null), t("b", "a"), t("c", "b")] };
     const r = validateDoc(bad, "sidecar", FIX, { kind: "vocab" });
     expect(r.errors.map((e) => e.code)).toEqual(["E_FK"]);
   });
