@@ -1,0 +1,10 @@
+{
+"schema_version": 1,
+"country": "AR",
+"legs": [
+{"geometry_file":null,"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","id":"lg-13451f0edf","from_id":"AR/santa-cruz/el-chalten/el-chalten","to_id":"AR/santa-cruz/el-chalten/laguna-de-los-tres","mode":"walk","km":0.8,"minutes":12,"basis":"inference","seasonal_notes":"","symmetric":true,"sources":["src-0001"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17"}
+],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}
