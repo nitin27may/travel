@@ -194,10 +194,10 @@ WINDOW = """
       <tr><td>15 Jul</td><td>none &mdash; light all night, no civil twilight end</td><td>none</td></tr>
       <tr><td>28 Aug</td><td>none</td><td>none</td></tr>
       <tr><td>1 Sep</td><td>none</td><td>none</td></tr>
-      <tr><td>4 Sep</td><td>21:53 &ndash; 23:10 &nbsp;(1.3&nbsp;h)</td><td>none</td></tr>
-      <tr><td>8 Sep</td><td>21:04 &ndash; 23:57 &nbsp;(2.9&nbsp;h)</td><td>22:11 &ndash; 23:30 (1.3&nbsp;h)</td></tr>
-      <tr><td>12 Sep</td><td>20:32 &ndash; 00:26 &nbsp;(3.9&nbsp;h)</td><td>21:19 &ndash; 00:18 (3.0&nbsp;h)</td></tr>
-      <tr><td>15 Sep</td><td>20:12 &ndash; 00:43 &nbsp;(4.5&nbsp;h)</td><td>20:54 &ndash; 00:41 (3.8&nbsp;h)</td></tr>
+      <tr><td>4 Sep</td><td>00:48 &ndash; 02:06 &nbsp;(1.3&nbsp;h)</td><td>none</td></tr>
+      <tr><td>8 Sep</td><td>23:59 &ndash; 02:52 &nbsp;(2.9&nbsp;h)</td><td>00:26 &ndash; 01:45 (1.3&nbsp;h)</td></tr>
+      <tr><td>12 Sep</td><td>23:27 &ndash; 03:21 &nbsp;(3.9&nbsp;h)</td><td>23:35 &ndash; 02:34 (3.0&nbsp;h)</td></tr>
+      <tr><td>15 Sep</td><td>23:08 &ndash; 03:39 &nbsp;(4.5&nbsp;h)</td><td>23:09 &ndash; 02:57 (3.8&nbsp;h)</td></tr>
     </table>
   </div>
 
@@ -213,7 +213,7 @@ WINDOW = """
         <p><b>The route is deliberately counter-clockwise, and the reason is the darkness table
         above.</b> The south coast comes first, when there is barely any dark and it does not matter.
         By the time the trip reaches M&yacute;vatn and the north on nights 7&ndash;9
-        (10&ndash;12 September), true darkness has arrived: 1.3&nbsp;h, then 3.0&nbsp;h.
+        (10&ndash;12 September), true darkness has arrived: 2.3&nbsp;h, then 3.0&nbsp;h, and it falls around midnight, not in the evening.
         The aurora chances land in the half of the trip that is furthest from city light.</p>
         <p>It also puts the most weather-exposed stretch &mdash; the south coast, where the gusts are
         worst &mdash; on the earliest and statistically driest days of the window.</p>
@@ -221,7 +221,7 @@ WINDOW = """
         validity. That is not a coincidence; it is the constraint that fixed the end date.</p>
         <table>
           <tr><th></th><th>Window A</th><th>Window B</th></tr>
-          <tr><td>True dark by the north nights</td><td>1.3 &rarr; 3.0 h</td><td>3.8 &rarr; 4.5 h</td></tr>
+          <tr><td>True dark by the north nights</td><td>2.3 &rarr; 3.0 h</td><td>3.8 &rarr; 4.5 h</td></tr>
           <tr><td>Camping Card valid</td><td><b>Yes, throughout</b></td><td>No &mdash; expires mid-trip</td></tr>
           <tr><td>Campsite closure risk</td><td>Low</td><td><b>Real</b></td></tr>
           <tr><td>Rain and wind odds</td><td>Lower</td><td>Higher</td></tr>
@@ -644,14 +644,14 @@ D6 = day("d6", "Thu&ndash;Fri", "9&ndash;10", "The East Fjords, and north across
      [("&Aacute;sbyrgi", mapq("Asbyrgi"), True)],
      ("Asbyrgi-Eyjan-June2022.jpg", "The Eyjan rock island inside &Aacute;sbyrgi")),
 
-   stop(6, "22:11", "M&yacute;vatn &mdash; night 7, and the first night it is actually dark", None,
-     "<p><b>Astronomical darkness at M&yacute;vatn on 10 September runs 22:11&ndash;23:30</b> "
-     "&mdash; 1 h 19 m. It is the first genuinely dark night of the trip, and there is no town light "
+   stop(6, "23:56", "M&yacute;vatn &mdash; night 7, and the first night it is actually dark", None,
+     "<p><b>Astronomical darkness at M&yacute;vatn on 10 September runs 23:56&ndash;02:14</b> "
+     "&mdash; 2 h 18 m, straddling midnight. It is the first genuinely dark night of the trip, and there is no town light "
      "for tens of kilometres.</p>"
      "<p>Set an alarm. Check <b>vedur.is</b>&rsquo;s aurora page before bed: it maps cloud cover "
      "against activity, which is the combination that decides it. Clear sky beats high activity "
      "every time.</p>",
-     [("Dark from", "22:11"), ("Duration", "1 h 19 m"), ("Sites", "Vogar or Hl&iacute;&eth;")],
+     [("Dark from", "23:56"), ("Duration", "2 h 18 m"), ("Sites", "Vogar or Hl&iacute;&eth;")],
      [("M&yacute;vatn", mapq("Reykjahlid", "Myvatn"), True),
       ("Aurora forecast &mdash; vedur.is", "https://en.vedur.is/weather/forecasts/aurora/", False)],
      ("039 Northern lights over Mývatn (Iceland) Photo by Giles Laurent.jpg", "Aurora over M&yacute;vatn")),
@@ -951,7 +951,7 @@ NAV = '<a class="home" href="/">&#8592; All plans<span class="d">dashboard</span
 
 CHIPS = "".join(f'<span class="chip"><strong>{a}</strong> {b}</span>' for a, b in [
     ("11", "nights"), ("10", "campsites"), ("~2,190", "km"),
-    ("0", "hotels"), ("1.3&ndash;3 h", "of true dark"),
+    ("0", "hotels"), ("2.3&ndash;3 h", "of true dark"),
 ])
 
 HERO_IMG = "Aurora Borealis activity on top of the Kirkjufell mountain in September 2018.jpg"

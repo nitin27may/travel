@@ -13,10 +13,10 @@ Iceland is **UTC+0 year-round**, so no DST correction applies.
 | 15 Jul | none — no civil twilight end either, light all night | none |
 | 28 Aug | **none** | **none** |
 | 1 Sep | **none** | **none** |
-| 4 Sep | 21:53 – 23:10 (**1.3 h**) | none |
-| 8 Sep | 21:04 – 23:57 (2.9 h) | 22:11 – 23:30 (1.3 h) |
-| 12 Sep | 20:32 – 00:26 (3.9 h) | 21:19 – 00:18 (3.0 h) |
-| 15 Sep | 20:12 – 00:43 (**4.5 h**) | 20:54 – 00:41 (3.8 h) |
+| 4 Sep | 00:48 – 02:06 (**1.3 h**) | none |
+| 8 Sep | 23:59 – 02:52 (2.9 h) | 00:26 – 01:45 (1.3 h) |
+| 12 Sep | 23:27 – 03:21 (3.9 h) | 23:35 – 02:34 (3.0 h) |
+| 15 Sep | 23:08 – 03:39 (**4.5 h**) | 23:09 – 02:57 (3.8 h) |
 
 So the aurora argument pushes **later** into September. Meanwhile three things push **earlier**:
 
@@ -33,7 +33,7 @@ So the aurora argument pushes **later** into September. Meanwhile three things p
 
 **Saturday 4 – Wednesday 15 September 2027.** Eleven nights.
 The first half of the trip is the south coast, where darkness doesn't matter. By the time the route
-reaches Mývatn and the north (nights 7–9, 10–12 September) there is 1.3 → 3.0 hours of true
+reaches Mývatn and the north (nights 7–9, 10–12 September) there is 2.3 → 3.0 hours of true
 astronomical dark per night. The last camping night is 14 September — one day inside the Camping
 Card's validity.
 

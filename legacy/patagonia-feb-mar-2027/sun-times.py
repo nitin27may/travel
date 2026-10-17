@@ -1,7 +1,10 @@
+# Reference implementation: core/src/sun (TypeScript), CLI: node core/bin/sun.ts --lat .. --lon .. --zone .. --date ..
+# Longitude is positive EAST in the NOAA formula below (Reykjavik -21.94, Bergen +5.32). Do not negate it.
+# tools/tests/test_sun_scripts.py runs this script against values taken from core/src/sun.
 import math, datetime
 
 def solar_events(lat, lon, date, tz_offset_hours):
-    # NOAA solar calculator, returns (sunrise, sunset, civil_dawn, civil_dusk, daylight_hours) local time
+    # NOAA solar calculator (lon positive EAST), returns (sunrise, sunset, civil_dawn, civil_dusk, daylight_hours) local time
     def frac_year(d):
         return 2*math.pi/365.0*(d.timetuple().tm_yday-1)
     g = frac_year(date)
@@ -53,5 +56,5 @@ for d in [datetime.date(2028,6,24), datetime.date(2028,7,1), datetime.date(2028,
     print("="*78)
     print(d.isoformat())
     for name, lat, lon in places:
-        # NOAA convention: lon positive WEST -> pass -lon for east longitudes
-        print(f"  {name:20s} {solar_events(lat, -lon, d, 2)}")
+        # NOAA convention: lon positive EAST (Bergen +5.32), so pass it as stored.
+        print(f"  {name:20s} {solar_events(lat, lon, d, 2)}")
