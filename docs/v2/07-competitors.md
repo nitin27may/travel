@@ -74,6 +74,66 @@ assessment, which costs money and time; forwarding gets most of the value withou
 sources, a fit check for every person in the party, booking-window alarms, a prep checklist, and a
 Today view that works with no signal.*
 
+## 7. Wanderlog UI review (owner's screenshots, 17 Oct 2026)
+
+Screenshots: `reference/wanderlog-empty-trip.webp` (a new 15-day trip, empty) and
+`reference/wanderlog-place-added.webp` (Venice added to Places to visit).
+
+### What the flow does
+1. A three-column page: outline sidebar (Overview: Explore, Notes, Places to visit, other lists;
+   Itinerary: one entry per date), the scrolling plan document, and a full-height map.
+2. Overview starts with a reservations strip (Flight, Lodging, Rental car, Train, Attachment, Other)
+   and a budget card, then Notes, then lists. "+ New list" and a ghost "Add a title (e.g.
+   Restaurants)" invite more lists.
+3. Every list and every day ends in an **"Add a place"** box, with two small buttons beside it (add a
+   note, add a checklist).
+4. A place becomes a numbered card (number = map pin): name, "Add notes, links, etc.", a "From the
+   web" description, a photo, "Mark as visited", "Add time", "Attach" (paid), "Add cost", "Added by you".
+5. Under the list, a **"Recommended places"** carousel (Grand Canal, Piazza San Marco...) with + buttons.
+6. Clicking a place opens a **panel over the bottom of the map**: About, Photos, Mentions; "Added ▾"
+   (which list), Mark as visited, Ask AI, suggested questions; Open in Tripadvisor, Google, Google Maps.
+7. Each day has "Add subheading", **"Auto-fill day"**, **"Optimize route"** (paid), and a nudge
+   "Looks like you don't have lodging for Nov 4-18 yet. Book hotels".
+8. Undo and Redo sit in the top bar; Share and "Trip plan ▾" (switch between plan, budget...) beside them.
+
+### Take (and how it lands in 02-experience.md 6.1)
+
+| Wanderlog | Ours |
+|---|---|
+| Outline sidebar as a table of contents | same, but **each entry shows state** (count, base town, warning dot, done/total) |
+| One add box per list and per day | same, and the box also takes a **pasted link** or a note |
+| Numbered cards = numbered pins | same; the section in view is highlighted on the map |
+| Reservations strip at the top of the plan | same strip, plus **Forward an email** (07 section 4); feeds the booking timeline |
+| Budget card | same, by category (01 section 3.7) |
+| Recommended places under a list | same, but each card shows **why** and **who it fits** |
+| Place panel over the map with "which list" and "open in Google Maps" | same, plus a **Facts** tab with sources and read dates, eligibility per traveller, booking window |
+| Auto-fill day, Optimize route | both, **free**, always as a preview with one undo |
+| "No lodging for these nights" | same check, the fix opens our Stays list, no booking ad |
+| Undo/Redo in the top bar | same, backed by operation inverses; collaborator avatars beside them |
+
+### Do not take
+
+1. **The map ignores the trip.** The trip is "Trip to Dolomite" but the empty map shows Birmingham,
+   Alabama, and the empty state suggests "Best attractions in Birmingham". Our map always opens on the
+   trip's area (or its candidates); the viewer's location is used only for "distance from you".
+2. **Upsell inside the plan**: a large AI Assistant button, PRO badges on Export, Attach and Optimize,
+   and a hotel-booking banner inside Day 1. The planning surface should carry only the plan.
+3. **"From the web" text with no source or date.** Ours shows where a fact came from and when it was
+   read, and paraphrases instead of pasting.
+4. **Empty scaffolding**: an "Untitled" list in the sidebar, a ghost list title, and 15 empty days each
+   with its own add box make a long, hollow page. Ours creates a list on its first item and collapses
+   empty days to one line.
+5. **Dates without content in the outline** ("Wed 11/4", "Thu 11/5"...). Ours shows where you sleep
+   and whether the day has a problem.
+6. **A five-step tip carousel** on first open. Ours teaches through empty states that do the thing
+   ("Type a place, paste a link, or drop a pin").
+
+### Still to check in Wanderlog (try these before we design further)
+- Their **phone app** day view and offline behaviour (the key moment for us).
+- How "Auto-fill day" chooses and explains its picks.
+- What happens on a 14-day trip with 60 places: scroll speed, and whether the map stays readable.
+- The Budget view and the "Trip plan ▾" switcher (what other views exist).
+
 ## Sources
 - Pilot vs Wanderlog comparison: https://www.pilotplans.com/compare/wanderlog-alternative-feature-comparison
 - Stippl vs Wanderlog (2026): https://app.stippl.io/blog/stippl-vs-wanderlog
