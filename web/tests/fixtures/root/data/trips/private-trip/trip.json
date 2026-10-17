@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "id": "private-trip",
+ "updated": "2026-10-17",
+ "trip": {
+  "slug": "private-trip",
+  "title": "Private Trip Title",
+  "subtitle": "Fixture trip",
+  "visibility": "private",
+  "web_published": false,
+  "region_label": "Fixtureland",
+  "hero_image": null,
+  "nights": 5,
+  "status": "planned"
+ },
+ "editions": [
+  {
+   "id": "e2027",
+   "label": "2027",
+   "year": 2027,
+   "start": "2027-03-01",
+   "end": "2027-03-06",
+   "status": "chosen"
+  }
+ ],
+ "travellers": [
+  {
+   "id": "t1",
+   "label": "Adult 1",
+   "role": "adult",
+   "age_years": 41,
+   "height_cm": 137,
+   "weight_kg": 71,
+   "citizenship": "CITIZENSHIP-SENTINEL"
+  }
+ ],
+ "trip_bookings": [
+  {
+   "id": "bk1",
+   "confirmation": "CONF-SENTINEL-7Q",
+   "contact": "CONTACT-SENTINEL",
+   "price_paid_amount": 9999.5,
+   "insurer_tel": "+1-555-0100"
+  }
+ ],
+ "notes": [
+  {
+   "id": "n1",
+   "text": "NOTE-SENTINEL-PRIVATE",
+   "visibility": "private"
+  }
+ ]
+}
