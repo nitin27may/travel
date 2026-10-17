@@ -6,7 +6,8 @@ description: Capture a place, trail, viewpoint, activity or road trip into the s
 # Location capture
 
 The laundry list. Everything Nitin wants to remember goes into `locations/locations.json`
-as structured data; `locations/WISHLIST.md` is regenerated from it. There is one copy, in this
+as structured data (schema v2); `locations/WISHLIST.md`, the list page `locations/index.html` and the
+globe's `places.json` are regenerated from it by `locations.py build`. There is one copy, in this
 repo. The Obsidian `Location.md` is retired and points here.
 
 Capture is cheap and fast. Research (hours, prices, trail verification) happens later, when a trip
@@ -19,7 +20,9 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
    is a collection of places in the post's order. Keep stats exactly as written (km, gain, time).
 2. **Hints.** Give the tool what you know: `--country`, `--region` (ISO code: QC, AB, NY), `--area`
    (park, valley, resort or town the place sits in; only when the post or your knowledge is
-   certain), `--kind`, `--tags`, `--season`, `--kid`, `--stats`, `--note`, `--source`.
+   certain), `--kind`, `--tags`, `--season`, `--kid`, `--stats`, `--note`, `--source`. Known coordinates go in
+   as `--lat` and `--lon` (skips the resolvers, resolver `manual`). A place whose position is not
+   known yet gets `--unconfirmed` instead of a tag.
 3. **Add.** One call per place:
 
    ```bash
@@ -35,12 +38,24 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
    one is obviously right; ask Nitin one question only when two are plausible (two Moss Glen Falls).
    Re-run with `--pick N`.
 5. **Duplicates.** Exit code 1 with `DUPLICATE of <id>` means the place exists (same id, same
-   name in the region, or within 1.5 km). Do not add; if the new post has new facts, merge them
-   into the existing entry's `notes`, `stats` and `sources` by editing the JSON, then `render`.
-6. **Screenshots.** Copy the image into `locations/inbox/` named `<date>-<slug>.jpg` and put
-   that path in the source entry as `"screenshot"`. The post link goes in `url` when known.
-7. **Finish.** `validate` runs automatically through the hook on every write to the JSON. Commit
-   and push (`destinations: add <n> places (<topic>)`). Reply with one line per place:
+   name in the region, or within 300 m). Do not add; if the new post has new facts, merge them with
+   `edit`:
+
+   ```bash
+   python3 _system/tools/locations.py edit CA/QC/charlevoix/le-buton --note-append "Gondola runs to 17:00" \
+     --stats '{"minutes": 45}' --tags-add family --source "https://..." --source-type official
+   ```
+
+   `edit` also changes `--status`, `--kind`, `--kid`, `--season`, `--area`, coordinates and `--trip`.
+   When a trip plan adopts a place: `edit ID --trip SLUG --status planned`. After a visit:
+   `visit add ID --date 2026-10-02 --trip SLUG` (this sets the status to visited).
+6. **Screenshots.** Copy the image into `locations/inbox/` named `<date>-<slug>.jpg` and pass it with
+   `--screenshot locations/inbox/<file>` (on `add` or `edit`), with `--source-note "saved post,
+   15 Oct 2026"` for the date of the post. The post link goes in `--source` when known. Screenshots
+   and source notes stay private; the public pages never show them.
+7. **Finish.** Every write rebuilds the views, and the hook runs `validate` then `build` after any
+   Write or Edit on the store. Run `locations.py build --check` before committing: it must print
+   `up to date`. Commit and push (`locations: add <n> places (<topic>)`). Reply with one line per place:
    name, resolved chain (Canada > Quebec > Charlevoix), kind, and anything unresolved.
 
 ## Resolution rules
@@ -52,7 +67,7 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
   check the printed chain. A wrong parent is worse than a missing one.
 - If neither resolver finds the place, add with `--offline` plus `--country`, `--region`, `--area`
   so the hierarchy is still right, and say so; `validate` will flag the missing coordinates until
-  someone supplies `lat`/`lon`.
+  someone supplies `--lat`/`--lon` through `edit`, or the place is marked `--unconfirmed`.
 
 ## Reading saved posts in bulk
 
@@ -67,3 +82,6 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
 - Do not research hours, prices or trail conditions here; that is the trip-planner's job.
 - Do not write to the Obsidian vault.
 - Do not invent a region or area; leave the hint out and let the resolver answer, then check it.
+- Do not edit `locations.json` by hand. Use `edit`, `visit`, `tag` and `collection`.
+- Tags: the tool resolves aliases and drops a tag that repeats the kind. Merge two spellings with
+  `tag alias OLD CANONICAL`; list the vocabulary with `tag list`.
