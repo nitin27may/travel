@@ -79,3 +79,6 @@ and phase, `trip_candidate` with date windows, `travel_goal`, budget totals from
 1. Ontario 2027 statutory holidays and derived long weekends show without setup once the region is set.
 2. Selecting a range and "Plan a trip" opens the intent sheet with those exact dates.
 3. Goals tick automatically when a trip of the matching kind exists in the year.
+
+## Share
+"Share our year" (read-only timeline of trips and dates, no costs by default) via S26; members of the household already see it.

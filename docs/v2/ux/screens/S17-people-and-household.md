@@ -75,3 +75,6 @@ Matrix is a table with row and column headers; ✓/✗/⚠ have text equivalents
 ## Acceptance criteria
 1. Ages are computed at the trip's start date (and per item date for long trips).
 2. No personal data (age, height, passport date) appears in viewer, link or public views.
+
+## Share
+"Invite" is the members path of S26; the eligibility matrix is never shared by link (ages).

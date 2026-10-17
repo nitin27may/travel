@@ -75,3 +75,6 @@ The bar chart has the table as its equivalent; amounts read with currency.
 ## Acceptance criteria
 1. A reservation with a price creates or updates its planned line automatically.
 2. An expense can be added in 3 taps plus the amount in Today mode.
+
+## Share
+"Share summary" (category totals, no line items unless toggled) via S26.

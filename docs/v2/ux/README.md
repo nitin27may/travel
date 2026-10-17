@@ -36,10 +36,13 @@ never sold ([../09-reservations.md](../09-reservations.md)), live co-editing, fa
 | [screens/S23-settings.md](screens/S23-settings.md) | Household, notifications, connected MCP clients, access tokens |
 | [screens/S24-admin-review.md](screens/S24-admin-review.md) | Review queue with diffs and evidence |
 | [screens/S25-admin-coverage-and-jobs.md](screens/S25-admin-coverage-and-jobs.md) | Coverage map, backlog, research jobs |
+| [screens/S26-share-sheet.md](screens/S26-share-sheet.md) | One share sheet for every scope: audience, include toggles with live preview, expiry, PIN, exports, active links |
+| [screens/S27-guest-view.md](screens/S27-guest-view.md) | What a link recipient sees, signed out; "Copy to my trips" |
 
 Every screen page uses the same headings: Purpose · Entry points · Wireframes (desktop and phone) ·
 Regions and components · Primary action · States · Interactions · Copy · Accessibility · Data and
-operations · Acceptance criteria.
+operations · Acceptance criteria · Share (where sharing enters this screen; rules in
+[../10-sharing.md](../10-sharing.md)).
 
 ## 1. Navigation model
 

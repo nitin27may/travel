@@ -121,3 +121,6 @@ codes, points and zones; catalog `search` for stays and offers; email inbound pa
 2. Every traveller on the booking is stored (no "only one name").
 3. Times round-trip across zones correctly (dep 18:30 Toronto, arr 09:05 Venice = 8 h 35).
 4. A forwarded email with reservation markup creates a reservation without opening the form.
+
+## Share
+Not on the form; after save, the detail sheet has "Share details" (S26).

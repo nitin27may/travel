@@ -98,3 +98,6 @@ preview, `check_trip`; Realtime channel `trip:<id>` for ops and presence.
 3. Day headers show base, totals and warnings even when collapsed.
 4. A collaborator's move appears within 1 s on another open screen.
 5. No empty list is shown until it has an item.
+
+## Share
+Day ⋯ "Share this day", list ⋯ "Share this list", item ⋯ "Share place", Shift-select days → "Share days 3–5", day route ⋯ "Share route" (Google Maps link, GPX) — all through S26.

@@ -54,3 +54,6 @@ Same `get_trip` and `edit_trip` ops as S09.
 ## Acceptance criteria
 1. Dropping an item on a column produces one `move_item` op with one undo.
 2. Span bars match reservation segments and multi-day items exactly.
+
+## Share
+Column ⋯ "Share this day"; multi-select columns → "Share these days" (S26).

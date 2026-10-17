@@ -64,3 +64,6 @@ Same as S09.
 ## Acceptance criteria
 1. Every planning action available on desktop is reachable on the phone without drag.
 2. Switching days takes under 150 ms from cache.
+
+## Share
+Day header ⋯ "Share this day" and item long-press "Share place" (S26, native share sheet first).

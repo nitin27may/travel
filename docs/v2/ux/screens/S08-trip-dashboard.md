@@ -89,3 +89,6 @@ cancel deadline → task due), reservations, tasks, budget totals; Realtime pres
 1. The next action is the earliest actionable deadline, never a completed one.
 2. Time-zone pairs appear whenever the operator zone differs from home.
 3. Phase variants render the right lead section for each phase.
+
+## Share
+Header "Share" → S26 with scope whole trip; members list and active links visible there.

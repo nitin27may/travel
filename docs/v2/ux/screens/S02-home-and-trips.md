@@ -105,3 +105,6 @@ reservations); reminders due in 7 days.
 1. A trip with an open booking window in the next 7 days appears in "Needs you this week".
 2. Done trips never show outside Past unless pinned.
 3. The list renders from cache within 300 ms on a repeat visit, offline included.
+
+## Share
+Trip card ⋯ → "Share" opens the Share sheet (S26) with scope "whole trip"; signed-out day-trip results have "Share this search".

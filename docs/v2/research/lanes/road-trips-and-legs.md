@@ -11,9 +11,9 @@ tyres, cell dead zones, one-way rental fees, vehicle restrictions (2WD campers b
 
 ## 2. Produces
 
-- `leg_cache` rows (routing results, cached per cell pair and mode); legs of record with notes become
-  `entity` kind `hub`? No: notable road segments are `entity` kind `place` subkind `scenic_road`, `pass`,
-  `ferry_route`, `border_crossing`, with season and rules; ferries have `offer` rows (vehicle booking).
+- `leg_cache` rows (routing results, cached per cell pair and mode).
+- Notable road segments as `entity` kind `place` with subkinds `scenic_road`, `pass`, `ferry_route`,
+  `border_crossing`, carrying season and rules; ferries have `offer` rows (vehicle booking).
 - Stops: `place` subkinds `rest_area`, `fuel`, `ev_charger`, `pullout`, `viewpoint`, plus food entities,
   related to roads by `along` (new relation kind, with km from the start).
 - Rules per area in the area guide: driving side, speed norms, winter tyre law and dates, vignette,

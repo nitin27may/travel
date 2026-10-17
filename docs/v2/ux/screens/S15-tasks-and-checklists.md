@@ -87,3 +87,6 @@ Checkboxes are real checkboxes with full task names; progress has text.
 1. Changing trip dates moves relative due dates and their reminders, except user-edited tasks.
 2. A checklist line promoted to a task keeps a link back to its block.
 3. The passport task flags a traveller whose passport expires within the destination's rule.
+
+## Share
+"Assign" (member picker) on every task; pack lists and checklists have "Share list" (S26, scope list, read-only checkable copy for a guest helper).

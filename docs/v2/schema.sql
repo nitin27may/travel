@@ -84,6 +84,13 @@ create index on entity using gin (name gin_trgm_ops);
 create index on entity (kind, area_id);
 create index on entity (fresh_until);
 
+create table saved_place (                       -- the household wishlist: private status on shared catalog places
+  household_id text not null references household(id) on delete cascade,
+  entity_id text not null references entity(id) on delete cascade,
+  status text not null default 'idea' check (status in ('idea','planned','visited','dropped')),
+  notes text, source_url text, added_at timestamptz not null default now(),
+  primary key (household_id, entity_id));
+
 create table offer (
   id text primary key, entity_id text references entity(id),
   kind text not null check (kind in ('ticket','permit','shuttle','tour','room','campsite','ferry','pass','rental','other')),
@@ -146,6 +153,8 @@ create table trip (
   prefs jsonb not null default '{}',
   phase_override text, visibility text not null default 'private' check (visibility in ('private','link','public')),
   is_template boolean not null default false, forked_from text references trip(id),
+  template_version int, forked_from_version int,  -- forks see "updates available" when the template moves on
+  template_meta jsonb,                            -- {seasons, min_nights, max_nights, party_fit, travelled: bool, price_year}
   budget_buffer_pct numeric not null default 12, currency text not null default 'CAD',
   version int not null default 1, created_at timestamptz not null default now(), updated_at timestamptz not null default now(),
   unique (owner_id, slug),
@@ -234,6 +243,8 @@ create table trip_item (
   notes text, cost_estimate numeric, currency text,
   checks jsonb,                                    -- kind 'checklist': [{id, text, done}]
   private boolean not null default false,          -- excluded from every shared view (10-sharing.md)
+  priority text not null default 'should' check (priority in ('must','should','nice')),  -- used when adapting length
+  weather_sensitive boolean not null default false,
   segment_id text references reservation_segment(id) on delete cascade,  -- anchored: times come from the reservation
   check (entity_id is not null or title is not null or kind in ('note','checklist')));
 create index on trip_item (trip_id, day, sort_key);

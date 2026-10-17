@@ -141,3 +141,6 @@ fit line (debounced 300 ms); household defaults from `household.prefs`.
 2. Every step can be skipped; skipping all of 3–5 gives household defaults.
 3. Day trip path produces a one-day trip with a leave-by time in ≤ 5 taps.
 4. Ages shown are ages on the trip's dates.
+
+## Share
+Not shown during creation; after "Create trip" a toast offers "Invite Priya" (S26, audience people in the trip).

@@ -114,3 +114,6 @@ Tabs follow the tabs pattern; the elevation profile has a text summary ("climbs 
 2. Every numeric fact shows its source and read date on the Facts tab.
 3. Fit avatars match the eligibility rules for the trip's travellers on the trip's dates.
 4. The full page renders without JavaScript and includes JSON-LD (TouristAttraction / Place).
+
+## Share
+"Share" in the sheet header: the public entity page link plus, inside a trip, "with my note and day" (S26, scope item).
