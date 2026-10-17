@@ -1,0 +1,84 @@
+{
+ "schema": "research-sidecar/1",
+ "lane": "stays",
+ "subject": {
+  "kind": "trip",
+  "id": "patagonia-fixture"
+ },
+ "researched": "2026-10-14",
+ "agent": "research-stays",
+ "model": "claude-sonnet-fixture",
+ "md": "research/trips/patagonia-fixture/stays.md",
+ "geo": {
+  "countries": [
+   "AR"
+  ],
+  "regions": [],
+  "areas": [
+   "AR/santa-cruz/el-chalten"
+  ]
+ },
+ "trip_type": {
+  "duration_shape": "multi-week",
+  "movement_shape": "multi-base",
+  "styles": [
+   "adventure"
+  ]
+ },
+ "tags": [],
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://www.hosteriaelpilar.example/en",
+   "title": "Hosteria El Pilar",
+   "publisher": "Hosteria El Pilar",
+   "kind": "operator",
+   "read": "2026-10-14"
+  }
+ ],
+ "facts": [],
+ "records": {
+  "stays": [
+   {
+    "match": {},
+    "src": [
+     "src-0001"
+    ],
+    "name": "Hosteria El Pilar",
+    "area_id": "AR/santa-cruz/el-chalten",
+    "kind": "Hotel",
+    "lat": -49.27,
+    "lon": -72.91,
+    "comfort_tier": 3,
+    "sleeps_max": 4,
+    "car_free_access": false
+   },
+   {
+    "match": {},
+    "src": [
+     "src-0001"
+    ],
+    "name": "Refugio Poincenot",
+    "area_id": "AR/santa-cruz/el-chalten",
+    "kind": "Refugio",
+    "lat": -49.29,
+    "lon": -72.95
+   }
+  ],
+  "eateries": [
+   {
+    "match": {},
+    "src": [
+     "src-0001"
+    ],
+    "name": "La Cerveceria",
+    "area_id": "AR/santa-cruz/el-chalten",
+    "lat": -49.331,
+    "lon": -72.887,
+    "cuisine": "pub",
+    "price_tier": 2,
+    "reservation": "Recommended"
+   }
+  ]
+ }
+}

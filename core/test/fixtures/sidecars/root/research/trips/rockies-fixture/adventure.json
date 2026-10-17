@@ -1,0 +1,145 @@
+{
+ "schema": "research-sidecar/1",
+ "lane": "adventure",
+ "subject": {
+  "kind": "trip",
+  "id": "rockies-fixture"
+ },
+ "researched": "2026-10-13",
+ "agent": "research-adventure",
+ "model": "claude-sonnet-fixture",
+ "md": "research/trips/rockies-fixture/adventure.md",
+ "geo": {
+  "countries": [
+   "CA"
+  ],
+  "regions": [],
+  "areas": [
+   "CA/AB/banff-national-park"
+  ]
+ },
+ "trip_type": {
+  "duration_shape": "multi-week",
+  "movement_shape": "multi-base",
+  "styles": [
+   "adventure"
+  ]
+ },
+ "tags": [],
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+   "title": "Banff Gondola",
+   "publisher": "Banff Jasper Collection",
+   "kind": "operator",
+   "read": "2026-10-13"
+  },
+  {
+   "id": "src-0002",
+   "url": "https://www.example-tours.org/icewalk",
+   "title": "Icewalk listing",
+   "publisher": "Example Tours",
+   "kind": "reseller",
+   "read": "2026-10-13"
+  }
+ ],
+ "facts": [],
+ "records": {
+  "activities": [
+   {
+    "match": {},
+    "src": [
+     "src-0001"
+    ],
+    "name": "Banff Gondola",
+    "area_id": "CA/AB/banff-national-park",
+    "type": "Cable Car",
+    "operator": "Banff Jasper Collection",
+    "indoor": false,
+    "weather_sensitive": true,
+    "tags": [
+     "Views",
+     "Mountains"
+    ],
+    "lat": 51.1457,
+    "lon": -115.5703,
+    "min_age": null
+   },
+   {
+    "match": {},
+    "src": [
+     "src-0001"
+    ],
+    "name": "Guided Icewalk",
+    "area_id": "CA/AB/banff-national-park",
+    "type": "guided_hike",
+    "operator": "Example Tours",
+    "tags": [
+     "Family Hike",
+     "Ice Walking"
+    ],
+    "min_age": 6
+   },
+   {
+    "match": {},
+    "src": [
+     "src-0002"
+    ],
+    "name": "Quokka Walk",
+    "area_id": "CA/AB/banff-national-park",
+    "type": "Quokka Walk"
+   }
+  ],
+  "offers": [
+   {
+    "match": {
+     "book_url": "https://www.banffjaspercollection.com/attractions/banff-gondola/?utm=x"
+    },
+    "src": [
+     "src-0001"
+    ],
+    "provider": "Banff Jasper Collection",
+    "product": "Banff Gondola",
+    "area_id": "CA/AB/banff-national-park",
+    "subject_entity": "activity",
+    "subject_id": "CA/AB/banff-national-park/banff-gondola",
+    "category": "Ticket",
+    "book_url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+    "opens_kind": "always-open",
+    "sellout_kind": "never"
+   }
+  ],
+  "offer_prices": [
+   {
+    "match": {
+     "provider": "Banff Jasper Collection",
+     "product": "Banff Gondola"
+    },
+    "src": [
+     "src-0001"
+    ],
+    "amount": 70,
+    "currency": "C$",
+    "per": "per adult",
+    "read": "13 Oct 2026",
+    "age_from": 13
+   },
+   {
+    "match": {
+     "provider": "Banff Jasper Collection",
+     "product": "Banff Gondola"
+    },
+    "src": [
+     "src-0001"
+    ],
+    "amount": 35,
+    "currency": "CAD",
+    "per": "Per child",
+    "read": "2026-10-13",
+    "age_from": 6,
+    "age_to": 12
+   }
+  ]
+ }
+}
