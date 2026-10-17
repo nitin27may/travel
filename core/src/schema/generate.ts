@@ -1,0 +1,16 @@
+import { ddlText } from "./ddl.ts";
+import { buildSchemaJson } from "./export.ts";
+
+export interface Generated {
+  file: string;
+  text: string;
+}
+
+/** The files under data/schema/generated/, regenerated in memory. */
+export function generate(): Generated[] {
+  const schema = buildSchemaJson();
+  return [
+    { file: "schema.json", text: JSON.stringify(schema, null, 2) + "\n" },
+    { file: "schema.sql", text: ddlText(schema) },
+  ];
+}
