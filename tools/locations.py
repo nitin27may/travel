@@ -2,7 +2,7 @@
 """Location store (schema v2): the laundry list of places we might go, kept as data.
 
     python3 tools/locations.py add "Lake Louise" --country CA --region AB --tags lake,family
-    python3 tools/locations.py import locations/inbox/batch.json
+    python3 tools/locations.py import research/inbox/batch.json
     python3 tools/locations.py collection add --slug gaspesie-loop --name "..." --places ID,ID
     python3 tools/locations.py edit ID --status shortlisted --note-append "..." --tags-add a,b
     python3 tools/locations.py visit add ID --date 2026-10-02 [--end ...] [--trip SLUG]
@@ -1262,8 +1262,8 @@ def validate(data: dict, paths: Paths | None = None) -> list[str]:
             errs.append(f"{w}: type {r.get('type')!r} not in {SOURCE_TYPES}")
         if r.get("url") is not None and not str(r["url"]).startswith(("http://", "https://")):
             errs.append(f"{w}: url must be http(s)")
-        if r.get("screenshot") is not None and not str(r["screenshot"]).startswith("locations/inbox/"):
-            errs.append(f"{w}: screenshot must be a path under locations/inbox/")
+        if r.get("screenshot") is not None and not str(r["screenshot"]).startswith("research/inbox/"):
+            errs.append(f"{w}: screenshot must be a path under research/inbox/")
     for r in rows["visits"]:
         w = f"visits {r.get('id')}"
         if not re.fullmatch(r"vis-\d{5}", str(r.get("id"))):
@@ -1381,7 +1381,7 @@ def main(argv=None) -> int:
     a.add_argument("--tags"); a.add_argument("--season", help="comma months, e.g. Sep,Oct"); a.add_argument("--kid", choices=KID_FIT)
     a.add_argument("--stats", help='json, e.g. {"km": 9.5, "gain_m": 543}'); a.add_argument("--note")
     a.add_argument("--source"); a.add_argument("--source-type", default="instagram", choices=SOURCE_TYPES)
-    a.add_argument("--source-note"); a.add_argument("--screenshot", help="path under locations/inbox/")
+    a.add_argument("--source-note"); a.add_argument("--screenshot", help="path under research/inbox/")
     a.add_argument("--status", default="idea", choices=STATUSES)
     a.add_argument("--lat", type=float); a.add_argument("--lon", type=float, help="with --lat: skip the resolvers, resolver manual")
     a.add_argument("--trip"); a.add_argument("--unconfirmed", action="store_true")
@@ -1407,7 +1407,7 @@ def main(argv=None) -> int:
     e.add_argument("--lat", type=float); e.add_argument("--lon", type=float)
     g = e.add_mutually_exclusive_group(); g.add_argument("--unconfirmed", action="store_true"); g.add_argument("--confirmed", action="store_true")
     e.add_argument("--source"); e.add_argument("--source-type", choices=SOURCE_TYPES)
-    e.add_argument("--source-note"); e.add_argument("--screenshot", help="path under locations/inbox/")
+    e.add_argument("--source-note"); e.add_argument("--screenshot", help="path under research/inbox/")
     e.set_defaults(fn=cmd_edit)
 
     v = sub.add_parser("visit"); v.add_argument("verb", choices=["add"]); v.add_argument("id")

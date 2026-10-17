@@ -154,15 +154,15 @@ def test_duplicate_by_distance_and_by_name(root):
 
 def test_add_with_screenshot_and_note_makes_source_with_post_date(root):
     assert run("add", "Foo", "--country", "CA", "--region", "QC", "--area", "A", "--offline",
-               "--screenshot", "locations/inbox/2026-10-16-foo.jpg", "--source-note", "saved post, 15 Oct 2026",
+               "--screenshot", "research/inbox/2026-10-16-foo.jpg", "--source-note", "saved post, 15 Oct 2026",
                "--unconfirmed") == 0
     s = D.load()["sources"][0]
-    assert s["screenshot"] == "locations/inbox/2026-10-16-foo.jpg" and s["post_date"] == "2026-10-15" and s["url"] is None
+    assert s["screenshot"] == "research/inbox/2026-10-16-foo.jpg" and s["post_date"] == "2026-10-15" and s["url"] is None
 
 
 def test_import_batch_with_collection_by_name(root, tmp_path):
     batch = {"places": [{"name": "A One", "country": "CA", "region": "QC", "area": "X", "lat": 1, "lon": 1,
-                         "sources": [{"type": "instagram", "note": "post 3 Sep 2026", "screenshot": "locations/inbox/a.jpg"}],
+                         "sources": [{"type": "instagram", "note": "post 3 Sep 2026", "screenshot": "research/inbox/a.jpg"}],
                          "season": ["Sep"]},
                         {"name": "B Two", "country": "CA", "region": "QC", "area": "X", "lat": 2, "lon": 2, "unconfirmed": True}],
              "collections": [{"slug": "ab", "name": "AB", "places": ["A One", "B Two"], "notes": "n",
@@ -401,7 +401,7 @@ def test_validate_source_url_screenshot_and_type(good):
     s = good["sources"][0]
     s.update(url="javascript:alert(1)", screenshot="/etc/passwd", type="smoke")
     out = errs(good)
-    assert "url must be http(s)" in out and "locations/inbox/" in out and "type 'smoke'" in out
+    assert "url must be http(s)" in out and "research/inbox/" in out and "type 'smoke'" in out
 
 
 def test_validate_warns_but_passes_over_300_places(good):

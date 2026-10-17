@@ -1,6 +1,6 @@
 # Wishlist
 
-Generated from `locations/locations.json` on 2026-10-17. Do not edit by hand; add with `python3 _system/tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-17. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
 64 places in 7 countries, 4 collections. By status: idea 56, planned 8.
 
