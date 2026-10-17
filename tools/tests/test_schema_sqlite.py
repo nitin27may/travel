@@ -131,8 +131,10 @@ def _insert_rows(con, table: str, rows: list[dict], extra: dict | None = None) -
                     [_scalar(full.get(c)) for c in cols])
 
 
-def load_document(con, doc: dict) -> str:
-    """Insert one trip, catalog or locations document. Returns its family."""
+def load_document(con, doc: dict, file_key: str = "") -> str:
+    """Insert one trip, catalog or locations document. Returns its family.
+
+    `file_key` names the catalog file ("trails/AR"): source ids restart in every file."""
     if "trip" in doc and "profile" in doc:
         slug = doc["id"]
         for key, value in doc.items():
@@ -149,7 +151,7 @@ def load_document(con, doc: dict) -> str:
         for key, value in doc.items():
             if key in ("schema_version", "country"):
                 continue
-            extra = {"country": doc["country"]} if key == "sources" else None
+            extra = {"file": file_key} if key == "sources" else None
             _insert_rows(con, CATALOG_TABLE_NAMES.get(key, key), value, extra)
         return "catalog"
     for t in D.TABLES:
@@ -173,19 +175,30 @@ def _fixture_documents() -> list[Path]:
     return out
 
 
-def test_generated_ddl_loads_the_real_store_and_every_valid_fixture():
+def test_generated_ddl_loads_the_real_store():
     con = _connect(GENERATED_DDL)
-    con.execute("PRAGMA foreign_keys = OFF")        # documents load in file order; the check below is the test
+    con.execute("PRAGMA foreign_keys = OFF")        # file order is not dependency order; the check below is the test
     store = json.loads((ROOT / "data" / "locations" / "locations.json").read_text(encoding="utf-8"))
     load_document(con, store)
     assert con.execute("SELECT count(*) FROM places").fetchone()[0] == len(store["places"])
-    fixtures = _fixture_documents()
-    families = []
-    for path in fixtures:
-        families.append(load_document(con, json.loads(path.read_text(encoding="utf-8"))))
     assert con.execute("PRAGMA foreign_key_check").fetchall() == []
-    if (CORE_FIXTURES / "valid").is_dir():
-        assert "trip" in families and "catalog" in families, "valid fixtures should include trips and catalog files"
+
+
+@pytest.mark.skipif(not (CORE_FIXTURES / "valid").is_dir(), reason="core fixtures arrive in P2a step 5")
+def test_generated_ddl_loads_every_valid_fixture():
+    """The fixture root (locations and catalog) plus every valid trip and catalog file, then a foreign key check."""
+    con = _connect(GENERATED_DDL)
+    con.execute("PRAGMA foreign_keys = OFF")
+    families = {}
+    for path in _fixture_documents():
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        key = f"{path.parent.name}/{path.stem}"
+        families.setdefault(load_document(con, doc, key), []).append(path.name)
+    assert con.execute("PRAGMA foreign_key_check").fetchall() == []
+    assert {"trip", "catalog", "locations"} <= set(families)
+    trips = {p.stem for p in (CORE_FIXTURES / "valid").glob("*.json") if "trip" in json.loads(p.read_text())}
+    assert trips and con.execute("SELECT count(*) FROM trips").fetchone()[0] == len(trips)
+    assert con.execute("SELECT count(*) FROM items").fetchone()[0] > 10
 
 
 def test_generated_ddl_trip_foreign_keys_are_scoped_to_the_trip():

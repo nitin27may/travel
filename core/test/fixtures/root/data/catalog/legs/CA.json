@@ -1,0 +1,10 @@
+{
+"schema_version": 1,
+"country": "CA",
+"legs": [
+{"geometry_file":null,"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","id":"lg-b2c6924a0a","from_id":"CA/ON/niagara/niagara-falls","to_id":"CA/ON/niagara/journey-behind-the-falls","mode":"walk","km":0.5,"minutes":8,"basis":"estimate","seasonal_notes":"","symmetric":true,"sources":["src-0001"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17"}
+],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}
