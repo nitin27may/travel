@@ -115,3 +115,27 @@ default on the list and never shown on the globe.
 - Wikidata and Nominatim get one request a second with a user agent. Never run two capture
   sessions in parallel.
 - The Obsidian `Location.md` (both copies) is retired and points here. Do not write to it.
+
+## Split layout
+
+The committed store is one file (`layout: single`). Past about 300 places, convert it so each
+country is its own file and a change touches one small file:
+
+    python3 _system/tools/locations.py layout split     # locations.json + one locations/<CC>.json per country
+    python3 _system/tools/locations.py layout single    # back to one file, byte-identical to before
+
+Split is never automatic; `validate` only warns once a single file passes 300 places.
+
+- `locations.json` keeps `schema_version`, `updated`, `layout: "by-country"`, `parts` (sorted ISO2),
+  `countries`, `tags`, `collections`, `collection_places` and the sources that belong to a collection.
+- `locations/<CC>.json` holds `schema_version`, `country`, and that country's `regions`, `areas`,
+  `places`, `place_tags`, place-owned `sources` and `visits`, one row per line as in the single file.
+- `save` routes each row: a region by its `country`, an area by its region, a place by its area,
+  and `place_tags`, `sources` and `visits` by their place. A country with no rows gets no part, and a
+  part the root no longer lists is deleted.
+- `load` concatenates the parts and fails if a listed part is missing or holds a row from another
+  country. Every command, `validate` and `build` work the same on either layout.
+- The hook pattern `locations/[A-Z][A-Z].json` already covers the part files.
+
+Gotchas: `layout` changes do not touch `updated`. Edit a part by hand and the next `validate` is the
+check that you kept the row in the right country file.

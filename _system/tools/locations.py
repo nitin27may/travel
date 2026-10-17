@@ -310,11 +310,132 @@ def dumps(data: dict) -> str:
     return "{\n" + ",\n".join(parts) + "\n}\n"
 
 
-# --- load/save IO section (A2 replaces this for the by-country layout) ---
+# --- load/save IO section (single file, or one file per country when layout is by-country) ---
+ROOT_TABLES = ("countries", "tags", "collections", "collection_places")   # always live in the root file
+PART_TABLES = ("regions", "areas", "places", "place_tags", "sources", "visits")
+PART_KEYS = {"schema_version", "country", *PART_TABLES}
+
+
+def part_path(cc: str) -> Path:
+    return PATHS.store.parent / f"{cc}.json"
+
+
+def _read_json(path: Path) -> dict:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as ex:
+        raise Fail(f"{path.name} is not valid JSON: {ex}")
+
+
+def _first(key) -> str:
+    return str(key or "").split("/", 1)[0]
+
+
+def _check_part(cc: str, part: dict, schema_version) -> None:
+    where = f"{cc}.json"
+    extra = sorted(set(part) - PART_KEYS)
+    if extra:
+        raise Fail(f"{where}: unknown top-level key(s) {extra}")
+    if part.get("country") != cc:
+        raise Fail(f"{where}: country is {part.get('country')!r}, expected {cc!r}")
+    if part.get("schema_version") != schema_version:
+        raise Fail(f"{where}: schema_version {part.get('schema_version')!r} differs from the root file")
+    owner = {"regions": lambda r: r.get("country"), "areas": lambda r: _first(r.get("region_id")),
+             "places": lambda r: _first(r.get("area_id")), "place_tags": lambda r: _first(r.get("place_id")),
+             "sources": lambda r: _first(r.get("place_id")) if r.get("place_id") else cc,
+             "visits": lambda r: _first(r.get("place_id"))}
+    for t, who in owner.items():
+        for r in part.get(t, []):
+            if who(r) != cc:
+                raise Fail(f"{where}: {t} row {json.dumps(r, ensure_ascii=False)[:90]} belongs to {who(r)!r}, not {cc!r}")
+
+
 def load() -> dict:
-    if PATHS.store.exists():
-        return json.loads(PATHS.store.read_text(encoding="utf-8"))
-    return empty_store()
+    if not PATHS.store.exists():
+        return empty_store()
+    data = _read_json(PATHS.store)
+    if data.get("layout") != "by-country":
+        return data
+    parts = data.get("parts")
+    if not isinstance(parts, list):
+        raise Fail("layout is by-country but parts is not a list")
+    for cc in parts:
+        path = part_path(cc)
+        if not path.is_file():
+            raise Fail(f"part {cc}.json is listed in parts but missing")
+        part = _read_json(path)
+        _check_part(cc, part, data.get("schema_version"))
+        for t in PART_TABLES:
+            data.setdefault(t, []).extend(part.get(t, []))
+    return data
+
+
+def _country_maps(data: dict) -> tuple[dict, dict]:
+    region_cc = {r["id"]: r.get("country") or _first(r["id"]) for r in data.get("regions", [])}
+    area_cc = {a["id"]: region_cc.get(a.get("region_id")) or _first(a["id"]) for a in data.get("areas", [])}
+    return region_cc, area_cc
+
+
+def split_rows(data: dict) -> tuple[dict, dict[str, dict]]:
+    """Route rows to a country. Anything that cannot be routed stays in the root so no row is lost."""
+    region_cc, area_cc = _country_maps(data)
+    place_cc = {p["id"]: area_cc.get(p.get("area_id")) or _first(p["id"]) for p in data.get("places", [])}
+    root = {k: data[k] for k in ROOT_SCALARS if k in data}
+    for t in ROOT_TABLES:
+        root[t] = list(data.get(t, []))
+    parts: dict[str, dict] = {}
+
+    def put(cc, t, row):
+        if cc and re.fullmatch(r"[A-Z]{2}", cc):
+            parts.setdefault(cc, {k: [] for k in PART_TABLES})[t].append(row)
+        else:
+            root.setdefault(t, []).append(row)
+
+    for r in data.get("regions", []):
+        put(region_cc[r["id"]], "regions", r)
+    for r in data.get("areas", []):
+        put(area_cc[r["id"]], "areas", r)
+    for r in data.get("places", []):
+        put(place_cc[r["id"]], "places", r)
+    for t in ("place_tags", "visits"):
+        for r in data.get(t, []):
+            put(place_cc.get(r.get("place_id")), t, r)
+    for r in data.get("sources", []):
+        if r.get("place_id"):
+            put(place_cc.get(r["place_id"]), "sources", r)
+        else:
+            root["sources"] = root.get("sources", []) + [r]      # collection-owned
+    root["parts"] = sorted(parts)
+    return root, parts
+
+
+def _rows_text(table: str, rows: list[dict]) -> str:
+    rows = sorted((ordered_row(table, r) for r in rows), key=lambda r: _sort_key(table, r))
+    if not rows:
+        return f'"{table}": []'
+    body = ",\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rows)
+    return f'"{table}": [\n{body}\n]'
+
+
+def dumps_part(cc: str, schema_version, part: dict) -> str:
+    items = [f'"schema_version": {json.dumps(schema_version)}', f'"country": {json.dumps(cc)}']
+    items += [_rows_text(t, part.get(t, [])) for t in PART_TABLES]
+    return "{\n" + ",\n".join(items) + "\n}\n"
+
+
+def _write_if_changed(path: Path, text: str) -> None:
+    if not path.exists() or path.read_text(encoding="utf-8") != text:
+        path.write_text(text, encoding="utf-8")
+
+
+def _listed_parts() -> list[str]:
+    """Parts named by the root file on disk right now (before this save replaces it)."""
+    try:
+        old = json.loads(PATHS.store.read_text(encoding="utf-8")) if PATHS.store.exists() else {}
+    except json.JSONDecodeError:
+        return []
+    return [cc for cc in old.get("parts", []) if isinstance(cc, str) and re.fullmatch(r"[A-Z]{2}", cc)] \
+        if old.get("layout") == "by-country" else []
 
 
 def save(data: dict, touch: bool = True) -> None:
@@ -322,7 +443,22 @@ def save(data: dict, touch: bool = True) -> None:
     if touch:
         data["updated"] = today()
     PATHS.store.parent.mkdir(parents=True, exist_ok=True)
-    PATHS.store.write_text(dumps(data), encoding="utf-8")
+    old_parts = _listed_parts()
+    if data.get("layout") == "by-country":
+        root, parts = split_rows(data)
+        data["parts"] = root["parts"]
+        for cc, part in parts.items():
+            _write_if_changed(part_path(cc), dumps_part(cc, data.get("schema_version"), part))
+        text = dumps(root)
+        keep = set(parts)
+    else:
+        data.pop("parts", None)
+        text = dumps(data)
+        keep = set()
+    _write_if_changed(PATHS.store, text)
+    for cc in old_parts:                      # a part the store no longer lists is stale
+        if cc not in keep:
+            part_path(cc).unlink(missing_ok=True)
     V.write_all(data, PATHS)
 # --- end IO section ---
 
@@ -1199,6 +1335,22 @@ def cmd_build(args) -> int:
     return 0
 
 
+def cmd_layout(args) -> int:
+    data = ensure_v2(load())
+    target = "by-country" if args.mode == "split" else "single"
+    if data.get("layout") == target:
+        print(f"layout is already {target}")
+        return 0
+    data["layout"] = target
+    if target == "single":
+        data.pop("parts", None)
+    save(data, touch=False)          # a layout change is not a content change
+    msg = f"split into {len(data['parts'])} part(s): {', '.join(data['parts'])}" if target == "by-country" \
+        else "merged back into locations.json"
+    print(msg)
+    return 0
+
+
 def cmd_list(args) -> int:
     data = ensure_v2(load())
     ix = V.Index(data)
@@ -1266,6 +1418,9 @@ def main(argv=None) -> int:
 
     t = sub.add_parser("tag"); t.add_argument("verb", choices=["alias", "list"]); t.add_argument("names", nargs="*")
     t.set_defaults(fn=cmd_tag)
+
+    ly = sub.add_parser("layout", help="convert the store between one file and one file per country")
+    ly.add_argument("mode", choices=["split", "single"]); ly.set_defaults(fn=cmd_layout)
 
     sub.add_parser("validate").set_defaults(fn=cmd_validate)
     b = sub.add_parser("build"); b.add_argument("--check", action="store_true"); b.set_defaults(fn=cmd_build)
