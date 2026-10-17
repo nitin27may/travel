@@ -169,7 +169,7 @@ create table trip_list (id text primary key, trip_id text not null references tr
 
 create table trip_item (
   id text primary key, trip_id text not null references trip(id) on delete cascade,
-  kind text not null check (kind in ('visit','hike','activity','stay','transport','meal','break','note','custom')),
+  kind text not null check (kind in ('visit','hike','activity','stay','transport','meal','break','note','checklist','custom')),
   entity_id text references entity(id), offer_id text references offer(id),
   title text, point geography(Point,4326), address text, url text,
   list_id text references trip_list(id) on delete set null,  -- used when day is null
@@ -182,7 +182,8 @@ create table trip_item (
   who text[] not null default '{}',                -- traveller ids; empty = everyone
   status text not null default 'planned' check (status in ('planned','done','skipped')),
   notes text, cost_estimate numeric, currency text,
-  check (entity_id is not null or title is not null));
+  checks jsonb,                                    -- kind 'checklist': [{id, text, done}]
+  check (entity_id is not null or title is not null or kind in ('note','checklist')));
 create index on trip_item (trip_id, day, sort_key);
 
 create table day_note (trip_id text references trip(id) on delete cascade, day int not null,
@@ -228,6 +229,15 @@ create table budget_line (id text primary key, trip_id text not null references 
   label text not null, estimate numeric, actual numeric, currency text not null,
   basis text not null default 'group' check (basis in ('group','per_person','per_person_day')),
   booking_id text references booking(id), item_id text references trip_item(id));
+
+create table expense (                           -- what was actually spent, during or after the trip
+  id text primary key, trip_id text not null references trip(id) on delete cascade,
+  spent_on date not null, label text not null, amount numeric not null, currency text not null,
+  amount_home numeric, category text not null
+    check (category in ('getting_there','local_transport','lodging','food','activities','misc')),
+  item_id text references trip_item(id) on delete set null, booking_id text references booking(id) on delete set null,
+  paid_by text references traveller(id), split_between text[],   -- optional: enables group balances later
+  receipt_id text references attachment(id), created_by uuid references app_user(id));
 
 create table travel_goal (id text primary key, household_id text not null references household(id) on delete cascade,
   year int not null, rule text not null, budget numeric, currency text);

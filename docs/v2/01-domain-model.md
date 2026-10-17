@@ -218,6 +218,12 @@ buffer percentage (default 12%) is a trip setting. Bookings and items with a cos
 automatically; manual lines are allowed. Totals show in the trip currency and the household's home
 currency at a rate stored with its date.
 
+**Expenses.** `expense` records what was actually spent (date, amount, currency and the home-currency
+amount, category, optional link to an item or booking, receipt). Budget lines are the plan; expenses
+are the truth; the budget view shows both. `paid_by` and `split_between` are optional columns so
+"group balances" (who owes whom, Wanderlog's term) can be added for friends' trips without a schema
+change; a family trip never sees them.
+
 **Passes.** An `offer` of kind `pass` lists the entities it covers (relation `covered_by`). When a
 trip uses several covered places, the budget shows "the Discovery Pass pays for itself after 3 of
 these 5 visits"; if the household already holds the pass, those entry fees drop to zero.
