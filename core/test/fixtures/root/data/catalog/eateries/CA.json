@@ -1,0 +1,10 @@
+{
+"schema_version": 1,
+"country": "CA",
+"eateries": [
+{"name_lang":null,"kid_fit":"yes","min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"house_grade":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"accessibility":"step-free","cost_ref":null,"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","cuisine":null,"price_tier":null,"kids_menu":null,"reservation":null,"sources":["src-0001"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17","tags":[],"season_months":[],"id":"CA/ON/niagara/lunch-fixture","area_id":"CA/ON/niagara","name":"Lunch Fixture","lat":43.09,"lon":-79.08,"hours":{},"notes":""}
+],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}

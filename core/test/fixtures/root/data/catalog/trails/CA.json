@@ -1,0 +1,10 @@
+{
+"schema_version": 1,
+"country": "CA",
+"trails": [
+{"name_lang":null,"min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"accessibility":"step-free","cost_ref":null,"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","place_id":null,"km_range":null,"loss_m":null,"hours":null,"shape":null,"house_basis":null,"local_system":null,"local_grade":null,"local_source_url":null,"trailhead_name":null,"permit":null,"geometry_file":null,"geometry_source":null,"geometry_source_id":null,"geometry_fetched":null,"official_url":null,"alltrails_url":null,"komoot_url":null,"outdooractive_url":null,"wikiloc_url":null,"sources":["src-0001"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17","tags":[],"season_months":[],"id":"CA/ON/niagara/niagara-gorge-rim-trail","area_id":"CA/ON/niagara","name":"Niagara Gorge Rim Trail","house_grade":1,"kid_fit":"yes","trailhead_lat":43.1,"trailhead_lon":-79.06,"hazards":[],"notes":"","km":5,"gain_m":20}
+],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}

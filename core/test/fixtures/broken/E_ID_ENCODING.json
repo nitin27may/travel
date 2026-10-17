@@ -1,0 +1,10 @@
+{
+"schema_version": 1,
+"country": "AR",
+"trails": [
+{"name_lang":null,"min_age":null,"max_age":null,"min_height_cm":null,"max_height_cm":null,"min_weight_kg":null,"max_weight_kg":null,"walk_km":null,"walk_gain_m":null,"duration_min":null,"accessibility":"step-free","cost_ref":null,"review_status":"raw","confidence":"verified","verified_by":null,"last_verified":null,"licence":"own-words","place_id":null,"km_range":null,"loss_m":null,"hours":null,"shape":null,"house_basis":null,"local_system":null,"local_grade":null,"local_source_url":null,"trailhead_name":null,"permit":null,"geometry_file":null,"geometry_source":null,"geometry_source_id":null,"geometry_fetched":null,"official_url":null,"alltrails_url":null,"komoot_url":null,"outdooractive_url":null,"wikiloc_url":null,"sources":["src-0101"],"field_meta":{},"contributed_by":["agent:fixture"],"merged_from":[],"updated":"2026-10-17","tags":[],"season_months":[],"id":"AR/santa-cruz/el-chalten/cerro__torre","area_id":"AR/santa-cruz/el-chalten","name":"Cerro Torre mirador","house_grade":3,"kid_fit":"yes","trailhead_lat":-49.3226,"trailhead_lon":-72.8889,"hazards":[],"notes":"","km":18,"gain_m":300}
+],
+"sources": [
+{"id":"src-0101","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","read":"2026-10-13"}
+]
+}

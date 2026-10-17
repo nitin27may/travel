@@ -1,0 +1,55 @@
+{
+"schema_version": 1,
+"id": "quebec-roadtrip-fixture",
+"updated": "2026-10-17",
+"trip": {"theme":null,"hero_image":null,"answer_prose":null,"orientation_prose":null,"generated_by":null,"legacy_url":null,"slug":"quebec-roadtrip-fixture","title":"Quebec to Vermont (fixture)","subtitle":"Road-trip day with a border crossing","status":"planned","primary_style":"road-trip","duration_shape":"short-break","movement_shape":"road-trip","party_shape":"couple","countries":["CA","US"],"region_label":"Quebec and Vermont","season_months":[9,10],"season_note":"","nights":3,"origin":"Whitby, ON","origin_tz":"America/Toronto","base_currency":"CAD","web_published":false,"visibility":"private","owner_id":"u_owner","shared_with":[],"created":"2026-10-17"},
+"profile": {"comfort":"lean","budget_target_amount":null,"budget_target_currency":null,"budget_tier":"lean","hiking_ceiling_km":null,"hiking_ceiling_gain_m":null,"max_house_grade":null,"weather_rain":"low","weather_wind_gust_kmh":null,"weather_cold_c":null,"weather_heat_c":null,"base_preference":"few-long","car_free":false,"early_starts":"never","pace":2,"transport":["own-car"],"must_do":[],"avoid":[],"daily_max_drive_min":240,"break_every_min":120,"kids_mode":"none","night_driving":false,"lanes_extra":[],"lanes_skip":[],"notes":""},
+"travellers": [
+{"age_years":null,"age_as_of":null,"height_cm":null,"weight_kg":null,"fitness":null,"id":"t1","label":"Adult 1","role":"adult","citizenship":[],"notes":""}
+],
+"trip_tags": [
+{"tag_id":"road-trip"}
+],
+"editions": [],
+"bases": [
+{"place_id":null,"stay_id":null,"lodging":null,"elevation_m":null,"id":"ile-d-orleans","name":"Ile d'Orleans","night_from":1,"nights":2,"lat":46.9,"lon":-70.9,"tz":"America/Toronto","why":"Two nights on the island","why_not":""},
+{"place_id":null,"stay_id":null,"lodging":null,"elevation_m":null,"id":"hyde-park","name":"Hyde Park, VT","night_from":3,"nights":1,"lat":44.594,"lon":-72.616,"tz":"America/New_York","why":"Night stop before Stowe","why_not":""}
+],
+"days": [
+{"prose":null,"flexible_group":null,"plan_b_text":null,"sun_note":null,"n":1,"title":"Drive to the island","kind":"travel","base_id":"ile-d-orleans","summary":"Drive to the island","decision_rules":[],"plan_b_title":"","day_of_links":[],"accepted_warnings":[]},
+{"prose":null,"flexible_group":null,"plan_b_text":null,"sun_note":null,"n":2,"title":"Island day","kind":"sightseeing","base_id":"ile-d-orleans","summary":"Island day","decision_rules":[],"plan_b_title":"","day_of_links":[],"accepted_warnings":[]},
+{"prose":null,"flexible_group":null,"plan_b_text":null,"sun_note":null,"n":3,"title":"Border and Vermont","kind":"travel","base_id":"hyde-park","summary":"Border and Vermont","decision_rules":[],"plan_b_title":"","day_of_links":[],"accepted_warnings":[]},
+{"prose":null,"flexible_group":null,"plan_b_text":null,"sun_note":null,"n":4,"title":"Stowe and home","kind":"travel","base_id":null,"summary":"Stowe and home","decision_rules":[],"plan_b_title":"","day_of_links":[],"accepted_warnings":[]}
+],
+"day_tracks": [],
+"items": [
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_km":null,"leg_minutes":null,"leg_basis":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d03-i01","day":3,"track":null,"seq":1,"duration_min":15,"title":"Check out","leg_notes":"","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"checkout","start":"08:30","base_id":"ile-d-orleans","leg_mode":"none"},
+{"start":null,"tz":null,"place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d03-i02","day":3,"track":null,"seq":2,"duration_min":45,"title":"Border crossing at Stanstead / Derby Line","leg_notes":"Fuel before the border; wait times on the CBSA page","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"transfer","window_start":"11:15","window_end":"12:00","lat":45.005,"lon":-72.099,"leg_mode":"drive","leg_km":240,"leg_minutes":165,"leg_basis":"matrix"},
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d03-i03","day":3,"track":null,"seq":3,"duration_min":60,"title":"Lunch in Newport, VT","leg_notes":"","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"meal","start":"12:30","lat":44.936,"lon":-72.205,"leg_mode":"drive","leg_km":15,"leg_minutes":20,"leg_basis":"matrix"},
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"booking_id":null,"address":null,"leg_id":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d03-i04","day":3,"track":null,"seq":4,"duration_min":30,"title":"Check in, Hyde Park","leg_notes":"Cell coverage patchy on VT-100 (GAP)","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"checkin","start":"15:00","base_id":"hyde-park","lat":44.594,"lon":-72.616,"leg_mode":"drive","leg_km":75,"leg_minutes":70,"leg_basis":"matrix"},
+{"window_start":null,"window_end":null,"tz":null,"place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_km":null,"leg_minutes":null,"leg_basis":null,"cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"plan_b_item_id":null,"override":null,"id":"d04-i01","day":4,"track":null,"seq":1,"duration_min":30,"title":"Check out","leg_notes":"","closed_weekdays":[],"needs_daylight":false,"notes":"","links":[],"optional":false,"pinned":false,"type":"checkout","start":"09:00","base_id":"hyde-park","leg_mode":"none"}
+],
+"trip_trails": [],
+"trip_activities": [],
+"trip_bookings": [],
+"custom_items": [],
+"notes": [],
+"routes": [],
+"hazards": [],
+"weather_rules": [],
+"budget": [],
+"fx": [],
+"fare_windows": [],
+"fare_quotes": [],
+"documents": [],
+"emergency": [],
+"packing": [],
+"knowledge": [],
+"questions": [],
+"gotchas": [],
+"research_refs": [],
+"sources": [],
+"changelog": [
+{"seq":1,"at":"2026-10-17T12:00:00Z","actor_id":"u_owner","actor_via":"cli","op":"trip.create","summary":"Fixture created","refs":[]}
+]
+}
