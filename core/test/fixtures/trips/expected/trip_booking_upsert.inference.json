@@ -1,0 +1,19 @@
+{
+  "summary": "Added booking bk-flight; book-by offset -30 (inference)",
+  "changed": [
+    "bk-flight"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"bk-flight\",\"offer_id\":null,\"item\":\"YYZ-EZE\",\"category\":\"flight-intl\",\"book_url\":null,\"base_id\":null,\"used_days\":[1],\"book_by_offset\":-30,\"book_by_basis\":\"inference\",\"deadline_date\":null,\"edition_id\":null,\"priority\":\"must\",\"status\":\"todo\",\"price_paid_amount\":null,\"price_paid_currency\":null,\"confirmation\":null,\"contact\":null,\"found_by\":\"research-activities\",\"notes\":\"\",\"src\":[\"src-0001\"]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"trip_booking.upsert\",\"summary\":\"Added booking bk-flight; book-by offset -30 (inference)\",\"refs\":[\"bk-flight\"]}"
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "summary": "Added fare window fw-2028",
+  "changed": [
+    "fw-2028"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"fw-2028\",\"label\":\"2028 window\",\"depart\":\"2028-02-25\",\"return\":\"2028-03-06\",\"nights_away\":11,\"party\":{\"adults\":2,\"children\":[13]},\"school_break\":false,\"notes\":\"\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"fare.add_window\",\"summary\":\"Added fare window fw-2028\",\"refs\":[\"fw-2028\"]}"
+      ]
+    }
+  }
+}

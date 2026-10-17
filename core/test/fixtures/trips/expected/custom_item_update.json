@@ -1,0 +1,21 @@
+{
+  "summary": "Updated custom item cx-fuel-stop: notes",
+  "changed": [
+    "cx-fuel-stop"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"cx-fuel-stop\",\"name\":\"Fuel stop\",\"kind\":\"fuel\",\"lat\":null,\"lon\":null,\"address\":null,\"osm_id\":null,\"notes\":\"\",\"duration_min\":null,\"open_from\":null,\"open_to\":null,\"proposed\":\"no\",\"catalog_id\":null}"
+      ],
+      "added": [
+        "{\"id\":\"cx-fuel-stop\",\"name\":\"Fuel stop\",\"kind\":\"fuel\",\"lat\":null,\"lon\":null,\"address\":null,\"osm_id\":null,\"notes\":\"Closed on Mondays\",\"duration_min\":null,\"open_from\":null,\"open_to\":null,\"proposed\":\"no\",\"catalog_id\":null}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"custom_item.update\",\"summary\":\"Updated custom item cx-fuel-stop: notes\",\"refs\":[\"cx-fuel-stop\"]}"
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "summary": "Updated emergency contacts for el-chalten",
+  "changed": [
+    "el-chalten"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"base_id\":\"el-chalten\",\"number\":\"107\",\"hospital_name\":\"Hospital Fixture\",\"hospital_lat\":-49.33,\"hospital_lon\":-72.89,\"hospital_tel\":null,\"rescue_tel\":null,\"embassy\":null,\"insurer_tel\":\"+1-555-0100\",\"roadside_tel\":null,\"src\":[\"src-0001\"]}"
+      ],
+      "added": [
+        "{\"base_id\":\"el-chalten\",\"number\":\"911\",\"hospital_name\":\"Hospital Fixture\",\"hospital_lat\":-49.33,\"hospital_lon\":-72.89,\"hospital_tel\":null,\"rescue_tel\":null,\"embassy\":null,\"insurer_tel\":\"+1-555-0100\",\"roadside_tel\":null,\"src\":[\"src-0001\"]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"emergency.upsert\",\"summary\":\"Updated emergency contacts for el-chalten\",\"refs\":[\"el-chalten\"]}"
+      ]
+    }
+  }
+}

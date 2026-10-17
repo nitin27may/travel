@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve, sep } from "node:path";
-import { StaleError, StoreError, checkPath, sha256 } from "./index.ts";
+import { StaleError, StoreError, checkPath, checkRefPath, sha256 } from "./index.ts";
 import type { Store } from "./index.ts";
 
 export class FileStore implements Store {
@@ -40,6 +40,10 @@ export class FileStore implements Store {
   async rev(path: string): Promise<string | null> {
     const b = await this.read(path);
     return b ? sha256(b) : null;
+  }
+  async readRef(path: string): Promise<Uint8Array | null> {
+    const f = resolve(this.root, checkRefPath(path));
+    return existsSync(f) && statSync(f).isFile() ? new Uint8Array(readFileSync(f)) : null;
   }
   async list(prefix: string): Promise<string[]> {
     const out: string[] = [];

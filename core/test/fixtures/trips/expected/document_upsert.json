@@ -1,0 +1,21 @@
+{
+  "summary": "Updated document doc-passport",
+  "changed": [
+    "doc-passport"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"doc-passport\",\"item\":\"passport-validity\",\"applies_to\":\"all\",\"rule\":\"Valid 6 months after return\",\"deadline_offset\":null,\"computed_rule\":null,\"status\":\"todo\",\"src\":[]}"
+      ],
+      "added": [
+        "{\"id\":\"doc-passport\",\"item\":\"passport-validity\",\"applies_to\":\"all\",\"rule\":\"Valid 6 months after return\",\"deadline_offset\":null,\"computed_rule\":null,\"status\":\"done\",\"src\":[]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"document.upsert\",\"summary\":\"Updated document doc-passport\",\"refs\":[\"doc-passport\"]}"
+      ]
+    }
+  }
+}

@@ -10,6 +10,7 @@ import type { Actor, OpContext, PlaceBackend, Row, WriteOp } from "./types.ts";
 import { StaleError, toBytes, toText } from "../store/index.ts";
 import type { Store } from "../store/index.ts";
 import { validateDoc } from "../validate/index.ts";
+import { fsCatalog } from "../checks/context.ts";
 
 export interface Warning {
   code: string;
@@ -110,8 +111,13 @@ export async function runOp(store: Store, name: string, rawInput: unknown, opts:
 async function runWrite(store: Store, name: string, impl: WriteOp, input: Record<string, any>, clk: { now: string; today: string }, backend: PlaceBackend | null): Promise<RunResult> {
   const actor = input.actor as Actor;
   let slug: string;
+  let prepared: string[] | null = null;
   try {
-    slug = impl.slug ? impl.slug(input) : String(input.slug);
+    if (impl.prepare) {
+      const p = await impl.prepare(input, store);
+      slug = p.slug;
+      prepared = p.paths;
+    } else slug = impl.slug ? impl.slug(input) : String(input.slug);
   } catch (e) {
     return fail(e instanceof OpError ? e.code : "E_SCHEMA", (e as Error).message);
   }
@@ -139,7 +145,7 @@ async function runWrite(store: Store, name: string, impl: WriteOp, input: Record
   // load
   let extra: string[];
   try {
-    extra = impl.paths ? await impl.paths(input, store) : [];
+    extra = prepared ?? (impl.paths ? await impl.paths(input, store) : []);
   } catch (e) {
     return fail(e instanceof OpError ? e.code : "E_INTERNAL", (e as Error).message);
   }
@@ -152,11 +158,15 @@ async function runWrite(store: Store, name: string, impl: WriteOp, input: Record
 
   // places go through the backend (pitfall 3)
   const ctx: OpContext = {
-    actor, now: clk.now, today: clk.today, slug, places: new Map(), placeEdits: [],
+    actor, now: clk.now, today: clk.today, slug, places: new Map(), placeEdits: [], catalog: fsCatalog(store.refRoot), refFiles: new Map(),
     runInner: () => {
       throw new OpError("E_INTERNAL", "runInner is not set");
     },
   };
+  for (const p of impl.refs ? impl.refs(input) : []) {
+    if (!store.readRef) return fail("E_NO_REFS", `${name} reads files under research/, which this store cannot reach.`);
+    ctx.refFiles.set(p, await store.readRef(p));
+  }
   const wanted = impl.places ? impl.places(input) : [];
   if (wanted.length > 0) {
     if (!backend) return fail("E_NO_BACKEND", `${name} changes a place, and no place backend is configured. The CLI uses python3 tools/locations.py.`);
@@ -166,8 +176,6 @@ async function runWrite(store: Store, name: string, impl: WriteOp, input: Record
     }
   }
 
-  const touched = new Set<string>([slug]);
-  const innerSeqs: number[] = [];
   ctx.runInner = (innerName, innerRaw) => {
     const innerImpl = WRITE_OPS[innerName] as WriteOp | undefined;
     const e = OPS_BY_NAME.get(innerName);
@@ -175,12 +183,10 @@ async function runWrite(store: Store, name: string, impl: WriteOp, input: Record
     const inp = parseInput(innerName, { ...innerRaw, actor });
     if (!inp.ok) throw new OpError(inp.code, `${innerName}: ${inp.message}`);
     const innerSlug = innerImpl.slug ? innerImpl.slug(inp.data) : String(inp.data.slug);
-    touched.add(innerSlug);
     const innerCtx: OpContext = { ...ctx, slug: innerSlug };
     const eff = innerImpl.apply(ws, inp.data, innerCtx);
     let seq = 0;
     if (!innerImpl.noChangelog) seq = appendChangelog(ws.trip(innerSlug), innerCtx, innerName, eff);
-    innerSeqs.push(seq);
     return { changed: eff.changed, changelog_seq: seq };
   };
 

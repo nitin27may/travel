@@ -1,0 +1,30 @@
+{
+  "summary": "Applied 1 change(s) of proposal pr-1: c2",
+  "changed": [
+    "q-mirador"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"q-mirador\",\"text\":\"Is the Mirador open in March?\",\"status\":\"open\",\"answer\":null,\"asked\":\"2026-10-17\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"question.add\",\"summary\":\"Added question q-mirador\",\"refs\":[\"q-mirador\"]}",
+        "{\"seq\":3,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"proposal.apply\",\"summary\":\"Applied 1 change(s) of proposal pr-1: c2\",\"refs\":[\"pr-1\"]}"
+      ]
+    },
+    "data/trips/patagonia-fixture/proposals/pr-1.json": {
+      "removed": [
+        "  \"status\": \"open\"",
+        "      \"status\": \"open\""
+      ],
+      "added": [
+        "  \"status\": \"partial\"",
+        "      \"status\": \"applied\""
+      ]
+    }
+  }
+}

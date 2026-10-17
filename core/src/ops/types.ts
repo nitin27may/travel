@@ -31,6 +31,8 @@ export interface PlaceEdit {
   prev: { status: string; trip: string | null };
 }
 
+import type { CatalogLookup } from "../checks/context.ts";
+
 export interface OpContext {
   actor: Actor;
   /** ISO datetime with offset: the clock is injected, operations never read it */
@@ -42,6 +44,10 @@ export interface OpContext {
   /** places prefetched through the PlaceBackend for operations that declare `places` */
   places: Map<string, { id: string; name: string; status: string; trip: string | null }>;
   placeEdits: PlaceEdit[];
+  /** catalog and place lookups under the store's reference root */
+  catalog: CatalogLookup;
+  /** reference files prefetched for operations that declare `refs` (path -> bytes, null when missing) */
+  refFiles: Map<string, Uint8Array | null>;
   /** composite operations (proposal.apply) run others inside the same workspace; a failure aborts everything */
   runInner(name: string, input: Record<string, unknown>): { changed: string[]; changelog_seq: number };
 }
@@ -58,6 +64,10 @@ export interface WriteOp<I = any> {
   slug?(input: I): string;
   /** extra files to load besides the trip's trip.json */
   paths?(input: I, store: { read(path: string): Promise<Uint8Array | null>; list(prefix: string): Promise<string[]> }): Promise<string[]>;
+  /** reference files (research/**) to prefetch */
+  refs?(input: I): string[];
+  /** resolve the trip and the files when the input does not name them (proposals are found by id) */
+  prepare?(input: I, store: { read(path: string): Promise<Uint8Array | null>; list(prefix: string): Promise<string[]> }): Promise<{ slug: string; paths: string[] }>;
   /** place ids to prefetch through the PlaceBackend */
   places?(input: I): string[];
   /** skip the changelog row (trip.restore rewinds the log instead of extending it) */

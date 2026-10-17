@@ -1,0 +1,21 @@
+{
+  "summary": "Updated booking bk-piratour; book-by offset -42 (computed)",
+  "changed": [
+    "bk-piratour"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"bk-piratour\",\"offer_id\":\"of-piratour-harberton-martillo\",\"item\":null,\"category\":null,\"book_url\":null,\"base_id\":null,\"used_days\":[3],\"book_by_offset\":-88,\"book_by_basis\":\"computed\",\"deadline_date\":null,\"edition_id\":null,\"priority\":\"must\",\"status\":\"todo\",\"price_paid_amount\":null,\"price_paid_currency\":null,\"confirmation\":null,\"contact\":null,\"found_by\":\"research-activities\",\"notes\":\"\",\"src\":[\"src-0001\"]}"
+      ],
+      "added": [
+        "{\"id\":\"bk-piratour\",\"offer_id\":\"of-piratour-harberton-martillo\",\"item\":null,\"category\":null,\"book_url\":null,\"base_id\":null,\"used_days\":[3],\"book_by_offset\":-42,\"book_by_basis\":\"computed\",\"deadline_date\":null,\"edition_id\":null,\"priority\":\"must\",\"status\":\"todo\",\"price_paid_amount\":null,\"price_paid_currency\":null,\"confirmation\":null,\"contact\":null,\"found_by\":\"research-activities\",\"notes\":\"\",\"src\":[\"src-0001\"]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"trip_booking.upsert\",\"summary\":\"Updated booking bk-piratour; book-by offset -42 (computed)\",\"refs\":[\"bk-piratour\"]}"
+      ]
+    }
+  }
+}

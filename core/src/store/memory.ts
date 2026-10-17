@@ -1,4 +1,6 @@
-import { StaleError, checkPath, sha256 } from "./index.ts";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { StaleError, checkPath, checkRefPath, sha256 } from "./index.ts";
 import type { Store } from "./index.ts";
 
 export class MemoryStore implements Store {
@@ -29,6 +31,10 @@ export class MemoryStore implements Store {
   }
   async list(prefix: string): Promise<string[]> {
     return [...this.files.keys()].filter((p) => p.startsWith(prefix)).sort();
+  }
+  async readRef(path: string): Promise<Uint8Array | null> {
+    const f = join(this.refRoot, checkRefPath(path));
+    return existsSync(f) ? new Uint8Array(readFileSync(f)) : null;
   }
   /** test helper: the current text of a file */
   text(path: string): string | null {
