@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { TAG_KIND_ORDER } from '../entities/labels';
 import type { PlaceRow, PlaceSource, PlaceTag } from './types';
 import { travelRoot } from './root';
 import { loadTrips } from './trips';
@@ -11,7 +12,6 @@ interface Store {
   regions: { id: string; country: string; code: string; name: string; iso_3166_2?: string }[];
   areas: { id: string; region_id: string; slug: string; name: string }[];
   places: StorePlace[];
-  tags: { id: string; label: string; alias_of: string | null }[];
   place_tags: { place_id: string; tag_id: string }[];
   sources: { id: string; place_id: string | null; type: string; url: string | null; post_date: string | null }[];
   visits: { place_id: string; trip?: string | null }[];
@@ -41,10 +41,23 @@ interface StorePlace {
 /** Only these stat keys are ever published; anything else in `stats` is dropped. */
 export const PUBLIC_STAT_KEYS = ['km', 'gain_m', 'hours', 'minutes', 'level', 'miles'] as const;
 
+interface VocabTag {
+  id: string;
+  label: string;
+  kind: string;
+  alias_of: string | null;
+}
+
+export function readVocab(root = travelRoot()): VocabTag[] {
+  const doc = JSON.parse(readFileSync(path.join(root, 'data', 'vocab', 'tags.json'), 'utf8')) as { tags: VocabTag[] };
+  return doc.tags;
+}
+
 export function readStore(root = travelRoot()): Store {
   const file = path.join(root, 'data', 'locations', 'locations.json');
   const raw = JSON.parse(readFileSync(file, 'utf8')) as Record<string, unknown>;
-  validateStore(raw);
+  const vocab = JSON.parse(readFileSync(path.join(root, 'data', 'vocab', 'tags.json'), 'utf8')) as Record<string, unknown>;
+  validateStore(raw, vocab);
   const store = raw as unknown as Store;
   if (store.layout && store.layout !== 'single') {
     throw new Error(`locations layout "${store.layout}" is not supported by the web build yet`);
@@ -59,14 +72,14 @@ export function loadPlaces(root = travelRoot()): PlaceRow[] {
   const countries = new Map(store.countries.map((c) => [c.code, c]));
   const regions = new Map(store.regions.map((r) => [r.id, r]));
   const areas = new Map(store.areas.map((a) => [a.id, a]));
-  const tagLabel = new Map(store.tags.map((t) => [t.id, t]));
+  const tagLabel = new Map(readVocab(root).map((t) => [t.id, t]));
   const tagsOf = new Map<string, PlaceTag[]>();
   for (const pt of store.place_tags) {
     const tag = tagLabel.get(pt.tag_id);
     const id = tag?.alias_of ?? pt.tag_id;
-    const label = tagLabel.get(id)?.label ?? pt.tag_id;
+    const canon = tagLabel.get(id);
     const list = tagsOf.get(pt.place_id) ?? [];
-    if (!list.some((t) => t.id === id)) list.push({ id, label });
+    if (!list.some((t) => t.id === id)) list.push({ id, label: canon?.label ?? pt.tag_id, kind: canon?.kind ?? 'free' });
     tagsOf.set(pt.place_id, list);
   }
   const sourcesOf = new Map<string, PlaceSource[]>();
@@ -114,7 +127,7 @@ export function loadPlaces(root = travelRoot()): PlaceRow[] {
       elevation_m: p.elevation_m ?? null,
       season: [...(p.season_months ?? [])].sort((a, b) => a - b),
       kid_fit: p.kid_fit ?? 'unknown',
-      tags: (tagsOf.get(p.id) ?? []).sort((a, b) => a.label.localeCompare(b.label)),
+      tags: (tagsOf.get(p.id) ?? []).sort((a, b) => TAG_KIND_ORDER.indexOf(a.kind) - TAG_KIND_ORDER.indexOf(b.kind) || a.label.localeCompare(b.label)),
       note: p.notes ?? '',
       image: p.image && /^https:\/\//.test(p.image) ? p.image : null,
       trip: p.trip && tripInfo.has(p.trip) ? p.trip : null,

@@ -13,12 +13,12 @@ describe('entity-view/1 allow-list', () => {
     expect(JSON.stringify(out)).not.toContain('inbox');
   });
 
-  it('writes only type, url and post date for a source, and only id and label for a tag', () => {
+  it('writes only type, url and post date for a source, and only id, label and kind for a tag', () => {
     const withSource = loadPlaces().find((p) => p.sources.length)!;
     const polluted = { ...withSource, sources: [{ ...withSource.sources[0], screenshot: 'inbox/a.png', note: 'private' }], tags: [{ id: 'a', label: 'A', alias_of: 'b' }] } as unknown as typeof withSource;
     const out = placeView(polluted);
     expect(Object.keys(out.sources[0]).sort()).toEqual(['post_date', 'type', 'url']);
-    expect(Object.keys(out.tags[0]).sort()).toEqual(['id', 'label']);
+    expect(Object.keys(out.tags[0]).sort()).toEqual(['id', 'kind', 'label']);
   });
 
   it('publishes only the allow-listed stat keys', () => {

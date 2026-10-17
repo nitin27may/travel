@@ -46,6 +46,7 @@ export interface FacetCount {
   value: string;
   label: string;
   count: number;
+  group?: string;
 }
 
 /**
@@ -64,7 +65,7 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
         seen.add(o.value);
         const hit = counts.get(o.value);
         if (hit) hit.count += 1;
-        else counts.set(o.value, { value: o.value, label: o.label, count: 1 });
+        else counts.set(o.value, { value: o.value, label: o.label, count: 1, group: o.group });
       }
     }
     for (const v of state.facets[facet.param] ?? []) {
@@ -80,7 +81,13 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
       counts.set(v, { value: v, label, count: 0 });
     }
     const order = facet.order ?? [];
+    const groups = facet.groupOrder ?? [];
     out[facet.param] = [...counts.values()].sort((a, b) => {
+      if (groups.length) {
+        const ga = groups.indexOf(a.group ?? '');
+        const gb = groups.indexOf(b.group ?? '');
+        if (ga !== gb) return (ga === -1 ? 999 : ga) - (gb === -1 ? 999 : gb);
+      }
       const ia = order.indexOf(a.value);
       const ib = order.indexOf(b.value);
       if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);

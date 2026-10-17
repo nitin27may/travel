@@ -1,5 +1,5 @@
 {
- "schema_version": 2,
+ "schema_version": 3,
  "updated": "2026-10-17",
  "layout": "single",
  "countries": [
@@ -549,7 +549,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "In the Rockies plan (Sept 2029). Added as a resolver test on 16 Oct 2026.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/bas-saint-laurent-gaspesie/chute-du-grand-sault",
@@ -571,7 +595,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 4. The resolver found a Chute du Grand-Sault in Minganie (north shore), which cannot be on this route; the post's fall is probably in Bas-Saint-Laurent or Gaspésie. Confirm before planning.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/charlevoix/le-buton",
@@ -599,7 +647,31 @@
    },
    "stats_verified": false,
    "notes": "Signature lookout on a man-made mound at the summit; wide view over the St. Lawrence and the mountains. Easy 2 km loop, 45 min, from the summit (resort and trail sites). Check the gondola and mountain access run on your dates; a 2026 notice mentioned a suspension during a strike. Official: https://www.lemassif.com/en/activities-events/activity-finder/lookout-le-buton",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/cote-de-beaupre/canyon-sainte-anne",
@@ -628,7 +700,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "74 m waterfall with suspension bridges across the gorge (from memory, unverified). About 40 min east of Quebec City; combine with Montmorency Falls and Ile d'Orleans. Check opening dates, fees and kids' rules.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/cote-de-beaupre/la-crete",
@@ -653,7 +749,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Mountain hike with panoramic views and fall colours. The post gives no distance or time. Resolver first matched a different Mont-Sainte-Anne in the Laurentians; coordinates set by hand to the Beaupré ski mountain summit (approximate).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/cote-de-beaupre/montmorency-falls",
@@ -675,7 +795,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 1. Near Quebec City, close to Canyon Sainte-Anne.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/eastern-townships/montagne-de-marbre",
@@ -704,7 +848,31 @@
    },
    "stats_verified": false,
    "notes": "Challenging loop with panoramic views, cliffs and a section along the Canada-US border. From the '5 iconic Quebec fall hikes' post.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/eastern-townships/sentier-des-cimes",
@@ -733,7 +901,31 @@
    },
    "stats_verified": false,
    "notes": "Mountain trail through forest with mountain scenery. The park is a dark-sky reserve (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/forillon-national-park/cap-bon-ami",
@@ -755,7 +947,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 9.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/forillon-national-park/cap-gaspe",
@@ -777,7 +993,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 11. End of the Appalachian Trail (IAT) at Land's End (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/forillon-national-park/mont-saint-alban",
@@ -799,7 +1039,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 13. Observation tower loop above Cap-Bon-Ami (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/forillon-national-park/sentier-la-chute",
@@ -821,7 +1085,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 10.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/haute-gaspesie/la-martre-lighthouse",
@@ -843,7 +1131,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 8. Red wooden lighthouse at La Martre.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/haute-gaspesie/mont-saint-pierre",
@@ -865,7 +1177,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 5. Known for hang-gliding and paragliding (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/parc-national-de-la-gaspesie/lac-aux-americains",
@@ -887,7 +1223,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 7. Short family walk to a glacial cirque lake under Mont Xalibu (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/parc-national-de-la-gaspesie/mont-xalibu",
@@ -909,7 +1269,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 6.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/parc-national-de-la-jacques-cartier/l-eperon",
@@ -938,7 +1322,31 @@
    },
    "stats_verified": false,
    "notes": "Forest hike with a steep initial climb and several viewpoints over the Jacques-Cartier Valley. Near Quebec City. Resolver matched a different L'Éperon in Lanaudière; coordinates set by hand to the park's discovery-centre area (approximate).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/parc-national-du-bic/pic-champlain",
@@ -960,7 +1368,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 2.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/perce/bonaventure-island",
@@ -982,7 +1414,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 14. Northern gannet colony; ferry from Perce, fee and season to check.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/perce/perce-rock",
@@ -1004,7 +1460,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 12.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/saint-narcisse-de-rimouski/canyon-des-portes-de-l-enfer",
@@ -1026,7 +1506,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gaspesie road trip stop 3.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CA/QC/zec-des-martres/mont-du-dome",
@@ -1056,7 +1560,31 @@
    },
    "stats_verified": false,
    "notes": "Loop over three summits (Mont du Dome, Mont Orignal, Mont Saint-Michel) with panoramic views; Saint-Michel is reportedly the quietest. Mont du Dome alone: 5.8 km, 358 m, about 3 h (first post). Roadside parking, easy to find; dogs on leash. Video dated 30 Sep 2025.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "CN/GD/qingyuan/qq-canyon-racer",
@@ -1082,7 +1610,31 @@
    },
    "stats_verified": false,
    "notes": "Licensed QQ Speed (Chinese kart game) themed mountain coaster: a 3.68 km descent through the mountain and forest of Gulong Gorge (古龙峡), Qingxin District, Qingyuan, with 28 turns and 9 hairpins. From a French Instagram post; figures unverified. Coordinates from OpenStreetMap (the gorge scenic area). Check minimum age and height and the operating season before planning.",
-   "added": "2026-10-17"
+   "added": "2026-10-17",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-17"
   },
   {
    "id": "FR/ile-de-france/grand-paris/paris",
@@ -1109,7 +1661,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Book the Eiffel Tower and Louvre online. Marais, Montmartre, Latin Quarter. 4-5 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "FR/provence-alpes-cote-d-azur/alpes-de-haute-provence/provence",
@@ -1134,7 +1710,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Peak lavender mid June to mid July. Gordes, Roussillon, Senanque Abbey. 4-5 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IN/sikkim/mangan-district/gurudongmar-lake",
@@ -1156,7 +1756,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Loose line in Location.md, no details. High-altitude lake in North Sikkim; permits and altitude (about 5,400 m) to check (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/campania/campania/amalfi-coast",
@@ -1184,7 +1808,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Base in Sorrento for day trips; Positano, Ravello, limoncello; boat tour along the coast. 3-4 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/campania/napoli/capri",
@@ -1212,7 +1860,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Day trip from Sorrento or Naples; the Blue Grotto closes in waves.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/lazio/roma-capitale/rome",
@@ -1234,7 +1906,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Colosseum, Vatican (advance booking), Trevi. 4-5 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/lombardy/como/lake-como",
@@ -1263,7 +1959,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stay in Bellagio or Varenna; the ferry between towns is scenic. 2-3 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/lombardy/milano/milan",
@@ -1285,7 +2005,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Duomo, Last Supper (book months ahead), fashion district. Day trip from Lake Como.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/trentino-alto-adige/belluno/dolomites",
@@ -1311,7 +2055,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Tre Cime di Lavaredo is the icon. Planned as dolomites-july-2027 (13-26 Jul 2027). Hotel idea: Chalet Alfoss https://www.hotelchaletalfoss.it/en/",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/trentino-alto-adige/provincia-di-trento/trento",
@@ -1333,7 +2101,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gateway to the Dolomites; wine region, historic centre. 1-2 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/tuscany/firenze/florence",
@@ -1355,7 +2147,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Uffizi, Duomo, David (book Uffizi and Accademia ahead); day trip to the Tuscan countryside. 3-4 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/veneto/venetian-province/venice",
@@ -1382,7 +2198,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stay on the main island, not Mestre; early morning walks. 2-3 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "IT/veneto/verona/verona",
@@ -1404,7 +2244,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Roman arena, Juliet balcony, wine region. Combine with Venice. 1-2 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/AK/wrangell-st-elias-national-park/kennecott",
@@ -1430,7 +2294,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Dream trip. World-class rafting, pristine wilderness. Requires planning well in advance; consider a guided expedition. 7+ days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/AZ/coconino-county/page",
@@ -1452,7 +2340,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 1 of the AZ-UT-CO-WY road trip post. Base for Antelope Canyon and Horseshoe Bend.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/AZ/havasupai-reservation/havasu-falls",
@@ -1482,7 +2394,31 @@
    },
    "stats_verified": false,
    "notes": "Red rock canyon walls, lush waterfalls and clear pools at the bottom of the Grand Canyon. From memory (unverified): permits required, sell out fast, open months ahead; the hike in to the village and campground is long, so check what is realistic with a 10-year-old. Check the official Havasupai Tribe site. Fits the Utah and Arizona parks ideas.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/AZ/navajo-nation/monument-valley",
@@ -1504,7 +2440,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 10 of the road trip post. Tribal park, fee and hours to check.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/CO/la-plata-county/durango",
@@ -1526,7 +2486,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 11 of the road trip post. Durango and Silverton narrow-gauge railroad.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/CO/manitou-springs/manitou-incline",
@@ -1559,7 +2543,31 @@
    },
    "stats_verified": false,
    "notes": "Steep stair climb on an old railway bed with views over Colorado Springs (figures from memory, unverified). Very strenuous, starts about 6,500 ft; check age limits for the kids. A reservation was required in recent years; check current rules and fee. Usual way down is the Barr Trail. Combine with Garden of the Gods and Pikes Peak.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/CO/san-juan-mountains/million-dollar-highway",
@@ -1581,7 +2589,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 12 of the road trip post. US 550 between Silverton and Ouray; exposed drops, no guardrails in places (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/CO/san-juan-mountains/ouray",
@@ -1603,7 +2635,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 13 of the road trip post.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/CO/summit-county/breckenridge",
@@ -1625,7 +2681,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 14 of the road trip post.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/MA/barnstable-county/cape-cod",
@@ -1651,7 +2731,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Beaches, whale watching, seafood, lighthouses. Book whale watching in advance. 3-4 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/NH/grafton-county/white-mountain-national-forest",
@@ -1676,7 +2780,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Kancamagus Highway is a must-drive; mountain hikes, fall colours.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/NY/finger-lakes/watkins-glen-state-park",
@@ -1705,7 +2833,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Gorge trail with stone steps, tunnels and many waterfalls (from memory, unverified). Gorge trail is seasonal, roughly mid May to late Oct. Check open trails and parking fee on NY State Parks. Pairs with the Vermont and New Hampshire fall trips.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/NY/seneca-county/finger-lakes",
@@ -1733,7 +2885,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Wineries, gorges, waterfalls, scenic lakes. 3-4 days. Watkins Glen State Park is the must.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/grand-county/arches-national-park",
@@ -1755,7 +2931,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 8 of the road trip post; already in the Utah parks plan.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/great-salt-lake/stansbury-island",
@@ -1777,7 +2977,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 17 of the road trip post. Great Salt Lake; access by causeway (from memory).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/hanksville/bentonite-hills",
@@ -1799,7 +3023,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 5 of the road trip post. Remote, unpaved access; check road conditions.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/hanksville/factory-butte",
@@ -1821,7 +3069,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 6 of the road trip post. Remote; check road conditions.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/hanksville/long-dong-silver",
@@ -1843,7 +3115,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 7 of the road trip post. Sandstone spire near Hanksville; exact location to confirm.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/kanarraville/kanarra-falls",
@@ -1865,7 +3161,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 3 of the road trip post. Permit-limited slot canyon walk (from memory, unverified).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/kane-county/bryce-canyon-national-park",
@@ -1887,7 +3207,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 4 of the road trip post; already in the Utah parks plan.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/san-juan-county/canyonlands-national-park",
@@ -1909,7 +3253,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 9 of the road trip post; already in the Utah parks plan.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/UT/washington-county/zion-national-park",
@@ -1931,7 +3299,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 2 of the road trip post; already in the Utah parks plan.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/VT/lamoille-county/stowe",
@@ -1956,7 +3348,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Peak fall foliage, charming villages, covered bridges. Best late Sep to mid Oct; combine with the White Mountains. Planned as vermont-fall-2026 (1-4 Oct 2026).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/WY/park-county/yellowstone-national-park",
@@ -1978,7 +3394,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 16 of the road trip post. Also covered in usa-southwest-rockies research (yellowstone-supplement).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "US/WY/teton-county/grand-teton-national-park",
@@ -2000,7 +3440,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Stop 15 of the road trip post. Also covered in usa-southwest-rockies research (family-teton).",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "VN/hanoi/thanh-pho-ha-noi/hanoi",
@@ -2022,7 +3486,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Old Quarter, Train Street (check current access rules), Hoan Kiem Lake, Temple of Literature, water puppet show. Stays named in the post: Hanoi Diamond King Hotel, Queen Cafe Hotel & Pub. Post costs in INR (Delhi traveller): 1,800-3,000 a night; 5,000-8,000 for 2 days.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "VN/lao-cai/sa-pa/sa-pa",
@@ -2044,7 +3532,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Four-day post: Day 1 town and Mong Village (Stone Church, Ban Mong alpine coaster, Rainbow Slide, Moana Cafe, night market); Day 2 Fansipan cable car and the mountain train at La Do Cafe; Day 3 Muong Hoa Valley trek, Lao Chai, Ta Van, Giang Ta Chai, homestay; Day 4 O Quy Ho Pass, Silver and Love waterfalls, Rong May glass bridge, paragliding. Also: Red Dao herbal bath, Cat Cat Village. Second post, INR costs: Sapa 11,000-18,000; Hanoi-Lao Cai by Laman Express 3,500-4,000 or regular train 1,200-1,500 (8 h); Muong Hao Eco Villa 3,000-6,000 for 2 nights; Topas Ecolodge 24,000-27,000. Rice terraces change by month; kids' limits for the glass bridge, coaster and paragliding not checked.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   },
   {
    "id": "VN/quang-ninh/quang-ninh/ha-long-bay",
@@ -2066,7 +3578,31 @@
    "stats": {},
    "stats_verified": false,
    "notes": "Overnight cruise among the limestone islands; kayaking and caves usually included. Post (INR): 10,000-20,000 for 2 days; cruises named Amanda Pearl 14,000-16,000, Uni Charm about 25,000 a night, La Regina Classic about 14,000, Genesis Regal and Venus 20,000-22,000; budget alternative Ha Long Lily homestay about 2,500 a night. Post text cut off after the kayaking line.",
-   "added": "2026-10-16"
+   "added": "2026-10-16",
+   "name_lang": null,
+   "min_age": null,
+   "max_age": null,
+   "min_height_cm": null,
+   "max_height_cm": null,
+   "min_weight_kg": null,
+   "max_weight_kg": null,
+   "house_grade": null,
+   "walk_km": null,
+   "walk_gain_m": null,
+   "duration_min": null,
+   "accessibility": "unknown",
+   "cost_ref": null,
+   "review_status": "proposed",
+   "confidence": "stated",
+   "field_meta": {},
+   "verified_by": null,
+   "last_verified": null,
+   "contributed_by": [
+    "u_owner"
+   ],
+   "licence": "own-words",
+   "merged_from": [],
+   "updated": "2026-10-16"
   }
  ],
  "place_tags": [
@@ -2771,408 +4307,6 @@
    "tag_id": "unesco"
   }
  ],
- "tags": [
-  {
-   "id": "adventure",
-   "label": "Adventure",
-   "alias_of": null
-  },
-  {
-   "id": "alpine-coaster",
-   "label": "Alpine coaster",
-   "alias_of": null
-  },
-  {
-   "id": "arches",
-   "label": "Arches",
-   "alias_of": null
-  },
-  {
-   "id": "art",
-   "label": "Art",
-   "alias_of": null
-  },
-  {
-   "id": "badlands",
-   "label": "Badlands",
-   "alias_of": null
-  },
-  {
-   "id": "bay",
-   "label": "Bay",
-   "alias_of": null
-  },
-  {
-   "id": "beach",
-   "label": "Beach",
-   "alias_of": null
-  },
-  {
-   "id": "boat",
-   "label": "Boat",
-   "alias_of": null
-  },
-  {
-   "id": "border",
-   "label": "Border",
-   "alias_of": null
-  },
-  {
-   "id": "camping",
-   "label": "Camping",
-   "alias_of": null
-  },
-  {
-   "id": "canals",
-   "label": "Canals",
-   "alias_of": null
-  },
-  {
-   "id": "canyon",
-   "label": "Canyon",
-   "alias_of": null
-  },
-  {
-   "id": "canyons",
-   "label": "Canyons",
-   "alias_of": "canyon"
-  },
-  {
-   "id": "cliffs",
-   "label": "Cliffs",
-   "alias_of": null
-  },
-  {
-   "id": "coast",
-   "label": "Coast",
-   "alias_of": null
-  },
-  {
-   "id": "cruise",
-   "label": "Cruise",
-   "alias_of": null
-  },
-  {
-   "id": "culture",
-   "label": "Culture",
-   "alias_of": null
-  },
-  {
-   "id": "dark-sky",
-   "label": "Dark sky",
-   "alias_of": null
-  },
-  {
-   "id": "dream-trip",
-   "label": "Dream trip",
-   "alias_of": null
-  },
-  {
-   "id": "fall-colours",
-   "label": "Fall colours",
-   "alias_of": null
-  },
-  {
-   "id": "family",
-   "label": "Family",
-   "alias_of": null
-  },
-  {
-   "id": "family-hike",
-   "label": "Family hike",
-   "alias_of": null
-  },
-  {
-   "id": "ferries",
-   "label": "Ferries",
-   "alias_of": null
-  },
-  {
-   "id": "food",
-   "label": "Food",
-   "alias_of": null
-  },
-  {
-   "id": "gannets",
-   "label": "Gannets",
-   "alias_of": null
-  },
-  {
-   "id": "gateway",
-   "label": "Gateway",
-   "alias_of": null
-  },
-  {
-   "id": "geysers",
-   "label": "Geysers",
-   "alias_of": null
-  },
-  {
-   "id": "gorge",
-   "label": "Gorge",
-   "alias_of": null
-  },
-  {
-   "id": "gorges",
-   "label": "Gorges",
-   "alias_of": "gorge"
-  },
-  {
-   "id": "high-altitude",
-   "label": "High altitude",
-   "alias_of": null
-  },
-  {
-   "id": "hiking",
-   "label": "Hiking",
-   "alias_of": null
-  },
-  {
-   "id": "history",
-   "label": "History",
-   "alias_of": null
-  },
-  {
-   "id": "hoodoos",
-   "label": "Hoodoos",
-   "alias_of": null
-  },
-  {
-   "id": "hot-springs",
-   "label": "Hot springs",
-   "alias_of": null
-  },
-  {
-   "id": "iconic",
-   "label": "Iconic",
-   "alias_of": null
-  },
-  {
-   "id": "kart",
-   "label": "Kart",
-   "alias_of": null
-  },
-  {
-   "id": "kayaking",
-   "label": "Kayaking",
-   "alias_of": null
-  },
-  {
-   "id": "lake",
-   "label": "Lake",
-   "alias_of": null
-  },
-  {
-   "id": "lakes",
-   "label": "Lakes",
-   "alias_of": "lake"
-  },
-  {
-   "id": "landmark",
-   "label": "Landmark",
-   "alias_of": null
-  },
-  {
-   "id": "lavender",
-   "label": "Lavender",
-   "alias_of": null
-  },
-  {
-   "id": "lighthouse",
-   "label": "Lighthouse",
-   "alias_of": null
-  },
-  {
-   "id": "lighthouses",
-   "label": "Lighthouses",
-   "alias_of": "lighthouse"
-  },
-  {
-   "id": "mountain",
-   "label": "Mountain",
-   "alias_of": null
-  },
-  {
-   "id": "mountain-coaster",
-   "label": "Mountain coaster",
-   "alias_of": null
-  },
-  {
-   "id": "mountain-pass",
-   "label": "Mountain pass",
-   "alias_of": null
-  },
-  {
-   "id": "mountains",
-   "label": "Mountains",
-   "alias_of": "mountain"
-  },
-  {
-   "id": "national-park",
-   "label": "National park",
-   "alias_of": null
-  },
-  {
-   "id": "paragliding",
-   "label": "Paragliding",
-   "alias_of": null
-  },
-  {
-   "id": "parks-canada",
-   "label": "Parks canada",
-   "alias_of": null
-  },
-  {
-   "id": "permit",
-   "label": "Permit",
-   "alias_of": null
-  },
-  {
-   "id": "photography",
-   "label": "Photography",
-   "alias_of": null
-  },
-  {
-   "id": "rafting",
-   "label": "Rafting",
-   "alias_of": null
-  },
-  {
-   "id": "railway",
-   "label": "Railway",
-   "alias_of": null
-  },
-  {
-   "id": "remote",
-   "label": "Remote",
-   "alias_of": null
-  },
-  {
-   "id": "rice-terraces",
-   "label": "Rice terraces",
-   "alias_of": null
-  },
-  {
-   "id": "rifugi",
-   "label": "Rifugi",
-   "alias_of": null
-  },
-  {
-   "id": "road-trip-stop",
-   "label": "Road trip stop",
-   "alias_of": null
-  },
-  {
-   "id": "scenic",
-   "label": "Scenic",
-   "alias_of": null
-  },
-  {
-   "id": "scenic-drive",
-   "label": "Scenic drive",
-   "alias_of": null
-  },
-  {
-   "id": "sepaq",
-   "label": "Sepaq",
-   "alias_of": null
-  },
-  {
-   "id": "ski-resort",
-   "label": "Ski resort",
-   "alias_of": null
-  },
-  {
-   "id": "slot-canyon",
-   "label": "Slot canyon",
-   "alias_of": null
-  },
-  {
-   "id": "spire",
-   "label": "Spire",
-   "alias_of": null
-  },
-  {
-   "id": "stairs",
-   "label": "Stairs",
-   "alias_of": null
-  },
-  {
-   "id": "suspension-bridge",
-   "label": "Suspension bridge",
-   "alias_of": null
-  },
-  {
-   "id": "suspension-bridges",
-   "label": "Suspension bridges",
-   "alias_of": "suspension-bridge"
-  },
-  {
-   "id": "three-summits",
-   "label": "Three summits",
-   "alias_of": null
-  },
-  {
-   "id": "trekking",
-   "label": "Trekking",
-   "alias_of": null
-  },
-  {
-   "id": "unesco",
-   "label": "Unesco",
-   "alias_of": null
-  },
-  {
-   "id": "via-ferrata",
-   "label": "Via ferrata",
-   "alias_of": null
-  },
-  {
-   "id": "viewpoint",
-   "label": "Viewpoint",
-   "alias_of": null
-  },
-  {
-   "id": "views",
-   "label": "Views",
-   "alias_of": null
-  },
-  {
-   "id": "villages",
-   "label": "Villages",
-   "alias_of": null
-  },
-  {
-   "id": "waterfall",
-   "label": "Waterfall",
-   "alias_of": null
-  },
-  {
-   "id": "waterfalls",
-   "label": "Waterfalls",
-   "alias_of": "waterfall"
-  },
-  {
-   "id": "whale-watching",
-   "label": "Whale watching",
-   "alias_of": null
-  },
-  {
-   "id": "wilderness",
-   "label": "Wilderness",
-   "alias_of": null
-  },
-  {
-   "id": "wildlife",
-   "label": "Wildlife",
-   "alias_of": null
-  },
-  {
-   "id": "wine",
-   "label": "Wine",
-   "alias_of": null
-  }
- ],
  "sources": [
   {
    "id": "src-00001",
@@ -3445,7 +4579,7 @@
    "type": "instagram",
    "url": null,
    "note": "saved post in French, 17 Oct 2026: QQ Canyon Racer / Mountain Coaster, Gulong Gorge, China",
-   "screenshot": "locations/inbox/2026-10-17-gulong-gorge-qq-canyon-racer.png",
+   "screenshot": "research/inbox/2026-10-17-gulong-gorge-qq-canyon-racer.png",
    "post_date": "2026-10-17",
    "saved": "2026-10-17"
   }

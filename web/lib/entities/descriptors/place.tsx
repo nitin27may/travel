@@ -6,7 +6,7 @@ import { PLACE_STATUSES } from '@/lib/data/types';
 import type { PlaceRow } from '@/lib/data/types';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
 import { PlaceCardFooter, PlaceLinks, PlaceSections } from '@/components/entity/PlaceSections';
-import { KID_LABELS, STATUS_LABELS, cap } from '../labels';
+import { KID_ICONS, KID_LABELS, STATUS_LABELS, TAG_KIND_ORDER, cap } from '../labels';
 import type { Badge, EntityDescriptor } from '../types';
 
 const lc = (s: string) => s.toLowerCase();
@@ -17,7 +17,7 @@ export function placeBadges(p: PlaceRow): Badge[] {
     { text: STATUS_LABELS[p.status] ?? cap(p.status), tone: 'status', value: p.status, icon: statusIcon(p.status) },
   ];
   if (p.season.length) out.push({ text: seasonLabel(p.season), tone: 'season', icon: 'calendar', title: 'Best months' });
-  if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: 'user' });
+  if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: p.kid_fit === 'strong-kid' ? 'Suitable only for strong, experienced children' : undefined });
   if (p.location_status !== 'resolved') out.push({ text: 'Location unconfirmed', tone: 'warn', icon: 'info', title: 'Coordinates not confirmed yet' });
   return out;
 }
@@ -118,7 +118,7 @@ export const placeDescriptor: EntityDescriptor<PlaceRow> = {
       order: Array.from({ length: 12 }, (_, i) => String(i + 1)),
       options: (p) => p.season.map((m) => ({ value: String(m), label: MONTH_NAMES[m - 1] })),
     },
-    { param: 'tag', label: 'Tag', type: 'single', options: (p) => p.tags.map((t) => ({ value: t.id, label: t.label })) },
+    { param: 'tag', label: 'Tag', type: 'single', groupOrder: TAG_KIND_ORDER, options: (p) => p.tags.map((t) => ({ value: t.id, label: t.label, group: t.kind })) },
     { param: 'trip', label: 'Plan', type: 'single', options: (p) => (p.trip ? [{ value: p.trip, label: p.trip_title ?? p.trip }] : []) },
   ],
   columns,

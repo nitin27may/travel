@@ -7,6 +7,8 @@ export type PlaceStatus = (typeof PLACE_STATUSES)[number];
 export interface PlaceTag {
   id: string;
   label: string;
+  /** From the shared vocabulary: style, activity, feature, audience or free. */
+  kind: string;
 }
 
 export interface PlaceSource {

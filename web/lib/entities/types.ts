@@ -46,6 +46,8 @@ export interface Badge {
 export interface FacetOption {
   value: string;
   label: string;
+  /** Heading the option sits under (tag kind); options with a group are listed group by group. */
+  group?: string;
 }
 
 export interface FacetDef<Row> {
@@ -59,6 +61,8 @@ export interface FacetDef<Row> {
   dependsOn?: FacetParam;
   /** Override matching, e.g. a region given as a code, a name or an ISO code. */
   match?: (row: Row, selected: string[]) => boolean;
+  /** Order of the groups, for facets whose options carry a group. */
+  groupOrder?: string[];
   /** Fixed display order of values; unknown values follow by count. */
   order?: string[];
   /** Normalise a value read from the URL. */
