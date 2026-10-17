@@ -21,7 +21,7 @@ def staged(tmp_path_factory):
     mp = pytest.MonkeyPatch()
     mp.setenv("HUB_TODAY", "2026-10-17")
     try:
-        assert publish.main(["--dry-run"], root=ROOT, site=site) == 0
+        assert publish.main(["--dry-run", "--no-web"], root=ROOT, site=site) == 0
     finally:
         mp.undo()
     return site
@@ -69,10 +69,10 @@ def test_no_reserved_slug_among_legacy_trips():
 def test_hub_today_is_honoured(tmp_path, monkeypatch):
     monkeypatch.setenv("HUB_TODAY", "2026-10-17")
     a, b = tmp_path / "a", tmp_path / "b"
-    assert publish.main(["--dry-run"], root=ROOT, site=a) == 0
-    assert publish.main(["--dry-run"], root=ROOT, site=b) == 0
+    assert publish.main(["--dry-run", "--no-web"], root=ROOT, site=a) == 0
+    assert publish.main(["--dry-run", "--no-web"], root=ROOT, site=b) == 0
     assert (a / "index.html").read_bytes() == (b / "index.html").read_bytes()
     monkeypatch.setenv("HUB_TODAY", "2026-12-01")
     c = tmp_path / "c"
-    publish.main(["--dry-run"], root=ROOT, site=c)
+    publish.main(["--dry-run", "--no-web"], root=ROOT, site=c)
     assert (a / "index.html").read_bytes() != (c / "index.html").read_bytes()
