@@ -118,6 +118,43 @@ function locationsStore(): Row {
   };
 }
 
+/** whole locations stores for the place parity test (P2b): each is checked by core and by tools/locations.py */
+function locationFixtures(): { valid: Record<string, Row>; broken: Record<string, Row> } {
+  const base = (): Row => JSON.parse(JSON.stringify(locationsStore()));
+  const valid: Record<string, Row> = { "minimal": base() };
+  const v = base();
+  v.places[2].lat = null;
+  v.places[2].lon = null;
+  v.places[2].location_status = "unconfirmed";
+  v.places[2].resolver = "none";
+  v.sources[0].screenshot = "research/inbox/2026-10-17-niagara.png";
+  v.place_tags.push(loc("place_tags", { place_id: places.chalten, tag_id: "hiking" }));
+  valid["unconfirmed-place-with-screenshot"] = v;
+  const broken: Record<string, Row> = {};
+  let b = base();
+  b.places[0].area_id = "AR/santa-cruz/nowhere";
+  broken["missing-area"] = b;
+  b = base();
+  b.place_tags[0].tag_id = "not-in-the-vocabulary";
+  broken["unknown-tag"] = b;
+  b = base();
+  b.places[0].lon = null;
+  broken["lat-without-lon"] = b;
+  b = base();
+  b.places.push({ ...b.places[0] });
+  broken["duplicate-id"] = b;
+  b = base();
+  b.sources[0].screenshot = "locations/inbox/2026-10-17-niagara.png";
+  broken["bad-screenshot-path"] = b;
+  b = base();
+  b.places[0].kind = "spaceship";
+  broken["unknown-kind"] = b;
+  b = base();
+  b.places[0].review_status = "maybe";
+  broken["unknown-review-status"] = b;
+  return { valid, broken };
+}
+
 /** data/vocab/tags.json: the shared tag vocabulary (locations v3) */
 function vocab(): Row {
   const kind = (id: string): string => (id === "hiking" ? "activity" : ["waterfall", "glaciers", "penguins"].includes(id) ? "feature" : "style");
@@ -462,7 +499,7 @@ function clean(dir: string): void {
 }
 
 function main(): void {
-  for (const d of ["root", "valid", "broken"]) clean(d);
+  for (const d of ["root", "valid", "broken", "locations"]) clean(d);
   write("root/data/locations/locations.json", locationsStore());
   write("root/data/vocab/tags.json", vocab());
   for (const [rel, doc] of Object.entries(rootCatalog())) write(`root/data/catalog/${rel}`, doc);
@@ -475,6 +512,10 @@ function main(): void {
   for (const [name, doc] of Object.entries(validCatalog())) write(`valid/${name}`, doc);
   write("valid/documents/route-geometry.json", routeGeometry());
   write("valid/documents/research-sidecar.json", sidecar());
+
+  const lf = locationFixtures();
+  for (const [name, doc] of Object.entries(lf.valid)) write(`locations/valid/${name}.json`, doc);
+  for (const [name, doc] of Object.entries(lf.broken)) write(`locations/broken/${name}.json`, doc);
 
   const broken = { ...brokenTrips(), ...brokenCatalog() };
   for (const [code, doc] of Object.entries(broken)) {
