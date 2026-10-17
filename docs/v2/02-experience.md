@@ -128,12 +128,47 @@ custom item can offer it to the catalog (a changeset) with one tap.
 
 ### 6.1 Desktop: the plan document (default) and the board
 
-**Plan document (default, after Wanderlog; see 07-competitors.md).** One scrolling page on the left,
-the map on the right following the section in view: Overview (notes, links, checklists), the trip's
-named lists ("Places to visit", "Restaurants", "Maybe"; Ideas is the default list), then Day 1…N.
-Between consecutive stops: travel time, distance and mode, inline. Drag from any list into any day.
-Each day section can be collapsed, so a 14-night trip stays fast: only expanded days render their
-timeline (virtualised).
+**Plan document (default, after Wanderlog; see 07-competitors.md section 7 for the screenshot review).**
+
+```
+┌ top bar ───────────────────────────────────────────────────────────────────────────────────────┐
+│ ← Trips   Dolomites, 13-26 Jul 2027 ▾   ↶ Undo ↷ Redo   ● Priya ● you   Share   ⋯             │
+├ outline ──────┬ document ─────────────────────────────────────┬ map ──────────────────────────┤
+│ Overview      │ ⚑ Next: Seceda lift opens for booking in 9 d   │  pins numbered per section,    │
+│  Bookings  2/7│ ── Bookings ────────────────────────────────── │  section in view highlighted,  │
+│  Notes        │ [✈ Flight][🛏 Stay][🚗 Car][🚆 Train][🎟 Ticket] │  others faded; day route line  │
+│  Places   12  │   [📎 File][✉ Forward an email]  Budget $4,820  │                                │
+│  Food      5  │ ── Notes ───────────────────────────────────── │                                │
+│ Days          │ ── Places to visit (12) ────────────────────── │  starts on the trip's area,    │
+│  1 Venice  ✓  │  1 Seceda ridge    2.1 km · 1 h 40 · 9+ ✓      │  never on the viewer's IP      │
+│  2 → Ortisei ⚠│     why: lookout + family · lift Jun-Oct        │                                │
+│  3 Ortisei    │     [+ Day ▾] [time] [who] [cost] [notes]       │  ┌ place panel ─────────────┐ │
+│  …            │  [ Add a place, a link, or a note…         ] ⊞ │  │ About · Facts · Photos   │ │
+│ Ideas      4  │  Suggested for this list → [card +][card +]…   │  │ 21 km · Parks site · Mar │ │
+│ Tasks    9/23 │ ── Day 2 · Thu 15 Jul · Venice → Ortisei ───── │  │ fits: ●●● ○ (Nonna: gain)│ │
+│               │  drive 3 h 10 · walk 4 km · sunset 20:58  ⚠1   │  │ [In: Places ▾] [Open in] │ │
+│               │  1 08:30 Leave Venice ── 2 h 05 drive ──        │  └──────────────────────────┘ │
+│               │  2 Lago di Braies ...                           │                                │
+│               │  [ Add to day 2…                           ] ⊞ │                                │
+└───────────────┴─────────────────────────────────────────────────┴────────────────────────────────┘
+```
+
+- **Outline (left)**: a scroll-spy table of contents. Each entry carries its state, not just its name:
+  counts for lists, the base town and a warning dot for days, done/total for bookings and tasks.
+  Empty lists do not appear (no "Untitled").
+- **Document (centre)**: Overview (next action, bookings strip, budget, notes), the named lists, then
+  the days. Every list and day ends in one **add box** that takes a place name, a pasted link, or a
+  note, with a small menu (⊞) for note, checklist, break, drive, stay. Between consecutive stops:
+  travel time, distance and mode. Drag from any list into any day.
+- **Map (right)**: pins numbered to match the document; the section in view is bold, the rest faded;
+  a place opens in a **panel over the map** (About, Facts with sources, Photos), with "In: list ▾",
+  mark visited, open in Google or Apple Maps.
+- **Long trips stay fast**: days collapse to their header line (base, totals, warnings); only expanded
+  days render, and the list is virtualised. A 14-night trip opens with today's or the next unplanned
+  day expanded.
+- **Per day**: "Fill this day" (draft from the trip's lists, preview first) and "Reorder to cut
+  driving", both free; a missing-stay check per night ("no stay for nights 4-5") with a fix that opens
+  the Stays list, not an ad.
 
 **Board (second view, for rearranging).** Columns: **Ideas**, then **Day 1 … Day N** (with dates when set), the map on the right showing the
 selected day's route. Drag items between days and within a day (dnd-kit, with a keyboard move menu
