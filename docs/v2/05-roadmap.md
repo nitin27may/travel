@@ -48,6 +48,7 @@ trip and see it appear in the app with "added by Claude" and a working undo.
 went through review; search "lakes under 8 km, kids 9+" returns the right things with reasons.
 
 ### M2. Trip builder (L)
+- Plan document view (Wanderlog-style lists + days beside the map) as the default desktop view; named lists.
 - Intent sheet with household defaults; candidates compare; browse-and-pick with **+ Add** to Ideas or a day.
 - Day board (desktop) and day pager (phone), dnd-kit, variants, Plan B, spans, nested items.
 - Day checks with one-tap fixes; the deterministic "Draft my days" preview.
@@ -63,6 +64,7 @@ day) faster than editing the legacy page, and the result's day checks match what
 - Tasks: generated (bookings, windows, document rules for Canadian citizens, packing templates) and manual.
 - Reminders: Web Push, email, ICS feed and per-deadline `.ics`; cron Worker with the KV `next_fire_at`
   trick; Inbox.
+- Email import (07-competitors.md 4): forward a confirmation, get a booking and item; schema.org markup first.
 - Readiness bar and the phase-aware trip dashboard; the travel year view with long weekends.
 
 **Exit:** the Algonquin-style "day permit opens 5 days ahead at 07:00" produces a push at 06:45 and

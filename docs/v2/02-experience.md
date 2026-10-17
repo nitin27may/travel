@@ -126,9 +126,16 @@ custom item can offer it to the catalog (a changeset) with one tap.
 
 ## 6. Shape the days
 
-### 6.1 Desktop: the day board
+### 6.1 Desktop: the plan document (default) and the board
 
-Columns: **Ideas**, then **Day 1 … Day N** (with dates when set), the map on the right showing the
+**Plan document (default, after Wanderlog; see 07-competitors.md).** One scrolling page on the left,
+the map on the right following the section in view: Overview (notes, links, checklists), the trip's
+named lists ("Places to visit", "Restaurants", "Maybe"; Ideas is the default list), then Day 1…N.
+Between consecutive stops: travel time, distance and mode, inline. Drag from any list into any day.
+Each day section can be collapsed, so a 14-night trip stays fast: only expanded days render their
+timeline (virtualised).
+
+**Board (second view, for rearranging).** Columns: **Ideas**, then **Day 1 … Day N** (with dates when set), the map on the right showing the
 selected day's route. Drag items between days and within a day (dnd-kit, with a keyboard move menu
 for accessibility). Each day header shows the totals that decide feasibility: **driving 2 h 40 ·
 walking 9 km / 450 m · sunset 19:52 · 3 bookings**. Spans (a hut night, a 4-day trek) draw as bars

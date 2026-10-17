@@ -160,11 +160,15 @@ create table trip_candidate (id text primary key, trip_id text not null referenc
   duration text, cost_estimate numeric, pros text, cons text, notes text, chosen boolean not null default false,
   votes jsonb not null default '{}', sort_key text not null);
 
+create table trip_list (id text primary key, trip_id text not null references trip(id) on delete cascade,
+  name text not null, colour text, sort_key text not null);   -- "Ideas" (default), "Restaurants", "Maybe"
+
 create table trip_item (
   id text primary key, trip_id text not null references trip(id) on delete cascade,
   kind text not null check (kind in ('visit','hike','activity','stay','transport','meal','break','note','custom')),
   entity_id text references entity(id), offer_id text references offer(id),
   title text, point geography(Point,4326), address text, url text,
+  list_id text references trip_list(id) on delete set null,  -- used when day is null
   day int check (day >= 1), end_day int, check (end_day is null or end_day >= day),
   start_time time, end_time time, tz text,
   time_hint text check (time_hint in ('sunrise','morning','midday','afternoon','sunset','evening','night')),
