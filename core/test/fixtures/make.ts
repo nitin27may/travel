@@ -144,7 +144,7 @@ function locationFixtures(): { valid: Record<string, Row>; broken: Record<string
   b.places.push({ ...b.places[0] });
   broken["duplicate-id"] = b;
   b = base();
-  b.sources[0].screenshot = "locations/inbox/2026-10-17-niagara.png";
+  b.sources[0].screenshot = "screenshots/2026-10-17-niagara.png";
   broken["bad-screenshot-path"] = b;
   b = base();
   b.places[0].kind = "spaceship";
