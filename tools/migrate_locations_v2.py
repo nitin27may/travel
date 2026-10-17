@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Migrate locations/locations.json from schema v1 to v2.
+"""Migrate data/locations/locations.json from schema v1 to v2.
 
     python3 tools/migrate_locations_v2.py --check   # print a summary, write nothing
     python3 tools/migrate_locations_v2.py           # rewrite the store in place

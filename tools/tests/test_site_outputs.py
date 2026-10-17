@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import location_views  # noqa: E402
 import locations  # noqa: E402
 
-WISHLIST = ROOT / "locations" / "WISHLIST.md"
+WISHLIST = ROOT / "data" / "locations" / "WISHLIST.md"
 LIST_PAGE = ROOT / "locations" / "index.html"
 PLACES = ROOT / "globe" / "assets" / "data" / "places.json"
 GLOBE_PAGE = ROOT / "globe" / "index.html"

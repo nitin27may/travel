@@ -123,7 +123,7 @@ def test_skill_example_command_parses_offline(root):
     p = data["places"][0]
     assert p["id"] == "CA/QC/zec-des-martres/mont-du-dome" and p["season_months"] == [9, 10]
     assert data["sources"][0]["url"].startswith("https://www.instagram.com")
-    assert (root / "locations" / "WISHLIST.md").exists()
+    assert (root / "data" / "locations" / "WISHLIST.md").exists()
 
 
 def test_add_with_lat_lon_sets_manual_and_creates_geography(root):

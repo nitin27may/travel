@@ -1,12 +1,12 @@
 ---
 name: location
-description: Capture a place, trail, viewpoint, activity or road trip into the structured location list (locations/locations.json) with country > region > area > place hierarchy, coordinates and the source post. Use when Nitin names a place to remember, pastes or screenshots a saved Instagram/Facebook post, says "add this to the list", or asks "what do we have in Quebec". Capture only; no itinerary research.
+description: Capture a place, trail, viewpoint, activity or road trip into the structured location list (data/locations/locations.json) with country > region > area > place hierarchy, coordinates and the source post. Use when Nitin names a place to remember, pastes or screenshots a saved Instagram/Facebook post, says "add this to the list", or asks "what do we have in Quebec". Capture only; no itinerary research.
 ---
 
 # Location capture
 
-The laundry list. Everything Nitin wants to remember goes into `locations/locations.json`
-as structured data (schema v2); `locations/WISHLIST.md`, the list page `locations/index.html` and the
+The laundry list. Everything Nitin wants to remember goes into `data/locations/locations.json`
+as structured data (schema v2); `data/locations/WISHLIST.md`, the list page `locations/index.html` and the
 globe's `places.json` are regenerated from it by `locations.py build`. There is one copy, in this
 repo. The Obsidian `Location.md` is retired and points here.
 
@@ -26,7 +26,7 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
 3. **Add.** One call per place:
 
    ```bash
-   python3 _system/tools/locations.py add "Mont du Dôme" --country CA --region QC --area "Zec des Martres" \
+   python3 tools/locations.py add "Mont du Dôme" --country CA --region QC --area "Zec des Martres" \
      --kind trail --tags fall-colours,family --season Sep,Oct --kid strong-kid \
      --stats '{"km": 9.5, "gain_m": 543, "hours": "3.5-4"}' --note "3-summit loop; Saint-Michel quietest" \
      --source "https://www.instagram.com/p/..." --source-type instagram
@@ -42,7 +42,7 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
    `edit`:
 
    ```bash
-   python3 _system/tools/locations.py edit CA/QC/charlevoix/le-buton --note-append "Gondola runs to 17:00" \
+   python3 tools/locations.py edit CA/QC/charlevoix/le-buton --note-append "Gondola runs to 17:00" \
      --stats '{"minutes": 45}' --tags-add family --source "https://..." --source-type official
    ```
 

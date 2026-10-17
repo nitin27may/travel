@@ -86,7 +86,7 @@ def cmd_base(args) -> int:
         }
     write_json(ASSETS / "data" / "countries.json", facts)
     # keep the small code map used elsewhere in sync
-    write_json(ROOT / "_system" / "site" / "countries.json", {k: {"a2": v["a2"], "a3": v["a3"], "name": v["name"]} for k, v in facts.items()})
+    write_json(ROOT / "data" / "reference" / "countries.json", {k: {"a2": v["a2"], "a3": v["a3"], "name": v["name"]} for k, v in facts.items()})
 
     # 2. country polygons for hover and click (TopoJSON, 50m)
     src = fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json", CACHE / "countries-50m.json")

@@ -32,35 +32,35 @@ def seed_two_countries(root):
 
 
 def snapshot(root) -> dict:
-    return {p.name: p.read_bytes() for p in (root / "locations").glob("*") if p.is_file()}
+    return {p.name: p.read_bytes() for p in (root / "data" / "locations").glob("*") if p.is_file()}
 
 
 def test_single_split_single_is_byte_identical(root):
     seed_two_countries(root)
-    before = (root / "locations" / "locations.json").read_bytes()
+    before = (root / "data" / "locations" / "locations.json").read_bytes()
     assert run("layout", "split") == 0
-    assert (root / "locations" / "CA.json").is_file() and (root / "locations" / "US.json").is_file()
+    assert (root / "data" / "locations" / "CA.json").is_file() and (root / "data" / "locations" / "US.json").is_file()
     assert run("layout", "single") == 0
-    assert (root / "locations" / "locations.json").read_bytes() == before
-    assert not (root / "locations" / "CA.json").exists()
-    assert not (root / "locations" / "US.json").exists()
+    assert (root / "data" / "locations" / "locations.json").read_bytes() == before
+    assert not (root / "data" / "locations" / "CA.json").exists()
+    assert not (root / "data" / "locations" / "US.json").exists()
 
 
 def test_root_and_part_contents(root):
     seed_two_countries(root)
     run("layout", "split")
-    r = json.loads((root / "locations" / "locations.json").read_text())
+    r = json.loads((root / "data" / "locations" / "locations.json").read_text())
     assert r["layout"] == "by-country" and r["parts"] == ["CA", "US"]
     assert set(r) == {"schema_version", "updated", "layout", "parts", "countries", "tags", "collections",
                       "collection_places"}
-    ca = json.loads((root / "locations" / "CA.json").read_text())
+    ca = json.loads((root / "data" / "locations" / "CA.json").read_text())
     assert list(ca) == ["schema_version", "country", "regions", "areas", "places", "place_tags", "sources", "visits"]
     assert ca["country"] == "CA" and {p["id"].split("/")[0] for p in ca["places"]} == {"CA"}
     assert len(ca["places"]) == 3 and ca["place_tags"]
-    us = json.loads((root / "locations" / "US.json").read_text())
+    us = json.loads((root / "data" / "locations" / "US.json").read_text())
     assert len(us["visits"]) == 1 and len(us["sources"]) == 1
     # one row per line, same as the single file
-    rows = [l for l in (root / "locations" / "CA.json").read_text().splitlines() if l.startswith("{\"")]
+    rows = [l for l in (root / "data" / "locations" / "CA.json").read_text().splitlines() if l.startswith("{\"")]
     assert len(rows) == sum(len(ca[t]) for t in D.PART_TABLES)
 
 
@@ -69,7 +69,7 @@ def test_collection_sources_stay_in_root(root):
     assert run("collection", "add", "--slug", "tour", "--name", "Tour", "--places", "Stowe",
                "--source", "https://example.com/c") == 0
     run("layout", "split")
-    r = json.loads((root / "locations" / "locations.json").read_text())
+    r = json.loads((root / "data" / "locations" / "locations.json").read_text())
     assert [s["collection_id"] for s in r["sources"]] == ["tour"]
     merged = D.load()
     assert any(s["collection_id"] == "tour" for s in merged["sources"])
@@ -90,19 +90,19 @@ def test_save_routes_new_rows_into_the_right_part(root):
     run("layout", "split")
     assert run("add", "Cinque Terre", "--country", "IT", "--region", "liguria", "--area", "La Spezia",
                "--kind", "park", "--lat", "44.1", "--lon", "9.7", "--offline") == 0
-    r = json.loads((root / "locations" / "locations.json").read_text())
+    r = json.loads((root / "data" / "locations" / "locations.json").read_text())
     assert r["parts"] == ["CA", "IT", "US"]
-    it = json.loads((root / "locations" / "IT.json").read_text())
+    it = json.loads((root / "data" / "locations" / "IT.json").read_text())
     assert [p["name"] for p in it["places"]] == ["Cinque Terre"]
 
 
 def test_part_with_foreign_row_is_rejected(root):
     seed_two_countries(root)
     run("layout", "split")
-    p = root / "locations" / "CA.json"
+    p = root / "data" / "locations" / "CA.json"
     ca = json.loads(p.read_text())
     ca["places"].append(json.loads(json.dumps(
-        next(x for x in json.loads((root / "locations" / "US.json").read_text())["places"]))))
+        next(x for x in json.loads((root / "data" / "locations" / "US.json").read_text())["places"]))))
     p.write_text(json.dumps(ca))
     with pytest.raises(D.Fail, match="belongs to"):
         D.load()
@@ -111,7 +111,7 @@ def test_part_with_foreign_row_is_rejected(root):
 def test_part_with_wrong_country_is_rejected(root):
     seed_two_countries(root)
     run("layout", "split")
-    p = root / "locations" / "CA.json"
+    p = root / "data" / "locations" / "CA.json"
     ca = json.loads(p.read_text())
     ca["country"] = "US"
     p.write_text(json.dumps(ca))
@@ -122,7 +122,7 @@ def test_part_with_wrong_country_is_rejected(root):
 def test_missing_part_is_rejected(root):
     seed_two_countries(root)
     run("layout", "split")
-    (root / "locations" / "US.json").unlink()
+    (root / "data" / "locations" / "US.json").unlink()
     with pytest.raises(D.Fail, match="US.json is listed in parts but missing"):
         D.load()
     assert run("validate") == 1      # main turns the Fail into exit 1, no traceback
@@ -141,7 +141,7 @@ def test_split_store_validates_builds_and_is_stable(root, capsys):
 def test_second_save_does_not_rewrite_unchanged_parts(root):
     seed_two_countries(root)
     run("layout", "split")
-    us = root / "locations" / "US.json"
+    us = root / "data" / "locations" / "US.json"
     m = us.stat().st_mtime_ns
     assert run("edit", "Lake Louise", "--note", "x") == 0
     assert us.stat().st_mtime_ns == m
@@ -173,15 +173,17 @@ def test_validate_warns_but_passes_above_300_places_when_single(root, capsys):
 
 def test_real_store_split_in_tmp_validates_and_renders(tmp_path, monkeypatch):
     """A copy of the committed store, split in a tmp root, gives the same validation and the same views."""
-    store = REPO / "locations" / "locations.json"
+    store = REPO / "data" / "locations" / "locations.json"
     if not store.is_file():
         pytest.skip("no committed store")
-    dst = tmp_path / "locations"
-    dst.mkdir()
+    dst = tmp_path / "data" / "locations"
+    dst.mkdir(parents=True)
     shutil.copy(store, dst / "locations.json")
     for d in (REPO / "_system" / "site",):
         (tmp_path / "_system").mkdir(exist_ok=True)
         shutil.copytree(d, tmp_path / "_system" / "site", dirs_exist_ok=True)
+    (tmp_path / "data" / "reference").mkdir(parents=True, exist_ok=True)
+    shutil.copy(REPO / "data" / "reference" / "countries.json", tmp_path / "data" / "reference" / "countries.json")
     for child in REPO.iterdir():      # trip folders, so the trip-exists rule sees what it sees in the repo
         if child.is_dir() and (child / "index.html").is_file() and not child.name.startswith((".", "_")):
             (tmp_path / child.name).mkdir(exist_ok=True)
@@ -191,7 +193,7 @@ def test_real_store_split_in_tmp_validates_and_renders(tmp_path, monkeypatch):
     expected = {p.relative_to(tmp_path): b for p, b in V.render_all(single, D.PATHS).items()}
     assert D.validate(single) == []
     assert D.main(["layout", "split"]) == 0
-    assert (tmp_path / "locations" / "CA.json").is_file()
+    assert (tmp_path / "data" / "locations" / "CA.json").is_file()
     split = D.load()
     assert split["layout"] == "by-country"
     assert D.validate(split) == []
@@ -200,4 +202,4 @@ def test_real_store_split_in_tmp_validates_and_renders(tmp_path, monkeypatch):
     assert D.main(["validate"]) == 0
     assert D.main(["build", "--check"]) == 0
     assert D.main(["layout", "single"]) == 0
-    assert (tmp_path / "locations" / "locations.json").read_bytes() == store.read_bytes()
+    assert (tmp_path / "data" / "locations" / "locations.json").read_bytes() == store.read_bytes()
