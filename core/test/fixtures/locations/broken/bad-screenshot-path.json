@@ -27,7 +27,7 @@
 {"place_id":"CA/ON/niagara/niagara-falls","tag_id":"waterfall"}
 ],
 "sources": [
-{"id":"src-00001","place_id":"CA/ON/niagara/niagara-falls","collection_id":null,"type":"note","url":null,"note":"fixture","screenshot":"locations/inbox/2026-10-17-niagara.png","post_date":null,"saved":"2026-10-17"}
+{"id":"src-00001","place_id":"CA/ON/niagara/niagara-falls","collection_id":null,"type":"note","url":null,"note":"fixture","screenshot":"screenshots/2026-10-17-niagara.png","post_date":null,"saved":"2026-10-17"}
 ],
 "visits": [],
 "collections": [],
