@@ -1,0 +1,15 @@
+{
+"schema_version": 1,
+"updated": "2026-10-17",
+"source_rank": ["official", "operator", "press", "reseller", "blog", "community", "video", "computed"],
+"rules": [
+  {"id": "new-row", "change": "New row (place, trail, activity, stay, eatery, offer, leg)", "mode": "auto", "min_source_kind": "operator", "requires": ["at least one official or operator source", "no possible duplicate", "all required fields present"], "lands_as": {"review_status": "proposed", "confidence": "stated", "contributed_by": "agent:<lane>"}, "enabled": true, "note": "Never lands verified without a review."},
+  {"id": "new-price-snapshot", "change": "New price snapshot", "mode": "auto", "min_source_kind": null, "requires": [], "lands_as": null, "enabled": true, "note": "Snapshots append; nothing is overwritten."},
+  {"id": "new-link", "change": "New link (official, AllTrails, map links)", "mode": "auto", "min_source_kind": null, "requires": [], "lands_as": null, "enabled": true, "note": ""},
+  {"id": "fill-null-field", "change": "Filling a null field", "mode": "auto", "min_source_kind": "operator", "requires": ["source kind operator or better"], "lands_as": null, "enabled": true, "note": ""},
+  {"id": "change-non-null-fact", "change": "Changing a non-null fact, hard limits, house grade, any deletion or merge", "mode": "owner-review", "min_source_kind": null, "requires": [], "lands_as": null, "enabled": true, "note": "Never automatic."},
+  {"id": "price-change-over-20pct", "change": "A price change over 20% against the last snapshot", "mode": "auto-with-question", "min_source_kind": null, "requires": [], "lands_as": null, "enabled": true, "note": "The snapshot is appended, plus a question on any trip using the offer."}
+],
+"promotion": {"owner_verify": true, "independent_official_sources": 2, "distinct_hosts": true},
+"price_change_question_pct": 20
+}
