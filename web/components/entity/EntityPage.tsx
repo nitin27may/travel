@@ -1,19 +1,26 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { ReactElement } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import { facetCounts, filterRows } from '@/lib/entities/filter';
 import { registry } from '@/lib/entities/registry';
 import { activeGroup, groupRows, sortRows } from '@/lib/entities/sort';
 import type { EntityDescriptor, EntityType, FacetParam, ViewName } from '@/lib/entities/types';
 import { CardsView } from './CardsView';
-import { DetailSheet } from './DetailSheet';
+import type { DetailSheetProps } from './DetailSheet';
 import { EmptyState } from './EmptyState';
 import { FilterBar } from './FilterBar';
 import { ListView } from './ListView';
-import { TableView } from './TableView';
+import type { ViewProps } from './viewTypes';
 import { focusWasPushed, useUrlState } from './useUrlState';
 import { MAP_DISABLED_NOTE } from './ViewSwitcher';
+
+// The table (TanStack Table and Virtual) and the detail sheet load when first needed, which keeps
+// the list pages inside the JS budget. dynamic() drops the generic parameter, so it is restored here.
+const TableView = dynamic(() => import('./TableView').then((m) => m.TableView), { ssr: false, loading: () => <p className="muted table-loading">Loading table</p> }) as unknown as <Row>(props: ViewProps<Row>) => ReactElement | null;
+const DetailSheet = dynamic(() => import('./DetailSheet').then((m) => m.DetailSheet), { ssr: false }) as unknown as <Row>(props: DetailSheetProps<Row>) => ReactElement | null;
 
 const VIEW_TITLES: Record<ViewName, string> = { cards: 'Cards view', list: 'List view', table: 'Table view', map: 'Map view' };
 
@@ -31,6 +38,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const barRef = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
   const [announce, setAnnounce] = useState('');
+  const [sheetEver, setSheetEver] = useState(false);
 
   const filtered = useMemo(() => filterRows(rows, state, d), [rows, state, d]);
   const sorted = useMemo(() => sortRows(filtered, state, d), [filtered, state, d]);
@@ -49,6 +57,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   }, [rows, d]);
   const labelOf = (param: FacetParam, value: string) => labels[param]?.get(value) ?? value;
   const focusRow = state.focus && d.primary === 'sheet' ? (rows.find((r) => d.id(r) === state.focus) ?? null) : null;
+  if (focusRow && !sheetEver) setSheetEver(true); // load the sheet code the first time a row is focused
   const view: ViewName = state.view === 'map' ? 'map' : state.view;
 
   // "/" jumps to search, like most data tools
@@ -144,7 +153,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
       <div className="sr-only" role="status" aria-live="polite">
         {announce}
       </div>
-      <DetailSheet d={d} row={focusRow} onClose={onClose} trigger={trigger} />
+      {sheetEver ? <DetailSheet d={d} row={focusRow} onClose={onClose} trigger={trigger} /> : null}
     </>
   );
 }

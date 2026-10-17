@@ -1,7 +1,7 @@
 node_modules/
 out/
 .next/
-.fixture-out/
+.fixture-*/
 .generated/
 test-results/
 playwright-report/

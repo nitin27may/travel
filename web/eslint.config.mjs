@@ -5,7 +5,7 @@ const config = [
   ...nextVitals,
   ...nextTs,
   {
-    ignores: ['out/**', '.next/**', '.fixture-out/**', '.generated/**', 'next-env.d.ts', 'node_modules/**'],
+    ignores: ['out/**', '.next/**', '.fixture-*/**', '.generated/**', 'next-env.d.ts', 'node_modules/**'],
   },
   {
     rules: {

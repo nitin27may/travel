@@ -8,7 +8,7 @@ const ALLOWED = new Set([path.join('app', 'themes.css')]);
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
-    if (SKIP.has(name)) continue;
+    if (SKIP.has(name) || name.startsWith('.fixture')) continue;
     const full = path.join(dir, name);
     if (statSync(full).isDirectory()) walk(full, out);
     else if (/\.(ts|tsx|css)$/.test(name)) out.push(full);

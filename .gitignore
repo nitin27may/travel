@@ -31,4 +31,4 @@ node_modules/
 web/out/
 web/.next/
 web/.generated/
-web/.fixture-out/
+web/.fixture-*/
