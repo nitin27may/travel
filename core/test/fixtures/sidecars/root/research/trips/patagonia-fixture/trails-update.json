@@ -1,0 +1,68 @@
+{
+ "schema": "research-sidecar/1",
+ "lane": "trails",
+ "subject": {
+  "kind": "trip",
+  "id": "patagonia-fixture"
+ },
+ "researched": "2026-10-20",
+ "agent": "research-trails",
+ "model": "claude-sonnet-fixture",
+ "md": "research/trips/patagonia-fixture/trails.md",
+ "geo": {
+  "countries": [
+   "AR"
+  ],
+  "regions": [],
+  "areas": [
+   "AR/santa-cruz/el-chalten",
+   "AR/tierra-del-fuego/ushuaia"
+  ]
+ },
+ "trip_type": {
+  "duration_shape": "multi-week",
+  "movement_shape": "multi-base",
+  "styles": [
+   "adventure"
+  ]
+ },
+ "tags": [],
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://operator.example/laguna-de-los-tres",
+   "title": "Operator page",
+   "publisher": "Operator",
+   "kind": "operator",
+   "read": "2026-10-20"
+  },
+  {
+   "id": "src-0002",
+   "url": "https://blog.example/ldlt",
+   "title": "Blog",
+   "publisher": "Blog",
+   "kind": "blog",
+   "read": "2026-10-21"
+  }
+ ],
+ "facts": [],
+ "records": {
+  "trails": [
+   {
+    "match": {
+     "osm_relation": 4485261
+    },
+    "src": [
+     "src-0001"
+    ],
+    "name": "Laguna de los Tres",
+    "area_id": "AR/santa-cruz/el-chalten",
+    "gain_m": 950,
+    "trailhead_lat": -49.3335,
+    "trailhead_lon": -72.8858,
+    "km": 22.4,
+    "loss_m": 950
+   }
+  ]
+ }
+}

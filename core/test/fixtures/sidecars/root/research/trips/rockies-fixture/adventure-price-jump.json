@@ -1,0 +1,58 @@
+{
+ "schema": "research-sidecar/1",
+ "lane": "adventure",
+ "subject": {
+  "kind": "trip",
+  "id": "rockies-fixture"
+ },
+ "researched": "2026-11-20",
+ "agent": "research-adventure",
+ "model": "claude-sonnet-fixture",
+ "md": "research/trips/rockies-fixture/adventure.md",
+ "geo": {
+  "countries": [
+   "CA"
+  ],
+  "regions": [],
+  "areas": [
+   "CA/AB/banff-national-park"
+  ]
+ },
+ "trip_type": {
+  "duration_shape": "multi-week",
+  "movement_shape": "multi-base",
+  "styles": [
+   "adventure"
+  ]
+ },
+ "tags": [],
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+   "title": "Banff Gondola",
+   "publisher": "Banff Jasper Collection",
+   "kind": "operator",
+   "read": "2026-11-20"
+  }
+ ],
+ "facts": [],
+ "records": {
+  "offer_prices": [
+   {
+    "match": {
+     "provider": "Banff Jasper Collection",
+     "product": "Banff Gondola"
+    },
+    "src": [
+     "src-0001"
+    ],
+    "amount": 105,
+    "currency": "CAD",
+    "per": "adult",
+    "read": "2026-11-20",
+    "age_from": 13
+   }
+  ]
+ }
+}

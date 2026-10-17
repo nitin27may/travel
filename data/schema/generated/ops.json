@@ -4171,6 +4171,120 @@
       }
     },
     {
+      "name": "catalog.reject",
+      "summary": "Reject a catalog proposal or some of its changes; the catalog is untouched.",
+      "kind": "write",
+      "phase": 1,
+      "tables": [
+        "catalog.*"
+      ],
+      "input": {
+        "type": "object",
+        "properties": {
+          "actor": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "description": "\"u_owner\" or \"agent:<lane>\""
+              },
+              "via": {
+                "type": "string",
+                "pattern": "^(ui|cli|mcp|api|import|skill:[a-z0-9-]+)$",
+                "description": "\"ui\", \"cli\", \"mcp\", \"api\", \"import\" or \"skill:<name>\""
+              }
+            },
+            "required": [
+              "id",
+              "via"
+            ],
+            "additionalProperties": false
+          },
+          "client_op_id": {
+            "description": "repeat the same value to retry a write safely",
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_rev": {
+            "description": "the rev (D1) or file hash (git) the caller last saw; a mismatch returns E_STALE",
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "proposal_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "change_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "actor",
+          "proposal_id"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "changed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "where": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "where"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "changelog_seq": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ok",
+          "changed",
+          "warnings",
+          "changelog_seq"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
       "name": "catalog.retire",
       "summary": "Retire a catalog row (never a delete); needs the owner's confirmation.",
       "kind": "write",
@@ -4249,6 +4363,120 @@
           "id",
           "reason",
           "confirmed"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "changed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "where": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "where"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "changelog_seq": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ok",
+          "changed",
+          "warnings",
+          "changelog_seq"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "catalog.undo",
+      "summary": "Undo applied changes of a catalog proposal from their catalog_changes rows (an added row is retired, never deleted).",
+      "kind": "write",
+      "phase": 1,
+      "tables": [
+        "catalog.*"
+      ],
+      "input": {
+        "type": "object",
+        "properties": {
+          "actor": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "description": "\"u_owner\" or \"agent:<lane>\""
+              },
+              "via": {
+                "type": "string",
+                "pattern": "^(ui|cli|mcp|api|import|skill:[a-z0-9-]+)$",
+                "description": "\"ui\", \"cli\", \"mcp\", \"api\", \"import\" or \"skill:<name>\""
+              }
+            },
+            "required": [
+              "id",
+              "via"
+            ],
+            "additionalProperties": false
+          },
+          "client_op_id": {
+            "description": "repeat the same value to retry a write safely",
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_rev": {
+            "description": "the rev (D1) or file hash (git) the caller last saw; a mismatch returns E_STALE",
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "proposal_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "change_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "actor",
+          "proposal_id"
         ],
         "additionalProperties": false
       },
@@ -9586,6 +9814,63 @@
           "changed",
           "warnings",
           "changelog_seq"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "lanes.select",
+      "summary": "Which research lanes run for a trip, with the reason for each (plan 7.3).",
+      "kind": "read",
+      "phase": 1,
+      "tables": [
+        "trip.*"
+      ],
+      "input": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "trip slug"
+          },
+          "drive_minutes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "slug"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "lanes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            }
+          },
+          "dropped": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            }
+          }
+        },
+        "required": [
+          "lanes",
+          "dropped"
         ],
         "additionalProperties": false
       }

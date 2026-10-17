@@ -1,0 +1,78 @@
+{
+ "schema": "research-sidecar/1",
+ "lane": "trails",
+ "subject": {
+  "kind": "trip",
+  "id": "patagonia-fixture"
+ },
+ "researched": "2026-10-13",
+ "agent": "research-trails",
+ "model": "claude-sonnet-fixture",
+ "md": "research/trips/patagonia-fixture/trails.md",
+ "geo": {
+  "countries": [
+   "AR"
+  ],
+  "regions": [],
+  "areas": [
+   "AR/santa-cruz/el-chalten",
+   "AR/tierra-del-fuego/ushuaia"
+  ]
+ },
+ "trip_type": {
+  "duration_shape": "multi-week",
+  "movement_shape": "multi-base",
+  "styles": [
+   "adventure"
+  ]
+ },
+ "tags": [],
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://www.argentina.gob.ar/parquesnacionales/losglaciares/senderos",
+   "title": "Senderos El Chalten",
+   "publisher": "Parques Nacionales",
+   "kind": "official",
+   "read": "2026-10-13"
+  },
+  {
+   "id": "src-0002",
+   "url": "https://www.example-blog.org/capri-fitz-roy",
+   "title": "Laguna Capri blog",
+   "publisher": "Trail blog",
+   "kind": "blog",
+   "read": "2026-10-12"
+  },
+  {
+   "id": "src-0003",
+   "url": "https://www.argentina.gob.ar/parquesnacionales/tierradelfuego/costera",
+   "title": "Senda Costera",
+   "publisher": "Parques Nacionales",
+   "kind": "official",
+   "read": "2026-10-13"
+  }
+ ],
+ "facts": [],
+ "records": {
+  "trails": [
+   {
+    "match": {},
+    "src": [
+     "src-0003"
+    ],
+    "name": "Senda Costera",
+    "area_id": "AR/nowhere/at-all",
+    "km": 8,
+    "gain_m": 70,
+    "local": {
+     "system": "APN",
+     "grade": "Medium"
+    },
+    "shape": "Circuit",
+    "trailhead_lat": -54.8433,
+    "trailhead_lon": -68.5311
+   }
+  ]
+ }
+}

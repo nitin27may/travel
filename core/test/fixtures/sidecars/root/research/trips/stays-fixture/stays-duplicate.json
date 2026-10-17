@@ -1,0 +1,57 @@
+{
+ "schema": "research-sidecar/1",
+ "lane": "stays",
+ "subject": {
+  "kind": "trip",
+  "id": "patagonia-fixture"
+ },
+ "researched": "2026-10-18",
+ "agent": "research-stays",
+ "model": "claude-sonnet-fixture",
+ "md": "research/trips/patagonia-fixture/stays.md",
+ "geo": {
+  "countries": [
+   "AR"
+  ],
+  "regions": [],
+  "areas": [
+   "AR/santa-cruz/el-chalten"
+  ]
+ },
+ "trip_type": {
+  "duration_shape": "multi-week",
+  "movement_shape": "multi-base",
+  "styles": [
+   "adventure"
+  ]
+ },
+ "tags": [],
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://booking.example/hosteria-pilar",
+   "title": "Hosteria Pilar",
+   "publisher": "Reseller",
+   "kind": "reseller",
+   "read": "2026-10-18"
+  }
+ ],
+ "facts": [],
+ "records": {
+  "stays": [
+   {
+    "match": {},
+    "src": [
+     "src-0001"
+    ],
+    "name": "Hosteria Pilar",
+    "area_id": "AR/santa-cruz/el-chalten",
+    "kind": "Hotel",
+    "lat": -49.2702,
+    "lon": -72.91,
+    "sleeps_max": 6
+   }
+  ],
+  "eateries": []
+ }
+}

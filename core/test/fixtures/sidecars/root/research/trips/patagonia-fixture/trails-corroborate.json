@@ -1,0 +1,60 @@
+{
+ "schema": "research-sidecar/1",
+ "lane": "trails",
+ "subject": {
+  "kind": "trip",
+  "id": "patagonia-fixture"
+ },
+ "researched": "2026-10-14",
+ "agent": "research-trails",
+ "model": "claude-sonnet-fixture",
+ "md": "research/trips/patagonia-fixture/trails.md",
+ "geo": {
+  "countries": [
+   "AR"
+  ],
+  "regions": [],
+  "areas": [
+   "AR/santa-cruz/el-chalten",
+   "AR/tierra-del-fuego/ushuaia"
+  ]
+ },
+ "trip_type": {
+  "duration_shape": "multi-week",
+  "movement_shape": "multi-base",
+  "styles": [
+   "adventure"
+  ]
+ },
+ "tags": [],
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://www.parquesnacionales.example/senderos/laguna-de-los-tres",
+   "title": "Laguna de los Tres",
+   "publisher": "Parques Nacionales mirror",
+   "kind": "official",
+   "read": "2026-10-14"
+  }
+ ],
+ "facts": [],
+ "records": {
+  "trails": [
+   {
+    "match": {
+     "osm_relation": 4485261
+    },
+    "src": [
+     "src-0001"
+    ],
+    "name": "Laguna de los Tres",
+    "name_lang": "es",
+    "area_id": "AR/santa-cruz/el-chalten",
+    "distance_km": 21.5,
+    "gain_m": 950,
+    "trailhead_lat": -49.3335,
+    "trailhead_lon": -72.8858
+   }
+  ]
+ }
+}

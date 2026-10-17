@@ -270,7 +270,11 @@ write("catalog.propose", "Propose catalog changes from a research sidecar or a t
   sidecar: z.string().startsWith("research/").optional(), slug: slug.optional(), changes: z.array(record).optional(),
 }, { tool: "propose_catalog_change", phase: 2 }, 2);
 write("catalog.apply", "Apply a catalog proposal's accepted changes and append catalog_changes rows.", ["catalog.*"], { proposal_id: id, change_ids: z.array(id).optional() });
+write("catalog.reject", "Reject a catalog proposal or some of its changes; the catalog is untouched.", ["catalog.*"], { proposal_id: id, change_ids: z.array(id).optional() });
+write("catalog.undo", "Undo applied changes of a catalog proposal from their catalog_changes rows (an added row is retired, never deleted).", ["catalog.*"], { proposal_id: id, change_ids: z.array(id).optional() });
 write("backlog.add", "Add a research backlog row.", ["catalog.backlog"], { row: catTable("backlog").schema });
+read("lanes.select", "Which research lanes run for a trip, with the reason for each (plan 7.3).", ["trip.*"], { slug, drive_minutes: z.number().int().min(0).optional() },
+  z.strictObject({ lanes: z.array(record), dropped: z.array(record) }));
 
 // ---- inbox (Phase 2, plan section 9)
 const inboxFields = { id, note: z.string().optional() };
