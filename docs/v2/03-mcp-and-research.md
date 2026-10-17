@@ -36,7 +36,7 @@ Every tool's input is a Zod schema exported as JSON Schema; every output is comp
 | `edit_trip` | **one tool, many ops**: an ordered list of operations (`add_item`, `move_item`, `set_time`, `add_note`, `add_custom_item`, `set_variant`, `set_plan_b`, `remove_item`, `add_day_note`, `set_prefs`...) applied atomically with one undo; returns the new version and any day-check warnings |
 | `draft_days` | runs the planner over the trip's ideas; returns a preview, or applies it with `apply: true` |
 | `check_trip` | day checks with suggested fixes (each fix is an `edit_trip` payload the client can send) |
-| `bookings` | list deadlines and windows; mark booked with a confirmation |
+| `reservations` | add, update, attach, mark booked or cancelled: flights, stays, cars, tickets... with segments and travellers (09-reservations.md 9); codes need the `reservations:read` scope |
 | `tasks` | list, add, complete |
 | `fork_template` | copy a public template into a new trip with new dates and party |
 

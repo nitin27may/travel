@@ -171,13 +171,13 @@ exactly the "check passport expiry dates for all family members" task in `Plan.m
 Days are not rows. `day_note` holds a title, notes and the night's base for a day number if someone
 writes one. With dates set, day N is `start_date + N - 1`; without dates the UI shows "Day N".
 
-### 3.4 `booking`
+### 3.4 `reservation` (replaces `booking`)
 
-Links a trip to an offer (or to a custom bookable item). `status`: needed, watching (window not open),
-open (book now), booked, waitlisted, failed, cancelled, not_needed. Stores confirmation number, actual
-cost, attachments (tickets, receipts) and the computed `opens_at` and `book_by` (recomputed whenever the
-trip dates or the offer's window change). One trip item can need several bookings (a tour plus a
-shuttle) and one booking can cover several items (a park pass).
+What the party booked themselves, or still has to book: flights, stays, cars, trains, ferries,
+transfers, activities, restaurants, parking, insurance. Status to_book → held/booked → done, or
+cancelled; timed parts are segments with local times and zones; per-traveller seats and tickets;
+secret codes in a separate table. Stays set each night's base for routing; flights and cars bound the
+days. Full design: **09-reservations.md**.
 
 ### 3.5 `task`
 

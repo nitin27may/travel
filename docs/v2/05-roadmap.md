@@ -64,7 +64,8 @@ the owner rebuilds the **Canadian Rockies 2029** trip in the app (14 nights, 3 t
 day) faster than editing the legacy page, and the result's day checks match what PLAN.md says.
 
 ### M3. Book, tasks and reminders (M)
-- Offers with booking windows; `opens_at`/`book_by`; the booking timeline; mark booked with proof.
+- Reservations (09-reservations.md): forms per kind, segments, travellers, secrets, anchored items, night bases, flight and car bounds on days; to-book placeholders with tasks; the booking timeline; the wallet.
+- Offers with booking windows; `opens_at`/`book_by` for to-book reservations.
 - Tasks: generated (bookings, windows, document rules for Canadian citizens, packing templates) and manual.
 - Reminders: Web Push, email, ICS feed and per-deadline `.ics`; cron Worker with the KV `next_fire_at`
   trick; Inbox.

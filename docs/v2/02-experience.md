@@ -217,7 +217,8 @@ arrives the same way.
 
 ## 7. Book
 
-The booking timeline is the screen for the Book phase.
+We never book on the user's behalf; people record what they booked and what they still have to book
+(full design: **09-reservations.md**). The booking timeline is the screen for the Book phase.
 
 ```
  NOW      ● Moraine Lake shuttle — opens Sat 15 Apr 08:00 MT (10:00 your time) · sells out in minutes
