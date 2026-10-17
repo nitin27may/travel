@@ -53,13 +53,20 @@ export interface TableMeta {
   rules?: Rule[];
 }
 
+export interface ResolvedMeta extends TableMeta {
+  sql: NonNullable<TableMeta["sql"]>;
+  ui: Ui;
+  private: string[];
+  rules: Rule[];
+}
+
 export interface Table {
   name: string;
   family: Family;
   key: string;
   shape: Record<string, z.ZodType>;
   schema: z.ZodType;
-  meta: Required<Pick<TableMeta, "pk" | "family">> & TableMeta;
+  meta: ResolvedMeta;
 }
 
 function build(type: ColType, inner: z.ZodType, o: ColOpts): z.ZodType {
