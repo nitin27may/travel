@@ -1,6 +1,6 @@
 # Travel platform v2: clean-slate design (17 Oct 2026)
 
-Status: **PROPOSAL, not approved.** Written as if starting from zero, then mapped back onto what exists.
+Status: **WORKING DRAFT, not final.** Everything here, including choices marked "decided" or "answered", is the current direction and is expected to change as we keep planning. Written as if starting from zero, then mapped back onto what exists.
 It replaces `docs/BLUEPRINT.md` where they disagree; the blueprint's principles mostly survive, but
 several of its mechanisms were too heavy or too fragile (section "What changed from BLUEPRINT.md").
 

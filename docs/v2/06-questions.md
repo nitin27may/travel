@@ -1,5 +1,7 @@
 # 06. Decisions and questions for the owner
 
+> **Working draft.** "Decided" and "answered" below mean *current direction*, not final. Any of them can be reopened.
+
 **Revised 17 Oct 2026: Q1 = self-hosted Supabase on the home server (Docker on Ubuntu), Supabase
 Auth and Realtime, Next.js in a container, Cloudflare Tunnel; see 08-self-hosted.md.** Earlier the
 same day: Q1 = C (Neon + Better Auth); Q10 = family first, public later; Q12 = live
@@ -44,7 +46,7 @@ Each has a recommendation; "blocks" says which milestone cannot start without an
 
 Collected from features/, ux/, research/, mcp/ and migration/, deduplicated.
 
-**Answered 17 Oct 2026: every default below is accepted as a decision**, with these specific answers:
+**Current direction (17 Oct 2026, not final): the defaults below are the working assumptions**, with these specific answers:
 - **P1**: the five past pages (Algonquin, Vermont, Québec, New Hampshire, Niagara) and the two undated
   ones (Norway, Utah) are taken private now: `"private": true` in `legacy/MANIFEST.json`; publishing
   replaces each page and its asset files with a noindex placeholder (old Cloudflare deployments keep
