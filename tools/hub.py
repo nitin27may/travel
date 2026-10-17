@@ -111,7 +111,7 @@ def write_trips_json(root: Path, out: Path, today: date) -> int:
     manifest = json.loads((root / 'legacy' / 'MANIFEST.json').read_text(encoding='utf-8'))
     trips = []
     for f in manifest['folders']:
-        if not f.get('served') or f.get('kind') == 'site-page':
+        if not f.get('served') or f.get('kind') == 'site-page' or f.get('private'):
             continue
         page = root / 'legacy' / f['slug'] / 'index.html'
         if not page.is_file():
@@ -136,6 +136,8 @@ def write_hub(site: Path, today: date) -> None:
         if slug in SITE_PAGES or not os.path.isdir(os.path.join(site, slug)) or not os.path.exists(f):
             continue
         doc = open(f, encoding='utf-8').read()
+        if 'name="trip-private"' in doc:      # placeholder for a page taken private (MANIFEST "private")
+            continue
         trips.append(trip_record(slug, doc))
 
     def key(t):

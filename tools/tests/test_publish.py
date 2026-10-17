@@ -76,3 +76,32 @@ def test_hub_today_is_honoured(tmp_path, monkeypatch):
     c = tmp_path / "c"
     publish.main(["--dry-run", "--no-web"], root=ROOT, site=c)
     assert (a / "index.html").read_bytes() != (c / "index.html").read_bytes()
+
+
+def test_private_pages_are_placeholders(staged):
+    private = {f["slug"] for f in _manifest()["folders"] if f.get("private")}
+    assert private, "expected at least one private page in the manifest"
+    for slug in private:
+        doc = (staged / slug / "index.html").read_text(encoding="utf-8")
+        assert 'name="trip-private"' in doc and 'name="robots" content="noindex' in doc
+        assert "trip-date" not in doc and "<img" not in doc, f"{slug}: trip content leaked into the placeholder"
+        for f in (staged / slug).rglob("*"):
+            if f.is_file() and f.name != "index.html":
+                assert f.read_text(encoding="utf-8") == publish.PRIVATE_ASSET, f"{f}: asset not overwritten"
+
+
+def test_private_pages_have_no_hub_card(staged):
+    hub = (staged / "index.html").read_text(encoding="utf-8")
+    for f in _manifest()["folders"]:
+        if f.get("private"):
+            assert f'href="/{f["slug"]}/' not in hub and f'href="{f["slug"]}/' not in hub, f["slug"]
+
+
+def test_private_pages_leave_the_app_trip_list(tmp_path):
+    sys.path.insert(0, str(ROOT / "tools"))
+    import hub
+    from datetime import date
+    out = tmp_path / "trips.json"
+    hub.write_trips_json(ROOT, out, date(2026, 10, 17))
+    slugs = {t["slug"] for t in json.loads(out.read_text(encoding="utf-8"))}
+    assert not slugs & {f["slug"] for f in _manifest()["folders"] if f.get("private")}

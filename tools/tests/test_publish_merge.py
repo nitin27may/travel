@@ -121,7 +121,7 @@ def test_hub_json_lists_every_served_legacy_trip(tmp_path):
     n = hub.write_trips_json(ROOT, out, date(2026, 10, 17))
     rows = json.loads(out.read_text(encoding="utf-8"))
     manifest = json.loads((ROOT / "legacy" / "MANIFEST.json").read_text(encoding="utf-8"))
-    served = {f["slug"] for f in manifest["folders"] if f.get("served") and f.get("kind") != "site-page"}
+    served = {f["slug"] for f in manifest["folders"] if f.get("served") and f.get("kind") != "site-page" and not f.get("private")}
     assert n == len(rows) == len(served)
     assert {r["slug"] for r in rows} == served
     assert set(rows[0]) == {"slug", "title", "sub", "img", "date", "dates", "dur", "region", "status", "badge"}

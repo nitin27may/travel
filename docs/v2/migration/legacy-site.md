@@ -40,6 +40,12 @@ Trips still in planning are not public in v2 by default. If the owner wants a li
 public page of a future trip (as today), that is a guest link with no expiry and the "public trip"
 include settings from 10-sharing.md; templates are the recommended public form.
 
+**Done 17 Oct 2026 (owner's P1 decision):** `algonquin-muskoka-oct-2026`, `vermont-fall-2026`,
+`quebec-sept-2026`, `new-hampshire-stopover-2026`, `niagara-day-aug-2026`, `norway-summer` and
+`usa-southwest-rockies` are `"private": true` in `legacy/MANIFEST.json`. Publishing stages a noindex
+placeholder (and overwrites their asset files) instead of the page, and the hub and app trip list skip
+them. Templates replacing them start family-and-friends only.
+
 ## 3. Redirect mechanics
 
 - Cloudflare Pages supports a `_redirects` file at the site root (the platform plan, PLAN-platform

@@ -42,8 +42,18 @@ Each has a recommendation; "blocks" says which milestone cannot start without an
 
 ## Consolidated open questions from the detailed pages (17 Oct 2026)
 
-Collected from features/, ux/, research/, mcp/ and migration/, deduplicated. Each has the default the
-pages already assume; **anything not answered keeps its default.** IDs are stable for discussion.
+Collected from features/, ux/, research/, mcp/ and migration/, deduplicated.
+
+**Answered 17 Oct 2026: every default below is accepted as a decision**, with these specific answers:
+- **P1**: the five past pages (Algonquin, Vermont, Québec, New Hampshire, Niagara) and the two undated
+  ones (Norway, Utah) are taken private now: `"private": true` in `legacy/MANIFEST.json`; publishing
+  replaces each page and its asset files with a noindex placeholder (old Cloudflare deployments keep
+  serving any path a new deploy omits, so overwriting is the only way to take them down) and drops their
+  hub cards. Takes effect on the next `./publish.sh` from the owner's machine.
+- **D1**: new research is recorded as changesets, not `research/trips/<slug>/*.md`.
+- **Templates (M1-M4)**: the owner's trips become templates **visible to invited family and friends
+  only** at first; making one public is a per-template switch later.
+Change any decision by its ID.
 
 ### Privacy and people
 | ID | Question | Default |

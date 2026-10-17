@@ -31,8 +31,29 @@ SITE_ROUTES = ("globe", "locations")   # legacy/<name>/ served at /<name>/, not 
 APP_OWNED = ("locations",)             # legacy site pages the app replaces (it serves a redirect page there)
 
 
+PRIVATE_PAGE = """<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="trip-private" content="1">
+<title>Private trip</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;max-width:32rem;margin:15vh auto;padding:0 16px;color:#222;background:#fff}
+@media (prefers-color-scheme:dark){body{color:#eee;background:#111}a{color:#9cf}}</style>
+</head><body><h1>This trip page is private now</h1>
+<p>It is no longer published. <a href="/">See the other trips</a>.</p></body></html>
+"""
+PRIVATE_ASSET = "This file is no longer published.\n"
+
+
 class PublishError(Exception):
     pass
+
+
+def private_slugs(root: Path) -> set[str]:
+    """Manifest folders marked private: staged as a placeholder so the old page and its files are
+    overwritten on Cloudflare (earlier deployments keep serving any path a new deploy omits)."""
+    manifest = json.loads((root / "legacy" / "MANIFEST.json").read_text(encoding="utf-8"))
+    return {f["slug"] for f in manifest["folders"] if f.get("private")}
 
 
 def routes(root: Path) -> list[tuple[str, Path]]:
@@ -73,8 +94,20 @@ def stage(root: Path, site: Path, web_out: Path | None = None) -> None:
     if web_out is not None:
         shutil.copytree(web_out, site, dirs_exist_ok=True)
         print(f"  app: copied {web_out.name}/")
+    private = private_slugs(root)
     for slug, src in routes(root):
         dest = site / slug
+        if slug in private:
+            dest.mkdir(parents=True, exist_ok=True)
+            (dest / "index.html").write_text(PRIVATE_PAGE, encoding="utf-8")
+            if (src / "assets").is_dir():
+                for f in (src / "assets").rglob("*"):
+                    if f.is_file():
+                        out = dest / "assets" / f.relative_to(src / "assets")
+                        out.parent.mkdir(parents=True, exist_ok=True)
+                        out.write_text(PRIVATE_ASSET, encoding="utf-8")
+            print(f"  private: /{slug}/ (placeholder)")
+            continue
         if web_out is not None and (dest / "index.html").exists():
             if slug in APP_OWNED:
                 print(f"  app owns: /{slug}/ (legacy page not copied)")
