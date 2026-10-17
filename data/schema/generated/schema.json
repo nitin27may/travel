@@ -6,7 +6,7 @@
   "x-schema-versions": {
     "trip": 1,
     "catalog": 1,
-    "locations": 2
+    "locations": 3
   },
   "$defs": {
     "catalog.activities": {
@@ -3997,6 +3997,242 @@
           "type": "string",
           "format": "date",
           "x-type": "date"
+        },
+        "name_lang": {
+          "x-type": "text",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "min_age": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "max_age": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "min_height_cm": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "max_height_cm": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "min_weight_kg": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "max_weight_kg": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "house_grade": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int",
+          "x-ui": {
+            "label": "House grade",
+            "facet": true
+          }
+        },
+        "walk_km": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "real"
+        },
+        "walk_gain_m": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "duration_min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "int"
+        },
+        "accessibility": {
+          "type": "string",
+          "enum": [
+            "step-free",
+            "partial",
+            "none",
+            "unknown"
+          ],
+          "x-type": "text"
+        },
+        "cost_ref": {
+          "x-type": "text",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "raw",
+            "proposed",
+            "verified",
+            "stale",
+            "retired"
+          ],
+          "x-type": "text",
+          "x-ui": {
+            "label": "Review status",
+            "facet": true
+          }
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "stated",
+            "inference",
+            "gap",
+            "conflict"
+          ],
+          "x-type": "text",
+          "x-ui": {
+            "label": "Confidence",
+            "facet": true
+          }
+        },
+        "field_meta": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {},
+          "x-type": "json"
+        },
+        "verified_by": {
+          "x-type": "text",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_verified": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x-type": "date"
+        },
+        "contributed_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-type": "json"
+        },
+        "licence": {
+          "type": "string",
+          "enum": [
+            "own-words",
+            "odbl",
+            "ogl-ca",
+            "cc-by-4.0",
+            "public-domain"
+          ],
+          "x-type": "text"
+        },
+        "merged_from": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-type": "json"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
         }
       },
       "required": [
@@ -4019,7 +4255,29 @@
         "stats",
         "stats_verified",
         "notes",
-        "added"
+        "added",
+        "name_lang",
+        "min_age",
+        "max_age",
+        "min_height_cm",
+        "max_height_cm",
+        "min_weight_kg",
+        "max_weight_kg",
+        "house_grade",
+        "walk_km",
+        "walk_gain_m",
+        "duration_min",
+        "accessibility",
+        "cost_ref",
+        "review_status",
+        "confidence",
+        "field_meta",
+        "verified_by",
+        "last_verified",
+        "contributed_by",
+        "licence",
+        "merged_from",
+        "updated"
       ],
       "additionalProperties": false,
       "x-family": "locations",
@@ -4031,6 +4289,17 @@
       "x-sql": {
         "checks": [
           "CHECK ((lat IS NULL) = (lon IS NULL))"
+        ],
+        "indexes": [
+          [
+            "review_status"
+          ],
+          [
+            "last_verified"
+          ],
+          [
+            "area_id"
+          ]
         ]
       },
       "x-ui": {
@@ -4223,6 +4492,21 @@
           "minLength": 1,
           "x-type": "text"
         },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "style",
+            "activity",
+            "feature",
+            "audience",
+            "free"
+          ],
+          "x-type": "text",
+          "x-ui": {
+            "label": "Kind",
+            "facet": true
+          }
+        },
         "alias_of": {
           "x-type": "text",
           "x-fk": "tags.id",
@@ -4235,6 +4519,7 @@
       "required": [
         "id",
         "label",
+        "kind",
         "alias_of"
       ],
       "additionalProperties": false,

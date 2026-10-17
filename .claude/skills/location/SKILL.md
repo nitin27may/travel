@@ -32,7 +32,7 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
      --source "https://www.instagram.com/p/..." --source-type instagram
    ```
 
-   For five or more places write a batch file in `locations/inbox/<date>-<topic>.json` (shape:
+   For five or more places write a batch file in `research/inbox/<date>-<topic>.json` (shape:
    `{"places": [spec...], "collections": [...]}`, spec keys match the flags) and run `import`.
 4. **Ambiguity.** Exit code 2 prints candidates. Pick by country and description yourself when
    one is obviously right; ask Nitin one question only when two are plausible (two Moss Glen Falls).
@@ -49,8 +49,8 @@ adopts the place. Numbers from a social post are stored as `stats` and stay `unv
    `edit` also changes `--status`, `--kind`, `--kid`, `--season`, `--area`, coordinates and `--trip`.
    When a trip plan adopts a place: `edit ID --trip SLUG --status planned`. After a visit:
    `visit add ID --date 2026-10-02 --trip SLUG` (this sets the status to visited).
-6. **Screenshots.** Copy the image into `locations/inbox/` named `<date>-<slug>.jpg` and pass it with
-   `--screenshot locations/inbox/<file>` (on `add` or `edit`), with `--source-note "saved post,
+6. **Screenshots.** Copy the image into `research/inbox/` named `<date>-<slug>.jpg` and pass it with
+   `--screenshot research/inbox/<file>` (on `add` or `edit`), with `--source-note "saved post,
    15 Oct 2026"` for the date of the post. The post link goes in `--source` when known. Screenshots
    and source notes stay private; the public pages never show them.
 7. **Finish.** Every write rebuilds the views, and the hook runs `validate` then `build` after any

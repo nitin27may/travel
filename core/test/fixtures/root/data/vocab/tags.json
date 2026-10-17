@@ -1,0 +1,18 @@
+{
+"schema_version": 1,
+"tags": [
+{"id":"adventure","label":"adventure","kind":"style","alias_of":null},
+{"id":"active-nature","label":"active-nature","kind":"style","alias_of":null},
+{"id":"scenic-relaxed","label":"scenic-relaxed","kind":"style","alias_of":null},
+{"id":"luxury-relax","label":"luxury-relax","kind":"style","alias_of":null},
+{"id":"relax","label":"relax","kind":"style","alias_of":null},
+{"id":"city-culture","label":"city-culture","kind":"style","alias_of":null},
+{"id":"road-trip","label":"road-trip","kind":"style","alias_of":null},
+{"id":"mixed","label":"mixed","kind":"style","alias_of":null},
+{"id":"hiking","label":"hiking","kind":"activity","alias_of":null},
+{"id":"waterfall","label":"waterfall","kind":"feature","alias_of":null},
+{"id":"glaciers","label":"glaciers","kind":"feature","alias_of":null},
+{"id":"penguins","label":"penguins","kind":"feature","alias_of":null},
+{"id":"waterfalls","label":"Waterfalls","kind":"feature","alias_of":"waterfall"}
+]
+}

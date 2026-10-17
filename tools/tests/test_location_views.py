@@ -11,6 +11,7 @@ sys.path.insert(0, str(HERE.parent))
 import location_views as V  # noqa: E402
 import locations as D  # noqa: E402
 import migrate_locations_v2 as M  # noqa: E402
+import migrate_locations_v3 as M3  # noqa: E402
 
 FIXTURE = HERE / "fixtures" / "locations-v1.json"
 
@@ -29,7 +30,7 @@ def paths(tmp_path):
 
 @pytest.fixture
 def data():
-    return M.migrate(json.loads(FIXTURE.read_text(encoding="utf-8")))
+    return M3.migrate(M.migrate(json.loads(FIXTURE.read_text(encoding="utf-8"))))
 
 
 def _first(data, pid=None):
@@ -140,7 +141,7 @@ def test_outputs_never_mention_inbox_or_screenshots(data, paths):
     for c in data["collections"]:      # the fixture's own collection prose says "screenshot"; the test is about paths and fields
         c["notes"] = c["notes"].replace("screenshot", "post")
     data["sources"].append({"id": "src-99999", "place_id": pid, "collection_id": None, "type": "instagram",
-                            "url": "https://i.example/p", "note": "private source note", "screenshot": "locations/inbox/2026-secret.jpg",
+                            "url": "https://i.example/p", "note": "private source note", "screenshot": "research/inbox/2026-secret.jpg",
                             "post_date": None, "saved": "2026-10-16"})
     public = {p: b for p, b in V.render_all(data, paths).items() if p != paths.wishlist}   # WISHLIST.md is not published
     assert len(public) == 2

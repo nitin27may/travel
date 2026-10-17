@@ -83,9 +83,10 @@ function locationsStore(): Row {
   const place = (id: string, area: string, name: string, kind: string, lat: number, lon: number): Row =>
     loc("places", { id, area_id: area, name, resolved_name: name, kind, status: "idea", trip: null, lat, lon, elevation_m: null,
       location_status: "resolved", resolver: "manual", wikidata: null, image: null, season_months: [2, 3, 8], kid_fit: "yes",
-      stats: {}, stats_verified: false, notes: "", added: "2026-10-17" });
+      stats: {}, stats_verified: false, notes: "", added: "2026-10-17",
+      accessibility: "unknown", review_status: "proposed", confidence: "stated", contributed_by: ["u_owner"], licence: "own-words", updated: "2026-10-17" });
   return {
-    schema_version: 2,
+    schema_version: 3,
     updated: "2026-10-17",
     layout: "single",
     countries: [
@@ -110,11 +111,56 @@ function locationsStore(): Row {
       place(places.niagara, "CA/ON/niagara", "Niagara Falls", "waterfall", 43.0896, -79.0849),
     ],
     place_tags: [loc("place_tags", { place_id: places.niagara, tag_id: "waterfall" })],
-    tags: TAGS.map((id) => loc("tags", { id, label: id, alias_of: null })).concat([loc("tags", { id: "waterfalls", label: "Waterfalls", alias_of: "waterfall" })]),
     sources: [loc("sources", { id: "src-00001", place_id: places.niagara, collection_id: null, type: "note", url: null, note: "fixture", screenshot: null, post_date: null, saved: "2026-10-17" })],
     visits: [],
     collections: [],
     collection_places: [],
+  };
+}
+
+/** whole locations stores for the place parity test (P2b): each is checked by core and by tools/locations.py */
+function locationFixtures(): { valid: Record<string, Row>; broken: Record<string, Row> } {
+  const base = (): Row => JSON.parse(JSON.stringify(locationsStore()));
+  const valid: Record<string, Row> = { "minimal": base() };
+  const v = base();
+  v.places[2].lat = null;
+  v.places[2].lon = null;
+  v.places[2].location_status = "unconfirmed";
+  v.places[2].resolver = "none";
+  v.sources[0].screenshot = "research/inbox/2026-10-17-niagara.png";
+  v.place_tags.push(loc("place_tags", { place_id: places.chalten, tag_id: "hiking" }));
+  valid["unconfirmed-place-with-screenshot"] = v;
+  const broken: Record<string, Row> = {};
+  let b = base();
+  b.places[0].area_id = "AR/santa-cruz/nowhere";
+  broken["missing-area"] = b;
+  b = base();
+  b.place_tags[0].tag_id = "not-in-the-vocabulary";
+  broken["unknown-tag"] = b;
+  b = base();
+  b.places[0].lon = null;
+  broken["lat-without-lon"] = b;
+  b = base();
+  b.places.push({ ...b.places[0] });
+  broken["duplicate-id"] = b;
+  b = base();
+  b.sources[0].screenshot = "screenshots/2026-10-17-niagara.png";
+  broken["bad-screenshot-path"] = b;
+  b = base();
+  b.places[0].kind = "spaceship";
+  broken["unknown-kind"] = b;
+  b = base();
+  b.places[0].review_status = "maybe";
+  broken["unknown-review-status"] = b;
+  return { valid, broken };
+}
+
+/** data/vocab/tags.json: the shared tag vocabulary (locations v3) */
+function vocab(): Row {
+  const kind = (id: string): string => (id === "hiking" ? "activity" : ["waterfall", "glaciers", "penguins"].includes(id) ? "feature" : "style");
+  return {
+    schema_version: 1,
+    tags: TAGS.map((id) => loc("tags", { id, label: id, kind: kind(id), alias_of: null })).concat([loc("tags", { id: "waterfalls", label: "Waterfalls", kind: "feature", alias_of: "waterfall" })]),
   };
 }
 
@@ -161,7 +207,7 @@ function rootCatalog(): Record<string, Row> {
       trail(trailIds.salto, "Chorrillo del Salto", { km: 2, gain_m: 60, house_grade: 1 }),
     ] }, s),
     "trails/CA.json": catalogFile("CA", { trails: [trail(trailIds.rim, "Niagara Gorge Rim Trail", { km: 5, gain_m: 20, house_grade: 1, trailhead_lat: 43.1, trailhead_lon: -79.06 })] }, s),
-    "activities/AR.json": catalogFile("AR", { activities: [cat("activities", common({ id: ids.piratour, area_id: "AR/tierra-del-fuego/ushuaia", name: "Harberton estancia boat tour", type: "boat-tour", operator: "Piratour", place_id: places.ushuaia, indoor: false, weather_sensitive: true, adventure_level: 2, notes: "" }))] }, s),
+    "activities/AR.json": catalogFile("AR", { activities: [cat("activities", common({ id: ids.piratour, area_id: "AR/tierra-del-fuego/ushuaia", name: "Harberton estancia boat tour", type: "boat-tour", operator: "Piratour", min_age: 6, place_id: places.ushuaia, indoor: false, weather_sensitive: true, adventure_level: 2, notes: "" }))] }, s),
     "activities/CA.json": catalogFile("CA", { activities: [cat("activities", common({ id: ids.journey, area_id: "CA/ON/niagara", name: "Journey Behind the Falls", type: "gondola", operator: "Niagara Parks", place_id: places.niagara, indoor: false, weather_sensitive: false, notes: "" }))] }, s),
     "stays/AR.json": catalogFile("AR", { stays: [cat("stays", common({ id: ids.stay, area_id: A, name: "Hosteria Fixture", lat: -49.33, lon: -72.89, kind: "lodge", car_free_access: true, notes: "" }))] }, s),
     "eateries/AR.json": catalogFile("AR", { eateries: [cat("eateries", common({ id: ids.cafe, area_id: A, name: "Cafe Fixture", lat: -49.331, lon: -72.886, hours: { "1": [["08:00", "20:00"]] }, notes: "" }))] }, s),
@@ -174,6 +220,7 @@ function rootCatalog(): Record<string, Row> {
       offers: [cat("offers", common({ id: ids.offerCA, area_id: "CA/ON/niagara", name: "Journey Behind the Falls ticket", subject_entity: "activity", subject_id: ids.journey, category: "timed-entry", provider: "Niagara Parks", book_url: "https://example.org/niagara", reseller_urls: [], limits_status: "none-stated", opens_kind: "always-open", sellout_kind: "never", same_day: "yes", notes: "" }))],
       offer_prices: [],
     }, s),
+    "legs/AR.json": catalogFile("AR", { legs: [cat("legs", { id: legId(places.chalten, trailIds.tres, "walk"), from_id: places.chalten, to_id: trailIds.tres, mode: "walk", km: 0.8, minutes: 12, basis: "inference", seasonal_notes: "", symmetric: true, sources: ["src-0001"], field_meta: {}, contributed_by: ["agent:fixture"], merged_from: [], updated: "2026-10-17" })] }, s),
     "legs/CA.json": catalogFile("CA", { legs: [cat("legs", { id: legId(places.niagara, ids.journey, "walk"), from_id: places.niagara, to_id: ids.journey, mode: "walk", km: 0.5, minutes: 8, basis: "estimate", seasonal_notes: "", symmetric: true, sources: ["src-0001"], field_meta: {}, contributed_by: ["agent:fixture"], merged_from: [], updated: "2026-10-17" })] }, s),
     "areas/AR.json": catalogFile("AR", { area_guides: [cat("area_guides", { id: A, summary: "A fixture guide.", best_months: [2, 3], getting_there: "", hidden_gems: [{ place_id: places.chalten, line: "Walk up at dawn." }], what_to_know: "", safety: "", sources: ["src-0001"], field_meta: {}, contributed_by: ["agent:fixture"], merged_from: [], updated: "2026-10-17" })] }, s),
   };
@@ -323,6 +370,64 @@ function niagara(): Row {
   return d;
 }
 
+// ----------------------------------------------------------------------------- warn fixtures (day checks)
+/** A trip that raises no warning at 2026-10-17: patagonia with pace 5, nothing accepted, coordinates on every item. */
+function warnBase(): Row {
+  const d = JSON.parse(JSON.stringify(patagonia())) as Row;
+  d.id = "warn-fixture";
+  d.trip.slug = "warn-fixture";
+  d.profile.pace = 5;
+  d.days.forEach((day: Row) => { day.accepted_warnings = []; });
+  const flight = d.items.find((i: Row) => i.id === "d01-i01");
+  flight.lat = -54.84;
+  flight.lon = -68.31;
+  return d;
+}
+
+const byId = (d: Row, id: string): Row => d.items.find((i: Row) => i.id === id);
+
+function warnFixtures(): Record<string, Row> {
+  const out: Record<string, Row> = {};
+  const mk = (code: string, f: (d: Row) => void): void => {
+    const d = warnBase();
+    f(d);
+    out[code] = d;
+  };
+  mk("W_ORDER", (d) => { byId(d, "d08-i09").seq = 1; byId(d, "d08-i01").seq = 2; });
+  mk("W_OVERLAP", (d) => { byId(d, "d08-i02").start = "06:45"; });
+  mk("W_LEG_MISSING", (d) => { const i = byId(d, "d08-i09"); i.leg_mode = null; i.leg_minutes = null; });
+  mk("W_DAYLIGHT", (d) => { byId(d, "d03-i01").start = "13:00"; });
+  mk("W_HOURS", (d) => { byId(d, "d08-i09").start = "18:00"; });
+  mk("W_BOOKING_DAY", (d) => { d.trip_bookings.find((b: Row) => b.id === "bk-glaciares-flexipass").used_days = [3]; });
+  mk("W_PACE", (d) => { d.profile.pace = 3; });
+  mk("W_CEILING", (d) => { d.profile.hiking_ceiling_km = 10; });
+  mk("W_EARLY", (d) => { d.profile.early_starts = "never"; byId(d, "d01-i01").start = "05:30"; });
+  mk("W_DEADLINE", (d) => { d.trip_bookings.find((b: Row) => b.id === "bk-piratour").book_by_offset = -200; });
+  mk("W_NO_COORDS", (d) => { const i = byId(d, "d01-i01"); i.lat = null; i.lon = null; });
+  mk("W_TZ_MISSING", (d) => {
+    d.bases.find((b: Row) => b.id === "el-calafate").tz = "America/Santiago";
+    d.items.push(
+      itemRow("d09-i01", 9, null, 1, { type: "checkout", title: "Check out of El Chalten", start: "08:00", base_id: "el-chalten", lat: -49.3315, lon: -72.8863, leg_mode: "none" }),
+      itemRow("d09-i02", 9, null, 2, { type: "transfer", title: "Bus to El Calafate", start: "12:00", duration_min: 30, lat: -50.34, lon: -72.26, leg_mode: "bus", leg_km: 215, leg_minutes: 180, leg_basis: "timetable" }),
+    );
+  });
+  mk("W_LEG_DRIFT", (d) => { const i = byId(d, "d08-i02"); i.leg_id = legId(places.chalten, trailIds.tres, "walk"); i.leg_minutes = 8; });
+  mk("W_DRIVE_LIMIT", (d) => {
+    d.items.push(
+      itemRow("d05-i01", 5, null, 1, { type: "transfer", title: "Drive to the lake", start: "09:00", duration_min: 30, lat: -49.2, lon: -72.9, leg_mode: "drive", leg_km: 190, leg_minutes: 150, leg_basis: "matrix" }),
+      itemRow("d05-i02", 5, null, 2, { type: "transfer", title: "Drive back", start: "13:00", duration_min: 30, lat: -49.33, lon: -72.88, leg_mode: "drive", leg_km: 190, leg_minutes: 150, leg_basis: "matrix" }),
+    );
+  });
+  mk("W_FIT", (d) => { const t3 = d.travellers.find((t: Row) => t.id === "t3"); t3.age_years = 4; });
+  mk("W_FIT_UNKNOWN", (d) => { byId(d, "d03-i01").activity_id = ids.journey; byId(d, "d03-i01").booking_id = "bk-piratour"; });
+  // plan 2.7 A: Patagonia Day 8 at pace 3, the day accepts its one warning
+  const a = warnBase();
+  a.profile.pace = 3;
+  a.days.find((x: Row) => x.n === 8).accepted_warnings = ["W_PACE"];
+  out["example-patagonia-day8"] = a;
+  return out;
+}
+
 // ----------------------------------------------------------------------------- research file and documents
 const TRAILS_MD = "# Trails lane (fixture)\n\nLaguna de los Tres is 21.5 km with about 950 m of gain.\n";
 const TRAILS_MD_SHA = createHash("sha256").update(TRAILS_MD).digest("hex");
@@ -453,8 +558,9 @@ function clean(dir: string): void {
 }
 
 function main(): void {
-  for (const d of ["root", "valid", "broken"]) clean(d);
+  for (const d of ["root", "valid", "broken", "locations", "warn"]) clean(d);
   write("root/data/locations/locations.json", locationsStore());
+  write("root/data/vocab/tags.json", vocab());
   for (const [rel, doc] of Object.entries(rootCatalog())) write(`root/data/catalog/${rel}`, doc);
   write("root/research/trips/patagonia-fixture/trails.md", TRAILS_MD);
   write("root/research/trips/patagonia-fixture/trails.json", sidecar());
@@ -465,6 +571,11 @@ function main(): void {
   for (const [name, doc] of Object.entries(validCatalog())) write(`valid/${name}`, doc);
   write("valid/documents/route-geometry.json", routeGeometry());
   write("valid/documents/research-sidecar.json", sidecar());
+
+  for (const [code, doc] of Object.entries(warnFixtures())) write(`warn/${code}.json`, doc);
+  const lf = locationFixtures();
+  for (const [name, doc] of Object.entries(lf.valid)) write(`locations/valid/${name}.json`, doc);
+  for (const [name, doc] of Object.entries(lf.broken)) write(`locations/broken/${name}.json`, doc);
 
   const broken = { ...brokenTrips(), ...brokenCatalog() };
   for (const [code, doc] of Object.entries(broken)) {

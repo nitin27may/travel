@@ -4,11 +4,12 @@ Every place we might go, as data. One store, one copy, every view generated from
 
 | Path | What |
 |---|---|
-| `locations.json` | The store (schema v2). One array per table, one row per line. Edit through the tool, not by hand. |
+| `locations.json` | The store (schema v3). One array per table, one row per line. Edit through the tool, not by hand. |
+| `../vocab/tags.json` | The shared tag vocabulary (`id`, `label`, `kind`, `alias_of`), shared with trips and the catalog. `kind` is `style`, `activity`, `feature`, `audience` or `free`. |
 | `WISHLIST.md` | Generated tree: country > region > area > place, then collections. |
 | `../../legacy/locations/index.html` | Generated list page (grid and list, filters). Published at `/locations/`. Exists once the page template reads the `locations-view/1` contract. |
 | `../../legacy/globe/assets/data/places.json` | Generated places for the globe (`globe-places/1`). |
-| `../../locations/inbox/` | Raw captures: screenshots of saved posts, batch files for `import`. Never published. |
+| `../../research/inbox/` | Raw captures: screenshots of saved posts, batch files for `import`. Never published. |
 
 Do not edit the generated files. `python3 tools/locations.py build` rewrites them, and
 `build --check` exits 1 if any of them differs from what the store would produce. The build is
@@ -27,6 +28,14 @@ country   CA                               ISO 3166-1 alpha-2
 A collection (road trip, multi-stop idea) is an ordered list of place ids, so a 14-stop post is 14
 findable places plus one route.
 
+## Schema v3
+
+Places carry the catalog common block (plan 2.3A): `name_lang`, the age, height and weight limits, `house_grade`,
+`walk_km`, `walk_gain_m`, `duration_min`, `accessibility`, `cost_ref`, `review_status` (default `proposed`),
+`confidence` (`stated`), `field_meta`, `verified_by`, `last_verified`, `contributed_by` (`["u_owner"]`), `licence`
+(`own-words`), `merged_from` and `updated`. `add` and `edit` stamp `updated` and add `u_owner` to `contributed_by`.
+`kind`, `status` (the wishlist status) and `trip` keep their v2 meaning.
+
 ## Tables
 
 Each array in `locations.json` is one table. The DDL is `data/schema/legacy/locations_schema.sql`.
@@ -37,7 +46,7 @@ Each array in `locations.json` is one table. The DDL is `data/schema/legacy/loca
 | `regions` | `id` (`CA/QC`) | country, code, name, `iso_3166_2` when the code is 1-3 letters |
 | `areas` | `id` (`CA/QC/charlevoix`) | region, slug, name |
 | `places` | `id` | the place itself (below) |
-| `tags` | `id` | vocabulary: label, and `alias_of` for merged spellings |
+| `tags` | `id` | lives in `data/vocab/tags.json`, not in `locations.json`: label, `kind`, and `alias_of` for merged spellings |
 | `place_tags` | `place_id`, `tag_id` | which canonical tags a place carries |
 | `sources` | `id` (`src-00001`) | where a place or collection came from; exactly one of `place_id`, `collection_id` |
 | `visits` | `id` (`vis-00001`) | a dated visit to a place, with its own trip slug |
@@ -67,8 +76,8 @@ equal to the place's own `kind`, and drops `location-unconfirmed` (use `--unconf
 ## Commands
 
 ```bash
-python3 tools/locations.py add "Name" --country CA --region QC [--area ...] [--kind ...] [--tags a,b] [--season Sep,Oct] [--kid yes] [--stats '{"km":9}'] [--note ...] [--source URL] [--source-type instagram] [--source-note ...] [--screenshot locations/inbox/FILE] [--lat N --lon N] [--trip SLUG] [--unconfirmed] [--display-name ...] [--alias ...]
-python3 tools/locations.py import locations/inbox/2026-10-16-quebec-hikes.json
+python3 tools/locations.py add "Name" --country CA --region QC [--area ...] [--kind ...] [--tags a,b] [--season Sep,Oct] [--kid yes] [--stats '{"km":9}'] [--note ...] [--source URL] [--source-type instagram] [--source-note ...] [--screenshot research/inbox/FILE] [--lat N --lon N] [--trip SLUG] [--unconfirmed] [--display-name ...] [--alias ...]
+python3 tools/locations.py import research/inbox/2026-10-16-quebec-hikes.json
 python3 tools/locations.py collection add --slug gaspesie-loop --name "Quebec to Gaspesie" --places ID-OR-NAME,...
 python3 tools/locations.py edit ID [--name --kind --status --kid --season Sep,Oct --trip SLUG|--no-trip --area NAME --tags-add a,b --tags-remove a --note TEXT --note-append TEXT --stats JSON --lat N --lon N --unconfirmed|--confirmed --source URL --source-type T --source-note TEXT --screenshot PATH]
 python3 tools/locations.py visit add ID --date 2026-10-02 [--end 2026-10-03] [--trip SLUG] [--note ...]
@@ -77,7 +86,8 @@ python3 tools/locations.py tag list
 python3 tools/locations.py validate
 python3 tools/locations.py build [--check]      # `render` still works as an alias
 python3 tools/locations.py list [--country CA] [--q charlevoix] [--status idea] [--tag lake]
-python3 tools/migrate_locations_v2.py [--check]  # one-off v1 to v2; "already v2" afterwards
+python3 tools/migrate_locations_v2.py [--check]  # one-off v1 to v2 (chains to v3); "already v2 or later" afterwards
+python3 tools/migrate_locations_v3.py [--check]  # one-off v2 to v3; "already v3" afterwards
 python3 -m pytest tools/tests -q
 ```
 
@@ -127,7 +137,7 @@ country is its own file and a change touches one small file:
 Split is never automatic; `validate` only warns once a single file passes 300 places.
 
 - `locations.json` keeps `schema_version`, `updated`, `layout: "by-country"`, `parts` (sorted ISO2),
-  `countries`, `tags`, `collections`, `collection_places` and the sources that belong to a collection.
+  `countries`, `collections`, `collection_places` and the sources that belong to a collection.
 - `data/locations/<CC>.json` holds `schema_version`, `country`, and that country's `regions`, `areas`,
   `places`, `place_tags`, place-owned `sources` and `visits`, one row per line as in the single file.
 - `save` routes each row: a region by its `country`, an area by its region, a place by its area,
