@@ -20,3 +20,6 @@ _system/gallery.html
 
 # wrangler CLI cache (created by project/deployment list commands)
 .wrangler/
+
+# raw boundary and gazetteer downloads for the globe build (regenerable)
+_system/site/cache/

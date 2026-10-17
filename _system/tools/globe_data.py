@@ -188,17 +188,24 @@ def cmd_gazetteer(args) -> int:
     for f in json.loads(raw.read_text(encoding="utf-8"))["features"]:
         p = f["properties"]; lon, lat = f["geometry"]["coordinates"]
         rows.append(["city", p.get("name"), round(lon, 3), round(lat, 3), p.get("adm0_a3"), p.get("adm1name"), p.get("scalerank"), p.get("pop_max")])
-    for name, kind in (("ne_10m_geography_regions_points", "physical"), ("ne_10m_geography_marine_polys", "marine")):
+    seen = set()
+    for name, kind in (("ne_10m_geography_regions_points", "physical"), ("ne_10m_geography_regions_polys", "physical"), ("ne_10m_geography_marine_polys", "marine")):
         try:
             raw = fetch(f"https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/{name}.geojson", CACHE / f"{name}.geojson")
             for f in json.loads(raw.read_text(encoding="utf-8"))["features"]:
-                p = f["properties"]
+                p = {k.lower(): v for k, v in f["properties"].items()}   # the polys file is upper-case
                 if f["geometry"]["type"] == "Point":
                     lon, lat = f["geometry"]["coordinates"]
                 else:   # polygon: use a cheap centroid of the first ring
                     ring = f["geometry"]["coordinates"][0] if f["geometry"]["type"] == "Polygon" else f["geometry"]["coordinates"][0][0]
                     lon = sum(x for x, _ in ring) / len(ring); lat = sum(y for _, y in ring) / len(ring)
-                rows.append([kind, p.get("name") or p.get("name_en"), round(lon, 3), round(lat, 3), None, p.get("featurecla"), p.get("scalerank")])
+                nm = p.get("name") or p.get("name_en")
+                if not nm or (kind, nm.lower()) in seen:   # the same range appears as a point and a polygon
+                    continue
+                if nm.isupper() and len(nm) > 3:          # Natural Earth capitalises the major features (SAHARA, ALPS)
+                    nm = nm.title()
+                seen.add((kind, nm.lower()))
+                rows.append([kind, nm, round(lon, 3), round(lat, 3), None, p.get("featurecla"), p.get("scalerank")])
         except Exception as ex:
             print(f"  {name} skipped: {str(ex)[:80]}", file=sys.stderr)
     rows = [r for r in rows if r[1]]

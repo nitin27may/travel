@@ -31,6 +31,18 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 #tip .k{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 #tip b{font-size:1.05rem}
 #tip .sub{color:var(--muted);font-size:.84rem;margin-top:2px}
+#search{position:absolute;top:14px;left:0;right:0;margin:0 auto;z-index:7;width:min(440px,calc(100% - 420px))}
+#search input{width:100%;font-family:var(--font-body);font-size:.98rem;padding:9px 14px 9px 38px;border-radius:999px;border:1px solid var(--line-2);background:rgba(15,27,21,.9);color:var(--ink);outline:none}
+#search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(214,147,41,.18)}
+#search::before{content:'';position:absolute;left:14px;top:12px;width:13px;height:13px;border:2px solid var(--muted);border-radius:50%;box-shadow:5px 5px 0 -3px var(--muted);pointer-events:none}
+#results{position:absolute;top:44px;left:0;right:0;background:rgba(15,27,21,.97);border:1px solid var(--line-2);border-radius:10px;max-height:52vh;overflow:auto;display:none;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#results .r{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;border-bottom:1px solid var(--line)}
+#results .r:last-child{border-bottom:0}
+#results .r:hover,#results .r.on{background:var(--surface-2)}
+#results .r .n{color:var(--ink)}
+#results .r .k{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);white-space:nowrap}
+#results .r .k b{color:var(--accent);font-weight:600}
+@media(max-width:900px){#search{width:calc(100% - 28px);top:58px}}
 #hint{position:absolute;left:14px;bottom:30px;z-index:5;font-family:var(--font-mono);font-size:.68rem;color:var(--muted-2);background:rgba(15,27,21,.75);padding:5px 9px;border-radius:5px;max-width:60%}
 #status{position:absolute;right:14px;top:14px;z-index:5;font-family:var(--font-mono);font-size:.68rem;color:var(--accent);background:rgba(15,27,21,.85);padding:6px 10px;border-radius:5px;display:none;border:1px solid var(--line-2)}
 .maplibregl-ctrl-group{background:rgba(22,38,30,.95)!important;border:1px solid var(--line-2)!important;box-shadow:none!important}
@@ -71,6 +83,7 @@ button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--ac
 <div class="stage">
   <div id="map">
     <div id="crumbs"></div>
+    <div id="search"><input id="q" type="search" placeholder="Search a country, state, city, sea, range…" autocomplete="off" aria-label="Search places"><div id="results" role="listbox"></div></div>
     <div id="tip"></div>
     <div id="status"></div>
     <div id="hint">drag to spin · scroll to zoom · hover a country · click to fly in</div>
@@ -160,7 +173,7 @@ const map = new maplibregl.Map({
   container: 'map', style: STYLE, center: [-40, 25], zoom: 1.35, minZoom: 0.8, maxZoom: 17, maxPitch: 70,
   attributionControl: { compact: false }, canvasContextAttributes: { antialias: true },
 });
-window.__map = map;
+window.__map = map; window.__dbg = () => ({ level: state.level, a3: state.a3, s: state.s, d: state.d, adm1: !!state.adm1, adm2: state.adm2 && state.adm2.features.length });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
 map.addControl(new maplibregl.GlobeControl(), 'bottom-right');
 
@@ -404,6 +417,66 @@ function readHash(){
   if (a3 && byA3[a3]){ const f = countries.features.find(x => x.properties.ccn3 === byA3[a3].ccn3); if (f) selectCountry(f.id, { s: h.get('s'), d: h.get('d') }); }
 }
 window.addEventListener('hashchange', readHash);
+
+// ---- search: countries, states, cities, physical and marine names (gazetteer built by globe_data.py) ----
+let GAZ = null, gazPromise = null, results = [], cursor = -1;
+const KIND_LABEL = { country: 'country', admin1: 'state / province', city: 'city', physical: 'landform', marine: 'sea / ocean' };
+const KIND_ORDER = { country: 0, admin1: 1, city: 2, marine: 3, physical: 4 };
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+function loadGaz(){ return gazPromise || (gazPromise = fetch('assets/data/gazetteer.json').then(r => r.json()).then(rows => { rows.forEach(r => r.n = norm(r[1])); GAZ = rows; return rows; })); }
+function search(q){
+  const nq = norm(q.trim()); if (!nq || !GAZ) return [];
+  const starts = [], contains = [];
+  for (const r of GAZ){ if (r.n.startsWith(nq)) starts.push(r); else if (nq.length >= 3 && r.n.includes(nq)) contains.push(r); if (starts.length > 400) break; }
+  const score = r => KIND_ORDER[r[0]] * 10 + (r[0] === 'city' ? Math.min(9, r[6] ?? 9) : 0) + (r[0] === 'physical' || r[0] === 'marine' ? Math.min(9, r[6] ?? 9) : 0);
+  return [...starts.sort((a, b) => score(a) - score(b) || a[1].length - b[1].length), ...contains.sort((a, b) => score(a) - score(b))].slice(0, 12);
+}
+function where(r){
+  const c = r[4] && byA3[r[4]];
+  if (r[0] === 'country') return r[5] ? `capital ${r[5]}` : '';
+  if (r[0] === 'admin1') return c ? c.name : (r[5] || '');
+  if (r[0] === 'city') return [r[5], c && c.name].filter(Boolean).join(', ');
+  return r[5] ? String(r[5]).replace(/_/g, ' ').toLowerCase() : '';
+}
+function renderResults(){
+  const el = $('#results');
+  if (!results.length){ el.style.display = 'none'; el.innerHTML = ''; return; }
+  el.innerHTML = results.map((r, i) => `<div class="r${i === cursor ? ' on' : ''}" data-i="${i}" role="option"><span class="n">${r[0] === 'country' && byA3[r[4]] ? (byA3[r[4]].flag || '') + ' ' : ''}${esc(r[1])}</span><span class="k"><b>${KIND_LABEL[r[0]] || r[0]}</b>${where(r) ? ' · ' + esc(where(r)) : ''}</span></div>`).join('');
+  el.style.display = 'block';
+  el.querySelectorAll('.r').forEach(d => { d.onmousedown = e => e.preventDefault(); d.onclick = () => goTo(results[Number(d.dataset.i)]); });
+}
+async function goTo(r){
+  $('#q').value = r[1]; results = []; cursor = -1; renderResults(); $('#q').blur();
+  const a3 = r[4]; const c = a3 && byA3[a3]; const countryFeature = c && countries.features.find(x => x.properties.ccn3 === c.ccn3);
+  if (r[0] === 'country' && countryFeature){ selectCountry(countryFeature.id); return; }
+  if (r[0] === 'admin1' && countryFeature){ await selectCountry(countryFeature.id, { s: r[1] }); if (state.level < 2) map.flyTo({ center: [r[2], r[3]], zoom: 5.5, duration: reduced ? 0 : 1400 }); return; }
+  if (r[0] === 'city'){
+    if (countryFeature){ await selectCountry(countryFeature.id, { s: r[5] || undefined }); }
+    // the state's districts load asynchronously; give them a moment, then drill into the one holding the city
+    for (let t = 0; t < 30 && state.level === 2 && !state.adm2; t++) await new Promise(res => setTimeout(res, 100));
+    if (state.level >= 2 && state.adm2){ const k = state.adm2.features.findIndex(d => inFeature(d, [r[2], r[3]])); if (k >= 0) selectDistrict(k); }
+    map.flyTo({ center: [r[2], r[3]], zoom: (r[6] ?? 9) <= 2 ? 9.5 : 11, duration: reduced ? 0 : 1800 });
+    $('#hint').textContent = `${r[1]}: zoom in for streets, rivers and peaks`;
+    return;
+  }
+  // physical or marine feature: fly there at a scale that fits its rank, leave the globe level alone
+  const rank = r[6] ?? 5; const zoom = rank <= 1 ? 2.2 : rank <= 3 ? 3.2 : rank <= 5 ? 4.5 : 6;
+  if (state.level > 0) backTo(0);
+  state.rotating = false; clearTimeout(state.idleTimer);
+  map.flyTo({ center: [r[2], r[3]], zoom, duration: reduced ? 0 : 1800 });
+  $('#hint').textContent = `${r[1]} (${KIND_LABEL[r[0]]})`;
+}
+const q = $('#q');
+q.addEventListener('focus', () => { loadGaz().then(() => { if (q.value) { results = search(q.value); renderResults(); } }); });
+q.addEventListener('input', async () => { await loadGaz(); results = search(q.value); cursor = results.length ? 0 : -1; renderResults(); });
+q.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown'){ cursor = Math.min(results.length - 1, cursor + 1); renderResults(); e.preventDefault(); }
+  else if (e.key === 'ArrowUp'){ cursor = Math.max(0, cursor - 1); renderResults(); e.preventDefault(); }
+  else if (e.key === 'Enter'){ if (results[cursor]) goTo(results[cursor]); else if (results[0]) goTo(results[0]); }
+  else if (e.key === 'Escape'){ results = []; renderResults(); q.blur(); }
+});
+q.addEventListener('blur', () => setTimeout(() => { results = []; renderResults(); }, 150));
+document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== q){ e.preventDefault(); q.focus(); } });
 </script>
 </body>
 </html>
