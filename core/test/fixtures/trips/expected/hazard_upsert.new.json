@@ -1,0 +1,19 @@
+{
+  "summary": "Added hazard h-cold",
+  "changed": [
+    "h-cold"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"h-cold\",\"category\":\"cold\",\"title\":\"Cold snaps\",\"text\":\"Gusts over 50 km/h are common.\",\"severity\":2,\"days\":[8],\"trail_ids\":[\"AR/santa-cruz/el-chalten/laguna-de-los-tres\"],\"place_ids\":[\"AR/santa-cruz/el-chalten/el-chalten\"],\"mitigation\":\"Plan B on Day 8\",\"src\":[\"src-0001\"]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"hazard.upsert\",\"summary\":\"Added hazard h-cold\",\"refs\":[\"h-cold\"]}"
+      ]
+    }
+  }
+}

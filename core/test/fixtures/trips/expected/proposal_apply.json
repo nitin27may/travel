@@ -1,0 +1,43 @@
+{
+  "summary": "Applied 3 change(s) of proposal pr-1: c1, c2, c3",
+  "changed": [
+    "d05-i01",
+    "q-mirador",
+    "bk-piratour"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_NO_COORDS /items/2",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"bk-piratour\",\"offer_id\":\"of-piratour-harberton-martillo\",\"item\":null,\"category\":null,\"book_url\":null,\"base_id\":null,\"used_days\":[3],\"book_by_offset\":-88,\"book_by_basis\":\"computed\",\"deadline_date\":null,\"edition_id\":null,\"priority\":\"must\",\"status\":\"todo\",\"price_paid_amount\":null,\"price_paid_currency\":null,\"confirmation\":null,\"contact\":null,\"found_by\":\"research-activities\",\"notes\":\"\",\"src\":[\"src-0001\"]}"
+      ],
+      "added": [
+        "{\"id\":\"d05-i01\",\"day\":5,\"track\":null,\"seq\":1,\"start\":\"09:00\",\"window_start\":null,\"window_end\":null,\"tz\":null,\"duration_min\":60,\"type\":\"sight\",\"optional\":false,\"pinned\":false,\"title\":\"Mirador\",\"place_id\":null,\"trail_id\":null,\"activity_id\":null,\"eatery_id\":null,\"custom_item_id\":null,\"base_id\":null,\"booking_id\":null,\"lat\":null,\"lon\":null,\"address\":null,\"leg_id\":null,\"leg_mode\":null,\"leg_km\":null,\"leg_minutes\":null,\"leg_basis\":null,\"leg_notes\":\"\",\"cost_amount\":null,\"cost_currency\":null,\"cost_per\":null,\"open_from\":null,\"open_to\":null,\"closed_weekdays\":[],\"needs_daylight\":false,\"plan_b_item_id\":null,\"override\":null,\"notes\":\"\",\"links\":[]}",
+        "{\"id\":\"bk-piratour\",\"offer_id\":\"of-piratour-harberton-martillo\",\"item\":null,\"category\":null,\"book_url\":null,\"base_id\":null,\"used_days\":[3],\"book_by_offset\":-88,\"book_by_basis\":\"computed\",\"deadline_date\":null,\"edition_id\":null,\"priority\":\"must\",\"status\":\"held\",\"price_paid_amount\":null,\"price_paid_currency\":null,\"confirmation\":null,\"contact\":null,\"found_by\":\"research-activities\",\"notes\":\"\",\"src\":[\"src-0001\"]}",
+        "{\"id\":\"q-mirador\",\"text\":\"Is the Mirador open in March?\",\"status\":\"open\",\"answer\":null,\"asked\":\"2026-10-17\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"item.add\",\"summary\":\"Added item d05-i01 \\\"Mirador\\\" on day 5\",\"refs\":[\"d05-i01\"]}",
+        "{\"seq\":3,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"question.add\",\"summary\":\"Added question q-mirador\",\"refs\":[\"q-mirador\"]}",
+        "{\"seq\":4,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"trip_booking.set_status\",\"summary\":\"Booking bk-piratour: todo to held\",\"refs\":[\"bk-piratour\"]}",
+        "{\"seq\":5,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"proposal.apply\",\"summary\":\"Applied 3 change(s) of proposal pr-1: c1, c2, c3\",\"refs\":[\"pr-1\"]}"
+      ]
+    },
+    "data/trips/patagonia-fixture/proposals/pr-1.json": {
+      "removed": [
+        "  \"status\": \"open\"",
+        "      \"status\": \"open\"",
+        "      \"status\": \"open\"",
+        "      \"status\": \"open\""
+      ],
+      "added": [
+        "  \"status\": \"applied\"",
+        "      \"status\": \"applied\"",
+        "      \"status\": \"applied\"",
+        "      \"status\": \"applied\""
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "summary": "Added knowledge claim k-new",
+  "changed": [
+    "k-new"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"k-new\",\"claim\":\"Buses run daily in March\",\"status\":\"inference\",\"src\":[\"src-0001\"]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"knowledge.add\",\"summary\":\"Added knowledge claim k-new\",\"refs\":[\"k-new\"]}"
+      ]
+    }
+  }
+}

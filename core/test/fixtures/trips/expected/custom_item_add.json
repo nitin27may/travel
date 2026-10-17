@@ -1,0 +1,19 @@
+{
+  "summary": "Added custom item cx-mate-stop",
+  "changed": [
+    "cx-mate-stop"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"cx-mate-stop\",\"name\":\"Mate shop\",\"kind\":\"fuel\",\"lat\":null,\"lon\":null,\"address\":null,\"osm_id\":null,\"notes\":\"\",\"duration_min\":null,\"open_from\":null,\"open_to\":null,\"proposed\":\"no\",\"catalog_id\":null}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"custom_item.add\",\"summary\":\"Added custom item cx-mate-stop\",\"refs\":[\"cx-mate-stop\"]}"
+      ]
+    }
+  }
+}

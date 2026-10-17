@@ -1,0 +1,19 @@
+{
+  "summary": "Added question q-new",
+  "changed": [
+    "q-new"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"q-new\",\"text\":\"Is the Piratour minimum age 8?\",\"status\":\"open\",\"answer\":null,\"asked\":\"2026-10-13\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"question.add\",\"summary\":\"Added question q-new\",\"refs\":[\"q-new\"]}"
+      ]
+    }
+  }
+}

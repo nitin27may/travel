@@ -16,6 +16,17 @@ export interface Store {
   rev(path: string): Promise<string | null>;
   /** every file whose path starts with the prefix, sorted */
   list(prefix: string): Promise<string[]>;
+  /** read-only access to reference files outside data/ (research/**), for research.add_ref; absent in stores that cannot reach them */
+  readRef?(path: string): Promise<Uint8Array | null>;
+}
+
+/** research/ paths only, no climbing out */
+export function checkRefPath(path: string): string {
+  const norm = path.replace(/\\/g, "/");
+  if (!norm.startsWith("research/") || norm.split("/").some((p) => p === ".." || p === "." || p === "")) {
+    throw new StoreError(`reference files live under research/, got "${path}"`);
+  }
+  return norm;
 }
 
 export class StaleError extends Error {
