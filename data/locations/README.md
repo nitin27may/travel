@@ -6,8 +6,8 @@ Every place we might go, as data. One store, one copy, every view generated from
 |---|---|
 | `locations.json` | The store (schema v2). One array per table, one row per line. Edit through the tool, not by hand. |
 | `WISHLIST.md` | Generated tree: country > region > area > place, then collections. |
-| `../../locations/index.html` | Generated list page (grid and list, filters). Published at `/locations/`. Exists once the page template reads the `locations-view/1` contract. |
-| `../../globe/assets/data/places.json` | Generated places for the globe (`globe-places/1`). |
+| `../../legacy/locations/index.html` | Generated list page (grid and list, filters). Published at `/locations/`. Exists once the page template reads the `locations-view/1` contract. |
+| `../../legacy/globe/assets/data/places.json` | Generated places for the globe (`globe-places/1`). |
 | `../../locations/inbox/` | Raw captures: screenshots of saved posts, batch files for `import`. Never published. |
 
 Do not edit the generated files. `python3 tools/locations.py build` rewrites them, and
@@ -94,7 +94,7 @@ exists. It warns, without failing, when the layout is `single` and there are mor
 
 `build` writes three files from one code path (`tools/location_views.py`), so the list and
 the globe cannot disagree. The public pages get an allow-list: the first line of notes (280 characters
-at most), http(s) source URLs only, trip links only when `<slug>/index.html` exists. Screenshots,
+at most), http(s) source URLs only, trip links only when `legacy/<slug>/index.html` exists. Screenshots,
 inbox paths, resolver internals and source notes never leave the store. Dropped places are hidden by
 default on the list and never shown on the globe.
 

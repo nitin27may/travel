@@ -5,13 +5,13 @@ description: Build a researched, publishable travel itinerary in this repo — p
 
 # Trip Planner (house format)
 
-Every trip in this repo is **one folder** — `~/workspace/travel/<slug>/` — containing:
+Every trip in this repo is **one folder** — `~/workspace/travel/legacy/<slug>/` — containing:
 
 | File | Purpose |
 |---|---|
 | `index.html` | The deliverable. Self-contained interactive plan. Becomes `/<slug>/` on the live site. |
 | `PLAN.md` | Same content as markdown, for reading in the terminal/editor and for future sessions to load cheaply. |
-| `research/*.md` | Raw agent findings, one per research lane. Never delete — they justify decisions and prevent re-researching. |
+| `research/trips/<slug>/*.md` | Raw agent findings, one per research lane. Never delete — they justify decisions and prevent re-researching. |
 
 `publish.sh` at the repo root deploys every folder at once. **Never create a Pages project per trip.**
 
@@ -115,21 +115,21 @@ It must answer, in this order:
 distance, a valley, a town. Reuse from the day cards only if you must.
 
 **Do not write brochure copy.** Every claim in the intro must survive the research files.
-If the intro says a place is "unspoilt", something in `research/*.md` has to support it.
+If the intro says a place is "unspoilt", something in `research/trips/<slug>/*.md` has to support it.
 
 ### The HTML deliverable
 
 Single self-contained file. **No build step for the reader, no external JS** — these pages get
 opened at a trailhead on a phone with no signal. That constraint is not negotiable.
 
-**Build it through `_system/`, not by hand.** See `_system/README.md`.
+**Build it through `legacy/_system/`, not by hand.** See `legacy/_system/README.md`.
 
 ```bash
-python3 _system/build.py --check       # gates: no stray colour, tokens defined, WCAG AA, comments
-python3 _system/build.py --gallery     # every theme side by side, same markup
+python3 legacy/_system/build.py --check       # gates: no stray colour, tokens defined, WCAG AA, comments
+python3 legacy/_system/build.py --gallery     # every theme side by side, same markup
 ```
 
-**Colour and typography live only in `_system/themes/*.css`.** Tokens are named for what they
+**Colour and typography live only in `legacy/_system/themes/*.css`.** Tokens are named for what they
 *do* — `--accent`, `--header`, `--warn`, `--class-1…6`, `--font-display` — never for a colour or a
 place. Naming them `--spruce` or `--swiss` is exactly what made the first five pages
 un-reskinnable. Pick a theme per trip (`forest`, `maritime`, `alpenglow`, `alpine-snow`, `autumn`,
@@ -156,7 +156,7 @@ page, weather, offline maps, parking map, `tel:` numbers), an A/B plan toggle wh
 backup itinerary, `scroll-margin-top` on sections, a print stylesheet, and `prefers-reduced-motion`
 respected.
 
-**Behaviour comes from `_system/base.js`** — countdown, checklist, scrollspy, plan toggle. Do not
+**Behaviour comes from `legacy/_system/base.js`** — countdown, checklist, scrollspy, plan toggle. Do not
 write per-page script. Two markup conventions are supported: `#countdown` (script writes the whole
 phrase, so it must have **no sibling text**) or `#cd` (number only, markup supplies the label);
 checkboxes as `#checklist input[data-k]` or `[data-ck]`.
@@ -190,18 +190,18 @@ Embed as `Special:FilePath/<encoded>?width=900`, always with a `<figcaption>` li
 ### Photo gallery — every trip gets one (mandatory)
 
 A gallery section sits right after the orientation section so the reader sees where they are going
-before the days start. It is **data, not hand-written HTML**: `<trip>/gallery/gallery.json` plus
-`_system/gallery.py`.
+before the days start. It is **data, not hand-written HTML**: `legacy/<trip>/gallery/gallery.json` plus
+`tools/gallery/gallery.py`.
 
 ```bash
-python3 _system/gallery.py verify <trip>/gallery/gallery.json            # Commons metadata, licence, >=1600 px landscape, hotlink 200
-python3 _system/gallery.py sheet  <trip>/gallery/gallery.json /tmp/s.jpg  # contact sheet: LOOK at it before injecting
-python3 _system/gallery.py inject <trip>/gallery/gallery.json <trip>/index.html   # idempotent; also adds a "photos" nav link
+python3 tools/gallery/gallery.py verify legacy/<trip>/gallery/gallery.json            # Commons metadata, licence, >=1600 px landscape, hotlink 200
+python3 tools/gallery/gallery.py sheet  legacy/<trip>/gallery/gallery.json /tmp/s.jpg  # contact sheet: LOOK at it before injecting
+python3 tools/gallery/gallery.py inject legacy/<trip>/gallery/gallery.json legacy/<trip>/index.html   # idempotent; also adds a "photos" nav link
 ```
 
 - **Cheapest model for the finding.** Photo search, metadata checks and thumbnail viewing are
   mechanical: run one Haiku agent per trip (`model: "haiku"`), about 3 photos per place and 6-9
-  places, and have it write `gallery.json` (schema in `_system/gallery.py`). Opus plans the
+  places, and have it write `gallery.json` (schema in `tools/gallery/gallery.py`). Opus plans the
   place list; do not spend a bigger model on the search.
 - **Always eyeball the contact sheet** after the agent finishes. Cheap models pass a photo of the
   wrong valley or a watermark. Fix by swapping the filename in the json, not the page.

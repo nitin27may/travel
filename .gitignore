@@ -23,3 +23,6 @@ legacy/_system/gallery.html
 
 # raw boundary and gazetteer downloads for the globe build (regenerable)
 tools/.cache/
+
+# node
+node_modules/
