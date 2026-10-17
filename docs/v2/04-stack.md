@@ -119,6 +119,10 @@ adds openCypher to Postgres without a second system.
 
 ### 1.7 Decided 17 Oct 2026
 
+> **Revised the same day: self-hosted Supabase on the owner's home server** (08-self-hosted.md). That
+> replaces the Neon, Better Auth, Cloudflare-room and Vercel answers below; sections 1.1-1.9 stay as
+> the reasoning record. The rest of this file (section 2 onward) still applies except the rows 08 lists.
+
 | Question | Owner's answer |
 |---|---|
 | Data host and auth | **Neon + Better Auth** (option C) |

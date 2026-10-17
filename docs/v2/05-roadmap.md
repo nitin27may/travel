@@ -23,6 +23,8 @@ docs/v2/            this plan
 ## 2. Milestones
 
 ### M0. Foundations (M)
+> Revised for self-hosted Supabase: see 08-self-hosted.md section 8 for what M0 now contains; the
+> bullets below still apply with Supabase Auth in place of Better Auth and the home server in place of Neon.
 - Monorepo packages above; local Postgres + PostGIS in Docker (`docker compose up`); Neon project with
   `main` and a `dev` branch; Drizzle migrations from `schema.sql`.
 - Better Auth (email magic link + Google), roles, admin plugin; `household`, `person`.
