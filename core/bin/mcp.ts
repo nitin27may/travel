@@ -8,7 +8,10 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { OPS_BY_NAME, mcpTools, opSchemaToJson } from "../src/ops/catalogue.ts";
-import { HANDLERS, ToolError } from "../src/mcp/handlers.ts";
+import { ToolError } from "../src/mcp/handlers.ts";
+import { READ_HANDLERS } from "../src/ops/reads.ts";
+import { OpError } from "../src/ops/types.ts";
+import { FileStore } from "../src/store/index.ts";
 
 const USAGE = `Usage: node core/bin/mcp.ts [--root <dir>]
 
@@ -39,17 +42,17 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 server.setRequestHandler(CallToolRequestSchema, async (req) => {
   const tool = TOOLS.find((t) => t.tool === req.params.name);
   if (!tool) return fail(`unknown tool "${req.params.name}". This server is read-only; the tools are: ${TOOLS.map((t) => t.tool).join(", ")}.`);
-  const handler = HANDLERS[tool.op.name];
+  const handler = READ_HANDLERS[tool.op.name];
   if (!handler) return fail(`tool "${tool.tool}" has no handler yet.`);
   const parsed = OPS_BY_NAME.get(tool.op.name)!.input.safeParse(req.params.arguments ?? {});
   if (!parsed.success) {
     return fail(parsed.error.issues.map((i) => `${i.path.join(".") || "input"}: ${i.message}`).join("; "));
   }
   try {
-    const result = handler(parsed.data, { root });
+    const result = await handler(parsed.data, { store: new FileStore(root), root, today: process.env.TRAVEL_TODAY ?? new Date().toISOString().slice(0, 10) });
     return { content: [{ type: "text" as const, text: JSON.stringify(result, null, 2) }], structuredContent: result as Record<string, unknown> };
   } catch (e) {
-    if (e instanceof ToolError) return fail(e.message);
+    if (e instanceof ToolError || e instanceof OpError) return fail(e.message);
     return fail(`internal error in ${tool.tool}: ${(e as Error).message}`);
   }
 });

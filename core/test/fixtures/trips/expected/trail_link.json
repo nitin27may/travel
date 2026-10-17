@@ -1,0 +1,21 @@
+{
+  "summary": "Updated trail AR/santa-cruz/el-chalten/chorrillo-del-salto as optional",
+  "changed": [
+    "AR/santa-cruz/el-chalten/chorrillo-del-salto"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"trail_id\":\"AR/santa-cruz/el-chalten/chorrillo-del-salto\",\"role\":\"optional\",\"alternative_of\":\"AR/santa-cruz/el-chalten/laguna-de-los-tres\",\"turnaround_rule\":null,\"party_note\":\"\",\"kid_fit\":\"yes\",\"verdict\":\"Plan B\",\"override\":null}"
+      ],
+      "added": [
+        "{\"trail_id\":\"AR/santa-cruz/el-chalten/chorrillo-del-salto\",\"role\":\"optional\",\"alternative_of\":\"AR/santa-cruz/el-chalten/laguna-de-los-tres\",\"turnaround_rule\":null,\"party_note\":\"\",\"kid_fit\":\"yes\",\"verdict\":\"Changed verdict\",\"override\":null}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"trail.link\",\"summary\":\"Updated trail AR/santa-cruz/el-chalten/chorrillo-del-salto as optional\",\"refs\":[\"AR/santa-cruz/el-chalten/chorrillo-del-salto\"]}"
+      ]
+    }
+  }
+}
