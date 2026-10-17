@@ -70,7 +70,8 @@ function parseInput(name: string, raw: unknown): { ok: true; data: Record<string
   if (parsed.success) return { ok: true, data: parsed.data as Record<string, any> };
   const issues = parsed.error.issues;
   const missingActor = issues.some((i) => i.path[0] === "actor");
-  const message = issues.map((i) => `${i.path.join(".") || "input"}: ${i.message}`).join("; ");
+  const shown = issues.slice(0, 8).map((i) => `${i.path.join(".") || "input"}: ${i.message}`);
+  const message = shown.join("; ") + (issues.length > shown.length ? `; and ${issues.length - shown.length} more` : "");
   return fail(missingActor ? "E_ACTOR" : "E_SCHEMA", missingActor ? `every write needs an actor, for example {"id": "u_owner", "via": "cli"}. ${message}` : message);
 }
 
