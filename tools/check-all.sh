@@ -16,6 +16,9 @@ step "core tests"
 pnpm --dir "$ROOT/core" test
 step "core typecheck"
 pnpm --dir "$ROOT/core" typecheck
+step "mcp server answers initialize"
+init='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"check-all","version":"0"}}}'
+printf '%s\n' "$init" | timeout 30 node "$ROOT/core/bin/mcp.ts" --root "$ROOT" | head -1 | grep -q '"serverInfo"'
 step "generated schema is up to date"
 node "$ROOT/core/bin/schema.ts" generate --check --root "$ROOT"
 step "validate every data file"
