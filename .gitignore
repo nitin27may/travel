@@ -26,3 +26,9 @@ tools/.cache/
 
 # node
 node_modules/
+
+# web (P3a)
+web/out/
+web/.next/
+web/.generated/
+web/.fixture-out/
