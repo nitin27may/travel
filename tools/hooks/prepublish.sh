@@ -5,7 +5,8 @@ set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cmd="$(python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("tool_input",{}).get("command",""))' 2>/dev/null)"
 case "$cmd" in
-  *publish.sh*|*"wrangler pages deploy"*) ;;
+  *tools/publish.py*--dry-run*) exit 0 ;;
+  *publish.sh*|*tools/publish.py*|*"wrangler pages deploy"*) ;;
   *) exit 0 ;;
 esac
 out="$(cd "$ROOT" && python3 -m pytest tools/tests -q 2>&1)"

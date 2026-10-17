@@ -13,8 +13,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 import location_views as V  # noqa: E402
 import locations as L  # noqa: E402
 
-TEMPLATE = ROOT / "_system" / "site" / "locations.html"
-PAGE = ROOT / "locations" / "index.html"
+TEMPLATE = ROOT / "legacy" / "_system" / "site" / "locations.html"
+PAGE = ROOT / "legacy" / "locations" / "index.html"
 HASH_PARAMS = ["q", "country", "region", "area", "kind", "status", "kid", "tag", "view", "ids", "label", "focus"]
 
 

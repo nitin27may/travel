@@ -19,8 +19,8 @@ REPO = HERE.parents[1]
 @pytest.fixture
 def root(tmp_path, monkeypatch):
     monkeypatch.setattr(D, "PATHS", D.Paths(tmp_path))
-    (tmp_path / "trip-one").mkdir()
-    (tmp_path / "trip-one" / "index.html").write_text("<html></html>")
+    (tmp_path / "legacy" / "trip-one").mkdir(parents=True)
+    (tmp_path / "legacy" / "trip-one" / "index.html").write_text("<html></html>")
     return tmp_path
 
 
@@ -179,15 +179,15 @@ def test_real_store_split_in_tmp_validates_and_renders(tmp_path, monkeypatch):
     dst = tmp_path / "data" / "locations"
     dst.mkdir(parents=True)
     shutil.copy(store, dst / "locations.json")
-    for d in (REPO / "_system" / "site",):
-        (tmp_path / "_system").mkdir(exist_ok=True)
-        shutil.copytree(d, tmp_path / "_system" / "site", dirs_exist_ok=True)
+    for d in (REPO / "legacy" / "_system" / "site",):
+        (tmp_path / "legacy" / "_system").mkdir(parents=True, exist_ok=True)
+        shutil.copytree(d, tmp_path / "legacy" / "_system" / "site", dirs_exist_ok=True)
     (tmp_path / "data" / "reference").mkdir(parents=True, exist_ok=True)
     shutil.copy(REPO / "data" / "reference" / "countries.json", tmp_path / "data" / "reference" / "countries.json")
-    for child in REPO.iterdir():      # trip folders, so the trip-exists rule sees what it sees in the repo
+    for child in (REPO / "legacy").iterdir():      # trip folders, so the trip-exists rule sees what it sees in the repo
         if child.is_dir() and (child / "index.html").is_file() and not child.name.startswith((".", "_")):
-            (tmp_path / child.name).mkdir(exist_ok=True)
-            (tmp_path / child.name / "index.html").write_text("<html></html>")
+            (tmp_path / "legacy" / child.name).mkdir(parents=True, exist_ok=True)
+            (tmp_path / "legacy" / child.name / "index.html").write_text("<html></html>")
     monkeypatch.setattr(D, "PATHS", D.Paths(tmp_path))
     single = D.load()
     expected = {p.relative_to(tmp_path): b for p, b in V.render_all(single, D.PATHS).items()}

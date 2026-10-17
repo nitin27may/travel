@@ -1,4 +1,4 @@
-"""Static checks on globe/index.html for the saved-places layer (G5, phase C1). Run: python3 -m pytest tools/tests -q"""
+"""Static checks on legacy/globe/index.html for the saved-places layer (G5, phase C1). Run: python3 -m pytest tools/tests -q"""
 import re
 import shutil
 import subprocess
@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
-PAGE = ROOT / "globe" / "index.html"
+PAGE = ROOT / "legacy" / "globe" / "index.html"
 HTML = PAGE.read_text(encoding="utf-8")
 
 

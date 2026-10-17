@@ -75,9 +75,9 @@ def test_trip_url_only_when_index_exists(data, paths):
     p = next(x for x in data["places"] if x["id"] == pid)
     p["trip"] = "canadian-rockies-sept-2029"
     assert next(r for r in V.view(data, paths)["places"] if r["id"] == pid)["trip_url"] is None
-    (paths.root / "canadian-rockies-sept-2029").mkdir()
+    (paths.root / "legacy" / "canadian-rockies-sept-2029").mkdir(parents=True)
     assert next(r for r in V.view(data, paths)["places"] if r["id"] == pid)["trip_url"] is None
-    (paths.root / "canadian-rockies-sept-2029" / "index.html").write_text("x")
+    (paths.root / "legacy" / "canadian-rockies-sept-2029" / "index.html").write_text("x")
     row = next(r for r in V.view(data, paths)["places"] if r["id"] == pid)
     assert row["trip_url"] == "../canadian-rockies-sept-2029/" and row["trip"] == "canadian-rockies-sept-2029"
 
