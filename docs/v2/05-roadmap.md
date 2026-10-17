@@ -23,17 +23,16 @@ docs/v2/            this plan
 ## 2. Milestones
 
 ### M0. Foundations (M)
-> Revised for self-hosted Supabase: see 08-self-hosted.md section 8 for what M0 now contains; the
-> bullets below still apply with Supabase Auth in place of Better Auth and the home server in place of Neon.
-- Monorepo packages above; local Postgres + PostGIS in Docker (`docker compose up`); Neon project with
-  `main` and a `dev` branch; Drizzle migrations from `schema.sql`.
-- Better Auth (email magic link + Google), roles, admin plugin; `household`, `person`.
+- Monorepo packages above; self-hosted Supabase in Docker on the home server (08-self-hosted.md) with
+  secrets rotated, Studio LAN-only, Cloudflare Tunnel for `app.<domain>`; a second local stack for
+  development; Drizzle migrations from `schema.sql`.
+- Supabase Auth (email magic link + Google), roles on `app_user`, user admin in Studio and `/admin`; `household`, `person`; RLS policies on every table, tested with two users.
 - `defineOp` registry with `op_event`, inverse, idempotent `client_op_id`; first ops: create trip,
   add item, move item, add note, undo.
 - API at `/api/ops/*` with the OpenAPI spec; MCP at `/mcp` exposing `search`, `get`, `create_trip`,
   `edit_trip` with OAuth; tested from Claude.
-- CI: typecheck, lint, ops tests on Postgres, migration check on a Neon branch.
-- Nightly `pg_dump` to R2.
+- CI: typecheck, lint, ops tests against a throwaway Postgres + PostGIS container, migration check (apply on a copy of the latest backup).
+- Nightly `pg_dump` (database, auth, storage schemas) and storage volume copy to an offsite bucket; one restore test.
 
 **Exit:** sign in on a phone, create a trip, add a custom item; from Claude, add an item to the same
 trip and see it appear in the app with "added by Claude" and a working undo.
@@ -57,7 +56,7 @@ went through review; search "lakes under 8 km, kids 9+" returns the right things
 - Day checks with one-tap fixes; the deterministic "Draft my days" preview.
 - Universal **+**: catalog search, custom item, pasted link, dropped pin.
 - Day-trip flow from home with drive-time ranking (ORS + `leg_cache`).
-- Read-only share link; invite an editor; **live co-editing**: trip room (Durable Object) broadcasting ops, presence avatars on items, gap recovery by version.
+- Read-only share link; invite an editor; **live co-editing**: Supabase Realtime private channel per trip broadcasting committed ops, presence avatars on items, gap recovery by version.
 
 **Exit:** two phones open the same trip; a move on one shows on the other in under a second, and
 the owner rebuilds the **Canadian Rockies 2029** trip in the app (14 nights, 3 tracks per
@@ -67,8 +66,7 @@ day) faster than editing the legacy page, and the result's day checks match what
 - Reservations (09-reservations.md): forms per kind, segments, travellers, secrets, anchored items, night bases, flight and car bounds on days; to-book placeholders with tasks; the booking timeline; the wallet.
 - Offers with booking windows; `opens_at`/`book_by` for to-book reservations.
 - Tasks: generated (bookings, windows, document rules for Canadian citizens, packing templates) and manual.
-- Reminders: Web Push, email, ICS feed and per-deadline `.ics`; cron Worker with the KV `next_fire_at`
-  trick; Inbox.
+- Reminders: Web Push, email, ICS feed and per-deadline `.ics`; the worker container polls due reminders every 30 s; Inbox.
 - Email import (07-competitors.md 4): forward a confirmation, get a booking and item; schema.org markup first.
 - Readiness bar and the phase-aware trip dashboard; the travel year view with long weekends.
 
