@@ -1,0 +1,19 @@
+{
+  "summary": "Indexed research/trips/patagonia-fixture/lodging.md with its sidecar",
+  "changed": [
+    "rr-lodging-lodging"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"rr-lodging-lodging\",\"path\":\"research/trips/patagonia-fixture/lodging.md\",\"sidecar\":\"research/trips/patagonia-fixture/lodging.json\",\"lane\":\"lodging\",\"title\":\"Lodging lane\",\"added\":\"2026-10-17\",\"sha256\":\"18805e87c18f8b39559b5294544fc93137bb94b8504fb9fdb1eddfe3ec1ab962\",\"synthesised\":null}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"research.add_ref\",\"summary\":\"Indexed research/trips/patagonia-fixture/lodging.md with its sidecar\",\"refs\":[\"rr-lodging-lodging\"]}"
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "summary": "Updated weather rule wr-08",
+  "changed": [
+    "wr-08"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"wr-08\",\"day\":8,\"metric\":\"gust_kmh\",\"op\":\">\",\"value\":50,\"at\":\"06:00\",\"action\":\"Do Plan B or swap with Day 9\",\"plan_b_day\":9}"
+      ],
+      "added": [
+        "{\"id\":\"wr-08\",\"day\":8,\"metric\":\"gust_kmh\",\"op\":\">\",\"value\":60,\"at\":\"06:00\",\"action\":\"Do Plan B or swap with Day 9\",\"plan_b_day\":9}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"weather_rule.upsert\",\"summary\":\"Updated weather rule wr-08\",\"refs\":[\"wr-08\"]}"
+      ]
+    }
+  }
+}

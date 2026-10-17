@@ -1,0 +1,21 @@
+{
+  "summary": "Updated edition e2027: conditions_trigger",
+  "changed": [
+    "e2027"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"e2027\",\"label\":\"Feb-Mar 2027\",\"year\":2027,\"start\":\"2027-02-26\",\"end\":\"2027-03-07\",\"status\":\"chosen\",\"why\":\"Penguins a week earlier, walking ramps up\",\"fare_window_id\":\"fw-2027\",\"conditions_trigger\":null}"
+      ],
+      "added": [
+        "{\"id\":\"e2027\",\"label\":\"Feb-Mar 2027\",\"year\":2027,\"start\":\"2027-02-26\",\"end\":\"2027-03-07\",\"status\":\"chosen\",\"why\":\"Penguins a week earlier, walking ramps up\",\"fare_window_id\":\"fw-2027\",\"conditions_trigger\":\"2027-02-22T09:00:00-03:00\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"edition.update\",\"summary\":\"Updated edition e2027: conditions_trigger\",\"refs\":[\"e2027\"]}"
+      ]
+    }
+  }
+}

@@ -128,10 +128,23 @@ describe("tools against the fixture root", () => {
     await c2.close();
   });
 
-  it("get_trip with resolve true says resolve arrives with P4a", async () => {
-    const r = await call("get_trip", { slug: "anything", resolve: true });
-    expect(r.isError).toBe(true);
-    expect(text(r)).toContain("resolve arrives with P4a");
+  it("get_trip with resolve true returns dates, ages, book-by dates and sun (P4a)", async () => {
+    const root = mkdtempSync(join(tmpdir(), "p4a-mcp-"));
+    tmp.push(root);
+    cpSync(join(ROOT, "data"), join(root, "data"), { recursive: true });
+    cpSync(join(ROOT, "research"), join(root, "research"), { recursive: true });
+    mkdirSync(join(root, "data/trips/patagonia-fixture"), { recursive: true });
+    cpSync(join(FIX, "trips/patagonia-fixture/trip.json"), join(root, "data/trips/patagonia-fixture/trip.json"));
+    const c2 = new Client({ name: "t3", version: "0" });
+    await c2.connect(new StdioClientTransport({ command: "node", args: [MCP, "--root", root], env: { TRAVEL_TODAY: "2026-10-17" } }));
+    const r = JSON.parse(((await c2.callTool({ name: "get_trip", arguments: { slug: "patagonia-fixture", resolve: true } })) as any).content[0].text);
+    expect(r.trip.resolved.days[7]).toMatchObject({ n: 8, date: "2027-03-05", weekday: "Friday" });
+    expect(r.trip.resolved.bookings.find((b: any) => b.id === "bk-piratour").book_by_date).toBe("2027-01-15");
+    const plain = JSON.parse(((await c2.callTool({ name: "get_trip", arguments: { slug: "patagonia-fixture" } })) as any).content[0].text);
+    expect(plain.trip.resolved).toBeUndefined();
+    const missing = (await c2.callTool({ name: "get_trip", arguments: { slug: "nope", resolve: true } })) as any;
+    expect(missing.isError).toBe(true);
+    await c2.close();
   });
 
   it("get_trail finds a trail and reports geometry null when there is none", async () => {

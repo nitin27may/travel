@@ -1,0 +1,23 @@
+{
+  "summary": "Removed note n1",
+  "changed": [
+    "n1"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "\"notes\": [",
+        "{\"id\":\"n1\",\"scope\":\"trip\",\"ref\":null,\"text\":\"Check wind before committing to Day 8.\",\"visibility\":\"private\",\"links\":[],\"attachments\":[],\"author\":\"u_owner\",\"created\":\"2026-10-17T12:00:00Z\",\"updated\":\"2026-10-17T12:00:00Z\"}",
+        "]"
+      ],
+      "added": [
+        "\"notes\": []",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"note.remove\",\"summary\":\"Removed note n1\",\"refs\":[\"n1\"]}"
+      ]
+    }
+  }
+}

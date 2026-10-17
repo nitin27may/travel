@@ -1,0 +1,122 @@
+{
+"schema_version": 1,
+"id": "patagonia-fixture",
+"updated": "2026-10-17",
+"trip": {"slug":"patagonia-fixture","title":"Argentine Patagonia (fixture)","subtitle":"Ten days, three bases","status":"planned","primary_style":"adventure","duration_shape":"week","movement_shape":"multi-base","party_shape":"family-teen","countries":["AR"],"region_label":"Patagonia, Argentina","season_months":[2,3],"season_note":"Late summer","nights":9,"origin":"Toronto (YYZ)","origin_tz":"America/Toronto","base_currency":"CAD","theme":"alpine-snow","hero_image":null,"answer_prose":null,"orientation_prose":null,"web_published":false,"visibility":"private","owner_id":"u_owner","shared_with":[],"generated_by":null,"legacy_url":null,"created":"2026-10-17"},
+"profile": {"pace":3,"comfort":"lean","budget_target_amount":12000,"budget_target_currency":"CAD","budget_tier":"lean","must_do":[{"text":"Laguna de los Tres","ref":"AR/santa-cruz/el-chalten/laguna-de-los-tres"}],"avoid":[],"hiking_ceiling_km":null,"hiking_ceiling_gain_m":null,"max_house_grade":null,"weather_rain":"low","weather_wind_gust_kmh":50,"weather_cold_c":null,"weather_heat_c":null,"base_preference":"few-long","car_free":false,"transport":["domestic-flight","bus"],"daily_max_drive_min":240,"break_every_min":120,"kids_mode":"teen","early_starts":"sometimes","night_driving":false,"lanes_extra":[],"lanes_skip":[],"notes":""},
+"travellers": [
+{"id":"t1","label":"Adult 1","role":"adult","age_years":45,"age_as_of":"2026-10-17","height_cm":175,"weight_kg":78,"fitness":4,"citizenship":["CA"],"notes":""},
+{"id":"t2","label":"Adult 2","role":"adult","age_years":null,"age_as_of":null,"height_cm":null,"weight_kg":null,"fitness":null,"citizenship":["CA"],"notes":""},
+{"id":"t3","label":"Child (13)","role":"child","age_years":13,"age_as_of":"2026-10-17","height_cm":160,"weight_kg":null,"fitness":null,"citizenship":["CA"],"notes":""}
+],
+"trip_tags": [
+{"tag_id":"adventure"},
+{"tag_id":"glaciers"},
+{"tag_id":"hiking"}
+],
+"editions": [
+{"id":"e2027","label":"Feb-Mar 2027","year":2027,"start":"2027-02-26","end":"2027-03-07","status":"chosen","why":"Penguins a week earlier, walking ramps up","fare_window_id":"fw-2027","conditions_trigger":null}
+],
+"bases": [
+{"id":"el-calafate","name":"El Calafate","place_id":null,"stay_id":null,"lodging":"Hotel near the airport","night_from":9,"nights":1,"lat":-50.34,"lon":-72.26,"tz":"America/Argentina/Rio_Gallegos","elevation_m":null,"why":"Last domestic flight leaves from here","why_not":""},
+{"id":"el-chalten","name":"El Chalten","place_id":"AR/santa-cruz/el-chalten/el-chalten","stay_id":"AR/santa-cruz/el-chalten/hosteria-fixture","lodging":null,"night_from":3,"nights":6,"lat":null,"lon":null,"tz":"America/Argentina/Rio_Gallegos","elevation_m":400,"why":"Fitz Roy trailheads from the door","why_not":""},
+{"id":"ushuaia","name":"Ushuaia","place_id":"AR/tierra-del-fuego/ushuaia/ushuaia","stay_id":null,"lodging":null,"night_from":1,"nights":2,"lat":null,"lon":null,"tz":"America/Argentina/Ushuaia","elevation_m":null,"why":"Beagle Channel and Harberton","why_not":""}
+],
+"days": [
+{"n":1,"title":"Day 1","kind":"mixed","base_id":"ushuaia","summary":"Day 1","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":2,"title":"Day 2","kind":"mixed","base_id":"ushuaia","summary":"Day 2","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":3,"title":"Day 3","kind":"mixed","base_id":"el-chalten","summary":"Day 3","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":4,"title":"Day 4","kind":"mixed","base_id":"el-chalten","summary":"Day 4","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":5,"title":"Day 5","kind":"mixed","base_id":"el-chalten","summary":"Day 5","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":6,"title":"Day 6","kind":"mixed","base_id":"el-chalten","summary":"Day 6","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":7,"title":"Day 7","kind":"mixed","base_id":"el-chalten","summary":"Day 7","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":8,"title":"Laguna de los Tres","kind":"hike","base_id":"el-chalten","summary":"Laguna de los Tres","prose":"prose/day-08.md","flexible_group":"chalten-weather","decision_rules":["At Poincenot camp by 11:00, otherwise everyone turns back via Laguna Capri"],"plan_b_title":"Wind over 50 km/h or cloud on Fitz Roy","plan_b_text":"Swap with Day 9 or walk Chorrillo del Salto","sun_note":"Sunrise 07:28","day_of_links":[{"label":"Chalten wind forecast","url":"https://www.windy.com/-49.33/-72.89","kind":"forecast"}],"accepted_warnings":["W_PACE"]},
+{"n":9,"title":"Day 9","kind":"mixed","base_id":"el-calafate","summary":"Day 9","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]},
+{"n":10,"title":"Day 10","kind":"mixed","base_id":null,"summary":"Day 10","prose":null,"flexible_group":null,"decision_rules":[],"plan_b_title":"","plan_b_text":null,"sun_note":null,"day_of_links":[],"accepted_warnings":[]}
+],
+"day_tracks": [
+{"day":8,"track":"A","audience":"adult-only","title":"Laguna de los Tres","notes":"One adult and a strong teen","split":true},
+{"day":8,"track":"B","audience":"family","title":"Laguna Capri loop","notes":"","split":true},
+{"day":8,"track":"C","audience":"less-walking","title":"Mirador de los Condores","notes":"","split":true},
+{"day":8,"track":"P","audience":"plan-b","title":"Chorrillo del Salto","notes":"","split":false}
+],
+"items": [
+{"id":"d01-i01","day":1,"track":null,"seq":1,"start":"09:00","window_start":null,"window_end":null,"tz":null,"duration_min":240,"type":"flight","optional":false,"pinned":false,"title":"Fly to Ushuaia","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":"flight","leg_km":null,"leg_minutes":null,"leg_basis":"timetable","leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d03-i01","day":3,"track":null,"seq":1,"start":"08:00","window_start":null,"window_end":null,"tz":null,"duration_min":480,"type":"activity","optional":false,"pinned":false,"title":"Harberton and Martillo boat tour","place_id":"AR/tierra-del-fuego/ushuaia/ushuaia","trail_id":null,"activity_id":"AR/tierra-del-fuego/ushuaia/piratour-harberton","eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":"bk-piratour","lat":-54.8019,"lon":-68.303,"address":null,"leg_id":null,"leg_mode":null,"leg_km":null,"leg_minutes":null,"leg_basis":null,"leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":true,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d08-i01","day":8,"track":null,"seq":1,"start":"06:30","window_start":null,"window_end":null,"tz":null,"duration_min":30,"type":"meal","optional":false,"pinned":false,"title":"Breakfast and packed lunch","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":"el-chalten","booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":"none","leg_km":null,"leg_minutes":null,"leg_basis":null,"leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d08-i09","day":8,"track":null,"seq":2,"start":"19:30","window_start":null,"window_end":null,"tz":null,"duration_min":90,"type":"meal","optional":false,"pinned":false,"title":"Dinner together","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"lat":-49.3315,"lon":-72.8863,"address":"El Chalten centre","leg_id":null,"leg_mode":"walk","leg_km":0.5,"leg_minutes":8,"leg_basis":"inference","leg_notes":"","cost_amount":30,"cost_currency":"USD","cost_per":"person","open_from":"19:00","open_to":"23:00","closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d08-i02","day":8,"track":"A","seq":1,"start":"07:15","window_start":null,"window_end":null,"tz":null,"duration_min":540,"type":"trail","optional":false,"pinned":false,"title":"Laguna de los Tres and back","place_id":null,"trail_id":"AR/santa-cruz/el-chalten/laguna-de-los-tres","activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":"bk-glaciares-flexipass","lat":-49.3226,"lon":-72.8889,"address":"Trailhead at the north end of Av. San Martin","leg_id":null,"leg_mode":"walk","leg_km":0.8,"leg_minutes":12,"leg_basis":"inference","leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":true,"plan_b_item_id":"d08-p01","override":null,"notes":"21.5 km, about 950 m","links":[]},
+{"id":"d08-i02b","day":8,"track":"B","seq":1,"start":"08:30","window_start":null,"window_end":null,"tz":null,"duration_min":270,"type":"trail","optional":false,"pinned":false,"title":"Laguna Capri and Mirador Fitz Roy loop","place_id":null,"trail_id":"AR/santa-cruz/el-chalten/laguna-capri-mirador-fitz-roy","activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":"bk-glaciares-flexipass","lat":-49.3226,"lon":-72.8889,"address":null,"leg_id":null,"leg_mode":"walk","leg_km":0.8,"leg_minutes":12,"leg_basis":"inference","leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":true,"plan_b_item_id":"d08-p01","override":null,"notes":"11.7 km, 390 m","links":[]},
+{"id":"d08-i03b","day":8,"track":"B","seq":2,"start":"14:00","window_start":null,"window_end":null,"tz":null,"duration_min":120,"type":"rest","optional":false,"pinned":false,"title":"Back in town: cafe, rest","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":"AR/santa-cruz/el-chalten/cafe-fixture","custom_item_id":null,"base_id":null,"booking_id":null,"lat":-49.331,"lon":-72.886,"address":null,"leg_id":null,"leg_mode":"walk","leg_km":0.8,"leg_minutes":12,"leg_basis":"inference","leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d08-p01","day":8,"track":"P","seq":1,"start":"10:00","window_start":null,"window_end":null,"tz":null,"duration_min":180,"type":"trail","optional":false,"pinned":false,"title":"Chorrillo del Salto","place_id":null,"trail_id":"AR/santa-cruz/el-chalten/chorrillo-del-salto","activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":null,"booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":"walk","leg_km":1,"leg_minutes":15,"leg_basis":"inference","leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":true,"plan_b_item_id":null,"override":null,"notes":"","links":[]},
+{"id":"d10-i01","day":10,"track":null,"seq":1,"start":"07:00","window_start":null,"window_end":null,"tz":null,"duration_min":30,"type":"checkout","optional":false,"pinned":false,"title":"Check out and fly home","place_id":null,"trail_id":null,"activity_id":null,"eatery_id":null,"custom_item_id":null,"base_id":"el-calafate","booking_id":null,"lat":null,"lon":null,"address":null,"leg_id":null,"leg_mode":"none","leg_km":null,"leg_minutes":null,"leg_basis":null,"leg_notes":"","cost_amount":null,"cost_currency":null,"cost_per":null,"open_from":null,"open_to":null,"closed_weekdays":[],"needs_daylight":false,"plan_b_item_id":null,"override":null,"notes":"","links":[]}
+],
+"trip_trails": [
+{"trail_id":"AR/santa-cruz/el-chalten/chorrillo-del-salto","role":"optional","alternative_of":"AR/santa-cruz/el-chalten/laguna-de-los-tres","turnaround_rule":null,"party_note":"","kid_fit":"yes","verdict":"Plan B","override":null},
+{"trail_id":"AR/santa-cruz/el-chalten/laguna-capri-mirador-fitz-roy","role":"track-b","alternative_of":null,"turnaround_rule":null,"party_note":"","kid_fit":"yes","verdict":"Family loop","override":null},
+{"trail_id":"AR/santa-cruz/el-chalten/laguna-de-los-tres","role":"track-a","alternative_of":null,"turnaround_rule":"Poincenot camp by 11:00","party_note":"","kid_fit":"strong-kid","verdict":"Strong teen only","override":null}
+],
+"trip_activities": [
+{"activity_id":"AR/tierra-del-fuego/ushuaia/piratour-harberton","day":3,"verdict":"in","why":"Penguins at Martillo","offer_id":"of-piratour-harberton-martillo"}
+],
+"trip_bookings": [
+{"id":"bk-chalten-lodging","offer_id":null,"item":"Hosteria Fixture","category":"lodging","book_url":null,"base_id":"el-chalten","used_days":[3,4,5,6,7,8],"book_by_offset":null,"book_by_basis":"inference","deadline_date":null,"edition_id":"e2027","priority":"urgent","status":"held","price_paid_amount":null,"price_paid_currency":null,"confirmation":null,"contact":null,"found_by":"owner","notes":"","src":[]},
+{"id":"bk-glaciares-flexipass","offer_id":null,"item":"Glaciares flexi pass","category":"permit","book_url":null,"base_id":null,"used_days":[8],"book_by_offset":null,"book_by_basis":"inference","deadline_date":null,"edition_id":null,"priority":"should","status":"booked","price_paid_amount":80,"price_paid_currency":"USD","confirmation":"ABC123","contact":"ops@example.org","found_by":"owner","notes":"","src":[]},
+{"id":"bk-piratour","offer_id":"of-piratour-harberton-martillo","item":null,"category":null,"book_url":null,"base_id":null,"used_days":[3],"book_by_offset":-88,"book_by_basis":"computed","deadline_date":null,"edition_id":null,"priority":"must","status":"todo","price_paid_amount":null,"price_paid_currency":null,"confirmation":null,"contact":null,"found_by":"research-activities","notes":"","src":["src-0001"]}
+],
+"custom_items": [
+{"id":"cx-fuel-stop","name":"Fuel stop","kind":"fuel","lat":null,"lon":null,"address":null,"osm_id":null,"notes":"","duration_min":null,"open_from":null,"open_to":null,"proposed":"no","catalog_id":null}
+],
+"notes": [
+{"id":"n1","scope":"trip","ref":null,"text":"Check wind before committing to Day 8.","visibility":"private","links":[],"attachments":[],"author":"u_owner","created":"2026-10-17T12:00:00Z","updated":"2026-10-17T12:00:00Z"}
+],
+"routes": [
+{"id":"r1","days":[10],"waypoints":["d10-i01",{"lat":-50.34,"lon":-72.26}],"profile":"car","break_every_min":120,"daily_max_drive_min":240,"corridor_km":5,"break_types":["viewpoint"],"avoid":[],"geometry_file":null,"provider":null,"computed":null}
+],
+"hazards": [
+{"id":"h-wind","category":"wind","title":"Wind on the lake shore","text":"Gusts over 50 km/h are common.","severity":2,"days":[8],"trail_ids":["AR/santa-cruz/el-chalten/laguna-de-los-tres"],"place_ids":["AR/santa-cruz/el-chalten/el-chalten"],"mitigation":"Plan B on Day 8","src":["src-0001"]}
+],
+"weather_rules": [
+{"id":"wr-08","day":8,"metric":"gust_kmh","op":">","value":50,"at":"06:00","action":"Do Plan B or swap with Day 9","plan_b_day":9}
+],
+"budget": [
+{"id":"b-flights","category":"getting-there","item":"Flights","currency":"CAD","per_person_amount":1800,"group_low_amount":5000,"group_high_amount":6000,"basis":"fare-read","read_date":"2026-10-13","booking_id":null,"fare_window_id":"fw-2027","src":["src-0002"]}
+],
+"fx": [
+{"currency":"USD","rate_to_base":1.37,"as_of":"2026-10-13","source":"frankfurter"}
+],
+"fare_windows": [
+{"id":"fw-2027","label":"Feb-Mar 2027","depart":"2027-02-25","return":"2027-03-08","nights_away":11,"party":{"adults":2,"children":[13]},"school_break":false,"notes":""}
+],
+"fare_quotes": [
+{"id":"fq-1","window_id":"fw-2027","kind":"flight-intl","leg":"YYZ-EZE","date_from":"2027-02-25","date_to":"2027-03-08","total_amount":5400,"total_currency":"CAD","provider":"Air Canada","method":"manual","url":null,"read_at":"2026-10-13T10:00:00Z","filters":"","confidence":"stated","notes":""}
+],
+"documents": [
+{"id":"doc-passport","item":"passport-validity","applies_to":"all","rule":"Valid 6 months after return","deadline_offset":null,"computed_rule":null,"status":"todo","src":[]}
+],
+"emergency": [
+{"base_id":"el-chalten","number":"107","hospital_name":"Hospital Fixture","hospital_lat":-49.33,"hospital_lon":-72.89,"hospital_tel":null,"rescue_tel":null,"embassy":null,"insurer_tel":"+1-555-0100","roadside_tel":null,"src":["src-0001"]}
+],
+"packing": [
+{"id":"p1","item":"Windproof shell","reason":"cold","qty":1}
+],
+"knowledge": [
+{"id":"k1","claim":"Gusts above 50 km/h close the lake shore path.","status":"inference","src":["src-0001"]}
+],
+"questions": [
+{"id":"q1","text":"Does Piratour take children under 8?","status":"open","answer":null,"asked":"2026-10-13"}
+],
+"gotchas": [
+{"id":"g1","text":"Cash only at the trailhead kiosk.","src":[]}
+],
+"research_refs": [
+{"id":"rr-1","path":"research/trips/patagonia-fixture/trails.md","sidecar":"research/trips/patagonia-fixture/trails.json","lane":"trails","title":"Trails lane","added":"2026-10-13","sha256":"02b1fb14a06f161f7d0b6d3fbc72721b0421f43657ef08cd0991450ddc5dc2ea","synthesised":null}
+],
+"sources": [
+{"id":"src-0001","url":"https://example.org/fixture","title":"Fixture source","publisher":"Example","kind":"official","checked":"2026-10-13","research_ref":"rr-1"},
+{"id":"src-0002","url":"https://example.org/fares","title":"Fare read","publisher":"Example","kind":"reseller","checked":"2026-10-13","research_ref":null}
+],
+"changelog": [
+{"seq":1,"at":"2026-10-17T12:00:00Z","actor_id":"u_owner","actor_via":"import","op":"trip.create","summary":"Fixture created","refs":[]}
+]
+}

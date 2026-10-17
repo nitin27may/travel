@@ -1,0 +1,31 @@
+{
+  "summary": "Rejected 2 change(s) of proposal pr-1",
+  "changed": [
+    "c1",
+    "c3"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"proposal.reject\",\"summary\":\"Rejected 2 change(s) of proposal pr-1\",\"refs\":[\"pr-1\"]}"
+      ]
+    },
+    "data/trips/patagonia-fixture/proposals/pr-1.json": {
+      "removed": [
+        "  \"status\": \"open\"",
+        "      \"status\": \"open\"",
+        "      \"status\": \"open\""
+      ],
+      "added": [
+        "  \"status\": \"partial\"",
+        "      \"status\": \"rejected\"",
+        "      \"status\": \"rejected\""
+      ]
+    }
+  }
+}

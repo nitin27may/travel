@@ -1,0 +1,21 @@
+{
+  "summary": "Updated trip",
+  "changed": [
+    "trip:patagonia-fixture"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "\"trip\": {\"slug\":\"patagonia-fixture\",\"title\":\"Argentine Patagonia (fixture)\",\"subtitle\":\"Ten days, three bases\",\"status\":\"planned\",\"primary_style\":\"adventure\",\"duration_shape\":\"week\",\"movement_shape\":\"multi-base\",\"party_shape\":\"family-teen\",\"countries\":[\"AR\"],\"region_label\":\"Patagonia, Argentina\",\"season_months\":[2,3],\"season_note\":\"Late summer\",\"nights\":9,\"origin\":\"Toronto (YYZ)\",\"origin_tz\":\"America/Toronto\",\"base_currency\":\"CAD\",\"theme\":\"alpine-snow\",\"hero_image\":null,\"answer_prose\":null,\"orientation_prose\":null,\"web_published\":false,\"visibility\":\"private\",\"owner_id\":\"u_owner\",\"shared_with\":[],\"generated_by\":null,\"legacy_url\":null,\"created\":\"2026-10-17\"}"
+      ],
+      "added": [
+        "\"trip\": {\"slug\":\"patagonia-fixture\",\"title\":\"Argentine Patagonia (fixture)\",\"subtitle\":\"A new subtitle\",\"status\":\"planned\",\"primary_style\":\"adventure\",\"duration_shape\":\"week\",\"movement_shape\":\"multi-base\",\"party_shape\":\"family-teen\",\"countries\":[\"AR\"],\"region_label\":\"Patagonia, Argentina\",\"season_months\":[2,3],\"season_note\":\"Late summer\",\"nights\":9,\"origin\":\"Toronto (YYZ)\",\"origin_tz\":\"America/Toronto\",\"base_currency\":\"CAD\",\"theme\":\"alpine-snow\",\"hero_image\":null,\"answer_prose\":null,\"orientation_prose\":null,\"web_published\":false,\"visibility\":\"private\",\"owner_id\":\"u_owner\",\"shared_with\":[],\"generated_by\":null,\"legacy_url\":null,\"created\":\"2026-10-17\"}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"trip.update\",\"summary\":\"Updated trip\",\"refs\":[\"patagonia-fixture\"]}"
+      ]
+    }
+  }
+}

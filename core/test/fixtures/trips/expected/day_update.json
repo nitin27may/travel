@@ -1,0 +1,21 @@
+{
+  "summary": "Updated day 3: title, kind",
+  "changed": [
+    "day:3"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"n\":3,\"title\":\"Day 3\",\"kind\":\"mixed\",\"base_id\":\"el-chalten\",\"summary\":\"Day 3\",\"prose\":null,\"flexible_group\":null,\"decision_rules\":[],\"plan_b_title\":\"\",\"plan_b_text\":null,\"sun_note\":null,\"day_of_links\":[],\"accepted_warnings\":[]}"
+      ],
+      "added": [
+        "{\"n\":3,\"title\":\"Fitz Roy approach\",\"kind\":\"hike\",\"base_id\":\"el-chalten\",\"summary\":\"Day 3\",\"prose\":null,\"flexible_group\":null,\"decision_rules\":[],\"plan_b_title\":\"\",\"plan_b_text\":null,\"sun_note\":null,\"day_of_links\":[],\"accepted_warnings\":[]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"day.update\",\"summary\":\"Updated day 3: title, kind\",\"refs\":[\"day:3\"]}"
+      ]
+    }
+  }
+}

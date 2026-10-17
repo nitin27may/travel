@@ -1,0 +1,28 @@
+{
+  "summary": "Added day 11",
+  "changed": [
+    "day:11"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "\"trip\": {\"slug\":\"patagonia-fixture\",\"title\":\"Argentine Patagonia (fixture)\",\"subtitle\":\"Ten days, three bases\",\"status\":\"planned\",\"primary_style\":\"adventure\",\"duration_shape\":\"week\",\"movement_shape\":\"multi-base\",\"party_shape\":\"family-teen\",\"countries\":[\"AR\"],\"region_label\":\"Patagonia, Argentina\",\"season_months\":[2,3],\"season_note\":\"Late summer\",\"nights\":9,\"origin\":\"Toronto (YYZ)\",\"origin_tz\":\"America/Toronto\",\"base_currency\":\"CAD\",\"theme\":\"alpine-snow\",\"hero_image\":null,\"answer_prose\":null,\"orientation_prose\":null,\"web_published\":false,\"visibility\":\"private\",\"owner_id\":\"u_owner\",\"shared_with\":[],\"generated_by\":null,\"legacy_url\":null,\"created\":\"2026-10-17\"}",
+        "{\"id\":\"e2027\",\"label\":\"Feb-Mar 2027\",\"year\":2027,\"start\":\"2027-02-26\",\"end\":\"2027-03-07\",\"status\":\"chosen\",\"why\":\"Penguins a week earlier, walking ramps up\",\"fare_window_id\":\"fw-2027\",\"conditions_trigger\":null}",
+        "{\"id\":\"el-calafate\",\"name\":\"El Calafate\",\"place_id\":null,\"stay_id\":null,\"lodging\":\"Hotel near the airport\",\"night_from\":9,\"nights\":1,\"lat\":-50.34,\"lon\":-72.26,\"tz\":\"America/Argentina/Rio_Gallegos\",\"elevation_m\":null,\"why\":\"Last domestic flight leaves from here\",\"why_not\":\"\"}",
+        "{\"n\":10,\"title\":\"Day 10\",\"kind\":\"mixed\",\"base_id\":null,\"summary\":\"Day 10\",\"prose\":null,\"flexible_group\":null,\"decision_rules\":[],\"plan_b_title\":\"\",\"plan_b_text\":null,\"sun_note\":null,\"day_of_links\":[],\"accepted_warnings\":[]}"
+      ],
+      "added": [
+        "\"trip\": {\"slug\":\"patagonia-fixture\",\"title\":\"Argentine Patagonia (fixture)\",\"subtitle\":\"Ten days, three bases\",\"status\":\"planned\",\"primary_style\":\"adventure\",\"duration_shape\":\"multi-week\",\"movement_shape\":\"multi-base\",\"party_shape\":\"family-teen\",\"countries\":[\"AR\"],\"region_label\":\"Patagonia, Argentina\",\"season_months\":[2,3],\"season_note\":\"Late summer\",\"nights\":10,\"origin\":\"Toronto (YYZ)\",\"origin_tz\":\"America/Toronto\",\"base_currency\":\"CAD\",\"theme\":\"alpine-snow\",\"hero_image\":null,\"answer_prose\":null,\"orientation_prose\":null,\"web_published\":false,\"visibility\":\"private\",\"owner_id\":\"u_owner\",\"shared_with\":[],\"generated_by\":null,\"legacy_url\":null,\"created\":\"2026-10-17\"}",
+        "{\"id\":\"e2027\",\"label\":\"Feb-Mar 2027\",\"year\":2027,\"start\":\"2027-02-26\",\"end\":\"2027-03-08\",\"status\":\"chosen\",\"why\":\"Penguins a week earlier, walking ramps up\",\"fare_window_id\":\"fw-2027\",\"conditions_trigger\":null}",
+        "{\"id\":\"el-calafate\",\"name\":\"El Calafate\",\"place_id\":null,\"stay_id\":null,\"lodging\":\"Hotel near the airport\",\"night_from\":9,\"nights\":2,\"lat\":-50.34,\"lon\":-72.26,\"tz\":\"America/Argentina/Rio_Gallegos\",\"elevation_m\":null,\"why\":\"Last domestic flight leaves from here\",\"why_not\":\"\"}",
+        "{\"n\":10,\"title\":\"Day 10\",\"kind\":\"mixed\",\"base_id\":\"el-calafate\",\"summary\":\"Day 10\",\"prose\":null,\"flexible_group\":null,\"decision_rules\":[],\"plan_b_title\":\"\",\"plan_b_text\":null,\"sun_note\":null,\"day_of_links\":[],\"accepted_warnings\":[]}",
+        "{\"n\":11,\"title\":\"New day\",\"kind\":\"mixed\",\"base_id\":null,\"summary\":\"\",\"prose\":null,\"flexible_group\":null,\"decision_rules\":[],\"plan_b_title\":\"\",\"plan_b_text\":null,\"sun_note\":null,\"day_of_links\":[],\"accepted_warnings\":[]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"day.add\",\"summary\":\"Added day 11\",\"refs\":[\"day:11\"]}"
+      ]
+    }
+  }
+}

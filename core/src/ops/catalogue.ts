@@ -182,6 +182,12 @@ write("trip.copy", "Copy a trip as references only: no private data, booking sta
   from_slug: slug, new_slug: slug, include: z.array(z.enum(["items", "notes"])).default([]),
 });
 
+write("trip.restore", "Restore files of a trip to exact earlier bytes; the inverse that every write returns (undo). Appends no changelog row.", ["trip.*"], {
+  slug,
+  files: z.array(z.strictObject({ path: z.string().startsWith("data/trips/"), content: z.string().nullable().describe("the exact earlier text, or null to delete the file") })),
+  places: z.array(z.strictObject({ id, status: z.enum(E.PLACE_STATUS), trip: z.string().nullable() })).optional().describe("places to put back through the place backend"),
+});
+
 // ---- editions, bases, days, items
 write("edition.add", "Add an edition (a candidate set of dates).", ["trip.editions"], { slug, row: tripTable("editions").schema });
 write("edition.update", "Patch an edition; stores conditions_trigger.", ["trip.editions"], { slug, id, patch: patchOf(tripTable("editions")) });

@@ -1,0 +1,21 @@
+{
+  "summary": "Re-indexed research/trips/patagonia-fixture/trails.md with its sidecar",
+  "changed": [
+    "rr-1"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"rr-1\",\"path\":\"research/trips/patagonia-fixture/trails.md\",\"sidecar\":\"research/trips/patagonia-fixture/trails.json\",\"lane\":\"trails\",\"title\":\"Trails lane\",\"added\":\"2026-10-13\",\"sha256\":\"02b1fb14a06f161f7d0b6d3fbc72721b0421f43657ef08cd0991450ddc5dc2ea\",\"synthesised\":null}"
+      ],
+      "added": [
+        "{\"id\":\"rr-1\",\"path\":\"research/trips/patagonia-fixture/trails.md\",\"sidecar\":\"research/trips/patagonia-fixture/trails.json\",\"lane\":\"trails\",\"title\":\"Renamed\",\"added\":\"2026-10-13\",\"sha256\":\"02b1fb14a06f161f7d0b6d3fbc72721b0421f43657ef08cd0991450ddc5dc2ea\",\"synthesised\":null}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"research.add_ref\",\"summary\":\"Re-indexed research/trips/patagonia-fixture/trails.md with its sidecar\",\"refs\":[\"rr-1\"]}"
+      ]
+    }
+  }
+}

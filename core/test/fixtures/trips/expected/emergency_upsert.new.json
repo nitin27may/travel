@@ -1,0 +1,19 @@
+{
+  "summary": "Added emergency contacts for ushuaia",
+  "changed": [
+    "ushuaia"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"base_id\":\"ushuaia\",\"number\":\"107\",\"hospital_name\":\"Hospital Fixture\",\"hospital_lat\":-49.33,\"hospital_lon\":-72.89,\"hospital_tel\":null,\"rescue_tel\":null,\"embassy\":null,\"insurer_tel\":\"+1-555-0100\",\"roadside_tel\":null,\"src\":[\"src-0001\"]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"emergency.upsert\",\"summary\":\"Added emergency contacts for ushuaia\",\"refs\":[\"ushuaia\"]}"
+      ]
+    }
+  }
+}

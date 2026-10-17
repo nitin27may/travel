@@ -1,0 +1,19 @@
+{
+  "summary": "Added edition e2028 (2028-02-25 to 2028-03-05)",
+  "changed": [
+    "e2028"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [],
+      "added": [
+        "{\"id\":\"e2028\",\"label\":\"Feb-Mar 2028\",\"year\":2028,\"start\":\"2028-02-25\",\"end\":\"2028-03-05\",\"status\":\"candidate\",\"why\":\"Next year\",\"fare_window_id\":null,\"conditions_trigger\":null}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"edition.add\",\"summary\":\"Added edition e2028 (2028-02-25 to 2028-03-05)\",\"refs\":[\"e2028\"]}"
+      ]
+    }
+  }
+}

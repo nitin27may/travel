@@ -3,6 +3,8 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { addDays } from "./time.ts";
+import { bookByOf } from "../bookings/bookBy.ts";
+import { sunFor } from "../sun/index.ts";
 
 export type Row = Record<string, any>;
 
@@ -33,15 +35,32 @@ export interface DayCheckCtx {
   today: string;
 }
 
-/** Stub until P4a: the sun is fixed at 07:00 and 19:00 everywhere. */
+/** Test stub: the sun is fixed at 07:00 and 19:00 everywhere. The real provider is realSun(). */
 export const stubSun = (): Sun => ({ sunrise: "07:00", sunset: "19:00" });
-/** Stub until P4a: the stored offset is the answer. */
+/** Test stub: the stored offset is the answer. The real provider is realBookBy(). */
 export const stubBookBy = (booking: Row): number | null => (typeof booking.book_by_offset === "number" ? booking.book_by_offset : null);
 
 /** Date resolver for the chosen (or booked) edition of a trip document: Day 1 is the edition's `start`. */
 export function editionResolver(trip: Row): (dayN: number) => string | null {
   const ed = (trip.editions ?? []).find((e: Row) => e.status === "chosen" || e.status === "booked");
   return (n) => (ed && typeof ed.start === "string" ? addDays(ed.start, n - 1) : null);
+}
+
+/** The real sun: local sunrise and sunset from the NOAA terms (core/src/sun/), null on a polar day or night or without a date. */
+export function realSun(resolveDate: (dayN: number) => string | null): DayCheckCtx["sun"] {
+  return (dayN, lat, lon, tz) => {
+    const date = resolveDate(dayN);
+    return date ? sunFor(lat, lon, date, tz) : null;
+  };
+}
+
+/** The real book-by rule (core/src/bookings/bookBy.ts): the owner's offset when book_by_basis is owner, else computed from the offer. */
+export function realBookBy(catalog: { offer(id: string): Row | null }, resolveDate: (dayN: number) => string | null): DayCheckCtx["bookBy"] {
+  return (booking) => {
+    const stored = typeof booking.book_by_offset === "number" ? booking.book_by_offset : null;
+    const r = bookByOf(booking, catalog, resolveDate(1));
+    return r.offset ?? stored;
+  };
 }
 
 export const emptyCatalog: CatalogLookup = {
@@ -97,11 +116,13 @@ export interface MakeCtxOptions {
 
 /** The context the validator CLI, the hooks and the tests use. `TRAVEL_TODAY` pins "today" for reproducible output. */
 export function makeContext(o: MakeCtxOptions): DayCheckCtx {
+  const resolveDate = editionResolver(o.trip);
+  const catalog = o.catalog ?? fsCatalog(o.root);
   return {
-    resolveDate: editionResolver(o.trip),
-    sun: o.sun ?? stubSun,
-    bookBy: o.bookBy ?? stubBookBy,
-    catalog: o.catalog ?? fsCatalog(o.root),
+    resolveDate,
+    sun: o.sun ?? realSun(resolveDate),
+    bookBy: o.bookBy ?? realBookBy(catalog, resolveDate),
+    catalog,
     today: o.today ?? process.env.TRAVEL_TODAY ?? new Date().toISOString().slice(0, 10),
   };
 }

@@ -1,0 +1,21 @@
+{
+  "summary": "Updated budget row b-flights",
+  "changed": [
+    "b-flights"
+  ],
+  "warnings": [
+    "W_NO_COORDS /items/0",
+    "W_PACE /days/7"
+  ],
+  "diffs": {
+    "data/trips/patagonia-fixture/trip.json": {
+      "removed": [
+        "{\"id\":\"b-flights\",\"category\":\"getting-there\",\"item\":\"Flights\",\"currency\":\"CAD\",\"per_person_amount\":1800,\"group_low_amount\":5000,\"group_high_amount\":6000,\"basis\":\"fare-read\",\"read_date\":\"2026-10-13\",\"booking_id\":null,\"fare_window_id\":\"fw-2027\",\"src\":[\"src-0002\"]}"
+      ],
+      "added": [
+        "{\"id\":\"b-flights\",\"category\":\"getting-there\",\"item\":\"Flights\",\"currency\":\"CAD\",\"per_person_amount\":1800,\"group_low_amount\":5000,\"group_high_amount\":5000,\"basis\":\"fare-read\",\"read_date\":\"2026-10-13\",\"booking_id\":null,\"fare_window_id\":\"fw-2027\",\"src\":[\"src-0002\"]}",
+        "{\"seq\":2,\"at\":\"2026-10-17T15:00:00Z\",\"actor_id\":\"u_owner\",\"actor_via\":\"cli\",\"op\":\"budget.upsert\",\"summary\":\"Updated budget row b-flights\",\"refs\":[\"b-flights\"]}"
+      ]
+    }
+  }
+}
