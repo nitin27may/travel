@@ -82,6 +82,18 @@ Picking at every level uses MapLibre's own `queryRenderedFeatures` and `setFeatu
 3. **ADM2 priority list**: the twenty countries above, or a different set?
 4. **Vendor the library** into `globe/assets/` (stable, 1 MB in the repo) or load from unpkg?
 
-## 8. What happens to the first draft
+## 8. Status (17 Oct 2026)
+
+| Phase | State | Notes |
+|---|---|---|
+| G1 Globe | Done, live | MapLibre 6.14 vendored (`globe/assets/vendor/`), OpenFreeMap liberty, Mapterhorn hillshade and terrain with AWS fallback, country hover and fly-in. |
+| G2 Drill | Done, live | Decision changed from the twenty-country list to **all countries**: ADM1 for 251 (Natural Earth, 2.6 MB), ADM2 for all 180 geoBoundaries has (49,308 districts, 18 MB). Manifest `globe/assets/admin/index.json`; build `globe_data.py admin1`, `admin2 ALL`. |
+| G3 Search | Done, live | 13,741-name gazetteer; a city drills to its country, state and containing district. |
+| G4 Polish | Done | Style switcher (relief, light, dark) that restores the selection after a restyle, terrain only from zoom 3.5 with a strength slider (this also removes the globe-level shading seams), hillshade strength by zoom, preferences in localStorage, 7 offline tests in `_system/tests/test_globe_data.py`, pre-publish gate hook (`_system/tools/hooks/prepublish.sh`). |
+| G5 Link our data | Next | Saved places on the globe with counts per level and "plan this". |
+
+Operational notes: headless Chromium here never renders the OpenFreeMap vector tiles (raster and our polygons do render), so visual QA is done in a real browser; Playwright probes must stay short (a long one hung the MCP server for 30 minutes). REST Countries v3 is deprecated; population comes from a Wikidata SPARQL query at build time.
+
+## 9. What happened to the first draft
 
 `_system/site/globe.html`, `locations.html`, `site.css` and `_system/tools/site_pages.py` (uncommitted) were written before this brief changed. The `locations.html` list page is still the plan for phase G5 and the audit's P5; `globe.html` is superseded by this document and will be replaced in G1.
