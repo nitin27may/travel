@@ -46,7 +46,7 @@ is closed whenever the red light flashes.
 | Longest driving day | **Day 10, Akureyri → Grundarfjörður, ~390 km / ~5 h** |
 | Shortest | Day 8, Mývatn loop, ~60 km |
 | Longest walk | Svartifoss, 5.4 km return / ~120 m (or 7.1 km / 310 m for the full circuit) |
-| Astronomical dark by the north nights | 1.3 h (10 Sep) rising to 3.0 h (12 Sep) |
+| Astronomical dark by the north nights | 2.3 h (10 Sep) rising to 3.0 h (12 Sep) |
 | Daylight | 14.4 h on day 1, falling to 13.2 h on day 12 |
 
 ---
@@ -149,7 +149,7 @@ The transit day, and the one most itineraries sprint through. Don't.
 - **Dettifoss** — the most powerful waterfall in Europe by volume. **Take road 862 (west, paved),
   not 864 (east, gravel)** in a camper.
 - **Ásbyrgi** — a horseshoe canyon that Norse myth attributes to Odin's horse
-- **Sleep: Mývatn** (Vogar or Hlíð). **First real aurora night: dark from ~22:11.**
+- **Sleep: Mývatn** (Vogar or Hlíð). **First real aurora night: dark from ~23:56 to ~02:14.**
 
 ### Day 8 — Sat 11 Sep · Mývatn · ~60 km · rest day
 Deliberately low mileage after two long ones.
