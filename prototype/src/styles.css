@@ -1,0 +1,65 @@
+/* Layout concept: outline rail · plan document · live map, like a topo sheet with signpost type.
+   Tokens follow docs/v2/design/README.md. Light is truly light; dark is near-black for night use. */
+:root {
+  --bg: #F6F7F5; --surface: #FFFFFF; --sunk: #EDF0EC; --raised: #FFFFFF;
+  --ink: #131C18; --muted: #56635D; --faint: #8A958F; --line: #D6DCD8; --line-strong: #B9C2BD;
+  --act: #0B6B5E; --act-ink: #FFFFFF; --act-soft: #DCEDE9;
+  --glow: #C2385C; --glow-soft: #F8E1E7;
+  --ok: #2D7A4B; --warn: #9A6200; --warn-soft: #F6ECD8; --crit: #B3362F; --crit-soft: #F7E1DF;
+  --route: rgba(19, 28, 24, .82); --halo: #F6F7F5;
+  --shadow: 0 1px 2px rgba(19,28,24,.06), 0 8px 24px rgba(19,28,24,.10);
+  --shadow-lift: 0 2px 4px rgba(19,28,24,.08), 0 18px 40px rgba(19,28,24,.18);
+  --img-dim: 1;
+  --f-sign: "Big Shoulders Display", "Oswald", "Arial Narrow", sans-serif;
+  --f-ui: "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r-ctl: 6px; --r-card: 10px;
+  --spring: cubic-bezier(.2,.8,.2,1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #07090A; --surface: #0F1312; --sunk: #050606; --raised: #161B19;
+  --ink: #D3DBD7; --muted: #86938D; --faint: #5F6B66; --line: #222A27; --line-strong: #34403B;
+  --act: #5CC0AE; --act-ink: #07090A; --act-soft: #11302B;
+  --glow: #E58BA1; --glow-soft: #3A1C25;
+  --ok: #6BBF8A; --warn: #D9A45A; --warn-soft: #2E2312; --crit: #E57F77; --crit-soft: #351816;
+  --route: rgba(211, 219, 215, .72); --halo: #07090A;
+  --shadow: none; --shadow-lift: 0 0 0 1px #34403B; --img-dim: .92; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #07090A; --surface: #0F1312; --sunk: #050606; --raised: #161B19;
+  --ink: #D3DBD7; --muted: #86938D; --faint: #5F6B66; --line: #222A27; --line-strong: #34403B;
+  --act: #5CC0AE; --act-ink: #07090A; --act-soft: #11302B;
+  --glow: #E58BA1; --glow-soft: #3A1C25;
+  --ok: #6BBF8A; --warn: #D9A45A; --warn-soft: #2E2312; --crit: #E57F77; --crit-soft: #351816;
+  --route: rgba(211, 219, 215, .72); --halo: #07090A;
+  --shadow: none; --shadow-lift: 0 0 0 1px #34403B; --img-dim: .92; color-scheme: dark;
+}
+:root[data-theme="sun"] { --ink: #000; --muted: #2E3833; --line: #9AA6A0; --line-strong: #6E7A74; font-size: 112.5%; }
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-ui); -webkit-font-smoothing: antialiased; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--act); outline-offset: 2px; border-radius: 4px; }
+.num { font-family: var(--f-num); font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+.sign { font-family: var(--f-sign); font-weight: 800; letter-spacing: .02em; text-transform: uppercase; line-height: .95; }
+.label { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--r-ctl); padding: 6px 12px; min-height: 34px; font-weight: 550; transition: background .12s, border-color .12s, transform .09s; }
+.btn:hover { border-color: var(--ink); }
+.btn:active { transform: scale(.98); }
+.btn.primary { background: var(--act); border-color: var(--act); color: var(--act-ink); }
+.btn.ghost { border-color: transparent; background: transparent; }
+.btn.ghost:hover { background: var(--sunk); }
+.chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 2px 9px; font-size: .78rem; font-weight: 600; background: var(--sunk); color: var(--muted); white-space: nowrap; }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.crit { background: var(--crit-soft); color: var(--crit); }
+.chip.ok { color: var(--ok); }
+.chip.glow { background: var(--glow-soft); color: var(--glow); }
+.chip.act { background: var(--act-soft); color: var(--act); }
+.icon { width: 16px; height: 16px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+img { max-width: 100%; filter: brightness(var(--img-dim)); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .12s !important; } }
