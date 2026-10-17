@@ -7,9 +7,9 @@ Sizes are relative (S, M, L) because the pace depends on how many agent sessions
 
 ```
 apps/
-  web/              Next.js 16 app on Vercel; Hono API + MCP mounted at /api and /mcp (grows out of today's web/)
-  cron/             Cloudflare Worker: reminders (KV next_fire_at), staleness, digests
-  rooms/            Cloudflare Worker + Durable Object per trip: live op broadcast and presence
+  web/              Next.js 16 app (container on the home server); Hono API + MCP at /api and /mcp (grows out of today's web/)
+  worker/           Node container: reminders, staleness, digests, email import
+infra/              docker compose override for self-hosted Supabase + web, worker, backup, cloudflared (08-self-hosted.md)
 packages/
   domain/           ops registry, Zod schemas, checks, planner, sun, book-by, tasks (grows out of core/)
   db/               Drizzle schema + migrations (from docs/v2/schema.sql), seed, test helpers
@@ -114,7 +114,7 @@ Valhalla if ORS quotas bite.
 | Other legacy pages (hand-written HTML) | stay live on Cloudflare Pages at their URLs | rebuilt as trips only when the trip is next revised; no bulk conversion |
 | `research/` Markdown | stays in git as research history | key facts enter as evidence when a trip is rebuilt |
 | `web/` (Next.js list views) | becomes `apps/web` | owner chose Next.js: the app, its components and Playwright tests carry over; static export is dropped for server rendering on Vercel |
-| `publish.sh`, `tools/publish.py` | legacy only | the new app deploys to Vercel from git; the two Workers with `wrangler deploy` from CI |
+| `publish.sh`, `tools/publish.py` | legacy only | the new app deploys as containers on the home server (`docker compose pull && up -d` from a tagged build) |
 | `docs/PLAN-platform.md` phases P4b, P4c, P5+ | **paused** where they write to the file store | P4c (bulk import into JSON files) would be wasted work; its importers are rewritten against Postgres in M1 |
 
 ## 4. What stays manual for the owner during the move
