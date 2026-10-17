@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './themes.css';
 
 @font-face {
   font-family: 'Big Shoulders Display';
@@ -54,4 +55,31 @@
   src: url('/fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');
   font-weight: 600;
   font-display: swap;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-teal: var(--teal);
+  --color-teal-ink: var(--teal-ink);
+  --color-teal-text: var(--teal-text);
+  --color-warn: var(--warn);
+  --color-warn-text: var(--warn-text);
+  --color-ok-text: var(--ok-text);
+  --color-header: var(--header);
+  --color-header-ink: var(--header-ink);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
