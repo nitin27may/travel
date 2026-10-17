@@ -15,17 +15,26 @@ export interface FilterBarProps<Row> {
   d: EntityDescriptor<Row>;
   state: ListState;
   counts: Record<string, FacetCount[]>;
+  labelOf: (param: FacetParam, value: string) => string;
   shown: number;
   total: number;
   searchRef: RefObject<HTMLInputElement | null>;
   onState: (s: ListState, mode?: 'push' | 'replace') => void;
 }
 
-function facetSummary<Row>(facet: FacetDef<Row>, selected: string[], options: FacetCount[]): string {
-  if (!selected.length) return facet.label;
-  const label = (v: string) => options.find((o) => o.value === v)?.label ?? v;
-  if (selected.length === 1) return `${facet.label}: ${label(selected[0])}`;
-  return `${facet.label} (${selected.length})`;
+/** The button says what it filters and how many values are on; the chips below say which. */
+function FacetLabel({ label, n }: { label: string; n: number }) {
+  return (
+    <>
+      <span>{label}</span>
+      {n > 0 ? (
+        <span className="facet-n num">
+          {n}
+          <span className="sr-only"> selected</span>
+        </span>
+      ) : null}
+    </>
+  );
 }
 
 function visibleFacets<Row>(d: EntityDescriptor<Row>, state: ListState): FacetDef<Row>[] {
@@ -81,10 +90,9 @@ function ViewOptions<Row>({ d, state, onState }: Pick<FilterBarProps<Row>, 'd' |
 }
 
 export function FilterBar<Row>(props: FilterBarProps<Row>) {
-  const { d, state, counts, shown, total, searchRef, onState } = props;
+  const { d, state, counts, labelOf, shown, total, searchRef, onState } = props;
   const phone = useMediaQuery('(max-width: 719px)');
   const facets = visibleFacets(d, state);
-  const labelOf = (param: FacetParam, value: string) => counts[param]?.find((o) => o.value === value)?.label ?? value;
   const chips = activeFilters(state, d, labelOf);
   const filtered = chips.length > 0 || state.q.trim().length > 0;
   const setFacet = (param: FacetParam, values: string[]) => {
@@ -137,7 +145,9 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
                   {facets.map((f) => (
                     <details key={f.param} className="sheet-facet" open={(state.facets[f.param]?.length ?? 0) > 0 || undefined}>
                       <summary>
-                        <span>{facetSummary(f, state.facets[f.param] ?? [], counts[f.param] ?? [])}</span>
+                        <span className="summary-label">
+                          <FacetLabel label={f.label} n={(state.facets[f.param] ?? []).length} />
+                        </span>
                         <Icon name="chevronDown" size={16} />
                       </summary>
                       <FacetOptions facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
@@ -164,7 +174,7 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
                 facet={f}
                 options={counts[f.param] ?? []}
                 selected={state.facets[f.param] ?? []}
-                summary={facetSummary(f, state.facets[f.param] ?? [], counts[f.param] ?? [])}
+                summary={<FacetLabel label={f.label} n={(state.facets[f.param] ?? []).length} />}
                 onChange={(v) => setFacet(f.param, v)}
               />
             ))}

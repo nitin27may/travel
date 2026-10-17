@@ -37,7 +37,17 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const group = activeGroup(state, d);
   const groups = useMemo(() => groupRows(sorted, group), [sorted, group]);
   const counts = useMemo(() => facetCounts(rows, state, d), [rows, state, d]);
-  const labelOf = (param: FacetParam, value: string) => counts[param]?.find((o) => o.value === value)?.label ?? value;
+  // value -> label for every facet, from all rows, so a chip keeps its name when its rows are filtered out
+  const labels = useMemo(() => {
+    const map: Record<string, Map<string, string>> = {};
+    for (const f of d.facets) {
+      const m = new Map<string, string>();
+      for (const r of rows) for (const o of f.options(r)) if (!m.has(o.value)) m.set(o.value, o.label);
+      map[f.param] = m;
+    }
+    return map;
+  }, [rows, d]);
+  const labelOf = (param: FacetParam, value: string) => labels[param]?.get(value) ?? value;
   const focusRow = state.focus && d.primary === 'sheet' ? (rows.find((r) => d.id(r) === state.focus) ?? null) : null;
   const view: ViewName = state.view === 'map' ? 'map' : state.view;
 
@@ -104,7 +114,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
       </header>
 
       <div className="filter-sticky" ref={barRef}>
-        <FilterBar d={d} state={state} counts={counts} shown={filtered.length} total={rows.length} searchRef={searchRef} onState={setState} />
+        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} onState={setState} />
       </div>
 
       <section className="results" aria-labelledby="results-heading" data-view={view}>
