@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './themes.css';
+@import './app.css';
 
 @font-face {
   font-family: 'Big Shoulders Display';

@@ -1,0 +1,158 @@
+import type { ColumnDef } from '@tanstack/react-table';
+import { Elevation, Stats } from '@/components/entity/cells';
+import { Icon, kindIcon, statusIcon } from '@/components/ui/Icon';
+import { placeHref } from '@/lib/data/paths';
+import { PLACE_STATUSES } from '@/lib/data/types';
+import type { PlaceRow } from '@/lib/data/types';
+import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
+import { PlaceCardFooter, PlaceLinks, PlaceSections } from '@/components/entity/PlaceSections';
+import { KID_LABELS, STATUS_LABELS, cap } from '../labels';
+import type { Badge, EntityDescriptor } from '../types';
+
+const lc = (s: string) => s.toLowerCase();
+
+export function placeBadges(p: PlaceRow): Badge[] {
+  const out: Badge[] = [
+    { text: cap(p.kind), tone: 'kind', icon: kindIcon(p.kind) },
+    { text: STATUS_LABELS[p.status] ?? cap(p.status), tone: 'status', value: p.status, icon: statusIcon(p.status) },
+  ];
+  if (p.season.length) out.push({ text: seasonLabel(p.season), tone: 'season', icon: 'calendar', title: 'Best months' });
+  if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: 'user' });
+  if (p.location_status !== 'resolved') out.push({ text: 'Location unconfirmed', tone: 'warn', icon: 'info', title: 'Coordinates not confirmed yet' });
+  return out;
+}
+
+export const placeLocation = (p: PlaceRow) => `${p.area_name}, ${p.region_name}, ${p.country_name}`;
+
+type PlaceCol = ColumnDef<PlaceRow, unknown>;
+interface ColMeta {
+  label: string;
+  align?: 'right';
+  /** Plain text of the cell, for CSV export. */
+  text: (p: PlaceRow) => string | number;
+  csvLabel: string;
+}
+function col(id: string, header: string, cell: PlaceCol['cell'], text: (p: PlaceRow) => string | number, opts: { size?: number; align?: 'right'; sort?: boolean; csvLabel?: string } = {}): PlaceCol {
+  return {
+    id,
+    header,
+    cell,
+    size: opts.size ?? 140,
+    minSize: 70,
+    enableSorting: opts.sort !== false,
+    meta: { label: header, align: opts.align, text, csvLabel: opts.csvLabel ?? header } satisfies ColMeta,
+  } as PlaceCol;
+}
+
+const statsText = (p: PlaceRow) => Object.entries(p.stats).map(([k, v]) => `${k} ${v}`).join('; ');
+
+const columns: PlaceCol[] = [
+  col('name', 'Name', ({ row }) => <span className="cell-name">{row.original.name}</span>, (p) => p.name, { size: 230 }),
+  col('kind', 'Kind', ({ row }) => <span className="cell-icon"><Icon name={kindIcon(row.original.kind)} size={14} />{cap(row.original.kind)}</span>, (p) => p.kind, { size: 120 }),
+  col('status', 'Status', ({ row }) => <span className="cell-icon" data-status={row.original.status}><Icon name={statusIcon(row.original.status)} size={14} />{STATUS_LABELS[row.original.status] ?? row.original.status}</span>, (p) => p.status, { size: 130 }),
+  col('country', 'Country', ({ row }) => row.original.country_name, (p) => p.country_name, { size: 130 }),
+  col('region', 'Region', ({ row }) => row.original.region_name, (p) => p.region_name, { size: 150 }),
+  col('area', 'Area', ({ row }) => row.original.area_name, (p) => p.area_name, { size: 200 }),
+  col('season', 'Season', ({ row }) => seasonLabel(row.original.season) || <span className="dash">&ndash;</span>, (p) => seasonLabel(p.season), { size: 130 }),
+  col('kid', 'Kids', ({ row }) => (row.original.kid_fit === 'unknown' ? <span className="dash">&ndash;</span> : KID_LABELS[row.original.kid_fit] ?? row.original.kid_fit), (p) => p.kid_fit, { size: 130 }),
+  col('elevation', 'Elevation', ({ row }) => <Elevation m={row.original.elevation_m} />, (p) => p.elevation_m ?? '', { size: 130, align: 'right', csvLabel: 'Elevation (m)' }),
+  col('stats', 'Trail stats', ({ row }) => <Stats stats={row.original.stats} />, statsText, { size: 220, sort: false }),
+  col('tags', 'Tags', ({ row }) => row.original.tags.map((t) => t.label).join(', '), (p) => p.tags.map((t) => t.label).join('; '), { size: 220, sort: false }),
+  col('sources', 'Sources', ({ row }) => (row.original.sources.length ? `${row.original.sources.length} ${row.original.sources.length === 1 ? 'source' : 'sources'}` : <span className="dash">None yet</span>), (p) => p.sources.length, { size: 110 }),
+  col('plan', 'Plan', ({ row }) => row.original.trip_title ?? <span className="dash">&ndash;</span>, (p) => p.trip_title ?? '', { size: 190 }),
+];
+
+const aliasMatch = (values: (string | undefined)[], selected: string[]) => {
+  const want = lc(selected[0] ?? '');
+  return !want || values.some((v) => lc(v ?? '') === want);
+};
+
+export const placeDescriptor: EntityDescriptor<PlaceRow> = {
+  type: 'place',
+  schemaId: '#/$defs/places',
+  dataUrl: '/data/places.json',
+  noun: { one: 'place', many: 'places' },
+  heading: 'Places',
+  id: (p) => p.id,
+  title: (p) => p.name,
+  subtitle: placeLocation,
+  image: (p) => p.image,
+  badges: placeBadges,
+  summary: (p) => p.note,
+  listAside: (p) => (
+    <>
+      <Stats stats={p.stats} />
+      {p.elevation_m !== null ? <Elevation m={p.elevation_m} /> : null}
+    </>
+  ),
+  cardFooter: (p) => <PlaceCardFooter p={p} />,
+  iconFor: (p) => kindIcon(p.kind),
+  fallbackLabel: (p) => cap(p.kind),
+  primary: 'sheet',
+  geo: (p) => (p.lat !== null && p.lon !== null ? { lat: p.lat, lon: p.lon } : null),
+  facets: [
+    { param: 'country', label: 'Country', type: 'single', options: (p) => [{ value: p.country, label: p.country_name }] },
+    {
+      param: 'region',
+      label: 'Region',
+      type: 'single',
+      dependsOn: 'country',
+      options: (p) => [{ value: p.region, label: p.region_name }],
+      match: (p, sel) => aliasMatch([p.region, p.region_name, p.region_iso], sel),
+    },
+    {
+      param: 'area',
+      label: 'Area',
+      type: 'single',
+      dependsOn: 'region',
+      options: (p) => [{ value: p.area, label: p.area_name }],
+      match: (p, sel) => aliasMatch([p.area, p.area_name], sel),
+    },
+    { param: 'kind', label: 'Kind', type: 'multi', options: (p) => [{ value: p.kind, label: cap(p.kind) }] },
+    { param: 'status', label: 'Status', type: 'multi', order: [...PLACE_STATUSES], options: (p) => [{ value: p.status, label: STATUS_LABELS[p.status] ?? cap(p.status) }] },
+    { param: 'kid', label: 'Kids', type: 'single', order: ['strong-kid', 'yes', 'no', 'unknown'], options: (p) => [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit }] },
+    {
+      param: 'season',
+      label: 'Season',
+      type: 'multi',
+      order: Array.from({ length: 12 }, (_, i) => String(i + 1)),
+      options: (p) => p.season.map((m) => ({ value: String(m), label: MONTH_NAMES[m - 1] })),
+    },
+    { param: 'tag', label: 'Tag', type: 'single', options: (p) => p.tags.map((t) => ({ value: t.id, label: t.label })) },
+    { param: 'trip', label: 'Plan', type: 'single', options: (p) => (p.trip ? [{ value: p.trip, label: p.trip_title ?? p.trip }] : []) },
+  ],
+  columns,
+  defaultColumns: ['name', 'kind', 'status', 'region', 'area', 'season', 'kid', 'elevation', 'sources'],
+  groupBy: [
+    { id: 'country', label: 'Country', key: (p) => p.country, title: (p) => p.country_name },
+    { id: 'region', label: 'Region', key: (p) => `${p.country}/${p.region}`, title: (p) => p.region_name, subtitle: (p) => p.country_name },
+    { id: 'area', label: 'Area', key: (p) => `${p.country}/${p.region}/${p.area}`, title: (p) => p.area_name, subtitle: (p) => `${p.region_name}, ${p.country_name}` },
+    { id: 'kind', label: 'Kind', key: (p) => p.kind, title: (p) => cap(p.kind) },
+    { id: 'status', label: 'Status', key: (p) => p.status, title: (p) => STATUS_LABELS[p.status] ?? cap(p.status) },
+  ],
+  defaultGroup: 'country',
+  sorts: {
+    name: { label: 'Name', value: (p) => p.name },
+    kind: { label: 'Kind', value: (p) => p.kind },
+    status: { label: 'Status', value: (p) => PLACE_STATUSES.indexOf(p.status as (typeof PLACE_STATUSES)[number]) },
+    country: { label: 'Country', value: (p) => p.country_name },
+    region: { label: 'Region', value: (p) => p.region_name },
+    area: { label: 'Area', value: (p) => p.area_name },
+    season: { label: 'Season', value: (p) => (p.season.length ? p.season[0] : null) },
+    kid: { label: 'Kids', value: (p) => ['strong-kid', 'yes', 'no', 'unknown'].indexOf(p.kid_fit) },
+    elevation: { label: 'Elevation', value: (p) => p.elevation_m },
+    sources: { label: 'Sources', value: (p) => p.sources.length },
+    plan: { label: 'Plan', value: (p) => p.trip_title },
+    added: { label: 'Date added', value: (p) => p.added || null },
+  },
+  defaultSort: (a, b) =>
+    a.country_name.localeCompare(b.country_name) || a.region_name.localeCompare(b.region_name) || a.area_name.localeCompare(b.area_name) || a.name.localeCompare(b.name),
+  defaultSortLabel: 'Country, region, area',
+  search: (p) => [p.name, p.area_name, p.region_name, p.country_name, p.note, p.tags.map((t) => t.label).join(' '), p.kind].join(' '),
+  hiddenByDefault: (p, state, ignore) => ignore !== 'status' && p.status === 'dropped' && !state.facets.status?.length,
+  href: (p) => placeHref(p.id),
+  detail: PlaceSections,
+  actions: (p) => <PlaceLinks p={p} primary />,
+  ops: {},
+  emptyHint: 'Try removing a filter, or search for a different name.',
+};
