@@ -73,7 +73,7 @@ Picking at every level uses MapLibre's own `queryRenderedFeatures` and `setFeatu
 | G2 Drill | `globe_data.py` builds ADM1 for all countries and ADM2 for the priority list plus the manifest; the page adds levels 1-3 with breadcrumb, panel, back, hash deep-links (`#c=IN&s=Maharashtra`). | Drill World > India > Maharashtra > Mumbai Suburban works; a country without pre-built ADM2 still drills live. |
 | G3 Search and physical names | Gazetteer build; search box jumps to countries, states, cities, seas, ranges, rivers; hover names for seas and ranges at globe zoom. | "Sahara", "Bay of Bengal", "Mumbai", "Quebec" all resolve. |
 | G4 Polish | Style switcher, terrain exaggeration, reduced-motion, mobile layout, attribution, tests, pre-publish gate, hub link. | Lighthouse performance and accessibility pass; works on a phone. |
-| G5 Link our data | Saved places as a layer with per-level counts in the panel and tooltips; "plan this" from any level. | Already designed in `AUDIT-2026-10-16.md`; waits until G1-G4 are accepted. |
+| G5 Link our data | Done, unpublished until visual QA | Saved places are pins on the globe (`globe/assets/data/places.json`, built by `locations.py build` or `globe_data.py places`). Counts per country, state and district roll up from the pins. Clicking a pin opens a card with the place's facts, and Plan these starts a trip from the places in the current view. Known problem (R1): the Italy ADM2 data has inverted districts, so a district count or highlight there can land on the wrong shape; it needs a data fix before Italy drill-downs are trusted. |
 
 ## 7. Decisions needed
 
@@ -96,4 +96,4 @@ Operational notes: headless Chromium here never renders the OpenFreeMap vector t
 
 ## 9. What happened to the first draft
 
-`_system/site/globe.html`, `locations.html`, `site.css` and `_system/tools/site_pages.py` (uncommitted) were written before this brief changed. The `locations.html` list page is still the plan for phase G5 and the audit's P5; `globe.html` is superseded by this document and will be replaced in G1.
+`_system/site/globe.html`, `locations.html`, `site.css` and `_system/tools/site_pages.py` were written before this brief changed. `globe.html` was replaced in G1. The `locations.html` draft became the template for the published list page: `location_views.py` renders `locations/index.html` from it, with the globe and the list linking to each other.

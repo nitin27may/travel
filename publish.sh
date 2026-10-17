@@ -4,6 +4,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# regenerate the locations list, WISHLIST.md and the globe pins; a failure here must fail the publish
+python3 "$ROOT/_system/tools/locations.py" build
 PROJECT="${1:-nks-travel}"
 SITE="$ROOT/.site"
 
@@ -17,8 +19,9 @@ for dir in "$ROOT"/*/; do
   cp "$dir/index.html" "$SITE/$slug/index.html"
   # only index.html and an explicit assets/ folder are published; scripts, data and research never are
   [[ -d "$dir/assets" ]] && cp -r "$dir/assets" "$SITE/$slug/assets"
-  title="$(grep -o '<title>[^<]*' "$dir/index.html" | head -1 | sed 's/<title>//')"
-  sub="$(grep -o 'class="sub">[^<]*' "$dir/index.html" | head -1 | sed 's/class="sub">//')"
+  # site pages (locations) have no class="sub"; a missing match must not kill the script under pipefail
+  title="$(grep -o '<title>[^<]*' "$dir/index.html" | head -1 | sed 's/<title>//' || true)"
+  sub="$(grep -o 'class="sub">[^<]*' "$dir/index.html" | head -1 | sed 's/class="sub">//' || true)"
   SLUGS+=("$slug"); TITLES+=("${title:-$slug}"); SUBS+=("${sub:-}")
   echo "  staged: /$slug/"
 done
@@ -144,7 +147,8 @@ out = [
 '<style>' + CSS + '</style></head><body>',
 '<header><p class="eyebrow">Field plans</p><h1>Trip Plans</h1>',
 '<p class="lede">Researched itineraries &mdash; trails, maps, timings and conditions. Each plan keeps its own address.</p>',
-'<p class="lede" style="margin-top:10px"><a href="globe/" style="color:#d69329">Explore the globe</a> &mdash; spin the earth, drill into countries, states and cities.</p></header>',
+'<p class="lede" style="margin-top:10px"><a href="globe/" style="color:#d69329">Explore the globe</a> &mdash; spin the earth, drill into countries, states and cities.</p>',
+'<p class="lede" style="margin-top:10px"><a href="locations/" style="color:#d69329">Browse the locations list</a> &mdash; every saved place by country, region and area, with filters and a link to the globe.</p></header>',
 ]
 if upcoming:
     out.append('<h3 class="sec">Upcoming</h3><div class="grid">')
@@ -166,6 +170,11 @@ nf = ('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="vi
 open(os.path.join(site,'404.html'),'w',encoding='utf-8').write(nf)
 print(f"  hub: {len(upcoming)} upcoming, {len(past)} past")
 PYHUB
+
+if [[ "${PUBLISH_DRY_RUN:-}" == "1" ]]; then
+  echo "dry run: staged in $SITE, wrangler skipped"
+  exit 0
+fi
 
 echo "Deploying ${#SLUGS[@]} plan(s) to $PROJECT..."
 cd "$SITE"

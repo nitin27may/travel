@@ -5,6 +5,7 @@
     python3 _system/tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
     python3 _system/tools/globe_data.py admin2 [ISO3..] # G2: districts for the priority list (geoBoundaries), mapshaper-simplified
     python3 _system/tools/globe_data.py gazetteer       # G3: search index (countries, admin-1, cities, physical names)
+    python3 _system/tools/globe_data.py places          # G5: saved-place pins (globe/assets/data/places.json), plus the list page and WISHLIST.md
     python3 _system/tools/globe_data.py all
 
 Outputs go under globe/assets/ (published). Raw downloads are cached in _system/site/cache/ (gitignored).
@@ -213,9 +214,22 @@ def cmd_gazetteer(args) -> int:
     print(f"  gazetteer: {len(rows)} rows", file=sys.stderr)
     return 0
 
+# ----------------------------------------------------------------------------- G5
+def cmd_places(args) -> int:
+    """Regenerate every view of the locations store (same code path as `locations.py build`)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import location_views
+    import locations
+    written = location_views.write_all(locations.load())
+    for p in written:
+        print(f"  wrote {p.relative_to(ROOT)}", file=sys.stderr)
+    if not written:
+        print("  places: up to date", file=sys.stderr)
+    return 0
+
 
 def cmd_all(args) -> int:
-    for fn in (cmd_base, cmd_admin1, cmd_admin2, cmd_gazetteer):
+    for fn in (cmd_base, cmd_admin1, cmd_admin2, cmd_gazetteer, cmd_places):
         args.iso3 = getattr(args, "iso3", None); args.force = getattr(args, "force", False)
         fn(args)
     return 0
@@ -228,6 +242,7 @@ def main(argv=None) -> int:
     sub.add_parser("admin1").set_defaults(fn=cmd_admin1)
     a2 = sub.add_parser("admin2"); a2.add_argument("iso3", nargs="*"); a2.add_argument("--force", action="store_true"); a2.set_defaults(fn=cmd_admin2)
     sub.add_parser("gazetteer").set_defaults(fn=cmd_gazetteer)
+    sub.add_parser("places").set_defaults(fn=cmd_places)
     al = sub.add_parser("all"); al.add_argument("--force", action="store_true"); al.set_defaults(fn=cmd_all)
     args = ap.parse_args(argv)
     return args.fn(args)

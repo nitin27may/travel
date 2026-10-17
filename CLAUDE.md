@@ -6,12 +6,19 @@ Each trip is one folder: `<slug>/` containing `index.html` (the deliverable), `P
 
 ## Destinations: the laundry list — `locations/` (since 16 Oct 2026)
 
-Every place Nitin wants to remember goes in `locations/locations.json` through the
+Every place Nitin wants to remember goes in `locations/locations.json` (schema v2) through the
 `location` skill or `python3 _system/tools/locations.py add ...` (Wikidata then Nominatim
-resolve coordinates and the country > region > area chain). `locations/WISHLIST.md` is
-generated; a PostToolUse hook validates the store and regenerates it on every write. The Obsidian
-`Location.md` is retired and points here. Capture only; research happens when a trip adopts the
-place (`trip` field). Tests: `python3 -m pytest _system/tests -q`. Details: `locations/README.md`.
+resolve coordinates and the country > region > area chain). Change a place with
+`locations.py edit ID ...` and record a trip there with `locations.py visit add ID --date ...`.
+`locations.py build` (`build --check` to verify) generates two views from one code path: the
+private `locations/WISHLIST.md` (full notes) and the published `locations/index.html` list page,
+plus the globe's pins in `globe/assets/data/places.json`. Never hand-edit those; a PostToolUse hook
+validates the store and rebuilds them on every write, and `publish.sh` runs `build` first and fails
+if it fails. The store is one file until it passes 300 places, when `validate` warns and it can be
+converted to the split layout (one part per country). The Obsidian `Location.md` is retired and
+points here. Capture only; research happens when a trip adopts the place (`trip` field).
+Tests: `python3 -m pytest _system/tests -q`. Details: `locations/README.md`.
+`PUBLISH_DRY_RUN=1 ./publish.sh` stages `.site/` and stops before wrangler.
 
 ## Shared design system — `_system/` (Phase 0 complete, Aug 29 2026)
 Components and themes are being centralised so a CSS fix lands once instead of five times.
