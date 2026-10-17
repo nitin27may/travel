@@ -4,6 +4,8 @@ Status: DRAFT for owner approval. Written 2026-10-17. Implementation starts the 
 
 ## 0. Summary, addenda folded in, gaps found
 
+**Revision 3 (17 Oct 2026):** section 0B specifies the trip creation flow, search-to-add, notes, routing with breaks and guardrails.
+
 **Revision 2 (17 Oct 2026):** the product is now a global catalog plus trips that reference it, with a research flywheel, a coverage model, multi-user-ready schema, a no-AI trip builder and a free-data price approach. Read section 0A first; sections 1, 2, 4, 6, 7 and 8 carry "Revised" subsections where they changed.
 
 **The plan in ten lines.**
@@ -376,6 +378,195 @@ Checked 2026-10-17. Most findings come from search results summarising official 
 **The Playwright scraping of Google Flights and Booking.com is an owner-only research tool.** It stays in the `trip-fares` skill for the owner's own research and is never offered through the app, the API or MCP to other users, because: both sites' terms do not permit automated access, and offering it would put the site and its users in breach; it depends on undocumented internals (the `tfs` protobuf bytes, DOM text with non-breaking spaces) that break without notice; it uses the owner's machine and IP, so running it for others would also risk blocks on the owner's own browsing; and the result is a point-in-time price that must be shown with its read date anyway, which the snapshot layer already does. The skill checks `actor.id == u_owner` and refuses otherwise.
 
 **Weather and FX in the plan.** When the chosen edition has dates: a forecast strip per base for the days within the forecast horizon (Open-Meteo forecast), climate normals per month otherwise (Open-Meteo historical data, cached at build); every money figure converts to the user's currency with "ECB rate of <date>" (Frankfurter). Both carry their attribution lines.
+
+## 0B. Trip creation experience (UI) (Revised 3)
+### 0B.0 What changed in revision 3
+
+Owner direction, 17 Oct 2026: the trip creation flow is the most important screen set; it must be easy enough that a person can add everything a trip needs without help.
+
+| Area | Revision 2 | Revision 3 |
+|---|---|---|
+| Creating a trip in the UI | a four-step wizard plus a day editor (4.7) | a full screen-by-screen flow with live counts, a catalog picker, a day board beside a map, bookings and costs, and review (0B.2) |
+| Adding things | forms per entity | one search box: catalog first, then "add as custom" (0B.3) |
+| Notes and own stops | notes on rows only | notes on trip, day, item and place with private or shared visibility; custom stops by pin (0B.4) |
+| Routing | manual legs plus Google links; routing API deferred (D13) | **routing with breaks**: break every N hours, daily maximum drive with overnight suggestions, corridor search with detour minutes (0B.5); a Phase 1 and Phase 2 routing plan; D13 replaced by D23 |
+| Schema | | `notes`, `custom_items`, `routes` tables in the trip; `items.custom_item_id` (0B.2 schema table) |
+| Phases | P5 included a local editor | P5 split: **P5a** plan pages, **P5b** trip creation UI; new **P8** routing with breaks; P7 builder plugs into the flow (6.2) |
+
+### 0B.1 What comparable tools get right and wrong
+
+Checked 2026-10-17 (store listings, help centres and press; marketing copy is labelled as such).
+
+| Tool | What makes it easy | Borrow | Avoid | Source |
+|---|---|---|---|---|
+| Wanderlog | every added place is pinned on the map at once; lines connect stops in visiting order; drag to reorder; times and distances between places and a daily driving total; a route optimiser; forward confirmation emails or connect Gmail to import bookings (store listing) | pin-on-add, connected day lines, per-leg and per-day totals, "optimise this day's order" | gating basics (Gmail import, Google Maps export) behind Pro; a Google-only basemap | App Store listing |
+| Roadtrippers | Explore along the route for food, fuel, overnights and rest areas; a Trip Distance Tool that places stops by a chosen driving distance or time; unrouted waypoints (keep an idea without routing it); drag the route to another road (help centre) | break-by-time placement, "maybe" stops that are not routed yet, category chips along the route | stop caps on the free tier (3 or 7 stops per trip, the pages disagree); Autopilot suggestions behind Premium | help centre; membership pages |
+| Furkot | daily Travel Time and Daily Mileage limits for the whole trip or one day; when a day passes a limit or the "end a day" time it finds lodging between stops; overnight stops recalculate as the route changes; no overnight stops when start and end times are equal (help centre) | **automatic overnight stops from daily limits**, recalculated live; per-day overrides of the limits | lodging picked by price and rating only, presented as a suggestion; we pick from the catalog and say why | help.furkot.com |
+| TripIt | forward confirmations to one address and a master itinerary appears; optional mailbox import | a single "bookings inbox" that turns confirmations into booking rows (fits the inbox of section 9, Phase 2) | needing mailbox access; we keep it forward-only and private | third-party guides and university job aids |
+| Google Maps lists | private or shared lists, collaborators can add places and notes, viewers see who added what (support page) | shared lists with attribution as the model for shared trip notes later | lists with no days, times or legs | support.google.com |
+| Google Trips | discontinued 5 Aug 2019; features moved into Search and Maps; Google Travel trip summaries later phased out | lesson: do not build on someone else's travel product for core data | dependency on Google for anything but outbound links and the optional embed | AlternativeTo, TechRadar, Android Police |
+| Inspirock | auto-generated itineraries from dates and interests; acquired by Klarna in Oct 2021; current status not confirmed | "answers first, draft second" (as in 0A.5) | opaque auto-planning: every suggestion must show why (score breakdown) | Emerce, craft.co |
+
+Design rules taken from this:
+1. Show the map from the first screen where a place is chosen, and pin every item the moment it is added.
+2. Every number that matters is visible where the decision is made: matches left after a filter, minutes added by a detour, hours driven today.
+3. Drafts are suggestions with reasons, never final; one tap to accept, one to remove.
+4. Nothing basic is gated. Everything works without an account and without AI.
+5. Unscheduled ideas are allowed: a tray of "maybe" items that are not on a day yet.
+
+### 0B.2 The flow, screen by screen
+
+Route: `/new/` (the flow) and `/<slug>/edit/` (the same board for an existing trip). The left side holds the steps; from S1 onward the right side is a live map. Every answer updates a **match counter** at the top: "38 things match in Banff and Lake Louise; 12 suit a 10-year-old; 9 are open in September."
+
+| Screen | Asks | Required for a draft | What narrows live | Component |
+|---|---|---|---|---|
+| S0 Start | "Start blank", "From a template" (the demo regions' sample trips, day-trip templates from the vault notes), "Copy an existing trip" (any of your trips, a public trip later) | one choice | - | `StartChooser` |
+| S1 Where | search box over countries, regions and areas (typeahead, the place hierarchy), or click areas on the map; several allowed, ordered | **at least one area** | map zooms to the selection; counter shows catalog rows in the areas and their coverage band (0A.3) | `AreaPicker` |
+| S2 When and how long | a month or season chips, or exact dates (optional); number of days | **month (or season) and days** | season filter; daylight hours for the month shown ("about 13 h of daylight"); closed-in-season items greyed | `WhenPicker` |
+| S3 Who | adults; children with ages; optional heights (private); "someone has limited mobility" toggle | **party size** (ages default to adult) | eligibility filter for the youngest and smallest; "12 suit a 10-year-old" | `PartyEditor` |
+| S4 Style and pace | style chips (one primary, any extra); pace 1-5; walking km and gain per day; sliders: adventure, luxury, relaxed (0A.5) | none (defaults) | tag weights and filters; the counter and the card grid re-sort at once | `StyleAndPace` |
+| S5 Getting around and bases | transport: car, public transport, mixed, camper; base preference: one base, a few, move often; daily maximum drive (default 4 h) | none (defaults) | public transport hides items without a transit or walk access note; drive limit feeds 0B.5 | `TransportAndBases` |
+| S6 Choose from what exists | catalog candidates as cards (photo, badges, eligibility, "+40 min from base"), filter bar on top (the shared one from 4.2), checkboxes or drag straight onto a day; "Add everything I ticked" | none | the counter; picks appear as pins and in the "Unscheduled" tray | `CandidatePicker` (an `EntityPage` in picking mode) |
+| S7 Day board with map | columns or rows per day (phone: one day at a time), time slots, items as cards, legs between cards ("62 km, 55 min"), base per night at the bottom of each day, an "Unscheduled" tray; the map beside it shows the day in its colour | none | the day checks (2.4) run on every change; warnings appear on the card that causes them | `DayBoard`, `DayColumn`, `ItemCard`, `LegChip`, `BaseSlot`, `UnscheduledTray`, `BoardMap` |
+| S8 Bookings and costs | every item linked to an offer is listed with the computed book-by date, status and price snapshot; deep links with dates and party (0A.6); budget table with totals per person and group | none | the Timeline view (4.5) | `BookingsAndCosts` |
+| S9 Review | the plan page preview, the open warnings with one-tap fixes (0B.7), visibility (private by default for new users), "Save" | a title (prefilled "Banff, September, 7 days") | - | `ReviewAndSave` |
+
+**Minimum to get a draft:** one area, a month or season, the number of days and the party size (four answers). Everything else has a default and can be changed later on the board.
+
+**First draft.** After S5 (or from any later screen) "Make me a first draft" runs the no-AI builder (0A.5) with the answers and the S6 picks as must-dos, and fills the board. Before P7 exists, the same button runs the simple fallback: picks are grouped by nearest base and spread across that base's days in score order, with no times; the board shows them for the user to arrange.
+
+**Draft-and-edit loop.** The board is the trip; there is no separate "generated" state. Regenerating asks first and only re-plans days the user has not touched (an item moved or edited by hand is pinned, shown with a pin icon, and kept).
+
+**Undo and autosave.**
+
+| Behaviour | Rule |
+|---|---|
+| Undo, redo | every board action is an operation (section 5) appended to a local log; Ctrl+Z / Ctrl+Shift+Z and buttons; at least 100 steps; undo works across sessions on the same device |
+| Autosave | every operation is saved to IndexedDB at once (Phase 1, no server needed for a new user); with the local API (owner) or Phase 2 it is also sent to the server, queued while offline and replayed with `client_op_id` |
+| Versions | "Save a version" names a snapshot; restoring one is a proposal (5.4) against the current state |
+
+**Templates and existing trips.** Copying a trip creates a new trip with new ids, the same items as references, no bookings statuses, no private data, and the edition cleared; templates are ordinary trips with `visibility: public` and the tag `template`.
+
+**Schema additions (Revised 3; land in P2 with the rest of 2.8)**
+
+| Table | Columns | Notes |
+|---|---|---|
+| `notes` | `id`, `scope` (`trip`, `day`, `item`, `place`), `ref` (day n, item id, catalog id), `text` (Markdown), `visibility` (`private`, `shared`), `links` (json), `attachments` (json of `{name, local_key}`), `created`, `updated`, `author` | never part of a catalog row (0B.4) |
+| `custom_items` | `id` (`cx-<slug>`), `name`, `kind` (the place kinds plus `break`, `fuel`, `rest-area`), `lat`, `lon` (nullable), `address`, `notes`, `duration_min`, `open_from`, `open_to`, `proposed` (`no`, `proposed`, `accepted`, `rejected`), `catalog_id` (after acceptance) | trip-local; can be proposed to the catalog (0B.3) |
+| `routes` | `id`, `days` (json), `waypoints` (json of item ids or coordinates), `profile` (`car`, `camper`), `break_every_min`, `daily_max_drive_min`, `corridor_km`, `break_types` (json), `avoid` (json: `ferries`, `tolls`, `unpaved`), `geometry_file` (path under the trip folder, encoded polyline), `provider`, `computed` (datetime) | input and output of 0B.5 |
+| `items` | gains `custom_item_id`, `pinned` (bool: hand-placed, kept on regenerate) | |
+
+### 0B.3 Search to add anything
+
+One search box on the board and in S6 (`/` focuses it).
+
+| Mode | How | Results |
+|---|---|---|
+| By name | prefix and fuzzy match over the build-time search index of the catalog (names, local names, aliases, tags) | catalog rows first, grouped by type, each with its area and "in N trips" |
+| By category near here | a category chip (food, viewpoint, short walk, playground, fuel, rest area, museum, stay) plus "near": the current map view, the selected day's base, or the selected item | catalog rows sorted by distance; then "Search OpenStreetMap too" (Overpass on demand, cached, 0B.5) |
+| Along my route | the same chips over the route corridor of the selected day (0B.5) | sorted by detour minutes |
+| Not found | "Add as custom": name (prefilled), location (click on the map, drag the pin, or "no location"), kind, notes, duration | a `custom_items` row, shown with a "custom" badge |
+
+Custom items are trip-local. Each has "Suggest for the shared catalog", which creates a `catalog.propose` change (0A.2) with the item's fields and the user's note as the reason; in Phase 1 only the owner can accept. Once accepted, the item is re-pointed at the new catalog id (`catalog_id`) and the badge disappears. An OSM result added to a trip becomes a custom item carrying its OSM id, so matching later is exact.
+
+### 0B.4 Your own notes and stops
+
+| Need | Design |
+|---|---|
+| Notes on a trip, a day, an item or a place | a notes panel on each; Markdown with live preview; stored in `notes` with `scope` and `ref` |
+| Private or shared | each note is `private` (default; never in the export) or `shared` (printed on the plan page in a "Notes" block, visible to whoever can see the trip) |
+| Custom stops | click the map or long-press on a phone to drop a pin; name it; it becomes a custom item placed on the selected day after the nearest item, legs recomputed |
+| Custom times | any item's start, window and duration can be typed or dragged on the time axis; a hand-set time pins the item |
+| Attachments | links (any URL, with a title); files (PDF tickets, screenshots) stay on the device in IndexedDB in Phase 1, referenced by `local_key`; Phase 2 decision D24 on private storage (R2 behind Access) |
+| Notes never overwrite catalog facts | notes live in their own table; a note on a catalog place is shown under the place's facts, labelled "Your note", never merged into them. If a note looks like a correction ("closed on Mondays now"), the panel offers "Suggest this as a correction", which opens a `catalog.edit` proposal with the note as the reason |
+
+### 0B.5 Map-driven routing with breaks
+
+The user sets a chain of waypoints (A to B, or A-B-C over several days), **break every N hours** (2 h, 3 h, custom) and a **daily maximum drive** (default 4 h). The planner suggests breaks and overnight stops; one tap inserts one.
+
+#### Algorithm (`web/lib/routing/breaks.ts`, pure, tested; the same code runs in the Worker in Phase 2)
+
+| # | Step | Detail |
+|---|---|---|
+| 1 | Route | get a route geometry and per-segment durations for the waypoint chain from the active provider (table below); store as an encoded polyline with cumulative time `t(s)` and distance `d(s)` per vertex; flag segments that are ferries (`ferry` step type or OSM `route=ferry`) and points on OSM `mountain_pass=yes` nodes or catalog legs with seasonal closure notes |
+| 2 | Day split | walk `t(s)`: a day ends at the last waypoint before `daily_max_drive_min` is passed; if none, at the point where the limit is reached; the overnight search (step 6) runs around that point. Per-day overrides of the limit are allowed (Furkot's model) |
+| 3 | Break points | within each day, the target points are at `k * break_every_min` of driving (k = 1, 2, ...) measured from the day's start, skipping any target within 30 min of a planned item or the day's end |
+| 4 | Corridor | for each target, a window of the route from `t - 20 min` to `t + 20 min`; the corridor is that stretch buffered by `corridor_km` (default 5 km, adjustable 1-25 km) |
+| 5 | Candidates | catalog rows in the corridor whose kind or tags match the selected break types (table below), from the spatial index; optionally OSM POIs via Overpass for the same corridor (on demand, cached) |
+| 6 | Overnight | at each day end, search a wider corridor (`corridor_km * 3`, at most 30 km) for catalog stays first, then towns with stays; when none are in the catalog, show OSM `tourism=hotel|motel|guest_house|camp_site` as unverified suggestions that become custom items if chosen |
+| 7 | Detour | estimated detour = 2 x perpendicular distance from the route / 50 km/h x 1.3 (Phase 1); in Phase 2 a routed check for the top 5 candidates (A to candidate to B minus A to B) |
+| 8 | Rank | `rank = 3*type_match + 2*interest + 1*open_now - detour_min/10 - penalty` (a 20-minute detour costs as much as a full interest match) where `interest` = tag match with the trip's styles (0A.5), `open_now` = open at the arrival time on that weekday, and `penalty` = 2 if it would arrive after sunset minus 30 min; ties by catalog quality, then id |
+| 9 | Present | map: target markers on the route, candidate pins sized by rank; list per target: name, type, "+12 min detour", open or closed at arrival, tags; one tap inserts the stop as an item at the right seq, adds its duration (default by type: viewpoint 15, short walk 45, food 45, fuel 10, rest area 15, town 60) and recomputes every following leg and the day checks |
+| 10 | Cautions | ferry segments: "Ferry: check the timetable" chip with the operator link and a warning if the arrival time misses the last sailing (when the timetable is in the catalog); mountain passes: chip with closure months from the catalog leg or "seasonal closures possible"; daylight: any driving after sunset is shown in the day's colour with a dusk pattern and a warning when `early_starts`/profile says no night driving |
+
+Break types and what they match:
+
+| Break type | Catalog kinds or tags | OSM tags (on demand) |
+|---|---|---|
+| viewpoint | kind `viewpoint` | `tourism=viewpoint` |
+| town | kind `town` | `place=town|village` |
+| food | eateries; tag `cafe` | `amenity=cafe|restaurant|fast_food` |
+| short walk | trails with `km <= 3` and house grade <= 2 | `highway=trailhead` |
+| rest area | tag `rest-area` | `highway=rest_area|services` |
+| fuel | tag `fuel` | `amenity=fuel` (plus `amenity=charging_station` for EVs) |
+| family stop | `kid_fit=yes` places; tag `playground` | `leisure=playground` |
+
+#### Corridor search against the static catalog
+
+| Piece | Design |
+|---|---|
+| Spatial index | built at publish by `tools/views.py index`: every catalog row with coordinates goes into geohash-5 buckets (about 4.9 x 4.9 km); one JSON file per geohash-3 prefix (`/data/index/geo/<gh3>.json`, about 156 x 156 km), each holding its geohash-5 buckets with compact rows `[id, type, lat, lon, tag_bits, kind, open_summary, quality]`; trails are indexed by trailhead |
+| Query | sample the corridor stretch every 1 km, take the geohash-5 cells covering `corridor_km` around each sample, load the needed geohash-3 files (cached by the service worker), then filter exactly with point-to-polyline distance |
+| Size | under 100 bytes a row; 10,000 rows is about 1 MB across all files, loaded a few files at a time |
+| OSM POIs | one Overpass query per corridor window using `around:<radius>` over the window's sampled coordinates, only when the user presses "Search OpenStreetMap too"; results cached in IndexedDB for 30 days by query hash (Phase 2: also in KV, shared); at most one query every 5 seconds; results labelled "From OpenStreetMap, not verified" with ODbL attribution |
+
+#### Routing providers (checked 2026-10-17)
+
+| Option | Terms and limits | Fit |
+|---|---|---|
+| OSRM public demo (FOSSGIS) | best effort, no guarantees, can be withdrawn; excessive use is blocked; commercial use only if publicly accessible with attribution; a real User-Agent required | research-time use by the owner's tools, sparingly; never from users' browsers at scale |
+| Valhalla public server (FOSSGIS) | fair use like the OSRM and Nominatim demo servers, rate limited (reported as about 1 request per second per user; not verified) | same as OSRM |
+| OpenRouteService free Standard plan | 2,000 directions a day and 40 a minute; matrix 500 a day; key required | **Phase 2 provider** behind our Worker (key kept server-side), results cached by waypoint chain |
+| GraphHopper free package | 500 credits a day, 5 locations per request, non-commercial only, no guarantees | backup provider |
+| Self-hosted OSRM or Valhalla on a small VM | no quota; OSRM car-profile memory scales with the extract (planet about 123 GiB; Germany reported under 16 GB); Valhalla tiles are lighter | only if the product grows (D17) |
+| Google Directions | outbound links only (Google Maps URLs); no API use | always present as "Open in Google Maps" |
+
+**Recommendation (D23).**
+- **Phase 1:** no live routing in users' browsers. The owner's tools compute routes at research or edit time (`tools/route.py` calling ORS with the owner's key from the environment, or the OSRM demo sparingly) and store them as catalog legs with geometry, plus `routes.geometry_file` in the trip. The break finder runs in the browser over stored geometry. For a new A-B with no stored route, it uses a straight-line estimate x 1.3 at 70 km/h, labels every number "estimate", still finds corridor candidates along the straight line, and offers "Open in Google Maps" for real times.
+- **Phase 2:** a `/api/v1/route` endpoint in the Worker proxies ORS (free plan), caches by waypoint chain in KV for 30 days and in D1 as catalog legs, and falls back to GraphHopper. Self-hosting is a later decision if usage grows.
+
+### 0B.6 Map interactions, accessibility and phones
+
+| Interaction | Behaviour |
+|---|---|
+| Draw or drag the route | drag the day's line to a road: inserts a via point (a `transfer` item with `duration_min: 0`, hidden from the timeline) and re-routes (Phase 2), or re-estimates (Phase 1) |
+| Click to add | click (long-press on a phone) on the map: "Add a stop here" with the nearest catalog rows within 500 m offered first, else a custom item |
+| Legs and times update | every insert, move or delete recomputes legs, cumulative drive time, arrival times and the day checks; the changed numbers flash briefly |
+| Reorder | drag cards on the board or numbered pins on the map; "Optimise this day" reorders the non-pinned items by nearest neighbour from the base and back |
+| Day colours | each day has a colour from a fixed, colour-blind-safe palette of 8 hues with distinct dash patterns, so colour is never the only cue |
+| Fit to day | selecting a day fits the map to its items and route; "Whole trip" fits everything |
+| Offline | stored routes and GeoJSON render without a network (4.9); routing and Overpass buttons are disabled with "needs a connection" |
+| Keyboard and screen readers | every board action has a keyboard path (arrow keys move focus, Space picks up, arrows move, Space drops; or a "Move to day" menu); drag-and-drop announcements through an ARIA live region; the map is never the only way: every map action has a list equivalent |
+| Phone | the board shows one day at a time with a day switcher; the map is a bottom sheet that expands to full screen; "Move to day" menu instead of cross-day dragging; large touch targets (44 px); the match counter and warnings stay in a sticky header |
+| Performance | the board virtualises long days; map updates are batched per animation frame |
+
+### 0B.7 Guardrails
+
+Each guardrail is a day check (2.4) or a picker check with a one-tap fix; nothing is silently changed.
+
+| Situation | Message | Offered fixes |
+|---|---|---|
+| Day too long for the pace | "Day 3 runs 11 h; pace 3 allows 9 h" | "Move Lake Agnes to Day 4 (2 h free)", "Make it optional", "Accept for this day" |
+| Legs do not fit | "You arrive at Moraine Lake at 10:40; the shuttle slot is 10:00" | "Start 45 min earlier", "Swap the order of the first two stops" |
+| After dark | "The drive to Jasper ends 40 min after sunset" | "Leave 1 h earlier", "Drop the Peyto stop", "Accept" |
+| Closed on that weekday | "Harberton is closed on Tuesdays (Day 4 is a Tuesday)" | "Move to Day 3", "Swap Days 3 and 4" |
+| Outside its season or opening hours | "The gondola's last ride up is 19:30" | "Move it before 18:30" |
+| Item without coordinates | "Piratour pickup has no location" (a grey pin in the tray, not on the map) | "Pick it on the map", "Use the operator's address", "Keep without a location" (no legs computed; day checks skip it with a note) |
+| Someone in the party cannot do it | "Big Ice is 18+; Child (11) cannot go" | "Make it a Track A item and add the family alternative (minitrekking, 8-65)" using `day_tracks`, or "Remove" |
+| Limits unknown | "Minimum age not published" | "Ask the operator" (adds an open question), "Keep" |
+| Over the walking ceiling | "Day 8 walks 21 km; your limit is 10 km" | "Use the shorter alternative (Laguna Capri loop, 11.7 km)", "Track A only", "Raise the limit for this day" |
+| Booking deadline passed or opening soon | "Book-by date was 31 Oct" | "Mark booked", "Find an alternative" (search filtered to the same type and day) |
+| Overnight not found within the daily limit | "No stay found within 4 h; the next catalog stay is at 5 h 10" | "Raise today's limit to 5 h 15", "Add a custom stay", "Search OpenStreetMap" |
 
 ## 1. Target repo layout and migration table (Revised: 1.1, 1.4)
 
@@ -1144,7 +1335,7 @@ Checked 2026-10-17.
 | Auth for a single owner | Cloudflare Access can protect a hostname or path with email one-time PIN and issue service tokens (headers `CF-Access-Client-Id`, `CF-Access-Client-Secret`) | Writes and `/mcp` sit behind Access. The browser signs in with a PIN; Claude Code uses a service token passed as headers in `claude mcp add --header ...`, the secret kept in the OS keychain, never in Claude settings. The Worker also checks the `Cf-Access-Jwt-Assertion` header itself (defence in depth) |
 | D1 to git export | A Worker cron cannot run our Python tests or push to git without holding a GitHub write token | A scheduled **GitHub Action** (nightly, plus manual dispatch) calls `GET /api/v1/export` with a read token, writes `data/`, runs `tools/data.py validate` and the full test suite, and opens a PR `data: D1 export <date>`. Git history stays the audit log and nothing reaches `main` that fails a test |
 
-## 4. Web app information architecture (Revised: 4.11)
+## 4. Web app information architecture (Revised: 4.11; Revised 3: 4.12)
 
 ### 4.1 Routes
 
@@ -1369,7 +1560,31 @@ UI rules added by the catalog:
 - A "Report outdated" action on any field creates a backlog item with reason `stale`.
 - Coverage bands appear on area pages, in the builder before it plans, and as a globe layer.
 
-## 5. One operation set: UI, API, MCP, skills
+### 4.12 Revised 3: trip creation routes and components
+
+| Route | What | Phase |
+|---|---|---|
+| `/new/` | the creation flow S0-S9 (0B.2) | P5b |
+| `/<slug>/edit/` | the same `DayBoard` and `BoardMap` for an existing trip (replaces the editor of 4.7, whose forms remain as the item and booking sheets) | P5b |
+| `/<slug>/edit/route/` | routing with breaks for a day range (0B.5) | P8 |
+
+| Component | Role |
+|---|---|
+| `StartChooser`, `AreaPicker`, `WhenPicker`, `PartyEditor`, `StyleAndPace`, `TransportAndBases` | S0-S5, each writing to one `TripDraft` state and the match counter |
+| `MatchCounter` | live counts after every answer (rows matching, eligible for the youngest, open in the month) |
+| `CandidatePicker` | `EntityPage` in picking mode: checkboxes, drag-to-day, "Add ticked" |
+| `DayBoard`, `DayColumn`, `ItemCard`, `LegChip`, `BaseSlot`, `UnscheduledTray` | S7; drag and keyboard moves; pins for hand-placed items |
+| `BoardMap` | `MapView` bound to the board: day colours, numbered pins, click-to-add, drag-route, fit-to-day |
+| `UniversalSearch` | 0B.3: catalog, near here, along my route, Overpass on demand, add as custom |
+| `NotesPanel` | 0B.4 |
+| `BreakPlanner` | 0B.5: waypoints, break interval, daily limit, corridor slider, break-type chips, ranked suggestions, overnight suggestions, cautions |
+| `GuardrailBanner`, `FixMenu` | 0B.7 |
+| `UndoBar` | undo, redo, version list |
+| `BookingsAndCosts`, `ReviewAndSave` | S8, S9 |
+
+The 4.7 rule stands: every action submits operations, so the board writes exactly what the skills write.
+
+## 5. One operation set: UI, API, MCP, skills (Revised 3: 5.8)
 
 ### 5.1 The rule
 
@@ -1482,7 +1697,24 @@ Generated: each operation in `ops.json` may carry `"mcp": {"tool": "<name>", "ph
 
 Seven dedicated write tools plus one generic one keeps the tool list short enough for an agent's context while the common edits still get a typed schema.
 
-## 6. Phases (Revised: 6.1)
+### 5.8 Revised 3: operations for the creation flow
+
+| Operation | Input | Effect |
+|---|---|---|
+| `trip.copy` | `from_slug`, `new_slug`, `include` (items, notes) | a new trip with references only; no private data, no booking statuses, no edition |
+| `note.add`, `note.update`, `note.remove` | `scope`, `ref`, `text`, `visibility`, `links`, `attachments` | `notes` rows |
+| `custom_item.add`, `custom_item.update`, `custom_item.propose` | `custom_items` row / `id` | trip-local item; `propose` creates a `catalog.propose` change |
+| `item.pin`, `item.unpin` | `id` | protects hand-placed items on regenerate |
+| `day.optimise` | `day`, `track` | reorders non-pinned items by nearest neighbour; returns the new order as a proposal |
+| `route.set` | `routes` row | stores the request |
+| `route.compute` | `route_id` | Phase 1: estimate or stored geometry; Phase 2: provider call through the Worker; writes `geometry_file` and catalog legs |
+| `route.suggest_breaks` (read) | `route_id`, overrides | ranked break and overnight candidates with detour minutes (0B.5), writes nothing |
+| `route.insert_break` | `route_id`, `candidate` (catalog id, OSM id or coordinates) | inserts the item (and a custom item for OSM or map picks), recomputes legs |
+| `search.near`, `search.along_route` (read) | `lat`, `lon`, `radius_km`, `types` / `route_id`, `corridor_km`, `types` | catalog rows from the spatial index |
+
+MCP gains `suggest_breaks` and `search_along_route` (read, Phase 1) and the write tools via `apply_operation` (Phase 2).
+
+## 6. Phases (Revised: 6.1; Revised 3: 6.2)
 
 Each phase is sized for one Sonnet coding agent, a branch, a PR, verified and merged before the next dependent phase starts (house rules: Opus plans, Sonnet codes; new branch per piece of work; rebase onto main before the PR; push after each verified commit group). All commands use absolute paths because agent shells reset their working directory.
 
@@ -1633,6 +1865,20 @@ Acceptance: same drill paths, labels and pin counts as `legacy/globe/` (parity t
 
 **Deliberately deferred:** accounts and sign-up (D17, D21), public contributions to the catalog (D19), live price APIs beyond weather and FX (D20), bring-your-own-key agent runs (D22), a routing API for legs (D13).
 
+### 6.2 Revised 3: phases for the creation flow and routing
+
+P5 is split so plan pages are not held up by the creation flow.
+
+| Phase | Depends on | Parallel with | Owns | Acceptance (summary) |
+|---|---|---|---|---|
+| **P5a Plan pages, maps, trails** | P3, P4 | P6 | everything P5 owned except the editor: `web/app/[slug]/` (read), `web/components/plan/**`, `web/components/map/**`, `web/public/sw.js`, `tools/trails.py`, `tools/exports.py`, skills listed in P5 | the P5 acceptance list minus the editor item |
+| **P5b Trip creation UI** | P4 (operations, local API), P3 (entity pages) | P5a, P6 | `web/app/new/**`, `web/app/[slug]/edit/**`, `web/components/create/**` (0B.2 components), `web/lib/draft/**` (TripDraft state, undo log, IndexedDB autosave), `web/lib/search/**` (UniversalSearch and the spatial index reader), `tools/views.py index` (spatial and search indexes), the `notes` and `custom_items` operations | the four-answer minimum produces a board with the fallback draft; S6 picks drag onto days; every board action is undoable (100 steps, survives reload); autosave restores after a tab kill; custom items and notes round-trip through the ops CLI to identical files; every guardrail in 0B.7 has a test that shows the message and applies the fix; keyboard-only creation of a 3-day trip passes; axe clean; phone layout test at 390 x 844 |
+| **P7 No-AI builder** (unchanged scope) | P5b, coverage gate | P8 | as 6.1 | as 6.1, plus: "Make me a first draft" in S5-S7 uses the builder and keeps pinned items |
+| **P8 Routing with breaks (Phase 1 part)** | P5b | P7 | `web/lib/routing/**` (breaks.ts, corridor, estimate), `web/components/create/BreakPlanner.tsx`, `web/app/[slug]/edit/route/**`, `tools/route.py` (owner-side ORS or OSRM calls, legs into the catalog), the Overpass client with caching | given the stored Calgary-Banff-Lake Louise-Jasper route, a 2 h break interval yields targets at 2 h and 4 h with ranked candidates and detour minutes; "max 4 h a day" splits a 7 h chain into two days with an overnight suggestion from catalog stays; ferry and pass cautions appear on fixtures; inserting a candidate recomputes legs and day checks; an unrouted A-B shows estimates labelled as such; Overpass is called only on demand and served from cache on the second call; property tests: no suggestion beyond the corridor, ranks are deterministic |
+| **P8b Routing service (Phase 2 part)** | Phase 2A Worker | | `api/src/route.ts` (ORS proxy, GraphHopper fallback, KV cache), legs written to D1 | routed detours for the top 5 candidates; quota counters; cache hit on repeat |
+
+Order after P4: P5a and P5b in parallel (disjoint files), then P7 and P8 in parallel, P6 alongside P5a. P2 must include the `notes`, `custom_items`, `routes` tables and `items.custom_item_id`, `items.pinned` (0B.2 schema table).
+
 ## 7. Skills, agents, hooks and gates (Revised: 7.6)
 
 ### 7.1 Skills (`.claude/skills/`)
@@ -1727,7 +1973,7 @@ When an agent cannot find the booking window it writes `opens_kind: "unknown"` a
 | `trip-fares` | owner-only (actor check); writes route-window snapshots into the catalog |
 | New hook check | a Claude write to `data/catalog/**` validates the entity schema and refuses deletions (deletion is `catalog.retire`, confirmed by the owner, per the house rule on deletions) |
 
-## 8. Risks, gotchas, owner decisions (ranked) (Revised: 8.3)
+## 8. Risks, gotchas, owner decisions (ranked) (Revised: 8.3; Revised 3: 8.4)
 
 ### 8.1 Risks and gotchas
 
@@ -1826,6 +2072,23 @@ Added decisions, and the ranking of all 22 by what they block (numbers kept so e
 | 22 | D22 bring-your-own-key | none |
 
 D8 ranks below the P2 blockers only because its recommendation can be applied by default in P1; if the owner disagrees it must be answered before P1 starts.
+
+### 8.4 Revised 3: routing and creation-flow decisions and risks
+
+| # | Decision | Recommendation | Blocks |
+|---|---|---|---|
+| D23 (replaces D13) | Routing: Phase 1 stored routes and estimates with Google links, Phase 2 an ORS proxy in the Worker with GraphHopper fallback, self-hosting only if usage grows | as stated (0B.5) | P8 (Phase 1 part needs only the owner's ORS key, free) |
+| D24 | Private file attachments: device-only (IndexedDB) for good, or private R2 storage behind Access in Phase 2 | device-only in Phase 1; R2 in Phase 2 if the owner wants tickets on several devices | P5b (no), Phase 2 |
+| D25 | Default daily maximum drive and break interval | 4 h a day, a break every 2 h | P8 |
+
+Ranking update: D23 takes D13's place (rank 19) but moves up to just after D12 for P8; D24 and D25 rank after D10.
+
+| # | Risk | Likelihood / impact | Mitigation |
+|---|---|---|---|
+| R28 | Drag-and-drop boards are hard to make accessible | high / medium | keyboard and "Move to day" paths first, drag second; tests in P5b |
+| R29 | Estimated legs (Phase 1) mislead on mountain roads | high / medium | every estimate labelled; stored routes for researched areas; Google link on every leg |
+| R30 | Overpass load or blocking from users' browsers | low / medium | on-demand only, 30-day cache, one query per 5 s, clear attribution |
+| R31 | ORS free quota exhausted if the site opens to others | low now / medium | KV cache by chain; per-user limits; D17 gate before opening |
 
 ## 9. Capture pipeline: saved social posts and phone share
 
@@ -2093,6 +2356,19 @@ Revision 2 (prices, live data, licences; checked 2026-10-17)
 - Google Flights URL formats (unofficial, vendor blog): https://scrapegraphai.com/blog/google-flights-api ; Google Maps URLs: https://developers.google.com/maps/documentation/urls (not re-checked)
 - `_system/site/GLOBE-RESEARCH.md` for the globe's boundary sources (Natural Earth, geoBoundaries gbOpen)
 
+Revision 3 (trip creation and routing; checked 2026-10-17)
+- Wanderlog store listing: https://apps.apple.com/IN/app/id1476732439
+- Roadtrippers help centre: https://support.roadtrippers.com/hc/en-us/articles/200632079-Planning-a-Trip ; get started: https://roadtrippers.com/get-started/ ; membership: https://roadtrippers.com/membership/
+- Furkot automatic overnight stops: https://help.furkot.com/features/automatic-overnight-stops.html ; trip settings: https://help.furkot.com/features/travel-mode.html
+- TripIt (third-party guide): https://10xtravel.com/tripit-everything-you-need-to-know/
+- Google Maps lists: https://support.google.com/maps/answer/7280933
+- Google Trips shutdown: https://alternativeto.net/news/2019/6/google-s-travel-planning-app-trips-is-shutting-down-on-august-5th-2019 ; trip summaries phased out: https://www.androidpolice.com/google-killing-this-scheduling-tool/
+- Inspirock acquired by Klarna: https://www.emerce.nl/nieuws/klarna-koopt-online-reisplanner-inspirock ; status: https://craft.co/inspirock
+- OSRM demo server policy: https://github.com/Project-OSRM/osrm-backend/wiki/API%20Usage%20Policy ; memory: https://github.com/Project-OSRM/osrm-backend/wiki/Disk-and-Memory-Requirements ; Germany in 16 GB (2018): https://lists.openstreetmap.org/pipermail/osrm-talk/2018-March/001649.html
+- Valhalla (FOSSGIS demo, fair use): https://github.com/Valhalla/valhalla ; rate figure (unverified): https://cran.uni-muenster.de/web/packages/valh/vignettes/install-valhalla.html
+- OpenRouteService plans: https://openrouteservice.org/plans/
+- GraphHopper pricing: https://www.graphhopper.com/pricing/
+
 Repo inputs: `CLAUDE.md`, `AUDIT-2026-10-16.md` 2.1-2.5, `_system/site/PLAN-locations-g5.md`, `_system/site/GLOBE-RESEARCH.md`, `locations/README.md`, `locations/locations.json`, `patagonia-feb-mar-2027/PLAN.md`, `patagonia-feb-mar-2027/research/fares-window-compare.md`, `canadian-rockies-sept-2029/data/*.json`, `globe/index.html`, `_system/base.js`, `publish.sh`, `research/vault-notes/**`, and the fares method memory note (2026-10-14).
 
 ### Change log
@@ -2100,4 +2376,5 @@ Repo inputs: `CLAUDE.md`, `AUDIT-2026-10-16.md` 2.1-2.5, `_system/site/PLAN-loca
 | Date | Change |
 |---|---|
 | 2026-10-17 | First draft: brief plus addenda 1-4 folded in |
+| 2026-10-17 | Revision 3: section 0B (trip creation experience, routing with breaks); 4.12, 5.8, 6.2, 8.4; P5 split into P5a and P5b; P8 added; D23 replaces D13 |
 | 2026-10-17 | Revision 2: section 0A (catalog, flywheel, coverage, multi-user readiness, no-AI builder, prices and live data); revised 1.1, 1.4, 2.8, 4.11, 6.1, 7.6, 8.3; trails path moved to `data/catalog/trails/` |
