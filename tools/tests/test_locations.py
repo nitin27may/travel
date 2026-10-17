@@ -1,4 +1,4 @@
-"""Offline tests for _system/tools/locations.py (schema v2). Run: python3 -m pytest _system/tests -q
+"""Offline tests for tools/locations.py (schema v2). Run: python3 -m pytest tools/tests -q
 Every test points the tool at a tmp root with monkeypatch.setattr(D, "PATHS", D.Paths(tmp_path))."""
 import copy
 import json
@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "tools"))
+sys.path.insert(0, str(HERE.parent))
 import locations as D  # noqa: E402
 import location_views as V  # noqa: E402
 

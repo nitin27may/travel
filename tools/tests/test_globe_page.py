@@ -1,4 +1,4 @@
-"""Static checks on globe/index.html for the saved-places layer (G5, phase C1). Run: python3 -m pytest _system/tests -q"""
+"""Static checks on globe/index.html for the saved-places layer (G5, phase C1). Run: python3 -m pytest tools/tests -q"""
 import re
 import shutil
 import subprocess

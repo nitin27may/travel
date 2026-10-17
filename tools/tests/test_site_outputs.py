@@ -1,10 +1,10 @@
-"""Checks on the generated locations views and what gets published. Run: python3 -m pytest _system/tests -q"""
+"""Checks on the generated locations views and what gets published. Run: python3 -m pytest tools/tests -q"""
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "_system" / "tools"))
+sys.path.insert(0, str(ROOT / "tools"))
 
 import location_views  # noqa: E402
 import locations  # noqa: E402

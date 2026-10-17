@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Build the data and vendored libraries behind globe/index.html.
 
-    python3 _system/tools/globe_data.py base            # G1: country facts, 50m country polygons, vendored MapLibre
-    python3 _system/tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
-    python3 _system/tools/globe_data.py admin2 [ISO3..] # G2: districts for the priority list (geoBoundaries), mapshaper-simplified
-    python3 _system/tools/globe_data.py gazetteer       # G3: search index (countries, admin-1, cities, physical names)
-    python3 _system/tools/globe_data.py places          # G5: saved-place pins (globe/assets/data/places.json), plus the list page and WISHLIST.md
-    python3 _system/tools/globe_data.py all
+    python3 tools/globe_data.py base            # G1: country facts, 50m country polygons, vendored MapLibre
+    python3 tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
+    python3 tools/globe_data.py admin2 [ISO3..] # G2: districts for the priority list (geoBoundaries), mapshaper-simplified
+    python3 tools/globe_data.py gazetteer       # G3: search index (countries, admin-1, cities, physical names)
+    python3 tools/globe_data.py places          # G5: saved-place pins (globe/assets/data/places.json), plus the list page and WISHLIST.md
+    python3 tools/globe_data.py all
 
 Outputs go under globe/assets/ (published). Raw downloads are cached in _system/site/cache/ (gitignored).
 Every output must stay under 20 MB (Cloudflare Pages limit is 25 MB per file). Stdlib only; mapshaper via npx.
@@ -22,7 +22,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "globe" / "assets"
 CACHE = ROOT / "_system" / "site" / "cache"
 UA = {"User-Agent": "nks-travel-globe/0.1 (personal trip planner; nitin27may@gmail.com)"}

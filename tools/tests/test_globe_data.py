@@ -1,4 +1,4 @@
-"""Offline checks on the globe's built data (globe/assets). Run: python3 -m pytest _system/tests -q
+"""Offline checks on the globe's built data (globe/assets). Run: python3 -m pytest tools/tests -q
 These guard the publish: every file the page fetches must exist, parse, and stay under the Pages limit."""
 import json
 import re

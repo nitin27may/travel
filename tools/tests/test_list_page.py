@@ -1,4 +1,4 @@
-"""Checks on the generated list page (locations/index.html) and its template. Run: python3 -m pytest _system/tests -q"""
+"""Checks on the generated list page (locations/index.html) and its template. Run: python3 -m pytest tools/tests -q"""
 import json
 import re
 import shutil
@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "_system" / "tools"))
+sys.path.insert(0, str(ROOT / "tools"))
 import location_views as V  # noqa: E402
 import locations as L  # noqa: E402
 

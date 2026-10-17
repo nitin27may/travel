@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/_system/tools/hooks/locations_changed.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/tools/hooks/locations_changed.sh"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR\"/_system/tools/hooks/prepublish.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/tools/hooks/prepublish.sh"
           }
         ]
       }
