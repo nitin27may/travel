@@ -633,7 +633,7 @@ WINDOW = """
         <h3>~29 July – 12 August 2028 · fjords first</h3>
         <p>Arrives as <i>fellesferie</i> ends on 30 July. Every ridge snow-free, every lift and
         mountain road running, and Lofoten still has <b>no astronomical darkness</b> — civil dusk
-        01:41, civil dawn 04:14 on 12 August. What you lose is the midnight sun itself, which is
+        23:56, civil dawn 02:29 on 12 August. What you lose is the midnight sun itself, which is
         gone from Lofoten by 18 July.</p>
         <p><b>Take this only if</b> someone in the group genuinely cannot sleep in continuous
         daylight, or if a high inland ridge — Besseggen, Trolltunga, Galdhøpiggen — gets added

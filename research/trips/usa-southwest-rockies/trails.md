@@ -323,7 +323,7 @@ Official hiking page: https://www.nps.gov/nabr/planyourvisit/hiking.htm (page la
   - `GAP: Wildcat Trail permit cost, elevation gain, and typical time are not published on the official page.`
   - **What you actually see:** the trail drops off the mesa rim and circles **West Mitten Butte** at ground level — you get the Mittens from below and behind, which is a completely different (and better) perspective than the postcard from the View Hotel terrace. **The payoff is continuous, not at an endpoint.** Sandy underfoot, exposed, no shade, no water.
 - **Park stats:** elevation 5,564 ft; 91,696 acres across Utah and Arizona; GPS N 37.00414 W 110.09889; phone 435-727-5870. Source: https://navajonationparks.org/tribal-parks/monument-valley/
-- **Season note:** at 5,564 ft, late Sept/Oct is ideal — the summer heat that makes the Wildcat Trail miserable is gone. **Sunrise over the Mittens is the shot, and in October sunrise is late enough (~7:30 am) to be civilised, but the park gate opens at 8:00 am — meaning from inside the park you CANNOT shoot sunrise.** Staying at The View Hotel or Goulding's is the only way to have the light before the gate opens. (Gate time sourced above; sunrise timing is an inference.)
+- **Season note:** at 5,564 ft, late Sept/Oct is ideal — the summer heat that makes the Wildcat Trail miserable is gone. **Sunrise over the Mittens is the shot, and in October sunrise is late enough (~7:20 am) to be civilised, but the park gate opens at 8:00 am — meaning from inside the park you CANNOT shoot sunrise.** Staying at The View Hotel or Goulding's is the only way to have the light before the gate opens. (Gate time sourced above; sunrise timing is an inference.)
 
 ---
 
@@ -423,7 +423,7 @@ Sources: table row data from https://www.nps.gov/cany/planyourvisit/hiking.htm ;
 
 **Mesa Arch — 0.6 mi / 1 km, 30 min.**
 - **What you actually see:** a low, wide arch **right on the cliff edge**, framing the Washer Woman spire and the La Sals 500 m below. **The payoff is at the marked end and it is one of the best 15-minute walks in the USA.**
-- **⚠️ Sunrise reality check:** this is the most photographed sunrise in Utah. **Expect 40–80 tripods lined up at the arch in shoulder season.** The glow under the arch lasts ~10 minutes. If you are not there 45 min before sunrise you will be behind three rows of people. **Late Sept/Oct sunrise is late enough (~7:00–7:40 am) that this is achievable without a 4 am alarm** — a genuine advantage of this season.
+- **⚠️ Sunrise reality check:** this is the most photographed sunrise in Utah. **Expect 40–80 tripods lined up at the arch in shoulder season.** The glow under the arch lasts ~10 minutes. If you are not there 45 min before sunrise you will be behind three rows of people. **Late Sept/Oct sunrise is late enough (~7:05–7:25 am) that this is achievable without a 4 am alarm** — a genuine advantage of this season.
 - `GAP: Mesa Arch parking lot capacity and fill time not published by NPS.`
 
 **Grand View Point — 1.8 mi / 2.9 km, 73 ft, easy, 1.5 hrs.**
