@@ -1,6 +1,8 @@
 # 06. Decisions and questions for the owner
 
-**Answered 17 Oct 2026:** Q1 = C (Neon + Better Auth); Q10 = family first, public later; Q12 = live
+**Revised 17 Oct 2026: Q1 = self-hosted Supabase on the home server (Docker on Ubuntu), Supabase
+Auth and Realtime, Next.js in a container, Cloudflare Tunnel; see 08-self-hosted.md.** Earlier the
+same day: Q1 = C (Neon + Better Auth); Q10 = family first, public later; Q12 = live
 co-editing like Wanderlog (built as an op broadcast, 04-stack.md 1.8); Q3/Q4 = Next.js on Vercel
 for year one, with the conditions in 04-stack.md 1.9.
 

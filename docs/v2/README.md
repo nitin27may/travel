@@ -13,6 +13,7 @@ several of its mechanisms were too heavy or too fragile (section "What changed f
 | [04-stack.md](04-stack.md) | Every technology choice with the alternative and why; Neo4j; Neon vs Supabase; cost |
 | [05-roadmap.md](05-roadmap.md) | Milestones with exit criteria, and how today's repo migrates |
 | [06-questions.md](06-questions.md) | Decisions and questions for the owner |
+| [08-self-hosted.md](08-self-hosted.md) | **Current deployment decision:** self-hosted Supabase on the home server, risks, containers, backups, MCP over a tunnel |
 | [07-competitors.md](07-competitors.md) | Wanderlog and TripIt: what to take (plan document, email import), where to beat them |
 
 Inputs read: `docs/BLUEPRINT.md`, `docs/PLAN-platform.md`, the owner's brief of 17 Oct 2026, and the
@@ -63,6 +64,6 @@ API operation and an MCP tool, so a chat client and a person editing by hand are
 | `edition` (real dates for one run of a trip) | Dropped. Templates have day numbers; forking a template creates your own trip with your dates | Editions solved "same trip, different year" for one owner; for users, fork is simpler and already needed for templates |
 | `day` rows with `item` rows | Items carry an optional day number, optional times, optional span and optional parent; days are derived | Real trips have multi-day treks, overnight ferries, an ideas tray, and items whose day is not chosen yet |
 | MCP generated one tool per operation | About 20 grouped tools plus an `apply` tool for batches; resources for schema and taxonomy | Chat clients choose tools worse as the tool count grows past ~20-30; grouped tools with good descriptions work better than 43 thin ones |
-| Supabase for data, auth, storage, queues | Plain Postgres (local Docker, Neon in production) + Better Auth + Cloudflare R2 + Cloudflare Workers cron | Keeps the database host swappable (Neon, Supabase, a VPS) and avoids a $25/month step for features we can get free |
-| Vercel for the app | Vercel Hobby for the Next.js app in year one (personal use); minute-level reminder cron and live trip rooms on Cloudflare Workers | Hobby runs cron once a day and forbids commercial use; reminders need minute timing; the move to Pro or Cloudflare comes with outside users |
+| Supabase Cloud for data, auth, storage, queues | **Self-hosted Supabase** on the owner's Ubuntu box (decided 17 Oct 2026, 08-self-hosted.md); Neon + Better Auth was the earlier answer and stays documented in 04-stack.md | Free, always on, everything in one stack for family use; Supabase Cloud or a VPS remain a dump-and-restore away |
+| Vercel for the app | Next.js in a container beside the database, reached through a Cloudflare Tunnel | server rendering next to the data; no ports opened at home; Vercel stays an option later |
 | ICS calendar feed as the most reliable reminder | ICS is the backstop; Web Push and email are primary for time-critical openings | Google Calendar refreshes subscribed feeds only every several hours, so a feed cannot deliver "opens in 15 minutes" reliably |

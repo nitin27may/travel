@@ -1,6 +1,7 @@
 -- Travel platform v2: first-cut schema (PROPOSAL, 17 Oct 2026). Explained in 01-domain-model.md.
--- Plain Postgres 17 + PostGIS; nothing vendor-specific. Auth tables (user, session, account,
--- oauth_*) are created by Better Auth's migrations and referenced here as app_user.
+-- Postgres + PostGIS on self-hosted Supabase (decided 17 Oct 2026, 08-self-hosted.md). Supabase Auth owns
+-- auth.users; app_user is our profile row keyed by the same uuid (created by a trigger on auth.users).
+-- The stub below lets this file load on plain Postgres for tests; on Supabase auth.users already exists.
 -- Ids are ULIDs stored as text (sortable, safe to mint offline on the client).
 
 create extension if not exists postgis;
@@ -14,27 +15,30 @@ create function unaccent_immutable(text) returns text language sql immutable par
   as $$ select public.unaccent('public.unaccent'::regdictionary, $1) $$;
 
 -- ───────────── people ─────────────
-create table app_user (                      -- shadow of Better Auth "user"
-  id text primary key, email text unique not null, name text, role text not null default 'user'
+create schema if not exists auth;
+create table if not exists auth.users (id uuid primary key);   -- test stub only
+
+create table app_user (                      -- profile for a Supabase Auth user
+  id uuid primary key references auth.users(id) on delete cascade, email text unique not null, name text, role text not null default 'user'
     check (role in ('user','researcher','moderator','admin')),
   home_tz text, created_at timestamptz not null default now());
 
 create table household (
-  id text primary key, owner_id text not null references app_user(id),
+  id text primary key, owner_id uuid not null references app_user(id),
   name text not null,
   home_point geography(Point,4326), home_label text, home_tz text,
   prefs jsonb not null default '{}',         -- radius_min, transport, budget_style, pace, interests[], avoid[], dietary
   created_at timestamptz not null default now());
 
 create table household_member (household_id text references household(id) on delete cascade,
-  user_id text references app_user(id), role text not null check (role in ('owner','adult')),
+  user_id uuid references app_user(id), role text not null check (role in ('owner','adult')),
   primary key (household_id, user_id));
 
 create table person (                        -- private to the household
   id text primary key, household_id text not null references household(id) on delete cascade,
   name text not null, birth_date date, birth_year int, height_cm int, fitness smallint check (fitness between 1 and 5),
   mobility text, dietary text, citizenship text[], passport_expires date,
-  user_id text references app_user(id));
+  user_id uuid references app_user(id));
 
 create table membership (                    -- passes the household holds
   id text primary key, household_id text not null references household(id) on delete cascade,
@@ -71,7 +75,7 @@ create table entity (
   search tsvector generated always as (
     setweight(to_tsvector('simple', unaccent_immutable(name)), 'A') ||
     setweight(to_tsvector('simple', unaccent_immutable(coalesce(summary,''))), 'C')) stored,
-  created_by text references app_user(id), created_at timestamptz not null default now(),
+  created_by uuid references app_user(id), created_at timestamptz not null default now(),
   updated_at timestamptz not null default now());
 create index on entity using gist (point);
 create index on entity using gin (tags);
@@ -107,7 +111,7 @@ create table evidence (
   value jsonb not null, source_id text references source(id), observed_on date not null,
   quote text check (length(quote) <= 300),
   confidence text not null check (confidence in ('official','operator','community','agent_inferred')),
-  author_id text references app_user(id), changeset_id text,
+  author_id uuid references app_user(id), changeset_id text,
   check (num_nonnulls(entity_id, offer_id) = 1));
 create index on evidence (entity_id, field);
 
@@ -119,7 +123,7 @@ create table media (
   width int, height int, licence text not null, author text, attribution text not null,
   source_url text, caption text, role text not null default 'gallery' check (role in ('hero','gallery','map','user')),
   status text not null default 'proposed' check (status in ('proposed','approved','hidden')),
-  phash bigint, created_by text references app_user(id));
+  phash bigint, created_by uuid references app_user(id));
 
 create table leg_cache (
   from_cell text not null, to_cell text not null,  -- geohash precision 7 (~150 m) for points, 6 for user origins
@@ -127,12 +131,12 @@ create table leg_cache (
   seconds int not null, metres int not null, geometry text, provider text not null,
   computed_at timestamptz not null default now(), primary key (from_cell, to_cell, mode));
 
-create table saved_view (id text primary key, owner_id text references app_user(id),  -- null = system persona
+create table saved_view (id text primary key, owner_id uuid references app_user(id),  -- null = system persona
   name text not null, filters jsonb not null, sort smallint);
 
 -- ───────────── plans ─────────────
 create table trip (
-  id text primary key, owner_id text not null references app_user(id),
+  id text primary key, owner_id uuid not null references app_user(id),
   household_id text references household(id),
   title text not null, slug text not null, cover_media_id text,
   scale text not null default 'multi_day' check (scale in ('day_trip','weekend','multi_day')),
@@ -148,7 +152,7 @@ create table trip (
   check (not is_template or start_date is null));
 
 create table trip_member (trip_id text references trip(id) on delete cascade,
-  user_id text references app_user(id), invite_email text,
+  user_id uuid references app_user(id), invite_email text,
   role text not null check (role in ('owner','editor','viewer')),
   unique (trip_id, user_id), unique (trip_id, invite_email));
 
@@ -201,7 +205,7 @@ create table task (
   source text not null default 'manual'
     check (source in ('manual','booking','booking_window','document_rule','pack_template','conditions')),
   source_ref text, user_edited boolean not null default false,
-  owner_user text references app_user(id), traveller_id text references traveller(id),
+  owner_user uuid references app_user(id), traveller_id text references traveller(id),
   status text not null default 'todo' check (status in ('todo','done','skipped','not_needed')),
   link text, cost numeric, notes text, sort_key text not null,
   unique (trip_id, source, source_ref),
@@ -217,7 +221,7 @@ create index on reminder (fire_at) where state = 'scheduled';
 
 create table attachment (id text primary key, trip_id text not null references trip(id) on delete cascade,
   booking_id text references booking(id), task_id text references task(id),
-  r2_key text not null, mime text not null, bytes int not null, uploaded_by text references app_user(id));
+  r2_key text not null, mime text not null, bytes int not null, uploaded_by uuid references app_user(id));
 
 create table budget_line (id text primary key, trip_id text not null references trip(id) on delete cascade,
   category text not null check (category in ('getting_there','local_transport','lodging','food','activities','misc')),
@@ -238,22 +242,22 @@ create table document_rule (id text primary key, citizenship text not null, dest
   rule jsonb not null, source_id text references source(id), observed_on date);
 
 -- notifications
-create table push_subscription (id text primary key, user_id text not null references app_user(id) on delete cascade,
+create table push_subscription (id text primary key, user_id uuid not null references app_user(id) on delete cascade,
   endpoint text unique not null, p256dh text not null, auth text not null, created_at timestamptz not null default now());
-create table notification_pref (user_id text references app_user(id) on delete cascade, trip_id text references trip(id) on delete cascade,
+create table notification_pref (user_id uuid references app_user(id) on delete cascade, trip_id text references trip(id) on delete cascade,
   channels text[] not null default '{push,email}', quiet_hours jsonb, digest text default 'weekly',
   unique (user_id, trip_id));
 create table calendar_feed (trip_id text primary key references trip(id) on delete cascade, token text unique not null);
 
 -- ───────────── research & review ─────────────
 create table research_job (id text primary key, scope jsonb not null, lanes text[] not null,
-  requested_by text references app_user(id), runner text not null, status text not null default 'queued',
+  requested_by uuid references app_user(id), runner text not null, status text not null default 'queued',
   budget_usd numeric, spent_usd numeric default 0, created_at timestamptz not null default now(), finished_at timestamptz);
 
-create table changeset (id text primary key, author_id text references app_user(id), client text not null,
+create table changeset (id text primary key, author_id uuid references app_user(id), client text not null,
   job_id text references research_job(id), purpose text,
   status text not null default 'open' check (status in ('open','submitted','accepted','partial','rejected')),
-  reviewed_by text references app_user(id), created_at timestamptz not null default now(), reviewed_at timestamptz);
+  reviewed_by uuid references app_user(id), created_at timestamptz not null default now(), reviewed_at timestamptz);
 
 create table change (id text primary key, changeset_id text not null references changeset(id) on delete cascade,
   op text not null check (op in ('create','update','retire','merge')),
@@ -267,18 +271,19 @@ create table coverage (area_id text references area(id), kind entity_kind, n int
 
 create table backlog (id text primary key, area_id text references area(id), entity_id text references entity(id),
   lane text, reason text not null, priority numeric not null, status text not null default 'open',
-  requested_by text references app_user(id));
+  requested_by uuid references app_user(id));
 
 -- ───────────── events ─────────────
 create table op_event (id bigserial primary key, at timestamptz not null default now(),
-  actor_id text references app_user(id), client text not null, op text not null,
+  actor_id uuid references app_user(id), client text not null, op text not null,
   trip_id text, entity_id text, client_op_id text, input jsonb, inverse jsonb, result_version int,
   unique (actor_id, client_op_id));            -- idempotent replay of offline ops
 create index on op_event (trip_id, id);
 
 -- ───────────── row-level security (defence in depth; the op layer checks first) ─────────────
--- Every request runs inside a transaction that does: select set_config('app.user_id', $1, true);
--- create function app_uid() returns text language sql stable as $$ select current_setting('app.user_id', true) $$;
+-- On Supabase, auth.uid() reads the caller's JWT; our op layer runs as the caller (never service_role)
+-- so these policies apply to every operation, and to Realtime channel authorization on realtime.messages.
+-- create function app_uid() returns uuid language sql stable as $$ select auth.uid() $$;
 -- alter table trip enable row level security;
 -- create policy trip_read on trip for select using (
 --   visibility <> 'private' or exists (select 1 from trip_member m where m.trip_id = id and m.user_id = app_uid()));
