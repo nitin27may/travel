@@ -14,6 +14,8 @@ import { checkTable, err, isObj } from "./rows.ts";
 import type { Ctx } from "./rows.ts";
 import { validateTrip } from "./trip.ts";
 import { validateVocab } from "./vocab.ts";
+import { checkDays, makeContext } from "../checks/index.ts";
+import type { Row as CheckRow } from "../checks/context.ts";
 
 export type { Issue, Result } from "./codes.ts";
 export { ERROR_CODES, ERROR_CODE_LIST } from "./codes.ts";
@@ -76,6 +78,12 @@ export function validateDoc(doc: unknown, family: Family, root: string, info: Pa
   switch (family) {
     case "trip":
       validateTrip(doc, ctx, info.folder ?? null);
+      // day checks (P2b): warnings follow the errors and never change the exit code
+      if (!ctx.schemaBroken && ctx.errors.length === 0 && isObj(doc)) {
+        for (const w of checkDays(doc as CheckRow, makeContext({ root, trip: doc as CheckRow }))) {
+          ctx.warnings.push({ code: w.code, path: w.path, message: w.accepted ? `${w.message} (accepted on day ${w.day})` : w.message });
+        }
+      }
       break;
     case "catalog":
       if (info.kind === "backlog") {

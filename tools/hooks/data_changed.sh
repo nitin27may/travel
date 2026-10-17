@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # PostToolUse hook: after any Write/Edit/MultiEdit of a trip, catalog or vocabulary file, run the structural
-# validator on it. Exit 2 feeds the problem back to Claude; exit 0 is silent. Location files belong to
+# validator on it. Exit 2 feeds the problem back to Claude; exit 0 is silent except for a one-line summary of
+# day-check warnings (count per W_ code), which never block. Location files belong to
 # locations_changed.sh. Catalog rows are never deleted by an edit (that is catalog.retire).
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -41,4 +42,9 @@ case "$path" in
     fi
     ;;
 esac
+# day-check warnings never block; show how many of each code the file has
+summary="$(printf '%s\n' "$out" | awk '$1=="WARN"{print $2}' | sort | uniq -c | awk '{printf "%s%s %s", (NR>1?", ":""), $2, $1; n+=$1} END{if(n) printf " (%d total)", n}')"
+if [[ -n "$summary" ]]; then
+  echo "day checks (warnings, never blocking): $summary"
+fi
 exit 0
