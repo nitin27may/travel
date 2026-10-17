@@ -1,0 +1,74 @@
+/* Site landing pages (locations list, globe). Same palette as the hub: deep green surfaces, amber accent, teal secondary. */
+:root{
+  --bg:#0f1b15; --surface:#16261e; --surface-2:#1d3529; --line:#2f4a3b; --line-2:#3d5b4b;
+  --ink:#e6ece8; --ink-2:#cfd8d2; --muted:#a9b8ae; --muted-2:#6f8579;
+  --accent:#d69329; --accent-ink:#2a1e05; --teal:#0e6b6e; --teal-2:#2a9a9e; --warn:#c4553d;
+  --font-display:"Big Shoulders Display",sans-serif; --font-body:"Source Serif 4",Georgia,serif; --font-mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{display:flex;align-items:center;gap:18px;padding:14px 24px;border-bottom:1px solid var(--line);background:var(--surface)}
+.topbar .brand{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:1.25rem;color:var(--ink)}
+.topbar nav{display:flex;gap:14px;font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+.topbar nav a{color:var(--muted)}
+.topbar nav a.on{color:var(--accent)}
+.topbar .spacer{flex:1}
+.topbar .built{font-family:var(--font-mono);font-size:.68rem;color:var(--muted-2)}
+.eyebrow{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:.03em;font-size:2.6rem;line-height:1;color:var(--ink)}
+h2{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:1.5rem;line-height:1.05}
+h3{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:1.15rem}
+.mono{font-family:var(--font-mono)}
+.badge{display:inline-block;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);background:rgba(20,37,29,.85)}
+.badge.kind{border-color:var(--teal);color:#bfe6e7}
+.badge.status-planned,.badge.status-visited{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.badge.status-shortlisted{background:var(--teal);color:#fff;border-color:var(--teal)}
+.badge.status-dropped{opacity:.5}
+.badge.unverified{border-style:dashed;color:var(--muted)}
+button,.btn{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;border-radius:6px;border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink-2);cursor:pointer}
+button:hover,.btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+input[type=search],select{font-family:var(--font-body);font-size:.95rem;padding:9px 11px;border-radius:6px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);width:100%}
+input[type=search]:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;padding:5px 10px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);background:var(--surface);cursor:pointer;user-select:none}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.chip .n{opacity:.7}
+.chip.on .n{opacity:.85}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card:hover{border-color:var(--line-2)}
+.card h4{font-family:var(--font-body);font-weight:600;font-size:1.05rem;color:var(--ink)}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.card .note{color:var(--muted);font-size:.92rem;margin-top:6px}
+.card .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase}
+.card .id{font-family:var(--font-mono);font-size:.62rem;color:var(--muted-2);margin-top:8px;word-break:break-all}
+.empty{color:var(--muted);padding:30px;text-align:center;border:1px dashed var(--line-2);border-radius:10px}
+.sr{position:absolute;left:-9999px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* list page additions */
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:6px;overflow:hidden}
+.seg button{border:0;border-radius:0;background:var(--surface);padding:7px 12px}
+.seg button+button{border-left:1px solid var(--line-2)}
+.seg button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+button[aria-pressed=true]:not(.chip){border-color:var(--accent)}
+.chip[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.chip.from{background:var(--teal);border-color:var(--teal-2);color:#fff}
+.chip.from .x{opacity:.8}
+.chip:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.card.focus,tr.focus td{border-color:var(--accent);box-shadow:0 0 0 2px rgba(214,147,41,.45)}
+tr.focus td{background:rgba(214,147,41,.12);box-shadow:none}
+.thumb{display:block;width:100%;height:130px;object-fit:cover;border-radius:6px;margin-bottom:10px;background:var(--surface-2)}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th{text-align:left;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);padding:6px 10px;border-bottom:1px solid var(--line-2);font-weight:450}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr.grp td{padding:22px 10px 6px;border-bottom:1px solid var(--line-2)}
+.tbl .lk{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase}
+.tblwrap{overflow-x:auto}
+.stoplist{margin:8px 0 0 20px;color:var(--ink-2)}
+.stoplist li{margin:4px 0}
+.stoplist button{text-transform:none;letter-spacing:0;font-family:var(--font-body);font-size:.95rem;padding:2px 8px;background:transparent;border-color:transparent;color:var(--accent);text-align:left}
+.stoplist button:hover{border-color:var(--accent)}
+.stoplist .off{color:var(--muted-2)}
