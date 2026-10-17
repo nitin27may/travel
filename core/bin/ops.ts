@@ -5,6 +5,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isCatalogOp, runAnyCatalogOp } from "../src/catalog/dispatch.ts";
 import { CATALOGUE } from "../src/ops/catalogue.ts";
 import { PythonPlaceBackend } from "../src/ops/placeBackend.ts";
 import { runOp } from "../src/ops/run.ts";
@@ -58,7 +59,8 @@ async function main(argv: string[]): Promise<number> {
     process.stderr.write(`The input is not valid JSON: ${(e as Error).message}\n`);
     return 2;
   }
-  const result = await runOp(new FileStore(root), name, input, { backend: new PythonPlaceBackend(root) });
+  const store = new FileStore(root);
+  const result = isCatalogOp(name) ? await runAnyCatalogOp(store, name, input) : await runOp(store, name, input, { backend: new PythonPlaceBackend(root) });
   if (json) process.stdout.write(JSON.stringify(result) + "\n");
   else if (!result.ok) process.stdout.write(`FAILED ${result.code}: ${result.message}\n`);
   else if ("result" in result) process.stdout.write(JSON.stringify(result.result, null, 2) + "\n");

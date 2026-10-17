@@ -15,6 +15,10 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR\"/tools/hooks/schema_changed.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/tools/hooks/research_changed.sh"
           }
         ]
       }
