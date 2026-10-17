@@ -7,8 +7,9 @@ Sizes are relative (S, M, L) because the pace depends on how many agent sessions
 
 ```
 apps/
-  app/              React Router 7 app + Hono API + MCP, one Cloudflare Worker (web, /api, /mcp)
-  cron/             Cron Worker: reminders, staleness, digests
+  web/              Next.js 16 app on Vercel; Hono API + MCP mounted at /api and /mcp (grows out of today's web/)
+  cron/             Cloudflare Worker: reminders (KV next_fire_at), staleness, digests
+  rooms/            Cloudflare Worker + Durable Object per trip: live op broadcast and presence
 packages/
   domain/           ops registry, Zod schemas, checks, planner, sun, book-by, tasks (grows out of core/)
   db/               Drizzle schema + migrations (from docs/v2/schema.sql), seed, test helpers
@@ -54,9 +55,10 @@ went through review; search "lakes under 8 km, kids 9+" returns the right things
 - Day checks with one-tap fixes; the deterministic "Draft my days" preview.
 - Universal **+**: catalog search, custom item, pasted link, dropped pin.
 - Day-trip flow from home with drive-time ranking (ORS + `leg_cache`).
-- Read-only share link; invite an editor.
+- Read-only share link; invite an editor; **live co-editing**: trip room (Durable Object) broadcasting ops, presence avatars on items, gap recovery by version.
 
-**Exit:** the owner rebuilds the **Canadian Rockies 2029** trip in the app (14 nights, 3 tracks per
+**Exit:** two phones open the same trip; a move on one shows on the other in under a second, and
+the owner rebuilds the **Canadian Rockies 2029** trip in the app (14 nights, 3 tracks per
 day) faster than editing the legacy page, and the result's day checks match what PLAN.md says.
 
 ### M3. Book, tasks and reminders (M)
@@ -109,8 +111,8 @@ Valhalla if ORS quotas bite.
 | `legacy/canadian-rockies-sept-2029/data/*.json` | a real trip + catalog rows | importer in M1, rebuilt and checked in M2 |
 | Other legacy pages (hand-written HTML) | stay live on Cloudflare Pages at their URLs | rebuilt as trips only when the trip is next revised; no bulk conversion |
 | `research/` Markdown | stays in git as research history | key facts enter as evidence when a trip is rebuilt |
-| `web/` (Next.js list views) | components ported into `apps/app` | if the owner keeps Next.js (Q4), `web/` becomes `apps/app` instead |
-| `publish.sh`, `tools/publish.py` | legacy only | the new app deploys with `wrangler deploy` from CI |
+| `web/` (Next.js list views) | becomes `apps/web` | owner chose Next.js: the app, its components and Playwright tests carry over; static export is dropped for server rendering on Vercel |
+| `publish.sh`, `tools/publish.py` | legacy only | the new app deploys to Vercel from git; the two Workers with `wrangler deploy` from CI |
 | `docs/PLAN-platform.md` phases P4b, P4c, P5+ | **paused** where they write to the file store | P4c (bulk import into JSON files) would be wasted work; its importers are rewritten against Postgres in M1 |
 
 ## 4. What stays manual for the owner during the move
