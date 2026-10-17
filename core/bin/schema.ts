@@ -9,7 +9,7 @@ import { generate } from "../src/schema/generate.ts";
 const USAGE = `Usage: node core/bin/schema.ts <command> [options]
 
 Commands:
-  generate           write data/schema/generated/schema.json and schema.sql from core/src/schema
+  generate           write data/schema/generated/schema.json, schema.sql and ops.json from core/src/schema and the operation catalogue
   generate --check   regenerate in memory; exit 1 with a diff if the committed files differ
 
 Options:
@@ -62,7 +62,7 @@ function main(argv: string[]): number {
   }
   mkdirSync(outDir, { recursive: true });
   for (const f of files) writeFileSync(join(outDir, f.file), f.text);
-  process.stdout.write(`wrote ${files.map((f) => join(outDir, f.file)).join(" and ")}\n`);
+  process.stdout.write(`wrote ${files.map((f) => join(outDir, f.file)).join(", ")}\n`);
   return 0;
 }
 
