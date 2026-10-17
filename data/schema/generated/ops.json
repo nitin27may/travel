@@ -16117,6 +16117,175 @@
       }
     },
     {
+      "name": "trip.restore",
+      "summary": "Restore files of a trip to exact earlier bytes; the inverse that every write returns (undo). Appends no changelog row.",
+      "kind": "write",
+      "phase": 1,
+      "tables": [
+        "trip.*"
+      ],
+      "input": {
+        "type": "object",
+        "properties": {
+          "actor": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "description": "\"u_owner\" or \"agent:<lane>\""
+              },
+              "via": {
+                "type": "string",
+                "pattern": "^(ui|cli|mcp|api|import|skill:[a-z0-9-]+)$",
+                "description": "\"ui\", \"cli\", \"mcp\", \"api\", \"import\" or \"skill:<name>\""
+              }
+            },
+            "required": [
+              "id",
+              "via"
+            ],
+            "additionalProperties": false
+          },
+          "client_op_id": {
+            "description": "repeat the same value to retry a write safely",
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_rev": {
+            "description": "the rev (D1) or file hash (git) the caller last saw; a mismatch returns E_STALE",
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "trip slug"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "format": "starts_with",
+                  "pattern": "^data\\/trips\\/.*"
+                },
+                "content": {
+                  "description": "the exact earlier text, or null to delete the file",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "path",
+                "content"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "places": {
+            "description": "places to put back through the place backend",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "idea",
+                    "shortlisted",
+                    "planned",
+                    "visited",
+                    "dropped"
+                  ]
+                },
+                "trip": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "status",
+                "trip"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "actor",
+          "slug",
+          "files"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "changed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "where": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "where"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "changelog_seq": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ok",
+          "changed",
+          "warnings",
+          "changelog_seq"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
       "name": "trip.update",
       "summary": "Patch the trip, profile or travellers of a trip.",
       "kind": "write",
