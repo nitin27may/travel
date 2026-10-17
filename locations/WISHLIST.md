@@ -2,7 +2,7 @@
 
 Generated from `locations/locations.json` on 2026-10-17. Do not edit by hand; add with `python3 _system/tools/locations.py add ...` or the `location` skill.
 
-63 places in 6 countries, 4 collections. By status: idea 55, planned 8.
+64 places in 7 countries, 4 collections. By status: idea 56, planned 8.
 
 Legend: kind · season · status · stats from the source post are unverified until a research lane confirms them.
 
@@ -104,6 +104,15 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Mont du Dôme** · trail · Sep,Oct · idea · kids: strong-kid · km 9.5 · gain_m 543 · hours 3.5-4 · level intermediate-advanced (unverified) · [map](https://maps.google.com/?q=47.7,-70.63333) [wd](https://www.wikidata.org/wiki/Q62523385) · #fall-colours #hiking #three-summits #views
   - Loop over three summits (Mont du Dome, Mont Orignal, Mont Saint-Michel) with panoramic views; Saint-Michel is reportedly the quietest. Mont du Dome alone: 5.8 km, 358 m, about 3 h (first post). Roadside parking, easy to find; dogs on leash. Video dated 30 Sep 2025.
   - <sub>CA/QC/zec-des-martres/mont-du-dome</sub>
+## China
+
+### Guangdong
+
+#### Qingyuan
+
+- **QQ Canyon Racer mountain coaster, Gulong Gorge** · activity · season ? · idea · km_descent 3.68 · turns 28 · hairpins 9 (unverified) · [map](https://maps.google.com/?q=23.7826,112.9531) · #adventure #alpine-coaster #family #kart #mountain-coaster
+  - Licensed QQ Speed (Chinese kart game) themed mountain coaster: a 3.68 km descent through the mountain and forest of Gulong Gorge (古龙峡), Qingxin District, Qingyuan, with 28 turns and 9 hairpins. From a French Instagram post; figures unverified. Coordinates from OpenStreetMap (the gorge scenic area). Check minimum age and height and the operating season before planning.
+  - <sub>CN/GD/qingyuan/qq-canyon-racer</sub>
 ## France
 
 ### Provence-Alpes-Côte d'Azur

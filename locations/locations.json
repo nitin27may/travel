@@ -4,6 +4,7 @@
 "layout": "single",
 "countries": [
 {"code":"CA","a3":"CAN","name":"Canada"},
+{"code":"CN","a3":"CHN","name":"China"},
 {"code":"FR","a3":"FRA","name":"France"},
 {"code":"IN","a3":"IND","name":"India"},
 {"code":"IT","a3":"ITA","name":"Italy"},
@@ -13,6 +14,7 @@
 "regions": [
 {"id":"CA/AB","country":"CA","code":"AB","name":"Alberta","iso_3166_2":"CA-AB"},
 {"id":"CA/QC","country":"CA","code":"QC","name":"Quebec","iso_3166_2":"CA-QC"},
+{"id":"CN/GD","country":"CN","code":"GD","name":"Guangdong","iso_3166_2":"CN-GD"},
 {"id":"FR/ile-de-france","country":"FR","code":"ile-de-france","name":"Île-de-France","iso_3166_2":null},
 {"id":"FR/provence-alpes-cote-d-azur","country":"FR","code":"provence-alpes-cote-d-azur","name":"Provence-Alpes-Côte d'Azur","iso_3166_2":null},
 {"id":"IN/sikkim","country":"IN","code":"sikkim","name":"Sikkim","iso_3166_2":null},
@@ -49,6 +51,7 @@
 {"id":"CA/QC/perce","region_id":"CA/QC","slug":"perce","name":"Percé"},
 {"id":"CA/QC/saint-narcisse-de-rimouski","region_id":"CA/QC","slug":"saint-narcisse-de-rimouski","name":"Saint-Narcisse-de-Rimouski"},
 {"id":"CA/QC/zec-des-martres","region_id":"CA/QC","slug":"zec-des-martres","name":"Zec des Martres"},
+{"id":"CN/GD/qingyuan","region_id":"CN/GD","slug":"qingyuan","name":"Qingyuan"},
 {"id":"FR/ile-de-france/grand-paris","region_id":"FR/ile-de-france","slug":"grand-paris","name":"Grand Paris"},
 {"id":"FR/provence-alpes-cote-d-azur/alpes-de-haute-provence","region_id":"FR/provence-alpes-cote-d-azur","slug":"alpes-de-haute-provence","name":"Alpes-de-Haute-Provence"},
 {"id":"IN/sikkim/mangan-district","region_id":"IN/sikkim","slug":"mangan-district","name":"Mangan district"},
@@ -111,6 +114,7 @@
 {"id":"CA/QC/perce/perce-rock","area_id":"CA/QC/perce","name":"Percé Rock","resolved_name":"Perce Rock","kind":"island","status":"idea","trip":null,"lat":48.52389,"lon":-64.19944,"elevation_m":88,"location_status":"resolved","resolver":"wikidata","wikidata":"Q2466817","image":"https://commons.wikimedia.org/wiki/Special:FilePath/Rocher%20perce%20gaspesie.jpg","season_months":[],"kid_fit":"unknown","stats":{},"stats_verified":false,"notes":"Gaspesie road trip stop 12.","added":"2026-10-16"},
 {"id":"CA/QC/saint-narcisse-de-rimouski/canyon-des-portes-de-l-enfer","area_id":"CA/QC/saint-narcisse-de-rimouski","name":"Canyon des Portes de l'Enfer","resolved_name":"Canyon des Portes de l'Enfer","kind":"canyon","status":"idea","trip":null,"lat":48.26111,"lon":-68.53889,"elevation_m":null,"location_status":"resolved","resolver":"wikidata","wikidata":"Q18610901","image":"https://commons.wikimedia.org/wiki/Special:FilePath/Portes%20de%20l%27Enfer.jpg","season_months":[],"kid_fit":"unknown","stats":{},"stats_verified":false,"notes":"Gaspesie road trip stop 3.","added":"2026-10-16"},
 {"id":"CA/QC/zec-des-martres/mont-du-dome","area_id":"CA/QC/zec-des-martres","name":"Mont du Dôme","resolved_name":"mont du Dôme","kind":"trail","status":"idea","trip":null,"lat":47.7,"lon":-70.63333,"elevation_m":975,"location_status":"resolved","resolver":"wikidata","wikidata":"Q62523385","image":"https://commons.wikimedia.org/wiki/Special:FilePath/Mont-du-D%C3%B4me.jpg","season_months":[9,10],"kid_fit":"strong-kid","stats":{"km":9.5,"gain_m":543,"hours":"3.5-4","level":"intermediate-advanced"},"stats_verified":false,"notes":"Loop over three summits (Mont du Dome, Mont Orignal, Mont Saint-Michel) with panoramic views; Saint-Michel is reportedly the quietest. Mont du Dome alone: 5.8 km, 358 m, about 3 h (first post). Roadside parking, easy to find; dogs on leash. Video dated 30 Sep 2025.","added":"2026-10-16"},
+{"id":"CN/GD/qingyuan/qq-canyon-racer","area_id":"CN/GD/qingyuan","name":"QQ Canyon Racer mountain coaster, Gulong Gorge","resolved_name":"Gulong Gorge","kind":"activity","status":"idea","trip":null,"lat":23.7826,"lon":112.9531,"elevation_m":null,"location_status":"resolved","resolver":"manual","wikidata":null,"image":null,"season_months":[],"kid_fit":"unknown","stats":{"km_descent":3.68,"turns":28,"hairpins":9},"stats_verified":false,"notes":"Licensed QQ Speed (Chinese kart game) themed mountain coaster: a 3.68 km descent through the mountain and forest of Gulong Gorge (古龙峡), Qingxin District, Qingyuan, with 28 turns and 9 hairpins. From a French Instagram post; figures unverified. Coordinates from OpenStreetMap (the gorge scenic area). Check minimum age and height and the operating season before planning.","added":"2026-10-17"},
 {"id":"FR/ile-de-france/grand-paris/paris","area_id":"FR/ile-de-france/grand-paris","name":"Paris","resolved_name":"Paris","kind":"city","status":"idea","trip":null,"lat":48.85667,"lon":2.35222,"elevation_m":28,"location_status":"resolved","resolver":"wikidata","wikidata":"Q90","image":"https://commons.wikimedia.org/wiki/Special:FilePath/La%20Tour%20Eiffel%20vue%20de%20la%20Tour%20Saint-Jacques%2C%20Paris%20ao%C3%BBt%202014%20%282%29.jpg","season_months":[4,5,9,10],"kid_fit":"unknown","stats":{},"stats_verified":false,"notes":"Book the Eiffel Tower and Louvre online. Marais, Montmartre, Latin Quarter. 4-5 days.","added":"2026-10-16"},
 {"id":"FR/provence-alpes-cote-d-azur/alpes-de-haute-provence/provence","area_id":"FR/provence-alpes-cote-d-azur/alpes-de-haute-provence","name":"Provence","resolved_name":"Provence","kind":"region","status":"idea","trip":null,"lat":44,"lon":6,"elevation_m":null,"location_status":"resolved","resolver":"wikidata","wikidata":"Q101081","image":"https://commons.wikimedia.org/wiki/Special:FilePath/Lavender%20field%20and%20Mont%20Ventoux.jpg","season_months":[6,7],"kid_fit":"unknown","stats":{},"stats_verified":false,"notes":"Peak lavender mid June to mid July. Gordes, Roussillon, Senanque Abbey. 4-5 days.","added":"2026-10-16"},
 {"id":"IN/sikkim/mangan-district/gurudongmar-lake","area_id":"IN/sikkim/mangan-district","name":"Gurudongmar Lake","resolved_name":"Gurudongmar Lake","kind":"lake","status":"idea","trip":null,"lat":28.02,"lon":88.71,"elevation_m":5148,"location_status":"resolved","resolver":"wikidata","wikidata":"Q2264090","image":"https://commons.wikimedia.org/wiki/Special:FilePath/Dongmar%20lake.jpg","season_months":[],"kid_fit":"unknown","stats":{},"stats_verified":false,"notes":"Loose line in Location.md, no details. High-altitude lake in North Sikkim; permits and altitude (about 5,400 m) to check (from memory).","added":"2026-10-16"},
@@ -218,6 +222,11 @@
 {"place_id":"CA/QC/zec-des-martres/mont-du-dome","tag_id":"hiking"},
 {"place_id":"CA/QC/zec-des-martres/mont-du-dome","tag_id":"three-summits"},
 {"place_id":"CA/QC/zec-des-martres/mont-du-dome","tag_id":"views"},
+{"place_id":"CN/GD/qingyuan/qq-canyon-racer","tag_id":"adventure"},
+{"place_id":"CN/GD/qingyuan/qq-canyon-racer","tag_id":"alpine-coaster"},
+{"place_id":"CN/GD/qingyuan/qq-canyon-racer","tag_id":"family"},
+{"place_id":"CN/GD/qingyuan/qq-canyon-racer","tag_id":"kart"},
+{"place_id":"CN/GD/qingyuan/qq-canyon-racer","tag_id":"mountain-coaster"},
 {"place_id":"FR/ile-de-france/grand-paris/paris","tag_id":"art"},
 {"place_id":"FR/ile-de-france/grand-paris/paris","tag_id":"food"},
 {"place_id":"FR/provence-alpes-cote-d-azur/alpes-de-haute-provence/provence","tag_id":"dream-trip"},
@@ -327,6 +336,7 @@
 ],
 "tags": [
 {"id":"adventure","label":"Adventure","alias_of":null},
+{"id":"alpine-coaster","label":"Alpine coaster","alias_of":null},
 {"id":"arches","label":"Arches","alias_of":null},
 {"id":"art","label":"Art","alias_of":null},
 {"id":"badlands","label":"Badlands","alias_of":null},
@@ -360,6 +370,7 @@
 {"id":"hoodoos","label":"Hoodoos","alias_of":null},
 {"id":"hot-springs","label":"Hot springs","alias_of":null},
 {"id":"iconic","label":"Iconic","alias_of":null},
+{"id":"kart","label":"Kart","alias_of":null},
 {"id":"kayaking","label":"Kayaking","alias_of":null},
 {"id":"lake","label":"Lake","alias_of":null},
 {"id":"lakes","label":"Lakes","alias_of":"lake"},
@@ -368,6 +379,7 @@
 {"id":"lighthouse","label":"Lighthouse","alias_of":null},
 {"id":"lighthouses","label":"Lighthouses","alias_of":"lighthouse"},
 {"id":"mountain","label":"Mountain","alias_of":null},
+{"id":"mountain-coaster","label":"Mountain coaster","alias_of":null},
 {"id":"mountain-pass","label":"Mountain pass","alias_of":null},
 {"id":"mountains","label":"Mountains","alias_of":"mountain"},
 {"id":"national-park","label":"National park","alias_of":null},
@@ -428,7 +440,8 @@
 {"id":"src-00021","place_id":null,"collection_id":"quebec-fall-hikes-5","type":"instagram","url":null,"note":null,"screenshot":null,"post_date":null,"saved":"2026-10-16"},
 {"id":"src-00022","place_id":null,"collection_id":"quebec-gaspesie-road-trip","type":"instagram","url":null,"note":null,"screenshot":null,"post_date":null,"saved":"2026-10-16"},
 {"id":"src-00023","place_id":null,"collection_id":"us-az-ut-co-wy-road-trip","type":"instagram","url":null,"note":null,"screenshot":null,"post_date":null,"saved":"2026-10-16"},
-{"id":"src-00024","place_id":null,"collection_id":"vietnam-north-loop","type":"instagram","url":null,"note":null,"screenshot":null,"post_date":null,"saved":"2026-10-16"}
+{"id":"src-00024","place_id":null,"collection_id":"vietnam-north-loop","type":"instagram","url":null,"note":null,"screenshot":null,"post_date":null,"saved":"2026-10-16"},
+{"id":"src-00025","place_id":"CN/GD/qingyuan/qq-canyon-racer","collection_id":null,"type":"instagram","url":null,"note":"saved post in French, 17 Oct 2026: QQ Canyon Racer / Mountain Coaster, Gulong Gorge, China","screenshot":"locations/inbox/2026-10-17-gulong-gorge-qq-canyon-racer.png","post_date":"2026-10-17","saved":"2026-10-17"}
 ],
 "visits": [],
 "collections": [
