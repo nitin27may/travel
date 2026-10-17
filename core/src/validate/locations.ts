@@ -4,6 +4,7 @@ import { checkTable, err, isObj } from "./rows.ts";
 import type { Ctx, Row } from "./rows.ts";
 import type { Table } from "../schema/meta.ts";
 
+const INBOX = "research/inbox/";
 const SCALARS = ["schema_version", "updated", "layout", "parts"];
 
 export function validateLocations(doc: unknown, ctx: Ctx): void {
@@ -43,6 +44,18 @@ export function validateLocations(doc: unknown, ctx: Ctx): void {
   for (const r of seen.find((s) => s.table.name === "sources")?.rows ?? []) {
     if ((r.place_id === null) === (r.collection_id === null)) {
       err(ctx, "E_SCHEMA", `/sources`, `source "${r.id}" must have exactly one owner: set place_id or collection_id, not both and not neither.`);
+    }
+  }
+  // the two place rules the Python tool also enforces (P2b parity test): lat and lon travel together, and a
+  // screenshot is a capture kept under research/inbox/
+  for (const [i, r] of (seen.find((s) => s.table.name === "places")?.rows ?? []).entries()) {
+    if ((r.lat === null) !== (r.lon === null)) {
+      err(ctx, "E_SCHEMA", `/places/${i}`, `place "${r.id}" has ${r.lat === null ? "lon but no lat" : "lat but no lon"}; set both or neither. Example: lat 43.0896, lon -79.0849.`);
+    }
+  }
+  for (const [i, r] of (seen.find((s) => s.table.name === "sources")?.rows ?? []).entries()) {
+    if (typeof r.screenshot === "string" && !r.screenshot.startsWith(INBOX)) {
+      err(ctx, "E_SCHEMA", `/sources/${i}/screenshot`, `screenshot "${r.screenshot}" must be a path under ${INBOX}. Example: "${INBOX}2026-10-17-gulong-gorge.png".`);
     }
   }
   const stops = new Map<string, number[]>();
