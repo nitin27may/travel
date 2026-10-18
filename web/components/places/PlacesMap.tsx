@@ -19,7 +19,7 @@ export function PlacesMap({ rows }: { rows: PlaceListRow[]; state: ListState }) 
   const byId = useMemo(() => new Map(located.map((r) => [r.id, r])), [located]);
   const [selected, setSelected] = useState<string | null>(null);
   const [zoom, setZoom] = useState(2);
-  const initial = useRef(typeof window === 'undefined' ? null : parseCamera(new URLSearchParams(window.location.search).get('c')));
+  const [initial] = useState(() => (typeof window === 'undefined' ? null : parseCamera(new URLSearchParams(window.location.search).get('c'))));
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const points = useMemo(
@@ -28,8 +28,8 @@ export function PlacesMap({ rows }: { rows: PlaceListRow[]; state: ListState }) 
   );
   const { pins, members } = useMemo(() => clusterPins(points, Math.round(zoom * 2) / 2, selected), [points, zoom, selected]);
   const spec: MapSpec = useMemo(
-    () => ({ pins, lines: [], selectedId: selected ?? undefined, fit: 'all', camera: initial.current ?? undefined, style: 'auto' }),
-    [pins, selected],
+    () => ({ pins, lines: [], selectedId: selected ?? undefined, fit: 'all', camera: initial ?? undefined, style: 'auto' }),
+    [pins, selected, initial],
   );
 
   // a changed filter refits the camera (not on first paint, where the initial camera or `?c=` rules)
