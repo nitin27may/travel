@@ -596,7 +596,7 @@ How the profile uses it:
 |---|---|
 | `minAge`, `maxAge`, the height and weight limits with `rule: 'hard'` | `W_FIT`, and the variant does not "fit" (3.3). Height and weight are checked only once traveller details exist (copy sheet or planner); the public page shows "Limits: 120 cm, 25 kg" as a chip |
 | `rule: 'advice'` | a warning chip without excluding the variant |
-| `familyEffort` | replaces the km and gain ceiling when present. The default maximum by youngest age is: 0-3 carried, 2; 4-5, 2; 6-7, 3; 8-9, 3; 10-12, 4; 13+, 5. Relaxed pace takes one level less. The suitability spec may tune this table, and this page follows it |
+| `familyEffort` | applies **together with** the km and gain ceiling, not instead of it (amended 18 Oct by research/suitability.md 6.1: a flat 14 km and a short exposed ledge are different problems). The default maximum by youngest age is: 0-3 carried, 2; 4-5, 2; 6-7, 3; 8-9, 3; 10-12, 4; 13-15, 4; 16+, 5. Grade 5 below 16 is advice only. Relaxed pace takes one level less. The suitability spec owns this table |
 | `stroller`, `carrierOk` | under 4: a trail with `stroller: 'no'` and `carrierOk: false` does not fit |
 | `wheelchair` | not a profile input in v1; shown as a chip. Open for later as an "access needs" control |
 | `childTime` | wins over the 2.4 multiplier for the matching age band |
