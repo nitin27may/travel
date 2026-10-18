@@ -21,7 +21,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
       <div className="trip-cover">
         {trip.cover ? (
           // eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs
-          <img className="trip-cover-img" src={sizedImage(trip.cover.url, 1600)} alt="" fetchPriority="high" decoding="async" />
+          <img className="trip-cover-img" src={sizedImage(trip.cover.url, 1600)} alt="" width={1600} height={900} fetchPriority="high" decoding="async" />
         ) : (
           <div className="trip-cover-fallback" aria-hidden="true">
             <Icon name="mountain" size={48} />

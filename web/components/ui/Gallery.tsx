@@ -33,7 +33,7 @@ export function Gallery({ photos, className }: { photos: GalleryPhoto[]; classNa
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs */}
-              <img src={sizedImage(p.url, 560)} alt="" loading="lazy" decoding="async" />
+              <img src={sizedImage(p.url, 560)} alt="" width={560} height={350} loading="lazy" decoding="async" />
               <span className="gal-credit">{creditLine(p)}</span>
             </button>
           </li>
