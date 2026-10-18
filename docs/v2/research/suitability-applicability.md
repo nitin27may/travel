@@ -38,7 +38,7 @@ It does not cover **relevance**: whether a place is worth the journey, its draw 
 | **A** | in the same pass when a source on the lane's list has it. No extra search is needed, but a `searched_none` is welcome. | at its slot when known. When missing, all missing A fields of a section collapse into one line: "Not checked yet: toilets, signal". | a Complete check |
 | **N** | never | never, not even as "not stated" | not counted. A present N field gives `W_SUIT_NA_FIELD`. |
 
-- **Answered** means a `value`, `none_stated` or `searched_none` (with `on` and `tried`). A `gap` is not answered.
+- **Answered** means a `value`, `no_limit`, `none_stated` or `searched_none` (with `on` and `tried`). A `gap` is not answered. Soft answers (`none_stated`, `searched_none`) still count as answered but can cap the level at `usable_partial` (suitability.md 4.1).
 - **Offers.** An offer is checked against its parent's profile. An offer's own fields win, and the rest fall back to the record (data/suitability/README.md). An R field is answered when the offer or the record answers it.
 - **The `operated` layer (A3).** When `operated: true`, the cells marked `op` in the matrix become R and the other participation cells become A. When it is `false`, they become N. The profiles that are always operated (zip line, bungee, rafting, and so on) have `operated` fixed true in the table.
 - **Profiles that split a record.** A lake with a canoe rental is two records: `lake` (shore) and `canoe_kayak` (the rental, related by `combo_with`). A waterfall reached by a 4 km trail keeps `walk_m` and `exposure`, and the trail is its own `hike` record. Profiles never merge two kinds to collect fields.

@@ -65,6 +65,7 @@ const BASIS_LABEL: Record<Basis, string> = {
   official_rule: "official rule",
   official_grade: "official grade",
   official_info: "official information",
+  operator_info: "operator information",
   community: "community reports",
   our_inference: "our judgement",
 };

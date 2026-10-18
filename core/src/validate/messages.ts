@@ -97,7 +97,7 @@ export const SUIT_MESSAGES = {
   linkOnly: (id: string, host: string): string =>
     `source "${id}" is ${host}, a link-only platform: its figures are never a source (K10). Cite the land manager or operator instead and keep the link in the markdown notes. Example: "https://parks.canada.ca/...".`,
   limitBasis: (field: string, basis: string | null): string =>
-    `"${field}" rests on ${basis === null ? "no basis" : `"${basis}"`}, but a hard limit may only rest on "operator_rule" or "official_rule". Move the figure to "conflicts" and set state "searched_none" with "on" and "tried". Example: {"v": 8, "state": "value", "basis": "operator_rule", "src": ["src-0001"]}.`,
+    `"${field}" rests on ${basis === null ? "no basis" : `"${basis}"`}, but a hard limit may only rest on "operator_rule" or "official_rule" ("operator_info" is for facts that are not rules: hours, altitude, kit, ride time, season, food). Move the figure to "conflicts" and set state "searched_none" with "on" and "tried". Example: {"v": 8, "state": "value", "basis": "operator_rule", "src": ["src-0001"]}.`,
   groupMinBasis: (basis: string | null): string =>
     `"group_min" rests on ${basis === null ? "no basis" : `"${basis}"`}, but a group minimum is a land manager's rule: use "official_rule". Example: {"v": {"n": 4}, "state": "value", "basis": "official_rule", "src": ["src-0001"]}.`,
   searchedNone: (field: string, lacks: string): string =>
