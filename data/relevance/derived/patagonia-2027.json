@@ -3,11 +3,11 @@
   "trip": "patagonia-2027",
   "as_of": "2026-10-18",
   "thresholds": {
-    "version": 1,
+    "version": 2,
     "languages": {
       "world": 25,
       "national": 10,
-      "regional": 3
+      "regional": 2
     },
     "views": {
       "world": 40000,
@@ -334,7 +334,7 @@
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -514,7 +514,7 @@
     },
     {
       "ref": "trip/patagonia-2027/sight:penguin colony stop",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "hard",
       "detour_min": null,
@@ -559,7 +559,7 @@
     },
     {
       "ref": "trip/patagonia-2027/sight:perito moreno walkways",
-      "draw_suggested": "national",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -649,7 +649,7 @@
     },
     {
       "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -694,7 +694,7 @@
     },
     {
       "ref": "trip/patagonia-2027/town:san telmo market",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -829,7 +829,7 @@
     },
     {
       "ref": "trip/patagonia-2027/town:village and cafes",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
