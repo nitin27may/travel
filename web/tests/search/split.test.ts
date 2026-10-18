@@ -1,0 +1,138 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { buildSearchIndex, buildSearchParts } from '@/lib/search/build';
+import { createSearcher } from '@/lib/search/search';
+import type { SearchRecord } from '@/lib/search/types';
+
+// Backlog 2.20: the index is split by kind and country and each part loads on demand (principle P1).
+
+const whole = buildSearchIndex();
+const { manifest, parts } = buildSearchParts();
+const QUERIES = ['l', 'la', 'lake', 'dolo', 'dolomites', 'banff', 'ital', 'trail', 'lago braies', 'louise', 'canada', 'dolomtes', 'utah', 'park', 'xyzqw', 'bear'];
+
+describe('the split index', () => {
+  it('has one part per kind and country, listed in the manifest with the right counts', () => {
+    expect(manifest.v).toBe(1);
+    expect(manifest.parts.length).toBeGreaterThan(5);
+    for (const ref of manifest.parts) {
+      expect(ref.id).toBe(`${ref.k}-${ref.cc}`);
+      expect(parts[ref.id]).toHaveLength(ref.n);
+      expect(parts[ref.id].every((r) => r.k === ref.k)).toBe(true);
+    }
+    expect(Object.keys(parts).sort()).toEqual(manifest.parts.map((p) => p.id).sort());
+  });
+  it('lists trips first, then areas, then places: the small parts load first', () => {
+    const order = manifest.parts.map((p) => p.k);
+    expect(order.indexOf('place')).toBeGreaterThan(order.lastIndexOf('area'));
+    expect(order.indexOf('area')).toBeGreaterThan(order.lastIndexOf('trip'));
+  });
+  it('holds every record of the whole index exactly once', () => {
+    const all = Object.values(parts).flat();
+    expect(all).toHaveLength(whole.length);
+    expect(new Set(all.map((r) => `${r.k}:${r.h}`)).size).toBe(all.length);
+  });
+  it('answers every query exactly as the whole index does', () => {
+    const a = createSearcher(whole);
+    const b = createSearcher(Object.values(parts).flat());
+    for (const q of QUERIES) {
+      const ra = a.search(q);
+      const rb = b.search(q);
+      expect(rb.counts, q).toEqual(ra.counts);
+      expect(rb.groups.map((g) => g.hits.map((h) => h.record.h)), q).toEqual(ra.groups.map((g) => g.hits.map((h) => h.record.h)));
+    }
+  });
+  it('sizes: no part is bigger than half of the whole, and the parts add up to about the whole', () => {
+    const bytes = (v: unknown) => JSON.stringify(v).length;
+    const total = bytes(whole);
+    const sum = Object.values(parts).reduce((n, p) => n + bytes(p), 0) + bytes(manifest);
+    const biggest = Math.max(...Object.values(parts).map(bytes));
+    console.log(`search index: whole ${total} B, parts ${sum} B in ${manifest.parts.length} files, biggest ${biggest} B`);
+    expect(biggest).toBeLessThan(total / 2);
+    expect(sum).toBeLessThan(total * 1.15);
+  });
+});
+
+describe('search stays fast as the catalogue grows', () => {
+  it('answers a keystroke over 10,000 synthetic places in under 25 ms', () => {
+    const kinds = ['lake', 'trail', 'viewpoint', 'town', 'waterfall', 'sight'];
+    const syn: SearchRecord[] = Array.from({ length: 10_000 }, (_, i) => ({
+      k: 'place', h: `/places/p${i}/`, n: `Place ${i.toString(36)} ${kinds[i % 6]} of the valley`, s: `${kinds[i % 6]} · Area ${i % 300}`, x: `${kinds[i % 6]} Area ${i % 300} Region ${i % 40} Country ${i % 12}`, kind: kinds[i % 6],
+    }));
+    const s = createSearcher([...whole, ...syn]);
+    const qs = ['l', 'la', 'lak', 'lake', 'valley', 'lake valley', 'ital'];
+    const t0 = performance.now();
+    for (let i = 0; i < 5; i++) for (const q of qs) s.search(q);
+    const per = (performance.now() - t0) / (5 * qs.length);
+    console.log(`search over ${whole.length + syn.length} records: ${per.toFixed(1)} ms a keystroke`);
+    expect(per).toBeLessThan(25);
+  });
+});
+
+describe('the client data module loads parts on demand', () => {
+  const fetched: string[] = [];
+  beforeEach(() => {
+    fetched.length = 0;
+    vi.resetModules();
+    vi.stubGlobal('fetch', async (url: string) => {
+      fetched.push(url);
+      const body = url === '/search/manifest.json' ? manifest : parts[decodeURIComponent(url.replace(/^\/search\/|\/data\.json$/g, ''))];
+      return body ? { ok: true, status: 200, json: async () => body } : { ok: false, status: 404, json: async () => null };
+    });
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('a country scope fetches the manifest and that country only', async () => {
+    const data = await import('@/lib/client/data');
+    const records = await data.loadSearchRecords({ country: 'ca' });
+    const ca = manifest.parts.filter((p) => p.cc === 'ca');
+    expect(fetched.sort()).toEqual(['/search/manifest.json', ...ca.map((p) => `/search/${p.id}/data.json`)].sort());
+    expect(records).toHaveLength(ca.reduce((n, p) => n + p.n, 0));
+    expect(fetched.length).toBeLessThan(manifest.parts.length);
+  });
+  it('a kind scope fetches only that kind', async () => {
+    const data = await import('@/lib/client/data');
+    await data.loadSearchRecords({ kind: 'trip' });
+    expect(fetched.slice(1).every((u) => u.startsWith('/search/trip-'))).toBe(true);
+  });
+  it('reports records as each part arrives, and loads each part once', async () => {
+    const data = await import('@/lib/client/data');
+    const sizes: number[] = [];
+    await data.loadSearchRecords(undefined, (soFar) => sizes.push(soFar.length));
+    expect(sizes).toHaveLength(manifest.parts.length);
+    expect(sizes).toEqual([...sizes].sort((a, b) => a - b));
+    expect(sizes.at(-1)).toBe(whole.length);
+    const n = fetched.length;
+    await data.loadSearchRecords();
+    expect(fetched).toHaveLength(n);
+  });
+  it('retries a failed part on the next call', async () => {
+    const data = await import('@/lib/client/data');
+    const id = manifest.parts[0].id;
+    const real = globalThis.fetch;
+    let fail = true;
+    vi.stubGlobal('fetch', async (url: string) => (fail && url.includes(id) ? { ok: false, status: 500, json: async () => null } : real(url)));
+    await expect(data.loadSearchRecords()).rejects.toThrow();
+    fail = false;
+    await expect(data.loadSearchRecords()).resolves.toHaveLength(whole.length);
+  });
+  it('lists the parts of a scope from the manifest alone', async () => {
+    const data = await import('@/lib/client/data');
+    expect((await data.searchParts({ kind: 'place' })).every((p) => p.k === 'place')).toBe(true);
+    expect(fetched).toEqual(['/search/manifest.json']);
+  });
+});
+
+describe('globe features in the header search (seas, oceans and ranges)', () => {
+  const s = createSearcher(Object.values(parts).flat());
+  it('"alps", "atlantic" and "mediterranean" each return a globe hit', () => {
+    for (const q of ['alps', 'atlantic', 'mediterranean']) {
+      const hits = s.search(q).groups.find((g) => g.id === 'areas')?.hits ?? [];
+      expect(hits.some((h) => h.record.h.startsWith('/globe/?c=')), q).toBe(true);
+    }
+    expect(s.search('alps').groups.find((g) => g.id === 'areas')!.hits[0].record.n).toBe('Alps');
+  });
+  it('lives in its own part, so a country scope does not load it', () => {
+    expect(manifest.parts.some((p) => p.id === 'area-sea')).toBe(true);
+    expect(manifest.parts.some((p) => p.id === 'area-land')).toBe(true);
+    for (const id of ['area-sea', 'area-land']) expect(JSON.stringify(parts[id]).length, id).toBeLessThan(40_000);
+  });
+});
