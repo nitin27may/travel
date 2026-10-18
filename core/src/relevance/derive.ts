@@ -432,7 +432,7 @@ function assignPairs(input: DeriveInput, results: Derived[], J: Map<string, Retu
     const pending: Derived["pair_pending"] = [];
     const auto: Pair[] = [];
     for (const o of cands) {
-      if (picked.has(o.rec.ref) || o.rec.class_key === r.class_key || partOf(o)) continue;
+      if (picked.has(o.rec.ref) || o.rec.class_key === r.class_key || partOf(o) || classHead(o.rec.class_key) === "town") continue;
       const jo = J.get(o.rec.ref)!;
       if (rank(jo.standing) < 1) continue;
       const os = onSite(o.rec.ref);

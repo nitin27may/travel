@@ -34,7 +34,7 @@ export interface Sources {
   /** data/relevance/inputs/bases.config.json: resolved base towns with their check notes */
   bases?: BaseConfig[];
 }
-export interface BaseConfig { trip: string; name: string; qid?: string; lat?: number; lon?: number; coord_src: "wikidata" | "nominatim"; country: string; admin: string; check: string }
+export interface BaseConfig { trip: string; name: string; qid?: string; lat?: number; lon?: number; coord_src: "wikidata" | "nominatim"; country: string; admin: string; check: string; approximate?: boolean; approximate_note?: string }
 
 export interface BuildReport {
   by_src: Record<string, number>;
@@ -160,7 +160,7 @@ export function buildPoints(src: Sources, windows: Record<string, { from: string
   const configured = new Map<string, Pt & { name: string }>();
   for (const b of src.bases ?? []) {
     const p = b.qid ? src.wikidata[b.qid]?.p625 : b.lat !== undefined && b.lon !== undefined ? { lat: b.lat, lon: b.lon } : null;
-    if (p) configured.set(`${b.trip}|${norm(b.name)}`, { name: b.name, lat: r5(p.lat), lon: r5(p.lon), coord_src: b.coord_src, point_source: `${b.qid ? `${b.qid} P625` : "Nominatim"}; ${b.country}, ${b.admin}` });
+    if (p) configured.set(`${b.trip}|${norm(b.name)}`, { name: b.name, lat: r5(p.lat), lon: r5(p.lon), coord_src: b.coord_src, point_source: `${b.qid ? `${b.qid} P625` : "Nominatim"}; ${b.country}, ${b.admin}${b.approximate ? ` (approximate: ${b.approximate_note ?? "centroid"})` : ""}`, ...(b.approximate ? { approximate: true } : {}) } as never);
   }
   for (const wd of Object.values(src.wikidata)) if (wd.label && wd.p625) addName(wd.label, { lat: wd.p625.lat, lon: wd.p625.lon, coord_src: "wikidata", point_source: "P625 by exact label" });
 
@@ -182,7 +182,7 @@ export function buildPoints(src: Sources, windows: Record<string, { from: string
       const id = norm(name).replace(/ /g, "-");
       if (!seenTown.has(id)) {
         seenTown.add(id);
-        towns.push({ id, name, lat: hit.lat, lon: hit.lon, has_stay: true, coord_src: hit.coord_src } as Town);
+        towns.push({ id, name, lat: hit.lat, lon: hit.lon, has_stay: true, coord_src: hit.coord_src, ...((hit as { approximate?: boolean }).approximate ? { approximate: true } : {}) } as Town);
       }
     }
     const win = windows[trip] ?? windowFromLabel(pt.season?.label);
