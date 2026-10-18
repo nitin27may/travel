@@ -58,11 +58,19 @@ Merge procedure per lane:
 - Business phone numbers (huts, operators) may be shown. Photos credited "Unknown" on Commons are kept with their licence.
 - Owner keys are in `travel-wt/v2/web/.env.local` (mode 600, gitignored). Never print or commit them. Copy the file to a lane worktree only when that lane needs it.
 
-## Running services (as of this update)
+## Running services (after cleanup, 18 Oct evening)
 
-| Service | Port | What | Stop |
-|---|---|---|---|
-| Vite dev, prototype | 5191 | `prototype/` dev server | kill by the PID on the port |
-| http.server | 5192 | `prototype/dist`, behind the tunnel vinyl-scales-hawaiian-taylor | kill by the PID on the port |
-| http.server | 5197 | `docs/v2/design` (redesign, foundation specimen), behind the tunnel accountability-workshops-refused-rural | kill by the PID on the port |
-| two cloudflared quick tunnels | n/a | the two preview links above | kill by PID |
+| Service | Port | What |
+|---|---|---|
+| http.server | 5197 | `docs/v2/design` (redesign, foundation specimen) behind the tunnel https://accountability-workshops-refused-rural.trycloudflare.com |
+| lane dev servers | 3412 to 3414 | started and stopped by lane agents (kill by PID on the port) |
+
+Removed 18 Oct with the owner's approval:
+- the merged worktrees and branches v2-L0, LD, LM, L1 and L5
+- the old prototype servers on 5191 and 5192 and their tunnel
+- the stray untracked `docs/design/` folder in `main`
+
+## Older work still open (pre-v2)
+
+- `travel-wt/p3b` (phase/p3b): parked after 3 of its 5 steps; it has uncommitted a11y edits. Superseded by the v2 public site.
+- `travel-wt/p4b` (phase/p4b): PR #7 is open and unmerged; its catalog ingestion logic carries into v2. Verify it before merging, or close it.
