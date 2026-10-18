@@ -39,7 +39,8 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   useEffect(() => {
     const pending = takeBuffer();
     setSink((apply) => { setQ(apply); setActive(0); });
-    if (pending) setQ(pending);
+    // keys that arrived between the first render and this effect
+    queueMicrotask(() => pending && setQ(pending));
     return () => stopBuffer();
   }, []);
 
