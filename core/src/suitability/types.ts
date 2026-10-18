@@ -8,7 +8,7 @@ export type Mode = "walk" | "ride";
 
 /** The limit fields: a value here may only rest on an operator or official rule (K3). */
 export const LIMIT_FIELDS = [
-  "min_age", "max_age", "min_height_cm", "max_height_cm", "min_weight_kg", "max_weight_kg", "adult_required", "group_min",
+  "min_age", "max_age", "min_height_cm", "max_height_cm", "min_weight_kg", "max_weight_kg", "adult_required", "group_min", "solo",
 ] as const;
 export type LimitField = (typeof LIMIT_FIELDS)[number];
 

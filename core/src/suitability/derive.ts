@@ -1,6 +1,10 @@
 // Computed fields of suitability/1 (spec 1.3, 5.3): terrain, effort band, family effort, and the flat catalogue copy.
 // Family effort is never an input. Everything here is a pure function of the stored values and the difficulty map.
 import type { SuitabilityBlock, SuitabilityExt, SuitabilityRecord, SuitFlat } from "../schema/suitability.ts";
+import { gradeIsWaterClass, hasEffort, isOperated, loadApplicability, maskNotApplicable, profileOf } from "./applicability.ts";
+import type { Applicability } from "./applicability.ts";
+import { suitLevel } from "./level.ts";
+import type { RecordLike } from "./level.ts";
 import { bandOf, DEFAULT_MAP, modeFactor, terrainFromGrade } from "./map.ts";
 import type { DifficultyMap } from "./map.ts";
 import { RULE_BASES } from "./types.ts";
@@ -32,17 +36,22 @@ export interface ComputedEffort {
 export interface EffortInput {
   kind: string;
   subkind?: string;
+  /** the record's operator flag, for profiles where it is optional */
+  operated?: boolean;
   block: SuitabilityBlock;
   ext?: SuitabilityExt;
 }
 
-/** Terrain a kind has with no grade and no drivers (spec 2.5 and 2.7). Only where the spec fixes it. */
-const KIND_TERRAIN: Record<string, Grade5> = {
+/**
+ * Terrain a subkind has with no grade and no drivers (spec 2.5 and 2.7). Only where the spec fixes it. The keys are
+ * values of SUIT_SUBKIND: a key outside the vocabulary never fires (the S0 keys `mountain-coaster` and `show-cave` did not).
+ */
+export const KIND_TERRAIN: Record<string, Grade5> = {
   zipline: 2,
-  "mountain-coaster": 1,
+  coaster: 1,
   "boat-tour": 1,
   cruise: 1,
-  "show-cave": 1,
+  cave: 1,
   museum: 1,
   castle: 1,
   landmark: 1,
@@ -54,7 +63,7 @@ const g5 = (n: number): Grade5 => Math.min(5, Math.max(1, Math.round(n))) as Gra
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 
 export function modeOf(input: EffortInput): Mode {
-  return input.ext?.kind === "ride" || input.subkind === "cycling" ? "ride" : "walk";
+  return input.ext?.kind === "ride" || input.subkind === "cycling" || input.subkind === "mtb" || input.subkind === "bike-park" ? "ride" : "walk";
 }
 
 /** Spec 1.3 table: terrain from drivers, used when no official grade exists. Null when the drivers say nothing. */
@@ -97,7 +106,10 @@ export function effortKmOf(block: SuitabilityBlock, mode: Mode, map: DifficultyM
 export function deriveEffort(input: EffortInput, map: DifficultyMap = DEFAULT_MAP): ComputedEffort {
   const { block } = input;
   const mode = modeOf(input);
-  const sg = valOf(block.effort?.source_grade);
+  // A10: for paddle profiles the effort grade is the water class, and effort.source_grade is N
+  const located = profileOf({ kind: input.kind, subkind: input.subkind });
+  const waterGrade = located && gradeIsWaterClass(located.profile, isOperated(located.profile, input.operated)) ? valOf(block.water_safety?.class) : null;
+  const sg = valOf(block.effort?.source_grade) ?? waterGrade;
   let terrain: Grade5 | null = null;
   let basis: TerrainBasis | null = null;
   const override = block.effort?.override;
@@ -148,11 +160,13 @@ export function accessibilityOf(block: SuitabilityBlock): SuitFlat["accessibilit
   return w === "step_free" ? "step-free" : w === "partial" ? "partial" : w === "none" ? "none" : "unknown";
 }
 
-/** The flat catalogue columns (K9) for one record. Limits appear only when they rest on a rule. */
-export function projectFlat(rec: Pick<SuitabilityRecord, "kind" | "subkind" | "suitability" | "ext">, map: DifficultyMap = DEFAULT_MAP): SuitFlat {
-  const b = rec.suitability;
-  const e = deriveEffort({ kind: rec.kind, subkind: rec.subkind, block: b, ext: rec.ext }, map);
+/** The flat catalogue columns (K9) for one record. Limits appear only when they rest on a rule. Fields the profile marks N are skipped. */
+export function projectFlat(rec: RecordLike, map: DifficultyMap = DEFAULT_MAP, app: Applicability = loadApplicability()): SuitFlat {
+  const located = profileOf(rec, app);
+  const b = maskNotApplicable(rec.suitability, located, rec.operated);
+  const e = deriveEffort({ kind: rec.kind, subkind: rec.subkind, operated: rec.operated, block: b, ext: rec.ext }, map);
   const hardAge = b.age_rule !== "recommendation";
+  const effortApplies = !located || hasEffort(located.profile, isOperated(located.profile, rec.operated));
   return {
     min_age: hardAge ? ruleValOf(b.min_age) : null,
     max_age: hardAge ? ruleValOf(b.max_age) : null,
@@ -160,10 +174,46 @@ export function projectFlat(rec: Pick<SuitabilityRecord, "kind" | "subkind" | "s
     max_height_cm: ruleValOf(b.max_height_cm),
     min_weight_kg: ruleValOf(b.min_weight_kg),
     max_weight_kg: ruleValOf(b.max_weight_kg),
-    house_grade: e.family_effort,
+    house_grade: effortApplies ? e.family_effort : null,
     kid_fit: kidFitOf(b),
     accessibility: accessibilityOf(b),
     walk_km: valOf(b.effort?.drivers?.distance_km),
     walk_gain_m: valOf(b.effort?.drivers?.gain_m),
+    suit_level: suitLevel(rec, app),
   };
+}
+
+// ---- the three derived values every kind feeds (applicability spec 5.3): kids_from, family_effort, stroller_ok ----
+
+/** The larger of the rule minimum age (record, or the most permissive offer) and the recommended band start. Null when neither is known. */
+export function kidsFromOf(rec: RecordLike, app: Applicability = loadApplicability()): number | null {
+  const located = profileOf(rec, app);
+  const ages: (number | null)[] = [rec.suitability, ...(rec.offers ?? []).map((o) => o.suitability)].map((blk) => {
+    const b = maskNotApplicable(blk, located, rec.operated);
+    const min = b.age_rule === "recommendation" ? null : ruleValOf(b.min_age);
+    const band = valOf(b.age_band)?.from ?? null;
+    return min === null && band === null ? null : Math.max(min ?? 0, band ?? 0);
+  });
+  const known = ages.filter((a): a is number => a !== null);
+  if (known.length === 0) return null;
+  // with offers, the most permissive (lowest) rule is what a party can book; the record alone otherwise
+  return rec.offers && rec.offers.length > 0 ? Math.min(...known) : known[0]!;
+}
+
+/** The family effort, or null for a profile where effort is N (bungee, boat, lift and others). */
+export function familyEffortOf(rec: RecordLike, map: DifficultyMap = DEFAULT_MAP, app: Applicability = loadApplicability()): Grade5 | null {
+  return projectFlat(rec, map, app).house_grade as Grade5 | null;
+}
+
+/** yes, partly or no from `stroller` (a surface) or `stroller_on_board` (a carriage rule); null when the profile asks for neither. */
+export function strollerOkOf(rec: RecordLike, app: Applicability = loadApplicability()): "yes" | "partly" | "no" | null {
+  const located = profileOf(rec, app);
+  const b = maskNotApplicable(rec.suitability, located, rec.operated);
+  const board = valOf(b.stroller_on_board);
+  if (board !== null) return board === "yes" ? "yes" : board === "no" ? "no" : "partly";
+  const s = valOf(b.stroller);
+  if (s === null) return null;
+  if (s === "none") return "no";
+  if (s === "all_terrain") return "partly";
+  return b.stroller_extent?.scope === "whole" ? "yes" : "partly";
 }

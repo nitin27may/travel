@@ -27,6 +27,7 @@
     {
       "ref": "place/adolf-munkel-weg",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -105,12 +106,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 12.4,
-        "walk_gain_m": 593
+        "walk_gain_m": 593,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/alpe-di-siusi",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -173,12 +176,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 9.9,
-        "walk_gain_m": 333
+        "walk_gain_m": 333,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/bolzano",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -191,12 +196,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/bullaccia-and-the-witches-benches",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -259,12 +266,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 9.1,
-        "walk_gain_m": 340
+        "walk_gain_m": 340,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
-      "kind": "viewpoint",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -312,12 +321,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 2,
-        "walk_gain_m": 150
+        "walk_gain_m": 150,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/cascate-di-fanes",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -381,12 +392,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7,
-        "walk_gain_m": 249
+        "walk_gain_m": 249,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/cinque-torri",
-      "kind": "sight",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -459,12 +472,14 @@
         "kid_fit": "strong-kid",
         "accessibility": "unknown",
         "walk_km": 2,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/cortina-dampezzo",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -477,12 +492,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/croda-del-becco",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -561,12 +578,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.3,
-        "walk_gain_m": 1314
+        "walk_gain_m": 1314,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/dobbiaco",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -579,12 +598,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/dolomites",
-      "kind": "viewpoint",
+      "kind": "sight",
+      "subkind": "area",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -597,12 +618,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/drava-cycle-path-to-lienz",
       "kind": "activity",
+      "subkind": "cycling",
       "suitability": {
         "effort": {
           "drivers": {
@@ -646,16 +669,18 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 4,
+        "house_grade": 2,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 43.4,
-        "walk_gain_m": 15
+        "walk_gain_m": 15,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/funbob-monte-baranci",
       "kind": "activity",
+      "subkind": "coaster",
       "suitability": {
         "min_age": {
           "v": null,
@@ -685,12 +710,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/la-val",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -703,12 +730,34 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lagazuoi-cable-car-and-tunnels",
       "kind": "lift",
+      "subkind": "cable_car",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -786,16 +835,18 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "strong-kid",
         "accessibility": "unknown",
         "walk_km": 3,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-dantorno",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -808,12 +859,36 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-di-braies",
       "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "kid_note": "Not suitable for pushchairs (steps on the east side)"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-braies#walk",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -854,8 +929,7 @@
             "src-0001"
           ],
           "note": "converted from prototype.json trail fact duration_hours (conf operator, src PLAN.md) \"1-1.5\" to minutes; not re-read at the source"
-        },
-        "kid_note": "Not suitable for pushchairs (steps on the east side)"
+        }
       },
       "hints": [
         {
@@ -891,12 +965,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 3.7,
-        "walk_gain_m": 30
+        "walk_gain_m": 30,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-di-carezza",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -909,12 +985,34 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-di-dobbiaco",
       "kind": "lake",
+      "subkind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-dobbiaco#walk",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -962,12 +1060,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 3.5,
-        "walk_gain_m": 10
+        "walk_gain_m": 10,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-di-landro",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -980,12 +1080,34 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-di-limides",
       "kind": "lake",
+      "subkind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-limides#walk",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1033,12 +1155,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 2,
-        "walk_gain_m": 80
+        "walk_gain_m": 80,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-di-misurina",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1051,12 +1175,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-di-sorapis",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1145,12 +1271,34 @@
         "kid_fit": "strong-kid",
         "accessibility": "unknown",
         "walk_km": 11,
-        "walk_gain_m": 550
+        "walk_gain_m": 550,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/lago-federa",
       "kind": "lake",
+      "subkind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-federa#walk",
+      "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1213,12 +1361,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.9,
-        "walk_gain_m": 466
+        "walk_gain_m": 466,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/monte-piana",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1281,12 +1431,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 3.9,
-        "walk_gain_m": 368
+        "walk_gain_m": 368,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/ortisei",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1299,12 +1451,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/otzi-south-tyrol-museum-of-archaeology",
       "kind": "sight",
+      "subkind": "museum",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1317,12 +1471,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/passo-gardena",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1335,12 +1491,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/rafting-on-the-rienza",
       "kind": "activity",
+      "subkind": "rafting",
       "suitability": {
         "min_age": {
           "v": null,
@@ -1370,12 +1528,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/san-candido",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1388,12 +1548,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/san-vito-di-cadore",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1406,12 +1568,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/santa-cristina",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1424,12 +1588,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/santa-maddalena-val-di-funes",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1442,12 +1608,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1533,12 +1701,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.8,
-        "walk_gain_m": 561
+        "walk_gain_m": 561,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/seceda-ridge",
-      "kind": "viewpoint",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1593,12 +1763,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": 100
+        "walk_gain_m": 100,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/selva-di-val-gardena",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -1611,12 +1783,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/tre-cime-di-lavaredo-loop",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1705,12 +1879,14 @@
         "kid_fit": "yes",
         "accessibility": "unknown",
         "walk_km": 10,
-        "walk_gain_m": 450
+        "walk_gain_m": 450,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/val-fiscalina",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1788,12 +1964,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 4.7,
-        "walk_gain_m": 190
+        "walk_gain_m": 190,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/vallunga",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1856,12 +2034,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.5,
-        "walk_gain_m": 200
+        "walk_gain_m": 200,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "place/viel-dal-pan",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1924,7 +2104,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 8,
-        "walk_gain_m": 380
+        "walk_gain_m": 380,
+        "suit_level": "draft"
       }
     }
   ]

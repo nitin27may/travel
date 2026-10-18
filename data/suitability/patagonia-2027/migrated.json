@@ -10,6 +10,7 @@
     {
       "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
       "kind": "activity",
+      "subkind": "glacier-walk",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -22,12 +23,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/lake:beagle channel boat",
-      "kind": "lake",
+      "kind": "activity",
+      "subkind": "boat-tour",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -40,12 +43,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/sight:penguin colony stop",
       "kind": "sight",
+      "subkind": "wildlife_viewing",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -58,12 +63,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/sight:perito moreno walkways",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -76,12 +83,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/town:cafe and bookshops",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -94,12 +103,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/town:harbour walk",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -112,12 +123,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -130,12 +143,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/town:san telmo market",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -148,12 +163,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/town:village and cafes",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -166,12 +183,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/trail:chorrillo del salto",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -184,12 +203,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/trail:coastal path",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -202,12 +223,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna capri",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -220,12 +243,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna de los tres",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -238,12 +263,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna esmeralda",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -256,12 +283,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -274,12 +303,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de los condores",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -292,12 +323,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -310,12 +343,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -328,12 +363,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -346,7 +383,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]

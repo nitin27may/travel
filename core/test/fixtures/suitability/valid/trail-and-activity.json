@@ -117,7 +117,8 @@
         "kid_fit": "strong-kid",
         "accessibility": "unknown",
         "walk_km": 11.2,
-        "walk_gain_m": 750
+        "walk_gain_m": 750,
+        "suit_level": "draft"
       }
     },
     {
@@ -221,7 +222,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]

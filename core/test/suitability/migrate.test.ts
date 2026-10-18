@@ -62,7 +62,9 @@ describe("the migrated files validate", () => {
     for (const [rel, d] of m.docs) {
       const r = validateDoc(d, "sidecar", REPO, { kind: "suitability" });
       expect(r.errors, `${rel}: ${JSON.stringify(r.errors.slice(0, 2))}`).toEqual([]);
-      expect(r.warnings.filter((w) => w.code !== "W_SUIT_CONFLICT"), rel).toEqual([]);
+      // every migrated record is draft (nothing was researched) and a few carry a migrated figure on a kind that does not ask for it
+      const other = r.warnings.filter((w) => !["W_SUIT_CONFLICT", "W_SUIT_BELOW_USABLE", "W_SUIT_NA_FIELD"].includes(w.code));
+      expect(other, rel).toEqual([]);
     }
   });
 });
@@ -136,8 +138,9 @@ describe("the fixes of spec 7.2", () => {
     }
   });
   it("the four Dolomites ages marked operator but sourced from PLAN.md are recommended ages, not minimums", () => {
-    for (const [slug, age] of [["lago-di-sorapis", 10], ["lagazuoi-cable-car-and-tunnels", 10], ["cinque-torri", 10], ["tre-cime-di-lavaredo-loop", 6]] as const) {
-      const r = find(`place/${slug}`);
+    for (const [ref, age] of [["place/lago-di-sorapis", 10], ["part/place/lagazuoi-cable-car-and-tunnels#tunnels", 10], ["place/cinque-torri", 10], ["place/tre-cime-di-lavaredo-loop", 6]] as const) {
+      const slug = ref;
+      const r = find(ref);
       expect(r.suitability.age_band, slug).toMatchObject({ v: { from: age, to: null }, state: "value", basis: "our_inference" });
       expect(r.suitability.age_band!.note).toMatch(/PLAN\.md is not an operator/);
       expect(r.suitability.min_age, slug).toBeUndefined();

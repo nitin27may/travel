@@ -9,7 +9,8 @@
   "records": [
     {
       "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
-      "kind": "sight",
+      "kind": "drive",
+      "subkind": "scenic_drive",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -22,12 +23,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/vermont-fall-2026/town:hyde park village",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -40,12 +43,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/vermont-fall-2026/town:peacham village",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -58,12 +63,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -76,12 +83,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -94,12 +103,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -112,7 +123,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]

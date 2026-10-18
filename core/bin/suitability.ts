@@ -3,6 +3,8 @@ import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 
 import { join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { projectFlat, deriveEffort } from "../src/suitability/derive.ts";
+import { loadApplicability } from "../src/suitability/applicability.ts";
+import { checkRecord, fieldsOf } from "../src/suitability/level.ts";
 import { loadMap } from "../src/suitability/map.ts";
 import { assertSpecCounts, migrate } from "../src/suitability/migrate.ts";
 import { duplicateRefsAcrossFiles, loadScope, missingCoverage } from "../src/suitability/refs.ts";
@@ -15,8 +17,11 @@ const USAGE = `Usage: node core/bin/suitability.ts <command> [options]
 Commands:
   check [--coverage <trip>]   validate every data/suitability/<trip>/*.json (E_SUIT_* errors, W_SUIT_* warnings), refs shared
                               across a trip's files, and with --coverage list the scope refs of the trip no file covers
+                              and the level (draft, usable, complete) of each record
   derive [--write] [--trip t] print the computed effort of every record; with --write store the flat catalogue copy
   derive --from-tracks        add gain and loss from L4b track files (off by default; needs data/catalog/trails/geo/*.json)
+  fields --ref <ref>          print a record's profile and the paths a lane researches: R (required), A (applicable), N (never)
+  fields --kind K --subkind S [--operated] [--all]   the same for a kind and subkind; --all lists the N paths
   migrate [--write] [--check] move the existing child and access fields into data/suitability/<trip>/migrated.json
   codes                       list the error and warning codes
 
@@ -90,9 +95,64 @@ function check(argv: string[], root: string): number {
       for (const m of missing) process.stdout.write(`ERROR E_SUIT_REF coverage ${cov}: no record for ${m}\n`);
     }
   }
+  if (cov && !json) coverageLevels(root, cov);
   if (json) process.stdout.write(JSON.stringify(report, null, 2) + "\n");
   else process.stdout.write(`${errors === 0 ? "OK" : "FAILED"}: ${files.length} suitability file(s), ${errors} error(s), ${warnings} warning(s)\n`);
   return errors > 0 ? 1 : 0;
+}
+
+/** Applicability spec 8.1, acceptance check 7: the level of every record of a trip, counted once per ref. */
+function coverageLevels(root: string, trip: string): void {
+  const app = loadApplicability(root);
+  const tally = { draft: 0, usable: 0, complete: 0 };
+  const lines: string[] = [];
+  const seen = new Set<string>();
+  const files = suitFiles(root, trip).sort((a, b) => Number(/migrated/.test(a)) - Number(/migrated/.test(b))); // a lane record supersedes a migrated one
+  for (const f of files) {
+    const doc = JSON.parse(readFileSync(f, "utf8")) as SuitabilityDoc;
+    for (const r of doc.records) {
+      if (seen.has(r.ref)) continue;
+      seen.add(r.ref);
+      const c = checkRecord(r, app);
+      tally[c.level]++;
+      lines.push(`${c.level}\t${r.ref}\t${c.located?.name ?? "no profile"}\t${c.missingRequired.length} required open`);
+    }
+  }
+  process.stdout.write(`levels in ${trip}: ${tally.complete} complete, ${tally.usable} usable, ${tally.draft} draft of ${seen.size} record(s)\n`);
+  for (const l of lines) process.stdout.write(`  ${l}\n`);
+}
+
+function fieldsCommand(argv: string[], root: string): number {
+  const app = loadApplicability(root);
+  let target: { kind: string; subkind?: string; operated?: boolean } | null = null;
+  const ref = arg(argv, "--ref");
+  if (ref) {
+    for (const f of suitFiles(root)) {
+      const hit = (JSON.parse(readFileSync(f, "utf8")) as SuitabilityDoc).records.find((r) => r.ref === ref);
+      if (hit) {
+        target = { kind: hit.kind, subkind: hit.subkind, operated: hit.operated };
+        break;
+      }
+    }
+    if (!target) {
+      process.stderr.write(`no record with ref "${ref}" in data/suitability\n`);
+      return 2;
+    }
+  } else if (arg(argv, "--kind")) {
+    target = { kind: arg(argv, "--kind")!, subkind: arg(argv, "--subkind") ?? undefined, operated: argv.includes("--operated") };
+  } else {
+    process.stderr.write("fields needs --ref <ref> or --kind K --subkind S\n");
+    return 2;
+  }
+  const f = fieldsOf(target, app);
+  if (!f) {
+    process.stderr.write(`kind "${target.kind}" with subkind ${JSON.stringify(target.subkind ?? null)} has no profile: correct it in data/suitability/kind-map.json\n`);
+    return 1;
+  }
+  process.stdout.write(`profile ${f.profile}${f.operated ? " (operated)" : ""}\n`);
+  for (const [label, list] of [["R required", f.R], ["A applicable", f.A]] as const) process.stdout.write(`${label} (${list.length}): ${list.join(", ")}\n`);
+  process.stdout.write(`N never ask (${f.N.length}): ${argv.includes("--all") ? f.N.join(", ") : "not listed; add --all to list them. Never fill an N field."}\n`);
+  return 0;
 }
 
 function derive(argv: string[], root: string): number {
@@ -169,6 +229,8 @@ function main(argv: string[]): number {
       return check(argv, root);
     case "derive":
       return derive(argv, root);
+    case "fields":
+      return fieldsCommand(argv, root);
     case "migrate":
       return runMigrate(argv, root);
     case "codes":

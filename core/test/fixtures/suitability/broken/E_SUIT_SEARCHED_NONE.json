@@ -19,6 +19,7 @@
     {
       "ref": "place/lago-di-braies",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {
         "min_height_cm": {
           "v": null,
@@ -38,7 +39,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]
