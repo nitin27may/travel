@@ -218,10 +218,13 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
     if (!g) return;
     const pin = g.pins.find((p) => p.id === spec.selectedId) ?? g.pins[0];
     const isBase = pin.style === 'base';
+    // A pin that is an icon (parking, trailhead, place) is picked out by a ring, so lots stacked beneath it stay visible;
+    // numbered stops and bases keep the filled disc that carries their number.
+    const ring = pin.number == null && !isBase;
     const e = el('div', {
-      width: isBase ? '30px' : '26px', height: isBase ? '30px' : '26px', borderRadius: isBase ? '7px' : '50%',
-      background: palette.accent, color: palette.accentInk, border: `2px solid ${palette.halo}`,
-      boxShadow: `0 0 0 2px ${palette.accent}`, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      width: isBase ? '30px' : ring ? '34px' : '26px', height: isBase ? '30px' : ring ? '34px' : '26px', borderRadius: isBase ? '7px' : '50%',
+      background: ring ? 'transparent' : palette.accent, color: palette.accentInk, border: ring ? `3px solid ${palette.accent}` : `2px solid ${palette.halo}`,
+      boxShadow: ring ? `0 0 0 1.5px ${palette.halo}, inset 0 0 0 1.5px ${palette.halo}` : `0 0 0 2px ${palette.accent}`, display: 'flex', alignItems: 'center', justifyContent: 'center',
       font: '600 11px ui-monospace, monospace', pointerEvents: 'none',
     }, pin.number != null ? String(pin.number) : '');
     e.setAttribute('data-map-selected', pin.id);
