@@ -336,8 +336,8 @@
     },
     {
       "id": "src-0042",
-      "url": "https://stateparks.utah.gov/?p=11460",
-      "title": "Dead Horse Point State Park overlook text (read via search result; the page returned 404 to fetch)",
+      "url": "https://stateparks.utah.gov/parks/dead-horse-point/hiking/",
+      "title": "Hiking, Dead Horse Point State Park (Overlook Trail)",
       "publisher": "Utah State Parks",
       "kind": "official",
       "read": "2026-10-18"
@@ -3530,8 +3530,8 @@
           "src": [
             "src-0042"
           ],
-          "quote": "a short paved ADA accessible pathway leads to breathtaking views of the Colorado River",
-          "note": "read via search result text of the park page"
+          "quote": "From the overlook parking lot, a short paved ADA accessible pathway leads to breathtaking views of the Colorado River",
+          "note": "Overlook Trail, 200 ft one way; the paved spurs beyond the shelter have steeper inclines and slick rock (re-read on the live hiking page, RC)"
         },
         "stroller_extent": {
           "scope": "part",
@@ -3544,8 +3544,8 @@
           "src": [
             "src-0042"
           ],
-          "quote": "a short paved ADA accessible pathway",
-          "note": "the primary overlook and shade shelter; spur trails are not accessible"
+          "quote": "Although the primary overlook and shade shelter are accessible, the eastern and western spur trails contain steeper inclines",
+          "note": "the primary overlook and shade shelter; the paved spurs either side are not ADA accessible"
         },
         "on_site_min": {
           "v": [
@@ -3564,10 +3564,8 @@
           },
           "state": "value",
           "basis": "our_inference",
-          "src": [
-            "src-0042"
-          ],
-          "note": "a 2023 park brochure (search result) says most overlooks are not fenced; fencing at the main point not confirmed"
+          "src": [],
+          "note": "our judgement: the overlook is a cliff rim some 2,000 ft above the river; a 2023 park brochure seen only as a search result said most overlooks are not fenced; fencing at the main point is not confirmed on a live page (RC)"
         },
         "access_season": {
           "v": [
@@ -3594,8 +3592,8 @@
           "src": [
             "src-0042"
           ],
-          "quote": "about 200 feet one way",
-          "note": "200 ft = 61 m; read via search result"
+          "quote": "Overlook Trail Difficulty : Easy (200 feet one way)",
+          "note": "200 ft = 61 m; re-read on the live hiking page (RC)"
         },
         "toilets": {
           "v": [
@@ -3825,7 +3823,7 @@
             }
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0046",
             "src-0047"

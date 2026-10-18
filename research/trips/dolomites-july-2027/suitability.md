@@ -74,12 +74,12 @@ Sources are in the files' `sources` tables with their read date. "Search result"
 | Sass Pordoi and Piz Boè | `source_grade` | CAI E (627) against EEA:F (638, summit) | The FE3 under-rates the summit; see Applicability question 4 |
 | Lago di Sorapis | `gain_m` | 550 (report midpoint) against 114 one way and the rejected DEM | Needs an official figure or an L4b track |
 | Cadini viewpoint | `distance_km`, `gain_m` | 3.9 km / 144 m against 3.2 km / 210 m and an OSM 4.3 km | Needs a track |
-| Tre Cime loop | `distance_km`, `gain_m`, `age_band` | board 8.8 km / 550 m against reports; plan's age 6 against our 10 | Board figures are the value |
+| Tre Cime loop | `distance_km`, `gain_m`, `age_band` | board 8.8 km / 550 m against reports; an earlier figure of 6 against our 10 | Board figures are the value |
 | Passo Gardena | `access_season` | open against a planned 2027 booked zone (press) | Check the Province traffic page in spring 2027 |
 | Lagazuoi tunnels | `effort.drivers.loss_m` | 639 m (operator) against 647 m (Cortina board via the plan) | Low impact |
 | Croda del Becco, Piz Boè | `min_age` | searched_none; the plan's 12 kept as an `our_inference` conflict | Not a rule |
 
-**Resolved:** the Funbob solo age (8, operator); the Funbob minimum age (3, operator; the plan's 8 was the solo age); the Rienza minimum of 6 is now an operator rule rather than a plan figure.
+**Resolved:** the Funbob solo age (8, operator); the Funbob minimum age (3, operator; an earlier figure of 8 was the solo age); the Rienza minimum of 6 is now an operator rule rather than a plan figure.
 
 ## Applicability questions
 
@@ -102,7 +102,7 @@ Sources are in the files' `sources` tables with their read date. "Search result"
 Send by email where an address is given; the operator's own pages are the source of each contact.
 
 **Rafting Club Activ** (info@rafting-club-activ.com, +39 328 966 07 78, Rienz meeting point: sports zone St. Sigmund)
-1. Your Rienza tour page says minimum age 6, and your FAQ says children under 9 only after consultation. Which applies, and what do you check for a child aged 6 to 8?
+1. Your Rienza tour page says minimum age 6, and your FAQ says children under 9 only after consultation. Which applies, and what do you check for children from 6 up to 9?
 2. Is there a minimum or maximum body weight for the Rienza tour, and from what weight do you have life jackets and wetsuits?
 3. What whitewater class is the San Sigismondo to Rio di Pusteria section in July, and how long is the section in km?
 4. How long is the time on the water within the 2.5 hours?
@@ -252,3 +252,19 @@ AllTrails and the other route platforms were not used as sources. Cross-check li
 | Date | Change |
 |---|---|
 | 2026-10-18 | Lane R1: suitability and relevance in one pass; 45 suitability records usable, 40 relevance records |
+
+## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
+
+- **Wording.** "The plan's age 6/8/12/10" and "The trip plan used 6" now read "an earlier figure of ...". The Rienza operator question now asks "what do you check for children from 6 up to 9?" (also in docs/v2/research/operator-questions-2026-10-18.md).
+- **Otzi museum.** The opening and fees page moved to /en/the-museum/opening-times-and-fees and was re-read. "Children under the age of 6 gratis" is an affirmative welcome, so `min_age` is now `no_limit`. The access season (Tue-Sun 10-18, open Mondays in July and August, closed 1 Jan, 1 May and 25 Dec) still matches; its basis is now `operator_info`.
+- **Santa Maddalena.** The Villnoss board PDF is gone. All 8 values (5 suitability, 3 relevance) now cite the IDM Sudtirol church page, which states the gated resident-only road, the Putzen car park and the walk of about 30 min.
+- **Open-Meteo.** The bare API endpoint is replaced by the Elevation API documentation page, with the method in the title: latitude and longitude arrays sampled every 30 m along OSM relation 7302436. Distance values never came from elevation, so the source was removed from the Viel dal Pan, Sorapis and Cadini distances; they rest on the OSM relations.
+- **Lago di Braies walk.** The family-tour listing (_675) now redirects to a 404. The board's live summer-walk listing (_644) for the same loop gives 3.6 km, 59 min and 86 m, graded Easy. The old listing said Intermediate, and the grade note records that.
+- **Passo Gardena.** The ÖAMTC article was opened at its new slug. It confirms "Das für 1.9. geplante Fahrverbot für das Grödner Joch gilt vorerst nicht".
+- **rebase-basis.** 19 Lagazuoi, Seceda, Funbob and Rienza values moved to `operator_info`: seasons, altitude, last up and down, ride time, food, kit, wear and weather cancellation. Kept as rules: the Funbob pregnancy and medical exclusions, and the Rienza pregnancy and fitness conditions.
+- **Relevance: Cortina d'Ampezzo, anchor to highlight.** Distinction moves from rare to common: San Vito (10 km), Selva (29 km), Santa Cristina (32 km) and Ortisei (36 km) are the same class. The old note already said "towns are many in the area".
+- **Pairs:**
+  - Tre Cime loop with the Cadini viewpoint (from Rifugio Auronzo)
+  - Lagazuoi with Cinque Torri (both on Passo Falzarego)
+  - Alpe di Siusi with the Bullaccia and Witches' Benches
+  - Santa Maddalena with the Adolf Munkel trail

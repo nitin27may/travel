@@ -184,3 +184,16 @@ All 21 are **Usable** (every R field answered); none is Complete. Missing A fiel
 - Several NPS trail-list pages render "Loading results..." to a fetcher (Zion trail descriptions, Arches hiking, Bryce Queen's Garden). Use the per-trail `thingstodo` or `places` pages instead.
 - Utah State Parks pages and PDFs often 404 to a fetcher. The Dead Horse overlook facts here come from search-result text of the park's own page, and are marked that way.
 - NPS often prints the same figure differently on two pages (distances, gains, grades). The conflicts table lists every case met.
+
+## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
+
+- **Dead Horse Point.** src-0042 (stateparks.utah.gov/?p=11460, 404) now points to the live Utah State Parks hiking page. The stroller, wheelchair and walk_m quotes are on that page word for word ("Overlook Trail Difficulty: Easy (200 feet one way)"; "a short paved ADA accessible pathway"; "the primary overlook and shade shelter are accessible"). Exposure stays `our_inference`, without the dead source: no live page confirms the fencing.
+- **Temple Square `access_season`.** Now `operator_info` (rebase-basis); an opening time is not a rule.
+- **Relevance re-judged:**
+  - **Sunset Point: national to regional, highlight to filler (badge "Local favourite").** It is one of four viewpoints on the amphitheater rim; the rim record carries the draw, and the NPS hoodoo line is about the amphitheater. No Wikipedia article.
+  - **Grand View Point: national to regional, anchor to highlight.** The national draw rested on the parent park only; no article.
+  - **Devils Garden: national to regional, anchor to highlight.** It has 6 languages and about 3,800 views. The Landscape Arch fact supports its distinction, not its draw.
+  - **Zion Canyon Scenic Drive: national to regional, anchor to highlight.** The national draw rested on the parent park; 2 languages, about 470 views.
+  - **Temple Square: unchanged anchor.** It has its own NHL designation, 15 languages and about 27,500 views.
+  - **Dead Horse Point: stays national and an anchor.** The state park's article is about the point (9 languages, about 18,700 views), and the note now says so.
+- **Pairs:** Grand View Point with Mesa Arch; Hickman Bridge with the Fruita orchards.

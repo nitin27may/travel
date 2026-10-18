@@ -272,7 +272,7 @@
     },
     {
       "id": "src-0034",
-      "url": "https://www.glaumbaer.is/is/en",
+      "url": "https://www.glaumbaer.is/en/visit/hours-admission",
       "title": "Opening hours and admission",
       "publisher": "Skagafjordur Heritage Museum",
       "kind": "operator",
@@ -288,7 +288,7 @@
     },
     {
       "id": "src-0036",
-      "url": "https://lystigardur.akureyri.is/en/moya/adverts/9",
+      "url": "https://www.lystigardur.akureyri.is/en/practical-information/opening-hours-and-directions",
       "title": "Opening hours and directions",
       "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
       "kind": "official",
@@ -343,13 +343,13 @@
       "suitability": {
         "min_age": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "operator_rule",
           "src": [
             "src-0031"
           ],
           "quote": "Yes, all children are welcome.",
-          "note": "The operator's FAQ welcomes all children and states no minimum age. The renovated facility reopened in 2026 under the name Earth Lagoon Myvatn."
+          "note": "The operator's FAQ welcomes all children and states no minimum age. The renovated facility reopened in 2026 under the name Earth Lagoon Myvatn. The page affirmatively welcomes all ages, so no_limit (RC, 18 Oct 2026)."
         },
         "adult_required": {
           "v": null,
@@ -988,6 +988,13 @@
         "access_season": {
           "v": [
             {
+              "from": "04-01",
+              "to": "05-19",
+              "status": "limited",
+              "via": "road",
+              "note": "Weekdays 10:00-16:00"
+            },
+            {
               "from": "05-20",
               "to": "09-20",
               "status": "open",
@@ -1000,6 +1007,13 @@
               "status": "limited",
               "via": "road",
               "note": "Weekdays 10:00-16:00"
+            },
+            {
+              "from": "10-21",
+              "to": "03-31",
+              "status": "limited",
+              "via": "road",
+              "note": "By appointment; ring at the ticket office on weekdays 10:00-16:00"
             }
           ],
           "state": "value",
@@ -1007,7 +1021,9 @@
           "src": [
             "src-0034"
           ],
-          "applies_to": "2026"
+          "applies_to": "2026",
+          "quote": "May 20 – September 20: Daily from 10:00 AM – 6:00 PM September 21 – October 20: Weekdays from 10:00 AM – 4:00 PM",
+          "note": "Re-read on the moved hours page (RC); spring and off-season rows added from the same page"
         }
       },
       "flat": {

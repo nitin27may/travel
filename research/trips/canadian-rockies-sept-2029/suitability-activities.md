@@ -147,3 +147,25 @@ Send by email or phone. Contacts are from each operator's own page.
 | Date | Change |
 |---|---|
 | 2026-10-18 | First pass: 17 records, both rafts' weight traps resolved, relevance for all 17 |
+
+## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
+
+- **Kicking Horse family float `pregnancy`.** "We recommend pregnant ladies remain on land" is advice, not a rule. It is now `operator_info`. The vocabulary has no `not_recommended`, so the value is `ask_doctor` (the nearest non-rule value), with the quote and a note. A `not_recommended` value is a schema follow-up for CF.
+- **Moraine Lake canoe `craft_capacity`.** The invented "children 0" is gone. The page says only "two to three people", so the field is `searched_none` for the adult and child split, with that quote.
+- **Banff and Miette hot springs `min_age`.** "Babies and toddlers are allowed" is an affirmative no-minimum, so both are now `no_limit`.
+- **rebase-basis.** These moved from `operator_rule` to `operator_info`:
+  - the swim-ability preferences
+  - the Jasper SkyTram stroller note
+  - toilets and season fields
+
+  Kept as rules: waivers, the Maligne and Minnewanka stroller ban (`stroller_on_board`) and the Lake Louise canoe capacity (two children under 25 kg).
+- **Lake Minnewanka cruise.** The hours page moved, and the new page shows 2027 dates. The access season is now 7 May to 11 Oct 2027 (it was 8 May to 12 Oct 2026).
+- **`same_place_as`** (CF one anchor per place):
+  - Maligne cruise with Maligne Lake and Spirit Island
+  - Ice Explorer with the Athabasca Glacier
+  - Minnewanka cruise with Lake Minnewanka
+  - the three canoe rentals with their lakes
+  - Canmore Nordic Centre activity with the park
+
+  The Maligne cruise and the Ice Explorer drop from anchor to highlight. No Sulphur Mountain or Whitehorn place record exists, so the two gondolas have none.
+- **Pair:** the Banff Gondola with the Upper Hot Springs (Mountain Avenue, about 0.5 km).

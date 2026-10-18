@@ -67,7 +67,7 @@ Source log: `research/trips/chamonix-mont-blanc-sept-2028/suitability.md`
 Send by email where an address is given; the operator's own pages are the source of each contact.
 
 **Rafting Club Activ** (info@rafting-club-activ.com, +39 328 966 07 78, Rienz meeting point: sports zone St. Sigmund)
-1. Your Rienza tour page says minimum age 6, and your FAQ says children under 9 only after consultation. Which applies, and what do you check for a child aged 6 to 8?
+1. Your Rienza tour page says minimum age 6, and your FAQ says children under 9 only after consultation. Which applies, and what do you check for children from 6 up to 9?
 2. Is there a minimum or maximum body weight for the Rienza tour, and from what weight do you have life jackets and wetsuits?
 3. What whitewater class is the San Sigismondo to Rio di Pusteria section in July, and how long is the section in km?
 4. How long is the time on the water within the 2.5 hours?

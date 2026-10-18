@@ -55,15 +55,25 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 3.7,
+          "how": "drive",
+          "extra_min": 20,
+          "on_site_min": 20,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Cadini viewpoint path leaves from Rifugio Auronzo, the loop's start: a short add-on",
+          "src": "src-0037"
+        }
+      ],
       "pair_pending": [
         {
           "ref": "place/lago-dantorno",
           "km": 3
-        },
-        {
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 3.7
         },
         {
           "ref": "place/monte-piana",
@@ -913,12 +923,22 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [
+      "pair_with": [
         {
           "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 2.4
-        },
+          "km": 2.4,
+          "how": "drive",
+          "extra_min": 20,
+          "on_site_min": 20,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": true,
+          "reason": "The Bullaccia round and the Witches' Benches are on the same high plateau",
+          "src": "src-0023"
+        }
+      ],
+      "pair_pending": [
         {
           "ref": "place/seceda-ridge",
           "km": 10.5
@@ -1270,6 +1290,19 @@
       },
       "pair_with": [
         {
+          "ref": "place/cinque-torri",
+          "km": 3.7,
+          "how": "drive",
+          "extra_min": 45,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "Both are Great War open-air museums on Passo Falzarego, a few minutes apart by road",
+          "src": "src-0033"
+        },
+        {
           "ref": "place/lago-di-limides",
           "km": 1.4,
           "how": "walk",
@@ -1282,10 +1315,6 @@
         }
       ],
       "pair_pending": [
-        {
-          "ref": "place/cinque-torri",
-          "km": 3.7
-        },
         {
           "ref": "place/lago-federa",
           "km": 8.1
@@ -2266,7 +2295,21 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "place/adolf-munkel-weg",
+          "km": 3.6,
+          "how": "drive",
+          "extra_min": 150,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Adolf Munkel trail starts at Zans at the head of the same valley",
+          "src": "src-0027"
+        }
+      ],
       "pair_pending": [
         {
           "ref": "place/seceda-ridge",
@@ -2372,6 +2415,10 @@
           "km": 6.1
         },
         {
+          "ref": "place/lago-di-sorapis",
+          "km": 6.9
+        },
+        {
           "ref": "place/cinque-torri",
           "km": 7.2
         },
@@ -2408,8 +2455,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
         },
         "weekend": {
           "fit": "skip",
@@ -2421,14 +2468,14 @@
           "reason": "too long a stop for the draw"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": []
     },

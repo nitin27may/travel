@@ -68,14 +68,14 @@ No height or weight limit is published for any record.
 ## Conflicts
 
 Resolved:
-- **Minitrekking age.** The plan's 8-65 came from press and resellers. It is now an operator rule.
+- **Minitrekking age.** An earlier figure of 8-65 came from press and resellers. It is now an operator rule.
 - **Piratour versus "Pira Tour"**: the same company (earlier research). piratour.net is the current site; piratour.com.ar is stale.
 
 Still open (kept as `conflicts` or noted):
 - Laguna de los Tres distance (20.9 / 21 km) and gain (945 / 1,103 m): no official figure exists. Time: official 8 h against 7-10 h (community).
 - Laguna Capri, Cóndores and Chorrillo: distance and gain are community only. Chorrillo's official distance (8 km RT from "4 km del Chaltén") conflicts with 6.4 km (community).
 - Minitrekking time on the ice: 1 h (EN) against 1 h 15 (ES), on the operator's own page.
-- **Hielo y Aventura publishes a second product, "Minitrekking2"** (10 h, 15 Aug-31 May, ages 12-60; one label inside it says 18-55). Its relation to Minitrekking (8-65) is unclear. The plan's 8-65 belongs to the product named "Minitrekking". Ask the operator.
+- **Hielo y Aventura publishes a second product, "Minitrekking2"** (10 h, 15 Aug-31 May, ages 12-60; one label inside it says 18-55). Its relation to Minitrekking (8-65) is unclear. The earlier 8-65 figure belongs to the product named "Minitrekking". Ask the operator.
 - Laguna Nimez Wikidata coordinates are about 26 km off the reserve. A person should fix the item.
 
 ## Kind and record notes
@@ -163,3 +163,13 @@ Send by email or WhatsApp. Researchers cannot.
 - piratour.com.ar is an old site with injected spam. The current site is piratour.net (WordPress product pages).
 - elchalten.tur.ar trail pages render a different post at some URLs. Read them through `wp-json/wp/v2/posts?categories=37`.
 - The APN difficulty-map has "Medium" only. The APN page says "Media", so the record quotes the Spanish word and maps it.
+
+## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
+
+- **Wording.** "The plan's 8-65" now reads "an earlier figure of 8-65".
+- **Piratour Isla Martillo page.** The URL now goes to the "version terrestre" page, which is the same product. The 1 h walk, landing, mobility, clothing and weather quotes all match it. The October to April season quote is not on it; it is on the Ushuaia tourism page, which the access season now cites.
+- **rebase-basis.** The minitrekking medical and pregnancy exclusions stay `operator_rule` ("cannot take the tour").
+- **Relevance re-judged:**
+  - **Isla Martillo penguin stop: national to regional, anchor to filler.** The hard access load (the daily landing quota) drops the regional fit one step. "Only penguin colony in Tierra del Fuego" supports its distinction, not a national draw. It has 3 languages and no measured views.
+  - **Minitrekking: national to regional, anchor to highlight.** The draw rested on the parent WHS and plan research. It is now `same_place_as` the Perito Moreno walkways, which keep the anchor.
+  - **El Chalten village: stays national and an anchor.** Under the settlement rule only views count, and it has about 31,300 a year, plus the "Capital Nacional del Trekking" title. Distinction stays rare: El Calafate is the only other base, about 200 km away. The note now cites these, not the WHS.

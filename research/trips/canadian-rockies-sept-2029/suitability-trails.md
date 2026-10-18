@@ -174,3 +174,27 @@ Draw tiers: world 4, national 12, regional 34, local 11. Roles after `relevance.
 | sights/paint-pots | sight/attraction | usable | None | regional | top | rare | sight/landmark | local | highlight | Worth a detour |
 | sights/kananaskis-lakes-day-use | sight/area | usable | None | regional | top | common | lake/glacial-turquoise | local | filler | Local favourite |
 | sights/canmore-nordic-centre | activity/mtb | usable | None | regional | good | common | trail/forest-loop | local | filler | - |
+
+## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
+
+Suitability:
+- **Johnston Canyon `access_season`.** The 11 Dec 2026 end is now sourced: the Parks Canada bulletin "Area Closure: Johnston Canyon Trail and Day Use Area" (issued 13 Oct 2026, ends 11 Dec 2026). The winter walking page adds that the Upper Falls and Ink Pots stay reachable by the Moose Meadows Trail, so the note no longer says the whole trail is closed. The 19-month tender note stays.
+- **Interlakes `hazards`.** No live page states the grizzly closure any more: the Kananaskis advisories and the Upper Lake trail report (read 18 Oct) show the trail open ("Open Sep 9th"). The closure rests on our earlier research (trails-provincial.md), so the basis is now `our_inference` with that note.
+- **Group rules.** Parks Canada's group-of-four list (bear management page, re-read 18 Oct) names Bryant Creek/Allenby Pass, the Lake Minnewanka area and the Moraine Lake area in Banff, McArthur Valley and the Odaray Highline in Yoho, and nothing in Jasper. The 11 Banff, Yoho and Jasper trails not on it moved from `none_stated` to `no_limit` (`official_rule`, note "not on Parks Canada's group-of-four list"). Larch Valley keeps its value of 4. The Alberta Parks and BC Parks trails stay `searched_none`: no such list exists there.
+- Two sources pointed to their final URLs after the link check (Icefields Parkway, Banff top 10).
+
+Relevance (spec 3.1 rule 3 and the CF anchor test):
+- **Johnston Canyon: stays national and an anchor.** New place-level evidence: Parks Canada lists it in its Banff top 10 ("Discover Johnston Canyon"), recorded as an own `official_highlight`. The Wikidata item is a one-language bot stub, so the fame signal under-reads. Distinction stays rare (Marble Canyon is the only same-class place within 100 km in the catalogue).
+- **Emerald Lake: anchor to highlight.** The draw stays national (Yoho's headline lake; 9 languages, about 17,200 views). Distinction moves from rare to common: Lake Louise (21 km), Bow Lake (25 km), Moraine (28 km) and Peyto are the same class within 100 km. Common caps it at highlight.
+- **Sunshine Meadows: national to regional, anchor to highlight.** The national draw rested on the parent park and WHS only. Its place signals are 1 language and about 580 views a year, and no headline page was found.
+- **Athabasca Falls: stays national and an anchor.** The evidence is now place-level: it is a named stop on Parks Canada's Icefields Parkway itinerary (own `official_highlight`), with 17 languages.
+- **Takakkaw Falls: stays national and an anchor.** Parks Canada calls it Canada's second highest waterfall (11 languages, about 10,700 views). The note now cites that, not the parent park.
+- **Pairs (`pairs_with`):**
+  - Lake Louise with the Lake Louise gondola
+  - Moraine Lake with Larch Valley
+  - the Athabasca Glacier with the Glacier Skywalk
+  - Peyto Lake with Bow Lake
+  - Emerald Lake with the Natural Bridge
+  - Marble Canyon with the Paint Pots
+
+  No Lake Agnes record exists, so that pair is not recorded.

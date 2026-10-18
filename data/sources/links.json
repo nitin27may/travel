@@ -29,6 +29,13 @@
       "final": "https://www.pustertal.org/en/highlights/museums-and-exhibitions/outdoor-museum-monte-piana/",
       "checked": "2026-10-18"
     },
+    "s-013c3cf693": {
+      "url": "https://en.chamonix.com/lacs-d-hiver/lac-des-gaillands",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
     "s-01593977c4": {
       "url": "https://www.openstreetmap.org/relation/7302496",
       "status": "ok",
@@ -48,13 +55,6 @@
       "status": "redirect",
       "http": 200,
       "final": "https://chinookrafting.com/",
-      "checked": "2026-10-18"
-    },
-    "s-04be7df43f": {
-      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/experience/faqs",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/",
       "checked": "2026-10-18"
     },
     "s-04f5aef990": {
@@ -197,13 +197,6 @@
       "final": "https://elchalten.tur.ar/circuitoverdeazul-21124/",
       "checked": "2026-10-18"
     },
-    "s-14dacc413f": {
-      "url": "https://cms.odlesdolomites.com/fileadmin/user_upload/Footer_Nachhaltigkeit/3.2_Sustainable_behaviour_Villn%C3%B6ss.pdf",
-      "status": "broken",
-      "http": 404,
-      "final": null,
-      "checked": "2026-10-18"
-    },
     "s-16135f7e8d": {
       "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs",
       "status": "ok",
@@ -278,20 +271,6 @@
       "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
       "status": "ok",
       "http": 200,
-      "final": null,
-      "checked": "2026-10-18"
-    },
-    "s-21586c0f47": {
-      "url": "https://www.glaumbaer.is/is/en",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://www.glaumbaer.is/en/visit/hours-admission",
-      "checked": "2026-10-18"
-    },
-    "s-259bb5a673": {
-      "url": "https://api.open-meteo.com/v1/elevation",
-      "status": "broken",
-      "http": 400,
       "final": null,
       "checked": "2026-10-18"
     },
@@ -400,13 +379,6 @@
       "final": null,
       "checked": "2026-10-18"
     },
-    "s-2da1039361": {
-      "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-doch-befahrbar-26299020",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
-      "checked": "2026-10-18"
-    },
     "s-2e00e26f59": {
       "url": "https://www.earthlagoon.is",
       "status": "ok",
@@ -505,11 +477,25 @@
       "final": null,
       "checked": "2026-10-18"
     },
+    "s-3656501e79": {
+      "url": "https://www.iceman.it/en/the-museum/opening-times-and-fees",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
     "s-37c6bd336e": {
       "url": "https://swissfamilyfun.com/dolomites-vallunga",
       "status": "ok",
       "http": 200,
       "final": "https://swissfamilyfun.com/dolomites-vallunga/",
+      "checked": "2026-10-18"
+    },
+    "s-38fbd4a2a6": {
+      "url": "https://en.chamonix.com/cultural-spring-activities/emosson-dam",
+      "status": "ok",
+      "http": 200,
+      "final": null,
       "checked": "2026-10-18"
     },
     "s-3909c043f3": {
@@ -538,13 +524,6 @@
       "status": "ok",
       "http": 200,
       "final": null,
-      "checked": "2026-10-18"
-    },
-    "s-3b7e5c6e15": {
-      "url": "https://en.chamonix.com/objet_touristique/1322",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://en.chamonix.com/lacs-d-hiver/lac-des-gaillands",
       "checked": "2026-10-18"
     },
     "s-3bc627a0bc": {
@@ -582,13 +561,6 @@
       "final": "https://www.trentino.com/en/leisure-activities/mountains-and-hiking/alpine-tours/from-mount-sas-pordoi-to-mount-piz-boe/",
       "checked": "2026-10-18"
     },
-    "s-401d4527cb": {
-      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
-      "checked": "2026-10-18"
-    },
     "s-4039fc187c": {
       "url": "https://iceman.it/press-kit/SAM-Presseinformationen-DE.pdf",
       "status": "redirect",
@@ -596,11 +568,25 @@
       "final": "https://www.iceman.it/press-kit/SAM-Presseinformationen-DE.pdf",
       "checked": "2026-10-18"
     },
+    "s-4042473c8d": {
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/",
+      "checked": "2026-10-18"
+    },
     "s-418c2d9659": {
       "url": "https://www.argentina.gob.ar/senderos-del-parque-nacional-tierra-del-fuego",
       "status": "redirect",
       "http": 200,
       "final": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego",
+      "checked": "2026-10-18"
+    },
+    "s-41a645d02e": {
+      "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
+      "status": "ok",
+      "http": 200,
+      "final": null,
       "checked": "2026-10-18"
     },
     "s-41e37d59db": {
@@ -626,6 +612,13 @@
     },
     "s-4364aadfa8": {
       "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/destination-svartifoss",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-472aac83db": {
+      "url": "https://en.chamonix.com/activites-en-famille/mer-de-glace-et-train-du-montenvers",
       "status": "ok",
       "http": 200,
       "final": null,
@@ -722,6 +715,13 @@
       "final": null,
       "checked": "2026-10-18"
     },
+    "s-534753610b": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
     "s-538d3f04a2": {
       "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise/faq",
       "status": "ok",
@@ -785,6 +785,13 @@
       "final": "https://www.pustertal.org/en/leisure-activities/sport-offers/rafting/",
       "checked": "2026-10-18"
     },
+    "s-5a94aedc1d": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
     "s-5a97a09c8c": {
       "url": "https://www.nps.gov/places/upheaval-dome-overlook-trails.htm",
       "status": "ok",
@@ -796,13 +803,6 @@
       "url": "https://www.thingvellir.is/en/things-to-do/visitor-centre",
       "status": "ok",
       "http": 200,
-      "final": null,
-      "checked": "2026-10-18"
-    },
-    "s-5ff31450d9": {
-      "url": "https://www.iceman.it/en/opening-times-and-fees",
-      "status": "broken",
-      "http": 404,
       "final": null,
       "checked": "2026-10-18"
     },
@@ -818,13 +818,6 @@
       "status": "ok",
       "http": 200,
       "final": null,
-      "checked": "2026-10-18"
-    },
-    "s-62784ccfe4": {
-      "url": "https://www.dreizinnen.com/en/activity/family-hiking-tour-walk-around-the-pragser-wildsee-lake_675",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://www.dreizinnen.com/en/activities-winter-summer/touroverview?error=404",
       "checked": "2026-10-18"
     },
     "s-636b389228": {
@@ -918,13 +911,6 @@
       "final": null,
       "checked": "2026-10-18"
     },
-    "s-6b86885265": {
-      "url": "https://piratour.net/producto/caminata-en-isla-martillo",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre/",
-      "checked": "2026-10-18"
-    },
     "s-6b936bfee4": {
       "url": "https://www.wikidata.org",
       "status": "redirect",
@@ -976,6 +962,13 @@
     },
     "s-75e59993e6": {
       "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-7948feb0cb": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10",
       "status": "ok",
       "http": 200,
       "final": null,
@@ -1156,25 +1149,11 @@
       "final": null,
       "checked": "2026-10-18"
     },
-    "s-938f1829bb": {
-      "url": "https://lystigardur.akureyri.is/en/moya/adverts/9",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://www.lystigardur.akureyri.is/en/practical-information/opening-hours-and-directions",
-      "checked": "2026-10-18"
-    },
     "s-940c1f5a2f": {
       "url": "https://www.rafting-club-activ.com/en/tour/rienz-st-sigmund-muehlbach",
       "status": "ok",
       "http": 200,
       "final": "https://www.rafting-club-activ.com/en/tour/rienz-st-sigmund-muehlbach/",
-      "checked": "2026-10-18"
-    },
-    "s-940ff3b8b6": {
-      "url": "https://en.chamonix.com/things-to-see-and-do/sports-and-outdoor/hiking/lakes-waterfalls-and-gorges/hike-to-the-lac-blanc-from-la-flegere",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
       "checked": "2026-10-18"
     },
     "s-941701af4a": {
@@ -1191,11 +1170,11 @@
       "final": null,
       "checked": "2026-10-18"
     },
-    "s-96e8453910": {
-      "url": "https://www.skilouise.com/explore-summer/disabled-travelers-accessibility",
-      "status": "redirect",
+    "s-94b679c2b3": {
+      "url": "https://www.lystigardur.akureyri.is/en/practical-information/opening-hours-and-directions",
+      "status": "ok",
       "http": 200,
-      "final": "https://www.skilouise.com/accessibility/",
+      "final": null,
       "checked": "2026-10-18"
     },
     "s-9997eeb189": {
@@ -1214,6 +1193,13 @@
     },
     "s-9bd5e753d2": {
       "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-9c54bd848d": {
+      "url": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
       "status": "ok",
       "http": 200,
       "final": null,
@@ -1273,6 +1259,13 @@
       "status": "ok",
       "http": 200,
       "final": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/location-hours/",
+      "checked": "2026-10-18"
+    },
+    "s-a1950eec4f": {
+      "url": "https://stateparks.utah.gov/parks/dead-horse-point/hiking",
+      "status": "ok",
+      "http": 200,
+      "final": "https://stateparks.utah.gov/parks/dead-horse-point/hiking/",
       "checked": "2026-10-18"
     },
     "s-a1b2c510ff": {
@@ -1336,13 +1329,6 @@
       "status": "ok",
       "http": 200,
       "final": "https://www.babytrekking.it/lago-di-misurina-passeggino/",
-      "checked": "2026-10-18"
-    },
-    "s-abc64e6338": {
-      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/hours-rates",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours/",
       "checked": "2026-10-18"
     },
     "s-abf52b3568": {
@@ -1583,11 +1569,11 @@
       "final": null,
       "checked": "2026-10-18"
     },
-    "s-c3df6363be": {
-      "url": "https://stateparks.utah.gov?p=11460",
-      "status": "broken",
-      "http": 404,
-      "final": "https://stateparks.utah.gov/?p=11460",
+    "s-c3192a536d": {
+      "url": "https://www.skilouise.com/accessibility",
+      "status": "ok",
+      "http": 200,
+      "final": null,
       "checked": "2026-10-18"
     },
     "s-c64d0b009a": {
@@ -1737,6 +1723,13 @@
       "final": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
       "checked": "2026-10-18"
     },
+    "s-d8d590aa02": {
+      "url": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre",
+      "status": "ok",
+      "http": 200,
+      "final": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre/",
+      "checked": "2026-10-18"
+    },
     "s-db945abf56": {
       "url": "https://vtrans.vermont.gov/notch",
       "status": "ok",
@@ -1756,6 +1749,13 @@
       "status": "ok",
       "http": 200,
       "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-de3f7ddc1f": {
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours/",
       "checked": "2026-10-18"
     },
     "s-e04a3fcb7b": {
@@ -1807,6 +1807,13 @@
       "final": null,
       "checked": "2026-10-18"
     },
+    "s-e96ecca5ef": {
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoie5ee18afad12333eaaedfe9a677c56cc.church-of-st--magdalene-15th-century.s--maddalena-st--magdalena---funes-villnoess",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
     "s-e9d2ba8bdf": {
       "url": "https://elchalten.tur.ar",
       "status": "ok",
@@ -1826,6 +1833,13 @@
       "status": "ok",
       "http": 200,
       "final": "https://www.ecnews.it/fiscale/viaggi-e-tempo-libero/escursione-del-lago-federa/",
+      "checked": "2026-10-18"
+    },
+    "s-ed3e2aa211": {
+      "url": "https://www.glaumbaer.is/en/visit/hours-admission",
+      "status": "ok",
+      "http": 200,
+      "final": null,
       "checked": "2026-10-18"
     },
     "s-ed8ec0aac6": {
@@ -1863,11 +1877,11 @@
       "final": "https://cortina.dolomiti.org/en/pagina-altri-servizi/open-air-museum-of-the-great-war-at-cinque-torri/",
       "checked": "2026-10-18"
     },
-    "s-f2f8f3bdd1": {
-      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/the-montenvers-mer-de-glace-train",
-      "status": "redirect",
+    "s-f2be7eff7b": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff",
+      "status": "ok",
       "http": 200,
-      "final": "https://en.chamonix.com/activites-en-famille/mer-de-glace-et-train-du-montenvers",
+      "final": null,
       "checked": "2026-10-18"
     },
     "s-f4b94ded6b": {
@@ -1954,18 +1968,25 @@
       "final": null,
       "checked": "2026-10-18"
     },
+    "s-fd8a40909f": {
+      "url": "https://www.dreizinnen.com/en/activity/summer-walk-around-the-lake-lago-di-braies-pragser-wildsee-_644",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-fdaea7f4af": {
+      "url": "https://open-meteo.com/en/docs/elevation-api",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
     "s-ff5ea43992": {
       "url": "https://www.skibig3.com/summer/gondolasandlifts",
       "status": "ok",
       "http": 200,
       "final": "https://www.skibig3.com/summer/gondolasandlifts/",
-      "checked": "2026-10-18"
-    },
-    "s-ff823897ae": {
-      "url": "https://en.chamonix.com/la-vallee/patrimoine-culture/patrimoine-culturel-de-la-vallee/emosson-dam",
-      "status": "redirect",
-      "http": 200,
-      "final": "https://en.chamonix.com/cultural-spring-activities/emosson-dam",
       "checked": "2026-10-18"
     }
   }

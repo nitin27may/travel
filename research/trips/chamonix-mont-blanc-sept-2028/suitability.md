@@ -98,3 +98,13 @@ No route platform, Google or booking site is cited. AllTrails figures in the tri
 | Mont Blanc reflection | Q3214753 | national | top | rare | lake/small-mirror | local |
 
 `draw_suggested` reads `local` everywhere because `relevance.ts signals --fetch` has not run; calibrate after it does. Gotcha: "Lac Blanc" on Wikidata returns Quebec and Vosges lakes first. Designations: only the Aiguilles Rouges nature reserve (scope `parent`) on Lac Blanc and the reflection; the Mont Blanc massif has no UNESCO or park designation.
+
+## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
+
+- **Aiguille du Midi `age_band`.** The basis is now `our_inference`. The band is ours, built on the operator's "children under 5 are not recommended"; the min_age of 3 stays an operator rule.
+- **Moved pages.** The Montenvers, Emosson and Lac des Gaillands pages moved and were re-read at their new URLs. Every quoted value still matches: Montenvers min age 1, 2 to 3 hours, the 14 Sep to 1 Nov hours, then closed 2 Nov to 4 Dec; Emosson open 16 May to 31 Oct, free. The Lac Blanc page also moved; its 7 km and 500 m figures still match.
+- **Relevance re-judged:**
+  - **Chamonix old town: world to national, anchor to highlight.** The 165,000 views measure the commune and the massif, whose draw sits on the lift and trail records. Distinction is now common: Les Houches, Saint-Gervais, Megeve and Courmayeur are comparable resort towns within 100 km.
+  - **Montenvers: anchor to highlight.** The draw stays national. Distinction is now common, because the Aiguille du Midi, Brevent, Flegere and the Skyway are panorama lifts within 100 km. Montenvers is now `same_place_as` the Grotte de la Mer de Glace.
+  - **Plan de l'Aiguille: national to regional, anchor to highlight.** It has no Wikipedia item and no headline page.
+- **Pairs:** the Aiguille du Midi with the Plan de l'Aiguille (the mid-station and the Grand Balcon Nord); the Plan de l'Aiguille with the Montenvers train (the balcony walk ends there).
