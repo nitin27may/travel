@@ -5,6 +5,7 @@ import { MapFamilyProvider } from '@/components/map/MapFamilyProvider';
 import { MapSurface } from '@/components/map/MapSurface';
 import { placePageFamily } from '@/lib/map/family';
 import type { LegendItem, LngLat, MapHandle, MapSpec, Pin } from '@/lib/map/types';
+import { labelledIds } from './mapPoints';
 import { usePlaceShell } from './PlaceShell';
 
 export interface PlaceMapPoint {
@@ -30,8 +31,9 @@ export function PlaceMap({ name, points, guide, selectedId }: { name: string; po
   }, [setHandle]);
 
   const spec: MapSpec = useMemo(() => {
-    // only the selected pin and the trailhead are named on the map; the other lots keep their name for assistive tech
-    const pins: Pin[] = points.map((p) => ({ id: p.id, at: p.at, style: p.style, label: p.label, quiet: p.id !== selectedId && p.style !== 'trailhead' }));
+    // only the selected pin and the trailhead are named on the map (never both when they would overprint); the other lots keep their name for assistive tech
+    const named = labelledIds(points, selectedId);
+    const pins: Pin[] = points.map((p) => ({ id: p.id, at: p.at, style: p.style, label: p.label, quiet: !named.has(p.id) }));
     const legend: LegendItem[] = [
       ...(points.some((p) => p.style === 'trailhead') ? [{ id: 'l-th', label: 'Trailhead', style: 'trailhead' as const }] : []),
       ...(points.some((p) => p.style === 'parking') ? [{ id: 'l-pk', label: 'Parking', style: 'parking' as const }] : []),

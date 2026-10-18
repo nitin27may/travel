@@ -17,6 +17,7 @@ import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPla
 import { GalleryLazy } from './GalleryLazy';
 import { ElevationProfile } from './ElevationProfile';
 import { LinksTabs } from './LinksTabs';
+import { dedupeMapPoints } from './mapPoints';
 import type { PlaceMapPoint } from './PlaceMap';
 import { PlaceMapLazy } from './PlaceMapLazy';
 import { PlaceShell } from './PlaceShell';
@@ -241,10 +242,11 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
   ];
   // a point shared by two roles draws once
   const seen = new Set<string>();
-  const unique = points.filter((p) => {
+  const unique = dedupeMapPoints(points.filter((p) => {
     const k = `${p.style}:${p.at.lat.toFixed(5)},${p.at.lng.toFixed(5)}`;
     return seen.has(k) ? false : (seen.add(k), true);
-  });
+  }));
+  const selectedPoint = (id: string) => (unique.some((p) => p.id === id) ? id : id === 'place' && unique.some((p) => p.id === 'trailhead') ? 'trailhead' : undefined);
 
   const hasAccess = !['area', 'town'].includes(place.kind) || Boolean(place.access && (place.access.trailhead || place.access.parking.length));
   const glance = glanceFor(place);
@@ -550,7 +552,7 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
                 Map
               </h2>
               {unique.length ? (
-                <PlaceMapLazy name={place.name} points={unique} guide={guide} selectedId={target ? (target.source === 'parking' ? 'parking-0' : target.source === 'trailhead' ? 'trailhead' : 'place') : undefined} />
+                <PlaceMapLazy name={place.name} points={unique} guide={guide} selectedId={target ? selectedPoint(target.source === 'parking' ? 'parking-0' : target.source === 'trailhead' ? 'trailhead' : 'place') : undefined} />
               ) : (
                 <p className="pl-gap">
                   <Icon name="info" size={14} /> No point is stored for this place yet, so there is no map.
