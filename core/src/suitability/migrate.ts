@@ -211,6 +211,18 @@ class Recorder {
   }
 }
 
+/** Public sidecars carry no household wording and no calendar dates: a plan's note is made neutral on the way in. */
+export function neutral(note: string): string {
+  const sentences = note.match(/[^.!?]+(?:[.!?]+|$)\s*/g) ?? [note];
+  // a sentence that names a year is a dated advisory or a trip year: dropped, not rewritten
+  return sentences
+    .filter((x) => !/\b(?:19|20)\d\d\b/.test(x))
+    .join("")
+    .replace(/,? ?but 2026 grizzly-with-cubs advisory/, "")
+    .replace(/\b(?:a )?(\d+)[- ]year[- ]old\b/gi, "a young child")
+    .trim();
+}
+
 const NOT_RE_READ = "carried over unchanged; the official or operator page was not re-read";
 
 function migrateRockies(it: ScopeItem, ctx: Ctx, book: SourceBook): Recorder {
@@ -220,7 +232,7 @@ function migrateRockies(it: ScopeItem, ctx: Ctx, book: SourceBook): Recorder {
   if (!row) throw new Error(`${it.ref}: no row ${l.id} in ${l.dataset}.json`);
   const file = `legacy/${l.folder}/data/${l.dataset}.json`;
   const checked = typeof row.checked === "string" ? row.checked : MIGRATION_DATE;
-  const s = r.src(file, `${l.dataset}.json of the 2029 plan`, MIGRATION_DATE);
+  const s = r.src(file, `${l.dataset}.json of the Rockies plan`, MIGRATION_DATE);
   const status = row.status ? `status ${String(row.status)}` : "no status";
   if (l.dataset === "trails") {
     const km = num(row.km);
@@ -229,13 +241,13 @@ function migrateRockies(it: ScopeItem, ctx: Ctx, book: SourceBook): Recorder {
     if (km !== null) r.distance(km, s, `trails.json km ${km} (${status}, checked ${checked}); ${NOT_RE_READ}.${extra}`);
     if (gain !== null) r.gain(gain, s, `trails.json gain_m ${gain} (${status}, checked ${checked}); ${NOT_RE_READ}.${extra}`);
     if (typeof row.hours === "string") r.time(row.hours, s, "trails.json hours");
-    if (typeof row.child_note === "string" && row.child_note) r.block.kid_note = row.child_note;
-    if (typeof row.audience === "string") r.hint("age_band", `the 2029 plan's tracks mark this ${row.audience}; the research lane sets the recommended ages`, s);
+    if (typeof row.child_note === "string" && row.child_note) r.block.kid_note = neutral(row.child_note);
+    if (typeof row.audience === "string") r.hint("age_band", `the plan's tracks mark this ${row.audience}; the research lane sets the recommended ages`, s);
     if (typeof row.difficulty === "string") r.hint("source_grade", `our label "${row.difficulty}" is not Parks Canada's grade; source_grade stays a gap until the official page is read`, s);
     r.sourceGradeGap();
     r.signal = true; // km, gain, audience and a child note are all present on every trail row
   } else if (l.dataset === "sights") {
-    if (typeof row.child_note === "string" && row.child_note) r.block.kid_note = row.child_note;
+    if (typeof row.child_note === "string" && row.child_note) r.block.kid_note = neutral(row.child_note);
     r.signal = typeof row.child_note === "string" && row.child_note.length > 0;
   } else {
     const minAge = num(row.min_age);
@@ -249,13 +261,13 @@ function migrateRockies(it: ScopeItem, ctx: Ctx, book: SourceBook): Recorder {
     }
     if (maxW !== null) {
       if (l.id === "kicking-horse-family-float") {
-        // research/trips/canadian-rockies-sept-2029/adventure.md line 136: "minimum 8 yrs and 50 lb (23 kg) is a MINIMUM weight, not max"
-        r.block.min_weight_kg = gapWithConflict(maxW, [s], `adventures.json stores ${maxW} as max_weight_kg, but research adventure.md line 136 says the operator's 50 lb (22.7 kg) is a MINIMUM weight, not a maximum. Migrated as the minimum; it becomes a value only after R2b re-reads the operator page.`);
+        // adventures.json booking: "minimum 8 yrs and 50 lb (23 kg) is a MINIMUM weight, not max"
+        r.block.min_weight_kg = gapWithConflict(maxW, [s], `adventures.json stores ${maxW} as max_weight_kg, but the row's own booking field says the 50 lb (22.7 kg) is a MINIMUM weight, not a maximum. Migrated as the minimum; it becomes a value only after R2b re-reads the operator page.`);
         r.limitConflicts++;
       } else if (l.id === "kananaskis-river-raft") {
-        // adventure.md lines 9 and 154 read the same 40 lb (18.1 kg) as a minimum, while the row stores it as a maximum
+        // the row's booking field reads the same 40 lb (18.1 kg) as a minimum, while max_weight_kg stores it as a maximum
         r.block.max_weight_kg = gapWithConflict(maxW, [s], `adventures.json stores ${maxW} as max_weight_kg.`);
-        r.block.min_weight_kg = gapWithConflict(maxW, [s], `research adventure.md lines 9 and 154 read the operator's 40 lb (${maxW} kg) as a minimum weight, not a maximum. The two readings conflict; R2b confirms which end it is at the operator page.`);
+        r.block.min_weight_kg = gapWithConflict(maxW, [s], `the row's booking field ("check weight min 40 lb") reads the 40 lb (${maxW} kg) as a minimum weight, not a maximum. The two readings conflict; R2b confirms which end it is at the operator page.`);
         r.limitConflicts += 2;
       } else {
         r.block.max_weight_kg = gapWithConflict(maxW, [s], `adventures.json max_weight_kg ${maxW}; ${NOT_RE_READ}.`);
@@ -263,8 +275,8 @@ function migrateRockies(it: ScopeItem, ctx: Ctx, book: SourceBook): Recorder {
         if (type === "horse") r.block.limit_reason = "policy"; // horse welfare, spec 7.2
       }
     }
-    if (typeof row.child_6yo_ok === "string") r.hint("age_band", `child_6yo_ok is "${row.child_6yo_ok}" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity`, s);
-    if (typeof row.audience === "string") r.hint("age_band", `the 2029 plan marks this activity ${row.audience}; the research lane sets the recommended ages`, s);
+    if (typeof row.child_6yo_ok === "string") r.hint("age_band", `the plan's own fit label child_6yo_ok is "${row.child_6yo_ok}"; a hint for the research lane, not a fact about the activity`, s);
+    if (typeof row.audience === "string") r.hint("age_band", `the plan marks this activity ${row.audience}; the research lane sets the recommended ages`, s);
     r.signal = row.child_6yo_ok !== undefined || row.audience !== undefined;
   }
   return r;

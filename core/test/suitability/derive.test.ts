@@ -129,6 +129,14 @@ describe("the flat catalogue copy", () => {
     expect(flat.max_weight_kg).toBeNull();
   });
 
+  it("an operator-recommended age warns and never becomes min_age or kid_fit no", () => {
+    const loen = rec({ min_age: v(12), age_rule: "recommendation", age_band: v({ from: 7, to: null }, "our_inference") }, { kind: "activity", subkind: "via-ferrata" });
+    expect(projectFlat(loen)).toMatchObject({ min_age: null, max_age: null, kid_fit: "yes" });
+    expect(kidFitOf({ min_age: v(12), age_rule: "recommendation" })).toBe("unknown");
+    expect(projectFlat(rec({ min_age: v(12), age_rule: "rule" })).min_age).toBe(12);
+    expect(kidFitOf({ min_age: v(12), age_rule: "rule" })).toBe("no");
+  });
+
   it("house_grade is family effort; walk_km and walk_gain_m are the drivers", () => {
     expect(projectFlat(rec(walk(11.2, 750)))).toMatchObject({ house_grade: 3, walk_km: 11.2, walk_gain_m: 750 });
   });

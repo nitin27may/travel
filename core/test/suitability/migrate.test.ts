@@ -115,7 +115,7 @@ describe("the fixes of spec 7.2", () => {
     expect(mw.state).toBe("gap");
     expect(mw.conflicts).toHaveLength(1);
     expect(mw.conflicts![0]).toMatchObject({ v: 22.7, basis: "our_inference" });
-    expect(mw.conflicts![0]!.note).toMatch(/adventure\.md line 136/);
+    expect(mw.conflicts![0]!.note).toMatch(/booking field/);
     expect(mw.conflicts![0]!.note).toMatch(/MINIMUM/);
     expect(r.flat!.min_weight_kg).toBeNull(); // not a value until R2b re-reads the operator
     expect(doc(offplan).records.some((x) => x.ref === r.ref)).toBe(true);
@@ -170,7 +170,7 @@ describe("the fixes of spec 7.2", () => {
   it("audience on a trail becomes an age_band hint with the plan named", () => {
     const r = find("legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass");
     expect(r.suitability.age_band).toBeUndefined();
-    expect(r.hints!.find((h) => h.field === "age_band")!.text).toMatch(/2029 plan's tracks mark this adult_only/);
+    expect(r.hints!.find((h) => h.field === "age_band")!.text).toMatch(/plan's tracks mark this adult_only/);
   });
   it("pushchair sentences are copied verbatim and the stroller stays unset", () => {
     expect(find("place/lago-di-braies").suitability.kid_note).toBe("Not suitable for pushchairs (steps on the east side)");
@@ -208,5 +208,31 @@ describe("parseMinutes", () => {
   });
   it.each(["2 days", "overnight", "GAP", "1.5-2 days one way", "", "sunrise"])("%s is not a time range", (raw) => {
     expect(parseMinutes(raw)).toBeNull();
+  });
+});
+
+describe("no household wording and no calendar dates in the sidecars", () => {
+  const HOUSEHOLD = /\bparty\b|20 kg|our kids?|\b\d-year-old|\b\d year old|child of about|\b2029 party/i;
+  const DATE = /\b\d{1,2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \d{4}\b|\b(effective|reopened) [A-Z][a-z]+ \d|\b\d{4}-\d{2}-\d{2}\b/;
+  /** every string of a doc outside the provenance fields (read, on, researched, source rows) */
+  const strings = (x: unknown, key = "", out: string[] = []): string[] => {
+    if (typeof x === "string") { if (!["read", "on", "researched", "checked"].includes(key)) out.push(x); }
+    else if (Array.isArray(x)) x.forEach((y) => strings(y, key, out));
+    else if (x && typeof x === "object") for (const [k, y] of Object.entries(x)) if (k !== "sources") strings(y, k, out);
+    return out;
+  };
+  it("holds in every migrated file", () => {
+    for (const [rel, d] of m.docs) {
+      for (const t of strings(d.records)) {
+        // notes quote "status X, checked <date>" provenance; the checked date of a source row is allowed
+        const stripped = t.replace(/(checked|read) (\d{1,2} )?[A-Za-z]{0,9} ?\d{4}(-\d{2}-\d{2})?/g, "$1");
+        expect(HOUSEHOLD.test(stripped), `${rel}: ${stripped}`).toBe(false);
+        expect(DATE.test(stripped), `${rel}: ${stripped}`).toBe(false);
+      }
+    }
+  });
+  it("the notes cite the row's booking field and no unpublished research file", () => {
+    expect(JSON.stringify([...m.docs.values()])).not.toMatch(/adventure\.md/);
+    expect(find("legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float").suitability.min_weight_kg!.conflicts![0]!.note).toMatch(/booking field/);
   });
 });

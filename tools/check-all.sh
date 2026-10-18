@@ -25,6 +25,9 @@ step "generated schema is up to date"
 node "$ROOT/core/bin/schema.ts" generate --check --root "$ROOT"
 step "validate every data file"
 node "$ROOT/core/bin/validate.ts" --all --root "$ROOT"
+step "suitability scope manifest matches the public adapter"
+pnpm --dir "$ROOT/web" exec vitest run -c ../tools/suitability-scope/vitest.config.mts >/dev/null
+git -C "$ROOT" diff --exit-code -- data/suitability/scope.json
 step "suitability sidecars (suitability/1)"
 node "$ROOT/core/bin/suitability.ts" check --root "$ROOT"
 

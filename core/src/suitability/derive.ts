@@ -133,7 +133,8 @@ export function deriveEffort(input: EffortInput, map: DifficultyMap = DEFAULT_MA
 
 /** Spec 5.3: yes when the recommended band starts at 7 or under, strong-kid for 8 to 11, no from 12 or a hard minimum of 12. */
 export function kidFitOf(block: SuitabilityBlock): SuitFlat["kid_fit"] {
-  const minAge = ruleValOf(block.min_age);
+  // a recommended age warns and never excludes (spec 1.2)
+  const minAge = block.age_rule === "recommendation" ? null : ruleValOf(block.min_age);
   if (minAge !== null && minAge >= 12) return "no";
   const from = valOf(block.age_band)?.from ?? null;
   if (from === null) return "unknown";
@@ -151,9 +152,10 @@ export function accessibilityOf(block: SuitabilityBlock): SuitFlat["accessibilit
 export function projectFlat(rec: Pick<SuitabilityRecord, "kind" | "subkind" | "suitability" | "ext">, map: DifficultyMap = DEFAULT_MAP): SuitFlat {
   const b = rec.suitability;
   const e = deriveEffort({ kind: rec.kind, subkind: rec.subkind, block: b, ext: rec.ext }, map);
+  const hardAge = b.age_rule !== "recommendation";
   return {
-    min_age: ruleValOf(b.min_age),
-    max_age: ruleValOf(b.max_age),
+    min_age: hardAge ? ruleValOf(b.min_age) : null,
+    max_age: hardAge ? ruleValOf(b.max_age) : null,
     min_height_cm: ruleValOf(b.min_height_cm),
     max_height_cm: ruleValOf(b.max_height_cm),
     min_weight_kg: ruleValOf(b.min_weight_kg),
