@@ -1,0 +1,59 @@
+/* Specimen page only: layout of the demo sections and forced states (hover, pressed, focus) for the screenshots. */
+.specimen { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-10); padding-top: var(--s-8); }
+.specimen section { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); align-content: start; }
+.specimen h2.sec { font: var(--t-section); }
+.specimen .why { font: var(--t-small); color: var(--muted); max-width: 60ch; }
+.specimen .row-flex { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.specimen .col { display: grid; gap: 10px; }
+.specimen .tag { font: var(--t-chip); color: var(--muted); }
+.specimen .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) 18px; align-items: start; }
+.specimen .cards4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--card-gap); }
+.sw { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--s-2); }
+.sw div { border: 1px solid var(--line); border-radius: var(--r-3); padding: var(--s-2); background: var(--surface); }
+.sw i { display: block; height: 36px; border-radius: 5px; border: 1px solid var(--line); margin-bottom: 6px; }
+.sw b { display: block; font: var(--t-chip); }
+.sw span { font: var(--t-chip); color: var(--muted); }
+.pairs { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-2); }
+.pairs div { border-radius: var(--r-3); padding: 10px 12px; font: 600 15px var(--font-body); }
+.pairs small { display: block; font: var(--t-chip); opacity: 0.85; margin-top: 2px; }
+.ring { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--surface), 0 0 0 4.5px var(--tc), 0 0 0 5.5px var(--line-2); }
+.idbar { height: 4px; background: var(--tc); box-shadow: 0 1px 0 var(--line-2); }
+.type > div { border-bottom: 1px solid var(--line); padding: var(--s-2) 0; display: grid; grid-template-columns: 150px 1fr; gap: var(--s-3); align-items: baseline; }
+.type .lab { font: var(--t-label); color: var(--muted); }
+.d-96 { font: var(--t-cover); } .d-72 { font: var(--t-page); } .d-40 { font: var(--t-trip); } .d-32 { font: var(--t-section); }
+.d-24 { font: var(--t-card); } .d-21 { font: var(--t-row); } .d-78 { font: var(--t-leave); color: var(--accent-text); }
+.s-body-l { font: var(--t-body-l); } .s-note { font: var(--t-note); color: var(--ink-2); } .s-title { font: var(--t-title); }
+.m-mono { font: var(--t-mono); } .m-meta { font: var(--t-meta); color: var(--muted); } .m-cap { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: uppercase; color: var(--muted); } .m-time { font: var(--t-time); } .m-tab { font: var(--t-tab); color: var(--muted); }
+/* forced states */
+.is-hover.btn { border-color: var(--ink); background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
+.is-hover.btn-primary { background: var(--accent-hover); border-color: var(--accent-hover); }
+.is-hover.btn-ghost { border-color: transparent; }
+.is-pressed { transform: translateY(1px); }
+.is-focus { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.is-hover.pill { border-color: var(--ink); }
+.specimen .chrome { border: 1px solid var(--line); border-radius: var(--r-3); overflow: hidden; }
+.specimen .chrome .site-header { position: static; }
+.specimen .phone { width: 390px; max-width: 100%; border: 1px solid var(--line); border-radius: var(--r-4); overflow: hidden; }
+.specimen .phone .bottom-bar { display: grid; position: static; }
+.specimen .phone .phone-body { height: 120px; background: var(--bg); }
+.specimen .menu { position: static; display: block; opacity: 1; transform: none; }
+.specimen .toast { animation: none; }
+.specimen .toast-demo { display: flex; flex-wrap: wrap; gap: 10px; }
+.specimen .pill-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.specimen .static-sheet { width: 460px; max-width: 100%; border: 1px solid var(--line-2); border-radius: var(--r-4); box-shadow: var(--e-3); overflow: hidden; background: var(--surface); }
+.specimen .static-sheet .sheet-photo { min-height: var(--side-sheet-photo-h); }
+.specimen .static-sheet .sheet-body { padding: 16px 18px; }
+.specimen .static-sheet .sheet-foot { display: flex; }
+.specimen .table-static { max-width: 100%; }
+.specimen .data-table { width: 100%; table-layout: auto; }
+.specimen .map-demo { position: relative; height: 220px; border: 1px solid var(--line); border-radius: var(--r-4); overflow: hidden; background: var(--map-land); }
+.specimen .map-demo svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (max-width: 1023px) { .specimen .cards4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sw { grid-template-columns: repeat(3, 1fr); } .pairs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639px) {
+  .specimen .cards4, .specimen .two { grid-template-columns: minmax(0, 1fr); }
+  .type > div { grid-template-columns: 1fr; gap: 2px; }
+  .sw { grid-template-columns: repeat(2, 1fr); }
+  .d-96 { font: var(--t-cover); }
+}
+.specimen, .specimen section, .specimen .col, .specimen section > * { min-width: 0; max-width: 100%; }
+@media (max-width: 639px) { .specimen .seg { flex-wrap: wrap; } .specimen .phone { width: 100%; } }
