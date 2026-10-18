@@ -22,6 +22,7 @@ Newest first. Each line links to where it is specified. Move a line to "Done" wi
 
 | Date | Item | Commit |
 |---|---|---|
+| 2026-10-18 | **Design direction chosen: C, Trailhead.** It keeps the live site's structure, cards, filters, four views, table tools and type, with no green: stone paper, slate ink, a navy header with an amber rule. It borrows Atlas's full-bleed photo covers and Altimeter's ⌘K trip switcher. | 271e014 |
 | 2026-10-18 | Trip as a container: header with tabs, rail grouped under the trip, picker and switcher | 978ae6d, 183edaa |
 | 2026-10-18 | Drag and drop rebuilt around a visible handle with an insertion line | 70f04bb |
 | 2026-10-18 | Map shows all days by default and is filtered to one day when picked; real basemap | 70f04bb, c7fdd98 |
