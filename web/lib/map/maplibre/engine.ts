@@ -4,6 +4,7 @@ import { prefersReducedMotion } from '../reduced-motion';
 import { readPalette, type MapPalette } from '../palette';
 import type { CameraState, FlyTarget, LngLat, MapHandle, MapSpec } from '../types';
 import { pinImages } from './images';
+import { hideBasemapLabel } from './labels';
 import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_MIN_ZOOM, TERRAIN_URL, modeOf, type StyleKey } from './styles';
 
 type ML = typeof import('maplibre-gl');
@@ -97,7 +98,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
         else if (sl === 'boundary') set(l.id, 'paint', 'line-color', palette.border);
         else if (sl === 'transportation') set(l.id, 'paint', 'line-color', palette.contour);
       } else if (l.type === 'symbol') {
-        if (HIDE_SOURCE_LAYERS.has(sl) || HIDE_LABEL_LAYER.test(l.id)) { set(l.id, 'layout', 'visibility', 'none'); continue; }
+        if (HIDE_SOURCE_LAYERS.has(sl) || HIDE_LABEL_LAYER.test(l.id) || hideBasemapLabel(l.id, sl, spec.hideBasemapLabels)) { set(l.id, 'layout', 'visibility', 'none'); continue; }
         set(l.id, 'paint', 'text-color', palette.label);
         set(l.id, 'paint', 'text-halo-color', palette.halo);
         set(l.id, 'paint', 'text-halo-width', 1.5);

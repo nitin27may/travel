@@ -42,7 +42,8 @@ export function undated(text: string | null | undefined, where: string, log: Dro
 export function undatedSentences(text: string | null | undefined, where: string, log: DropLog): string {
   const t = (text ?? '').trim();
   if (!t) return '';
-  const parts = t.match(/[^.!?]+[.!?]*\s*/g) ?? [t];
+  // a full stop inside a number or a name ("3.2 km") is not a sentence end: only split where whitespace or the end follows
+  const parts = t.match(/(?:[^.!?]|[.!?](?![\s]|$))+[.!?]*\s*/g) ?? [t];
   const kept: string[] = [];
   for (const p of parts) {
     if (isDated(p)) log.add(where, p.trim(), 'carries a calendar date; rewrite it relative to a day or a season');
