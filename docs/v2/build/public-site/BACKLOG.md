@@ -63,6 +63,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 2.14 | Images: Commons thumbnails at the sizes used (no full-size originals), lazy loading, width and height set to avoid layout shift | gap audit | queued |
 | 2.15 | Full e2e on a quiet machine, a real Lighthouse (home first paint was 1.47 s against a 1.5 s target), the privacy grep of `web/out` | STATUS | queued |
 | 2.17 | Foundation patterns: trip-page URL keys in 1.2 (`?p=`, `pace`, `d=`, `add=`); remove the Track A/B/C segment from 3.4; globe tokens `--globe-ocean`, `--globe-halo`, `--globe-edge`, `--globe-dim`, `--map-wood`, dark `--map-land`, `--map-high`, `--map-water` (after Q6) | planner, Fable | queued |
+| 2.18 | Bring main's newer captures into v2 (for example Mount Rainier National Park, added 18 Oct as 7997941) and refresh the data snapshots, so new places reach the new site | owner capture | queued |
 | 2.16 | Integration sweep by travel-verifier on the GPU, recorded in `verify-integration.md` | gate | queued |
 
 ## Stage 3a: data foundation (runs alongside stages 2 and 3; data and core only)
