@@ -84,7 +84,7 @@ function TripsList({ phone, go }: { phone: boolean; go: ScreenProps["go"] }) {
           ))}
         </div> : <span />}
         <div className="seg view-seg" role="group" aria-label="Trips layout">
-          {([["cards", "Cards", "grip"], ["list", "List", "list"], ["table", "Table", "layers"]] as const).map(([k, l, ic]) => (
+          {([["cards", "Cards", "layers"], ["list", "List", "list"], ["table", "Table", "cal"]] as const).map(([k, l, ic]) => (
             <button key={k} className={view === k ? "on" : ""} aria-pressed={view === k} onClick={() => setView(k)}><Icon name={ic} size={14} /> {l}</button>
           ))}
         </div>
