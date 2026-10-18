@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
+import { ExportData } from '@/components/actions/ExportData';
 import '@/components/places/families';
 import { summaryOrKind } from '@/components/places/model';
 import { PlacePage } from '@/components/places/PlacePage';
+import { placeExportFor } from '@/lib/export/build.server';
 import { getPlace, listPlaces, placeSlugs } from '@/lib/public';
 import { ogImageFor } from '@/lib/og';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
@@ -34,5 +36,10 @@ export default async function PlaceRoute({ params }: { params: Promise<{ slug: s
   const inside = listPlaces()
     .filter((c) => c.slug !== place.slug && c.areaChain.find((a) => a.level === 'state')?.slug === state?.slug && c.areaChain.find((a) => a.level === 'district')?.slug === district?.slug && c.areaChain[0]?.slug === place.areaChain[0]?.slug)
     .slice(0, 24);
-  return <PlacePage place={place} inside={inside} url={absoluteUrl(`/places/${slug}/`)} />;
+  return (
+    <>
+      <PlacePage place={place} inside={inside} url={absoluteUrl(`/places/${slug}/`)} />
+      <ExportData data={placeExportFor(slug)} />
+    </>
+  );
 }

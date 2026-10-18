@@ -55,6 +55,14 @@ export function lineExportable(l: LineLike): boolean {
   return false;
 }
 
+/**
+ * The source line every export carries (principle P8): where the file came from and that it is for the reader's own use.
+ * The same sentence in GPX, KML, CSV and the calendar.
+ */
+export function sourceLine(url: string): string {
+  return `Source: Trip Plans, ${url}. For your own use; please do not republish.`;
+}
+
 /** The attribution lines a file must carry for the points and lines it holds. */
 export function attributionFor(points: Pick<Point, 'pointSource' | 'sourceLicence'>[], lines: LineLike[] = []): string[] {
   const out = new Set<string>();

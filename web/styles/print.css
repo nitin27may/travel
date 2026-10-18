@@ -131,7 +131,7 @@
     color: black;
   }
   main::after {
-    content: 'Map data © OpenStreetMap contributors (ODbL). Photo credits are listed with the photos on this page. Trip Plans.';
+    content: 'Source: Trip Plans, for your own use. Map data © OpenStreetMap contributors (ODbL). Photo credits are listed with the photos on this page.';
     display: block;
     margin-top: 12pt;
     padding-top: 6pt;

@@ -16,7 +16,6 @@ import { Checkbox } from '@/components/ui/Checkbox';
 import { Icon } from '@/components/ui/Icon';
 import { Popover } from '@/components/ui/Popover';
 import { Segmented } from '@/components/ui/Segmented';
-import { downloadCsv, toCsv } from '@/lib/entities/csv';
 import { parseSort, serialiseSort } from '@/lib/entities/sort';
 import { usePrefs } from '@/lib/format/prefs';
 import { SavedViewsMenu } from './SavedViewsMenu';
@@ -129,13 +128,6 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
   const leafCols = table.getVisibleLeafColumns();
   const totalWidth = leafCols.reduce((n, c) => n + c.getSize(), 0);
   const chooserCols = d.columns.filter((c) => (c.meta as ColMeta | undefined)?.label);
-
-  const exportCsv = () => {
-    const cols = leafCols.map((c) => c.columnDef.meta as ColMeta);
-    const header = cols.map((m) => m.csvLabel ?? m.label);
-    const rows = data.map((r) => cols.map((m) => (m.text as (row: Row) => string | number)(r)));
-    downloadCsv(`${d.type}s.csv`, toCsv(header, rows));
-  };
 
   const renderRow = (item: DisplayItem<Row>, style?: CSSProperties, measure?: (el: HTMLTableRowElement | null) => void, index?: number) => {
     if (item.kind === 'group') {
@@ -272,9 +264,6 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
           { value: 'comfortable', label: 'Comfortable' },
         ]}
       />
-      <Button size="sm" onClick={exportCsv} disabled={!data.length}>
-        <Icon name="download" size={15} /> Export CSV
-      </Button>
     </>
   );
 
