@@ -436,7 +436,21 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 150,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The lagoon is a few kilometres west on the same road at Myvatn: hot springs, then a soak",
+          "src": "src-0030"
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,

@@ -2227,7 +2227,20 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 30,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": true,
+          "reason": "The Natural Bridge is on the Emerald Lake road, a short stop on the way in"
+        }
+      ],
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
@@ -3021,7 +3034,20 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Paint Pots are the next stop on Highway 93 South, about 3 km away"
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
