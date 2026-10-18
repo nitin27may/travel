@@ -44,3 +44,13 @@ describe('spin by easing and click slop', () => {
     expect(isClick({ x: 0, y: 0 }, { x: 0, y: 0 }, true)).toBe(false);
   });
 });
+
+import { spinAllowed, type SpinGate } from '@/lib/globe/motion';
+describe('spinAllowed', () => {
+  const on: SpinGate = { enabled: true, world: true, reduced: false, styleLoaded: true, zoom: 2, pointerDown: false, destroyed: false, hidden: false, active: true };
+  it('spins when everything allows it', () => { expect(spinAllowed(on)).toBe(true); });
+  it('never starts an ease while inactive (a cover off screen), whatever else is true', () => { expect(spinAllowed({ ...on, active: false })).toBe(false); });
+  it('stops for a pointer, reduced motion, a zoomed-in view and a hidden tab', () => {
+    for (const k of [{ pointerDown: true }, { reduced: true }, { zoom: 4 }, { hidden: true }, { enabled: false }]) expect(spinAllowed({ ...on, ...k })).toBe(false);
+  });
+});

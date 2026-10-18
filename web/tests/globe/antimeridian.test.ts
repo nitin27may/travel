@@ -30,6 +30,14 @@ describe('antimeridian: the shapes that are drawn', () => {
     expect(Math.max(...xs)).toBeGreaterThan(180);
     expect(Math.min(...xs)).toBeLessThan(-180);
   });
+  it('Antarctica (a polar ring) is flagged, keeps one outer ring per polygon and never spans more than 180 degrees', () => {
+    const ata = forRender(fc).features.find((f) => f.properties.name === 'Antarctica')!;
+    expect(ata.properties.polar).toBe(true);
+    const g = ata.geometry!;
+    const polys = g.type === 'MultiPolygon' ? g.coordinates : g.type === 'Polygon' ? [g.coordinates] : [];
+    expect(polys.every((p) => p.length === 1)).toBe(true);
+    expect(widest(ata)).toBeLessThanOrEqual(180);
+  });
   it('shapes that never jump are left as they were', () => {
     const italy = fc.features.find((f) => f.properties.name === 'Italy')!;
     expect(forRender({ type: 'FeatureCollection', features: [italy] }).features[0].geometry).toEqual(italy.geometry);

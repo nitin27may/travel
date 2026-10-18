@@ -188,11 +188,11 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const pin = card ? data.index.pins.find((p) => `${p.kind}:${p.slug}` === snap.selected) : null;
   useLayoutEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- the marker element only exists after the engine syncs it */
-    if (!engine || !pin || phone) { if (engine) engine.syncMarkers('card', []); setCardEl(null); return; }
+    if (!engine || !pin || phone || short) { if (engine) engine.syncMarkers('card', []); setCardEl(null); return; }
     const m = engine.syncMarkers('card', [{ key: 'card', lng: pin.lon, lat: pin.lat, anchor: 'left', offset: [26, 0], className: 'globe-card-anchor' }]);
     setCardEl(m.get('card') ?? null);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [engine, pin, phone]);
+  }, [engine, pin, phone, short]);
 
   const openPin = useCallback((p: PinModel) => ctrl.current?.openPin(p), []);
   const onPick = useCallback((h: SearchHit) => { void ctrl.current?.goTo(h); }, []);
@@ -258,6 +258,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       {engine ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} onOpen={openPin} /> : null}
       {cardEl && card ? createPortal(<SelectionCard card={card} onClose={() => controller?.closeCard()} />, cardEl) : null}
+      {short && card ? <div className="globe-card-dock"><SelectionCard card={card} onClose={() => controller?.closeCard()} /></div> : null}
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />

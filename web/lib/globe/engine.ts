@@ -3,7 +3,7 @@ import { prefersReducedMotion } from '@/lib/map/reduced-motion';
 import { normaliseColour, readPalette, type MapPalette } from '@/lib/map/palette';
 import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_MIN_ZOOM, TERRAIN_URL, modeOf, type StyleKey } from '@/lib/map/maplibre/styles';
 import { centreOf, forRender, hitRank, spanLon, type Bbox, type FeatColl, type Pt } from './geometry';
-import { FLY_MS, SPIN_AFTER_GESTURE_MS, SPIN_AFTER_HOVER_MS, SPIN_EASE_MS, SPIN_MAX_ZOOM, TILT_MS, isClick, spinStepDeg } from './motion';
+import { FLY_MS, SPIN_AFTER_GESTURE_MS, SPIN_AFTER_HOVER_MS, SPIN_EASE_MS, TILT_MS, isClick, spinAllowed, spinStepDeg } from './motion';
 import type { Camera } from './types';
 
 type ML = typeof import('maplibre-gl');
@@ -85,6 +85,8 @@ const HIDE_LABEL_LAYER = /village|suburb|hamlet|neighbo|quarter|label_other|(^|[
 const HIDE_SOURCE_LAYERS = new Set(['poi', 'housenumber', 'aerodrome_label', 'transportation_name']);
 const HIT_SOURCE_LAYERS = new Set(['waterway', 'water_name', 'mountain_peak', 'park', 'place']);
 const NONE = '\u0000';
+/** A shape round a pole has its edge on the tile limit; its outline would draw as a ring at 85 degrees, so only its fill shows. */
+const NOT_POLAR = ['!=', ['get', 'polar'], true] as never;
 const ZERO_PAD = { top: 0, right: 0, bottom: 0, left: 0 };
 
 const featureName = (p: Record<string, unknown>): string => String(p['name:en'] || p.name_en || p.name || '');
@@ -129,6 +131,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   /** The spin waits until this time; Infinity while a pointer is down. */
   let holdUntil = 0;
   let pointerDown = false;
+  let loopActive = true;
   let pressAt: { x: number; y: number } | null = null;
   let dragged = false;
   const hold = (ms: number): void => { holdUntil = Math.max(holdUntil === Infinity ? 0 : holdUntil, performance.now() + ms); };
@@ -171,7 +174,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     tip.append(k, t);
     for (const line of [info.sub, info.sub2, info.sub3]) if (line) { const s = document.createElement('div'); s.className = 'globe-tip-s'; s.textContent = line; tip.append(s); }
     tip.hidden = false;
-    const w = container.clientWidth, tw = tip.offsetWidth;
+    // The free canvas ends where the open side panel starts (--globe-clip-right), so the panel never clips a tooltip.
+    const clip = parseFloat(getComputedStyle(container).getPropertyValue('--globe-clip-right')) || 0;
+    const w = container.clientWidth - clip, tw = tip.offsetWidth;
     const x = e.point.x + 16 + tw > w ? e.point.x - 16 - tw : e.point.x + 16;
     tip.style.transform = `translate(${Math.max(8, x)}px, ${e.point.y + 16}px)`;
     tipOwner = owner;
@@ -271,8 +276,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': accent, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0] } }, firstWaterId);
     map.addLayer({ id: 'country-dim', type: 'fill', source: 'countries', paint: { 'fill-color': land, 'fill-opacity': ['case', sel('dim'), 0.55, 0] } }, firstSymbolId);
     // Hover: 1.5 px accent line with a 0.5 px ink casing; selected: 2 px with a 1 px casing (spec 6.3), so the edge reads on land and on water.
-    map.addLayer({ id: 'country-casing', type: 'line', source: 'countries', paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
-    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', paint: { 'line-color': accent, 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0], 'line-opacity': 1 } }, firstSymbolId);
+    map.addLayer({ id: 'country-casing', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': accent, 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0], 'line-opacity': 1 } }, firstSymbolId);
 
     map.addSource('adm1', { type: 'geojson', data: (adm1 ? forRender(adm1) : EMPTY) as never });
     map.addLayer({ id: 'adm1-fill', type: 'fill', source: 'adm1', paint: { 'fill-color': ['case', sel('hover'), accent, palette.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.06] } }, firstSymbolId);
@@ -354,6 +359,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     applyFocus();
     applyFeatureHighlight();
     handlers.onReady?.();
+    scheduleWarm();
   });
   map.on('error', (ev) => {
     const e = ev as unknown as { error?: { message?: string }; sourceId?: string };
@@ -515,6 +521,36 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     return measured > 20 && c.diameter ? c.zoom + Math.log2(c.diameter / measured) : c.zoom;
   }
 
+  /**
+   * Shader warm-up: the first fly-in used to hitch for 250 to 430 ms while the driver linked the programs of the zoomed-in
+   * layers. Once the world has painted, draw one zoomed-in frame with the canvas hidden, then put the camera back.
+   */
+  let warmed = false;
+  function scheduleWarm(): void {
+    if (warmed || opts.interactive === false || !map.getCanvas()) return;
+    warmed = true;
+    holdUntil = Infinity; // nothing may move the camera while we borrow it
+    const release = (): void => { if (holdUntil === Infinity && !pointerDown) holdUntil = performance.now() + 500; };
+    map.stop();
+    map.once('idle', () => {
+      if (destroyed || pointerDown) { release(); return; }
+      const token = flyToken;
+      const from = { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing(), padding: map.getPadding() };
+      container.dataset.warming = 'true';
+      let finished = false;
+      const finish = (): void => {
+        if (finished) return;
+        finished = true;
+        window.clearTimeout(timer);
+        if (!destroyed) { if (token === flyToken) map.jumpTo(from); delete container.dataset.warming; }
+        release();
+      };
+      const timer = window.setTimeout(finish, 2500);
+      map.jumpTo({ center: [12.5, 43], zoom: 6.5, pitch: 0, bearing: 0, padding: ZERO_PAD });
+      map.once('idle', finish);
+    });
+  }
+
   const engine: GlobeEngine = {
     map,
     setStyle(next) {
@@ -544,8 +580,10 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     setPadding(p) { padding = p; },
     setSpin(enabled, world) { spinEnabled = enabled; worldView = world; },
     setActive(on) {
+      loopActive = on;
       cancelAnimationFrame(raf);
       if (on && !destroyed) raf = requestAnimationFrame(tick);
+      else if (!on && map.isMoving() && !pointerDown) map.stop(); // an ease already running is the spin's own
     },
     setMinZoom(z) { map.setMinZoom(Math.max(0, z)); },
     frameWorld(c, pad, animate) {
@@ -624,7 +662,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
 
   // The spin: one revolution in 90 s as chained one-second linear eases (MapLibre's own pattern). A user gesture interrupts an
   // ease once through the normal path; no jumpTo or stop() is called per frame, so drags and clicks keep their handler state.
-  const canSpin = (): boolean => spinEnabled && worldView && !reduced() && styleLoaded && map.getZoom() < SPIN_MAX_ZOOM && !pointerDown && !destroyed && !document.hidden;
+  const canSpin = (): boolean => spinAllowed({ active: loopActive, enabled: spinEnabled, world: worldView, reduced: reduced(), styleLoaded, zoom: map.getZoom(), pointerDown, destroyed, hidden: document.hidden });
   function spinOnce(): void {
     if (!canSpin() || performance.now() < holdUntil || map.isMoving()) return;
     const c = map.getCenter();

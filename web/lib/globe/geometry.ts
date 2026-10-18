@@ -201,7 +201,9 @@ export function forRender<P>(fc: FeatColl<P>): FeatColl<P> {
   const polygon = (rings: Ring[]): Ring[][] => {
     const un = rings.map(unwrapRing);
     if (!un.some((r) => r.ring !== rings[un.indexOf(r)])) return [rings];
-    if (un.some((r) => r.polar)) return [un.map((r) => (r.polar ? r.ring : subdivide(r.ring)))];
+    // A shape that goes round a pole keeps its outer ring only: a polar hole is a circle at the tile edge that draws as a seam.
+    if (un.some((r) => r.polar)) polarSeen = true;
+    if (un.some((r) => r.polar)) return [[(un[0].polar ? un[0].ring : subdivide(un[0].ring))]];
     const [ext, ...holes] = un.map((r) => r.ring);
     const mid = (r: Ring) => r.reduce((a, p) => a + p[0], 0) / r.length;
     const m = mid(ext);
@@ -212,6 +214,7 @@ export function forRender<P>(fc: FeatColl<P>): FeatColl<P> {
     for (const s of [-360, 0, 360]) if (hi + s > -180 && lo + s < 180) copies.push(aligned.map((r) => (s ? r.map(([x, y]): Pt => [x + s, y]) : r)));
     return copies;
   };
+  let polarSeen = false;
   const convert = (g: Geom | null): Geom | null => {
     if (!g) return g;
     if (g.type === 'Polygon') {
@@ -221,5 +224,5 @@ export function forRender<P>(fc: FeatColl<P>): FeatColl<P> {
     if (g.type === 'MultiPolygon') return { type: 'MultiPolygon', coordinates: (g.coordinates as Ring[][]).flatMap((p) => polygon(p)) };
     return g;
   };
-  return { ...fc, features: fc.features.map((f) => ({ ...f, geometry: convert(f.geometry) })) };
+  return { ...fc, features: fc.features.map((f) => { polarSeen = false; const geometry = convert(f.geometry); return { ...f, geometry, properties: polarSeen ? { ...f.properties, polar: true } : f.properties }; }) };
 }

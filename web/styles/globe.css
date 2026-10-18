@@ -7,7 +7,7 @@ html[data-globe] body { overflow: hidden; height: 100dvh; }
 html[data-globe] .site-footer { display: none; }
 html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 
-.globe-root { --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
+.globe-root { --globe-clip-right: 0px; --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
 @media (max-width: 639px) { .globe-root { bottom: var(--phone-bottombar-h); } }
 
 .globe-canvas { position: absolute; inset: 0; z-index: 0; background: var(--well); } /* its own stacking context: markers and the card never ride over the breadcrumb or search */
@@ -20,6 +20,11 @@ html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 /* attribution stays visible and clear of the panel */
 .globe-root .maplibregl-ctrl-bottom-right { transition: right var(--d-base) var(--e-out); }
 .globe-root[data-panel='open'] .maplibregl-ctrl-bottom-right { right: var(--globe-panel-gap); }
+.globe-root[data-panel='open'] { --globe-clip-right: 384px; }
+.globe-root .maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--surface) 92%, transparent); color: var(--ink-2); }
+.globe-root .maplibregl-ctrl-attrib a { color: var(--ink-2); }
+.globe-zoom .btn { background: var(--surface); }
+.globe-options-btn, .globe-list-btn, .globe-card-pill { background: var(--surface); }
 
 /* ---------- pins ---------- */
 .globe-marker { pointer-events: none; }
@@ -149,16 +154,16 @@ span.globe-pin { cursor: default; }
 
 /* ---------- phone ---------- */
 .globe-options-btn, .globe-list-btn { position: absolute; z-index: 7; right: 12px; bottom: 188px; }
-.globe-list-btn { bottom: 12px; }
+.globe-list-btn { bottom: 44px; }
 .sheet-bottom-frame.globe-sheet { bottom: var(--phone-bottombar-h); z-index: var(--z-drawer); }
 @media (max-width: 639px) {
   .globe-top { display: block; top: 8px; left: 8px; right: 8px; }
   .globe-search { width: 100%; }
-  .globe-crumbs { position: fixed; left: 8px; bottom: calc(var(--phone-bottombar-h) + 188px); max-width: calc(100vw - 150px); z-index: 7; }
+  .globe-crumbs { position: absolute; left: 8px; top: 48px; max-width: calc(100vw - 80px); z-index: 7; } /* top, so no sheet height can cover it */
   .globe-card-controls, .globe-hint { display: none; }
-  .globe-zoom { bottom: 238px; }
+  .globe-zoom { top: 56px; right: 8px; bottom: auto; }
   .globe-zoom > :not(:first-child) { display: none; } /* phones pinch to zoom; the reset button stays */
-  .globe-status { top: 56px; }
+  .globe-status { top: 104px; }
   .globe-card { width: 100%; border: 0; box-shadow: none; border-radius: 0; animation: none; }
   .globe-card-photo { height: 140px; }
   .globe-feature { left: 8px; right: 8px; top: auto; bottom: calc(var(--phone-bottombar-h) + 246px); width: auto; }
@@ -170,17 +175,20 @@ span.globe-pin { cursor: default; }
   .globe-root { --globe-panel-w: 300px; }
   .globe-top { top: 8px; left: 8px; grid-template-columns: minmax(0, 1fr) minmax(0, 300px) minmax(0, 0px); }
   .globe-root[data-panel='open'] .globe-top { right: var(--globe-panel-gap); }
+  .globe-root[data-panel='open'] { --globe-clip-right: 324px; }
+  .globe-card-dock { position: absolute; z-index: 7; left: 8px; top: 110px; width: 280px; max-height: calc(100% - 118px); overflow: auto; border-radius: var(--r-4); }
+  .globe-card-dock .globe-card { width: 100%; }
   .globe-panel { top: 8px; bottom: 8px; right: 8px; }
   .globe-panel-tab { top: 56px; height: 84px; }
   .globe-card-controls { display: none; }
   .globe-hint { display: none; }
-  .globe-options-btn { bottom: 40px; right: auto; left: 8px; } /* clear of the attribution line */
+  .globe-options-btn { bottom: 40px; right: 60px; left: auto; } /* beside the zoom stack: clear of the attribution line and of the card dock */
+  .globe-root[data-panel='open'] .globe-options-btn { right: calc(var(--globe-panel-gap) + 48px); }
   .globe-zoom { bottom: 40px; }
-  .globe-root[data-panel='open'] .globe-options-btn { right: auto; }
   .globe-card { width: 280px; }
   .globe-card-photo { height: 96px; }
   .globe-feature { top: 56px; width: 240px; }
-  .globe-status { top: 56px; }
+  .globe-status { top: 104px; }
 }
 
 /* ---------- reduced motion: fades only ---------- */
@@ -224,3 +232,6 @@ span.globe-pin { cursor: default; }
 /* a card with no photo has a compact header, not an empty well */
 .globe-card-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 8px 0 14px; }
 .globe-card-glyph { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: var(--r-full); background: var(--surface-2); color: var(--ink-2); }
+
+/* shader warm-up: the borrowed zoomed-in frame is never seen */
+.globe-map[data-warming] .maplibregl-canvas, .globe-map[data-warming] .maplibregl-marker, .globe-map[data-warming] .globe-tip { visibility: hidden; }
