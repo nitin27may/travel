@@ -394,6 +394,7 @@ The validation runs on every `DayTimeline` and per lane. It produces warnings, n
 | `S_FIXED_MISSED` | back-pressure (2.9 step 7) could not reach a pin | "Arrives 10:10 for the 10:00 cruise." |
 | `S_MIDNIGHT` | an entry would end after 23:59 | "Runs past midnight." |
 | `S_NO_FIT` | no variant fits the profile (3.5) | "No version of Day 6 fits a 3 year old." |
+| `S_HOME_BY` | the `at-home` end is later than its home-by window (3.12) | "Home 21:40, 40 min after your home-by of 21:00." |
 
 `core/src/schedule/toItems.ts` maps a `DayTimeline` to planner `items` rows (`start`, `duration_min`, `type`, `leg_mode`, `leg_minutes`, `leg_basis`, `track`, `open_from`, `open_to`, `needs_daylight`). It does this so that `checkDays` from `core/src/checks` can run on the result. A test runs both on the fixtures: every `W_` code the scheduler raises, `checkDays` raises too.
 
@@ -561,6 +562,62 @@ Example: `/trips/canadian-rockies-2029?p=family-4&pace=relaxed&d=5C&add=5.pyrami
 | "Know before you go" title with a count | the bullets (3 shown, rest on "More") |
 
 The timeline itself is never collapsed. Days are expanded by default; the old collapsed day row becomes the whole-trip timeline's item.
+
+### 3.11 What the profile needs from suitability metadata ([research/suitability.md](../research/suitability.md))
+
+The scheduler and `selectVariant` read one normalised record per item. The suitability spec owns the fields, their research, their sources and the grade mappings. This page owns only how the profile uses them. Until that spec lands, the adapter fills what it can (Rockies `min_age`, `child_6yo_ok`, `audience`, km and gain), and the rest stays `null`.
+
+```ts
+// core/src/schedule/suitability.ts: the contract the suitability spec fills
+export interface Suitability {
+  minAge: number | null;                 // hard operator or harness rule (via ferrata 12+)
+  maxAge: number | null;
+  minHeightCm: number | null; maxHeightCm: number | null;
+  minWeightKg: number | null; maxWeightKg: number | null;
+  rule: 'hard' | 'advice' | null;        // hard = operator or law; advice = our or a guide's recommendation
+  stroller: 'yes' | 'partly' | 'no' | null;    // 'partly' carries a note (first 1.2 km paved)
+  wheelchair: 'yes' | 'partly' | 'no' | null;
+  carrierOk: boolean | null;             // a child carrier is sensible (no scrambling, no ladders)
+  familyEffort: 1 | 2 | 3 | 4 | 5 | null;  // the family effort scale, mapped from SAC, CAI, IMBA, whitewater classes
+  sourceGrade: { system: 'SAC' | 'CAI' | 'IMBA' | 'whitewater' | 'operator' | 'local'; value: string } | null;
+  childTime: {                           // child-pace time where a source states one, else null (we use 2.4)
+    byAge: { fromAge: number; minutes: number }[];
+    source: string;
+  } | null;
+  adultTime: { min: number; max: number; source: string } | null;   // "4-5 h", in minutes
+  distanceKm: number | null; gainM: number | null; lossM: number | null;
+  provenance: string;                    // shown in the entry's "why"
+}
+```
+
+How the profile uses it:
+
+| Field | Used for |
+|---|---|
+| `minAge`, `maxAge`, the height and weight limits with `rule: 'hard'` | `W_FIT`, and the variant does not "fit" (3.3). Height and weight are checked only once traveller details exist (copy sheet or planner); the public page shows "Limits: 120 cm, 25 kg" as a chip |
+| `rule: 'advice'` | a warning chip without excluding the variant |
+| `familyEffort` | replaces the km and gain ceiling when present. The default maximum by youngest age is: 0-3 carried, 2; 4-5, 2; 6-7, 3; 8-9, 3; 10-12, 4; 13+, 5. Relaxed pace takes one level less. The suitability spec may tune this table, and this page follows it |
+| `stroller`, `carrierOk` | under 4: a trail with `stroller: 'no'` and `carrierOk: false` does not fit |
+| `wheelchair` | not a profile input in v1; shown as a chip. Open for later as an "access needs" control |
+| `childTime` | wins over the 2.4 multiplier for the matching age band |
+| `adultTime` | wins over Naismith; the range resolves by pace (2.3) |
+| `distanceKm`, `gainM` | the walk ceiling when `familyEffort` is null, and the stats line |
+
+### 3.12 Short trips: day trips, overnights and weekends ([features/short-trips.md](short-trips.md))
+
+Short trips use the same model with no new entry kinds. Most are one timeline.
+
+| Need | How the model covers it |
+|---|---|
+| origin and return legs | the input carries `origin: PlaceRef` (home, the household's home base in the planner, or "your start point" on a public page). The day opens with `start` `leave-home`, then a `leg` from the origin. It closes with a `leg` to the origin and `end` `at-home`. On a public page the origin legs are drawn only once a start point is given; until then they read "from your start point" with no minutes |
+| leave-by | the `start` entry is back-solved from the first pin (2.9 step 4). When the trip states a leave-by ("leave by 08:10"), it is a pinned `start` with source `plan` |
+| home-by | `end` `at-home` can carry `time.window = { to: "21:00", why: "home by" }`. Back-pressure (2.9 step 7) treats it like a pin from the other side: drop generated coffee, then cut optional entries, then raise **`S_HOME_BY`** ("Home 21:40, 40 min after your home-by of 21:00. Optional: Dwight Beach sunset.") |
+| day-use permit slots | a `booking` `day-use-permit` entry with `time.window` (the permit's valid hours, Algonquin 07:00 to 22:00) and `fixed` confidence for a timed slot (the Elora tubing slot). The booking rule ("sold online 5 days ahead at 07:00") stays a Logistics row relative to the day |
+| a long drive with breaks | the drive breaks in 2.5 apply to origin legs (Vermont's three 20 min breaks) |
+| overnight and weekend | 2 or 3 days of the same model. Night 1's `checkin` ends Day 1; the last day ends `at-home` |
+| profile | the same selector. On a one-day trip the whole-trip timeline is hidden and the day timeline is the page |
+
+New validation code: `S_HOME_BY`, added to 2.11. The `origin` field and the home-by window go into the scheduler types in L3c, so the short-trips lane only supplies data.
 
 ## 4. Data audit: the 14 public trips
 

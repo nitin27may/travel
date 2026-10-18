@@ -72,6 +72,9 @@ The public trip page becomes a timeline at two levels, for a party chosen once a
    - `legs.ts`: the ladder 2.5 and the straight-line rule from `prototype/src/lib/geo.ts`.
    - `sun.ts`: season-window ranges with `sunDay`.
 
+   - `suitability.ts`: the `Suitability` contract from spec 3.11, with null-safe reads.
+   - The types carry `origin`, `leave-home`, `at-home` and the home-by window from spec 3.12. The code `S_HOME_BY` is included, with a fixture: a Niagara-like day trip with a home-by of 21:00.
+
    No I/O, no `Date.now`, no locale.
 2. **`select.ts`:** `selectVariant(day, profile)` per spec 3.3. It returns `{ variant, parallel, fits, reason }`.
 3. **`schedule.ts`:** `scheduleDay(input, profile, overrides)` and `scheduleTrip(...)`. Follow the ten steps in spec 2.9: pins, back-solved start, forward pass, meals, back-pressure, close, round, totals. `addItem(...)` uses cheapest insertion.
