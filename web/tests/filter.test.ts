@@ -128,3 +128,27 @@ describe('sort and group', () => {
     expect(groupRows(sorted, activeGroup(decodeState('group=kind'), d)).length).toBeGreaterThan(5);
   });
 });
+
+describe('a place in two public trips', () => {
+  const two: PlaceListRow = {
+    ...rows[0],
+    id: 'two-trips',
+    slug: 'two-trips',
+    trips: [
+      { slug: 'trip-a', title: 'Trip A' },
+      { slug: 'trip-b', title: 'Trip B' },
+    ],
+    trip: 'trip-a',
+    trip_title: 'Trip A',
+    plans: 2,
+  };
+  const all = [...rows, two];
+  it('shows both trips as facet options and matches the place under either', () => {
+    const opts = facetCounts(all, decodeState(''), d).trip;
+    expect(opts.find((o) => o.value === 'trip-a')?.count).toBeGreaterThanOrEqual(1);
+    expect(opts.find((o) => o.value === 'trip-b')?.count).toBe(1);
+    expect(filterRows(all, decodeState('trip=trip-a'), d).map((r) => r.id)).toContain('two-trips');
+    expect(filterRows(all, decodeState('trip=trip-b'), d).map((r) => r.id)).toEqual(['two-trips']);
+    expect(filterRows(all, decodeState('trip=none'), d).map((r) => r.id)).not.toContain('two-trips');
+  });
+});

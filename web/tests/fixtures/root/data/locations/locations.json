@@ -4586,6 +4586,22 @@
  ],
  "visits": [
   {
+   "id": "vis-00003",
+   "place_id": "CA/AB/banff-national-park/lake-louise",
+   "date_start": "2026-03-03",
+   "date_end": null,
+   "trip": "legacy-two",
+   "notes": "VISIT-NOTE-SENTINEL"
+  },
+  {
+   "id": "vis-00002",
+   "place_id": "CA/AB/banff-national-park/lake-louise",
+   "date_start": "2026-02-02",
+   "date_end": null,
+   "trip": "legacy-one",
+   "notes": "VISIT-NOTE-SENTINEL"
+  },
+  {
    "id": "vis-00001",
    "place_id": "CA/QC/bas-saint-laurent-gaspesie/chute-du-grand-sault",
    "date_start": "2026-01-01",

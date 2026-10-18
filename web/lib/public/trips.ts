@@ -1,4 +1,4 @@
-import { DropLog, relativeSun, sunRange, undated, undatedSentences } from './dateless';
+import { undatedTitle, DropLog, relativeSun, sunRange, undated, undatedSentences } from './dateless';
 import { honesty, uniqueHonesty } from './honesty';
 import { fileFromUrl, makePhoto } from './photos';
 import { normName, type PlaceBuild } from './places';
@@ -136,7 +136,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     const depth = full ? 'full' : pub ? 'summary' : 'overview';
 
     // ---- title, season, length ----
-    let title = pub?.title ?? (hub?.title ?? folder.replace(/-/g, ' ')).split(' — ')[0];
+    let title = undatedTitle(pub?.title ?? (hub?.title ?? folder.replace(/-/g, ' ')).split(' — ')[0]);
     if (!pub) title = undated(title, `${where} title`, log) ?? kebab(folder.replace(/-?(19|20)\d\d$/, '')).replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
     const subtitle = undatedSentences(pub?.summary ?? hub?.subtitle ?? '', `${where} subtitle`, log);
     const season: Season | null = pub
