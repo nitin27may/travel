@@ -13,6 +13,7 @@ import "./bookings.css";
 type Kind = Reservation["kind"];
 const KIND_ICON: Record<Kind, string> = { flight: "plane", stay: "bed", car: "car", lift: "flag", parking: "parking", activity: "star", restaurant: "home" };
 const KIND_LABEL: Record<Kind, string> = { flight: "Flights", stay: "Stays", car: "Car", lift: "Lifts", parking: "Parking", activity: "Activities", restaurant: "Restaurants" };
+const ONE: Record<Kind, string> = { flight: "Flight", stay: "Stay", car: "Car", lift: "Lift", parking: "Parking", activity: "Activity", restaurant: "Restaurant" };
 const STATUS: Record<Reservation["status"], { label: string; cls: string }> = {
   to_book: { label: "to book", cls: "warn" }, held: { label: "held", cls: "act" }, booked: { label: "booked", cls: "ok" },
 };
@@ -93,7 +94,7 @@ export function Bookings({ phone }: ScreenProps) {
             <h1 className="sign page-title">Bookings</h1>
             <p className="muted bk-sub num">{counts.booked} booked · {counts.held} held · {counts.to_book} to book. We never book for you; record what you booked anywhere.</p>
           </div>
-          <div className="seg" role="tablist" aria-label="View">
+          <div className="bk-tabs" role="tablist" aria-label="View">
             <button role="tab" aria-selected={view === "list"} className={view === "list" ? "on" : ""} onClick={() => setView("list")}><Icon name="list" size={14} /> Timeline</button>
             <button role="tab" aria-selected={view === "wallet"} className={view === "wallet" ? "on" : ""} onClick={() => setView("wallet")}><Icon name="wallet" size={14} /> Wallet</button>
           </div>
@@ -113,13 +114,13 @@ export function Bookings({ phone }: ScreenProps) {
                 </section>
               )}
               <div className="bk-tools">
-                <div className="seg small" role="tablist" aria-label="Group by">
+                <div className="bk-tabs small" role="tablist" aria-label="Group by">
                   <button role="tab" aria-selected={group === "day"} className={group === "day" ? "on" : ""} onClick={() => setGroup("day")}>By day</button>
                   <button role="tab" aria-selected={group === "kind"} className={group === "kind" ? "on" : ""} onClick={() => setGroup("kind")}>By kind</button>
                 </div>
                 <div className="bk-addbtns">
                   {(["flight", "stay", "car", "lift", "parking", "activity"] as Kind[]).map(k => (
-                    <button key={k} className="btn ghost small" onClick={() => { setPrefill(undefined); setAdding(k); }}><Icon name={KIND_ICON[k]} size={14} />{KIND_LABEL[k].replace(/s$/, "")}</button>
+                    <button key={k} className="btn ghost small" onClick={() => { setPrefill(undefined); setAdding(k); }}><Icon name={KIND_ICON[k]} size={14} />{ONE[k]}</button>
                   ))}
                   <button className="btn primary small" onClick={() => setAdding("paste")}><Icon name="inbox" size={14} />Paste confirmation</button>
                 </div>
@@ -192,7 +193,7 @@ function Detail({ r, onClose, onMark }: { r: Reservation; onClose: () => void; o
     <div className="bk-detail">
       <header className="bk-detail-h">
         <span className="glyph big"><Icon name={KIND_ICON[r.kind]} /></span>
-        <div><div className="label">{KIND_LABEL[r.kind].replace(/s$/, "")}{DAY_OF[r.id] ? ` · Day ${DAY_OF[r.id]}` : ""}</div><h2 className="bk-detail-title">{r.title}</h2></div>
+        <div><div className="label">{ONE[r.kind]}{DAY_OF[r.id] ? ` · Day ${DAY_OF[r.id]}` : ""}</div><h2 className="bk-detail-title">{r.title}</h2></div>
         <button className="btn ghost" onClick={onClose} aria-label="Close"><Icon name="x" /></button>
       </header>
       <div className="bk-status-row">
@@ -318,7 +319,7 @@ function AddForm({ kind, prefill, onCancel, onSave }: { kind: Kind; prefill?: Pa
   const [seats, setSeats] = useState<Record<string, string>>(() => Object.fromEntries(s.trip.travellers.map((t, i) => [t.id, prefill?.seats[i] ?? ""])));
   const [a, setA] = useState(""); const [b, setB] = useState(""); const [extra, setExtra] = useState("");
   const [cost, setCost] = useState(prefill?.total ?? "");
-  const label = KIND_LABEL[kind].replace(/s$/, "");
+  const label = ONE[kind];
   const submit = () => onSave({
     id: `r-new-${Date.now()}`, kind, status, title: title || `New ${label.toLowerCase()}`, code: code || undefined, cost: cost || undefined,
     when: kind === "flight" ? segs.map(g => g.dep).filter(Boolean).join(" · ") || "Dates to add" : [a, b].filter(Boolean).join(" → ") || "Dates to add",
@@ -403,26 +404,26 @@ function Wallet({ list, phone }: { list: Reservation[]; phone: boolean }) {
   const today = list.filter(r => ["r-seceda", "r-car", "r-s3"].includes(r.id));
   const rest = list.filter(r => r.status === "booked" && !today.includes(r));
   return (
-    <div className={`wallet ${phone ? "one" : ""}`}>
-      <div className="wallet-head"><span className="sign wallet-day">Day 12</span><span className="muted num">Sat 24 Jul · Seceda, then Val di Funes · works offline</span></div>
-      <div className="wallet-cards">
+    <div className={`bk-wallet ${phone ? "one" : ""}`}>
+      <div className="bk-wallet-head"><span className="sign bk-wallet-day">Day 12</span><span className="muted num">Sat 24 Jul · Seceda, then Val di Funes · works offline</span></div>
+      <div className="bk-wallet-cards">
         {today.map(r => (
-          <article key={r.id} className={`wcard ${r.status}`}>
-            <header className="wcard-h"><Icon name={KIND_ICON[r.kind]} size={18} /><span className="label">{KIND_LABEL[r.kind].replace(/s$/, "")}</span><span className={`chip ${STATUS[r.status].cls}`}>{STATUS[r.status].label}</span></header>
-            <h3 className="wcard-title">{r.title}</h3>
-            <div className="num wcard-when">{r.when}</div>
+          <article key={r.id} className={`bk-wcard ${r.status}`}>
+            <header className="bk-wcard-h"><Icon name={KIND_ICON[r.kind]} size={18} /><span className="label">{ONE[r.kind]}</span><span className={`chip ${STATUS[r.status].cls}`}>{STATUS[r.status].label}</span></header>
+            <h3 className="bk-wcard-title">{r.title}</h3>
+            <div className="num bk-wcard-when">{r.when}</div>
             {r.kind === "lift" && <>
               <QR seed={r.id + s.trip.id} />
-              <div className="wcard-code-row">
+              <div className="bk-wcard-code-row">
                 <span className="label">Code</span>
-                <span className="wcard-code num">{reveal[r.id] ? "SEC-24-0830-3P" : "•••• ••••"}</span>
+                <span className="bk-wcard-code num">{reveal[r.id] ? "SEC-24-0830-3P" : "•••• ••••"}</span>
                 <button className="btn small" onClick={() => setReveal(x => ({ ...x, [r.id]: !x[r.id] }))}>{reveal[r.id] ? "Hide" : "Reveal"}</button>
               </div>
               <div className="small muted">3 people · Ortisei valley station · non-refundable</div>
             </>}
-            {r.code && r.kind !== "lift" && <div className="wcard-code-row"><span className="label">Code</span><span className="wcard-code num">{reveal[r.id] ? r.code : "••••••"}</span><button className="btn small" onClick={() => setReveal(x => ({ ...x, [r.id]: !x[r.id] }))}>{reveal[r.id] ? "Hide" : "Reveal"}</button></div>}
+            {r.code && r.kind !== "lift" && <div className="bk-wcard-code-row"><span className="label">Code</span><span className="bk-wcard-code num">{reveal[r.id] ? r.code : "••••••"}</span><button className="btn small" onClick={() => setReveal(x => ({ ...x, [r.id]: !x[r.id] }))}>{reveal[r.id] ? "Hide" : "Reveal"}</button></div>}
             {r.status === "to_book" && <div className="bk-callout"><Icon name="alert" /><span className="small">Still to book: {r.opensAt}</span></div>}
-            <footer className="wcard-f"><button className="btn small"><Icon name="nav" size={14} />Navigate</button><button className="btn small ghost"><Icon name="phone" size={14} />Call</button></footer>
+            <footer className="bk-wcard-f"><button className="btn small"><Icon name="nav" size={14} />Navigate</button><button className="btn small ghost"><Icon name="phone" size={14} />Call</button></footer>
           </article>
         ))}
       </div>
@@ -446,5 +447,5 @@ function QR({ seed }: { seed: string }) {
     const inF = (i < 8 && j < 8) || (i >= n - 8 && j < 8) || (i < 8 && j >= n - 8);
     if (!inF && rnd() > .52) cells.push(`M${i} ${j}h1v1h-1z`);
   }
-  return <svg className="qr" viewBox={`-2 -2 ${n + 4} ${n + 4}`} role="img" aria-label="Ticket code (placeholder)"><rect x="-2" y="-2" width={n + 4} height={n + 4} className="qr-bg" /><path d={cells.join("")} className="qr-fg" /></svg>;
+  return <svg className="bk-qr" viewBox={`-2 -2 ${n + 4} ${n + 4}`} role="img" aria-label="Ticket code (placeholder)"><rect x="-2" y="-2" width={n + 4} height={n + 4} className="bk-qr-bg" /><path d={cells.join("")} className="bk-qr-fg" /></svg>;
 }

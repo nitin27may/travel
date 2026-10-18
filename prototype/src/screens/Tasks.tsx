@@ -105,7 +105,7 @@ export function Tasks({ phone }: ScreenProps) {
                             <div className="tk-main">
                               <span className="tk-title">{t.title}</span>
                               <span className="tk-meta">
-                                <span className={`num ${!t.done && d.n < 60 ? "warn-text" : "muted"}`}>{d.rel}, {d.abs}</span>
+                                <span className={`num ${!t.done && d.n < 60 ? "tk-warn" : "muted"}`}>{d.rel}, {d.abs}</span>
                                 {t.source && <span className="chip">{t.source}</span>}
                                 {t.window && <button className="chip act tk-rem-btn" aria-expanded={open === t.id} onClick={() => setOpen(o => o === t.id ? null : t.id)}><Icon name="clock" size={12} />5 reminders</button>}
                               </span>
