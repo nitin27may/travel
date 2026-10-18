@@ -1,6 +1,8 @@
 'use client';
 
+import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { Select } from '@/components/ui/Select';
 import { parseSort, serialiseSort } from '@/lib/entities/sort';
 import type { EntityDescriptor, ListState } from '@/lib/entities/types';
 
@@ -28,42 +30,38 @@ export function ViewOptions<Row>({ d, state, onState }: { d: EntityDescriptor<Ro
     <div className="view-options">
       <label className="select-field">
         <span>Group by</span>
-        <select value={d.groupBy.some((g) => g.id === group) ? group : 'none'} onChange={(e) => onState({ ...state, group: e.target.value === d.defaultGroup ? null : e.target.value })}>
+        <Select compact value={d.groupBy.some((g) => g.id === group) ? group : 'none'} onChange={(e) => onState({ ...state, group: e.target.value === d.defaultGroup ? null : e.target.value })}>
           {d.groupBy.map((g) => (
             <option key={g.id} value={g.id}>
               {g.label}
             </option>
           ))}
           <option value="none">No grouping</option>
-        </select>
+        </Select>
       </label>
       <div className="select-field sort-field">
         <label>
           <span>Sort by</span>
-          <select
-            value={first?.id ?? ''}
-            onChange={(e) => onState({ ...state, sort: e.target.value ? serialiseSort([{ id: e.target.value, desc: first?.desc ?? false }]) : [] })}
-          >
+          <Select compact value={first?.id ?? ''} onChange={(e) => onState({ ...state, sort: e.target.value ? serialiseSort([{ id: e.target.value, desc: first?.desc ?? false }]) : [] })}>
             <option value="">{d.defaultSortLabel}</option>
             {Object.entries(d.sorts).map(([id, s]) => (
               <option key={id} value={id}>
                 {s.label}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
-        <button
-          type="button"
-          className="icon-btn"
+        <Button
+          size="sm"
+          icon
           disabled={!first}
           aria-label={first?.desc ? 'Sorted descending. Switch to ascending' : 'Sorted ascending. Switch to descending'}
           title={first?.desc ? 'Descending' : 'Ascending'}
           onClick={() => first && onState({ ...state, sort: serialiseSort([{ id: first.id, desc: !first.desc }, ...keys.slice(1)]) })}
         >
           <Icon name="sort" size={16} className={first?.desc ? 'flip' : undefined} />
-        </button>
+        </Button>
       </div>
     </div>
   );
 }
-

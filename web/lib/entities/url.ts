@@ -2,7 +2,7 @@ import { FACET_PARAMS, VIEW_NAMES } from './types';
 import type { FacetParam, ListState, ViewName } from './types';
 
 export function emptyState(): ListState {
-  return { q: '', facets: {}, bbox: null, view: 'cards', sort: [], group: null, cols: null, f: null, sv: null, focus: null, ids: [], label: null };
+  return { q: '', facets: {}, bbox: null, view: 'cards', sort: [], group: null, cols: null, f: null, sv: null, focus: null, ids: [], label: null, page: 1 };
 }
 
 const csv = (v: string | null): string[] => (v ? v.split(',').map((s) => s.trim()).filter(Boolean) : []);
@@ -30,6 +30,10 @@ export function decodeState(search: string): ListState {
   s.bbox = p.get('bbox') || null;
   s.view = parseView(p.get('view'));
   s.sort = csv(p.get('sort'));
+  // `dir` belongs to a single sort key (patterns 1.2); several keys keep the leading '-' form
+  const dir = p.get('dir');
+  if (s.sort.length === 1 && dir === 'desc' && !s.sort[0].startsWith('-')) s.sort = [`-${s.sort[0]}`];
+  else if (s.sort.length === 1 && dir === 'asc') s.sort = [s.sort[0].replace(/^-/, '')];
   s.group = p.get('group') || null;
   const cols = csv(p.get('cols'));
   s.cols = cols.length ? cols : null;
@@ -38,10 +42,15 @@ export function decodeState(search: string): ListState {
   s.focus = p.get('focus') || null;
   s.ids = csv(p.get('ids'));
   s.label = p.get('label') || null;
+  const page = Number.parseInt(p.get('page') ?? '', 10);
+  s.page = Number.isFinite(page) && page > 1 ? page : 1;
   return s;
 }
 
-/** Encode state canonically: fixed parameter order, defaults omitted, no leading ?. */
+/**
+ * Encode state canonically (patterns 1.2): `q`, the filters, `view`, `group`, `sort`, `dir`, `page`, then the
+ * keys only some pages use. Defaults are omitted, multi-values are comma-separated, no leading ?.
+ */
 export function encodeState(s: ListState): string {
   const p = new URLSearchParams();
   if (s.q) p.set('q', s.q);
@@ -51,8 +60,12 @@ export function encodeState(s: ListState): string {
   }
   if (s.bbox) p.set('bbox', s.bbox);
   if (s.view !== 'cards') p.set('view', s.view);
-  if (s.sort.length) p.set('sort', s.sort.join(','));
   if (s.group) p.set('group', s.group);
+  if (s.sort.length === 1) {
+    p.set('sort', s.sort[0].replace(/^-/, ''));
+    p.set('dir', s.sort[0].startsWith('-') ? 'desc' : 'asc');
+  } else if (s.sort.length) p.set('sort', s.sort.join(','));
+  if (s.page > 1) p.set('page', String(s.page));
   if (s.cols && s.cols.length) p.set('cols', s.cols.join(','));
   if (s.f) p.set('f', s.f);
   if (s.sv) p.set('sv', s.sv);
@@ -63,6 +76,21 @@ export function encodeState(s: ListState): string {
   if (s.focus) p.set('focus', s.focus);
   // commas stay readable in the address bar
   return p.toString().replace(/%2C/g, ',');
+}
+
+/** The page to land on after a state change: anything that changes which rows show starts again at page 1. */
+export function pageAfter(prev: ListState, next: ListState): number {
+  if (next.page !== prev.page) return next.page;
+  const same =
+    prev.q === next.q &&
+    prev.view === next.view &&
+    prev.group === next.group &&
+    prev.bbox === next.bbox &&
+    prev.f === next.f &&
+    prev.sort.join() === next.sort.join() &&
+    prev.ids.join() === next.ids.join() &&
+    JSON.stringify(prev.facets) === JSON.stringify(next.facets);
+  return same ? next.page : 1;
 }
 
 export function withFacet(s: ListState, param: FacetParam, values: string[]): ListState {

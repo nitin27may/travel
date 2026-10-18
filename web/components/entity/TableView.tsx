@@ -1,6 +1,5 @@
 'use client';
 
-import { Popover } from '@base-ui/react/popover';
 import {
   flexRender,
   getCoreRowModel,
@@ -11,7 +10,12 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import type { KeyboardEvent } from 'react';
+import { Button } from '@/components/ui/Button';
+import { DataTableShell } from '@/components/ui/DataTable';
+import { Checkbox } from '@/components/ui/Checkbox';
 import { Icon } from '@/components/ui/Icon';
+import { Popover } from '@/components/ui/Popover';
+import { Segmented } from '@/components/ui/Segmented';
 import { downloadCsv, toCsv } from '@/lib/entities/csv';
 import { parseSort, serialiseSort } from '@/lib/entities/sort';
 import { usePrefs } from '@/lib/format/prefs';
@@ -217,59 +221,65 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
   const padTop = virtual && vItems.length ? vItems[0].start : 0;
   const padBottom = virtual && vItems.length ? virtualizer.getTotalSize() - vItems[vItems.length - 1].end : 0;
 
-  return (
-    <div className="table-view" data-density={prefs.density}>
-      <div className="table-tools">
-        <SavedViewsMenu state={state} onState={onState} />
-        <Popover.Root>
-          <Popover.Trigger className="tool-btn">
+  const tools = (
+    <>
+      <SavedViewsMenu state={state} onState={onState} />
+      <Popover
+        trigger={
+          <>
             <Icon name="columns" size={15} /> Columns
-          </Popover.Trigger>
-          <Popover.Portal>
-            <Popover.Positioner sideOffset={6} align="end" className="popover-pos">
-              <Popover.Popup className="popover" aria-label="Choose columns">
-                <fieldset className="facet-options">
-                  <legend className="popover-title">Columns</legend>
-                  <ul>
-                    {chooserCols.map((c) => {
-                      const id = c.id as string;
-                      const on = visibleIds.includes(id);
-                      return (
-                        <li key={id}>
-                          <label className="opt">
-                            <input
-                              type="checkbox"
-                              checked={on}
-                              disabled={on && visibleIds.length === 1}
-                              onChange={() => {
-                                const ordered = d.columns.map((x) => x.id as string).filter((x) => (x === id ? !on : visibleIds.includes(x)));
-                                const isDefault = ordered.join() === d.defaultColumns.join();
-                                onState({ ...state, cols: isDefault ? null : ordered }, 'replace');
-                              }}
-                            />
-                            <span className="opt-label">{(c.meta as ColMeta).label}</span>
-                          </label>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <button type="button" className="link-btn" onClick={() => onState({ ...state, cols: null }, 'replace')}>
-                    Reset to default
-                  </button>
-                </fieldset>
-              </Popover.Popup>
-            </Popover.Positioner>
-          </Popover.Portal>
-        </Popover.Root>
-        <button type="button" className="tool-btn" aria-pressed={prefs.density === 'compact'} onClick={() => setPrefs({ density: prefs.density === 'compact' ? 'comfortable' : 'compact' })}>
-          <Icon name="list" size={15} /> {prefs.density === 'compact' ? 'Compact rows' : 'Comfortable rows'}
-        </button>
-        <button type="button" className="tool-btn" onClick={exportCsv} disabled={!data.length}>
-          <Icon name="download" size={15} /> Export CSV
-        </button>
-      </div>
+          </>
+        }
+        triggerClassName="btn btn-sm"
+        label="Choose columns"
+        align="end"
+      >
+        <fieldset className="facet-options">
+          <legend className="popover-title">Columns</legend>
+          <ul>
+            {chooserCols.map((c) => {
+              const id = c.id as string;
+              const on = visibleIds.includes(id);
+              return (
+                <li key={id}>
+                  <Checkbox
+                    checked={on}
+                    disabled={on && visibleIds.length === 1}
+                    onChange={() => {
+                      const ordered = d.columns.map((x) => x.id as string).filter((x) => (x === id ? !on : visibleIds.includes(x)));
+                      const isDefault = ordered.join() === d.defaultColumns.join();
+                      onState({ ...state, cols: isDefault ? null : ordered }, 'replace');
+                    }}
+                  >
+                    {(c.meta as ColMeta).label}
+                  </Checkbox>
+                </li>
+              );
+            })}
+          </ul>
+          <button type="button" className="link-btn" onClick={() => onState({ ...state, cols: null }, 'replace')}>
+            Reset to default
+          </button>
+        </fieldset>
+      </Popover>
+      <Segmented
+        label="Row density"
+        size="s"
+        value={prefs.density}
+        onChange={(density) => setPrefs({ density })}
+        segments={[
+          { value: 'compact', label: 'Compact' },
+          { value: 'comfortable', label: 'Comfortable' },
+        ]}
+      />
+      <Button size="sm" onClick={exportCsv} disabled={!data.length}>
+        <Icon name="download" size={15} /> Export CSV
+      </Button>
+    </>
+  );
 
-      <div className="table-scroll" ref={scrollRef} tabIndex={-1}>
+  return (
+    <DataTableShell tools={tools} density={prefs.density} scrollRef={scrollRef}>
         <table className="data-table" style={{ width: Math.max(totalWidth, 0), minWidth: '100%' }} aria-rowcount={data.length}>
           <caption className="sr-only">
             {d.noun.many}, {data.length} rows. Use the arrow keys to move between rows and Enter to open one.
@@ -332,7 +342,6 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
             )}
           </tbody>
         </table>
-      </div>
-    </div>
+    </DataTableShell>
   );
 }
