@@ -1,16 +1,27 @@
+import { globePaths } from '@/lib/public';
 import { pageMetadata } from '@/lib/site';
-import { StubPage, titleFromSlug } from '@/components/shell/StubPage';
+import { titleFromSlug } from '@/components/shell/StubPage';
 
-// STUB (lane L0, handed to L2): /globe/<country>[/<state>[/<district>]]. L2 fills generateStaticParams from globePaths() (lane LD).
+// /globe/<country>[/<state>[/<district>]]. Every path with content is pre-rendered; any other path reaches the globe
+// through the /globe/* rewrite in web/redirects.json and is read client-side from location.pathname.
 export const dynamicParams = false;
-export const metadata = pageMetadata({ title: 'Globe', description: 'Globe by country, state and district (placeholder).', path: '/globe/stub/', noindex: true });
 
 export function generateStaticParams(): { path: string[] }[] {
-  // `output: export` refuses an empty list, so one placeholder page (noindex, not in the sitemap) is built until the owning lane fills this.
-  return [{ path: ['stub'] }];
+  const paths = globePaths().map((path) => ({ path }));
+  // `output: export` refuses an empty list (the privacy fixture has no data), so one noindex placeholder keeps the build valid.
+  return paths.length ? paths : [{ path: ['stub'] }];
 }
 
-export default async function GlobePathPage({ params }: { params: Promise<{ path: string[] }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params;
-  return <StubPage title={titleFromSlug(path.join('/'))} stub="globe/[...path]" />;
+  const where = path.map((s) => titleFromSlug(s)).join(', ');
+  return pageMetadata({
+    title: `Globe: ${path.length === 1 ? path[0].toUpperCase() : where}`,
+    description: `Saved places and published trips in ${where} on the globe.`,
+    path: `/globe/${path.join('/')}/`,
+  });
+}
+
+export default function GlobePathPage() {
+  return null;
 }
