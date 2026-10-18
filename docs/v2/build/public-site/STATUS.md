@@ -21,7 +21,7 @@ Updated 2026-10-18, late evening. Read this first after a context reset. **The f
 | L2 | full-screen globe | **verifying** (GPU) | L2-1..L2-7 fixed (b0de27d); then must-fix F2 antimeridian rings, F5 reset view, the stubs.test conflict on merge |
 | L3 | trips list and trip page | merged 65eee4c | dark-style label hiding via `web/lib/map/maplibre/labels.ts` (additive LM edit, `hideBasemapLabels`); TripsMap lazy for the JS budget |
 | L4 | places list and place/trail pages | merged d0cb415 | real Google key checked 18 Oct (facade, our points, directions from our coordinates) |
-| PS | privacy: personal place status off public output | **building** | Status facet becomes "In a public trip"; payload test |
+| PS | privacy: personal place status off public output | merged e883636 | Status facet becomes "In a public trip"; payload test |
 | L2b | globe experience | spec in progress (Fable) | `globe/experience-review.md`, `spec.md`, owner feedback F1, F3, F4, F6 |
 | L3c | trip page timeline and party profile | design + model in progress | `design/trip-page/timeline-design.md`, `features/trip-timeline.md`, brief `L3c-trip-timeline.md` |
 | L3b | trip tags and filters at parity with Places | queued | TODO row; spec `features/trip-tags.md` first |
