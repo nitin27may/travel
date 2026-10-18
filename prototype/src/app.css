@@ -398,3 +398,10 @@
 .drag-pill .dp-to.warn { background: var(--warn-soft); color: var(--warn); }
 .drag-pill .dp-to.ok { background: var(--sunk); color: var(--ok); }
 .drag-pill .dp-grip { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--sunk); color: var(--ink); }
+
+/* map filter chip: all days by default, one day when picked */
+.map-filter { position: absolute; top: 12px; left: 12px; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 12px; min-height: 40px; background: color-mix(in srgb, var(--raised) 94%, transparent); border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow); font-size: .86rem; }
+.map-filter .mf-title { font-weight: 650; }
+.map-filter .mf-dot { width: 10px; height: 10px; border-radius: 50%; }
+.is-phone .map-filter { top: 8px; left: 8px; font-size: .8rem; }
+.is-phone .map-filter .muted { display: none; }

@@ -20,7 +20,10 @@ const short = (n: string) => n.replace(/^Example (hotel|guesthouse), /, "").repl
 const css = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const reduceMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-export interface Pin { id: string; place: Place; label: string; kind: "stop" | "base" | "idea" | "suggest"; day?: number; itemId?: string; dim?: boolean; draggable?: boolean; lane?: string }
+export interface Pin { id: string; place: Place; label: string; kind: "stop" | "base" | "idea" | "suggest"; day?: number; itemId?: string; dim?: boolean; draggable?: boolean; lane?: string; color?: string; quiet?: boolean }
+// eight colour-blind-safe day colours (Okabe-Ito based), repeating after day 8
+const DAY_COLOURS = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#B07A00", "#3E9BD6", "#8C564B", "#6A4C9C"];
+export const dayColour = (n: number) => DAY_COLOURS[(n - 1) % DAY_COLOURS.length];
 export interface MapProps {
   theme: "light" | "dark";
   plans: DayPlan[];
@@ -101,7 +104,7 @@ export function MapView(p: MapProps) {
       const b = d.stops.filter(s => s.item.variant === "B");
       if (b.length) lanes.B = [d.start, ...b.map(s => s.place), d.end].filter(Boolean) as Place[];
       for (const [lane, pts] of Object.entries(lanes)) if (pts.length > 1)
-        feats.push({ type: "Feature", properties: { focus: d.n === focusDay, lane, day: d.n }, geometry: { type: "LineString", coordinates: pts.map(x => [x.lng, x.lat]) } });
+        if (focusDay === undefined || d.n === focusDay) feats.push({ type: "Feature", properties: { focus: d.n === focusDay, all: focusDay === undefined, color: dayColour(d.n), lane, day: d.n }, geometry: { type: "LineString", coordinates: pts.map(x => [x.lng, x.lat]) } });
     }
     (m.getSource("routes") as maplibregl.GeoJSONSource).setData({ type: "FeatureCollection", features: feats });
     (m.getSource("preview") as maplibregl.GeoJSONSource).setData({ type: "FeatureCollection", features: preview ? [{ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [preview.from, preview.to, ...(preview.back ? [preview.back] : [])].map(x => [x.lng, x.lat]) } }] : [] });
@@ -111,7 +114,7 @@ export function MapView(p: MapProps) {
     for (const pin of pins) {
       seen.add(pin.id);
       const sel = pin.itemId && pin.itemId === selectedItem;
-      const key = `${pin.kind}|${pin.label}|${pin.dim}|${sel}|${pin.place.lng}|${pin.place.lat}|${pin.draggable}`;
+      const key = `${pin.kind}|${pin.label}|${pin.dim}|${sel}|${pin.place.lng}|${pin.place.lat}|${pin.draggable}|${pin.color}|${pin.quiet}`;
       const have = markers.current.get(pin.id);
       if (have && have.key === key) continue;
       if (have) {
@@ -148,21 +151,22 @@ export function MapView(p: MapProps) {
   function paint(wrap: HTMLElement, pin: Pin, sel: boolean) {
     const node = wrap.firstElementChild as HTMLElement;
     wrap.style.zIndex = sel ? "6" : pin.dim ? "1" : "3";
+    node.style.background = pin.color ?? ""; node.style.color = pin.color ? "#FFFFFF" : "";
     node.dataset.kind = pin.kind; node.dataset.dim = pin.dim ? "1" : "0"; node.dataset.sel = sel ? "1" : "0"; node.dataset.lane = pin.lane ?? "";
     node.setAttribute("aria-label", `${pin.label} ${pin.place.name}`); node.title = pin.place.name;
     node.innerHTML = pin.kind === "base"
       ? `<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M3 11l9-7 9 7M5 9.5V20h14V9.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
       : `<span>${pin.label}</span>`;
     let tag = wrap.querySelector(".pin-name") as HTMLElement | null;
-    const showName = !pin.dim && (pin.kind === "stop" || pin.kind === "base");
+    const showName = !pin.dim && !pin.quiet && (pin.kind === "stop" || pin.kind === "base");
     if (showName) { if (!tag) { tag = document.createElement("span"); tag.className = "pin-name"; wrap.appendChild(tag); } tag.textContent = short(pin.place.name); }
     else tag?.remove();
   }
   function fitFocus(instant = false) {
     const m = map.current; if (!m) return;
     const { plans, focusDay } = props.current;
-    const d = plans.find(x => x.n === focusDay); if (!d) return;
-    const pts = [d.start, ...d.stops.map(s => s.place), d.end].filter(Boolean) as Place[];
+    const days = focusDay === undefined ? plans : plans.filter(x => x.n === focusDay); if (!days.length) return;
+    const pts = days.flatMap(d => [d.start, ...d.stops.map(s => s.place), d.end]).filter(Boolean) as Place[];
     if (!pts.length) return;
     const b = new maplibregl.LngLatBounds();
     pts.forEach(x => b.extend([x.lng, x.lat]));
@@ -192,9 +196,11 @@ const ourSources = (): Record<string, maplibregl.SourceSpecification> => ({
   preview: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
 });
 const ourLayers = (): maplibregl.LayerSpecification[] => [
-  { id: "route-other", type: "line", source: "routes", filter: ["!", ["get", "focus"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--route"), "line-width": 1.2, "line-opacity": .18 } },
+  { id: "route-other", type: "line", source: "routes", filter: ["all", ["!", ["get", "focus"]], ["!", ["get", "all"]]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--route"), "line-width": 1.2, "line-opacity": .18 } },
   { id: "route-halo", type: "line", source: "routes", filter: ["get", "focus"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--halo"), "line-width": 7, "line-opacity": .9 } },
   { id: "route-focus", type: "line", source: "routes", filter: ["all", ["get", "focus"], ["!=", ["get", "lane"], "B"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--route"), "line-width": 3 } },
+  { id: "route-all-halo", type: "line", source: "routes", filter: ["get", "all"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--halo"), "line-width": 5.5, "line-opacity": .85 } },
+  { id: "route-all", type: "line", source: "routes", filter: ["get", "all"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": ["get", "color"], "line-width": 2.6, "line-opacity": .9 } },
   { id: "route-lane-b", type: "line", source: "routes", filter: ["all", ["get", "focus"], ["==", ["get", "lane"], "B"]], layout: { "line-cap": "round" }, paint: { "line-color": css("--act"), "line-width": 2.6, "line-dasharray": [1, 1.6] } },
   { id: "preview", type: "line", source: "preview", layout: { "line-cap": "round" }, paint: { "line-color": css("--glow"), "line-width": 3, "line-dasharray": [1.2, 1.4] } },
 ];

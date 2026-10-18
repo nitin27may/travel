@@ -18,7 +18,7 @@ import { Avatar } from "../ui/bits";
 const short = (n: string) => n.replace(/^Example (hotel|guesthouse), /, "");
 
 export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan: DayPlan; ids: string[]; activeId?: string; collapsed?: boolean; onToggle?: () => void }) {
-  const { s, place, focus, setBase } = useStore();
+  const { s, place, showDay, setBase } = useStore();
   const day = s.trip.days.find(d => d.n === plan.n)!;
   const date = dayDate(s.trip.start, plan.n);
   const iso = date.toISOString().slice(0, 10);
@@ -79,7 +79,7 @@ export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan:
 
   return (
     <section className={`day ${s.focusDay === plan.n ? "focus" : ""} ${isOver ? "over" : ""}`} id={`day-${plan.n}`} data-day={plan.n} ref={setNodeRef} aria-labelledby={`dh-${plan.n}`}>
-      <header className="day-head" onClick={() => focus(plan.n)}>
+      <header className="day-head" onClick={() => showDay(plan.n)} title="Show only this day on the map">
         <button className="day-toggle" aria-expanded={!collapsed} aria-label={collapsed ? "Expand day" : "Collapse day"} onClick={e => { e.stopPropagation(); onToggle?.(); }}><Icon name={collapsed ? "chevron" : "down"} /></button>
         <div className="day-id"><span className="sign day-n">Day {plan.n}</span><span className="num muted">{fmtDay(date)}</span></div>
         <h2 id={`dh-${plan.n}`} className="day-title">{day.title}</h2>
