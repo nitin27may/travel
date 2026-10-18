@@ -1,0 +1,14 @@
+{
+ "elements": [
+  {
+   "type": "count",
+   "id": 0,
+   "tags": {
+    "nodes": "3",
+    "ways": "1",
+    "relations": "0",
+    "total": "4"
+   }
+  }
+ ]
+}
