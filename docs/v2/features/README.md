@@ -30,6 +30,7 @@ is a first-class front door. Sharing rules come from [10-sharing.md](../10-shari
 | [F16 Admin console](F16-admin-console.md) | Review queue, research jobs, coverage, backlog, publishing curated trips and templates, moderation | M1, M5, M6 | draft |
 | [F17 Accounts, auth and privacy](F17-accounts-auth-and-privacy.md) | Sign-in, roles, MCP OAuth and tokens, row-level security, export and delete | M0 | draft |
 | [Trip timeline and party profile](trip-timeline.md) | Public trip page: whole-trip and per-day timelines with times and confidence, the core scheduler, trip-level party profile replacing per-day A/B/C, prose cleaning | public site, wave 3 (L3c, L3d) | spec |
+| [Short trips](short-trips.md) | Day trips, overnights and weekends (0 to 3 nights): length class from nights, weekday pattern, the outing frame (leave by, home by, both drives, permits, go/no-go, Plan B, bring list), the compact page, drive from a public hub, origin privacy | public site wave 3 (L3b, L3e); creation flow in the planner | spec |
 
 ## Schema additions proposed across pages
 

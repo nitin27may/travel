@@ -65,6 +65,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 2.17 | Foundation patterns: trip-page URL keys in 1.2 (`?p=`, `pace`, `d=`, `add=`); remove the Track A/B/C segment from 3.4; globe tokens `--globe-ocean`, `--globe-halo`, `--globe-edge`, `--globe-dim`, `--map-wood`, dark `--map-land`, `--map-high`, `--map-water` (after Q6) | planner, Fable | queued |
 | 2.18 | Bring main's newer captures into v2 (for example Mount Rainier National Park, added 18 Oct as 7997941) and refresh the data snapshots, so new places reach the new site | owner capture | queued |
 | 2.16 | Integration sweep by travel-verifier on the GPU, recorded in `verify-integration.md` | gate | queued |
+| 2.19 | **Privacy: household origin in public output.** "Whitby" is in `web/out/trips/index.html` and the Québec, Algonquin and Vermont trip pages. The adapter replaces the household origin with the trip's hub label ("from Toronto") in every public string; the origin list lives in gitignored `data/private/origins.json`; a payload test fails on the origin string or a point within 2 km of it ([short-trips.md](../../features/short-trips.md) 4.4) | planner, 18 Oct | doing (sent to PS) |
 
 ## Stage 3a: data foundation (runs alongside stages 2 and 3; data and core only)
 
@@ -73,7 +74,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 3a.1 | **Suitability metadata schema** (`research/suitability.md`): a shared model for every kind covering min age, height or weight rules, recommended age band, carry-able toddler, stroller access, wheelchair and step-free access, an effort grade with its basis, child-pace time, toilets, shade, water, bail-out and signal, water safety, and access season. Kind detail on recognised scales (SAC, CAI, YDS, Parks Canada, via ferrata A-E, IMBA, Singletrack S0-S5, whitewater I-VI, operator rules for zip line and bungee), mapped onto one family effort scale. Every value has provenance; "not stated by the operator" is a valid value | owner | doing (Opus planner) |
 | 3a.2 | Schema, validator and migration in `core/` (Zod, generated JSON schema), before any enrichment | owner | queued |
 | 3a.3 | **Enrichment of every place linked to a planned trip**, in researcher lanes by trip (travel-researcher, Opus); places with no data yet wait. Web research in parallel; Commons stays sequential | owner | queued |
-| 3a.4 | **Short trips** (`features/short-trips.md`): day trip, overnight, weekend and long weekend in the schema; origin and return legs, leave-by and home-by, day-use permits and timed slots, a weather go/no-go and Plan B; a compact public page; a "Day trips" filter; quick creation in the planner later. The household's origin stays private | owner | doing (Opus planner) |
+| 3a.4 | **Short trips** (`features/short-trips.md`, done this commit): day trip, overnight, weekend and long weekend in the schema; origin and return legs, leave-by and home-by, day-use permits and timed slots, a weather go/no-go and Plan B; a compact public page; a "Day trips" filter; quick creation in the planner later. The household's origin stays private | owner | done (spec); build items 3.11-3.14 |
 
 ## Stage 3: wave 3 (four lanes in parallel, disjoint files)
 
@@ -91,6 +92,10 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 3.8 | L4b: trail pages for every trip's trails (62 Rockies, plus Patagonia, Vermont, Norway, Iceland, Chamonix and others) with the full link checklist; AllTrails and the rest stay link-only | owner | queued |
 | 3.9 | Data: seasons for the 6 trips showing "season not set yet" | LD | queued |
 | 3.10 | Data: rewrite the 34 dated texts the dateless rule dropped, as relative wording | LD | queued |
+| 3.11 | **L3b additions for short trips:** length classes Day trip (0), Overnight (1), Weekend (2), Long weekend (3) ahead of the 4-8, 9-14, 15+ bands; a "From Toronto" drive pill (under 1 h, 1-2, 2-3, 3+) with the hub switchable; the card chip "Day trip · from Toronto 1 h 25"; group by Length. Needs `lengthClass` and `fromHubs` from the adapter ([short-trips.md](../../features/short-trips.md) 3.3) | owner, 18 Oct | queued (into the L3b spec) |
+| 3.12 | **Data: hub drive matrix.** `web/scripts/hubs-ors.mjs`: ORS matrix from Toronto, Hamilton, Ottawa and Montréal to each short trip's first and last stop, sequential, from one lane, key in the header; output committed to `data/outings/from-hubs.json` (short-trips 4.1) | owner, 18 Oct | queued (needs stop points) |
+| 3.13 | **L3e short trips** (after L3c merges, with or right after L3d's conversion of Niagara, New Hampshire and Québec): the outing frame (`data/outings/`, `trip-outing/1`), leave by and home by solved by the scheduler, `S_HOME_BY`, `S_CAR_SHARE`, `S_TRAFFIC`, the compact phone-first page (bar, go/no-go, book ahead, bring, cost, one timeline), Add to calendar with one date. Brief to write from short-trips 6.2 | owner, 18 Oct | queued |
+| 3.14 | Data: an Elora Gorge public trip from the June vault note, refreshed by travel-researcher (2026 season 26 Jun to 7 Sep, prices, points from OSM); waits for owner Q7 | owner, 18 Oct | owner |
 
 ## Stage 4: Fable review of the whole built site, then its fixes
 
@@ -132,6 +137,10 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | Q2 | Keep the date a place was saved and the Instagram post date in public place data, or remove them? (low risk) | 18 Oct |
 | Q3 | Hide the old live `/locations/` page now, or let it go at go-live? | 18 Oct |
 | Q4 | Confirm that old trip URLs redirect to the new trip pages at go-live (7.1) | 18 Oct |
+| Q8 | Short trips with a weekday pattern: may the day header say "Day 1 · Saturday"? It amends the dateless rule. Recommended: yes ([short-trips.md](../../features/short-trips.md) Q1) | 18 Oct |
+| Q9 | Public origin: Toronto only, or Toronto plus Hamilton, Ottawa, Montréal and a "use my location" estimate kept in the browser? Recommended: the second (short-trips Q2) | 18 Oct |
+| Q10 | Elora tubing ended 7 Sep 2026, so the Sat 24 Oct scenario cannot have a tubing slot. Publish Elora as a summer template and change the scenario's October trip? Recommended: yes (short-trips Q3) | 18 Oct |
+| Q11 | New Hampshire and Québec end in Vermont: separate short trips linked to Vermont, or prologue days inside Vermont? Recommended: Québec separate, New Hampshire folded into Vermont (short-trips Q4) | 18 Oct |
 | Q5 | Timeline: default party per trip is the party it was written for (the Rockies: 2 adults and a 6-year-old)? Generated meals and coffee shown by default as "suggested" rows? "Add to this day" covers the trip's places plus the catalogue within 30 km of the base? Imported legacy times show as "suggested" until a person checks each trip? Pace and child rules of thumb (day caps, walk ceilings, 1.6x trail time at age 6-7) accepted to start? Recommended: yes to all | 18 Oct |
 | Q7 | Trip page: open on the author's party ("Showing the plan as Nitin wrote it") or make a visitor choose first? Suggested times shown lighter with one "Suggested times" banner, or a "~" before each? The "Plan it for" selector above the season band and open on phone, or under the band and collapsed on phone? Recommended: author's party; banner; above the band, collapsed to one line on phone | 18 Oct |
 | Q6 | Globe palette: accept the dark-theme direction in the experience review (land lighter than ocean; new globe tokens) so the foundation docs can change | 18 Oct |

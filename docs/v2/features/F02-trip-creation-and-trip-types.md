@@ -1,5 +1,7 @@
 # F02. Trip creation and trip types
 
+> **Amended 18 Oct 2026 by [short-trips.md](short-trips.md).** The trip length comes from the night count: day (0), overnight (1), weekend (2), long weekend (3), multi-day (4+). A weekday pattern is stored with it. The Day trip and Weekend rows below are detailed there, and so is the "Day trip from home" creation flow (short-trips 3.1). The type profiles here are unchanged.
+
 ## Purpose
 
 Start a trip in under a minute, from the household's defaults, and let the trip's **type** shape
