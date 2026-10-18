@@ -48,6 +48,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -92,6 +93,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -121,8 +123,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "worth_it",
-          "reason": "draw world, standing top; clear weather only drops it one step"
+          "fit": "plan_around",
+          "reason": "draw world, standing top; clear weather only: a world top draw keeps its step and gains go_clear_day"
         },
         "weekend": {
           "fit": "skip",
@@ -134,13 +136,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "highlight",
+      "role": "anchor",
       "flags": {
+        "go_clear_day": true,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth a detour",
+      "badge": "Worth the journey",
       "stale": [],
       "warnings": [
         {
@@ -166,7 +169,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -180,6 +183,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -224,6 +228,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -268,6 +273,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -312,6 +318,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -356,6 +363,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -400,6 +408,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -444,6 +453,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -488,6 +498,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -518,7 +529,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -532,6 +543,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -562,7 +574,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -576,6 +588,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -606,7 +619,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -620,6 +633,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false

@@ -87,7 +87,8 @@ describe("access load (3.3)", () => {
 describe("vacation fit (3.4 table)", () => {
   it("plan_around: world, or national and top", () => {
     expect(vacationFit(f({ ed: "world", standing: "ordinary" })).fit).toBe("plan_around");
-    expect(vacationFit(f({ ed: "national", standing: "top" })).fit).toBe("plan_around");
+    expect(vacationFit(f({ ed: "national", standing: "top", distinction: "rare" })).fit).toBe("plan_around");
+    expect(vacationFit(f({ ed: "national", standing: "top", distinction: "unique" })).fit).toBe("plan_around");
     expect(vacationFit(f({ ed: "national", standing: "good" })).fit).toBe("worth_it");
   });
   it("worth_it: regional and top and not common", () => {
