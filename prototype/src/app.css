@@ -359,9 +359,9 @@
 /* trip context above Today, Bookings, Tasks and Budget (desktop); the phone top bar carries it there */
 .tripbar { display: flex; align-items: center; gap: 10px; max-width: 1080px; margin: 0 auto; padding: 16px 0 0; box-sizing: content-box; }
 .tripbar .label { margin: 0; }
-.screen:has(> .tripbar) { display: flex; flex-direction: column; }
+.screen:has(> .triphead) { display: flex; flex-direction: column; }
 .screen > .tripbar { padding: 16px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); width: 100%; max-width: calc(1080px + 32px); }
-.screen > .tripbar + * { flex: 1; min-height: 0; }
+.screen > .triphead + * { flex: 1; min-height: 0; height: auto; }
 
 /* ---- drag and drop: handle, insertion line, target tint ---- */
 .drag-handle { flex: none; width: 30px; height: 36px; display: grid; place-items: center; align-self: center; border: 0; background: none; color: var(--faint); border-radius: 6px; cursor: grab; touch-action: none; transition: color .12s, background .12s; }
@@ -405,3 +405,18 @@
 .map-filter .mf-dot { width: 10px; height: 10px; border-radius: 50%; }
 .is-phone .map-filter { top: 8px; left: 8px; font-size: .8rem; }
 .is-phone .map-filter .muted { display: none; }
+
+/* trip header: the trip is the container for Plan, Today, Bookings, Tasks and Budget */
+.triphead { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 8px 20px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.th-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.th-id .tswitch-btn .sign { font-size: 1.45rem; }
+.th-when { font-size: .86rem; white-space: nowrap; }
+.th-tabs { display: flex; gap: 2px; background: var(--sunk); padding: 3px; border-radius: 10px; }
+.th-tab { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; color: var(--muted); padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: .9rem; min-height: 36px; }
+.th-tab:hover { color: var(--ink); }
+.th-tab.on { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.th-count { font-size: .76rem; color: var(--muted); background: var(--sunk); padding: 1px 6px; border-radius: 999px; }
+.th-tab.on .th-count { background: var(--sunk); color: var(--ink); }
+/* rail: the trip's views grouped under its name */
+.rail-trip { margin: 8px 0; padding: 6px 0 4px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.rail-trip-name { border: 0; background: var(--glow-soft); color: var(--glow); font: 700 .66rem/1.2 var(--f-ui); letter-spacing: .02em; text-transform: uppercase; padding: 5px 4px; border-radius: 6px; margin: 0 2px 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 88px; }

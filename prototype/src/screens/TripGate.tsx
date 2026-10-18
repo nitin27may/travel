@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { ScreenId } from ".";
 import { FULL_PLAN, PHASE_LABEL, useMyTrips, type TripCard } from "../data/trips";
+import { useStore } from "../state/store";
 import { Icon } from "../ui/Icon";
 import "./tripgate.css";
 
@@ -81,7 +82,7 @@ export function EmptyTrip({ tripId, screen, go, switcher }: { tripId: string; sc
     <div className="page tripgate">
       <div className="page-inner">
         {switcher}
-        <div className="muted num tg-sub">{when(t)} · {t.region} · {t.kind}</div>
+        <div className="muted num tg-sub" hidden={!switcher}>{when(t)} · {t.region} · {t.kind}</div>
         <div className="tg-empty">
           <h2>{what}</h2>
           <p className="muted">{t.next ?? "Start with where you sleep each night, then add places to each day."}</p>
@@ -94,5 +95,39 @@ export function EmptyTrip({ tripId, screen, go, switcher }: { tripId: string; sc
         </div>
       </div>
     </div>
+  );
+}
+
+const TABS: { id: ScreenId; label: string; icon: string }[] = [
+  { id: "plan", label: "Plan", icon: "map" }, { id: "today", label: "Today", icon: "sun" }, { id: "bookings", label: "Bookings", icon: "ticket" },
+  { id: "tasks", label: "Tasks", icon: "check" }, { id: "budget", label: "Budget", icon: "money" },
+];
+/** the trip as a container: name (switcher), dates and status, and the trip's own views as tabs with progress */
+export function TripHeader({ tripId, screen, go, onPick }: { tripId: string; screen: ScreenId; go: (id: ScreenId) => void; onPick: (id: string) => void }) {
+  const t = useMyTrips().find(x => x.id === tripId);
+  const { s } = useStore();
+  if (!t) return null;
+  const full = FULL_PLAN.has(tripId);
+  const count: Partial<Record<ScreenId, string>> = full ? {
+    plan: `${s.trip.days.filter(d => d.itemIds.length).length}/${s.trip.days.length} days`,
+    bookings: `${s.trip.reservations.filter(r => r.status === "booked").length}/${s.trip.reservations.length}`,
+    tasks: `${s.trip.tasks.filter(k => k.done).length}/${s.trip.tasks.length}`,
+  } : {};
+  return (
+    <header className="triphead" aria-label={`Trip: ${t.title}`}>
+      <div className="th-id">
+        <span className={`tg-swatch sm tone-${t.tone}`} aria-hidden="true" />
+        <TripSwitcher tripId={tripId} onPick={onPick} onAll={() => go("home")} className="compact" />
+        <span className="muted num th-when">{when(t)}</span>
+        <span className="chip">{PHASE_LABEL[t.phase]}</span>
+      </div>
+      <nav className="th-tabs" aria-label="This trip">
+        {TABS.map(x => (
+          <button key={x.id} className={`th-tab ${screen === x.id ? "on" : ""}`} aria-current={screen === x.id ? "page" : undefined} onClick={() => go(x.id)}>
+            <Icon name={x.icon} size={15} /><span>{x.label}</span>{count[x.id] && <span className="th-count num">{count[x.id]}</span>}
+          </button>
+        ))}
+      </nav>
+    </header>
   );
 }

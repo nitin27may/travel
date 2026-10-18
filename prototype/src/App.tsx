@@ -4,13 +4,17 @@ import { useEffect, useState } from "react";
 import type { Place } from "./data/places";
 import { PlanScreen } from "./plan/Plan";
 import { SCREENS, type ScreenId } from "./screens";
-import { EmptyTrip, TripPicker, TripSwitcher } from "./screens/TripGate";
-import { FULL_PLAN } from "./data/trips";
+import { EmptyTrip, TripHeader, TripPicker, TripSwitcher } from "./screens/TripGate";
+import { FULL_PLAN, useMyTrips } from "./data/trips";
 import { useStore } from "./state/store";
 import { Toast } from "./ui/bits";
 import { Icon } from "./ui/Icon";
 
 type ThemePref = "system" | "light" | "dark" | "sun";
+// rail groups: everything about you and the catalog, then the selected trip's own views under its name
+const GLOBAL_NAV: ScreenId[] = ["home", "discover", "explore", "templates"];
+const TRIP_NAV: ScreenId[] = ["plan", "today", "bookings", "tasks", "budget"];
+const FOOT_NAV: ScreenId[] = ["admin", "settings"];
 const NAV: { id: ScreenId; label: string; icon: string; phone?: boolean }[] = [
   { id: "home", label: "Trips", icon: "home", phone: true },
   { id: "plan", label: "Plan", icon: "map", phone: true },
@@ -44,6 +48,7 @@ export default function App() {
   const [openPlace, setOpenPlace] = useState<Place | undefined>();
   // the trip that Plan, Today, Bookings, Tasks and Budget belong to; none until the person picks one
   const [tripId, setTripId] = useState<string | undefined>(() => read("proto.trip") ?? undefined);
+  const myTrips = useMyTrips();
   const pickTrip = (id?: string) => { setTripId(id); if (id) write("proto.trip", id); else try { localStorage.removeItem("proto.trip"); } catch { /* storage blocked */ } };
   const [more, setMore] = useState(false);
   const { s } = useStore();
@@ -59,13 +64,18 @@ export default function App() {
 
   const Screen = screen === "plan" ? null : SCREENS[screen];
   const tripScoped = TRIP_SCREENS.has(screen);
+  const tripTitle = myTrips.find(t => t.id === tripId)?.title;
+  const railBtn = (id: ScreenId) => { const n = NAV.find(z => z.id === id)!; return (
+    <button key={n.id} className={`rail-btn ${screen === n.id ? "on" : ""}`} onClick={() => go(n.id)} aria-current={screen === n.id ? "page" : undefined}>
+      <Icon name={n.icon} size={18} /><span>{n.label}</span>
+    </button>); };
   const switcher = (compact = false) => tripId ? <TripSwitcher tripId={tripId} onPick={id => pickTrip(id)} onAll={() => go("home")} className={compact ? "compact" : ""} /> : null;
   const body = tripScoped && !tripId
     ? <TripPicker screen={screen} onPick={id => pickTrip(id)} onNew={() => go("new")} />
     : tripScoped && tripId && !FULL_PLAN.has(tripId)
-      ? <EmptyTrip tripId={tripId} screen={screen} go={go} switcher={switcher()} />
+      ? <EmptyTrip tripId={tripId} screen={screen} go={go} switcher={phone ? switcher() : null} />
       : screen === "plan"
-        ? <PlanScreen theme={theme} phone={phone} switcher={switcher()} onOpenPlace={p => { setOpenPlace(p); go("place"); }} onShare={() => go("share")} />
+        ? <PlanScreen theme={theme} phone={phone} onOpenPlace={p => { setOpenPlace(p); go("place"); }} onShare={() => go("share")} />
         : Screen ? <Screen phone={phone} theme={theme} go={go} place={openPlace} tripId={tripId} /> : null;
 
   return (
@@ -73,11 +83,12 @@ export default function App() {
       {!phone && (
         <nav className="rail" aria-label="Main">
           <div className="rail-mark sign" title="Prototype">TP</div>
-          {NAV.map(n => (
-            <button key={n.id} className={`rail-btn ${screen === n.id ? "on" : ""}`} onClick={() => go(n.id)} aria-current={screen === n.id ? "page" : undefined}>
-              <Icon name={n.icon} size={18} /><span>{n.label}</span>
-            </button>
-          ))}
+          {GLOBAL_NAV.map(railBtn)}
+          <div className="rail-trip" role="group" aria-label={tripTitle ? `Trip: ${tripTitle}` : "Trip"}>
+            <button className="rail-trip-name" onClick={() => go(tripId ? "plan" : "home")} title={tripTitle ?? "Choose a trip"}>{tripTitle ?? "No trip"}</button>
+            {TRIP_NAV.map(railBtn)}
+          </div>
+          {FOOT_NAV.map(railBtn)}
           <div className="rail-foot">
             <button className="rail-btn" onClick={cycle} aria-label={`Theme: ${pref}`} title={`Theme: ${pref} (click to change)`}>
               <Icon name={theme === "dark" ? "moon" : "sun"} size={18} /><span>{pref === "sun" ? "Sunlight" : pref[0].toUpperCase() + pref.slice(1)}</span>
@@ -95,7 +106,7 @@ export default function App() {
       <main className="main">
         <AnimatePresence mode="wait">
           <motion.div key={screen} className={`screen scr-${screen}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .14 }}>
-            {!phone && tripScoped && screen !== "plan" && tripId && FULL_PLAN.has(tripId) && <div className="tripbar"><span className="label">Trip</span>{switcher(true)}</div>}
+            {!phone && tripScoped && tripId && <TripHeader tripId={tripId} screen={screen} go={go} onPick={id => pickTrip(id)} />}
             {body}
           </motion.div>
         </AnimatePresence>
