@@ -7,7 +7,16 @@ const DEPTH_RANK = { full: 0, summary: 1, overview: 2 } as const;
 /** Rows for /trips: the listed trips with the country and first-base pin from the globe index. Build time only. */
 export function tripListRows(cards: PublicTripCard[] = listTrips()): TripListRow[] {
   const g = globeIndex();
+  const names = new Intl.DisplayNames('en', { type: 'region' });
   const countryName = new Map(g.continents.flatMap((c) => c.countries).map((n) => [n.slug, n.name] as const));
+  const nameOf = (cc: string) => {
+    if (!cc) return '';
+    try {
+      return names.of(cc.toUpperCase()) ?? countryName.get(cc) ?? cc.toUpperCase();
+    } catch {
+      return countryName.get(cc) ?? cc.toUpperCase();
+    }
+  };
   const pins = new Map(g.pins.filter((p) => p.kind === 'trip').map((p) => [p.slug, p] as const));
   return cards
     .map((c) => {
@@ -30,7 +39,7 @@ export function tripListRows(cards: PublicTripCard[] = listTrips()): TripListRow
         seasonMonths: c.season?.months ?? [],
         legacyUrl: c.legacyUrl,
         country: cc.toUpperCase(),
-        countryName: countryName.get(cc) ?? cc.toUpperCase(),
+        countryName: nameOf(cc),
         lat: pin?.lat ?? null,
         lon: pin?.lon ?? null,
         approx: pin?.approx ?? false,

@@ -100,3 +100,17 @@ describe('trips list', () => {
     expect(rows.some((r) => r.country === 'IT')).toBe(true);
   });
 });
+
+describe('decimals in prose', () => {
+  it('keeps "3.2 km" whole when splitting sentences', async () => {
+    const { undatedSentences, DropLog } = await import('@/lib/public/dateless');
+    expect(undatedSentences('Walk 3.2 km to the lake. Then 2.7 km back.', 'x', new DropLog())).toBe('Walk 3.2 km to the lake. Then 2.7 km back.');
+  });
+  it('no trip text has a stray space inside a number', () => {
+    for (const slug of tripSlugs()) {
+      const t = getTrip(slug)!;
+      const text = JSON.stringify([t.subtitle, t.season, t.days.map((d) => [d.title, d.summary, d.items.map((i) => i.note), d.tracks?.map((k) => [k.notes, k.items.map((i) => i.note)])])]);
+      expect(text, slug).not.toMatch(/\d\. \d+ ?(km|m|min|h)\b/);
+    }
+  });
+});
