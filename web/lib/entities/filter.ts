@@ -82,12 +82,15 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
     }
     const order = facet.order ?? [];
     const groups = facet.groupOrder ?? [];
+    const last = facet.last ?? [];
     out[facet.param] = [...counts.values()].sort((a, b) => {
       if (groups.length) {
         const ga = groups.indexOf(a.group ?? '');
         const gb = groups.indexOf(b.group ?? '');
         if (ga !== gb) return (ga === -1 ? 999 : ga) - (gb === -1 ? 999 : gb);
       }
+      const la = last.includes(a.value);
+      if (la !== last.includes(b.value)) return la ? 1 : -1;
       const ia = order.indexOf(a.value);
       const ib = order.indexOf(b.value);
       if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);

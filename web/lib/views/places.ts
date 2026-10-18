@@ -2,10 +2,10 @@ import type { PlaceRow, TripRow } from '@/lib/data/types';
 
 /**
  * What /data/places.json may contain. This is an allow-list: a field that is not named here is never
- * written, whatever the loader reads. Add a field here on purpose, with a reason.
+ * written, whatever the loader reads. `status` is household data and must never be added. Add a field here on purpose, with a reason.
  */
 export const PLACE_VIEW_FIELDS = [
-  'id', 'name', 'kind', 'status', 'country', 'country_name', 'country_a3', 'region', 'region_name', 'region_iso', 'area', 'area_name',
+  'id', 'name', 'kind', 'country', 'country_name', 'country_a3', 'region', 'region_name', 'region_iso', 'area', 'area_name',
   'lat', 'lon', 'elevation_m', 'season', 'kid_fit', 'tags', 'note', 'image', 'trip', 'trip_title', 'trip_url', 'plans', 'stats',
   'stats_verified', 'location_status', 'wikidata', 'sources', 'added',
 ] as const satisfies readonly (keyof PlaceRow)[];

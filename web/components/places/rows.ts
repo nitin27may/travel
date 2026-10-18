@@ -5,8 +5,9 @@ import type { Completeness, Honesty, Photo, PlaceKind, PublicPlaceCard } from '@
 
 /**
  * One row of the Places list: the public adapter's card (every kind, one slug) joined with the legacy store row
- * where the place came from `locations.json` (status, citations, tags, the old region code). Pure and
- * serialisable, so the server page builds it and the client list filters it.
+ * where the place came from `locations.json` (citations, tags, the old region code). Pure and
+ * serialisable, so the server page builds it and the client list filters it. A place's personal status
+ * (idea, planned, visited ...) is household data and is deliberately never read here.
  */
 export interface PlaceListRow {
   /** The slug; the list's row id, so `ids=` and `focus=` use slugs. */
@@ -17,7 +18,6 @@ export interface PlaceListRow {
   kindLabel: string;
   /** The kind in `locations.json` (city, park, mountain ...) when the place came from there, so old links with `kind=park` still work. */
   legacyKind: string | null;
-  status: 'idea' | 'shortlisted' | 'planned' | 'visited' | 'dropped';
   country: string;
   country_name: string;
   region: string;
@@ -36,6 +36,8 @@ export interface PlaceListRow {
   note: string;
   image: string | null;
   photo: Photo | null;
+  /** Every public trip that uses the place. Public trips are dateless, so no dates are carried. */
+  trips: { slug: string; title: string }[];
   trip: string | null;
   trip_title: string | null;
   plans: number;
@@ -49,8 +51,6 @@ export interface PlaceListRow {
   origins: PublicPlaceCard['sources'];
   added: string;
 }
-
-const STATUS_RANK = ['idea', 'shortlisted', 'planned', 'visited', 'dropped'] as const;
 
 /** Joins the adapter cards with the legacy rows through the old place URLs that LD already maps to slugs. */
 export function buildPlaceRows(
@@ -74,7 +74,6 @@ export function buildPlaceRows(
     if (c.stats.distanceKm !== null) stats.km = c.stats.distanceKm;
     if (c.stats.gainM !== null) stats.gain_m = c.stats.gainM;
     if (c.stats.hours) stats.hours = c.stats.hours;
-    const status = old && (STATUS_RANK as readonly string[]).includes(old.status) ? (old.status as PlaceListRow['status']) : c.trips.length ? 'planned' : 'idea';
     return {
       id: c.slug,
       slug: c.slug,
@@ -82,7 +81,6 @@ export function buildPlaceRows(
       kind: c.kind,
       kindLabel: c.kindLabel,
       legacyKind: old?.kind ?? null,
-      status,
       country: (country?.slug ?? '').toUpperCase(),
       country_name: country?.name ?? '',
       region: state?.slug ?? '',
@@ -99,6 +97,7 @@ export function buildPlaceRows(
       note: publicText(c.summary),
       image: c.photo?.url ?? null,
       photo: c.photo,
+      trips: c.trips.map((t) => ({ slug: t.slug, title: t.title })),
       trip: c.trips[0]?.slug ?? null,
       trip_title: c.trips[0]?.title ?? null,
       plans: c.trips.length,

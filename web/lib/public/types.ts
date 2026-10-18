@@ -234,8 +234,6 @@ export interface PublicBase {
   nights: number;
   /** Day numbers the base covers. */
   days: number[];
-  /** "stay not chosen yet" for the Dolomites. */
-  stayStatus: string | null;
   point: Point | null;
 }
 
@@ -250,7 +248,7 @@ export interface CategoryItem {
   /** First time of day it is planned at, when known. */
   time: string | null;
   areaLabel: string | null;
-  /** The row's detail line, e.g. "4 nights · stay not chosen yet". */
+  /** The row's detail line, e.g. "4 nights". */
   detail: string | null;
   nights: number | null;
   /** "Opens 30 days before Day 3 at 08:00 local", as a rule. */

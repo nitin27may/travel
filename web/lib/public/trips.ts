@@ -66,7 +66,7 @@ function collectCategories(days: PublicDay[], extra: CategoryItem[]): Record<Cat
 }
 
 /** Runs of the same base across consecutive days -> bases with nights. The last day (departure) has no night. */
-function basesFromRuns(days: { n: number; base: string | null }[], nights: number | null, stayStatus: string | null): PublicBase[] {
+function basesFromRuns(days: { n: number; base: string | null }[], nights: number | null): PublicBase[] {
   const runs: PublicBase[] = [];
   for (const d of days) {
     if (!d.base) continue;
@@ -74,7 +74,7 @@ function basesFromRuns(days: { n: number; base: string | null }[], nights: numbe
     if (last && last.name === d.base) {
       last.days.push(d.n);
       last.nights += 1;
-    } else runs.push({ id: kebab(d.base), name: d.base, nights: 1, days: [d.n], stayStatus, point: null });
+    } else runs.push({ id: kebab(d.base), name: d.base, nights: 1, days: [d.n], point: null });
   }
   if (nights !== null) {
     let over = runs.reduce((s, r) => s + r.nights, 0) - nights;
@@ -87,10 +87,10 @@ function basesFromRuns(days: { n: number; base: string | null }[], nights: numbe
   return runs;
 }
 
-function stayRows(bases: PublicBase[], status: string | null): CategoryItem[] {
+function stayRows(bases: PublicBase[]): CategoryItem[] {
   return bases.map((b) => ({
     key: `stay:${b.id}`, category: 'stays' as const, name: b.name, kind: 'stay', placeSlug: null, days: b.days, time: null, areaLabel: null,
-    detail: [`${b.nights} night${b.nights === 1 ? '' : 's'}`, status].filter(Boolean).join(' · '), nights: b.nights, bookRule: null, bookNote: null,
+    detail: `${b.nights} night${b.nights === 1 ? '' : 's'}`, nights: b.nights, bookRule: null, bookNote: null,
   }));
 }
 
@@ -203,7 +203,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
           driveMin: dolo.days[i]?.driveMin ?? null, driveIsEstimate: true, summary: null, items, tracks: null,
         };
       });
-      bases = basesFromRuns(days.map((d) => ({ n: d.n, base: d.base })), nights, 'stay not chosen yet');
+      bases = basesFromRuns(days.map((d) => ({ n: d.n, base: d.base })), nights);
       for (const b of bases) {
         const bp = [...protoPlace.values()].find((p) => p.name === b.name);
         const ps = bp ? pb.byProtoId.get(bp.id) : null;
@@ -214,7 +214,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
         const b = bases.find((x) => x.days.includes(d.n));
         d.baseId = b?.id ?? null;
       });
-      extraCats = stayRows(bases, 'stay not chosen yet');
+      extraCats = stayRows(bases);
       for (const l of snap.trip.logistics) {
         const rule: BookRule | null = (l as { bookRule?: { daysBefore: number; dayN: number | null; time: string | null; tz: string | null } }).bookRule ?? null;
         extraCats.push({
@@ -281,12 +281,12 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
       bases = R.itinerary.bases.map((b, i) => {
         const span = days.slice(cursor, cursor + b.nights).map((d) => d.n);
         cursor += b.nights;
-        return { id: `${b.base_id}-${i + 1}`, name: baseName.get(b.base_id) ?? b.base_id, nights: b.nights, days: span, stayStatus: null, point: null };
+        return { id: `${b.base_id}-${i + 1}`, name: baseName.get(b.base_id) ?? b.base_id, nights: b.nights, days: span, point: null };
       });
       const dayBase = new Map<number, string>();
       bases.forEach((b) => b.days.forEach((n) => dayBase.set(n, b.id)));
       days.forEach((d) => { d.baseId = dayBase.get(d.n) ?? d.baseId; });
-      extraCats = stayRows(bases, null);
+      extraCats = stayRows(bases);
       const used = new Map<string, number[]>();
       for (const d of R.itinerary.days) for (const b of d.booking_ids) used.set(b, [...(used.get(b) ?? []), d.n]);
       for (const [id, dns] of used) {
@@ -311,9 +311,9 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
         });
         return { n: d.n, title: undated(d.title, `${where} day ${d.n} title`, log) ?? `Day ${d.n}`, baseId: kebab(d.base), base: d.base, driveMin: d.driveMin, driveIsEstimate: true, summary: null, items, tracks: null };
       });
-      bases = basesFromRuns(days.map((d) => ({ n: d.n, base: d.base })), nights, null);
+      bases = basesFromRuns(days.map((d) => ({ n: d.n, base: d.base })), nights);
       days.forEach((d) => { d.baseId = bases.find((b) => b.days.includes(d.n))?.id ?? null; });
-      extraCats = stayRows(bases, null);
+      extraCats = stayRows(bases);
     }
 
     const categories = depth === 'overview' ? emptyCategories() : collectCategories(days, extraCats);

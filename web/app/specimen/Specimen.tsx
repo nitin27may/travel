@@ -236,7 +236,7 @@ export function Specimen() {
           <div className="row-flex pill-list">
             <FilterPill label="Country" options={[{ value: 'it', label: 'Italy', count: 10 }, { value: 'ca', label: 'Canada', count: 22 }, { value: 'us', label: 'United States', count: 25 }]} selected={country} onChange={setCountry} mode="single" />
             <FilterPill label="Kind" options={KIND_OPTIONS} selected={kinds} onChange={setKinds} />
-            <span className="pill is-hover"><button type="button" className="pill-trigger">Status {arrow}</button></span>
+            <span className="pill is-hover"><button type="button" className="pill-trigger">Season {arrow}</button></span>
             <span className="pill"><button type="button" className="pill-trigger is-focus">Kids {arrow}</button></span>
             <Tag>filter pills: default, active, hover, focus (open one for the menu with counts and search)</Tag>
           </div>
@@ -356,12 +356,12 @@ export function Specimen() {
           }
         >
           <table className="data-table">
-            <thead><tr><th scope="col"><span className="th-plain">Name</span></th><th scope="col"><span className="th-plain">Kind</span></th><th scope="col"><span className="th-plain">Status</span></th><th scope="col" aria-sort="ascending"><span className="th-btn">Area <Icon name="chevronDown" size={12} className="th-caret on flip" /></span></th><th scope="col"><span className="th-plain">Season</span></th><th scope="col" data-align="right"><span className="th-plain">Elevation</span></th></tr></thead>
+            <thead><tr><th scope="col"><span className="th-plain">Name</span></th><th scope="col"><span className="th-plain">Kind</span></th><th scope="col" aria-sort="ascending"><span className="th-btn">Area <Icon name="chevronDown" size={12} className="th-caret on flip" /></span></th><th scope="col"><span className="th-plain">Season</span></th><th scope="col" data-align="right"><span className="th-plain">Elevation</span></th></tr></thead>
             <tbody>
               <tr className="grp-row"><th colSpan={6} scope="rowgroup"><span className="grp-toggle"><Icon name="chevronRight" size={14} className="grp-caret" /><span className="gh-title">Italy</span><span className="gh-count num">10 of 10</span></span></th></tr>
-              <tr data-row><td><span className="cell-name">Lago di Braies</span></td><td><span className="cell-icon"><Icon name="lake" size={14} />Lake</span></td><td><span className="cell-icon" data-status="planned"><Icon name="stPlanned" size={14} />Planned</span></td><td>Braies, South Tyrol</td><td>Jun to Oct</td><td data-align="right">1,496 m</td></tr>
-              <tr data-row><td><span className="cell-name">Lago di Carezza</span> <Chip kind="honest">No source yet</Chip></td><td><span className="cell-icon"><Icon name="lake" size={14} />Lake</span></td><td><span className="cell-icon" data-status="idea"><Icon name="stIdea" size={14} />Idea</span></td><td>Val d&apos;Ega, South Tyrol</td><td>May to Oct</td><td data-align="right">1,520 m</td></tr>
-              <tr data-row><td><span className="cell-name">Seceda ridge</span></td><td><span className="cell-icon"><Icon name="eye" size={14} />Viewpoint</span></td><td><span className="cell-icon" data-status="visited"><Icon name="stVisited" size={14} />Done</span></td><td>Val Gardena, South Tyrol</td><td>Jun to Oct</td><td data-align="right">2,519 m</td></tr>
+              <tr data-row><td><span className="cell-name">Lago di Braies</span></td><td><span className="cell-icon"><Icon name="lake" size={14} />Lake</span></td><td>Braies, South Tyrol</td><td>Jun to Oct</td><td data-align="right">1,496 m</td></tr>
+              <tr data-row><td><span className="cell-name">Lago di Carezza</span> <Chip kind="honest">No source yet</Chip></td><td><span className="cell-icon"><Icon name="lake" size={14} />Lake</span></td><td>Val d&apos;Ega, South Tyrol</td><td>May to Oct</td><td data-align="right">1,520 m</td></tr>
+              <tr data-row><td><span className="cell-name">Seceda ridge</span></td><td><span className="cell-icon"><Icon name="eye" size={14} />Viewpoint</span></td><td>Val Gardena, South Tyrol</td><td>Jun to Oct</td><td data-align="right">2,519 m</td></tr>
               <tr className="grp-row"><th colSpan={6} scope="rowgroup"><span className="grp-toggle"><Icon name="chevronRight" size={14} className="grp-caret" /><span className="gh-title">Canada</span><span className="gh-count num">22 · collapsed</span></span></th></tr>
             </tbody>
           </table>

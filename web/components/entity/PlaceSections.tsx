@@ -1,7 +1,7 @@
 import { Icon } from '@/components/ui/Icon';
 import { globeHref, mapsHref, placeHref } from '@/lib/data/paths';
 import type { PlaceRow } from '@/lib/data/types';
-import { KID_LABELS, STATUS_LABELS, cap, sourceLabel } from '@/lib/entities/labels';
+import { KID_LABELS, cap, sourceLabel } from '@/lib/entities/labels';
 import type { DetailSection } from '@/lib/entities/types';
 import { seasonLabel } from '@/lib/format/season';
 import { Elevation, Stats } from './cells';
@@ -12,10 +12,6 @@ function Facts({ p }: { p: PlaceRow }) {
       <div>
         <dt>Kind</dt>
         <dd>{cap(p.kind)}</dd>
-      </div>
-      <div>
-        <dt>Status</dt>
-        <dd>{STATUS_LABELS[p.status] ?? cap(p.status)}</dd>
       </div>
       <div>
         <dt>Best months</dt>

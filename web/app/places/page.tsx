@@ -8,7 +8,7 @@ import '@/styles/places.css';
 
 export const metadata = pageMetadata({
   title: 'Places',
-  description: 'Every place we want to go, grouped by country, region and area. Filter by kind, status, season and kid fit.',
+  description: 'Every place we want to go, grouped by country, region and area. Filter by kind, season, kid fit and whether a trip uses them.',
   path: '/places/',
 });
 
