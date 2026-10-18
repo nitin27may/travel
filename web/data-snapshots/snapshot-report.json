@@ -1,18 +1,8 @@
 {
   "schema": "snapshot-report/1",
   "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
-  "count": 34,
+  "count": 35,
   "items": [
-    {
-      "where": "place CA/AB/banff-national-park/lake-louise",
-      "text": "In the Canadian Rockies plan (September 2029).",
-      "why": "carries a calendar date; rewrite it relative to a day or a season"
-    },
-    {
-      "where": "place CA/QC/zec-des-martres/mont-du-dome",
-      "text": "Video dated 30 Sep 2025.",
-      "why": "carries a calendar date; rewrite it relative to a day or a season"
-    },
     {
       "where": "trip canadian-rockies-2029 booking closures-after-labour-day",
       "text": "INFERENCE 2029: most services run through 15 Sep; check for Two Jack Main (2 Sep) and Marble Canyon (7 Sep) closings.",
@@ -75,7 +65,7 @@
     },
     {
       "where": "trip canadian-rockies-2029 day 14 track B notes",
-      "text": "5 km, 210 m, 2-3 h, starting at 2,206 m; larches turn mid-September to early October (Alberta Parks), so 21 Sep is plausibly early colour (INFERENCE).",
+      "text": "Ptarmigan Cirque 4.5 km, 210 m, 2-3 h, starting at 2,206 m; larches turn mid-September to early October (Alberta Parks), so 21 Sep is plausibly early colour (INFERENCE).",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
@@ -90,13 +80,18 @@
     },
     {
       "where": "trip canadian-rockies-2029 day 2 track B notes",
-      "text": "6 km one way if legs remain (2026: trail beyond the bridge closed from 16 Sep).",
+      "text": "Afternoon Lake Minnewanka Classic cruise (2026: 1-17 Sep 10:00-18:00; a 6-15 child needs a seat; no strollers; the Junior Explorer kids' cruise ended 31 Aug).",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
       "where": "trip canadian-rockies-2029 day 2 track B notes",
-      "text": "Afternoon Lake Minnewanka Classic cruise (2026: 1-17 Sep 10:00-18:00; a 6-15 child needs a seat; no strollers; the Junior Explorer kids' cruise ended 31 Aug).",
+      "text": "Stewart Canyon bridge is 1.6 km one way if legs remain (2026: trail beyond the bridge closed from 16 Sep).",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 3 track A notes",
+      "text": "Drop at 07:00, collect about 13:30 on the way back from Kootenay.",
+      "why": "household capture note (plan link, stay idea or address); never published"
     },
     {
       "where": "trip canadian-rockies-2029 day 3 track B notes",
@@ -110,12 +105,12 @@
     },
     {
       "where": "trip canadian-rockies-2029 day 5 track A notes",
-      "text": "2 km, 460 m) is the shorter loop but was closed for grizzly activity on 8 Oct 2026: a 2029 unknown.",
+      "text": "10.4 km, 500 m, 4-5 h from Maligne Lake; rated Poor on 8 Oct 2026 (2029 GAP).",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
       "where": "trip canadian-rockies-2029 day 5 track A notes",
-      "text": "4 km, 500 m, 4-5 h from Maligne Lake; rated Poor on 8 Oct 2026 (2029 GAP).",
+      "text": "Opal Hills (opal-hills, 8.2 km, 460 m) is the shorter loop but was closed for grizzly activity on 8 Oct 2026: a 2029 unknown.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
@@ -124,13 +119,23 @@
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
+      "where": "trip canadian-rockies-2029 day 5 track B notes",
+      "text": "Moose Lake Loop 2.7 km, 59 m on the drive out if the child wants more.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 7 track A notes",
+      "text": "Start about 11:30 after the drive.",
+      "why": "household capture note (plan link, stay idea or address); never published"
+    },
+    {
       "where": "trip canadian-rockies-2029 day 7 track B notes",
-      "text": "Pools 2026: 8 Sep-12 Oct, 11:00-21:00, last entry 20:30; adult 19.",
+      "text": "Pools 2026: 8 Sep-12 Oct, 11:00-21:00, last entry 20:30; adult 19.75, youth 17.25; 13 and under with an adult.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
       "where": "trip canadian-rockies-2029 day 8 track B notes",
-      "text": "8 km, 60 m; stay behind signs and ropes (a child died in a crevasse in 1990 and a backcountry skier in May 2026); lunch and full toilets at the Icefield Centre.",
+      "text": "Stop 3 Columbia Icefield about 11:30: toe of the glacier 1.8 km, 60 m; stay behind signs and ropes (a child died in a crevasse in 1990 and a backcountry skier in May 2026); lunch and full toilets at the Icefield Centre.",
       "why": "carries a calendar date; rewrite it relative to a day or a season"
     },
     {
