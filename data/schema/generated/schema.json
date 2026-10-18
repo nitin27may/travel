@@ -15838,6 +15838,26 @@
                                         "lung"
                                       ]
                                     }
+                                  },
+                                  "not_recommended": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "enum": [
+                                        "heart",
+                                        "high_blood_pressure",
+                                        "epilepsy",
+                                        "neurological",
+                                        "back_neck",
+                                        "recent_surgery",
+                                        "dislocation",
+                                        "asthma",
+                                        "diabetes",
+                                        "mobility",
+                                        "balance",
+                                        "lung"
+                                      ]
+                                    }
                                   }
                                 },
                                 "required": [
@@ -15959,6 +15979,26 @@
                                           "lung"
                                         ]
                                       }
+                                    },
+                                    "not_recommended": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "enum": [
+                                          "heart",
+                                          "high_blood_pressure",
+                                          "epilepsy",
+                                          "neurological",
+                                          "back_neck",
+                                          "recent_surgery",
+                                          "dislocation",
+                                          "asthma",
+                                          "diabetes",
+                                          "mobility",
+                                          "balance",
+                                          "lung"
+                                        ]
+                                      }
                                     }
                                   },
                                   "required": [
@@ -16016,6 +16056,7 @@
                                 "enum": [
                                   "allowed",
                                   "ask_doctor",
+                                  "not_recommended",
                                   "not_allowed"
                                 ]
                               },
@@ -16095,6 +16136,7 @@
                                   "enum": [
                                     "allowed",
                                     "ask_doctor",
+                                    "not_recommended",
                                     "not_allowed"
                                   ]
                                 },
@@ -36453,6 +36495,26 @@
                                               "lung"
                                             ]
                                           }
+                                        },
+                                        "not_recommended": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "enum": [
+                                              "heart",
+                                              "high_blood_pressure",
+                                              "epilepsy",
+                                              "neurological",
+                                              "back_neck",
+                                              "recent_surgery",
+                                              "dislocation",
+                                              "asthma",
+                                              "diabetes",
+                                              "mobility",
+                                              "balance",
+                                              "lung"
+                                            ]
+                                          }
                                         }
                                       },
                                       "required": [
@@ -36574,6 +36636,26 @@
                                                 "lung"
                                               ]
                                             }
+                                          },
+                                          "not_recommended": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "enum": [
+                                                "heart",
+                                                "high_blood_pressure",
+                                                "epilepsy",
+                                                "neurological",
+                                                "back_neck",
+                                                "recent_surgery",
+                                                "dislocation",
+                                                "asthma",
+                                                "diabetes",
+                                                "mobility",
+                                                "balance",
+                                                "lung"
+                                              ]
+                                            }
                                           }
                                         },
                                         "required": [
@@ -36631,6 +36713,7 @@
                                       "enum": [
                                         "allowed",
                                         "ask_doctor",
+                                        "not_recommended",
                                         "not_allowed"
                                       ]
                                     },
@@ -36710,6 +36793,7 @@
                                         "enum": [
                                           "allowed",
                                           "ask_doctor",
+                                          "not_recommended",
                                           "not_allowed"
                                         ]
                                       },

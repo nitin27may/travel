@@ -95,8 +95,9 @@ const participation = z.strictObject({
   wear: val(z.array(z.enum(E.WEAR))).optional(),
   min_shoe_eu: val(z.number().min(15).max(50)).optional(),
   fitness: val(z.string().min(1)).optional(),
-  medical: val(z.strictObject({ excluded: z.array(z.enum(E.MEDICAL)), ask_doctor: z.array(z.enum(E.MEDICAL)) })).optional(),
-  pregnancy: val(z.enum(["allowed", "ask_doctor", "not_allowed"])).optional(),
+  medical: val(z.strictObject({ excluded: z.array(z.enum(E.MEDICAL)), ask_doctor: z.array(z.enum(E.MEDICAL)), not_recommended: z.array(z.enum(E.MEDICAL)).optional() })).optional(),
+  /** `not_recommended` (2.33): the operator advises against it but does not bar it; `not_allowed` is a rule */
+  pregnancy: val(z.enum(["allowed", "ask_doctor", "not_recommended", "not_allowed"])).optional(),
   waiver: val(z.strictObject({ required: z.boolean(), guardian_signs_under: int.min(0).nullable(), guardian_present: z.boolean().nullable() })).optional(),
   weigh_in: val(z.boolean()).optional(),
   weather_cancel: val(z.strictObject({

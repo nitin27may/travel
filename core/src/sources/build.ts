@@ -76,6 +76,14 @@ const mostCommon = (xs: string[]): string => {
 };
 const cmp = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);
 
+/** Removes link results whose source id is not in `liveIds` (a source no lane file uses any more); returns the ids dropped. */
+export function pruneOrphanLinks(file: LinksFile, liveIds: Iterable<string>): string[] {
+  const live = new Set(liveIds);
+  const dropped = Object.keys(file.links).filter((id) => !live.has(id));
+  for (const id of dropped) delete file.links[id];
+  return dropped.sort();
+}
+
 export function readLinks(root: string): LinksFile {
   const p = join(root, LINKS_PATH);
   if (!existsSync(p)) return { schema: "source-links/1", links: {} };

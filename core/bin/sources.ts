@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { SourceEntry, SourceRegistry } from "../src/schema/sources.ts";
-import { buildRegistry, LINKS_PATH, readLinks, REGISTRY_PATH, registryText } from "../src/sources/build.ts";
+import { buildRegistry, LINKS_PATH, pruneOrphanLinks, readLinks, REGISTRY_PATH, registryText } from "../src/sources/build.ts";
 import type { LinksFile } from "../src/sources/build.ts";
 import { addDays, daysBetween } from "../src/sources/cadence.ts";
 import { LINK_USER_AGENT, LinkChecker } from "../src/sources/links.ts";
@@ -24,7 +24,7 @@ Commands:
   check                    validate the registry and fail when it drifts from the lane files
   links [--fetch] [--stale-days n]
                            without --fetch print the cached link results; with --fetch request each web source (HEAD, then GET),
-                           500 ms apart per host, skipping links checked in the last n days (default 30; an error result is always retried), and store data/sources/links.json
+                           500 ms apart per host, skipping links checked in the last n days (default 30; an error result is always retried), drop results whose source no lane file uses any more, and store data/sources/links.json
                            User-Agent: ${LINK_USER_AGENT}
 
 Options:
@@ -186,6 +186,9 @@ async function links(argv: string[], root: string): Promise<number> {
   });
   out(`${todo.length} link(s) to check of ${reg.entries.length} source(s); User-Agent: ${LINK_USER_AGENT}`);
   const file: LinksFile = { schema: "source-links/1", links: { ...cache.links } };
+  // prune orphans: a link result whose source no lane file uses any more (2.33); `check` fails on them
+  const orphans = pruneOrphanLinks(file, reg.entries.map((e) => e.id));
+  if (orphans.length) out(`pruned ${orphans.length} orphan link result(s)`);
   const save = (): void => {
     const sorted = Object.fromEntries(Object.entries(file.links).sort(([a], [b]) => (a < b ? -1 : 1)));
     writeFileSync(join(root, LINKS_PATH), JSON.stringify({ ...file, links: sorted }, null, 2) + "\n");
