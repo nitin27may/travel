@@ -1,0 +1,2489 @@
+{
+  "schema": "relevance-signals-pageviews/1",
+  "source": "Wikimedia REST pageviews, per article, user agents, 12 full months",
+  "items": {
+    "Q1003855": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Canmore Nordic Centre Provincial Park",
+          "total": 3313
+        }
+      },
+      "max": 3313
+    },
+    "Q1010253": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Recoleta, Buenos Aires",
+          "total": 20815
+        }
+      },
+      "max": 20815
+    },
+    "Q1024091": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Huntsville, Ontario",
+          "total": 34451
+        }
+      },
+      "max": 34451
+    },
+    "Q1026688": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "San Telmo, Buenos Aires",
+          "total": 11570
+        }
+      },
+      "max": 11570
+    },
+    "Q104976971": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q105097228": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q105099406": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q105105619": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1069340": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Chemin de fer du Montenvers",
+          "total": 5386
+        }
+      },
+      "max": 5386
+    },
+    "Q1072342": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Moraine Lake",
+          "total": 41875
+        }
+      },
+      "max": 41875
+    },
+    "Q107370": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Þingvellir",
+          "total": 67434
+        }
+      },
+      "max": 67434
+    },
+    "Q108940081": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Peacham (CDP), Vermont",
+          "total": 300
+        }
+      },
+      "max": 300
+    },
+    "Q1130718": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Skógafoss",
+          "total": 30667
+        }
+      },
+      "max": 30667
+    },
+    "Q113634403": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1137629": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Goðafoss",
+          "total": 16181
+        }
+      },
+      "max": 16181
+    },
+    "Q1145786": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Svartifoss",
+          "total": 9282
+        }
+      },
+      "max": 9282
+    },
+    "Q115641739": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Reynisfjara",
+          "total": 44694
+        }
+      },
+      "max": 44694
+    },
+    "Q115958301": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q115978512": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1161258": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Mount Robson",
+          "total": 56533
+        }
+      },
+      "max": 56533
+    },
+    "Q1177961": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Lake Misurina",
+          "total": 18959
+        }
+      },
+      "max": 18959
+    },
+    "Q124360343": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q125565893": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1255895": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1257207": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "de.wikipedia": {
+          "title": "Drei Zinnen",
+          "total": 96726
+        },
+        "en.wikipedia": {
+          "title": "Tre Cime di Lavaredo",
+          "total": 59941
+        },
+        "it.wikipedia": {
+          "title": "Tre Cime di Lavaredo",
+          "total": 68636
+        }
+      },
+      "max": 96726
+    },
+    "Q125749525": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1261451": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Seiser Alm",
+          "total": 21487
+        }
+      },
+      "max": 21487
+    },
+    "Q1283": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Dolomites",
+          "total": 491141
+        }
+      },
+      "max": 491141
+    },
+    "Q1288839": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Eldvörp–Svartsengi",
+          "total": 4370
+        }
+      },
+      "max": 4370
+    },
+    "Q129470": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Dead Horse Point State Park",
+          "total": 18676
+        }
+      },
+      "max": 18676
+    },
+    "Q129902": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Capitol Reef National Park",
+          "total": 62336
+        }
+      },
+      "max": 62336
+    },
+    "Q130134": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Moab, Utah",
+          "total": 121414
+        }
+      },
+      "max": 121414
+    },
+    "Q1315012": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Snæfellsjökull",
+          "total": 33594
+        }
+      },
+      "max": 33594
+    },
+    "Q13231225": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Lake Louise Ski Resort",
+          "total": 11963
+        }
+      },
+      "max": 11963
+    },
+    "Q1323978": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "El Chaltén",
+          "total": 31290
+        }
+      },
+      "max": 31290
+    },
+    "Q1344271": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1353292": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Vatnajökull National Park",
+          "total": 16245
+        }
+      },
+      "max": 16245
+    },
+    "Q1362681": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Peyto Lake",
+          "total": 20903
+        }
+      },
+      "max": 20903
+    },
+    "Q1367398": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Lake Louise (Alberta)",
+          "total": 44114
+        }
+      },
+      "max": 44114
+    },
+    "Q1408786": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1409370": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Upheaval Dome",
+          "total": 8749
+        }
+      },
+      "max": 8749
+    },
+    "Q1411137": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Goblin Valley State Park",
+          "total": 24435
+        }
+      },
+      "max": 24435
+    },
+    "Q1416427": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Gardena Pass",
+          "total": 6919
+        }
+      },
+      "max": 6919
+    },
+    "Q1416530": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Karersee",
+          "total": 14780
+        }
+      },
+      "max": 14780
+    },
+    "Q1420331": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q14453": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Egilsstaðir",
+          "total": 19790
+        }
+      },
+      "max": 19790
+    },
+    "Q1474446": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Grand Staircase–Escalante National Monument",
+          "total": 38530
+        }
+      },
+      "max": 38530
+    },
+    "Q1478439": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Piz Boè",
+          "total": 6314
+        }
+      },
+      "max": 6314
+    },
+    "Q1486": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Buenos Aires",
+          "total": 889889
+        }
+      },
+      "max": 889889
+    },
+    "Q14874867": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Miette Hot Springs",
+          "total": 2794
+        }
+      },
+      "max": 2794
+    },
+    "Q1530105": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Skagafjörður Folk Museum",
+          "total": 1506
+        }
+      },
+      "max": 1506
+    },
+    "Q15410555": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Lake Sorapiss",
+          "total": 22208
+        }
+      },
+      "max": 22208
+    },
+    "Q1543478": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Algonquin Provincial Park",
+          "total": 38576
+        }
+      },
+      "max": 38576
+    },
+    "Q1547402": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Kirkjufell",
+          "total": 25419
+        }
+      },
+      "max": 25419
+    },
+    "Q15710089": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Bow Valley Provincial Park",
+          "total": 1800
+        }
+      },
+      "max": 1800
+    },
+    "Q16419351": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q16424292": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q16557871": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q16579929": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q1669132": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q170693": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Keflavík",
+          "total": 29675
+        }
+      },
+      "max": 29675
+    },
+    "Q17511214": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Bourgeau Lake",
+          "total": 342
+        }
+      },
+      "max": 342
+    },
+    "Q1755973": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "South Tyrol Museum of Archaeology",
+          "total": 10574
+        }
+      },
+      "max": 10574
+    },
+    "Q1764": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Reykjavík",
+          "total": 614266
+        }
+      },
+      "max": 614266
+    },
+    "Q1844612": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Hickman Natural Bridge",
+          "total": 2623
+        }
+      },
+      "max": 2623
+    },
+    "Q192898": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Selfoss (town)",
+          "total": 27914
+        }
+      },
+      "max": 27914
+    },
+    "Q1950710": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Mount Robson Provincial Park",
+          "total": 7504
+        }
+      },
+      "max": 7504
+    },
+    "Q205325": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Zion National Park",
+          "total": 169727
+        }
+      },
+      "max": 169727
+    },
+    "Q2085218": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Temple Square",
+          "total": 27513
+        }
+      },
+      "max": 27513
+    },
+    "Q210280": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Dettifoss",
+          "total": 28910
+        }
+      },
+      "max": 28910
+    },
+    "Q2117539": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q2119673": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Pyramid Lake (Alberta)",
+          "total": 4325
+        }
+      },
+      "max": 4325
+    },
+    "Q212051": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Mývatn",
+          "total": 12653
+        }
+      },
+      "max": 12653
+    },
+    "Q215992": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Los Glaciares National Park",
+          "total": 18691
+        }
+      },
+      "max": 18691
+    },
+    "Q216846": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Geysir",
+          "total": 41767
+        }
+      },
+      "max": 41767
+    },
+    "Q219562": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Bryce Canyon National Park",
+          "total": 123529
+        }
+      },
+      "max": 123529
+    },
+    "Q2217047": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q22366287": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q223969": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Arches National Park",
+          "total": 121076
+        }
+      },
+      "max": 121076
+    },
+    "Q22422872": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q22463352": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q22484509": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q22490170": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Parker Ridge",
+          "total": 990
+        }
+      },
+      "max": 990
+    },
+    "Q22616473": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q2263528": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Monte Seceda",
+          "total": 13946
+        }
+      },
+      "max": 13946
+    },
+    "Q22650927": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q2300616": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Delicate Arch",
+          "total": 55149
+        }
+      },
+      "max": 55149
+    },
+    "Q23337": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Salt Lake City",
+          "total": 742866
+        }
+      },
+      "max": 742866
+    },
+    "Q2438157": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Toblacher See",
+          "total": 2505
+        }
+      },
+      "max": 2505
+    },
+    "Q24942634": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q255568": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Urtijëi",
+          "total": 45309
+        }
+      },
+      "max": 45309
+    },
+    "Q25622": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Bow Lake (Alberta)",
+          "total": 6675
+        }
+      },
+      "max": 6675
+    },
+    "Q2563959": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Angels Landing",
+          "total": 64559
+        }
+      },
+      "max": 64559
+    },
+    "Q2671348": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Lake Minnewanka",
+          "total": 18819
+        }
+      },
+      "max": 18819
+    },
+    "Q27014314": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Grundarfjörður",
+          "total": 9055
+        }
+      },
+      "max": 9055
+    },
+    "Q27016707": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q2879472": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q2885035": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Émosson Dam",
+          "total": 1756
+        }
+      },
+      "max": 1756
+    },
+    "Q29042": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Akureyri",
+          "total": 102465
+        }
+      },
+      "max": 102465
+    },
+    "Q2943271": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Cave and Basin National Historic Site",
+          "total": 7078
+        }
+      },
+      "max": 7078
+    },
+    "Q3029053": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "The Narrows (Zion National Park)",
+          "total": 14455
+        }
+      },
+      "max": 14455
+    },
+    "Q30737737": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Mer de Glace ice cave",
+          "total": 3342
+        }
+      },
+      "max": 3342
+    },
+    "Q3073830": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Floor of the Valley Road",
+          "total": 473
+        }
+      },
+      "max": 473
+    },
+    "Q3088020": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q316177": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Emerald Lake (British Columbia)",
+          "total": 17185
+        }
+      },
+      "max": 17185
+    },
+    "Q31661143": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q317376": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Kinney Lake",
+          "total": 2358
+        }
+      },
+      "max": 2358
+    },
+    "Q3214753": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Lac Blanc (Chamonix)",
+          "total": 3670
+        }
+      },
+      "max": 3670
+    },
+    "Q3215662": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q3215867": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Vermilion Lakes",
+          "total": 4607
+        }
+      },
+      "max": 4607
+    },
+    "Q33481488": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q3364678": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Peter Lougheed Provincial Park",
+          "total": 3727
+        }
+      },
+      "max": 3727
+    },
+    "Q3364735": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Spray Valley Provincial Park",
+          "total": 905
+        }
+      },
+      "max": 905
+    },
+    "Q3486103": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q36312": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Calgary",
+          "total": 669157
+        }
+      },
+      "max": 669157
+    },
+    "Q367943": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Perito Moreno Glacier",
+          "total": 59920
+        }
+      },
+      "max": 59920
+    },
+    "Q37949": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Overlander Falls",
+          "total": 1018
+        }
+      },
+      "max": 1018
+    },
+    "Q380189": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Toblach",
+          "total": 13615
+        }
+      },
+      "max": 13615
+    },
+    "Q3825692": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q38519": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Gullfoss",
+          "total": 38812
+        }
+      },
+      "max": 38812
+    },
+    "Q391165": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Athabasca Glacier",
+          "total": 20705
+        }
+      },
+      "max": 20705
+    },
+    "Q41024": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "San Vito di Cadore",
+          "total": 3885
+        }
+      },
+      "max": 3885
+    },
+    "Q41158": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Cortina d'Ampezzo",
+          "total": 753806
+        }
+      },
+      "max": 753806
+    },
+    "Q41858": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Banff National Park",
+          "total": 148824
+        }
+      },
+      "max": 148824
+    },
+    "Q419733": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "La Val",
+          "total": 2553
+        }
+      },
+      "max": 2553
+    },
+    "Q427971": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Hraunfossar",
+          "total": 4728
+        }
+      },
+      "max": 4728
+    },
+    "Q429646": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Maligne Lake",
+          "total": 17347
+        }
+      },
+      "max": 17347
+    },
+    "Q44254": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Ushuaia",
+          "total": 311481
+        }
+      },
+      "max": 311481
+    },
+    "Q445369": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "de.wikipedia": {
+          "title": "Pragser Wildsee",
+          "total": 54006
+        },
+        "en.wikipedia": {
+          "title": "Pragser Wildsee",
+          "total": 35304
+        },
+        "it.wikipedia": {
+          "title": "Lago di Braies",
+          "total": 82977
+        }
+      },
+      "max": 82977
+    },
+    "Q446041": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Seekofel",
+          "total": 1336
+        }
+      },
+      "max": 1336
+    },
+    "Q474782": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Innichen",
+          "total": 213764
+        }
+      },
+      "max": 213764
+    },
+    "Q476378": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Cadini di Misurina",
+          "total": 6010
+        }
+      },
+      "max": 6010
+    },
+    "Q482508": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Springdale, Utah",
+          "total": 15000
+        }
+      },
+      "max": 15000
+    },
+    "Q483141": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Torrey, Utah",
+          "total": 10997
+        }
+      },
+      "max": 10997
+    },
+    "Q483332": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Bryce Canyon City, Utah",
+          "total": 6831
+        }
+      },
+      "max": 6831
+    },
+    "Q4854872": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Banff Upper Hot Springs",
+          "total": 7079
+        }
+      },
+      "max": 7079
+    },
+    "Q499129": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Sëlva",
+          "total": 9555
+        }
+      },
+      "max": 9555
+    },
+    "Q4998953": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Burke Mountain (Vermont)",
+          "total": 4283
+        }
+      },
+      "max": 4283
+    },
+    "Q503429": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Jasper National Park",
+          "total": 48455
+        }
+      },
+      "max": 48455
+    },
+    "Q504253": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Santa Cristina Gherdëina",
+          "total": 5965
+        }
+      },
+      "max": 5965
+    },
+    "Q511933": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Jökulsárlón",
+          "total": 24508
+        }
+      },
+      "max": 24508
+    },
+    "Q5267147": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Devils Garden (Arches National Park)",
+          "total": 3807
+        }
+      },
+      "max": 3807
+    },
+    "Q5285420": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Djúpalónssandur",
+          "total": 4076
+        }
+      },
+      "max": 4076
+    },
+    "Q53795710": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q541856": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Canyonlands National Park",
+          "total": 49629
+        }
+      },
+      "max": 49629
+    },
+    "Q5506421": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Fruita Rural Historic District",
+          "total": 356
+        }
+      },
+      "max": 356
+    },
+    "Q5597550": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Grassi Lakes",
+          "total": 4141
+        }
+      },
+      "max": 4141
+    },
+    "Q55978735": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q5636437": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Ha Ling Peak",
+          "total": 9008
+        }
+      },
+      "max": 9008
+    },
+    "Q572771": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Takakkaw Falls",
+          "total": 10722
+        }
+      },
+      "max": 10722
+    },
+    "Q5760070": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Highwood Pass",
+          "total": 4785
+        }
+      },
+      "max": 4785
+    },
+    "Q58337": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Banff, Alberta",
+          "total": 281782
+        }
+      },
+      "max": 281782
+    },
+    "Q6164065": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Jasper Skytram",
+          "total": 3523
+        }
+      },
+      "max": 3523
+    },
+    "Q62073199": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q623557": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Seyðisfjörður",
+          "total": 24971
+        }
+      },
+      "max": 24971
+    },
+    "Q6360620": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Kananaskis Village",
+          "total": 8923
+        }
+      },
+      "max": 8923
+    },
+    "Q646321": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Argentière",
+          "total": 3171
+        }
+      },
+      "max": 3171
+    },
+    "Q64841048": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q6526": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Bolzano",
+          "total": 178246
+        }
+      },
+      "max": 178246
+    },
+    "Q6529888": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Les Praz",
+          "total": 712
+        }
+      },
+      "max": 712
+    },
+    "Q67370898": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q6755166": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Marble Canyon (Canadian Rockies)",
+          "total": 2358
+        }
+      },
+      "max": 2358
+    },
+    "Q6821049": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Mesa Arch",
+          "total": 4296
+        }
+      },
+      "max": 4296
+    },
+    "Q685369": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Vík í Mýrdal",
+          "total": 28277
+        }
+      },
+      "max": 28277
+    },
+    "Q691103": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "de.wikipedia": {
+          "title": "Dürrensee",
+          "total": 4594
+        },
+        "en.wikipedia": {
+          "title": "Dürrensee",
+          "total": 1230
+        },
+        "it.wikipedia": {
+          "title": "Lago di Landro",
+          "total": 5707
+        }
+      },
+      "max": 5707
+    },
+    "Q71": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Geneva",
+          "total": 585698
+        }
+      },
+      "max": 585698
+    },
+    "Q7200655": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Plain of Six Glaciers Tea House",
+          "total": 856
+        }
+      },
+      "max": 856
+    },
+    "Q7256632": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Ptarmigan Cirque",
+          "total": 551
+        }
+      },
+      "max": 551
+    },
+    "Q72895": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Canadian Rocky Mountain Parks World Heritage Site",
+          "total": 7666
+        }
+      },
+      "max": 7666
+    },
+    "Q7346507": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Upper Kananaskis Lake",
+          "total": 3037
+        }
+      },
+      "max": 3037
+    },
+    "Q738103": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q739181": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Athabasca Falls",
+          "total": 7600
+        }
+      },
+      "max": 7600
+    },
+    "Q7546619": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Smugglers' Notch State Park",
+          "total": 1366
+        }
+      },
+      "max": 1366
+    },
+    "Q7620698": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Stowe Recreation Path",
+          "total": 1208
+        }
+      },
+      "max": 1208
+    },
+    "Q7641515": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Sunshine Meadows",
+          "total": 581
+        }
+      },
+      "max": 581
+    },
+    "Q777882": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Seljalandsfoss",
+          "total": 22383
+        }
+      },
+      "max": 22383
+    },
+    "Q81561": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "El Calafate",
+          "total": 37654
+        }
+      },
+      "max": 37654
+    },
+    "Q817118": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Höfn",
+          "total": 19514
+        }
+      },
+      "max": 19514
+    },
+    "Q828404": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Yoho National Park",
+          "total": 23748
+        }
+      },
+      "max": 23748
+    },
+    "Q828709": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Tierra del Fuego National Park",
+          "total": 11826
+        }
+      },
+      "max": 11826
+    },
+    "Q83236": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Chamonix",
+          "total": 164865
+        }
+      },
+      "max": 164865
+    },
+    "Q872637": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Monte Piana",
+          "total": 3799
+        }
+      },
+      "max": 3799
+    },
+    "Q894637": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Akureyri Botanical Garden",
+          "total": 1505
+        }
+      },
+      "max": 1505
+    },
+    "Q9005587": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Hyde Park (village), Vermont",
+          "total": 1153
+        }
+      },
+      "max": 1153
+    },
+    "Q903323": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Kootenay National Park",
+          "total": 13975
+        }
+      },
+      "max": 13975
+    },
+    "Q912354": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Vallorcine",
+          "total": 3176
+        }
+      },
+      "max": 3176
+    },
+    "Q933666": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Cinque Torri",
+          "total": 9538
+        }
+      },
+      "max": 9538
+    },
+    "Q937311": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Sunwapta Falls",
+          "total": 4716
+        }
+      },
+      "max": 4716
+    },
+    "Q956845": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Fjaðrárgljúfur",
+          "total": 7714
+        }
+      },
+      "max": 7714
+    },
+    "Q96790196": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {},
+      "max": 0
+    },
+    "Q999429": {
+      "read": "2026-10-18",
+      "window": {
+        "from": "202510",
+        "to": "202609"
+      },
+      "views": {
+        "en.wikipedia": {
+          "title": "Jasper, Alberta",
+          "total": 44792
+        }
+      },
+      "max": 44792
+    }
+  }
+}

@@ -7,10 +7,10 @@ export const tierIdx = (t: DrawTier): number => TIERS.indexOf(t);
 export const maxTier = (a: DrawTier, b: DrawTier): DrawTier => (tierIdx(a) >= tierIdx(b) ? a : b);
 export const atLeast = (t: DrawTier, floor: DrawTier): boolean => tierIdx(t) >= tierIdx(floor);
 
-/** The 3.1 thresholds. A starting point: they are recalibrated after the lanes run (9.1 step 6). */
+/** The 3.1 thresholds, calibrated on the 209 lane records (RVC, 18 Oct 2026; relevance.md 3.1 and the change log). */
 export const THRESHOLDS = {
-  version: 1,
-  languages: { world: 25, national: 10, regional: 3 },
+  version: 2,
+  languages: { world: 25, national: 10, regional: 2 },
   views: { world: 40000, national: 10000, regional: 2000 },
 };
 export type Thresholds = typeof THRESHOLDS;
@@ -30,11 +30,13 @@ export interface DrawSuggestionInput {
   editorial: RelMention[];
   /** fame tier of the parent area named by a parent designation's QID, when known */
   parentFame?: DrawTier | null;
+  /** settlements: the language count measures the municipality (and bot-made stubs), not the pull, so only views count */
+  ignoreLanguages?: boolean;
 }
 
 /** 3.1 rules 1 to 4. Parent designations never raise the tier, except that a world parent lifts an official highlight. */
 export function drawSuggested(i: DrawSuggestionInput, th: Thresholds = THRESHOLDS): DrawTier {
-  let tier = fameTier(i.languages, i.views, th);
+  let tier = fameTier(i.ignoreLanguages ? null : i.languages, i.views, th);
   const own = i.designations.filter((d) => d.scope === "own");
   if (own.some((d) => d.type === "unesco_whs")) tier = maxTier(tier, "national");
   if (own.some((d) => d.type === "national_park")) tier = maxTier(tier, "national");

@@ -14,7 +14,7 @@ import { loadSignalsFor } from "../validate/relevance.ts";
 
 export interface PointsFile {
   schema: "relevance-points/1";
-  points: Record<string, { lat: number; lon: number; coord_src: string; on_site_min?: number; access_legal_public?: boolean; external_access?: AccessLoad }>;
+  points: Record<string, { lat: number; lon: number; coord_src: string; point_source?: string; on_site_min?: number; access_legal_public?: boolean; external_access?: AccessLoad }>;
   towns: Town[];
   trips?: Record<string, { window?: { from: string; to: string }; base?: { lat: number; lon: number }; detour_min?: Record<string, number> }>;
 }
@@ -23,6 +23,12 @@ const readJson = <T>(path: string): T | null => {
   if (!existsSync(path)) return null;
   return JSON.parse(readFileSync(path, "utf8")) as T;
 };
+
+/** a point copied from another ref reads `trailhead "X" at <ref>` in point_source (points.ts) */
+function aliasOf(src: string): { aliasOf?: string } {
+  const m = /^trailhead ".*" at (.+)$/.exec(src);
+  return m ? { aliasOf: m[1]! } : {};
+}
 
 export class HouseholdHubError extends Error {
   readonly code = "E_REL_HOUSEHOLD";
@@ -109,6 +115,7 @@ export function loadDeriveInput(root: string, window?: { from: string; to: strin
       const s = suit[r.ref];
       facts[r.ref] = {
         ...(p ? { point: { lat: p.lat, lon: p.lon } } : {}),
+        ...(p?.point_source ? aliasOf(p.point_source) : {}),
         onSiteMin: p?.on_site_min ?? s?.onSiteMin ?? null,
         tripDetourMin: tripCtx?.detour_min?.[r.ref] ?? null,
         ...(tripCtx?.base ? { base: tripCtx.base } : {}),

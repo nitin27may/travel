@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync, cpSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -114,8 +114,21 @@ describe("the R6 block: no ratings, review counts or ranks from the link-only pl
   });
 });
 
+describe("pairs_with (3a.11)", () => {
+  it("accepts a resolvable ref with a known source and rejects a self pair, a bad ref and an unknown source", () => {
+    const base = rec({ ref: "place/lago-di-braies" });
+    const withPair = (pw: unknown) => run(doc([{ ...base, pairs_with: [pw] } as never]));
+    const scope = JSON.parse(readFileSync(join(ROOT, "data/suitability/scope.json"), "utf8")) as { places: string[] };
+    const other = scope.places.find((p) => p !== "lago-di-braies")!;
+    expect(codes(withPair({ ref: `place/${other}`, reason: "ten minutes on foot", src: "src-0001" }))).toEqual([]);
+    expect(codes(withPair({ ref: "place/lago-di-braies", reason: "x" }))).toEqual(["E_REL_REF"]);
+    expect(codes(withPair({ ref: "place/does-not-exist", reason: "x" }))).toEqual(["E_REL_REF"]);
+    expect(codes(withPair({ ref: `place/${other}`, reason: "x", src: "src-9999" }))).toEqual(["E_REL_SRC"]);
+  });
+});
+
 describe("derived fields are never typed", () => {
-  for (const k of ["draw_suggested", "role", "fits", "badge", "substitutes", "similar_osm_25km", "far_pointer", "plan_b", "detour_min", "from_hubs", "flags"]) {
+  for (const k of ["draw_suggested", "role", "fits", "badge", "substitutes", "similar_osm_25km", "far_pointer", "pair_with", "plan_b", "detour_min", "from_hubs", "flags"]) {
     it(`rejects ${k}`, () => {
       const d = doc([{ ...rec(), [k]: "x" } as never]);
       expect(codes(run(d))).toEqual(["E_REL_TYPED_DERIVED"]);

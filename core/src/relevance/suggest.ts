@@ -14,5 +14,5 @@ export function suggestFor(r: RelevanceRecord, signals: Record<string, Sig>, th:
   const parentQid = designations.find((d) => d.scope === "parent" && d.wikidata)?.wikidata ?? null;
   const ps = parentQid ? signals[parentQid] : undefined;
   const parentFame = ps ? drawSuggested({ ...ps, designations: [], editorial: [] }, th) : null;
-  return drawSuggested({ ...sig, designations, editorial, parentFame }, th);
+  return drawSuggested({ ...sig, designations, editorial, parentFame, ignoreLanguages: r.class_key.split("/")[0] === "town" }, th);
 }

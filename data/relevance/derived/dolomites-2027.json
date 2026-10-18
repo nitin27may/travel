@@ -3,11 +3,11 @@
   "trip": "dolomites-2027",
   "as_of": "2026-10-18",
   "thresholds": {
-    "version": 1,
+    "version": 2,
     "languages": {
       "world": 25,
       "national": 10,
-      "regional": 3
+      "regional": 2
     },
     "views": {
       "world": 40000,
@@ -15,21 +15,78 @@
       "regional": 2000
     }
   },
-  "window": null,
+  "window": {
+    "from": "07-13",
+    "to": "07-26"
+  },
   "items": [
     {
       "ref": "place/tre-cime-di-lavaredo-loop",
-      "draw_suggested": "national",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 32,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/alpe-di-siusi",
+            "km": 52.5,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/adolf-munkel-weg",
+            "km": 40.6,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 3
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-dantorno",
+          "km": 3
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 3.7
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 4.4
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 4.7
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 5.3
+        },
+        {
+          "ref": "place/val-fiscalina",
+          "km": 7.5
+        },
+        {
+          "ref": "place/funbob-monte-baranci",
+          "km": 12.7
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -57,24 +114,65 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but place/alpe-di-siusi has the same class within 100 km"
         }
       ]
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 30,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/seceda-ridge",
+            "km": 43,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 3.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-dantorno",
+          "km": 2.4
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 2.6
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 5.4
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 7
+        },
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 8.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -100,26 +198,64 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-di-sorapis",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 18,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/lago-federa",
+            "km": 9.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-federa",
+            "km": 9.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 7.2
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 8.2
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 8.9
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 10.6
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -133,7 +269,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "anchor",
@@ -145,26 +281,61 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/cinque-torri",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 18,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/monte-piana",
+            "km": 18.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 2
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/monte-piana",
+            "km": 18.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": 2
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 14.2,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-limides",
+          "km": 2.4
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 4.5
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 9.8
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -190,26 +361,73 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/monte-piana",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 28,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/cinque-torri",
+            "km": 18.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cinque-torri",
+            "km": 18.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 4.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-landro",
+          "km": 1.7
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 3
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 3.9
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 5.4
+        },
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 10.6
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 12.1
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -235,26 +453,67 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/croda-del-becco",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 38,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/dolomites",
+            "km": 9.8,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/dolomites",
+            "km": 9.8,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/sass-pordoi-and-piz-boe",
+            "km": 26.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 3
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 9.8,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-braies",
+          "km": 2.2
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 9
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -280,26 +539,59 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/val-fiscalina",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 22,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 7.5,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/tre-cime-di-lavaredo-loop",
+          "km": 7.5
+        },
+        {
+          "ref": "place/funbob-monte-baranci",
+          "km": 9.1
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 10.2
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 10.5
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 10.5
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 11
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -313,7 +605,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -325,26 +617,61 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-federa",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 16,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/lago-di-sorapis",
+            "km": 9.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-di-sorapis",
+            "km": 9.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 14.6,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cinque-torri",
+          "km": 4.5
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 6.8
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 11.9
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -357,39 +684,64 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
+          "fit": "worth_it",
+          "reason": "detour 16 min, draw regional"
         }
       },
       "role": "filler",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/cascate-di-fanes",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 18,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 6.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cinque-torri",
+          "km": 9.8
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 10.3
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 11.9
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 12.1
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -403,7 +755,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "highlight",
@@ -415,26 +767,79 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/adolf-munkel-weg",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 24,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/alpe-di-siusi",
+            "km": 15.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 3
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/tre-cime-di-lavaredo-loop",
+            "km": 40.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/alpe-di-siusi",
+            "km": 15.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 3
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 40.6,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/santa-maddalena-val-di-funes",
+          "km": 3.6
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 5
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 8
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 10.1
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -460,26 +865,70 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/alpe-di-siusi",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 14,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/adolf-munkel-weg",
+            "km": 15.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 3
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/tre-cime-di-lavaredo-loop",
+            "km": 52.5,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "place/adolf-munkel-weg",
+            "km": 15.4,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 3
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 2.4
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 10.5
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -507,24 +956,55 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but place/tre-cime-di-lavaredo-loop has the same class within 100 km"
         }
       ]
     },
     {
       "ref": "place/bullaccia-and-the-witches-benches",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/seceda-ridge",
+            "km": 9.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/seceda-ridge",
+            "km": 9.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 42.2,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -550,31 +1030,64 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/vallunga",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 20,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/seceda-ridge",
+        "km": 5.5,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/passo-gardena",
+          "km": 3.1
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 5.5
+        },
+        {
+          "ref": "place/adolf-munkel-weg",
+          "km": 8
+        },
+        {
+          "ref": "place/viel-dal-pan",
+          "km": 9
+        },
+        {
+          "ref": "place/santa-maddalena-val-di-funes",
+          "km": 9.3
+        },
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 12.1
+        },
+        {
+          "ref": "place/alpe-di-siusi",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -583,38 +1096,51 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
-        "rainy_day": false,
+        "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/viel-dal-pan",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 36,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 30.2,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/passo-gardena",
+          "km": 7
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 9
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -628,7 +1154,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 36 min is over 30"
         }
       },
       "role": "filler",
@@ -640,26 +1166,62 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 34,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/dolomites",
+            "km": 28.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/croda-del-becco",
+            "km": 26.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 4
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 28.1,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/viel-dal-pan",
+          "km": 2.8
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 4.7
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 7.3
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -685,26 +1247,55 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lagazuoi-cable-car-and-tunnels",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 24,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 15.8,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "place/lago-di-limides",
+          "km": 1.4,
+          "how": "walk",
+          "extra_min": 101,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "place/cinque-torri",
+          "km": 3.7
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 8.1
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 10.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -730,26 +1321,62 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/seceda-ridge",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 12,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/bullaccia-and-the-witches-benches",
+            "km": 9.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 3
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cadini-di-misurina-viewpoint",
+            "km": 43,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 1
+          },
+          {
+            "ref": "place/bullaccia-and-the-witches-benches",
+            "km": 9.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 3
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/passo-gardena",
+          "km": 8.5
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -775,26 +1402,30 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-di-braies",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 38,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 11
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -820,26 +1451,66 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-di-carezza",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 48,
+      "detour_basis": "town",
+      "detour_town": "Bolzano",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 55.4,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-landro",
+            "km": 55.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 36.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 56.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 59.1,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -853,7 +1524,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 48 min is over 30"
         }
       },
       "role": "highlight",
@@ -865,26 +1536,121 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-di-landro",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 30,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 5.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 4.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 20.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 8.2,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-di-carezza",
+            "km": 55.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 5.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 4.6,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 20.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 8.2,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 5.3,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/monte-piana",
+          "km": 1.7
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 7
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 12
+        },
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -898,7 +1664,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw; clear weather only drops it one step"
         }
       },
       "role": "local_only",
@@ -910,31 +1676,122 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-dantorno",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 28,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 1.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-landro",
+            "km": 4.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 20.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 12.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-di-carezza",
+            "km": 56.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 1.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-landro",
+            "km": 4.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 20.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 12.5,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 3,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 2.4
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 3
+        },
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 8.9
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown); clear weather only drops it one step"
+          "reason": "local draw with a detour over 20 min or unknown (28); clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -943,7 +1800,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw; clear weather only drops it one step"
         }
       },
       "role": "local_only",
@@ -955,26 +1812,101 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-di-dobbiaco",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 14,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/lago-di-landro",
+            "km": 8.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 13.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 12.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-di-carezza",
+            "km": 59.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-landro",
+            "km": 8.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 13.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 12.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 26,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/lago-di-braies",
+        "km": 10.3,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/monte-piana",
+          "km": 9.9
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -988,7 +1920,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "local_only",
@@ -1000,26 +1932,117 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-di-misurina",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 24,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/lago-di-landro",
+            "km": 5.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 1.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 19.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 13.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-di-carezza",
+            "km": 55.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-landro",
+            "km": 5.6,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 1.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-limides",
+            "km": 19.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 13.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 4.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 2.6
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 3.9
+        },
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 7.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1033,7 +2056,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -1045,31 +2068,114 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/lago-di-limides",
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 22,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 19.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-landro",
+            "km": 20.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 20.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-di-carezza",
+            "km": 36.2,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-misurina",
+            "km": 19.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-landro",
+            "km": 20.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-dantorno",
+            "km": 20.7,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/lago-di-dobbiaco",
+            "km": 26,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/lago-di-carezza",
+        "km": 36.2,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cinque-torri",
+          "km": 2.4
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 6.8
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 10.3
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown); clear weather only drops it one step"
+          "reason": "local draw with a detour over 20 min or unknown (22); clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -1078,7 +2184,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw; clear weather only drops it one step"
         }
       },
       "role": "local_only",
@@ -1090,26 +2196,35 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/passo-gardena",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 26,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 27.9,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/seceda-ridge",
+          "km": 8.5
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1123,7 +2238,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw; clear weather only drops it one step"
         }
       },
       "role": "local_only",
@@ -1135,26 +2250,38 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/santa-maddalena-val-di-funes",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 20,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/seceda-ridge",
+          "km": 4.2
+        },
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 11.4
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 12
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1167,39 +2294,117 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
+          "fit": "worth_it",
+          "reason": "detour 20 min, draw national; clear weather only drops it one step"
         }
       },
       "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/cortina-dampezzo",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 10.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/ortisei",
+            "km": 35.8,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 28.9,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 32.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 10.3,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-federa",
+          "km": 6.1
+        },
+        {
+          "ref": "place/cinque-torri",
+          "km": 7.2
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 7.5
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 9.2
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 10.1
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 11.6
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 11.6
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 12.3
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12.5
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1213,7 +2418,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "anchor",
@@ -1225,26 +2430,93 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/ortisei",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 7.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 3.8,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 35.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 7.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 3.8,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 42.8,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 37.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 4.5
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 5
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 10.9
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1258,7 +2530,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -1270,26 +2542,93 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/selva-di-val-gardena",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 18,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/ortisei",
+            "km": 7.1,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 3.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 28.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ortisei",
+            "km": 7.1,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 3.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 35.7,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 31.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/passo-gardena",
+          "km": 3.8
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 5.7
+        },
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 11.1
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1303,7 +2642,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -1315,31 +2654,98 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/santa-cristina",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/ortisei",
+            "km": 3.8,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 3.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 32.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ortisei",
+            "km": 3.8,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 3.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/san-vito-di-cadore",
+            "km": 39.1,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/cortina-dampezzo",
+        "km": 32.3,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/seceda-ridge",
+          "km": 4.7
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 7.3
+        },
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 7.6
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -1348,38 +2754,81 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
-        "rainy_day": false,
+        "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/san-candido",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/dobbiaco",
+            "km": 4.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/bolzano",
+            "km": 75.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/dobbiaco",
+            "km": 4.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/la-val",
+            "km": 28.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 13.5,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1393,7 +2842,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -1405,31 +2854,82 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/dobbiaco",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/san-candido",
+            "km": 4.2,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/la-val",
+            "km": 24.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/san-candido",
+            "km": 4.2,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bolzano",
+            "km": 71.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/la-val",
+            "km": 24.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/lago-di-braies",
+        "km": 11.6,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-landro",
+          "km": 11.7
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -1438,38 +2938,93 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
-        "rainy_day": false,
+        "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/san-vito-di-cadore",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 26,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 10.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/cortina-dampezzo",
+            "km": 10.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/ortisei",
+            "km": 42.8,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/selva-di-val-gardena",
+            "km": 35.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/santa-cristina",
+            "km": 39.1,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/cortina-dampezzo",
+        "km": 10.3,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 7
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 8.4
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1483,7 +3038,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "local_only",
@@ -1495,31 +3050,69 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/la-val",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 50,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/dobbiaco",
+            "km": 24.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/san-candido",
+            "km": 28.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/bolzano",
+            "km": 47,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/dobbiaco",
+            "km": 24.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/lago-di-braies",
+        "km": 12.9,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "reason": "local draw with a detour over 20 min or unknown (50)"
         },
         "weekend": {
           "fit": "skip",
@@ -1528,7 +3121,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 50 min is over 30"
         }
       },
       "role": "local_only",
@@ -1540,26 +3133,50 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/bolzano",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Bolzano",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "place/san-candido",
+            "km": 75.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/la-val",
+            "km": 47,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "place/dobbiaco",
+            "km": 71.5,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1573,7 +3190,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -1585,26 +3202,25 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/otzi-south-tyrol-museum-of-archaeology",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 2,
+      "detour_basis": "town",
+      "detour_town": "Bolzano",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1617,39 +3233,95 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
+          "fit": "plan_around",
+          "reason": "detour 2 min, draw national"
         }
       },
       "role": "anchor",
       "flags": {
         "go_clear_day": false,
         "rainy_day": true,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/dolomites",
-      "draw_suggested": "national",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 20,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "place/croda-del-becco",
+            "km": 9.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 4
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/croda-del-becco",
+            "km": 9.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": 4
+          },
+          {
+            "ref": "place/sass-pordoi-and-piz-boe",
+            "km": 28.1,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 3
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-landro",
+          "km": 5.6
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 5.8
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 6.4
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 7.8
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 8.1
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 10.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1677,8 +3349,8 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but place/croda-del-becco has the same class within 100 km"
         }
       ]
     },
@@ -1687,14 +3359,32 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 2,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 12.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-landro",
+          "km": 11
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 12.4
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1720,26 +3410,30 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/rafting-on-the-rienza",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 66,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 26.5,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1753,7 +3447,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 66 min is over 30"
         }
       },
       "role": "filler",
@@ -1765,26 +3459,25 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "place/drava-cycle-path-to-lienz",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 268,
+      "detour_basis": "town",
+      "detour_town": "San Candido",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1798,7 +3491,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 268 min is over 30"
         }
       },
       "role": "highlight",
@@ -1810,12 +3503,7 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     }
   ]
 }
