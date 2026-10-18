@@ -98,8 +98,11 @@ Common checks D1-D5, U1-U2, C1-C8, plus:
 | C13 | Complete | `attrs.shade`, `attrs.crowds` | `community` |
 | C14 | Complete, ticketed | `attrs.maintenance_closures` pattern (SN ok) | `operator` |
 
-Totals: ticketed pool Draft 5, Usable 9, Complete 14 (**28**); natural spot **26** (U7 and C14 drop
+Totals: ticketed pool Draft 5, Usable 14, Complete 18 (**37**); natural spot **35** (U7 and C14 drop
 out).
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its swim spot column: F3, F4, F9 (toilets), F11 and F12 are Usable; F1, F2, F6 and F8 are Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -127,5 +130,5 @@ pattern). Facilities: 2 years.
 | booking | walk-up; busy afternoons | `community` |
 | `swimming`, `supervision`, `entry`, `hazards`, `facilities`, `point` | gaps (the research recorded hours and prices only) | |
 
-Level once the point is recorded: **Draft · 9 of 28** (D1-D5, U1, U2, U6, U7). Missing for Usable:
+Level once the point is recorded: **Draft · 9 of 37** (D1-D5, U1, U2, U6, U7). Missing for Usable:
 U3 water type and rules, U4 supervision, U5 access and parking, U8 entry, U9 hazards.
