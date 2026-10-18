@@ -1,0 +1,863 @@
+{
+  "schema": "suitability/1",
+  "trip": "algonquin-muskoka-2026",
+  "lane": "R6",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.algonquinpark.on.ca/visit/recreational_activites/track-and-tower-trail.php",
+      "title": "Track and Tower Trail",
+      "publisher": "The Friends of Algonquin Park (park information site)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.algonquinpark.on.ca/visit/general_park_info/fees-day-use.php",
+      "title": "Day use fees",
+      "publisher": "The Friends of Algonquin Park (park information site)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.ontarioparks.ca/park/oxtongueriverraggedfalls",
+      "title": "Oxtongue River-Ragged Falls Provincial Park",
+      "publisher": "Ontario Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.discovermuskoka.ca/listings/ragged-falls-oxtongue-river-hiking-trail-359/",
+      "title": "Ragged Falls Oxtongue River Trail",
+      "publisher": "Discover Muskoka (regional tourism)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.algonquinhighlands.ca/explore-play/parks-and-outdoor-spaces/dorset-scenic-lookout-tower/",
+      "title": "Dorset Scenic Lookout Tower",
+      "publisher": "Township of Algonquin Highlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://limberlostforest.com/activities/hiking-trails/",
+      "title": "Hiking Trails",
+      "publisher": "Limberlost Forest and Wildlife Reserve",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.ontariotrails.on.ca/trail/track-and-tower-trail",
+      "title": "Track and Tower Trail",
+      "publisher": "Ontario Trails Council",
+      "kind": "community",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 3,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "About 1 km out and back to a lookout; uphill from the lot and over rock near the falls, so a child under about 3 is carried."
+        },
+        "kid_note": "A short trail (about 1 km out and back) from the lot to lookouts beside a powerful 80 ft cascade. Keep children back from the wet rock at the river edge.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "A short trail with no hands needed."
+        },
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "Gravel access road and lot; the trail surface is not published."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "lot and gravel access; the trail surface to the lookouts is not published"
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ontarioparks.ca Oxtongue River-Ragged Falls page (facility list only)",
+            "discovermuskoka.ca Ragged Falls trail listing"
+          ],
+          "note": "Ontario Parks lists all-terrain wheelchairs as not available; no statement on the trail."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 1,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "Despite its short length of only 1 km"
+            }
+          }
+        },
+        "walk_m": {
+          "v": 500,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "Half of the 1 km figure, taken as out and back."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our estimate; the trip gives 60 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "rock lookouts beside the falls"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "Our judgement; neither page mentions railings."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-08",
+              "to": "10-18",
+              "status": "open",
+              "via": "road",
+              "note": "day use; a park permit is bought online (fee not published on the park page)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "May 8, 2026 to October 18, 2026",
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Toilets (Vault Privies)"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 1,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/town:huntsville",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "A lakeside town with a walkable Main Street, outdoor murals and a floating boardwalk; Lions Lookout above town is a short drive and a steep short walk.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: a paved downtown with sidewalks. No official statement."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "downtown Main Street"
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "explorehuntsville.ca (no accessibility statement found in the trip research)",
+            "discovermuskoka.ca Huntsville itinerary page"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "limberlostforest.com Hiking Trails page (no group rule; no gain)",
+            "limberlostforest.com 2015 Solitaire trail brochure PDF (grades as percentages, no gain)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 7,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "6.3 km is just over the 6 km ceiling for 6-7; the gain is small except the steep Echo Rock climb."
+        },
+        "kid_note": "A 6.3 km loop round Solitaire Lake, rated easy to moderate, on a private reserve open 09:00-17:00 with a signed online waiver for every visitor. Roots, mud and boardwalks; Echo Rock is a short steep climb to the only big view.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "No hands-on sections; mud and roots."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "Roots, mud, boardwalks and a steep rock climb."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Easy to moderate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0006"
+            ],
+            "quote": "Solitaire Trail - 6.3 km - Easy to moderate"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 6.3,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0006"
+              ],
+              "quote": "6.3 km"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "limberlostforest.com Hiking Trails page (no group rule; no gain)",
+                "limberlostforest.com 2015 Solitaire trail brochure PDF (grades as percentages, no gain)"
+              ],
+              "note": "Route-platform figures (48 m and 284 m) disagree and are not sources."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            95,
+            150
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "Naismith: 6.3 km at 4 km/h is 95 min, plus the Echo Rock climb and lookout stop."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "Echo Rock lookout"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: an open rock lookout; railings not mentioned in any source read."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Downed branches or wood may be on the trails; mud and roots"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "There may be downed branches or wood on our trails."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "day use 09:00-17:00 only; online safety waiver required for entry"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "Open to the public 9am - 5pm",
+          "note": "The page gives daily hours and no closed season.",
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "There are public outhouses at the main parking lot and Buck Lake landing."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "limberlostforest.com Hiking Trails page (no group rule; no gain)",
+            "limberlostforest.com 2015 Solitaire trail brochure PDF (grades as percentages, no gain)"
+          ]
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "All dogs must be on a leash, we are not leash free."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 6.3,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "algonquinpark.on.ca Track and Tower page (no group rule, no gain)",
+            "algonquinpark.on.ca day-use fees page"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "A 7.5 km loop rated difficult with a steady climb and about 130 steps; over the 6 km ceiling for 6-7, inside 9 km for 8-9."
+        },
+        "kid_note": "A 7.5 km loop rated difficult: about 3 km nearly flat, then a steady climb and a long wooden staircase to an unfenced rock ledge over Cache Lake. Hold small hands at the lookout.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "No hands-on sections; the staircase and the ledge need care."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Roots, mud, rock and stairs."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Difficult"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0001"
+            ],
+            "quote": "Difficult",
+            "note": "The Ontario Parks activities index calls it Moderate (trip research, not re-read): a conflict to confirm."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 7.5,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "7.5 km"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "algonquinpark.on.ca Track and Tower page (no group rule, no gain)",
+                "algonquinpark.on.ca day-use fees page"
+              ],
+              "note": "Not published; trip reports give about 240-280 m."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            150,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Naismith: 7.5 km at 4 km/h is about 115 min, plus about 250 m of climbing (25 min) and the lookout stop; the park index lists 4 hours (trip research)."
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": "unfenced",
+            "where": "Cache Lake lookout ledge"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "note": "The park page marks the scenic lookout with a fall-danger icon; unfenced is from trip reports."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Fall danger at the scenic lookout; about 130 wooden steps; mud and wet leaves in October"
+            },
+            {
+              "category": "remoteness",
+              "note": "No mobile signal around km 20-30 of Highway 60"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Fall danger from the park page; steps, mud and signal from the trip research."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Highway 60 daily vehicle permit, $21 per vehicle, sold only online or by phone up to 5 days ahead, valid 07:00-22:00"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002",
+            "src-0007"
+          ],
+          "quote": "Daily Vehicle Permits are valid from 7:00am until 10:00pm on the date of issue.",
+          "note": "Year-round opening is from the Ontario Trails Council listing (community).",
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Toilets"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "algonquinpark.on.ca Track and Tower page (no group rule, no gain)",
+            "algonquinpark.on.ca day-use fees page"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 7.5,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "A 30 m staircase tower; a child under about 4 is carried up."
+        },
+        "kid_note": "A 30 m (100 ft) lookout tower 142 m above Lake of Bays. Fall-colour visits from 19 Sep to 25 Oct need a booked slot. Dogs are welcome in the park but not on the tower.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "The tower is climbed on stairs; a pushchair stays at the base."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "the park grounds may suit a pushchair; the tower does not"
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "algonquinhighlands.ca Dorset Scenic Lookout Tower page (no accessibility, no walk distance from the lot)",
+            "dorsetcanada.com tower listing (trip research)"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our estimate; the trip gives 60 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null,
+            "where": "the 30 m tower deck"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "The Tower is a \"use at own risk\" attraction.",
+          "note": "Railings are not described on the page."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-15",
+              "to": "10-25",
+              "status": "open",
+              "via": "road",
+              "note": "booking required 19 Sep - 25 Oct (opens 09:00 on 1 Sep); fall weekends and Thanksgiving Monday 09:00-18:00, last entry 17:00"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "Bookings for fall colours viewing at the Dorset Scenic Lookout Tower are only required between September 19 and October 25.",
+          "note": "The page gives no year; read in 2026.",
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "algonquinhighlands.ca Dorset Scenic Lookout Tower page (no accessibility, no walk distance from the lot)",
+            "dorsetcanada.com tower listing (trip research)"
+          ],
+          "note": "A vehicle fee is charged at the tower, so a car park is near; the distance is not published."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "picnic sites, restrooms, a tourist information kiosk, a gift shop and a hiking trail"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A public sand beach on Dwight Bay; any age."
+        },
+        "kid_note": "A public sandy beach on Dwight Bay facing southwest for the sunset. It is unsupervised; in October the water is cold.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: parking beside a sand beach."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "sand"
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "lakeofbays.on.ca (no Dwight Beach page found in search)",
+            "web search 'Dwight Beach Lake of Bays township public beach parking washrooms'"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our estimate; the trip gives 45 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "beach"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: a flat beach."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "lakeofbays.on.ca (no Dwight Beach page found in search)",
+            "web search 'Dwight Beach Lake of Bays township public beach parking washrooms'"
+          ]
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "lakeofbays.on.ca (no Dwight Beach page found in search)",
+            "web search 'Dwight Beach Lake of Bays township public beach parking washrooms'"
+          ],
+          "note": "Travel blogs describe a short stroll from free parking; no figure."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

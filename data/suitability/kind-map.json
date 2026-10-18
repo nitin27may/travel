@@ -2365,8 +2365,9 @@
         "subkind": null
       },
       "kind": "sight",
-      "subkind": "landmark",
-      "reason": "A lava field landscape."
+      "subkind": "area",
+      "reason": "R4 (2026-10-18): a lava-field landscape around Svartsengi, not one sight; the volcanic hazard and closures decide the visit, which is the area profile (B14).",
+      "by": "lane R4"
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
@@ -2529,9 +2530,10 @@
         "kind": "trail",
         "subkind": null
       },
-      "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "reason": "R4 (2026-10-18): the stop is the beach (lifting stones, wreck, surf with a strong undertow per Snaefellsjokull NP); the path down is its walk_m. Applicability 8.2 names it a beach.",
+      "by": "lane R4"
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
@@ -2563,8 +2565,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "R4 (2026-10-18): the plan's walk is down Almannagja from Hakid to the assembly site, a short made path (B16-style walk), not a hike.",
+      "by": "lane R4"
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
@@ -2573,9 +2576,10 @@
         "kind": "viewpoint",
         "subkind": null
       },
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
-      "reason": "M1: a viewpoint."
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "reason": "R4 (2026-10-18): Diamond Beach is Eystri-Fellsfjara, an open Atlantic surf beach; surf and ice are the hazards, which is the beach profile.",
+      "by": "lane R4"
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
@@ -2584,9 +2588,10 @@
         "kind": "viewpoint",
         "subkind": null
       },
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
-      "reason": "M1: a viewpoint."
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "R4 (2026-10-18): a glacial lagoon visited from the shore, which is the lake profile.",
+      "by": "lane R4"
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
@@ -2606,9 +2611,10 @@
         "kind": "viewpoint",
         "subkind": null
       },
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
-      "reason": "M1: a viewpoint."
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "reason": "R4 (2026-10-18): a surf beach with sneaker waves and warning-light zones (Icelandic Tourist Board); applicability 8.2 names it a beach.",
+      "by": "lane R4"
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
@@ -2948,8 +2954,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "R5 (2026-10-18): NPS gives 0.6 mi (1 km) round trip, 56 ft (17 m), easy (nps.gov/places/mesa-arch.htm); B16 limits met.",
+      "by": "lane R5"
     },
     {
       "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
@@ -2959,8 +2966,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "river_hike",
+      "reason": "R5 (2026-10-18): a hike in the Virgin River; NPS closes it above 150 cfs and in flash-flood warnings (nps.gov/zion/planyourvisit/thenarrows.htm), so the river_hike profile (applicability 11, B1) carries water temperature, current and the flow closure.",
+      "by": "lane R5"
     },
     {
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
@@ -2981,8 +2989,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "R5 (2026-10-18): NPS gives a paved path, 46 m gain, typical grade 2.6% (nps.gov/thingstodo/hike-pa-rus-trail.htm); a level walk, not a hike.",
+      "by": "lane R5"
     },
     {
       "ref": "trip/utah-five-parks/trail:riverside walk",
@@ -2992,8 +3001,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "R5 (2026-10-18): NPS gives 1 mi (1.6 km) one way, 100% concrete, an easy paved trail (nps.gov/thingstodo/hike-riverside-walk.htm); B16 limits (3 km, 100 m) met.",
+      "by": "lane R5"
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
@@ -3003,8 +3013,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "R5 (2026-10-18): the first overlook is 0.6 mi (1 km) round trip, 115 ft (35 m), moderate (nps.gov/places/upheaval-dome-overlook-trails.htm); B16 limits met.",
+      "by": "lane R5"
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
@@ -3014,8 +3025,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "R5 (2026-10-18): NPS gives a 1 mi (1.6 km) loop, 99 ft (30 m), easy (nps.gov/places/the-windows-section-trailhead.htm); B16 limits met.",
+      "by": "lane R5"
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
@@ -3102,8 +3114,9 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "R6 (2026-10-18): gostowe.com describes a 5.3-mile paved public path, mostly flat and level, open all year; a paved greenway walked for any length, so walk, not hike.",
+      "by": "lane R6"
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",

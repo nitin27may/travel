@@ -210,7 +210,7 @@
     {
       "ref": "trip/utah-five-parks/trail:mesa arch",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -230,7 +230,7 @@
     {
       "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "river_hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -270,7 +270,7 @@
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -290,7 +290,7 @@
     {
       "ref": "trip/utah-five-parks/trail:riverside walk",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -310,7 +310,7 @@
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -330,7 +330,7 @@
     {
       "ref": "trip/utah-five-parks/trail:windows section",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {},
       "flat": {
         "min_age": null,

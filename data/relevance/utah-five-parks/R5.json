@@ -1,0 +1,2384 @@
+{
+  "schema": "relevance/1",
+  "trip": "utah-five-parks",
+  "lane": "R5",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.nps.gov/zion/planyourvisit/thenarrows.htm",
+      "title": "The Narrows",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm",
+      "title": "Angels Landing Permits & Hiking",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.nps.gov/zion/planyourvisit/accessibility.htm",
+      "title": "Accessibility",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm",
+      "title": "Pa'rus Trail",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/thingstodo/hike-riverside-walk.htm",
+      "title": "Riverside Walk",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/zion/planyourvisit/zion-canyon-shuttle-system.htm",
+      "title": "Zion Canyon Shuttle System",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.nps.gov/zion/planyourvisit/conditions.htm",
+      "title": "Current Conditions (last updated 16 Sep 2026)",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.nps.gov/thingstodo/hike-to-scout-lookout.htm",
+      "title": "West Rim to Scout Lookout",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.nps.gov/zion/planyourvisit/zion-canyon-trail-descriptions.htm",
+      "title": "Zion Canyon Trail Descriptions",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.zionguru.com/blog/2026/8/3/best-times-of-year-to-hike-the-zion-narrows",
+      "title": "Best times of year to hike the Zion Narrows",
+      "publisher": "Zion Guru (Springdale outfitter)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.nps.gov/brca/planyourvisit/day-hikes.htm",
+      "title": "Day Hikes",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.nps.gov/brca/planyourvisit/qgnavajocombo.htm",
+      "title": "Queen's Garden/Navajo Combination Loop (last updated 22 May 2024)",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.nps.gov/brca/planyourvisit/accessibility.htm",
+      "title": "Accessibility",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.nps.gov/brca/planyourvisit/viewpoints.htm",
+      "title": "Viewpoints",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.nps.gov/brca/planyourvisit/shuttle.htm",
+      "title": "Shuttle",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.kutv.com/news/local/multiple-mudslides-force-full-navajo-loop-trail-closure-at-bryce-canyon-national-park",
+      "title": "Multiple mudslides force full Navajo Loop Trail closure",
+      "publisher": "KUTV (via search result)",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.nps.gov/brca/planyourvisit/conditions.htm",
+      "title": "Current Conditions (last updated 31 Aug 2026; alerts did not render)",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.blm.gov/visit/lower-calf-creek-falls-trail",
+      "title": "Lower Calf Creek Falls Trail",
+      "publisher": "BLM Utah",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.blm.gov/sites/default/files/documents/files/BLMUtahLowerCalfCreekFalls.pdf",
+      "title": "Lower Calf Creek Falls Trail brochure",
+      "publisher": "BLM Utah",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.blm.gov/announcement/video-blm-warns-dangerous-falling-rocks-lower-calf-creek-falls",
+      "title": "BLM warns of dangerous falling rocks at Lower Calf Creek Falls (25 Jun 2025)",
+      "publisher": "BLM Utah",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.nps.gov/care/planyourvisit/trailguide.htm",
+      "title": "Trail Guide",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.nps.gov/care/learn/news/hickman-bridge-trail-reopens.htm",
+      "title": "Hickman Bridge Trail Reopens (via search result)",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.nps.gov/places/fruita-orchards.htm",
+      "title": "Capitol Reef Orchards (last updated 11 Jan 2021)",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://www.nps.gov/care/learn/historyculture/orchards.htm",
+      "title": "Orchards (last updated 22 Jul 2026)",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://www.nps.gov/care/planyourvisit/accessibility.htm",
+      "title": "Accessibility",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.nps.gov/arch/planyourvisit/physical-mobility.htm",
+      "title": "Physical / Mobility Accessibility",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.nps.gov/places/wolfe-ranch-trailhead.htm",
+      "title": "Delicate Arch Trail",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.nps.gov/arch/planyourvisit/delicate-arch.htm",
+      "title": "Delicate Arch",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.nps.gov/places/delicate-arch-viewpoints.htm",
+      "title": "Delicate Arch Viewpoint Trails",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.nps.gov/places/devils-garden-trailhead.htm",
+      "title": "Devils Garden Trailhead",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.nps.gov/places/the-windows-section-trailhead.htm",
+      "title": "The Windows Viewpoint and Trail",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.nps.gov/arch/planyourvisit/conditions.htm",
+      "title": "Current Conditions (last updated 18 Mar 2026)",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.nps.gov/arch/planyourvisit/hiking.htm",
+      "title": "Hiking",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.nps.gov/cany/planyourvisit/hiking.htm",
+      "title": "Hiking",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.nps.gov/places/mesa-arch.htm",
+      "title": "Mesa Arch Trail",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://www.nps.gov/places/upheaval-dome-overlook-trails.htm",
+      "title": "Upheaval Dome Overlooks Trail",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://www.nps.gov/places/grand-view-point.htm",
+      "title": "Grand View Point",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://www.nps.gov/cany/planyourvisit/physical-mobility.htm",
+      "title": "Physical / Mobility Accessibility",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://www.nps.gov/cany/planyourvisit/islandinthesky.htm",
+      "title": "Island in the Sky",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://stateparks.utah.gov/parks/dead-horse/",
+      "title": "Dead Horse Point State Park",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0041",
+      "url": "https://stateparks.utah.gov/parks/dead-horse/park-fees/",
+      "title": "Dead Horse Point park fees",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://stateparks.utah.gov/?p=11460",
+      "title": "Dead Horse Point State Park overlook text (read via search result; the page returned 404 to fetch)",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0043",
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/",
+      "title": "Goblin Valley State Park",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0044",
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/hiking-and-rappelling/",
+      "title": "Goblin Valley hiking and rappelling",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0045",
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/park-fees",
+      "title": "Goblin Valley park fees",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0046",
+      "url": "https://www.templesquare.org/",
+      "title": "Temple Square",
+      "publisher": "The Church of Jesus Christ of Latter-day Saints",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0047",
+      "url": "https://www.thechurchnews.com/temples/2026/10/02/with-construction-barriers-gone-temple-square-is-more-open-than-it-has-been-in-years/",
+      "title": "With construction barriers gone, Temple Square is more open than it has been in years (2 Oct 2026)",
+      "publisher": "Church News",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0048",
+      "url": "https://www.churchofjesuschrist.org/learn/temple-square-parking-and-directions",
+      "title": "Temple Square Parking and Directions",
+      "publisher": "The Church of Jesus Christ of Latter-day Saints",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0049",
+      "url": "https://www.lonelyplanet.com/articles/getting-around-moab",
+      "title": "Getting around Moab (via search result)",
+      "publisher": "Lonely Planet",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0050",
+      "url": "https://www.nps.gov/zion/learn/news/zionroadrepaved.htm",
+      "title": "Zion National Park's Red Roads Get Repaved (7 Sep 2013)",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0051",
+      "url": "https://www.wikidata.org/wiki/Q2085218",
+      "title": "Temple Square (Wikidata P1435)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "kind": "trail",
+      "subkind": "river_hike",
+      "wikidata": {
+        "v": "Q3029053",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'narrowest part of Zion Canyon', coordinates 37.307 -112.948 in Zion NP"
+      },
+      "class_key": "canyon/slot-wade",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "NPS headline: 'one of the most popular areas in Zion National Park' (official_highlight) inside Zion National Park (parent); the sub-feature under-scores on fame signals"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the defining Zion hike for most visitors"
+      },
+      "standing_scope": "Zion Canyon",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the nearest same-class place, Kanarra Creek (about 33 km), is a small capped canyon; nothing else at this scale within 500 km"
+      },
+      "unique_because": "A wade-up slot canyon of this depth and length is found nowhere else in reach",
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "note": "the paved Riverside Walk reaches the mouth of the Narrows without wading"
+      },
+      "easy_way": "trip/utah-five-parks/trail:riverside walk",
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "flow-dependent: closed above 150 cfs or in a flash-flood warning"
+      },
+      "why": "Wade the Virgin River between canyon walls hundreds of metres high.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "note": "no permit bottom-up to Big Spring; shuttle access held in suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "NPS: one of the most popular areas in Zion National Park",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Zion National Park",
+              "scope": "parent",
+              "wikidata": "Q205325"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q2563959",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'rock formation in Zion National Park', coordinates 37.269 -112.948; the trail item Q98696115 has no description"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "inside Zion National Park (parent); the Angels Landing permit lottery shows demand, but this record stops at Scout Lookout, below the permit section"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the main climb in Zion Canyon without a permit"
+      },
+      "standing_scope": "Zion Canyon",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "other canyon-rim climbs in Zion (Observation Point from the east) are longer or closed from the canyon"
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the Angels Landing fin is seen from the canyon floor at The Grotto; the climb gives the canyon view"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "storms make the rock dangerous; the view needs clear air"
+      },
+      "why": "Walter's Wiggles to Scout Lookout, face to face with the Angels Landing fin.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ],
+        "note": "no permit to Scout Lookout; the chain section beyond needs a lottery permit and is not this record"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Zion National Park",
+              "scope": "parent",
+              "wikidata": "Q205325"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "kind": "trail",
+      "subkind": "walk",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Pa'rus Trail'",
+          "Wikidata search 'Pa'rus'"
+        ],
+        "note": "no item for the trail"
+      },
+      "class_key": "trail/riverside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "note": "a paved town-edge path inside Zion National Park (parent); no headline from the land manager"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a pleasant, easy riverside walk"
+      },
+      "standing_scope": "Zion Canyon and Springdale",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 25 km: the Riverside Walk"
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "the walk is the payoff"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "paved valley walk"
+      },
+      "why": "An easy paved riverside walk or ride from the visitor center, open to bikes and dogs.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "note": "drive-to trailhead; no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Zion National Park",
+              "scope": "parent",
+              "wikidata": "Q205325"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:riverside walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "wikidata": {
+        "v": "Q96790196",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'historic trail in Zion National Park', coordinates 37.292 -112.947 above the Temple of Sinawava"
+      },
+      "class_key": "trail/riverside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "note": "inside Zion National Park (parent); the paved approach to the Narrows headline, not a destination itself"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the easy taste of the Narrows"
+      },
+      "standing_scope": "Zion Canyon",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 25 km: the Pa'rus Trail"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the paved walk is itself the easy way"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "paved; closes for ice in winter"
+      },
+      "why": "A paved stroll to where the Zion canyon closes in and the Narrows begin.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "note": "shuttle access held in suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Zion National Park",
+              "scope": "parent",
+              "wikidata": "Q205325"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "wikidata": {
+        "v": "Q3073830",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'Floor of the Valley Road', scenic drive in Zion Canyon, coordinates 37.256 -112.955"
+      },
+      "class_key": "drive/scenic-parkway",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "note": "inside Zion National Park (parent); shuttle-only for most of the year, the way nearly every visitor sees the canyon"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the only road into Zion Canyon"
+      },
+      "standing_scope": "Zion National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "other park drives (Mt Carmel Highway, Kolob Canyons) are different canyons"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the shuttle is the easy way"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "views of canyon walls work in cloud"
+      },
+      "why": "Ride the shuttle up the floor of Zion Canyon beneath its sandstone walls.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0006"
+        ],
+        "note": "shuttle_only held in suitability access_season.via"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Zion National Park",
+              "scope": "parent",
+              "wikidata": "Q205325"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q104976971",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'historic hiking trail in Bryce Canyon NP', coordinates 37.622 -112.156 (Queens Garden); Navajo Loop is Q104976865"
+      },
+      "class_key": "canyon/desert-rim",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0011"
+        ],
+        "note": "inside Bryce Canyon National Park (parent); the park's own page labels the combination 'Most Popular Trail!'"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the standard walk into the Bryce Amphitheater"
+      },
+      "standing_scope": "Bryce Amphitheater",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "hoodoo walks also exist at Red Canyon and Cedar Breaks within 100 km, smaller"
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the paved rim gives the view down; walking among the hoodoos needs the descent"
+      },
+      "easy_way": "trip/utah-five-parks/viewpoint:sunset point",
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "colour and light on the hoodoos need sun"
+      },
+      "why": "Walk down among Bryce's hoodoos past Queen Victoria and Thor's Hammer.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0012"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "NPS Day Hikes: Most Popular Trail",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Bryce Canyon National Park",
+              "scope": "parent",
+              "wikidata": "Q219562"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q105097228",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'area surrounding Bryce Canyon within Bryce Canyon NP', coordinates 37.626 -112.151"
+      },
+      "class_key": "canyon/desert-rim",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "note": "NPS headline: 'The iconic Bryce Amphitheater area' (official_highlight) inside Bryce Canyon National Park (parent), the park people travel to see"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the heart of the park"
+      },
+      "standing_scope": "Bryce Canyon National Park",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "NPS: 'the world's largest collection of hoodoos'; nothing comparable within 500 km"
+      },
+      "unique_because": "The world's largest concentration of hoodoos (NPS)",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0013"
+        ],
+        "note": "Sunset Point is 150 m on a paved level path"
+      },
+      "easy_way": "trip/utah-five-parks/viewpoint:sunset point",
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "light and colour need sun; still striking in cloud"
+      },
+      "why": "Look down on the world's largest field of hoodoos from a paved rim.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0015"
+        ],
+        "note": "no booking; the shuttle is optional"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "NPS: the iconic Bryce Amphitheater area",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Bryce Canyon National Park",
+              "scope": "parent",
+              "wikidata": "Q219562"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:sunset point",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q105105619",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'scenic overlook in Bryce Canyon NP', coordinates 37.623 -112.166; the cliff item is Q49470915"
+      },
+      "class_key": "canyon/desert-rim",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "note": "one of four amphitheater viewpoints inside Bryce Canyon National Park (parent); NPS names its hoodoos 'some of the most famous'"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the busiest and most accessible amphitheater view"
+      },
+      "standing_scope": "Bryce Amphitheater",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Sunrise, Inspiration and Bryce Points lie within 3 km"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0013"
+        ],
+        "note": "150 m paved level path"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "sunset light is the point"
+      },
+      "why": "A paved few steps to Thor's Hammer and the amphitheater at golden hour.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0015"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Bryce Canyon National Park",
+              "scope": "parent",
+              "wikidata": "Q219562"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q105099406",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'waterfall on Calf Creek in Garfield County', coordinates 37.829 -111.420; the pair item is Q3916011 and the trail Q105099730"
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0019"
+        ],
+        "note": "BLM headline: 'one of the most well known and unique features' of Grand Staircase-Escalante National Monument (official_highlight); a stop on UT-12 for visitors already touring"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the best-known walk on Scenic Byway 12"
+      },
+      "standing_scope": "UT-12 between Bryce and Torrey",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a perennial 126 ft desert waterfall; few comparable within 100 km"
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no view of the falls without the 9.7 km walk"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a canyon walk to a waterfall; heat is the limit, not cloud"
+      },
+      "why": "A sandy desert-canyon walk to a 126-foot waterfall and a cool pool.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0018"
+        ],
+        "note": "a $5 day-use fee, no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "BLM: one of the most well known and unique features in the monument",
+              "scope": "own"
+            },
+            {
+              "type": "natural_monument",
+              "name": "Grand Staircase-Escalante National Monument",
+              "scope": "parent",
+              "wikidata": "Q1474446"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:hickman bridge",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q1844612",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'natural arch in Capitol Reef NP', coordinates 38.290 -111.234; the trail item is Q105708171"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0021"
+        ],
+        "note": "inside Capitol Reef National Park (parent); the park's short signature walk, but no headline wording on the page read"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the best short walk in the Fruita area"
+      },
+      "standing_scope": "Capitol Reef, Fruita and UT-24",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "natural bridges nearby: Cassidy Arch is an arch, Natural Bridges NM is about 150 km"
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the bridge is not visible from the road"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "works in cloud; flash floods and heat are the limits"
+      },
+      "why": "A short climb to walk under a 133-foot natural bridge.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0021"
+        ],
+        "note": "no booking; trailhead parking fills by 9 am"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Capitol Reef National Park",
+              "scope": "parent",
+              "wikidata": "Q129902"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:fruita orchards",
+      "kind": "sight",
+      "subkind": "historic_site",
+      "wikidata": {
+        "v": "Q5506421",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'Fruita Rural Historic District', coordinates 38.283 -111.246; the ghost-town item is Q1470915"
+      },
+      "class_key": "sight/heritage-site",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0024"
+        ],
+        "note": "a National Register listed landscape inside Capitol Reef National Park (parent); a seasonal pick-your-own draw for visitors already in the park"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "pleasant and unusual, but a side visit"
+      },
+      "standing_scope": "Capitol Reef National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "pick-your-own orchards inside a national park are uncommon"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the orchards are by the road"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "an outdoor stroll that works in cloud"
+      },
+      "why": "Pick fruit in pioneer orchards beneath the red cliffs of Capitol Reef.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0024"
+        ],
+        "note": "U-pick only when an orchard is posted open; pay at the self-pay station"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "heritage_listed",
+              "name": "Fruita Rural Historic Landscape (National Register of Historic Places)",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Capitol Reef National Park",
+              "scope": "parent",
+              "wikidata": "Q129902"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:delicate arch trail",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q2300616",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'freestanding natural arch in Arches NP', coordinates 38.744 -109.499; the trail item is Q105494977"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0028"
+        ],
+        "note": "NPS headline: 'a widely recognized symbol of the state of Utah and one of the most famous geologic features in the world' (official_highlight), inside Arches National Park (parent)"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the signature hike of Arches"
+      },
+      "standing_scope": "Arches National Park",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "freestanding arch on a slickrock bowl rim; the state's emblem"
+      },
+      "unique_because": "A freestanding arch that is the symbol of Utah (NPS)",
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0029"
+        ],
+        "note": "the Lower Viewpoint (61 m, level) shows the arch a mile away"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the classic is sunset light; cloud flattens it"
+      },
+      "why": "Climb open slickrock to Utah's most famous arch at sunset.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0032"
+        ],
+        "note": "no timed entry in 2026; entry may be delayed on busy days"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "NPS: a widely recognized symbol of the state of Utah",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Arches National Park",
+              "scope": "parent",
+              "wikidata": "Q223969"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:devils garden",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q5267147",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'rock formation in Arches NP', coordinates 38.804 -109.614; Landscape Arch is Q2256910 and Double O Arch Q9210362"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0030"
+        ],
+        "note": "inside Arches National Park (parent); Landscape Arch, the longest arch span in North America per NPS, is on the trail"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the longest maintained arch walk in the park"
+      },
+      "standing_scope": "Arches National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "arch walks are many in Arches, but a trail of seven arches is not"
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0030"
+        ],
+        "note": "Landscape Arch is an easy 2.9 km out and back"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "slickrock fins are dangerous wet"
+      },
+      "why": "A string of arches along sandstone fins, from Landscape Arch to Double O.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0032"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Arches National Park",
+              "scope": "parent",
+              "wikidata": "Q223969"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "kind": "trail",
+      "subkind": "walk",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Windows Section'",
+          "Wikidata search 'The Windows Arches'"
+        ],
+        "note": "no item for the section; the arches have their own items (North Window Q62026550, South Window Q62026549, Turret Arch Q62027398)"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "note": "inside Arches National Park (parent); one of the park's main viewpoint stops on the paved road"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "big arches for little walking; crowded"
+      },
+      "standing_scope": "Arches National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "several large arches in one short loop"
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0031"
+        ],
+        "note": "the first 300 ft is barrier free and the arches are in view from the lot"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "light through the arches is the point"
+      },
+      "why": "Walk up to and under three giant arches on a 1.6 km loop.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0032"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Arches National Park",
+              "scope": "parent",
+              "wikidata": "Q223969"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:mesa arch",
+      "kind": "trail",
+      "subkind": "walk",
+      "wikidata": {
+        "v": "Q6821049",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'natural arch in Canyonlands NP', coordinates 38.388 -109.864"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0035"
+        ],
+        "note": "inside Canyonlands National Park (parent); a sunrise photography magnet, by our judgement, though no headline wording on the NPS page"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the best short walk on Island in the Sky"
+      },
+      "standing_scope": "Island in the Sky",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "cliff-edge arches framing a canyon view are few"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0035"
+        ],
+        "note": "the payoff is 0.5 km from the car"
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the sunrise glow under the arch needs a clear eastern sky"
+      },
+      "why": "A cliff-edge arch that frames the canyon below at sunrise.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0035"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Canyonlands National Park",
+              "scope": "parent",
+              "wikidata": "Q541856"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0035"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:upheaval dome",
+      "kind": "trail",
+      "subkind": "walk",
+      "wikidata": {
+        "v": "Q1409370",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'landform in Canyonlands NP', coordinates 38.425 -109.929"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0036"
+        ],
+        "note": "inside Canyonlands National Park (parent); a geology stop at the end of a spur road"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fascinating geology, less of a view"
+      },
+      "standing_scope": "Island in the Sky",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a crater of debated impact origin; no comparable structure within 500 km"
+      },
+      "unique_because": "A crater-like dome of disputed meteorite or salt origin",
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0036"
+        ],
+        "note": "the first overlook is 0.5 km away"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "geology reads in cloud"
+      },
+      "why": "Look into a crater of crumpled rock, possibly a meteorite impact.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0036"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Canyonlands National Park",
+              "scope": "parent",
+              "wikidata": "Q541856"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q62073199",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'scenic viewpoint in Canyonlands NP', coordinates 38.322 -109.849; Q99559723 is a duplicate with no description"
+      },
+      "class_key": "canyon/desert-rim",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0037"
+        ],
+        "note": "inside Canyonlands National Park (parent); the end-point overlook of the Island in the Sky drive"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the widest view in the district"
+      },
+      "standing_scope": "Island in the Sky",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Dead Horse Point, about 20 km, is the same class"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0038"
+        ],
+        "note": "the overlook is wheelchair accessible"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "distance views need clear air"
+      },
+      "why": "The widest view over the canyons of the Colorado and Green rivers.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0037"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Canyonlands National Park",
+              "scope": "parent",
+              "wikidata": "Q541856"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q129470",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'state park in Utah', coordinates 38.506 -109.733; Q49482297 is a duplicate park item"
+      },
+      "class_key": "canyon/desert-rim",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0040"
+        ],
+        "note": "inside Dead Horse Point State Park (parent), an International Dark Sky Park (parent); the gooseneck view is among the best known in Utah"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the classic Colorado River gooseneck view"
+      },
+      "standing_scope": "Moab and Island in the Sky",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Grand View Point, about 20 km, is the same class"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "a short paved ADA path"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "sunrise and sunset light"
+      },
+      "why": "A cliff-top point above a gooseneck of the Colorado River.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0041"
+        ],
+        "note": "$20 per vehicle, no entry reservation"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Dead Horse Point State Park",
+              "scope": "parent",
+              "wikidata": "Q129470"
+            },
+            {
+              "type": "dark_sky",
+              "name": "International Dark Sky Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0040"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:goblin valley",
+      "kind": "park",
+      "subkind": "park",
+      "wikidata": {
+        "v": "Q1411137",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'state park in Emery County, Utah', coordinates 38.567 -110.710"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0043"
+        ],
+        "note": "a state park (own designation) and International Dark Sky Park; a detour off UT-24 for visitors between Capitol Reef and Moab"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the best place in the area for free roaming among rock formations"
+      },
+      "standing_scope": "UT-24 between Capitol Reef and Moab",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the park says it is 'unlike any other in Utah'; no comparable goblin field within 500 km"
+      },
+      "unique_because": "A valley of thousands of hoodoo 'goblins' you may walk among",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the valley is beside the observation point"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "works in cloud; heat and flash floods are the limits"
+      },
+      "why": "Roam freely among thousands of mushroom-shaped sandstone goblins.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0045"
+        ],
+        "note": "$20 per vehicle, no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Goblin Valley State Park",
+              "scope": "own"
+            },
+            {
+              "type": "dark_sky",
+              "name": "International Dark Sky Park",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0043"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/town:main street moab",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q130134",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'city in and county seat of Grand County, Utah', coordinates 38.573 -109.550"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0049"
+        ],
+        "note": "the gateway town to Arches and Canyonlands national parks; visitors come for the parks, not the street"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the base town's centre"
+      },
+      "standing_scope": "Moab",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the only town of its size near the two parks"
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "the town is the payoff"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "shops and food"
+      },
+      "why": "The outfitters, food and evening stroll of the Arches and Canyonlands gateway.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0049"
+        ],
+        "note": "no booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0049"
+          ],
+          "note": "no designation of its own found"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:temple square",
+      "kind": "sight",
+      "subkind": "landmark",
+      "wikidata": {
+        "v": "Q2085218",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: 'religious complex in Salt Lake City', coordinates 40.771 -111.893; not the light rail station Q14711882"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0047",
+          "src-0051"
+        ],
+        "note": "a National Historic Landmark (designation, via Wikidata P1435); the 2027 temple open house expects 5 million visitors (Church News)"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the main sight of Salt Lake City"
+      },
+      "standing_scope": "Salt Lake City",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the headquarters complex of a world church"
+      },
+      "unique_because": "Headquarters complex of The Church of Jesus Christ of Latter-day Saints",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the grounds and visitor center are walk-in"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "visitor centers and the Tabernacle are indoors"
+      },
+      "why": "Gardens, the Tabernacle and the Salt Lake Temple at the heart of the city.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "only for the 5 Apr-1 Oct 2027 Salt Lake Temple open house; the grounds need no ticket"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0046"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "heritage_listed",
+              "name": "National Historic Landmark and National Register of Historic Places",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0051"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the land manager's page for the place",
+            "visitutah.com overview pages (park level only)"
+          ],
+          "note": "no national or global top-list mention surfaced in this pass"
+        }
+      }
+    }
+  ]
+}

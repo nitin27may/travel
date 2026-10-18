@@ -70,7 +70,7 @@
     {
       "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {},
       "flat": {
         "min_age": null,

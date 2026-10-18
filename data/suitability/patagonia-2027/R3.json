@@ -1,0 +1,3057 @@
+{
+  "schema": "suitability/1",
+  "trip": "patagonia-2027",
+  "lane": "R3",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.argentina.gob.ar/senderos-del-parque-nacional-tierra-del-fuego",
+      "title": "Senderos del Parque Nacional Tierra del Fuego",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "title": "Mapa de pasarelas, Glaciar Perito Moreno (July 2024)",
+      "publisher": "Parque Nacional Los Glaciares, APN",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://api.hieloyaventura.com/api/excurtions",
+      "title": "Minitrekking product data served to hieloyaventura.com/excursiones/minitrekking (the site's own API; the HTML page is a script shell)",
+      "publisher": "Hielo y Aventura S.A.",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://piratour.net/producto/caminata-en-isla-martillo/",
+      "title": "Caminata en Pingüinera (Isla Martillo)",
+      "publisher": "Piratour Travel",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://piratour.net/producto/navegacion-en-canal-beagle-catamaran-verano/",
+      "title": "Navegación en Canal Beagle - Catamarán (verano)",
+      "publisher": "Piratour Travel",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://piratour.net/producto/trekking-laguna-esmeralda-2/",
+      "title": "Trekking Laguna Esmeralda",
+      "publisher": "Piratour Travel",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://turismoushuaia.com/actividad/laguna-esmeralda/?lang=es_AR",
+      "title": "Laguna Esmeralda",
+      "publisher": "Secretaría de Turismo, Municipalidad de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://turismoushuaia.com/actividad/navegacion-a-la-pinguinera/?lang=es_AR",
+      "title": "Navegación a la pingüinera",
+      "publisher": "Secretaría de Turismo, Municipalidad de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://turismoushuaia.com/prestador/canoero/?lang=en_US",
+      "title": "Canoero (provider page)",
+      "publisher": "Secretaría de Turismo, Municipalidad de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://elchalten.tur.ar/laguna-de-los-tres/",
+      "title": "Laguna de Los Tres (category Dificultad Alta)",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://elchalten.tur.ar/laguna-capri/",
+      "title": "Laguna Capri (category Dificultad Media)",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://elchalten.tur.ar/el-chorrillo-del-salto/",
+      "title": "El Chorrillo del Salto (category Dificultad Baja)",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+      "title": "Mirador de los Cóndores y Águilas (category Dificultad Baja)",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.elcalafate.tur.ar/parque-nacional-los-glaciares-1.htm",
+      "title": "Parque Nacional Los Glaciares (visitor rules)",
+      "publisher": "Secretaría de Turismo, Municipalidad de El Calafate",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.elcalafate.tur.ar/en-glaciar-perito-moreno.htm",
+      "title": "Glaciar Perito Moreno (services on site)",
+      "publisher": "Secretaría de Turismo, Municipalidad de El Calafate",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://elchalten.tur.ar/circuitoverdeazul-21124/",
+      "title": "Circuito Azul y Circuito Verde",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.argentina.travel/planea-tu-viaje/parque-nacional-los-glaciares-el-chalten-y-el-calafate-santa-cruz",
+      "title": "Parque Nacional Los Glaciares: El Chaltén y El Calafate, Santa Cruz",
+      "publisher": "Visit Argentina (Instituto Nacional de Promoción Turística)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.switchbacktravel.com/el-chalten-hikes",
+      "title": "El Chaltén hikes",
+      "publisher": "Switchback Travel",
+      "kind": "blog",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://triptins.com/laguna-de-los-tres-fitz-roy",
+      "title": "Laguna de los Tres hike (posted 17 Oct 2023)",
+      "publisher": "Triptins",
+      "kind": "blog",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://solsalute.com/blog/trekking-laguna-esmeralda-ushuaia/",
+      "title": "Trekking Laguna Esmeralda, Ushuaia (9 Mar 2026)",
+      "publisher": "Solsalute",
+      "kind": "blog",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/losglaciares",
+      "title": "Parque Nacional Los Glaciares",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/tierradelfuego",
+      "title": "Parque Nacional Tierra del Fuego",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
+      "kind": "activity",
+      "subkind": "glacier-walk",
+      "suitability": {
+        "min_age": {
+          "v": 8,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Suitable for people between 8 and 65 years ONLY. No exceptions."
+        },
+        "max_age": {
+          "v": 65,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Suitable for people between 8 and 65 years ONLY. No exceptions."
+        },
+        "age_rule": "rule",
+        "limit_reason": "policy",
+        "adult_required": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "api.hieloyaventura.com/api/excurtions, Minitrekking: every Spanish and English characteristic (no rule on minors with an adult)",
+            "hieloyaventura.com/excursiones/minitrekking (script shell, no text)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": 65
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "The operator's own 8 to 65 rule sets the band; about 3 h on foot, 1 h 15 of it on ice in crampons, inside a 9.5 h day with the transfer."
+        },
+        "kid_note": "Ages 8 to 65 only, no exceptions. About 3 hours on foot, about an hour of it on the ice in crampons, inside a 9.5-hour day with the transfer.",
+        "on_site_min": {
+          "v": [
+            270,
+            570
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Activity duration without transfer: Approximately 4.5 hours ... including transportation with a guide and a visit to the walkways ... approximately 9.5 hours.",
+          "note": "270 min port to port; 570 min with the hotel transfer and the walkways."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "on the ice, between cracks, seracs and sinkholes; the guides set the route"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "The operator lists cracks, seracs and sinkholes on the route and walks it in guided groups; our grade 'some'."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "glacier",
+              "note": "Cracks, seracs and sinkholes on the route; walk only behind the guide, crampons fitted on site"
+            },
+            {
+              "category": "cold",
+              "note": "Changeable weather: cold, rain, wind or snow on the ice; bring waterproof layers"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "boat",
+              "note": "20-minute crossing of Brazo Rico from Puerto Bajo de las Sombras"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "This excursion operates year-round.",
+          "applies_to": "2026"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "operator",
+              "value": "Medium"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "Difficulty: Medium; effort and difficulty levels (MODERATE, with steep and uneven ascents and descents)"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 3.5,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0003"
+              ],
+              "quote": "Caminata total 3.5 km aprox"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "api.hieloyaventura.com/api/excurtions, Minitrekking (no climb figure)",
+                "hieloyaventura.com/excursiones/minitrekking (script shell)"
+              ]
+            }
+          }
+        },
+        "participation": {
+          "guide": {
+            "v": "required",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "Personalized! 1 guide every 10 people"
+          },
+          "kit_provided": {
+            "v": [
+              "crampons",
+              "helmet"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "you will have the crampons and helmets fitted, which are provided by the company"
+          },
+          "wear": {
+            "v": [
+              "closed_shoes",
+              "layers",
+              "rain_shell",
+              "long_trousers",
+              "warm_hat"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "Campera y pantalón impermeable, calzado deportivo o botas de trekking impermeables ... guantes, gorro, mochila."
+          },
+          "min_shoe_eu": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "api.hieloyaventura.com/api/excurtions, Minitrekking (crampons provided; no shoe size)",
+              "hieloyaventura.com/excursiones/minitrekking (script shell)"
+            ]
+          },
+          "fitness": {
+            "v": "Able to walk 3 hours, 1 h 15 of it on ice with crampons; moderate, with steep and uneven ascents and descents",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "both children and adults must have sufficient psychophysical capacity to walk 3 hours, of which 1h15' is on the ice and with crampons"
+          },
+          "medical": {
+            "v": {
+              "excluded": [
+                "heart",
+                "lung",
+                "asthma",
+                "mobility",
+                "balance"
+              ],
+              "ask_doctor": []
+            },
+            "state": "value",
+            "basis": "operator_rule",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "the following persons cannot take the tour: ... cardiac history ... respiratory disabilities such as COPD, asthma, emphysema ... disability that affects their attention, ability to walk and/or coordination",
+            "note": "The operator also excludes obesity (BMI 30 or more), which has no field; see the lane log."
+          },
+          "pregnancy": {
+            "v": "not_allowed",
+            "state": "value",
+            "basis": "operator_rule",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "the following persons cannot take the tour: ... Pregnant"
+          },
+          "waiver": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "api.hieloyaventura.com/api/excurtions, Minitrekking (no waiver or guardian wording; the booking flow posts a medical record)",
+              "hieloyaventura.com/excursiones/minitrekking (script shell)"
+            ]
+          },
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": null,
+              "status": "Runs in changing weather; suspended only when conditions are unsafe. Refund terms not found."
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "the excursion is not suspended, as long as security conditions allow it"
+          }
+        }
+      },
+      "ext": {
+        "kind": "glacier",
+        "traction": {
+          "v": "crampons",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ]
+        },
+        "boots": {
+          "v": "own",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "sports shoes or trekking boots",
+          "note": "Footwear is the visitor's own; only crampons and helmet are provided."
+        },
+        "ice_min": {
+          "v": [
+            60,
+            75
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Ice trekking: Approximately 1hr; ... 1h15' is on the ice",
+          "note": "The English and Spanish texts differ (1 h and 1 h 15)."
+        }
+      },
+      "flat": {
+        "min_age": 8,
+        "max_age": 65,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 3.5,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/lake:beagle channel boat",
+      "kind": "activity",
+      "subkind": "boat-tour",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net catamaran page (fares from 0-2 free, 3-11 child: a fare band, not a rule)",
+            "turismoushuaia.com Canoero provider page (no age rule)",
+            "catamaranescanoero.com.ar (did not resolve on 18 Oct 2026)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "A 2.5 h seated catamaran trip with a cabin; the operator's fares start at age 0."
+        },
+        "kid_note": "A 2.5-hour catamaran trip past Isla de los Pájaros, Isla de los Lobos and Les Eclaireurs lighthouse. Babies ride free on the operator's fare table. The open deck is cold and windy.",
+        "stroller_on_board": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net catamaran page",
+            "turismoushuaia.com Canoero provider page"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net catamaran page (no access wording)",
+            "turismoushuaia.com Canoero provider page"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            150,
+            150
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "Duration of the activity 2.30 HORAS"
+        },
+        "water_safety": {
+          "lifejacket": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "piratour.net catamaran page",
+              "turismoushuaia.com Canoero provider page"
+            ]
+          },
+          "child_sizes_from_kg": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "piratour.net catamaran page",
+              "turismoushuaia.com Canoero provider page"
+            ]
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "boat",
+              "note": "from the tourist pier in Ushuaia"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "Available from TODO EL AÑO",
+          "applies_to": "2026"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": null,
+              "status": "The operator says the trip may change for weather; refund terms not on its page."
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0005"
+            ],
+            "quote": "ESTA EXCURSIÓN PUEDE SUFRIR VARIANTES POR FACTORES CLIMÁTICOS"
+          },
+          "wear": {
+            "v": [
+              "closed_shoes",
+              "rain_shell",
+              "warm_hat"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0005"
+            ],
+            "quote": "CALZADO Y CAMPERA IMPERMEABLE, GORRO, GUANTES, LENTES DE SOL"
+          }
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wind",
+              "note": "Strong, gusty wind is the norm in summer; check the forecast and the park information centre before the exposed sections"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "Wind and cold on the open deck of the Beagle Channel; the operator warns of weather changes."
+        }
+      },
+      "ext": {
+        "kind": "boat",
+        "vessel": {
+          "v": "part_open",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "A catamaran for 168 to 195 passengers: an enclosed cabin and open decks."
+        },
+        "sea_state": {
+          "v": "some_swell",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "The Beagle Channel is a sheltered channel, but the route runs out to the islands and the lighthouse in open wind."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:penguin colony stop",
+      "kind": "sight",
+      "subkind": "wildlife_viewing",
+      "operated": true,
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "A 1 h guided walk on a fixed path beside the birds needs a child who can keep to the path and follow the guide; the landing is by ladder and gangplank from a zodiac."
+        },
+        "kid_note": "A one-hour guided walk among Magellanic and Gentoo penguins on Isla Martillo, reached by a 15-minute zodiac ride and a landing with no pier. Only one operator lands; other boats watch from the water.",
+        "on_site_min": {
+          "v": [
+            60,
+            60
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "caminaremos 1 hora visitando la colonia de pingüinos papúas y de pingüinos magallánicos junto a nuestro guía",
+          "note": "The whole trip is about 7 hours by road and boat."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Landing straight onto the island from a semi-rigid zodiac, using ladders and a gangplank; no pier"
+            },
+            {
+              "category": "wildlife",
+              "note": "Keep to the path and the guide's distance from the birds"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "el desembarque se realiza directamente en la isla, sin muelle, utilizando escaleras y planchada"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "10-01",
+              "to": "04-30",
+              "status": "open",
+              "via": "boat",
+              "note": "penguins are on the island from October to April; landing walks are in the operator's summer programme"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008",
+            "src-0004"
+          ],
+          "quote": "Entre octubre y abril es posible avistar dos especies de pingüinos",
+          "applies_to": "2026"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "la excursión no es apta para personas con movilidad reducida"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "No pier: ladders, a gangplank and a natural, uneven landing."
+        },
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net Caminata en Isla Martillo (fares: 0-2 free, 3-11 child; no age rule)",
+            "piratour.net Caminata en Isla Martillo, versión terrestre (same text)",
+            "turismoushuaia.com Piratour and pingüinera provider pages"
+          ],
+          "note": "The plan's known gap: Piratour states no minimum age. Ask the operator."
+        },
+        "adult_required": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net Caminata en Isla Martillo (no rule on minors with an adult)",
+            "turismoushuaia.com Piratour provider page"
+          ]
+        },
+        "participation": {
+          "wear": {
+            "v": [
+              "closed_shoes",
+              "rain_shell",
+              "warm_hat"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0004"
+            ],
+            "quote": "CALZADO Y CAMPERA IMPERMEABLE, GORRO, GUANTES, LENTES DE SOL"
+          },
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": null,
+              "status": "The operator says the trip may change for weather; refund terms not on its page."
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0004"
+            ],
+            "quote": "ESTA EXCURSIÓN PUEDE SUFRIR VARIANTES POR FACTORES CLIMÁTICOS"
+          }
+        }
+      },
+      "ext": {
+        "kind": "wildlife",
+        "min_distance_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net Caminata en Isla Martillo (no distance rule)",
+            "turismoushuaia.com Navegación a la pingüinera (no distance rule)",
+            "web search for a provincial rule on Isla Martillo visits (none found)"
+          ]
+        },
+        "best_time": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net Caminata en Isla Martillo (departure times, no best time)",
+            "turismoushuaia.com Navegación a la pingüinera"
+          ]
+        },
+        "peak_months": {
+          "v": [
+            10,
+            11,
+            12,
+            1,
+            2,
+            3,
+            4
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "quote": "Entre octubre y abril es posible avistar dos especies de pingüinos"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+      "kind": "sight",
+      "subkind": "attraction",
+      "suitability": {
+        "kid_note": "Six railed walkway circuits from 150 m to 1.1 km facing the glacier. The lower circuits have many steps, and every step down must be climbed back. The park asks parents to keep children from running.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "quote": "SENDERO ACCESIBLE 565 m • 0:30 h. Complejidad Muy Baja"
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_km": 0.57,
+          "part_note": "the Sendero Accesible only; the other circuits have steps, the Sendero Inferior the most"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002",
+            "src-0015"
+          ],
+          "quote": "existiendo también un área de accesibilidad",
+          "note": "An accessible circuit (Sendero Accesible, 565 m) within a stepped network."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "note": "From the park's circuit times: 30 min (Accesible) to 2 h (Inferior); a visit usually combines two or three circuits."
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "note": "Railed walkways with an accessible circuit; nothing gates by age."
+        },
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "note": "Railed walkways and stairs; no hands-on sections."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "quote": "Servicios en el lugar: restaurant, snackbar, sanitarios, estacionamiento"
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "quote": "Servicios en el lugar: restaurant, snackbar"
+        },
+        "limited_capacity_note": "Benches along the walkways. The Sendero Accesible (565 m, very easy) and the Tempanos circuit (150 m) are the short options; avoid the Sendero Inferior, which has the most steps."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "City pavements with broken slabs and uneven kerbs; parks in Palermo have paved paths."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Wide avenues and parks, but kerb ramps and pavements are uneven; the Recoleta Cemetery has narrow, uneven aisles."
+        },
+        "kid_note": "A walking afternoon of parks, cafes and the Recoleta Cemetery; easy with a pushchair on the avenues, harder in the cemetery aisles.",
+        "on_site_min": {
+          "v": [
+            120,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The trip's stop length for an afternoon walk."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:san telmo market",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Calle Defensa and Plaza Dorrego are cobbled; crowded on fair days."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Cobbles and narrow shop doors; the covered market has level aisles but a busy crowd."
+        },
+        "kid_note": "Cobbled old-town streets and the covered market; the big street fair is on Sundays only. Hold small hands in the crowds.",
+        "on_site_min": {
+          "v": [
+            90,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The trip's stop length."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:cafe and bookshops",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Central Buenos Aires pavements, uneven in places."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Shop and cafe entrances often have a step; El Ateneo Grand Splendid's balconies are up stairs."
+        },
+        "kid_note": "A gentle last morning of cafes and bookshops, such as El Ateneo Grand Splendid, a former theatre.",
+        "on_site_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The trip's stop length."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:harbour walk",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "note": "Ushuaia's waterfront promenade (paseo costero) along Avenida Maipú is paved."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "note": "The waterfront promenade is level, but the town's streets climb steeply uphill from the shore."
+        },
+        "kid_note": "A short walk along the waterfront past the tourist pier and boat ticket booths; the streets behind it are steep.",
+        "on_site_min": {
+          "v": [
+            45,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The trip's stop length."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:village and cafes",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0016"
+          ],
+          "note": "El Chaltén's streets are partly unpaved gravel."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0016"
+          ],
+          "note": "The town's two short self-guided circuits were designed with accessibility in mind, but streets are partly gravel."
+        },
+        "kid_note": "A small trekking village with bakeries, cafes and two short self-guided circuits (history and nature) with audio guides.",
+        "on_site_min": {
+          "v": [
+            90,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The trip's stop length."
+        },
+        "limited_capacity_note": "The Circuito Azul (history) and Circuito Verde (nature) are short town circuits the tourism office designed for everyone, with audio guides in Spanish and English."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Roadside bay at the end of Ruta 3 with short boardwalks; the park says its short trails here are open to all."
+        },
+        "kid_note": "The end of Ruta 3, with boardwalks and short level trails (La Baliza 1.2 km, Paseo de la Isla 1.3 km) that the park opens to all visitors all year.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Boardwalks (pasarelas) from the car park at Bahía Lapataia; the short trails beyond are low-difficulty paths."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "the boardwalks at the bay; La Baliza and Paseo de la Isla are natural paths"
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "argentina.gob.ar/senderos-del-parque-nacional-tierra-del-fuego (only the Castorera has an adapted route)",
+            "argentina.gob.ar/parquesnacionales/tierradelfuego (park page)"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "45 min at the bay; up to 90 min with La Baliza (30 min) or Paseo de la Isla (30 min)."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "A shore and boardwalks; no drop-offs on the official short trails."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Ruta 3 ends here inside the national park"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "La Baliza ... habilitado durante todo el año para todo el público.",
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": 200,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "The bay is beside the Ruta 3 car park; the boardwalks start there (APN: La Baliza starts at the Bahía Lapataia walkways)."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "cold",
+              "note": "Cold, wet wind off the Beagle Channel even in summer"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Exposed shore at the end of the road."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A view from the village edge or the road into town; no walk needed."
+        },
+        "kid_note": "Fitz Roy is visible from the village itself; the evening light is a short stop near the lodging, with nothing to walk.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Village streets are partly gravel."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Seen from streets and the roadside; gravel in places."
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The trip's 45-minute stop around sunset."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Roadside and street viewpoints."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "the view needs a clear evening; summer sunsets are about 20:30-21:00"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The village is reached by the paved RP 23 all year; light from the trip's computed sun table."
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Seen from the village; the exact viewing spot is not fixed in the plan (see the lane log)."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A flat lakeside reserve on the edge of town (secondary descriptions)."
+        },
+        "kid_note": "A municipal nature reserve on the edge of El Calafate with a flat self-guided loop of about 3 km and flamingos on the shore of Lago Argentino. Official hours and fees were not found.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Secondary descriptions give a flat gravel and earth path; not confirmed by the municipality."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elcalafate.tur.ar (no Laguna Nimez page; laguna-nimez.htm 404)",
+            "lagunanimez.com (did not resolve)",
+            "web search for the municipal reserve page"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "About 1 to 1.5 h for the loop (plan research, secondary)."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Flat lakeshore and wetland."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elcalafate.tur.ar (no reserve page found)",
+            "lagunanimez.com (did not resolve)",
+            "web search for opening hours and season"
+          ],
+          "note": "Visitor reports give 08:00-18:00; not official."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elcalafate.tur.ar",
+            "lagunanimez.com (did not resolve)"
+          ],
+          "note": "Secondary sources say the gate is about 1 km from the town centre."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elchalten.tur.ar trail page for this route (no group rule)",
+            "elcalafate.tur.ar Parque Nacional Los Glaciares visitor rules (registration in winter only, no group size)",
+            "argentina.gob.ar/parquesnacionales/losglaciares (contacts only)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 13,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018",
+            "src-0019"
+          ],
+          "note": "About 21 km and 950-1,100 m of climbing (secondary figures; effort_km about 31), over every child ceiling below 13 (suitability 6.2), with a steep loose final climb of about 450 m."
+        },
+        "kid_note": "A long, hard day: about 21 km with the last 2.4 km climbing about 450 m on steep, loose ground. Laguna Capri, on the same trail, is the natural turnaround.",
+        "carrier_ok": {
+          "v": false,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018",
+            "src-0019"
+          ],
+          "note": "Steep loose scree on the final climb and a 7-10 h day."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Forest path, then steep scree."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Dificultad Alta"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0010"
+            ],
+            "quote": "Category: Trekking, Dificultad Alta"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Laguna de Los Tres (times only: 4 h each way)",
+                "argentina.gob.ar Los Glaciares pages (no trail table; senderos page 404)",
+                "argentina.travel El Chaltén (no figures)"
+              ],
+              "conflicts": [
+                {
+                  "v": 20.9,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "13 mi round trip = 20.9 km"
+                },
+                {
+                  "v": 21,
+                  "basis": "community",
+                  "src": [
+                    "src-0019"
+                  ],
+                  "note": "21 km round trip"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Laguna de Los Tres (no climb figure)",
+                "argentina.gob.ar Los Glaciares pages (no trail table)"
+              ],
+              "conflicts": [
+                {
+                  "v": 945,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "3,100 ft = 945 m"
+                },
+                {
+                  "v": 1103,
+                  "basis": "community",
+                  "src": [
+                    "src-0019"
+                  ],
+                  "note": "+1,103 m"
+                }
+              ]
+            },
+            "scrambling": {
+              "v": "none",
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0019"
+              ],
+              "note": "Secondary sources call the last pitch a steep loose climb, not a scramble."
+            },
+            "surface": {
+              "v": [
+                "dirt",
+                "roots",
+                "scree"
+              ],
+              "state": "value",
+              "basis": "community",
+              "src": [
+                "src-0018",
+                "src-0019"
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            480,
+            480
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "quote": "Ésta caminata tiene una duración de 4 horas por tramo",
+          "note": "4 h each way.",
+          "conflicts": [
+            {
+              "v": [
+                420,
+                600
+              ],
+              "basis": "community",
+              "src": [
+                "src-0019"
+              ],
+              "note": "7-10 hours"
+            }
+          ]
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the final climb above Poincenot: a high, open slope of loose scree"
+          },
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "high and exposed slope"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wind",
+              "note": "Strong, gusty wind is the norm in summer; check the forecast and the park information centre before the exposed sections"
+            },
+            {
+              "category": "terrain",
+              "note": "Steep, uneven, loose final 2.4 km; slow and careful on the descent"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0019",
+            "src-0018"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "10-01",
+              "to": "04-30",
+              "status": "open",
+              "via": "trail",
+              "note": "no registration rule stated for summer day walks"
+            },
+            {
+              "from": "05-01",
+              "to": "09-30",
+              "status": "limited",
+              "via": "trail",
+              "note": "winter: register at the park information centre before walking the trails"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "En temporada invernal (de Mayo a Septiembre) es necesario registrarse en el Centro de Informes del Parque para recorrer los senderos",
+          "note": "The page states only the winter rule; the October to April row is the rest of the year.",
+          "applies_to": "2026"
+        },
+        "bail_out": {
+          "v": [
+            {
+              "name": "Laguna Capri",
+              "at_km": 4,
+              "note": "same trail; a lake with a Fitz Roy view"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Capri at about 4 km (5 mi round trip, Switchback)."
+        },
+        "toilets": {
+          "v": [
+            "route"
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "outhouse",
+          "note": "An outhouse at the Laguna Capri camp."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "well signposted and maintained (except for the last push to the lake)"
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "Al igual que en todas las áreas protegidas de nuestro país, no se permite el ingreso con mascotas."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "no",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elchalten.tur.ar trail page for this route (no group rule)",
+            "elcalafate.tur.ar Parque Nacional Los Glaciares visitor rules (registration in winter only, no group size)",
+            "argentina.gob.ar/parquesnacionales/losglaciares (contacts only)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "About 8 km and 210 m (secondary; effort_km about 10) fits our 8-9 ceiling (9 km, 500 m) and slightly exceeds the 6-7 one; the first kilometre is steep."
+        },
+        "kid_note": "About 8 km there and back through lenga forest to a lake facing Fitz Roy. The first kilometre is steep; the rest is easier. There is an outhouse at the lake camp.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "A forest path with no hands-on sections; steep at the start."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Steep, rooty forest path."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Dificultad Media"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0011"
+            ],
+            "quote": "Category: Trekking, Dificultad Media"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Laguna Capri (times only)",
+                "argentina.gob.ar Los Glaciares pages (no trail table)"
+              ],
+              "conflicts": [
+                {
+                  "v": 8,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "5 mi round trip = 8.0 km"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Laguna Capri (no climb figure)",
+                "argentina.gob.ar Los Glaciares pages (no trail table)"
+              ],
+              "conflicts": [
+                {
+                  "v": 213,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "700 ft = 213 m"
+                }
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            210,
+            210
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "quote": "En total son 3:30 horas ida y vuelta."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Forest path to a lakeshore; no drop-offs described."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wind",
+              "note": "Strong, gusty wind is the norm in summer; check the forecast and the park information centre before the exposed sections"
+            },
+            {
+              "category": "terrain",
+              "note": "Steep first kilometre out of town"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0018"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "10-01",
+              "to": "04-30",
+              "status": "open",
+              "via": "trail",
+              "note": "no registration rule stated for summer day walks"
+            },
+            {
+              "from": "05-01",
+              "to": "09-30",
+              "status": "limited",
+              "via": "trail",
+              "note": "winter: register at the park information centre before walking the trails"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "En temporada invernal (de Mayo a Septiembre) es necesario registrarse en el Centro de Informes del Parque para recorrer los senderos",
+          "note": "The page states only the winter rule; the October to April row is the rest of the year.",
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "payoff"
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "outhouse"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "well signposted and maintained",
+          "note": "The same trail as Laguna de los Tres as far as Capri."
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "Al igual que en todas las áreas protegidas de nuestro país, no se permite el ingreso con mascotas."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elchalten.tur.ar trail page for this route (no group rule)",
+            "elcalafate.tur.ar Parque Nacional Los Glaciares visitor rules (registration in winter only, no group size)",
+            "argentina.gob.ar/parquesnacionales/losglaciares (contacts only)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "About 3-5 km and 90 m (secondary; effort_km 4-6) fits our 4-5 ceiling; wind is the main difficulty."
+        },
+        "kid_note": "The shortest walk in El Chaltén, from the park visitor centre at the village entrance to a hilltop view of the valley, Fitz Roy and the village. Often very windy.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Short path with no hands-on sections."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Narrow climbing dirt path."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Dificultad Baja"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0013"
+            ],
+            "quote": "Category: Trekking, Dificultad Baja",
+            "note": "Graded for the Cóndores and Águilas circuit."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Mirador de los Cóndores y Águilas (times only)",
+                "argentina.gob.ar Los Glaciares pages (no trail table)"
+              ],
+              "conflicts": [
+                {
+                  "v": 3.2,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "2 mi round trip = 3.2 km (lower end)"
+                },
+                {
+                  "v": 4.8,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "3 mi round trip = 4.8 km (upper end)"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Mirador de los Cóndores y Águilas (no climb figure)",
+                "argentina.gob.ar Los Glaciares pages (no trail table)"
+              ],
+              "conflicts": [
+                {
+                  "v": 91,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "300 ft = 91 m"
+                }
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0013"
+          ],
+          "note": "The official 3 h is for the whole Cóndores and Águilas circuit (1:30 each way); Cóndores alone is the shorter part."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the open hilltop viewpoint"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "No source describes drop-offs; set to some until checked, because the top is an open, windy hill."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wind",
+              "note": "Strong, gusty wind is the norm in summer; check the forecast and the park information centre before the exposed sections"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Wind is the main difficulty on this open hill (plan research); our wording."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "10-01",
+              "to": "04-30",
+              "status": "open",
+              "via": "trail",
+              "note": "no registration rule stated for summer day walks"
+            },
+            {
+              "from": "05-01",
+              "to": "09-30",
+              "status": "limited",
+              "via": "trail",
+              "note": "winter: register at the park information centre before walking the trails"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "En temporada invernal (de Mayo a Septiembre) es necesario registrarse en el Centro de Informes del Parque para recorrer los senderos",
+          "note": "The page states only the winter rule; the October to April row is the rest of the year.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "A short trail from the park visitor centre with a signed junction near the start (Switchback describes the turn)."
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "Al igual que en todas las áreas protegidas de nuestro país, no se permite el ingreso con mascotas."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elchalten.tur.ar trail page for this route (no group rule)",
+            "elcalafate.tur.ar Parque Nacional Los Glaciares visitor rules (registration in winter only, no group size)",
+            "argentina.gob.ar/parquesnacionales/losglaciares (contacts only)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018",
+            "src-0013"
+          ],
+          "note": "Cóndores plus less than a mile more (secondary); the full circuit is 3 h by the official time, which fits our 6-7 band."
+        },
+        "kid_note": "A short continuation past Mirador de los Cóndores to a viewpoint over Lago Viedma. Exposed to the wind.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Same path type as Cóndores; no hands-on sections."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Narrow dirt path."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Dificultad Baja"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0013"
+            ],
+            "quote": "Category: Trekking, Dificultad Baja"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Mirador de los Cóndores y Águilas (times only)",
+                "switchbacktravel.com (gives only 'less than a mile' beyond Cóndores)"
+              ]
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar Mirador de los Cóndores y Águilas (no climb figure)",
+                "argentina.gob.ar Los Glaciares pages (no trail table)"
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "Toma 1:30 de ida, 3 horas en total.",
+          "note": "For the whole Cóndores and Águilas circuit from the visitor centre."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the open hilltop over Lago Viedma"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "No source describes drop-offs; set to some until checked."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wind",
+              "note": "Strong, gusty wind is the norm in summer; check the forecast and the park information centre before the exposed sections"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Open, windy hill; our wording."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "10-01",
+              "to": "04-30",
+              "status": "open",
+              "via": "trail",
+              "note": "no registration rule stated for summer day walks"
+            },
+            {
+              "from": "05-01",
+              "to": "09-30",
+              "status": "limited",
+              "via": "trail",
+              "note": "winter: register at the park information centre before walking the trails"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "En temporada invernal (de Mayo a Septiembre) es necesario registrarse en el Centro de Informes del Parque para recorrer los senderos",
+          "note": "The page states only the winter rule; the October to April row is the rest of the year.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "The Águilas fork leaves the Cóndores path shortly before the Cóndores viewpoint."
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "Al igual que en todas las áreas protegidas de nuestro país, no se permite el ingreso con mascotas."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elchalten.tur.ar trail page for this route (no group rule)",
+            "elcalafate.tur.ar Parque Nacional Los Glaciares visitor rules (registration in winter only, no group size)",
+            "argentina.gob.ar/parquesnacionales/losglaciares (contacts only)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012",
+            "src-0018"
+          ],
+          "note": "About 6.5-8 km round trip on the flat from town (effort_km about 7-8), just over our 6-7 ceiling of 6 km; from the car park near the falls it is a short walk for any age."
+        },
+        "kid_note": "An almost flat walk to a 20 m waterfall, about 4 km from the village each way, partly beside the road. You can also drive to a car park near the falls and walk the last stretch.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Flat path and road shoulder."
+        },
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012",
+            "src-0018"
+          ],
+          "note": "Gravel road and bike-path sections; the final park path is not described."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "the road and gravel sections; the last stretch to the falls is a foot path"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Dificultad Baja"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0012"
+            ],
+            "quote": "Category: Trekking, Dificultad Baja"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 8,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0012"
+              ],
+              "quote": "se encuentra a solo 4 km del Chaltén",
+              "note": "4 km one way from the village, doubled for the return.",
+              "conflicts": [
+                {
+                  "v": 6.4,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "4 mi round trip = 6.4 km"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "elchalten.tur.ar El Chorrillo del Salto (no climb figure)",
+                "argentina.gob.ar Los Glaciares pages (no trail table)"
+              ],
+              "conflicts": [
+                {
+                  "v": 21,
+                  "basis": "community",
+                  "src": [
+                    "src-0018"
+                  ],
+                  "note": "70 ft = 21 m"
+                }
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            120,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "quote": "se puede llegar caminando en 1 hora",
+          "note": "1 h each way."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Flat valley floor; no drop-offs described."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "Part of the walk runs on or beside Ruta 41, a gravel road with traffic"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "quote": "transitando una parte por ruta vehicular, y otra parte por senda del Parque Nacional"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "10-01",
+              "to": "04-30",
+              "status": "open",
+              "via": "trail",
+              "note": "no registration rule stated for summer day walks"
+            },
+            {
+              "from": "05-01",
+              "to": "09-30",
+              "status": "limited",
+              "via": "trail",
+              "note": "winter: register at the park information centre before walking the trails"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "En temporada invernal (de Mayo a Septiembre) es necesario registrarse en el Centro de Informes del Parque para recorrer los senderos",
+          "note": "The page states only the winter rule; the October to April row is the rest of the year.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "Road and bike path from the north end of town, then the signed park path (Switchback describes the route)."
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "Al igual que en todas las áreas protegidas de nuestro país, no se permite el ingreso con mascotas."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 8,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:coastal path",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "argentina.gob.ar/senderos-del-parque-nacional-tierra-del-fuego (trail table: no group size, no registration)",
+            "argentina.gob.ar/parquesnacionales/tierradelfuego (park page)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "8 km one way and 70 m (APN; effort_km 8.7) fits our 8-9 ceiling and is over the 6-7 one; shorter sections are possible."
+        },
+        "kid_note": "A linear 8 km forest and shore path along the Beagle Channel, from Ensenada Zaratiegui towards the Alakush visitor centre. The park says it suits people with minimal fitness. You need transport back from the far end.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "A forest and coast path with no hands-on sections in the park's description."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Natural forest path with roots and short climbs."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "apn",
+              "value": "Medium"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0001"
+            ],
+            "quote": "Costera | Media | 8000 m | 4 hs | 70 m",
+            "note": "APN 'Media' is the map's 'Medium'."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 8,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "Costera ... 8000 m",
+              "note": "One way; the path is linear."
+            },
+            "gain_m": {
+              "v": 70,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "Costera ... 70 m"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            240,
+            240
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Costera ... 4 hs"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "short shore sections above the water"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "No official statement; a coastal path with short climbs above the shore, set to some until checked."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "cold",
+              "note": "Cold, wet weather off the channel; carry layers and food"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Tierra del Fuego summer weather; our wording."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "11-01",
+              "to": "04-30",
+              "status": "open",
+              "via": "trail",
+              "note": "the park lists the trail season as November to April"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Costera ... Nov a abril",
+          "applies_to": "2026"
+        },
+        "limited_capacity_note": "The park describes it as for people with minimal fitness and prior information. For less walking, the Lapataia trails (980 m to 1.35 km, open to all) are close by."
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "point-to-point",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "argentina.gob.ar/senderos-del-parque-nacional-tierra-del-fuego (marking stated only for La Baliza)",
+            "argentina.gob.ar/parquesnacionales/tierradelfuego"
+          ]
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "Al igual que en todas las áreas protegidas de nuestro país, no se permite el ingreso con mascotas."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 8,
+        "walk_gain_m": 70,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "turismoushuaia.com Laguna Esmeralda (no group rule; recommends a guided agency)",
+            "piratour.net Trekking Laguna Esmeralda (operator, no group rule for self-guided walkers)"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006",
+            "src-0020"
+          ],
+          "note": "9 km round trip (operator) with mud and peat bog and a rocky end; fits our 8-9 ceiling, over the 6-7 one."
+        },
+        "kid_note": "9 km there and back through lenga forest and peat bog to a glacial lagoon. Muddy, with raised boardwalks over the worst bog and a rocky final stretch. Waterproof boots matter more than distance.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0020"
+          ],
+          "note": "No hands-on sections; mud and a rocky end need sure footing."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0020"
+          ],
+          "note": "Mud, peat bog and rocks."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Dificultad media"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0007"
+            ],
+            "quote": "Sendero de dificultad media"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 9,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0006"
+              ],
+              "quote": "esta caminata de 9 km (ida y vuelta)"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "turismoushuaia.com Laguna Esmeralda (no climb figure)",
+                "piratour.net Trekking Laguna Esmeralda (no climb figure)"
+              ]
+            },
+            "surface": {
+              "v": [
+                "dirt",
+                "boardwalk",
+                "rock"
+              ],
+              "state": "value",
+              "basis": "community",
+              "src": [
+                "src-0020"
+              ],
+              "quote": "a slightly elevated wooden pathway crossing the most difficult portions"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            240,
+            240
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "La duración estimada desde el inicio del sendero hasta la laguna es de 2 horas",
+          "note": "2 h each way."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the rocky final climb to the lagoon"
+          },
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0020"
+          ],
+          "quote": "final scurry over the rocks is tricky"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Mud and peat bog; raised boardwalks over the worst parts"
+            },
+            {
+              "category": "remoteness",
+              "note": "No mobile signal at the trailhead; agree a pickup time in advance"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0020"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "trailhead and car park on Ruta 3, about 18 km from Ushuaia; snow in winter"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007",
+            "src-0006"
+          ],
+          "quote": "Available from TODO EL AÑO",
+          "applies_to": "2026"
+        },
+        "signal": {
+          "v": "none",
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0020"
+          ],
+          "quote": "There is no cell signal here"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0020"
+          ],
+          "quote": "well marked and highly trafficked"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 9,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

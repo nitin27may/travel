@@ -1,0 +1,567 @@
+{
+  "schema": "relevance/1",
+  "trip": "vermont-fall-2026",
+  "lane": "R6",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://gostowe.com/listing/stowe-recreation-path",
+      "title": "Stowe Recreation Path",
+      "publisher": "Go Stowe (Stowe Area Association)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://vtrans.vermont.gov/notch",
+      "title": "Smugglers Notch",
+      "publisher": "Vermont Agency of Transportation",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://fpr.vermont.gov/darling-state-park",
+      "title": "Darling State Park",
+      "publisher": "Vermont Department of Forests, Parks and Recreation",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://skiburke.com/plan-your-trip/area-activities",
+      "title": "Area activities",
+      "publisher": "Burke Mountain Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.montgomeryhistoricalsociety.org/mhshistorymaps.html",
+      "title": "Historic Montgomery maps",
+      "publisher": "Montgomery Historical Society",
+      "kind": "community",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Montgomery covered bridges': no item for the loop",
+          "montgomeryhistoricalsociety.org maps page"
+        ]
+      },
+      "class_key": "drive/scenic-parkway",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "note": "The town historical society maps six covered bridges in town plus one on the Enosburg line; no own designation found for the loop."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The densest group of covered bridges in northern Vermont."
+      },
+      "standing_scope": "northern Vermont",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Covered bridges are common across Vermont, but few towns hold this many within 10 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Roadside stops."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Bridges photograph well in soft light."
+      },
+      "why": "Six 19th-century covered bridges within a few miles of one village.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The bridges' individual listings were not confirmed in this pass."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:hyde park village",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q9005587",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match 'Hyde Park (village), Vermont' (enwiki title via Wikidata); the town is Q2051042"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A base village; no tourism board headline found."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A quiet base; Stowe is the area's draw."
+      },
+      "standing_scope": "Lamoille County",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Johnson, Morrisville and Jeffersonville nearby."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A short village walk."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A village walk."
+      },
+      "why": "A quiet village base with the rail trail at its edge.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation on a page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:peacham village",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q108940081",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match the census-designated place of Peacham village, 44.329 N 72.170 W; the town is Q1949894"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A host village of the Northeast Kingdom fall foliage festival (tourism board listing, trip research)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Among the most photographed fall villages of the Northeast Kingdom."
+      },
+      "standing_scope": "Northeast Kingdom",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Other white-church villages (Craftsbury Common, Barnet) within 50 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The village view is from the road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The classic view wants colour and clear light."
+      },
+      "why": "A hilltop white-steeple village in fall colour.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation on a page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "kind": "trail",
+      "subkind": "walk",
+      "wikidata": {
+        "v": "Q7620698",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match 'Stowe Recreation Path', the only item of this name; it has no coordinates on Wikidata"
+      },
+      "class_key": "trail/riverside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "The Stowe tourism board's free greenway, open all year."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best easy path in Stowe."
+      },
+      "standing_scope": "Stowe",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Lamoille Valley Rail Trail (20 km away) is the nearest similar paved path."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Any length of it gives the experience."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A paved path works in light rain."
+      },
+      "why": "A paved riverside path from Stowe village, any length, any age.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Free; no booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q4998953",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match Burke Mountain, Vermont, 44.571 N 71.893 W (not Q31619083 in North Carolina)"
+      },
+      "class_key": "viewpoint/summit-panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "Inside Darling State Park (parent); the CCC toll road reaches a 1912 fire tower, the first in Vermont."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A strong drive-up view; Mount Pisgah and Willoughby are the Kingdom's headline views."
+      },
+      "standing_scope": "Northeast Kingdom",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Mount Pisgah, Bald Mountain and other fire towers within 50 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The toll road reaches the summit area; a short walk to the tower."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A summit panorama needs clear air."
+      },
+      "why": "A drive-up summit and fire tower facing Willoughby Gap.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "fpr.vermont.gov Darling State Park page",
+          "skiburke.com area activities page"
+        ],
+        "note": "A toll road; fee, season and private-event closures not published on the pages read."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Darling State Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q7546619",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match Smugglers' Notch State Park, 44.554 N 72.796 W, which holds the pass; the search returns the ski resort Q7546617 first"
+      },
+      "class_key": "drive/mountain-pass",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "Inside Smugglers' Notch State Park (parent); the state transportation agency closes the road each winter and bans long vehicles."
+      },
+      "draw_peak": {
+        "v": {
+          "tier": "national",
+          "from": "09-25",
+          "to": "10-15",
+          "why": "northern Vermont fall foliage"
+        },
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Pattern year 2026; the foliage window draws visitors from across the country."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A dramatic pass; northern Vermont has several strong foliage drives."
+      },
+      "standing_scope": "northern Vermont",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Appalachian Gap and Lincoln Gap are the same class within 100 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Seen from the road and the pull-offs."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Cliffs and colour want clear light; the shaded slot is fine in overcast."
+      },
+      "why": "A narrow pass between cliffs on VT-108, at its best in fall colour.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "seasonal_road",
+            "note": "VT-108 through the Notch closes each winter"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Smugglers' Notch State Park",
+              "scope": "parent",
+              "wikidata": "Q7546619"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The pass lies inside the state park (Wikidata coordinates and the park name)."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    }
+  ]
+}

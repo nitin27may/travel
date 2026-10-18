@@ -1,0 +1,3748 @@
+{
+ "schema": "relevance/1",
+ "trip": "dolomites-2027",
+ "lane": "R1",
+ "researched": "2026-10-18",
+ "sources": [
+  {
+   "id": "src-0001",
+   "url": "https://www.dreizinnen.com/en/the-cable-cars/the-cable-cars/funbob",
+   "title": "Funbob: rules of conduct, season, prices",
+   "publisher": "3 Zinnen Dolomites (lift operator)",
+   "kind": "operator",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0006",
+   "url": "https://www.pustertal.org/en/leisure-activities/sport-offers/rafting/",
+   "title": "Rafting",
+   "publisher": "Pustertal tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0009",
+   "url": "https://www.lagazuoi.it/Pdf18/FuniviaLagazuoi_Estate2026_Altaebassastagione.pdf",
+   "title": "Cable car summer 2026 prices (PDF)",
+   "publisher": "Lagazuoi S.p.A.",
+   "kind": "operator",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0011",
+   "url": "https://lagazuoi.it/EN/Experience-Focus-on-this-page24-An-accessible-mountain",
+   "title": "An accessible mountain",
+   "publisher": "Lagazuoi S.p.A.",
+   "kind": "operator",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0012",
+   "url": "https://www.dreizinnen.com/en/activity/summer-walk-around-the-drei-zinnen-tre-cime-three-peaks-_569",
+   "title": "Summer walk around the Three Peaks",
+   "publisher": "3 Zinnen Dolomites tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0013",
+   "url": "https://www.dreizinnen.com/en/region/highlights/three-peaks",
+   "title": "Three Peaks: hikes, getting there, parking",
+   "publisher": "3 Zinnen Dolomites tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0014",
+   "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lago-di-braies-pragser-wildsee-mountain-croda-del-becco-seekofel-_544",
+   "title": "Lago di Braies to Croda del Becco/Seekofel",
+   "publisher": "3 Zinnen Dolomites tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0016",
+   "url": "https://www.dreizinnen.com/en/region/highlights/lake-prags",
+   "title": "Lake Prags: getting there, parking, best time",
+   "publisher": "3 Zinnen Dolomites tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0017",
+   "url": "https://www.prags.bz/en/",
+   "title": "Pragser Wildsee access regulation and arrival",
+   "publisher": "Prags/Braies valley (municipality and tourism)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0018",
+   "url": "https://www.dreizinnen.com/en/region/highlights/fischleintal-valley",
+   "title": "Fischleintal valley in Sexten",
+   "publisher": "3 Zinnen Dolomites tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0020",
+   "url": "https://pustertal.org/en/highlights/museums-and-exhibitions/outdoor-museum-monte-piana",
+   "title": "Outdoor museum Monte Piana",
+   "publisher": "Pustertal tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0021",
+   "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi5391b0a9a1cc94a9d93265d3619bb4c8.theme-path-monte-piano---museum-of-the-1st-world-war.sesto-sexten",
+   "title": "Theme path Monte Piano, museum of the First World War",
+   "publisher": "IDM Südtirol (provincial tourism board)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0022",
+   "url": "https://www.seiser-alm.it/de/freizeit-aktiv/berge-wandern/hansundpaulastegerweg/",
+   "title": "Hans-und-Paula-Steger-Weg",
+   "publisher": "Seiser Alm Marketing (tourism board)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0023",
+   "url": "https://seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches",
+   "title": "Bullaccia round trail and Witches' Benches",
+   "publisher": "Seiser Alm Marketing (tourism board)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0024",
+   "url": "https://www.seiseralm.it/media/08ba5643-e206-422e-a0f8-2529fe3b1edd/kinderwagentaugliche-wanderungen-de.pdf",
+   "title": "Kinderwagentaugliche Wanderungen in der Dolomitenregion Seiser Alm (PDF)",
+   "publisher": "Dolomitenregion Seiser Alm (tourism board)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0025",
+   "url": "https://www.valgardena.it/en/outdoor/base/outdoor/vallunga-langental-winter-walk/16420435/",
+   "title": "Vallunga/Langental walk",
+   "publisher": "Val Gardena tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0026",
+   "url": "https://www.seceda.it/en/summer",
+   "title": "Seceda summer: hours and prices",
+   "publisher": "Seceda AG (lift operator)",
+   "kind": "operator",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0027",
+   "url": "https://www.odlesdolomites.com/en/activities/84A3EDE0EBE349019877D7C478965A60",
+   "title": "Adolf Munkel Trail",
+   "publisher": "Villnöss/Funes tourism board (Odles Dolomites)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0029",
+   "url": "https://iceman.it/press-kit/SAM-Presseinformationen-DE.pdf",
+   "title": "Presseinformationen (press kit, PDF)",
+   "publisher": "South Tyrol Museum of Archaeology",
+   "kind": "operator",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0031",
+   "url": "https://eggental.com/en/info/lake-carezza_2317",
+   "title": "Lake Carezza",
+   "publisher": "Eggental tourism board",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0032",
+   "url": "https://cortina.dolomiti.org/it/escursioni/botanical-path-to-the-cascate-di-fanes-en",
+   "title": "Botanical path to the Cascate di Fanes",
+   "publisher": "Cortina d'Ampezzo tourist office (IAT)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0033",
+   "url": "https://cortina.dolomiti.org/pagina-altri-servizi/open-air-museum-of-the-great-war-at-cinque-torri",
+   "title": "Open air museum of the Great War at Cinque Torri",
+   "publisher": "Cortina d'Ampezzo tourist office (IAT)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0035",
+   "url": "https://www.dreizinnen.com/Kataloge/flyer-radweg-lienz.pdf",
+   "title": "Cycling path Innichen/San Candido > Lienz (flyer, PDF)",
+   "publisher": "Tourist Info Innichen/San Candido",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0036",
+   "url": "https://www.sasspordoi.it/en/info-times-and-prices/",
+   "title": "Sass Pordoi cable car: info, times and prices",
+   "publisher": "Sass Pordoi cable car (operator)",
+   "kind": "operator",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0037",
+   "url": "https://auronzo.info/en/parking-tre-cime-di-lavaredo/",
+   "title": "Parking Tre Cime di Lavaredo",
+   "publisher": "Comune di Auronzo di Cadore",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0039",
+   "url": "https://www.openstreetmap.org/relation/7302436",
+   "title": "SAT path 601 Viel del Pan, Passo Pordoi - Fedaia (cai_scale E)",
+   "publisher": "OpenStreetMap contributors (ODbL)",
+   "kind": "community",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0048",
+   "url": "research/trips/dolomites-july-2027/trails.md",
+   "title": "Trip research: trails lane (dated trail reports cited there)",
+   "publisher": "this repo",
+   "kind": "computed",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0049",
+   "url": "legacy/dolomites-july-2027/PLAN.md",
+   "title": "Trip plan",
+   "publisher": "this repo",
+   "kind": "computed",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0055",
+   "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-doch-befahrbar-26299020",
+   "title": "Südtirol: Grödner Joch doch befahrbar (search result, not opened)",
+   "publisher": "ÖAMTC (motoring club)",
+   "kind": "press",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0056",
+   "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
+   "title": "Stop al traffico Passo Gardena, verso la ZTL (search result, not opened)",
+   "publisher": "l'Adige (newspaper)",
+   "kind": "press",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0057",
+   "url": "https://cms.odlesdolomites.com/fileadmin/user_upload/Footer_Nachhaltigkeit/3.2_Sustainable_behaviour_Villn%C3%B6ss.pdf",
+   "title": "Sustainable behaviour, Villnöss (search result; the PDF did not open)",
+   "publisher": "Villnöss/Funes tourism board (Odles Dolomites)",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0058",
+   "url": "https://www.dolomitiunesco.info/en/the-dolomites-unesco-world-heritage-site/outstanding-universal-value",
+   "title": "The Dolomites UNESCO World Heritage Site: outstanding universal value (search result)",
+   "publisher": "Fondazione Dolomiti UNESCO",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0059",
+   "url": "https://whc.unesco.org/en/list/1237/",
+   "title": "The Dolomites (World Heritage List 1237; search result, whc pages return 403 to our fetch)",
+   "publisher": "UNESCO World Heritage Centre",
+   "kind": "official",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0061",
+   "url": "https://www.planetmountain.com/it/itinerari/lago-di-limides.html",
+   "title": "Lago di Limides (search result, not opened)",
+   "publisher": "planetmountain.com (mountain magazine)",
+   "kind": "press",
+   "read": "2026-10-18"
+  },
+  {
+   "id": "src-0063",
+   "url": "https://www.wikidata.org/",
+   "title": "Wikidata entity lookups (wbsearchentities, then wbgetentities: label, description, P625)",
+   "publisher": "Wikidata (CC0)",
+   "kind": "community",
+   "read": "2026-10-18"
+  }
+ ],
+ "records": [
+  {
+   "ref": "place/tre-cime-di-lavaredo-loop",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q1257207",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain range in the Dolomites', coordinates 46.6186, 12.3056 match the place; a person should re-check."
+   },
+   "class_key": "trail/alpine-loop",
+   "draw": {
+    "v": "world",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0013",
+     "src-0037"
+    ],
+    "note": "The tourism board calls the Three Peaks 'the icon of the Dolomites', a headline of the UNESCO World Heritage Site (official_highlight); the toll road needs a booked slot and the car park fills before 07:00 in summer."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The defining walk of the Sexten and Ampezzo Dolomites."
+   },
+   "standing_scope": "Sexten, Auronzo and Ampezzo Dolomites",
+   "distinction": {
+    "v": "unique",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0012"
+    ],
+    "note": "No other walk in Italy circles a group of north faces like these."
+   },
+   "easy_payoff": {
+    "v": "part",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0012"
+    ],
+    "note": "From Rifugio Auronzo the towers are seen from the side; the classic north-face view needs about an hour to Forcella Lavaredo."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Still worth walking in cloud, but the north-face view is the payoff."
+   },
+   "why": "A loop round the three towers whose north faces are the image of the Dolomites.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "toll_reservation",
+      "note": "Toll road to Rifugio Auronzo: online booking only, 40 EUR per car, ticket valid 12 h; or shuttle 444 from Dobbiaco"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0037"
+    ],
+    "note": "From the municipality's parking page."
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "official_highlight",
+       "name": "Three Peaks, a highlight of the UNESCO World Heritage Site (3 Zinnen tourism board)",
+       "scope": "own"
+      },
+      {
+       "type": "unesco_whs",
+       "name": "The Dolomites",
+       "id": "1237",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0013"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   },
+   "unique_because": "Three 500 m north faces seen all the way round on a walkers' path"
+  },
+  {
+   "ref": "place/cadini-di-misurina-viewpoint",
+   "kind": "viewpoint",
+   "subkind": "walk",
+   "wikidata": {
+    "v": "Q476378",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain range in the Dolomites (the Cadini group the viewpoint faces)', coordinates 46.5793, 12.2873 match the place; a person should re-check."
+   },
+   "class_key": "viewpoint/summit-panorama",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0037"
+    ],
+    "note": "Reached on the same booked toll road as the Tre Cime loop and done as its add-on; inside the UNESCO Dolomites (inherited designation, not draw). Widely photographed, but visitors come for the Tre Cime first."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The most dramatic spire view in the Misurina area."
+   },
+   "standing_scope": "Misurina and the Tre Cime toll road",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Spire panoramas of this kind exist (Seceda, 60 km), but none of the Cadini."
+   },
+   "easy_payoff": {
+    "v": "none",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The view is only at the end of the exposed spur."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A view of spires; in cloud there is nothing to see."
+   },
+   "why": "A short spur to a rocky promontory facing the jagged Cadini di Misurina spires.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "toll_reservation",
+      "note": "Same Rifugio Auronzo toll road and booking as the Tre Cime loop"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0037"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "unesco_whs",
+       "name": "The Dolomites",
+       "id": "1237",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0048"
+     ],
+     "note": "Inherited from the Dolomites serial site as for the Tre Cime; not confirmed on a land-manager page for this spot."
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-di-sorapis",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q15410555",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in the Dolomites, Northern Italy', coordinates 46.5204, 12.2236 match the place; a person should re-check."
+   },
+   "class_key": "lake/alpine-hike-in",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0048"
+    ],
+    "note": "The turquoise lake under the Sorapiss is a destination in itself: the 20-car Passo Tre Croci car park fills by 06:00-06:30 in July (sells out early). No designation of its own; inside the UNESCO Dolomites (inherited)."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The best-known hike-in lake around Cortina."
+   },
+   "standing_scope": "Cortina d'Ampezzo and Misurina",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0048"
+    ],
+    "note": "Other hike-in lakes lie within 20 km (Federa, Limides) but none with this colour."
+   },
+   "easy_payoff": {
+    "v": "none",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The lake is only at the end of the 6 km traverse."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The colour needs sun; the walk works in cloud."
+   },
+   "why": "A milky-turquoise lake under the Sorapiss wall at the end of a cliff-side path.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking or toll; the constraint is the small car park."
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "unesco_whs",
+       "name": "The Dolomites",
+       "id": "1237",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0048"
+     ],
+     "note": "Inherited; not confirmed on a land-manager page."
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/cinque-torri",
+   "kind": "sight",
+   "subkind": "walk",
+   "wikidata": {
+    "v": "Q933666",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain in the Dolomites', coordinates 46.5093, 12.054 match the place; a person should re-check."
+   },
+   "class_key": "sight/heritage-site",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0033"
+    ],
+    "note": "The Cortina tourism board (IAT tourist office) lists the open-air WWI museum here as part of the largest in the Dolomites with Lagazuoi and Sass de Stria; a chairlift serves it."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The most accessible of the Ampezzo WWI open-air museums."
+   },
+   "standing_scope": "Cortina d'Ampezzo and Passo Falzarego",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0033"
+    ],
+    "note": "Lagazuoi (5 km) and Monte Piana (30 km) are the same kind."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The chairlift lands next to the trenches."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Trenches and towers work in cloud; the panorama does not."
+   },
+   "why": "Restored WWI trenches and gun posts among five rock towers, a chairlift ride from the road.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "The chairlift is optional; a path climbs from Bai de Dones."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "cortina.dolomiti.org open-air museum page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/monte-piana",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q872637",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain in the Sexten Dolomites', coordinates 46.6153, 12.2394 match the place; a person should re-check."
+   },
+   "class_key": "sight/heritage-site",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0020"
+    ],
+    "note": "The Pustertal tourism board presents the outdoor museum as a highlight; a jeep shuttle serves it from Misurina."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A rich WWI site, less visited than Lagazuoi."
+   },
+   "standing_scope": "Misurina and the Sexten Dolomites",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0020"
+    ],
+    "note": "Cinque Torri and Lagazuoi (30 km) are the same kind; this one faces the Tre Cime."
+   },
+   "easy_payoff": {
+    "v": "most",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0020",
+     "src-0021"
+    ],
+    "note": "The jeep shuttle reaches Rifugio Bosi, a 1 km walk from the trenches."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The trenches work in cloud; the Tre Cime view needs clear air."
+   },
+   "why": "WWI trenches and tunnels on a plateau facing the Tre Cime, with a jeep shuttle to the top.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "The shuttle needs no reservation."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "pustertal.org outdoor museum page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/croda-del-becco",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q446041",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain in Northern Italy (Seekofel)', coordinates 46.6752, 12.0728 match the place; a person should re-check."
+   },
+   "class_key": "peak/summit",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0014"
+    ],
+    "note": "A tourism board summit tour from Lago di Braies; no designation of its own. Visitors already at Braies add it."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A big summit above Braies; the Braies valley has easier peaks."
+   },
+   "standing_scope": "Braies and the Fanes-Sennes-Prags park",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Several 2,800 m summits lie within 30 km."
+   },
+   "easy_payoff": {
+    "v": "none",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The summit view needs the full climb."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A summit panorama."
+   },
+   "why": "A long climb from Lago di Braies to a summit looking down on the lake and the Fanes plateau.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "toll_reservation",
+      "note": "Braies valley road: 1 Jul-15 Sep, 09:00-16:00 cars only with an online reservation"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0017"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "dreizinnen.com tour 544: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/val-fiscalina",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q1420331",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'valley in South Tyrol, Italy', coordinates 46.6559, 12.3529 match the place; a person should re-check."
+   },
+   "class_key": "trail/riverside",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0018"
+    ],
+    "note": "The tourism board calls the Fischleintal 'one of the most beautiful hiking areas in South Tyrol' and a premier family area; the most famous hike from it goes to the Three Peaks."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The family valley walk of the Sexten Dolomites."
+   },
+   "standing_scope": "Sexten and San Candido",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Flat valley walks to a hut under big walls are common in the Dolomites (Vallunga, Landro)."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0018"
+    ],
+    "note": "The view of the Croda dei Toni at the valley end is the payoff, reached on a flat road."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A valley walk that works in cloud."
+   },
+   "why": "A flat valley road to a hut under the Croda dei Toni, with buggies welcome.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "Paid car park; no booking."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "dreizinnen.com Fischleintal page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-federa",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q3825692",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in Italy', coordinates 46.4881, 12.1045 match the place; a person should re-check."
+   },
+   "class_key": "lake/alpine-hike-in",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0048"
+    ],
+    "note": "A hike-in lake beside a CAI hut, inside the UNESCO Dolomites (inherited designation, not draw); visitors staying in Cortina add it."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A fine hike-in lake; Sorapis is the bigger draw nearby."
+   },
+   "standing_scope": "Cortina d'Ampezzo",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Sorapis (12 km) and Limides (8 km) are hike-in lakes nearby."
+   },
+   "easy_payoff": {
+    "v": "none",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Only on foot, 4 km each way."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The mirror of the Croda da Lago needs still, clear air."
+   },
+   "why": "A still lake under the Croda da Lago wall beside a mountain hut, reached through forest.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "Free roadside parking at Ru Curto."
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "unesco_whs",
+       "name": "The Dolomites",
+       "id": "1237",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0048"
+     ],
+     "note": "Inherited (Pelmo-Croda da Lago system); not confirmed on a land-manager page."
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   },
+   "easy_way": "part/place/lago-federa#walk"
+  },
+  {
+   "ref": "place/cascate-di-fanes",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q67370898",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'waterfall in Val di Fanes near Cortina d'Ampezzo', coordinates 46.5945, 12.0842 match the place; a person should re-check."
+   },
+   "class_key": "waterfall/hike-in",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0032"
+    ],
+    "note": "A signed botanical path from the information office of the Natural Park of the Ampezzo Dolomites (designation inherited, not draw); the Cortina tourist office lists it."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The waterfall walk of the Cortina area."
+   },
+   "standing_scope": "Cortina d'Ampezzo",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Few large waterfalls in the Dolomites; the gorge is the main one near Cortina."
+   },
+   "easy_payoff": {
+    "v": "part",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0032"
+    ],
+    "note": "The flat start is a forest walk; the falls need the canyon path."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Waterfalls and forest work in rain; the canyon path is slippery when wet."
+   },
+   "why": "A botanical forest path to a series of waterfalls and a gorge in the Ampezzo park.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "provincial_or_state_park",
+       "name": "Natural Park of the Ampezzo Dolomites",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0032"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/adolf-munkel-weg",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": null,
+    "state": "searched_none",
+    "basis": null,
+    "src": [],
+    "on": "2026-10-18",
+    "tried": [
+     "wbsearchentities 'Adolf-Munkel-Weg' (de)",
+     "wbsearchentities 'Munkelweg' (de)"
+    ],
+    "note": "No Wikidata item matched by name, coordinates and description."
+   },
+   "class_key": "trail/alpine-loop",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0027"
+    ],
+    "note": "The Villnöss tourism board's signature walk under the Odle north faces, inside the Puez-Odle nature park and the UNESCO Dolomites (inherited designations, not draw)."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The best walk of Val di Funes."
+   },
+   "standing_scope": "Val di Funes",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Close-up walks under north faces exist (Tre Cime, 60 km), but none of the Odle."
+   },
+   "easy_payoff": {
+    "v": "part",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The Zans car park has a view of the Odle; the close-up needs the walk."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The wall is the payoff; forest sections work in cloud."
+   },
+   "why": "A forest-and-meadow path right under the Odle north faces, with huts on the way.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "toll_reservation",
+      "note": "Paid car park at Zans; reserve a space online in high season"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0027"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "provincial_or_state_park",
+       "name": "Puez-Odle Nature Park",
+       "scope": "parent"
+      },
+      {
+       "type": "unesco_whs",
+       "name": "The Dolomites",
+       "id": "1237",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0027"
+     ],
+     "note": "The board presents the trail as part of the Puez-Odle nature park and notes the UNESCO listing (search result of its site)."
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/alpe-di-siusi",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q1261451",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'alpine meadow in South Tyrol, Italy (the walk crosses it)', coordinates 46.5411, 11.6447 match the place; a person should re-check."
+   },
+   "class_key": "trail/alpine-loop",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0024"
+    ],
+    "note": "The tourism board calls the Seiser Alm the largest high alpine pasture in Europe; private cars are kept off the Alm road by day and the cable car is the way up."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The signature easy walk of the Alpe di Siusi."
+   },
+   "standing_scope": "Alpe di Siusi and Val Gardena",
+   "distinction": {
+    "v": "unique",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0024"
+    ],
+    "note": "The board calls it the largest high alpine pasture in Europe."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0022"
+    ],
+    "note": "The cable car lands on the meadows; the views start at once."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Pleasant in cloud, but the Sassolungo view is the point."
+   },
+   "why": "An easy walk across Europe's largest high pasture under the Sassolungo and Sciliar.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "lift_only",
+      "note": "Day access to Compatsch by the Seiser Alm Bahn; the Alm road is closed to private cars by day (plan, not re-read)"
+     }
+    ],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "seiser-alm.it Steger trail page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   },
+   "unique_because": "Europe's largest high alpine pasture, by the tourism board's account"
+  },
+  {
+   "ref": "place/bullaccia-and-the-witches-benches",
+   "kind": "viewpoint",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q2117539",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain in Italy (Bulacia/Puflatsch)', coordinates 46.564, 11.6159 match the place; a person should re-check."
+   },
+   "class_key": "viewpoint/summit-panorama",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0023"
+    ],
+    "note": "A tourism board family round on the Alpe di Siusi; visitors already on the Alm add it."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A fine plateau round; the Steger trail is the headline walk."
+   },
+   "standing_scope": "Alpe di Siusi",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Plateau viewpoints over the Alm are many."
+   },
+   "easy_payoff": {
+    "v": "most",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0024"
+    ],
+    "note": "The Puflatsch gondola reaches the plateau near the Engelrast viewpoint."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A view walk."
+   },
+   "why": "A plateau round to the legendary Witches' Benches with views over the whole Alpe di Siusi.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "lift_only",
+      "note": "Reached from Compatsch, itself reached by the Seiser Alm Bahn by day"
+     }
+    ],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "seiser-alm.it Bullaccia page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/vallunga",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q1408786",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'valley in South Tyrol (Langental)', coordinates 46.5743, 11.7978 match the place; a person should re-check."
+   },
+   "class_key": "trail/forest-loop",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0025"
+    ],
+    "note": "A valley walk from Selva at the entrance to the Puez-Geisler nature park (designation inherited, not draw); residents' and guests' outing."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A pleasant valley walk; Fiscalina is the bigger name of this kind."
+   },
+   "standing_scope": "Val Gardena",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Valley walks of this kind are many (Fiscalina, Fanes)."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The valley opens at once from the car park."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A valley walk that works in cloud."
+   },
+   "why": "A gentle valley walk under steep walls into the Puez-Geisler park, from Selva.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "provincial_or_state_park",
+       "name": "Puez-Geisler Nature Park",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0025"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/viel-dal-pan",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": null,
+    "state": "searched_none",
+    "basis": null,
+    "src": [],
+    "on": "2026-10-18",
+    "tried": [
+     "wbsearchentities 'Viel dal Pan' (it)",
+     "wbsearchentities 'Bindelweg' (de)"
+    ],
+    "note": "No Wikidata item matched by name, coordinates and description."
+   },
+   "class_key": "trail/lookout",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0039"
+    ],
+    "note": "A balcony path facing the Marmolada glacier; no designation of its own; visitors in Fassa or Arabba add it. (Signals read by the tool only.)"
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The classic Marmolada view walk."
+   },
+   "standing_scope": "Passo Pordoi, Val di Fassa and Arabba",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "No other path faces the Marmolada glacier so closely."
+   },
+   "easy_payoff": {
+    "v": "most",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0039"
+    ],
+    "note": "The view starts within an hour of Passo Pordoi."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The glacier view is the whole point."
+   },
+   "why": "A balcony path from Passo Pordoi with the Marmolada glacier in view the whole way.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "OSM relation of SAT path 601: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/sass-pordoi-and-piz-boe",
+   "kind": "trail",
+   "subkind": "hike",
+   "wikidata": {
+    "v": "Q1478439",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain (Piz Boè, Sella group)', coordinates 46.51, 11.8278 match the place; a person should re-check."
+   },
+   "class_key": "peak/summit",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0036"
+    ],
+    "note": "A lift-served 3,000 m summit of the Sella; no designation of its own (the Sella is outside the UNESCO systems). Visitors staying nearby add it."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "One of the easiest 3,000 m summits; the Sass Pordoi terrace alone gets much of the view."
+   },
+   "standing_scope": "Sella passes",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Few lift-assisted 3,000 m summits in the Dolomites."
+   },
+   "easy_payoff": {
+    "v": "most",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0036"
+    ],
+    "note": "The cable car to 2,950 m gives most of the panorama from the terrace."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A summit panorama."
+   },
+   "why": "A cable car to 2,950 m, then a roped path to the 3,152 m top of the Sella.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "lift_only",
+      "note": "Sass Pordoi cable car, 32 EUR return (2026)"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0036"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "sasspordoi.it info page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lagazuoi-cable-car-and-tunnels",
+   "kind": "lift",
+   "subkind": "cable_car",
+   "wikidata": {
+    "v": "Q16557871",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'funivia italiana (Funivia del Lagazuoi)', coordinates 46.5192, 12.0085 match the place; a person should re-check."
+   },
+   "class_key": "lift/cable-car-hike",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0033"
+    ],
+    "note": "The Cortina tourism board (IAT tourist office) lists the Lagazuoi open-air WWI museum among the largest in the Dolomites; the cable car makes it easy."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The best lift-served panorama and WWI site of the Falzarego."
+   },
+   "standing_scope": "Passo Falzarego and Cortina",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Cinque Torri (5 km) is the same kind on a smaller scale."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0011"
+    ],
+    "note": "The cable car terrace gets the panorama; the tunnels are extra."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The tunnels work in any weather; the panorama needs clear air."
+   },
+   "why": "A 3-minute cable car to a 2,752 m terrace, with a WWI tunnel descent inside the mountain.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "lift_only",
+      "note": "21 EUR one way, 29.50 EUR return (2026, outside August)"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0009"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "lagazuoi.it cable car page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/seceda-ridge",
+   "kind": "viewpoint",
+   "subkind": "walk",
+   "wikidata": {
+    "v": "Q2263528",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain in Italy (Secëda)', coordinates 46.6006, 11.7258 match the place; a person should re-check."
+   },
+   "class_key": "viewpoint/summit-panorama",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0026"
+    ],
+    "note": "The Odle ridge view from Seceda is the image of Val Gardena; inside the Puez-Odle park and the UNESCO Dolomites (inherited designation, not draw). Lift tickets are sold for time slots and parking is limited."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The signature view of Val Gardena."
+   },
+   "standing_scope": "Val Gardena",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Ridge panoramas of this kind: Cadini (60 km); none of the Odle."
+   },
+   "easy_payoff": {
+    "v": "most",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0026"
+    ],
+    "note": "The cable car plus a short ridge walk."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A view of a ridge; in cloud it is gone."
+   },
+   "why": "A grassy ridge that tilts up to the Fermeda spires, a cable car and a short walk from Ortisei.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "lift_only",
+      "note": "Ortisei-Furnes-Seceda, 74 EUR adult return (2026); online tickets recommended"
+     }
+    ],
+    "state": "value",
+    "basis": "operator_rule",
+    "src": [
+     "src-0026"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "unesco_whs",
+       "name": "The Dolomites",
+       "id": "1237",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0027"
+     ],
+     "note": "Inherited (Puez-Odle system); not confirmed on the operator page."
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-di-braies",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q445369",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in the Dolomites', coordinates 46.6936, 12.085 match the place; a person should re-check."
+   },
+   "class_key": "lake/glacial-turquoise",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0016",
+     "src-0017"
+    ],
+    "note": "The tourism board calls it widely regarded as the most beautiful lake in the Dolomites and one of the main highlights of the region (official_highlight); summer car access needs a reservation. Chose national over world when in doubt."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The headline lake of the Pustertal."
+   },
+   "standing_scope": "Pustertal and the Fanes-Sennes-Prags park",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Carezza (100 km) and Sorapis (35 km) are the same kind."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0017"
+    ],
+    "note": "The shore is 100 m from the P4 car park."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Still lovely in cloud; the Seekofel reflection needs calm and light."
+   },
+   "why": "A green lake under the Seekofel wall with wooden rowing boats, steps from the car park.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "toll_reservation",
+      "note": "1 Jul-15 Sep, 09:00-16:00: cars only with an online reservation (44 EUR including a 22 EUR voucher); buses 442 and 439 need booking"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0017"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "official_highlight",
+       "name": "Lake Prags, a main highlight of the 3 Zinnen region",
+       "scope": "own"
+      },
+      {
+       "type": "provincial_or_state_park",
+       "name": "Fanes-Sennes-Prags Nature Park",
+       "scope": "parent"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0016"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-di-carezza",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q1416530",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain lake in the Dolomites (Karersee)', coordinates 46.4092, 11.575 match the place; a person should re-check."
+   },
+   "class_key": "lake/small-mirror",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0031"
+    ],
+    "note": "A designated natural monument (own) that the tourism board calls 'the most gorgeous Alpine mountain lake'; a visitor centre and paid parking serve it. Signals decide between national and regional."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The famous lake of the Eggental."
+   },
+   "standing_scope": "Eggental and Val di Fassa",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Braies (100 km) is the same draw; few lakes reflect a range like the Latemar."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0031"
+    ],
+    "note": "A barrier-free path from the car park."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The colour and the Latemar mirror need sun and still air."
+   },
+   "why": "A small, many-coloured lake mirroring the Latemar spires, a short barrier-free path from the car park.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "Paid car park; no booking found on the board page."
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "natural_monument",
+       "name": "Lake Carezza natural monument",
+       "scope": "own"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0031"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-di-landro",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q691103",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in the Dolomites (Dürrensee)', coordinates 46.63, 12.2319 match the place; a person should re-check."
+   },
+   "class_key": "lake/small-mirror",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "A roadside lake with the Monte Cristallo head-on; no designation of its own read. Signals over-score it (relevance.md 2.3): judged regional because it is a roadside photo stop."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A fine roadside view; Misurina is the bigger stop."
+   },
+   "standing_scope": "Landro valley and Misurina",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Roadside mirror lakes: Misurina (10 km), Antorno (8 km), Dobbiaco (8 km)."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Seen from the roadside car parks."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The Cristallo reflection is the point."
+   },
+   "why": "A roadside lake with Monte Cristallo square across the water.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "Lago di Landro (no land-manager page read): the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-dantorno",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q2217047",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in the Dolomites, Belluno Province, Italy', coordinates 46.5951, 12.2654 match the place; a person should re-check."
+   },
+   "class_key": "lake/small-mirror",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "A small lake beside the Tre Cime toll road and the Monte Piana car park; no designation of its own; a stop on the way, not a goal."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A quiet mirror of the Cadini, close to busier Misurina."
+   },
+   "standing_scope": "Misurina",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Misurina (1.5 km) and Landro (8 km) are the same kind."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Roadside."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A mirror lake."
+   },
+   "why": "A small mirror lake under the Cadini on the road up to the Tre Cime.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "Lago d'Antorno (no land-manager page read): the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-di-dobbiaco",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q2438157",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in Northern Italy (Toblacher See)', coordinates 46.7031, 12.2192 match the place; a person should re-check."
+   },
+   "class_key": "lake/small-mirror",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "A valley-floor lake beside the SS51 with a loop path; no designation of its own read; an evening walk for people staying nearby."
+   },
+   "standing": {
+    "v": "ordinary",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Pleasant and interchangeable with other valley lakes."
+   },
+   "standing_scope": "Alta Pusteria",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Landro (8 km) and Braies (15 km) are nearby lakes."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Roadside, with a flat loop."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Pleasant in any light."
+   },
+   "why": "A calm valley lake with a flat loop path, an easy evening walk from Dobbiaco.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "Lago di Dobbiaco (no land-manager page read): the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   },
+   "easy_way": "part/place/lago-di-dobbiaco#walk"
+  },
+  {
+   "ref": "place/lago-di-misurina",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q1177961",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in Veneto, Italy', coordinates 46.5819, 12.2539 match the place; a person should re-check."
+   },
+   "class_key": "lake/small-mirror",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0048"
+    ],
+    "note": "A lake resort on the road to the Tre Cime, with the Sorapiss reflected; the Tre Cime shuttle and buses stop here. No designation of its own read."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The easy lake stop of the Tre Cime area."
+   },
+   "standing_scope": "Misurina and Auronzo",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Antorno (1.5 km) and Landro (10 km)."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Roadside, with a flat loop."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Pleasant in cloud; the reflection needs calm."
+   },
+   "why": "A roadside lake with a flat loop path and the Sorapiss reflected, at the foot of the Tre Cime road.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "Lago di Misurina (no land-manager page read): the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/lago-di-limides",
+   "kind": "lake",
+   "subkind": "lake",
+   "wikidata": {
+    "v": "Q55978735",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'lake in the Dolomites', coordinates 46.5118, 12.0229 match the place; a person should re-check."
+   },
+   "class_key": "lake/small-mirror",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0061"
+    ],
+    "note": "A small pond 20-30 min off the Falzarego road; no designation of its own. Signals under 3 languages; known to photographers for the Tofana reflection."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The best sunset mirror near Passo Falzarego."
+   },
+   "standing_scope": "Passo Falzarego",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Small mirror lakes are common in the area."
+   },
+   "easy_payoff": {
+    "v": "most",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0061"
+    ],
+    "note": "A short walk from the Falzarego car park."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Needs dead calm and clear light."
+   },
+   "why": "A small pond that mirrors Tofana di Rozes at sunset, a short walk from Passo Falzarego.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "Lago di Limides (no land-manager page read): the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   },
+   "easy_way": "part/place/lago-di-limides#walk"
+  },
+  {
+   "ref": "place/passo-gardena",
+   "kind": "viewpoint",
+   "subkind": "viewpoint",
+   "wikidata": {
+    "v": "Q1416427",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain pass in the Dolomites, in South Tyrol', coordinates 46.55, 11.8094 match the place; a person should re-check."
+   },
+   "class_key": "drive/mountain-pass",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0056"
+    ],
+    "note": "A Sellaronda road pass; the Province plans a limited-traffic zone with booked day spaces from 2027 (permit-style access, press reports)."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "One of the four Sella passes; Passo Pordoi and Sella are similar."
+   },
+   "standing_scope": "Sella passes",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Passo Sella, Pordoi and Campolongo are within 15 km."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Seen from the road."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A view of the Cir spires and Sella walls."
+   },
+   "why": "A road pass between Val Gardena and Alta Badia under the Cir spires and the Sella walls.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "seasonal_road",
+      "note": "A seasonal limited-traffic zone with about 150 bookable day spaces is planned from 2027; not in force on the read date"
+     }
+    ],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0055",
+     "src-0056"
+    ],
+    "note": "Press reports (search results)."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "Passo Gardena (no land-manager page read): the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/santa-maddalena-val-di-funes",
+   "kind": "viewpoint",
+   "subkind": "viewpoint",
+   "wikidata": {
+    "v": "Q33481488",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'human settlement in Villnöß, South Tyrol, Italy', coordinates 46.6384, 11.7186 match the place; a person should re-check."
+   },
+   "class_key": "sight/landmark",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0057"
+    ],
+    "note": "The church under the Odle wall is one of the best-known images of South Tyrol; the land manager closes the church road to non-residents and asks visitors to walk."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The signature view of Val di Funes."
+   },
+   "standing_scope": "Val di Funes",
+   "distinction": {
+    "v": "unique",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "No other church sits under a wall like the Odle."
+   },
+   "easy_payoff": {
+    "v": "most",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0057"
+    ],
+    "note": "A 30 min walk from the designated parking."
+   },
+   "weather": {
+    "v": "clear_only",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The Odle wall must be visible."
+   },
+   "why": "A small church in meadows under the jagged Odle wall, best in late-afternoon light.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "long_walk_in",
+      "note": "Church road closed to non-residents; park and walk about 30 min"
+     }
+    ],
+    "state": "value",
+    "basis": "official_info",
+    "src": [
+     "src-0057"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "odlesdolomites.com: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   },
+   "unique_because": "A village church set against the Odle north faces"
+  },
+  {
+   "ref": "place/cortina-dampezzo",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q41158",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'town and comune in the Province of Belluno, Veneto', coordinates 46.5383, 12.1374 match the place; a person should re-check."
+   },
+   "class_key": "town/alpine-resort",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A host town of the 2026 Winter Olympics and the gateway to the UNESCO Dolomites of Ampezzo (inherited designation, not draw)."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Ampezzo and Cadore",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "The best-known resort town of the Dolomites, with a pedestrian main street.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "cortina-dampezzo: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/ortisei",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q255568",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'municipality in South Tyrol, Italy (Urtijëi)', coordinates 46.5752, 11.6721 match the place; a person should re-check."
+   },
+   "class_key": "town/alpine-resort",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The main Val Gardena village and base for the Seceda and Alpe di Siusi lifts; the valley tourism board markets it. Visitors stay here for the lifts."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Val Gardena",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "The main Val Gardena village, with a car-free centre and lifts to Seceda and the Alpe di Siusi.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "ortisei: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/selva-di-val-gardena",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q499129",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'municipality in South Tyrol, Italy (Sëlva)', coordinates 46.5558, 11.7606 match the place; a person should re-check."
+   },
+   "class_key": "town/alpine-resort",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The Val Gardena base for the Sella passes; the valley tourism board markets it."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Val Gardena",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "The highest Val Gardena village, at the foot of the Sella passes and Vallunga.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "selva-di-val-gardena: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/santa-cristina",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q504253",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'municipality in South Tyrol, Italy', coordinates 46.5591, 11.7155 match the place; a person should re-check."
+   },
+   "class_key": "town/alpine-resort",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A quieter Val Gardena village; the valley tourism board markets the valley, not the village."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Val Gardena",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "A quieter Val Gardena village with the Col Raiser lift up to the Seceda side.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "santa-cristina: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/san-candido",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q474782",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'municipality in Italy (Innichen)', coordinates 46.7329, 12.2792 match the place; a person should re-check."
+   },
+   "class_key": "town/historic-village",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The Alta Pusteria base town with its collegiate church; the 3 Zinnen tourism board markets the region and the Drava cycle path starts here."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Alta Pusteria",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "A valley town with a Romanesque collegiate church, start of the Drava cycle path and the Funbob.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "san-candido: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/dobbiaco",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q380189",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'municipality in Italy (Toblach)', coordinates 46.7354, 12.2243 match the place; a person should re-check."
+   },
+   "class_key": "town/historic-village",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A valley village; the 3 Zinnen tourism board markets the region, not the village."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Alta Pusteria",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "A valley-floor village between the Landro valley and the Drava path.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "dobbiaco: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/san-vito-di-cadore",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q41024",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'Italian comune', coordinates 46.459, 12.2057 match the place; a person should re-check."
+   },
+   "class_key": "town/alpine-resort",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A village on the Cortina road; no designation of its own; a cheaper base for Cortina."
+   },
+   "standing": {
+    "v": "ordinary",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Cadore",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "A village south of Cortina under the Antelao and Pelmo, a quieter base for the Ampezzo.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "san-vito-di-cadore: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/la-val",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q419733",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'municipality in South Tyrol, Italy', coordinates 46.6577, 11.9243 match the place; a person should re-check."
+   },
+   "class_key": "town/historic-village",
+   "draw": {
+    "v": "local",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A scattered Ladin village with old viles hamlets; the Alta Badia tourism board markets the valley."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "Alta Badia",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "A Ladin mountain village of old wooden hamlets under the Sas dla Crusc.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "la-val: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/bolzano",
+   "kind": "town",
+   "subkind": "town",
+   "wikidata": {
+    "v": "Q6526",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'capital of South Tyrol, Italy', coordinates 46.4981, 11.3548 match the place; a person should re-check."
+   },
+   "class_key": "town/historic-village",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The South Tyrol capital, with the Ötzi museum; a stop on the way to or from the airport. The provincial tourism board markets it."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Judged among the trip's base towns."
+   },
+   "standing_scope": "South Tyrol",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Alpine villages and towns are many in the area."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A town is visited on its streets."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Shops, churches and cafes work in rain."
+   },
+   "why": "A compact arcaded old town and the museum of the Iceman, an hour from the mountains.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "No booking, permit, cap or lift needed beyond the road."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "bolzano: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+   "kind": "sight",
+   "subkind": "museum",
+   "wikidata": {
+    "v": "Q1755973",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'archaeological museum in Bolzano, South Tyrol, Italy', coordinates 46.4999, 11.3495 match the place; a person should re-check."
+   },
+   "class_key": "sight/museum",
+   "draw": {
+    "v": "national",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0029"
+    ],
+    "note": "Home of the Iceman mummy; the operator reports 277,754 visitors in 2025 from every continent; the provincial tourism board lists it as a headline museum."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The leading museum of South Tyrol."
+   },
+   "standing_scope": "South Tyrol",
+   "distinction": {
+    "v": "unique",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0029"
+    ],
+    "note": "The only museum holding the Iceman and his kit."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The whole museum is step-free."
+   },
+   "weather": {
+    "v": "indoor",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A museum."
+   },
+   "why": "The 5,300-year-old Iceman, his clothes and his tools, in the old town of Bolzano.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "Reservations are recommended but not required (plan; the reservation office answers weekday mornings)."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "iceman.it: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    },
+    "volume": {
+     "v": {
+      "count": 277754,
+      "unit": "visits_per_year",
+      "scope": "place",
+      "year": 2025
+     },
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0029"
+     ],
+     "quote": "Im vergangenen Jahr 2025 besuchten uns 277.754 Personen."
+    }
+   },
+   "unique_because": "The only museum with the Copper Age Iceman found in 1991"
+  },
+  {
+   "ref": "place/dolomites",
+   "kind": "region",
+   "subkind": "area",
+   "wikidata": {
+    "v": "Q1283",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'mountain range in the Alps', coordinates 46.6131, 12.1631 match the place; a person should re-check."
+   },
+   "class_key": "peak/summit",
+   "draw": {
+    "v": "world",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0058",
+     "src-0059"
+    ],
+    "note": "Inscribed as UNESCO World Heritage (The Dolomites, 1237, 2009, criteria vii and viii) as nine mountain systems."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The range itself."
+   },
+   "standing_scope": "the Alps",
+   "distinction": {
+    "v": "unique",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0058"
+    ],
+    "note": "Inscribed for outstanding universal value as a classic landscape of dolomitic limestone."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Passes, lifts and roadside lakes give the range from the car."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Mountain views need clear air; much works in cloud."
+   },
+   "why": "Pale limestone towers and walls over green meadows, a UNESCO World Heritage range.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "Area-wide; individual places carry their own bookings."
+   },
+   "signals": {
+    "designations": {
+     "v": [
+      {
+       "type": "unesco_whs",
+       "name": "The Dolomites",
+       "id": "1237",
+       "scope": "own"
+      }
+     ],
+     "state": "value",
+     "basis": "official_info",
+     "src": [
+      "src-0058",
+      "src-0059"
+     ],
+     "note": "Read through search results; whc.unesco.org returns 403 to our fetch."
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   },
+   "unique_because": "A UNESCO World Heritage range of nine dolomite systems"
+  },
+  {
+   "ref": "place/funbob-monte-baranci",
+   "kind": "activity",
+   "subkind": "coaster",
+   "wikidata": {
+    "v": null,
+    "state": "searched_none",
+    "basis": null,
+    "src": [],
+    "on": "2026-10-18",
+    "tried": [
+     "wbsearchentities 'Funbob' (de)",
+     "wbsearchentities 'Haunold' (de): the mountain Q1589375, not the run"
+    ],
+    "note": "No Wikidata item matched by name, coordinates and description."
+   },
+   "class_key": "activity/ropes-zip",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0001"
+    ],
+    "note": "The operator calls it the longest rail toboggan run in South Tyrol (headline on its own page); visitors staying in Alta Pusteria add it."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The best family ride of Alta Pusteria."
+   },
+   "standing_scope": "Alta Pusteria",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Gardonè coaster at Obereggen (120 km) is the same kind."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The chairlift up, the run down."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The run closes in thunderstorms and heavy rain."
+   },
+   "why": "A 1,739 m rail toboggan down Monte Baranci above San Candido, from age 3 with an adult.",
+   "access_cost": {
+    "v": [
+     {
+      "type": "lift_only",
+      "note": "Haunold chairlift up; from 21.50 EUR adult, 15 EUR junior a ride (2026)"
+     }
+    ],
+    "state": "value",
+    "basis": "operator_rule",
+    "src": [
+     "src-0001"
+    ]
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "dreizinnen.com Funbob page: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/rafting-on-the-rienza",
+   "kind": "activity",
+   "subkind": "rafting",
+   "wikidata": {
+    "v": null,
+    "state": "searched_none",
+    "basis": null,
+    "src": [],
+    "on": "2026-10-18",
+    "tried": [
+     "the product has no item; the river is Q279908 (Rienz), not used because the river's fame is not the product's"
+    ],
+    "note": "No Wikidata item matched by name, coordinates and description."
+   },
+   "class_key": "water/rafting",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0006"
+    ],
+    "note": "The Pustertal tourism board lists rafting on the Rienza, Isarco and Aurino; an add-on for visitors already in the valley."
+   },
+   "standing": {
+    "v": "good",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "A family rafting tour; the Aurino tours nearby are similar."
+   },
+   "standing_scope": "Pustertal",
+   "distinction": {
+    "v": "common",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Aurino and Isarco tours run from the same operator."
+   },
+   "easy_payoff": {
+    "v": "full",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The tour is the payoff."
+   },
+   "weather": {
+    "v": "any_weather",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The operator runs in any weather except thunderstorms."
+   },
+   "why": "A family rafting tour on the Rienza with swims and an optional bridge jump.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "Booked with the operator; no cap or permit."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "rafting-club-activ.com: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  },
+  {
+   "ref": "place/drava-cycle-path-to-lienz",
+   "kind": "activity",
+   "subkind": "cycling",
+   "wikidata": {
+    "v": "Q1255895",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0063"
+    ],
+    "note": "Confirmed by the agent from the Wikidata item: description 'percorso ciclabile (Drau cycle path, the whole route)', coordinates 46.6697, 13.722 match the place; a person should re-check."
+   },
+   "class_key": "trail/riverside",
+   "draw": {
+    "v": "regional",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0035"
+    ],
+    "note": "The San Candido tourism board (tourist office) recommends it to families and beginners; cross-border and downhill, with a train back. Riders come from the Pustertal and East Tyrol."
+   },
+   "standing": {
+    "v": "top",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The family ride of Alta Pusteria."
+   },
+   "standing_scope": "Alta Pusteria and East Tyrol",
+   "distinction": {
+    "v": "rare",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Long, gently downhill, car-free valley paths are few."
+   },
+   "easy_payoff": {
+    "v": "part",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "The first villages are an easy taste; Lienz needs the whole ride."
+   },
+   "weather": {
+    "v": "better_clear",
+    "state": "value",
+    "basis": "our_inference",
+    "src": [],
+    "note": "Pleasant in cloud; miserable in rain."
+   },
+   "why": "A gently downhill cycle path from San Candido along the Drava into Austria, with the train back.",
+   "access_cost": {
+    "v": [],
+    "state": "value",
+    "basis": "our_inference",
+    "src": [
+     "src-0049"
+    ],
+    "note": "Bike hire and the train; book bikes ahead in summer."
+   },
+   "signals": {
+    "designations": {
+     "v": null,
+     "state": "searched_none",
+     "basis": null,
+     "src": [],
+     "on": "2026-10-18",
+     "tried": [
+      "dreizinnen.com Lienz flyer: the board or operator page read for suitability names no designation",
+      "Wikidata item claims are read by the signals tool, not by hand"
+     ]
+    },
+    "editorial": {
+     "v": null,
+     "state": "gap",
+     "basis": null,
+     "src": []
+    }
+   }
+  }
+ ]
+}

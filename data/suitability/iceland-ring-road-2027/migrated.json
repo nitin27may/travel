@@ -30,7 +30,7 @@
     {
       "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
       "kind": "sight",
-      "subkind": "landmark",
+      "subkind": "area",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -329,8 +329,8 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
-      "kind": "trail",
-      "subkind": "hike",
+      "kind": "swim_spot",
+      "subkind": "beach",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -390,7 +390,7 @@
     {
       "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -409,8 +409,8 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
+      "kind": "swim_spot",
+      "subkind": "beach",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -429,8 +429,8 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
+      "kind": "lake",
+      "subkind": "lake",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -469,8 +469,8 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
+      "kind": "swim_spot",
+      "subkind": "beach",
       "suitability": {},
       "flat": {
         "min_age": null,

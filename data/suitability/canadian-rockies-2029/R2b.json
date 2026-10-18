@@ -1,0 +1,3473 @@
+{
+  "schema": "suitability/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "R2b",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://wildwater.com/kicking-horse-rafting-trips/gentle/",
+      "title": "Gentle Kicking Horse River trip",
+      "publisher": "Wild Water Adventures",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://wildwater.com/faq/",
+      "title": "FAQ",
+      "publisher": "Wild Water Adventures",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.raftbanff.com/the-experience/faq/",
+      "title": "FAQ",
+      "publisher": "Hydra River Guides",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.raftbanff.com/our-trips/rafting-trips/",
+      "title": "Rafting trips",
+      "publisher": "Hydra River Guides",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.banffadventures.com/things-to-do/family-whitewater-rafting/",
+      "title": "Banff family whitewater rafting (Hydra River Guides)",
+      "publisher": "Banff Adventures Unlimited",
+      "kind": "reseller",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.chinookrafting.com/faqs/",
+      "title": "FAQs",
+      "publisher": "Chinook Rafting",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.chinookrafting.com/",
+      "title": "Chinook Rafting home and Kananaskis River trip summary",
+      "publisher": "Chinook Rafting",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.banffadventures.com/things-to-do/kananaskis-river-rafting/",
+      "title": "Kananaskis River rafting",
+      "publisher": "Banff Adventures Unlimited",
+      "kind": "reseller",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/experience/faqs/",
+      "title": "Banff Gondola FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location/",
+      "title": "Banff Gondola hours and location",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/faqs/",
+      "title": "Jasper SkyTram FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
+      "title": "Jasper SkyTram tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/hours-location/",
+      "title": "Jasper SkyTram hours and location (read through search results)",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/",
+      "title": "Sightseeing gondola",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.skilouise.com/faq/",
+      "title": "FAQ",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.skilouise.com/explore-summer/disabled-travelers-accessibility/",
+      "title": "Disabled travellers and accessibility",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.skilouise.com/explore-summer/wildlife-viewing/",
+      "title": "Wildlife viewing",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/faqs/",
+      "title": "Maligne Lake Cruise FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/location-hours/",
+      "title": "Maligne Lake Cruise location and hours",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/faqs/",
+      "title": "Lake Minnewanka Cruise FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/hours-rates/",
+      "title": "Lake Minnewanka Cruise hours and rates (read through search results)",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.chateau-lake-louise.com/activities/canoeing/",
+      "title": "Canoeing",
+      "publisher": "Fairmont Chateau Lake Louise",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://morainelake.com/day-visits/",
+      "title": "Day visits: canoe rentals",
+      "publisher": "Moraine Lake Lodge",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://crmr.com/activities/canoeing/",
+      "title": "Canoeing at Emerald Lake",
+      "publisher": "Canadian Rocky Mountain Resorts (Emerald Lake Lodge)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://thebanffblog.com/emerald-lake-canoe-rental",
+      "title": "Emerald Lake canoe rental",
+      "publisher": "The Banff Blog",
+      "kind": "blog",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.parks.canada.ca/pn-np/ab/banff/sources-banff-springs/faq",
+      "title": "Banff Upper Hot Springs FAQ",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/heures-hours",
+      "title": "Banff Upper Hot Springs hours (read through search results)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/faq",
+      "title": "Miette Hot Springs FAQ",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/heures-hours",
+      "title": "Miette Hot Springs hours",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs/",
+      "title": "Columbia Icefield FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/location-hours/",
+      "title": "Columbia Icefield location and hours",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/gestion-management/designation/cieletoile-darksky",
+      "title": "Jasper Dark Sky Preserve",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/868a8410-7ef6-4f87-a4d3-f8dc44f335aa",
+      "title": "Attention: Elk Rut Season Advisory (issued 28 Aug 2026)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/a8a66ab1-d0db-4300-b227-8eb8f57d88ae",
+      "title": "Restricted Activity: Wildlife viewing practices in Jasper National Park (2026)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/activities/summer-activities/",
+      "title": "Canmore Nordic Centre summer activities",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+      "title": "Canadian Rocky Mountain Parks (World Heritage)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0037",
+      "url": "legacy/canadian-rockies-sept-2029/data/adventures.json",
+      "title": "adventures.json of the Rockies plan (operator pages read 12 Oct 2026)",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-12"
+    }
+  ],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "kind": "activity",
+      "subkind": "rafting",
+      "suitability": {
+        "limit_reason": "equipment",
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "both operators set 8 years and 50 lb as the minimum; nothing published suggests a higher recommended age"
+        },
+        "kid_note": "A real whitewater trip, not a float: Class II-III waves on glacial water. Both operators turn away anyone under 8 or under 50 lb (22.7 kg), and a child at the limit can be refused on the day.",
+        "water_safety": {
+          "lifejacket": {
+            "v": "provided_all_sizes",
+            "state": "value",
+            "basis": "our_inference",
+            "src": [
+              "src-0001",
+              "src-0003"
+            ],
+            "note": "both operators provide a life jacket to every rafter; every admitted rafter is 8+ and 50 lb+, so we infer sizes cover them"
+          },
+          "child_sizes_from_kg": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "wildwater.com Gentle trip page and FAQ",
+              "raftbanff.com FAQ",
+              "banffadventures.com family rafting page"
+            ],
+            "note": "no child life jacket size or weight is published"
+          },
+          "water_temp_c": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "wildwater.com FAQ (only 'refreshing')",
+              "raftbanff.com FAQ ('glacier fed ... always cold')"
+            ],
+            "note": "no temperature is published; the river is glacier fed"
+          }
+        },
+        "participation": {
+          "kit_provided": {
+            "v": [
+              "wetsuit",
+              "booties",
+              "fleece",
+              "spray_jacket",
+              "helmet",
+              "pfd"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0001",
+              "src-0003"
+            ],
+            "quote": "a wetsuit, neoprene booties, polar fleece sweater, hooded spray jacket, helmet, and life jacket"
+          },
+          "wear": {
+            "v": [
+              "swimwear"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0002",
+              "src-0003"
+            ],
+            "quote": "All you need to bring is a swimsuit and towel!"
+          },
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": null,
+              "status": "departs rain or shine; no weather or high-water cancellation rule is published"
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0002",
+              "src-0003"
+            ],
+            "quote": "Rafting trips depart rain or shine."
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-15",
+              "to": "09-15",
+              "status": "open",
+              "via": "road",
+              "note": "both operators say mid-May to mid-September; the 15th is our reading of 'mid'"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001",
+            "src-0005"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "paddle",
+        "craft": {
+          "v": "raft",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001",
+            "src-0004"
+          ]
+        },
+        "class_at_level": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "wildwater.com FAQ (June and early July have the highest water)",
+            "raftbanff.com FAQ and trip pages"
+          ],
+          "note": "no class by month is published; Wild Water says June and early July carry the biggest water and late July to August is lower"
+        },
+        "trip_style": {
+          "v": "family_float",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001",
+            "src-0004"
+          ],
+          "note": "sold as the gentle or family trip; it still has Class II-III rapids"
+        }
+      },
+      "offers": [
+        {
+          "name": "Wild Water Adventures: Gentle Kicking Horse",
+          "suitability": {
+            "min_age": {
+              "v": 8,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "Ages 8+ & 50lbs (23kg)",
+              "note": "the age half of the rule; 50 lb = 22.7 kg is the weight minimum"
+            },
+            "age_rule": "rule",
+            "min_weight_kg": {
+              "v": 22.7,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "Ages 8+ & 50lbs (23kg)",
+              "note": "a minimum: 50 lb = 22.7 kg (the operator rounds it to 23 kg)"
+            },
+            "max_weight_kg": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "wildwater.com Gentle trip page",
+                "wildwater.com FAQ"
+              ],
+              "note": "no maximum weight is published"
+            },
+            "on_site_min": {
+              "v": [
+                180,
+                180
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "3 Hours"
+            },
+            "water_safety": {
+              "class": {
+                "v": {
+                  "system": "whitewater",
+                  "value": "III"
+                },
+                "state": "value",
+                "basis": "official_grade",
+                "src": [
+                  "src-0001"
+                ],
+                "quote": "Class II – III",
+                "note": "the harder end of Class II-III is stored; the FAQ calls Hopi's Hole Class III+, waves up to 10 ft at high water"
+              },
+              "swim_ability": {
+                "v": null,
+                "state": "searched_none",
+                "basis": null,
+                "src": [],
+                "on": "2026-10-18",
+                "tried": [
+                  "wildwater.com Gentle trip page",
+                  "wildwater.com FAQ"
+                ],
+                "note": "no swimming requirement is published"
+              }
+            },
+            "participation": {
+              "pregnancy": {
+                "v": "not_allowed",
+                "state": "value",
+                "basis": "operator_rule",
+                "src": [
+                  "src-0002"
+                ],
+                "quote": "we recommend pregnant ladies remain on land and raft with us at a future time",
+                "note": "phrased as a recommendation"
+              },
+              "waiver": {
+                "v": {
+                  "required": true,
+                  "guardian_signs_under": 18,
+                  "guardian_present": true
+                },
+                "state": "value",
+                "basis": "operator_rule",
+                "src": [
+                  "src-0002"
+                ],
+                "quote": "Guests under the age of 18 are required to have a parent signature on their behalf.",
+                "note": "waivers are signed and witnessed only at the River Base, so the guardian is there"
+              }
+            }
+          },
+          "ext": {
+            "kind": "paddle",
+            "craft": {
+              "v": "raft",
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001",
+                "src-0004"
+              ]
+            },
+            "class_at_level": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "wildwater.com FAQ (June and early July have the highest water)",
+                "raftbanff.com FAQ and trip pages"
+              ],
+              "note": "no class by month is published; Wild Water says June and early July carry the biggest water and late July to August is lower"
+            },
+            "trip_style": {
+              "v": "family_float",
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001",
+                "src-0004"
+              ],
+              "note": "sold as the gentle or family trip; it still has Class II-III rapids"
+            },
+            "sections": {
+              "v": [
+                {
+                  "name": "Kicking Horse River, Gentle section (includes Hopi's Hole)",
+                  "class": "II-III"
+                }
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ]
+            },
+            "on_water_min": {
+              "v": [
+                80,
+                80
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "approximately 1 hour and 20 minutes on the water"
+            }
+          }
+        },
+        {
+          "name": "Hydra River Guides: Family Whitewater",
+          "suitability": {
+            "min_age": {
+              "v": 8,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0003"
+              ],
+              "quote": "For the Family Whitewater, minimum age is 8 yrs and 50lbs.",
+              "note": "the age half of the rule; 50 lb = 22.7 kg is the weight minimum"
+            },
+            "age_rule": "rule",
+            "min_weight_kg": {
+              "v": 22.7,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0003"
+              ],
+              "quote": "minimum age is 8 yrs and 50lbs",
+              "note": "a minimum: 50 lb = 22.7 kg"
+            },
+            "max_weight_kg": {
+              "v": 158.8,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0003"
+              ],
+              "quote": "Our maximum weight limit is approximately 350 lbs due to safety reasons and the size of our gear.",
+              "note": "a maximum: 350 lb = 158.8 kg; the operator says approximately"
+            },
+            "on_site_min": {
+              "v": [
+                120,
+                150
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "2-2.5 hours total"
+            },
+            "water_safety": {
+              "class": {
+                "v": {
+                  "system": "whitewater",
+                  "value": "III"
+                },
+                "state": "value",
+                "basis": "official_grade",
+                "src": [
+                  "src-0005"
+                ],
+                "quote": "enjoy the splashes from class 1-3 waves",
+                "note": "the harder end of Class I-III is stored; the booking agent's page for this trip; Hydra's own trip page calls it a calm float with small splashes and gives no class"
+              },
+              "swim_ability": {
+                "v": "comfortable",
+                "state": "value",
+                "basis": "operator_rule",
+                "src": [
+                  "src-0003"
+                ],
+                "quote": "We prefer our guests to have basic swimming ability.",
+                "note": "a preference, not a test"
+              }
+            },
+            "participation": {
+              "pregnancy": {
+                "v": null,
+                "state": "searched_none",
+                "basis": null,
+                "src": [],
+                "on": "2026-10-18",
+                "tried": [
+                  "raftbanff.com FAQ",
+                  "banffadventures.com family rafting page"
+                ],
+                "note": "not addressed"
+              },
+              "waiver": {
+                "v": {
+                  "required": true,
+                  "guardian_signs_under": 18,
+                  "guardian_present": null
+                },
+                "state": "value",
+                "basis": "operator_rule",
+                "src": [
+                  "src-0003"
+                ],
+                "quote": "Parents will co-sign for children under 18 years of age."
+              },
+              "weather_cancel": {
+                "v": {
+                  "causes": [],
+                  "policy": "refund",
+                  "status": "rafts rain or shine; if Hydra cancels, a full refund or another date"
+                },
+                "state": "value",
+                "basis": "official_info",
+                "src": [
+                  "src-0003"
+                ]
+              }
+            }
+          },
+          "ext": {
+            "kind": "paddle",
+            "craft": {
+              "v": "raft",
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001",
+                "src-0004"
+              ]
+            },
+            "class_at_level": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "wildwater.com FAQ (June and early July have the highest water)",
+                "raftbanff.com FAQ and trip pages"
+              ],
+              "note": "no class by month is published; Wild Water says June and early July carry the biggest water and late July to August is lower"
+            },
+            "trip_style": {
+              "v": "family_float",
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001",
+                "src-0004"
+              ],
+              "note": "sold as the gentle or family trip; it still has Class II-III rapids"
+            },
+            "sections": {
+              "v": [
+                {
+                  "name": "Kicking Horse River, family section",
+                  "class": "I-III"
+                }
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ]
+            },
+            "on_water_min": {
+              "v": [
+                60,
+                60
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "1 hour"
+            }
+          }
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+      "kind": "activity",
+      "subkind": "rafting",
+      "suitability": {
+        "min_age": {
+          "v": 5,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "the minimum age requirement is 5 years"
+        },
+        "age_rule": "rule",
+        "min_weight_kg": {
+          "v": 18.1,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "Kananaskis River is 40 lbs",
+          "note": "a MINIMUM: 40 lb = 18.1 kg. The old data stored it as max_weight_kg; Chinook's FAQ and the booking agent both call it the minimum"
+        },
+        "max_weight_kg": {
+          "v": 158.8,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "350 lbs for both rivers",
+          "note": "a maximum: 350 lb = 158.8 kg"
+        },
+        "limit_reason": "policy",
+        "age_band": {
+          "v": {
+            "from": 5,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "the operator minimum; it is the gentler of the two Bow Valley raft trips and the operator recommends it to non-swimmers"
+        },
+        "kid_note": "Class II-III on a dam-controlled river, so levels hold steady through September. The operator recommends this trip to weak swimmers; from age 5 and 40 lb (18.1 kg).",
+        "on_site_min": {
+          "v": [
+            240,
+            240
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "1.5 to 2 hours on the water within a four-hour tour"
+        },
+        "water_safety": {
+          "class": {
+            "v": {
+              "system": "whitewater",
+              "value": "III"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0006"
+            ],
+            "quote": "class 2 & 3 rapids",
+            "note": "the harder end of Class II-III is stored"
+          },
+          "lifejacket": {
+            "v": "provided_all_sizes",
+            "state": "value",
+            "basis": "our_inference",
+            "src": [
+              "src-0006"
+            ],
+            "note": "'We will provide all the safety equipment'; every admitted rafter is 5+ and 40 lb+, so we infer sizes cover them"
+          },
+          "child_sizes_from_kg": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "chinookrafting.com FAQs",
+              "banffadventures.com Kananaskis page"
+            ],
+            "note": "no child life jacket size is published"
+          },
+          "swim_ability": {
+            "v": "none_needed",
+            "state": "value",
+            "basis": "operator_rule",
+            "src": [
+              "src-0006"
+            ],
+            "quote": "If you do not know how to swim, we would recommend joining the Kananaskis River Rafting Tour."
+          },
+          "water_temp_c": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "chinookrafting.com FAQs ('The river is still quite cold')",
+              "banffadventures.com Kananaskis page"
+            ],
+            "note": "no temperature is published"
+          }
+        },
+        "participation": {
+          "kit_provided": {
+            "v": [
+              "wetsuit",
+              "pfd",
+              "helmet",
+              "spray_jacket",
+              "booties",
+              "gloves"
+            ],
+            "state": "value",
+            "basis": "community",
+            "src": [
+              "src-0008"
+            ],
+            "note": "the booking agent's list; Chinook's own FAQ says only 'all the safety equipment'"
+          },
+          "wear": {
+            "v": [
+              "swimwear",
+              "change_of_clothes"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0006"
+            ],
+            "quote": "Please wear your swimsuit under your clothes and bring warm clothes and a towel for after the tour."
+          },
+          "pregnancy": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "chinookrafting.com FAQs",
+              "chinookrafting.com home and trip summary",
+              "banffadventures.com Kananaskis page"
+            ],
+            "note": "not addressed"
+          },
+          "waiver": {
+            "v": {
+              "required": true,
+              "guardian_signs_under": 18,
+              "guardian_present": true
+            },
+            "state": "value",
+            "basis": "operator_rule",
+            "src": [
+              "src-0006",
+              "src-0007"
+            ],
+            "note": "every guest signs; guardians complete a parental consent form, and for an unaccompanied minor the parent must be at the Riverbase to sign"
+          },
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": null,
+              "status": "runs rain or shine; no weather cancellation rule published"
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0006"
+            ],
+            "quote": "Our trips run rain or shine."
+          },
+          "medical": {
+            "v": {
+              "excluded": [],
+              "ask_doctor": []
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0006"
+            ],
+            "note": "no named conditions; tell the booking agent, who checks with Chinook management"
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-07",
+              "to": "09-15",
+              "status": "open",
+              "via": "road",
+              "note": "Chinook opens 7 May; the end 'mid September' comes from the booking agent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007",
+            "src-0008"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "paddle",
+        "craft": {
+          "v": "raft",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ]
+        },
+        "class_at_level": {
+          "v": [
+            {
+              "month": 9,
+              "class": "II-III",
+              "note": "dam-controlled: the booking agent says levels are reasonably stable all year"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0008"
+          ]
+        },
+        "sections": {
+          "v": [
+            {
+              "name": "Kananaskis River, first half",
+              "class": "III"
+            },
+            {
+              "name": "Kananaskis River, second half",
+              "class": "II"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0008"
+          ],
+          "quote": "predominantly a class 3 in the first half of the river",
+          "note": "no unit conversion needed: 'in' here is a word, not inches"
+        },
+        "on_water_min": {
+          "v": [
+            90,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "1.5 to 2 hours on the water"
+        },
+        "trip_style": {
+          "v": "whitewater",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": 5,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": 18.1,
+        "max_weight_kg": 158.8,
+        "house_grade": 4,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "kind": "lift",
+      "subkind": "gondola",
+      "suitability": {
+        "stroller_on_board": {
+          "v": "no",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "Due to the limited space in Banff Gondola cabins and the mountaintop facilities, we do not recommend strollers.",
+          "note": "advice, not a stated ban; plan on a carrier"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "The Banff Gondola facilities are wheelchair accessible.",
+          "note": "cabins take most standard wheelchairs and every summit level has a lift, but the summit boardwalk to Sanson's Peak is 368 shallow stairs each way"
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            150
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "note": "8-minute ride each way plus the summit building and boardwalk; the FAQ gives no visit length"
+        },
+        "altitude_m": {
+          "v": 2281,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "the Upper Terminal is 2,281 metres (7,486 feet) above sea level",
+          "note": "the operator gives metres; 7,486 ft = 2,281.7 m"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "10-31",
+              "status": "open",
+              "via": "lift"
+            },
+            {
+              "from": "11-01",
+              "to": "11-30",
+              "status": "limited",
+              "via": "lift",
+              "note": "a short maintenance closure each November"
+            },
+            {
+              "from": "12-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "lift"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "applies_to": "2026",
+          "quote": "open year-round, except for a short maintenance period each November"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Banff Gondola FAQs",
+              "banffjaspercollection.com Banff Gondola hours page"
+            ],
+            "note": "no weather closure rule is published; tickets, including Pursuit Passes, are non-refundable"
+          }
+        },
+        "kid_note": "Free for 5 and under. The summit is the point: a boardwalk ridge walk with stairs; strollers are discouraged, so bring a carrier.",
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "an enclosed cabin ride; the summit boardwalk is stairs, which suits walkers and carried toddlers"
+        },
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "note": "strollers are discouraged and the boardwalk is stairs; a carrier is the practical choice"
+        },
+        "accessible_toilet": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "banffjaspercollection.com Banff Gondola FAQs"
+          ],
+          "note": "the FAQ does not mention washrooms"
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "there are several incredible dining options at the top of the Banff Gondola"
+        },
+        "limited_capacity_note": "Cabins and the summit building have lifts on every level; skip the boardwalk stairs and stay on the terraces for the view."
+      },
+      "ext": {
+        "kind": "lift",
+        "cabin": {
+          "v": "enclosed",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "note": "the operator describes the ride in cabins"
+        },
+        "last_up": {
+          "v": [
+            {
+              "from": "09-08",
+              "to": "10-12",
+              "time": "19:30"
+            },
+            {
+              "from": "10-13",
+              "to": "11-19",
+              "time": "19:30"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "applies_to": "2026",
+          "note": "13 Oct onward read on 18 Oct 2026; 8 Sep-12 Oct read from the same page by the plan research on 12 Oct 2026 (adventures.json), before the page rolled forward"
+        },
+        "last_down": {
+          "v": [
+            {
+              "from": "09-08",
+              "to": "10-12",
+              "time": "20:50"
+            },
+            {
+              "from": "10-13",
+              "to": "11-19",
+              "time": "20:50"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "applies_to": "2026",
+          "quote": "Last ride down: 10 minutes prior to close.",
+          "note": "close is 21:00 in both ranges, so the last ride down is 20:50"
+        },
+        "ride_min": {
+          "v": [
+            8,
+            8
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "approximately 8-minutes long"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "kind": "lift",
+      "subkind": "gondola",
+      "suitability": {
+        "stroller_on_board": {
+          "v": "yes",
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0012"
+          ],
+          "quote": "These items take up space in the tram and need to be counted toward capacity",
+          "note": "allowed, but reserve a free ticket for each stroller or backpack carrier when booking"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "note": "the tram and lower floors are accessible; the Summit Cafe floor and the 1.4 km Whistlers Summit Trail are not"
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            150
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "quote": "We recommend booking 90 minutes between your Flight Up and Return Flight for most visits.",
+          "note": "plus about 60 minutes when dining at the top"
+        },
+        "altitude_m": {
+          "v": 2263,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "note": "Upper Station 2,263 m; the optional 1.4 km summit trail reaches 2,463 m"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-16",
+              "to": "10-26",
+              "status": "open",
+              "via": "lift",
+              "note": "the 2026 hours table; the plan research saw a 15 Apr opening, so the spring date is uncertain"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "applies_to": "2026"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Jasper SkyTram FAQs",
+              "banffjaspercollection.com Jasper SkyTram tickets"
+            ],
+            "note": "no weather closure rule is published; tickets are non-refundable"
+          }
+        },
+        "kid_note": "Timed flights up and back; strollers ride if you book them a free ticket. The summit trail above the station is rough and steep for small children.",
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "an enclosed tram; the optional summit trail is 1.4 km and 200 m of climbing"
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ]
+        },
+        "limited_capacity_note": "The ride and the Upper Station viewing area are step-free; the summit trail is not. Book the return flight 90 minutes after the flight up."
+      },
+      "ext": {
+        "kind": "lift",
+        "cabin": {
+          "v": "enclosed",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "note": "a tram cabin every nine minutes"
+        },
+        "last_up": {
+          "v": [
+            {
+              "from": "05-16",
+              "to": "09-06",
+              "time": "20:30"
+            },
+            {
+              "from": "09-07",
+              "to": "10-26",
+              "time": "16:30"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013",
+            "src-0011"
+          ],
+          "applies_to": "2026",
+          "note": "the hours table read through search results; the FAQ says the last flight up is 1.5 hours before closing"
+        },
+        "last_down": {
+          "v": [
+            {
+              "from": "05-16",
+              "to": "09-06",
+              "time": "21:50"
+            },
+            {
+              "from": "09-07",
+              "to": "10-26",
+              "time": "17:50"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011",
+            "src-0013"
+          ],
+          "applies_to": "2026",
+          "quote": "Last Return Flight leaves the Upper Station 10 minutes before closing.",
+          "note": "close 22:00 and 18:00"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "kind": "lift",
+      "subkind": "gondola",
+      "suitability": {
+        "stroller_on_board": {
+          "v": "folded",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "quote": "The gondola is accessible with wheelchairs or strollers, with exceptions.",
+          "note": "strollers must fold to ride in a separate cabin; the gravel paths at the top are hard going"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014",
+            "src-0016"
+          ],
+          "quote": "We are not 100% wheelchair accessible.",
+          "note": "wheelchairs must fold to fit the enclosed cabins; staff slow the lift to load"
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "quote": "Quick visit: 1–1.5 hours",
+          "note": "2-3 hours with a meal at the top"
+        },
+        "altitude_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "skilouise.com sightseeing gondola page",
+            "skilouise.com FAQ",
+            "skilouise.com wildlife viewing page"
+          ],
+          "note": "no top-station elevation is published by the operator"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-05",
+              "to": "10-11",
+              "status": "open",
+              "via": "lift"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "applies_to": "2026",
+          "quote": "9:00 AM to 4:30 PM daily from June 5 to October 11"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": "none",
+              "status": "closures can occur in adverse weather; tickets are non-refundable but open-dated through 11 Oct"
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0015"
+            ],
+            "quote": "Please be aware that closures can occur due to adverse weather."
+          }
+        },
+        "adult_required": {
+          "v": {
+            "under": 12
+          },
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0014"
+          ],
+          "quote": "For safety reasons children under the age of 12 must be accompanied by at least one adult on a chair or gondola."
+        },
+        "solo": {
+          "v": {
+            "min_age": 12
+          },
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0014"
+          ],
+          "note": "children under 42 in (106 cm) also ride only in an enclosed gondola with an adult: 42 in = 106.7 cm, the operator writes 106 cm"
+        },
+        "kid_note": "Choose an enclosed gondola rather than an open chair with small children: under 106 cm they must ride enclosed with an adult. Grizzlies are often seen on the slopes below the lift.",
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "an enclosed cabin is offered; the operator sets an adult and cabin rule, not an age minimum"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "note": "a designated accessible washroom in Whisky Jack Lodge at the base"
+        },
+        "accessible_parking": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "note": "lot 2, along the wooden fence"
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "note": "Whitehorn Bistro at the top"
+        },
+        "limited_capacity_note": "Choose an enclosed cabin; staff can slow the lift to load. The paths at the top are gravel."
+      },
+      "ext": {
+        "kind": "lift",
+        "cabin": {
+          "v": "mixed",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "quote": "your choice of an open chair or fully enclosed gondola"
+        },
+        "last_up": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "skilouise.com FAQ",
+            "skilouise.com hours of operation",
+            "skilouise.com sightseeing gondola page"
+          ],
+          "note": "hours 09:00-16:30 are published, the last ride up is not"
+        },
+        "last_down": {
+          "v": [
+            {
+              "from": "06-05",
+              "to": "10-11",
+              "time": "17:10"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "applies_to": "2026",
+          "quote": "with the final ride down at 5:10 PM"
+        },
+        "ride_min": {
+          "v": [
+            15,
+            15
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "quote": "The gondola ride itself takes about 15 minutes each way."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "kind": "activity",
+      "subkind": "cruise",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "banffjaspercollection.com Maligne Lake Cruise FAQs",
+            "banffjaspercollection.com Maligne Lake Cruise location and hours"
+          ],
+          "note": "no minimum age; children 5 and under ride free on the plan research's reading of the price page, which implies infants are carried"
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a covered boat on a calm lake with a short stop at the Spirit Island overlook"
+        },
+        "kid_note": "No strollers on the boats: leave them at the dock and bring a carrier. There is no toilet mentioned on board, so use the Lakehouse washrooms before boarding.",
+        "stroller_on_board": {
+          "v": "leave_at_dock",
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "for safety reasons, we are unable to accommodate strollers on our boats"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "we do have 2 accessible boats, but a reservation must be made in advance"
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "approximately 1.5 hours (2 hours for the Premium Cruise)",
+          "note": "add about 30 minutes to arrive early and park"
+        },
+        "water_safety": {
+          "lifejacket": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Maligne Lake Cruise FAQs"
+            ],
+            "note": "'Lifejackets will be provided for safety'; child sizes are not stated"
+          },
+          "child_sizes_from_kg": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Maligne Lake Cruise FAQs",
+              "banffjaspercollection.com Maligne Lake Cruise location and hours"
+            ]
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-28",
+              "to": "10-10",
+              "status": "open",
+              "via": "road",
+              "note": "the 2027 dates; the page no longer shows 2026 (the plan research read 29 May-11 Oct for 2026)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "applies_to": "2027"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Maligne Lake Cruise FAQs",
+              "banffjaspercollection.com Maligne Lake Cruise location and hours"
+            ],
+            "note": "no weather rule for the cruise; no refund for a missed cruise"
+          }
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "Washroom facilities are available in the parking lot, as well as in the Lakehouse."
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ]
+        },
+        "limited_capacity_note": "Seated throughout; book one of the two accessible boats ahead. The Spirit Island stop is a short walk to an overlook."
+      },
+      "ext": {
+        "kind": "boat",
+        "vessel": {
+          "v": "enclosed",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "Our cruise boats are covered",
+          "note": "windows open, so expect some spray"
+        },
+        "sea_state": {
+          "v": "sheltered",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a mountain lake, no swell"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "kind": "activity",
+      "subkind": "cruise",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "banffjaspercollection.com Lake Minnewanka Cruise FAQs",
+            "banffjaspercollection.com Lake Minnewanka Cruise hours and rates"
+          ],
+          "note": "no minimum age for the Classic cruise; the Beer Voyage is 18+"
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a one-hour covered boat on a lake; a children's cruise (Junior Explorer) runs only in July and August"
+        },
+        "kid_note": "One hour on the water, which suits short attention spans. Strollers stay at the dock. The Junior Explorer kids' cruise does not run in September.",
+        "stroller_on_board": {
+          "v": "leave_at_dock",
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0020"
+          ],
+          "quote": "for safety reasons, we are unable to accommodate strollers on the boats"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "quote": "Most Lake Minnewanka Cruise boats are wheelchair accessible on the back deck only."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            75
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "quote": "approximately 1 hour long including the safety briefing and loading",
+          "note": "add 15 minutes to check in"
+        },
+        "water_safety": {
+          "lifejacket": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Lake Minnewanka Cruise FAQs"
+            ],
+            "note": "'lifejackets will be provided as a safety precaution'; child sizes not stated"
+          },
+          "child_sizes_from_kg": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Lake Minnewanka Cruise FAQs",
+              "banffjaspercollection.com Lake Minnewanka Cruise hours and rates"
+            ]
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-08",
+              "to": "10-12",
+              "status": "open",
+              "via": "road",
+              "note": "Classic cruise; 1-17 Sep 10:00-18:00, 18 Sep-12 Oct 10:00-17:00"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "applies_to": "2026"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "banffjaspercollection.com Lake Minnewanka Cruise FAQs",
+              "banffjaspercollection.com Lake Minnewanka Cruise hours and rates"
+            ],
+            "note": "no weather rule; a missed tour can be rebooked for a fee"
+          }
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "note": "washrooms at the parking lot"
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "note": "the Black Anchor snack shop on the shore"
+        },
+        "limited_capacity_note": "Seated for an hour; wheelchair users ride on the back deck, arranged by phone."
+      },
+      "ext": {
+        "kind": "boat",
+        "vessel": {
+          "v": "enclosed",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0020"
+          ],
+          "quote": "Our cruise boats are covered",
+          "note": "windows open"
+        },
+        "sea_state": {
+          "v": "sheltered",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a reservoir lake; wind can raise a chop, no swell"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "kind": "activity",
+      "subkind": "canoe",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "chateau-lake-louise.com canoeing page",
+            "thebanffblog.com canoe rentals (search result)"
+          ],
+          "note": "no minimum age; family seating is decided by the boathouse staff"
+        },
+        "adult_required": {
+          "v": {
+            "under": 16
+          },
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0022"
+          ],
+          "quote": "Each canoe may hold either three adults or two adults (aged 16 and older)",
+          "note": "with children aboard, the canoe carries two adults aged 16 or over"
+        },
+        "age_band": {
+          "v": {
+            "from": 3,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a child must sit still in a canoe on cold water; the operator's own limit is a weight, under 25 kg"
+        },
+        "kid_note": "Two adults (16+) can take two small children under 25 kg each. The water is glacial and cold, so a capsize is serious; paddle near the shore.",
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "note": "rentals are by the half hour or hour, first come, first served; add queue time"
+        },
+        "water_safety": {
+          "class": {
+            "v": {
+              "system": "flatwater",
+              "value": "open"
+            },
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "note": "a 2 km glacial lake: cold water and afternoon wind"
+          },
+          "lifejacket": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "chateau-lake-louise.com canoeing page"
+            ],
+            "note": "the page does not mention life jackets; secondary pages say they are included"
+          },
+          "child_sizes_from_kg": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "chateau-lake-louise.com canoeing page",
+              "thebanffblog.com canoe rentals (search result)"
+            ]
+          },
+          "water_temp_c": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "chateau-lake-louise.com canoeing page",
+              "parks.canada.ca Lake Louise pages (not found)"
+            ],
+            "note": "no temperature is published; a glacier-fed lake"
+          }
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "chateau-lake-louise.com canoeing page ('closed for the season ... Summer 2027')",
+            "adventures.json plan research (season dates GAP)"
+          ]
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "the boathouse sits by the Chateau; no washroom detail is published"
+        }
+      },
+      "ext": {
+        "kind": "paddle",
+        "craft": {
+          "v": "canoe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ]
+        },
+        "wind_exposure": {
+          "v": "some",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "an open valley lake; wind picks up in the afternoon"
+        },
+        "craft_capacity": {
+          "v": {
+            "adults": 2,
+            "children": 2,
+            "child_max_kg": 25
+          },
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0022"
+          ],
+          "quote": "two small children (each child must weigh under 55 pounds/25 kilograms)",
+          "note": "or three adults; 55 lb = 24.9 kg, the operator writes 25 kg"
+        },
+        "guided": {
+          "v": "self",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "kind": "activity",
+      "subkind": "canoe",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "morainelake.com day visits",
+            "thebanffblog.com Moraine Lake canoe (search result)"
+          ],
+          "note": "no age rule is published"
+        },
+        "adult_required": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "morainelake.com day visits",
+            "morainelake.com home"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 3,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "glacial water and no child rule published; small children only with two adults"
+        },
+        "kid_note": "No child or adult rule is published; ask at the dock. The lodge closes the rental without notice in wind, rain or snow, and the road is shuttle-only.",
+        "on_site_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "note": "hourly rental, first come, first served; add the queue"
+        },
+        "water_safety": {
+          "class": {
+            "v": {
+              "system": "flatwater",
+              "value": "open"
+            },
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "note": "a glacial lake under the Ten Peaks; cold water"
+          },
+          "lifejacket": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "morainelake.com day visits"
+            ],
+            "note": "the operator says life jackets are provided; it does not say whether child sizes are stocked"
+          },
+          "child_sizes_from_kg": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "morainelake.com day visits",
+              "morainelake.com home"
+            ]
+          },
+          "water_temp_c": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "morainelake.com day visits",
+              "parks.canada.ca Moraine Lake pages (not found)"
+            ],
+            "note": "no temperature is published; a glacier-fed lake"
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-15",
+              "to": "09-15",
+              "status": "open",
+              "via": "shuttle",
+              "note": "'mid-June to mid-September'; Moraine Lake Road is closed to private cars, so arrive by Parks Canada shuttle, Roam or a commercial bus"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "paddle",
+        "craft": {
+          "v": "canoe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ]
+        },
+        "wind_exposure": {
+          "v": "some",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "note": "the lodge closes for wind, rain and snow"
+        },
+        "craft_capacity": {
+          "v": {
+            "adults": 3,
+            "children": 0,
+            "child_max_kg": null
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "quote": "Each canoe can accommodate two to three people",
+          "note": "no child rule is published"
+        },
+        "guided": {
+          "v": "self",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0023"
+          ],
+          "quote": "Includes paddles, life jackets and basic instruction."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "kind": "activity",
+      "subkind": "canoe",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "crmr.com canoeing page",
+            "thebanffblog.com Emerald Lake canoe rental"
+          ],
+          "note": "the operator publishes no age rule"
+        },
+        "adult_required": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "crmr.com canoeing page",
+            "thebanffblog.com Emerald Lake canoe rental"
+          ],
+          "note": "the operator publishes no rule",
+          "conflicts": [
+            {
+              "v": {
+                "under": 19
+              },
+              "basis": "community",
+              "src": [
+                "src-0025"
+              ],
+              "note": "a blog says one person per canoe must be at least 19"
+            }
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 1,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a small sheltered lake; a blog reports infant life jackets from 9 kg"
+        },
+        "kid_note": "The smallest and most sheltered of the three canoe lakes. The operator publishes no child rules; a blog reports two adults with two children under about 27 kg per canoe.",
+        "on_site_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0024"
+          ],
+          "note": "hourly rental; add the queue"
+        },
+        "water_safety": {
+          "class": {
+            "v": {
+              "system": "flatwater",
+              "value": "sheltered"
+            },
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "note": "a small forest lake about 1 km across; still glacial and cold"
+          },
+          "lifejacket": {
+            "v": "provided_all_sizes",
+            "state": "value",
+            "basis": "community",
+            "src": [
+              "src-0025"
+            ],
+            "note": "the operator rents life jackets by the hour (crmr.com); the blog says the smallest is for 20 lb / 9.1 kg"
+          },
+          "child_sizes_from_kg": {
+            "v": 9.1,
+            "state": "value",
+            "basis": "community",
+            "src": [
+              "src-0025"
+            ],
+            "quote": "they must be 20 lbs / 9 kgs as it is the smallest life jacket the boathouse offers",
+            "note": "20 lb = 9.1 kg; a blog, not the operator"
+          },
+          "water_temp_c": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "crmr.com canoeing page",
+              "thebanffblog.com Emerald Lake canoe rental"
+            ],
+            "note": "no temperature is published"
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-01",
+              "to": "09-30",
+              "status": "open",
+              "via": "road",
+              "note": "'From May until September'; a blog says rentals run to Thanksgiving weekend"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "paddle",
+        "craft": {
+          "v": "canoe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ]
+        },
+        "wind_exposure": {
+          "v": "sheltered",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "small and ringed by forest; the boathouse closes in unsafe weather (blog)"
+        },
+        "craft_capacity": {
+          "v": {
+            "adults": 2,
+            "children": 2,
+            "child_max_kg": 27.2
+          },
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0025"
+          ],
+          "quote": "the children should generally each weigh less than 60 lbs/27 kg",
+          "note": "60 lb = 27.2 kg; or three people; a blog, not the operator"
+        },
+        "guided": {
+          "v": "self",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "none_stated",
+          "basis": "official_rule",
+          "src": [
+            "src-0026"
+          ],
+          "quote": "Babies and toddlers are allowed in the hot springs."
+        },
+        "adult_required": {
+          "v": {
+            "under": 14
+          },
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0026"
+          ],
+          "quote": "Youth 14-17 are welcome to visit Banff Upper Hot Springs without an adult.",
+          "note": "13 and under need an adult aged 18 or over; non-swimmers and children 5 and under stay within arm's reach"
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a warm pool open to babies; under 4 wear swim diapers"
+        },
+        "kid_note": "Babies are welcome in swim diapers, but 37-40 °C is hot for small children: Parks Canada asks for a cool-off break every 10 minutes and one to two hours in all.",
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "quote": "The Banff Upper Hot Springs is wheelchair accessible.",
+          "note": "personal wheelchairs stay out of the pool; aquatic wheelchairs on loan"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ]
+        },
+        "accessible_parking": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "quote": "We recommend limiting your visit to one to two hours."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "note": "change rooms and washrooms"
+        },
+        "water_safety": {
+          "water_temp_c": {
+            "v": [
+              37,
+              40
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0026"
+            ],
+            "quote": "kept between 37° C and 40 °C"
+          },
+          "lifeguard": {
+            "v": true,
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0026"
+            ],
+            "note": "the FAQ refers to lifeguards' warnings"
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "open daily 10:00-22:00, last entry 21:30; closed Sep 2025 to Apr 2026 for renovation"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "applies_to": "2026"
+        },
+        "participation": {
+          "pregnancy": {
+            "v": "ask_doctor",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0026"
+            ],
+            "quote": "Individuals who are pregnant should consult with their physician prior to visiting."
+          },
+          "medical": {
+            "v": {
+              "excluded": [],
+              "ask_doctor": [
+                "heart",
+                "diabetes"
+              ]
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0026"
+            ]
+          },
+          "wear": {
+            "v": [
+              "swimwear"
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0026"
+            ],
+            "note": "swimsuits for rent, adult and child sizes 2-14"
+          }
+        },
+        "limited_capacity_note": "Aquatic wheelchairs on loan; take breaks every 10 minutes and keep the visit to one or two hours."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "none_stated",
+          "basis": "official_rule",
+          "src": [
+            "src-0028"
+          ],
+          "quote": "Babies and toddlers are allowed in the hot springs."
+        },
+        "adult_required": {
+          "v": {
+            "under": 14
+          },
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0028"
+          ],
+          "quote": "Children 13 and under must be accompanied by a responsible person who is 14 or older.",
+          "note": "the responsible person stays in the water in the same pool, within arm's reach"
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a warm pool open to babies; under 4 wear swim diapers"
+        },
+        "kid_note": "Babies are welcome in swim diapers. A responsible person 14 or older must be in the same pool within arm's reach of each child under 14.",
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028"
+          ],
+          "quote": "Miette Hot Springs is wheelchair accessible.",
+          "note": "aquatic wheelchairs on loan at reception"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028"
+          ]
+        },
+        "accessible_parking": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028"
+          ],
+          "quote": "We recommend limiting your visit to one to two hours."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0028"
+          ]
+        },
+        "water_safety": {
+          "water_temp_c": {
+            "v": [
+              37,
+              40
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0028"
+            ],
+            "quote": "kept between 37 °C and 40 °C"
+          },
+          "lifeguard": {
+            "v": true,
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0028"
+            ]
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-15",
+              "to": "10-12",
+              "status": "open",
+              "via": "road",
+              "note": "read on 12 Oct 2026 by the plan research; on 18 Oct the page says closed until spring 2027"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0029",
+            "src-0037"
+          ],
+          "applies_to": "2026"
+        },
+        "participation": {
+          "pregnancy": {
+            "v": "ask_doctor",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0028"
+            ],
+            "quote": "Individuals who are pregnant should consult their physician prior to visiting."
+          },
+          "medical": {
+            "v": {
+              "excluded": [],
+              "ask_doctor": [
+                "heart",
+                "diabetes"
+              ]
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0028"
+            ]
+          }
+        },
+        "limited_capacity_note": "Aquatic wheelchairs on loan at reception; take breaks every 10 minutes and keep the visit to one or two hours."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "kind": "activity",
+      "subkind": "vehicle-tour",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "banffjaspercollection.com Columbia Icefield FAQs",
+            "banffjaspercollection.com Columbia Icefield location and hours"
+          ],
+          "note": "no minimum age for the Ice Explorer; only the separate Ice Odyssey sets 6+ (harness fit)"
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a seated bus ride and 15-25 minutes on a groomed patch of glacier"
+        },
+        "kid_note": "Mostly seated, with 15-25 minutes on the ice and no toilets on the glacier or at the Skywalk. Cold and windy on the ice even in September; bring layers and grippy shoes.",
+        "stroller_on_board": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "banffjaspercollection.com Columbia Icefield FAQs",
+            "banffjaspercollection.com Columbia Icefield location and hours"
+          ],
+          "note": "the FAQ covers strollers only at the Skywalk"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "Columbia Icefield Adventure is accessible for guests who use a wheelchair.",
+          "note": "accessible tours run at set times and need 72 hours' notice"
+        },
+        "on_site_min": {
+          "v": [
+            150,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "approx. 2.5 to 3 hours round-trip"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "there are no permanent washroom facilities on the Athabasca Glacier or Skywalk"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-01",
+              "to": "10-12",
+              "status": "open",
+              "via": "road",
+              "note": "7-30 Sep 09:00-17:00; opening and closing days weather dependent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ],
+          "applies_to": "2026"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": {
+              "causes": [
+                "lightning",
+                "snow",
+                "rain",
+                "wind"
+              ],
+              "policy": "rebook",
+              "status": "closes in severe weather; a missed tour can be rebooked for a fee"
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0030"
+            ],
+            "note": "'lightning, blizzards, heavy rain, or extreme winds'"
+          }
+        },
+        "limited_capacity_note": "Two Ice Explorers have wheelchair lifts; book an accessible departure 72 hours ahead."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+      "kind": "sight",
+      "subkind": "attraction",
+      "suitability": {
+        "kid_note": "A flat 1 km loop to a glass-floored platform 280 m above the valley; fully fenced. Some children balk at the glass floor.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "designed as a fully accessible attraction for wheelchairs, strollers and walkers"
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "designed as a fully accessible attraction for wheelchairs, strollers and walkers"
+        },
+        "on_site_min": {
+          "v": [
+            40,
+            45
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "note": "the FAQ recommends 40-45 minutes"
+        },
+        "toilets": {
+          "v": [
+            "none"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "note": "none at the Skywalk; use the Discovery Centre"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-01",
+              "to": "10-12",
+              "status": "open",
+              "via": "shuttle",
+              "note": "reached by the operator's shuttle from the Discovery Centre; 7-30 Sep 10:30-17:00"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ],
+          "applies_to": "2026"
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a flat, fenced walkway"
+        },
+        "limited_capacity_note": "A flat 1 km loop built for wheelchairs and walkers; the shortest version is to the glass platform and back."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "kind": "sight",
+      "subkind": "attraction",
+      "suitability": {
+        "kid_note": "Pick an easy spot such as Pyramid Island and a clear night near new moon. In September it is dark late, so this suits a late night rather than a young child's bedtime.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "parks.canada.ca Jasper Dark Sky Preserve page",
+            "jasper.travel dark sky pages (plan research)"
+          ],
+          "note": "the viewing spots are 'accessible and suitable for most visitors'; no surface detail is published"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0032"
+          ],
+          "quote": "accessible and suitable for most visitors",
+          "note": "said of the four suggested viewing spots, with no step-free detail"
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a self-guided night outing; no source gives a time"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "best near new moon; the Dark Sky Festival is in October"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0032"
+          ],
+          "applies_to": "2026",
+          "quote": "365 days a year"
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "roadside viewing spots; the barrier is the late hour, not terrain"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "kind": "activity",
+      "subkind": "wildlife",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "viewing from a car or from far back; distance rules apply to everyone"
+        },
+        "kid_note": "Watch from the car. Bull elk in the rut charge people and vehicles; keep children and dogs well back, at least 30 m and more during the rut.",
+        "on_site_min": {
+          "v": [
+            15,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "roadside viewing; no source gives a time"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "bull elk are extremely aggressive while guarding harems and may charge vehicles; do not park between a bull and cows",
+              "season": "late Aug to mid Oct"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0033"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "08-28",
+              "to": "10-31",
+              "status": "open",
+              "via": "road",
+              "note": "the 2026 rut advisory period; the rut lasts until mid-October"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0033"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "wildlife",
+        "min_distance_m": {
+          "v": [
+            {
+              "species": "bear",
+              "m": 100
+            },
+            {
+              "species": "cougar",
+              "m": 100
+            },
+            {
+              "species": "wolf",
+              "m": 100
+            },
+            {
+              "species": "elk",
+              "m": 30
+            },
+            {
+              "species": "moose",
+              "m": 30
+            },
+            {
+              "species": "caribou",
+              "m": 30
+            },
+            {
+              "species": "sheep",
+              "m": 30
+            },
+            {
+              "species": "goat",
+              "m": 30
+            }
+          ],
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0034",
+            "src-0033"
+          ],
+          "applies_to": "2026",
+          "note": "Jasper's 2026 restricted-activity order (except inside a legally parked vehicle); Banff's rut advisory asks for at least 30 m from all elk"
+        },
+        "best_time": {
+          "v": [
+            "dawn",
+            "dusk"
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our general rule for ungulates; no official page gives a time for the rut"
+        },
+        "peak_months": {
+          "v": [
+            9,
+            10
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0033"
+          ],
+          "quote": "The elk rutting season has begun and will last until mid-October."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "kind": "activity",
+      "subkind": "mtb",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "wide dirt roads suit a child on a small bike or in a trailer; the singletrack and skills park are for older riders"
+        },
+        "kid_note": "Over 100 km of trails: stick to the wide dirt roads with a young rider. The free skills park has jumps and drops and is unsupervised.",
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "albertaparks.ca Canmore Nordic Centre summer activities",
+              "albertaparks.ca Canmore Nordic Centre park page"
+            ],
+            "note": "Alberta Parks describes terrain and publishes no IMBA grades for the bike trails"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "not_applicable",
+              "basis": null,
+              "src": [],
+              "note": "a network of over 100 km with no single route; the ride is chosen on the day"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "not_applicable",
+              "basis": null,
+              "src": [],
+              "note": "a network with no single route, so no single climb figure"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a free-choice ride on a network; our range for a family outing"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "wildlife",
+              "note": "Alberta Parks strongly recommends carrying bear spray (rentable at Trail Sports); a wildlife corridor above the stadium is limited to designated trails 16 Jun-30 Nov"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0035"
+          ]
+        }
+      },
+      "ext": {
+        "kind": "ride",
+        "skills_park": {
+          "v": {
+            "lift_served": false,
+            "note": "dirt jumps, bridges, drops, skinnies and a wall ride below the Bill Warren Training Centre; free, unsupervised"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0035"
+          ],
+          "quote": "unsupervised area - ride at your own risk!"
+        },
+        "lift_served": {
+          "v": false,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0035"
+          ],
+          "note": "the page mentions no lift"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}
