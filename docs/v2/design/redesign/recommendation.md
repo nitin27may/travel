@@ -155,6 +155,8 @@ Checked against the Trailhead previews. "Spec" means the behaviour is defined ab
 
 ## 6. Migration: what changes in the prototype
 
+> **Superseded in part (18 Oct 2026):** the public read-only site is built in `web/`, not in `prototype/`. See [../../build/public-site/README.md](../../build/public-site/README.md). Steps 11 and 12 below are replaced by that plan. `prototype/` stays the bench for the signed-in planner (steps 1 to 10), and its public screens are frozen as reference.
+
 The steps are sized for one coding agent each, in this order. Each step ends with `npm run build` and a
 screenshot check in light and dark.
 
