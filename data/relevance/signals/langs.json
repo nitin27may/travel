@@ -1,0 +1,21 @@
+{
+  "schema": "relevance-signals-langs/1",
+  "note": "local-language Wikipedia editions to read page views for, by confirmed QID, besides English. Max across editions is used (2.3 language bias).",
+  "langs": {
+    "Q1257207": [
+      "it",
+      "de"
+    ],
+    "Q445369": [
+      "it",
+      "de"
+    ],
+    "Q691103": [
+      "it",
+      "de"
+    ],
+    "Q55978735": [
+      "it"
+    ]
+  }
+}
