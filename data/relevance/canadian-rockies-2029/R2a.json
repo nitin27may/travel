@@ -46,7 +46,7 @@
     },
     {
       "id": "src-0018",
-      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
       "title": "Travelling the Icefields Parkway (Banff top 10)",
       "publisher": "Parks Canada",
       "kind": "official",
@@ -120,6 +120,14 @@
       "id": "src-0045",
       "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
       "title": "Canadian Rocky Mountain Parks World Heritage Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0046",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10",
+      "title": "Top 10 things to do in Banff National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "read": "2026-10-18"
@@ -1613,14 +1621,14 @@
       },
       "class_key": "trail/alpine-loop",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0045",
           "src-0001"
         ],
-        "note": "Inside Banff National Park and the WHS (parent); reached by the resort's summer gondola; among the best-known alpine meadows of the Canadian Rockies (our judgement)."
+        "note": "Down a tier: the earlier national rested on the parent park and WHS only. Place-level signals are 1 Wikipedia language and about 580 page views a year; no headline page found. A strong day out from Banff, standing top (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -3284,7 +3292,7 @@
           "src-0045",
           "src-0023"
         ],
-        "note": "Yoho's headline lake on Parks Canada's Yoho places page (headline), inside Yoho National Park and the WHS (parent)."
+        "note": "Place-level evidence: Yoho's headline lake on Parks Canada's Yoho places page; 9 Wikipedia languages and about 17,200 English page views a year (national by views). Parent designations are context only (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -3295,11 +3303,11 @@
       },
       "standing_scope": "Yoho",
       "distinction": {
-        "v": "rare",
+        "v": "common",
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "note": "Lake Louise (60 km by road) and Moraine Lake are the same kind."
+        "note": "Several lakes of the same class lie within 100 km: Lake Louise (21 km), Bow Lake (25 km), Moraine Lake (28 km) and Peyto. Common caps it at highlight (RC re-judge, 18 Oct 2026)"
       },
       "easy_payoff": {
         "v": "full",
@@ -3352,7 +3360,13 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+          "reason": "The Natural Bridge is on the Emerald Lake road, a short stop on the way in"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
@@ -3729,7 +3743,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+          "reason": "The Larch Valley trail starts at the lakeshore; in larch season people walk up from the lake",
+          "src": "src-0017"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
@@ -4081,7 +4102,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "reason": "The summer gondola is across the valley from the lake, a classic half-day pairing with the lakeshore",
+          "src": "src-0017"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
@@ -4103,7 +4131,7 @@
           "src-0045",
           "src-0006"
         ],
-        "note": "One of the named stops on Parks Canada's Icefields Parkway itinerary, inside Jasper National Park and the WHS (parent); the most powerful fall on the Parkway (our judgement)."
+        "note": "Place-level evidence: a named stop on Parks Canada's Icefields Parkway itinerary (official_highlight, own) and 17 Wikipedia languages (national by languages). Parent designations are context only (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -4157,13 +4185,19 @@
               "name": "Jasper National Park",
               "scope": "parent",
               "wikidata": "Q503429"
+            },
+            {
+              "type": "official_highlight",
+              "name": "named stop on Parks Canada's Icefields Parkway itinerary (Jasper)",
+              "scope": "own"
             }
           ],
           "state": "value",
           "basis": "official_info",
           "src": [
             "src-0045",
-            "src-0006"
+            "src-0006",
+            "src-0016"
           ]
         },
         "editorial": {
@@ -4194,7 +4228,7 @@
           "src-0045",
           "src-0001"
         ],
-        "note": "Inside Banff National Park and the WHS (parent); among the busiest trails of the mountain parks (our judgement from the 8 accessible stalls and Parks Canada's crowd notes)."
+        "note": "Place-level evidence: Parks Canada names it in its Banff top 10 (official_highlight, own), inside a world-draw park; its Wikidata item is a one-language bot stub, so the fame signal under-reads. Parent designations (Banff NP, WHS) are context only (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -4247,13 +4281,19 @@
               "name": "Banff National Park",
               "scope": "parent",
               "wikidata": "Q41858"
+            },
+            {
+              "type": "official_highlight",
+              "name": "Parks Canada's Banff top 10 ('Discover Johnston Canyon')",
+              "scope": "own"
             }
           ],
           "state": "value",
           "basis": "official_info",
           "src": [
             "src-0045",
-            "src-0001"
+            "src-0001",
+            "src-0046"
           ]
         },
         "editorial": {
@@ -4353,7 +4393,13 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+          "reason": "The Paint Pots are the next stop on Highway 93 South, about 3 km away"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
@@ -4650,7 +4696,7 @@
           "src-0045",
           "src-0023"
         ],
-        "note": "Parks Canada calls it Canada's second highest waterfall (headline), inside Yoho National Park and the WHS (parent)."
+        "note": "Place-level evidence: Parks Canada calls it Canada's second highest waterfall; 11 Wikipedia languages and about 10,700 English page views a year (national). Parent designations are context only (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -4909,7 +4955,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "reason": "Bow Lake is the next Parkway stop south, about 10 minutes by road",
+          "src": "src-0018"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
@@ -5486,7 +5539,13 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "reason": "The Skywalk is 6 km down the Parkway and sold with the Ice Explorer in one ticket"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",

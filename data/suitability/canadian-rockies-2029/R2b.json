@@ -72,7 +72,7 @@
     },
     {
       "id": "src-0009",
-      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/experience/faqs/",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/",
       "title": "Banff Gondola FAQs",
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
@@ -128,7 +128,7 @@
     },
     {
       "id": "src-0016",
-      "url": "https://www.skilouise.com/explore-summer/disabled-travelers-accessibility/",
+      "url": "https://www.skilouise.com/accessibility/",
       "title": "Disabled travellers and accessibility",
       "publisher": "Lake Louise Ski Resort",
       "kind": "operator",
@@ -168,8 +168,8 @@
     },
     {
       "id": "src-0021",
-      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/hours-rates/",
-      "title": "Lake Minnewanka Cruise hours and rates (read through search results)",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours/",
+      "title": "Lake Minnewanka Cruise location and hours (opened; 2027 dates now published)",
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
       "read": "2026-10-18"
@@ -534,14 +534,14 @@
             },
             "participation": {
               "pregnancy": {
-                "v": "not_allowed",
+                "v": "ask_doctor",
                 "state": "value",
-                "basis": "operator_rule",
+                "basis": "operator_info",
                 "src": [
                   "src-0002"
                 ],
                 "quote": "we recommend pregnant ladies remain on land and raft with us at a future time",
-                "note": "phrased as a recommendation"
+                "note": "Advice, not a rule: the operator recommends staying on land but does not bar pregnant guests. The vocabulary has no not_recommended value; ask_doctor is the nearest non-rule value (RC, 18 Oct 2026). Read the quote."
               },
               "waiver": {
                 "v": {
@@ -682,7 +682,7 @@
               "swim_ability": {
                 "v": "comfortable",
                 "state": "value",
-                "basis": "operator_rule",
+                "basis": "operator_info",
                 "src": [
                   "src-0003"
                 ],
@@ -903,7 +903,7 @@
           "swim_ability": {
             "v": "none_needed",
             "state": "value",
-            "basis": "operator_rule",
+            "basis": "operator_info",
             "src": [
               "src-0006"
             ],
@@ -1325,12 +1325,12 @@
         "stroller_on_board": {
           "v": "yes",
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0012"
           ],
           "quote": "These items take up space in the tram and need to be counted toward capacity",
-          "note": "allowed, but reserve a free ticket for each stroller or backpack carrier when booking"
+          "note": "allowed, but reserve a free ticket for each stroller or backpack carrier when booking Strollers are carried and counted toward capacity: information, not a rule (RC)."
         },
         "wheelchair": {
           "v": "partial",
@@ -1957,11 +1957,11 @@
         "access_season": {
           "v": [
             {
-              "from": "05-08",
-              "to": "10-12",
+              "from": "05-07",
+              "to": "10-11",
               "status": "open",
               "via": "road",
-              "note": "Classic cruise; 1-17 Sep 10:00-18:00, 18 Sep-12 Oct 10:00-17:00"
+              "note": "Classic cruise 2027: 7 Sep-26 Sep 10:30-17:00, 27 Sep-11 Oct 10:00-17:00; ticket office a 10-minute walk from the parking lot"
             }
           ],
           "state": "value",
@@ -1969,7 +1969,9 @@
           "src": [
             "src-0021"
           ],
-          "applies_to": "2026"
+          "applies_to": "2027",
+          "quote": "Classic Cruise ... May 7 – May 20, 2027 10 AM – 6 PM ... September 27 – October 11, 2027 10 AM – 5 PM",
+          "note": "Re-read on the moved hours page (RC); the earlier 2026 read gave 8 May - 12 Oct"
         },
         "participation": {
           "weather_cancel": {
@@ -2351,18 +2353,18 @@
           "note": "the lodge closes for wind, rain and snow"
         },
         "craft_capacity": {
-          "v": {
-            "adults": 3,
-            "children": 0,
-            "child_max_kg": null
-          },
-          "state": "value",
-          "basis": "official_info",
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
           "src": [
             "src-0023"
           ],
+          "on": "2026-10-18",
+          "tried": [
+            "morainelake.com/day-visits/ (canoe rentals)"
+          ],
           "quote": "Each canoe can accommodate two to three people",
-          "note": "no child rule is published"
+          "note": "Capacity is two to three people per canoe (any age). The page gives no adult and child split and no child weight, so the split is searched_none; the earlier children 0 was not on the page (RC)."
         },
         "guided": {
           "v": "self",
@@ -2576,12 +2578,13 @@
       "suitability": {
         "min_age": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0026"
           ],
-          "quote": "Babies and toddlers are allowed in the hot springs."
+          "quote": "Babies and toddlers are allowed in the hot springs.",
+          "note": "The page affirmatively welcomes all ages, so no_limit (RC, 18 Oct 2026)."
         },
         "adult_required": {
           "v": {
@@ -2755,12 +2758,13 @@
       "suitability": {
         "min_age": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0028"
           ],
-          "quote": "Babies and toddlers are allowed in the hot springs."
+          "quote": "Babies and toddlers are allowed in the hot springs.",
+          "note": "The page affirmatively welcomes all ages, so no_limit (RC, 18 Oct 2026)."
         },
         "adult_required": {
           "v": {

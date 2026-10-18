@@ -270,7 +270,7 @@
     },
     {
       "id": "src-0034",
-      "url": "https://www.glaumbaer.is/is/en",
+      "url": "https://www.glaumbaer.is/en/visit/hours-admission",
       "title": "Opening hours and admission",
       "publisher": "Skagafjordur Heritage Museum",
       "kind": "operator",
@@ -286,7 +286,7 @@
     },
     {
       "id": "src-0036",
-      "url": "https://lystigardur.akureyri.is/en/moya/adverts/9",
+      "url": "https://www.lystigardur.akureyri.is/en/practical-information/opening-hours-and-directions",
       "title": "Opening hours and directions",
       "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
       "kind": "official",
@@ -772,7 +772,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+          "reason": "Gullfoss is about 10 km up the road: the Golden Circle pair",
+          "src": "src-0014"
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
@@ -1021,7 +1028,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:geysir",
+          "reason": "Geysir is about 10 km back down the road: the Golden Circle pair",
+          "src": "src-0010"
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:namaskard",
@@ -1098,7 +1112,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+          "reason": "The lagoon is a few kilometres west on the same road at Myvatn: hot springs, then a soak",
+          "src": "src-0030"
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
@@ -1119,7 +1140,7 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "note": "No own designation page found; one of the images that stand for Iceland, and a south-coast anchor on every Ring Road plan (our judgement, lower-bound evidence)."
+        "note": "Place-level evidence: 40 Wikipedia languages (world) and about 22,400 English page views a year; no own designation page found (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -1761,7 +1782,7 @@
         "src": [
           "src-0040"
         ],
-        "note": "No own designation on a page read; a south-coast headline whose fame brought a closure by the Environment Agency in 2019 (repo research)."
+        "note": "Place-level evidence: 17 Wikipedia languages and about 7,700 page views a year (national by languages); the land manager (Environment Agency) closed it in 2019 because of visitor pressure (repo research); no own designation page read (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -2022,13 +2043,13 @@
       },
       "class_key": "beach/ocean",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0008"
         ],
-        "note": "Part of Vatnajokull National Park since 2017 (parent, Breidamerkursandur); paired with Jokulsarlon on every Ring Road plan."
+        "note": "Down a tier: the earlier national rested on the parent designation (Vatnajokull National Park, scope parent); no Wikipedia article (0 languages). It is the lagoon's beach across the road, and the lagoon carries the draw (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -2091,7 +2112,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+          "reason": "The lagoon is across the road; the beach's ice comes from it",
+          "src": "src-0008"
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
@@ -2180,7 +2208,14 @@
           "basis": null,
           "src": []
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+          "reason": "Diamond Beach is across the road from the lagoon, where its icebergs wash up",
+          "src": "src-0008"
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
@@ -2201,7 +2236,7 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "note": "No designation; one of the most photographed mountains in Iceland, but the evidence read is no top list and no headline page (lower tier chosen)."
+        "note": "Place-level evidence: 22 Wikipedia languages and about 25,400 English page views a year (national); no designation or top list, so not world (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",

@@ -1049,7 +1049,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
       "draw_suggested": "local",
-      "effective_draw": "national",
+      "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
       "detour_basis": "none",
@@ -1065,8 +1065,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -1078,14 +1078,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": [
         {
@@ -2236,6 +2236,10 @@
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
           "km": 7.4
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+          "km": 7.4
         }
       ],
       "part_of": [
@@ -2244,8 +2248,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
         },
         "weekend": {
           "fit": "skip",
@@ -2257,14 +2261,14 @@
           "reason": "detour 52 min is over 30"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": []
     },
@@ -2457,7 +2461,21 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+          "km": 2.6,
+          "how": "drive",
+          "extra_min": 150,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Larch Valley trail starts at the lakeshore; in larch season people walk up from the lake",
+          "src": "src-0017"
+        }
+      ],
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
@@ -2775,12 +2793,22 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [
+      "pair_with": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
-          "km": 5.7
-        },
+          "km": 5.7,
+          "how": "drive",
+          "extra_min": 90,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": true,
+          "reason": "The summer gondola is across the valley from the lake, a classic half-day pairing with the lakeshore",
+          "src": "src-0017"
+        }
+      ],
+      "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
           "km": 10.3
@@ -2896,7 +2924,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": 48,
@@ -3349,13 +3377,22 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [
+      "pair_with": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
-          "km": 8.4
+          "km": 8.4,
+          "how": "drive",
+          "extra_min": 90,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "good",
+          "hand_picked": true,
+          "reason": "Bow Lake is the next Parkway stop south, about 10 minutes by road",
+          "src": "src-0018"
         }
       ],
+      "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -3681,15 +3718,24 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "km": 7.8,
+          "how": "drive",
+          "extra_min": 45,
+          "on_site_min": 45,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": true,
+          "reason": "The Skywalk is 6 km down the Parkway and sold with the Ice Explorer in one ticket"
+        }
+      ],
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
           "km": 6.7
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
-          "km": 7.8
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
@@ -3925,7 +3971,9 @@
           "on_site_estimated": false,
           "draw": "regional",
           "standing": "top",
-          "hand_picked": false
+          "hand_picked": true,
+          "reason": "The Upper Hot Springs are a few hundred metres down Mountain Avenue from the gondola base: ride up, then soak",
+          "src": "src-0010"
         }
       ],
       "pair_pending": [
@@ -4099,8 +4147,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction unique"
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction unique; same place as legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island, which keeps the anchor"
         },
         "weekend": {
           "fit": "skip",
@@ -4112,14 +4160,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": [
         {
@@ -4440,8 +4488,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction unique"
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction unique; same place as legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier, which keeps the anchor"
         },
         "weekend": {
           "fit": "skip",
@@ -4453,14 +4501,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": [
         {

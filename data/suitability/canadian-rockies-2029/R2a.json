@@ -144,7 +144,7 @@
     },
     {
       "id": "src-0018",
-      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
       "title": "Travelling the Icefields Parkway (Banff top 10)",
       "publisher": "Parks Canada",
       "kind": "official",
@@ -381,6 +381,22 @@
       "publisher": "this repo",
       "kind": "computed",
       "read": "2026-10-18"
+    },
+    {
+      "id": "src-0049",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
+      "title": "Area Closure: Johnston Canyon Trail and Day Use Area (bulletin)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0050",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff",
+      "title": "Winter walking trails in the Banff area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
     }
   ],
   "records": [
@@ -391,13 +407,13 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005",
             "src-0006"
           ],
-          "note": "Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -563,7 +579,7 @@
         "accessibility": "unknown",
         "walk_km": 10.4,
         "walk_gain_m": 500,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -573,12 +589,12 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005"
           ],
-          "note": "Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -732,7 +748,7 @@
         "accessibility": "unknown",
         "walk_km": 13.4,
         "walk_gain_m": 730,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -742,13 +758,13 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005",
             "src-0023"
           ],
-          "note": "In Yoho the group access list names only the McArthur Valley and the Odaray Highline; this trail is not among them."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). In Yoho the group access list names only the McArthur Valley and the Odaray Highline; this trail is not among them. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -940,7 +956,7 @@
         "accessibility": "partial",
         "walk_km": 5.2,
         "walk_gain_m": 5,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -950,13 +966,13 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005",
             "src-0023"
           ],
-          "note": "In Yoho the group access list names only the McArthur Valley and the Odaray Highline; this trail is not among them."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). In Yoho the group access list names only the McArthur Valley and the Odaray Highline; this trail is not among them. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -1149,7 +1165,7 @@
         "accessibility": "unknown",
         "walk_km": 20.3,
         "walk_gain_m": 1090,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -1288,15 +1304,16 @@
           "v": [
             {
               "category": "wildlife",
-              "note": "Grizzly country: Alberta Parks closed parts of the Upper Lake circuit for a grizzly with cubs in summer 2026 (trip research); the trail report showed it open again in September"
+              "note": "Grizzly country. The trip research (trails-provincial.md) recorded an Alberta Parks closure of the Upper Kananaskis Lake circuit (North Interlakes to White Spruce) for a grizzly with cubs in summer 2026; the live advisory and trail report pages read 18 Oct 2026 no longer show it, and the Upper Lake report reads 'Open Sep 9th'"
             }
           ],
           "state": "value",
-          "basis": "official_info",
+          "basis": "our_inference",
           "src": [
             "src-0033",
             "src-0034"
-          ]
+          ],
+          "note": "The closure rests on our earlier trip research, not on a page that states it today; the src pages show the trail open again (RC, 18 Oct 2026)"
         },
         "access_season": {
           "v": null,
@@ -1902,12 +1919,12 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005"
           ],
-          "note": "Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -2075,7 +2092,7 @@
         "accessibility": "unknown",
         "walk_km": 4.6,
         "walk_gain_m": 175,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -2262,13 +2279,13 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005",
             "src-0006"
           ],
-          "note": "Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -2456,7 +2473,7 @@
         "accessibility": "partial",
         "walk_km": 3.2,
         "walk_gain_m": 0,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -2466,12 +2483,12 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005"
           ],
-          "note": "Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -2660,7 +2677,7 @@
         "accessibility": "unknown",
         "walk_km": 5.4,
         "walk_gain_m": 250,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -2670,12 +2687,12 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005"
           ],
-          "note": "Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -2849,7 +2866,7 @@
         "accessibility": "unknown",
         "walk_km": 11.8,
         "walk_gain_m": 595,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -3228,13 +3245,13 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005",
             "src-0006"
           ],
-          "note": "Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -3407,7 +3424,7 @@
         "accessibility": "unknown",
         "walk_km": 8.8,
         "walk_gain_m": 700,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -3417,12 +3434,12 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005"
           ],
-          "note": "Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada lists group access in Banff only for Bryant Creek, the Lake Minnewanka area trails and the Moraine Lake area trails; this trail is not among them. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -3597,7 +3614,7 @@
         "accessibility": "unknown",
         "walk_km": 10.2,
         "walk_gain_m": 580,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -3607,13 +3624,13 @@
       "suitability": {
         "group_min": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "official_rule",
           "src": [
             "src-0005",
             "src-0006"
           ],
-          "note": "Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice."
+          "note": "Not on Parks Canada's group-of-four list (seasonal Group Access: Banff Bryant Creek/Allenby Pass, Lake Minnewanka area, Moraine Lake area; Yoho McArthur Valley, Odaray Highline; none in Jasper). Parks Canada's list of seasonal group access areas names none in Jasper, and the Jasper trail table lists no group rule. Restrictions can be added at short notice. (RC, list re-read 18 Oct 2026)"
         },
         "age_band": {
           "v": {
@@ -3783,7 +3800,7 @@
         "accessibility": "unknown",
         "walk_km": 8,
         "walk_gain_m": 390,
-        "suit_level": "usable_partial"
+        "suit_level": "usable"
       }
     },
     {
@@ -7899,7 +7916,7 @@
               "to": "12-11",
               "status": "closed",
               "via": "road",
-              "note": "2026: whole trail and day-use area closed for rock slope remediation; a 19-month tender from August 2026 means later closures are possible, so check before going"
+              "note": "2026: Johnston Canyon Trail (to Lower and Upper Falls), the day-use area, washrooms and P1 lot closed 13 Oct - 11 Dec 2026 by Superintendent's order; the Upper Falls and Ink Pots stay reachable via the Moose Meadows Trail. A 19-month remediation tender from 31 Aug 2026 means later closures are possible, so check before going"
             }
           ],
           "state": "value",
@@ -7907,9 +7924,12 @@
           "src": [
             "src-0001",
             "src-0002",
-            "src-0044"
+            "src-0044",
+            "src-0049",
+            "src-0050"
           ],
-          "applies_to": "2026"
+          "applies_to": "2026",
+          "quote": "Issued: October 13, 2026 Ends: December 11, 2026 ... Johnston Canyon Trail and Day Use Area, including washroom facilities and P1 parking lot"
         },
         "walk_m": {
           "v": 1100,

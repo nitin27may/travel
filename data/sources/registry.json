@@ -341,62 +341,6 @@
       }
     },
     {
-      "id": "s-259bb5a673",
-      "url": "https://api.open-meteo.com/v1/elevation",
-      "title": "Open-Meteo elevation API (Copernicus GLO-90 DEM), sampled every 30 m along the OSM relation",
-      "publisher": "Open-Meteo",
-      "kind": "reference",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/viel-dal-pan",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/viel-dal-pan",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/viel-dal-pan",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/viel-dal-pan",
-          "field": "suitability.effort.drivers.gain_m"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/viel-dal-pan",
-          "field": "suitability.hazards"
-        }
-      ],
-      "licence_note": "Open-Meteo data is CC BY 4.0; attribution required.",
-      "terms_note": "Free API is for non-commercial use.",
-      "recheck": {
-        "cadence_days": 365,
-        "fact_type": "rules"
-      },
-      "link": {
-        "status": "broken",
-        "checked": "2026-10-18"
-      }
-    },
-    {
       "id": "s-9e3f4c9286",
       "url": "https://argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
       "title": "Mapa de pasarelas, Glaciar Perito Moreno",
@@ -764,67 +708,6 @@
       },
       "link": {
         "status": "ok",
-        "checked": "2026-10-18"
-      }
-    },
-    {
-      "id": "s-14dacc413f",
-      "url": "https://cms.odlesdolomites.com/fileadmin/user_upload/Footer_Nachhaltigkeit/3.2_Sustainable_behaviour_Villn%C3%B6ss.pdf",
-      "title": "Sustainable behaviour, Villnöss (search result; the PDF did not open)",
-      "publisher": "Villnöss/Funes tourism board (Odles Dolomites)",
-      "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "easy_payoff"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/santa-maddalena-val-di-funes",
-          "field": "suitability.walk_m"
-        }
-      ],
-      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
-      "terms_note": "No terms review recorded yet.",
-      "recheck": {
-        "cadence_days": 90,
-        "fact_type": "prices_hours"
-      },
-      "link": {
-        "status": "broken",
         "checked": "2026-10-18"
       }
     },
@@ -1389,6 +1272,87 @@
       }
     },
     {
+      "id": "s-472aac83db",
+      "url": "https://en.chamonix.com/activites-en-famille/mer-de-glace-et-train-du-montenvers",
+      "title": "The Montenvers - Mer de Glace train",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.accessible_toilet"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.food"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.min_age"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.on_site_min"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.participation.weather_cancel"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.toilets"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "field": "ext.steps"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "field": "suitability.min_age"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
       "id": "s-ce57a16955",
       "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/aiguille-du-midi-cable-car",
       "title": "Aiguille du Midi cable car",
@@ -1531,89 +1495,8 @@
       }
     },
     {
-      "id": "s-f2f8f3bdd1",
-      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/the-montenvers-mer-de-glace-train",
-      "title": "The Montenvers - Mer de Glace train",
-      "publisher": "Chamonix-Mont-Blanc tourist office",
-      "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "draw"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.accessible_toilet"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.food"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.min_age"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.on_site_min"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.participation.weather_cancel"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.toilets"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.wheelchair"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "field": "ext.steps"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "field": "suitability.min_age"
-        }
-      ],
-      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
-      "terms_note": "No terms review recorded yet.",
-      "recheck": {
-        "cadence_days": 90,
-        "fact_type": "prices_hours"
-      },
-      "link": {
-        "status": "redirect",
-        "checked": "2026-10-18"
-      }
-    },
-    {
-      "id": "s-ff823897ae",
-      "url": "https://en.chamonix.com/la-vallee/patrimoine-culture/patrimoine-culturel-de-la-vallee/emosson-dam",
+      "id": "s-38fbd4a2a6",
+      "url": "https://en.chamonix.com/cultural-spring-activities/emosson-dam",
       "title": "Emosson dam",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -1643,13 +1526,13 @@
         "fact_type": "seasons_closures"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
     {
-      "id": "s-3b7e5c6e15",
-      "url": "https://en.chamonix.com/objet_touristique/1322",
+      "id": "s-013c3cf693",
+      "url": "https://en.chamonix.com/lacs-d-hiver/lac-des-gaillands",
       "title": "Lac des Gaillands",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -1669,109 +1552,13 @@
         "fact_type": "rules"
       },
       "link": {
-        "status": "redirect",
-        "checked": "2026-10-18"
-      }
-    },
-    {
-      "id": "s-02307b2144",
-      "url": "https://en.chamonix.com/spring-hikes/grand-balcon-nord-plan-de-l-aiguille-du-midi-montenvers",
-      "title": "Grand Balcon Nord",
-      "publisher": "Chamonix-Mont-Blanc tourist office",
-      "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "draw"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.adult_time_min"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.carrier_ok"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.effort.drivers.gain_m"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.effort.drivers.loss_m"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.effort.source_grade"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.hazards"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-          "field": "suitability.stroller"
-        }
-      ],
-      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
-      "terms_note": "No terms review recorded yet.",
-      "recheck": {
-        "cadence_days": 90,
-        "fact_type": "prices_hours"
-      },
-      "link": {
         "status": "ok",
         "checked": "2026-10-18"
       }
     },
     {
-      "id": "s-940ff3b8b6",
-      "url": "https://en.chamonix.com/things-to-see-and-do/sports-and-outdoor/hiking/lakes-waterfalls-and-gorges/hike-to-the-lac-blanc-from-la-flegere",
+      "id": "s-9c54bd848d",
+      "url": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
       "title": "Hike to the Lac Blanc from La Flegere",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -1906,7 +1693,103 @@
         "fact_type": "prices_hours"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-02307b2144",
+      "url": "https://en.chamonix.com/spring-hikes/grand-balcon-nord-plan-de-l-aiguille-du-midi-montenvers",
+      "title": "Grand Balcon Nord",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "draw"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.carrier_ok"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.effort.drivers.loss_m"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.hazards"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "suitability.stroller"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -2575,37 +2458,6 @@
       }
     },
     {
-      "id": "s-938f1829bb",
-      "url": "https://lystigardur.akureyri.is/en/moya/adverts/9",
-      "title": "Opening hours and directions",
-      "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
-      "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
-          "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
-          "field": "suitability.wheelchair"
-        }
-      ],
-      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
-      "terms_note": "No terms review recorded yet.",
-      "recheck": {
-        "cadence_days": 365,
-        "fact_type": "rules"
-      },
-      "link": {
-        "status": "redirect",
-        "checked": "2026-10-18"
-      }
-    },
-    {
       "id": "s-086ff9a40d",
       "url": "https://morainelake.com/day-visits",
       "title": "Day visits: canoe rentals",
@@ -2650,6 +2502,47 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-fdaea7f4af",
+      "url": "https://open-meteo.com/en/docs/elevation-api",
+      "title": "Open-Meteo Elevation API (Copernicus DEM GLO-90, 90 m), documentation. Queried with latitude and longitude arrays sampled every 30 m along the OSM geometry of relation 7302436 (Passo Pordoi to Fedaia); the coordinates come from that OSM relation",
+      "publisher": "Open-Meteo",
+      "kind": "reference",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/viel-dal-pan",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/viel-dal-pan",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/viel-dal-pan",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/viel-dal-pan",
+          "field": "suitability.hazards"
+        }
+      ],
+      "licence_note": "Open-Meteo data is CC BY 4.0; attribution required.",
+      "terms_note": "Free API is for non-commercial use.",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
       },
       "link": {
         "status": "ok",
@@ -3319,6 +3212,32 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-f2be7eff7b",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/marchehiver-winterwalking/banff",
+      "title": "Winter walking trails in the Banff area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "ok",
@@ -4103,6 +4022,32 @@
       }
     },
     {
+      "id": "s-5a94aedc1d",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
+      "title": "Area Closure: Johnston Canyon Trail and Day Use Area (bulletin)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+          "field": "suitability.access_season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
       "id": "s-fa65416836",
       "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/868a8410-7ef6-4f87-a4d3-f8dc44f335aa",
       "title": "Attention: Elk Rut Season Advisory (issued 28 Aug 2026)",
@@ -4231,9 +4176,9 @@
       }
     },
     {
-      "id": "s-401d4527cb",
-      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
-      "title": "Travelling the Icefields Parkway (Banff top 10)",
+      "id": "s-7948feb0cb",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10",
+      "title": "Top 10 things to do in Banff National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
@@ -4241,118 +4186,18 @@
       "used_by": [
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
           "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
-          "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
-          "field": "suitability.walk_m"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
-          "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
-          "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
-          "field": "suitability.wheelchair"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "suitability.wheelchair"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
       "terms_note": "No terms review recorded yet.",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -4603,6 +4448,132 @@
       "recheck": {
         "cadence_days": 730,
         "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-534753610b",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
+      "title": "Travelling the Icefields Parkway (Banff top 10)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+          "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
       },
       "link": {
         "status": "ok",
@@ -5520,6 +5491,11 @@
       "first_read": "2026-10-18",
       "last_read": "2026-10-18",
       "used_by": [
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+          "field": "signals.designations"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
@@ -7105,9 +7081,9 @@
       }
     },
     {
-      "id": "s-6b86885265",
-      "url": "https://piratour.net/producto/caminata-en-isla-martillo",
-      "title": "Caminata en Pingüinera (Isla Martillo)",
+      "id": "s-d8d590aa02",
+      "url": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre",
+      "title": "Caminata en Pingüinera (Isla Martillo) (redirected to the version terrestre page, same product; re-read)",
       "publisher": "Piratour Travel",
       "kind": "operator",
       "first_read": "2026-10-18",
@@ -7122,11 +7098,6 @@
           "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/sight:penguin colony stop",
           "field": "standing"
-        },
-        {
-          "file": "data/suitability/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/sight:penguin colony stop",
-          "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/patagonia-2027/R3.json",
@@ -7171,7 +7142,7 @@
         "fact_type": "prices_hours"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -7818,6 +7789,47 @@
       }
     },
     {
+      "id": "s-a1950eec4f",
+      "url": "https://stateparks.utah.gov/parks/dead-horse-point/hiking",
+      "title": "Hiking, Dead Horse Point State Park (Overlook Trail)",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/relevance/utah-five-parks/R5.json",
+          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+          "field": "easy_payoff"
+        },
+        {
+          "file": "data/suitability/utah-five-parks/R5.json",
+          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/utah-five-parks/R5.json",
+          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+          "field": "suitability.walk_m"
+        },
+        {
+          "file": "data/suitability/utah-five-parks/R5.json",
+          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
       "id": "s-5546ffcc77",
       "url": "https://stateparks.utah.gov/parks/dead-horse/park-fees",
       "title": "Dead Horse Point park fees",
@@ -7963,52 +7975,6 @@
       },
       "link": {
         "status": "ok",
-        "checked": "2026-10-18"
-      }
-    },
-    {
-      "id": "s-c3df6363be",
-      "url": "https://stateparks.utah.gov?p=11460",
-      "title": "Dead Horse Point State Park overlook text (read via search result; the page returned 404 to fetch)",
-      "publisher": "Utah State Parks",
-      "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-          "field": "easy_payoff"
-        },
-        {
-          "file": "data/suitability/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-          "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-          "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-          "field": "suitability.walk_m"
-        },
-        {
-          "file": "data/suitability/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-          "field": "suitability.wheelchair"
-        }
-      ],
-      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
-      "terms_note": "No terms review recorded yet.",
-      "recheck": {
-        "cadence_days": 365,
-        "fact_type": "rules"
-      },
-      "link": {
-        "status": "broken",
         "checked": "2026-10-18"
       }
     },
@@ -10205,8 +10171,8 @@
       }
     },
     {
-      "id": "s-04be7df43f",
-      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/experience/faqs",
+      "id": "s-4042473c8d",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs",
       "title": "Banff Gondola FAQs",
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
@@ -10266,7 +10232,7 @@
         "fact_type": "seasons_closures"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -10578,9 +10544,9 @@
       }
     },
     {
-      "id": "s-abc64e6338",
-      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/hours-rates",
-      "title": "Lake Minnewanka Cruise hours and rates (read through search results)",
+      "id": "s-de3f7ddc1f",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours",
+      "title": "Lake Minnewanka Cruise location and hours (opened; 2027 dates now published)",
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
       "first_read": "2026-10-18",
@@ -10604,7 +10570,7 @@
         "fact_type": "prices_hours"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -11334,52 +11300,6 @@
       }
     },
     {
-      "id": "s-62784ccfe4",
-      "url": "https://www.dreizinnen.com/en/activity/family-hiking-tour-walk-around-the-pragser-wildsee-lake_675",
-      "title": "Family hiking tour: walk around the Pragser Wildsee",
-      "publisher": "3 Zinnen Dolomites tourism board",
-      "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
-      "used_by": [
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lago-di-braies#walk",
-          "field": "suitability.adult_time_min"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lago-di-braies#walk",
-          "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lago-di-braies#walk",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lago-di-braies#walk",
-          "field": "suitability.effort.drivers.gain_m"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lago-di-braies#walk",
-          "field": "suitability.effort.source_grade"
-        }
-      ],
-      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
-      "terms_note": "No terms review recorded yet.",
-      "recheck": {
-        "cadence_days": 365,
-        "fact_type": "rules"
-      },
-      "link": {
-        "status": "redirect",
-        "checked": "2026-10-18"
-      }
-    },
-    {
       "id": "s-aa46002d23",
       "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lago-di-braies-pragser-wildsee-mountain-croda-del-becco-seekofel-_544",
       "title": "Lago di Braies to Croda del Becco/Seekofel",
@@ -11543,6 +11463,52 @@
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/tre-cime-di-lavaredo-loop",
           "field": "suitability.stroller"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-fd8a40909f",
+      "url": "https://www.dreizinnen.com/en/activity/summer-walk-around-the-lake-lago-di-braies-pragser-wildsee-_644",
+      "title": "Summer walk around the lake Lago di Braies/Pragser Wildsee",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-braies#walk",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-braies#walk",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-braies#walk",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-braies#walk",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-braies#walk",
+          "field": "suitability.effort.source_grade"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -12145,8 +12111,8 @@
       }
     },
     {
-      "id": "s-21586c0f47",
-      "url": "https://www.glaumbaer.is/is/en",
+      "id": "s-ed3e2aa211",
+      "url": "https://www.glaumbaer.is/en/visit/hours-admission",
       "title": "Opening hours and admission",
       "publisher": "Skagafjordur Heritage Museum",
       "kind": "operator",
@@ -12171,13 +12137,13 @@
         "fact_type": "seasons_closures"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
     {
-      "id": "s-5ff31450d9",
-      "url": "https://www.iceman.it/en/opening-times-and-fees",
+      "id": "s-3656501e79",
+      "url": "https://www.iceman.it/en/the-museum/opening-times-and-fees",
       "title": "Opening times and fees",
       "publisher": "South Tyrol Museum of Archaeology",
       "kind": "operator",
@@ -12202,7 +12168,7 @@
         "fact_type": "seasons_closures"
       },
       "link": {
-        "status": "broken",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -12405,6 +12371,37 @@
       "recheck": {
         "cadence_days": 90,
         "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-94b679c2b3",
+      "url": "https://www.lystigardur.akureyri.is/en/practical-information/opening-hours-and-directions",
+      "title": "Opening hours and directions",
+      "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/iceland-ring-road-2027/R4.json",
+          "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+          "field": "suitability.wheelchair"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
       },
       "link": {
         "status": "ok",
@@ -14579,9 +14576,9 @@
       }
     },
     {
-      "id": "s-2da1039361",
-      "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-doch-befahrbar-26299020",
-      "title": "Südtirol: Grödner Joch doch befahrbar (search result, not opened)",
+      "id": "s-41a645d02e",
+      "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
+      "title": "Südtirol: Grödner Joch, Pragser Wildsee und Seceda (31 Aug 2026; opened, the URL slug changed)",
       "publisher": "ÖAMTC (motoring club)",
       "kind": "editorial",
       "first_read": "2026-10-18",
@@ -14605,7 +14602,7 @@
         "fact_type": "prices_hours"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -15880,8 +15877,8 @@
       }
     },
     {
-      "id": "s-96e8453910",
-      "url": "https://www.skilouise.com/explore-summer/disabled-travelers-accessibility",
+      "id": "s-c3192a536d",
+      "url": "https://www.skilouise.com/accessibility",
       "title": "Disabled travellers and accessibility",
       "publisher": "Lake Louise Ski Resort",
       "kind": "operator",
@@ -15916,7 +15913,7 @@
         "fact_type": "rules"
       },
       "link": {
-        "status": "redirect",
+        "status": "ok",
         "checked": "2026-10-18"
       }
     },
@@ -16118,6 +16115,67 @@
       "recheck": {
         "cadence_days": 365,
         "fact_type": "rules"
+      },
+      "link": {
+        "status": "ok",
+        "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-e96ecca5ef",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoie5ee18afad12333eaaedfe9a677c56cc.church-of-st--magdalene-15th-century.s--maddalena-st--magdalena---funes-villnoess",
+      "title": "Church of St. Magdalene (15th century), St. Magdalena, Villnöss",
+      "publisher": "IDM Südtirol (South Tyrol tourism board)",
+      "kind": "official",
+      "first_read": "2026-10-18",
+      "last_read": "2026-10-18",
+      "used_by": [
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "easy_payoff"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "suitability.access_season"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "suitability.exposure"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
