@@ -70,7 +70,8 @@ function sampleProfile(p: Place, start: number) {
     const t = i / n;
     const shape = loop ? Math.sin(Math.PI * t) ** 1.3 : t < .5 ? Math.sin(Math.PI * t) ** 1.1 : Math.sin(Math.PI * t) ** 1.1;
     const wiggle = Math.sin(t * 19) * gain * .05 + Math.sin(t * 7.3) * gain * .04;
-    const e = (p.gain ?? 0) < 0 ? start - gain * t : start + gain * shape + wiggle * Math.sin(Math.PI * t);
+    const amp = loop ? gain * 0.4 : gain;            // a loop's total climb is spread over ups and downs
+    const e = (p.gain ?? 0) < 0 ? start - gain * t : start + amp * shape + wiggle * 0.5 * Math.sin(Math.PI * t);
     pts.push([dist * t, e]);
   }
   return pts;
@@ -78,7 +79,7 @@ function sampleProfile(p: Place, start: number) {
 
 function Profile({ p, start }: { p: Place; start: number }) {
   const pts = sampleProfile(p, start);
-  const W = 640, H = 170, L = 46, R = 12, T = 12, B = 28;
+  const W = 640, H = 170, L = 46, R = 26, T = 12, B = 28;
   const maxX = pts[pts.length - 1][0];
   const ys = pts.map(x => x[1]); const lo = Math.floor(Math.min(...ys) / 100) * 100, hi = Math.ceil(Math.max(...ys) / 100) * 100 || lo + 100;
   const X = (x: number) => L + (x / maxX) * (W - L - R), Y = (y: number) => T + (1 - (y - lo) / (hi - lo)) * (H - T - B);
