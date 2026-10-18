@@ -124,16 +124,50 @@ const isStop = (i: DayItem) => i.category !== null;
 
 const credit = (p: Photo): CreditModel => ({ title: p.caption || undefined, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl });
 
-function dayRow(d: PublicDay, lookup: PlaceLookup, used: Photo[]): DayRowModel {
+const STOP = new Set(['and', 'the', 'with', 'from', 'then', 'early', 'late', 'day', 'lake', 'lago', 'valley', 'national', 'park', 'view', 'viewpoint', 'loop', 'trail', 'hike', 'town', 'village']);
+const tokens = (s: string): Set<string> =>
+  new Set(
+    s
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length >= 4 && !STOP.has(w)),
+  );
+
+/**
+ * The adapter has no photo-to-day link and few places carry a photo, so a day borrows one from the trip gallery: the photo
+ * whose section or caption shares the most words with the day (its title and stops count more than its base). Photos not yet
+ * used on another row win ties. No match means no photo: the row shows its glyph rather than a wrong picture.
+ */
+export function galleryThumb(d: PublicDay, gallery: Photo[], taken: Set<string>): Photo | null {
+  const strong = tokens([d.title, ...d.items.map((i) => i.name)].join(' '));
+  const weak = tokens(d.base ?? '');
+  let best: { p: Photo; score: number } | null = null;
+  for (const p of gallery) {
+    const hay = tokens(`${p.group ?? ''} ${p.caption}`);
+    let score = 0;
+    for (const w of strong) if (hay.has(w)) score += 2;
+    for (const w of weak) if (hay.has(w)) score += 1;
+    if (taken.has(p.file)) score -= 1.5;
+    if (score > 0 && (!best || score > best.score)) best = { p, score };
+  }
+  return best?.p ?? null;
+}
+
+function dayRow(d: PublicDay, lookup: PlaceLookup, used: Photo[], gallery: Photo[], taken: Set<string>): DayRowModel {
   const stops = d.items.filter(isStop).map(stopOf);
   let thumb: DayRowModel['thumb'] = null;
+  let photo: Photo | null = null;
   for (const i of d.items) {
-    const photo = i.placeSlug ? lookup(i.placeSlug)?.photo : null;
-    if (photo) {
-      thumb = { url: photo.url, alt: '' };
-      used.push(photo);
-      break;
-    }
+    photo = i.placeSlug ? (lookup(i.placeSlug)?.photo ?? null) : null;
+    if (photo) break;
+  }
+  photo ??= galleryThumb(d, gallery, taken);
+  if (photo) {
+    thumb = { url: photo.url, alt: '' };
+    used.push(photo);
+    taken.add(photo.file);
   }
   const tracks = d.tracks?.length ? d.tracks.map((t) => ({ id: t.id, label: t.label, title: t.title, stops: t.items.filter(isStop).map(stopOf), notes: t.notes })) : null;
   return {
@@ -207,8 +241,9 @@ export function tripGallery(trip: PublicTrip): Photo[] {
 /** Everything the trip page renders, from the adapter's trip. Pure: the places lookup is injected. */
 export function buildTripPageModel(trip: PublicTrip, lookup: PlaceLookup): TripPageModel {
   const used: Photo[] = [];
-  const days = trip.depth === 'overview' ? [] : trip.days.map((d) => dayRow(d, lookup, used));
   const gallery = tripGallery(trip);
+  const taken = new Set<string>();
+  const days = trip.depth === 'overview' ? [] : trip.days.map((d) => dayRow(d, lookup, used, gallery, taken));
   const photos = [...(trip.cover ? [trip.cover] : []), ...used, ...gallery];
   const seen = new Set<string>();
   const credits = photos.map(credit).filter((c) => {
