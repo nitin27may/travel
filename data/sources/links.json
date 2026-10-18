@@ -1,0 +1,1972 @@
+{
+  "schema": "source-links/1",
+  "links": {
+    "s-000a501617": {
+      "url": "https://www.lagazuoi.it/Pdf18/FuniviaLagazuoi_Estate2026_Altaebassastagione.pdf",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://lagazuoi.it/Pdf18/FuniviaLagazuoi_Estate2026_Altaebassastagione.pdf",
+      "checked": "2026-10-18"
+    },
+    "s-0034f78799": {
+      "url": "https://piratour.net/producto/trekking-laguna-esmeralda-2",
+      "status": "ok",
+      "http": 200,
+      "final": "https://piratour.net/producto/trekking-laguna-esmeralda-2/",
+      "checked": "2026-10-18"
+    },
+    "s-00a5e2966c": {
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/faqs",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/jasper-skytram/faqs/",
+      "checked": "2026-10-18"
+    },
+    "s-00c2636b6e": {
+      "url": "https://pustertal.org/en/highlights/museums-and-exhibitions/outdoor-museum-monte-piana",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.pustertal.org/en/highlights/museums-and-exhibitions/outdoor-museum-monte-piana/",
+      "checked": "2026-10-18"
+    },
+    "s-01593977c4": {
+      "url": "https://www.openstreetmap.org/relation/7302496",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-02307b2144": {
+      "url": "https://en.chamonix.com/spring-hikes/grand-balcon-nord-plan-de-l-aiguille-du-midi-montenvers",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-02b2ec07c7": {
+      "url": "https://www.chinookrafting.com",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://chinookrafting.com/",
+      "checked": "2026-10-18"
+    },
+    "s-04be7df43f": {
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/experience/faqs",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/",
+      "checked": "2026-10-18"
+    },
+    "s-04f5aef990": {
+      "url": "https://www.nps.gov/cany/planyourvisit/hiking.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0793b790e1": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarsker-sel-s2",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-08252b09bc": {
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/places",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-086ff9a40d": {
+      "url": "https://morainelake.com/day-visits",
+      "status": "ok",
+      "http": 200,
+      "final": "https://morainelake.com/day-visits/",
+      "checked": "2026-10-18"
+    },
+    "s-09362c319d": {
+      "url": "https://www.dolomitiunesco.info/en/the-dolomites-unesco-world-heritage-site/outstanding-universal-value",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-09549b5adc": {
+      "url": "https://www.banffadventures.com/things-to-do/kananaskis-river-rafting",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffadventures.com/things-to-do/kananaskis-river-rafting/",
+      "checked": "2026-10-18"
+    },
+    "s-0a1002b201": {
+      "url": "https://www.nps.gov/brca/planyourvisit/day-hikes.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0aba26c599": {
+      "url": "https://www.suedtirolfueralle.it/de/poi/suedtiroler_archaeologiemuseum",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0aca4c0334": {
+      "url": "https://www.linexo.de/magazin/radrouten-touren/drauradweg-die-schoenste-fahrradroute-durch-oesterreich",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0af3d55ed0": {
+      "url": "https://snaefellsjokull.is/en/aningastadur/arnarstapi",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0bbad52b55": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/mt-lorette-ponds",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0cfdcfcb02": {
+      "url": "https://www.nps.gov/care/learn/news/hickman-bridge-trail-reopens.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0ee9c85282": {
+      "url": "https://www.planetmountain.com/it/itinerari/lago-di-limides.html",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-0fb8d77f30": {
+      "url": "https://www.nps.gov/care/planyourvisit/accessibility.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-11e26cca99": {
+      "url": "https://www.nps.gov/cany/planyourvisit/islandinthesky.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-11e626123b": {
+      "url": "https://www.nps.gov/brca/planyourvisit/conditions.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-12e05915f7": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/destination-breidamerkursandur",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-139f2f930a": {
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi5391b0a9a1cc94a9d93265d3619bb4c8.theme-path-monte-piano---museum-of-the-1st-world-war.sesto-sexten",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-14211f5c53": {
+      "url": "https://limberlostforest.com/activities/hiking-trails",
+      "status": "ok",
+      "http": 200,
+      "final": "https://limberlostforest.com/activities/hiking-trails/",
+      "checked": "2026-10-18"
+    },
+    "s-1475608240": {
+      "url": "https://elchalten.tur.ar/circuitoverdeazul-21124",
+      "status": "ok",
+      "http": 200,
+      "final": "https://elchalten.tur.ar/circuitoverdeazul-21124/",
+      "checked": "2026-10-18"
+    },
+    "s-14dacc413f": {
+      "url": "https://cms.odlesdolomites.com/fileadmin/user_upload/Footer_Nachhaltigkeit/3.2_Sustainable_behaviour_Villn%C3%B6ss.pdf",
+      "status": "broken",
+      "http": 404,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-16135f7e8d": {
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs/",
+      "checked": "2026-10-18"
+    },
+    "s-1632f21b38": {
+      "url": "https://www.nps.gov/thingstodo/hike-to-scout-lookout.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-16ab23133d": {
+      "url": "https://triptins.com/laguna-de-los-tres-fitz-roy",
+      "status": "ok",
+      "http": 200,
+      "final": "https://triptins.com/laguna-de-los-tres-fitz-roy/",
+      "checked": "2026-10-18"
+    },
+    "s-16e9dc9580": {
+      "url": "https://eggental.com/en/info/lake-carezza_2317",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-1ac4dbc34f": {
+      "url": "https://www.odlesdolomites.com/en/activities/84A3EDE0EBE349019877D7C478965A60",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-1c7836ffb0": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/activities/summer-activities",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-1c94825703": {
+      "url": "https://www.thingvellir.is/en/things-to-do/hiking-trails",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-1ea794006d": {
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-1f3812c372": {
+      "url": "https://www.thingvellir.is/en/service/parking-service",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-201bc12f4f": {
+      "url": "https://solsalute.com/blog/trekking-laguna-esmeralda-ushuaia",
+      "status": "ok",
+      "http": 200,
+      "final": "https://solsalute.com/blog/trekking-laguna-esmeralda-ushuaia/",
+      "checked": "2026-10-18"
+    },
+    "s-20b96be83e": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-21586c0f47": {
+      "url": "https://www.glaumbaer.is/is/en",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.glaumbaer.is/en/visit/hours-admission",
+      "checked": "2026-10-18"
+    },
+    "s-259bb5a673": {
+      "url": "https://api.open-meteo.com/v1/elevation",
+      "status": "broken",
+      "http": 400,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-25caec05c4": {
+      "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-25ea218c01": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/warnings/temporary-closure-of-main-parking-lot-by-jokulsarlon",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-27d367adc9": {
+      "url": "https://www.nps.gov/brca/planyourvisit/viewpoints.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-28c67b8388": {
+      "url": "https://www.disabili.com/viaggi/speciali-viaggi-a-tempo-libero/speciale-vacanze-estate/-sp-17235",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.disabili.com/tempo-libero/sp-17235/",
+      "checked": "2026-10-18"
+    },
+    "s-29cab1ba85": {
+      "url": "https://www.nps.gov/arch/planyourvisit/conditions.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-29f4cd1166": {
+      "url": "https://www.templesquare.org",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.templesquare.org/eng/home",
+      "checked": "2026-10-18"
+    },
+    "s-2a2d4a0899": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/peter-lougheed-pp",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-2a4b71adc1": {
+      "url": "https://www.nps.gov/places/the-windows-section-trailhead.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-2a929fcd49": {
+      "url": "https://www.openstreetmap.org/relation/7302480",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-2b5af374b6": {
+      "url": "https://lagazuoi.it/Pdf20/LAGAZUOI_condition_for_sales_summer_2026.pdf",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-2b93e46bf8": {
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/hours-location",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/jasper-skytram/hours-location/",
+      "checked": "2026-10-18"
+    },
+    "s-2c2c1f5d75": {
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location/",
+      "checked": "2026-10-18"
+    },
+    "s-2c40dfb8ab": {
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/activ/sentiers-trails",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-2cd31e5208": {
+      "url": "https://www.babytrekking.it/lago-sorapis-rifugio-vandelli-bambini-cortina",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.babytrekking.it/lago-sorapis-rifugio-vandelli-bambini-cortina/",
+      "checked": "2026-10-18"
+    },
+    "s-2d14122ec6": {
+      "url": "https://www.ferdamalastofa.is/en/news/increased-safety-and-better-information-with-new-signs-in-reynisfjara-black-sand-beach",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-2da1039361": {
+      "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-doch-befahrbar-26299020",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
+      "checked": "2026-10-18"
+    },
+    "s-2e00e26f59": {
+      "url": "https://www.earthlagoon.is",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.earthlagoon.is/",
+      "checked": "2026-10-18"
+    },
+    "s-2e9c63d3bd": {
+      "url": "https://elchalten.tur.ar/el-chorrillo-del-salto",
+      "status": "ok",
+      "http": 200,
+      "final": "https://elchalten.tur.ar/el-chorrillo-del-salto/",
+      "checked": "2026-10-18"
+    },
+    "s-2eda294688": {
+      "url": "https://turismoushuaia.com/actividad/laguna-esmeralda?lang=es_AR",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://turismoushuaia.com/actividad/laguna-esmeralda/?lang=es_AR",
+      "checked": "2026-10-18"
+    },
+    "s-2f7fa70706": {
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-307764441b": {
+      "url": "https://www.openstreetmap.org/relation/3197395",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-30904d1591": {
+      "url": "https://www.nps.gov/places/wolfe-ranch-trailhead.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-30ab40cba2": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/west/hraunfossar-borgarbyggd",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-31138ef0ee": {
+      "url": "https://www.nps.gov/places/fruita-orchards.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-327c06e167": {
+      "url": "https://www.nps.gov/zion/planyourvisit/zion-canyon-trail-descriptions.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-33d862a777": {
+      "url": "https://en.vedur.is/about-imo/news/ground-uplift-and-magma-accumulation-continue-beneath-svartsengi",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-33e2f91e9b": {
+      "url": "https://www.nps.gov/zion/planyourvisit/conditions.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-352ba9c782": {
+      "url": "https://www.ontarioparks.ca/park/oxtongueriverraggedfalls",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-3580ed9ecc": {
+      "url": "https://crmr.com/activities/canoeing",
+      "status": "ok",
+      "http": 200,
+      "final": "https://crmr.com/activities/canoeing/",
+      "checked": "2026-10-18"
+    },
+    "s-358a91d0bd": {
+      "url": "https://www.vermontpublic.org/local-news/2023-11-15/smugglers-notch-road-officially-closed-for-winter-season",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-37c6bd336e": {
+      "url": "https://swissfamilyfun.com/dolomites-vallunga",
+      "status": "ok",
+      "http": 200,
+      "final": "https://swissfamilyfun.com/dolomites-vallunga/",
+      "checked": "2026-10-18"
+    },
+    "s-3909c043f3": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-39b77a89a6": {
+      "url": "https://www.raftbanff.com/our-trips/rafting-trips",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.raftbanff.com/our-trips/rafting-trips/",
+      "checked": "2026-10-18"
+    },
+    "s-3a4042b480": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/gullfoss",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-3aea7fa6f8": {
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-3b7e5c6e15": {
+      "url": "https://en.chamonix.com/objet_touristique/1322",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://en.chamonix.com/lacs-d-hiver/lac-des-gaillands",
+      "checked": "2026-10-18"
+    },
+    "s-3bc627a0bc": {
+      "url": "https://www.nps.gov/places/delicate-arch-viewpoints.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-3d445aa7be": {
+      "url": "https://lagazuoi.it/EN/Experience-Focus-on-this-page24-An-accessible-mountain",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-3e207e06b8": {
+      "url": "https://chamonix.loopi-velo.fr/download/balade/pdf/5b8dbe90-dd16-41e9-9e24-b4908df6460c/fr/e7a6a121-1933-4acf-8340-4d6efa96e01f",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-3ef7ff1f4f": {
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/faqs",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/faqs/",
+      "checked": "2026-10-18"
+    },
+    "s-3f93c9bf03": {
+      "url": "https://www.trentino.com/en/leisure-activities/mountains-and-hiking/alpine-tours/from-sass-pordoi-to-piz-boe",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.trentino.com/en/leisure-activities/mountains-and-hiking/alpine-tours/from-mount-sas-pordoi-to-mount-piz-boe/",
+      "checked": "2026-10-18"
+    },
+    "s-401d4527cb": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
+      "checked": "2026-10-18"
+    },
+    "s-4039fc187c": {
+      "url": "https://iceman.it/press-kit/SAM-Presseinformationen-DE.pdf",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.iceman.it/press-kit/SAM-Presseinformationen-DE.pdf",
+      "checked": "2026-10-18"
+    },
+    "s-418c2d9659": {
+      "url": "https://www.argentina.gob.ar/senderos-del-parque-nacional-tierra-del-fuego",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego",
+      "checked": "2026-10-18"
+    },
+    "s-41e37d59db": {
+      "url": "https://www.argentina.gob.ar/parquesnacionales/tierradelfuego",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-tierra-del-fuego",
+      "checked": "2026-10-18"
+    },
+    "s-4214315fda": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rockwall",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rockwall-interpretive/",
+      "checked": "2026-10-18"
+    },
+    "s-4343e68732": {
+      "url": "https://www.nps.gov/places/mesa-arch.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-4364aadfa8": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/destination-svartifoss",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-4776dd0292": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/accessible",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-4777b2f35e": {
+      "url": "https://www.rafting-club-activ.com/en/faq",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.rafting-club-activ.com/en/faq/",
+      "checked": "2026-10-18"
+    },
+    "s-49bb3a2f11": {
+      "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas",
+      "status": "ok",
+      "http": 200,
+      "final": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+      "checked": "2026-10-18"
+    },
+    "s-4c39a7211f": {
+      "url": "https://www.discovermuskoka.ca/listings/ragged-falls-oxtongue-river-hiking-trail-359",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.discovermuskoka.ca/listings/ragged-falls-oxtongue-river-hiking-trail-359/",
+      "checked": "2026-10-18"
+    },
+    "s-4dfb0161bf": {
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/peter-lougheed/ptarmigan-cirque-interpretive",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/ptarmigan-cirque-interpretive/",
+      "checked": "2026-10-18"
+    },
+    "s-4e2b84a9d2": {
+      "url": "https://www.dreizinnen.com/en/activity/18-sexten-circular-trail-in-the-fischleintal-valley_50030",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.dreizinnen.com/en/activity/18-sexten-circular-trail-in-the-fischleintal-valley-_50030",
+      "checked": "2026-10-18"
+    },
+    "s-4e599c19a0": {
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/location-hours",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/columbia-icefield/location-hours/",
+      "checked": "2026-10-18"
+    },
+    "s-4eff5e8518": {
+      "url": "https://en.chamonix.com/usual-information-services/tourism-and-the-disabled",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-4f8d83ce12": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-4fc2f2e430": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/riviere-river",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-50a648cb94": {
+      "url": "https://hautesavoiemontblanc-tourisme.com/offres/randonnee-a-laiguillette-des-posettes-argentiere-fr-5867507",
+      "status": "ok",
+      "http": 200,
+      "final": "https://hautesavoiemontblanc-tourisme.com/offres/randonnee-a-laiguillette-des-posettes-argentiere-fr-5867507/",
+      "checked": "2026-10-18"
+    },
+    "s-51e7867af0": {
+      "url": "https://piratour.net/producto/navegacion-en-canal-beagle-catamaran-verano",
+      "status": "ok",
+      "http": 200,
+      "final": "https://piratour.net/producto/navegacion-en-canal-beagle-catamaran-verano/",
+      "checked": "2026-10-18"
+    },
+    "s-5320a24c1c": {
+      "url": "https://www.dreizinnen.com/Kataloge/flyer-radweg-lienz.pdf",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-538d3f04a2": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise/faq",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-542f250946": {
+      "url": "https://www.openstreetmap.org/relation/1067616",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-549b0b1471": {
+      "url": "https://www.nps.gov/zion/planyourvisit/thenarrows.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-54e95a831e": {
+      "url": "https://fpr.vermont.gov/darling-state-park",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-5546ffcc77": {
+      "url": "https://stateparks.utah.gov/parks/dead-horse/park-fees",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://stateparks.utah.gov/parks/dead-horse-point/park-fees/",
+      "checked": "2026-10-18"
+    },
+    "s-56f9f0341f": {
+      "url": "https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-5783b546a1": {
+      "url": "https://lagazuoi.it/EN/percorso6-The-Lagazuoi-Tunnels",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-584532d0dc": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/fermetures-closures",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-58a49ac815": {
+      "url": "https://www.pustertal.org/en/leisure-activities/sport-offers/rafting",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.pustertal.org/en/leisure-activities/sport-offers/rafting/",
+      "checked": "2026-10-18"
+    },
+    "s-5a97a09c8c": {
+      "url": "https://www.nps.gov/places/upheaval-dome-overlook-trails.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-5b779480c5": {
+      "url": "https://www.thingvellir.is/en/things-to-do/visitor-centre",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-5ff31450d9": {
+      "url": "https://www.iceman.it/en/opening-times-and-fees",
+      "status": "broken",
+      "http": 404,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-614063022b": {
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/park-fees",
+      "status": "ok",
+      "http": 200,
+      "final": "https://stateparks.utah.gov/parks/goblin-valley/park-fees/",
+      "checked": "2026-10-18"
+    },
+    "s-614bcf1c3d": {
+      "url": "https://snaefellsjokull.is/en/gonguleid/djupalonssandur-dritvik-2",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-62784ccfe4": {
+      "url": "https://www.dreizinnen.com/en/activity/family-hiking-tour-walk-around-the-pragser-wildsee-lake_675",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.dreizinnen.com/en/activities-winter-summer/touroverview?error=404",
+      "checked": "2026-10-18"
+    },
+    "s-636b389228": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/sunwapta",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-63d9a140d4": {
+      "url": "https://www.openstreetmap.org/relation/3985745",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6473ca2777": {
+      "url": "https://snaefellsjokull.is/en/gonguleid/snaefellsjokull-glacier",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-64789194e3": {
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
+      "checked": "2026-10-18"
+    },
+    "s-6544551643": {
+      "url": "https://www.argentina.travel/planea-tu-viaje/parque-nacional-los-glaciares-el-chalten-y-el-calafate-santa-cruz",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6717370de7": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/north-east/dettifoss-and-a-row-of-waterfalls",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-67e80ee535": {
+      "url": "https://www.earthlagoon.is/lagoon",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-68e0c2739d": {
+      "url": "https://www.blm.gov/announcement/video-blm-warns-dangerous-falling-rocks-lower-calf-creek-falls",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6a325b649f": {
+      "url": "https://www.dreizinnen.com/en/the-cable-cars/the-cable-cars/funbob",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6a3557059a": {
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6a7735cb26": {
+      "url": "https://www.algonquinpark.on.ca/visit/general_park_info/fees-day-use.php",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6b5a27edd2": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/promenadedesglaciers-icefieldsparkway",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6b78d9f897": {
+      "url": "https://snaefellsjokull.is/en/aningastadur/djupalonsandur-2",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6b86885265": {
+      "url": "https://piratour.net/producto/caminata-en-isla-martillo",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre/",
+      "checked": "2026-10-18"
+    },
+    "s-6b936bfee4": {
+      "url": "https://www.wikidata.org",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.wikidata.org/wiki/Wikidata:Main_Page",
+      "checked": "2026-10-18"
+    },
+    "s-6ed69d9263": {
+      "url": "https://seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches/",
+      "checked": "2026-10-18"
+    },
+    "s-6f2cc7c58c": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/nautiques-sports",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-6fc826d3e2": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/north-east/godafoss-in-thingeyjarsveit",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-71d0b182c5": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/wedge-pond",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-73a44e8b9b": {
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-756cc8899f": {
+      "url": "https://www.snaefellsjokull.is/en/hiking-trails-destinations/travel-and-safety-advice",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://snaefellsjokull.is/en/hiking-trails-destinations/travel-and-safety-advice",
+      "checked": "2026-10-18"
+    },
+    "s-75e59993e6": {
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/places",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-79896a8e9c": {
+      "url": "https://www.churchofjesuschrist.org/learn/temple-square-parking-and-directions",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.churchofjesuschrist.org/learn/temple-square-parking-and-directions?lang=eng",
+      "checked": "2026-10-18"
+    },
+    "s-79e6f96c22": {
+      "url": "https://www.blm.gov/sites/default/files/documents/files/BLMUtahLowerCalfCreekFalls.pdf",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-7cf534b3fb": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/heures-hours",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-7d4373f7a7": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/gullfoss/about-the-area",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-7ddbf3a9c0": {
+      "url": "https://elchalten.tur.ar/laguna-de-los-tres",
+      "status": "ok",
+      "http": 200,
+      "final": "https://elchalten.tur.ar/laguna-de-los-tres/",
+      "checked": "2026-10-18"
+    },
+    "s-7e00ce3cdb": {
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/mer-de-glace-gondola-lift",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-817f9dcec0": {
+      "url": "https://www.lonelyplanet.com/articles/getting-around-moab",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-81b0f98e66": {
+      "url": "https://www.nps.gov/zion/learn/news/zionroadrepaved.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-826a95f51f": {
+      "url": "https://www.nps.gov/thingstodo/hike-riverside-walk.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-82c0b6bfe0": {
+      "url": "https://www.valais.ch/en/explore/activities/hiking/hikes/geological-hike-to-the-vieux-emosson-reservoir",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-83b3f420ac": {
+      "url": "https://www.valgardena.it/en/outdoor/base/outdoor/vallunga-langental-winter-walk/16420435",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.valgardena.it/en/outdoor/base/outdoor/vallunga-langental-winter-walk/16420435/",
+      "checked": "2026-10-18"
+    },
+    "s-8617ba52ff": {
+      "url": "https://www.ontariotrails.on.ca/trail/track-and-tower-trail",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-869f262ce1": {
+      "url": "https://turismoushuaia.com/prestador/canoero?lang=en_US",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://turismoushuaia.com/prestador/canoero/?lang=en_US",
+      "checked": "2026-10-18"
+    },
+    "s-88dac27fc0": {
+      "url": "https://www.nps.gov/arch/planyourvisit/physical-mobility.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-88ee2a1c06": {
+      "url": "https://stateparks.utah.gov/parks/goblin-valley",
+      "status": "ok",
+      "http": 200,
+      "final": "https://stateparks.utah.gov/parks/goblin-valley/",
+      "checked": "2026-10-18"
+    },
+    "s-8a96ff8869": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-8aa854b586": {
+      "url": "https://www.switchbacktravel.com/el-chalten-hikes",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.switchbacktravel.com/hiking/el-chalten-hikes",
+      "checked": "2026-10-18"
+    },
+    "s-8abf7715fe": {
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/hiking-and-rappelling",
+      "status": "ok",
+      "http": 200,
+      "final": "https://stateparks.utah.gov/parks/goblin-valley/hiking-and-rappelling/",
+      "checked": "2026-10-18"
+    },
+    "s-8d9702c0a5": {
+      "url": "https://www.dreizinnen.com/en/activity/summer-walk-around-the-drei-zinnen-tre-cime-three-peaks-_569",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-8e111a6b27": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/heures-hours",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-8e48e4e1b5": {
+      "url": "https://api.hieloyaventura.com/api/excurtions",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-8f35ccfe44": {
+      "url": "https://www.earthlagoon.is/enjoy-pricing",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-8f7dec1f98": {
+      "url": "https://www.nps.gov/places/devils-garden-trailhead.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-923c299c26": {
+      "url": "https://www.sasspordoi.it/en/info-times-and-prices",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.sasspordoi.it/en/info-times-and-prices/",
+      "checked": "2026-10-18"
+    },
+    "s-9385fd037b": {
+      "url": "https://www.nps.gov/care/learn/historyculture/orchards.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-938f1829bb": {
+      "url": "https://lystigardur.akureyri.is/en/moya/adverts/9",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.lystigardur.akureyri.is/en/practical-information/opening-hours-and-directions",
+      "checked": "2026-10-18"
+    },
+    "s-940c1f5a2f": {
+      "url": "https://www.rafting-club-activ.com/en/tour/rienz-st-sigmund-muehlbach",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.rafting-club-activ.com/en/tour/rienz-st-sigmund-muehlbach/",
+      "checked": "2026-10-18"
+    },
+    "s-940ff3b8b6": {
+      "url": "https://en.chamonix.com/things-to-see-and-do/sports-and-outdoor/hiking/lakes-waterfalls-and-gorges/hike-to-the-lac-blanc-from-la-flegere",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
+      "checked": "2026-10-18"
+    },
+    "s-941701af4a": {
+      "url": "https://www.seiseralm.it/media/08ba5643-e206-422e-a0f8-2529fe3b1edd/kinderwagentaugliche-wanderungen-de.pdf",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-942f45f3e4": {
+      "url": "https://whc.unesco.org/en/list/1237",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-96e8453910": {
+      "url": "https://www.skilouise.com/explore-summer/disabled-travelers-accessibility",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.skilouise.com/accessibility/",
+      "checked": "2026-10-18"
+    },
+    "s-9997eeb189": {
+      "url": "https://es.wikipedia.org/wiki/Laguna_Nimez",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-99ccaafd75": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-9bd5e753d2": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-9c9b82d8cc": {
+      "url": "https://cortina.dolomiti.org/it/escursioni/botanical-path-to-the-cascate-di-fanes-en",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://cortina.dolomiti.org/en/escursioni/botanical-path-to-the-cascate-di-fanes-en/",
+      "checked": "2026-10-18"
+    },
+    "s-9d9f8f530b": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/a8a66ab1-d0db-4300-b227-8eb8f57d88ae",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-9da207a09a": {
+      "url": "https://www.thechurchnews.com/temples/2026/10/02/with-construction-barriers-gone-temple-square-is-more-open-than-it-has-been-in-years",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.thechurchnews.com/temples/2026/10/02/with-construction-barriers-gone-temple-square-is-more-open-than-it-has-been-in-years/",
+      "checked": "2026-10-18"
+    },
+    "s-9de1108a53": {
+      "url": "https://hautesavoiemontblanc-tourisme.com/offres/site-descalade-des-gaillands-chamonix-mont-blanc-fr-5885451",
+      "status": "ok",
+      "http": 200,
+      "final": "https://hautesavoiemontblanc-tourisme.com/offres/site-descalade-des-gaillands-chamonix-mont-blanc-fr-5885451/",
+      "checked": "2026-10-18"
+    },
+    "s-9e3f4c9286": {
+      "url": "https://argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "checked": "2026-10-18"
+    },
+    "s-9e703d1294": {
+      "url": "https://bcparks.ca/mount-robson-park",
+      "status": "ok",
+      "http": 200,
+      "final": "https://bcparks.ca/mount-robson-park/",
+      "checked": "2026-10-18"
+    },
+    "s-9ffb91c939": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-a0b96a3cee": {
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/location-hours",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/location-hours/",
+      "checked": "2026-10-18"
+    },
+    "s-a1b2c510ff": {
+      "url": "https://engage.gov.bc.ca/bcparksblog/2022/03/02/awesome-camping-and-hiking-opportunities-in-the-robson-valley",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-a308e2bb5d": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-a37ab6d6e9": {
+      "url": "https://safetravel.is",
+      "status": "ok",
+      "http": 200,
+      "final": "https://safetravel.is/",
+      "checked": "2026-10-18"
+    },
+    "s-a6c4e35848": {
+      "url": "https://www.parks.canada.ca/pn-np/ab/banff/sources-banff-springs/faq",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-a7e7b789b7": {
+      "url": "https://thebanffblog.com/emerald-lake-canoe-rental",
+      "status": "ok",
+      "http": 200,
+      "final": "https://thebanffblog.com/emerald-lake-canoe-rental/",
+      "checked": "2026-10-18"
+    },
+    "s-a98cf3e731": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/news/landslide-by-dettifoss",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-aa0f1509ba": {
+      "url": "https://www.nps.gov/care/planyourvisit/trailguide.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-aa46002d23": {
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lago-di-braies-pragser-wildsee-mountain-croda-del-becco-seekofel-_544",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-aa8fdb8e0e": {
+      "url": "https://www.babytrekking.it/lago-di-misurina-passeggino",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.babytrekking.it/lago-di-misurina-passeggino/",
+      "checked": "2026-10-18"
+    },
+    "s-abc64e6338": {
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/hours-rates",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours/",
+      "checked": "2026-10-18"
+    },
+    "s-abf52b3568": {
+      "url": "https://www.babytrekking.it/rifugio-croda-da-lago-ru-curto-coi-bambini",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.babytrekking.it/rifugio-croda-da-lago-ru-curto-coi-bambini/",
+      "checked": "2026-10-18"
+    },
+    "s-ac0f1d1268": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper/",
+      "checked": "2026-10-18"
+    },
+    "s-acc3487a3d": {
+      "url": "https://www.algonquinpark.on.ca/visit/recreational_activites/track-and-tower-trail.php",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-acc5ee7b2a": {
+      "url": "https://www.prags.bz/en",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-acdcf8f267": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/visit/ouvert-fermee-open-closed",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-ad1da347fc": {
+      "url": "https://www.banffadventures.com/things-to-do/family-whitewater-rafting",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffadventures.com/things-to-do/family-whitewater-rafting/",
+      "checked": "2026-10-18"
+    },
+    "s-ad6c185934": {
+      "url": "https://www.lystigardur.akureyri.is/is/english/practical-information",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-adf5965bb3": {
+      "url": "https://www.nps.gov/brca/planyourvisit/qgnavajocombo.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-aea8f07ba3": {
+      "url": "https://www.openstreetmap.org/relation/1657839",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-aef802eca4": {
+      "url": "https://www.dreizinnen.com/en/region/highlights/fischleintal-valley",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b0b6f0b090": {
+      "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b10e7eedb4": {
+      "url": "https://www.nps.gov/arch/planyourvisit/hiking.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b2f71420af": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b37345ea47": {
+      "url": "https://www.nps.gov/zion/planyourvisit/accessibility.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b3f1948178": {
+      "url": "https://www.nps.gov/places/grand-view-point.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b3f5b97e93": {
+      "url": "https://www.chateau-lake-louise.com/activities/canoeing",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.chateau-lake-louise.com/activities/canoeing/",
+      "checked": "2026-10-18"
+    },
+    "s-b603006b75": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarnipa-s6",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b6419e78f0": {
+      "url": "https://www.rafting-club-activ.com/en/agb",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.rafting-club-activ.com/en/agb/",
+      "checked": "2026-10-18"
+    },
+    "s-b7294b5a60": {
+      "url": "https://www.algonquinhighlands.ca/explore-play/parks-and-outdoor-spaces/dorset-scenic-lookout-tower",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b785efea32": {
+      "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b7f373dde6": {
+      "url": "https://gostowe.com/listing/stowe-recreation-path",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-b8291cc19f": {
+      "url": "https://wildwater.com/kicking-horse-rafting-trips/gentle",
+      "status": "ok",
+      "http": 200,
+      "final": "https://wildwater.com/kicking-horse-rafting-trips/gentle/",
+      "checked": "2026-10-18"
+    },
+    "s-b972584501": {
+      "url": "https://lagazuoi.it/EN/Information-Prices-and-useful-information-page20-Lagazuoi-cable-car",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-bbababbca8": {
+      "url": "https://www.earthlagoon.is/faq",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-bbcfc1e2e1": {
+      "url": "https://www.dreizinnen.com/en/region/highlights/three-peaks",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-bbfe794d5b": {
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-bbff8be761": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/skogafoss",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-bc2beab199": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-bc9480e859": {
+      "url": "https://www.elcalafate.tur.ar/en-glaciar-perito-moreno.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-be80227080": {
+      "url": "https://auronzo.info/en/parking-tre-cime-di-lavaredo",
+      "status": "ok",
+      "http": 200,
+      "final": "https://auronzo.info/en/parking-tre-cime-di-lavaredo/",
+      "checked": "2026-10-18"
+    },
+    "s-bf8047e15f": {
+      "url": "https://www.seceda.it/en/summer",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-bfca700c61": {
+      "url": "https://elchalten.tur.ar/laguna-capri",
+      "status": "ok",
+      "http": 200,
+      "final": "https://elchalten.tur.ar/laguna-capri/",
+      "checked": "2026-10-18"
+    },
+    "s-c26b0ddd0e": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/kananaskis-valley/troll-falls",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/troll-falls/",
+      "checked": "2026-10-18"
+    },
+    "s-c2719e7407": {
+      "url": "https://www.chamonix.net/english/lift-systems/dates-times",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-c3df6363be": {
+      "url": "https://stateparks.utah.gov?p=11460",
+      "status": "broken",
+      "http": 404,
+      "final": "https://stateparks.utah.gov/?p=11460",
+      "checked": "2026-10-18"
+    },
+    "s-c64d0b009a": {
+      "url": "https://wildwater.com/faq",
+      "status": "ok",
+      "http": 200,
+      "final": "https://wildwater.com/faq/",
+      "checked": "2026-10-18"
+    },
+    "s-c6592a4fe1": {
+      "url": "https://www.dreizinnen.com/en/region/highlights/lake-prags",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-c6bc330b59": {
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/skogafoss/access-and-management",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-c7e3f4a4e6": {
+      "url": "https://www.kutv.com/news/local/multiple-mudslides-force-full-navajo-loop-trail-closure-at-bryce-canyon-national-park",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://kutv.com/news/local/multiple-mudslides-force-full-navajo-loop-trail-closure-at-bryce-canyon-national-park",
+      "checked": "2026-10-18"
+    },
+    "s-c8a6d9fa1d": {
+      "url": "https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-c8ebaa1ae3": {
+      "url": "https://albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-cac180a6c4": {
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-cad9374b89": {
+      "url": "https://www.blm.gov/visit/lower-calf-creek-falls-trail",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-cd20424187": {
+      "url": "https://www.nps.gov/zion/planyourvisit/zion-canyon-shuttle-system.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-cd4924d27f": {
+      "url": "https://www.elcalafate.tur.ar/parque-nacional-los-glaciares-1.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-cdf77d6f11": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/ete-summer/activitesnautiques-wateractivities/plages-beaches",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-ce3fc1f486": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/gestion-management/designation/cieletoile-darksky",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-ce57a16955": {
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/aiguille-du-midi-cable-car",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-ceb40a8bdf": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/faq",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-cf4cafbefe": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsarlon",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-cfdb923517": {
+      "url": "https://parks.canada.ca/pn-np/mtn/ours-bears/gestion-management/ours-bears",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-d130768b74": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-d23ba42b3f": {
+      "url": "https://www.zionguru.com/blog/2026/8/3/best-times-of-year-to-hike-the-zion-narrows",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-d26b9302c4": {
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/faqs",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/faqs/",
+      "checked": "2026-10-18"
+    },
+    "s-d2a5fcd6c1": {
+      "url": "https://www.openstreetmap.org/relation/3170181",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-d68523d80f": {
+      "url": "https://www.argentina.gob.ar/parquesnacionales/losglaciares",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/parque-nacional-los-glaciares",
+      "checked": "2026-10-18"
+    },
+    "s-db945abf56": {
+      "url": "https://vtrans.vermont.gov/notch",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-dd67a46a00": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/",
+      "checked": "2026-10-18"
+    },
+    "s-ddb6f11349": {
+      "url": "https://www.nps.gov/brca/planyourvisit/shuttle.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-e04a3fcb7b": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/annual-road-closures",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/annual-road-closures/",
+      "checked": "2026-10-18"
+    },
+    "s-e10f5ef736": {
+      "url": "https://www.nps.gov/arch/planyourvisit/delicate-arch.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-e1e0de3ddc": {
+      "url": "https://www.seiser-alm.it/de/freizeit-aktiv/berge-wandern/hansundpaulastegerweg",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.seiser-alm.it/de/freizeit-aktiv/berge-wandern/hansundpaulastegerweg/",
+      "checked": "2026-10-18"
+    },
+    "s-e55e9e6beb": {
+      "url": "https://turismoushuaia.com/actividad/navegacion-a-la-pinguinera?lang=es_AR",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://turismoushuaia.com/actividad/navegacion-a-la-pinguinera/?lang=es_AR",
+      "checked": "2026-10-18"
+    },
+    "s-e6e8f85cca": {
+      "url": "https://www.wikidata.org/wiki/Q2085218",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-e6fced1ec4": {
+      "url": "https://skiburke.com/plan-your-trip/area-activities",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-e82380376b": {
+      "url": "https://www.nps.gov/brca/planyourvisit/accessibility.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-e9d2ba8bdf": {
+      "url": "https://elchalten.tur.ar",
+      "status": "ok",
+      "http": 200,
+      "final": "https://elchalten.tur.ar/",
+      "checked": "2026-10-18"
+    },
+    "s-ec868fb6ea": {
+      "url": "https://www.raftbanff.com/the-experience/faq",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.raftbanff.com/the-experience/faq/",
+      "checked": "2026-10-18"
+    },
+    "s-ecbd93eb8a": {
+      "url": "https://www.ecnews.it/fiscale/viaggi-e-tempo-libero/escursione-del-lago-federa",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.ecnews.it/fiscale/viaggi-e-tempo-libero/escursione-del-lago-federa/",
+      "checked": "2026-10-18"
+    },
+    "s-ed8ec0aac6": {
+      "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-eedfa0929c": {
+      "url": "https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/cb-919-95288166",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-ef89a9656e": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/louise",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f2a67b1d95": {
+      "url": "https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f2bb03b3a8": {
+      "url": "https://cortina.dolomiti.org/pagina-altri-servizi/open-air-museum-of-the-great-war-at-cinque-torri",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://cortina.dolomiti.org/en/pagina-altri-servizi/open-air-museum-of-the-great-war-at-cinque-torri/",
+      "checked": "2026-10-18"
+    },
+    "s-f2f8f3bdd1": {
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/the-montenvers-mer-de-glace-train",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://en.chamonix.com/activites-en-famille/mer-de-glace-et-train-du-montenvers",
+      "checked": "2026-10-18"
+    },
+    "s-f4b94ded6b": {
+      "url": "https://www.chinookrafting.com/faqs",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://chinookrafting.com/faqs/",
+      "checked": "2026-10-18"
+    },
+    "s-f4eb748c02": {
+      "url": "https://stateparks.utah.gov/parks/dead-horse",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://stateparks.utah.gov/parks/dead-horse-point/",
+      "checked": "2026-10-18"
+    },
+    "s-f5104e9fc6": {
+      "url": "https://www.nps.gov/cany/planyourvisit/physical-mobility.htm",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f52a6bb073": {
+      "url": "https://www.openstreetmap.org/relation/7302436",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f5d8eaa9ee": {
+      "url": "https://www.montgomeryhistoricalsociety.org/mhshistorymaps.html",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f5e1871307": {
+      "url": "https://www.openstreetmap.org/relation/3170182",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f6b6934497": {
+      "url": "https://www.ferdamalastofa.is/en/news/reynisfjara-recent-changes-due-to-coastal-erosion",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f6c84b1b0e": {
+      "url": "https://www.skilouise.com/faq",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-f7c6316f61": {
+      "url": "https://bcparks.ca/mount-robson-park/berg-lake-trail",
+      "status": "ok",
+      "http": 200,
+      "final": "https://bcparks.ca/mount-robson-park/berg-lake-trail/",
+      "checked": "2026-10-18"
+    },
+    "s-f83963abfe": {
+      "url": "https://www.skilouise.com/explore-summer/wildlife-viewing",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-fa65416836": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/868a8410-7ef6-4f87-a4d3-f8dc44f335aa",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-fb35a53997": {
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/itineraires-itineraries/lac-maligne",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-18"
+    },
+    "s-ff5ea43992": {
+      "url": "https://www.skibig3.com/summer/gondolasandlifts",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.skibig3.com/summer/gondolasandlifts/",
+      "checked": "2026-10-18"
+    },
+    "s-ff823897ae": {
+      "url": "https://en.chamonix.com/la-vallee/patrimoine-culture/patrimoine-culturel-de-la-vallee/emosson-dam",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://en.chamonix.com/cultural-spring-activities/emosson-dam",
+      "checked": "2026-10-18"
+    }
+  }
+}
