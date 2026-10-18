@@ -4,6 +4,8 @@ import type { Place } from "../data/places";
 import { Admin } from "./Admin";
 import { Bookings } from "./Bookings";
 import { Budget } from "./Budget";
+import { Discover } from "./Discover";
+import { PublicTrip } from "./PublicTrip";
 import { Explore } from "./Explore";
 import { Home } from "./Home";
 import { NewTrip } from "./NewTrip";
@@ -14,11 +16,11 @@ import { Tasks } from "./Tasks";
 import { Templates } from "./Templates";
 import { Today } from "./Today";
 
-export type ScreenId = "home" | "plan" | "today" | "bookings" | "tasks" | "budget" | "explore" | "place" | "templates" | "admin" | "settings" | "share" | "guest" | "new";
+export type ScreenId = "home" | "plan" | "today" | "bookings" | "tasks" | "budget" | "explore" | "place" | "templates" | "discover" | "publictrip" | "admin" | "settings" | "share" | "guest" | "new";
 export interface ScreenProps { phone: boolean; theme: "light" | "dark"; go: (id: ScreenId, tripId?: string) => void; place?: Place; tripId?: string }
 
 const Nothing = () => null;
 export const SCREENS: Record<ScreenId, ComponentType<ScreenProps>> = {
   home: Home, plan: Nothing, today: Today, bookings: Bookings, tasks: Tasks, budget: Budget, explore: Explore, place: PlacePage,
-  templates: Templates, admin: Admin, settings: Settings, share: Share, guest: Guest, new: NewTrip,
+  templates: Templates, discover: Discover, publictrip: PublicTrip, admin: Admin, settings: Settings, share: Share, guest: Guest, new: NewTrip,
 };

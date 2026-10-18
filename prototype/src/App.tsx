@@ -20,6 +20,7 @@ const NAV: { id: ScreenId; label: string; icon: string; phone?: boolean }[] = [
   { id: "budget", label: "Budget", icon: "money" },
   { id: "explore", label: "Explore", icon: "compass" },
   { id: "templates", label: "Templates", icon: "layers" },
+  { id: "discover", label: "Discover", icon: "search" },
   { id: "admin", label: "Review", icon: "shield" },
   { id: "settings", label: "Settings", icon: "gear" },
 ];

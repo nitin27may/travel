@@ -2,6 +2,8 @@
 // the year view puts holidays, school breaks, trips and ideas on one timeline (Ontario, 2027).
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
+import { TripsTable } from "./TripsTable";
+import { TripRow } from "./TripRow";
 import type { ScreenProps } from ".";
 import { PHASE_LABEL, useMyTrips, type Phase, type TripCard } from "../data/trips";
 import { Icon } from "../ui/Icon";
@@ -41,7 +43,12 @@ export function Home({ phone, go }: ScreenProps) {
 }
 
 
+export type TripsView = "cards" | "list" | "table";
+const readView = (): TripsView => { try { const v = localStorage.getItem("proto.tripsView"); return v === "list" || v === "table" ? v : "cards"; } catch { return "cards"; } };
+
 function TripsList({ phone, go }: { phone: boolean; go: ScreenProps["go"] }) {
+  const [view, setViewState] = useState<TripsView>(readView);
+  const setView = (v: TripsView) => { setViewState(v); try { localStorage.setItem("proto.tripsView", v); } catch { /* storage blocked */ } };
   const [filter, setFilter] = useState<"all" | "plan" | "book" | "idea">("all");
   const [showPast, setShowPast] = useState(false);
   const all = useMyTrips();
@@ -70,37 +77,50 @@ function TripsList({ phone, go }: { phone: boolean; go: ScreenProps["go"] }) {
           ))}
         </ul>
       </section>
-      <div className="filters" role="group" aria-label="Filter trips">
-        {([["all", "All"], ["plan", "Planning"], ["book", "Booking"], ["idea", "Ideas"]] as const).map(([k, l]) => (
-          <button key={k} className={`chip ${filter === k ? "act" : ""}`} aria-pressed={filter === k} onClick={() => setFilter(k)}>{l}</button>
-        ))}
+      <div className="view-bar">
+        {view !== "table" ? <div className="filters" role="group" aria-label="Filter trips">
+          {([["all", "All"], ["plan", "Planning"], ["book", "Booking"], ["idea", "Ideas"]] as const).map(([k, l]) => (
+            <button key={k} className={`chip ${filter === k ? "act" : ""}`} aria-pressed={filter === k} onClick={() => setFilter(k)}>{l}</button>
+          ))}
+        </div> : <span />}
+        <div className="seg view-seg" role="group" aria-label="Trips layout">
+          {([["cards", "Cards", "grip"], ["list", "List", "list"], ["table", "Table", "layers"]] as const).map(([k, l, ic]) => (
+            <button key={k} className={view === k ? "on" : ""} aria-pressed={view === k} onClick={() => setView(k)}><Icon name={ic} size={14} /> {l}</button>
+          ))}
+        </div>
       </div>
-      <Group title="Going soon" trips={soon} phone={phone} go={go} />
-      <Group title="Planned further out" trips={later} phone={phone} go={go} />
-      <Group title="Ideas · no dates yet" trips={ideas} phone={phone} go={go} />
-      {live.length === 0 && <p className="muted empty">No trips in this filter. <button className="linkish" onClick={() => setFilter("all")}>Show all</button></p>}
-      <section className="past">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div key={view} className="trips-view" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: .16 }}>
+          {view === "table" ? <TripsTable trips={all} phone={phone} go={go} /> : <>
+            <Group title="Going soon" trips={soon} phone={phone} go={go} view={view} />
+            <Group title="Planned further out" trips={later} phone={phone} go={go} view={view} />
+            <Group title="Ideas · no dates yet" trips={ideas} phone={phone} go={go} view={view} />
+            {live.length === 0 && <p className="muted empty">No trips in this filter. <button className="linkish" onClick={() => setFilter("all")}>Show all</button></p>}
+          </>}
+        </motion.div>
+      </AnimatePresence>
+      {view !== "table" && <section className="past">
         <button className="past-toggle" aria-expanded={showPast} onClick={() => setShowPast(v => !v)}>
           <Icon name={showPast ? "down" : "chevron"} /> <span className="label">Past</span> <span className="num muted">{past.length}</span>
         </button>
         <AnimatePresence initial={false}>
           {showPast && <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .22 }} style={{ overflow: "hidden" }}>
-            <div className="cards">{past.map(t => <Card key={t.id} t={t} go={go} />)}</div>
+            {view === "cards" ? <div className="cards">{past.map(t => <Card key={t.id} t={t} go={go} />)}</div> : <div className="rows">{past.map(t => <TripRow key={t.id} t={t} go={go} />)}</div>}
           </motion.div>}
         </AnimatePresence>
-      </section>
+      </section>}
     </div>
   );
 }
 
-function Group({ title, trips, phone, go }: { title: string; trips: TripCard[]; phone: boolean; go: ScreenProps["go"] }) {
+function Group({ title, trips, phone, go, view = "cards" }: { title: string; trips: TripCard[]; phone: boolean; go: ScreenProps["go"]; view?: TripsView }) {
   if (!trips.length) return null;
   return (
     <section className="group">
       <h2 className="label group-title">{title}</h2>
-      <div className={`cards ${phone ? "one" : ""}`}>
+      {view === "list" ? <div className="rows">{trips.map(t => <TripRow key={t.id} t={t} go={go} />)}</div> : <div className={`cards ${phone ? "one" : ""}`}>
         <AnimatePresence initial={false}>{trips.map(t => <Card key={t.id} t={t} go={go} />)}</AnimatePresence>
-      </div>
+      </div>}
     </section>
   );
 }
