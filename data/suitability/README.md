@@ -183,7 +183,8 @@ Start from `<trip>/migrated.json`: do not re-type a migrated value without re-re
 ## Known issues
 
 - **A conflict is not a value.** The migrated limits (Rockies activities, Dolomites Funbob and rafting) are conflicts with basis `our_inference`: the old data had no operator or official basis for them. They show as `gap` until a lane reads the operator page. That is why the flat `min_age` columns here are empty.
-- **`scope.json` is a snapshot.** It is dumped from the public adapter (`web/lib/public`), so a change to a trip's items needs a re-dump. S1 owns keeping it in step.
+- **`scope.json` follows the adapter.** It is dumped from `web/lib/public`; `tools/check-all.sh` re-dumps it and fails on any diff, so a change to a trip's items needs the new file committed.
+- **Dolomites is 40, not 42.** The 42 in the spec is the number of place pages; the 2 eateries are out of scope, leaving 40 (12 trails, 4 activities and lifts, 24 sights, lakes, viewpoints and towns), which is what the spec's own table row says.
 - **Rockies items outside the plan days** (28 adventures, 29 trails, 20 sights) are in `migrated-offplan.json`. They are not part of the 207 and `--coverage` ignores them.
 - **`kind_default` terrain.** A zip line, a show cave or a cruise has a fixed terrain by spec 2.5 and 2.7 when nothing else is stored. `derive` marks it `kind_default`.
 - **Case of grade systems.** The ids are lower case (`sac`, `cai`, `imba`), the timeline's interface capitalised some.

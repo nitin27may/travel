@@ -9,7 +9,7 @@
     {
       "id": "src-0001",
       "url": "legacy/canadian-rockies-sept-2029/data/adventures.json",
-      "title": "adventures.json of the 2029 plan",
+      "title": "adventures.json of the Rockies plan",
       "publisher": "this repo",
       "kind": "computed",
       "read": "2026-10-18"
@@ -17,7 +17,7 @@
     {
       "id": "src-0002",
       "url": "legacy/canadian-rockies-sept-2029/data/sights.json",
-      "title": "sights.json of the 2029 plan",
+      "title": "sights.json of the Rockies plan",
       "publisher": "this repo",
       "kind": "computed",
       "read": "2026-10-18"
@@ -25,7 +25,7 @@
     {
       "id": "src-0003",
       "url": "legacy/canadian-rockies-sept-2029/data/trails.json",
-      "title": "trails.json of the 2029 plan",
+      "title": "trails.json of the Rockies plan",
       "publisher": "this repo",
       "kind": "computed",
       "read": "2026-10-18"
@@ -48,14 +48,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -83,14 +83,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -118,14 +118,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -153,14 +153,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -188,14 +188,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"with_adult\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"with_adult\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -223,14 +223,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"with_adult\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"with_adult\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -258,14 +258,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -293,14 +293,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -328,14 +328,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -363,14 +363,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"with_adult\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"with_adult\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -398,14 +398,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -433,14 +433,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -468,14 +468,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -503,14 +503,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"yes\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -538,14 +538,14 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "child_6yo_ok is \"with_adult\" for the 2029 party (a child of about 6, 20 kg); it is a hint for the research lane, not a fact about the activity",
+          "text": "the plan's own fit label child_6yo_ok is \"with_adult\"; a hint for the research lane, not a fact about the activity",
           "src": [
             "src-0001"
           ]
         },
         {
           "field": "age_band",
-          "text": "the 2029 plan marks this activity family; the research lane sets the recommended ages",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
           "src": [
             "src-0001"
           ]
@@ -569,7 +569,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
       "kind": "sight",
       "suitability": {
-        "kid_note": "200 m walk, fenced viewpoints; hold hands near canyon edges. Day-use area open per 2026 page."
+        "kid_note": "200 m walk, fenced viewpoints; hold hands near canyon edges."
       },
       "flat": {
         "min_age": null,
@@ -649,7 +649,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Toe trail 1.8 km round trip, 60 m: feasible. Do not walk on the ice. Icefield Centre information desk closed per 2026 page."
+        "kid_note": "Toe trail 1.8 km round trip, 60 m: feasible. Do not walk on the ice."
       },
       "flat": {
         "min_age": null,
@@ -709,7 +709,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Long drive for a 6 year old, plan frequent stops. Gas stations limited: GAP not verified."
+        "kid_note": "Long drive for a young child, plan frequent stops. Gas stations limited: GAP not verified."
       },
       "flat": {
         "min_age": null,
@@ -749,7 +749,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Lower Falls 1.1 km one way, 85 m: fine for a 6 year old; exposed catwalks, hold hands. 2026 pattern: Johnston Canyon Trail closed from 13 Oct 2026 for rock slope work, status for Sept 2029 is GAP."
+        "kid_note": "Lower Falls 1.1 km one way, 85 m: fine for a young child; exposed catwalks, hold hands."
       },
       "flat": {
         "min_age": null,
@@ -809,7 +809,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Lake Minnewanka Trail to Stewart Canyon bridge is 1.6 km one way, 30 m. 2026: trail past Stewart Canyon bridge, Aylmer Pass and several campgrounds closed from 16 Sep until further notice; Aylmer trails have group restriction 10 Jul-15 Sep."
+        "kid_note": "Lake Minnewanka Trail to Stewart Canyon bridge is 1.6 km one way, 30 m."
       },
       "flat": {
         "min_age": null,
@@ -829,7 +829,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Cruise requires little walking; life jackets for child supplied by operator: GAP. Maligne Road reopened 11 Oct 2024; trailhead, boathouse picnic site open per 2026 page; Spirit Island cruise not confirmed on the page."
+        "kid_note": "Cruise requires little walking; life jackets for child supplied by operator: GAP."
       },
       "flat": {
         "min_age": null,
@@ -869,7 +869,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Flat lakeshore (1.3 km one way) and Rockpile (0.7 km loop) suit a 6 year old. Shuttle fare tiers for youth: GAP age bands not verified."
+        "kid_note": "Flat lakeshore (1.3 km one way) and Rockpile (0.7 km loop) suit a young child. Shuttle fare tiers for youth: GAP age bands not verified."
       },
       "flat": {
         "min_age": null,
@@ -949,7 +949,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Easy for 6 year old; BC Parks lists it as a short family hike."
+        "kid_note": "Easy for a young child; BC Parks lists it as a short family hike."
       },
       "flat": {
         "min_age": null,
@@ -969,7 +969,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
       "kind": "sight",
       "suitability": {
-        "kid_note": "1 km one way, 35 m. Good for 6 year old."
+        "kid_note": "1 km one way, 35 m. Good for a young child."
       },
       "flat": {
         "min_age": null,
@@ -1009,7 +1009,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Pyramid Bench trails reopened per 2026 page; trailhead open. Lake Annette Loop (2.4 km flat) is nearby."
+        "kid_note": "Lake Annette Loop (2.4 km flat) is nearby."
       },
       "flat": {
         "min_age": null,
@@ -1029,7 +1029,7 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
       "kind": "sight",
       "suitability": {
-        "kid_note": "Upper falls viewpoint is short and fenced; Lower Sunwapta Falls trail 2.6 km round trip, 87 m. Trailhead and picnic site open per 2026 page."
+        "kid_note": "Upper falls viewpoint is short and fenced; Lower Sunwapta Falls trail 2.6 km round trip, 87 m."
       },
       "flat": {
         "min_age": null,
@@ -1154,7 +1154,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1230,7 +1230,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1306,7 +1306,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1382,7 +1382,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this both; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this both; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1458,7 +1458,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1534,7 +1534,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1610,7 +1610,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1681,12 +1681,12 @@
           ],
           "note": "converted from trails.json hours \"7-8 h\" to minutes; not re-read at the source"
         },
-        "kid_note": "20 km, 1090 m: not for a 6 year old."
+        "kid_note": "20 km, 1090 m: not for a young child."
       },
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1762,7 +1762,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1838,7 +1838,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1914,7 +1914,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this both; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this both; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -1990,7 +1990,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2066,7 +2066,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2137,12 +2137,12 @@
           ],
           "note": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source"
         },
-        "kid_note": "Too long and steep for a 6 year old (11.2 km return, 750 m)."
+        "kid_note": "Too long and steep for a young child (11.2 km return, 750 m)."
       },
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2218,7 +2218,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2294,7 +2294,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2370,7 +2370,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2446,7 +2446,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2522,7 +2522,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2598,7 +2598,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2669,12 +2669,12 @@
           ],
           "note": "converted from trails.json hours \"2-3 h\" to minutes; not re-read at the source"
         },
-        "kid_note": "5.4 km, 250 m: a fit 6 year old could try."
+        "kid_note": "5.4 km, 250 m: a fit a young child could try."
       },
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2750,7 +2750,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2821,12 +2821,12 @@
           ],
           "note": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source"
         },
-        "kid_note": "11.8 km return, 595 m: too long for a 6 year old. Teahouse figure used is Parks Canada's 5.9 km one way. Abbot Pass hut climb is mountaineering, beyond the trail viewpoint (GAP)."
+        "kid_note": "11.8 km return, 595 m: too long for a young child. Teahouse figure used is Parks Canada's 5.9 km one way. Abbot Pass hut climb is mountaineering, beyond the trail viewpoint (GAP)."
       },
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2902,7 +2902,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this both; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this both; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -2978,7 +2978,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3049,12 +3049,12 @@
           ],
           "note": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source"
         },
-        "kid_note": "Steep final gully (close to 400 m in just over 1 km); too hard for 6 year old."
+        "kid_note": "Steep final gully (close to 400 m in just over 1 km); too hard for a young child."
       },
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3130,7 +3130,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3206,7 +3206,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3282,7 +3282,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3358,7 +3358,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3434,7 +3434,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3510,7 +3510,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this family; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]
@@ -3586,7 +3586,7 @@
       "hints": [
         {
           "field": "age_band",
-          "text": "the 2029 plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
           "src": [
             "src-0003"
           ]

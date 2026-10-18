@@ -188,6 +188,7 @@ describe("sources", () => {
     "https://www.alltrails.com/trail/x", "https://www.komoot.com/tour/1", "https://www.komoot.de/tour/1", "https://www.gaiagps.com/x",
     "https://www.outdooractive.com/en/route/1", "https://www.wikiloc.com/hiking-trails/1", "https://www.google.com/maps/x", "https://maps.google.ca/x",
     "https://www.tripadvisor.com/x", "https://www.booking.com/hotel/x", "https://www.viator.com/tours/x",
+    "https://www.strava.com/routes/1", "https://www.hikingproject.com/trail/1", "https://www.mtbproject.com/trail/1", "https://fatmap.com/x", "https://maps.me/x",
   ])("%s is link-only", (url) => {
     expect(codes(run(withSrc(url)))).toEqual(["E_SUIT_LINK_ONLY_SRC"]);
   });
