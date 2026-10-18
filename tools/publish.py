@@ -28,7 +28,7 @@ from hub import write_hub, write_trips_json  # noqa: E402
 
 ROOT = HERE.parent
 SITE_ROUTES = ("globe", "locations")   # legacy/<name>/ served at /<name>/, not trips
-APP_OWNED = ("locations",)             # legacy site pages the app replaces (it serves a redirect page there)
+APP_OWNED = ("locations", "globe")     # legacy site pages the app replaces (v2 branch only; main keeps the legacy globe until the owner approves go-live)
 
 
 PRIVATE_PAGE = """<!DOCTYPE html>
