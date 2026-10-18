@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Menu } from '@base-ui/react/menu';
+import { CrumbMore } from './CrumbMore';
 import { Icon } from './Icon';
 import { cx } from './cx';
 
@@ -16,22 +16,7 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
       <ol>
         {hidden.length ? (
           <li className="crumb-more">
-            <Menu.Root>
-              <Menu.Trigger className="crumb-more-btn" aria-label="Earlier levels">
-                &hellip;
-              </Menu.Trigger>
-              <Menu.Portal>
-                <Menu.Positioner sideOffset={6} align="start" className="popover-pos">
-                  <Menu.Popup className="menu">
-                    {hidden.map((c) => (
-                      <Menu.LinkItem key={c.label} className="menu-item" href={c.href ?? '#'}>
-                        {c.label}
-                      </Menu.LinkItem>
-                    ))}
-                  </Menu.Popup>
-                </Menu.Positioner>
-              </Menu.Portal>
-            </Menu.Root>
+            <CrumbMore hidden={hidden} />
             <span className="crumb-sep" aria-hidden="true">
               <Icon name="chevronRight" size={12} />
             </span>

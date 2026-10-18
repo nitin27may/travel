@@ -1,7 +1,6 @@
+/* themes.css, ui.css and app.css are imported by app/layout.tsx, not with @import here: Tailwind resolved
+   these relative imports against web/ instead of web/app/ on some runs and logged "Can't resolve". */
 @import 'tailwindcss';
-@import './themes.css';
-@import '../components/ui/ui.css';
-@import './app.css';
 
 @font-face {
   font-family: 'Big Shoulders Display';
