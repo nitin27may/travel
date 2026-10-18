@@ -22,3 +22,5 @@ When a test fails, diff the failing test IDs against a clean `main` before calli
 Report a table of check, then result (pass or fail), then evidence (the output excerpt or the screenshot path). Then list each failure with its likely cause.
 
 Kill any server you start by the PID on its port, never by name.
+
+GPU rendering: this machine (nks-ubuntu) has an Intel Arc A770M. Launch Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization` so WebGL maps render on the real GPU (globe idle spin 60 fps, p95 16.8 ms). The SwiftShader flags render vector tiles but run about 35 times slower (1.7 fps on the same scene), so never judge motion, smoothness or frame time under SwiftShader.
