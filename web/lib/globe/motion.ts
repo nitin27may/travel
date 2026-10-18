@@ -63,3 +63,8 @@ export const spinStepDeg = (ms = SPIN_EASE_MS): number => (ms / 1000) * SPIN_DEG
 /** Whether the release of a press at `from` ending at `to` is a click. */
 export const isClick = (from: { x: number; y: number } | null, to: { x: number; y: number }, dragged: boolean): boolean =>
   !dragged && (!from || Math.hypot(to.x - from.x, to.y - from.y) <= CLICK_SLOP_PX);
+
+export interface SpinGate { enabled: boolean; world: boolean; reduced: boolean; styleLoaded: boolean; zoom: number; pointerDown: boolean; destroyed: boolean; hidden: boolean; active: boolean }
+/** Whether a spin ease may start now. `active` is false for a cover scrolled out of view: nothing re-arms the spin then. */
+export const spinAllowed = (g: SpinGate): boolean =>
+  g.active && g.enabled && g.world && !g.reduced && g.styleLoaded && g.zoom < SPIN_MAX_ZOOM && !g.pointerDown && !g.destroyed && !g.hidden;

@@ -22,6 +22,7 @@ export function GlobeCover({ data, className = '', label = 'Globe of saved place
   const host = useRef<HTMLDivElement>(null);
   const [go, setGo] = useState(false);
   const engine = useRef<GlobeEngine | null>(null);
+  const visible = useRef(true);
 
   useEffect(() => {
     const el = host.current;
@@ -42,7 +43,7 @@ export function GlobeCover({ data, className = '', label = 'Globe of saved place
   useEffect(() => {
     const el = host.current;
     if (!el) return;
-    const io = new IntersectionObserver((entries) => { for (const e of entries) engine.current?.setActive(e.isIntersecting); });
+    const io = new IntersectionObserver((entries) => { for (const e of entries) { visible.current = e.isIntersecting; engine.current?.setActive(e.isIntersecting); } });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -59,7 +60,7 @@ export function GlobeCover({ data, className = '', label = 'Globe of saved place
       onBlur={() => pause(false)}
     >
       {go ? (
-        <GlobeCanvas mode="cover" data={data} label={label} onEngine={(e) => { engine.current = e; }} />
+        <GlobeCanvas mode="cover" data={data} label={label} onEngine={(e) => { engine.current = e; e?.setActive(visible.current); }} />
       ) : (
         <div className="globe-canvas" data-globe-mode="cover"><div className="globe-loading">Loading globe</div></div>
       )}

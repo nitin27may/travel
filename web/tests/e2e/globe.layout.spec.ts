@@ -120,4 +120,35 @@ test.describe('globe layout', () => {
       await ctx.close();
     } finally { await browser.close(); }
   });
+
+  test('phone: with a place sheet open, Reset view and the World chip are visible and clickable', async ({ browser, site }) => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true });
+    const page = await ctx.newPage();
+    await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
+    await page.goto(`${site.url}/globe/place/adolf-munkel-weg/`);
+    await expect(page.getByRole('dialog', { name: 'Adolf Munkel Weg' })).toBeVisible();
+    await page.waitForTimeout(800);
+    for (const sel of ['.globe-zoom [aria-label="Reset view"]', '.globe-crumbs']) {
+      const box = await page.locator(sel).first().boundingBox();
+      expect(box).toBeTruthy();
+      const top = await page.evaluate(([x, y, s]) => document.elementFromPoint(x as number, y as number)?.closest(s as string) !== null, [box!.x + box!.width / 2, box!.y + box!.height / 2, sel]);
+      expect(top, `${sel} is not covered`).toBe(true);
+    }
+    await page.getByRole('button', { name: 'Reset view' }).click();
+    await expect(page).toHaveURL(/\/globe\/(\?|$)/);
+    await ctx.close();
+  });
+
+  test('landscape phone with a place open: card, crumb, panel and zoom stack do not overlap', async ({ browser, site }) => {
+    const ctx = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true });
+    const page = await ctx.newPage();
+    await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
+    await page.goto(`${site.url}/globe/place/adolf-munkel-weg/`);
+    await expect(page.locator('.globe-card-dock .globe-card')).toBeVisible();
+    const rect = async (sel: string) => (await page.locator(sel).first().boundingBox())!;
+    const hit = (a: { x: number; y: number; width: number; height: number }, b: typeof a) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+    const card = await rect('.globe-card-dock');
+    for (const sel of ['.globe-panel', '.globe-crumbs', '.globe-zoom']) expect(hit(card, await rect(sel)), `${sel} overlaps the card`).toBe(false);
+    await ctx.close();
+  });
 });

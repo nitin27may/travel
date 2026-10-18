@@ -381,7 +381,7 @@ export class GlobeController {
     // A sea, range or other landform: fly there at a scale that fits its rank and stay on the world level.
     if (this.snap.path.length || this.snap.selected) await this.goArea([], { fly: false });
     engine.setPadding(this.padding());
-    engine.flyToPoint([a.lng, a.lat], zoomForRank(a.rank));
+    engine.flyToPoint([a.lng, a.lat], Math.max(3, zoomForRank(a.rank))); // zoom 3 or more so a sea or ocean is clickable on arrival
     // The landform or sea becomes a selection card too: name, kind and the saved places near it.
     this.emit({ feature: { sourceLayer: '', kind: hit.where || hit.kindLabel.toLowerCase(), name: a.name, extra: '', lngLat: [a.lng, a.lat], wikidata: null } });
   }
