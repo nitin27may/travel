@@ -6,6 +6,7 @@ Newest first. Each line links to where it is specified. Move a line to "Done" wi
 
 | Added | Item | Spec |
 |---|---|---|
+| 2026-10-18 | **Test health.** `places-parity.spec.ts` is flaky under CPU load (a different subset fails each run; it should wait for counts, not race them). The `/specimen/` axe check fails: a loading button has no accessible name, and small text lacks contrast (an L0 component). Fix both in the integration pass. | build/public-site/README.md |
 | 2026-10-18 | **The globe is a major feature.** Use the full screen. Rotate, zoom and click every feature: countries, states and districts, rivers, lakes, seas, peaks, ranges, parks, cities, saved places and trips. Selection cards and smooth motion. Fable reviews the live globe and the L2 build, then an enhancement lane (L2b) follows. Parity with the live globe (selectable rivers, lakes, seas, peaks, parks) is required in L2 now. | design/globe/ (in progress) |
 | 2026-10-18 | **Public trips are dateless templates.** Every public trip shows Day 1-N, its length and a season window; date-bound details become relative (booking rules, a long weekend in mid-October, observed-in-2026, weekday checks, sun-time ranges). Dates attach only when a trip is copied into an account and a start date is picked. | [design/public-trips-dateless.md](design/public-trips-dateless.md) |
 | 2026-10-18 | **Map stack decided** (hybrid: MapLibre for globe/trip/planner, Google on place pages, Maps URLs for directions, ORS for legs); owner to create Google Cloud project, restricted key, daily cap, ORS key, R2 bucket | [research/map-stack-2026-10-18.md](research/map-stack-2026-10-18.md) |
@@ -33,6 +34,7 @@ Newest first. Each line links to where it is specified. Move a line to "Done" wi
 
 | Date | Item | Commit |
 |---|---|---|
+| 2026-10-18 | **L5 merged: copy, export and share.** The copy sheet has a shaded date picker, an explicit traveller choice and the season warning. Export covers PDF/print, ICS (dated copies only, with VTIMEZONE), GPX/KML/CSV (licence-guarded, approximate points labelled) and share links. | 972fbd4 |
 | 2026-10-18 | **Public site wave 1 merged:** L0 (foundation), LD (data adapter), LM (map adapter), each verified. On the merged branch: 185 unit tests, 62 e2e, 166 publish tests, check-all OK. /globe is app-owned on the v2 branch, and the URL gate skips the replaced legacy page's assets. | 1f9e7d9, ac4d947, 24b6609, 896930d, 4e06943 |
 | 2026-10-18 | **All 14 trips are public** (owner): the 7 private flags are removed from legacy/MANIFEST.json, reversing b06fb01. Household data inside trip plans (names, ages, booking codes, costs, phones) still stays out of the public site through LD's allow-list. | (this commit) |
 | 2026-10-18 | Trailhead and parking coordinates from OpenStreetMap for 18 trails, with the full link checklist (133 links checked) and Google/Apple Maps buttons. Lift-start trails send Directions to the valley car park; fee disagreements are shown as conflicts. | 0673ca9 |
