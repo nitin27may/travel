@@ -36,14 +36,14 @@ Merge procedure per lane:
 
 ## Final plan to the owner's review (agreed 18 Oct, late evening)
 
-The owner tries the whole site once everything below is fixed: trips (every view), trip pages, places, place and trail pages, the globe. Work goes down this list in order; new feedback is slotted into the stage it belongs to, not started on its own. Every build lane ends with travel-verifier (Sonnet, on the Arc GPU) and every UI stage with travel-design-reviewer (Fable).
+The owner tries the whole site once everything below is fixed: trips (every view), trip pages, places, place and trail pages, the globe. Work goes down this list in order; new feedback is slotted into the stage it belongs to, not started on its own. Every build lane ends with travel-verifier (Sonnet, on the Arc GPU) and every UI stage with travel-design-reviewer (Opus).
 
 | Stage | Work | Feedback it closes | Gate |
 |---|---|---|---|
 | 1 | Finish wave 2: L2 verify, then L2 fixes (verifier must-fixes, F2 rings, F5 reset view), merge. PS privacy lane, verify, merge. Fable experience review and the rewritten globe spec land as docs. | F2, F5, F7 | verifier pass per lane; tsc, test, build on the merged branch |
 | 2 | Integration pass (list below): GlobeCover on home, adapter note scrub at the source, L0 fixes, foundation doc edits, full e2e, Lighthouse, privacy grep | | integration sweep `verify-integration.md` |
 | 3 | Wave 3, four lanes in parallel with disjoint files. **L3c trip page timeline** (whole-trip and per-day timelines, a scheduler in `core/`, party profile replacing per-day A/B/C; design by Fable and model by Opus, both in progress) and **L3b trip tags and filters** (trips first, as the owner asked); **L2b globe experience** (rendering, motion, look, selection cards, city areas, Canada census divisions and the ADM2 audit, image-first place card); **L4b trail tracks** (real OSM lines, elevation and GPX from them, trail pages for every trip's trails) | F1, F3, F4, F6, trip tags, trail maps, trip timeline | verifier per lane, Fable re-review of L2b against its spec |
-| 4 | Fable review of the whole built site (`review.md`), then the fixes it lists | | Fable sign-off |
+| 4 | the design reviewer (Opus) review of the whole built site (`review.md`), then the fixes it lists | | the design reviewer (Opus) sign-off |
 | 5 | Sanity checks across models: travel-verifier full sweep on the GPU (every page, 1440 and 390, light and dark, frame times on the globe); an independent Opus audit of privacy, data honesty and the dateless rule over `web/out` | | both pass |
 | 6 | Owner preview on a tunnel: he reviews trips, trip pages, places, place and trail pages and the globe | | owner approval |
 | 7 | Go-live: restore the Google key's website restrictions, set Cloudflare Pages env vars, publish from main after merging v2 | | owner go |
