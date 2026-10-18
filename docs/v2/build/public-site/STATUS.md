@@ -1,6 +1,6 @@
 # Public site build: live status (coordinator handover)
 
-Updated 2026-10-18, evening. Read this first after a context reset. Then read `docs/v2/TODO.md` and `README.md` in this folder.
+Updated 2026-10-18, late evening. Read this first after a context reset. Then read `docs/v2/TODO.md` and `README.md` in this folder.
 
 ## Where things are
 
@@ -18,10 +18,13 @@ Updated 2026-10-18, evening. Read this first after a context reset. Then read `d
 | LM | map adapter (`web/lib/map`, `web/components/map`) | merged 24b6609 | maplibre by default; google-js/embed through `NEXT_PUBLIC_PLACE_MAP_FAMILY` |
 | L5 | copy, export, share | merged 972fbd4 | ICS only for dated copies, licence guard on GPX/KML/CSV |
 | L1 | home and global search | merged bc8d102 | the cover is still a flat map; swap to L2's `GlobeCover` after L2 merges |
-| L2 | full-screen globe | **fixing** (builder agent) | blocking: the map has no height in the export (review 3.1, L2-1). Fixing L2-1 to L2-7, then re-verify with tiles and merge |
+| L2 | full-screen globe | **verifying** (GPU) | L2-1..L2-7 fixed (b0de27d); then must-fix F2 antimeridian rings, F5 reset view, the stubs.test conflict on merge |
 | L3 | trips list and trip page | merged 65eee4c | dark-style label hiding via `web/lib/map/maplibre/labels.ts` (additive LM edit, `hideBasemapLabels`); TripsMap lazy for the JS budget |
-| L4 | places list and place/trail pages | **verifying** | real Google key confirmed working 18 Oct on trail and place pages (0 Google requests before click, our points, directions from our coordinates); trail page shows a raw "Route line: osm_relation …" note to replace |
-| L2b | globe enhancements | queued | `docs/v2/design/globe/spec.md`, after L2 merges |
+| L4 | places list and place/trail pages | merged d0cb415 | real Google key checked 18 Oct (facade, our points, directions from our coordinates) |
+| PS | privacy: personal place status off public output | **building** | Status facet becomes "In a public trip"; payload test |
+| L2b | globe experience | spec in progress (Fable) | `globe/experience-review.md`, `spec.md`, owner feedback F1, F3, F4, F6 |
+| L3b | trip tags and filters at parity with Places | queued | TODO row; spec `features/trip-tags.md` first |
+| L4b | real trail tracks; trail pages for every trip's trails | queued | TODO row; `research/lanes/trails.md` |
 
 Merge procedure per lane:
 1. travel-verifier (Sonnet) checks the lane.
@@ -29,6 +32,22 @@ Merge procedure per lane:
 3. `git merge --no-ff public/<lane>` into the v2 branch.
 4. Run tsc, test and build on the merged result.
 5. Push.
+
+## Final plan to the owner's review (agreed 18 Oct, late evening)
+
+The owner tries the whole site once everything below is fixed: trips (every view), trip pages, places, place and trail pages, the globe. Work goes down this list in order; new feedback is slotted into the stage it belongs to, not started on its own. Every build lane ends with travel-verifier (Sonnet, on the Arc GPU) and every UI stage with travel-design-reviewer (Fable).
+
+| Stage | Work | Feedback it closes | Gate |
+|---|---|---|---|
+| 1 | Finish wave 2: L2 verify, then L2 fixes (verifier must-fixes, F2 rings, F5 reset view), merge. PS privacy lane, verify, merge. Fable experience review and the rewritten globe spec land as docs. | F2, F5, F7 | verifier pass per lane; tsc, test, build on the merged branch |
+| 2 | Integration pass (list below): GlobeCover on home, adapter note scrub at the source, L0 fixes, foundation doc edits, full e2e, Lighthouse, privacy grep | | integration sweep `verify-integration.md` |
+| 3 | Wave 3, three lanes in parallel with disjoint files. **L3b trip tags and filters** (trips first, as the owner asked); **L2b globe experience** (rendering, motion, look, selection cards, city areas, Canada census divisions and the ADM2 audit, image-first place card); **L4b trail tracks** (real OSM lines, elevation and GPX from them, trail pages for every trip's trails) | F1, F3, F4, F6, trip tags, trail maps | verifier per lane, Fable re-review of L2b against its spec |
+| 4 | Fable review of the whole built site (`review.md`), then the fixes it lists | | Fable sign-off |
+| 5 | Sanity checks across models: travel-verifier full sweep on the GPU (every page, 1440 and 390, light and dark, frame times on the globe); an independent Opus audit of privacy, data honesty and the dateless rule over `web/out` | | both pass |
+| 6 | Owner preview on a tunnel: he reviews trips, trip pages, places, place and trail pages and the globe | | owner approval |
+| 7 | Go-live: restore the Google key's website restrictions, set Cloudflare Pages env vars, publish from main after merging v2 | | owner go |
+
+Ownership in wave 3: L2b owns `web/lib/globe`, `web/components/globe`, `web/styles/globe.css`, `web/public/globe`; L3b owns `web/lib/entities/descriptors/trip.tsx`, `web/components/trips`, the trip side of `data/vocab/tags.json`; L4b owns `web/components/places` trail parts, the trail code in `web/lib/public/places.ts`, and new track data. Shared files (`web/lib/public/types.ts`, `web/lib/map`) take additive edits only, listed in each report.
 
 ## After every lane is merged (the integration pass, done by the coordinator)
 
