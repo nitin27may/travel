@@ -66,7 +66,7 @@ export function Discover({ phone, go }: ScreenProps) {
             <AnimatePresence initial={false}>
               {month > 0 && (
                 <motion.label className="dc-check" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: .18 }}>
-                  <input type="checkbox" checked={showOut} onChange={e => setShowOut(e.target.checked)} /> Show out-of-season trips with a warning{hiddenOut ? ` (${hiddenOut} hidden)` : ""}
+                  <input type="checkbox" checked={showOut} onChange={e => setShowOut(e.target.checked)} /> Show out-of-season trips with a warning{hiddenOut ? ` (${hiddenOut} ${showOut ? "shown" : "hidden"})` : ""}
                 </motion.label>
               )}
             </AnimatePresence>

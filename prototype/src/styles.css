@@ -73,3 +73,7 @@ input[type="checkbox"], input[type="radio"], input[type="range"] { accent-color:
 select { -webkit-appearance: none !important; appearance: none !important; background-image: var(--chev) !important; background-repeat: no-repeat !important; background-position: right 9px center !important; background-size: 12px !important; padding-right: 30px !important; padding-left: 10px; min-height: 34px; border: 1px solid var(--line-strong); border-radius: var(--r-ctl); background-color: var(--surface); color: var(--ink); cursor: pointer; }
 select:hover { border-color: var(--ink); }
 input[type="month"], input[type="date"] { min-width: 0; }
+/* a pressed filter chip is solid, so selected and unselected are unmistakable in both themes */
+button.chip { border: 1px solid transparent; cursor: pointer; transition: background .12s, color .12s, border-color .12s; }
+button.chip:hover { border-color: var(--line-strong); }
+button.chip[aria-pressed="true"] { background: var(--act); color: var(--act-ink); border-color: var(--act); }
