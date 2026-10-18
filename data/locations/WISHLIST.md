@@ -1,8 +1,8 @@
 # Wishlist
 
-Generated from `data/locations/locations.json` on 2026-10-17. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
+Generated from `data/locations/locations.json` on 2026-10-18. Do not edit by hand; add with `python3 tools/locations.py add ...` or the `location` skill.
 
-64 places in 7 countries, 4 collections. By status: idea 56, planned 8.
+65 places in 7 countries, 4 collections. By status: idea 57, planned 8.
 
 Legend: kind · season · status · stats from the source post are unverified until a research lane confirms them.
 
@@ -329,6 +329,13 @@ Legend: kind · season · status · stats from the source post are unverified un
 - **Stowe** · town · Sep,Oct · planned · [map](https://maps.google.com/?q=44.46533,-72.68456) [wd](https://www.wikidata.org/wiki/Q550498) [trip](../vermont-fall-2026/) · #fall-colours #scenic-drive #villages
   - Peak fall foliage, charming villages, covered bridges. Best late Sep to mid Oct; combine with the White Mountains. Planned as vermont-fall-2026 (1-4 Oct 2026).
   - <sub>US/VT/lamoille-county/stowe</sub>
+### Washington
+
+#### Pierce County
+
+- **Mount Rainier National Park** · park · Sep,Oct · idea · [map](https://maps.google.com/?q=46.85,-121.75) [wd](https://www.wikidata.org/wiki/Q944329) · #fall-colours #hiking #mountain #national-park #scenic
+  - Owner pick for autumn colour.
+  - <sub>US/WA/pierce-county/mount-rainier-national-park</sub>
 ### Wyoming
 
 #### Park County

@@ -22,6 +22,7 @@ import { GlobeControls } from './GlobeControls';
 import { GlobeCrumbs } from './GlobeCrumbs';
 import { GlobePanelBody } from './GlobePanel';
 import { GlobeSearch } from './GlobeSearch';
+import { HitMarker } from './HitMarker';
 import { PinLayer } from './PinLayer';
 import { FeatureCard, SelectionCard, type NearbyPlace } from './SelectionCard';
 import { distanceKm } from '@/lib/map/geo';
@@ -257,6 +258,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       )}
 
       {engine ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} onOpen={openPin} /> : null}
+      {engine ? <HitMarker engine={engine} /> : null}
       {cardEl && card ? createPortal(<SelectionCard card={card} onClose={() => controller?.closeCard()} />, cardEl) : null}
       {short && card ? <div className="globe-card-dock"><SelectionCard card={card} onClose={() => controller?.closeCard()} /></div> : null}
 

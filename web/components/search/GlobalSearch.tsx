@@ -4,11 +4,11 @@ import { Dialog } from '@base-ui/react/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { loadSearchIndex } from '@/lib/search/client';
+import { onSearchGrow, search, suggest } from '@/lib/client/data';
+import type { Suggestion } from '@/lib/search/suggest';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
-import { createSearcher, describeCounts, type Searcher } from '@/lib/search/search';
-import { suggest } from '@/lib/search/suggest';
-import type { SearchHit, SearchRecord } from '@/lib/search/types';
+import { describeCounts } from '@/lib/search/search';
+import type { SearchHit, SearchRecord, SearchResult } from '@/lib/search/types';
 import '@/styles/home.css';
 
 export interface GlobalSearchProps {
@@ -24,16 +24,17 @@ function glyph(r: SearchRecord) {
 
 /**
  * One search over trips, places and areas (components 2.10). A popover under the header on desktop and a
- * full-height sheet on phone. Results come on the first character from an in-memory index that is fetched the
- * first time the dialog opens. Arrow keys move, Enter opens, Esc clears and then closes.
+ * full-height sheet on phone. Nothing loads until the first character: the index is split by kind and country, and the
+ * parts that can match the query load first (lib/client/data.ts `search`); the rest follow and the answer refreshes. Arrow keys move, Enter opens, Esc clears and then closes.
  */
 export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const router = useRouter();
   const listId = useId();
   const [q, setQ] = useState(() => takeBuffer());
-  const [searcher, setSearcher] = useState<Searcher | null>(null);
-  const [records, setRecords] = useState<SearchRecord[]>([]);
+  const [answer, setResult] = useState<SearchResult | null>(null);
   const [failed, setFailed] = useState(false);
+  const [tick, setTick] = useState(0);
+  const [suggested, setSuggested] = useState<{ q: string; s: Suggestion | null } | null>(null);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -46,18 +47,42 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
     return () => stopBuffer();
   }, []);
 
-  useEffect(() => {
-    if (!open || searcher) return;
-    let dead = false;
-    loadSearchIndex().then(
-      (recs) => { if (!dead) { setRecords(recs); setSearcher(createSearcher(recs)); } },
-      () => { if (!dead) setFailed(true); },
-    );
-    return () => { dead = true; };
-  }, [open, searcher]);
+  // more parts landed after an answer: ask again
+  useEffect(() => onSearchGrow(() => setTick((t) => t + 1)), []);
 
-  const result = useMemo(() => (searcher && q.trim() ? searcher.search(q) : null), [searcher, q]);
-  const suggestion = useMemo(() => (searcher && q.trim() && result && result.groups.length === 0 ? suggest(q, records, (t) => { const r = searcher.search(t); return r.counts.trips + r.counts.places + r.counts.areas; }) : null), [searcher, q, result, records]);
+  useEffect(() => {
+    if (!open || !q.trim()) return;
+    let live = true;
+    search(q).then(
+      (r) => {
+        if (!live) return;
+        setFailed(false);
+        setResult(r);
+      },
+      () => live && setFailed(true),
+    );
+    return () => {
+      live = false;
+    };
+  }, [open, q, tick]);
+
+  // nothing matched and every part is in: ask the data module for the nearest question that does have an answer
+  const nothing = !!answer && answer.groups.length === 0 && !answer.partial;
+  useEffect(() => {
+    if (!open || !nothing || !q.trim()) return;
+    let live = true;
+    suggest(q).then(
+      (s) => live && setSuggested({ q, s }),
+      () => live && setSuggested({ q, s: null }),
+    );
+    return () => {
+      live = false;
+    };
+  }, [open, nothing, q]);
+  const suggestion = suggested?.q === q ? suggested.s : null;
+
+  // an empty box shows the hint, never the last answer
+  const result = q.trim() ? answer : null;
   const flat: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
   const status = failed ? 'Search is unavailable' : result ? describeCounts(result) : '';
 
@@ -130,9 +155,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               <p className="gs-empty">Search could not load. Reload the page to try again.</p>
             ) : !q.trim() ? (
               <p className="gs-hint">Try a country, a trail or a kind, like lake.</p>
-            ) : !searcher ? (
-              <p className="gs-hint">Loading the index.</p>
-            ) : !result || result.groups.length === 0 ? (
+            ) : !result ? (
+              <p className="gs-hint">Searching.</p>
+            ) : result.groups.length === 0 && result.partial ? (
+              <p className="gs-hint">Searching.</p>
+            ) : result.groups.length === 0 ? (
               <p className="gs-empty">
                 No trip or place matches &lsquo;{q.trim()}&rsquo;. {suggestion ? '' : 'Try a country or a kind, like lake.'}
                 {suggestion?.href ? (

@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { loadPlaces } from '@/lib/data/places';
+import { createPublicData } from '@/lib/public';
 import { publicSentences, undatedTitle } from '@/lib/public/dateless';
-import { placeView, tripView } from '@/lib/views/places';
 
 describe('the shared public-text scrubber', () => {
   it('drops "Planned as" and stay ideas, whole, and never cuts inside a URL', () => {
@@ -23,16 +22,24 @@ describe('the shared public-text scrubber', () => {
     expect(undatedTitle('Dolomites')).toBe('Dolomites');
     expect(undatedTitle('Canadian Rockies')).toBe('Canadian Rockies');
   });
-  it('leaves no note in the places data file with a plan link, stay idea, URL or calendar date', () => {
-    for (const p of loadPlaces().map(placeView)) {
-      expect(p.note, p.id).not.toMatch(/planned as|hotel idea|https?:\/\/|\b\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4}/i);
+  it('leaves no summary or note on a public place with a plan link, stay idea, URL or calendar date', () => {
+    for (const p of createPublicData().listPlaces()) {
+      expect(p.summary, p.slug).not.toMatch(/planned as|hotel idea|https?:\/\/|\b\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4}/i);
     }
   });
-  it('writes trip rows with no date and no dated title', () => {
-    const row = tripView({ id: 't', slug: 't', title: 'Trip, 10–12 October 2026', subtitle: 'Nice. October 1–4, 2026. Base camp: 1 Main St.', img: null, date: '2026-10-10', dates: '10 Oct', duration: '2 nights', region: 'X', source: 'plan', href: '/t/', when: 'later', badge: '' } as never);
-    expect(Object.keys(row)).not.toContain('date');
-    expect(Object.keys(row)).not.toContain('dates');
-    expect(row.title).toBe('Trip');
-    expect(row.subtitle).toBe('Nice.');
+  it('gives a saved place no summary and no note at all: the capture note stays at the source (backlog 2.3)', () => {
+    const saved = createPublicData().internals.places.filter((p) => p.sources.length === 1 && p.sources[0] === 'locations');
+    expect(saved.length).toBeGreaterThan(50);
+    for (const p of saved) {
+      expect(p.summary, p.slug).toBe('');
+      expect(p.notes, p.slug).toBe('');
+    }
+  });
+  it('lists trips with no date and no dated title', () => {
+    for (const t of createPublicData().listTrips()) {
+      expect(Object.keys(t)).not.toContain('date');
+      expect(Object.keys(t)).not.toContain('dates');
+      expect(t.title, t.slug).toBe(undatedTitle(t.title));
+    }
   });
 });

@@ -1,7 +1,7 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { Icon } from '@/components/ui/Icon';
 import dynamic from 'next/dynamic';
-import { DEPTH_LABEL, DEPTH_NOTICE, driveLabel, lengthLabel, tripHref } from '@/components/trips/format';
+import { DEPTH_LABEL, DEPTH_NOTICE, lengthLabel, tripHref } from '@/components/trips/format';
 import type { TripListRow } from '@/components/trips/types';
 import type { TripRow } from '@/lib/data/types';
 import { MONTH_NAMES } from '@/lib/format/season';
@@ -39,13 +39,11 @@ function col(id: string, header: string, cell: ColumnDef<TripListRow, unknown>['
 }
 
 const dash = <span className="dash">&ndash;</span>;
-const driveText = (t: TripListRow) => driveLabel(t.driveAvgMin, true) ?? '';
 const kidsText = (t: TripListRow) => (t.ageFit === null ? '' : `Ages ${t.ageFit}+`);
 
 export const tripDescriptor: EntityDescriptor<TripListRow> = {
   type: 'trip',
   schemaId: '#/$defs/trip',
-  dataUrl: '/data/trips.json',
   noun: { one: 'trip', many: 'trips' },
   heading: 'Trips',
   id: (t) => t.id,
@@ -53,12 +51,10 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   subtitle: (t) => [lengthLabel(t.nights, t.days), t.region].filter(Boolean).join(' · '),
   image: (t) => t.cover,
   badges: publicTripBadges,
-  summary: (t) => t.subtitle,
   cardFooter: (t) => (
     <>
       <span className="card-links trip-links">
         <a href={tripHref(t.slug)}>Public page</a>
-        <a href={t.legacyUrl}>Original plan</a>
       </span>
       {t.isDone ? <span hidden data-trip-done="" /> : null}
     </>
@@ -91,22 +87,10 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
     col('days', 'Days', ({ row }) => (row.original.days === null ? dash : <span className="num">{row.original.days}</span>), (t) => t.days ?? '', 80, { align: 'right' }),
     col('season', 'Valid for', ({ row }) => row.original.seasonLabel ?? <span className="dash">Not set yet</span>, (t) => t.seasonLabel ?? '', 200),
     col('countries', 'Country', ({ row }) => row.original.countryName || dash, (t) => t.countryName, 130),
-    col('bases', 'Bases', ({ row }) => (row.original.bases === null ? dash : <span className="num">{row.original.bases}</span>), (t) => t.bases ?? '', 80, { align: 'right' }),
-    col(
-      'drive',
-      'Drive a day',
-      ({ row }) => {
-        const d = driveLabel(row.original.driveAvgMin, true);
-        return d ? <span className="num" title="Estimated: a straight line scaled to a road time">{d}</span> : dash;
-      },
-      driveText,
-      120,
-      { align: 'right' },
-    ),
     col('kids', 'Kids', ({ row }) => kidsText(row.original) || dash, kidsText, 100),
     col('depth', 'Depth', ({ row }) => DEPTH_LABEL[row.original.depth], (t) => DEPTH_LABEL[t.depth], 120),
   ],
-  defaultColumns: ['title', 'nights', 'season', 'countries', 'bases', 'drive', 'kids', 'depth'],
+  defaultColumns: ['title', 'nights', 'season', 'countries', 'kids', 'depth'],
   groupBy: [
     { id: 'phase', label: 'Plan', key: phase, title: (t) => PHASE_TITLE[phase(t)], subtitle: (t) => (t.isDone ? 'Trips already taken, kept as templates to copy' : '') },
     { id: 'country', label: 'Country', key: (t) => t.country || '~', title: (t) => t.countryName || 'Country not set' },
@@ -116,13 +100,12 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   sorts: {
     title: { label: 'Name', value: (t) => t.title },
     nights: { label: 'Length', value: (t) => t.nights },
-    drive: { label: 'Drive a day', value: (t) => t.driveAvgMin },
     depth: { label: 'Depth', value: (t) => DEPTH_RANK[t.depth] },
     country: { label: 'Country', value: (t) => t.countryName || null },
   },
   defaultSort: (a, b) => Number(a.isDone) - Number(b.isDone) || DEPTH_RANK[a.depth] - DEPTH_RANK[b.depth] || a.title.localeCompare(b.title),
   defaultSortLabel: 'Most complete first',
-  search: (t) => [t.title, t.subtitle, t.region, t.countryName, t.firstBase ?? ''].join(' '),
+  search: (t) => [t.title, t.region, t.countryName, t.firstBase ?? ''].join(' '),
   href: (t) => tripHref(t.slug),
   detail: [],
   actions: (t) => (

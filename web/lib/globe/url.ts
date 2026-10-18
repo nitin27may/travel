@@ -26,10 +26,22 @@ export function parseCamera(search: string): Camera | null {
   return { lng, lat, zoom };
 }
 
+/** `?m=<name>`: the name of a search hit the globe was sent to, which gets a marker at the `?c=` camera. Null when absent or blank. */
+export function parseHit(search: string): string | null {
+  const m = new URLSearchParams(search).get('m')?.trim();
+  return m ? m.slice(0, 80) : null;
+}
+
 /** `?c=lng,lat,zoom`: optional, never required to resolve a link (patterns 1.2). */
 export function cameraQuery(c: Camera | null): string {
   if (!c) return '';
   return `?c=${c.lng.toFixed(3)},${c.lat.toFixed(3)},${c.zoom.toFixed(2)}`;
+}
+
+/** `&m=<name>` to carry on a camera query when the visit began at a search hit, so the camera writes keep the marker's name. */
+export function hitSuffix(search: string): string {
+  const m = parseHit(search);
+  return m ? `&m=${encodeURIComponent(m)}` : '';
 }
 
 export const sameView = (a: View, b: View): boolean => viewPath(a) === viewPath(b);

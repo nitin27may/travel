@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { toCsv } from '@/lib/entities/csv';
 import { buildPlaceExport, buildTripExport } from '@/lib/export/build.server';
-import { listCsv, TRIP_CSV_HEADER, tripCsv } from '@/lib/export/csv';
+import { TRIP_CSV_HEADER, tripCsv } from '@/lib/export/csv';
 import { addDays, checkWindow, holidays, inWindow, shadeOf } from '@/lib/export/dates';
 import { buildGpx } from '@/lib/export/gpx';
 import { buildIcs, icsText, NoCalendarError } from '@/lib/export/ics';
 import { buildKml } from '@/lib/export/kml';
-import { OSM_ATTRIBUTION } from '@/lib/export/licence';
+import { OSM_ATTRIBUTION, sourceLine } from '@/lib/export/licence';
+import { x } from '@/lib/export/xml';
 import { listShareUrl, shareUrl } from '@/lib/export/share';
 import type { ExportWaypoint, TripExport } from '@/lib/export/types';
 import { getPlace, getTrip, listTrips, placeSlugs } from '@/lib/public';
@@ -165,8 +165,10 @@ describe('CSV', () => {
   const lines = csv.replace(/^﻿/, '').trimEnd().split('\r\n');
   it('has one row per stop, in day then time order, with the documented header', () => {
     expect(lines[0]).toBe(TRIP_CSV_HEADER.join(','));
-    expect(lines).toHaveLength(dolomites.stops.length + 1);
-    const keys = lines.slice(1).map((l) => l.split(',').slice(0, 2)).map(([d, t]) => `${d.padStart(2, '0')} ${t || '99:99'}`);
+    // header, one row per stop, then the source line (principle P8)
+    expect(lines).toHaveLength(dolomites.stops.length + 2);
+    expect(lines.at(-1)).toContain('Source: Trip Plans');
+    const keys = lines.slice(1, -1).map((l) => l.split(',').slice(0, 2)).map(([d, t]) => `${d.padStart(2, '0')} ${t || '99:99'}`);
     expect(keys).toEqual([...keys].sort());
   });
   it('flags approximate points in an Approximate column', () => {
@@ -178,14 +180,19 @@ describe('CSV', () => {
   });
   it('writes coordinates only where the point may be exported', () => {
     const hidden = { ...dolomites, stops: dolomites.stops.map((s) => ({ ...s, point: s.point ? { ...s.point, pointSource: 'google_maps' } : null })) };
-    const rows = tripCsv(hidden).trimEnd().split('\r\n').slice(1);
+    const rows = tripCsv(hidden).trimEnd().split('\r\n').slice(1, -1);
     expect(rows.every((r) => /,,,[^,]*$/.test(r) || r.includes(',,'))).toBe(true);
     expect(tripCsv(hidden)).not.toMatch(/46\.\d{3,}/);
     expect(csv).toMatch(/46\.\d{3,}/);
   });
-  it('list CSV is the same code path as the table export (toCsv)', () => {
-    expect(listCsv([{ a: 1, b: 'x,y' }, { a: 2, b: null }])).toBe(toCsv(['a', 'b'], [[1, 'x,y'], [2, null]]));
-    expect(listCsv([['A', 'B'], [1, 2]])).toBe(toCsv(['A', 'B'], [[1, 2]]));
+  it('every export carries a source line, in every format (principle P8)', () => {
+    const line = sourceLine(dolomites.url);
+    expect(line).toContain(dolomites.url);
+    expect(tripCsv(dolomites)).toContain(line);
+    const geo = { title: dolomites.title, url: dolomites.url, waypoints: dolomites.waypoints, lines: dolomites.lines };
+    expect(buildGpx(geo).xml).toContain(x(line));
+    expect(buildKml(geo).xml).toContain(x(line));
+    expect(buildIcs(dolomites, '2027-07-13')).toContain('X-WR-CALDESC:Source: Trip Plans');
   });
 });
 

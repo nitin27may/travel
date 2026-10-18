@@ -2,10 +2,11 @@ import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
+import { loadPlaces } from '@/lib/data/places';
 import { isDated } from '@/lib/public/dateless';
 import { nearHome } from '@/lib/public/origin';
 import { TRIP_SLUGS } from '@/lib/public/slugs';
-import { TEXT_FILE, WEB, allKeys, readText, walkFiles } from './helpers';
+import { FIXTURE_ROOT, TEXT_FILE, WEB, allKeys, readText, walkFiles } from './helpers';
 
 // Builds the whole app against tests/fixtures/root (three trips: public, unlisted, private, each
 // carrying sentinel values) into .fixture-out, then greps every file that would be published.
@@ -29,8 +30,7 @@ const rel = (f: string) => path.relative(OUT, f).split(path.sep).join('/');
 describe('privacy of the exported site', () => {
   it('exports something to check', () => {
     expect(files.length).toBeGreaterThan(80);
-    expect(files.some((f) => rel(f) === 'data/places.json')).toBe(true);
-    expect(files.some((f) => rel(f) === 'data/trips.json')).toBe(true);
+    expect(files.some((f) => rel(f) === 'search/manifest.json')).toBe(true);
   });
 
   it('contains no sentinel value anywhere', () => {
@@ -57,9 +57,10 @@ describe('privacy of the exported site', () => {
     expect(hits).toEqual([]);
   });
 
-  it('lists the public trip and the legacy row, and only those', () => {
-    const doc = JSON.parse(readText(path.join(OUT, 'data', 'trips.json'))) as { rows: { slug: string }[] };
-    expect(doc.rows.map((r) => r.slug).sort()).toEqual(['legacy-one', 'legacy-two', 'public-trip']);
+  it('indexes no private or unlisted trip for search', () => {
+    const search = files.filter((f) => rel(f).startsWith('search/'));
+    expect(search.length).toBeGreaterThan(2);
+    for (const f of search) expect(readText(f), rel(f)).not.toMatch(/private-trip|unlisted-trip|Private Trip|Unlisted Trip/);
   });
 
   it('keeps the unlisted and private trips out of the sitemap and the trips page', () => {
@@ -79,18 +80,13 @@ describe('privacy of the exported site', () => {
     expect(hits).toEqual([]);
   });
 
-  it('writes no private field name as a JSON key in /data/*.json', () => {
-    const dataFiles = files.filter((f) => /^data\/[^/]+\.json$/.test(rel(f)));
+  it('writes no private field name as a JSON key in the search files', () => {
+    const dataFiles = files.filter((f) => /^search\/.+\.json$/.test(rel(f)));
     expect(dataFiles.length).toBeGreaterThanOrEqual(2);
     for (const f of dataFiles) {
       const keys = allKeys(JSON.parse(readText(f)));
       for (const k of PRIVATE_KEYS) expect(keys.has(k), `${rel(f)} has key ${k}`).toBe(false);
     }
-  });
-
-  it('does not name a trip a place cannot link to', () => {
-    const doc = JSON.parse(readText(path.join(OUT, 'data', 'places.json'))) as { rows: { trip: string | null }[] };
-    for (const r of doc.rows) expect(['private-trip', 'unlisted-trip']).not.toContain(r.trip);
   });
 });
 
@@ -193,25 +189,16 @@ function householdLeaks(root: string): string[] {
     }
     return out;
   };
-  for (const n of ['data/places.json', 'data/trips.json', 'search-index.json']) {
-    if (!all.some((f) => r(f) === n)) continue;
-    const prose = proseOf(JSON.parse(readText(path.join(root, n)))).join('\n');
-    for (const folder of FOLDERS_WITH_YEAR) if (prose.includes(folder)) hits.push(`${n}: trip folder name ${folder} in prose`);
-  }
-  const dataText = (n: string) => (all.some((f) => r(f) === n) ? readText(path.join(root, n)) : null);
-  const placesDoc = dataText('data/places.json');
-  if (placesDoc) {
-    for (const row of (JSON.parse(placesDoc) as { rows: { id: string; note: string }[] }).rows) {
-      if (isDated(row.note)) hits.push(`data/places.json: a calendar date in the note of ${row.id}`);
-      if (/https?:\/\//.test(row.note)) hits.push(`data/places.json: a URL in the note of ${row.id}`);
-    }
-  }
-  const tripsDoc = dataText('data/trips.json');
-  if (tripsDoc) {
-    const doc = JSON.parse(tripsDoc) as { rows: Record<string, unknown>[] };
-    for (const row of doc.rows) {
-      if (isDated(String(row.title)) || isDated(String(row.subtitle))) hits.push(`data/trips.json: a calendar date in the title or subtitle of ${String(row.slug)}`);
-      for (const k of ['date', 'dates']) if (k in row) hits.push(`data/trips.json: ${String(row.slug)} has a ${k} field`);
+  for (const f of all.filter((x) => /^search\/.+\.json$/.test(r(x)))) {
+    const records = JSON.parse(readText(f)) as { n?: string; s?: string; x?: string }[];
+    if (!Array.isArray(records)) continue;
+    const prose = proseOf(records).join('\n');
+    for (const folder of FOLDERS_WITH_YEAR) if (prose.includes(folder)) hits.push(`${r(f)}: trip folder name ${folder} in prose`);
+    for (const rec of records) {
+      for (const text of [rec.n, rec.s, rec.x]) {
+        if (text && isDated(text)) hits.push(`${r(f)}: a calendar date in "${text}"`);
+        if (text && /https?:\/\//.test(text)) hits.push(`${r(f)}: a URL in "${text}"`);
+      }
     }
   }
   return hits;
@@ -232,7 +219,16 @@ describe('no household notes, home town or dates in any public file', () => {
     expect(nearHome(43.9, -78.94)).toBe(false);
   });
   it('lists a place used by two public trips with both counted (fixture visits)', () => {
-    const doc = JSON.parse(readText(path.join(OUT, 'data', 'places.json'))) as { rows: { id: string; plans: number }[] };
-    expect(doc.rows.find((r) => r.id === 'CA/AB/banff-national-park/lake-louise')?.plans).toBe(2);
+    const env = { ...process.env };
+    process.env.LEGACY_TRIPS_JSON = path.join(FIXTURE_ROOT, 'legacy-trips.json');
+    process.env.HUB_TODAY = '2026-10-17';
+    try {
+      expect(loadPlaces(FIXTURE_ROOT).find((r) => r.id === 'CA/AB/banff-national-park/lake-louise')?.plans).toBe(2);
+    } finally {
+      process.env.LEGACY_TRIPS_JSON = env.LEGACY_TRIPS_JSON;
+      process.env.HUB_TODAY = env.HUB_TODAY;
+      if (env.LEGACY_TRIPS_JSON === undefined) delete process.env.LEGACY_TRIPS_JSON;
+      if (env.HUB_TODAY === undefined) delete process.env.HUB_TODAY;
+    }
   });
 });

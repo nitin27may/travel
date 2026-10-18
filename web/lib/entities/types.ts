@@ -7,7 +7,7 @@ export type ViewName = 'cards' | 'list' | 'table' | 'map';
 export const VIEW_NAMES: readonly ViewName[] = ['cards', 'list', 'table', 'map'];
 
 /** URL parameters that carry a facet selection (plan 4.2). */
-export const FACET_PARAMS = ['country', 'region', 'area', 'kind', 'style', 'grade', 'kid', 'season', 'tag', 'trip', 'due'] as const;
+export const FACET_PARAMS = ['country', 'region', 'area', 'kind', 'style', 'grade', 'kid', 'season', 'tag', 'trip', 'due', 'effort', 'stroller'] as const;
 export type FacetParam = (typeof FACET_PARAMS)[number];
 
 /** All list state; everything here is in the URL. */
@@ -50,6 +50,8 @@ export interface FacetOption {
   label: string;
   /** Heading the option sits under (tag kind); options with a group are listed group by group. */
   group?: string;
+  /** One line under the label in the menu: what the option means, visible without a tooltip. */
+  hint?: string;
 }
 
 export interface FacetDef<Row> {
@@ -71,6 +73,18 @@ export interface FacetDef<Row> {
   last?: string[];
   /** Normalise a value read from the URL. */
   normalise?: (value: string) => string;
+  /**
+   * Where the facet shows (principle P4): 'primary' is a pill in the bar, 'more' sits under "More filters". Default 'primary'.
+   * Four primary filters a list; the rest are one tap further.
+   */
+  tier?: 'primary' | 'more';
+  /** A slot for a filter whose data has not landed (effort and stroller wait for S1): never shown, never filters. */
+  hidden?: boolean;
+  /**
+   * The value that means "not checked yet". A row with it never passes a selection that leaves it out, so the count line says
+   * how many such rows were left out ("12 not checked yet"). suitability-display.md section 5.
+   */
+  gap?: { value: string; note: string };
 }
 
 export interface GroupDef<Row> {
@@ -89,7 +103,6 @@ export interface DetailSection<Row> {
 export interface EntityDescriptor<Row> {
   type: EntityType;
   schemaId: string;
-  dataUrl: string;
   noun: { one: string; many: string };
   /** Short headline for the page. */
   heading: string;
