@@ -125,7 +125,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       onBasemap: controller.onBasemap.bind(controller),
       onBackground: controller.onBackground.bind(controller),
       describe: controller.describe.bind(controller),
-      onCamera: (cam: Camera) => controller.onCamera(cam),
+      onCamera: (cam: Camera, user: boolean) => controller.onCamera(cam, user),
       onInteract: () => setHint(false),
       onWorldFramed: (z: number) => controller.worldFramed(z),
     };
