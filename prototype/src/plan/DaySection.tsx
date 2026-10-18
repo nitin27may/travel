@@ -1,5 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { SortableContext } from "@dnd-kit/sortable";
+import { stayPut, useDrop } from "./drop";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { sunFor } from "../../../core/src/sun/index.ts";
@@ -23,7 +24,9 @@ export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan:
   const iso = date.toISOString().slice(0, 10);
   const sunAt = plan.end ?? plan.stops[plan.stops.length - 1]?.place ?? plan.start;
   const sun = sunAt ? sunFor(sunAt.lat, sunAt.lng, iso, s.trip.zone) : null;
-  const { setNodeRef, isOver } = useDroppable({ id: `day:${plan.n}` });
+  const { setNodeRef } = useDroppable({ id: `day:${plan.n}` });
+  const { mark } = useDrop();
+  const isOver = mark?.key === `day:${plan.n}`;
   const [basePick, setBasePick] = useState(false);
   const [openDone, setOpenDone] = useState(true);
   const stops = ids.map(id => s.trip.items[id]).filter(Boolean).map(item => ({ item, place: place(item.placeId)! })).filter(x => x.place);
@@ -93,7 +96,7 @@ export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan:
             style={{ overflow: "hidden" }} onAnimationComplete={def => { if ((def as { height?: unknown }).height === "auto") setOpenDone(true); }} onAnimationStart={() => setOpenDone(false)}
             data-open={openDone ? "1" : "0"}>
             {plan.warnings.length > 0 && <div className="warns">{plan.warnings.map(w => <span key={w} className={`chip ${w.includes("needs") ? "crit" : "warn"}`}><Icon name="alert" size={12} />{w}</span>)}</div>}
-            <SortableContext items={ids} strategy={verticalListSortingStrategy}>
+            <SortableContext items={ids} strategy={stayPut}>
               <div className="dt" role="list">
                 {groups.map((g, gi) => g.kind === "shared"
                   ? <Lane key={`g${gi}`} slots={g.slots} activeId={activeId} sun={gi === groups.length - 1 ? sun : null} offset={g.offset} until={tl.back}

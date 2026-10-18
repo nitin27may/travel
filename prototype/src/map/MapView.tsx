@@ -1,5 +1,6 @@
-// The live map. MapLibre GL renders our own shaded relief (offline, two themes) plus Natural Earth roads;
-// pins are HTML markers here (few dozen per trip). The app would add OpenFreeMap vector tiles online.
+// The live map. Online: OpenFreeMap vector tiles (positron / dark) with Mapterhorn terrain shading, both free
+// and keyless, worldwide. Offline or sandboxed (the published artifact): our own shaded relief plus Natural
+// Earth lines. Pins are HTML markers (a few dozen per trip); routes and the drag preview are our own layers.
 import * as maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import workerCode from "../vendor/maplibre-worker.js?raw";
@@ -43,35 +44,19 @@ export function MapView(p: MapProps) {
   const legMarkers = useRef<maplibregl.Marker[]>([]);
   const props = useRef(p); props.current = p;
   const ready = useRef(false);
+  const online = useRef(false);
 
   useEffect(() => {
     if (!el.current) return;
     const m = new maplibregl.Map({
       container: el.current,
-      center: [12.0, 46.6], zoom: 8.6, minZoom: 6, maxZoom: 15.5, attributionControl: false, dragRotate: false, pitchWithRotate: false,
-      style: {
-        version: 8,
-        sources: {
-          relief: { type: "image", url: `./relief-${p.theme}.webp`, coordinates: RELIEF },
-          base: { type: "geojson", data: basemap as GeoJSON.FeatureCollection },
-          routes: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
-          preview: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
-        },
-        layers: [
-          { id: "bg", type: "background", paint: { "background-color": css("--bg") } },
-          { id: "relief", type: "raster", source: "relief", paint: { "raster-opacity": 1, "raster-fade-duration": 0, "raster-resampling": "linear" } },
-          { id: "river", type: "line", source: "base", filter: ["==", ["get", "k"], "river"], paint: { "line-color": "#7FA6B5", "line-width": 1.2, "line-opacity": .55 } },
-          { id: "region", type: "line", source: "base", filter: ["==", ["get", "k"], "region"], paint: { "line-color": css("--faint"), "line-width": 1, "line-dasharray": [3, 3], "line-opacity": .6 } },
-          { id: "border", type: "line", source: "base", filter: ["==", ["get", "k"], "border"], paint: { "line-color": css("--muted"), "line-width": 1.4, "line-dasharray": [4, 2, 1, 2] } },
-          { id: "route-other", type: "line", source: "routes", filter: ["!", ["get", "focus"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--route"), "line-width": 1.2, "line-opacity": .13 } },
-          { id: "route-halo", type: "line", source: "routes", filter: ["get", "focus"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--halo"), "line-width": 7, "line-opacity": .9 } },
-          { id: "route-focus", type: "line", source: "routes", filter: ["all", ["get", "focus"], ["!=", ["get", "lane"], "B"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--route"), "line-width": 3 } },
-          { id: "route-lane-b", type: "line", source: "routes", filter: ["all", ["get", "focus"], ["==", ["get", "lane"], "B"]], layout: { "line-cap": "round" }, paint: { "line-color": css("--act"), "line-width": 2.6, "line-dasharray": [1, 1.6] } },
-          { id: "preview", type: "line", source: "preview", layout: { "line-cap": "round" }, paint: { "line-color": css("--glow"), "line-width": 3, "line-dasharray": [1.2, 1.4] } },
-        ],
-      },
+      center: [12.0, 46.6], zoom: 8.6, minZoom: 3, maxZoom: 17, attributionControl: false, dragRotate: false, pitchWithRotate: false,
+      style: offlineStyle(p.theme),
     });
-    m.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "Relief from AWS Terrain Tiles (Mapzen, open data) · roads © Natural Earth · prototype basemap" }), "bottom-left");
+    online.current = false;
+    void onlineStyle(p.theme).then(st => { if (st && map.current === m) { online.current = true; m.setStyle(st, { diff: false }); } });
+    m.on("style.load", () => { if (ready.current) { sync(); paintTheme(); } });
+    m.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-left");
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
     map.current = m;
     m.on("load", () => { ready.current = true; sync(); fitFocus(true); props.current.onReady?.(m); });
@@ -84,19 +69,25 @@ export function MapView(p: MapProps) {
     return () => { ro.disconnect(); m.remove(); map.current = null; ready.current = false; };
   }, []);
 
-  // theme: swap relief image and line colours
-  useEffect(() => {
-    const m = map.current; if (!m || !ready.current) return;
-    (m.getSource("relief") as maplibregl.ImageSource).updateImage({ url: `./relief-${p.theme}.webp`, coordinates: RELIEF });
+  // theme: online swaps the basemap style (our layers come with it); offline swaps the relief image
+  function paintTheme() {
+    const m = map.current; if (!m) return;
     requestAnimationFrame(() => {
-      m.setPaintProperty("bg", "background-color", css("--bg"));
+      if (!m.getLayer("route-focus")) return;
       for (const id of ["route-other", "route-focus"]) m.setPaintProperty(id, "line-color", css("--route"));
       m.setPaintProperty("route-halo", "line-color", css("--halo"));
       m.setPaintProperty("route-lane-b", "line-color", css("--act"));
       m.setPaintProperty("preview", "line-color", css("--glow"));
-      m.setPaintProperty("region", "line-color", css("--faint"));
-      m.setPaintProperty("border", "line-color", css("--muted"));
+      if (m.getLayer("region")) m.setPaintProperty("region", "line-color", css("--faint"));
+      if (m.getLayer("border")) m.setPaintProperty("border", "line-color", css("--muted"));
+      if (m.getLayer("bg")) m.setPaintProperty("bg", "background-color", css("--bg"));
     });
+  }
+  useEffect(() => {
+    const m = map.current; if (!m || !ready.current) return;
+    if (online.current) { void onlineStyle(p.theme).then(st => { if (st && map.current === m) m.setStyle(st, { diff: false }); }); return; }
+    (m.getSource("relief") as maplibregl.ImageSource).updateImage({ url: `./relief-${p.theme}.webp`, coordinates: RELIEF });
+    paintTheme();
   }, [p.theme]);
 
   function sync() {
@@ -193,4 +184,61 @@ export function MapView(p: MapProps) {
   }, [p.peek]);
 
   return <div ref={el} className="map" role="application" aria-label="Trip map. Right-click or long-press to add a place here." />;
+}
+
+// ---------- styles ----------
+const ourSources = (): Record<string, maplibregl.SourceSpecification> => ({
+  routes: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+  preview: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+});
+const ourLayers = (): maplibregl.LayerSpecification[] => [
+  { id: "route-other", type: "line", source: "routes", filter: ["!", ["get", "focus"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--route"), "line-width": 1.2, "line-opacity": .18 } },
+  { id: "route-halo", type: "line", source: "routes", filter: ["get", "focus"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--halo"), "line-width": 7, "line-opacity": .9 } },
+  { id: "route-focus", type: "line", source: "routes", filter: ["all", ["get", "focus"], ["!=", ["get", "lane"], "B"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": css("--route"), "line-width": 3 } },
+  { id: "route-lane-b", type: "line", source: "routes", filter: ["all", ["get", "focus"], ["==", ["get", "lane"], "B"]], layout: { "line-cap": "round" }, paint: { "line-color": css("--act"), "line-width": 2.6, "line-dasharray": [1, 1.6] } },
+  { id: "preview", type: "line", source: "preview", layout: { "line-cap": "round" }, paint: { "line-color": css("--glow"), "line-width": 3, "line-dasharray": [1.2, 1.4] } },
+];
+function offlineStyle(theme: "light" | "dark"): maplibregl.StyleSpecification {
+  return {
+    version: 8,
+    sources: {
+      relief: { type: "image", url: `./relief-${theme}.webp`, coordinates: RELIEF },
+      base: { type: "geojson", data: basemap as GeoJSON.FeatureCollection, attribution: "Relief from AWS Terrain Tiles (Mapzen, open data) · © Natural Earth · offline basemap" },
+      ...ourSources(),
+    },
+    layers: [
+      { id: "bg", type: "background", paint: { "background-color": css("--bg") } },
+      { id: "relief", type: "raster", source: "relief", paint: { "raster-opacity": 1, "raster-fade-duration": 0, "raster-resampling": "linear" } },
+      { id: "river", type: "line", source: "base", filter: ["==", ["get", "k"], "river"], paint: { "line-color": "#7FA6B5", "line-width": 1.2, "line-opacity": .55 } },
+      { id: "region", type: "line", source: "base", filter: ["==", ["get", "k"], "region"], paint: { "line-color": css("--faint"), "line-width": 1, "line-dasharray": [3, 3], "line-opacity": .6 } },
+      { id: "border", type: "line", source: "base", filter: ["==", ["get", "k"], "border"], paint: { "line-color": css("--muted"), "line-width": 1.4, "line-dasharray": [4, 2, 1, 2] } },
+      ...ourLayers(),
+    ],
+  };
+}
+const styleCache = new Map<string, maplibregl.StyleSpecification>();
+/** OpenFreeMap's style plus Mapterhorn hillshade under the labels, plus our route layers on top; null when offline */
+async function onlineStyle(theme: "light" | "dark"): Promise<maplibregl.StyleSpecification | null> {
+  const name = theme === "dark" ? "dark" : "positron";
+  try {
+    let base = styleCache.get(name);
+    if (!base) {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 4000);
+      const r = await fetch(`https://tiles.openfreemap.org/styles/${name}`, { signal: ctl.signal }); clearTimeout(t);
+      if (!r.ok) return null;
+      base = await r.json() as maplibregl.StyleSpecification; styleCache.set(name, base);
+    }
+    const layers = [...base.layers];
+    const firstSymbol = layers.findIndex(l => l.type === "symbol");
+    const hill: maplibregl.LayerSpecification = { id: "hillshade", type: "hillshade", source: "terrain",
+      paint: theme === "dark"
+        ? { "hillshade-exaggeration": .35, "hillshade-shadow-color": "#000000", "hillshade-highlight-color": "#3A4046", "hillshade-accent-color": "#000000" }
+        : { "hillshade-exaggeration": .3, "hillshade-shadow-color": "#5C6268", "hillshade-highlight-color": "#FFFFFF", "hillshade-accent-color": "#8E959B" } };
+    layers.splice(firstSymbol < 0 ? layers.length : firstSymbol, 0, hill);
+    return {
+      ...base,
+      sources: { ...base.sources, terrain: { type: "raster-dem", url: "https://tiles.mapterhorn.com/tilejson.json", tileSize: 512, encoding: "terrarium" }, ...ourSources() },
+      layers: [...layers, ...ourLayers()],
+    };
+  } catch { return null; }
 }

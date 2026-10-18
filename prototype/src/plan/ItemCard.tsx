@@ -1,5 +1,4 @@
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import { motion } from "motion/react";
 import { useState } from "react";
 import type { Kind, Place } from "../data/places";
@@ -8,6 +7,8 @@ import { fmtMin, type Leg } from "../lib/geo";
 import { useStore } from "../state/store";
 import { Avatar } from "../ui/bits";
 import { Icon } from "../ui/Icon";
+import { useEdge } from "./drop";
+import { DragHandle } from "./Timeline";
 
 const KIND_ICON: Record<Kind, string> = { town: "home", stay: "bed", lake: "layers", trail: "peak", viewpoint: "compass", lift: "flag", hut: "home", activity: "star", pass: "nav", sight: "flag", airport: "plane", parking: "parking" };
 export const KindGlyph = ({ kind }: { kind: Kind }) => <Icon name={KIND_ICON[kind]} />;
@@ -26,15 +27,14 @@ export function LegRow({ l }: { l: Leg }) {
 export function ItemCard({ item, place, index, dragging, overlay }: { item: Item; place: Place; index?: number; dragging?: boolean; overlay?: boolean }) {
   const { s, select, setTime } = useStore();
   const sortable = useSortable({ id: item.id, disabled: overlay });
-  const style = overlay ? undefined : { transform: CSS.Translate.toString(sortable.transform), transition: sortable.transition };
+  const edge = useEdge(item.id);
   const sel = s.selected === item.id;
   const res = item.ticket ? s.trip.reservations.find(r => r.id === item.ticket) : undefined;
   const who = item.who?.length ? s.trip.travellers.filter(t => item.who!.includes(t.id)) : s.trip.travellers;
   const [editTime, setEditTime] = useState(false);
   return (
-    <div ref={overlay ? undefined : sortable.setNodeRef} style={style} className={`card ${sel ? "sel" : ""} ${sortable.isDragging || dragging ? "ghosted" : ""} ${overlay ? "lifted" : ""} ${place.catalog === false ? "custom" : ""}`}
-      data-item={item.id} {...(overlay ? {} : sortable.attributes)} {...(overlay ? {} : sortable.listeners)}
-      onClick={() => select(item.id)} aria-label={`${place.name}${item.time ? ` at ${item.time}` : ""}. Press space to pick up and move.`}>
+    <div ref={overlay ? undefined : sortable.setNodeRef} className={`card ${sel ? "sel" : ""} ${sortable.isDragging || dragging ? "ghosted" : ""} ${overlay ? "lifted" : ""} ${place.catalog === false ? "custom" : ""} ${edge ? `drop-${edge}` : ""}`}
+      data-item={item.id} onClick={() => select(item.id)}>
       <div className="card-row">
         {index !== undefined ? <span className={`badge ${item.variant === "B" ? "lane-b" : ""}`}>{item.variant ? item.variant : index}</span> : <span className="badge hollow"><KindGlyph kind={place.kind} /></span>}
         <div className="card-main">
@@ -62,7 +62,7 @@ export function ItemCard({ item, place, index, dragging, overlay }: { item: Item
             return <Avatar key={t.id} initials={t.initials} tone={no ? "crit" : "ok"} title={no ? `${t.name} is ${t.age}; needs ${place.minAge}+` : `${t.name} fits`} />;
           })}
         </div>
-        <span className="grip" aria-hidden="true"><Icon name="grip" /></span>
+        <DragHandle name={place.name} overlay={overlay} sortable={sortable} />
       </div>
     </div>
   );
