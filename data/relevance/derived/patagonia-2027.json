@@ -34,6 +34,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -72,26 +74,17 @@
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": 12,
-      "detour_basis": "base",
+      "detour_basis": "town",
+      "detour_town": "El Chalten",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/patagonia-2027/town:village and cafes",
-          "km": 4.7,
-          "how": "drive",
-          "extra_min": 132,
-          "on_site_min": 120,
-          "on_site_estimated": false,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -133,6 +126,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -179,6 +174,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -225,6 +222,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -271,6 +270,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -308,8 +309,9 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 270,
-      "detour_basis": "base",
+      "detour_min": 64,
+      "detour_basis": "town",
+      "detour_town": "El Calafate",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -322,11 +324,13 @@
         "same_class": false
       },
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (270)"
+          "reason": "local draw with a detour over 20 min or unknown (64)"
         },
         "weekend": {
           "fit": "skip",
@@ -335,7 +339,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 270 min is over 30"
+          "reason": "detour 64 min is over 30"
         }
       },
       "role": "local_only",
@@ -354,8 +358,9 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 1660,
-      "detour_basis": "base",
+      "detour_min": 40,
+      "detour_basis": "town",
+      "detour_town": "Ushuaia",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -363,6 +368,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -376,7 +383,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 1660 min is over 30"
+          "reason": "detour 40 min is over 30"
         }
       },
       "role": "highlight",
@@ -404,6 +411,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -450,6 +459,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -496,6 +507,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -533,8 +546,9 @@
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "hard",
-      "detour_min": 1764,
-      "detour_basis": "base",
+      "detour_min": 146,
+      "detour_basis": "town",
+      "detour_town": "Ushuaia",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -542,6 +556,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -574,8 +590,9 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 318,
-      "detour_basis": "base",
+      "detour_min": 156,
+      "detour_basis": "town",
+      "detour_town": "El Calafate",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -583,6 +600,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -596,7 +615,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 318 min is over 30"
+          "reason": "detour 156 min is over 30"
         }
       },
       "role": "anchor",
@@ -624,6 +643,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -661,8 +682,9 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 4924,
-      "detour_basis": "base",
+      "detour_min": 4,
+      "detour_basis": "town",
+      "detour_town": "Buenos Aires",
       "from_hubs": {},
       "substitutes": {
         "near": [
@@ -688,6 +710,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -701,7 +725,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 4924 min is over 30"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "highlight",
@@ -720,8 +744,9 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 4920,
-      "detour_basis": "base",
+      "detour_min": 6,
+      "detour_basis": "town",
+      "detour_town": "Buenos Aires",
       "from_hubs": {},
       "substitutes": {
         "near": [
@@ -747,6 +772,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -759,15 +786,15 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour 4920 min is over 30"
+          "fit": "plan_around",
+          "reason": "detour 6 min, draw national"
         }
       },
       "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": true,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
@@ -788,6 +815,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -834,6 +863,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -872,26 +903,22 @@
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": 0,
-      "detour_basis": "base",
+      "detour_basis": "town",
+      "detour_town": "El Chalten",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "trip/patagonia-2027/trail:laguna capri",
-          "km": 4.7,
-          "how": "drive",
-          "extra_min": 72,
-          "on_site_min": 60,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "good",
-          "hand_picked": false
+          "km": 4.7
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {

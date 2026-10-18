@@ -25,8 +25,9 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 418,
-      "detour_basis": "base",
+      "detour_min": 18,
+      "detour_basis": "town",
+      "detour_town": "Myvatn",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -34,6 +35,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -47,7 +50,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 418 min is over 30"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -65,8 +68,9 @@
       "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 862,
-      "detour_basis": "base",
+      "detour_min": 36,
+      "detour_basis": "town",
+      "detour_town": "Keflavik",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -74,11 +78,13 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (862)"
+          "reason": "local draw with a detour over 20 min or unknown (36)"
         },
         "weekend": {
           "fit": "skip",
@@ -87,7 +93,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 862 min is over 30"
+          "reason": "detour 36 min is over 30"
         }
       },
       "role": "local_only",
@@ -105,8 +111,9 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 684,
-      "detour_basis": "base",
+      "detour_min": 188,
+      "detour_basis": "town",
+      "detour_town": "Reykjavik",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -119,6 +126,8 @@
         "same_class": false
       },
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -132,7 +141,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 684 min is over 30"
+          "reason": "detour 188 min is over 30"
         }
       },
       "role": "highlight",
@@ -150,8 +159,9 @@
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 446,
-      "detour_basis": "base",
+      "detour_min": 90,
+      "detour_basis": "town",
+      "detour_town": "Myvatn",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -168,6 +178,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -181,7 +193,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 446 min is over 30"
+          "reason": "detour 90 min is over 30"
         }
       },
       "role": "anchor",
@@ -199,27 +211,18 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 598,
-      "detour_basis": "base",
+      "detour_min": 132,
+      "detour_basis": "town",
+      "detour_town": "Selfoss",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
-          "km": 8.7,
-          "how": "drive",
-          "extra_min": 82,
-          "on_site_min": 60,
-          "on_site_estimated": false,
-          "draw": "world",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -233,7 +236,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 598 min is over 30"
+          "reason": "detour 132 min is over 30"
         }
       },
       "role": "anchor",
@@ -251,8 +254,9 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 614,
-      "detour_basis": "base",
+      "detour_min": 160,
+      "detour_basis": "town",
+      "detour_town": "Akureyri",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -260,6 +264,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -273,7 +279,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 614 min is over 30"
+          "reason": "detour 160 min is over 30"
         }
       },
       "role": "highlight",
@@ -291,8 +297,9 @@
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 472,
-      "detour_basis": "base",
+      "detour_min": 60,
+      "detour_basis": "town",
+      "detour_town": "Akureyri",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -309,6 +316,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -322,7 +331,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 472 min is over 30"
+          "reason": "detour 60 min is over 30"
         }
       },
       "role": "anchor",
@@ -340,27 +349,18 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 576,
-      "detour_basis": "base",
+      "detour_min": 148,
+      "detour_basis": "town",
+      "detour_town": "Selfoss",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/iceland-ring-road-2027/sight:geysir",
-          "km": 8.7,
-          "how": "drive",
-          "extra_min": 112,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "world",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -374,7 +374,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 576 min is over 30"
+          "reason": "detour 148 min is over 30"
         }
       },
       "role": "anchor",
@@ -401,6 +401,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -437,8 +439,9 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 594,
-      "detour_basis": "base",
+      "detour_min": 130,
+      "detour_basis": "town",
+      "detour_town": "Vik",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -455,6 +458,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -468,7 +473,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 594 min is over 30"
+          "reason": "detour 130 min is over 30"
         }
       },
       "role": "anchor",
@@ -486,8 +491,9 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 548,
-      "detour_basis": "base",
+      "detour_min": 68,
+      "detour_basis": "town",
+      "detour_town": "Vik",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -504,6 +510,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -517,7 +525,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 548 min is over 30"
+          "reason": "detour 68 min is over 30"
         }
       },
       "role": "anchor",
@@ -535,8 +543,9 @@
       "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": 508,
-      "detour_basis": "base",
+      "detour_min": 2,
+      "detour_basis": "town",
+      "detour_town": "Akureyri",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -549,11 +558,13 @@
         "same_class": false
       },
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (508)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -562,10 +573,10 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 508 min is over 30"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
         "rainy_day": false,
         "en_route": false,
@@ -581,7 +592,8 @@
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": 0,
-      "detour_basis": "base",
+      "detour_basis": "town",
+      "detour_town": "Hofn",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -589,6 +601,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -620,8 +634,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 792,
-      "detour_basis": "base",
+      "detour_min": 2,
+      "detour_basis": "town",
+      "detour_town": "Reykjavik",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -634,6 +649,8 @@
         "same_class": false
       },
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -646,14 +663,14 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour 792 min is over 30"
+          "fit": "worth_it",
+          "reason": "detour 2 min, draw regional"
         }
       },
       "role": "filler",
       "flags": {
         "rainy_day": true,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": null,
@@ -665,8 +682,9 @@
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 308,
-      "detour_basis": "base",
+      "detour_min": 44,
+      "detour_basis": "town",
+      "detour_town": "Egilsstadir",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -674,6 +692,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -687,7 +707,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 308 min is over 30"
+          "reason": "detour 44 min is over 30"
         }
       },
       "role": "highlight",
@@ -714,6 +734,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -750,27 +772,23 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 1020,
-      "detour_basis": "base",
+      "detour_min": 86,
+      "detour_basis": "town",
+      "detour_town": "Grundarfjordur",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
-          "km": 8.5,
-          "how": "drive",
-          "extra_min": 50,
-          "on_site_min": 30,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 8.5
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -784,7 +802,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 1020 min is over 30"
+          "reason": "detour 86 min is over 30"
         }
       },
       "role": "highlight",
@@ -802,8 +820,9 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 374,
-      "detour_basis": "base",
+      "detour_min": 138,
+      "detour_basis": "town",
+      "detour_town": "Vik",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -811,6 +830,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -824,7 +845,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 374 min is over 30"
+          "reason": "detour 138 min is over 30"
         }
       },
       "role": "anchor",
@@ -842,8 +863,9 @@
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 216,
-      "detour_basis": "base",
+      "detour_min": 4,
+      "detour_basis": "town",
+      "detour_town": "Skaftafell",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -851,6 +873,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -864,7 +888,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 216 min is over 30"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "anchor",
@@ -882,8 +906,9 @@
       "draw_suggested": "national",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 694,
-      "detour_basis": "base",
+      "detour_min": 90,
+      "detour_basis": "town",
+      "detour_town": "Selfoss",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -891,6 +916,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -904,7 +931,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 694 min is over 30"
+          "reason": "detour 90 min is over 30"
         }
       },
       "role": "anchor",
@@ -922,27 +949,18 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 122,
-      "detour_basis": "base",
+      "detour_min": 96,
+      "detour_basis": "town",
+      "detour_town": "Skaftafell",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
-          "km": 3.4,
-          "how": "drive",
-          "extra_min": 98,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "world",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -956,7 +974,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 122 min is over 30"
+          "reason": "detour 96 min is over 30"
         }
       },
       "role": "anchor",
@@ -974,27 +992,18 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 128,
-      "detour_basis": "base",
+      "detour_min": 90,
+      "detour_basis": "town",
+      "detour_town": "Skaftafell",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
-          "km": 3.4,
-          "how": "drive",
-          "extra_min": 68,
-          "on_site_min": 60,
-          "on_site_estimated": false,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1008,7 +1017,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 128 min is over 30"
+          "reason": "detour 90 min is over 30"
         }
       },
       "role": "anchor",
@@ -1026,8 +1035,9 @@
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": 958,
-      "detour_basis": "base",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Grundarfjordur",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -1044,6 +1054,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1056,14 +1068,14 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour 958 min is over 30"
+          "fit": "plan_around",
+          "reason": "detour 8 min, draw national"
         }
       },
       "role": "anchor",
       "flags": {
         "rainy_day": false,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
@@ -1075,8 +1087,9 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": 514,
-      "detour_basis": "base",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Vik",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -1084,6 +1097,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1096,14 +1111,14 @@
         },
         "day": {},
         "passing": {
-          "fit": "skip",
-          "reason": "detour 514 min is over 30"
+          "fit": "plan_around",
+          "reason": "detour 8 min, draw world"
         }
       },
       "role": "anchor",
       "flags": {
         "rainy_day": true,
-        "en_route": false,
+        "en_route": true,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
@@ -1115,8 +1130,9 @@
       "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 1006,
-      "detour_basis": "base",
+      "detour_min": 66,
+      "detour_basis": "town",
+      "detour_town": "Grundarfjordur",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -1132,19 +1148,14 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
-          "km": 8.5,
-          "how": "drive",
-          "extra_min": 110,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 8.5
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1158,7 +1169,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 1006 min is over 30"
+          "reason": "detour 66 min is over 30"
         }
       },
       "role": "local_only",

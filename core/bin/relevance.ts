@@ -192,6 +192,8 @@ async function signals(argv: string[], root: string): Promise<number> {
       for (const d of r.signals.designations.v ?? []) if (d.wikidata) qids.add(d.wikidata);
     }
   }
+  const basesFile = join(root, "data", "relevance", "inputs", "bases.config.json");
+  if (existsSync(basesFile)) for (const b of (JSON.parse(readFileSync(basesFile, "utf8")) as { bases: { qid?: string }[] }).bases) if (b.qid) qids.add(b.qid);
   const langsFile = join(root, "data", "relevance", "signals", "langs.json");
   const langs = existsSync(langsFile) ? (JSON.parse(readFileSync(langsFile, "utf8")) as { langs: Record<string, string[]> }).langs : {};
   const client = new SignalsClient({

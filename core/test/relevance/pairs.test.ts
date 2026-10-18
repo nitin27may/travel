@@ -115,3 +115,37 @@ describe("pairs_with in the schema", () => {
     expect(relRecord.safeParse({ ...louise, pairs_with: [{ ref: "place/x", reason: "" }] }).success).toBe(false);
   });
 });
+
+describe("pair_with is tight (RVC round 2)", () => {
+  const north = (km: number) => ({ lat: LOUISE.lat + km / 111.19, lon: LOUISE.lon });
+  const lookout = (ref = "place/a-lookout") => rec({ ref, kind: "viewpoint", class_key: "viewpoint/short-walk", draw: "local", standing: "good" });
+  const f = (km: number, over: PlaceFacts = {}): Record<string, PlaceFacts> => ({ "place/lake-louise": { point: LOUISE, onSiteMin: 90 }, "place/a-lookout": { point: north(km), onSiteMin: 20, ...over } });
+
+  it("walks only within 1.5 km of the place's own point", () => {
+    expect(run([louise, lookout()], f(1.4))["place/lake-louise"]!.pair_with.map((p) => p.ref)).toEqual(["place/a-lookout"]);
+    expect(run([louise, lookout()], f(1.6))["place/lake-louise"]!.pair_with).toEqual([]);
+  });
+  it("a 7 km straight-line neighbour is pending, not paired, until a real drive time exists", () => {
+    const d = run([louise, lookout()], f(7))["place/lake-louise"]!;
+    expect(d.pair_with).toEqual([]);
+    expect(d.pair_pending.map((p) => p.ref)).toEqual(["place/a-lookout"]);
+    const withTime = (min: number) => run([louise, lookout()], f(7), { driveMin: { "place/lake-louise": { "place/a-lookout": min } } })["place/lake-louise"]!;
+    expect(withTime(12).pair_with[0]).toMatchObject({ ref: "place/a-lookout", how: "drive", extra_min: 24 + 20 });
+    expect(withTime(30).pair_with).toEqual([]);
+  });
+  it("two records at one point (within 100 m) or a trailhead alias are part_of, never a pair", () => {
+    const same = run([louise, lookout()], f(0.05))["place/lake-louise"]!;
+    expect(same.pair_with).toEqual([]);
+    expect(same.part_of).toEqual(["place/a-lookout"]);
+    const alias = run([louise, lookout()], f(1, { aliasOf: "place/lake-louise" }))["place/lake-louise"]!;
+    expect(alias.pair_with).toEqual([]);
+    expect(alias.part_of).toEqual(["place/a-lookout"]);
+  });
+  it("a pair must be lighter: no more on site than the place, or at most 90 minutes", () => {
+    const heavy = rec({ ref: "place/a-lookout", kind: "sight", class_key: "sight/museum", draw: "local", standing: "top" });
+    expect(run([louise, heavy], f(1, { onSiteMin: 100 }))["place/lake-louise"]!.pair_with).toEqual([]);
+    expect(run([louise, heavy], f(1, { onSiteMin: 90 }))["place/lake-louise"]!.pair_with).toHaveLength(1);
+    const small = { ...f(1, { onSiteMin: 100 }), "place/lake-louise": { point: LOUISE, onSiteMin: 240 } };
+    expect(run([louise, heavy], small)["place/lake-louise"]!.pair_with).toHaveLength(1);
+  });
+});

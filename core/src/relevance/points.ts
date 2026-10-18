@@ -31,7 +31,10 @@ export interface Sources {
   locations: LocRow[];
   snapshot: Snapshot | null;
   wikidata: Record<string, WdPoint>;
+  /** data/relevance/inputs/bases.config.json: resolved base towns with their check notes */
+  bases?: BaseConfig[];
 }
+export interface BaseConfig { trip: string; name: string; qid?: string; lat?: number; lon?: number; coord_src: "wikidata" | "nominatim"; country: string; admin: string; check: string }
 
 export interface BuildReport {
   by_src: Record<string, number>;
@@ -154,6 +157,11 @@ export function buildPoints(src: Sources, windows: Record<string, { from: string
   for (const l of locBy.values()) addName(l.name, fromLoc(l));
   for (const p of src.snapshot?.places ?? []) if (p.kind === "town") addName(p.name, { lat: r5(p.lat), lon: r5(p.lng), coord_src: "prototype", point_source: `snapshot place ${p.id} (approximate)` });
   for (const r of src.refs) if (/^town/.test(r.class_key) && points[r.ref] && r.name) addName(r.name, points[r.ref] as unknown as Pt);
+  const configured = new Map<string, Pt & { name: string }>();
+  for (const b of src.bases ?? []) {
+    const p = b.qid ? src.wikidata[b.qid]?.p625 : b.lat !== undefined && b.lon !== undefined ? { lat: b.lat, lon: b.lon } : null;
+    if (p) configured.set(`${b.trip}|${norm(b.name)}`, { name: b.name, lat: r5(p.lat), lon: r5(p.lon), coord_src: b.coord_src, point_source: `${b.qid ? `${b.qid} P625` : "Nominatim"}; ${b.country}, ${b.admin}` });
+  }
   for (const wd of Object.values(src.wikidata)) if (wd.label && wd.p625) addName(wd.label, { lat: wd.p625.lat, lon: wd.p625.lon, coord_src: "wikidata", point_source: "P625 by exact label" });
 
   const seenTown = new Set<string>();
@@ -165,7 +173,7 @@ export function buildPoints(src: Sources, windows: Record<string, { from: string
     const baseTowns = pt.id === "p-dolomites" ? [...new Set((src.snapshot?.trip?.days ?? []).map((d) => d.baseTown).filter((b): b is string => !!b))].map((id) => snapBy.get(id)?.name).filter((n): n is string => !!n) : [];
     const resolved: (Pt & { name: string })[] = [];
     for (const name of pt.id === "p-dolomites" ? baseTowns : baseNames) {
-      const hit = byName.get(norm(name));
+      const hit = configured.get(`${trip}|${norm(name)}`) ?? byName.get(norm(name));
       if (!hit) {
         report.unresolved_bases.push({ trip, base: name });
         continue;
@@ -212,6 +220,7 @@ export function loadSources(root: string): Sources {
     locations: (loc?.places ?? []).map((p) => ({ id: p.id, name: p.name, lat: p.lat ?? null, lon: p.lon ?? null, resolver: p.resolver, location_status: p.location_status })),
     snapshot: readJson<Snapshot>(join(root, "web", "data-snapshots", "prototype.json")),
     wikidata: wd?.items ?? {},
+    bases: readJson<{ bases: BaseConfig[] }>(join(root, "data", "relevance", "inputs", "bases.config.json"))?.bases ?? [],
   };
 }
 

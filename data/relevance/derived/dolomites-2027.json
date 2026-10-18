@@ -55,41 +55,38 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 3.7,
-          "how": "drive",
-          "extra_min": 30,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        },
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/lago-dantorno",
-          "km": 3,
-          "how": "drive",
-          "extra_min": 53,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 3
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 3.7
         },
         {
           "ref": "place/monte-piana",
-          "km": 4.4,
-          "how": "drive",
-          "extra_min": 55,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 4.4
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 4.7
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 5.3
+        },
+        {
+          "ref": "place/val-fiscalina",
+          "km": 7.5
+        },
+        {
+          "ref": "place/funbob-monte-baranci",
+          "km": 12.7
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -151,41 +148,34 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/lago-dantorno",
-          "km": 2.4,
-          "how": "drive",
-          "extra_min": 51,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 2.4
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 2.6
         },
         {
           "ref": "place/monte-piana",
-          "km": 5.4,
-          "how": "drive",
-          "extra_min": 59,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 5.4
         },
         {
           "ref": "place/lago-di-landro",
-          "km": 7,
-          "how": "drive",
-          "extra_min": 63,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 7
+        },
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 8.2
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 12.3
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -244,41 +234,30 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 7.2
+        },
         {
           "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 8.2,
-          "how": "drive",
-          "extra_min": 40,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 8.2
         },
         {
           "ref": "place/lago-dantorno",
-          "km": 8.9,
-          "how": "drive",
-          "extra_min": 67,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 8.9
         },
         {
           "ref": "place/monte-piana",
-          "km": 10.6,
-          "how": "drive",
-          "extra_min": 71,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 10.6
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12.2
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -342,41 +321,26 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
-        {
-          "ref": "place/cascate-di-fanes",
-          "km": 9.8,
-          "how": "drive",
-          "extra_min": 54,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        },
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/lago-di-limides",
-          "km": 2.4,
-          "how": "drive",
-          "extra_min": 66,
-          "on_site_min": 60,
-          "on_site_estimated": false,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 2.4
         },
         {
           "ref": "place/lago-federa",
-          "km": 4.5,
-          "how": "drive",
-          "extra_min": 102,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 4.5
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 7.2
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 9.8
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -440,41 +404,38 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 5.4,
-          "how": "drive",
-          "extra_min": 34,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "ref": "place/lago-di-landro",
+          "km": 1.7
         },
         {
           "ref": "place/lago-dantorno",
-          "km": 3,
-          "how": "drive",
-          "extra_min": 53,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 3
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 3.9
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 5.4
+        },
+        {
+          "ref": "place/lago-di-sorapis",
+          "km": 10.6
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 11.6
         },
         {
           "ref": "place/cascate-di-fanes",
-          "km": 12.1,
-          "how": "drive",
-          "extra_min": 60,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 12.1
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -548,30 +509,22 @@
         "draw": "world",
         "same_class": true
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-braies",
+          "km": 2.2
+        },
         {
           "ref": "place/cascate-di-fanes",
-          "km": 9,
-          "how": "drive",
-          "extra_min": 52,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 9
         },
         {
           "ref": "place/la-val",
-          "km": 11.5,
-          "how": "drive",
-          "extra_min": 118,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 11.5
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -617,41 +570,46 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 11,
-          "how": "drive",
-          "extra_min": 46,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "ref": "place/tre-cime-di-lavaredo-loop",
+          "km": 7.5
+        },
+        {
+          "ref": "place/funbob-monte-baranci",
+          "km": 9.1
+        },
+        {
+          "ref": "place/san-candido",
+          "km": 9.3
         },
         {
           "ref": "place/lago-di-landro",
-          "km": 10.2,
-          "how": "drive",
-          "extra_min": 69,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 10.2
         },
         {
           "ref": "place/monte-piana",
-          "km": 10.5,
-          "how": "drive",
-          "extra_min": 71,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 10.5
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 10.5
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 11
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 12.2
+        },
+        {
+          "ref": "place/dobbiaco",
+          "km": 12.5
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -715,41 +673,26 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/cinque-torri",
-          "km": 4.5,
-          "how": "drive",
-          "extra_min": 57,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 4.5
         },
         {
-          "ref": "place/cascate-di-fanes",
-          "km": 11.9,
-          "how": "drive",
-          "extra_min": 60,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "ref": "place/cortina-dampezzo",
+          "km": 6.1
         },
         {
           "ref": "place/lago-di-limides",
-          "km": 6.8,
-          "how": "drive",
-          "extra_min": 76,
-          "on_site_min": 60,
-          "on_site_estimated": false,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 6.8
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 11.9
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -795,41 +738,34 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 7.5
+        },
         {
           "ref": "place/cinque-torri",
-          "km": 9.8,
-          "how": "drive",
-          "extra_min": 69,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 9.8
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 10.3
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 11.9
         },
         {
           "ref": "place/lago-di-landro",
-          "km": 12,
-          "how": "drive",
-          "extra_min": 75,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 12
         },
         {
           "ref": "place/monte-piana",
-          "km": 12.1,
-          "how": "drive",
-          "extra_min": 75,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 12.1
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -907,41 +843,42 @@
         "draw": "world",
         "same_class": true
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
-          "ref": "place/seceda-ridge",
-          "km": 5,
-          "how": "drive",
-          "extra_min": 32,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "ref": "place/santa-maddalena-val-di-funes",
+          "km": 3.6
         },
         {
-          "ref": "place/passo-gardena",
-          "km": 10.1,
-          "how": "drive",
-          "extra_min": 69,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "ref": "place/seceda-ridge",
+          "km": 5
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 8
         },
         {
           "ref": "place/selva-di-val-gardena",
-          "km": 8.9,
-          "how": "drive",
-          "extra_min": 112,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 8.9
+        },
+        {
+          "ref": "place/santa-cristina",
+          "km": 9.3
+        },
+        {
+          "ref": "place/ortisei",
+          "km": 9.8
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 10.1
+        },
+        {
+          "ref": "place/la-val",
+          "km": 12.4
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1014,41 +951,34 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 2.4,
-          "how": "drive",
-          "extra_min": 26,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/seceda-ridge",
-          "km": 10.5,
-          "how": "drive",
-          "extra_min": 46,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 2.4
         },
         {
           "ref": "place/ortisei",
-          "km": 5.6,
-          "how": "drive",
-          "extra_min": 104,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 5.6
+        },
+        {
+          "ref": "place/santa-cristina",
+          "km": 7.8
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 10.5
+        },
+        {
+          "ref": "place/selva-di-val-gardena",
+          "km": 11.1
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 12.2
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1121,41 +1051,22 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/ortisei",
-          "km": 4.5,
-          "how": "drive",
-          "extra_min": 100,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 4.5
         },
         {
           "ref": "place/santa-cristina",
-          "km": 7.6,
-          "how": "drive",
-          "extra_min": 108,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 7.6
         },
         {
           "ref": "place/selva-di-val-gardena",
-          "km": 11.1,
-          "how": "drive",
-          "extra_min": 118,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 11.1
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1203,39 +1114,56 @@
       },
       "pair_with": [
         {
-          "ref": "place/seceda-ridge",
-          "km": 5.5,
-          "how": "drive",
-          "extra_min": 34,
-          "on_site_min": 20,
+          "ref": "place/selva-di-val-gardena",
+          "km": 1.4,
+          "how": "walk",
+          "extra_min": 131,
+          "on_site_min": 90,
           "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 12.1,
-          "how": "drive",
-          "extra_min": 50,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/passo-gardena",
-          "km": 3.1,
-          "how": "drive",
-          "extra_min": 53,
-          "on_site_min": 45,
-          "on_site_estimated": false,
           "draw": "regional",
           "standing": "good",
           "hand_picked": false
         }
       ],
+      "pair_pending": [
+        {
+          "ref": "place/passo-gardena",
+          "km": 3.1
+        },
+        {
+          "ref": "place/santa-cristina",
+          "km": 4.5
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 5.5
+        },
+        {
+          "ref": "place/ortisei",
+          "km": 7.9
+        },
+        {
+          "ref": "place/adolf-munkel-weg",
+          "km": 8
+        },
+        {
+          "ref": "place/viel-dal-pan",
+          "km": 9
+        },
+        {
+          "ref": "place/santa-maddalena-val-di-funes",
+          "km": 9.3
+        },
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 12.1
+        },
+        {
+          "ref": "place/alpe-di-siusi",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1281,41 +1209,26 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/passo-gardena",
-          "km": 7,
-          "how": "drive",
-          "extra_min": 61,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 7
         },
         {
           "ref": "place/selva-di-val-gardena",
-          "km": 8.6,
-          "how": "drive",
-          "extra_min": 110,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 8.6
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 9
         },
         {
           "ref": "place/santa-cristina",
-          "km": 10.9,
-          "how": "drive",
-          "extra_min": 116,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 10.9
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1380,41 +1293,30 @@
         "draw": "world",
         "same_class": true
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/viel-dal-pan",
+          "km": 2.8
+        },
         {
           "ref": "place/passo-gardena",
-          "km": 4.7,
-          "how": "drive",
-          "extra_min": 57,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 4.7
         },
         {
           "ref": "place/selva-di-val-gardena",
-          "km": 7.2,
-          "how": "drive",
-          "extra_min": 108,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 7.2
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 7.3
         },
         {
           "ref": "place/santa-cristina",
-          "km": 10.2,
-          "how": "drive",
-          "extra_min": 114,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 10.2
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1462,28 +1364,6 @@
       },
       "pair_with": [
         {
-          "ref": "place/cinque-torri",
-          "km": 3.7,
-          "how": "drive",
-          "extra_min": 53,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/cascate-di-fanes",
-          "km": 10.2,
-          "how": "drive",
-          "extra_min": 54,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
           "ref": "place/lago-di-limides",
           "km": 1.4,
           "how": "walk",
@@ -1495,6 +1375,25 @@
           "hand_picked": false
         }
       ],
+      "pair_pending": [
+        {
+          "ref": "place/cinque-torri",
+          "km": 3.7
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 8.1
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 10.1
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 10.2
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1567,41 +1466,26 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
-          "ref": "place/passo-gardena",
-          "km": 8.5,
-          "how": "drive",
-          "extra_min": 65,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "ref": "place/santa-cristina",
+          "km": 4.7
         },
         {
           "ref": "place/ortisei",
-          "km": 5,
-          "how": "drive",
-          "extra_min": 102,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 5
         },
         {
-          "ref": "place/santa-cristina",
-          "km": 4.7,
-          "how": "drive",
-          "extra_min": 102,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "ref": "place/selva-di-val-gardena",
+          "km": 5.7
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 8.5
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1642,30 +1526,18 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/cascate-di-fanes",
-          "km": 11,
-          "how": "drive",
-          "extra_min": 56,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 11
         },
         {
           "ref": "place/dobbiaco",
-          "km": 11.6,
-          "how": "drive",
-          "extra_min": 118,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 11.6
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1748,6 +1620,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1867,41 +1741,38 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/monte-piana",
+          "km": 1.7
+        },
         {
           "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 7,
-          "how": "drive",
-          "extra_min": 38,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 7
+        },
+        {
+          "ref": "place/dobbiaco",
+          "km": 11.7
         },
         {
           "ref": "place/cascate-di-fanes",
-          "km": 12,
-          "how": "drive",
-          "extra_min": 60,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 12
+        },
+        {
+          "ref": "place/san-candido",
+          "km": 12
         },
         {
           "ref": "place/lago-di-sorapis",
-          "km": 12.2,
-          "how": "drive",
-          "extra_min": 90,
-          "on_site_min": 60,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 12.2
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 12.5
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2021,41 +1892,26 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 2.4,
-          "how": "drive",
-          "extra_min": 26,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 2.4
         },
         {
           "ref": "place/monte-piana",
-          "km": 3,
-          "how": "drive",
-          "extra_min": 53,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 3
         },
         {
           "ref": "place/lago-di-sorapis",
-          "km": 8.9,
-          "how": "drive",
-          "extra_min": 82,
-          "on_site_min": 60,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 8.9
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 11.6
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2167,41 +2023,22 @@
         "draw": "national",
         "same_class": false
       },
-      "pair_with": [
-        {
-          "ref": "place/monte-piana",
-          "km": 9.9,
-          "how": "drive",
-          "extra_min": 69,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/dobbiaco",
-          "km": 3.6,
-          "how": "drive",
-          "extra_min": 98,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 3.6
         },
         {
           "ref": "place/san-candido",
-          "km": 5.6,
-          "how": "drive",
-          "extra_min": 104,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 5.6
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 9.9
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2321,41 +2158,26 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 2.6,
-          "how": "drive",
-          "extra_min": 26,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 2.6
         },
         {
           "ref": "place/monte-piana",
-          "km": 3.9,
-          "how": "drive",
-          "extra_min": 55,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 3.9
         },
         {
           "ref": "place/lago-di-sorapis",
-          "km": 7.2,
-          "how": "drive",
-          "extra_min": 78,
-          "on_site_min": 60,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 7.2
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 10.1
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2467,41 +2289,26 @@
         "draw": "national",
         "same_class": true
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/cinque-torri",
-          "km": 2.4,
-          "how": "drive",
-          "extra_min": 51,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/cascate-di-fanes",
-          "km": 10.3,
-          "how": "drive",
-          "extra_min": 56,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 2.4
         },
         {
           "ref": "place/lago-federa",
-          "km": 6.8,
-          "how": "drive",
-          "extra_min": 106,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 6.8
+        },
+        {
+          "ref": "place/cortina-dampezzo",
+          "km": 9.2
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 10.3
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2547,41 +2354,26 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
-        {
-          "ref": "place/seceda-ridge",
-          "km": 8.5,
-          "how": "drive",
-          "extra_min": 40,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
-        },
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/selva-di-val-gardena",
-          "km": 3.8,
-          "how": "drive",
-          "extra_min": 100,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 3.8
         },
         {
           "ref": "place/santa-cristina",
-          "km": 7.3,
-          "how": "drive",
-          "extra_min": 108,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
-          "hand_picked": false
+          "km": 7.3
+        },
+        {
+          "ref": "place/seceda-ridge",
+          "km": 8.5
+        },
+        {
+          "ref": "place/ortisei",
+          "km": 10.9
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2622,41 +2414,34 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/seceda-ridge",
-          "km": 4.2,
-          "how": "drive",
-          "extra_min": 30,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 4.2
+        },
+        {
+          "ref": "place/ortisei",
+          "km": 7.9
+        },
+        {
+          "ref": "place/santa-cristina",
+          "km": 8.8
+        },
+        {
+          "ref": "place/selva-di-val-gardena",
+          "km": 9.7
         },
         {
           "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 11.4,
-          "how": "drive",
-          "extra_min": 48,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 11.4
         },
         {
           "ref": "place/passo-gardena",
-          "km": 12,
-          "how": "drive",
-          "extra_min": 75,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 12
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2739,41 +2524,46 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
-          "ref": "place/cascate-di-fanes",
-          "km": 7.5,
-          "how": "drive",
-          "extra_min": 48,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 12.3,
-          "how": "drive",
-          "extra_min": 50,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "ref": "place/lago-federa",
+          "km": 6.1
         },
         {
           "ref": "place/cinque-torri",
-          "km": 7.2,
-          "how": "drive",
-          "extra_min": 63,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 7.2
+        },
+        {
+          "ref": "place/cascate-di-fanes",
+          "km": 7.5
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 9.2
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 10.1
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 11.6
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 11.6
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 12.3
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12.5
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2869,41 +2659,22 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 4.5,
-          "how": "drive",
-          "extra_min": 30,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 4.5
         },
         {
           "ref": "place/seceda-ridge",
-          "km": 5,
-          "how": "drive",
-          "extra_min": 32,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 5
         },
         {
           "ref": "place/passo-gardena",
-          "km": 10.9,
-          "how": "drive",
-          "extra_min": 71,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 10.9
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -2999,41 +2770,22 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/passo-gardena",
+          "km": 3.8
+        },
         {
           "ref": "place/seceda-ridge",
-          "km": 5.7,
-          "how": "drive",
-          "extra_min": 34,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 5.7
         },
         {
           "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 11.1,
-          "how": "drive",
-          "extra_min": 48,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/passo-gardena",
-          "km": 3.8,
-          "how": "drive",
-          "extra_min": 55,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 11.1
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3129,41 +2881,22 @@
         "draw": "national",
         "same_class": true
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/seceda-ridge",
-          "km": 4.7,
-          "how": "drive",
-          "extra_min": 32,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 7.6,
-          "how": "drive",
-          "extra_min": 38,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 4.7
         },
         {
           "ref": "place/passo-gardena",
-          "km": 7.3,
-          "how": "drive",
-          "extra_min": 63,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 7.3
+        },
+        {
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "km": 7.6
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3243,30 +2976,14 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/lago-di-landro",
-          "km": 12,
-          "how": "drive",
-          "extra_min": 75,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/funbob-monte-baranci",
-          "km": 1.1,
-          "how": "walk",
-          "extra_min": 154,
-          "on_site_min": 120,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 12
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3354,30 +3071,14 @@
         "draw": "national",
         "same_class": false
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/lago-di-landro",
-          "km": 11.7,
-          "how": "drive",
-          "extra_min": 73,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/funbob-monte-baranci",
-          "km": 3.7,
-          "how": "drive",
-          "extra_min": 128,
-          "on_site_min": 120,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 11.7
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3465,30 +3166,18 @@
         "draw": "national",
         "same_class": true
       },
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
           "ref": "place/lago-di-sorapis",
-          "km": 7,
-          "how": "drive",
-          "extra_min": 76,
-          "on_site_min": 60,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
+          "km": 7
         },
         {
           "ref": "place/lago-federa",
-          "km": 8.4,
-          "how": "drive",
-          "extra_min": 110,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "km": 8.4
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3569,6 +3258,8 @@
         "same_class": false
       },
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3634,19 +3325,9 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "place/otzi-south-tyrol-museum-of-archaeology",
-          "km": 0.4,
-          "how": "walk",
-          "extra_min": 133,
-          "on_site_min": 120,
-          "on_site_estimated": false,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3700,6 +3381,8 @@
           "hand_picked": false
         }
       ],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3772,41 +3455,34 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
+      "pair_with": [],
+      "pair_pending": [
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 10.2,
-          "how": "drive",
-          "extra_min": 44,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "ref": "place/lago-di-landro",
+          "km": 5.6
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 5.8
         },
         {
           "ref": "place/cascate-di-fanes",
-          "km": 6.4,
-          "how": "drive",
-          "extra_min": 46,
-          "on_site_min": 30,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
+          "km": 6.4
         },
         {
-          "ref": "place/lago-di-landro",
-          "km": 5.6,
-          "how": "drive",
-          "extra_min": 59,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
+          "ref": "place/lago-di-misurina",
+          "km": 7.8
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 8.1
+        },
+        {
+          "ref": "place/cadini-di-misurina-viewpoint",
+          "km": 10.2
         }
       ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3859,39 +3535,32 @@
       },
       "pair_with": [
         {
-          "ref": "place/lago-di-landro",
-          "km": 11,
-          "how": "drive",
-          "extra_min": 71,
-          "on_site_min": 45,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/monte-piana",
-          "km": 12.4,
-          "how": "drive",
-          "extra_min": 75,
-          "on_site_min": 45,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        },
-        {
-          "ref": "place/dobbiaco",
-          "km": 3.7,
-          "how": "drive",
-          "extra_min": 98,
+          "ref": "place/san-candido",
+          "km": 1.1,
+          "how": "walk",
+          "extra_min": 124,
           "on_site_min": 90,
           "on_site_estimated": true,
-          "draw": "local",
-          "standing": "good",
+          "draw": "regional",
+          "standing": "top",
           "hand_picked": false
         }
       ],
+      "pair_pending": [
+        {
+          "ref": "place/dobbiaco",
+          "km": 3.7
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 11
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 12.4
+        }
+      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3938,6 +3607,8 @@
         "same_class": false
       },
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -3979,6 +3650,8 @@
       },
       "far_pointer": null,
       "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {

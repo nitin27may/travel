@@ -1,0 +1,205 @@
+{
+  "schema": "relevance-bases/1",
+  "note": "Base towns the snapshot names but no catalogue row holds. Each is a confirmed Wikidata town item (checked by country and admin area) or a Nominatim result with a country filter. points --build reads this file; signals --fetch reads the QIDs.",
+  "bases": [
+    {
+      "trip": "canadian-rockies-2029",
+      "name": "Banff",
+      "qid": "Q58337",
+      "country": "Canada",
+      "admin": "Alberta (Improvement District No. 9, Banff National Park)",
+      "check": "town in Alberta; coordinates 51.178,-115.572 match Banff townsite",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "canadian-rockies-2029",
+      "name": "Calgary",
+      "qid": "Q36312",
+      "country": "Canada",
+      "admin": "Alberta",
+      "check": "city in Alberta",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "canadian-rockies-2029",
+      "name": "Kananaskis Village",
+      "qid": "Q6360620",
+      "country": "Canada",
+      "admin": "Alberta (Kananaskis Improvement District)",
+      "check": "resort community on Highway 40",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Reykjavik",
+      "qid": "Q1764",
+      "country": "Iceland",
+      "admin": "Reykjavikurborg",
+      "check": "capital",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Selfoss",
+      "qid": "Q192898",
+      "country": "Iceland",
+      "admin": "Arborg",
+      "check": "town",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Vik",
+      "qid": "Q685369",
+      "country": "Iceland",
+      "admin": "Myrdalshreppur",
+      "check": "Vik i Myrdal, village; search for plain 'Vik' returned only non-places",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Skaftafell",
+      "qid": "Q3486103",
+      "country": "Iceland",
+      "admin": "Hornafjordur",
+      "check": "placename (lieu-dit) in the national park; not the park item Q1133116",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Egilsstadir",
+      "qid": "Q14453",
+      "country": "Iceland",
+      "admin": "Fljotsdalsherad",
+      "check": "town",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Myvatn",
+      "qid": "Q212051",
+      "country": "Iceland",
+      "admin": "Thingeyjarsveit",
+      "check": "the lake; the base is the Myvatn area, so the lake centre stands in for it (the villages sit on its shore)",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Akureyri",
+      "qid": "Q29042",
+      "country": "Iceland",
+      "admin": "Akureyrarbaer",
+      "check": "town",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Grundarfjordur",
+      "qid": "Q27014314",
+      "country": "Iceland",
+      "admin": "Grundarfjardarbaer",
+      "check": "town on Snaefellsnes; not the municipality Q1019459",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "iceland-ring-road-2027",
+      "name": "Keflavik",
+      "qid": "Q170693",
+      "country": "Iceland",
+      "admin": "Reykjanesbaer",
+      "check": "town; the airport is Q139921",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "patagonia-2027",
+      "name": "Buenos Aires",
+      "qid": "Q1486",
+      "country": "Argentina",
+      "admin": "Argentina (capital city)",
+      "check": "city; not the province Q44754",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "patagonia-2027",
+      "name": "Ushuaia",
+      "qid": "Q44254",
+      "country": "Argentina",
+      "admin": "Ushuaia Department, Tierra del Fuego",
+      "check": "capital of Tierra del Fuego",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "patagonia-2027",
+      "name": "El Calafate",
+      "qid": "Q81561",
+      "country": "Argentina",
+      "admin": "Lago Argentino Department, Santa Cruz",
+      "check": "town",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "utah-five-parks",
+      "name": "Springdale",
+      "qid": "Q482508",
+      "country": "United States",
+      "admin": "Washington County, Utah",
+      "check": "resort town at Zion; the other Springdales are in NL, AR, PA, OH",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "utah-five-parks",
+      "name": "Bryce Canyon",
+      "qid": "Q483332",
+      "country": "United States",
+      "admin": "Garfield County, Utah",
+      "check": "Bryce Canyon City, the town at the park; not the park",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "utah-five-parks",
+      "name": "Torrey",
+      "qid": "Q483141",
+      "country": "United States",
+      "admin": "Wayne County, Utah",
+      "check": "town",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "utah-five-parks",
+      "name": "Salt Lake City",
+      "qid": "Q23337",
+      "country": "United States",
+      "admin": "Salt Lake County, Utah",
+      "check": "city",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "chamonix-mont-blanc-2028",
+      "name": "Argentiere",
+      "qid": "Q646321",
+      "country": "France",
+      "admin": "Chamonix-Mont-Blanc",
+      "check": "village; the other Argentiere items are a commune in Seine-et-Marne and a glacier",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "chamonix-mont-blanc-2028",
+      "name": "Geneva",
+      "qid": "Q71",
+      "country": "Switzerland",
+      "admin": "Canton of Geneva",
+      "check": "cantonal capital",
+      "coord_src": "wikidata"
+    },
+    {
+      "trip": "algonquin-muskoka-2026",
+      "name": "Dwight",
+      "lat": 45.331,
+      "lon": -79.011,
+      "country": "Canada",
+      "admin": "Lake of Bays Township, Muskoka, Ontario",
+      "check": "no Wikidata town item found; Nominatim with countrycodes=ca returned the Lake of Bays Township centroid (45.3310,-79.0115), within the village",
+      "coord_src": "nominatim"
+    }
+  ]
+}

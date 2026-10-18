@@ -35,6 +35,8 @@ export interface PlaceFacts {
   accessLegalPublic?: boolean;
   /** computed family effort of the same ref, for the substitutes list */
   familyEffort?: number | null;
+  /** this ref's point was copied from another ref (a legacy trail at the trailhead named after a sight) */
+  aliasOf?: string;
   /** feature tags (locations tags); when both places have some, a substitute must share one */
   tags?: string[];
 }
@@ -57,6 +59,8 @@ export interface DeriveInput {
   /** radius of the far pointer; the spec says 50 km (3.2) */
   farPointerKm?: number;
   profile?: PartyFit | null;
+  /** real drive minutes between two refs (the ORS leg matrix, once it exists): driveMin[a][b]. Absent: no drive pairs */
+  driveMin?: Record<string, Record<string, number>>;
 }
 
 export interface Substitute { ref: string; km: number; draw: DrawTier; standing: string; access_cost: string[]; family_effort: number | null }
@@ -90,6 +94,10 @@ export interface Derived {
   far_pointer: FarPointer | null;
   /** "Nearby, worth adding": at most 3, hand-picked first (3.2) */
   pair_with: Pair[];
+  /** would qualify on a straight-line guess but has no real drive time yet; never shown (3.2) */
+  pair_pending: { ref: string; km: number }[];
+  /** same coordinate (about 100 m) or a trailhead alias of this place: part of it, not a pairing */
+  part_of: string[];
   plan_b: Substitute | null;
   fits: { vacation: FitOut; weekend: FitOut; day: Record<string, FitOut>; passing: FitOut };
   role: Role;
@@ -105,9 +113,10 @@ export interface Derived {
 const NEAR_KM = 25;
 const AREA_KM = 100;
 
-const WALK_KM = 2;
+const WALK_KM = 1.5;
 const PAIR_DRIVE_MIN = 15;
-const PAIR_ON_SITE_MAX = 120;
+const SAME_POINT_KM = 0.1;
+const PAIR_LIGHT_MAX = 90;
 const PAIR_MAX = 3;
 /** On-site minutes by class head when no suitability time exists; marked as an estimate. Trails are deliberately long. */
 const ON_SITE_ESTIMATE: Record<string, number> = { viewpoint: 20, waterfall: 30, lake: 60, sight: 45, town: 90, trail: 150, lift: 90, drive: 60, canyon: 45, gorge: 45, beach: 60, peak: 180, cave: 45, glacier: 120, water: 60, wildlife: 60, activity: 90, park: 90 };
@@ -238,41 +247,6 @@ export function deriveAll(input: DeriveInput): Derived[] {
     const areaAll = sameClass.filter((o) => o.km <= AREA_KM).map((o) => subOf(r, o.rec, o.km)).sort(bySort);
     const area = gated.filter((o) => o.km <= AREA_KM).map((o) => subOf(r, o.rec, o.km)).sort(subSort);
 
-    // pair_with (3.2): a different class you can add to the visit; hand-picked pairs qualify and rank first
-    const pairs: Pair[] = [];
-    const pairOf = (o: { rec: RelevanceRecord; km: number }, hand: { reason: string; src?: string } | null): Pair => {
-      const jo = J.get(o.rec.ref)!;
-      const fo = input.facts[o.rec.ref] ?? {};
-      const est = fo.onSiteMin == null;
-      const onSite = fo.onSiteMin ?? ON_SITE_ESTIMATE[classHead(o.rec.class_key)] ?? 60;
-      const how: Pair["how"] = o.km <= WALK_KM ? "walk" : "drive";
-      const travel = how === "walk" ? Math.round(o.km * 15 * 2) : 2 * approxMinutes(o.km);
-      return {
-        ref: o.rec.ref, km: Math.round(o.km * 10) / 10, how, extra_min: travel + onSite, on_site_min: onSite, on_site_estimated: est,
-        draw: jo.draw, standing: jo.standing, hand_picked: hand !== null, ...(hand ? { reason: hand.reason, ...(hand.src ? { src: hand.src } : {}) } : {}),
-      };
-    };
-    const picked = new Set<string>();
-    for (const pw of r.pairs_with ?? []) {
-      const o = others.find((x) => x.rec.ref === pw.ref);
-      if (o && !picked.has(pw.ref)) {
-        picked.add(pw.ref);
-        pairs.push(pairOf(o, { reason: pw.reason, ...(pw.src ? { src: pw.src } : {}) }));
-      }
-    }
-    const auto = others
-      .filter((o) => !picked.has(o.rec.ref) && o.rec.class_key !== r.class_key)
-      .filter((o) => (o.km <= WALK_KM || approxMinutes(o.km) <= PAIR_DRIVE_MIN) && rank(J.get(o.rec.ref)!.standing) >= 1)
-      .filter((o) => {
-        const fo = input.facts[o.rec.ref] ?? {};
-        const onSite = fo.onSiteMin ?? ON_SITE_ESTIMATE[classHead(o.rec.class_key)] ?? 60;
-        if (onSite > PAIR_ON_SITE_MAX) return false;
-        return maxEffort === undefined || fo.familyEffort == null || fo.familyEffort <= maxEffort;
-      })
-      .map((o) => pairOf(o, null))
-      .sort((a, b) => a.extra_min - b.extra_min || rank(b.standing) - rank(a.standing) || a.km - b.km);
-    pairs.push(...auto);
-    const pair_with = pairs.slice(0, PAIR_MAX);
 
     // far pointer: nearest within farKm with a draw at least two tiers higher; same class preferred
     let far: FarPointer | null = null;
@@ -327,7 +301,9 @@ export function deriveAll(input: DeriveInput): Derived[] {
       from_hubs: fromHubs,
       substitutes: { near, area },
       far_pointer: far,
-      pair_with,
+      pair_with: [],
+      pair_pending: [],
+      part_of: [],
       plan_b: planB,
       fits: { vacation: vac, weekend, day, passing },
       role,
@@ -345,6 +321,7 @@ export function deriveAll(input: DeriveInput): Derived[] {
     results.push(out);
   }
   demoteDoubleAnchors(input.records, results);
+  assignPairs(input, results, J, haversineKm);
   return results;
 }
 
@@ -402,6 +379,82 @@ function demoteDoubleAnchors(records: RelevanceRecord[], results: Derived[]): vo
         d.peak = { ...d.peak, role: "highlight", badge: badgeOf("highlight", records.find((r) => r.ref === d.ref)!.standing.v ?? "ordinary", d.peak.tier, "place"), vacation: { fit: "worth_it", reason: `${d.peak.vacation.reason}; same place as ${holderPeak.ref}, which keeps the anchor` } };
       }
     }
+  }
+}
+
+const ANCHORISH = new Set(["anchor"]);
+
+/**
+ * pair_with (3.2, tightened): a different-class place you can add to the visit.
+ *  - walk only: within 1.5 km straight line of the place's own point; a drive pair needs a real drive time
+ *    (input.driveMin) of 15 min or less, and without one a straight-line candidate is listed in pair_pending, not shown;
+ *  - never two records at one point (within 100 m) or one a trailhead alias of the other: that is part_of;
+ *  - lighter than the place: on-site time no more than the place's own, or at most 90 min;
+ *  - two anchors pair only on foot; standing top or good; fits the party when a profile is set.
+ * Hand-picked pairs always qualify and rank first.
+ */
+function assignPairs(input: DeriveInput, results: Derived[], J: Map<string, ReturnType<typeof judged>>, dist: typeof haversineKm): void {
+  const byRef = new Map(results.map((d) => [d.ref, d]));
+  const recBy = new Map(input.records.map((r) => [r.ref, r]));
+  const onSite = (ref: string): { min: number; est: boolean } => {
+    const m = input.facts[ref]?.onSiteMin;
+    return m != null ? { min: m, est: false } : { min: ON_SITE_ESTIMATE[classHead(recBy.get(ref)!.class_key)] ?? 60, est: true };
+  };
+  const maxEffort = input.profile?.maxFamilyEffort;
+  for (const r of input.records) {
+    const d = byRef.get(r.ref)!;
+    const me = input.facts[r.ref] ?? {};
+    if (!me.point) continue;
+    const mine = onSite(r.ref);
+    const cands: { rec: RelevanceRecord; km: number }[] = [];
+    for (const o of input.records) {
+      const q = input.facts[o.ref]?.point;
+      if (o.ref !== r.ref && q) cands.push({ rec: o, km: dist(me.point, q) });
+    }
+    const partOf = (o: { rec: RelevanceRecord; km: number }): boolean =>
+      o.km <= SAME_POINT_KM || me.aliasOf === o.rec.ref || input.facts[o.rec.ref]?.aliasOf === r.ref || (me.aliasOf !== undefined && me.aliasOf === input.facts[o.rec.ref]?.aliasOf);
+    d.part_of = cands.filter((o) => o.rec.class_key !== r.class_key && partOf(o)).map((o) => o.rec.ref).sort();
+    const pairOf = (o: { rec: RelevanceRecord; km: number }, how: "walk" | "drive", hand: { reason: string; src?: string } | null): Pair => {
+      const os = onSite(o.rec.ref);
+      const jo = J.get(o.rec.ref)!;
+      const travel = how === "walk" ? Math.round(o.km * 15 * 2) : 2 * (input.driveMin?.[r.ref]?.[o.rec.ref] ?? input.driveMin?.[o.rec.ref]?.[r.ref] ?? 0);
+      return { ref: o.rec.ref, km: Math.round(o.km * 10) / 10, how, extra_min: travel + os.min, on_site_min: os.min, on_site_estimated: os.est, draw: jo.draw, standing: jo.standing, hand_picked: hand !== null, ...(hand ? { reason: hand.reason, ...(hand.src ? { src: hand.src } : {}) } : {}) };
+    };
+    const pairs: Pair[] = [];
+    const picked = new Set<string>();
+    for (const pw of r.pairs_with ?? []) {
+      const o = cands.find((x) => x.rec.ref === pw.ref);
+      if (o && !picked.has(pw.ref)) {
+        picked.add(pw.ref);
+        pairs.push(pairOf(o, o.km <= WALK_KM ? "walk" : "drive", { reason: pw.reason, ...(pw.src ? { src: pw.src } : {}) }));
+      }
+    }
+    const pending: Derived["pair_pending"] = [];
+    const auto: Pair[] = [];
+    for (const o of cands) {
+      if (picked.has(o.rec.ref) || o.rec.class_key === r.class_key || partOf(o)) continue;
+      const jo = J.get(o.rec.ref)!;
+      if (rank(jo.standing) < 1) continue;
+      const os = onSite(o.rec.ref);
+      if (os.min > mine.min && os.min > PAIR_LIGHT_MAX) continue; // lighter than the place, or at most 90 min
+      const fo = input.facts[o.rec.ref] ?? {};
+      if (maxEffort !== undefined && fo.familyEffort != null && fo.familyEffort > maxEffort) continue;
+      const walk = o.km <= WALK_KM;
+      if (!walk && ANCHORISH.has(byRef.get(o.rec.ref)!.role) && ANCHORISH.has(d.role)) continue; // two anchors pair on foot only
+      if (walk) {
+        auto.push(pairOf(o, "walk", null));
+        continue;
+      }
+      const dm = input.driveMin?.[r.ref]?.[o.rec.ref] ?? input.driveMin?.[o.rec.ref]?.[r.ref];
+      if (dm !== undefined) {
+        if (dm <= PAIR_DRIVE_MIN) auto.push(pairOf(o, "drive", null));
+      } else if (approxMinutes(o.km) <= PAIR_DRIVE_MIN) {
+        pending.push({ ref: o.rec.ref, km: Math.round(o.km * 10) / 10 });
+      }
+    }
+    auto.sort((a, b) => a.extra_min - b.extra_min || rank(b.standing) - rank(a.standing) || a.km - b.km);
+    d.pair_with = [...pairs, ...auto].slice(0, PAIR_MAX);
+    d.pair_pending = pending.sort((a, b) => a.km - b.km);
   }
 }
 
