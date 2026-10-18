@@ -94,14 +94,14 @@ describe("projectForSchedule", () => {
   });
 
   it("an offer overrides the record's fields and inherits the rest", () => {
-    const parent = rec(walk(5, 100, { carrier_ok: v(true, "our_inference") }), { kind: "activity", subkind: "rafting", offers: [
-      { name: "Class III", suitability: { min_age: v(12), effort: { source_grade: sg("whitewater", "III", "official_grade") } }, ext: { kind: "paddle" } },
+    const parent = rec(walk(5, 100, { carrier_ok: v(true, "our_inference") }), { kind: "activity", subkind: "guided-hike", offers: [
+      { name: "Scramble", suitability: { min_age: v(12), effort: { source_grade: sg("sac", "T4", "official_grade") } } },
     ] });
     const base = projectForSchedule(parent);
     const offer = projectForSchedule(parent, parent.offers![0]);
     expect(base.minAge).toBeNull();
     expect(offer.minAge).toBe(12);
-    expect(offer.terrain).toBe(4);
+    expect(offer.terrain).toBe(5); // SAC T4 maps to terrain 5 in the difficulty map
     expect(offer.distanceKm).toBe(5); // inherited drivers
     expect(offer.carrierOk).toBe(true);
     expect(mergeBlock(parent.suitability, undefined)).toBe(parent.suitability);
