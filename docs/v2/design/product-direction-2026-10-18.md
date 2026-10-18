@@ -32,7 +32,11 @@ These are inputs for the next round. Work on them starts only after the running 
   - The Google Maps JavaScript API and Routes API free monthly caps.
   - MapTiler, Stadia and Mapbox free tiers.
   - OpenFreeMap with OpenRouteService or OSRM for routing.
-- The research answers which look the owner gets, which costs remain at 100 and 10,000 users, and what each option's terms allow us to store.
+- **Scale assumption (owner, 18 Oct 2026): fewer than 100 users in the first year.**
+  - Judge every option at that size. It should be free, or within a free tier, for year one.
+  - Prefer the option that looks and works best, Google included, as long as its free caps cover under 100 users with headroom.
+  - Note the exit path and the cost only for a later 1,000-user step; do not design for 10,000.
+- The research answers which look the owner gets, the cost in year one, the step to 1,000 users, and what each option's terms allow us to store.
 
 ## Order of work (after the current tasks finish)
 
