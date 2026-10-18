@@ -26,3 +26,21 @@ npm registry on 17 Oct 2026 (the prototype pins versions at least two weeks old)
 - JavaScript for the plan screen under ~350 KB gzipped (MapLibre is the bulk, loaded in parallel).
 - Map: one GeoJSON source updated with `setData` on change (MapLibre's `updateData` for partial updates
   on large trips).
+
+## Map stack, in plain terms (18 Oct 2026)
+
+"The map" is four separate jobs; each can come from a different provider.
+
+| Job | What it does | Choice | Why not Google |
+|---|---|---|---|
+| 1. Draw the map | the picture: roads, terrain, labels; pins and routes drawn on top | **MapLibre** (renderer) + **OpenFreeMap** tiles online, **Protomaps PMTiles** for offline, terrain from open DEM tiles | Google's tiles cannot be downloaded for offline use, and its terms do not allow Google content (place details, routes) to be shown on a non-Google map |
+| 2. Distances and drive times | A→B time and km, and matrices for "rank by drive time" | instant straight-line estimate on screen, then **OpenRouteService** (free key, daily quota) behind our leg cache; later **self-hosted OSRM or Valhalla** for the regions we use | Google Routes is accurate but paid per call after the free monthly allowance, and results may only be cached briefly, so every trip re-pays |
+| 3. Find a place by name | search box, pasted addresses | our **catalog first**, then **Photon/Nominatim** (OpenStreetMap geocoders), **Wikidata** for named sights | Google Places has the best coverage of restaurants and shops, but its data cannot be stored (only the place id), so it cannot feed the catalog |
+| 4. Hand-off to navigation | "Navigate" on the phone | **links that open Google Maps or Apple Maps** with the destination; free, no key, allowed | this is where Google is used, and only as a link |
+
+The prototype's map is a stand-in for job 1: our own relief image, because the published preview
+cannot load tiles from the internet. On the real app job 1 is OpenFreeMap vector tiles.
+
+Known gap: OpenStreetMap is strong for trails, peaks, parking, huts and roads, and weaker than Google for
+restaurant and shop details (hours, photos, reviews). The plan accepts that (07-competitors.md 5): such
+places are added by link or by hand.
