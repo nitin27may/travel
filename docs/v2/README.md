@@ -71,6 +71,8 @@ API operation and an MCP tool, so a chat client and a person editing by hand are
 | Vercel for the app | Next.js in a container beside the database, reached through a Cloudflare Tunnel | server rendering next to the data; no ports opened at home; Vercel stays an option later |
 | ICS calendar feed as the most reliable reminder | ICS is the backstop; Web Push and email are primary for time-critical openings | Google Calendar refreshes subscribed feeds only every several hours, so a feed cannot deliver "opens in 15 minutes" reliably |
 
+**Running to-do list of owner requests: [TODO.md](TODO.md).**
+
 ## Detailed pages (tracker)
 
 The numbered files above are the design decisions. The folders below break the product into small
