@@ -1,11 +1,20 @@
-import { expect, readStore, test } from './fixtures';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { ROOT, expect, readStore, test } from './fixtures';
 import type { Page } from '@playwright/test';
 
 // The legacy list page (hash state) and /places/ (query state) must show the same number of places
 // for the same filters. Parameter sets follow docs/PLAN-locations-g5.md 2.4. The legacy page has no
 // `season` parameter, so season is tested on the app alone in url-state.spec.ts.
+//
+// The app now lists every public place (the 64 saved ones plus the researched Dolomites places), so each app count is
+// restricted to the 64 saved places with `ids=<their slugs>` (the slug of each comes from web/redirects.json, which
+// maps every old URL to its new one). The legacy page and the app must still agree on every filter.
 
 const store = readStore();
+const redirects: { from: string; to: string }[] = JSON.parse(readFileSync(path.join(ROOT, 'web', 'redirects.json'), 'utf8'));
+const slugOf = (id: string) => redirects.find((r) => r.from === `/places/${id.split('/').join('/')}/`)?.to.replace(/^\/places\//, '').replace(/\/$/, '');
+const savedSlugs = store.places.map((p) => slugOf(p.id) as string);
 const regionOf = (areaId: string) => store.areas.find((a) => a.id === areaId)!.region_id;
 const countryOfPlace = (p: { area_id: string }) => store.regions.find((r) => r.id === regionOf(p.area_id))!.country;
 
@@ -15,8 +24,17 @@ const tag = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
 const quebec = store.regions.find((r) => r.country === 'CA' && r.code === 'QC')!;
 const charlevoix = store.areas.find((a) => a.slug === 'charlevoix')!;
 const statuses = [...new Set(store.places.map((p) => p.status))];
-const kinds = [...new Set(store.places.map((p) => p.kind))];
+// The app filters by the canonical kind (a saved "city" is a Town, a "park" an Area ...). The legacy page filters by the
+// saved kind, so every `kind=` value is expanded to the saved kinds that map to it when asking the legacy page.
+const CANON: Record<string, string> = { city: 'town', park: 'area', region: 'area', valley: 'area', island: 'area', mountain: 'viewpoint', lighthouse: 'sight', place: 'sight', drive: 'sight', canyon: 'waterfall' };
+const canon = (k: string) => CANON[k] ?? k;
+const kinds = [...new Set(store.places.map((p) => canon(p.kind)))];
 const twoKinds = kinds.slice(0, 2).join(',');
+const toLegacy = (params: string) =>
+  params.replace(/kind=([^&]+)/, (_m, list: string) => {
+    const want = list.split(',');
+    return `kind=${[...new Set(store.places.map((p) => p.kind).filter((k) => want.includes(canon(k))))].join(',')}`;
+  });
 
 const SETS: { name: string; params: string }[] = [
   { name: 'no filters', params: '' },
@@ -34,26 +52,45 @@ const SETS: { name: string; params: string }[] = [
   { name: 'combined: two kinds and kid', params: `kind=${twoKinds}&kid=strong-kid` },
 ];
 
-async function legacyCount(page: Page, base: string, params: string): Promise<number> {
-  await page.goto(`${base}/legacy-locations/index.html${params ? `#${params}` : ''}`, { waitUntil: 'domcontentloaded' });
-  await page.waitForSelector('#count');
-  return Number((await page.locator('#count').textContent())?.trim());
+/** Reads a count that is written after hydration: waits for the network to go quiet, then for three equal reads in a row. */
+async function settled(page: Page, read: () => Promise<number>): Promise<number> {
+  await page.waitForLoadState('networkidle');
+  let last = Number.NaN;
+  let same = 0;
+  for (let i = 0; i < 80 && same < 3; i++) {
+    const n = await read().catch(() => Number.NaN);
+    same = n === last && Number.isFinite(n) ? same + 1 : 0;
+    last = n;
+    await page.waitForTimeout(100);
+  }
+  expect(same, 'the count never settled').toBeGreaterThanOrEqual(3);
+  return last;
 }
 
-async function appCount(page: Page, base: string, params: string): Promise<number> {
-  await page.goto(`${base}/places/${params ? `?${params}` : ''}`);
+async function legacyCount(page: Page, base: string, params: string): Promise<number> {
+  await page.goto(`${base}/legacy-locations/index.html${params ? `#${toLegacy(params)}` : ''}`, { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('#count');
+  return settled(page, async () => Number((await page.locator('#count').textContent())?.trim()));
+}
+
+async function appCount(page: Page, base: string, params: string, onlySaved = true): Promise<number> {
+  const all = [params, onlySaved ? `ids=${savedSlugs.join(',')}` : ''].filter(Boolean).join('&');
+  await page.goto(`${base}/places/${all ? `?${all}` : ''}`);
   const strong = page.locator('.filter-bar .count strong');
   await expect(strong).toBeVisible();
-  return Number((await strong.textContent())?.trim());
+  return settled(page, async () => Number((await strong.textContent())?.trim()));
 }
 
 test.describe('places parity with the legacy list page', () => {
   const rows: { set: string; legacy: number; app: number }[] = [];
 
-  test('unfiltered: both show 64', async ({ page, site, legacy }) => {
+  test('unfiltered: both show the 64 saved places, and the app lists more', async ({ page, site, legacy }) => {
     expect(store.places).toHaveLength(64);
+    expect(savedSlugs.every(Boolean)).toBe(true);
+    expect(new Set(savedSlugs).size).toBe(64);
     expect(await legacyCount(page, legacy.url, '')).toBe(64);
     expect(await appCount(page, site.url, '')).toBe(64);
+    expect(await appCount(page, site.url, '', false)).toBeGreaterThan(64);
   });
 
   for (const set of SETS) {

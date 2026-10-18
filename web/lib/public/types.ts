@@ -99,6 +99,14 @@ export interface LinkItem {
   /** Platforms whose terms allow a link only (AllTrails): never copy their data. */
   linkOnly: boolean;
 }
+/** A link kind that was searched for and not found ("searched, none found on <date>"). The searcher's private note is not carried. */
+export interface LinkNone {
+  group: string;
+  kind: string;
+  label: string;
+  /** ISO date of the search. */
+  date: string;
+}
 export interface LinkGroup {
   group: string;
   links: LinkItem[];
@@ -164,6 +172,8 @@ export interface PublicPlace extends PublicPlaceCard {
   facts: Fact[];
   hazards: string[];
   links: LinkGroup[];
+  /** Link kinds searched with no result, for the Links tabs. */
+  linksNone: LinkNone[];
   seasonNote: string | null;
   photos: Photo[];
   wikidata: string | null;
