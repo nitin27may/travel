@@ -184,7 +184,21 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "Stop at the Plan de l'Aiguille mid-station and walk the Grand Balcon Nord",
+          "src": "src-0004"
+        }
+      ],
       "pair_pending": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
@@ -926,7 +940,21 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 180,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Grand Balcon Nord ends at Montenvers; ride the train down to Chamonix",
+          "src": "src-0004"
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,

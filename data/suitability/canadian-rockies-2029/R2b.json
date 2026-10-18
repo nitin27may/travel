@@ -534,14 +534,14 @@
             },
             "participation": {
               "pregnancy": {
-                "v": "ask_doctor",
+                "v": "not_recommended",
                 "state": "value",
                 "basis": "operator_info",
                 "src": [
                   "src-0002"
                 ],
                 "quote": "we recommend pregnant ladies remain on land and raft with us at a future time",
-                "note": "Advice, not a rule: the operator recommends staying on land but does not bar pregnant guests. The vocabulary has no not_recommended value; ask_doctor is the nearest non-rule value (RC, 18 Oct 2026). Read the quote."
+                "note": "Advice, not a rule: the operator recommends staying on land but does not bar pregnant guests, so the value is not_recommended (added to the vocabulary in 2.33; it was ask_doctor, the nearest value, at the RC pass)."
               },
               "waiver": {
                 "v": {
