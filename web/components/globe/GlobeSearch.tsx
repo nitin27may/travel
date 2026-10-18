@@ -7,13 +7,15 @@ import { loadGazetteer, search, type GazEntry, type SearchHit } from '@/lib/glob
 import type { GlobeCard } from '@/lib/globe/types';
 
 interface Props {
+  /** A shorter prompt where the field is narrow (landscape phone). */
+  placeholder?: string;
   cards: GlobeCard[];
   book: CountryBook;
   onPick(hit: SearchHit): void;
 }
 
 /** Search a country, state, city, sea or range (components 7.2); saved places and trips come first. `/` focuses it. */
-export function GlobeSearch({ cards, book, onPick }: Props) {
+export function GlobeSearch({ cards, book, onPick, placeholder = 'Search a country, state, city, sea or range' }: Props) {
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState(0);
@@ -37,7 +39,7 @@ export function GlobeSearch({ cards, book, onPick }: Props) {
         ref={input}
         type="search"
         className="globe-search-input"
-        placeholder="Search a country, state, city, sea or range"
+        placeholder={placeholder}
         aria-label="Search the globe"
         role="combobox"
         aria-expanded={open && hits.length > 0}

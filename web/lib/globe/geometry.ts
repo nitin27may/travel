@@ -149,8 +149,77 @@ export function boxOfPoints(pts: Pt[]): Bbox | null {
  */
 export function hitRank(zoom: number, sourceLayer: string, props: { class?: unknown; rank?: unknown } = {}): number | null {
   if (sourceLayer === 'park' && zoom < 5) return null;
+  // A country or continent label must not replace the country shape, whose tooltip carries the facts.
+  if (sourceLayer === 'place' && ['country', 'continent'].includes(String(props.class))) return null;
   if (sourceLayer === 'place' && zoom < 7 && Number(props.rank ?? 9) > 4 && !['country', 'state', 'city'].includes(String(props.class))) return null;
   const far: Record<string, number> = { mountain_peak: 0, place: 0, water_name: 1, waterway: 2 };
   const near: Record<string, number> = { mountain_peak: 0, place: 1, water_name: 2, waterway: 3, park: 4 };
   return (zoom < 5 ? far : near)[sourceLayer] ?? 9;
+}
+
+// ---- antimeridian: the copy of a shape that is drawn --------------------------------------------------------------
+const POLE = 89.9;
+const wrap180 = (d: number): number => d - 360 * Math.round(d / 360);
+
+/** Inserts points so no step is wider than `max` degrees of longitude (a parallel around a pole, drawn as several short steps). */
+function subdivide(ring: Ring, max = 90): Ring {
+  const out: Ring = [ring[0]];
+  for (let i = 1; i < ring.length; i++) {
+    const [x0, y0] = ring[i - 1];
+    const [x1, y1] = ring[i];
+    const n = Math.ceil(Math.abs(x1 - x0) / max);
+    for (let k = 1; k < n; k++) out.push([x0 + ((x1 - x0) * k) / n, y0 + ((y1 - y0) * k) / n]);
+    out.push(ring[i]);
+  }
+  return out;
+}
+
+/**
+ * One ring made continuous across the antimeridian: each step moves by at most 180 degrees, so a ring that leaves at 180 and
+ * comes back at -180 carries on past 180 instead of jumping. A ring that goes round a pole cannot close that way; it keeps its
+ * points and gets short steps (its true edge is a parallel).
+ */
+function unwrapRing(ring: Ring): { ring: Ring; polar: boolean } {
+  if (ring.length < 2 || !ring.some((p, i) => i > 0 && Math.abs(p[0] - ring[i - 1][0]) > 180)) return { ring, polar: false };
+  const out: Ring = [ring[0]];
+  for (let i = 1; i < ring.length; i++) {
+    const [x0, y0] = ring[i - 1];
+    const [x1, y1] = ring[i];
+    if (Math.abs(y0) >= POLE && Math.abs(y1) >= POLE) { out.push([out[i - 1][0] + (x1 - x0), y1]); continue; }
+    out.push([out[i - 1][0] + wrap180(x1 - x0), y1]);
+  }
+  const closes = Math.abs(out[out.length - 1][0] - out[0][0]) < 1e-6;
+  return closes ? { ring: out, polar: false } : { ring: subdivide(ring), polar: true };
+}
+
+/**
+ * The geometry MapLibre draws. A polygon whose ring crosses the antimeridian is unwrapped into one continuous ring and emitted
+ * twice (as is, and shifted by 360), so the part past 180 appears on the other edge without any segment spanning the world.
+ * Hit testing keeps using the original shapes.
+ */
+export function forRender<P>(fc: FeatColl<P>): FeatColl<P> {
+  const polygon = (rings: Ring[]): Ring[][] => {
+    const un = rings.map(unwrapRing);
+    if (!un.some((r) => r.ring !== rings[un.indexOf(r)])) return [rings];
+    if (un.some((r) => r.polar)) return [un.map((r) => (r.polar ? r.ring : subdivide(r.ring)))];
+    const [ext, ...holes] = un.map((r) => r.ring);
+    const mid = (r: Ring) => r.reduce((a, p) => a + p[0], 0) / r.length;
+    const m = mid(ext);
+    const aligned = [ext, ...holes.map((h) => { const k = Math.round((m - mid(h)) / 360); return k ? h.map(([x, y]): Pt => [x + 360 * k, y]) : h; })];
+    const xs = ext.map((p) => p[0]);
+    const lo = Math.min(...xs), hi = Math.max(...xs);
+    const copies: Ring[][] = [];
+    for (const s of [-360, 0, 360]) if (hi + s > -180 && lo + s < 180) copies.push(aligned.map((r) => (s ? r.map(([x, y]): Pt => [x + s, y]) : r)));
+    return copies;
+  };
+  const convert = (g: Geom | null): Geom | null => {
+    if (!g) return g;
+    if (g.type === 'Polygon') {
+      const parts = polygon(g.coordinates as Ring[]);
+      return parts.length === 1 ? { type: 'Polygon', coordinates: parts[0] } : { type: 'MultiPolygon', coordinates: parts };
+    }
+    if (g.type === 'MultiPolygon') return { type: 'MultiPolygon', coordinates: (g.coordinates as Ring[][]).flatMap((p) => polygon(p)) };
+    return g;
+  };
+  return { ...fc, features: fc.features.map((f) => ({ ...f, geometry: convert(f.geometry) })) };
 }

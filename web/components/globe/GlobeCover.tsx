@@ -38,6 +38,15 @@ export function GlobeCover({ data, className = '', label = 'Globe of saved place
     return () => { io.disconnect(); clearTimeout(timer); if (idle) window.cancelIdleCallback(idle); };
   }, []);
 
+  // Off screen the spin loop stops altogether; it resumes when the cover scrolls back in.
+  useEffect(() => {
+    const el = host.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => { for (const e of entries) engine.current?.setActive(e.isIntersecting); });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   const pause = (on: boolean) => engine.current?.setSpin(!on, true);
 
   return (

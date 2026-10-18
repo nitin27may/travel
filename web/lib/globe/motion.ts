@@ -48,3 +48,18 @@ export function zoomForSpan(spanLon: number, spanLat: number, viewportW: number,
   const zy = Math.log2((viewportH * 170) / (512 * h));
   return Math.max(1.5, Math.min(maxZoom, Math.min(zx, zy) - 0.35));
 }
+
+/** The spin is chained one-second linear eases (MapLibre's own spinning-globe pattern), never a per-frame jump. */
+export const SPIN_EASE_MS = 1000;
+/** Quiet time before the spin resumes: after a drag or wheel, and after the pointer last moved over a shape. */
+export const SPIN_AFTER_GESTURE_MS = 2000;
+export const SPIN_AFTER_HOVER_MS = 4000;
+/** A press that moves farther than this is a drag, and its release is not a click. */
+export const CLICK_SLOP_PX = 4;
+
+/** Longitude one ease should travel: a full turn in 90 s. */
+export const spinStepDeg = (ms = SPIN_EASE_MS): number => (ms / 1000) * SPIN_DEG_PER_S;
+
+/** Whether the release of a press at `from` ending at `to` is a click. */
+export const isClick = (from: { x: number; y: number } | null, to: { x: number; y: number }, dragged: boolean): boolean =>
+  !dragged && (!from || Math.hypot(to.x - from.x, to.y - from.y) <= CLICK_SLOP_PX);

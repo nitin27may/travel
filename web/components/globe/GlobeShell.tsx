@@ -29,6 +29,8 @@ import { distanceKm } from '@/lib/map/geo';
 const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, pins: [], notice: null };
 /** Height of the phone sheet at rest (components 5.5). */
 const PEEK = 176;
+/** The control card (316 wide at left 12) keeps the disc clear when it is open. */
+const CARD_FOOT = 340;
 const strip = (p: string) => p.replace(/\/+$/, '');
 
 function useMedia(query: string, initial = false): boolean {
@@ -91,6 +93,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     /* eslint-disable react-hooks/set-state-in-effect -- one-time read of browser-only state (localStorage, theme) after mount */
     setPrefs(loadPrefs());
     setPrefsReady(true);
+    if (window.innerWidth < 1280) setCardOpen(false);
     setDark(pageIsDark());
     const mo = new MutationObserver(() => setDark(pageIsDark()));
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme', 'style'] });
@@ -155,13 +158,14 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  // Esc steps back one level (components 7.2).
+  // Esc steps back one level (components 7.2); Home resets the view.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || e.defaultPrevented) return;
+      if ((e.key !== 'Escape' && e.key !== 'Home') || e.defaultPrevented) return;
       const t = e.target as HTMLElement | null;
-      if (t?.closest('[role="dialog"]') || t?.tagName === 'INPUT') return;
-      ctrl.current?.back();
+      if (t?.closest('[role="dialog"]') || t?.tagName === 'INPUT' || t?.tagName === 'TEXTAREA') return;
+      // Esc closes the card first, then steps up a level; Home returns to the whole world.
+      if (e.key === 'Home') { e.preventDefault(); ctrl.current?.reset(); } else ctrl.current?.back();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -210,9 +214,9 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   useEffect(() => {
     layoutRef.current = () => {
       const r = root.current?.getBoundingClientRect();
-      return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 } };
+      return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: !phone && !short && cardOpen ? CARD_FOOT : 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 } };
     };
-  }, [phone, short, panelOpen, sheetOpen, panelFoot]);
+  }, [phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
   useEffect(() => {
     if (!controller || !engine) return;
     let t: ReturnType<typeof setTimeout> | undefined;
@@ -221,7 +225,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     const ro = new ResizeObserver(run);
     if (root.current) ro.observe(root.current);
     return () => { ro.disconnect(); clearTimeout(t); };
-  }, [controller, engine, phone, short, panelOpen, sheetOpen, panelFoot]);
+  }, [controller, engine, phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
 
   const canBack = snap.path.length > 0 || !!snap.selected || !!snap.feature;
   const level = snap.path.length;
@@ -257,7 +261,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />
-        {book ? <GlobeSearch cards={cardList} book={book} onPick={onPick} /> : null}
+        {book ? <GlobeSearch cards={cardList} book={book} onPick={onPick} placeholder={short ? 'Search the globe' : undefined} /> : null}
       </div>
 
       {snap.loading ? <p className="globe-status" role="status">{snap.loading}</p> : null}
@@ -290,6 +294,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       )}
 
       <div className="globe-zoom">
+        <Button size="sm" variant="secondary" icon aria-label="Reset view" title="Reset view (Home)" onClick={() => controller?.reset()}><Icon name="globe" size={16} /></Button>
         <Button size="sm" variant="secondary" icon aria-label="Zoom in" onClick={() => engine?.zoomBy(1)}><Icon name="plus" size={16} /></Button>
         <Button size="sm" variant="secondary" icon aria-label="Zoom out" onClick={() => engine?.zoomBy(-1)}><Icon name="minus" size={16} /></Button>
       </div>

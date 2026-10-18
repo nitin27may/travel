@@ -98,4 +98,8 @@ describe('hitRank (spec 4.1)', () => {
     expect(hitRank(6, 'place', { class: 'town', rank: 8 })).toBeNull();
     expect(hitRank(7.5, 'place', { class: 'town', rank: 8 })).not.toBeNull();
   });
+  it('a country label is not a target, so the country facts tooltip stays', async () => {
+    const { hitRank } = await import('@/lib/globe/geometry');
+    expect(hitRank(4, 'place', { class: 'country', rank: 1 })).toBeNull();
+  });
 });
