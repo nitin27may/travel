@@ -324,3 +324,20 @@ describe("retire, merge, verify, edit", () => {
     expect(rows(store, "data/catalog/eateries/AR.json", "eateries")[0]).toMatchObject({ review_status: "proposed", confidence: "stated", verified_by: null, last_verified: null, contributed_by: ["u_owner"] });
   });
 });
+
+describe("undo of a rejection and the row state on an edit", () => {
+  it("catalog.undo with a named change reopens a rejected change", async () => {
+    const store = newStore();
+    const p = await propose(store, SIDECARS.weak);
+    const id = p.proposal.changes[0].change_id;
+    must(await op(store, "catalog.reject", { proposal_id: p.proposal_id, change_ids: [id] }));
+    must(await op(store, "catalog.undo", { proposal_id: p.proposal_id, change_ids: [id] }));
+    expect(JSON.parse(store.text(`data/catalog/proposals/${p.proposal_id}.json`)!).changes[0].status).toBe("open");
+  });
+
+  it("an edit change carries the lifecycle of the row today", async () => {
+    const { store } = await applied();
+    const p = await propose(store, SIDECARS.update, AGENT, "2026-10-21");
+    expect(p.proposal.changes[0].current).toEqual({ review_status: "proposed", confidence: "stated", last_verified: null });
+  });
+});

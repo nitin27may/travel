@@ -201,7 +201,7 @@ export async function proposeFromSidecar(store: Store, sidecarPath: string, opts
     const change: CatalogChange = {
       change_id: addId, op: "add", entity: rec.entity, id: rec.id, area_id: row.area_id ?? null, before: null, after: row,
       fields: fields.map(fieldDoc), sources, fact_keys, auto, flags, status: "open", match: matchDoc(m),
-      duplicate_of: m.kind === "possible" ? m.id : null, excludes: [], depends_on: [], missing: miss, question: null, warnings, applied: null,
+      duplicate_of: m.kind === "possible" ? m.id : null, excludes: [], depends_on: [], missing: miss, question: null, warnings, applied: null, current: null, name: "",
       reason: auto
         ? `New ${singular(rec.entity)} from ${strong.best} source; lands as proposed, stated.`
         : `Review: ${reasons.join("; ")}.`,
@@ -224,6 +224,11 @@ export async function proposeFromSidecar(store: Store, sidecarPath: string, opts
     }
   }
 
+  for (const c of changes) {
+    if (c.entity === "offer_prices") c.name = `${c.after.amount} ${c.after.currency} ${c.after.per}, read ${c.after.read}`;
+    else if (c.op === "add") c.name = String(c.after.name ?? c.after.provider ?? c.id.split("/").pop());
+    else c.name = String(data.findRow(c.entity as Entity, c.id)?.row.name ?? c.id.split("/").pop());
+  }
   if (changes.length === 0) return { proposal: null, warnings: norm.warnings, unknownTags: norm.unknownTags, skipped };
 
   const digest = createHash("sha256").update(JSON.stringify([sidecarPath, changes.map((c) => [c.entity, c.id, c.op, c.after])])).digest("hex").slice(0, 6);
@@ -344,7 +349,8 @@ function editChange(rec: NormRecord & { entity: Entity }, row: Row, sources: Cat
   return {
     change_id: nextId(), op: "edit", entity: rec.entity, id: row.id, area_id: row.area_id ?? null, before, after,
     fields: changes.map(fieldDoc), sources, fact_keys, auto, flags: [...new Set(flags)], status: "open", match: matchDoc(m),
-    duplicate_of: null, excludes: [], depends_on: [], missing: [], question: null, warnings, applied: null,
+    duplicate_of: null, excludes: [], depends_on: [], missing: [], question: null, warnings, applied: null, name: "",
+    current: { review_status: row.review_status, confidence: row.confidence, last_verified: row.last_verified ?? null },
     reason: auto ? `Fills ${changes.filter((c) => c.kind === "fill" || c.kind === "link").map((c) => c.field).join(", ") || "provenance only"} from a ${strong.best} source.` : `Review: ${reasons.join("; ")}.`,
   };
 }
@@ -387,7 +393,7 @@ function priceChange(rec: NormRecord, sources: CatalogChange["sources"], ev: Evi
     change: {
       change_id: nextId(), op: "add", entity: "offer_prices", id: `${offerId}#${n}`, area_id: offer?.row.area_id ?? null, before: null, after: row,
       fields: Object.entries(row).filter(([, v]) => v !== null && !(Array.isArray(v) && v.length === 0)).map(([k, v]) => fieldDoc({ field: k, kind: "fill", before: null, after: v, incoming: v, evidence: ev })),
-      sources, fact_keys, auto, flags, status: "open", match: null, duplicate_of: null, excludes: [], depends_on: dep ? [dep] : [], missing: [], question, warnings, applied: null,
+      sources, fact_keys, auto, flags, status: "open", match: null, duplicate_of: null, excludes: [], depends_on: dep ? [dep] : [], missing: [], question, warnings, applied: null, current: null, name: "",
       reason: auto ? `New price snapshot (${row.amount} ${row.currency} ${row.per}, read ${row.read}); snapshots append.` : `Review: ${reasons.join("; ")}.`,
     },
   };

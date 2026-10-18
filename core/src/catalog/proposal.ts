@@ -36,6 +36,8 @@ export const catalogChange = z.strictObject({
   entity: z.enum(["trails", "activities", "stays", "eateries", "offers", "offer_prices", "legs", "area_guides"]),
   id: z.string().min(1),
   area_id: z.string().nullable(),
+  /** what to call it in the review: the row's name */
+  name: z.string(),
   /** add: null. edit: the old value of each changed field */
   before: z.record(z.string(), z.unknown()).nullable(),
   /** add: the row as research supplied it (defaults are filled when it is written). edit: the new value of each changed field */
@@ -56,6 +58,8 @@ export const catalogChange = z.strictObject({
   missing: z.array(z.string()),
   question: z.string().nullable(),
   warnings: z.array(z.string()),
+  /** edit: the lifecycle of the row today, so the review can show raw, proposed, verified or stale. add: null (it will land proposed, stated). */
+  current: z.strictObject({ review_status: z.string(), confidence: z.string(), last_verified: z.string().nullable() }).nullable(),
   applied: z.strictObject({ at: z.string(), actor: z.string(), seq: z.array(z.number().int()) }).nullable(),
 });
 

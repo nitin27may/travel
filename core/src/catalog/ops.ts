@@ -360,10 +360,15 @@ const HANDLERS: Record<string, Handler> = {
   "catalog.undo": async (s, i) => {
     const { path, proposal } = await loadProposal(s, i.proposal_id);
     const ids = i.change_ids as string[] | undefined;
-    const todo = proposal.changes.filter((c) => c.status === "applied" && (!ids || ids.includes(c.change_id))).sort((a, b) => b.change_id.localeCompare(a.change_id));
+    // a named change that was rejected is reopened; an applied one is reversed from catalog_changes
+    const todo = proposal.changes.filter((c) => (c.status === "applied" || (ids && c.status === "rejected")) && (!ids || ids.includes(c.change_id))).sort((a, b) => b.change_id.localeCompare(a.change_id));
     if (todo.length === 0) throw new OpError("E_NOOP", `proposal ${proposal.id} has no applied change${ids ? " among those named" : ""} to undo.`);
     const rows = await readChanges(s.store);
     for (const c of todo) {
+      if (c.status === "rejected") {
+        c.status = "open";
+        continue;
+      }
       for (const seq of [...(c.applied?.seq ?? [])].sort((a, b) => b - a)) {
         const entry = rows.find((r) => r.seq === seq);
         if (!entry) throw new OpError("E_NOT_FOUND", `catalog_changes row ${seq} is missing; cannot undo change ${c.change_id}.`);
