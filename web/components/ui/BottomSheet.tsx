@@ -7,10 +7,9 @@ import type { ReactNode } from 'react';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { cx } from './cx';
+import { PEEK_PX, SNAP_ORDER, snapOffset, startSnap, type Snap } from './sheetSnap';
 
-export type Snap = 'peek' | 'half' | 'full';
-const ORDER: Snap[] = ['peek', 'half', 'full'];
-const PEEK_PX = 120;
+export type { Snap };
 const TOP_GAP = 64; // the phone top bar stays visible above a full sheet
 const DISMISS_PX = 90;
 
@@ -37,8 +36,14 @@ interface Props {
  */
 export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half', 'full'], initial, modal = true, footer, children, className, peekPx = PEEK_PX }: Props) {
   const reduce = useReducedMotion();
-  const stops = useMemo(() => ORDER.filter((s) => snaps.includes(s)), [snaps]);
-  const [snap, setSnap] = useState<Snap>(initial ?? stops[stops.length - 1]);
+  const stops = useMemo(() => SNAP_ORDER.filter((s) => snaps.includes(s)), [snaps]);
+  const [snap, setSnap] = useState<Snap>(startSnap(stops, initial));
+  // Every open starts at the initial stop; a snap chosen in an earlier open is not kept (adjusted during render, not in an effect).
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) setSnap(startSnap(stops, initial));
+  }
   const [height, setHeight] = useState(640);
 
   useEffect(() => {
@@ -49,7 +54,7 @@ export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half'
     return () => window.removeEventListener('resize', set);
   }, [open]);
 
-  const offsetOf = useCallback((s: Snap) => (s === 'full' ? 0 : s === 'half' ? Math.round(height * 0.5) : Math.max(0, height - peekPx)), [height, peekPx]);
+  const offsetOf = useCallback((s: Snap) => snapOffset(s, height, peekPx), [height, peekPx]);
   const idx = stops.indexOf(snap);
   const move = (dir: 1 | -1) => setSnap(stops[Math.min(stops.length - 1, Math.max(0, idx + dir))]);
 

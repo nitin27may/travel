@@ -40,7 +40,15 @@ node "$ROOT/core/bin/sources.ts" check --root "$ROOT"
 if [[ -f "$ROOT/web/package.json" ]]; then
   for script in typecheck lint test build; do
     step "web $script"
-    pnpm --dir "$ROOT/web" "$script"
+    if [[ "$script" == build ]]; then
+      # A non-fatal "Error:" line (a CSS resolve failure, say) must not hide behind a green build (backlog 2.32).
+      log="$(mktemp)"
+      pnpm --dir "$ROOT/web" build 2>&1 | tee "$log"
+      if grep -q '^Error:' "$log"; then echo "web build printed an Error: line" >&2; rm -f "$log"; exit 1; fi
+      rm -f "$log"
+    else
+      pnpm --dir "$ROOT/web" "$script"
+    fi
   done
 fi
 

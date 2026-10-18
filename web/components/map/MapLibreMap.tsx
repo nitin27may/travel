@@ -9,6 +9,7 @@ import { pageIsDark } from '@/lib/map/palette';
 import type { CameraState, MapHandle, MapSpec } from '@/lib/map/types';
 import { Controls, Legend, Notice } from './MapChrome';
 import { OfflineMap } from './OfflineMap';
+import { PinList } from './PinList';
 
 export interface MapFamilyProps {
   spec: MapSpec;
@@ -134,20 +135,7 @@ export default function MapLibreMap({ spec, label, onSelect, onCamera, handleRef
       )}
       {!failure && spec.legend && <Legend items={spec.legend} />}
       {/* Tab cycles the pins; Enter selects. Pages also show the same stops as a visible list. */}
-      <ul className="sr-only" aria-label={`${label}: points`}>
-        {spec.pins.map((p) => (
-          <li key={p.id}>
-            <button
-              type="button"
-              onFocus={() => engine.current?.focusPin(p.id)}
-              onBlur={() => engine.current?.focusPin(null)}
-              onClick={() => onSelect?.(p.id)}
-            >
-              {p.number != null ? `${p.number}. ` : ''}{p.label ?? p.style}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <PinList pins={spec.pins} label={label} onFocusPin={(id) => engine.current?.focusPin(id)} onSelect={(id) => onSelect?.(id)} />
     </div>
   );
 }

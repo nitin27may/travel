@@ -100,6 +100,18 @@ test.describe('overlays and motion', () => {
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 
+  test('the bottom sheet reopens at its initial stop, not where it was left', async ({ page, site }) => {
+    await page.goto(`${site.url}/specimen/`);
+    await page.getByRole('button', { name: 'Open bottom sheet' }).click();
+    await page.getByRole('button', { name: 'Expand' }).click();
+    await expect(page.getByRole('button', { name: 'Expand' })).toBeDisabled();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Open bottom sheet' }).click();
+    await expect(page.getByRole('button', { name: 'Expand' })).toBeEnabled();
+    await expect(page.getByRole('button', { name: 'Collapse' })).toBeEnabled();
+  });
+
   test('a toast with Undo appears and runs its action', async ({ page, site }) => {
     await page.goto(`${site.url}/specimen/`);
     await page.getByRole('button', { name: 'Show toast with Undo' }).click();
