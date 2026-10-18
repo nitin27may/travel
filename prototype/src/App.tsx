@@ -80,7 +80,7 @@ export default function App() {
       )}
       <main className="main">
         <AnimatePresence mode="wait">
-          <motion.div key={screen} className="screen" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .14 }}>{body}</motion.div>
+          <motion.div key={screen} className={`screen scr-${screen}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .14 }}>{body}</motion.div>
         </AnimatePresence>
       </main>
       {phone && (

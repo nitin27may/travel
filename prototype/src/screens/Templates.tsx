@@ -7,6 +7,7 @@ import { sunFor } from "../../../core/src/sun/index.ts";
 import { useStore } from "../state/store";
 import { Avatar } from "../ui/bits";
 import { Icon } from "../ui/Icon";
+import "./home.css";
 import "./templates.css";
 
 type Pri = "must" | "should" | "nice";

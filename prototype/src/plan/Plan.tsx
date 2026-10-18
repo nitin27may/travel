@@ -1,7 +1,7 @@
 // The Plan screen: outline · plan document · live map (desktop), or day pager + map sheet (phone).
 // Drag state is kept locally while dragging so legs, totals and the map preview update before the drop.
 import {
-  DndContext, DragOverlay, KeyboardSensor, PointerSensor, TouchSensor, closestCorners, useSensor, useSensors,
+  DndContext, DragOverlay, KeyboardSensor, PointerSensor, TouchSensor, closestCorners, pointerWithin, useSensor, useSensors, type CollisionDetection,
   type DragEndEvent, type DragOverEvent, type DragStartEvent, type Announcements,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
@@ -21,6 +21,8 @@ import { PlacePanel } from "./PlacePanel";
 import { BottomSheet } from "../ui/BottomSheet";
 
 type Containers = Record<string, string[]>;
+// what is under the pointer wins (small outline rows); otherwise the nearest container by corners
+const collide: CollisionDetection = args => { const hit = pointerWithin(args); return hit.length ? hit : closestCorners(args); };
 const toTarget = (key: string): Target => key.startsWith("day:") ? { day: Number(key.slice(4)) } : { list: key.slice(5) };
 
 export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "light" | "dark"; phone: boolean; onOpenPlace: (p: Place) => void; onShare: () => void }) {
@@ -36,6 +38,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
   const [addHere, setAddHere] = useState<{ lng: number; lat: number; x: number; y: number } | null>(null);
   const [collapsed, setCollapsed] = useState<Record<number, boolean>>({});
   const [fit, setFit] = useState(0);
+  const [shelfOpen, setShelfOpen] = useState(false);
   const docRef = useRef<HTMLDivElement>(null);
   const scrolling = useRef(0);
   useEffect(() => { if (!activeId) setContainers(fromStore(s.trip)); }, [s.trip, activeId, fromStore]);
@@ -135,6 +138,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
     scrolling.current = Date.now();
     el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
     if (id.startsWith("day-")) focus(Number(id.slice(4)));
+    if (id === "shelf") setShelfOpen(true);
   };
   useEffect(() => {
     const root = docRef.current; if (!root || phone) return;
@@ -201,7 +205,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
   if (phone) {
     const n = s.focusDay ?? 1;
     return (
-      <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={onStart} onDragOver={onOver} onDragEnd={onEnd} onDragCancel={() => setActiveId(undefined)} accessibility={{ announcements }}>
+      <DndContext sensors={sensors} collisionDetection={collide} onDragStart={onStart} onDragOver={onOver} onDragEnd={onEnd} onDragCancel={() => setActiveId(undefined)} accessibility={{ announcements }}>
         <div className="phone-plan">
           <div className="daystrip" role="tablist" aria-label="Days">
             {plans.map(p => (
@@ -229,7 +233,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
   const booked = s.trip.reservations.filter(r => r.status === "booked").length;
   const next = s.trip.reservations.find(r => r.id === "r-auronzo");
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={onStart} onDragOver={onOver} onDragEnd={onEnd} onDragCancel={() => setActiveId(undefined)} accessibility={{ announcements }}>
+    <DndContext sensors={sensors} collisionDetection={collide} onDragStart={onStart} onDragOver={onOver} onDragEnd={onEnd} onDragCancel={() => setActiveId(undefined)} accessibility={{ announcements }}>
       <div className="plan">
         <Outline plans={plans} lists={containers} onJump={jump} />
         <div className="doc" ref={docRef}>
@@ -250,7 +254,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
               <span className="muted small num">{booked} of {s.trip.reservations.length} booked</span>
             </div>
           </header>
-          {s.trip.lists.map(l => <ListSection key={l.id} listId={l.id} ids={containers[`list:${l.id}`] ?? []} activeId={activeId} />)}
+          <Shelf open={shelfOpen || !!activeId} onToggle={() => setShelfOpen(o => !o)} containers={containers} activeId={activeId} />
           {plans.map(p => <DaySection key={p.n} plan={p} ids={containers[`day:${p.n}`] ?? []} activeId={activeId} collapsed={collapsed[p.n]} onToggle={() => setCollapsed(c => ({ ...c, [p.n]: !c[p.n] }))} />)}
           <div className="doc-end muted">End of the plan · Budget, tasks and bookings are in their own views.</div>
         </div>
@@ -258,5 +262,26 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
       </div>
       {overlay}
     </DndContext>
+  );
+}
+
+/** lists live on a shelf above the days: collapsed it shows what is waiting; it opens while you drag */
+function Shelf({ open, onToggle, containers, activeId }: { open: boolean; onToggle: () => void; containers: Containers; activeId?: string }) {
+  const { s, place } = useStore();
+  const all = s.trip.lists.flatMap(l => (containers[`list:${l.id}`] ?? []).map(id => ({ l, id })));
+  return (
+    <section className="shelf" id="shelf">
+      <div className="shelf-head">
+        <button className="shelf-toggle" onClick={onToggle} aria-expanded={open}><Icon name={open ? "down" : "chevron"} /><span className="sign">Ideas and lists</span><span className="num muted">{all.length}</span></button>
+        {!open && <div className="shelf-peek">{all.slice(0, 6).map(({ id }) => <span key={id} className="chip">{place(s.trip.items[id]?.placeId)?.name}</span>)}{all.length > 6 && <span className="chip">+{all.length - 6}</span>}</div>}
+      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div className="shelf-body" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .22 }}>
+            {s.trip.lists.map(l => <ListSection key={l.id} listId={l.id} ids={containers[`list:${l.id}`] ?? []} activeId={activeId} />)}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
   );
 }
