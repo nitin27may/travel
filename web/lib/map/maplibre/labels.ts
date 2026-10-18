@@ -1,0 +1,16 @@
+import type { MapSpec } from '../types';
+
+type Flag = NonNullable<MapSpec['hideBasemapLabels']>[number];
+
+// OpenFreeMap names the place layers `label_*` (liberty, positron) and `place_*` (dark); both are matched.
+const RULES: Record<Flag, RegExp> = {
+  towns: /^(label|place)_(town|city)/,
+  regions: /^(label|place)_state$/,
+  countries: /^(label|place)_country/,
+};
+
+/** True when a symbol layer is a basemap place name the page asked to hide (spec.hideBasemapLabels). */
+export function hideBasemapLabel(layerId: string, sourceLayer: string, flags: MapSpec['hideBasemapLabels']): boolean {
+  if (!flags?.length || sourceLayer !== 'place') return false;
+  return flags.some((f) => RULES[f].test(layerId));
+}
