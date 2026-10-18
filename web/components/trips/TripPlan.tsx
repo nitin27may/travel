@@ -11,10 +11,11 @@ import { CategoryView } from './CategoryView';
 import { DayRow } from './DayRow';
 import { DEPTH_NOTICE } from './format';
 import type { TripPageModel } from './model';
-import { dayFitIds, TripRouteMap } from './TripRouteMap';
+import { dayFitIds, RouteKey, TripRouteMap } from './TripRouteMap';
 import { useTripUrl } from './useTripUrl';
 
 interface Props {
+  slug: string;
   model: TripPageModel;
   title: string;
   depth: 'full' | 'summary';
@@ -27,7 +28,7 @@ const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefe
  * The route map and "In this trip": the category strip, the By day / By category segment, the uniform day rows.
  * A picked day highlights on the map; By category regroups the same items and never changes the order inside a day.
  */
-export function TripPlan({ model, title, depth, legacyUrl }: Props) {
+export function TripPlan({ slug, model, title, depth, legacyUrl }: Props) {
   const url = useTripUrl();
   const showCategory = url.view === 'category';
   const [open, setOpen] = useState<ReadonlySet<number>>(new Set());
@@ -119,6 +120,7 @@ export function TripPlan({ model, title, depth, legacyUrl }: Props) {
         <MapFamilyProvider family="maplibre">
           <TripRouteMap ref={map} route={model.route} picked={picked} title={title} />
         </MapFamilyProvider>
+        <RouteKey />
       </section>
 
       <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip" ref={top}>
@@ -151,7 +153,7 @@ export function TripPlan({ model, title, depth, legacyUrl }: Props) {
         ) : (
           <ol className="day-list">
             {model.days.map((d) => (
-              <DayRow key={d.n} day={d} open={open.has(d.n)} picked={picked === d.n} onToggle={toggle} />
+              <DayRow key={d.n} trip={{ slug, title }} day={d} open={open.has(d.n)} picked={picked === d.n} onToggle={toggle} />
             ))}
           </ol>
         )}

@@ -26,6 +26,8 @@ export interface MapSpec {
   style?: 'relief' | 'light' | 'dark' | 'auto';
   interactive?: boolean;
   legend?: LegendItem[];
+  /** Hide the basemap's own town and city names, or country names, where the page's pins and labels sit on them and would collide. */
+  hideBasemapLabels?: ('towns' | 'regions' | 'countries')[];
 }
 export type FlyTarget = LngLat | { bounds: [LngLat, LngLat] };
 export interface MapHandle {

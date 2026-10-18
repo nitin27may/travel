@@ -30,7 +30,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
         <div className="trip-cover-scrim" aria-hidden="true" />
         <div className="trip-cover-text">
           <p className="trip-kicker">
-            {trip.depth === 'overview' ? 'Overview' : 'Published plan'} &middot; {trip.region}
+            {trip.depth === 'overview' ? 'Overview' : trip.isDone ? 'Done trip' : 'Published plan'} &middot; {trip.region}
           </p>
           <h1 className="trip-title">{trip.title}</h1>
           <p className="trip-standfirst">{trip.subtitle}</p>
@@ -45,6 +45,11 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
                 <Chip kind="neutral" icon="user">Ages {trip.ageFit}+</Chip>
               </li>
             ) : null}
+            {trip.isDone ? (
+              <li>
+                <Chip kind="neutral" icon="check" title="This trip has been taken. The plan stays as it was; copy it to plan your own.">Done, kept as a template</Chip>
+              </li>
+            ) : null}
             <li>
               <Chip kind="neutral" icon={false}>by Nitin</Chip>
             </li>
@@ -54,7 +59,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
               </li>
             ))}
           </ul>
-          <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} />
+          <TripActions slug={trip.slug} title={trip.title} nights={trip.nights ?? 0} days={trip.daysCount ?? 0} url={url} hasDays={trip.depth !== 'overview'} seasonMonths={trip.season?.months} done={trip.isDone} />
         </div>
       </div>
       <dl className="trip-glance">

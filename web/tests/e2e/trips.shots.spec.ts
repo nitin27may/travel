@@ -20,6 +20,7 @@ test.describe('trips screenshots', () => {
     ['dolomites-category', '/trips/dolomites-2027/?view=category#trails', { fullPage: true, tile: true }],
     ['rockies-day5', '/trips/canadian-rockies-2029/#day-5', { fullPage: true, tile: true }],
     ['patagonia', '/trips/patagonia-2027/', { fullPage: true, tile: true }],
+    ['vermont-done', '/trips/vermont-fall-2026/', { fullPage: true, tile: true }],
     ['switzerland', '/trips/switzerland-2027/', { fullPage: true, tile: true }],
   ];
   for (const [name, url, opts] of pages) {

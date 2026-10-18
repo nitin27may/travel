@@ -34,6 +34,7 @@ export function TripsMap({ rows }: { rows: TripListRow[] }) {
       pins: pinned.map((r) => ({ id: r.slug, at: { lng: r.lon as number, lat: r.lat as number }, style: 'trip', label: r.title })),
       lines: [],
       fit: 'all',
+      hideBasemapLabels: ['countries', 'towns'],
       camera,
       selectedId: selected ?? undefined,
       legend: LEGEND,

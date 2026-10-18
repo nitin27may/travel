@@ -75,3 +75,18 @@ test.describe('trip page', () => {
     expect(res?.status()).toBe(404);
   });
 });
+
+test.describe('trip page extras', () => {
+  test('a done trip is read-only and offers "Use as a template"', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/vermont-fall-2026/`);
+    await expect(page.getByRole('button', { name: 'Use as a template' }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Copy to my trips' })).toHaveCount(0);
+    await expect(page.getByText('the plan is read-only')).toBeVisible();
+  });
+  test('an open day offers a link to itself and every row has its anchor', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/dolomites-2027/#day-3`);
+    await expect(page.locator('#day-3')).toBeVisible();
+    await expect(page.locator('#day-3').getByRole('button', { name: 'Copy link to day 3' })).toBeVisible();
+    expect(await page.locator('.day-row[id^="day-"]').count()).toBeGreaterThan(10);
+  });
+});

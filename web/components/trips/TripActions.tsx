@@ -18,6 +18,8 @@ interface Props {
   hasDays: boolean;
   /** Months (1 to 12) the plan is valid for; becomes the copy sheet's valid window. */
   seasonMonths?: number[];
+  /** The trip already happened: the page is read-only and the primary action reads "Use as a template". */
+  done?: boolean;
   className?: string;
 }
 
@@ -48,8 +50,7 @@ export function seasonWindow(months: number[] | undefined): { from: string; to: 
   return { from: `${mm(start)}-01`, to: `${mm(end)}-${last}` };
 }
 
-// TODO: per-day share links with L5's CopyDayLink / shareUrl(trip, day) once they are on this branch; ShareButton stays until then.
-export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, className }: Props) {
+export function TripActions({ slug, title, nights, days, url, hasDays, seasonMonths, done, className }: Props) {
   const [copying, setCopying] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
   return (
@@ -59,7 +60,7 @@ export function TripActions({ slug, title, nights, days, url, hasDays, seasonMon
             setSheetEver(true);
             setCopying(true);
           }}>
-          <Icon name="layers" size={15} /> Copy to my trips
+          <Icon name="layers" size={15} /> {done ? 'Use as a template' : 'Copy to my trips'}
         </Button>
       ) : null}
       <ExportMenu target={{ type: 'trip', slug }} formats={hasDays ? FORMATS : ['pdf']} />
