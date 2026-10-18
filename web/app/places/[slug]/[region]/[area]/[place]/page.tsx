@@ -12,17 +12,19 @@ import { pageMetadata } from '@/lib/site';
 
 export const dynamicParams = false;
 
-type Params = { cc: string; region: string; area: string; place: string };
+// The first segment is named `slug`, not `cc`, because /places/[slug] (the new public place route, lane L0) shares that
+// position and Next allows one dynamic name per level. Lane L4 deletes this legacy four-segment route and redirects it.
+type Params = { slug: string; region: string; area: string; place: string };
 
 export function generateStaticParams(): Params[] {
   return loadPlaces().map((p) => {
-    const [cc, region, area, place] = placeSegments(p.id);
-    return { cc, region, area, place };
+    const [slug, region, area, place] = placeSegments(p.id);
+    return { slug, region, area, place };
   });
 }
 
 function find(params: Params) {
-  const id = [params.cc, params.region, params.area, params.place].map(decodeURIComponent).join('/');
+  const id = [params.slug, params.region, params.area, params.place].map(decodeURIComponent).join('/');
   return loadPlaces().find((p) => p.id === id);
 }
 
