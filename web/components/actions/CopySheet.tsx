@@ -49,8 +49,8 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   const phone = usePhone();
   const { toast } = useToast();
   const [start, setStart] = useState<string | null>(null);
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState<number[]>([]);
+  const [adults, setAdults] = useState<number | null>(null);
+  const [children, setChildren] = useState<(number | null)[]>([]);
   const [step, setStep] = useState<'form' | 'done'>('form');
   const [data, setData] = useState<TripExport | null>(null);
   const [held, setHeld] = useState(true);
@@ -71,6 +71,8 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   const check = useMemo(() => (start ? checkWindow(trip.window, start, length) : null), [start, trip.window, length]);
   const hasCalendar = data ? data.depth !== 'overview' && data.days.length > 0 : true;
 
+  const ready = !!start && adults !== null && children.every((a) => a !== null);
+
   const reset = () => {
     setStep('form');
   };
@@ -90,8 +92,8 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   };
 
   const copy = () => {
-    if (!start) return;
-    setHeld(saveDraft({ slug: trip.slug, start, adults, children }));
+    if (!start || adults === null || !children.every((a) => a !== null)) return;
+    setHeld(saveDraft({ slug: trip.slug, start, adults, children: children as number[] }));
     setStep('done');
     toast({
       message: `Copied ${trip.title} · ${trip.days} days from ${formatDate(start, false)}`,
@@ -129,16 +131,15 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
         <section className="copy-step trav" aria-labelledby="copy-who">
           <h3 id="copy-who">Who is going</h3>
           <div className="trav-row">
-            <span className="trav-name" id="trav-adults">Adults</span>
-            <span className="trav-step" role="group" aria-labelledby="trav-adults">
-              <Button size="sm" icon aria-label="Fewer adults" disabled={adults <= 1} onClick={() => setAdults(adults - 1)}>
-                <Icon name="minus" size={14} />
-              </Button>
-              <span className="trav-n" aria-live="polite">{adults}</span>
-              <Button size="sm" icon aria-label="More adults" disabled={adults >= 10} onClick={() => setAdults(adults + 1)}>
-                <Icon name="plus" size={14} />
-              </Button>
-            </span>
+            <label className="trav-name" htmlFor="trav-adults">Adults</label>
+            <select id="trav-adults" className="trav-select" value={adults ?? ''} onChange={(e) => setAdults(e.target.value ? +e.target.value : null)}>
+              <option value="">Choose</option>
+              {Array.from({ length: 10 }, (_, i) => (
+                <option key={i} value={i + 1}>
+                  {i + 1}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="trav-row">
             <span className="trav-name" id="trav-kids">Children</span>
@@ -147,7 +148,7 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
                 <Icon name="minus" size={14} />
               </Button>
               <span className="trav-n" aria-live="polite">{children.length}</span>
-              <Button size="sm" icon aria-label="More children" disabled={children.length >= 8} onClick={() => setChildren([...children, 8])}>
+              <Button size="sm" icon aria-label="More children" disabled={children.length >= 8} onClick={() => setChildren([...children, null])}>
                 <Icon name="plus" size={14} />
               </Button>
             </span>
@@ -155,7 +156,8 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
           {children.map((age, i) => (
             <div className="trav-child" key={i}>
               <label htmlFor={`child-age-${i}`}>Child {i + 1} age</label>
-              <select id={`child-age-${i}`} value={age} onChange={(e) => setChildren(children.map((a, j) => (j === i ? +e.target.value : a)))}>
+              <select id={`child-age-${i}`} value={age ?? ''} onChange={(e) => setChildren(children.map((a, j) => (j === i ? (e.target.value === '' ? null : +e.target.value) : a)))}>
+                <option value="">Choose age</option>
                 {Array.from({ length: 18 }, (_, a) => (
                   <option key={a} value={a}>
                     {a === 0 ? 'Under 1' : a}
@@ -176,7 +178,7 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
             : 'This browser would not keep the copy. Sign in to keep it, or export the files below before you leave.'}
         </Banner>
         <p>
-          {trip.title}, {trip.days} days from {start ? formatDate(start) : ''}, {adults} adult{adults === 1 ? '' : 's'}
+          {trip.title}, {trip.days} days from {start ? formatDate(start) : ''}, {adults ?? 0} adult{adults === 1 ? '' : 's'}
           {children.length ? ` and ${children.length} child${children.length === 1 ? '' : 'ren'}` : ''}.
         </p>
         <ExportList start={start} trip={trip} data={data} hasCalendar={hasCalendar} onRun={run} />
@@ -186,7 +188,7 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   const footer =
     step === 'form' ? (
       <>
-        <Button variant="primary" disabled={!start} onClick={copy}>
+        <Button variant="primary" disabled={!ready} onClick={copy} title={ready ? undefined : 'Pick a start date, the number of adults and each child’s age'}>
           Copy to my trips
         </Button>
         <ButtonLink variant="ghost" href="/sign-in/">

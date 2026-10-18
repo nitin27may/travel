@@ -2,6 +2,7 @@ import { getPlace, getTrip, placeSlugs, tripSlugs } from '@/lib/public';
 import type { PublicPlace, PublicTrip } from '@/lib/public';
 import { absoluteUrl } from '@/lib/site';
 import { checkPoint, lineExportable } from './licence';
+import { zoneByName, zoneNear } from './tz';
 import type { ExportLine, ExportStop, ExportWaypoint, PlaceExport, TripExport } from './types';
 
 // Server-side only: turns what the data adapter returns into the plain model the browser generators use.
@@ -17,6 +18,11 @@ const lineOf = (l: PublicPlace['lines'][number]): ExportLine => ({
 
 const placeUrl = (slug: string) => absoluteUrl(`/places/${slug}/`);
 export const tripUrl = (slug: string) => absoluteUrl(`/trips/${slug}/`);
+
+function tripZone(trip: PublicTrip): string | null {
+  const pin = trip.bases.find((x) => x.point)?.point;
+  return (pin ? zoneNear(pin.lat, pin.lon) : null) ?? zoneByName(`${trip.region} ${trip.title} ${trip.bases.map((b) => b.name).join(' ')}`);
+}
 
 export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => PublicPlace | null = getPlace): TripExport {
   let skipped = 0;
@@ -89,7 +95,7 @@ export function buildTripExport(trip: PublicTrip, lookup: (slug: string) => Publ
     stops,
     waypoints,
     lines,
-    tz,
+    tz: tz ?? tripZone(trip),
     seasonLabel: trip.season?.label ?? null,
     skipped,
   };

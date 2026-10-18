@@ -1,4 +1,5 @@
 import { addDays, compact, pad, parseIso } from './dates';
+import { knownZone, vtimezone } from './tz';
 import type { TripExport } from './types';
 
 // RFC 5545. Only a dated copy has an ICS: the public trip is dateless, so `buildIcs` needs the copy's start date and
@@ -6,7 +7,7 @@ import type { TripExport } from './types';
 
 const CRLF = '\r\n';
 
-export const icsText = (s: string): string => s.replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+export const icsText = (s: string): string => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
 
 /** Folds a content line at 75 octets, continuing with a single space (RFC 5545 3.1). Never splits a UTF-8 character. */
 export function fold(line: string): string {
@@ -58,6 +59,8 @@ export function buildIcs(trip: TripExport, startDate: string, now: Date = new Da
     'CALSCALE:GREGORIAN',
     `X-WR-CALNAME:${icsText(trip.title)}`,
   ];
+  const zone = knownZone(trip.tz) ? trip.tz : null; // an unknown zone is written as floating local time, never as a dangling TZID
+  if (zone && trip.stops.some((s) => s.time)) L.push(...vtimezone(zone));
   const dtstamp = `DTSTAMP:${stamp(now)}`;
   for (const day of trip.days) {
     const date = addDays(startDate, day.n - 1);
@@ -79,7 +82,7 @@ export function buildIcs(trip: TripExport, startDate: string, now: Date = new Da
       'TRANSP:TRANSPARENT',
       'END:VEVENT',
     );
-    const tzid = trip.tz ? `;TZID=${trip.tz}` : '';
+    const tzid = zone ? `;TZID=${zone}` : '';
     for (const s of stops.filter((x) => x.time)) {
       L.push(
         'BEGIN:VEVENT',

@@ -1,4 +1,4 @@
-import { attributionFor, checkPoint, lineExportable } from './licence';
+import { approxNote, attributionFor, checkPoint, lineExportable } from './licence';
 import type { ExportLine, ExportWaypoint } from './types';
 import { coord, x } from './xml';
 
@@ -36,8 +36,7 @@ export function buildGpx(src: GpxSource): { xml: string; points: number; skipped
     `<!-- ${skipped} point${skipped === 1 ? '' : 's'} left out: source not ours to give -->`,
   ];
   for (const w of okWpts) {
-    const approx = checkPoint(w.point);
-    const note = [w.note, approx.ok && approx.approximate ? 'Approximate position, not surveyed' : null].filter(Boolean).join('. ');
+    const note = [w.note, approxNote(w.point)].filter(Boolean).join('. ');
     out.push(
       `<wpt lat="${coord(w.point.lat)}" lon="${coord(w.point.lon)}">`,
       `<name>${x(w.name)}</name>`,

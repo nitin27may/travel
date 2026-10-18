@@ -1,5 +1,5 @@
 import type { GpxSource } from './gpx';
-import { attributionFor, checkPoint, lineExportable } from './licence';
+import { approxNote, attributionFor, checkPoint, lineExportable } from './licence';
 import { coord, x } from './xml';
 
 // KML 2.2 for Google Earth and My Maps: one folder per day, then one for places without a day. Same guard as GPX.
@@ -24,7 +24,7 @@ export function buildKml(src: GpxSource): { xml: string; points: number; skipped
       out.push(
         '<Placemark>',
         `<name>${x(w.name)}</name>`,
-        `<description>${x([w.kind, w.note, w.url].filter(Boolean).join(' · '))}</description>`,
+        `<description>${x([w.kind, w.note, w.url, approxNote(w.point)].filter(Boolean).join(' · '))}</description>`,
         `<Point><coordinates>${coord(w.point.lon)},${coord(w.point.lat)},0</coordinates></Point>`,
         '</Placemark>',
       );
