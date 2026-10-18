@@ -8,8 +8,8 @@ import { Icon } from '@/components/ui/Icon';
 import { useToast } from '@/components/ui/Toast';
 
 /**
- * "Save to a trip" for a visitor: the public site has no account, so the button opens a notice with Copy link and
- * the GPX export (patterns 3.6). Signed-in behaviour (the trip switcher) arrives with the planner.
+ * "Save to a trip" for a visitor: the public site has no account, so the button opens a plain note that saving comes with
+ * the planner, with Copy link and the GPX export as the things that work today (patterns 3.6, backlog 2.13).
  */
 export function SaveToTrip({ url, slug, formats }: { url: string; slug: string; formats: ExportFormat[] }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +30,7 @@ export function SaveToTrip({ url, slug, formats }: { url: string; slug: string; 
       </Button>
       {open ? (
         <div id={id} className="pl-save-note" role="status">
-          <p>Sign in to add this to a trip.</p>
+          <p>Saving to a trip comes with the planner, which is not open yet. For now, copy the link or take the GPX.</p>
           <p className="pl-save-actions">
             <Button size="sm" onClick={copy}>
               <Icon name="copy" size={13} /> Copy link

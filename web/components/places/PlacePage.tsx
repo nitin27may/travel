@@ -274,7 +274,7 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
         <header className="pl-cover" data-trail={trail || undefined}>
           <div className="pl-cover-media">
             {photos[0] ? (
-              <EntityImage src={photos[0].url} width={1600} fallbackIcon={kindIcon(place.kind)} />
+              <EntityImage src={photos[0].url} width={1600} height={900} priority fallbackIcon={kindIcon(place.kind)} />
             ) : (
               <span className="pl-cover-glyph" aria-hidden="true">
                 <Icon name={kindIcon(place.kind)} size={120} />
