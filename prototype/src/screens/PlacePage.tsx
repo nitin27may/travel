@@ -9,6 +9,8 @@ import { useStore } from "../state/store";
 import { Avatar } from "../ui/bits";
 import { Icon } from "../ui/Icon";
 import { KindGlyph, KIND_LABEL } from "../plan/ItemCard";
+import { TRAILS, useTrail } from "../data/trails";
+import { RouteState, TrailFacts, TrailHazards, TrailLinks } from "./TrailPanels";
 import "./placepage.css";
 
 // Explore hands a place over through this slot; the page reads it once on mount.
@@ -110,6 +112,8 @@ export function PlacePage({ place: fromProps, go, phone }: ScreenProps) {
   const [mine, setMine] = useState<{ field: string; value: string; source: string }[]>([]);
   const [form, setForm] = useState({ field: "Parking", value: "", source: "" });
   const [added, setAdded] = useState<string>();
+  const isTrail = !!TRAILS[p.id] || p.kind === "trail";
+  const trail = useTrail(p.id);
   const th = TRAILHEAD[p.id];
   const lots = PARKING[p.id];
   const youngest = Math.min(...s.trip.travellers.map(t => t.age ?? 99));
@@ -159,7 +163,8 @@ export function PlacePage({ place: fromProps, go, phone }: ScreenProps) {
         <div className={`pp-grid ${phone ? "one" : ""}`}>
           <div className="pp-col">
             {(p.km || p.kind === "trail") && <section className="panelbox"><h2 className="pp-h">Elevation</h2><Profile p={p} start={th?.elev ?? 1500} /></section>}
-            <section className="panelbox">
+            {isTrail && <><RouteState rec={trail} /><TrailFacts id={p.id} /></>}
+            {!isTrail && <section className="panelbox">
               <h2 className="pp-h">Trailhead and parking</h2>
               {th ? <div className="pp-th"><Icon name="flag" /><div><b>{th.name}</b> <span className="num muted">{th.elev} m</span><div className="muted small">{th.access}</div></div></div>
                 : <div className="pp-gap"><Icon name="alert" size={14} />Trailhead not researched yet. <button className="btn ghost small">Request research</button></div>}
@@ -177,7 +182,7 @@ export function PlacePage({ place: fromProps, go, phone }: ScreenProps) {
                 </article>
               ))}
               {!lots && !p.parking && <div className="pp-gap"><Icon name="alert" size={14} />No parking information yet.</div>}
-            </section>
+            </section>}
             <section className="panelbox">
               <h2 className="pp-h">Facts and sources</h2>
               <table className="pp-ev">
@@ -210,6 +215,7 @@ export function PlacePage({ place: fromProps, go, phone }: ScreenProps) {
                 <div key={t.id} className="fitrow"><Avatar initials={t.initials} tone={no ? "crit" : "ok"} /><span>{t.name}{t.age ? <span className="muted num"> {t.age}</span> : null}</span><span className={no ? "crit-text" : "ok-text"}>{no ? `needs ${p.minAge}+` : "fits"}</span></div>); })}
               {p.minAge && youngest < p.minAge ? <p className="muted small">Split the day: give {s.trip.travellers.find(t => t.age === youngest)?.name} the family track.</p> : null}
             </section>
+            {isTrail ? <><TrailHazards id={p.id} /><TrailLinks id={p.id} /></> : <>
             {(p.booking || p.parking) && <section className="panelbox"><h2 className="pp-h">Permits and booking</h2><p className="pp-p">{p.booking ?? "Parking rules apply; see above."}</p></section>}
             <section className="panelbox"><h2 className="pp-h">Hazards</h2>
               {(HAZARDS[p.id] ?? ["Mountain weather changes fast; afternoon storms in July"]).map(h => <div key={h} className="pp-haz"><Icon name="alert" size={14} />{h}</div>)}</section>
@@ -220,7 +226,7 @@ export function PlacePage({ place: fromProps, go, phone }: ScreenProps) {
                   <ul className="links">{LINKS_EXTRA(p).filter(l => g.kinds.includes(l.kind)).map(l => <li key={l.kind}><a href={l.url} target="_blank" rel="noreferrer"><Icon name="link" size={13} />{l.label}</a>{l.linkOnly && <span className="chip">link only</span>}</li>)}</ul></div>
               ))}
               <p className="muted small">Link check: last run Oct 2026, all reachable.</p>
-            </section>
+            </section></>}
             <section className="panelbox"><h2 className="pp-h">Nearby and alternatives</h2>
               {nearby.map(({ x, d }) => <button key={x.id} className="addbox-row" onClick={() => { openPlacePage(x); go("explore"); setTimeout(() => go("place"), 0); }}><span className="glyph"><KindGlyph kind={x.kind} /></span><span className="addbox-name">{x.name}<small className="muted"> {KIND_LABEL[x.kind]}</small></span><span className="num muted">{d.toFixed(1)} km</span></button>)}
             </section>
