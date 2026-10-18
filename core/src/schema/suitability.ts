@@ -304,6 +304,15 @@ export const ext = z.discriminatedUnion("kind", [
     peak_months: val(z.array(int.min(1).max(12))).optional(),
   }),
   z.strictObject({
+    kind: z.literal("area"),
+    /** the pass, permit or timed entry the area needs */
+    pass: val(z.enum(["none", "pass", "permit", "timed_entry"])).optional(),
+    access_road: val(z.enum(["paved", "gravel", "mixed", "four_wd"])).optional(),
+    stay_on_site: val(z.array(z.enum(["camping", "lodge", "hut", "none"]))).optional(),
+    /** refs of the trail records inside the area; they carry the effort */
+    child_trails: val(z.array(z.string().min(1))).optional(),
+  }),
+  z.strictObject({
     kind: z.literal("drive"),
     vehicle_limits: val(z.strictObject({
       max_length_m: z.number().min(0).optional(),

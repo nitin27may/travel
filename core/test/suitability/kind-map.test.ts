@@ -62,11 +62,14 @@ describe("kind-map.json", () => {
 });
 
 describe("counts are preserved", () => {
-  it("284 records become 285: the one extra is the Lagazuoi walk", () => {
-    expect(all()).toHaveLength(285);
+  it("284 records become 289: the five extras are the Lagazuoi tunnels and the four lake walks", () => {
+    expect(all()).toHaveLength(289);
     const before = new Set(map.entries.map((e) => e.ref));
     const extra = all().filter((r) => !before.has(r.ref));
-    expect(extra.map((r) => r.ref)).toEqual(["part/place/lagazuoi-cable-car-and-tunnels#tunnels"]);
+    expect(extra.map((r) => r.ref).sort()).toEqual([
+      "part/place/lago-di-braies#walk", "part/place/lago-di-dobbiaco#walk", "part/place/lago-di-limides#walk", "part/place/lago-federa#walk",
+      "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+    ].sort());
     for (const ref of before) expect(all().some((r) => r.ref === ref), ref).toBe(true);
   });
   it("the 207 in-scope refs, their per-trip counts and the 77 off-plan rows are unchanged", () => {
@@ -75,7 +78,7 @@ describe("counts are preserved", () => {
     for (const trip of m.reports.map((r) => r.trip)) expect(missingCoverage(REPO, trip), trip).toEqual([]);
   });
   it("every record keeps one ref, once", () => {
-    expect(new Set(all().map((r) => r.ref)).size).toBe(285);
+    expect(new Set(all().map((r) => r.ref)).size).toBe(289);
   });
 });
 
@@ -107,18 +110,32 @@ describe("every record has a subkind of the vocabulary and a profile", () => {
     expect(new RefResolver(REPO).why("part/place/lagazuoi-cable-car-and-tunnels#tunnels")).toBeNull();
     expect(new RefResolver(REPO).why("part/place/no-such-place#x")).not.toBeNull();
     expect(new RefResolver(REPO).why("part/place/lagazuoi-cable-car-and-tunnels")).toContain("part/<parent ref>#<slug>");
+    expect(new RefResolver(REPO).why("part/place/lagazuoi-cable-car-and-tunnels#")).toContain("slug is not empty");
+    expect(new RefResolver(REPO).why("part/place/lagazuoi-cable-car-and-tunnels# ")).toContain("slug is not empty");
   });
 });
 
 describe("M1: subkinds assigned by rule", () => {
-  it("trails become hike, towns town, viewpoints viewpoint, lakes lake", () => {
+  it("trails become hike, or walk when the data is short and flat; towns town; the rest by name", () => {
     const by = (kind: string) => map.entries.filter((e) => e.from.kind === kind && e.from.subkind === null);
     expect(by("trail")).toHaveLength(104);
-    for (const e of by("trail")) expect(`${e.kind}/${e.subkind}`).toBe("trail/hike");
-    expect(by("town")).toHaveLength(26);
-    for (const e of by("town")) expect(`${e.kind}/${e.subkind}`).toBe("town/town");
-    expect(by("viewpoint")).toHaveLength(22);
-    for (const e of by("viewpoint")) expect(`${e.kind}/${e.subkind}`).toBe("viewpoint/viewpoint");
+    for (const e of by("trail")) expect(["trail/hike", "trail/walk"]).toContain(`${e.kind}/${e.subkind}`);
+    expect(by("town").filter((e) => e.subkind === "town")).toHaveLength(25); // Akureyri botanical garden is an attraction
+  });
+  it("a walk is a trail of at most 3 km and 100 m climb, and its reason says so", () => {
+    const walks = map.entries.filter((e) => e.from.kind === "trail" && e.from.subkind === null && e.subkind === "walk");
+    expect(walks.length).toBeGreaterThanOrEqual(18);
+    for (const e of walks) {
+      const d = find(e.ref).suitability.effort?.drivers;
+      expect(d?.distance_km?.v, e.ref).toBeLessThanOrEqual(3);
+      expect(d?.gain_m?.v, e.ref).toBeLessThanOrEqual(100);
+      expect(e.reason, e.ref).toMatch(/at most 3 km and 100 m/);
+    }
+    for (const e of map.entries.filter((x) => x.from.kind === "trail" && x.from.subkind === null && x.subkind === "hike")) {
+      const d = find(e.ref).suitability.effort?.drivers;
+      const short = typeof d?.distance_km?.v === "number" && typeof d?.gain_m?.v === "number" && d.distance_km.v <= 3 && d.gain_m.v <= 100;
+      expect(short, e.ref).toBe(false);
+    }
   });
   it("241 records had no subkind; every one has one now, 5 had the invalid `other` and 1 the invalid `glacier`", () => {
     expect(map.entries.filter((e) => e.from.subkind === null)).toHaveLength(241);
@@ -140,10 +157,10 @@ describe("M1: subkinds assigned by rule", () => {
 
 describe("M2: the Rockies sights that are not sights", () => {
   const sights = (): { ref: string; now: string }[] => map.entries.filter((e) => e.from.kind === "sight" && e.ref.startsWith(ROCK)).map((e) => ({ ref: e.ref, now: `${e.kind}/${e.subkind}` }));
-  it("47 Rockies rows were sights; 39 are something else now and 8 stay sights", () => {
+  it("47 Rockies rows were sights; 37 are another kind now and 10 stay sights (4 parks, 2 areas, 4 attractions or landmarks)", () => {
     expect(sights()).toHaveLength(47);
-    expect(sights().filter((s) => !s.now.startsWith("sight/"))).toHaveLength(39);
-    expect(sights().filter((s) => s.now.startsWith("sight/"))).toHaveLength(8);
+    expect(sights().filter((s) => !s.now.startsWith("sight/"))).toHaveLength(37);
+    expect(sights().filter((s) => s.now.startsWith("sight/"))).toHaveLength(10);
   });
   it("lakes, waterfalls and canyons, viewpoints, hot springs, drives, towns and the gondola", () => {
     expect(kindOf(`${ROCK}sights/moraine-lake`)).toBe("lake/lake");
@@ -157,12 +174,12 @@ describe("M2: the Rockies sights that are not sights", () => {
     expect(kindOf(`${ROCK}sights/banff-gondola`)).toBe("lift/gondola");
     expect(kindOf("place/lake-louise")).toBe("lake/lake");
   });
-  it("by name: 13 lakes (14 with Lake Louise), 10 waterfalls or canyons, 3 viewpoints, 3 hot springs, 5 drives, 2 towns, the gondola, a heli transfer and the Nordic Centre", () => {
+  it("by name: 11 lakes (12 with Lake Louise; Magog and the Kananaskis lakes are areas), 10 waterfalls or canyons, 3 viewpoints, 3 hot springs, 5 drives, 2 towns, the gondola, a heli transfer and the Nordic Centre", () => {
     const n = (kind: string) => sights().filter((s) => s.now.startsWith(`${kind}/`)).length;
-    expect([n("lake"), n("waterfall"), n("viewpoint"), n("swim_spot"), n("drive"), n("town"), n("lift"), n("activity"), n("sight")]).toEqual([13, 10, 3, 3, 5, 2, 1, 2, 8]);
+    expect([n("lake"), n("waterfall"), n("viewpoint"), n("swim_spot"), n("drive"), n("town"), n("lift"), n("activity"), n("sight")]).toEqual([11, 10, 3, 3, 5, 2, 1, 2, 10]);
   });
   it("the sight rows that stay are real sights", () => {
-    for (const s of sights().filter((x) => x.now.startsWith("sight/"))) expect(["sight/attraction", "sight/historic_site", "sight/landmark"]).toContain(s.now);
+    for (const s of sights().filter((x) => x.now.startsWith("sight/"))) expect(["sight/attraction", "sight/historic_site", "sight/landmark", "sight/park", "sight/area"]).toContain(s.now);
   });
   it("every reclassified record carries its new kind", () => {
     for (const e of map.entries.filter((x) => x.from.kind !== x.kind)) expect(find(e.ref).kind, e.ref).toBe(e.kind);
@@ -180,7 +197,7 @@ describe("M3 and M4: the five `other` adventures and the subkinds that change pr
   });
   it("the Ice Explorer is a vehicle tour, the Bow River a float, the shuttle a boat shuttle, the Nordic Centre mountain biking, the icewalk a glacier walk", () => {
     expect(kindOf(`${ROCK}adventures/columbia-icefield-ice-explorer`)).toBe("activity/vehicle-tour");
-    expect(profileOf(find(`${ROCK}adventures/columbia-icefield-ice-explorer`))!.name).toBe("air_tour");
+    expect(profileOf(find(`${ROCK}adventures/columbia-icefield-ice-explorer`))!.name).toBe("vehicle_tour");
     expect(kindOf(`${ROCK}adventures/bow-river-raft`)).toBe("activity/float");
     expect(profileOf(find(`${ROCK}adventures/bow-river-raft`))!.name).toBe("float");
     expect(kindOf(`${ROCK}adventures/crypt-lake-shuttle`)).toBe("activity/boat-shuttle");
@@ -198,6 +215,41 @@ describe("M3 and M4: the five `other` adventures and the subkinds that change pr
   it("sights that are the same place as an adventure take the adventure's profile (M5)", () => {
     for (const [sight, adventure] of [["banff-gondola", "banff-gondola"], ["miette-hot-springs", "miette-hot-springs"], ["radium-hot-springs", "radium-hot-springs"], ["red-rock-parkway", "red-rock-parkway"], ["canmore-nordic-centre", "canmore-nordic-centre"]] as const) {
       expect(profileOf(find(`${ROCK}sights/${sight}`))!.name, sight).toBe(profileOf(find(`${ROCK}adventures/${adventure}`))!.name);
+    }
+  });
+});
+
+describe("reviewer fixes: unguided, drives, areas, lake walks", () => {
+  it("the Sulphur Mountain switchback trail is an unguided trail", () => {
+    expect(kindOf(`${ROCK}adventures/sulphur-mountain-trail`)).toBe("trail/hike");
+    expect(profileOf(find(`${ROCK}adventures/sulphur-mountain-trail`))!.name).toBe("hike");
+  });
+  it("the covered bridge loop is a drive, the Akureyri botanical garden an attraction", () => {
+    expect(kindOf("trip/vermont-fall-2026/sight:covered bridge loop")).toBe("drive/scenic_drive");
+    expect(kindOf("trip/iceland-ring-road-2027/town:akureyri botanical garden")).toBe("sight/attraction");
+  });
+  it("the Dolomites range, the parks and the day-use lakes use the area profile", () => {
+    for (const ref of ["place/dolomites", `${ROCK}sights/lake-magog`, `${ROCK}sights/kananaskis-lakes-day-use`, `${ROCK}sights/beauvais-lake-pp`, `${ROCK}sights/castle-provincial-park`, `${ROCK}sights/elk-lakes-park`, `${ROCK}sights/top-of-the-world-pp`, "trip/utah-five-parks/sight:goblin valley"]) {
+      expect(profileOf(find(ref))!.name, ref).toBe("area");
+    }
+  });
+  it("walk-shaped Dolomites records are trails; lakes that are also places keep a lake record and a walk record", () => {
+    expect(kindOf("place/seceda-ridge")).toBe("trail/walk");
+    expect(kindOf("place/cinque-torri")).toBe("trail/walk");
+    expect(kindOf("place/cadini-di-misurina-viewpoint")).toBe("trail/walk");
+    expect(kindOf("place/lago-di-landro")).toBe("lake/lake"); // no walk data
+    for (const [slug, sub, km] of [["lago-di-braies", "walk", 3.7], ["lago-di-dobbiaco", "walk", 3.5], ["lago-di-limides", "walk", 2], ["lago-federa", "hike", 7.9]] as const) {
+      expect(kindOf(`place/${slug}`), slug).toBe("lake/lake");
+      expect(find(`place/${slug}`).suitability.effort).toBeUndefined();
+      expect(kindOf(`part/place/${slug}#walk`), slug).toBe(`trail/${sub}`);
+      expect(find(`part/place/${slug}#walk`).suitability.effort?.drivers?.distance_km?.v, slug).toBe(km);
+    }
+    expect(find("place/lago-di-braies").suitability.kid_note).toMatch(/pushchairs/); // a surface note stays with the lake
+  });
+  it("the four W_SUIT_NA_FIELD warnings of the first cut are gone", () => {
+    for (const [rel, d] of m.docs) {
+      const r = validateDoc(d, "sidecar", REPO, { kind: "suitability" });
+      expect(r.warnings.filter((w) => w.code === "W_SUIT_NA_FIELD"), rel).toEqual([]);
     }
   });
 });

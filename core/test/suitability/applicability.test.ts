@@ -29,7 +29,7 @@ describe("the applicability file", () => {
     expect(profiles.length).toBeGreaterThanOrEqual(34);
   });
   it("every profile states every field path (N is explicit) and no other", () => {
-    expect(APPLICABILITY_PATHS).toHaveLength(144);
+    expect(APPLICABILITY_PATHS).toHaveLength(148);
     for (const [name, p] of profiles) expect(Object.keys(p.fields).sort(), name).toEqual([...APPLICABILITY_PATHS].sort());
   });
   it("every cell is R, A, N or op", () => {
@@ -117,7 +117,10 @@ describe("the lookup", () => {
     expect(profileOf(rec("activity", "guided-hike"))!.name).toBe("hike");
     expect(profileOf(rec("activity", "heli-hike"))!.name).toBe("hike");
     expect(profileOf(rec("activity", "float"))!.name).toBe("float");
-    expect(profileOf(rec("activity", "vehicle-tour"))!.name).toBe("air_tour");
+    expect(profileOf(rec("activity", "vehicle-tour"))!.name).toBe("vehicle_tour");
+    expect(profileOf(rec("activity", "scenic-flight"))!.name).toBe("air_tour");
+    expect(profileOf(rec("sight", "park"))!.name).toBe("area");
+    expect(profileOf(rec("sight", "area"))!.name).toBe("area");
     expect(profileOf(rec("activity", "boat-shuttle"))!.name).toBe("boat");
     expect(profileOf(rec("swim_spot", "hot_spring"))!.name).toBe("hot_spring");
     expect(profileOf(rec("activity", "hot-springs"))!.name).toBe("hot_spring");
@@ -201,8 +204,41 @@ describe("the lookup", () => {
     expect(f.profile).toBe("bungee");
     expect(f.R).toContain("min_weight_kg");
     expect(f.N).toContain("stroller");
-    expect(f.R.length + f.A.length + f.N.length).toBe(144);
+    expect(f.R.length + f.A.length + f.N.length).toBe(APPLICABILITY_PATHS.length);
     expect(fieldsOf({ kind: "trail" })).toBeNull();
+  });
+});
+
+describe("the vehicle_tour and area profiles, and the swing height", () => {
+  const mark = (kind: string, subkind: string, path: string) => markOf(profileOf({ kind, subkind })!.profile, path, true);
+  it("a vehicle tour asks for the carriage rule and the weather, not for a flight time", () => {
+    const vt = profileOf({ kind: "activity", subkind: "vehicle-tour" })!;
+    expect(vt.name).toBe("vehicle_tour");
+    expect(vt.profile.operated).toBe("always");
+    expect(vt.profile.ext).toBeNull();
+    for (const p of ["min_age", "on_site_min", "stroller_on_board", "wheelchair", "access_season", "participation.weather_cancel"]) expect(mark("activity", "vehicle-tour", p), p).toBe("R");
+    expect(mark("activity", "vehicle-tour", "toilets")).toBe("A");
+    expect(mark("activity", "vehicle-tour", "ext.flight.flight_min")).toBe("N");
+    expect(mark("activity", "heli", "ext.flight.flight_min")).toBe("R");
+  });
+  it("an area asks for the child note, time on site, season and hazards; the child trails carry the effort", () => {
+    const area = profileOf({ kind: "sight", subkind: "park" })!;
+    expect(area.profile.operated).toBe("never");
+    expect(area.profile.ext).toBe("area");
+    expect(requiredPaths(area.profile, false).sort()).toEqual(["access_season", "hazards", "kid_note", "on_site_min"]);
+    for (const p of ["stroller", "wheelchair", "accessible_toilet", "toilets", "food", "water", "signal", "altitude_m", "group_min", "limited_capacity_note", "ext.area.pass", "ext.area.access_road", "ext.area.stay_on_site", "ext.area.child_trails"]) expect(mark("sight", "area", p), p).toBe("A");
+    expect(hasEffort(area.profile, false)).toBe(false);
+    expect(mark("sight", "area", "effort.source_grade")).toBe("N");
+  });
+  it("an area record carries the area extension", () => {
+    const rec = { ref: "place/lago-di-braies", kind: "sight", subkind: "park", suitability: {}, ext: { kind: "area", pass: v("permit", "official_info"), access_road: v("gravel", "official_info"), stay_on_site: v(["camping"], "official_info"), child_trails: v(["place/lago-di-braies"], "our_inference") } };
+    const r = validateDoc({ schema: "suitability/1", trip: "fixture-trip", lane: "t", researched: "2026-10-18", agent: "t", model: "t", sources: [{ id: "src-0001", url: "https://parks.canada.ca/x", title: "t", publisher: "Parks Canada", kind: "official", read: "2026-10-12" }], records: [rec] }, "sidecar", ROOT, { kind: "suitability" });
+    expect(r.errors).toEqual([]);
+  });
+  it("min_height_cm is A for the swing subkinds (it shares the bungee profile)", () => {
+    expect(mark("activity", "swing", "min_height_cm")).toBe("A");
+    expect(mark("activity", "bungee", "min_weight_kg")).toBe("R");
+    expect(mark("activity", "swing", "max_height_cm")).toBe("N");
   });
 });
 
@@ -524,7 +560,8 @@ describe("the new shared fields and extensions", () => {
   });
   it("each of the ten new extensions is a discriminant", () => {
     for (const k of ["lift", "boat", "zip", "jump", "coaster", "horse", "glacier", "flight", "wildlife", "drive"]) expect(EXT_KINDS, k).toContain(k);
-    expect(EXT_KINDS).toHaveLength(17);
+    expect(EXT_KINDS).toContain("area");
+    expect(EXT_KINDS).toHaveLength(18);
   });
   it("the shared enum lists exist with their closed values", () => {
     expect(E.MEDICAL).toHaveLength(12);
