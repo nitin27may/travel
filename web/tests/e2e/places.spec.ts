@@ -31,8 +31,14 @@ test.describe('places list', () => {
     await expect(card.getByText('Location unconfirmed')).toBeVisible();
     await expect(card.getByText('No source yet').first()).toBeVisible();
     await expect(card.getByRole('link', { name: /^Place page/ })).toHaveAttribute('href', '/places/grand-sault-waterfall/');
-    await expect(card.getByRole('link', { name: /^Globe/ })).toHaveAttribute('href', '/globe/place/grand-sault-waterfall/');
+    // no stored position, so no Globe link (it would open on nothing)
+    await expect(card.getByRole('link', { name: /^Globe/ })).toHaveCount(0);
     await expect(page.getByRole('heading', { name: 'Canada' })).toBeVisible();
+  });
+
+  test('a place with a position links to its spot on the globe', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?q=lake louise`);
+    await expect(page.locator('article.card', { hasText: 'Lake Louise' }).getByRole('link', { name: /^Globe/ })).toHaveAttribute('href', '/globe/place/lake-louise/');
   });
 
   test('a saved Instagram place shows its source and a count of the rest', async ({ page, site }) => {

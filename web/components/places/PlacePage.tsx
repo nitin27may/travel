@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { ExportMenu, type ExportFormat } from '@/components/actions/ExportMenu';
+import type { ExportFormat } from '@/components/actions/ExportMenu';
+import { ExportMenuLazy as ExportMenu } from './ExportMenuLazy';
 import { ShareButton } from '@/components/actions/ShareButton';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Chip } from '@/components/ui/Chip';

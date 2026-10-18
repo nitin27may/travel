@@ -1,7 +1,8 @@
 'use client';
 
 import { useId, useState } from 'react';
-import { ExportMenu, type ExportFormat } from '@/components/actions/ExportMenu';
+import type { ExportFormat } from '@/components/actions/ExportMenu';
+import { ExportMenuLazy as ExportMenu } from './ExportMenuLazy';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { useToast } from '@/components/ui/Toast';

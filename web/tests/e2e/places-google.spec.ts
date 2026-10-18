@@ -1,4 +1,4 @@
-import { spawnSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,12 +16,15 @@ test.describe('place page on the google-js family with a fake key', () => {
 
   test.beforeAll(async () => {
     rmSync(path.join(WEB, DIST), { recursive: true, force: true });
-    const build = spawnSync(process.execPath, [path.join(WEB, 'node_modules', 'next', 'dist', 'bin', 'next'), 'build'], {
-      cwd: WEB,
-      stdio: 'pipe',
-      env: { ...process.env, NEXT_DIST_DIR: DIST, NEXT_PUBLIC_PLACE_MAP_FAMILY: 'google-js', NEXT_PUBLIC_GOOGLE_MAPS_KEY: 'fake-key-for-tests', HUB_TODAY: '2026-10-17' },
+    // async, so the worker keeps answering Playwright while the build runs
+    const status = await new Promise<{ code: number | null; err: string }>((resolve) => {
+      const child = execFile(process.execPath, [path.join(WEB, 'node_modules', 'next', 'dist', 'bin', 'next'), 'build'], {
+        cwd: WEB,
+        maxBuffer: 64 * 1024 * 1024,
+        env: { ...process.env, NEXT_DIST_DIR: DIST, NEXT_PUBLIC_PLACE_MAP_FAMILY: 'google-js', NEXT_PUBLIC_GOOGLE_MAPS_KEY: 'fake-key-for-tests', NEXT_PUBLIC_GOOGLE_MAP_ID: '', HUB_TODAY: '2026-10-17' },
+      }, (_e, _out, err) => resolve({ code: child.exitCode, err: String(err).slice(-800) }));
     });
-    expect(build.status, build.stderr?.toString().slice(-800)).toBe(0);
+    expect(status.code, status.err).toBe(0);
     server = await serve(path.join(WEB, DIST));
   });
   test.afterAll(() => {
