@@ -18,7 +18,7 @@ Updated 2026-10-18, late evening. Read this first after a context reset. **The f
 | LM | map adapter (`web/lib/map`, `web/components/map`) | merged 24b6609 | maplibre by default; google-js/embed through `NEXT_PUBLIC_PLACE_MAP_FAMILY` |
 | L5 | copy, export, share | merged 972fbd4 | ICS only for dated copies, licence guard on GPX/KML/CSV |
 | L1 | home and global search | merged bc8d102 | the cover is still a flat map; swap to L2's `GlobeCover` after L2 merges |
-| L2 | full-screen globe | **verifying** (GPU) | L2-1..L2-7 fixed (b0de27d); then must-fix F2 antimeridian rings, F5 reset view, the stubs.test conflict on merge |
+| L2 | full-screen globe | merged 4777821 | verified twice on the Arc GPU; the remaining cosmetic items are in L2b (backlog 3.3b) |
 | L3 | trips list and trip page | merged 65eee4c | dark-style label hiding via `web/lib/map/maplibre/labels.ts` (additive LM edit, `hideBasemapLabels`); TripsMap lazy for the JS budget |
 | L4 | places list and place/trail pages | merged d0cb415 | real Google key checked 18 Oct (facade, our points, directions from our coordinates) |
 | PS | privacy: personal place status off public output | merged e883636 | Status facet becomes "In a public trip"; payload test |
