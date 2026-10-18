@@ -26,7 +26,7 @@ type Containers = Record<string, string[]>;
 const collide: CollisionDetection = args => { const hit = pointerWithin(args); return hit.length ? hit : closestCorners(args); };
 const toTarget = (key: string): Target => key.startsWith("day:") ? { day: Number(key.slice(4)) } : { list: key.slice(5) };
 
-export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "light" | "dark"; phone: boolean; onOpenPlace: (p: Place) => void; onShare: () => void }) {
+export function PlanScreen({ theme, phone, onOpenPlace, onShare, switcher }: { theme: "light" | "dark"; phone: boolean; onOpenPlace: (p: Place) => void; onShare: () => void; switcher?: React.ReactNode }) {
   const st = useStore();
   const { s, place, select, focus, move, add, movePin } = st;
   const fromStore = useCallback((t: Trip): Containers => ({
@@ -243,7 +243,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
         <div className="doc" ref={docRef}>
           <header className="trip-head" id="overview">
             <div className="trip-title-row">
-              <h1 className="sign trip-title">Dolomites</h1>
+              <h1 className="trip-title">{switcher ?? <span className="sign">Dolomites</span>}</h1>
               <div className="trip-sub num">{fmtDay(dayDate(s.trip.start, 1))} – {fmtDay(dayDate(s.trip.start, 14))} 2027 · 13 nights · car</div>
               <button className="btn" onClick={onShare}><Icon name="share" /> Share</button>
             </div>
