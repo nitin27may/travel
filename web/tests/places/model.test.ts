@@ -60,10 +60,13 @@ describe('small helpers', () => {
 });
 
 describe('glance strip', () => {
-  it('leads a trail with its six facts, each with provenance', () => {
+  it('leads a trail with its six slots, each recorded fact with provenance; the AllTrails difficulty is gone (backlog 2.31)', () => {
     const g = glanceFor(place('tre-cime-di-lavaredo-loop'));
-    expect(g.map((s) => s.label)).toEqual(['Distance', 'Climb', 'Time', 'Difficulty', 'Shape', 'Minimum age']);
-    expect(g.every((s) => s.fact?.provenance)).toBe(true);
+    expect(g.map((s) => s.label)).toEqual(['Distance', 'Climb', 'Time', 'Shape', 'Minimum age', 'Difficulty']);
+    expect(g.filter((s) => s.fact).every((s) => s.fact?.provenance)).toBe(true);
+    const difficulty = g.find((s) => s.label === 'Difficulty');
+    expect(difficulty?.fact).toBeNull();
+    expect(difficulty?.empty).toBe('No difficulty recorded yet');
   });
   it('says what is missing instead of leaving a blank (a sight has no hours yet)', () => {
     const g = glanceFor({ kind: 'sight', facts: [] });
