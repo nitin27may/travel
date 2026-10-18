@@ -55,5 +55,5 @@ export interface Camera { lng: number; lat: number; zoom: number }
 
 export interface CountryFacts {
   a2: string; a3: string; name: string; official?: string; capital?: string; region?: string; subregion?: string;
-  population?: number; area?: number; flag?: string; latlng?: [number, number];
+  population?: number; area?: number; flag?: string; latlng?: [number, number]; languages?: string[];
 }

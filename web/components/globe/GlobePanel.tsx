@@ -2,6 +2,7 @@
 
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import type { CountryBook } from '@/lib/globe/countries';
+import { factsLine, languagesLine } from '@/lib/globe/facts';
 import { nodeAt, pinsUnder } from '@/lib/globe/model';
 import type { GlobeData } from '@/lib/globe/types';
 
@@ -57,6 +58,25 @@ export function GlobePanelBody({ data, book, path, selected, onArea, onCard }: P
   const trips = pinsUnder(data, path.slice(0, 1), 'trip');
   const places = pinsUnder(data, path, 'place');
   const children = (node?.children ?? []).filter((c) => c.places + c.trips > 0);
+  if (!children.length && !trips.length && !places.length) {
+    const f = book.byA2[path[0]]?.facts;
+    return (
+      <div className="globe-list globe-empty">
+        <div className="globe-country-card">
+          {f?.flag ? <span className="globe-country-flag" aria-hidden="true">{f.flag}</span> : null}
+          <h3 className="globe-country-name">{f?.name ?? path[path.length - 1]}</h3>
+          {f ? <p className="globe-country-region">{[f.subregion, f.region].filter(Boolean).join(' \u00b7 ')}</p> : null}
+          <dl className="globe-facts">
+            {f?.capital ? (<><dt>Capital</dt><dd>{f.capital}</dd></>) : null}
+            {f?.population ? (<><dt>People</dt><dd>{f.population.toLocaleString('en-CA')}</dd></>) : null}
+            {f?.area ? (<><dt>Area</dt><dd>{Math.round(f.area).toLocaleString('en-CA')} km²</dd></>) : null}
+            {languagesLine(f) ? (<><dt>Languages</dt><dd>{languagesLine(f)}</dd></>) : null}
+          </dl>
+          <p className="globe-empty-note" data-facts={factsLine(f)}>Nothing saved here yet. Places and trips added to the site show up on the globe once they are published.</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="globe-list">
       {children.length ? (
