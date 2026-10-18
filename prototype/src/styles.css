@@ -1,14 +1,14 @@
 /* Layout concept: outline rail · plan document · live map, like a topo sheet with signpost type.
    Tokens follow docs/v2/design/README.md. Light is truly light; dark is near-black for night use. */
 :root {
-  --bg: #F6F7F5; --surface: #FFFFFF; --sunk: #EDF0EC; --raised: #FFFFFF;
-  --ink: #131C18; --muted: #56635D; --faint: #8A958F; --line: #D6DCD8; --line-strong: #B9C2BD;
-  --act: #0B6B5E; --act-ink: #FFFFFF; --act-soft: #DCEDE9;
-  --glow: #C2385C; --glow-soft: #F8E1E7;
-  --ok: #2D7A4B; --warn: #9A6200; --warn-soft: #F6ECD8; --crit: #B3362F; --crit-soft: #F7E1DF;
-  --route: rgba(19, 28, 24, .82); --halo: #F6F7F5;
-  --shadow: 0 1px 2px rgba(19,28,24,.06), 0 8px 24px rgba(19,28,24,.10);
-  --shadow-lift: 0 2px 4px rgba(19,28,24,.08), 0 18px 40px rgba(19,28,24,.18);
+  --bg: #F7F7F5; --surface: #FFFFFF; --sunk: #EFF0EC; --raised: #FFFFFF;
+  --ink: #16191C; --muted: #5C6268; --faint: #8E959B; --line: #E1E3DE; --line-strong: #C5C9C3;
+  --act: #1B5E4A; --act-ink: #FFFFFF; --act-soft: #E3EEE9;
+  --glow: #B8354F; --glow-soft: #F7E6EA;
+  --ok: #2E6B43; --warn: #8F5B00; --warn-soft: #F5EDDF; --crit: #B0302B; --crit-soft: #F7E3E1;
+  --route: rgba(22, 25, 28, .82); --halo: #F7F7F5;
+  --shadow: 0 1px 2px rgba(22,25,28,.05), 0 6px 18px rgba(22,25,28,.08);
+  --shadow-lift: 0 2px 4px rgba(22,25,28,.08), 0 16px 36px rgba(22,25,28,.16);
   --img-dim: 1;
   --f-sign: "Big Shoulders Display", "Oswald", "Arial Narrow", sans-serif;
   --f-ui: "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -18,22 +18,22 @@
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #07090A; --surface: #0F1312; --sunk: #050606; --raised: #161B19;
-  --ink: #D3DBD7; --muted: #86938D; --faint: #5F6B66; --line: #222A27; --line-strong: #34403B;
-  --act: #5CC0AE; --act-ink: #07090A; --act-soft: #11302B;
-  --glow: #E58BA1; --glow-soft: #3A1C25;
-  --ok: #6BBF8A; --warn: #D9A45A; --warn-soft: #2E2312; --crit: #E57F77; --crit-soft: #351816;
-  --route: rgba(211, 219, 215, .72); --halo: #07090A;
-  --shadow: none; --shadow-lift: 0 0 0 1px #34403B; --img-dim: .92; color-scheme: dark;
+  --bg: #0C0D0E; --surface: #141618; --sunk: #090A0B; --raised: #1B1E21;
+  --ink: #DCDFE2; --muted: #8E959C; --faint: #5F666C; --line: #24282C; --line-strong: #353A3F;
+  --act: #7CC2A4; --act-ink: #0C0D0E; --act-soft: #15281F;
+  --glow: #EE8FA6; --glow-soft: #2E1A20;
+  --ok: #7FC79A; --warn: #D7A85E; --warn-soft: #2A2214; --crit: #EA8A82; --crit-soft: #301A18;
+  --route: rgba(220, 223, 226, .72); --halo: #0C0D0E;
+  --shadow: none; --shadow-lift: 0 0 0 1px #353A3F; --img-dim: .92; color-scheme: dark;
 } }
 :root[data-theme="dark"] {
-  --bg: #07090A; --surface: #0F1312; --sunk: #050606; --raised: #161B19;
-  --ink: #D3DBD7; --muted: #86938D; --faint: #5F6B66; --line: #222A27; --line-strong: #34403B;
-  --act: #5CC0AE; --act-ink: #07090A; --act-soft: #11302B;
-  --glow: #E58BA1; --glow-soft: #3A1C25;
-  --ok: #6BBF8A; --warn: #D9A45A; --warn-soft: #2E2312; --crit: #E57F77; --crit-soft: #351816;
-  --route: rgba(211, 219, 215, .72); --halo: #07090A;
-  --shadow: none; --shadow-lift: 0 0 0 1px #34403B; --img-dim: .92; color-scheme: dark;
+  --bg: #0C0D0E; --surface: #141618; --sunk: #090A0B; --raised: #1B1E21;
+  --ink: #DCDFE2; --muted: #8E959C; --faint: #5F666C; --line: #24282C; --line-strong: #353A3F;
+  --act: #7CC2A4; --act-ink: #0C0D0E; --act-soft: #15281F;
+  --glow: #EE8FA6; --glow-soft: #2E1A20;
+  --ok: #7FC79A; --warn: #D7A85E; --warn-soft: #2A2214; --crit: #EA8A82; --crit-soft: #301A18;
+  --route: rgba(220, 223, 226, .72); --halo: #0C0D0E;
+  --shadow: none; --shadow-lift: 0 0 0 1px #353A3F; --img-dim: .92; color-scheme: dark;
 }
 :root[data-theme="sun"] { --ink: #000; --muted: #2E3833; --line: #9AA6A0; --line-strong: #6E7A74; font-size: 112.5%; }
 

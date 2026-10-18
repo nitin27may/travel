@@ -33,6 +33,7 @@ export interface MapProps {
   onAddHere: (lng: number, lat: number, x: number, y: number) => void;
   onReady?: (map: maplibregl.Map) => void;
   compact?: boolean;
+  peek?: Place;                                    // a search result being looked at
 }
 
 export function MapView(p: MapProps) {
@@ -185,6 +186,11 @@ export function MapView(p: MapProps) {
     const pin = p.pins.find(x => x.itemId === p.selectedItem); if (!pin) return;
     if (!m.getBounds().contains([pin.place.lng, pin.place.lat])) m.easeTo({ center: [pin.place.lng, pin.place.lat], duration: reduceMotion() ? 0 : 500 });
   }, [p.selectedItem]);
+
+  useEffect(() => {
+    const m = map.current; if (!m || !p.peek) return;
+    if (!m.getBounds().contains([p.peek.lng, p.peek.lat])) m.easeTo({ center: [p.peek.lng, p.peek.lat], duration: reduceMotion() ? 0 : 450 });
+  }, [p.peek]);
 
   return <div ref={el} className="map" role="application" aria-label="Trip map. Right-click or long-press to add a place here." />;
 }

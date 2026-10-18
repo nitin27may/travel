@@ -19,6 +19,7 @@ import { ListSection } from "./ListSection";
 import { Outline } from "./Outline";
 import { PlacePanel } from "./PlacePanel";
 import { BottomSheet } from "../ui/BottomSheet";
+import { PlaceSearch } from "./PlaceSearch";
 
 type Containers = Record<string, string[]>;
 // what is under the pointer wins (small outline rows); otherwise the nearest container by corners
@@ -39,6 +40,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
   const [collapsed, setCollapsed] = useState<Record<number, boolean>>({});
   const [fit, setFit] = useState(0);
   const [shelfOpen, setShelfOpen] = useState(false);
+  const [peek, setPeek] = useState<Place | undefined>();
   const docRef = useRef<HTMLDivElement>(null);
   const scrolling = useRef(0);
   useEffect(() => { if (!activeId) setContainers(fromStore(s.trip)); }, [s.trip, activeId, fromStore]);
@@ -162,16 +164,17 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
       }
       for (const b of [d.end]) if (b && !seenBase.has(b.id)) { seenBase.add(b.id); out.push({ id: `base-${b.id}`, place: b, label: "", kind: "base", dim: !(d.n === s.focusDay || d.n === (s.focusDay ?? 0) - 1) }); }
     }
+    if (peek) out.push({ id: "peek", place: peek, label: "", kind: "suggest" });
     for (const l of liveTrip.lists) for (const id of l.itemIds) { const it = s.trip.items[id]; const p = it && placeLive(it.placeId); if (p) out.push({ id, itemId: id, place: p, label: "", kind: "idea", dim: true, draggable: p.catalog === false }); }
     return out;
-  }, [plans, s.focusDay, liveTrip.lists, s.trip.items, placeLive]);
+  }, [plans, s.focusDay, liveTrip.lists, s.trip.items, placeLive, peek]);
 
   const nearest = addHere ? PLACES.map(p => ({ p, d: km(addHere, p) })).filter(x => x.d < 6).sort((a, b) => a.d - b.d).slice(0, 4) : [];
   const focusPlan = plans.find(p => p.n === s.focusDay) ?? plans[0];
 
   const map = (
     <div className="map-wrap">
-      <MapView theme={theme} plans={plans} focusDay={s.focusDay} pins={pins} selectedItem={s.selected} preview={preview} fit={fit} compact={phone}
+      <MapView theme={theme} plans={plans} focusDay={s.focusDay} pins={pins} selectedItem={s.selected} preview={preview} fit={fit} compact={phone} peek={peek}
         onPick={pin => { if (pin.itemId) { const n = pin.day; select(pin.itemId, n); if (n) { const el = document.querySelector(`[data-item="${pin.itemId}"]`); el?.scrollIntoView({ behavior: "smooth", block: "center" }); } } }}
         onPinDrag={(id, lng, lat, done) => { if (done) { setPinDrag(null); movePin(id, lng, lat); } else setPinDrag({ id, lng, lat }); }}
         onAddHere={(lng, lat, x, y) => setAddHere({ lng, lat, x, y })} />
@@ -216,6 +219,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
             ))}
             <button className={`daypill ${n === 0 ? "on" : ""}`} onClick={() => focus(0)}><span className="sign">Ideas</span></button>
           </div>
+          <div className="phone-search"><PlaceSearch plans={plans} onPreview={setPeek} onJumpDay={d => { focus(d); setFit(f => f + 1); }} /></div>
           <motion.div className="phone-day" key={n} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .18 }}
             drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={.18} dragDirectionLock
             onDragEnd={(_, info) => { if (Math.abs(info.offset.x) > 70) { const next = Math.min(s.trip.days.length, Math.max(1, n + (info.offset.x < 0 ? 1 : -1))); focus(next); setFit(f => f + 1); } }}>
@@ -243,6 +247,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
               <div className="trip-sub num">{fmtDay(dayDate(s.trip.start, 1))} – {fmtDay(dayDate(s.trip.start, 14))} 2027 · 13 nights · car</div>
               <button className="btn" onClick={onShare}><Icon name="share" /> Share</button>
             </div>
+            <PlaceSearch plans={plans} onPreview={setPeek} onJumpDay={n => jump(`day-${n}`)} />
             <div className="next-action"><Icon name="clock" /><span><b>Next:</b> {next?.title} — {next?.opensAt}. Sells out fast for midday slots.</span></div>
             <div className="strip" aria-label="Bookings">
               {(["flight", "stay", "car", "parking", "lift", "activity"] as const).map(k => {
