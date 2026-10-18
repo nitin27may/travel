@@ -28,7 +28,7 @@ export function PlacesMap({ rows }: { rows: PlaceListRow[]; state: ListState }) 
   );
   const { pins, members } = useMemo(() => clusterPins(points, Math.round(zoom * 2) / 2, selected), [points, zoom, selected]);
   const spec: MapSpec = useMemo(
-    () => ({ pins, lines: [], selectedId: selected ?? undefined, fit: 'all', camera: initial ?? undefined, style: 'auto' }),
+    () => ({ pins, lines: [], selectedId: selected ?? undefined, fit: 'all', hideBasemapLabels: ['countries'], camera: initial ?? undefined, style: 'auto' }),
     [pins, selected, initial],
   );
 

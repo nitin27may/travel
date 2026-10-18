@@ -4,7 +4,7 @@ import { useId, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent
 import { usePrefs } from '@/lib/format/prefs';
 import { formatElevation } from '@/lib/format/units';
 import type { LngLat } from '@/lib/map/types';
-import { elevationAt, lerpPoint, profileSummary, sampleProfile, type ProfileInput } from './model';
+import { elevationAt, lerpPoint, profileSummary, profileTicks, sampleProfile, type ProfileInput } from './model';
 import { usePlaceShell } from './PlaceShell';
 
 const W = 640;
@@ -39,12 +39,7 @@ export function ElevationProfile({ guide, ...input }: Props) {
   const X = (x: number) => L + (x / maxX) * (W - L - R);
   const Y = (y: number) => T + (1 - (y - lo) / (hi - lo)) * (H - T - B);
   const line = pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.km).toFixed(1)},${Y(p.m).toFixed(1)}`).join('');
-  const step = hi - lo > 600 ? 200 : 100;
-  const yTicks: number[] = [];
-  for (let v = lo; v <= hi; v += step) yTicks.push(v);
-  const xStep = maxX > 10 ? 2 : maxX > 4 ? 1 : 0.5;
-  const xTicks: number[] = [];
-  for (let v = 0; v <= maxX + 1e-6; v += xStep) xTicks.push(v);
+  const ticks = profileTicks(lo, hi, maxX, prefs.distance, prefs.elevation);
   const label = `Sketch of the elevation profile. ${profileSummary(pts)}.`;
 
   const move = (km: number | null) => {
@@ -83,17 +78,17 @@ export function ElevationProfile({ guide, ...input }: Props) {
         onBlur={() => move(null)}
         onKeyDown={onKey}
       >
-        {yTicks.map((v) => (
-          <g key={v}>
-            <line x1={L} x2={W - R} y1={Y(v)} y2={Y(v)} className="pl-grid" />
-            <text x={L - 6} y={Y(v) + 4} textAnchor="end" className="pl-tick">
-              {v}
+        {ticks.y.map((t) => (
+          <g key={t.label}>
+            <line x1={L} x2={W - R} y1={Y(t.at)} y2={Y(t.at)} className="pl-grid" />
+            <text x={L - 6} y={Y(t.at) + 4} textAnchor="end" className="pl-tick">
+              {t.label}
             </text>
           </g>
         ))}
-        {xTicks.map((v) => (
-          <text key={v} x={X(v)} y={H - 8} textAnchor="middle" className="pl-tick">
-            {v} km
+        {ticks.x.map((t) => (
+          <text key={t.label} x={X(t.at)} y={H - 8} textAnchor="middle" className="pl-tick">
+            {t.label}
           </text>
         ))}
         <path d={`${line}L${X(maxX)},${Y(lo)}L${X(0)},${Y(lo)}Z`} className="pl-area" />
@@ -107,7 +102,7 @@ export function ElevationProfile({ guide, ...input }: Props) {
       </svg>
       <figcaption>
         <span className="pl-readout num" aria-live="off">
-          {at !== null && cursorM !== null ? `${at.toFixed(1)} km · ${formatElevation(Math.round(cursorM), prefs.elevation)}` : ' '}
+          {at !== null && cursorM !== null ? `${(prefs.distance === 'mi' ? at / 1.609344 : at).toFixed(1)} ${prefs.distance} · ${formatElevation(Math.round(cursorM), prefs.elevation)}` : ' '}
         </span>
         <span id={`${id}-hint`} className="muted small">
           A sketch from the published distance and climb, not a surveyed track.

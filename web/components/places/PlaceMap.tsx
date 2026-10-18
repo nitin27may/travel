@@ -30,7 +30,8 @@ export function PlaceMap({ name, points, guide, selectedId }: { name: string; po
   }, [setHandle]);
 
   const spec: MapSpec = useMemo(() => {
-    const pins: Pin[] = points.map((p) => ({ id: p.id, at: p.at, style: p.style, label: p.label }));
+    // only the selected pin and the trailhead are named on the map; the other lots keep their name for assistive tech
+    const pins: Pin[] = points.map((p) => ({ id: p.id, at: p.at, style: p.style, label: p.label, quiet: p.id !== selectedId && p.style !== 'trailhead' }));
     const legend: LegendItem[] = [
       ...(points.some((p) => p.style === 'trailhead') ? [{ id: 'l-th', label: 'Trailhead', style: 'trailhead' as const }] : []),
       ...(points.some((p) => p.style === 'parking') ? [{ id: 'l-pk', label: 'Parking', style: 'parking' as const }] : []),
@@ -41,7 +42,7 @@ export function PlaceMap({ name, points, guide, selectedId }: { name: string; po
       lines: guide ? [{ id: 'guide', coords: [guide.from, guide.to], style: 'straight-estimate' as const }] : [],
       fit: 'all',
       selectedId,
-      style: 'relief',
+      style: 'auto',
       legend,
     };
   }, [points, guide, selectedId]);
