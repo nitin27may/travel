@@ -23,7 +23,6 @@ for (const pt of store.place_tags) tagCounts.set(pt.tag_id, (tagCounts.get(pt.ta
 const tag = [...tagCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
 const quebec = store.regions.find((r) => r.country === 'CA' && r.code === 'QC')!;
 const charlevoix = store.areas.find((a) => a.slug === 'charlevoix')!;
-const statuses = [...new Set(store.places.map((p) => p.status))];
 // The app filters by the canonical kind (a saved "city" is a Town, a "park" an Area ...). The legacy page filters by the
 // saved kind, so every `kind=` value is expanded to the saved kinds that map to it when asking the legacy page.
 const CANON: Record<string, string> = { city: 'town', park: 'area', region: 'area', valley: 'area', island: 'area', mountain: 'viewpoint', lighthouse: 'sight', place: 'sight', drive: 'sight', canyon: 'waterfall' };
@@ -43,12 +42,11 @@ const SETS: { name: string; params: string }[] = [
   { name: 'one region', params: `country=CA&region=${quebec.code}` },
   { name: 'region by name', params: `country=CA&region=${encodeURIComponent(quebec.name)}` },
   { name: 'one area', params: `country=CA&region=${quebec.code}&area=${charlevoix.slug}` },
-  ...statuses.map((s) => ({ name: `status ${s}`, params: `status=${s}` })),
   { name: 'two kinds', params: `kind=${twoKinds}` },
   { name: 'one tag', params: `tag=${tag}` },
   { name: 'kid=yes', params: 'kid=yes' },
   { name: 'search', params: 'q=lake' },
-  { name: 'combined: country, kind, status', params: `country=CA&kind=${kinds[0]}&status=${statuses[0]}` },
+  { name: 'combined: country and kind', params: `country=CA&kind=${kinds[0]}` },
   { name: 'combined: two kinds and kid', params: `kind=${twoKinds}&kid=strong-kid` },
 ];
 

@@ -1,5 +1,5 @@
 [
-  { "name": "Planned for a trip", "path": "/places/", "query": "status=planned&view=table&group=country" },
+  { "name": "Not in a trip yet", "path": "/places/", "query": "trip=none&view=table&group=country" },
   { "name": "Kid friendly", "path": "/places/", "query": "kid=yes&view=cards" },
   { "name": "Trails and waterfalls", "path": "/places/", "query": "kind=trail,waterfall&view=table&sort=-elevation" }
 ]

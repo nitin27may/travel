@@ -5,6 +5,15 @@ import type { PlaceRow, PlaceSource, PlaceTag } from './types';
 import { travelRoot } from './root';
 import { loadTrips } from './trips';
 import { validateStore } from './validate';
+import { publicSentences } from '../public/dateless';
+import { TRIP_SLUGS } from '../public/slugs';
+
+/** Drops every sentence that names a trip folder or slug ("Planned as <folder>"); the shared scrubber does the rest. */
+const TRIP_WORDS = [...Object.keys(TRIP_SLUGS), ...Object.values(TRIP_SLUGS)];
+function dropTripWords(note: string): string {
+  const sentences = note.match(/(?:[^.!?]|[.!?](?![\s]|$))+[.!?]*\s*/g) ?? [note];
+  return sentences.filter((s) => !TRIP_WORDS.some((w) => s.toLowerCase().includes(w))).join(' ');
+}
 
 interface Store {
   layout?: string;
@@ -128,7 +137,7 @@ export function loadPlaces(root = travelRoot()): PlaceRow[] {
       season: [...(p.season_months ?? [])].sort((a, b) => a - b),
       kid_fit: p.kid_fit ?? 'unknown',
       tags: (tagsOf.get(p.id) ?? []).sort((a, b) => TAG_KIND_ORDER.indexOf(a.kind) - TAG_KIND_ORDER.indexOf(b.kind) || a.label.localeCompare(b.label)),
-      note: p.notes ?? '',
+      note: publicSentences(dropTripWords(p.notes ?? '')),
       image: p.image && /^https:\/\//.test(p.image) ? p.image : null,
       trip: p.trip && tripInfo.has(p.trip) ? p.trip : null,
       trip_title: p.trip ? (tripInfo.get(p.trip)?.title ?? null) : null,

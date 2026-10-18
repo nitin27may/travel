@@ -2,6 +2,7 @@ import { buildGlobe, globePathsOf } from './globe';
 import { buildPlaces } from './places';
 import { buildTrips } from './trips';
 import { DropLog, type DroppedText } from './dateless';
+import { scrubOrigin } from './origin';
 import { loadSources, type SourceOptions } from './sources';
 import type { PublicData, PublicPlace, PublicPlaceCard, PublicTrip, PublicTripCard } from './types';
 
@@ -35,6 +36,9 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
   const log = new DropLog();
   const pb = buildPlaces(src, log);
   const tb = buildTrips(src, pb, log);
+  // the household's home town never reaches a public path: names, titles, notes and points near it
+  scrubOrigin(pb.places);
+  scrubOrigin(tb.trips);
   const listed = new Map([...tb.built].filter(([, slug]) => tb.trips.find((t) => t.slug === slug)?.visibility === 'public'));
   const tripsBySlug = new Map(tb.trips.map((t) => [t.slug, t]));
   const globe = buildGlobe(src.root, pb.places, tb.trips.filter((t) => t.visibility === 'public'), listed);

@@ -3,10 +3,9 @@ import dynamic from 'next/dynamic';
 import { Elevation, Stats } from '@/components/entity/cells';
 import { PlaceCardFooter } from '@/components/places/PlaceCardFooter';
 import type { PlaceListRow } from '@/components/places/rows';
-import { Icon, kindIcon, statusIcon } from '@/components/ui/Icon';
-import { PLACE_STATUSES } from '@/lib/data/types';
+import { Icon, kindIcon } from '@/components/ui/Icon';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
-import { KID_ICONS, KID_LABELS, STATUS_LABELS, TAG_KIND_ORDER, cap } from '../labels';
+import { KID_ICONS, KID_LABELS, TAG_KIND_ORDER, cap } from '../labels';
 import type { Badge, EntityDescriptor } from '../types';
 
 // the Map view loads when first opened, so the list's first load stays inside the JS budget
@@ -23,7 +22,6 @@ const CARD_HONESTY = new Set(['location_unconfirmed', 'unverified', 'no_source']
 export function placeBadges(p: PlaceListRow): Badge[] {
   const out: Badge[] = [
     { text: p.kindLabel, tone: 'kind', icon: kindIcon(p.kind) },
-    { text: STATUS_LABELS[p.status] ?? cap(p.status), tone: 'status', value: p.status, icon: statusIcon(p.status) },
   ];
   if (p.season.length) out.push({ text: seasonLabel(p.season), tone: 'season', icon: 'calendar', title: 'Best months' });
   if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: p.kid_fit === 'strong-kid' ? 'Suitable only for strong, experienced children' : undefined });
@@ -63,7 +61,6 @@ const sourceText = (p: PlaceListRow) => (p.sources.length ? `${p.sources.length}
 const columns: PlaceCol[] = [
   col('name', 'Name', ({ row }) => <span className="cell-name">{row.original.name}</span>, (p) => p.name, { size: 230 }),
   col('kind', 'Kind', ({ row }) => <span className="cell-icon"><Icon name={kindIcon(row.original.kind)} size={14} />{row.original.kindLabel}</span>, (p) => p.kindLabel, { size: 130 }),
-  col('status', 'Status', ({ row }) => <span className="cell-icon" data-status={row.original.status}><Icon name={statusIcon(row.original.status)} size={14} />{STATUS_LABELS[row.original.status] ?? row.original.status}</span>, (p) => p.status, { size: 130 }),
   col('country', 'Country', ({ row }) => row.original.country_name, (p) => p.country_name, { size: 130 }),
   col('region', 'Region', ({ row }) => row.original.region_name, (p) => p.region_name, { size: 150 }),
   col('area', 'Area', ({ row }) => row.original.area_name, (p) => p.area_name, { size: 200 }),
@@ -81,6 +78,9 @@ const aliasMatch = (values: (string | undefined)[], selected: string[]) => {
   const want = lc(selected[0] ?? '');
   return !want || values.some((v) => lc(v ?? '') === want);
 };
+
+/** The `trip` facet value for a place no public trip uses. */
+const NO_TRIP = 'none';
 
 const COMPLETENESS_RANK: Record<string, number> = { draft: 0, usable: 1, complete: 2 };
 
@@ -133,7 +133,6 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       // an old link may still say kind=park or kind=city
       match: (p, sel) => sel.some((v) => v === p.kind || v === p.legacyKind),
     },
-    { param: 'status', label: 'Status', type: 'multi', order: [...PLACE_STATUSES], options: (p) => [{ value: p.status, label: STATUS_LABELS[p.status] ?? cap(p.status) }] },
     { param: 'kid', label: 'Kids', type: 'single', order: ['strong-kid', 'yes', 'no', 'unknown'], options: (p) => [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit }] },
     {
       param: 'season',
@@ -143,22 +142,26 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       options: (p) => p.season.map((m) => ({ value: String(m), label: MONTH_NAMES[m - 1] })),
     },
     { param: 'tag', label: 'Tag', type: 'single', groupOrder: TAG_KIND_ORDER, options: (p) => p.tags.map((t) => ({ value: t.id, label: t.label, group: t.kind })) },
-    { param: 'trip', label: 'Plan', type: 'single', options: (p) => (p.trip ? [{ value: p.trip, label: p.trip_title ?? p.trip }] : []) },
+    {
+      param: 'trip',
+      label: 'In a public trip',
+      type: 'single',
+      last: [NO_TRIP],
+      options: (p) => (p.trips.length ? p.trips.map((t) => ({ value: t.slug, label: t.title })) : [{ value: NO_TRIP, label: 'Not in a trip yet' }]),
+    },
   ],
   columns,
-  defaultColumns: ['name', 'kind', 'status', 'region', 'area', 'season', 'kid', 'elevation', 'sources', 'complete'],
+  defaultColumns: ['name', 'kind', 'region', 'area', 'season', 'kid', 'elevation', 'sources', 'complete'],
   groupBy: [
     { id: 'country', label: 'Country', key: (p) => p.country, title: (p) => p.country_name },
     { id: 'region', label: 'Region', key: (p) => `${p.country}/${p.region}`, title: (p) => p.region_name, subtitle: (p) => p.country_name },
     { id: 'area', label: 'Area', key: (p) => `${p.country}/${p.region}/${p.area}`, title: (p) => p.area_name, subtitle: (p) => `${p.region_name}, ${p.country_name}` },
     { id: 'kind', label: 'Kind', key: (p) => p.kind, title: (p) => kindName(p.kind) },
-    { id: 'status', label: 'Status', key: (p) => p.status, title: (p) => STATUS_LABELS[p.status] ?? cap(p.status) },
   ],
   defaultGroup: 'country',
   sorts: {
     name: { label: 'Name', value: (p) => p.name },
     kind: { label: 'Kind', value: (p) => p.kindLabel },
-    status: { label: 'Status', value: (p) => PLACE_STATUSES.indexOf(p.status) },
     country: { label: 'Country', value: (p) => p.country_name },
     region: { label: 'Region', value: (p) => p.region_name },
     area: { label: 'Area', value: (p) => p.area_name },
@@ -174,7 +177,6 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     a.country_name.localeCompare(b.country_name) || a.region_name.localeCompare(b.region_name) || a.area_name.localeCompare(b.area_name) || a.name.localeCompare(b.name),
   defaultSortLabel: 'Country, region, area',
   search: (p) => [p.name, p.area_name, p.region_name, p.country_name, p.note, p.tags.map((t) => t.label).join(' '), p.kindLabel, p.kind].join(' '),
-  hiddenByDefault: (p, state, ignore) => ignore !== 'status' && p.status === 'dropped' && !state.facets.status?.length,
   href: (p) => `/places/${p.slug}/`,
   detail: [],
   ops: {},

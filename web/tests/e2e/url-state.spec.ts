@@ -65,7 +65,7 @@ test.describe('the views share one URL state', () => {
   });
 
   test('season filters on the app (the legacy page has no season)', async ({ page, site }) => {
-    const july = store.places.filter((p) => p.status !== 'dropped' && p.season_months.includes(7)).length;
+    const july = store.places.filter((p) => p.season_months.includes(7)).length;
     expect(july).toBeGreaterThan(0);
     await page.goto(`${site.url}/places/?season=7`);
     // the saved places plus the researched Dolomites places that are open in July
@@ -91,9 +91,9 @@ test.describe('the views share one URL state', () => {
   });
 
   test('an empty result names the filters to loosen', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/?country=CA&kind=lighthouse&status=planned`);
+    await page.goto(`${site.url}/places/?country=CA&kind=lighthouse&kid=strong-kid`);
     await expect(page.getByRole('heading', { name: 'No places match' })).toBeVisible();
-    await page.getByRole('button', { name: /Remove .*Status: Planned.* to see/ }).click();
+    await page.getByRole('button', { name: /Remove .*Kids: .* to see/ }).click();
     await expect(page.getByRole('heading', { name: 'No places match' })).toHaveCount(0);
     await expect(count(page)).not.toHaveText('0');
   });

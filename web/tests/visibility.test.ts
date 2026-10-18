@@ -33,7 +33,7 @@ describe('loaders honour visibility', () => {
   it('lists only public data trips plus the legacy rows', () => {
     process.env.LEGACY_TRIPS_JSON = `${FIXTURE_ROOT}/legacy-trips.json`;
     try {
-      expect(loadListedTrips(FIXTURE_ROOT).map((t) => t.slug).sort()).toEqual(['legacy-one', 'public-trip']);
+      expect(loadListedTrips(FIXTURE_ROOT).map((t) => t.slug).sort()).toEqual(['legacy-one', 'legacy-two', 'public-trip']);
       expect(loadTrips(FIXTURE_ROOT).map((t) => t.slug)).toContain('unlisted-trip');
     } finally {
       delete process.env.LEGACY_TRIPS_JSON;

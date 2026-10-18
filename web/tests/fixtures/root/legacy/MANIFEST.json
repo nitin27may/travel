@@ -4,6 +4,10 @@
   {
    "slug": "legacy-one",
    "served": true
+  },
+  {
+   "slug": "legacy-two",
+   "served": true
   }
  ]
 }
