@@ -6,6 +6,7 @@ Newest first. Each line links to where it is specified. Move a line to "Done" wi
 
 | Added | Item | Spec |
 |---|---|---|
+| 2026-10-18 | **Keep what works on the live site.** Trips and Places keep photo cards, filter pills, group/sort, the Cards/List/Table/Map views, the table tools (saved views, columns, density, CSV) and the honesty markers. The globe keeps 3D relief, styles, terrain, drill-down and saved places. One redesign direction evolves the live look. | [design/keep-from-live-site.md](design/keep-from-live-site.md) |
 | 2026-10-18 | **Year calendar: school calendar.** Covers the school year from and to, March break, winter break and PA days, entered once or pasted from the board's calendar, and per school when there are two. It also shades weekends, highlights long weekends (including ones made by PA days), lets the household add its own holidays and days off, has a "Find time" list of free windows, and uses the same shading in every date picker. | [F03](features/F03-candidates-and-travel-year.md), section "School calendar, weekends and holidays" |
 | 2026-10-18 | Fable review of the design system and every component, checked against the trip-scope rules. The output is the component foundation spec. | [design/trip-scope-scenarios.md](design/trip-scope-scenarios.md) |
 | 2026-10-18 | Scenario walk S1-S10 in the previews and the prototype, recorded in `design/scenario-check.md` before applying the chosen design | [design/trip-scope-scenarios.md](design/trip-scope-scenarios.md) |
