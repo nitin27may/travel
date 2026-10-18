@@ -4,9 +4,10 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "../ui/Icon";
 import {
+  checkedLabel, checklist, fmtPoint, nav, osmUrl, sourceLabel,
   DIFFICULTY, FIELD, FIELDS, GROUPS, KIND_GROUP, LINK_GROUPS, LINK_KINDS, addHazard, addLink, domainOf, guessKind, isHttp, removeHazard, removeLink,
   sendFactForReview, sendHazardForReview, sendLinkForReview, saveFacts, useTrail, validate,
-  type Fact, type FieldDef, type LinkKind, type TrailLink, type TrailRecord,
+  type Fact, type FieldDef, type LinkKind, type ParkingLot, type Point, type TrailLink, type TrailRecord, type Trailhead,
 } from "../data/trails";
 
 const NOT_YET = "not researched yet";
@@ -25,6 +26,14 @@ function Provenance({ f, onSend }: { f: Fact; onSend?: () => void }) {
       <span className="tr-prov">
         <span className="chip act">added by you · {f.added ?? "today"}</span>
         {f.sent ? <span className="chip ok"><Icon name="check" size={11} />sent for review</span> : <button type="button" className="chip glow tr-send" onClick={onSend}>Send for review</button>}
+      </span>
+    );
+  }
+  if (f.conflict?.length) {
+    return (
+      <span className="tr-conf">
+        <span className="chip warn"><Icon name="alert" size={11} />sources disagree · {f.conflict.length}</span>
+        {f.conflict.map((c, i) => <span key={i} className="small"><b>{c.v}</b><span className="muted"> · {c.conf} · {c.src} · read {c.read}</span></span>)}
       </span>
     );
   }
@@ -101,6 +110,70 @@ function Value({ def, f }: { def: FieldDef; f: Fact }) {
   );
 }
 
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const fmtDate = (d: string) => { const m = d.match(/^(\d{4})-(\d{2})-(\d{2})$/); return m ? `${Number(m[3])} ${MON[Number(m[2]) - 1]} ${m[1]}` : d; };
+
+function PointCard({ icon, title, p, rows, note, badge, drive }: { icon: string; title: string; p: Point; rows: [string, string | undefined][]; note?: string; badge?: string; drive?: { name: string; p: Point } }) {
+  const [copied, setCopied] = useState(false);
+  const coords = fmtPoint(p);
+  const n = nav(p);
+  const dir = drive ? nav(drive.p).directions : n.directions;
+  const appleDir = drive ? nav(drive.p).apple : n.apple;
+  const chk = checkedLabel(p.point_checked);
+  const href = osmUrl(p.point_source);
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(coords); setCopied(true); setTimeout(() => setCopied(false), 1600); }
+    catch { const r = document.createRange(); const el = document.getElementById(`pt-${title}`); if (el) { r.selectNodeContents(el); getSelection()?.removeAllRanges(); getSelection()?.addRange(r); } }
+  };
+  const shown = rows.filter(r => r[1]);
+  return (
+    <article className="tr-pt">
+      <header><span className="tl-ic"><Icon name={icon} size={15} /></span><b>{title}</b>{badge && <span className="chip act">{badge}</span>}</header>
+      {shown.length > 0 && <dl className="tr-pt-dl">{shown.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
+      {note && <p className="small muted tr-pt-note">{note}</p>}
+      <div className="tr-coord">
+        <code id={`pt-${title}`} className="num">{coords}</code>
+        <button type="button" className="btn ghost small" onClick={copy} aria-label={`Copy coordinates of ${title}`}><Icon name={copied ? "check" : "list"} size={12} />{copied ? "Copied" : "Copy"}</button>
+      </div>
+      <div className="tr-src small muted">
+        {href ? <a href={href} target="_blank" rel="noreferrer">{sourceLabel(p.point_source)}</a> : <span>{sourceLabel(p.point_source)}</span>}
+        <span aria-hidden="true">·</span><span>{chk.who}</span>
+        {chk.needsPerson && <><span aria-hidden="true">·</span><span className="chip warn">needs your check</span></>}
+      </div>
+      <div className="tr-nav">
+        <a className="btn primary small" href={n.google} target="_blank" rel="noreferrer"><Icon name="pin" size={13} />Open in Google Maps</a>
+        <a className="btn small" href={dir} target="_blank" rel="noreferrer"><Icon name="nav" size={13} />Directions</a>
+        <a className="btn small" href={appleDir} target="_blank" rel="noreferrer"><Icon name="map" size={13} />Apple Maps</a>
+      </div>
+      {drive && <p className="small muted tr-pt-note">You cannot drive here: Directions and Apple Maps go to {drive.name}, the valley lot.</p>}
+    </article>
+  );
+}
+
+/** Trailhead and parking cards with stored points, their source and generated map links. */
+export function TrailAccess({ id }: { id: string }) {
+  const rec = useTrail(id);
+  const t: Trailhead | undefined = rec.trailhead;
+  const lots: ParkingLot[] = rec.parking ?? [];
+  return (
+    <section className="panelbox tr-access" aria-label="Trailhead and parking">
+      <div className="tr-bar"><h2 className="pp-h"><Icon name="flag" size={15} /> Trailhead and parking</h2><span className="tr-grow" />
+        {lots.length > 0 && <span className="muted small num">{lots.length} lot{lots.length > 1 ? "s" : ""}</span>}</div>
+      {t ? <PointCard icon="flag" title={t.name} p={t} note={t.note}
+        badge={t.kind === "lift_top" ? "walk starts here (by lift)" : "walk starts here"}
+        drive={t.kind === "lift_top" && lots[0] ? { name: lots[0].name, p: lots[0] } : undefined}
+        rows={[["Elevation", t.elev_m ? `${t.elev_m} m` : undefined]]} />
+        : <div className="tr-gap"><span className="muted">Trailhead point {NOT_YET}</span></div>}
+      {lots.length > 0 && <div className="label tr-lots-h">Parking</div>}
+      <div className="tr-lots">
+        {lots.map(l => <PointCard key={l.name + l.point_source} icon="parking" title={l.name} p={l} note={l.note} rows={[["Fee", l.fee], ["Capacity", l.capacity]]} />)}
+      </div>
+      {t && lots.length === 0 && <div className="tr-gap"><span className="muted">Parking {NOT_YET}</span></div>}
+      <p className="muted small">Points come from OpenStreetMap, never from Google. The map buttons are built from our point and hand it to Google or Apple Maps.</p>
+    </section>
+  );
+}
+
 export function TrailFacts({ id }: { id: string }) {
   const rec = useTrail(id);
   const fade = useFade();
@@ -128,6 +201,8 @@ export function TrailFacts({ id }: { id: string }) {
   const known = FIELDS.filter(f => rec.facts[f.key]).length;
 
   return (
+    <>
+    <TrailAccess id={id} />
     <section className="panelbox tr-facts" aria-label="Trail facts">
       <div className="tr-bar">
         <h2 className="pp-h">Trail</h2>
@@ -176,6 +251,7 @@ export function TrailFacts({ id }: { id: string }) {
         <motion.p className="muted small tr-note" {...fade}>Your values show "added by you" until a reviewer checks them. In the real app research proposes and review verifies.</motion.p>
       )}</AnimatePresence>
     </section>
+    </>
   );
 }
 
@@ -215,11 +291,11 @@ export function TrailHazards({ id }: { id: string }) {
 }
 
 const KIND_ICON: Record<LinkKind, string> = {
-  official: "shield", alltrails: "map", komoot: "map", wikiloc: "map", outdooractive: "map", waymarked: "layers", gpx: "list", conditions: "alert",
+  official: "shield", alltrails: "map", komoot: "map", wikiloc: "map", outdooractive: "map", gaia: "map", fatmap: "map", osm: "layers", waymarked: "layers", gpx: "list", map_sheet: "map", conditions: "alert",
   weather: "sun", webcam: "search", booking: "ticket", transit: "nav", video: "star", report: "list", other: "link",
 };
 const KIND_LABEL: Record<string, string> = Object.fromEntries(LINK_KINDS.map(k => [k.kind, k.label]));
-const LINK_ONLY = new Set<LinkKind>(["alltrails", "komoot", "wikiloc", "outdooractive"]);
+const LINK_ONLY = new Set<LinkKind>(["alltrails", "komoot", "wikiloc", "outdooractive", "gaia", "fatmap"]);
 
 function LinkRow({ id, l }: { id: string; l: TrailLink }) {
   const fade = useFade();
@@ -277,6 +353,9 @@ export function TrailLinks({ id }: { id: string }) {
     reset(); setOpen(false);
   };
   const detected = !kindTouched && url && guessKind(url.trim());
+  const list = checklist(rec);
+  const filled = list.filter(c => c.st.state === "url" || c.st.state === "found_in_search").length;
+  const nones = list.filter(c => c.st.state === "searched_none" || c.st.state === "not_checked");
 
   return (
     <section className="panelbox tr-links">
@@ -297,16 +376,42 @@ export function TrailLinks({ id }: { id: string }) {
           <label>Note (optional)<input value={note} onChange={e => setNote(e.target.value)} placeholder="e.g. Shows the 2026 reroute" /></label>
           <div className="tr-btns"><button className="btn primary" type="submit"><Icon name="plus" size={14} />Add link</button><button className="btn" type="button" onClick={() => { reset(); setOpen(false); }}>Cancel</button></div>
         </motion.form>)}</AnimatePresence>
+      <div className="tl-check" aria-label="Link checklist">
+        <div className="label">Checklist · <span className="num">{filled} of {list.length}</span> kinds filled</div>
+        <ul className="tl-chips">
+          {list.map(c => {
+            const st = c.st.state;
+            const cls = st === "url" ? "ok" : st === "found_in_search" ? "warn" : st === "searched_none" ? "" : "crit";
+            const tip = st === "url" ? "link found and opened" : st === "found_in_search" ? "found in search, not opened" : st === "searched_none" ? "searched, none found" : "not checked yet";
+            return <li key={c.kind}><span className={`chip ${cls}`} title={tip}>{st === "url" || st === "found_in_search" ? <Icon name="check" size={11} /> : null}{c.label}<span className="sr-only">: {tip}</span></span></li>;
+          })}
+        </ul>
+      </div>
       {LINK_GROUPS.map(g => {
         const ls = rec.links.filter(l => KIND_GROUP[l.kind] === g);
+        if (!ls.length) return null;
         return (
           <div key={g} className="tl-group">
             <div className="label">{g}</div>
-            {ls.length ? <ul className="tl-list">{ls.map(l => <LinkRow key={l.id} id={id} l={l} />)}</ul>
-              : <div className="tr-gap"><span className="muted">No link yet</span></div>}
+            <ul className="tl-list">{ls.map(l => <LinkRow key={l.id} id={id} l={l} />)}</ul>
           </div>
         );
       })}
+      {nones.length > 0 && (
+        <div className="tl-group">
+          <div className="label">Gaps</div>
+          <ul className="tl-none">
+            {nones.map(c => (
+              <li key={c.kind}>
+                <b>{c.label}</b>
+                {c.st.state === "searched_none"
+                  ? <><span className="muted">none found (checked {fmtDate(c.st.date)})</span><span className="muted small tl-q">{[c.st.note, c.st.query ? `searched ${c.st.query}` : ""].filter(Boolean).join(" · ")}</span></>
+                  : <span className="crit-text">not checked yet</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <p className="muted small">AllTrails and the other route platforms are link-out only: no embeds, and their stats, photos and tracks are never copied. AllTrails blocks bots, so those pages are marked "found in search, not opened".</p>
     </section>
   );
