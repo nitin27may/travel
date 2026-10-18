@@ -334,8 +334,8 @@
     },
     {
       "id": "src-0042",
-      "url": "https://stateparks.utah.gov/?p=11460",
-      "title": "Dead Horse Point State Park overlook text (read via search result; the page returned 404 to fetch)",
+      "url": "https://stateparks.utah.gov/parks/dead-horse-point/hiking/",
+      "title": "Hiking, Dead Horse Point State Park (Overlook Trail)",
       "publisher": "Utah State Parks",
       "kind": "official",
       "read": "2026-10-18"
@@ -801,13 +801,13 @@
       },
       "class_key": "drive/scenic-parkway",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0006"
         ],
-        "note": "inside Zion National Park (parent); shuttle-only for most of the year, the way nearly every visitor sees the canyon"
+        "note": "Down a tier: the earlier national rested on the parent designation (Zion National Park, scope parent); 2 Wikipedia languages and about 470 page views a year. Shuttle-only access; the canyon's draw sits on the Narrows and Angels Landing records (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -1086,13 +1086,13 @@
       },
       "class_key": "canyon/desert-rim",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0014"
         ],
-        "note": "one of four amphitheater viewpoints inside Bryce Canyon National Park (parent); NPS names its hoodoos 'some of the most famous'"
+        "note": "Down a tier: one of four viewpoints on the amphitheater rim, which carries the national draw on its own record; the national park's line about famous hoodoos is about the amphitheater. No Wikipedia article (0 languages) (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -1348,7 +1348,14 @@
           ],
           "note": "no national or global top-list mention surfaced in this pass"
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/utah-five-parks/sight:fruita orchards",
+          "reason": "The Hickman Bridge trailhead is a few minutes along Highway 24 from the Fruita orchards",
+          "src": "src-0023"
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
@@ -1556,13 +1563,13 @@
       },
       "class_key": "trail/lookout",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0030"
         ],
-        "note": "inside Arches National Park (parent); Landscape Arch, the longest arch span in North America per NPS, is on the trail"
+        "note": "Down a tier: 6 Wikipedia languages and about 3,800 page views a year (regional); the national park's Landscape Arch fact supports its distinction, not a national draw. Delicate Arch carries the park's draw (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -1930,13 +1937,13 @@
       },
       "class_key": "canyon/desert-rim",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0037"
         ],
-        "note": "inside Canyonlands National Park (parent); the end-point overlook of the Island in the Sky drive"
+        "note": "Down a tier: the earlier national rested on the parent designation (Canyonlands National Park, scope parent); no Wikipedia article (0 languages). The end-point overlook of the Island in the Sky drive, standing top (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -2007,7 +2014,14 @@
           ],
           "note": "no national or global top-list mention surfaced in this pass"
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/utah-five-parks/trail:mesa arch",
+          "reason": "Mesa Arch is on the same Island in the Sky road, a short walk usually paired with the overlooks",
+          "src": "src-0039"
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",
@@ -2028,7 +2042,7 @@
         "src": [
           "src-0040"
         ],
-        "note": "inside Dead Horse Point State Park (parent), an International Dark Sky Park (parent); the gooseneck view is among the best known in Utah"
+        "note": "Place-level evidence: the state park's own article is about the point, with 9 Wikipedia languages and about 18,700 English page views a year (national by views); the dark-sky and park designations are context only (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",

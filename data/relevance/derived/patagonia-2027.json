@@ -544,7 +544,7 @@
     {
       "ref": "trip/patagonia-2027/sight:penguin colony stop",
       "draw_suggested": "regional",
-      "effective_draw": "national",
+      "effective_draw": "regional",
       "access_load": "hard",
       "detour_min": 146,
       "detour_basis": "town",
@@ -561,8 +561,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top, distinction rare; hard access drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -574,14 +574,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "anchor",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Local favourite",
       "stale": [],
       "warnings": []
     },
@@ -632,7 +632,7 @@
     {
       "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
       "draw_suggested": "local",
-      "effective_draw": "national",
+      "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
       "detour_basis": "none",
@@ -648,8 +648,8 @@
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -661,14 +661,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": [
         {

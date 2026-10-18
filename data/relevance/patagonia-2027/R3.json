@@ -86,8 +86,8 @@
     },
     {
       "id": "src-0011",
-      "url": "https://piratour.net/producto/caminata-en-isla-martillo/",
-      "title": "Caminata en Pingüinera (Isla Martillo)",
+      "url": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre/",
+      "title": "Caminata en Pingüinera (Isla Martillo) (redirected to the version terrestre page, same product; re-read)",
       "publisher": "Piratour Travel",
       "kind": "operator",
       "read": "2026-10-18"
@@ -1257,13 +1257,13 @@
       },
       "class_key": "wildlife/viewing",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0010"
         ],
-        "note": "The Ushuaia tourism board calls Isla Martillo the only penguin colony of Tierra del Fuego; the landing has a strict daily quota and sells out ahead in summer (plan research)."
+        "note": "Down a tier: the tourism board's 'only penguin colony in Tierra del Fuego' supports its distinction, not a national draw; 3 Wikipedia languages and no measured page views. The draw of the region sits on Ushuaia and the national park (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -1467,14 +1467,14 @@
       },
       "class_key": "glacier/walk-on",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0013",
           "src-0001"
         ],
-        "note": "Run by the park's only concessionaire for glacier trekking on Perito Moreno, inside Los Glaciares WHS (parent); the product sells out ahead in summer (plan research)."
+        "note": "Down a tier: the earlier national rested on the parent WHS and plan research only; no Wikipedia item. The glacier's draw sits on the walkways record (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -1553,7 +1553,8 @@
             "elcalafate.tur.ar Perito Moreno page"
           ]
         }
-      }
+      },
+      "same_place_as": "trip/patagonia-2027/sight:perito moreno walkways"
     },
     {
       "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
@@ -1905,7 +1906,7 @@
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "note": "The tourism board styles the village the 'Capital Nacional del Trekking', the gateway to the north zone of Los Glaciares WHS (parent)."
+        "note": "Place-level evidence: about 31,300 English page views a year (national by views, the settlement rule) and the 'Capital Nacional del Trekking' title; the WHS is context only (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",

@@ -32,8 +32,8 @@
     },
     {
       "id": "src-0004",
-      "url": "https://piratour.net/producto/caminata-en-isla-martillo/",
-      "title": "Caminata en Pingüinera (Isla Martillo)",
+      "url": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre/",
+      "title": "Caminata en Pingüinera (Isla Martillo) (redirected to the version terrestre page, same product; re-read)",
       "publisher": "Piratour Travel",
       "kind": "operator",
       "read": "2026-10-18"
@@ -738,11 +738,11 @@
           "state": "value",
           "basis": "official_info",
           "src": [
-            "src-0008",
-            "src-0004"
+            "src-0008"
           ],
           "quote": "Entre octubre y abril es posible avistar dos especies de pingüinos",
-          "applies_to": "2026"
+          "applies_to": "2026",
+          "note": "The season quote is on the Ushuaia tourism page, not on the Piratour page (RC re-check)"
         },
         "wheelchair": {
           "v": "none",

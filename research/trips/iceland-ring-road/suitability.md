@@ -179,3 +179,14 @@ All 25 are **Usable**, 0 Complete, 0 Draft. Many R fields are answered as `searc
 - A spec example can be wrong: the Myvatn child rules in applicability 3.12 look like the Blue Lagoon's.
 - ust.is pages give protection status and rules, almost never walk distances. Expect `searched_none` for `walk_m` on Icelandic natural monuments.
 - Wikidata name search returns ships named after waterfalls (Dettifoss, Godafoss) and an Australian "Diamond Beach" first. Every QID here was checked by description and coordinates.
+
+## Correction pass RC (18 Oct 2026, backlog 3a.8 and 3a.10)
+
+- **Earth Lagoon Myvatn `min_age`.** The operator's FAQ says "Yes, all children are welcome", an affirmative no-minimum, so the field is now `no_limit`.
+- **Moved pages.** The Glaumbaer hours and Akureyri botanic garden pages were re-read at their new URLs. Glaumbaer's access season gains the 1 Apr to 19 May weekday rows and the by-appointment off-season rows from the same page.
+- **Relevance re-judged:**
+  - **Diamond Beach: national to regional, anchor to highlight.** The national draw rested on the parent park; it has no Wikipedia article. It is the lagoon's beach across the road, and the lagoon carries the draw.
+  - **Kirkjufell: stays national and an anchor.** It has 22 languages and about 25,400 views, and the note now cites them.
+  - **Fjadrargljufur: stays national and an anchor.** It has 17 languages and about 7,700 views, plus the 2019 visitor-pressure closure.
+  - **Seljalandsfoss: stays world and an anchor.** It has 40 languages.
+- **Pairs:** Jokulsarlon and Diamond Beach (both ways); Geysir and Gullfoss (both ways); Namaskard with the Myvatn lagoon.
