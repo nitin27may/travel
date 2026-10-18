@@ -183,7 +183,7 @@ Operations (P4a): every write to `data/trips/` is an operation in `core/src/ops/
 
 ## Agents and models (since 18 Oct 2026)
 
-Delegate by kind of work. The project agents are in `.claude/agents/`.
+Delegate by kind of work. The project agents are in `.claude/agents/`. The v2 plan (`docs/v2/`) lives on branch `claude/serene-goldberg-wtn3di` (worktree `travel-wt/v2`) until it merges.
 
 | Work | Agent | Model |
 |---|---|---|
