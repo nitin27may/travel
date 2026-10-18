@@ -1,6 +1,6 @@
 // Bookings: what is booked, held, or still to book (we never book; people record it). Timeline by day or
 // kind, a detail sheet with every captured field, add/edit forms per kind, paste a confirmation, and the wallet.
-// Local state only (prototype). docs/v2/09-reservations.md, ux/screens S10, S11.
+// Bookings live in the trip store, so Plan, Today, Tasks and the trip header see every change; each save is undoable. docs/v2/09-reservations.md, ux/screens S10, S11.
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 import type { ScreenProps } from ".";
@@ -18,9 +18,9 @@ const DAY_OF: Record<string, number> = { "r-flight": 1, "r-car": 1, "r-s1": 1, "
 const dayOf = (r: Reservation) => r.dayN ?? DAY_OF[r.id];
 
 export function Bookings({ phone, go }: ScreenProps) {
-  const { s } = useStore();
+  const { s, saveReservation } = useStore();
   const reduce = useReducedMotion();
-  const [list, setList] = useState<Reservation[]>(() => s.trip.reservations);
+  const list = s.trip.reservations;
   const [group, setGroup] = useState<"day" | "kind">("day");
   const [view, setView] = useState<"list" | "wallet">("list");
   const [open, setOpen] = useState<string>();
@@ -47,11 +47,11 @@ export function Bookings({ phone, go }: ScreenProps) {
   const closeAll = () => { setOpen(undefined); setAdding(null); setEditing(undefined); setReading(undefined); };
 
   const save = (r: Reservation) => {
-    setList(l => l.some(x => x.id === r.id) ? l.map(x => x.id === r.id ? r : x) : [...l, r]);
+    saveReservation(r);
     setAdding(null); setEditing(undefined); setReading(undefined); setOpen(r.id);
   };
-  const mark = (id: string, status: Reservation["status"]) => setList(l => l.map(r => r.id === id ? { ...r, status } : r));
-  const attach = (id: string, a: Attachment[]) => setList(l => l.map(r => r.id === id ? { ...r, attachments: [...(r.attachments ?? []), ...a] } : r));
+  const mark = (id: string, status: Reservation["status"]) => { const r = list.find(x => x.id === id); if (r) saveReservation({ ...r, status }, `Marked ${r.title} ${status === "to_book" ? "to book" : status}`); };
+  const attach = (id: string, a: Attachment[]) => { const r = list.find(x => x.id === id); if (r) saveReservation({ ...r, attachments: [...(r.attachments ?? []), ...a] }, `Attached ${a.length} file${a.length > 1 ? "s" : ""} to ${r.title}`); };
 
   return (
     <div className="page bk">
