@@ -397,7 +397,7 @@ describe("derive is offline and advisory", () => {
   it("rainy_day, hidden_gem and the badge precedence", () => {
     const gem = rec({ ref: "place/g", draw: "local", standing: "top", weather: "indoor" });
     const d = run([gem], { "place/g": { point: pt(51.18, -115.57), accessLegalPublic: true } })["place/g"]!;
-    expect(d.flags).toEqual({ rainy_day: true, en_route: expect.any(Boolean), hidden_gem: true });
+    expect(d.flags).toEqual({ go_clear_day: false, rainy_day: true, en_route: expect.any(Boolean), hidden_gem: true });
     expect(d.badge).toBe("Local favourite");
   });
   it("is deterministic", () => {

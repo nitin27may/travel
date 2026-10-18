@@ -182,7 +182,7 @@ phone 390
 ▸ WHEN YOU CAN GO    June to early October · cancelled for wind · refund
 ```
 
-- "No minimum age" is a `none_stated` rule: it earns the lock and the fill, because the operator said so.
+- "No minimum age" is a `no_limit` rule: it earns the lock and the fill, because the operator said so.
 - Slot 3 is `stroller_on_board` (a carriage rule, A6), not a surface.
 - `stroller` is N for boats: no row, no marker (D9).
 
@@ -243,7 +243,7 @@ phone 390
 
 | Chip | Look | Glyph | Text pairs (light / dark) | Where |
 |---|---|---|---|---|
-| **rule** (hard limit, `none_stated` rule, guide required) | `--surface-2` fill, no border, `--ink` 600 | lock 13 px | `--ink` on `--surface-2` 13.66 / 12.24 AAA | slot 1 when any rule exists |
+| **rule** (hard limit, `no_limit` rule, guide required) | `--surface-2` fill, no border, `--ink` 600 | lock 13 px | `--ink` on `--surface-2` 13.66 / 12.24 AAA | slot 1 when any rule exists |
 | **advice** (age band, recommendation, our judgement) | 1 px `--line-2`, `--ink-2` 500 | person 13 px | `--ink-2` on `--surface` 12.09 / 10.76 AAA | slot 1 when no rule exists; detail rows |
 | **value** (slot 2 and 3) | neutral: 1 px `--line-2`, `--ink-2` | the kind glyph (walker, wave, clock, stroller, boat, brake, thermometer) | as advice | slots 2 and 3 |
 | **gap** | 1 px dashed `--line-2`, `--muted` | none | `--muted` on `--surface` 6.94 / 7.45 AA | a missing R field's row; the whole row when all R fields are missing |
@@ -266,7 +266,7 @@ primary action. Green appears only on "fits". Coral appears only on a rule fail 
 | swim test | "swim test" | the operator's rule in two words; the row quotes it |
 | adult rule | "under 14 with an adult" | the number first |
 | guide | "guide required" | |
-| none stated | "No minimum age" | only for `none_stated`; it earns the lock |
+| no limit | "No minimum age" | only for `no_limit` (the source says so); it earns the lock. `none_stated` (silent sources) reads like `searched_none`: "Minimum age not stated" |
 | searched none inside the chip | "height not stated" | counts as one of the three values |
 | overflow | "+2" | after the third value; counts every remaining operator ban (D4) |
 | age band | "From about 6" on cards and day rows; "From about 6 · our judgement" on the place page | "about" says judgement in one word; the glyph says it too |
@@ -369,7 +369,7 @@ option is a plain phrase with its meaning after a dot; the count line names what
    one warning line when `hazards` or `weather_cancel` has a value, the research line "n of m family checks
    done · read <date>", and only the groups the profile marks R or A. A bungee page has no Facilities and
    no Effort group and no marker for them.
-2. Every hard limit in the record (`operator_rule`, `official_rule`, including `none_stated`) is visible at
+2. Every hard limit in the record (`operator_rule`, `official_rule`, including `no_limit`) is visible at
    rest: in the first chip's words or in its "+n" count. Pregnancy and medical bans are counted in "+n".
 3. The first chip is a rule chip (fill, lock) when any rule exists, else an advice chip (outline, person), else
    the gap chip. No chip in the section is amber; the only green is a "fits" chip when a profile is present.
@@ -420,11 +420,21 @@ listed in its change log under 18 Oct 2026 (display rules).
 2. **Faded cards in the Kids filter.** A place whose advice age is above the youngest stays in the list at
    60% with its "From about 8" chip. Keep that, or hide it like a hard rule does?
 
+## 9. Pending display rule: `usable_partial` (CF, comes with S1)
+
+`suit_level` can now be `usable_partial` (suitability.md 4.1). S1 shows it as **"usable, partly unverified"** wherever the level shows. Rules for S1 to build, not yet drawn:
+
+- The badge and the research line say "Usable, partly unverified" in place of "Usable"; the count stays ("partly unverified · 21 of 30").
+- The words are plain text next to the badge, not colour alone, and the badge keeps the `usable` style (neutral outline). It is never `--warn` or `--crit`: the record is usable, the label says some answers are thin.
+- The soft fields (`softRequired`) show their gap or "not stated" chip as today; the safety-critical ones (`softSafety`) lead the "Not checked yet" line so a parent sees the limit that is missing first.
+- A filter or sort that treats `usable` as a floor treats `usable_partial` as below `usable` and above `draft`.
+
 ## Change log
 
 | Date | Change |
 |---|---|
 | 2026-10-18 | First design: six kinds, chip vocabulary (rule, advice, gap, fits, two fails), card and day-row merging, three filter labels, 13 acceptance checks, 10 conflicts with resolutions; mock rendered at 1440 and 390 in light and dark |
+| 2026-10-18 | CF: "No minimum age" moves from `none_stated` to the new `no_limit` state; section 9 records the pending `usable_partial` label "usable, partly unverified" |
 
 ## Rendering check (18 Oct 2026)
 

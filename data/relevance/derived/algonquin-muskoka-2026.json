@@ -48,6 +48,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -92,6 +93,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -136,6 +138,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -180,6 +183,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -198,7 +202,7 @@
         "badge": "Worth the journey",
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         }
       }
     },
@@ -233,6 +237,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -277,6 +282,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false

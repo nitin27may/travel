@@ -87,13 +87,14 @@ A field is not just "filled or empty". The completeness engine counts these stat
 | State | Meaning | Counts as passed? |
 |---|---|---|
 | `value` | filled, with evidence that meets the profile's evidence rule | yes |
-| `none_stated` | the authoritative source explicitly says there is none ("no minimum age", "free entry") | yes |
+| `no_limit` | the authoritative source explicitly says there is none ("no minimum age", "free entry"); the words are in `quote` | yes |
+| `none_stated` | the sources are silent and we record no limit (not on the group-access list, no age on the terms page); soft | yes, but it can cap the level at `usable_partial` |
 | `not_applicable` | the field does not apply, with a reason ("shuttle-only access: no parking at the lake") | removed from the total |
 | `searched_none` | looked in the profile's sources, nothing published; carries `{on, query or tried[]}` | only for checks marked **SN ok** in the profile (links, capacity, fill time, published height limits) |
 | `gap` | not found and not yet looked for properly | no |
 | conflict | evidence disagrees with the chosen value | yes for Usable if the chosen value meets the rule; Complete needs it resolved or explained (C6) |
 
-`none_stated` and `searched_none` are different facts and the UI shows them differently: "No minimum
+`no_limit`, `none_stated` and `searched_none` are different facts and the UI shows them differently: "No minimum
 age (operator, read 12 Oct 2026)" versus "Minimum age not published; ask the operator (searched 12
 Oct 2026)". Mixing them up is how a 6-year-old gets booked onto a trip with an unwritten age rule.
 
