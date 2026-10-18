@@ -10,7 +10,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PLACES, type Place } from "../data/places";
 import { dayDate, fmtDay, type Trip } from "../data/trip";
 import { km, fmtMin } from "../lib/geo";
-import { MapView, type Pin } from "../map/MapView";
+import { MapView, dayColour, type Pin } from "../map/MapView";
 import { planDay, useStore, type Target } from "../state/store";
 import { Icon } from "../ui/Icon";
 import { DaySection } from "./DaySection";
@@ -37,7 +37,7 @@ const toTarget = (key: string): Target => key.startsWith("day:") ? { day: Number
 
 export function PlanScreen({ theme, phone, onOpenPlace, onShare, switcher }: { theme: "light" | "dark"; phone: boolean; onOpenPlace: (p: Place) => void; onShare: () => void; switcher?: React.ReactNode }) {
   const st = useStore();
-  const { s, place, select, focus, move, add, movePin } = st;
+  const { s, place, select, focus, showDay, move, add, movePin } = st;
   const fromStore = useCallback((t: Trip): Containers => ({
     ...Object.fromEntries(t.lists.map(l => [`list:${l.id}`, l.itemIds])),
     ...Object.fromEntries(t.days.map(d => [`day:${d.n}`, d.itemIds])),
@@ -156,7 +156,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare, switcher }: { t
     const el = document.getElementById(id); if (!el) return;
     scrolling.current = Date.now();
     el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
-    if (id.startsWith("day-")) focus(Number(id.slice(4)));
+    if (id.startsWith("day-")) showDay(Number(id.slice(4)));
     if (id === "shelf") setShelfOpen(true);
   };
   useEffect(() => {
@@ -170,32 +170,40 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare, switcher }: { t
     return () => io.disconnect();
   }, [phone, activeId, s.focusDay, focus]);
 
+  // map filter: every day by default (each day its own colour, pins labelled with the day), one day when picked
+  const mapDay = s.mapDay;
   const pins: Pin[] = useMemo(() => {
     const out: Pin[] = []; const seenBase = new Set<string>();
     for (const d of plans) {
-      const isF = d.n === s.focusDay;
+      if (mapDay !== undefined && d.n !== mapDay) continue;
       let k = 0;
       for (const x of d.stops) {
-        const lab = x.item.variant === "B" ? "B" : String(++k);
-        out.push({ id: x.item.id, itemId: x.item.id, place: x.place, label: isF ? lab : "", kind: "stop", day: d.n, dim: !isF, draggable: x.place.catalog === false, lane: x.item.variant });
+        const lab = mapDay === undefined ? String(d.n) : x.item.variant === "B" ? "B" : String(++k);
+        out.push({ id: x.item.id, itemId: x.item.id, place: x.place, label: lab, kind: "stop", day: d.n, dim: false, draggable: x.place.catalog === false, lane: x.item.variant, color: mapDay === undefined ? dayColour(d.n) : undefined, quiet: mapDay === undefined });
       }
-      for (const b of [d.end]) if (b && !seenBase.has(b.id)) { seenBase.add(b.id); out.push({ id: `base-${b.id}`, place: b, label: "", kind: "base", dim: !(d.n === s.focusDay || d.n === (s.focusDay ?? 0) - 1) }); }
+      for (const b of mapDay === undefined ? [d.end] : [d.start, d.end]) if (b && !seenBase.has(b.id)) { seenBase.add(b.id); out.push({ id: `base-${b.id}`, place: b, label: "", kind: "base", dim: false, quiet: mapDay === undefined }); }
     }
     if (peek) out.push({ id: "peek", place: peek, label: "", kind: "suggest" });
-    for (const l of liveTrip.lists) for (const id of l.itemIds) { const it = s.trip.items[id]; const p = it && placeLive(it.placeId); if (p) out.push({ id, itemId: id, place: p, label: "", kind: "idea", dim: true, draggable: p.catalog === false }); }
+    if (mapDay === undefined) for (const l of liveTrip.lists) for (const id of l.itemIds) { const it = s.trip.items[id]; const p = it && placeLive(it.placeId); if (p) out.push({ id, itemId: id, place: p, label: "", kind: "idea", dim: true, draggable: p.catalog === false }); }
     return out;
-  }, [plans, s.focusDay, liveTrip.lists, s.trip.items, placeLive, peek]);
+  }, [plans, mapDay, liveTrip.lists, s.trip.items, placeLive, peek]);
 
   const nearest = addHere ? PLACES.map(p => ({ p, d: km(addHere, p) })).filter(x => x.d < 6).sort((a, b) => a.d - b.d).slice(0, 4) : [];
   const focusPlan = plans.find(p => p.n === s.focusDay) ?? plans[0];
 
   const map = (
     <div className="map-wrap">
-      <MapView theme={theme} plans={plans} focusDay={s.focusDay} pins={pins} selectedItem={s.selected} preview={preview} fit={fit} compact={phone} peek={peek}
+      <MapView theme={theme} plans={plans} focusDay={mapDay} pins={pins} selectedItem={s.selected} preview={preview} fit={fit} compact={phone} peek={peek}
         onPick={pin => { if (pin.itemId) { const n = pin.day; select(pin.itemId, n); if (n) { const el = document.querySelector(`[data-item="${pin.itemId}"]`); el?.scrollIntoView({ behavior: "smooth", block: "center" }); } } }}
         onPinDrag={(id, lng, lat, done) => { if (done) { setPinDrag(null); movePin(id, lng, lat); } else setPinDrag({ id, lng, lat }); }}
         onAddHere={(lng, lat, x, y) => setAddHere({ lng, lat, x, y })} />
       {pinDrag && <div className="map-hint">Moving your pin · day legs update as you drag</div>}
+      <div className="map-filter" role="status">
+        {mapDay === undefined
+          ? <><span className="mf-title">All {plans.length} days</span><span className="muted small">Pick a day to see only its route</span></>
+          : <><span className="mf-dot" style={{ background: dayColour(mapDay) }} /><span className="mf-title">Day {mapDay} only</span>
+              <button className="btn small" onClick={() => { showDay(undefined); setFit(f => f + 1); }}><Icon name="map" size={14} />Show all days</button></>}
+      </div>
       <AnimatePresence>
         {addHere && (
           <motion.div className="addhere" style={{ left: Math.min(addHere.x, 9999), top: addHere.y }} initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
@@ -234,21 +242,21 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare, switcher }: { t
         <div className="phone-plan">
           <div className="daystrip" role="tablist" aria-label="Days">
             {plans.map(p => (
-              <DayPill key={p.n} id={`ol-day:${p.n}`} on={p.n === n} over={mark?.key === `day:${p.n}`} onClick={() => { focus(p.n); setFit(f => f + 1); }}>
+              <DayPill key={p.n} id={`ol-day:${p.n}`} on={p.n === n} over={mark?.key === `day:${p.n}`} onClick={() => { showDay(p.n); setFit(f => f + 1); }}>
                 <span className="sign">{p.n}</span><span className="num">{dayDate(s.trip.start, p.n).toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" })}</span>
                 {p.warnings.length > 0 && <span className="dot warn" />}
               </DayPill>
             ))}
             {firstList && <DayPill id={`ol-list:${firstList}`} on={n === 0} over={mark?.key === `list:${firstList}`} onClick={() => focus(0)}><span className="sign">Ideas</span></DayPill>}
           </div>
-          <div className="phone-search"><PlaceSearch plans={plans} onPreview={setPeek} onJumpDay={d => { focus(d); setFit(f => f + 1); }} /></div>
+          <div className="phone-search"><PlaceSearch plans={plans} onPreview={setPeek} onJumpDay={d => { showDay(d); setFit(f => f + 1); }} /></div>
           <motion.div className="phone-day" key={n} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .18 }}
             drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={.18} dragDirectionLock
-            onDragEnd={(_, info) => { if (Math.abs(info.offset.x) > 70) { const next = Math.min(s.trip.days.length, Math.max(1, n + (info.offset.x < 0 ? 1 : -1))); focus(next); setFit(f => f + 1); } }}>
+            onDragEnd={(_, info) => { if (Math.abs(info.offset.x) > 70) { const next = Math.min(s.trip.days.length, Math.max(1, n + (info.offset.x < 0 ? 1 : -1))); showDay(next); setFit(f => f + 1); } }}>
             {n === 0 ? s.trip.lists.map(l => <ListSection key={l.id} listId={l.id} ids={containers[`list:${l.id}`] ?? []} activeId={activeId} />)
               : <DaySection plan={plans.find(p => p.n === n)!} ids={containers[`day:${n}`] ?? []} activeId={activeId} />}
           </motion.div>
-          <BottomSheet title={focusPlan ? `Day ${focusPlan.n} · ${fmtMin(focusPlan.driveMin)} driving` : "Map"}>{map}</BottomSheet>
+          <BottomSheet title={mapDay === undefined ? `All ${plans.length} days` : (() => { const d = plans.find(x => x.n === mapDay); return d ? `Day ${d.n} · ${fmtMin(d.driveMin)} driving` : "Map"; })()}>{map}</BottomSheet>
           <AnimatePresence>{s.selected && s.trip.items[s.selected] && <div className="phone-panel"><PlacePanel key={s.selected} itemId={s.selected} onClose={() => select(undefined)} onOpenPage={onOpenPlace} /></div>}</AnimatePresence>
         </div>
         {overlay}

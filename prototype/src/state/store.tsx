@@ -12,6 +12,7 @@ export interface State {
   past: { trip: Trip; custom: Record<string, Place>; label: string }[];
   selected?: string;            // item id
   focusDay?: number;
+  mapDay?: number;              // the day the map is filtered to; undefined shows every day
   toast?: { id: number; text: string; undo: boolean };
 }
 
@@ -20,6 +21,7 @@ type Action =
   | { t: "undo" }
   | { t: "select"; id?: string; focusDay?: number }
   | { t: "focus"; day?: number }
+  | { t: "mapDay"; day?: number }
   | { t: "toast"; text?: string };
 
 let toastId = 0;
@@ -31,6 +33,7 @@ function reducer(s: State, a: Action): State {
       return { ...s, trip: p.trip, custom: p.custom, past: s.past.slice(0, -1), toast: { id: ++toastId, text: `Undid: ${p.label}`, undo: false } }; }
     case "select": return { ...s, selected: a.id, focusDay: a.focusDay ?? s.focusDay };
     case "focus": return { ...s, focusDay: a.day };
+    case "mapDay": return { ...s, mapDay: a.day, focusDay: a.day ?? s.focusDay };
     case "toast": return { ...s, toast: a.text ? { id: ++toastId, text: a.text, undo: false } : undefined };
   }
 }
@@ -65,6 +68,8 @@ interface Ctx {
   setTime: (id: string, time?: string) => void;
   select: (id?: string, focusDay?: number) => void;
   focus: (day?: number) => void;
+  /** filter the map to one day (and focus it), or pass nothing to show every day */
+  showDay: (day?: number) => void;
   undo: () => void;
   toast: (text?: string) => void;
 }
@@ -117,6 +122,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     },
     select: (id, focusDay) => dispatch({ t: "select", id, focusDay }),
     focus: day => dispatch({ t: "focus", day }),
+    showDay: day => dispatch({ t: "mapDay", day }),
     undo: () => dispatch({ t: "undo" }),
     toast: text => dispatch({ t: "toast", text }),
   }), [s, place, itemPlace]);
