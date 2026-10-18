@@ -27,12 +27,13 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 
 | ID | Item | Source | Status |
 |---|---|---|---|
-| 1.1 | Globe: seas hidden by the `poi` label regex (engine.ts:82) | L2 verifier | doing |
-| 1.2 | Globe: peaks not hoverable or selectable in any style (no `mountain_peak` style layer); add our own hit layer | L2 verifier | doing |
-| 1.3 | Globe: antimeridian rings on Russia (and USA, Fiji, Kiribati, NZ, Antarctica); test that no segment spans more than 180 degrees | owner F2 | doing |
+| 1.1 | Globe: seas hidden by the `poi` label regex (engine.ts:82) | L2 verifier | done 158fd0b |
+| 1.2 | Globe: peaks not hoverable or selectable in any style (no `mountain_peak` style layer); add our own hit layer | L2 verifier | done 158fd0b |
+| 1.3 | Globe: antimeridian rings on Russia (and USA, Fiji, Kiribati, NZ, Antarctica); test that no segment spans more than 180 degrees | owner F2 | done 158fd0b (Antarctica polar ring left: 1.14) |
 | 1.4 | Globe: an always-visible Reset view button, Home and Esc keys, breadcrumb never covered | owner F5 | doing |
 | 1.5 | Globe: world framing must allow for the control card; Wikipedia link back on the feature card; a country label hit must not replace the facts tooltip; collapse the empty photo block; GlobeCover pauses off-screen; 844x390 spacing | L2 verifier | doing |
 | 1.6 | Globe: rebase; delete the obsolete `tests/foundation/stubs.test.tsx`; frame times on the GPU (p50/p95) in the report | coordinator | doing |
+| 1.14 | L2 re-verify findings. Must: on the phone, a tall place sheet covers Reset and the World chip; GlobeCover keeps spinning when inactive (the moveend chain). Should: 844x390 card, crumb and zoom stack overlap; tooltips clipped by the panel; Antarctica ring and pole wedge; the List pill over the attribution; pre-warm shaders (first fly-in stalls 250-430 ms on WebGL program link) | L2 verifier | doing |
 | 1.7 | Re-verify L2, merge, run tsc/test/build on the merged branch | gate | doing (L2 at 158fd0b) |
 | 1.8 | Privacy lane PS: personal place status and `stayStatus` off all public output; "In a public trip" facet; payload test | owner F7 | done e883636 |
 | 1.8b | PS verify failed: raw store notes in the public `/data/places.json` ("Planned as dolomites-july-2027 (13-26 Jul 2027). Hotel idea: ...", Stowe "Planned as vermont-fall-2026 (1-4 Oct 2026)"); "Hotel idea" cut mid-URL in the Dolomites hero, meta and og text; dated public trip titles ("Muskoka and Algonquin, 10–12 October 2026"); a source date in Mont du Dome text; the privacy test must scan every file in `web/out` | PS verifier | done e883636 |
@@ -40,7 +41,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 1.10 | Fable globe experience review: `globe/experience-review.md` (M1-M14, S1-S12), rewritten `spec.md` as the L2b build spec, mock at `globe/mock/` | owner F1 | done 3769fe7 |
 | 1.11a | Trip timeline model `features/trip-timeline.md` and brief `L3c-trip-timeline.md` (Opus): the entry list, a scheduler in `core/src/schedule/`, the party profile, ORS legs stored at publish, markers to chips. Audit: 1 of 14 trips timed today, 10 of 14 can get authored schedules (about 330 legacy time cells and 80 Rockies note times exist), 4 rule-only, 6 overview trips need days | owner | done (this commit) |
 | 1.11b | Trip timeline design `design/trip-page/timeline-design.md` with a mock (Fable): a "Plan it for" selector, a sticky plan bar with a day rail, "The trip at a glance" strip, always-open day timelines with leg connectors, notes as "Know before you go", a sticky map in step with the scroll | owner | done (this commit) |
-| 1.13 | Globe M1, blocking: drag dead at world zoom and the release drills into a country (the spin tick calls `jumpTo` while the pointer is down); sent to the L2 builder | Fable review | doing |
+| 1.13 | Globe M1, blocking: drag dead at world zoom and the release drills into a country (the spin tick calls `jumpTo` while the pointer is down); sent to the L2 builder | Fable review | done 158fd0b (9b proven to fail on the old code) |
 | 1.12 | Show the owner the timeline mock and the globe mock before those lanes build | owner rule | queued |
 
 ## Stage 2: integration pass (coordinator, after stage 1 merges)
