@@ -1039,7 +1039,8 @@
       "lat": 45.331,
       "lon": -79.011,
       "has_stay": true,
-      "coord_src": "nominatim"
+      "coord_src": "nominatim",
+      "approximate": true
     },
     {
       "id": "egilsstadir",
