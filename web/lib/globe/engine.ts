@@ -2,13 +2,13 @@ import type { ExpressionSpecification, GeoJSONSource, Map as MLMap, Marker, MapM
 import { prefersReducedMotion } from '@/lib/map/reduced-motion';
 import { normaliseColour, readPalette, type MapPalette } from '@/lib/map/palette';
 import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_MIN_ZOOM, TERRAIN_URL, modeOf, type StyleKey } from '@/lib/map/maplibre/styles';
-import { centreOf, spanLon, type Bbox, type FeatColl, type Pt } from './geometry';
+import { centreOf, hitRank, spanLon, type Bbox, type FeatColl, type Pt } from './geometry';
 import { FLY_MS, SPIN_MAX_ZOOM, TILT_MS, initialSpin, stepSpin, touchSpin, type SpinState } from './motion';
 import type { Camera } from './types';
 
 type ML = typeof import('maplibre-gl');
 
-export interface HoverInfo { kicker: string; title: string; sub?: string; sub2?: string }
+export interface HoverInfo { kicker: string; title: string; sub?: string; sub2?: string; sub3?: string }
 export type HitLayer = 'country' | 'adm1' | 'adm2';
 export interface BasemapFeature { sourceLayer: string; kind: string; name: string; extra: string; lngLat: Pt; wikidata: string | null }
 
@@ -16,6 +16,8 @@ export interface Focus { country: number | null; s: number | null; d: number | n
 export interface Padding { top: number; right: number; bottom: number; left: number }
 
 export interface GlobeHandlers {
+  /** The exact world frame landed once the style loaded; the controller adopts its zoom as the world zoom. */
+  onWorldFramed?(zoom: number): void;
   onReady?(): void;
   onFail?(reason: string): void;
   onShape?(layer: HitLayer, id: number): void;
@@ -63,8 +65,9 @@ export interface GlobeEngine {
   setSpin(enabled: boolean, worldView: boolean): void;
   flyToBox(b: Bbox, o?: FlyOptions): void;
   flyToPoint(p: Pt, zoom: number, o?: { tilt?: boolean }): void;
+  setMinZoom(z: number): void;
   /** Frames the whole disc in the free area: `pad` is what the open panels cover (disc centre goes to the middle of the rest). */
-  frameWorld(c: { lng: number; lat: number; zoom: number }, pad: Padding, animate: boolean): void;
+  frameWorld(c: { lng: number; lat: number; zoom: number; diameter?: number }, pad: Padding, animate: boolean): number;
   /** Snaps to a camera with no animation (a restored `?c=` or reduced motion). */
   jumpTo(c: Camera): void;
   camera(): Camera;
@@ -142,6 +145,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   });
   map.addControl(new ml.AttributionControl({ compact: false }), 'bottom-right');
   map.addControl(new ml.ScaleControl({ unit: 'metric' }), 'bottom-right');
+  // The scale bar has no meaning (it reads NaN) on the globe's far view; show it once the map is flat enough to measure.
+  const syncScale = (): void => { const el = container.querySelector<HTMLElement>('.maplibregl-ctrl-scale'); if (el) el.hidden = map.getZoom() < 4.5; };
+  map.on('zoom', syncScale); map.on('load', syncScale);
 
   const tip = document.createElement('div');
   tip.className = opts.tooltipClass ?? 'globe-tip';
@@ -157,7 +163,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const k = document.createElement('div'); k.className = 'globe-tip-k'; k.textContent = info.kicker;
     const t = document.createElement('div'); t.className = 'globe-tip-t'; t.textContent = info.title;
     tip.append(k, t);
-    for (const line of [info.sub, info.sub2]) if (line) { const s = document.createElement('div'); s.className = 'globe-tip-s'; s.textContent = line; tip.append(s); }
+    for (const line of [info.sub, info.sub2, info.sub3]) if (line) { const s = document.createElement('div'); s.className = 'globe-tip-s'; s.textContent = line; tip.append(s); }
     tip.hidden = false;
     const w = container.clientWidth, tw = tip.offsetWidth;
     const x = e.point.x + 16 + tw > w ? e.point.x - 16 - tw : e.point.x + 16;
@@ -311,6 +317,13 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     styleLoaded = true;
     window.clearTimeout(failTimer);
     map.setProjection({ type: 'globe' });
+    if (pendingFrame && pendingFrame.token === flyToken) {
+      const { c, pad } = pendingFrame;
+      const z = measuredZoom(c, pad);
+      map.jumpTo({ center: [c.lng, c.lat], zoom: z, pitch: 0, bearing: 0, padding: pad });
+      opts.handlers.onWorldFramed?.(z);
+    }
+    pendingFrame = null;
     map.setSky({ 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 2.5, 0.35, 5, 0] });
     recolourBase();
     const layers = map.getStyle().layers;
@@ -369,18 +382,13 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     if (!hitLayers.length) return null;
     const z = map.getZoom();
     const pad = touch ? 12 : 5;
-    const hits = map.queryRenderedFeatures([[point.x - pad, point.y - pad], [point.x + pad, point.y + pad]], { layers: hitLayers }).filter((f) => {
-      if (!featureName(f.properties)) return false;
-      if (f.sourceLayer === 'park' && z < 5) return false;
-      // Towns below rank 4 are too dense to be targets until the view is close.
-      if (f.sourceLayer === 'place' && z < 7 && Number(f.properties.rank ?? 9) > 4 && !['country', 'state', 'city'].includes(String(f.properties.class))) return false;
-      return true;
-    });
-    if (!hits.length) return null;
-    const order: Record<string, number> = z < 5
-      ? { mountain_peak: 0, place: 0, water_name: 1, waterway: 2 }
-      : { mountain_peak: 0, place: 1, water_name: 2, waterway: 3, park: 4 };
-    hits.sort((a, b) => (order[a.sourceLayer ?? ''] ?? 9) - (order[b.sourceLayer ?? ''] ?? 9));
+    const ranked = map.queryRenderedFeatures([[point.x - pad, point.y - pad], [point.x + pad, point.y + pad]], { layers: hitLayers })
+      .filter((f) => featureName(f.properties))
+      .map((f) => ({ f, r: hitRank(z, f.sourceLayer ?? '', f.properties) }))
+      .filter((x): x is { f: typeof x.f; r: number } => x.r !== null);
+    if (!ranked.length) return null;
+    ranked.sort((a, b) => a.r - b.r);
+    const hits = ranked.map((x) => x.f);
     const h = hits[0];
     const d = describeBasemap(h.sourceLayer ?? '', h.properties);
     return { sourceLayer: h.sourceLayer ?? '', kind: d.kind, name: featureName(h.properties), extra: d.extra, lngLat: [0, 0], wikidata: (h.properties.wikidata as string) ?? null };
@@ -421,6 +429,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   container.addEventListener('mouseleave', () => { setHover(null, null); hideTip(); if (hovered) { hovered = null; applyFeatureHighlight(); } });
   map.on('click', (e: MapMouseEvent) => {
     if (onPin(e)) return;
+    hideTip();
     const p = pick(e);
     if (p?.kind === 'shape') { handlers.onShape?.(p.layer, p.id); return; }
     if (p) { p.f.lngLat = [e.lngLat.lng, e.lngLat.lat]; handlers.onBasemap?.(p.f); } else handlers.onBackground?.();
@@ -446,6 +455,41 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       if (token !== flyToken || destroyed || map.getZoom() < TERRAIN_MIN_ZOOM) return;
       map.easeTo({ pitch: 45, duration: TILT_MS });
     });
+  }
+
+  /** Markers behind the globe or off the canvas are not drawn, not focusable and not in the way of a tap. */
+  let cullQueued = false;
+  function cullMarkers(): void {
+    cullQueued = false;
+    if (destroyed) return;
+    const w = container.clientWidth, h = container.clientHeight;
+    const tr = (map as unknown as { transform?: { isLocationOccluded?(l: unknown): boolean } }).transform;
+    for (const m of markers.values()) {
+      const ll = m.marker.getLngLat();
+      const pt = map.project(ll);
+      const hidden = pt.x < -20 || pt.y < -20 || pt.x > w + 20 || pt.y > h + 20 || !!tr?.isLocationOccluded?.(ll);
+      const v = hidden ? 'hidden' : '';
+      if (m.el.style.visibility !== v) m.el.style.visibility = v;
+    }
+  }
+  const queueCull = (): void => { if (!cullQueued) { cullQueued = true; requestAnimationFrame(cullMarkers); } };
+  map.on('move', queueCull);
+  map.on('resize', queueCull);
+  map.on('idle', queueCull);
+
+  let pendingFrame: { c: { lng: number; lat: number; zoom: number; diameter?: number }; pad: Padding; token: number } | null = null;
+  /**
+   * MapLibre's globe size depends on its padding and viewport, so one silent measure-and-correct pass lands the disc at the
+   * wanted diameter: jump there, read the rendered radius off a point 90 degrees from the centre, restore the camera.
+   */
+  function measuredZoom(c: { lng: number; lat: number; zoom: number; diameter?: number }, pad: Padding): number {
+    const from = { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing(), padding: map.getPadding() };
+    map.jumpTo({ center: [c.lng, c.lat], zoom: c.zoom, pitch: 0, bearing: 0, padding: pad });
+    const o = map.project([c.lng, c.lat]);
+    const limb = map.project([c.lng + 180, Math.min(89, 90 - c.lat)]);
+    const measured = 2 * Math.hypot(limb.x - o.x, limb.y - o.y);
+    map.jumpTo(from);
+    return measured > 20 && c.diameter ? c.zoom + Math.log2(c.diameter / measured) : c.zoom;
   }
 
   const engine: GlobeEngine = {
@@ -476,11 +520,20 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     setFeature(f) { feature = f; applyFeatureHighlight(); },
     setPadding(p) { padding = p; },
     setSpin(enabled, world) { spinEnabled = enabled; worldView = world; },
+    setMinZoom(z) { map.setMinZoom(Math.max(0, z)); },
     frameWorld(c, pad, animate) {
       const token = ++flyToken;
-      void token;
-      const cam = { center: [c.lng, c.lat] as [number, number], zoom: c.zoom, pitch: 0, bearing: 0, padding: pad };
+      let zoom = c.zoom;
+      // The globe projection only exists once the style has loaded; measuring before that reads a flat map. Until then use
+      // the formula and queue the exact frame for style.load (unless the camera is moved by something else first).
+      if (c.diameter) {
+        if (styleLoaded) zoom = measuredZoom(c, pad);
+        else pendingFrame = { c, pad, token };
+      }
+      zoom = Math.max(map.getMinZoom(), zoom);
+      const cam = { center: [c.lng, c.lat] as [number, number], zoom, pitch: 0, bearing: 0, padding: pad };
       if (!animate || reduced()) map.jumpTo(cam); else map.flyTo({ ...cam, duration: 400, essential: false });
+      return zoom;
     },
     flyToBox(b, o = {}) {
       const token = ++flyToken;
@@ -520,10 +573,11 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
         have?.marker.remove();
         const el = have?.el ?? document.createElement('div');
         if (s.className) el.className = s.className;
-        const marker = new ml.Marker({ element: el, anchor: s.anchor ?? 'center', offset: s.offset ?? [0, 0] }).setLngLat([s.lng, s.lat]).addTo(map);
+        const marker = new ml.Marker({ element: el, opacityWhenCovered: '0', anchor: s.anchor ?? 'center', offset: s.offset ?? [0, 0] }).setLngLat([s.lng, s.lat]).addTo(map);
         markers.set(id, { marker, el, sig });
         out.set(s.key, el);
       }
+      queueCull();
       return out;
     },
     isTerrainOn: () => !!map.getTerrain(),

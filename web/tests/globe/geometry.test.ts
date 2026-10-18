@@ -80,3 +80,22 @@ describe('topoFeatures', () => {
     expect(centroid(fc.features[0])).toEqual([4, 4]);
   });
 });
+
+describe('hitRank (spec 4.1)', () => {
+  it('parks are not targets below zoom 5, and rank last above it', async () => {
+    const { hitRank } = await import('@/lib/globe/geometry');
+    expect(hitRank(4, 'park')).toBeNull();
+    expect(hitRank(6, 'park')).toBe(4);
+  });
+  it('peaks beat rivers, and rivers rank after water names', async () => {
+    const { hitRank } = await import('@/lib/globe/geometry');
+    expect(hitRank(7, 'mountain_peak')!).toBeLessThan(hitRank(7, 'waterway')!);
+    expect(hitRank(7, 'water_name')!).toBeLessThan(hitRank(7, 'waterway')!);
+    expect(hitRank(3, 'place', { class: 'city', rank: 2 })).toBe(0);
+  });
+  it('small towns wait for zoom 7', async () => {
+    const { hitRank } = await import('@/lib/globe/geometry');
+    expect(hitRank(6, 'place', { class: 'town', rank: 8 })).toBeNull();
+    expect(hitRank(7.5, 'place', { class: 'town', rank: 8 })).not.toBeNull();
+  });
+});

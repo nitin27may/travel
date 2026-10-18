@@ -1,3 +1,4 @@
+import { factsLine, languagesLine } from './facts';
 import { loadAdmin, resolveFeature, slugify } from './admin';
 import type { CountryBook } from './countries';
 import type { BasemapFeature, Focus, GlobeEngine, HitLayer, HoverInfo, Padding } from './engine';
@@ -6,6 +7,7 @@ import { areaPathOfPin, boxOfArea, nodeAt, pinsFor, pinsUnder } from './model';
 import { zoomForRank, type SearchHit } from './search';
 import type { Camera, GlobeCard, GlobeData, PinModel, View } from './types';
 import { cameraQuery, viewPath } from './url';
+import { WORLD_LAT, WORLD_LNG, worldFrame, type Footprint } from './framing';
 
 export interface Crumb { label: string; path: string[] }
 
@@ -28,6 +30,8 @@ export interface ControllerOptions {
   /** Writes the URL. `replace` for camera updates, `push` for a step the visitor can go Back from. */
   navigate(url: string, mode: 'push' | 'replace'): void;
   isPhone(): boolean;
+  /** Canvas size and what the open panels cover right now. */
+  layout(): { width: number; height: number; cover: Footprint };
   onChange(s: GlobeSnapshot): void;
 }
 
@@ -65,7 +69,34 @@ export class GlobeController {
   padding(): Padding {
     return this.o.isPhone() ? { top: 120, right: 24, bottom: 190, left: 24 } : { top: 90, right: 410, bottom: 80, left: 90 };
   }
-  worldCamera(): Camera { return this.o.isPhone() ? WORLD_CAMERA.phone : WORLD_CAMERA.desktop; }
+  /** The world camera from the free canvas (spec 3.1); the longitude follows wherever the globe is now. */
+  frame() {
+    const { width, height, cover } = this.o.layout();
+    return worldFrame(width, height, cover);
+  }
+  private worldZoom = NaN;
+  /** Frames the whole disc in the free area. Called on arrival at the world level, on resize and when a panel opens or closes. */
+  frameWorld(animate: boolean): void {
+    const engine = this.engine;
+    if (!engine) return;
+    const f = this.frame();
+    const cur = engine.camera();
+    this.worldZoom = engine.frameWorld({ lng: Number.isFinite(cur.lng) ? cur.lng : WORLD_LNG, lat: WORLD_LAT, zoom: f.zoom, diameter: f.diameter }, f.padding, animate);
+    engine.setMinZoom(this.worldZoom - 0.2);
+  }
+  /** Resize or panel toggle: re-frame only when the visitor is still looking at the whole world. */
+  /** The engine landed the exact frame after the style loaded. */
+  worldFramed(zoom: number): void {
+    this.worldZoom = zoom;
+    this.engine?.setMinZoom(zoom - 0.2);
+  }
+  reframe(): void {
+    if (this.snap.path.length || this.snap.selected || this.snap.feature || !this.engine) return;
+    // Never framed by us (a restored ?c= camera), or the visitor has zoomed away: leave the camera alone.
+    if (!Number.isFinite(this.worldZoom)) return;
+    if (Math.abs(this.engine.camera().zoom - this.worldZoom) > 0.35) return;
+    this.frameWorld(true);
+  }
 
   // ---- engine events -------------------------------------------------------------------------------------
   ready(): void { this.emit({ ready: true }); }
@@ -87,7 +118,9 @@ export class GlobeController {
       return {
         kicker: [c?.region, c?.subregion].filter(Boolean).join(' · ') || 'Country',
         title: `${c?.flag ? `${c.flag} ` : ''}${c?.name ?? String(f.properties.name ?? 'Country')}`,
-        sub: bits.length ? bits.join(' · ') : c?.capital ? `Capital ${c.capital}` : 'Nothing saved here yet',
+        sub: bits.length ? bits.join(' · ') : 'Nothing saved here yet',
+        sub2: factsLine(c) || undefined,
+        sub3: languagesLine(c) || undefined,
       };
     }
     const fc = layer === 'adm1' ? this.adm1 : this.adm2;
@@ -173,7 +206,7 @@ export class GlobeController {
       reset();
       this.emit({ path: [], crumbs: [], pins: pinsFor(this.o.data, [], this.o.book.facts), loading: '' });
       if (o.camera) engine.jumpTo(o.camera);
-      else if (o.fly) { const w = this.worldCamera(); engine.flyToPoint([w.lng, w.lat], w.zoom); }
+      else if (o.fly) this.frameWorld(true);
       return;
     }
     const cc = path[0];

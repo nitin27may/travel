@@ -79,6 +79,7 @@ export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false,
             describe: (...a) => live.current.handlers?.describe?.(...a) ?? null,
             onCamera: (c, u) => live.current.handlers?.onCamera?.(c, u),
             onInteract: () => live.current.handlers?.onInteract?.(),
+            onWorldFramed: (z) => live.current.handlers?.onWorldFramed?.(z),
           },
         });
         if (mode === 'cover') made.setSpin(true, true);
