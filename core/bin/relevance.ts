@@ -12,6 +12,7 @@ import { SignalsClient, USER_AGENT } from "../src/relevance/signals.ts";
 import { REL_ERROR_LIST, REL_WARNING_LIST } from "../src/validate/codes.ts";
 import { validateFile } from "../src/validate/index.ts";
 import { relevanceFiles } from "../src/relevance/refs.ts";
+import { staleFields } from "../src/relevance/stale.ts";
 import { checkInputs } from "../src/relevance/inputsCheck.ts";
 
 const USAGE = `Usage: node core/bin/relevance.ts <command> [options]
@@ -26,6 +27,7 @@ Commands:
                                read Wikidata and Wikipedia page views for the confirmed QIDs of every record (and the
                                QIDs of parent designations); with --osm also Overpass class counts within 25 km.
                                Sequential, cached, identified as ${USER_AGENT}
+  freshness [--today d]        list the stale values (past their freshness limit) for a re-check pass; never fails
   calibrate                    print the draw against draw_suggested confusion table (9.1 step 6)
   codes                        list the error and warning codes
 
@@ -78,25 +80,61 @@ function tripWindow(root: string, trip: string): { from: string; to: string } | 
   return (JSON.parse(readFileSync(p, "utf8")) as PointsFile).trips?.[trip]?.window ?? null;
 }
 
-function deriveFiles(root: string, window: { from: string; to: string } | null, today: string): Map<string, string> {
-  const { input, trips } = loadDeriveInput(root, window, today);
+/** One derived file per trip. `as_of` pins the date staleness was judged at, so a stored file stays reproducible. */
+function deriveFiles(root: string, window: { from: string; to: string } | null, todayOf: (trip: string) => string): Map<string, string> {
+  const { input, trips } = loadDeriveInput(root, window);
   const out = new Map<string, string>();
   for (const [trip, refs] of trips) {
     const w = window ?? tripWindow(root, trip);
-    const all = deriveAll({ ...input, window: w });
+    const asOf = todayOf(trip);
+    const all = deriveAll({ ...input, window: w, today: asOf });
     const mine = new Set(refs);
     const items: Derived[] = all.filter((d) => mine.has(d.ref));
-    out.set(trip, JSON.stringify({ schema: "relevance-derived/1", trip, thresholds: THRESHOLDS, window: w, items }, null, 2) + "\n");
+    out.set(trip, JSON.stringify({ schema: "relevance-derived/1", trip, as_of: asOf, thresholds: THRESHOLDS, window: w, items }, null, 2) + "\n");
   }
   return out;
 }
+
+interface StaleRow { trip: string; ref: string; field: string; latest: string; limit: number }
+/** Every judged or evidence field past its freshness limit on `today`. */
+function staleRows(root: string, today: string): StaleRow[] {
+  const rows: StaleRow[] = [];
+  for (const { doc } of loadRelevanceDocs(root)) {
+    const reads = Object.fromEntries(doc.sources.map((x) => [x.id, x.read]));
+    for (const r of doc.records) for (const x of staleFields(r, doc.researched, reads, today)) rows.push({ trip: doc.trip, ref: r.ref, ...x });
+  }
+  return rows;
+}
+
+function freshness(argv: string[], root: string): number {
+  const today = arg(argv, "--today") ?? new Date().toISOString().slice(0, 10);
+  const rows = staleRows(root, today);
+  if (argv.includes("--json")) process.stdout.write(JSON.stringify(rows, null, 2) + "\n");
+  else {
+    for (const r of rows) process.stdout.write(`${r.trip}\t${r.ref}\t${r.field}\tlast read ${r.latest}\t(limit ${r.limit} days)\n`);
+    process.stdout.write(`${rows.length} stale value(s) on ${today}; derive treats each as a gap until it is re-checked\n`);
+  }
+  return 0;
+}
+
+const storedAsOf = (root: string, trip: string): string | null => {
+  const p = join(root, "data", "relevance", "derived", `${trip}.json`);
+  if (!existsSync(p)) return null;
+  try {
+    return (JSON.parse(readFileSync(p, "utf8")) as { as_of?: string }).as_of ?? null;
+  } catch {
+    return null;
+  }
+};
 
 function derive(argv: string[], root: string): number {
   const win = arg(argv, "--window");
   const window = win ? { from: win.split(":")[0]!, to: win.split(":")[1]! } : null;
   let files: Map<string, string>;
   try {
-    files = deriveFiles(root, window, arg(argv, "--today") ?? new Date().toISOString().slice(0, 10));
+    const real = arg(argv, "--today") ?? new Date().toISOString().slice(0, 10);
+    // --check compares against the date pinned in each committed file, so the calendar alone never fails it
+    files = deriveFiles(root, window, (trip) => (argv.includes("--check") ? (storedAsOf(root, trip) ?? real) : real));
   } catch (e) {
     if (e instanceof HouseholdHubError) {
       process.stderr.write(e.message + "\n");
@@ -123,7 +161,17 @@ function derive(argv: string[], root: string): number {
     }
   }
   if (argv.includes("--write")) process.stdout.write(`wrote ${files.size} derived file(s)\n`);
-  else if (argv.includes("--check")) process.stdout.write(`${drift === 0 ? "OK" : "DRIFT"}: ${files.size} derived trip(s), ${drift} out of date\n`);
+  else if (argv.includes("--check")) {
+    const real = arg(argv, "--today") ?? new Date().toISOString().slice(0, 10);
+    const key = (r: StaleRow): string => `${r.ref}\u0000${r.field}`;
+    let fresh = 0;
+    for (const trip of files.keys()) {
+      const was = new Set(staleRows(root, storedAsOf(root, trip) ?? real).filter((r) => r.trip === trip).map(key));
+      fresh += staleRows(root, real).filter((r) => r.trip === trip && !was.has(key(r))).length;
+    }
+    process.stdout.write(`${drift === 0 ? "OK" : "DRIFT"}: ${files.size} derived trip(s), ${drift} out of date\n`);
+    if (fresh > 0) process.stdout.write(`WARN ${fresh} value(s) went stale since the derived files were written; list them with: node core/bin/relevance.ts freshness\n`);
+  }
   return drift > 0 ? 1 : 0;
 }
 
@@ -198,6 +246,7 @@ async function main(argv: string[]): Promise<number> {
     case "derive": return derive(argv, root);
     case "signals": return signals(argv, root);
     case "calibrate": return calibrate(root);
+    case "freshness": return freshness(argv, root);
     case "codes":
       process.stdout.write([...REL_ERROR_LIST, ...REL_WARNING_LIST].join("\n") + "\n");
       return 0;
