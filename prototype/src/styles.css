@@ -3,7 +3,7 @@
 :root {
   --bg: #F7F7F5; --surface: #FFFFFF; --sunk: #EFF0EC; --raised: #FFFFFF;
   --ink: #16191C; --muted: #5C6268; --faint: #8E959B; --line: #E1E3DE; --line-strong: #C5C9C3;
-  --act: #1B5E4A; --act-ink: #FFFFFF; --act-soft: #E3EEE9;
+  --act: #16191C; --act-ink: #FFFFFF; --act-soft: #ECEDE9;
   --glow: #B8354F; --glow-soft: #F7E6EA;
   --ok: #2E6B43; --warn: #8F5B00; --warn-soft: #F5EDDF; --crit: #B0302B; --crit-soft: #F7E3E1;
   --route: rgba(22, 25, 28, .82); --halo: #F7F7F5;
@@ -12,28 +12,30 @@
   --img-dim: 1;
   --f-sign: "Big Shoulders Display", "Oswald", "Arial Narrow", sans-serif;
   --f-ui: "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --f-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --f-num: "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-code: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --r-ctl: 6px; --r-card: 10px;
   --spring: cubic-bezier(.2,.8,.2,1);
+  --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%235C6268' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0C0D0E; --surface: #141618; --sunk: #090A0B; --raised: #1B1E21;
   --ink: #DCDFE2; --muted: #8E959C; --faint: #5F666C; --line: #24282C; --line-strong: #353A3F;
-  --act: #7CC2A4; --act-ink: #0C0D0E; --act-soft: #15281F;
+  --act: #E4E6E8; --act-ink: #0C0D0E; --act-soft: #212427;
   --glow: #EE8FA6; --glow-soft: #2E1A20;
   --ok: #7FC79A; --warn: #D7A85E; --warn-soft: #2A2214; --crit: #EA8A82; --crit-soft: #301A18;
   --route: rgba(220, 223, 226, .72); --halo: #0C0D0E;
-  --shadow: none; --shadow-lift: 0 0 0 1px #353A3F; --img-dim: .92; color-scheme: dark;
+  --shadow: none; --shadow-lift: 0 0 0 1px #353A3F; --img-dim: .92; color-scheme: dark; --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%238E959C' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 } }
 :root[data-theme="dark"] {
   --bg: #0C0D0E; --surface: #141618; --sunk: #090A0B; --raised: #1B1E21;
   --ink: #DCDFE2; --muted: #8E959C; --faint: #5F666C; --line: #24282C; --line-strong: #353A3F;
-  --act: #7CC2A4; --act-ink: #0C0D0E; --act-soft: #15281F;
+  --act: #E4E6E8; --act-ink: #0C0D0E; --act-soft: #212427;
   --glow: #EE8FA6; --glow-soft: #2E1A20;
   --ok: #7FC79A; --warn: #D7A85E; --warn-soft: #2A2214; --crit: #EA8A82; --crit-soft: #301A18;
   --route: rgba(220, 223, 226, .72); --halo: #0C0D0E;
-  --shadow: none; --shadow-lift: 0 0 0 1px #353A3F; --img-dim: .92; color-scheme: dark;
+  --shadow: none; --shadow-lift: 0 0 0 1px #353A3F; --img-dim: .92; color-scheme: dark; --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%238E959C' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 :root[data-theme="sun"] { --ink: #000; --muted: #2E3833; --line: #9AA6A0; --line-strong: #6E7A74; font-size: 112.5%; }
 
@@ -43,7 +45,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(-
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--act); outline-offset: 2px; border-radius: 4px; }
-.num { font-family: var(--f-num); font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+/* Schibsted's tabular set also widens ":" "," "." (18 : 30), so figures stay proportional; columns that must align right-align instead */
+.num { font-family: var(--f-num); }
 .sign { font-family: var(--f-sign); font-weight: 800; letter-spacing: .02em; text-transform: uppercase; line-height: .95; }
 .label { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .muted { color: var(--muted); }
@@ -63,3 +66,10 @@ button { cursor: pointer; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 img { max-width: 100%; filter: brightness(var(--img-dim)); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .12s !important; } }
+
+/* Native controls finished to match .btn: one height, radius and chevron everywhere */
+code, kbd, .code, .num code { font-family: var(--f-code); font-size: .92em; }
+input[type="checkbox"], input[type="radio"], input[type="range"] { accent-color: var(--act); }
+select { -webkit-appearance: none !important; appearance: none !important; background-image: var(--chev) !important; background-repeat: no-repeat !important; background-position: right 9px center !important; background-size: 12px !important; padding-right: 30px !important; padding-left: 10px; min-height: 34px; border: 1px solid var(--line-strong); border-radius: var(--r-ctl); background-color: var(--surface); color: var(--ink); cursor: pointer; }
+select:hover { border-color: var(--ink); }
+input[type="month"], input[type="date"] { min-width: 0; }
