@@ -34,3 +34,13 @@ describe('spin timings (patterns 6)', () => {
     expect(stepSpin(s, 16, 3000, false).dLng).toBe(0);
   });
 });
+
+import { CLICK_SLOP_PX, isClick, spinStepDeg } from '@/lib/globe/motion';
+describe('spin by easing and click slop', () => {
+  it('one ease advances a full turn per 90 s', () => { expect(spinStepDeg(1000) * 90).toBeCloseTo(360, 6); });
+  it('a press that moved more than the slop, or dragged, is not a click', () => {
+    expect(isClick({ x: 0, y: 0 }, { x: CLICK_SLOP_PX, y: 0 }, false)).toBe(true);
+    expect(isClick({ x: 0, y: 0 }, { x: 200, y: 0 }, false)).toBe(false);
+    expect(isClick({ x: 0, y: 0 }, { x: 0, y: 0 }, true)).toBe(false);
+  });
+});

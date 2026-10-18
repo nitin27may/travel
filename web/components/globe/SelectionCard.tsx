@@ -12,12 +12,21 @@ export function SelectionCard({ card, onClose }: { card: GlobeCard; onClose(): v
   const icon = card.kind === 'trip' ? 'route' : kindIcon(card.glyph);
   return (
     <article className="globe-card" aria-label={card.title}>
-      <div className="globe-card-photo">
-        <EntityImage src={card.photo?.url ?? null} width={640} fallbackIcon={icon} />
-        <Button size="sm" variant="secondary" icon aria-label="Close details" className="globe-card-x" onClick={onClose}>
-          <Icon name="close" size={16} />
-        </Button>
-      </div>
+      {card.photo ? (
+        <div className="globe-card-photo">
+          <EntityImage src={card.photo.url} width={640} fallbackIcon={icon} />
+          <Button size="sm" variant="secondary" icon aria-label="Close details" className="globe-card-x" onClick={onClose}>
+            <Icon name="close" size={16} />
+          </Button>
+        </div>
+      ) : (
+        <div className="globe-card-head">
+          <span className="globe-card-glyph" aria-hidden="true"><Icon name={icon} size={18} /></span>
+          <Button size="sm" variant="ghost" icon aria-label="Close details" onClick={onClose}>
+            <Icon name="close" size={16} />
+          </Button>
+        </div>
+      )}
       {card.photo ? (
         <p className="globe-card-credit">
           Photo: <a href={card.photo.sourceUrl} target="_blank" rel="noopener noreferrer">{card.photo.author}</a> · {card.photo.licence}
@@ -61,6 +70,7 @@ export function FeatureCard({ feature, nearby, onClose, onFly, onPick }: { featu
       ) : null}
       <div className="globe-feature-actions">
         <Button size="sm" onClick={onFly}>Fly here</Button>
+        <a href={`https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(feature.name)}`} target="_blank" rel="noopener noreferrer">Wikipedia</a>
         {feature.wikidata ? <a href={`https://www.wikidata.org/wiki/${feature.wikidata}`} target="_blank" rel="noopener noreferrer">Wikidata</a> : null}
       </div>
       <Button size="sm" variant="ghost" icon aria-label="Clear selection" className="globe-feature-x" onClick={onClose}><Icon name="close" size={16} /></Button>

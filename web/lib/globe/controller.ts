@@ -281,6 +281,9 @@ export class GlobeController {
     await this.showArea(path, { fly: o.fly !== false });
   }
 
+  /** The Reset view button and the Home key: close everything, return to the world level and frame the whole disc. */
+  reset(): void { void this.goArea([]); }
+
   back(): void {
     if (this.snap.feature) { this.engine?.setFeature(null); this.emit({ feature: null }); return; }
     if (this.snap.selected) { this.closeCard(); return; }

@@ -10,7 +10,7 @@ import { SIZES, THEMES, setTheme, shotPath } from './shots';
 // Writes test-results/shots/L2/<name>-<width>-<theme>.png and a fly-in frame sequence.
 const LANE = 'L2';
 const CHROME = path.join(os.homedir(), '.cache/ms-playwright/chromium-1248/chrome-linux64/chrome');
-const ARGS = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
+const ARGS = ['--use-gl=angle', '--use-angle=gl', '--ignore-gpu-blocklist', '--enable-gpu-rasterization']; // the real GPU; SwiftShader is about 35x slower
 
 test.describe('globe screenshots', () => {
   test.skip(!process.env.GLOBE_SHOTS, 'set GLOBE_SHOTS=1 (needs network for tiles)');
