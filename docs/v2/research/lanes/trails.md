@@ -59,7 +59,14 @@ checker.
 | `map_sheet` | the official topo sheet (swisstopo, NRCan, USGS) or the park map PDF | optional | |
 | `video` | an official or high-quality route video | optional | |
 | `booking` | the reservation page for parking, shuttle or permit | **required** when access needs one | also produces an `offer` |
-| `navigation` | a deep link to start navigation to the trailhead (built from the trailhead point at render time, not stored) | generated | Google Maps and Apple Maps |
+| `navigation` | deep links to the trailhead **and** to each parking lot, built from our stored point at render time, not stored: Google Maps place `https://www.google.com/maps/search/?api=1&query=<lat>,<lon>`, Google Maps directions `https://www.google.com/maps/dir/?api=1&destination=<lat>,<lon>`, Apple Maps `https://maps.apple.com/?daddr=<lat>,<lon>` | generated, **always shown** when the point exists | the Google Maps URLs scheme is free and needs no key; it opens Google's app with our coordinates |
+
+**Link checklist (required, added 18 Oct 2026).** The owner wants every trail link captured. A trail is not
+complete until every `kind` above is either filled or recorded as `searched_none` with the date and the
+query used (for example `wikiloc: searched_none 2026-10-18 "Sorapis" site:wikiloc.com`). The UI shows
+`searched_none` kinds as "none found (checked 18 Oct 2026)", so a gap is visible and is not mistaken for
+"nobody looked". AllTrails pages cannot be opened by the link checker (bot block); record them as
+`found_in_search` with the search date instead of an HTTP status.
 
 The trip-planner skill's rule stays: **AllTrails and an official source, never AllTrails alone.** Where
 AllTrails and official figures disagree, the official figure is the value and the AllTrails link is shown
@@ -73,7 +80,9 @@ variant route).
 | Field | Unit / values | Required |
 |---|---|---|
 | `name` | as signed on the ground | yes |
-| `point` | WGS84, where walking starts | yes |
+| `point` | WGS84, where walking starts, to 5 decimals | yes |
+| `point_source` | `osm_node` (with id: `highway=trailhead`, a signpost `tourism=information` + `information=guidepost`, or the path's first node at the car park), `official` (agency dataset or map, with URL), `gps` (a person's recorded track), `manual_pin` (a person placed it on our map) | yes |
+| `point_checked` | who confirmed it against the map and imagery, and when | yes before publishing |
 | `access_road` | road name and type (`paved`, `gravel`, `4wd`, `seasonal`) | yes |
 | `access_road_season` | season structure (R11): open from, to, gate times | when seasonal |
 | `access_mode` | `car`, `shuttle_only`, `transit`, `boat`, `walk_in` | yes |
@@ -87,7 +96,7 @@ variant route).
 | Field | Unit / values | Required |
 |---|---|---|
 | `name` | as signed or as the agency names it | yes |
-| `point` | WGS84 of the lot entrance | yes |
+| `point` | WGS84 of the lot entrance, to 5 decimals; `point_source` as for the trailhead (`osm_node`/`osm_way` with `amenity=parking`, `official`, `manual_pin`) | yes |
 | `serves` | relation `parks_for` → trailhead(s) and sight(s), with walk minutes from lot to trailhead | yes |
 | `capacity_cars` | integer, or a range with evidence (`~9` was the Vermont lot that decided a whole day) | recommended; gap if unknown |
 | `capacity_rv` | integer or `none`; max vehicle length in m if posted | when relevant |
@@ -108,6 +117,12 @@ variant route).
 When access is shuttle-only (Moraine Lake Road closed to private vehicles year-round), the trailhead's
 `access_mode` is `shuttle_only`, there is **no** parking lot at the trailhead, and the parking lot that
 matters is the shuttle's park-and-ride, related by `serves`.
+
+**Coordinates never come from Google Maps.** Google's terms forbid copying its map data (coordinates
+included) into our database, and a Google pin is often the business or village, not where the walk starts.
+Use OpenStreetMap first (Overpass within 2 km of the trail: `highway=trailhead`, `amenity=parking`, guideposts,
+the path's start node), then the agency's data or map, then a person's pin on our map. Google Maps is used
+only through the generated `navigation` links above, which hand our point to Google's app.
 
 ## 5. The trail: required fields
 
