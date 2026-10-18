@@ -7784,6 +7784,179 @@
         }
       ]
     },
+    "sidecar.sources": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^sources\\/1$",
+          "x-type": "text"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^s-[0-9a-f]{10}$"
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string"
+              },
+              "publisher": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "operator",
+                  "official",
+                  "agency",
+                  "community",
+                  "editorial",
+                  "reference"
+                ]
+              },
+              "first_read": {
+                "type": "string",
+                "format": "date"
+              },
+              "last_read": {
+                "type": "string",
+                "format": "date"
+              },
+              "used_by": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "field": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "file",
+                    "ref",
+                    "field"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "licence_note": {
+                "type": "string",
+                "minLength": 1
+              },
+              "terms_note": {
+                "type": "string",
+                "minLength": 1
+              },
+              "recheck": {
+                "type": "object",
+                "properties": {
+                  "cadence_days": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "fact_type": {
+                    "type": "string",
+                    "enum": [
+                      "prices_hours",
+                      "seasons_closures",
+                      "grades_geography",
+                      "rules",
+                      "general"
+                    ]
+                  }
+                },
+                "required": [
+                  "cadence_days",
+                  "fact_type"
+                ],
+                "additionalProperties": false
+              },
+              "link": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "unchecked",
+                      "ok",
+                      "redirect",
+                      "blocked",
+                      "broken",
+                      "error",
+                      "local"
+                    ]
+                  },
+                  "checked": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "status",
+                  "checked"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "title",
+              "publisher",
+              "kind",
+              "first_read",
+              "last_read",
+              "used_by",
+              "licence_note",
+              "terms_note",
+              "recheck",
+              "link"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "entries"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "sources",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Source registry"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
     "sidecar.suitability": {
       "type": "object",
       "properties": {
