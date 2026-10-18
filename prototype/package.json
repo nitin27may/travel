@@ -8,7 +8,8 @@
     "dev": "npm run worker && vite",
     "build": "npm run worker && tsc --noEmit && vite build",
     "build:single": "npm run worker && vite build --mode single && cp public/*.webp dist-single/",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:artifact": "npm run build:single && node scripts/artifact.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "6.3.1",

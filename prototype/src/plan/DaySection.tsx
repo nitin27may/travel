@@ -21,6 +21,7 @@ export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan:
   const sun = sunAt ? sunFor(sunAt.lat, sunAt.lng, iso, s.trip.zone) : null;
   const { setNodeRef, isOver } = useDroppable({ id: `day:${plan.n}` });
   const [basePick, setBasePick] = useState(false);
+  const [openDone, setOpenDone] = useState(true);
   const stops = ids.map(id => s.trip.items[id]).filter(Boolean).map(item => ({ item, place: place(item.placeId)! })).filter(x => x.place);
   // legs shown between cards follow the live (possibly dragged) order
   const routedPlaces = [plan.start, ...stops.filter(x => x.item.variant !== "B").map(x => x.place)];
@@ -48,7 +49,9 @@ export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan:
       </header>
       <AnimatePresence initial={false}>
         {!collapsed && (
-          <motion.div className="day-body" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .22, ease: [.2, .8, .2, 1] }}>
+          <motion.div className="day-body" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .22, ease: [.2, .8, .2, 1] }}
+            style={{ overflow: "hidden" }} onAnimationComplete={def => { if ((def as { height?: unknown }).height === "auto") setOpenDone(true); }} onAnimationStart={() => setOpenDone(false)}
+            data-open={openDone ? "1" : "0"}>
             {plan.warnings.length > 0 && <div className="warns">{plan.warnings.map(w => <span key={w} className={`chip ${w.includes("needs") ? "crit" : "warn"}`}><Icon name="alert" size={12} />{w}</span>)}</div>}
             {plan.start && <div className="endpoint num muted"><Icon name="home" size={14} /> From {plan.start.name}</div>}
             <SortableContext items={ids} strategy={verticalListSortingStrategy}>
