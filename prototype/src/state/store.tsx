@@ -2,7 +2,7 @@
 // the platform's op inverses will (docs/v2/design/interactions.md section 6).
 import { createContext, useCallback, useContext, useMemo, useReducer, type ReactNode } from "react";
 import { PLACE, type Place } from "../data/places";
-import { TRIP, type Item, type Trip } from "../data/trip";
+import { TRIP, type Item, type Reservation, type Trip } from "../data/trip";
 import { leg, type Leg } from "../lib/geo";
 
 export type Target = { day: number } | { list: string };
@@ -70,6 +70,8 @@ interface Ctx {
   focus: (day?: number) => void;
   /** filter the map to one day (and focus it), or pass nothing to show every day */
   showDay: (day?: number) => void;
+  /** add or replace a booking (one op, so Undo reverses it and every screen sees it) */
+  saveReservation: (r: Reservation, label?: string) => void;
   undo: () => void;
   toast: (text?: string) => void;
 }
@@ -123,6 +125,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     select: (id, focusDay) => dispatch({ t: "select", id, focusDay }),
     focus: day => dispatch({ t: "focus", day }),
     showDay: day => dispatch({ t: "mapDay", day }),
+    saveReservation: (r, label) => {
+      const had = s.trip.reservations.some(x => x.id === r.id);
+      const reservations = had ? s.trip.reservations.map(x => x.id === r.id ? r : x) : [...s.trip.reservations, r];
+      dispatch({ t: "op", label: label ?? (had ? `Updated ${r.title}` : `Added booking: ${r.title}`), trip: { ...s.trip, reservations } });
+    },
     undo: () => dispatch({ t: "undo" }),
     toast: text => dispatch({ t: "toast", text }),
   }), [s, place, itemPlace]);
