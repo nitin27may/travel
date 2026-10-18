@@ -3,14 +3,16 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import type { ReactElement, RefObject } from 'react';
+import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
+import { SearchInput } from '@/components/ui/Input';
 import { activeFilters, clearAll, dropDependents } from '@/lib/entities/filter';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState, ViewName } from '@/lib/entities/types';
 import { FacetPopover } from './FacetMenu';
 import type { PhoneFilterProps } from './PhoneFilterSheet';
 import { useMediaQuery } from './useMediaQuery';
-import { FacetLabel, ViewOptions } from './ViewOptions';
+import { ViewOptions } from './ViewOptions';
 import { ViewSwitcher } from './ViewSwitcher';
 
 export interface FilterBarProps<Row> {
@@ -33,7 +35,7 @@ const PhoneFilterSheet = dynamic(() => import('./PhoneFilterSheet'), { ssr: fals
 
 export function FilterBar<Row>(props: FilterBarProps<Row>) {
   const { d, state, counts, labelOf, shown, total, searchRef, onState } = props;
-  const phone = useMediaQuery('(max-width: 719px)');
+  const phone = useMediaQuery('(max-width: 639px)');
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
   const facets = visibleFacets(d, state);
@@ -53,32 +55,30 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
   return (
     <div className="filter-bar" role="search" aria-label={`Filter ${d.noun.many}`}>
       <div className="filter-row">
-        <div className="search-field">
-          <Icon name="search" size={16} />
-          <input
-            ref={searchRef}
-            type="search"
-            placeholder={`Search ${d.noun.many}`}
-            aria-label={`Search ${d.noun.many}`}
-            aria-keyshortcuts="/"
-            autoComplete="off"
-            value={state.q}
-            onChange={(e) => onState({ ...state, q: e.target.value, focus: null }, 'replace')}
-          />
-          <kbd className="kbd" aria-hidden="true">
-            /
-          </kbd>
-        </div>
+        <SearchInput
+          inputRef={searchRef}
+          value={state.q}
+          onChange={(q) => onState({ ...state, q, focus: null }, 'replace')}
+          label={`Search ${d.noun.many}`}
+          shortcut
+        />
 
         {phone ? (
           <>
-            <button type="button" className="facet-btn filters-btn" data-active={activeCount > 0 || undefined} aria-haspopup="dialog" onClick={() => {
-                setSheetEver(true);
-                setSheetOpen(true);
-              }}>
-              <Icon name="filter" size={16} />
-              <span>{activeCount ? `Filters (${activeCount})` : 'Filters'}</span>
-            </button>
+            <span className="pill filters-btn" data-active={activeCount > 0 || undefined}>
+              <button
+                type="button"
+                className="pill-trigger"
+                aria-haspopup="dialog"
+                onClick={() => {
+                  setSheetEver(true);
+                  setSheetOpen(true);
+                }}
+              >
+                <Icon name="filter" size={16} />
+                <span>{activeCount ? `Filters (${activeCount})` : 'Filters'}</span>
+              </button>
+            </span>
             {sheetEver ? (
               <PhoneFilterSheet d={d} state={state} facets={facets} counts={counts} shown={shown} filtered={filtered} open={sheetOpen} onOpenChange={setSheetOpen} setFacet={setFacet} onState={onState} />
             ) : null}
@@ -86,19 +86,12 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
         ) : (
           <div className="facet-group" role="group" aria-label="Filters">
             {facets.map((f) => (
-              <FacetPopover
-                key={f.param}
-                facet={f}
-                options={counts[f.param] ?? []}
-                selected={state.facets[f.param] ?? []}
-                summary={<FacetLabel label={f.label} n={(state.facets[f.param] ?? []).length} />}
-                onChange={(v) => setFacet(f.param, v)}
-              />
+              <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
             ))}
           </div>
         )}
 
-        <ViewSwitcher view={state.view} onChange={changeView} />
+        <ViewSwitcher view={state.view} onChange={changeView} mapEnabled={Boolean(d.renderMap)} />
       </div>
 
       <div className="filter-row filter-row-2">
@@ -110,10 +103,9 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
           <ul className="chips" aria-label="Active filters">
             {chips.map((c) => (
               <li key={c.key}>
-                <button type="button" className="chip" onClick={() => onState(c.without, 'push')} aria-label={`Remove filter ${c.label}`}>
+                <Chip kind="active" onRemove={() => onState(c.without, 'push')} removeLabel={`Remove filter ${c.label}`}>
                   {c.label}
-                  <Icon name="close" size={12} />
-                </button>
+                </Chip>
               </li>
             ))}
           </ul>

@@ -1,7 +1,7 @@
 'use client';
 
 import { BadgeRow } from '@/components/ui/Badge';
-import { EntityImage } from '@/components/ui/EntityImage';
+import { ListRow } from '@/components/ui/ListRow';
 import { GroupHeading } from './GroupHeading';
 import { OpenLink } from './OpenLink';
 import type { ViewProps } from './viewTypes';
@@ -15,23 +15,21 @@ export function ListView<Row>({ d, groups, state, onOpen }: ViewProps<Row>) {
           <ul className="rows">
             {g.rows.map((row) => {
               const id = d.id(row);
-              const summary = d.summary?.(row);
               return (
-                <li key={id} className="row" data-entity-id={id} data-focused={state.focus === id || undefined}>
-                  <div className="row-thumb">
-                    <EntityImage src={d.image?.(row) ?? null} width={160} fallbackIcon={d.iconFor(row)} />
-                  </div>
-                  <div className="row-main">
-                    <h3 className="row-title">
-                      <OpenLink id={id} state={state} href={d.href(row)} primary={d.primary} onOpen={onOpen} className="row-open">
-                        {d.title(row)}
-                      </OpenLink>
-                    </h3>
-                    {d.subtitle ? <p className="row-sub">{d.subtitle(row)}</p> : null}
-                    {summary ? <p className="row-note">{summary}</p> : null}
-                  </div>
-                  {d.badges ? <BadgeRow badges={d.badges(row)} className="row-badges" /> : null}
-                </li>
+                <ListRow
+                  key={id}
+                  icon={d.iconFor(row)}
+                  data-entity-id={id}
+                  data-focused={state.focus === id || undefined}
+                  title={
+                    <OpenLink id={id} state={state} href={d.href(row)} primary={d.primary} onOpen={onOpen} className="row-open">
+                      {d.title(row)}
+                    </OpenLink>
+                  }
+                  meta={d.subtitle?.(row)}
+                  summary={d.summary?.(row)}
+                  chips={d.badges ? <BadgeRow badges={d.badges(row)} className="row-badges" /> : undefined}
+                />
               );
             })}
           </ul>

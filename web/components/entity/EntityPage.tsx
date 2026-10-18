@@ -3,7 +3,9 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
-import { Icon } from '@/components/ui/Icon';
+import { EmptyState as MapPlaceholder } from '@/components/ui/EmptyState';
+import { Button } from '@/components/ui/Button';
+import { PAGE_SIZE, Pager } from '@/components/ui/Pager';
 import { facetCounts, filterRows } from '@/lib/entities/filter';
 import { registry } from '@/lib/entities/registry';
 import { activeGroup, groupRows, sortRows } from '@/lib/entities/sort';
@@ -43,7 +45,13 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const filtered = useMemo(() => filterRows(rows, state, d), [rows, state, d]);
   const sorted = useMemo(() => sortRows(filtered, state, d), [filtered, state, d]);
   const group = activeGroup(state, d);
-  const groups = useMemo(() => groupRows(sorted, group), [sorted, group]);
+  // 48 cards or 100 rows a page, with `?page=` in the URL (components 8.5)
+  const view: ViewName = state.view === 'map' ? 'map' : state.view;
+  const pageSize = PAGE_SIZE[view];
+  const pages = Math.max(1, Math.ceil(sorted.length / pageSize));
+  const page = Math.min(state.page, pages);
+  const paged = useMemo(() => (view === 'map' ? sorted : sorted.slice((page - 1) * pageSize, page * pageSize)), [sorted, view, page, pageSize]);
+  const groups = useMemo(() => groupRows(paged, group), [paged, group]);
   const counts = useMemo(() => facetCounts(rows, state, d), [rows, state, d]);
   // value -> label for every facet, from all rows, so a chip keeps its name when its rows are filtered out
   const labels = useMemo(() => {
@@ -58,21 +66,6 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const labelOf = (param: FacetParam, value: string) => labels[param]?.get(value) ?? value;
   const focusRow = state.focus && d.primary === 'sheet' ? (rows.find((r) => d.id(r) === state.focus) ?? null) : null;
   if (focusRow && !sheetEver) setSheetEver(true); // load the sheet code the first time a row is focused
-  const view: ViewName = state.view === 'map' ? 'map' : state.view;
-
-  // "/" jumps to search, like most data tools
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
-      const t = e.target as HTMLElement | null;
-      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-      e.preventDefault();
-      searchRef.current?.focus();
-      searchRef.current?.select();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
 
   // the table's sticky header sits under the sticky filter bar
   useEffect(() => {
@@ -138,16 +131,21 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
           <ListView {...viewProps} />
         ) : view === 'table' ? (
           <TableView {...viewProps} />
+        ) : d.renderMap ? (
+          d.renderMap(filtered, state)
         ) : (
-          <div className="empty">
-            <Icon name="map" size={28} />
-            <h2>{MAP_DISABLED_NOTE}</h2>
-            <p>The same filters will apply on the map. For now, use cards, list or table.</p>
-            <button type="button" className="btn btn-primary" onClick={() => setState({ ...state, view: 'cards' }, 'push')}>
-              Back to cards
-            </button>
-          </div>
+          <MapPlaceholder
+            glyph="map"
+            title={MAP_DISABLED_NOTE}
+            why="The same filters will apply on the map. For now, use cards, list or table."
+            action={
+              <Button variant="primary" onClick={() => setState({ ...state, view: 'cards' }, 'push')}>
+                Back to cards
+              </Button>
+            }
+          />
         )}
+        {filtered.length > 0 && view !== 'map' ? <Pager page={page} pageSize={pageSize} total={sorted.length} onPage={(p) => setState({ ...state, page: p }, 'push')} /> : null}
       </section>
 
       <div className="sr-only" role="status" aria-live="polite">

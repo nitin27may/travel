@@ -1,9 +1,7 @@
 'use client';
 
-import { Popover } from '@base-ui/react/popover';
-import { Fragment, useId, useState } from 'react';
-import type { ReactNode } from 'react';
-import { Icon } from '@/components/ui/Icon';
+import { FilterPill, PillOptions } from '@/components/ui/FilterPill';
+import type { PillOption } from '@/components/ui/FilterPill';
 import { TAG_KIND_LABELS } from '@/lib/entities/labels';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { FacetDef } from '@/lib/entities/types';
@@ -17,79 +15,15 @@ interface OptionsProps<Row> {
   searchAbove?: number;
 }
 
-/** Checkbox list (multi) or radio list (single) with live counts. Used in popovers and the phone sheet. */
-export function FacetOptions<Row>({ facet, options, selected, onChange, searchAbove = 12 }: OptionsProps<Row>) {
-  const name = useId();
-  const [find, setFind] = useState('');
-  const shown = find ? options.filter((o) => o.label.toLowerCase().includes(find.toLowerCase())) : options;
-  const single = facet.type === 'single';
-  const toggle = (value: string) => {
-    if (single) onChange(selected[0] === value ? [] : [value]);
-    else onChange(selected.includes(value) ? selected.filter((v) => v !== value) : [...selected, value]);
-  };
-  return (
-    <fieldset className="facet-options">
-      <legend className="sr-only">{facet.label}</legend>
-      {options.length > searchAbove ? (
-        <input type="search" className="facet-find" placeholder={`Find ${facet.label.toLowerCase()}`} aria-label={`Find in ${facet.label}`} value={find} onChange={(e) => setFind(e.target.value)} />
-      ) : null}
-      <ul>
-        {single ? (
-          <li>
-            <label className="opt">
-              <input type="radio" name={name} checked={selected.length === 0} onChange={() => onChange([])} />
-              <span className="opt-label">Any</span>
-            </label>
-          </li>
-        ) : null}
-        {shown.map((o, i) => (
-          <Fragment key={o.value}>
-            {o.group && o.group !== shown[i - 1]?.group ? (
-              <li className="opt-group" aria-hidden="true">
-                {TAG_KIND_LABELS[o.group] ?? o.group}
-              </li>
-            ) : null}
-          <li>
-            <label className="opt" data-empty={o.count === 0 || undefined}>
-              <input
-                type={single ? 'radio' : 'checkbox'}
-                name={single ? name : undefined}
-                checked={selected.includes(o.value)}
-                onChange={() => toggle(o.value)}
-                onClick={single ? () => selected[0] === o.value && toggle(o.value) : undefined}
-              />
-              <span className="opt-label">{o.label}</span>
-              <span className="opt-count num">{o.count}</span>
-            </label>
-          </li>
-          </Fragment>
-        ))}
-        {!shown.length ? <li className="muted opt-none">Nothing matches &ldquo;{find}&rdquo;</li> : null}
-      </ul>
-    </fieldset>
-  );
+const toOptions = (options: FacetCount[]): PillOption[] => options.map((o) => ({ value: o.value, label: o.label, count: o.count, group: o.group }));
+const groupLabel = (g: string) => TAG_KIND_LABELS[g] ?? g;
+
+/** Checkbox list (multi) or radio list (single) with live counts. Used in the pill menu and the phone sheet. */
+export function FacetOptions<Row>({ facet, options, selected, onChange, searchAbove = 8 }: OptionsProps<Row>) {
+  return <PillOptions label={facet.label} options={toOptions(options)} selected={selected} onChange={onChange} mode={facet.type} searchAbove={searchAbove} groupLabel={groupLabel} />;
 }
 
-interface PopoverProps<Row> extends OptionsProps<Row> {
-  summary: ReactNode;
-}
-
-/** A facet as a filter-bar button that opens its options. */
-export function FacetPopover<Row>({ summary, ...rest }: PopoverProps<Row>) {
-  const active = rest.selected.length > 0;
-  return (
-    <Popover.Root>
-      <Popover.Trigger className="facet-btn" data-active={active || undefined}>
-        {summary}
-        <Icon name="chevronDown" size={14} />
-      </Popover.Trigger>
-      <Popover.Portal>
-        <Popover.Positioner sideOffset={6} align="start" className="popover-pos">
-          <Popover.Popup className="popover" aria-label={rest.facet.label}>
-            <FacetOptions {...rest} />
-          </Popover.Popup>
-        </Popover.Positioner>
-      </Popover.Portal>
-    </Popover.Root>
-  );
+/** A facet as a filter pill that opens its options. */
+export function FacetPopover<Row>({ facet, options, selected, onChange }: OptionsProps<Row>) {
+  return <FilterPill label={facet.label} options={toOptions(options)} selected={selected} onChange={onChange} mode={facet.type} groupLabel={groupLabel} />;
 }
