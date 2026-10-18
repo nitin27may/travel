@@ -115,6 +115,8 @@ What this means in practice (decided):
 - **Light list data.** List and search pages ship only the fields that cards and filters need: name, kind, area,
   season, the kids and effort chips, and the slug. Never facts, links, suitability values, times or notes. The search index
   carries names and areas only.
+- **Decided list-row allowlist (18 Oct, after the INT-B verification).** A list row carries only what a card, a table column or a filter shows: name, kind, area, season, the kids and effort chips, the completeness level label (not its check counts), honesty chip labels (not their reasons), public trip names for the "In a public trip" facet, and three numeric glance facts. The numeric facts are km, gain and elevation, under a recorded waiver because P3 needs them on the table and they are widely published. A test pins the exact keys.
+- **Honest about the limit.** Item pages stay one request each, and the sitemap lists them, so P8 raises the cost of bulk copying; it does not stop it. The edge protections at go-live (rate limit, bot block) and a server for detail data later are what close the gap.
 - **Exports are per item, for personal use.** "Copy to my trips", ICS, PDF and print stay per trip. The table's
   CSV of a whole list is removed from the public site. At go-live, CSV, GPX and KML require sign-in and are
   limited to one trip or place at a time. Every export says where it came from.
