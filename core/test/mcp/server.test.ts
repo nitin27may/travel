@@ -226,7 +226,9 @@ describe("repository wiring", () => {
     const c = new Client({ name: "t3", version: "0" });
     await c.connect(new StdioClientTransport({ command: "node", args: [MCP], cwd: dirname(REPO) }));
     const types = JSON.parse(((await c.callTool({ name: "list_entity_types", arguments: {} })) as any).content[0].text).types;
-    expect(types.find((t: any) => t.id === "locations.places").rows).toBe(64);
+    // the real store's count, so a new capture never breaks this test
+    const places = JSON.parse(readFileSync(join(REPO, "data/locations/locations.json"), "utf8")).places.length;
+    expect(types.find((t: any) => t.id === "locations.places").rows).toBe(places);
     await c.close();
   });
 });
