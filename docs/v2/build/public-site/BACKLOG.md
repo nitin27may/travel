@@ -35,6 +35,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 1.6 | Globe: rebase; delete the obsolete `tests/foundation/stubs.test.tsx`; frame times on the GPU (p50/p95) in the report | coordinator | doing |
 | 1.7 | Re-verify L2, merge, run tsc/test/build on the merged branch | gate | queued |
 | 1.8 | Privacy lane PS: personal place status and `stayStatus` off all public output; "In a public trip" facet; payload test | owner F7 | doing (verifying 832ccb7) |
+| 1.8b | PS verify failed: raw store notes in the public `/data/places.json` ("Planned as dolomites-july-2027 (13-26 Jul 2027). Hotel idea: ...", Stowe "Planned as vermont-fall-2026 (1-4 Oct 2026)"); "Hotel idea" cut mid-URL in the Dolomites hero, meta and og text; dated public trip titles ("Muskoka and Algonquin, 10–12 October 2026"); a source date in Mont du Dome text; the privacy test must scan every file in `web/out` | PS verifier | doing |
 | 1.9 | Merge PS | gate | queued |
 | 1.10 | Fable globe experience review: `globe/experience-review.md` (M1-M14, S1-S12), rewritten `spec.md` as the L2b build spec, mock at `globe/mock/` | owner F1 | done 3769fe7 |
 | 1.11a | Trip timeline model `features/trip-timeline.md` and brief `L3c-trip-timeline.md` (Opus): the entry list, a scheduler in `core/src/schedule/`, the party profile, ORS legs stored at publish, markers to chips. Audit: 1 of 14 trips timed today, 10 of 14 can get authored schedules (about 330 legacy time cells and 80 Rockies note times exist), 4 rule-only, 6 overview trips need days | owner | done (this commit) |
