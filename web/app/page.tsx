@@ -1,8 +1,13 @@
 import Link from 'next/link';
-import { TripCard } from '@/components/shell/TripCard';
-import { loadPlaces } from '@/lib/data/places';
-import { loadListedTrips } from '@/lib/data/trips';
+import { AboutData } from '@/components/home/AboutData';
+import { CoverGlobe } from '@/components/home/CoverGlobe';
+import { CoverSearch } from '@/components/home/CoverSearch';
+import { countryPins, pickPlaces } from '@/components/home/pick';
+import { HomePlaceCard, HomeTripCard } from '@/components/home/Strips';
+import { Credits, type PhotoCredit } from '@/components/ui/Credits';
+import { globeIndex, listPlaces, listTrips, type Photo } from '@/lib/public';
 import { pageMetadata } from '@/lib/site';
+import '@/styles/home.css';
 
 export const metadata = pageMetadata({
   title: 'Trip Plans',
@@ -10,71 +15,60 @@ export const metadata = pageMetadata({
   path: '/',
 });
 
+const credit = (p: Photo): PhotoCredit => ({ title: p.caption || p.file, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl });
+
 export default function Home() {
-  const trips = loadListedTrips();
-  const upcoming = trips.filter((t) => t.when !== 'past');
-  const next = upcoming[0];
-  const past = trips.filter((t) => t.when === 'past').reverse();
-  const places = loadPlaces();
-  const countries = new Set(places.map((p) => p.country)).size;
+  const allTrips = listTrips();
+  const trips = allTrips.slice(0, 6);
+  const allPlaces = listPlaces();
+  const places = pickPlaces(allPlaces, 8);
+  const pins = countryPins(globeIndex());
+  const photos = [...trips.map((t) => t.cover), ...places.map((p) => p.photo)].filter((p): p is Photo => !!p);
   return (
-    <>
-      <section className="hero" data-featured={next ? '' : undefined}>
-        <div className="hero-copy">
-        <h1>Trip plans</h1>
-        <p className="lede">Researched itineraries with trails, maps, timings and conditions. Each plan keeps its own address.</p>
-        <div className="hero-links">
-          <Link className="btn btn-primary" href="/places/">
-            Browse {places.length} places in {countries} countries
-          </Link>
-          <Link className="btn" href="/globe/">
-            Explore the globe
-          </Link>
-          <Link className="btn" href="/trips/">
-            All trips
-          </Link>
+    <div className="home">
+      <section className="home-cover" aria-label="Where we have been and where we are going">
+        <CoverGlobe pins={pins} />
+        <div className="home-cover-inner">
+          <h1 className="home-title">Trip plans</h1>
+          <CoverSearch />
+          <p className="home-hint">
+            {pins.length} countries · {allTrips.length} trips · {allPlaces.length} places. Pick a pin to open its country.
+          </p>
         </div>
-        </div>
-        {next ? (
-          <aside className="hero-feature" aria-labelledby="next-up">
-            <h2 id="next-up" className="feature-label">
-              Next up
-            </h2>
-            <TripCard trip={next} />
-          </aside>
-        ) : null}
       </section>
 
-      {upcoming.length > 1 ? (
-        <section aria-labelledby="upcoming">
-          <div className="section-head">
-            <h2 id="upcoming">Also coming up</h2>
-            <Link href="/trips/">All trips</Link>
+      <div className="home-wrap">
+        <section aria-labelledby="home-trips-h" className="home-strip">
+          <div className="home-strip-head">
+            <h2 id="home-trips-h" className="home-h2">Trips</h2>
+            <Link href="/trips/">All {allTrips.length} trips &rarr;</Link>
           </div>
-          <ul className="trip-card-grid">
-            {upcoming.slice(1).map((t) => (
-              <li key={t.id}>
-                <TripCard trip={t} />
+          <ul className="home-cards">
+            {trips.map((t) => (
+              <li key={t.slug}>
+                <HomeTripCard trip={t} />
               </li>
             ))}
           </ul>
         </section>
-      ) : null}
 
-      {past.length ? (
-        <section aria-labelledby="past">
-          <div className="section-head">
-            <h2 id="past">Past trips</h2>
+        <section aria-labelledby="home-places-h" className="home-strip">
+          <div className="home-strip-head">
+            <h2 id="home-places-h" className="home-h2">Places worth a trip</h2>
+            <Link href="/places/">All {allPlaces.length} places &rarr;</Link>
           </div>
-          <ul className="trip-card-grid">
-            {past.map((t) => (
-              <li key={t.id}>
-                <TripCard trip={t} />
+          <ul className="home-cards">
+            {places.map((p) => (
+              <li key={p.slug}>
+                <HomePlaceCard place={p} />
               </li>
             ))}
           </ul>
         </section>
-      ) : null}
-    </>
+
+        <AboutData />
+        <Credits photos={photos.map(credit)} />
+      </div>
+    </div>
   );
 }
