@@ -1,0 +1,5644 @@
+{
+  "schema": "relevance-signals-wikidata/1",
+  "source": "Wikidata (CC0), wbgetentities by confirmed QID",
+  "items": {
+    "Q1003855": {
+      "read": "2026-10-18",
+      "label": "Canmore Nordic Centre Provincial Park",
+      "sitelinks": {
+        "count": 4,
+        "langs": [
+          "de",
+          "en",
+          "fr",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Canmore Nordic Centre Provincial Park"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q1010253": {
+      "read": "2026-10-18",
+      "label": "Recoleta, Buenos Aires",
+      "sitelinks": {
+        "count": 21,
+        "langs": [
+          "ca",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fr",
+          "he",
+          "it",
+          "ko",
+          "la",
+          "lt",
+          "ms",
+          "no",
+          "oc",
+          "pt",
+          "ru",
+          "sv",
+          "uk",
+          "ur",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Recoleta, Buenos Aires"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1024091": {
+      "read": "2026-10-18",
+      "label": "Huntsville",
+      "sitelinks": {
+        "count": 18,
+        "langs": [
+          "ar",
+          "arz",
+          "ceb",
+          "de",
+          "en",
+          "es",
+          "et",
+          "fr",
+          "ja",
+          "pl",
+          "ro",
+          "ru",
+          "sh",
+          "sr",
+          "sv",
+          "tr",
+          "ur",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Huntsville, Ontario"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1026688": {
+      "read": "2026-10-18",
+      "label": "San Telmo",
+      "sitelinks": {
+        "count": 19,
+        "langs": [
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fr",
+          "it",
+          "la",
+          "lt",
+          "no",
+          "oc",
+          "pt",
+          "ro",
+          "ru",
+          "sk",
+          "sl",
+          "sv",
+          "tr",
+          "ur"
+        ]
+      },
+      "titles": {
+        "en": "San Telmo, Buenos Aires"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q104976971": {
+      "read": "2026-10-18",
+      "label": "Queens Garden Trail",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q105097228": {
+      "read": "2026-10-18",
+      "label": "Bryce Amphitheater",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q105099406": {
+      "read": "2026-10-18",
+      "label": "Lower Calf Creek Falls",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q105105619": {
+      "read": "2026-10-18",
+      "label": "Sunset Point Overlook",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1069340": {
+      "read": "2026-10-18",
+      "label": "Chemin de fer du Montenvers",
+      "sitelinks": {
+        "count": 8,
+        "langs": [
+          "da",
+          "de",
+          "en",
+          "fr",
+          "it",
+          "ja",
+          "nl",
+          "pt"
+        ]
+      },
+      "titles": {
+        "en": "Chemin de fer du Montenvers"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1072342": {
+      "read": "2026-10-18",
+      "label": "Moraine Lake",
+      "sitelinks": {
+        "count": 37,
+        "langs": [
+          "ar",
+          "arz",
+          "ast",
+          "bg",
+          "ceb",
+          "cs",
+          "de",
+          "el",
+          "en",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "ha",
+          "he",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lt",
+          "nl",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sq",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "zh",
+          "zh-classical",
+          "zh-min-nan",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Moraine Lake"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q107370": {
+      "read": "2026-10-18",
+      "label": "Thingvellir National Park",
+      "sitelinks": {
+        "count": 55,
+        "langs": [
+          "ar",
+          "ast",
+          "az",
+          "ban",
+          "be",
+          "be-x-old",
+          "bg",
+          "bn",
+          "ca",
+          "cs",
+          "cy",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "gl",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "ky",
+          "lb",
+          "lt",
+          "lv",
+          "mt",
+          "nds",
+          "nl",
+          "nn",
+          "no",
+          "os",
+          "pl",
+          "pnb",
+          "pt",
+          "ru",
+          "sh",
+          "sk",
+          "sl",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Þingvellir"
+      },
+      "langs": [],
+      "p1435": [
+        "Q9259"
+      ],
+      "p757": [
+        "1152"
+      ],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q108940081": {
+      "read": "2026-10-18",
+      "label": "Peacham",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "en",
+          "es"
+        ]
+      },
+      "titles": {
+        "en": "Peacham (CDP), Vermont"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1130718": {
+      "read": "2026-10-18",
+      "label": "Skógafoss",
+      "sitelinks": {
+        "count": 36,
+        "langs": [
+          "ar",
+          "arz",
+          "ast",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "hy",
+          "id",
+          "io",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ru",
+          "sv",
+          "th",
+          "tr",
+          "uk",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Skógafoss"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545633"
+      ]
+    },
+    "Q113634403": {
+      "read": "2026-10-18",
+      "label": "Mount Lorette Ponds",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1137629": {
+      "read": "2026-10-18",
+      "label": "Goðafoss",
+      "sitelinks": {
+        "count": 34,
+        "langs": [
+          "arz",
+          "ca",
+          "ceb",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fr",
+          "he",
+          "hu",
+          "hy",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lb",
+          "nl",
+          "nn",
+          "no",
+          "os",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sh",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Goðafoss"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1145786": {
+      "read": "2026-10-18",
+      "label": "Svartifoss",
+      "sitelinks": {
+        "count": 28,
+        "langs": [
+          "arz",
+          "ca",
+          "ceb",
+          "de",
+          "el",
+          "en",
+          "es",
+          "eu",
+          "fa",
+          "fr",
+          "gl",
+          "hu",
+          "id",
+          "is",
+          "it",
+          "ko",
+          "lb",
+          "nds-nl",
+          "nl",
+          "nn",
+          "os",
+          "pnb",
+          "pt",
+          "ru",
+          "sk",
+          "sv",
+          "uk",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Svartifoss"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q115641739": {
+      "read": "2026-10-18",
+      "label": "Reynisfjara",
+      "sitelinks": {
+        "count": 5,
+        "langs": [
+          "de",
+          "en",
+          "is",
+          "ru",
+          "sr"
+        ]
+      },
+      "titles": {
+        "en": "Reynisfjara"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q115958301": {
+      "read": "2026-10-18",
+      "label": "Troll Falls",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q115978512": {
+      "read": "2026-10-18",
+      "label": "Wedge Pond",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1161258": {
+      "read": "2026-10-18",
+      "label": "Mount Robson",
+      "sitelinks": {
+        "count": 32,
+        "langs": [
+          "arz",
+          "be",
+          "ca",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lld",
+          "nds",
+          "nl",
+          "no",
+          "pl",
+          "pnb",
+          "ro",
+          "ru",
+          "sk",
+          "sv",
+          "sw",
+          "tr",
+          "uk",
+          "wuu",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Mount Robson"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1177961": {
+      "read": "2026-10-18",
+      "label": "Lake Misurina",
+      "sitelinks": {
+        "count": 21,
+        "langs": [
+          "arz",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "es",
+          "et",
+          "fi",
+          "fr",
+          "hu",
+          "it",
+          "ja",
+          "lb",
+          "nl",
+          "nn",
+          "no",
+          "ru",
+          "sv",
+          "uk",
+          "vec",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Lake Misurina"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q124360343": {
+      "read": "2026-10-18",
+      "label": "Laguna Capri",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q125565893": {
+      "read": "2026-10-18",
+      "label": null,
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1255895": {
+      "read": "2026-10-18",
+      "label": null,
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "de",
+          "it"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1257207": {
+      "read": "2026-10-18",
+      "label": "Tre Cime di Lavaredo",
+      "sitelinks": {
+        "count": 28,
+        "langs": [
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "el",
+          "en",
+          "es",
+          "et",
+          "eu",
+          "fi",
+          "fr",
+          "he",
+          "hu",
+          "it",
+          "ja",
+          "lld",
+          "nl",
+          "nn",
+          "no",
+          "oc",
+          "pl",
+          "pt",
+          "ru",
+          "sk",
+          "th",
+          "uk",
+          "zh"
+        ]
+      },
+      "titles": {
+        "de": "Drei Zinnen",
+        "en": "Tre Cime di Lavaredo",
+        "it": "Tre Cime di Lavaredo"
+      },
+      "langs": [
+        "de",
+        "it"
+      ],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q125749525": {
+      "read": "2026-10-18",
+      "label": "Banff Gondola",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1261451": {
+      "read": "2026-10-18",
+      "label": "Seiser Alm",
+      "sitelinks": {
+        "count": 17,
+        "langs": [
+          "arz",
+          "bar",
+          "ca",
+          "ceb",
+          "de",
+          "en",
+          "fa",
+          "fr",
+          "it",
+          "lld",
+          "nl",
+          "no",
+          "pl",
+          "pms",
+          "pt",
+          "sv",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Seiser Alm"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1283": {
+      "read": "2026-10-18",
+      "label": "Dolomites",
+      "sitelinks": {
+        "count": 73,
+        "langs": [
+          "ar",
+          "arz",
+          "ast",
+          "bar",
+          "be",
+          "bg",
+          "bn",
+          "br",
+          "ca",
+          "ceb",
+          "cs",
+          "cy",
+          "da",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "fur",
+          "ga",
+          "gl",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "la",
+          "lld",
+          "lmo",
+          "lt",
+          "lv",
+          "mk",
+          "mn",
+          "ms",
+          "mt",
+          "nl",
+          "nn",
+          "no",
+          "oc",
+          "pl",
+          "pt",
+          "rm",
+          "ro",
+          "ru",
+          "scn",
+          "sh",
+          "simple",
+          "sk",
+          "sl",
+          "sq",
+          "sr",
+          "sv",
+          "sw",
+          "th",
+          "tr",
+          "uk",
+          "vec",
+          "vi",
+          "vls",
+          "war",
+          "wuu",
+          "zh",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Dolomites"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1288839": {
+      "read": "2026-10-18",
+      "label": "Svartsengi",
+      "sitelinks": {
+        "count": 8,
+        "langs": [
+          "ar",
+          "cs",
+          "de",
+          "en",
+          "fr",
+          "is",
+          "it",
+          "nl"
+        ]
+      },
+      "titles": {
+        "en": "Eldvörp–Svartsengi"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q129470": {
+      "read": "2026-10-18",
+      "label": "Dead Horse Point State Park",
+      "sitelinks": {
+        "count": 9,
+        "langs": [
+          "ceb",
+          "de",
+          "en",
+          "fr",
+          "hu",
+          "lt",
+          "nl",
+          "pl",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Dead Horse Point State Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q52216504"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q129902": {
+      "read": "2026-10-18",
+      "label": "Capitol Reef National Park",
+      "sitelinks": {
+        "count": 34,
+        "langs": [
+          "ar",
+          "ban",
+          "be",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "es",
+          "et",
+          "fa",
+          "fi",
+          "fr",
+          "ha",
+          "he",
+          "hr",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lt",
+          "nl",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ru",
+          "sv",
+          "tr",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Capitol Reef National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q52216504"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q130134": {
+      "read": "2026-10-18",
+      "label": "Moab",
+      "sitelinks": {
+        "count": 48,
+        "langs": [
+          "ar",
+          "arz",
+          "azb",
+          "be",
+          "bg",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "cy",
+          "da",
+          "dag",
+          "de",
+          "en",
+          "es",
+          "eu",
+          "fa",
+          "fr",
+          "glk",
+          "he",
+          "ht",
+          "hu",
+          "it",
+          "ja",
+          "ko",
+          "lld",
+          "lt",
+          "mg",
+          "mr",
+          "nl",
+          "no",
+          "nv",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sh",
+          "simple",
+          "sr",
+          "sv",
+          "tr",
+          "tt",
+          "uk",
+          "ur",
+          "uz",
+          "wuu",
+          "zh",
+          "zh-min-nan"
+        ]
+      },
+      "titles": {
+        "en": "Moab, Utah"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1315012": {
+      "read": "2026-10-18",
+      "label": "Snæfellsjökull",
+      "sitelinks": {
+        "count": 46,
+        "langs": [
+          "af",
+          "arz",
+          "be",
+          "be-x-old",
+          "bg",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "gl",
+          "he",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "lb",
+          "lld",
+          "lv",
+          "mk",
+          "ml",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "qu",
+          "rm",
+          "ru",
+          "sh",
+          "sr",
+          "sv",
+          "sw",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Snæfellsjökull"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q13231225": {
+      "read": "2026-10-18",
+      "label": "Lake Louise Ski Resort",
+      "sitelinks": {
+        "count": 7,
+        "langs": [
+          "arz",
+          "cs",
+          "en",
+          "fr",
+          "mk",
+          "sk",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Lake Louise Ski Resort"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1323978": {
+      "read": "2026-10-18",
+      "label": "El Chaltén",
+      "sitelinks": {
+        "count": 21,
+        "langs": [
+          "ar",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "es",
+          "fa",
+          "fi",
+          "fr",
+          "gn",
+          "he",
+          "it",
+          "lt",
+          "nl",
+          "os",
+          "pt",
+          "ro",
+          "sl",
+          "sv",
+          "uk",
+          "ur"
+        ]
+      },
+      "titles": {
+        "en": "El Chaltén"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1344271": {
+      "read": "2026-10-18",
+      "label": "Icefields Parkway",
+      "sitelinks": {
+        "count": 9,
+        "langs": [
+          "da",
+          "de",
+          "es",
+          "fr",
+          "nl",
+          "nn",
+          "no",
+          "ro",
+          "zh"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1353292": {
+      "read": "2026-10-18",
+      "label": "Vatnajökull National Park",
+      "sitelinks": {
+        "count": 44,
+        "langs": [
+          "az",
+          "ban",
+          "ca",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fr",
+          "gl",
+          "he",
+          "hr",
+          "hu",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lt",
+          "lv",
+          "mt",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ru",
+          "sh",
+          "simple",
+          "sk",
+          "sl",
+          "sv",
+          "tk",
+          "tr",
+          "uk",
+          "ur",
+          "uz",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Vatnajökull National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q1459900",
+        "Q9259"
+      ],
+      "p757": [
+        "1604"
+      ],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q1362681": {
+      "read": "2026-10-18",
+      "label": "Peyto Lake",
+      "sitelinks": {
+        "count": 27,
+        "langs": [
+          "be",
+          "be-x-old",
+          "bn",
+          "ceb",
+          "cv",
+          "de",
+          "en",
+          "es",
+          "fa",
+          "fr",
+          "he",
+          "hy",
+          "it",
+          "kn",
+          "lb",
+          "lt",
+          "nl",
+          "pl",
+          "ro",
+          "ru",
+          "simple",
+          "sq",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Peyto Lake"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1367398": {
+      "read": "2026-10-18",
+      "label": "Lake Louise",
+      "sitelinks": {
+        "count": 30,
+        "langs": [
+          "ceb",
+          "cs",
+          "cv",
+          "de",
+          "en",
+          "es",
+          "fa",
+          "fr",
+          "he",
+          "id",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "lb",
+          "lt",
+          "nl",
+          "nn",
+          "no",
+          "pt",
+          "ro",
+          "ru",
+          "simple",
+          "sv",
+          "th",
+          "tr",
+          "uk",
+          "vi",
+          "zh",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Lake Louise (Alberta)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1408786": {
+      "read": "2026-10-18",
+      "label": "Val",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "de",
+          "it",
+          "lld"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1409370": {
+      "read": "2026-10-18",
+      "label": "Upheaval Dome",
+      "sitelinks": {
+        "count": 5,
+        "langs": [
+          "ceb",
+          "de",
+          "en",
+          "fr",
+          "pl"
+        ]
+      },
+      "titles": {
+        "en": "Upheaval Dome"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1411137": {
+      "read": "2026-10-18",
+      "label": "Goblin Valley State Park",
+      "sitelinks": {
+        "count": 7,
+        "langs": [
+          "ca",
+          "ceb",
+          "de",
+          "en",
+          "fr",
+          "ru",
+          "simple"
+        ]
+      },
+      "titles": {
+        "en": "Goblin Valley State Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q52216504"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q1416427": {
+      "read": "2026-10-18",
+      "label": "Gardena Pass",
+      "sitelinks": {
+        "count": 14,
+        "langs": [
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eu",
+          "fr",
+          "hu",
+          "it",
+          "lld",
+          "lmo",
+          "nl",
+          "no"
+        ]
+      },
+      "titles": {
+        "en": "Gardena Pass"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1416530": {
+      "read": "2026-10-18",
+      "label": "Karersee",
+      "sitelinks": {
+        "count": 15,
+        "langs": [
+          "arz",
+          "ca",
+          "cs",
+          "de",
+          "en",
+          "et",
+          "fr",
+          "he",
+          "hr",
+          "hu",
+          "it",
+          "lld",
+          "mk",
+          "nl",
+          "vec"
+        ]
+      },
+      "titles": {
+        "en": "Karersee"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1420331": {
+      "read": "2026-10-18",
+      "label": "Fischlein Valley",
+      "sitelinks": {
+        "count": 4,
+        "langs": [
+          "cs",
+          "de",
+          "fr",
+          "it"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1474446": {
+      "read": "2026-10-18",
+      "label": "Grand Staircase–Escalante National Monument",
+      "sitelinks": {
+        "count": 13,
+        "langs": [
+          "ca",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "es",
+          "fr",
+          "id",
+          "nl",
+          "pt",
+          "ro",
+          "ru",
+          "sk"
+        ]
+      },
+      "titles": {
+        "en": "Grand Staircase–Escalante National Monument"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545646",
+        "Q14545633"
+      ]
+    },
+    "Q1478439": {
+      "read": "2026-10-18",
+      "label": "Piz Boè",
+      "sitelinks": {
+        "count": 14,
+        "langs": [
+          "arz",
+          "ca",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "fr",
+          "it",
+          "lld",
+          "pa",
+          "pl",
+          "ru",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Piz Boè"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q14874867": {
+      "read": "2026-10-18",
+      "label": "Miette hot springs",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Miette Hot Springs"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1530105": {
+      "read": "2026-10-18",
+      "label": "Glaumbær Folk Museum",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "en",
+          "is",
+          "pl"
+        ]
+      },
+      "titles": {
+        "en": "Skagafjörður Folk Museum"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q15410555": {
+      "read": "2026-10-18",
+      "label": "Lake Sorapiss",
+      "sitelinks": {
+        "count": 7,
+        "langs": [
+          "arz",
+          "ceb",
+          "cs",
+          "en",
+          "hu",
+          "it",
+          "uk"
+        ]
+      },
+      "titles": {
+        "en": "Lake Sorapiss"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1543478": {
+      "read": "2026-10-18",
+      "label": "Algonquin Provincial Park",
+      "sitelinks": {
+        "count": 25,
+        "langs": [
+          "ar",
+          "be",
+          "ceb",
+          "de",
+          "en",
+          "es",
+          "fa",
+          "fr",
+          "gl",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "lt",
+          "nl",
+          "no",
+          "pl",
+          "ru",
+          "simple",
+          "sk",
+          "sv",
+          "uk",
+          "vi",
+          "zh",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Algonquin Provincial Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q1568567"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q1547402": {
+      "read": "2026-10-18",
+      "label": "Kirkjufell",
+      "sitelinks": {
+        "count": 22,
+        "langs": [
+          "arz",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "es",
+          "eu",
+          "fr",
+          "he",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "lld",
+          "nl",
+          "pl",
+          "pt",
+          "ru",
+          "sv",
+          "tr",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Kirkjufell"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q15710089": {
+      "read": "2026-10-18",
+      "label": "Bow Valley Provincial Park",
+      "sitelinks": {
+        "count": 6,
+        "langs": [
+          "ceb",
+          "de",
+          "en",
+          "fr",
+          "he",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Bow Valley Provincial Park"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q16419351": {
+      "read": "2026-10-18",
+      "label": "Almannagjá",
+      "sitelinks": {
+        "count": 5,
+        "langs": [
+          "bg",
+          "ceb",
+          "fr",
+          "is",
+          "sv"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q16424292": {
+      "read": "2026-10-18",
+      "label": "Reykjavík harbour",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "fr",
+          "is"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q16557871": {
+      "read": "2026-10-18",
+      "label": "Funivia del Lagazuoi",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "de",
+          "fr",
+          "it"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q16579929": {
+      "read": "2026-10-18",
+      "label": "Isla Martillo",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "ceb",
+          "es",
+          "sv"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1669132": {
+      "read": "2026-10-18",
+      "label": "Ragged Falls",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "de"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q17511214": {
+      "read": "2026-10-18",
+      "label": "Bourgeau Lake",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "ceb",
+          "en",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Bourgeau Lake"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1755973": {
+      "read": "2026-10-18",
+      "label": "South Tyrol Museum of Archaeology",
+      "sitelinks": {
+        "count": 11,
+        "langs": [
+          "de",
+          "en",
+          "eo",
+          "es",
+          "fi",
+          "fr",
+          "id",
+          "it",
+          "ja",
+          "nl",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "South Tyrol Museum of Archaeology"
+      },
+      "langs": [],
+      "p1435": [
+        "Q26971668"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q1844612": {
+      "read": "2026-10-18",
+      "label": "Hickman Natural Bridge",
+      "sitelinks": {
+        "count": 4,
+        "langs": [
+          "en",
+          "fr",
+          "ha",
+          "nl"
+        ]
+      },
+      "titles": {
+        "en": "Hickman Natural Bridge"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q1950710": {
+      "read": "2026-10-18",
+      "label": "Mount Robson Provincial Park",
+      "sitelinks": {
+        "count": 11,
+        "langs": [
+          "ceb",
+          "de",
+          "en",
+          "es",
+          "fr",
+          "gl",
+          "he",
+          "hr",
+          "simple",
+          "sv",
+          "vi"
+        ]
+      },
+      "titles": {
+        "en": "Mount Robson Provincial Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q43113623"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q205325": {
+      "read": "2026-10-18",
+      "label": "Zion National Park",
+      "sitelinks": {
+        "count": 50,
+        "langs": [
+          "ar",
+          "arz",
+          "az",
+          "ban",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "jv",
+          "ko",
+          "lt",
+          "lv",
+          "min",
+          "ml",
+          "nl",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sq",
+          "sr",
+          "su",
+          "sv",
+          "ta",
+          "th",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Zion National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q52216504"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q2085218": {
+      "read": "2026-10-18",
+      "label": "Temple Square",
+      "sitelinks": {
+        "count": 15,
+        "langs": [
+          "cs",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "fr",
+          "io",
+          "it",
+          "ko",
+          "nl",
+          "pt",
+          "simple",
+          "tr",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Temple Square"
+      },
+      "langs": [],
+      "p1435": [
+        "Q624232",
+        "Q19558910"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q210280": {
+      "read": "2026-10-18",
+      "label": "Dettifoss",
+      "sitelinks": {
+        "count": 46,
+        "langs": [
+          "arz",
+          "be",
+          "be-x-old",
+          "bg",
+          "bs",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "gl",
+          "he",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ko",
+          "lb",
+          "lt",
+          "ml",
+          "nl",
+          "nn",
+          "no",
+          "os",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sd",
+          "sk",
+          "sl",
+          "sv",
+          "tr",
+          "tt",
+          "uk",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Dettifoss"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2117539": {
+      "read": "2026-10-18",
+      "label": "Bulacia",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "ceb",
+          "de",
+          "lld"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2119673": {
+      "read": "2026-10-18",
+      "label": "Pyramid Lake",
+      "sitelinks": {
+        "count": 6,
+        "langs": [
+          "arz",
+          "ceb",
+          "de",
+          "en",
+          "he",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Pyramid Lake (Alberta)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q215992": {
+      "read": "2026-10-18",
+      "label": "Los Glaciares National Park",
+      "sitelinks": {
+        "count": 53,
+        "langs": [
+          "ar",
+          "az",
+          "ban",
+          "be",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "cy",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "gl",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "lt",
+          "mai",
+          "ml",
+          "mt",
+          "my",
+          "ne",
+          "nl",
+          "no",
+          "oc",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sh",
+          "sk",
+          "sl",
+          "sq",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "xmf",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Los Glaciares National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q9259"
+      ],
+      "p757": [
+        "145"
+      ],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q216846": {
+      "read": "2026-10-18",
+      "label": "Great Geysir",
+      "sitelinks": {
+        "count": 35,
+        "langs": [
+          "be",
+          "be-x-old",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "fo",
+          "fr",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "nl",
+          "nn",
+          "no",
+          "oc",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "simple",
+          "sv",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Geysir"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q219562": {
+      "read": "2026-10-18",
+      "label": "Bryce Canyon National Park",
+      "sitelinks": {
+        "count": 54,
+        "langs": [
+          "ar",
+          "arz",
+          "ast",
+          "ba",
+          "ban",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "gl",
+          "ha",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "io",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lb",
+          "lt",
+          "lv",
+          "ml",
+          "ms",
+          "nl",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sh",
+          "simple",
+          "sr",
+          "sv",
+          "ta",
+          "tr",
+          "uk",
+          "vi",
+          "zh",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Bryce Canyon National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q52216504"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q2217047": {
+      "read": "2026-10-18",
+      "label": "Lake Antorno",
+      "sitelinks": {
+        "count": 7,
+        "langs": [
+          "arz",
+          "cs",
+          "de",
+          "hu",
+          "it",
+          "nl",
+          "ru"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q22366287": {
+      "read": "2026-10-18",
+      "label": "Larch Valley",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "ceb"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q223969": {
+      "read": "2026-10-18",
+      "label": "Arches National Park",
+      "sitelinks": {
+        "count": 44,
+        "langs": [
+          "ar",
+          "ban",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "el",
+          "en",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "hr",
+          "hu",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "kw",
+          "lb",
+          "lt",
+          "ml",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "qu",
+          "ro",
+          "ru",
+          "sv",
+          "th",
+          "tr",
+          "uk",
+          "vi",
+          "zh",
+          "zh-classical"
+        ]
+      },
+      "titles": {
+        "en": "Arches National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q52216504"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q22422872": {
+      "read": "2026-10-18",
+      "label": "Annette Lake",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "ceb"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q22463352": {
+      "read": "2026-10-18",
+      "label": "Oxtongue River-Ragged Falls Provincial Park",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "ceb"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q22484509": {
+      "read": "2026-10-18",
+      "label": "Johnston Canyon",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "ceb"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q22490170": {
+      "read": "2026-10-18",
+      "label": "Parker Ridge",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "ceb",
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Parker Ridge"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q22616473": {
+      "read": "2026-10-18",
+      "label": "Wilcox Pass",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "ceb"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2263528": {
+      "read": "2026-10-18",
+      "label": "Secëda",
+      "sitelinks": {
+        "count": 6,
+        "langs": [
+          "de",
+          "en",
+          "it",
+          "ko",
+          "lld",
+          "nl"
+        ]
+      },
+      "titles": {
+        "en": "Monte Seceda"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q22650927": {
+      "read": "2026-10-18",
+      "label": "Solitaire Lake",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "arz"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2300616": {
+      "read": "2026-10-18",
+      "label": "Delicate Arch",
+      "sitelinks": {
+        "count": 16,
+        "langs": [
+          "ar",
+          "de",
+          "en",
+          "es",
+          "et",
+          "fa",
+          "fr",
+          "hy",
+          "it",
+          "nl",
+          "pl",
+          "pnb",
+          "pt",
+          "ru",
+          "zh",
+          "zh-classical"
+        ]
+      },
+      "titles": {
+        "en": "Delicate Arch"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2438157": {
+      "read": "2026-10-18",
+      "label": "Toblacher See",
+      "sitelinks": {
+        "count": 9,
+        "langs": [
+          "arz",
+          "cs",
+          "de",
+          "en",
+          "et",
+          "fr",
+          "hu",
+          "it",
+          "mk"
+        ]
+      },
+      "titles": {
+        "en": "Toblacher See"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q24942634": {
+      "read": "2026-10-18",
+      "label": "Laguna Nimez",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "es"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q255568": {
+      "read": "2026-10-18",
+      "label": "Urtijëi",
+      "sitelinks": {
+        "count": 55,
+        "langs": [
+          "an",
+          "ar",
+          "azb",
+          "bar",
+          "be",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fr",
+          "hu",
+          "hy",
+          "ia",
+          "id",
+          "it",
+          "ja",
+          "kk",
+          "ko",
+          "la",
+          "lld",
+          "lmo",
+          "ms",
+          "nap",
+          "nl",
+          "no",
+          "pl",
+          "pms",
+          "pt",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sh",
+          "sr",
+          "sv",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "uz",
+          "vec",
+          "vi",
+          "vo",
+          "war",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Urtijëi"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q25622": {
+      "read": "2026-10-18",
+      "label": "Bow Lake",
+      "sitelinks": {
+        "count": 16,
+        "langs": [
+          "ceb",
+          "de",
+          "en",
+          "es",
+          "fa",
+          "fr",
+          "he",
+          "hu",
+          "it",
+          "ja",
+          "ka",
+          "nl",
+          "ru",
+          "sv",
+          "uk",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Bow Lake (Alberta)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2563959": {
+      "read": "2026-10-18",
+      "label": "Angels Landing",
+      "sitelinks": {
+        "count": 10,
+        "langs": [
+          "arz",
+          "ceb",
+          "de",
+          "en",
+          "fr",
+          "lld",
+          "nl",
+          "pl",
+          "pt",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Angels Landing"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2671348": {
+      "read": "2026-10-18",
+      "label": "Lake Minnewanka",
+      "sitelinks": {
+        "count": 14,
+        "langs": [
+          "ceb",
+          "cv",
+          "en",
+          "es",
+          "fr",
+          "he",
+          "it",
+          "nl",
+          "pt",
+          "ru",
+          "sr",
+          "sv",
+          "uk",
+          "uz"
+        ]
+      },
+      "titles": {
+        "en": "Lake Minnewanka"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q27016707": {
+      "read": "2026-10-18",
+      "label": "Myvatn Nature Baths",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "ceb",
+          "sv"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2879472": {
+      "read": "2026-10-18",
+      "label": "Lapataia Bay",
+      "sitelinks": {
+        "count": 4,
+        "langs": [
+          "ceb",
+          "es",
+          "fr",
+          "sv"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q2885035": {
+      "read": "2026-10-18",
+      "label": "Émosson Dam",
+      "sitelinks": {
+        "count": 9,
+        "langs": [
+          "arz",
+          "ceb",
+          "de",
+          "en",
+          "fa",
+          "fr",
+          "it",
+          "pl",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Émosson Dam"
+      },
+      "langs": [],
+      "p1435": [
+        "Q12126757"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q2943271": {
+      "read": "2026-10-18",
+      "label": "Cave and Basin National Historic Site",
+      "sitelinks": {
+        "count": 6,
+        "langs": [
+          "arz",
+          "en",
+          "fr",
+          "ja",
+          "ko",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Cave and Basin National Historic Site"
+      },
+      "langs": [],
+      "p1435": [
+        "Q1568567"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q3029053": {
+      "read": "2026-10-18",
+      "label": "The Narrows",
+      "sitelinks": {
+        "count": 7,
+        "langs": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "nl",
+          "pl",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "The Narrows (Zion National Park)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q30737737": {
+      "read": "2026-10-18",
+      "label": "Mer de Glace ice cave",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "en",
+          "fr"
+        ]
+      },
+      "titles": {
+        "en": "Mer de Glace ice cave"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q3073830": {
+      "read": "2026-10-18",
+      "label": "Floor of the Valley Road",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "en",
+          "fr"
+        ]
+      },
+      "titles": {
+        "en": "Floor of the Valley Road"
+      },
+      "langs": [],
+      "p1435": [
+        "Q19558910"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q3088020": {
+      "read": "2026-10-18",
+      "label": "Téléphérique de l'Aiguille du Midi",
+      "sitelinks": {
+        "count": 8,
+        "langs": [
+          "da",
+          "eo",
+          "es",
+          "fr",
+          "gl",
+          "nl",
+          "pt",
+          "sv"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q316177": {
+      "read": "2026-10-18",
+      "label": "Emerald Lake",
+      "sitelinks": {
+        "count": 9,
+        "langs": [
+          "arz",
+          "ceb",
+          "en",
+          "es",
+          "fr",
+          "he",
+          "hy",
+          "sv",
+          "ur"
+        ]
+      },
+      "titles": {
+        "en": "Emerald Lake (British Columbia)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q31661143": {
+      "read": "2026-10-18",
+      "label": "aiguillette des Posettes",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "ceb"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q317376": {
+      "read": "2026-10-18",
+      "label": "Kinney Lake",
+      "sitelinks": {
+        "count": 14,
+        "langs": [
+          "bn",
+          "ceb",
+          "en",
+          "fr",
+          "gl",
+          "hu",
+          "is",
+          "ja",
+          "ka",
+          "ms",
+          "nl",
+          "ru",
+          "sv",
+          "ur"
+        ]
+      },
+      "titles": {
+        "en": "Kinney Lake"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q3214753": {
+      "read": "2026-10-18",
+      "label": "Lac Blanc",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "en",
+          "fr",
+          "he"
+        ]
+      },
+      "titles": {
+        "en": "Lac Blanc (Chamonix)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q3215662": {
+      "read": "2026-10-18",
+      "label": "Lac des Gaillands",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "fr"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q3215867": {
+      "read": "2026-10-18",
+      "label": "Vermilion Lakes",
+      "sitelinks": {
+        "count": 9,
+        "langs": [
+          "bn",
+          "ceb",
+          "en",
+          "es",
+          "fr",
+          "he",
+          "ru",
+          "sv",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Vermilion Lakes"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q33481488": {
+      "read": "2026-10-18",
+      "label": "St. Magdalena",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "ceb",
+          "fr"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q3364678": {
+      "read": "2026-10-18",
+      "label": "Peter Lougheed Provincial Park",
+      "sitelinks": {
+        "count": 5,
+        "langs": [
+          "ceb",
+          "de",
+          "en",
+          "fr",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Peter Lougheed Provincial Park"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q3364735": {
+      "read": "2026-10-18",
+      "label": "Spray Valley Provincial Park",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "en",
+          "fr"
+        ]
+      },
+      "titles": {
+        "en": "Spray Valley Provincial Park"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q367943": {
+      "read": "2026-10-18",
+      "label": "Perito Moreno Glacier",
+      "sitelinks": {
+        "count": 39,
+        "langs": [
+          "ar",
+          "ast",
+          "az",
+          "bg",
+          "bn",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fr",
+          "he",
+          "hu",
+          "hy",
+          "it",
+          "ja",
+          "ka",
+          "lmo",
+          "lt",
+          "lv",
+          "nl",
+          "pl",
+          "pt",
+          "ru",
+          "simple",
+          "sl",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Perito Moreno Glacier"
+      },
+      "langs": [],
+      "p1435": [
+        "Q117834546"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q37949": {
+      "read": "2026-10-18",
+      "label": "Overlander Falls",
+      "sitelinks": {
+        "count": 7,
+        "langs": [
+          "en",
+          "fa",
+          "ja",
+          "mzn",
+          "pnb",
+          "tg",
+          "ur"
+        ]
+      },
+      "titles": {
+        "en": "Overlander Falls"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q380189": {
+      "read": "2026-10-18",
+      "label": "Toblach",
+      "sitelinks": {
+        "count": 58,
+        "langs": [
+          "ar",
+          "azb",
+          "be",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "hu",
+          "hy",
+          "ia",
+          "it",
+          "ja",
+          "kk",
+          "ko",
+          "ku",
+          "la",
+          "lld",
+          "lmo",
+          "ms",
+          "nap",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pms",
+          "pt",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sh",
+          "simple",
+          "sr",
+          "sv",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "ur",
+          "uz",
+          "vec",
+          "vi",
+          "vo",
+          "war",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Toblach"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q3825692": {
+      "read": "2026-10-18",
+      "label": "Lago Fedèra",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "it"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q38519": {
+      "read": "2026-10-18",
+      "label": "Gullfoss",
+      "sitelinks": {
+        "count": 46,
+        "langs": [
+          "ar",
+          "arz",
+          "ast",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "cy",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fo",
+          "fr",
+          "he",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lb",
+          "lt",
+          "mzn",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "simple",
+          "sl",
+          "sv",
+          "tg",
+          "th",
+          "uk",
+          "ur",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Gullfoss"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q391165": {
+      "read": "2026-10-18",
+      "label": "Athabasca Glacier",
+      "sitelinks": {
+        "count": 18,
+        "langs": [
+          "ar",
+          "bn",
+          "ceb",
+          "de",
+          "en",
+          "es",
+          "eu",
+          "fr",
+          "he",
+          "hy",
+          "ja",
+          "nl",
+          "pt",
+          "ru",
+          "sl",
+          "sr",
+          "sv",
+          "zh-min-nan"
+        ]
+      },
+      "titles": {
+        "en": "Athabasca Glacier"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q41024": {
+      "read": "2026-10-18",
+      "label": "San Vito di Cadore",
+      "sitelinks": {
+        "count": 50,
+        "langs": [
+          "azb",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fr",
+          "hu",
+          "hy",
+          "ia",
+          "id",
+          "it",
+          "ja",
+          "kk",
+          "ko",
+          "ku",
+          "la",
+          "lld",
+          "lmo",
+          "ms",
+          "nap",
+          "nl",
+          "pl",
+          "pms",
+          "pt",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sh",
+          "sr",
+          "sv",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "ur",
+          "uz",
+          "vec",
+          "vi",
+          "war",
+          "zh",
+          "zh-min-nan"
+        ]
+      },
+      "titles": {
+        "en": "San Vito di Cadore"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q41158": {
+      "read": "2026-10-18",
+      "label": "Cortina d'Ampezzo",
+      "sitelinks": {
+        "count": 85,
+        "langs": [
+          "af",
+          "an",
+          "ar",
+          "be",
+          "be-x-old",
+          "bg",
+          "br",
+          "bs",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "cy",
+          "da",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "fy",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "ia",
+          "id",
+          "ie",
+          "it",
+          "ja",
+          "jv",
+          "ka",
+          "ko",
+          "ku",
+          "ky",
+          "la",
+          "lb",
+          "lld",
+          "lmo",
+          "lt",
+          "lv",
+          "mk",
+          "mr",
+          "ms",
+          "nap",
+          "nl",
+          "nn",
+          "no",
+          "oc",
+          "os",
+          "pcd",
+          "pl",
+          "pms",
+          "pt",
+          "qu",
+          "rm",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sh",
+          "simple",
+          "sk",
+          "sl",
+          "sr",
+          "sv",
+          "tg",
+          "th",
+          "tl",
+          "tr",
+          "uk",
+          "ur",
+          "uz",
+          "vec",
+          "vi",
+          "vo",
+          "war",
+          "wuu",
+          "zea",
+          "zh",
+          "zh-min-nan"
+        ]
+      },
+      "titles": {
+        "en": "Cortina d'Ampezzo"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q41858": {
+      "read": "2026-10-18",
+      "label": "Banff National Park",
+      "sitelinks": {
+        "count": 62,
+        "langs": [
+          "ar",
+          "ban",
+          "bg",
+          "bn",
+          "ca",
+          "ckb",
+          "cs",
+          "da",
+          "de",
+          "dv",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "hak",
+          "he",
+          "hi",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "jv",
+          "ka",
+          "kk",
+          "ko",
+          "lb",
+          "lt",
+          "lv",
+          "ms",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sco",
+          "sh",
+          "simple",
+          "sk",
+          "sl",
+          "sq",
+          "sr",
+          "sv",
+          "ta",
+          "th",
+          "tr",
+          "uk",
+          "vi",
+          "wuu",
+          "zh",
+          "zh-classical",
+          "zh-min-nan",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Banff National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q43113623"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q419733": {
+      "read": "2026-10-18",
+      "label": "La Val",
+      "sitelinks": {
+        "count": 50,
+        "langs": [
+          "an",
+          "ar",
+          "az",
+          "azb",
+          "be",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fr",
+          "hu",
+          "hy",
+          "ia",
+          "it",
+          "ja",
+          "la",
+          "lld",
+          "lmo",
+          "ms",
+          "nap",
+          "nl",
+          "no",
+          "pl",
+          "pms",
+          "pt",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sh",
+          "sr",
+          "sv",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "uz",
+          "vec",
+          "vi",
+          "war",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "La Val"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q427971": {
+      "read": "2026-10-18",
+      "label": "Hraunfossar",
+      "sitelinks": {
+        "count": 19,
+        "langs": [
+          "ca",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "es",
+          "fa",
+          "fr",
+          "hu",
+          "is",
+          "it",
+          "ja",
+          "nds-nl",
+          "nl",
+          "nn",
+          "pl",
+          "pnb",
+          "ru",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Hraunfossar"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q429646": {
+      "read": "2026-10-18",
+      "label": "Maligne Lake",
+      "sitelinks": {
+        "count": 15,
+        "langs": [
+          "arz",
+          "ceb",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "fa",
+          "fr",
+          "ko",
+          "lt",
+          "pt",
+          "ru",
+          "sv",
+          "uk",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Maligne Lake"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q445369": {
+      "read": "2026-10-18",
+      "label": "Pragser Wildsee",
+      "sitelinks": {
+        "count": 18,
+        "langs": [
+          "ar",
+          "arz",
+          "ca",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "et",
+          "fi",
+          "fr",
+          "hu",
+          "it",
+          "mk",
+          "nl",
+          "pl",
+          "ru",
+          "vec",
+          "zh"
+        ]
+      },
+      "titles": {
+        "de": "Pragser Wildsee",
+        "en": "Pragser Wildsee",
+        "it": "Lago di Braies"
+      },
+      "langs": [
+        "de",
+        "it"
+      ],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q446041": {
+      "read": "2026-10-18",
+      "label": "Seekofel",
+      "sitelinks": {
+        "count": 8,
+        "langs": [
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "it",
+          "lld",
+          "ru",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Seekofel"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q474782": {
+      "read": "2026-10-18",
+      "label": "Innichen",
+      "sitelinks": {
+        "count": 52,
+        "langs": [
+          "ar",
+          "azb",
+          "bar",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fr",
+          "hu",
+          "hy",
+          "ia",
+          "it",
+          "ja",
+          "kk",
+          "ku",
+          "la",
+          "lld",
+          "lmo",
+          "ms",
+          "nap",
+          "nl",
+          "no",
+          "pl",
+          "pms",
+          "pt",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sh",
+          "simple",
+          "sk",
+          "sr",
+          "sv",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "vec",
+          "vi",
+          "war",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Innichen"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q476378": {
+      "read": "2026-10-18",
+      "label": "Cadini group",
+      "sitelinks": {
+        "count": 13,
+        "langs": [
+          "arz",
+          "ca",
+          "cs",
+          "de",
+          "en",
+          "fa",
+          "fi",
+          "fr",
+          "it",
+          "lld",
+          "nl",
+          "no",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Cadini di Misurina"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q4854872": {
+      "read": "2026-10-18",
+      "label": "Banff Upper Hot Springs",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "en",
+          "uz",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Banff Upper Hot Springs"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q499129": {
+      "read": "2026-10-18",
+      "label": "Sëlva",
+      "sitelinks": {
+        "count": 53,
+        "langs": [
+          "an",
+          "ar",
+          "azb",
+          "be",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fr",
+          "hu",
+          "hy",
+          "ia",
+          "it",
+          "ja",
+          "kk",
+          "ko",
+          "la",
+          "lld",
+          "lmo",
+          "ms",
+          "nap",
+          "nl",
+          "no",
+          "pl",
+          "pms",
+          "pt",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sco",
+          "sh",
+          "sr",
+          "sv",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "uz",
+          "vec",
+          "vi",
+          "war",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Sëlva"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q4998953": {
+      "read": "2026-10-18",
+      "label": "Burke Mountain",
+      "sitelinks": {
+        "count": 5,
+        "langs": [
+          "arz",
+          "ceb",
+          "en",
+          "lld",
+          "ur"
+        ]
+      },
+      "titles": {
+        "en": "Burke Mountain (Vermont)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q503429": {
+      "read": "2026-10-18",
+      "label": "Jasper National Park",
+      "sitelinks": {
+        "count": 45,
+        "langs": [
+          "ar",
+          "az",
+          "ban",
+          "bg",
+          "bn",
+          "ca",
+          "ckb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lt",
+          "ml",
+          "nl",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sh",
+          "simple",
+          "sl",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "ur",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Jasper National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q3457162",
+        "Q43113623"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q504253": {
+      "read": "2026-10-18",
+      "label": "Santa Cristina - Gherdëina",
+      "sitelinks": {
+        "count": 49,
+        "langs": [
+          "af",
+          "an",
+          "azb",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fr",
+          "hu",
+          "hy",
+          "ia",
+          "it",
+          "ja",
+          "kk",
+          "la",
+          "lld",
+          "lmo",
+          "ms",
+          "nap",
+          "nl",
+          "no",
+          "pl",
+          "pms",
+          "pt",
+          "ro",
+          "roa-tara",
+          "ru",
+          "scn",
+          "sco",
+          "sh",
+          "sr",
+          "sv",
+          "tl",
+          "tr",
+          "tt",
+          "uk",
+          "vec",
+          "vi",
+          "war",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Santa Cristina Gherdëina"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q511933": {
+      "read": "2026-10-18",
+      "label": "Jökulsárlón",
+      "sitelinks": {
+        "count": 33,
+        "langs": [
+          "af",
+          "ar",
+          "ca",
+          "cs",
+          "cv",
+          "da",
+          "de",
+          "diq",
+          "en",
+          "eo",
+          "es",
+          "fr",
+          "he",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "kk",
+          "lb",
+          "nl",
+          "nn",
+          "no",
+          "os",
+          "pl",
+          "pt",
+          "ru",
+          "sl",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Jökulsárlón"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q5267147": {
+      "read": "2026-10-18",
+      "label": "Devils Garden",
+      "sitelinks": {
+        "count": 6,
+        "langs": [
+          "en",
+          "es",
+          "hu",
+          "ml",
+          "ms",
+          "pl"
+        ]
+      },
+      "titles": {
+        "en": "Devils Garden (Arches National Park)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q5285420": {
+      "read": "2026-10-18",
+      "label": "Djúpalónssandur",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "en",
+          "is"
+        ]
+      },
+      "titles": {
+        "en": "Djúpalónssandur"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q53795710": {
+      "read": "2026-10-18",
+      "label": "Diamond Beach",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q541856": {
+      "read": "2026-10-18",
+      "label": "Canyonlands National Park",
+      "sitelinks": {
+        "count": 39,
+        "langs": [
+          "ar",
+          "az",
+          "ban",
+          "bg",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "es",
+          "et",
+          "fa",
+          "fi",
+          "fr",
+          "ha",
+          "he",
+          "hr",
+          "hu",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "kw",
+          "lt",
+          "ml",
+          "nl",
+          "nn",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sv",
+          "th",
+          "tr",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Canyonlands National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q52216504"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q5506421": {
+      "read": "2026-10-18",
+      "label": "Fruita Rural Historic District",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "en",
+          "fr",
+          "ha"
+        ]
+      },
+      "titles": {
+        "en": "Fruita Rural Historic District"
+      },
+      "langs": [],
+      "p1435": [
+        "Q19558910"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q5597550": {
+      "read": "2026-10-18",
+      "label": "Grassi Lakes",
+      "sitelinks": {
+        "count": 4,
+        "langs": [
+          "ceb",
+          "de",
+          "en",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Grassi Lakes"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q55978735": {
+      "read": "2026-10-18",
+      "label": "Lake Limides",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "cs"
+        ]
+      },
+      "titles": {},
+      "langs": [
+        "it"
+      ],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q5636437": {
+      "read": "2026-10-18",
+      "label": "Ha Ling Peak",
+      "sitelinks": {
+        "count": 5,
+        "langs": [
+          "arz",
+          "ceb",
+          "en",
+          "lld",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Ha Ling Peak"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q572771": {
+      "read": "2026-10-18",
+      "label": "Takakkaw Falls",
+      "sitelinks": {
+        "count": 11,
+        "langs": [
+          "arz",
+          "de",
+          "en",
+          "es",
+          "fr",
+          "he",
+          "ja",
+          "no",
+          "pl",
+          "ru",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Takakkaw Falls"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q5760070": {
+      "read": "2026-10-18",
+      "label": "Highwood Pass",
+      "sitelinks": {
+        "count": 4,
+        "langs": [
+          "ceb",
+          "en",
+          "he",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Highwood Pass"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q6164065": {
+      "read": "2026-10-18",
+      "label": "Jasper Tramway",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Jasper Skytram"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q62073199": {
+      "read": "2026-10-18",
+      "label": "Grand View Point Overlook",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q623557": {
+      "read": "2026-10-18",
+      "label": "Seyðisfjörður",
+      "sitelinks": {
+        "count": 44,
+        "langs": [
+          "ar",
+          "arz",
+          "ca",
+          "ceb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fo",
+          "fr",
+          "ga",
+          "gl",
+          "he",
+          "hu",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "lt",
+          "mdf",
+          "ml",
+          "nl",
+          "nn",
+          "no",
+          "os",
+          "pl",
+          "pt",
+          "ru",
+          "sq",
+          "sv",
+          "szl",
+          "uk",
+          "ur",
+          "vo",
+          "zh",
+          "zh-min-nan"
+        ]
+      },
+      "titles": {
+        "en": "Seyðisfjörður"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q64841048": {
+      "read": "2026-10-18",
+      "label": "Columbia Icefield Skywalk",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "uk"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q6526": {
+      "read": "2026-10-18",
+      "label": "Bolzano",
+      "sitelinks": {
+        "count": 108,
+        "langs": [
+          "af",
+          "als",
+          "an",
+          "ar",
+          "arz",
+          "ast",
+          "avk",
+          "az",
+          "bar",
+          "be",
+          "be-x-old",
+          "bg",
+          "bn",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "cy",
+          "da",
+          "de",
+          "diq",
+          "dsb",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "frr",
+          "fur",
+          "fy",
+          "ga",
+          "gl",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "ia",
+          "id",
+          "io",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "kk",
+          "ko",
+          "ku",
+          "la",
+          "lb",
+          "lij",
+          "lld",
+          "lmo",
+          "lt",
+          "lv",
+          "mg",
+          "mk",
+          "ms",
+          "mt",
+          "nap",
+          "nds",
+          "nl",
+          "nn",
+          "no",
+          "oc",
+          "os",
+          "pl",
+          "pms",
+          "pnb",
+          "pt",
+          "qu",
+          "rm",
+          "ro",
+          "roa-tara",
+          "ru",
+          "sa",
+          "sc",
+          "scn",
+          "sco",
+          "sh",
+          "simple",
+          "sk",
+          "sl",
+          "sq",
+          "sr",
+          "sv",
+          "sw",
+          "szl",
+          "th",
+          "tl",
+          "tr",
+          "tt",
+          "tum",
+          "uk",
+          "ur",
+          "uz",
+          "vec",
+          "vi",
+          "vls",
+          "vo",
+          "war",
+          "wuu",
+          "xh",
+          "zh",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Bolzano"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q6529888": {
+      "read": "2026-10-18",
+      "label": "Les Praz",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Les Praz"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q67370898": {
+      "read": "2026-10-18",
+      "label": "Cascate di Fanes",
+      "sitelinks": {
+        "count": 0,
+        "langs": []
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q6755166": {
+      "read": "2026-10-18",
+      "label": "Marble Canyon",
+      "sitelinks": {
+        "count": 2,
+        "langs": [
+          "ceb",
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Marble Canyon (Canadian Rockies)"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q6821049": {
+      "read": "2026-10-18",
+      "label": "Mesa Arch",
+      "sitelinks": {
+        "count": 3,
+        "langs": [
+          "en",
+          "fr",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Mesa Arch"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q691103": {
+      "read": "2026-10-18",
+      "label": "Dürrensee",
+      "sitelinks": {
+        "count": 10,
+        "langs": [
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "et",
+          "fr",
+          "hu",
+          "it",
+          "mk",
+          "vi"
+        ]
+      },
+      "titles": {
+        "de": "Dürrensee",
+        "en": "Dürrensee",
+        "it": "Lago di Landro"
+      },
+      "langs": [
+        "de",
+        "it"
+      ],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q7200655": {
+      "read": "2026-10-18",
+      "label": "Plain of Six Glaciers Tea House",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Plain of Six Glaciers Tea House"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q7256632": {
+      "read": "2026-10-18",
+      "label": "Ptarmigan Cirque",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Ptarmigan Cirque"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q72895": {
+      "read": "2026-10-18",
+      "label": "Canadian Rocky Mountain Parks World Heritage Site",
+      "sitelinks": {
+        "count": 35,
+        "langs": [
+          "ar",
+          "bn",
+          "ca",
+          "ckb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fi",
+          "fr",
+          "gl",
+          "hu",
+          "id",
+          "it",
+          "ja",
+          "ka",
+          "lt",
+          "mai",
+          "mt",
+          "my",
+          "ne",
+          "nl",
+          "no",
+          "ru",
+          "simple",
+          "sl",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Canadian Rocky Mountain Parks World Heritage Site"
+      },
+      "langs": [],
+      "p1435": [
+        "Q9259"
+      ],
+      "p757": [
+        "304",
+        "304bis"
+      ],
+      "p814": []
+    },
+    "Q7346507": {
+      "read": "2026-10-18",
+      "label": "Upper Kananaskis Lake",
+      "sitelinks": {
+        "count": 4,
+        "langs": [
+          "arz",
+          "ceb",
+          "en",
+          "sv"
+        ]
+      },
+      "titles": {
+        "en": "Upper Kananaskis Lake"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q738103": {
+      "read": "2026-10-18",
+      "label": "Snæfellsjökull National Park",
+      "sitelinks": {
+        "count": 11,
+        "langs": [
+          "ca",
+          "cs",
+          "de",
+          "es",
+          "fi",
+          "fr",
+          "hy",
+          "pl",
+          "pt",
+          "ru",
+          "uk"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q739181": {
+      "read": "2026-10-18",
+      "label": "Athabasca Falls",
+      "sitelinks": {
+        "count": 17,
+        "langs": [
+          "ar",
+          "arz",
+          "bn",
+          "ceb",
+          "da",
+          "de",
+          "en",
+          "fr",
+          "he",
+          "it",
+          "ja",
+          "nl",
+          "pt",
+          "ro",
+          "sv",
+          "uk",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Athabasca Falls"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q7546619": {
+      "read": "2026-10-18",
+      "label": "Smugglers' Notch State Park",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Smugglers' Notch State Park"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545633"
+      ]
+    },
+    "Q7620698": {
+      "read": "2026-10-18",
+      "label": "Stowe Recreation Path",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Stowe Recreation Path"
+      },
+      "langs": [],
+      "p1435": [
+        "Q6975221"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q7641515": {
+      "read": "2026-10-18",
+      "label": "Sunshine Meadows",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "en"
+        ]
+      },
+      "titles": {
+        "en": "Sunshine Meadows"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q777882": {
+      "read": "2026-10-18",
+      "label": "Seljalandsfoss",
+      "sitelinks": {
+        "count": 40,
+        "langs": [
+          "arz",
+          "ast",
+          "br",
+          "ca",
+          "ceb",
+          "cs",
+          "cy",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "gl",
+          "he",
+          "hu",
+          "hy",
+          "id",
+          "is",
+          "it",
+          "ja",
+          "ka",
+          "lb",
+          "nl",
+          "nn",
+          "pa",
+          "pl",
+          "pnb",
+          "pt",
+          "ru",
+          "sq",
+          "sv",
+          "th",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Seljalandsfoss"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q817118": {
+      "read": "2026-10-18",
+      "label": "Höfn",
+      "sitelinks": {
+        "count": 41,
+        "langs": [
+          "ar",
+          "arz",
+          "be",
+          "be-x-old",
+          "ca",
+          "ceb",
+          "cs",
+          "cy",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "ga",
+          "he",
+          "id",
+          "io",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "lt",
+          "mk",
+          "nl",
+          "os",
+          "pl",
+          "pt",
+          "ru",
+          "sh",
+          "simple",
+          "sk",
+          "sq",
+          "sv",
+          "tr",
+          "uk",
+          "vo",
+          "zh",
+          "zh-min-nan"
+        ]
+      },
+      "titles": {
+        "en": "Höfn"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q828404": {
+      "read": "2026-10-18",
+      "label": "Yoho National Park",
+      "sitelinks": {
+        "count": 35,
+        "langs": [
+          "ban",
+          "bg",
+          "ca",
+          "ckb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "he",
+          "hr",
+          "hu",
+          "is",
+          "it",
+          "ko",
+          "lt",
+          "nl",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sh",
+          "simple",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "wuu",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Yoho National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q43113623"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q828709": {
+      "read": "2026-10-18",
+      "label": "Tierra del Fuego National Park",
+      "sitelinks": {
+        "count": 25,
+        "langs": [
+          "ban",
+          "ca",
+          "ceb",
+          "de",
+          "en",
+          "es",
+          "et",
+          "fa",
+          "fr",
+          "hy",
+          "it",
+          "ka",
+          "lt",
+          "nl",
+          "pl",
+          "pt",
+          "ru",
+          "sl",
+          "sr",
+          "sv",
+          "tr",
+          "uk",
+          "vi",
+          "xmf",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Tierra del Fuego National Park"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q83236": {
+      "read": "2026-10-18",
+      "label": "Chamonix-Mont-Blanc",
+      "sitelinks": {
+        "count": 88,
+        "langs": [
+          "af",
+          "als",
+          "an",
+          "ar",
+          "arz",
+          "ast",
+          "az",
+          "ban",
+          "be",
+          "be-x-old",
+          "bg",
+          "br",
+          "ca",
+          "ce",
+          "ceb",
+          "cs",
+          "cv",
+          "cy",
+          "da",
+          "de",
+          "diq",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "frp",
+          "gl",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "id",
+          "ie",
+          "it",
+          "ja",
+          "ka",
+          "ko",
+          "ku",
+          "la",
+          "lb",
+          "lld",
+          "lmo",
+          "lt",
+          "lv",
+          "mg",
+          "mk",
+          "ml",
+          "mr",
+          "ms",
+          "nl",
+          "nn",
+          "no",
+          "oc",
+          "os",
+          "pcd",
+          "pl",
+          "pms",
+          "pt",
+          "qu",
+          "ro",
+          "ru",
+          "scn",
+          "sh",
+          "simple",
+          "sk",
+          "sl",
+          "sr",
+          "sv",
+          "szl",
+          "th",
+          "tr",
+          "tt",
+          "uk",
+          "ur",
+          "uz",
+          "vec",
+          "vi",
+          "vo",
+          "war",
+          "wuu",
+          "zh",
+          "zh-min-nan",
+          "zh-yue"
+        ]
+      },
+      "titles": {
+        "en": "Chamonix"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q872637": {
+      "read": "2026-10-18",
+      "label": "Monte Piana",
+      "sitelinks": {
+        "count": 10,
+        "langs": [
+          "arz",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "fr",
+          "hu",
+          "it",
+          "lld",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Monte Piana"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q894637": {
+      "read": "2026-10-18",
+      "label": "Akureyri Botanical Garden",
+      "sitelinks": {
+        "count": 8,
+        "langs": [
+          "da",
+          "de",
+          "en",
+          "es",
+          "hy",
+          "is",
+          "ru",
+          "uk"
+        ]
+      },
+      "titles": {
+        "en": "Akureyri Botanical Garden"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q9005587": {
+      "read": "2026-10-18",
+      "label": "Hyde Park",
+      "sitelinks": {
+        "count": 8,
+        "langs": [
+          "ar",
+          "de",
+          "en",
+          "es",
+          "pl",
+          "simple",
+          "uk",
+          "ur"
+        ]
+      },
+      "titles": {
+        "en": "Hyde Park (village), Vermont"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q903323": {
+      "read": "2026-10-18",
+      "label": "Kootenay National Park",
+      "sitelinks": {
+        "count": 36,
+        "langs": [
+          "ar",
+          "az",
+          "ban",
+          "bg",
+          "ca",
+          "ckb",
+          "cs",
+          "da",
+          "de",
+          "en",
+          "eo",
+          "es",
+          "fi",
+          "fr",
+          "he",
+          "hr",
+          "hu",
+          "hy",
+          "is",
+          "it",
+          "ja",
+          "lt",
+          "ml",
+          "nl",
+          "pl",
+          "pt",
+          "ru",
+          "sh",
+          "simple",
+          "sr",
+          "sv",
+          "th",
+          "tr",
+          "uk",
+          "vi",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Kootenay National Park"
+      },
+      "langs": [],
+      "p1435": [
+        "Q43113623"
+      ],
+      "p757": [],
+      "p814": [
+        "Q14545628"
+      ]
+    },
+    "Q912354": {
+      "read": "2026-10-18",
+      "label": "Vallorcine",
+      "sitelinks": {
+        "count": 40,
+        "langs": [
+          "an",
+          "ar",
+          "arz",
+          "ast",
+          "ca",
+          "ce",
+          "ceb",
+          "de",
+          "diq",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fr",
+          "frp",
+          "hu",
+          "id",
+          "it",
+          "ku",
+          "la",
+          "lmo",
+          "ms",
+          "nl",
+          "oc",
+          "pl",
+          "pt",
+          "ro",
+          "simple",
+          "sk",
+          "sv",
+          "tr",
+          "tt",
+          "uk",
+          "uz",
+          "vec",
+          "vi",
+          "war",
+          "zh",
+          "zh-min-nan"
+        ]
+      },
+      "titles": {
+        "en": "Vallorcine"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q933666": {
+      "read": "2026-10-18",
+      "label": "Cinque Torri",
+      "sitelinks": {
+        "count": 16,
+        "langs": [
+          "ca",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "es",
+          "fi",
+          "fr",
+          "hu",
+          "it",
+          "ja",
+          "lld",
+          "nl",
+          "pl",
+          "th",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Cinque Torri"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q937311": {
+      "read": "2026-10-18",
+      "label": "Sunwapta Falls",
+      "sitelinks": {
+        "count": 7,
+        "langs": [
+          "bn",
+          "de",
+          "en",
+          "fr",
+          "he",
+          "nl",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Sunwapta Falls"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q956845": {
+      "read": "2026-10-18",
+      "label": "Fjaðrárgljúfur",
+      "sitelinks": {
+        "count": 17,
+        "langs": [
+          "ca",
+          "ceb",
+          "cs",
+          "de",
+          "en",
+          "es",
+          "fr",
+          "he",
+          "is",
+          "it",
+          "lv",
+          "nds-nl",
+          "nl",
+          "pl",
+          "pt",
+          "sv",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Fjaðrárgljúfur"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    },
+    "Q96790196": {
+      "read": "2026-10-18",
+      "label": "Riverside Walk",
+      "sitelinks": {
+        "count": 1,
+        "langs": [
+          "fr"
+        ]
+      },
+      "titles": {},
+      "langs": [],
+      "p1435": [
+        "Q19558910"
+      ],
+      "p757": [],
+      "p814": []
+    },
+    "Q999429": {
+      "read": "2026-10-18",
+      "label": "Jasper",
+      "sitelinks": {
+        "count": 28,
+        "langs": [
+          "be",
+          "da",
+          "de",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "eu",
+          "fa",
+          "fi",
+          "fr",
+          "ga",
+          "gl",
+          "is",
+          "it",
+          "ja",
+          "ko",
+          "nl",
+          "no",
+          "pl",
+          "pnb",
+          "pt",
+          "ro",
+          "ru",
+          "sr",
+          "uk",
+          "ur",
+          "zh"
+        ]
+      },
+      "titles": {
+        "en": "Jasper, Alberta"
+      },
+      "langs": [],
+      "p1435": [],
+      "p757": [],
+      "p814": []
+    }
+  }
+}
