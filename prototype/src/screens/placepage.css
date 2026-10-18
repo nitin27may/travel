@@ -124,3 +124,39 @@
 .scr-place .tr-row .tr-inwrap .muted { flex: none; }
 .scr-place .tr-row dd { width: 100%; align-items: flex-start; } .scr-place .tr-row dd .tr-in { align-items: stretch; }
 @media (max-width: 760px) { .scr-place .tr-count { display: none; } }
+
+/* Trailhead and parking cards, link checklist (trails lane sections 3-4) */
+.scr-place .tr-access { display: flex; flex-direction: column; gap: 10px; }
+.scr-place .tr-access .tr-bar { margin-bottom: 0; }
+.scr-place .tr-lots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.scr-place .tr-lots-h { margin-top: 4px; }
+.scr-place .tr-pt { display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); min-width: 0; }
+.scr-place .tr-pt header { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.scr-place .tr-pt header b { overflow-wrap: anywhere; }
+.scr-place .tr-pt-dl { margin: 0; display: flex; flex-direction: column; gap: 3px; font-size: .86rem; }
+.scr-place .tr-pt-dl div { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 8px; }
+.scr-place .tr-pt-dl dt { color: var(--muted); font-size: .76rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding-top: 2px; }
+.scr-place .tr-pt-dl dd { margin: 0; overflow-wrap: anywhere; }
+.scr-place .tr-pt-note { margin: 0; line-height: 1.45; }
+.scr-place .tr-coord { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.scr-place .tr-coord code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .86rem; padding: 3px 8px; border-radius: 6px; background: var(--sunk); color: var(--ink); user-select: all; }
+.scr-place .tr-src { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; line-height: 1.5; }
+.scr-place .tr-src a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.scr-place .tr-src .chip { font-size: .7rem; padding: 1px 7px; }
+.scr-place .tr-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+.scr-place .tr-nav .btn { text-decoration: none; }
+.scr-place .tr-nav .btn:not(.primary) { color: var(--ink); }
+.scr-place .tl-check { margin-top: 4px; display: flex; flex-direction: column; gap: 6px; }
+.scr-place .tl-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+.scr-place .tl-chips .chip { font-size: .72rem; padding: 2px 8px; }
+.scr-place .tl-chips .chip.ok { background: var(--sunk); }
+.scr-place .tl-none { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.scr-place .tl-none li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; padding: 6px 0; border-top: 1px solid var(--line); font-size: .86rem; }
+.scr-place .tl-none li:first-child { border-top: 0; }
+.scr-place .tl-none b { min-width: 104px; font-weight: 600; }
+.scr-place .tl-q { flex-basis: 100%; padding-left: 112px; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .scr-place .tl-q { padding-left: 0; } .scr-place .tr-lots { grid-template-columns: 1fr; } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.scr-place .tr-conf { display: flex; flex-direction: column; gap: 3px; padding: 6px 8px; border-left: 2px solid var(--warn); background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+.scr-place .tr-conf .chip { align-self: flex-start; font-size: .7rem; padding: 1px 7px; background: transparent; }
+.scr-place .tr-pt header .chip { margin-left: auto; font-size: .7rem; padding: 1px 7px; white-space: normal; }
