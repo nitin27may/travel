@@ -1,4 +1,5 @@
 import { sunFor } from '@travel/core/sun/index.ts';
+import { publicOrigin } from './origin';
 
 // Public trips are dateless templates (docs/v2/design/public-trips-dateless.md): Day 1 to Day N, a length, a season.
 // Text that carries a calendar date is dropped from the public view and listed in the report for a person to rewrite.
@@ -38,19 +39,58 @@ export function undated(text: string | null | undefined, where: string, log: Dro
   return t;
 }
 
-/** Splits into sentences and keeps the undated ones, logging each dropped sentence. */
+/**
+ * Household capture notes that never go public: which trip a place was planned as, the hotel or stay the household has in
+ * mind, and a street address. The sentence is dropped whole.
+ */
+export const HOUSEHOLD_TEXT = new RegExp(
+  [
+    String.raw`\bplanned as\b`,
+    String.raw`\b(?:hotel|stay|lodging|airbnb|accommodation|campsite|hut)\s+(?:idea|ideas|choice|pick|booked)\b`,
+    String.raw`\bbase camp:`,
+    String.raw`\b\d{2,5}\s+[A-Z][\w'. -]{2,30}\s(?:Rd|Road|St|Street|Ave|Avenue|Dr|Drive|Ln|Lane|Blvd|Way)\b`,
+  ].join('|'),
+  'i',
+);
+const URL_TEXT = /\s*\bhttps?:\/\/[^\s)]*[^\s).,;]/gi;
+
+/**
+ * The one scrubber every public text path goes through. Splits into sentences (never inside a URL or a number such as
+ * "3.2 km"), drops household sentences and dated sentences (logging each), and strips bare URLs.
+ */
 export function undatedSentences(text: string | null | undefined, where: string, log: DropLog): string {
   const t = (text ?? '').trim();
   if (!t) return '';
-  // a full stop inside a number or a name ("3.2 km") is not a sentence end: only split where whitespace or the end follows
+  // a full stop inside a number, a name or a URL is not a sentence end: only split where whitespace or the end follows
   const parts = t.match(/(?:[^.!?]|[.!?](?![\s]|$))+[.!?]*\s*/g) ?? [t];
   const kept: string[] = [];
   for (const p of parts) {
-    if (isDated(p)) log.add(where, p.trim(), 'carries a calendar date; rewrite it relative to a day or a season');
-    else kept.push(p.trim());
+    if (HOUSEHOLD_TEXT.test(p)) {
+      log.add(where, p.trim(), 'household capture note (plan link, stay idea or address); never published');
+      continue;
+    }
+    const noUrl = p.replace(URL_TEXT, '').replace(/\b[A-Z][a-z]+:\s*$/, '').trim();
+    if (noUrl !== p.trim() && !/[a-z]{3}/i.test(noUrl.replace(/\b[A-Z][a-z]+:/, ''))) continue; // nothing left but a label
+    if (isDated(noUrl)) log.add(where, p.trim(), 'carries a calendar date; rewrite it relative to a day or a season');
+    else if (noUrl) kept.push(noUrl);
   }
-  return kept.join(' ');
+  return publicOrigin(kept.join(' '));
 }
+
+/** A trip title without calendar dates: "Muskoka and Algonquin, 10–12 October 2026" becomes "Muskoka and Algonquin". */
+export function undatedTitle(title: string): string {
+  const MON = '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)';
+  const date = `(?:\\d{1,2}\\s*[-–]\\s*)?(?:\\d{1,2}\\s+)?${MON}(?:\\s*[-–]\\s*${MON})?(?:\\s+\\d{1,2})?(?:,?\\s+(?:19|20)\\d\\d)?`;
+  return publicOrigin(title)
+    .replace(new RegExp(`\\s*[,:·(-]?\\s*${date}\\)?\\s*$`, 'i'), '')
+    .replace(new RegExp(`\\s*[,:·]\\s*${date}(?=\\s*[,:·])`, 'ig'), '')
+    .replace(/\s+(?:19|20)\d\d\s*$/, '')
+    .replace(/[\s,:·-]+$/, '')
+    .trim();
+}
+
+/** Scrubs a note for a public data file or a list row, with no build log. */
+export const publicSentences = (text: string | null | undefined): string => undatedSentences(text, 'public text', new DropLog());
 
 const round5 = (min: number) => Math.round(min / 5) * 5;
 const clock = (min: number) => `${String(Math.floor(min / 60) % 24).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;

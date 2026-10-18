@@ -7,14 +7,6 @@ export const KID_LABELS: Record<string, string> = {
   unknown: 'Not assessed',
 };
 
-export const STATUS_LABELS: Record<string, string> = {
-  idea: 'Idea',
-  shortlisted: 'Shortlisted',
-  planned: 'Planned',
-  visited: 'Visited',
-  dropped: 'Dropped',
-};
-
 export const SOURCE_LABELS: Record<string, string> = {
   instagram: 'Saved Instagram post',
   official: 'Official site',

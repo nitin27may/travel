@@ -1,16 +1,17 @@
 import type { PlaceRow, TripRow } from '@/lib/data/types';
+import { publicSentences, undatedTitle } from '@/lib/public/dateless';
 
 /**
  * What /data/places.json may contain. This is an allow-list: a field that is not named here is never
- * written, whatever the loader reads. Add a field here on purpose, with a reason.
+ * written, whatever the loader reads. `status` is household data and must never be added. Add a field here on purpose, with a reason.
  */
 export const PLACE_VIEW_FIELDS = [
-  'id', 'name', 'kind', 'status', 'country', 'country_name', 'country_a3', 'region', 'region_name', 'region_iso', 'area', 'area_name',
+  'id', 'name', 'kind', 'country', 'country_name', 'country_a3', 'region', 'region_name', 'region_iso', 'area', 'area_name',
   'lat', 'lon', 'elevation_m', 'season', 'kid_fit', 'tags', 'note', 'image', 'trip', 'trip_title', 'trip_url', 'plans', 'stats',
   'stats_verified', 'location_status', 'wikidata', 'sources', 'added',
 ] as const satisfies readonly (keyof PlaceRow)[];
 
-export const TRIP_VIEW_FIELDS = ['id', 'slug', 'title', 'subtitle', 'img', 'date', 'dates', 'duration', 'region', 'source', 'href'] as const satisfies readonly (keyof TripRow)[];
+export const TRIP_VIEW_FIELDS = ['id', 'slug', 'title', 'subtitle', 'img', 'duration', 'region', 'source', 'href'] as const satisfies readonly (keyof TripRow)[];
 
 function pick<T extends object, K extends keyof T>(row: T, keys: readonly K[]): Pick<T, K> {
   const out = {} as Pick<T, K>;
@@ -27,8 +28,9 @@ export function placeView(row: PlaceRow): Pick<PlaceRow, (typeof PLACE_VIEW_FIEL
   };
 }
 
+/** A trip row for the data file: dateless (no start date, no date range) and through the shared text scrubber. */
 export function tripView(row: TripRow): Pick<TripRow, (typeof TRIP_VIEW_FIELDS)[number]> {
-  return pick(row, TRIP_VIEW_FIELDS);
+  return { ...pick(row, TRIP_VIEW_FIELDS), title: undatedTitle(row.title), subtitle: publicSentences(row.subtitle) };
 }
 
 export interface EntityViewDoc<T> {

@@ -4,7 +4,7 @@ import { UNCONFIRMED_TRAIL_DATA } from './honesty-overrides';
 import { honesty, uniqueHonesty } from './honesty';
 import { fileFromUrl, makePhoto } from './photos';
 import { CATEGORY_OF_KIND, PROTOTYPE_AREAS, kindLabel, mapLocationKind, mapPrototypeKind } from './taxonomy';
-import { DropLog, undatedSentences } from './dateless';
+import { DropLog, undatedSentences, undatedTitle } from './dateless';
 import { folderVisibility, type ProtoFact, type ProtoPlace, type ProtoTrail, type Sources } from './sources';
 import type { AccessPoint, AreaRef, Fact, Honesty, LinkGroup, LinkNone, Photo, Point, PlaceKind, PlaceLine, PublicPlace, TripRef } from './types';
 
@@ -145,15 +145,18 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
   const snap = src.snapshot;
   const folderTrips = new Map<string, TripRef>();
   const folderIsPrivate = (f: string) => folderVisibility(src.manifest.get(f)) === 'private';
-  const publicTripTitle = (folder: string) => snap.publicTrips.find((t) => PUBLIC_TRIP_FOLDER[t.id] === folder)?.title;
+  const publicTripTitle = (folder: string) => {
+    const t = snap.publicTrips.find((x) => PUBLIC_TRIP_FOLDER[x.id] === folder)?.title;
+    return t ? undatedTitle(t) : undefined;
+  };
   for (const folder of Object.keys(TRIP_SLUGS)) {
-    if (!folderIsPrivate(folder)) folderTrips.set(folder, { slug: TRIP_SLUGS[folder], title: publicTripTitle(folder) ?? src.hub.get(folder)?.title ?? folder });
+    if (!folderIsPrivate(folder)) folderTrips.set(folder, { slug: TRIP_SLUGS[folder], title: publicTripTitle(folder) ?? undatedTitle(src.hub.get(folder)?.title ?? folder) });
   }
   // Words that must not survive in a note: every trip folder and slug (notes say "Planned as <folder>").
   const tripWords = [...Object.keys(TRIP_SLUGS), ...Object.values(TRIP_SLUGS)];
   const scrub = (note: string, where: string): string => {
-    const sentences = note.match(/[^.!?]+[.!?]*\s*/g) ?? [note];
-    const kept = sentences.filter((s) => !tripWords.some((w) => s.toLowerCase().includes(w)) && !/planned as/i.test(s));
+    const sentences = note.match(/(?:[^.!?]|[.!?](?![\s]|$))+[.!?]*\s*/g) ?? [note];
+    const kept = sentences.filter((s) => !tripWords.some((w) => s.toLowerCase().includes(w)));
     return undatedSentences(kept.join(' '), where, log);
   };
 

@@ -6,8 +6,8 @@ const cases: [string, Partial<ListState>][] = [
   ['empty', {}],
   ['search', { q: 'lake louise' }],
   ['country', { facets: { country: ['CA'] } }],
-  ['multi', { facets: { country: ['CA'], region: ['AB'], kind: ['lake', 'waterfall'], status: ['idea', 'planned'] } }],
-  ['all facets', { facets: { country: ['US'], region: ['UT'], area: ['moab'], status: ['planned'], kind: ['trail'], style: ['adventure'], grade: ['2-4'], kid: ['yes'], season: ['6', '7'], tag: ['family'], trip: ['dolomites-july-2027'], due: ['14d'] } }],
+  ['multi', { facets: { country: ['CA'], region: ['AB'], kind: ['lake', 'waterfall'] } }],
+  ['all facets', { facets: { country: ['US'], region: ['UT'], area: ['moab'], kind: ['trail'], style: ['adventure'], grade: ['2-4'], kid: ['yes'], season: ['6', '7'], tag: ['family'], trip: ['dolomites-july-2027'], due: ['14d'] } }],
   ['view and sort', { view: 'table', sort: ['-elevation', 'name'], group: 'region', cols: ['name', 'kind', 'season'] }],
   ['advanced', { f: 'km.gt.10~gain_m.lt.800~or', sv: 'Hard hikes' }],
   ['focus and bbox', { bbox: '-120.5,35,-110,52', focus: 'CA/AB/banff-national-park/lake-louise' }],
@@ -25,6 +25,12 @@ describe('url codec', () => {
       expect(encodeState(decodeState(encoded))).toBe(encoded);
     });
   }
+
+  it('ignores an old ?status= parameter without error', () => {
+    const state = decodeState('country=CA&status=planned,visited');
+    expect(state.facets).toEqual({ country: ['CA'] });
+    expect(encodeState(state)).toBe('country=CA');
+  });
 
   it('omits defaults', () => {
     expect(encodeState(emptyState())).toBe('');
