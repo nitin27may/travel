@@ -23,6 +23,7 @@ Updated 2026-10-18, late evening. Read this first after a context reset. Then re
 | L4 | places list and place/trail pages | merged d0cb415 | real Google key checked 18 Oct (facade, our points, directions from our coordinates) |
 | PS | privacy: personal place status off public output | **building** | Status facet becomes "In a public trip"; payload test |
 | L2b | globe experience | spec in progress (Fable) | `globe/experience-review.md`, `spec.md`, owner feedback F1, F3, F4, F6 |
+| L3c | trip page timeline and party profile | design + model in progress | `design/trip-page/timeline-design.md`, `features/trip-timeline.md`, brief `L3c-trip-timeline.md` |
 | L3b | trip tags and filters at parity with Places | queued | TODO row; spec `features/trip-tags.md` first |
 | L4b | real trail tracks; trail pages for every trip's trails | queued | TODO row; `research/lanes/trails.md` |
 
@@ -41,7 +42,7 @@ The owner tries the whole site once everything below is fixed: trips (every view
 |---|---|---|---|
 | 1 | Finish wave 2: L2 verify, then L2 fixes (verifier must-fixes, F2 rings, F5 reset view), merge. PS privacy lane, verify, merge. Fable experience review and the rewritten globe spec land as docs. | F2, F5, F7 | verifier pass per lane; tsc, test, build on the merged branch |
 | 2 | Integration pass (list below): GlobeCover on home, adapter note scrub at the source, L0 fixes, foundation doc edits, full e2e, Lighthouse, privacy grep | | integration sweep `verify-integration.md` |
-| 3 | Wave 3, three lanes in parallel with disjoint files. **L3b trip tags and filters** (trips first, as the owner asked); **L2b globe experience** (rendering, motion, look, selection cards, city areas, Canada census divisions and the ADM2 audit, image-first place card); **L4b trail tracks** (real OSM lines, elevation and GPX from them, trail pages for every trip's trails) | F1, F3, F4, F6, trip tags, trail maps | verifier per lane, Fable re-review of L2b against its spec |
+| 3 | Wave 3, four lanes in parallel with disjoint files. **L3c trip page timeline** (whole-trip and per-day timelines, a scheduler in `core/`, party profile replacing per-day A/B/C; design by Fable and model by Opus, both in progress) and **L3b trip tags and filters** (trips first, as the owner asked); **L2b globe experience** (rendering, motion, look, selection cards, city areas, Canada census divisions and the ADM2 audit, image-first place card); **L4b trail tracks** (real OSM lines, elevation and GPX from them, trail pages for every trip's trails) | F1, F3, F4, F6, trip tags, trail maps, trip timeline | verifier per lane, Fable re-review of L2b against its spec |
 | 4 | Fable review of the whole built site (`review.md`), then the fixes it lists | | Fable sign-off |
 | 5 | Sanity checks across models: travel-verifier full sweep on the GPU (every page, 1440 and 390, light and dark, frame times on the globe); an independent Opus audit of privacy, data honesty and the dateless rule over `web/out` | | both pass |
 | 6 | Owner preview on a tunnel: he reviews trips, trip pages, places, place and trail pages and the globe | | owner approval |
