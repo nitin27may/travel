@@ -1,0 +1,173 @@
+{
+  "schema": "relevance-classes/1",
+  "classes": [
+    {
+      "key": "lake/glacial-turquoise",
+      "label": "A glacial lake with turquoise water under peaks"
+    },
+    {
+      "key": "lake/small-mirror",
+      "label": "A small still lake that mirrors a peak at dawn or dusk"
+    },
+    {
+      "key": "lake/alpine-hike-in",
+      "label": "A lake reached by a mountain walk"
+    },
+    {
+      "key": "lake/forest-paddle",
+      "label": "A forest lake for paddling and swimming"
+    },
+    {
+      "key": "lake/swim-beach",
+      "label": "A lake with a beach for swimming"
+    },
+    {
+      "key": "waterfall/roadside",
+      "label": "A waterfall seen from the road or a short path"
+    },
+    {
+      "key": "waterfall/hike-in",
+      "label": "A waterfall at the end of a hike"
+    },
+    {
+      "key": "waterfall/giant",
+      "label": "A major waterfall that draws visitors alone"
+    },
+    {
+      "key": "gorge/river-limestone",
+      "label": "A river gorge cut in limestone"
+    },
+    {
+      "key": "canyon/slot-wade",
+      "label": "A narrow canyon walked in the water"
+    },
+    {
+      "key": "canyon/desert-rim",
+      "label": "A desert canyon seen from the rim"
+    },
+    {
+      "key": "viewpoint/escarpment",
+      "label": "A clifftop lookout on an escarpment"
+    },
+    {
+      "key": "viewpoint/summit-panorama",
+      "label": "A summit or lookout with a wide panorama"
+    },
+    {
+      "key": "viewpoint/roadside",
+      "label": "A lookout at a road pull-off"
+    },
+    {
+      "key": "trail/forest-loop",
+      "label": "A loop through woodland, close to a town"
+    },
+    {
+      "key": "trail/alpine-loop",
+      "label": "A loop above the treeline"
+    },
+    {
+      "key": "trail/lookout",
+      "label": "A trail whose payoff is a lookout or ledge"
+    },
+    {
+      "key": "trail/riverside",
+      "label": "A path along a river or lake shore"
+    },
+    {
+      "key": "trail/rail-trail",
+      "label": "A flat former railway path"
+    },
+    {
+      "key": "trail/via-ferrata",
+      "label": "A protected climbing route"
+    },
+    {
+      "key": "trail/hut-to-hut",
+      "label": "A multi-day route between huts"
+    },
+    {
+      "key": "drive/mountain-pass",
+      "label": "A road over a mountain pass"
+    },
+    {
+      "key": "drive/scenic-parkway",
+      "label": "A long scenic road with stops"
+    },
+    {
+      "key": "town/historic-village",
+      "label": "A village known for its historic centre"
+    },
+    {
+      "key": "town/alpine-resort",
+      "label": "A mountain resort town"
+    },
+    {
+      "key": "town/lakeside",
+      "label": "A town on a lake shore"
+    },
+    {
+      "key": "sight/castle",
+      "label": "A castle or fortress"
+    },
+    {
+      "key": "sight/heritage-site",
+      "label": "A listed heritage building or site"
+    },
+    {
+      "key": "sight/museum",
+      "label": "A museum or gallery"
+    },
+    {
+      "key": "sight/landmark",
+      "label": "A single landmark that stands for a place"
+    },
+    {
+      "key": "glacier/walk-on",
+      "label": "A glacier you can walk or tour on"
+    },
+    {
+      "key": "lift/panorama",
+      "label": "A gondola or lift to a panorama"
+    },
+    {
+      "key": "lift/cable-car-hike",
+      "label": "A lift that opens a hike"
+    },
+    {
+      "key": "water/tubing",
+      "label": "River tubing"
+    },
+    {
+      "key": "water/rafting",
+      "label": "Whitewater or floating trips"
+    },
+    {
+      "key": "water/boat-tour",
+      "label": "A boat tour or cruise"
+    },
+    {
+      "key": "wildlife/viewing",
+      "label": "A place for wildlife viewing"
+    },
+    {
+      "key": "cave/show",
+      "label": "A show cave"
+    },
+    {
+      "key": "beach/ocean",
+      "label": "An ocean beach"
+    },
+    {
+      "key": "park/urban",
+      "label": "A city park"
+    },
+    {
+      "key": "peak/summit",
+      "label": "A summit climb"
+    },
+    {
+      "key": "activity/ropes-zip",
+      "label": "A zipline or ropes course"
+    }
+  ]
+}

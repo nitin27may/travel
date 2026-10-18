@@ -1,0 +1,59 @@
+{
+ "en": {
+  "items": [
+   {
+    "project": "en.wikipedia",
+    "article": "Tre_Cime_di_Lavaredo",
+    "granularity": "monthly",
+    "timestamp": "2025110100",
+    "access": "all-access",
+    "agent": "user",
+    "views": 5000
+   },
+   {
+    "timestamp": "2025120100",
+    "views": 6000,
+    "project": "en.wikipedia",
+    "article": "Tre_Cime_di_Lavaredo",
+    "granularity": "monthly",
+    "access": "all-access",
+    "agent": "user"
+   }
+  ]
+ },
+ "de": {
+  "items": [
+   {
+    "project": "de.wikipedia",
+    "article": "Drei_Zinnen",
+    "granularity": "monthly",
+    "timestamp": "2025110100",
+    "access": "all-access",
+    "agent": "user",
+    "views": 50000
+   },
+   {
+    "timestamp": "2025120100",
+    "views": 57648,
+    "project": "de.wikipedia",
+    "article": "Drei_Zinnen",
+    "granularity": "monthly",
+    "access": "all-access",
+    "agent": "user"
+   }
+  ]
+ },
+ "it": {
+  "items": [
+   {
+    "project": "it.wikipedia",
+    "article": "Tre_Cime_di_Lavaredo",
+    "granularity": "monthly",
+    "timestamp": "2025110100",
+    "access": "all-access",
+    "agent": "user",
+    "views": 75012
+   }
+  ]
+ }
+}

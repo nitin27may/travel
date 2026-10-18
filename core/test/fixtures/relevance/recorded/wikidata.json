@@ -1,0 +1,127 @@
+{
+ "entities": {
+  "Q1257207": {
+   "type": "item",
+   "id": "Q1257207",
+   "labels": {
+    "en": {
+     "language": "en",
+     "value": "Tre Cime di Lavaredo"
+    }
+   },
+   "sitelinks": {
+    "enwiki": {
+     "site": "enwiki",
+     "title": "Tre Cime di Lavaredo",
+     "badges": []
+    },
+    "dewiki": {
+     "site": "dewiki",
+     "title": "Drei Zinnen",
+     "badges": []
+    },
+    "itwiki": {
+     "site": "itwiki",
+     "title": "Tre Cime di Lavaredo",
+     "badges": []
+    },
+    "frwiki": {
+     "site": "frwiki",
+     "title": "x",
+     "badges": []
+    },
+    "eswiki": {
+     "site": "eswiki",
+     "title": "x",
+     "badges": []
+    },
+    "ruwiki": {
+     "site": "ruwiki",
+     "title": "x",
+     "badges": []
+    },
+    "jawiki": {
+     "site": "jawiki",
+     "title": "x",
+     "badges": []
+    },
+    "commonswiki": {
+     "site": "commonswiki",
+     "title": "x",
+     "badges": []
+    },
+    "specieswiki": {
+     "site": "specieswiki",
+     "title": "x",
+     "badges": []
+    }
+   },
+   "claims": {
+    "P1435": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "property": "P1435",
+       "datavalue": {
+        "value": {
+         "entity-type": "item",
+         "id": "Q9259"
+        },
+        "type": "wikibase-entityid"
+       }
+      }
+     }
+    ],
+    "P757": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "property": "P757",
+       "datavalue": {
+        "value": "1237",
+        "type": "string"
+       }
+      }
+     }
+    ],
+    "P814": [
+     {
+      "mainsnak": {
+       "snaktype": "value",
+       "property": "P814",
+       "datavalue": {
+        "value": {
+         "entity-type": "item",
+         "id": "Q14545608"
+        },
+        "type": "wikibase-entityid"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "Q55978735": {
+   "type": "item",
+   "id": "Q55978735",
+   "labels": {
+    "en": {
+     "language": "en",
+     "value": "Lago di Limides"
+    }
+   },
+   "sitelinks": {
+    "enwiki": {
+     "site": "enwiki",
+     "title": "Lago di Limides",
+     "badges": []
+    }
+   },
+   "claims": {}
+  },
+  "Q99999999999": {
+   "id": "Q99999999999",
+   "missing": ""
+  }
+ }
+}

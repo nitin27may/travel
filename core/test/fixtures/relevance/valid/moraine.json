@@ -1,0 +1,112 @@
+{
+  "schema": "relevance/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "R2a",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/x",
+      "title": "t",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-12"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/moraine-lake",
+      "kind": "lake",
+      "wikidata": {
+        "v": "Q1072342",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked by coordinates and description"
+      },
+      "class_key": "lake/glacial-turquoise",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "37 Wikipedia languages; inside the Canadian Rocky Mountain Parks WHS (inherited); shuttle-only access still sells out"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "standing_scope": "within 1 h",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "easy_way": "place/fenland-loop",
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "why": "A fixture place.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "shuttle_only",
+            "note": "no private vehicles on Moraine Lake Road"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "note": "fixture"
+        },
+        "editorial": {
+          "v": [],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0001"
+          ],
+          "note": "fixture"
+        }
+      }
+    }
+  ]
+}

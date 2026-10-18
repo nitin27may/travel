@@ -5132,6 +5132,1945 @@
       "x-private": [],
       "x-rules": []
     },
+    "sidecar.relevance": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^relevance\\/1$",
+          "x-type": "text"
+        },
+        "trip": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "x-type": "text"
+        },
+        "lane": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "researched": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^src-\\d{4,}$"
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string"
+              },
+              "publisher": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "official",
+                  "operator",
+                  "reseller",
+                  "press",
+                  "blog",
+                  "community",
+                  "video",
+                  "computed"
+                ]
+              },
+              "read": {
+                "type": "string",
+                "format": "date"
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "title",
+              "publisher",
+              "kind",
+              "read"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subkind": {
+                "type": "string",
+                "minLength": 1
+              },
+              "wikidata": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^Q[1-9]\\d*$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "string",
+                          "pattern": "^Q[1-9]\\d*$"
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "class_key": {
+                "type": "string",
+                "pattern": "^[a-z0-9-]+\\/[a-z0-9-]+$"
+              },
+              "draw": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "local",
+                          "regional",
+                          "national",
+                          "world"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "string",
+                          "enum": [
+                            "local",
+                            "regional",
+                            "national",
+                            "world"
+                          ]
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "draw_peak": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "tier": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "regional",
+                              "national",
+                              "world"
+                            ]
+                          },
+                          "from": {
+                            "type": "string",
+                            "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                          },
+                          "to": {
+                            "type": "string",
+                            "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                          },
+                          "why": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "tier",
+                          "from",
+                          "to",
+                          "why"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "object",
+                          "properties": {
+                            "tier": {
+                              "type": "string",
+                              "enum": [
+                                "local",
+                                "regional",
+                                "national",
+                                "world"
+                              ]
+                            },
+                            "from": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "to": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "why": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "tier",
+                            "from",
+                            "to",
+                            "why"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "standing": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "top",
+                          "good",
+                          "ordinary"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "string",
+                          "enum": [
+                            "top",
+                            "good",
+                            "ordinary"
+                          ]
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "standing_scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "distinction": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "unique",
+                          "rare",
+                          "common"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "string",
+                          "enum": [
+                            "unique",
+                            "rare",
+                            "common"
+                          ]
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "unique_because": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "easy_payoff": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "full",
+                          "most",
+                          "part",
+                          "none"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "string",
+                          "enum": [
+                            "full",
+                            "most",
+                            "part",
+                            "none"
+                          ]
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "easy_way": {
+                "type": "string",
+                "minLength": 1
+              },
+              "weather": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "indoor",
+                          "any_weather",
+                          "better_clear",
+                          "clear_only"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "string",
+                          "enum": [
+                            "indoor",
+                            "any_weather",
+                            "better_clear",
+                            "clear_only"
+                          ]
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "why": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "access_cost": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "permit_lottery",
+                                "timed_entry",
+                                "day_permit",
+                                "daily_cap",
+                                "shuttle_only",
+                                "toll_reservation",
+                                "lift_only",
+                                "boat_or_ferry",
+                                "high_clearance_4wd",
+                                "long_walk_in",
+                                "seasonal_road"
+                              ]
+                            },
+                            "note": {
+                              "type": "string"
+                            },
+                            "book_ahead_days": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "capped": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "editorial"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "permit_lottery",
+                                  "timed_entry",
+                                  "day_permit",
+                                  "daily_cap",
+                                  "shuttle_only",
+                                  "toll_reservation",
+                                  "lift_only",
+                                  "boat_or_ferry",
+                                  "high_clearance_4wd",
+                                  "long_walk_in",
+                                  "seasonal_road"
+                                ]
+                              },
+                              "note": {
+                                "type": "string"
+                              },
+                              "book_ahead_days": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "capped": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "editorial"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "signals": {
+                "type": "object",
+                "properties": {
+                  "designations": {
+                    "type": "object",
+                    "properties": {
+                      "v": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "unesco_whs",
+                                    "national_park",
+                                    "provincial_or_state_park",
+                                    "conservation_area",
+                                    "natural_monument",
+                                    "heritage_listed",
+                                    "dark_sky",
+                                    "ramsar",
+                                    "official_highlight",
+                                    "signature_experience"
+                                  ]
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "id": {
+                                  "type": "string"
+                                },
+                                "scope": {
+                                  "type": "string",
+                                  "enum": [
+                                    "own",
+                                    "parent"
+                                  ]
+                                },
+                                "wikidata": {
+                                  "type": "string",
+                                  "pattern": "^Q[1-9]\\d*$"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name",
+                                "scope"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "value",
+                          "none_stated",
+                          "searched_none",
+                          "not_applicable",
+                          "gap"
+                        ]
+                      },
+                      "basis": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "operator_rule",
+                              "official_rule",
+                              "official_grade",
+                              "official_info",
+                              "community",
+                              "our_inference",
+                              "editorial"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "src": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "read": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "tried": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "on": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "applies_to": {
+                        "type": "string",
+                        "pattern": "^\\d{4}$"
+                      },
+                      "conflicts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string",
+                                    "enum": [
+                                      "unesco_whs",
+                                      "national_park",
+                                      "provincial_or_state_park",
+                                      "conservation_area",
+                                      "natural_monument",
+                                      "heritage_listed",
+                                      "dark_sky",
+                                      "ramsar",
+                                      "official_highlight",
+                                      "signature_experience"
+                                    ]
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "scope": {
+                                    "type": "string",
+                                    "enum": [
+                                      "own",
+                                      "parent"
+                                    ]
+                                  },
+                                  "wikidata": {
+                                    "type": "string",
+                                    "pattern": "^Q[1-9]\\d*$"
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "name",
+                                  "scope"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "operator_rule",
+                                "official_rule",
+                                "official_grade",
+                                "official_info",
+                                "community",
+                                "our_inference",
+                                "editorial"
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "v",
+                      "state",
+                      "basis",
+                      "src"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "editorial": {
+                    "type": "object",
+                    "properties": {
+                      "v": {
+                        "anyOf": [
+                          {
+                            "maxItems": 3,
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "publisher": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "title": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "year": {
+                                  "type": "integer",
+                                  "minimum": 1900,
+                                  "maximum": 2100
+                                },
+                                "list": {
+                                  "type": "string",
+                                  "enum": [
+                                    "top_list",
+                                    "listed"
+                                  ]
+                                },
+                                "reach": {
+                                  "type": "string",
+                                  "enum": [
+                                    "regional",
+                                    "national",
+                                    "global"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "publisher",
+                                "title",
+                                "year",
+                                "list"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "value",
+                          "none_stated",
+                          "searched_none",
+                          "not_applicable",
+                          "gap"
+                        ]
+                      },
+                      "basis": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "operator_rule",
+                              "official_rule",
+                              "official_grade",
+                              "official_info",
+                              "community",
+                              "our_inference",
+                              "editorial"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "src": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "read": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "tried": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "on": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "applies_to": {
+                        "type": "string",
+                        "pattern": "^\\d{4}$"
+                      },
+                      "conflicts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "maxItems": 3,
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "publisher": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "title": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "year": {
+                                    "type": "integer",
+                                    "minimum": 1900,
+                                    "maximum": 2100
+                                  },
+                                  "list": {
+                                    "type": "string",
+                                    "enum": [
+                                      "top_list",
+                                      "listed"
+                                    ]
+                                  },
+                                  "reach": {
+                                    "type": "string",
+                                    "enum": [
+                                      "regional",
+                                      "national",
+                                      "global"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "publisher",
+                                  "title",
+                                  "year",
+                                  "list"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "operator_rule",
+                                "official_rule",
+                                "official_grade",
+                                "official_info",
+                                "community",
+                                "our_inference",
+                                "editorial"
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "v",
+                      "state",
+                      "basis",
+                      "src"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "volume": {
+                    "type": "object",
+                    "properties": {
+                      "v": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "count": {
+                                "type": "number",
+                                "minimum": 0
+                              },
+                              "unit": {
+                                "type": "string",
+                                "enum": [
+                                  "visits_per_year",
+                                  "cap_per_day"
+                                ]
+                              },
+                              "scope": {
+                                "type": "string",
+                                "enum": [
+                                  "place",
+                                  "park"
+                                ]
+                              },
+                              "year": {
+                                "type": "integer",
+                                "minimum": 1900,
+                                "maximum": 2100
+                              }
+                            },
+                            "required": [
+                              "count",
+                              "unit",
+                              "scope",
+                              "year"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "value",
+                          "none_stated",
+                          "searched_none",
+                          "not_applicable",
+                          "gap"
+                        ]
+                      },
+                      "basis": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "operator_rule",
+                              "official_rule",
+                              "official_grade",
+                              "official_info",
+                              "community",
+                              "our_inference",
+                              "editorial"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "src": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "read": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "tried": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "on": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "applies_to": {
+                        "type": "string",
+                        "pattern": "^\\d{4}$"
+                      },
+                      "conflicts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": "object",
+                              "properties": {
+                                "count": {
+                                  "type": "number",
+                                  "minimum": 0
+                                },
+                                "unit": {
+                                  "type": "string",
+                                  "enum": [
+                                    "visits_per_year",
+                                    "cap_per_day"
+                                  ]
+                                },
+                                "scope": {
+                                  "type": "string",
+                                  "enum": [
+                                    "place",
+                                    "park"
+                                  ]
+                                },
+                                "year": {
+                                  "type": "integer",
+                                  "minimum": 1900,
+                                  "maximum": 2100
+                                }
+                              },
+                              "required": [
+                                "count",
+                                "unit",
+                                "scope",
+                                "year"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "operator_rule",
+                                "official_rule",
+                                "official_grade",
+                                "official_info",
+                                "community",
+                                "our_inference",
+                                "editorial"
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "v",
+                      "state",
+                      "basis",
+                      "src"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "designations",
+                  "editorial"
+                ],
+                "additionalProperties": false
+              },
+              "override": {
+                "type": "object",
+                "properties": {
+                  "field": {
+                    "type": "string",
+                    "enum": [
+                      "role",
+                      "fit"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "by": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "field",
+                  "value",
+                  "reason",
+                  "by",
+                  "on"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "ref",
+              "kind",
+              "wikidata",
+              "class_key",
+              "draw",
+              "standing",
+              "standing_scope",
+              "distinction",
+              "easy_payoff",
+              "weather",
+              "why",
+              "access_cost",
+              "signals"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "trip",
+        "lane",
+        "researched",
+        "sources",
+        "records"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "relevance",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Relevance"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
     "sidecar.research_sidecar": {
       "type": "object",
       "properties": {
