@@ -3,6 +3,8 @@
 Status: draft (18 Oct 2026). Planning only; the validator, badge and tools described in section 12 are
 not built yet.
 
+> **Superseded in part (18 Oct 2026) by [../capture-contract.md](../capture-contract.md).** The field lists, link checklists and D/U/C checks here are folded into the capture contract's base contract and per-type deltas, and will be generated from `data/vocab/types.json`. The kind vocabulary becomes the contract's type tree. The profiles stay as worked examples and traps.
+
 A lane contract (`../lanes/`) says how one kind of research runs. A **kind profile** (this folder) says
 what one kind of *place* must carry before the product can show it, schedule it, or call it finished.
 The same profile serves three readers:

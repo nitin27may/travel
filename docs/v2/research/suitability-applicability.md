@@ -2,6 +2,8 @@
 
 Status: draft (18 Oct 2026). Planning only. This page sits between the merged S0 schema and the research lanes. Build order: this page, then a Fable check of the display rules (section 5), then **S0b** (the schema delta, section 6), then the lanes R1-R6 (section 8).
 
+> **Note (18 Oct 2026):** [capture-contract.md](capture-contract.md) attaches these profiles to nodes of one type tree. `data/schema/suitability-applicability.json` then becomes generated from `data/vocab/types.json`; the matrix itself is unchanged, and ten new profiles are added (capture-contract 2.3). Under the three-layer model, effort drivers on the viewpoint, lake and waterfall profiles move to the routes that reach them (capture-contract 2.7.2).
+
 Owner direction (18 Oct 2026), summarised:
 - Every property must apply to the place it describes. The schema must not put every field on every place.
 - Some metadata only makes sense for a few kinds, such as rafting or bungee. Work out what those are.
