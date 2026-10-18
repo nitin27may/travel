@@ -7,6 +7,9 @@ import { THEME_INIT_SCRIPT } from '@/components/shell/ThemeToggle';
 import { ToastProvider } from '@/components/ui/Toast';
 import { SITE_NAME, siteOrigin } from '@/lib/site';
 import './globals.css';
+import './themes.css';
+import '@/components/ui/ui.css';
+import './app.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
