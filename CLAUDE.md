@@ -190,7 +190,7 @@ Delegate by kind of work. The project agents are in `.claude/agents/`. The v2 pl
 | Plans, specs, feature pages, decisions, build briefs | `travel-planner` | Opus |
 | Research: places, trails, sights, adventures, stays, coordinates, links, booking windows | `travel-researcher` | Opus |
 | Coding and tests in prototype/, web/, core/, tools/ | `travel-builder` | Sonnet |
-| UI/UX and design-system review, foundation changes | `travel-design-reviewer` | Fable |
+| UI/UX and design-system review, foundation changes | `travel-design-reviewer` | Opus (not Fable, owner 18 Oct) |
 | Independent checks and visual sweep before reporting done | `travel-verifier` | Sonnet |
 | Quick file search | `explorer` (global) | Haiku |
 
