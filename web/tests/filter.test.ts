@@ -1,24 +1,26 @@
 import { describe, expect, it } from 'vitest';
-import { loadPlaces } from '@/lib/data/places';
-import type { PlaceRow } from '@/lib/data/types';
+import type { PlaceListRow } from '@/components/places/rows';
 import { placeDescriptor as d } from '@/lib/entities/descriptors/place';
 import { activeFilters, clearAll, facetCounts, filterRows } from '@/lib/entities/filter';
 import { activeGroup, groupRows, sortRows } from '@/lib/entities/sort';
 import { decodeState } from '@/lib/entities/url';
+import { placeRows } from './places/support';
 
-const rows: PlaceRow[] = loadPlaces();
+const rows: PlaceListRow[] = placeRows();
 const count = (q: string) => filterRows(rows, decodeState(q), d).length;
+const N = rows.length;
 
 describe('places filter', () => {
-  it('has all 64 places and shows 64 with no filter', () => {
-    expect(rows).toHaveLength(64);
-    expect(count('')).toBe(64);
+  it('lists every public place (the 64 saved ones plus the researched Dolomites places) and shows them all with no filter', () => {
+    expect(rows.filter((r) => r.legacyKind !== null)).toHaveLength(64);
+    expect(N).toBeGreaterThan(64);
+    expect(count('')).toBe(N);
   });
 
   it('filters by country, region (code, name or ISO) and area (slug or name)', () => {
     const ca = count('country=CA');
     expect(ca).toBeGreaterThan(0);
-    expect(ca).toBeLessThan(64);
+    expect(ca).toBeLessThan(N);
     const qc = count('country=CA&region=QC');
     expect(count('country=CA&region=Quebec')).toBe(qc);
     expect(count('country=CA&region=ca-qc')).toBe(qc);
@@ -33,9 +35,9 @@ describe('places filter', () => {
   });
 
   it('hides dropped places unless the status facet names them', () => {
-    const dropped: PlaceRow = { ...rows[0], id: 'x/y/z/w', status: 'dropped' };
+    const dropped: PlaceListRow = { ...rows[0], id: 'x-dropped', slug: 'x-dropped', status: 'dropped' };
     const withDropped = [...rows, dropped];
-    expect(filterRows(withDropped, decodeState(''), d)).toHaveLength(64);
+    expect(filterRows(withDropped, decodeState(''), d)).toHaveLength(N);
     expect(filterRows(withDropped, decodeState('status=dropped'), d)).toHaveLength(1);
     const counts = facetCounts(withDropped, decodeState(''), d);
     expect(counts.status.find((o) => o.value === 'dropped')?.count).toBe(1);
@@ -43,6 +45,7 @@ describe('places filter', () => {
 
   it('matches every search word, case-insensitively', () => {
     expect(count('q=LAKE louise')).toBe(1);
+    expect(count('q=Lavaredo')).toBeGreaterThan(0);
     expect(count('q=zzzzzz')).toBe(0);
   });
 
@@ -62,7 +65,7 @@ describe('places filter', () => {
     const counts = facetCounts(rows, decodeState('country=CA'), d);
     const countries = counts.country;
     expect(countries.length).toBeGreaterThan(1); // other countries still offered
-    expect(countries.reduce((n, o) => n + o.count, 0)).toBe(64);
+    expect(countries.reduce((n, o) => n + o.count, 0)).toBe(N);
     const kinds = counts.kind;
     expect(kinds.reduce((n, o) => n + o.count, 0)).toBe(count('country=CA'));
   });
@@ -93,7 +96,7 @@ describe('places filter', () => {
 describe('sort and group', () => {
   it('sorts by the default order, a key, and descending', () => {
     const byDefault = sortRows(rows, decodeState(''), d);
-    expect(byDefault[0].country_name <= byDefault[63].country_name).toBe(true);
+    expect(byDefault[0].country_name <= byDefault[N - 1].country_name).toBe(true);
     const byName = sortRows(rows, decodeState('sort=name'), d);
     expect(byName.map((r) => r.name)).toEqual([...byName.map((r) => r.name)].sort((a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' })));
     const desc = sortRows(rows, decodeState('sort=-elevation'), d);
@@ -101,14 +104,14 @@ describe('sort and group', () => {
     expect(elevs).toEqual([...elevs].sort((a, b) => b - a));
     // empty values stay last in both directions
     expect(desc[desc.length - 1].elevation_m).toBeNull();
-    expect(sortRows(rows, decodeState('sort=elevation'), d)[63].elevation_m).toBeNull();
+    expect(sortRows(rows, decodeState('sort=elevation'), d)[N - 1].elevation_m).toBeNull();
   });
 
   it('groups with counts that add up, and "none" gives one group', () => {
     const sorted = sortRows(rows, decodeState(''), d);
     const groups = groupRows(sorted, activeGroup(decodeState(''), d));
-    expect(groups.length).toBe(7);
-    expect(groups.reduce((n, g) => n + g.rows.length, 0)).toBe(64);
+    expect(groups.length).toBe(new Set(rows.map((r) => r.country)).size);
+    expect(groups.reduce((n, g) => n + g.rows.length, 0)).toBe(N);
     expect(groupRows(sorted, activeGroup(decodeState('group=none'), d))).toHaveLength(1);
     expect(groupRows(sorted, activeGroup(decodeState('group=kind'), d)).length).toBeGreaterThan(5);
   });
