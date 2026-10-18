@@ -112,8 +112,8 @@
     },
     {
       "id": "src-0015",
-      "url": "https://www.dreizinnen.com/en/activity/family-hiking-tour-walk-around-the-pragser-wildsee-lake_675",
-      "title": "Family hiking tour: walk around the Pragser Wildsee",
+      "url": "https://www.dreizinnen.com/en/activity/summer-walk-around-the-lake-lago-di-braies-pragser-wildsee-_644",
+      "title": "Summer walk around the lake Lago di Braies/Pragser Wildsee",
       "publisher": "3 Zinnen Dolomites tourism board",
       "kind": "official",
       "read": "2026-10-18"
@@ -208,7 +208,7 @@
     },
     {
       "id": "src-0028",
-      "url": "https://www.iceman.it/en/opening-times-and-fees/",
+      "url": "https://www.iceman.it/en/the-museum/opening-times-and-fees",
       "title": "Opening times and fees",
       "publisher": "South Tyrol Museum of Archaeology",
       "kind": "operator",
@@ -360,8 +360,8 @@
     },
     {
       "id": "src-0047",
-      "url": "https://api.open-meteo.com/v1/elevation",
-      "title": "Open-Meteo elevation API (Copernicus GLO-90 DEM), sampled every 30 m along the OSM relation",
+      "url": "https://open-meteo.com/en/docs/elevation-api",
+      "title": "Open-Meteo Elevation API (Copernicus DEM GLO-90, 90 m), documentation. Queried with latitude and longitude arrays sampled every 30 m along the OSM geometry of relation 7302436 (Passo Pordoi to Fedaia); the coordinates come from that OSM relation",
       "publisher": "Open-Meteo",
       "kind": "computed",
       "read": "2026-10-18"
@@ -424,8 +424,8 @@
     },
     {
       "id": "src-0055",
-      "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-doch-befahrbar-26299020",
-      "title": "Südtirol: Grödner Joch doch befahrbar (search result, not opened)",
+      "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
+      "title": "Südtirol: Grödner Joch, Pragser Wildsee und Seceda (31 Aug 2026; opened, the URL slug changed)",
       "publisher": "ÖAMTC (motoring club)",
       "kind": "press",
       "read": "2026-10-18"
@@ -440,9 +440,9 @@
     },
     {
       "id": "src-0057",
-      "url": "https://cms.odlesdolomites.com/fileadmin/user_upload/Footer_Nachhaltigkeit/3.2_Sustainable_behaviour_Villn%C3%B6ss.pdf",
-      "title": "Sustainable behaviour, Villnöss (search result; the PDF did not open)",
-      "publisher": "Villnöss/Funes tourism board (Odles Dolomites)",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoie5ee18afad12333eaaedfe9a677c56cc.church-of-st--magdalene-15th-century.s--maddalena-st--magdalena---funes-villnoess",
+      "title": "Church of St. Magdalene (15th century), St. Magdalena, Villnöss",
+      "publisher": "IDM Südtirol (South Tyrol tourism board)",
       "kind": "official",
       "read": "2026-10-18"
     },
@@ -510,7 +510,7 @@
               "src": [
                 "src-0049"
               ],
-              "note": "The trip plan used 6; not a rule (migration rule 7.2)."
+              "note": "An earlier figure of 6; not a rule (migration rule 7.2)."
             }
           ]
         },
@@ -788,8 +788,7 @@
                   "v": 4.3,
                   "basis": "our_inference",
                   "src": [
-                    "src-0045",
-                    "src-0047"
+                    "src-0045"
                   ],
                   "note": "OSM path 117 from Rifugio Auronzo to the approximate viewpoint pin, 2.16 km one way, doubled; the pin is approximate."
                 }
@@ -970,8 +969,7 @@
               "state": "value",
               "basis": "our_inference",
               "src": [
-                "src-0038",
-                "src-0047"
+                "src-0038"
               ],
               "note": "OSM path 215 from Passo Tre Croci to Rifugio Vandelli is 6.3 km one way; doubled. Trail reports give 11-12.6 km.",
               "conflicts": [
@@ -1162,7 +1160,7 @@
               "src": [
                 "src-0049"
               ],
-              "note": "The plan's 10 refers to the via ferrata, not the trench walk."
+              "note": "An earlier figure of 10 refers to the via ferrata, not the trench walk."
             }
           ]
         },
@@ -1515,7 +1513,7 @@
               "src": [
                 "src-0049"
               ],
-              "note": "The plan's 12 is a recommendation, never a rule."
+              "note": "An earlier figure of 12 is a recommendation, never a rule."
             }
           ]
         },
@@ -3181,8 +3179,7 @@
               "state": "value",
               "basis": "our_inference",
               "src": [
-                "src-0039",
-                "src-0047"
+                "src-0039"
               ],
               "note": "Length of OSM relation 7302436 (Passo Pordoi to Fedaia), one way.",
               "conflicts": [
@@ -3345,7 +3342,7 @@
               "src": [
                 "src-0049"
               ],
-              "note": "The plan's 12 is a recommendation, never a rule."
+              "note": "An earlier figure of 12 is a recommendation, never a rule."
             }
           ]
         },
@@ -3733,7 +3730,7 @@
             }
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0007"
           ],
@@ -3748,7 +3745,7 @@
                   "via": "lift"
                 }
               ],
-              "basis": "operator_rule",
+              "basis": "operator_info",
               "src": [
                 "src-0009"
               ],
@@ -3886,7 +3883,7 @@
         "altitude_m": {
           "v": 2500,
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0026"
           ],
@@ -3903,7 +3900,7 @@
             }
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0026"
           ],
@@ -3977,13 +3974,15 @@
           "source_grade": {
             "v": {
               "system": "local",
-              "value": "Intermediate"
+              "value": "Easy"
             },
             "state": "value",
             "basis": "official_grade",
             "src": [
               "src-0015"
-            ]
+            ],
+            "quote": "Route info Easy Distance 3,6 km Activity time 59 min Ascent 86 m",
+            "note": "The board's family-tour listing of the same loop (trails 1 and 19), now 404, rated it Intermediate; the live listing says Easy (RC, 18 Oct 2026)"
           },
           "drivers": {
             "distance_km": {
@@ -3993,7 +3992,7 @@
               "src": [
                 "src-0015"
               ],
-              "quote": "3,6 km",
+              "quote": "Distance 3,6 km",
               "conflicts": [
                 {
                   "v": 3.7,
@@ -4001,7 +4000,7 @@
                   "src": [
                     "src-0049"
                   ],
-                  "note": "The plan's 3.7 km."
+                  "note": "An earlier figure of 3.7 km."
                 }
               ]
             },
@@ -4048,7 +4047,7 @@
           "src": [
             "src-0015"
           ],
-          "note": "The board gives 59 min; the plan allows 1-1.5 h."
+          "note": "The board gives 59 min (live summer-walk listing; the family-tour listing moved); an earlier figure of 1-1.5 h"
         },
         "exposure": {
           "v": {
@@ -5327,7 +5326,7 @@
             "src-0055",
             "src-0056"
           ],
-          "note": "Press reports only (search results); check the Province of Bolzano traffic page before travel.",
+          "note": "Press reports; the ÖAMTC article was opened on 18 Oct 2026 and confirms the ban is on hold. Check the Province of Bolzano traffic page before travel.",
           "applies_to": "2026",
           "conflicts": [
             {
@@ -5346,7 +5345,8 @@
               ],
               "note": "l'Adige reports a cap and booking as the plan; not in force on the read date."
             }
-          ]
+          ],
+          "quote": "Das für 1.9. geplante Fahrverbot für das Grödner Joch gilt vorerst nicht."
         }
       },
       "flat": {
@@ -5379,7 +5379,7 @@
           "src": [
             "src-0057"
           ],
-          "note": "A walk of about 30 min on village lanes."
+          "note": "A walk of about 30 min on village lanes (IDM Südtirol page)"
         },
         "kid_note": "Park in the village and walk about 30 minutes to the church view under the Odle wall; the road to the church is for residents only.",
         "stroller": {
@@ -5389,7 +5389,7 @@
           "src": [
             "src-0057"
           ],
-          "note": "Village lanes and farm paths; not surveyed."
+          "note": "Village lanes and farm paths from the Putzen car park; not surveyed"
         },
         "wheelchair": {
           "v": null,
@@ -5431,7 +5431,7 @@
           "src": [
             "src-0057"
           ],
-          "note": "About 30 min on foot from the designated parking (board PDF, search result)."
+          "note": "About 30 min on foot from the Putzen car park (IDM Südtirol page); 2,000 m is our estimate at a family pace"
         },
         "access_season": {
           "v": [
@@ -5440,7 +5440,7 @@
               "to": "12-31",
               "status": "limited",
               "via": "road",
-              "note": "The road to the church is closed to non-residents; park in the designated spaces and walk"
+              "note": "The road to the church is closed to non-residents (gate); park at the Putzen car park after the village and walk about 30 min"
             }
           ],
           "state": "value",
@@ -5448,8 +5448,9 @@
           "src": [
             "src-0057"
           ],
-          "note": "From a search result of the board's PDF; the PDF itself did not open.",
-          "applies_to": "2026"
+          "note": "Re-sourced to the IDM Südtirol church page after the Villnöss board PDF went 404 (RC)",
+          "applies_to": "2026",
+          "quote": "The access road to the church is closed for cars (gate) and only accessible to residents. It is best to park at the \"Putzen\" car park shortly after the village St. Magdalena and walk to the church (approx. 30 min.)."
         }
       },
       "flat": {
@@ -5907,12 +5908,13 @@
         },
         "min_age": {
           "v": null,
-          "state": "none_stated",
+          "state": "no_limit",
           "basis": "operator_rule",
           "src": [
             "src-0028"
           ],
-          "note": "No age rule; children under 6 enter free."
+          "note": "No age rule; the fee table admits children under 6 free, an affirmative welcome for every age. Page moved; re-read at the new URL (RC, 18 Oct 2026).",
+          "quote": "Children under the age of 6 gratis"
         },
         "access_season": {
           "v": [
@@ -5925,11 +5927,13 @@
             }
           ],
           "state": "value",
-          "basis": "official_info",
+          "basis": "operator_info",
           "src": [
             "src-0028"
           ],
-          "applies_to": "2026"
+          "applies_to": "2026",
+          "quote": "Tuesday-Sunday 10am - 6pm Lat entry: 5.30pm Monday closed Except if Monday is a holiday IN JULY and AUGUST THE MUSEUM OPEN daily also ON MONDAYS.",
+          "note": "Re-read at the moved page (RC); also closes 15:00 on 24 and 31 Dec"
         }
       },
       "flat": {
@@ -6057,7 +6061,7 @@
               "src": [
                 "src-0049"
               ],
-              "note": "The plan's 8 is the age to ride alone (solo), not the minimum."
+              "note": "An earlier figure of 8 is the age to ride alone (solo), not the minimum."
             }
           ]
         },
@@ -6167,7 +6171,7 @@
             }
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0001"
           ],
@@ -6208,7 +6212,7 @@
               "status": "The run may be taken out of service in thunderstorms or heavy rain; refund terms are not stated."
             },
             "state": "value",
-            "basis": "operator_rule",
+            "basis": "operator_info",
             "src": [
               "src-0001"
             ]
@@ -6333,7 +6337,7 @@
             150
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0005"
           ],
@@ -6433,7 +6437,7 @@
               "helmet"
             ],
             "state": "value",
-            "basis": "operator_rule",
+            "basis": "operator_info",
             "src": [
               "src-0003"
             ],
@@ -6444,7 +6448,7 @@
               "swimwear"
             ],
             "state": "value",
-            "basis": "operator_rule",
+            "basis": "operator_info",
             "src": [
               "src-0003"
             ],
@@ -6489,7 +6493,7 @@
               "status": "Tours run in any weather; a sudden thunderstorm interrupts the tour; a tour cancelled for safety is fully refunded."
             },
             "state": "value",
-            "basis": "operator_rule",
+            "basis": "operator_info",
             "src": [
               "src-0003",
               "src-0004"
@@ -6766,7 +6770,7 @@
         "altitude_m": {
           "v": 2752,
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0011"
           ],
@@ -6774,7 +6778,7 @@
           "conflicts": [
             {
               "v": 2782,
-              "basis": "operator_rule",
+              "basis": "operator_info",
               "src": [
                 "src-0009"
               ],
@@ -6809,7 +6813,7 @@
         "food": {
           "v": "hut",
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0007"
           ],
@@ -6835,7 +6839,7 @@
             }
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0007"
           ],
@@ -6850,7 +6854,7 @@
                   "via": "lift"
                 }
               ],
-              "basis": "operator_rule",
+              "basis": "operator_info",
               "src": [
                 "src-0009"
               ],
@@ -6870,7 +6874,7 @@
               "status": "No guarantee of operation; tickets are never refunded."
             },
             "state": "value",
-            "basis": "operator_rule",
+            "basis": "operator_info",
             "src": [
               "src-0010"
             ],
@@ -6898,7 +6902,7 @@
             }
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0007",
             "src-0009"
@@ -6913,7 +6917,7 @@
             }
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0007",
             "src-0009"
@@ -6925,7 +6929,7 @@
             3
           ],
           "state": "value",
-          "basis": "operator_rule",
+          "basis": "operator_info",
           "src": [
             "src-0011"
           ]

@@ -74,3 +74,7 @@ All dates are the 2026 pattern (`applies_to: 2026`).
 | Dwight Beach sunset | searched_none | local | good | common | lake/swim-beach | local |
 
 Designations: Algonquin Provincial Park and Oxtongue River-Ragged Falls Provincial Park, both `scope: parent`. The Track and Tower `draw_peak` needs a trip window in `inputs/points.json` before derive uses it.
+
+## Correction pass RC (18 Oct 2026)
+
+- **rebase-basis.** The Solitaire Lake toilets moved from `operator_rule` to `operator_info`. The dog leash rule stays a rule.

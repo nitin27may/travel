@@ -14,7 +14,7 @@
     },
     {
       "id": "src-0002",
-      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/the-montenvers-mer-de-glace-train",
+      "url": "https://en.chamonix.com/activites-en-famille/mer-de-glace-et-train-du-montenvers",
       "title": "The Montenvers - Mer de Glace train",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -22,7 +22,7 @@
     },
     {
       "id": "src-0003",
-      "url": "https://en.chamonix.com/things-to-see-and-do/sports-and-outdoor/hiking/lakes-waterfalls-and-gorges/hike-to-the-lac-blanc-from-la-flegere",
+      "url": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
       "title": "Hike to the Lac Blanc from La Flegere",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -46,7 +46,7 @@
     },
     {
       "id": "src-0006",
-      "url": "https://en.chamonix.com/la-vallee/patrimoine-culture/patrimoine-culturel-de-la-vallee/emosson-dam",
+      "url": "https://en.chamonix.com/cultural-spring-activities/emosson-dam",
       "title": "Emosson dam",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -345,7 +345,14 @@
           ],
           "note": "No top-list mention surfaced in the pass."
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "reason": "Stop at the Plan de l'Aiguille mid-station and walk the Grand Balcon Nord",
+          "src": "src-0004"
+        }
+      ]
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
@@ -377,11 +384,11 @@
       },
       "standing_scope": "Chamonix valley",
       "distinction": {
-        "v": "rare",
+        "v": "common",
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "note": "The Aiguille du Midi and Brevent lifts give other high views, but not of a valley glacier this close."
+        "note": "Several panorama lifts lie within 100 km: the Aiguille du Midi (0.6 km), Brevent, Flegere and the Skyway from Courmayeur; the valley-glacier view is its own feature, but the class is common (RC re-judge, 18 Oct 2026)"
       },
       "easy_payoff": {
         "v": "full",
@@ -430,7 +437,8 @@
           ],
           "note": "No top-list mention surfaced in the pass."
         }
-      }
+      },
+      "same_place_as": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace"
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
@@ -611,13 +619,13 @@
       },
       "class_key": "town/alpine-resort",
       "draw": {
-        "v": "world",
+        "v": "national",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0001"
         ],
-        "note": "Host of the first Winter Olympics (1924) and the tourism board's base for the whole massif; the one town the region is known by."
+        "note": "Down from world: 165,000 page views a year measure the commune and the massif, whose draw sits on the lift and trail records. The tourism board's base for the massif; as a town to visit in its own right it is national (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -628,11 +636,11 @@
       },
       "standing_scope": "Mont Blanc valleys",
       "distinction": {
-        "v": "rare",
+        "v": "common",
         "state": "value",
         "basis": "our_inference",
         "src": [],
-        "note": "Courmayeur (15 km through the tunnel) and Zermatt (beyond 100 km) are the comparable resort towns."
+        "note": "Several comparable alpine resort towns lie within 100 km: Les Houches, Saint-Gervais, Megeve, Courmayeur (15 km by tunnel) (RC re-judge, 18 Oct 2026)"
       },
       "easy_payoff": {
         "v": "full",
@@ -1107,13 +1115,13 @@
       },
       "class_key": "trail/lookout",
       "draw": {
-        "v": "national",
+        "v": "regional",
         "state": "value",
         "basis": "our_inference",
         "src": [
           "src-0004"
         ],
-        "note": "The tourism board's classic balcony between the Aiguille du Midi and Montenvers; reached by the timed-ticket lift."
+        "note": "Down a tier: no Wikipedia item and no headline page; the board lists it as a classic balcony walk. Strong for a day from Chamonix, standing top (RC re-judge, 18 Oct 2026)"
       },
       "standing": {
         "v": "top",
@@ -1182,7 +1190,14 @@
           ],
           "note": "No top-list mention surfaced in the pass."
         }
-      }
+      },
+      "pairs_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "reason": "The Grand Balcon Nord ends at Montenvers; ride the train down to Chamonix",
+          "src": "src-0004"
+        }
+      ]
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",

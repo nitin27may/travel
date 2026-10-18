@@ -24,7 +24,7 @@
     },
     {
       "id": "src-0003",
-      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/the-montenvers-mer-de-glace-train",
+      "url": "https://en.chamonix.com/activites-en-famille/mer-de-glace-et-train-du-montenvers",
       "title": "The Montenvers - Mer de Glace train",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -48,7 +48,7 @@
     },
     {
       "id": "src-0006",
-      "url": "https://en.chamonix.com/things-to-see-and-do/sports-and-outdoor/hiking/lakes-waterfalls-and-gorges/hike-to-the-lac-blanc-from-la-flegere",
+      "url": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
       "title": "Hike to the Lac Blanc from La Flegere",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -64,7 +64,7 @@
     },
     {
       "id": "src-0008",
-      "url": "https://en.chamonix.com/objet_touristique/1322",
+      "url": "https://en.chamonix.com/lacs-d-hiver/lac-des-gaillands",
       "title": "Lac des Gaillands",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -88,7 +88,7 @@
     },
     {
       "id": "src-0011",
-      "url": "https://en.chamonix.com/la-vallee/patrimoine-culture/patrimoine-culturel-de-la-vallee/emosson-dam",
+      "url": "https://en.chamonix.com/cultural-spring-activities/emosson-dam",
       "title": "Emosson dam",
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
@@ -348,12 +348,12 @@
             "to": null
           },
           "state": "value",
-          "basis": "official_info",
+          "basis": "our_inference",
           "src": [
             "src-0001"
           ],
           "quote": "children under 5 are not recommended",
-          "note": "The operator's own advice, not a rule; the reason is the 2,800 m rise to 3,842 m in one ride."
+          "note": "Our judgement, built on the operator's advice that under-5s are not recommended (quoted); the reason is the 2,800 m rise to 3,842 m in one ride. The band itself is ours, not a published band (RC)."
         },
         "kid_note": "Under 3s are not allowed and under 5s are not recommended. The cable car climbs from 1,033 m to 3,842 m in about 20 minutes and the summit terraces are near or below freezing, so bring warm layers and keep the visit short if anyone feels unwell.",
         "stroller_on_board": {

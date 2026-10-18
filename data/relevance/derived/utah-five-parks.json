@@ -219,7 +219,7 @@
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
       "draw_suggested": "regional",
-      "effective_draw": "national",
+      "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": 22,
       "detour_basis": "town",
@@ -229,20 +229,33 @@
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+        "km": 5.7,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+          "km": 1.6
+        },
+        {
           "ref": "trip/utah-five-parks/trail:riverside walk",
           "km": 4.1
+        },
+        {
+          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "km": 5.7
         }
       ],
       "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -254,14 +267,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": []
     },
@@ -287,7 +300,7 @@
           {
             "ref": "trip/utah-five-parks/viewpoint:sunset point",
             "km": 0.9,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -305,7 +318,7 @@
           {
             "ref": "trip/utah-five-parks/viewpoint:sunset point",
             "km": 0.9,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -365,7 +378,7 @@
           {
             "ref": "trip/utah-five-parks/viewpoint:sunset point",
             "km": 1.4,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -383,7 +396,7 @@
           {
             "ref": "trip/utah-five-parks/viewpoint:sunset point",
             "km": 1.4,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -429,7 +442,7 @@
     {
       "ref": "trip/utah-five-parks/viewpoint:sunset point",
       "draw_suggested": "local",
-      "effective_draw": "national",
+      "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": 14,
       "detour_basis": "town",
@@ -473,15 +486,20 @@
           }
         ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+        "km": 1.4,
+        "draw": "world",
+        "same_class": true
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "worth_it",
-          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -489,18 +507,18 @@
         },
         "day": {},
         "passing": {
-          "fit": "plan_around",
-          "reason": "detour 14 min, draw national"
+          "fit": "worth_it",
+          "reason": "detour 14 min, draw regional"
         }
       },
-      "role": "highlight",
+      "role": "filler",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": true,
         "hidden_gem": false
       },
-      "badge": "Worth a detour",
+      "badge": "Local favourite",
       "stale": [],
       "warnings": []
     },
@@ -572,7 +590,9 @@
           "on_site_estimated": false,
           "draw": "regional",
           "standing": "good",
-          "hand_picked": false
+          "hand_picked": true,
+          "reason": "The Hickman Bridge trailhead is a few minutes along Highway 24 from the Fruita orchards",
+          "src": "src-0023"
         }
       ],
       "pair_pending": [],
@@ -662,7 +682,7 @@
           {
             "ref": "trip/utah-five-parks/trail:devils garden",
             "km": 12,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -670,17 +690,17 @@
         ],
         "area": [
           {
-            "ref": "trip/utah-five-parks/trail:devils garden",
-            "km": 12,
+            "ref": "trip/utah-five-parks/trail:mesa arch",
+            "km": 50.7,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
           },
           {
-            "ref": "trip/utah-five-parks/trail:mesa arch",
-            "km": 50.7,
-            "draw": "national",
+            "ref": "trip/utah-five-parks/trail:devils garden",
+            "km": 12,
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -727,14 +747,14 @@
       "warnings": [
         {
           "code": "W_REL_DISTINCTION",
-          "message": "distinction is unique but trip/utah-five-parks/trail:devils garden has the same class within 100 km"
+          "message": "distinction is unique but trip/utah-five-parks/trail:mesa arch has the same class within 100 km"
         }
       ]
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
       "draw_suggested": "regional",
-      "effective_draw": "national",
+      "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": 64,
       "detour_basis": "town",
@@ -778,15 +798,20 @@
           }
         ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/utah-five-parks/trail:delicate arch trail",
+        "km": 12,
+        "draw": "world",
+        "same_class": true
+      },
       "pair_with": [],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -798,14 +823,14 @@
           "reason": "detour 64 min is over 30"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": []
     },
@@ -889,7 +914,7 @@
           {
             "ref": "trip/utah-five-parks/trail:devils garden",
             "km": 51.1,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -980,7 +1005,7 @@
           {
             "ref": "trip/utah-five-parks/trail:devils garden",
             "km": 50.3,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -1026,7 +1051,7 @@
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",
       "draw_suggested": "local",
-      "effective_draw": "national",
+      "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": 92,
       "detour_basis": "town",
@@ -1055,14 +1080,28 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/trail:mesa arch",
+          "km": 7.4,
+          "how": "drive",
+          "extra_min": 150,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "Mesa Arch is on the same Island in the Sky road, a short walk usually paired with the overlooks",
+          "src": "src-0039"
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -1074,14 +1113,14 @@
           "reason": "detour 92 min is over 30"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
       "warnings": []
     },
@@ -1099,7 +1138,7 @@
           {
             "ref": "trip/utah-five-parks/viewpoint:grand view point",
             "km": 22.8,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null
@@ -1109,7 +1148,7 @@
           {
             "ref": "trip/utah-five-parks/viewpoint:grand view point",
             "km": 22.8,
-            "draw": "national",
+            "draw": "regional",
             "standing": "top",
             "access_cost": [],
             "family_effort": null

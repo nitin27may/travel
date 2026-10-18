@@ -1,1881 +1,1895 @@
 {
- "schema": "relevance/1",
- "trip": "canadian-rockies-2029",
- "lane": "R2b",
- "researched": "2026-10-18",
- "sources": [
-  {
-   "id": "src-0001",
-   "url": "https://wildwater.com/kicking-horse-rafting-trips/gentle/",
-   "title": "Gentle Kicking Horse River trip",
-   "publisher": "Wild Water Adventures",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0002",
-   "url": "https://wildwater.com/faq/",
-   "title": "FAQ",
-   "publisher": "Wild Water Adventures",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0003",
-   "url": "https://www.raftbanff.com/the-experience/faq/",
-   "title": "FAQ",
-   "publisher": "Hydra River Guides",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0004",
-   "url": "https://www.raftbanff.com/our-trips/rafting-trips/",
-   "title": "Rafting trips",
-   "publisher": "Hydra River Guides",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0005",
-   "url": "https://www.banffadventures.com/things-to-do/family-whitewater-rafting/",
-   "title": "Banff family whitewater rafting (Hydra River Guides)",
-   "publisher": "Banff Adventures Unlimited",
-   "kind": "reseller",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0006",
-   "url": "https://www.chinookrafting.com/faqs/",
-   "title": "FAQs",
-   "publisher": "Chinook Rafting",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0007",
-   "url": "https://www.chinookrafting.com/",
-   "title": "Chinook Rafting home and Kananaskis River trip summary",
-   "publisher": "Chinook Rafting",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0008",
-   "url": "https://www.banffadventures.com/things-to-do/kananaskis-river-rafting/",
-   "title": "Kananaskis River rafting",
-   "publisher": "Banff Adventures Unlimited",
-   "kind": "reseller",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0009",
-   "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/experience/faqs/",
-   "title": "Banff Gondola FAQs",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0010",
-   "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location/",
-   "title": "Banff Gondola hours and location",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0011",
-   "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/faqs/",
-   "title": "Jasper SkyTram FAQs",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0012",
-   "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
-   "title": "Jasper SkyTram tickets",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0013",
-   "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/hours-location/",
-   "title": "Jasper SkyTram hours and location (read through search results)",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0014",
-   "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/",
-   "title": "Sightseeing gondola",
-   "publisher": "Lake Louise Ski Resort",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0015",
-   "url": "https://www.skilouise.com/faq/",
-   "title": "FAQ",
-   "publisher": "Lake Louise Ski Resort",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0016",
-   "url": "https://www.skilouise.com/explore-summer/disabled-travelers-accessibility/",
-   "title": "Disabled travellers and accessibility",
-   "publisher": "Lake Louise Ski Resort",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0017",
-   "url": "https://www.skilouise.com/explore-summer/wildlife-viewing/",
-   "title": "Wildlife viewing",
-   "publisher": "Lake Louise Ski Resort",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0018",
-   "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/faqs/",
-   "title": "Maligne Lake Cruise FAQs",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0019",
-   "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/location-hours/",
-   "title": "Maligne Lake Cruise location and hours",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0020",
-   "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/faqs/",
-   "title": "Lake Minnewanka Cruise FAQs",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0021",
-   "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/hours-rates/",
-   "title": "Lake Minnewanka Cruise hours and rates (read through search results)",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0022",
-   "url": "https://www.chateau-lake-louise.com/activities/canoeing/",
-   "title": "Canoeing",
-   "publisher": "Fairmont Chateau Lake Louise",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0023",
-   "url": "https://morainelake.com/day-visits/",
-   "title": "Day visits: canoe rentals",
-   "publisher": "Moraine Lake Lodge",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0024",
-   "url": "https://crmr.com/activities/canoeing/",
-   "title": "Canoeing at Emerald Lake",
-   "publisher": "Canadian Rocky Mountain Resorts (Emerald Lake Lodge)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0025",
-   "url": "https://thebanffblog.com/emerald-lake-canoe-rental",
-   "title": "Emerald Lake canoe rental",
-   "publisher": "The Banff Blog",
-   "kind": "blog",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0026",
-   "url": "https://www.parks.canada.ca/pn-np/ab/banff/sources-banff-springs/faq",
-   "title": "Banff Upper Hot Springs FAQ",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0027",
-   "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/heures-hours",
-   "title": "Banff Upper Hot Springs hours (read through search results)",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0028",
-   "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/faq",
-   "title": "Miette Hot Springs FAQ",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0029",
-   "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/heures-hours",
-   "title": "Miette Hot Springs hours",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0030",
-   "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs/",
-   "title": "Columbia Icefield FAQs",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0031",
-   "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/location-hours/",
-   "title": "Columbia Icefield location and hours",
-   "publisher": "Pursuit (Banff Jasper Collection)",
-   "kind": "operator",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0032",
-   "url": "https://parks.canada.ca/pn-np/ab/jasper/gestion-management/designation/cieletoile-darksky",
-   "title": "Jasper Dark Sky Preserve",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0033",
-   "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/868a8410-7ef6-4f87-a4d3-f8dc44f335aa",
-   "title": "Attention: Elk Rut Season Advisory (issued 28 Aug 2026)",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0034",
-   "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/a8a66ab1-d0db-4300-b227-8eb8f57d88ae",
-   "title": "Restricted Activity: Wildlife viewing practices in Jasper National Park (2026)",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0035",
-   "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/activities/summer-activities/",
-   "title": "Canmore Nordic Centre summer activities",
-   "publisher": "Alberta Parks",
-   "kind": "official",
-   "read": "2026-10-18"
-  },
-  {
-   "id": "src-0036",
-   "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
-   "title": "Canadian Rocky Mountain Parks (World Heritage)",
-   "publisher": "Parks Canada",
-   "kind": "official",
-   "read": "2026-10-18"
-  }
- ],
- "records": [
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-   "kind": "lift",
-   "subkind": "gondola",
-   "wikidata": {
-    "v": "Q125749525",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Banff Gondola, tourist attraction in Banff', at 51.148 -115.556, the Sulphur Mountain lower terminal"
-   },
-   "class_key": "lift/panorama",
-   "draw": {
-    "v": "national",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the operator's headline Banff attraction inside Banff National Park and the UNESCO site (inherited); sunset slots sell out (plan research)"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff and Lake Louise"
-   },
-   "standing_scope": "the panorama lift most visitors choose in Banff",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "same class within 100 km: Lake Louise gondola (about 50 km) and the Norquay sightseeing chair"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the lift itself is the easy way to the ridge view"
-   },
-   "weather": {
-    "v": "clear_only",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the payoff is the summit panorama; in cloud there is little to see"
-   },
-   "why": "The quickest way up to a ridge-top view over Banff and the Bow Valley.",
-   "access_cost": {
-    "v": [
-     {
-      "type": "timed_entry",
-      "note": "tickets are sold by time; sunset slots sell out (plan research)"
-     }
-    ],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0010"
-    ]
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+  "schema": "relevance/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "R2b",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://wildwater.com/kicking-horse-rafting-trips/gentle/",
+      "title": "Gentle Kicking Horse River trip",
+      "publisher": "Wild Water Adventures",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://wildwater.com/faq/",
+      "title": "FAQ",
+      "publisher": "Wild Water Adventures",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.raftbanff.com/the-experience/faq/",
+      "title": "FAQ",
+      "publisher": "Hydra River Guides",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.raftbanff.com/our-trips/rafting-trips/",
+      "title": "Rafting trips",
+      "publisher": "Hydra River Guides",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.banffadventures.com/things-to-do/family-whitewater-rafting/",
+      "title": "Banff family whitewater rafting (Hydra River Guides)",
+      "publisher": "Banff Adventures Unlimited",
+      "kind": "reseller",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.chinookrafting.com/faqs/",
+      "title": "FAQs",
+      "publisher": "Chinook Rafting",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.chinookrafting.com/",
+      "title": "Chinook Rafting home and Kananaskis River trip summary",
+      "publisher": "Chinook Rafting",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.banffadventures.com/things-to-do/kananaskis-river-rafting/",
+      "title": "Kananaskis River rafting",
+      "publisher": "Banff Adventures Unlimited",
+      "kind": "reseller",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/",
+      "title": "Banff Gondola FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/hours-location/",
+      "title": "Banff Gondola hours and location",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/faqs/",
+      "title": "Jasper SkyTram FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/",
+      "title": "Jasper SkyTram tickets",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/hours-location/",
+      "title": "Jasper SkyTram hours and location (read through search results)",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/",
+      "title": "Sightseeing gondola",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.skilouise.com/faq/",
+      "title": "FAQ",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.skilouise.com/accessibility/",
+      "title": "Disabled travellers and accessibility",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.skilouise.com/explore-summer/wildlife-viewing/",
+      "title": "Wildlife viewing",
+      "publisher": "Lake Louise Ski Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/faqs/",
+      "title": "Maligne Lake Cruise FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/location-hours/",
+      "title": "Maligne Lake Cruise location and hours",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/faqs/",
+      "title": "Lake Minnewanka Cruise FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/location-hours/",
+      "title": "Lake Minnewanka Cruise location and hours (opened; 2027 dates now published)",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.chateau-lake-louise.com/activities/canoeing/",
+      "title": "Canoeing",
+      "publisher": "Fairmont Chateau Lake Louise",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://morainelake.com/day-visits/",
+      "title": "Day visits: canoe rentals",
+      "publisher": "Moraine Lake Lodge",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://crmr.com/activities/canoeing/",
+      "title": "Canoeing at Emerald Lake",
+      "publisher": "Canadian Rocky Mountain Resorts (Emerald Lake Lodge)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://thebanffblog.com/emerald-lake-canoe-rental",
+      "title": "Emerald Lake canoe rental",
+      "publisher": "The Banff Blog",
+      "kind": "blog",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.parks.canada.ca/pn-np/ab/banff/sources-banff-springs/faq",
+      "title": "Banff Upper Hot Springs FAQ",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/sources-banff-springs/heures-hours",
+      "title": "Banff Upper Hot Springs hours (read through search results)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/faq",
+      "title": "Miette Hot Springs FAQ",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/sources-miette-springs/heures-hours",
+      "title": "Miette Hot Springs hours",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs/",
+      "title": "Columbia Icefield FAQs",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/location-hours/",
+      "title": "Columbia Icefield location and hours",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/gestion-management/designation/cieletoile-darksky",
+      "title": "Jasper Dark Sky Preserve",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/868a8410-7ef6-4f87-a4d3-f8dc44f335aa",
+      "title": "Attention: Elk Rut Season Advisory (issued 28 Aug 2026)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/bulletins/a8a66ab1-d0db-4300-b227-8eb8f57d88ae",
+      "title": "Restricted Activity: Wildlife viewing practices in Jasper National Park (2026)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/canmore-nordic-centre-pp/activities/summer-activities/",
+      "title": "Canmore Nordic Centre summer activities",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+      "title": "Canadian Rocky Mountain Parks (World Heritage)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "kind": "lift",
+      "subkind": "gondola",
+      "wikidata": {
+        "v": "Q125749525",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Banff Gondola, tourist attraction in Banff', at 51.148 -115.556, the Sulphur Mountain lower terminal"
       },
-      {
-       "type": "national_park",
-       "name": "Banff National Park",
-       "scope": "parent",
-       "wikidata": "Q41858"
+      "class_key": "lift/panorama",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the operator's headline Banff attraction inside Banff National Park and the UNESCO site (inherited); sunset slots sell out (plan research)"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff and Lake Louise"
+      },
+      "standing_scope": "the panorama lift most visitors choose in Banff",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 100 km: Lake Louise gondola (about 50 km) and the Norquay sightseeing chair"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the lift itself is the easy way to the ridge view"
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the payoff is the summit panorama; in cloud there is little to see"
+      },
+      "why": "The quickest way up to a ridge-top view over Banff and the Bow Valley.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "tickets are sold by time; sunset slots sell out (plan research)"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0010"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "pairs_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "reason": "The Upper Hot Springs are a few hundred metres down Mountain Avenue from the gondola base: ride up, then soak",
+          "src": "src-0010"
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "kind": "lift",
+      "subkind": "gondola",
+      "wikidata": {
+        "v": "Q6164065",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Jasper Tramway, aerial tramway in Canada' at 52.85 -118.12 on Whistlers Mountain; the English Wikipedia 'Jasper SkyTram' page has no item link"
+      },
+      "class_key": "lift/panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the main lift in Jasper National Park (inherited park and UNESCO designations); visitors add it when staying in Jasper"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Jasper and the Icefields Parkway north"
+      },
+      "standing_scope": "the only sightseeing lift near Jasper town",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no other sightseeing lift within 100 km of Jasper"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the tram is the easy way; the summit trail is optional"
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a panorama payoff"
+      },
+      "why": "A tram to 2,263 m above Jasper with a view across six ranges on a clear day.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "timed flights up and down, booked online"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0012"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
-   "kind": "lift",
-   "subkind": "gondola",
-   "wikidata": {
-    "v": "Q6164065",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Jasper Tramway, aerial tramway in Canada' at 52.85 -118.12 on Whistlers Mountain; the English Wikipedia 'Jasper SkyTram' page has no item link"
-   },
-   "class_key": "lift/panorama",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the main lift in Jasper National Park (inherited park and UNESCO designations); visitors add it when staying in Jasper"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Jasper and the Icefields Parkway north"
-   },
-   "standing_scope": "the only sightseeing lift near Jasper town",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no other sightseeing lift within 100 km of Jasper"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the tram is the easy way; the summit trail is optional"
-   },
-   "weather": {
-    "v": "clear_only",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a panorama payoff"
-   },
-   "why": "A tram to 2,263 m above Jasper with a view across six ranges on a clear day.",
-   "access_cost": {
-    "v": [
-     {
-      "type": "timed_entry",
-      "note": "timed flights up and down, booked online"
-     }
-    ],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0012"
-    ]
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "kind": "lift",
+      "subkind": "gondola",
+      "wikidata": {
+        "v": "Q13231225",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Lake Louise Ski Resort' at 51.44 -116.16; the summer gondola is the resort's lift and has no item of its own"
       },
-      {
-       "type": "national_park",
-       "name": "Jasper National Park",
-       "scope": "parent",
-       "wikidata": "Q503429"
+      "class_key": "lift/panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "inside Banff National Park and the UNESCO site (inherited); the operator's headline is grizzly viewing from the lift"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff and Lake Louise"
+      },
+      "standing_scope": "a second-choice panorama lift in the Banff area, with a wildlife angle",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 100 km: Banff Gondola (about 50 km), Norquay chair, Kicking Horse gondola"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the lift is the easy way"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the lake view needs clear weather but the bear-watching on the slopes does not"
+      },
+      "why": "A lift over a grizzly corridor with Lake Louise and the Victoria Glacier across the valley.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
-   "kind": "lift",
-   "subkind": "gondola",
-   "wikidata": {
-    "v": "Q13231225",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Lake Louise Ski Resort' at 51.44 -116.16; the summer gondola is the resort's lift and has no item of its own"
-   },
-   "class_key": "lift/panorama",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "inside Banff National Park and the UNESCO site (inherited); the operator's headline is grizzly viewing from the lift"
-   },
-   "standing": {
-    "v": "good",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff and Lake Louise"
-   },
-   "standing_scope": "a second-choice panorama lift in the Banff area, with a wildlife angle",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "same class within 100 km: Banff Gondola (about 50 km), Norquay chair, Kicking Horse gondola"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the lift is the easy way"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the lake view needs clear weather but the bear-watching on the slopes does not"
-   },
-   "why": "A lift over a grizzly corridor with Lake Louise and the Victoria Glacier across the valley.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "kind": "activity",
+      "subkind": "cruise",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Maligne Lake Cruise' (no item)",
+          "Wikidata full-text search 'Maligne Lake'"
+        ],
+        "note": "no item for the cruise; the lake is Q429646 (Alberta, 52.66 -117.53)"
       },
-      {
-       "type": "national_park",
-       "name": "Banff National Park",
-       "scope": "parent",
-       "wikidata": "Q41858"
+      "class_key": "water/boat-tour",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the only practical way to Spirit Island in Jasper National Park (inherited UNESCO and national park); book well ahead (plan research)"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Jasper National Park"
+      },
+      "standing_scope": "the one boat trip in Jasper",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Spirit Island is reached only by boat or a long paddle; no comparable view within 100 km"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the cruise is the easy way to the Spirit Island view"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "still a fine lake trip in cloud; the peaks behind the island need clear weather"
+      },
+      "why": "The boat to Spirit Island, the small treed islet under the peaks of Maligne Lake.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "set departures, booked ahead"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0018"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "unique_because": "Spirit Island is seen only from the boat stop or after a long paddle",
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "kind": "activity",
+      "subkind": "cruise",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Lake Minnewanka Cruise' (no item)",
+          "Wikidata search 'Lake Minnewanka'"
+        ],
+        "note": "no item for the cruise; the lake is Q2671348 (Alberta, 51.26 -115.37)"
+      },
+      "class_key": "water/boat-tour",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the boat trip on the largest lake in Banff National Park (inherited park and UNESCO); visitors add it when staying in Banff"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff and Lake Louise"
+      },
+      "standing_scope": "a pleasant hour, but similar mountain lakes can be seen from the shore",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "boat tours in the same class within 100 km: none on the Banff side; Maligne is 250 km away"
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the shore and the Loop drive give a taste of the lake; the boat reaches the far narrows"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "worth it in cloud, better in sun"
+      },
+      "why": "An hour on Banff's biggest lake, past the Devil's Gap narrows.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "set departures; 10% off booked 48 hours ahead (plan research)"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0021"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "kind": "activity",
+      "subkind": "canoe",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Lake Louise canoe' (no item)",
+          "Wikidata search 'Lake Louise (Alberta)' gives the lake Q1367398"
+        ],
+        "note": "no item for the rental; the lake is Q1367398, R2a's record"
+      },
+      "class_key": "lake/forest-paddle",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the paddle on a world-famous lake in Banff National Park (inherited UNESCO); the canoe is an add-on to the lake, not a reason to come"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff and Lake Louise"
+      },
+      "standing_scope": "the classic canoe of the Rockies",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 100 km: Moraine Lake (about 14 km) and Emerald Lake (about 30 km) canoe rentals"
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the shore path gives the view; only the canoe gives the paddle"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the boathouse closes in bad weather; the colour needs sun"
+      },
+      "why": "A red canoe on the turquoise lake under the Victoria Glacier.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "same_place_as": "place/lake-louise"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "kind": "activity",
+      "subkind": "canoe",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Moraine Lake canoe' (no item)",
+          "Wikidata search 'Moraine Lake' (Q124471170 is California; Q1072342 is Alberta)"
+        ],
+        "note": "no item for the rental; the lake is Q1072342, R2a's record"
+      },
+      "class_key": "lake/forest-paddle",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a paddle on a shuttle-only lake in Banff National Park (inherited UNESCO); the canoe is an add-on to the lake"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff and Lake Louise"
+      },
+      "standing_scope": "the canoe under the Ten Peaks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 100 km: Lake Louise (about 14 km) and Emerald Lake canoe rentals"
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the Rockpile gives the view; only the canoe gives the paddle"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the lodge closes in wind, rain and snow"
+      },
+      "why": "A canoe under the Valley of the Ten Peaks on the bluest lake of the three.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "kind": "activity",
+      "subkind": "canoe",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Emerald Lake canoe' (no item)",
+          "English Wikipedia 'Emerald Lake (British Columbia)' links Q316177"
+        ],
+        "note": "no item for the rental; the lake is Q316177 (BC, 51.44 -116.53)"
+      },
+      "class_key": "lake/forest-paddle",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a paddle in Yoho National Park (inherited UNESCO); visitors add it on a Yoho day"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Yoho and Lake Louise"
+      },
+      "standing_scope": "the quietest and most sheltered of the three canoe lakes",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 100 km: Lake Louise and Moraine Lake rentals"
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the lakeshore loop gives the view; only the canoe gives the paddle"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the boathouse closes in unsafe weather"
+      },
+      "why": "A canoe on a green lake ringed by forest and the President Range.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Yoho National Park",
+              "scope": "parent",
+              "wikidata": "Q828404"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "wikidata": {
+        "v": "Q4854872",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Banff Upper Hot Springs, thermal springs in Canada' at 51.151 -115.561"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a Parks Canada-run pool on Sulphur Mountain inside Banff National Park (inherited UNESCO); a classic add-on in Banff"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff and Lake Louise"
+      },
+      "standing_scope": "the hot pool most Banff visitors use",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "other Parks Canada hot pools: Radium (about 130 km) and Miette (about 350 km)"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a step-free pool by the road"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a hot pool works in rain and cold"
+      },
+      "why": "A hot pool at 37-40 °C with a mountain view, open daily.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
-   "kind": "activity",
-   "subkind": "cruise",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Maligne Lake Cruise' (no item)",
-     "Wikidata full-text search 'Maligne Lake'"
-    ],
-    "note": "no item for the cruise; the lake is Q429646 (Alberta, 52.66 -117.53)"
-   },
-   "class_key": "water/boat-tour",
-   "draw": {
-    "v": "national",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the only practical way to Spirit Island in Jasper National Park (inherited UNESCO and national park); book well ahead (plan research)"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Jasper National Park"
-   },
-   "standing_scope": "the one boat trip in Jasper",
-   "distinction": {
-    "v": "unique",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Spirit Island is reached only by boat or a long paddle; no comparable view within 100 km"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the cruise is the easy way to the Spirit Island view"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "still a fine lake trip in cloud; the peaks behind the island need clear weather"
-   },
-   "why": "The boat to Spirit Island, the small treed islet under the peaks of Maligne Lake.",
-   "access_cost": {
-    "v": [
-     {
-      "type": "timed_entry",
-      "note": "set departures, booked ahead"
-     }
-    ],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0018"
-    ]
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "wikidata": {
+        "v": "Q14874867",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Miette hot springs, thermal springs in Canada' at 53.13 -117.77; not the weather station Q61210243"
       },
-      {
-       "type": "national_park",
-       "name": "Jasper National Park",
-       "scope": "parent",
-       "wikidata": "Q503429"
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a Parks Canada hot pool at the end of Miette Road in Jasper National Park (inherited UNESCO)"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Jasper National Park"
+      },
+      "standing_scope": "the only hot pool in the Jasper area",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no other hot pool within 100 km; Banff and Radium are far south"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a step-free pool at the road end"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a hot pool works in any weather"
+      },
+      "why": "Hot pools in a side valley of Jasper, at the end of a winding road.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   },
-   "unique_because": "Spirit Island is seen only from the boat stop or after a long paddle"
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
-   "kind": "activity",
-   "subkind": "cruise",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Lake Minnewanka Cruise' (no item)",
-     "Wikidata search 'Lake Minnewanka'"
-    ],
-    "note": "no item for the cruise; the lake is Q2671348 (Alberta, 51.26 -115.37)"
-   },
-   "class_key": "water/boat-tour",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the boat trip on the largest lake in Banff National Park (inherited park and UNESCO); visitors add it when staying in Banff"
-   },
-   "standing": {
-    "v": "good",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff and Lake Louise"
-   },
-   "standing_scope": "a pleasant hour, but similar mountain lakes can be seen from the shore",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "boat tours in the same class within 100 km: none on the Banff side; Maligne is 250 km away"
-   },
-   "easy_payoff": {
-    "v": "part",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the shore and the Loop drive give a taste of the lake; the boat reaches the far narrows"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "worth it in cloud, better in sun"
-   },
-   "why": "An hour on Banff's biggest lake, past the Devil's Gap narrows.",
-   "access_cost": {
-    "v": [
-     {
-      "type": "timed_entry",
-      "note": "set departures; 10% off booked 48 hours ahead (plan research)"
-     }
-    ],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0021"
-    ]
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "kind": "activity",
+      "subkind": "vehicle-tour",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Ice Explorer' (Q83644874 is a ship)",
+          "Wikidata search 'Columbia Icefield' and 'Athabasca Glacier' (Q391165, the glacier, not the tour)"
+        ],
+        "note": "no item for the tour; it runs on the Athabasca Glacier Q391165"
       },
-      {
-       "type": "national_park",
-       "name": "Banff National Park",
-       "scope": "parent",
-       "wikidata": "Q41858"
+      "class_key": "glacier/walk-on",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the headline stop of the Icefields Parkway in Jasper National Park (inherited UNESCO); the only way most visitors set foot on a glacier"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Icefields Parkway"
+      },
+      "standing_scope": "the easiest way onto glacier ice in the Rockies",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no other vehicle tour onto a glacier in Canada that we know of"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the bus is the easy way onto the ice"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the ice is impressive in cloud; the icefield view needs clear weather"
+      },
+      "why": "A huge-wheeled bus onto the Athabasca Glacier for 15-25 minutes on the ice.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "departures every 15-30 minutes; book ahead in summer"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0030"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "unique_because": "a bus that drives onto a glacier",
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+      "kind": "sight",
+      "subkind": "attraction",
+      "wikidata": {
+        "v": "Q64841048",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Columbia Icefield Skywalk, observation deck, footbridge' at 52.259 -117.278"
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "an operator add-on to the Icefield tour in Jasper National Park (inherited UNESCO); rarely the reason to stop"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Icefields Parkway"
+      },
+      "standing_scope": "a fenced glass-floor lookout; free roadside pull-offs nearby give similar valley views",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the glass floor 280 m above the valley is unusual; plain roadside lookouts are common"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "flat and step-free"
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the payoff is the view down the Sunwapta valley"
+      },
+      "why": "A glass-floored walkway 280 m above the Sunwapta valley.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-   "kind": "activity",
-   "subkind": "canoe",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Lake Louise canoe' (no item)",
-     "Wikidata search 'Lake Louise (Alberta)' gives the lake Q1367398"
-    ],
-    "note": "no item for the rental; the lake is Q1367398, R2a's record"
-   },
-   "class_key": "lake/forest-paddle",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the paddle on a world-famous lake in Banff National Park (inherited UNESCO); the canoe is an add-on to the lake, not a reason to come"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff and Lake Louise"
-   },
-   "standing_scope": "the classic canoe of the Rockies",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "same class within 100 km: Moraine Lake (about 14 km) and Emerald Lake (about 30 km) canoe rentals"
-   },
-   "easy_payoff": {
-    "v": "part",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the shore path gives the view; only the canoe gives the paddle"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the boathouse closes in bad weather; the colour needs sun"
-   },
-   "why": "A red canoe on the turquoise lake under the Victoria Glacier.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "kind": "sight",
+      "subkind": "attraction",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Jasper Dark Sky Preserve' (no item)",
+          "Wikidata full-text search 'Jasper dark-sky preserve' (no item)"
+        ],
+        "note": "the designation applies to the park, Q503429"
       },
-      {
-       "type": "national_park",
-       "name": "Banff National Park",
-       "scope": "parent",
-       "wikidata": "Q41858"
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Jasper National Park is designated a Dark-Sky Preserve by the RASC (2011), inherited here; the October festival is the draw"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Jasper National Park"
+      },
+      "standing_scope": "the darkest easy-to-reach skies in the Rockies parks",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the second largest dark-sky preserve in the world per Parks Canada; few comparable preserves within 500 km"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "roadside spots such as Pyramid Island"
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing to see under cloud"
+      },
+      "why": "Stars and the Milky Way from easy roadside spots in an 11,000 km² dark-sky preserve.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            },
+            {
+              "type": "dark_sky",
+              "name": "Jasper Dark-Sky Preserve (RASC)",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036",
+            "src-0032"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "draw_peak": {
+        "v": {
+          "tier": "national",
+          "from": "10-16",
+          "to": "10-25",
+          "why": "the Jasper Dark Sky Festival (2026 dates as a pattern)"
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0032"
+        ],
+        "applies_to": "2026",
+        "note": "Parks Canada names the October festival; dates from the plan research"
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
-   "kind": "activity",
-   "subkind": "canoe",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Moraine Lake canoe' (no item)",
-     "Wikidata search 'Moraine Lake' (Q124471170 is California; Q1072342 is Alberta)"
-    ],
-    "note": "no item for the rental; the lake is Q1072342, R2a's record"
-   },
-   "class_key": "lake/forest-paddle",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a paddle on a shuttle-only lake in Banff National Park (inherited UNESCO); the canoe is an add-on to the lake"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff and Lake Louise"
-   },
-   "standing_scope": "the canoe under the Ten Peaks",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "same class within 100 km: Lake Louise (about 14 km) and Emerald Lake canoe rentals"
-   },
-   "easy_payoff": {
-    "v": "part",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the Rockpile gives the view; only the canoe gives the paddle"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the lodge closes in wind, rain and snow"
-   },
-   "why": "A canoe under the Valley of the Ten Peaks on the bluest lake of the three.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "kind": "activity",
+      "subkind": "wildlife",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'elk rut Banff' (no item)",
+          "Wikidata search 'Banff elk' (no item)"
+        ],
+        "note": "a seasonal event, not a place"
       },
-      {
-       "type": "national_park",
-       "name": "Banff National Park",
-       "scope": "parent",
-       "wikidata": "Q41858"
+      "class_key": "wildlife/viewing",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a seasonal event in Banff and Jasper National Parks (inherited UNESCO) with a Parks Canada advisory each year"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff and Jasper"
+      },
+      "standing_scope": "roadside elk are common in both towns; the rut adds the bugling",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "elk are seen across the Bow and Athabasca valleys"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "seen from the car"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "works in any weather"
+      },
+      "why": "Bugling bull elk in September, often in and around the towns.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Canadian Rocky Mountain Parks",
+              "id": "304",
+              "scope": "parent",
+              "wikidata": "Q72895"
+            },
+            {
+              "type": "national_park",
+              "name": "Banff National Park",
+              "scope": "parent",
+              "wikidata": "Q41858"
+            },
+            {
+              "type": "national_park",
+              "name": "Jasper National Park",
+              "scope": "parent",
+              "wikidata": "Q503429"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036",
+            "src-0033"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
-   "kind": "activity",
-   "subkind": "canoe",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Emerald Lake canoe' (no item)",
-     "English Wikipedia 'Emerald Lake (British Columbia)' links Q316177"
-    ],
-    "note": "no item for the rental; the lake is Q316177 (BC, 51.44 -116.53)"
-   },
-   "class_key": "lake/forest-paddle",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a paddle in Yoho National Park (inherited UNESCO); visitors add it on a Yoho day"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Yoho and Lake Louise"
-   },
-   "standing_scope": "the quietest and most sheltered of the three canoe lakes",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "same class within 100 km: Lake Louise and Moraine Lake rentals"
-   },
-   "easy_payoff": {
-    "v": "part",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the lakeshore loop gives the view; only the canoe gives the paddle"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the boathouse closes in unsafe weather"
-   },
-   "why": "A canoe on a green lake ringed by forest and the President Range.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "kind": "activity",
+      "subkind": "mtb",
+      "wikidata": {
+        "v": "Q1003855",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Canmore Nordic Centre Provincial Park' at 51.09 -115.39; the biathlon venue Q29015671 sits inside it"
       },
-      {
-       "type": "national_park",
-       "name": "Yoho National Park",
-       "scope": "parent",
-       "wikidata": "Q828404"
+      "class_key": "trail/forest-loop",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a provincial park and 1988 Olympic venue; Calgary riders come for the network"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "within 1 h of Canmore"
+      },
+      "standing_scope": "a strong trail network, but Canmore and Banff have several",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "several mountain bike networks within 100 km (Canmore, Banff, Moose Mountain)"
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "the wide dirt roads give most of the forest riding without the singletrack"
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "rideable in cloud"
+      },
+      "why": "Over 100 km of ski trails turned bike trails, with a free skills park.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0035"
+        ],
+        "note": "the Kananaskis Conservation Pass for parking is a pass, not a booking"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Canmore Nordic Centre Provincial Park",
+              "scope": "parent",
+              "wikidata": "Q1003855"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036",
+            "src-0035"
+          ],
+          "note": "inherited from the containing park (scope parent)"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      },
+      "same_place_as": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "kind": "activity",
+      "subkind": "rafting",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Kicking Horse River rafting' (no item)",
+          "Wikidata search 'Kicking Horse River' gives the river Q1337358"
+        ],
+        "note": "no item for the trip; the river is Q1337358"
+      },
+      "class_key": "water/rafting",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Golden's rafting operators draw day-trippers from Calgary and Banff; the river runs outside the national park (no designation)"
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Banff, Lake Louise and Golden"
+      },
+      "standing_scope": "the main whitewater river near Banff",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 100 km: the Kananaskis River and the Bow River float"
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no easier way to the rapids"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "runs rain or shine"
+      },
+      "why": "Glacial whitewater with a gentle family section, from age 8.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "set departures, booked ahead"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "outside the national parks and the World Heritage site"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
     },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
-   "kind": "activity",
-   "subkind": "hot-springs",
-   "wikidata": {
-    "v": "Q4854872",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Banff Upper Hot Springs, thermal springs in Canada' at 51.151 -115.561"
-   },
-   "class_key": "sight/landmark",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a Parks Canada-run pool on Sulphur Mountain inside Banff National Park (inherited UNESCO); a classic add-on in Banff"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff and Lake Louise"
-   },
-   "standing_scope": "the hot pool most Banff visitors use",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "other Parks Canada hot pools: Radium (about 130 km) and Miette (about 350 km)"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a step-free pool by the road"
-   },
-   "weather": {
-    "v": "any_weather",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a hot pool works in rain and cold"
-   },
-   "why": "A hot pool at 37-40 °C with a mountain view, open daily.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+      "kind": "activity",
+      "subkind": "rafting",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Kananaskis River rafting' (no item)",
+          "Wikidata search 'Kananaskis River' gives Q3433709"
+        ],
+        "note": "no item for the trip; the river is Q3433709"
       },
-      {
-       "type": "national_park",
-       "name": "Banff National Park",
-       "scope": "parent",
-       "wikidata": "Q41858"
+      "class_key": "water/rafting",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "a Calgary day-trip raft on a dam-controlled river; no designation on the run itself"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "within 1 h of Canmore"
+      },
+      "standing_scope": "the gentler whitewater near Canmore; the Kicking Horse is bigger",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "same class within 100 km: the Bow River float, Horseshoe Canyon on the Bow"
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "no easier way to the rapids"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "runs rain or shine"
+      },
+      "why": "A half-day Class II-III raft from age 5 on steady dam-fed water.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "one daily departure, booked ahead"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0008"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "outside the national parks and the World Heritage site"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
       }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
     }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
-   "kind": "activity",
-   "subkind": "hot-springs",
-   "wikidata": {
-    "v": "Q14874867",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Miette hot springs, thermal springs in Canada' at 53.13 -117.77; not the weather station Q61210243"
-   },
-   "class_key": "sight/landmark",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a Parks Canada hot pool at the end of Miette Road in Jasper National Park (inherited UNESCO)"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Jasper National Park"
-   },
-   "standing_scope": "the only hot pool in the Jasper area",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no other hot pool within 100 km; Banff and Radium are far south"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a step-free pool at the road end"
-   },
-   "weather": {
-    "v": "any_weather",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a hot pool works in any weather"
-   },
-   "why": "Hot pools in a side valley of Jasper, at the end of a winding road.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
-      },
-      {
-       "type": "national_park",
-       "name": "Jasper National Park",
-       "scope": "parent",
-       "wikidata": "Q503429"
-      }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
-   "kind": "activity",
-   "subkind": "vehicle-tour",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Ice Explorer' (Q83644874 is a ship)",
-     "Wikidata search 'Columbia Icefield' and 'Athabasca Glacier' (Q391165, the glacier, not the tour)"
-    ],
-    "note": "no item for the tour; it runs on the Athabasca Glacier Q391165"
-   },
-   "class_key": "glacier/walk-on",
-   "draw": {
-    "v": "national",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the headline stop of the Icefields Parkway in Jasper National Park (inherited UNESCO); the only way most visitors set foot on a glacier"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Icefields Parkway"
-   },
-   "standing_scope": "the easiest way onto glacier ice in the Rockies",
-   "distinction": {
-    "v": "unique",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no other vehicle tour onto a glacier in Canada that we know of"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the bus is the easy way onto the ice"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the ice is impressive in cloud; the icefield view needs clear weather"
-   },
-   "why": "A huge-wheeled bus onto the Athabasca Glacier for 15-25 minutes on the ice.",
-   "access_cost": {
-    "v": [
-     {
-      "type": "timed_entry",
-      "note": "departures every 15-30 minutes; book ahead in summer"
-     }
-    ],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0030"
-    ]
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
-      },
-      {
-       "type": "national_park",
-       "name": "Jasper National Park",
-       "scope": "parent",
-       "wikidata": "Q503429"
-      }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   },
-   "unique_because": "a bus that drives onto a glacier"
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
-   "kind": "sight",
-   "subkind": "attraction",
-   "wikidata": {
-    "v": "Q64841048",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Columbia Icefield Skywalk, observation deck, footbridge' at 52.259 -117.278"
-   },
-   "class_key": "viewpoint/roadside",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "an operator add-on to the Icefield tour in Jasper National Park (inherited UNESCO); rarely the reason to stop"
-   },
-   "standing": {
-    "v": "good",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Icefields Parkway"
-   },
-   "standing_scope": "a fenced glass-floor lookout; free roadside pull-offs nearby give similar valley views",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the glass floor 280 m above the valley is unusual; plain roadside lookouts are common"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "flat and step-free"
-   },
-   "weather": {
-    "v": "clear_only",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the payoff is the view down the Sunwapta valley"
-   },
-   "why": "A glass-floored walkway 280 m above the Sunwapta valley.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
-      },
-      {
-       "type": "national_park",
-       "name": "Jasper National Park",
-       "scope": "parent",
-       "wikidata": "Q503429"
-      }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036"
-     ],
-     "note": "inherited from the containing park (scope parent)"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
-   "kind": "sight",
-   "subkind": "attraction",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Jasper Dark Sky Preserve' (no item)",
-     "Wikidata full-text search 'Jasper dark-sky preserve' (no item)"
-    ],
-    "note": "the designation applies to the park, Q503429"
-   },
-   "class_key": "viewpoint/roadside",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Jasper National Park is designated a Dark-Sky Preserve by the RASC (2011), inherited here; the October festival is the draw"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Jasper National Park"
-   },
-   "standing_scope": "the darkest easy-to-reach skies in the Rockies parks",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the second largest dark-sky preserve in the world per Parks Canada; few comparable preserves within 500 km"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "roadside spots such as Pyramid Island"
-   },
-   "weather": {
-    "v": "clear_only",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "nothing to see under cloud"
-   },
-   "why": "Stars and the Milky Way from easy roadside spots in an 11,000 km² dark-sky preserve.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
-      },
-      {
-       "type": "national_park",
-       "name": "Jasper National Park",
-       "scope": "parent",
-       "wikidata": "Q503429"
-      },
-      {
-       "type": "dark_sky",
-       "name": "Jasper Dark-Sky Preserve (RASC)",
-       "scope": "parent",
-       "wikidata": "Q503429"
-      }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036",
-      "src-0032"
-     ],
-     "note": "inherited from the containing park (scope parent)"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   },
-   "draw_peak": {
-    "v": {
-     "tier": "national",
-     "from": "10-16",
-     "to": "10-25",
-     "why": "the Jasper Dark Sky Festival (2026 dates as a pattern)"
-    },
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0032"
-    ],
-    "applies_to": "2026",
-    "note": "Parks Canada names the October festival; dates from the plan research"
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
-   "kind": "activity",
-   "subkind": "wildlife",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'elk rut Banff' (no item)",
-     "Wikidata search 'Banff elk' (no item)"
-    ],
-    "note": "a seasonal event, not a place"
-   },
-   "class_key": "wildlife/viewing",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a seasonal event in Banff and Jasper National Parks (inherited UNESCO) with a Parks Canada advisory each year"
-   },
-   "standing": {
-    "v": "good",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff and Jasper"
-   },
-   "standing_scope": "roadside elk are common in both towns; the rut adds the bugling",
-   "distinction": {
-    "v": "common",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "elk are seen across the Bow and Athabasca valleys"
-   },
-   "easy_payoff": {
-    "v": "full",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "seen from the car"
-   },
-   "weather": {
-    "v": "any_weather",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "works in any weather"
-   },
-   "why": "Bugling bull elk in September, often in and around the towns.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no entry cost beyond the ticket; the season is in the suitability access_season"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "unesco_whs",
-       "name": "Canadian Rocky Mountain Parks",
-       "id": "304",
-       "scope": "parent",
-       "wikidata": "Q72895"
-      },
-      {
-       "type": "national_park",
-       "name": "Banff National Park",
-       "scope": "parent",
-       "wikidata": "Q41858"
-      },
-      {
-       "type": "national_park",
-       "name": "Jasper National Park",
-       "scope": "parent",
-       "wikidata": "Q503429"
-      }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036",
-      "src-0033"
-     ],
-     "note": "inherited from the containing park (scope parent)"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
-   "kind": "activity",
-   "subkind": "mtb",
-   "wikidata": {
-    "v": "Q1003855",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "confirmed by a person-run check of Wikidata label, description and coordinates on 2026-10-18: 'Canmore Nordic Centre Provincial Park' at 51.09 -115.39; the biathlon venue Q29015671 sits inside it"
-   },
-   "class_key": "trail/forest-loop",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a provincial park and 1988 Olympic venue; Calgary riders come for the network"
-   },
-   "standing": {
-    "v": "good",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "within 1 h of Canmore"
-   },
-   "standing_scope": "a strong trail network, but Canmore and Banff have several",
-   "distinction": {
-    "v": "common",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "several mountain bike networks within 100 km (Canmore, Banff, Moose Mountain)"
-   },
-   "easy_payoff": {
-    "v": "most",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "the wide dirt roads give most of the forest riding without the singletrack"
-   },
-   "weather": {
-    "v": "better_clear",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "rideable in cloud"
-   },
-   "why": "Over 100 km of ski trails turned bike trails, with a free skills park.",
-   "access_cost": {
-    "v": [],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0035"
-    ],
-    "note": "the Kananaskis Conservation Pass for parking is a pass, not a booking"
-   },
-   "signals": {
-    "designations": {
-     "v": [
-      {
-       "type": "provincial_or_state_park",
-       "name": "Canmore Nordic Centre Provincial Park",
-       "scope": "parent",
-       "wikidata": "Q1003855"
-      }
-     ],
-     "state": "value",
-     "basis": "official_info",
-     "src": [
-      "src-0036",
-      "src-0035"
-     ],
-     "note": "inherited from the containing park (scope parent)"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
-   "kind": "activity",
-   "subkind": "rafting",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Kicking Horse River rafting' (no item)",
-     "Wikidata search 'Kicking Horse River' gives the river Q1337358"
-    ],
-    "note": "no item for the trip; the river is Q1337358"
-   },
-   "class_key": "water/rafting",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Golden's rafting operators draw day-trippers from Calgary and Banff; the river runs outside the national park (no designation)"
-   },
-   "standing": {
-    "v": "top",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "Banff, Lake Louise and Golden"
-   },
-   "standing_scope": "the main whitewater river near Banff",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "same class within 100 km: the Kananaskis River and the Bow River float"
-   },
-   "easy_payoff": {
-    "v": "none",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no easier way to the rapids"
-   },
-   "weather": {
-    "v": "any_weather",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "runs rain or shine"
-   },
-   "why": "Glacial whitewater with a gentle family section, from age 8.",
-   "access_cost": {
-    "v": [
-     {
-      "type": "timed_entry",
-      "note": "set departures, booked ahead"
-     }
-    ],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0001"
-    ]
-   },
-   "signals": {
-    "designations": {
-     "v": [],
-     "state": "value",
-     "basis": "our_inference",
-     "src": [],
-     "note": "outside the national parks and the World Heritage site"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  },
-  {
-   "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
-   "kind": "activity",
-   "subkind": "rafting",
-   "wikidata": {
-    "v": null,
-    "state": "searched_none",
-    "basis": null,
-    "src": [],
-    "on": "2026-10-18",
-    "tried": [
-     "Wikidata search 'Kananaskis River rafting' (no item)",
-     "Wikidata search 'Kananaskis River' gives Q3433709"
-    ],
-    "note": "no item for the trip; the river is Q3433709"
-   },
-   "class_key": "water/rafting",
-   "draw": {
-    "v": "regional",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "a Calgary day-trip raft on a dam-controlled river; no designation on the run itself"
-   },
-   "standing": {
-    "v": "good",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "within 1 h of Canmore"
-   },
-   "standing_scope": "the gentler whitewater near Canmore; the Kicking Horse is bigger",
-   "distinction": {
-    "v": "rare",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "same class within 100 km: the Bow River float, Horseshoe Canyon on the Bow"
-   },
-   "easy_payoff": {
-    "v": "none",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "no easier way to the rapids"
-   },
-   "weather": {
-    "v": "any_weather",
-    "state": "value",
-    "basis": "our_inference",
-    "src": [],
-    "note": "runs rain or shine"
-   },
-   "why": "A half-day Class II-III raft from age 5 on steady dam-fed water.",
-   "access_cost": {
-    "v": [
-     {
-      "type": "timed_entry",
-      "note": "one daily departure, booked ahead"
-     }
-    ],
-    "state": "value",
-    "basis": "official_info",
-    "src": [
-     "src-0008"
-    ]
-   },
-   "signals": {
-    "designations": {
-     "v": [],
-     "state": "value",
-     "basis": "our_inference",
-     "src": [],
-     "note": "outside the national parks and the World Heritage site"
-    },
-    "editorial": {
-     "v": null,
-     "state": "gap",
-     "basis": null,
-     "src": []
-    }
-   }
-  }
- ]
+  ]
 }
