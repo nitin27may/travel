@@ -9,6 +9,7 @@
 @media (max-width: 639px) { .home-cover { height: 420px; } }
 .home-globe { position: absolute; inset: 0; }
 .home-globe .home-map { height: 100%; min-height: 0; width: 100%; border-radius: 0; border: 0; }
+.home-globe-cue { display: none; }
 .home-globe-caption { position: absolute; left: var(--margin); bottom: var(--s-4); margin: 0; font: var(--t-mono); color: var(--muted); }
 .home-cover-inner {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
@@ -30,6 +31,10 @@
   /* phone: the map on top, the search card below it, so the card never covers a pin or the attribution */
   .home-cover { height: auto; display: flex; flex-direction: column; overflow: visible; }
   .home-globe { position: relative; inset: auto; height: 320px; overflow: hidden; }
+  /* the cue sits under the header edge; the attribution stays on one line at the foot */
+  .home-globe-cue { display: block; position: absolute; z-index: 2; left: var(--margin); top: var(--s-3); margin: 0; font: var(--t-mono); color: var(--ink-2); pointer-events: none; }
+  .home-globe .maplibregl-ctrl-attrib, .home-globe .maplibregl-ctrl-attrib a { font-size: 9px; letter-spacing: -0.02em; white-space: nowrap; }
+  .home-globe .maplibregl-ctrl-attrib { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
   .home-cover-inner { position: static; transform: none; width: auto; margin: var(--s-3) var(--margin); padding: var(--s-4); }
   .home-title { font-size: 40px; }
   .home-hint { display: none; }
@@ -85,3 +90,4 @@
   .search-dialog.gs { inset: 0; top: 0; left: 0; transform: none; width: 100vw; max-height: none; height: 100dvh; border-radius: 0; border: 0; padding: var(--s-3) var(--margin); }
   .gs-close { display: inline-block; }
 }
+.gs-suggest { display: block; margin-top: var(--s-2); padding: 0; border: 0; background: none; font: var(--t-title); color: var(--ink); text-decoration: underline; text-align: left; cursor: pointer; }

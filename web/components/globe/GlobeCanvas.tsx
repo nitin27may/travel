@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { buildCountryBook, loadCountries, type CountryBook } from '@/lib/globe/countries';
 import { createGlobe, type GlobeEngine, type GlobeHandlers } from '@/lib/globe/engine';
 import type { Camera, GlobeData } from '@/lib/globe/types';
@@ -39,7 +39,12 @@ function usePageDark(): boolean {
   return dark;
 }
 
+// The cover shows country discs placed from our own pins, so it never downloads the 756 KB country outlines or the facts
+// file; the engine gets an empty set of shapes (they only matter for hover and focus, which the cover does not have).
+const COVER_BOOK = { fc: { type: 'FeatureCollection', features: [] }, facts: {}, byA3: {}, byA2: {} } as unknown as CountryBook;
 const COVER_CAMERA: Camera = { lng: -30, lat: 24, zoom: 1.35 };
+const COVER_CAMERA_PHONE: Camera = { lng: -30, lat: 24, zoom: 0.8 };
+const regionName = (() => { try { return new Intl.DisplayNames(['en'], { type: 'region' }); } catch { return null; } })();
 
 /**
  * The MapLibre globe. Owns the engine's life: loads the library and the country shapes in the browser, creates
@@ -59,7 +64,7 @@ export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false,
     let made: GlobeEngine | null = null;
     (async () => {
       try {
-        const [ml, countries] = await Promise.all([import('@/components/map/MapLibreMap').then((m) => m.loadMapLibre()), live.current.book ? Promise.resolve(live.current.book) : loadCountries()]);
+        const [ml, countries] = await Promise.all([import('@/components/map/MapLibreMap').then((m) => m.loadMapLibre()), live.current.book ? Promise.resolve(live.current.book) : mode === 'cover' ? Promise.resolve(COVER_BOOK) : loadCountries()]);
         if (dead || !box.current) return;
         const cur = live.current;
         made = createGlobe(ml, {
@@ -67,7 +72,7 @@ export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false,
           style: cur.styleKey,
           terrain: cur.terrain,
           exaggeration: cur.exaggeration,
-          camera: cur.camera ?? COVER_CAMERA,
+          camera: cur.camera ?? (typeof matchMedia === 'function' && matchMedia('(max-width: 639px)').matches ? COVER_CAMERA_PHONE : COVER_CAMERA),
           countries: countries.fc,
           interactive: mode === 'full',
           handlers: {
@@ -100,9 +105,7 @@ export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false,
   useEffect(() => { engine?.setTerrain(terrain, exaggeration); }, [terrain, exaggeration, engine]);
 
   // The cover has no controller: it shows the world's country discs and nothing else.
-  const [coverBook, setCoverBook] = useState<CountryBook | null>(null);
-  useEffect(() => { if (mode === 'cover') loadCountries().then(setCoverBook).catch(() => undefined); }, [mode]);
-  const coverPins = mode === 'cover' && coverBook ? pinsFor(data, [], coverBook.facts) : null;
+  const coverPins = useMemo(() => (mode === 'cover' ? pinsFor(data, [], COVER_BOOK.facts).map((p) => (p.label.length <= 3 ? { ...p, label: regionName?.of(p.label.toUpperCase()) ?? p.label } : p)) : null), [mode, data]);
 
   return (
     <div className={`globe-canvas ${className}`} data-globe-mode={mode} data-globe-style={styleKey} data-ready={engine ? 'true' : 'false'} role="application" aria-roledescription="map" aria-label={label}>
