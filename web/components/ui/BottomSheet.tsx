@@ -26,6 +26,8 @@ interface Props {
   footer?: ReactNode;
   children: ReactNode;
   className?: string;
+  /** Height of the peek stop in px (default 120); the globe sheet uses a taller one so the first rows show at rest. */
+  peekPx?: number;
 }
 
 /**
@@ -33,7 +35,7 @@ interface Props {
  * top bar. Drag with velocity, or the Expand and Collapse buttons for keyboard. A drag past the lowest stop closes it.
  * The container slides with CSS (260 ms in, 200 ms out); Motion owns the drag and the snap settle.
  */
-export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half', 'full'], initial, modal = true, footer, children, className }: Props) {
+export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half', 'full'], initial, modal = true, footer, children, className, peekPx = PEEK_PX }: Props) {
   const reduce = useReducedMotion();
   const stops = useMemo(() => ORDER.filter((s) => snaps.includes(s)), [snaps]);
   const [snap, setSnap] = useState<Snap>(initial ?? stops[stops.length - 1]);
@@ -47,7 +49,7 @@ export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half'
     return () => window.removeEventListener('resize', set);
   }, [open]);
 
-  const offsetOf = useCallback((s: Snap) => (s === 'full' ? 0 : s === 'half' ? Math.round(height * 0.5) : Math.max(0, height - PEEK_PX)), [height]);
+  const offsetOf = useCallback((s: Snap) => (s === 'full' ? 0 : s === 'half' ? Math.round(height * 0.5) : Math.max(0, height - peekPx)), [height, peekPx]);
   const idx = stops.indexOf(snap);
   const move = (dir: 1 | -1) => setSnap(stops[Math.min(stops.length - 1, Math.max(0, idx + dir))]);
 
@@ -55,7 +57,7 @@ export function BottomSheet({ open, onOpenChange, title, snaps = ['peek', 'half'
     <Dialog.Root open={open} onOpenChange={onOpenChange} modal={modal}>
       <Dialog.Portal>
         {modal ? <Dialog.Backdrop className="scrim" /> : null}
-        <Dialog.Popup className={cx('sheet-bottom-frame', className)} style={{ height }} aria-describedby={undefined}>
+        <Dialog.Popup className={cx('sheet-bottom-frame', className)} style={{ height }} aria-describedby={undefined} initialFocus={modal ? undefined : false}>
           <motion.div
             className="sheet-panel"
             drag={reduce ? false : 'y'}

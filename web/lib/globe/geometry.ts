@@ -142,3 +142,15 @@ export function boxOfPoints(pts: Pt[]): Bbox | null {
   for (const [x, y] of pts) { w = Math.min(w, x); e = Math.max(e, x); s = Math.min(s, y); n = Math.max(n, y); }
   return [[w, s], [e, n]];
 }
+
+/**
+ * Hit priority of a named basemap feature at a zoom (spec 4.1): lower wins, `null` means "not a target here". Below zoom 5
+ * parks are not targets and rivers rank last; towns below rank 4 wait until zoom 7.
+ */
+export function hitRank(zoom: number, sourceLayer: string, props: { class?: unknown; rank?: unknown } = {}): number | null {
+  if (sourceLayer === 'park' && zoom < 5) return null;
+  if (sourceLayer === 'place' && zoom < 7 && Number(props.rank ?? 9) > 4 && !['country', 'state', 'city'].includes(String(props.class))) return null;
+  const far: Record<string, number> = { mountain_peak: 0, place: 0, water_name: 1, waterway: 2 };
+  const near: Record<string, number> = { mountain_peak: 0, place: 1, water_name: 2, waterway: 3, park: 4 };
+  return (zoom < 5 ? far : near)[sourceLayer] ?? 9;
+}
