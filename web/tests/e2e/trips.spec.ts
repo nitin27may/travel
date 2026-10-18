@@ -86,7 +86,11 @@ test.describe('trip page extras', () => {
   test('an open day offers a link to itself and every row has its anchor', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/dolomites-2027/#day-3`);
     await expect(page.locator('#day-3')).toBeVisible();
-    await expect(page.locator('#day-3').getByRole('button', { name: 'Copy link to day 3' })).toBeVisible();
+    await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
+    const copy = page.locator('#day-3 [data-day-link="3"]').getByRole('button', { name: 'Copy link to day 3' });
+    await expect(copy).toBeVisible();
+    await copy.click();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(/\/trips\/dolomites-2027\/#day-3$/);
     expect(await page.locator('.day-row[id^="day-"]').count()).toBeGreaterThan(10);
   });
 });
