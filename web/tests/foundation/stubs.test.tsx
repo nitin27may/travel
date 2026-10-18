@@ -5,12 +5,10 @@ import GlobePathPage, * as globePath from '@/app/globe/[...path]/page';
 import GlobePlacePage, * as globePlace from '@/app/globe/place/[slug]/page';
 import GlobeTripPage, * as globeTrip from '@/app/globe/trip/[slug]/page';
 import PlaceStub, * as placeStub from '@/app/places/[slug]/page';
-import TripStub, * as tripStub from '@/app/trips/[slug]/page';
 
 // Every public route in patterns 1.2 is a page or a stub that renders its title and a skeleton; the owning lane fills
 // generateStaticParams. Until then each builds one noindex placeholder page (`output: export` rejects an empty list).
 const dynamicStubs = [
-  { name: 'trips/[slug]', mod: tripStub, page: TripStub, params: { slug: 'dolomites-2027' }, title: 'Dolomites 2027' },
   { name: 'places/[slug]', mod: placeStub, page: PlaceStub, params: { slug: 'tre-cime-loop' }, title: 'Tre Cime Loop' },
   { name: 'globe/[...path]', mod: globePath, page: GlobePathPage, params: { path: ['it', 'south-tyrol'] }, title: 'It South Tyrol' },
   { name: 'globe/place/[slug]', mod: globePlace, page: GlobePlacePage, params: { slug: 'lago-di-braies' }, title: 'Lago Di Braies' },
