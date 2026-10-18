@@ -1,0 +1,22 @@
+/* Adapter-owned overrides for maplibre-gl's own stylesheet. Colours come from foundation tokens. */
+.maplibregl-ctrl-attrib,
+.maplibregl-ctrl-attrib a {
+  font: 500 11.5px/1.4 var(--font-mono, ui-monospace, monospace);
+  color: var(--muted);
+}
+.maplibregl-ctrl-attrib {
+  background: color-mix(in srgb, var(--surface) 88%, transparent) !important;
+  border-radius: 6px 0 0 0;
+  padding: 1px 6px;
+}
+.maplibregl-ctrl-attrib a { text-decoration: underline; }
+.maplibregl-ctrl-scale {
+  font: 500 11.5px/1.4 var(--font-mono, ui-monospace, monospace);
+  color: var(--ink-2);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  border-color: var(--ink-2);
+}
+.map-surface :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .map-surface * { animation: none !important; transition: none !important; }
+}
