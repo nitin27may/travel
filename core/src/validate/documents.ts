@@ -4,9 +4,10 @@ import type { Ctx } from "./rows.ts";
 import { polylineVertexCount } from "./polyline.ts";
 
 import { validateSuitability } from "./suitability.ts";
+import { validateApplicabilityRules } from "./applicability.ts";
 import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability";
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -15,6 +16,7 @@ const TABLE_OF: Record<DocumentKind, string> = {
   freshness: "freshness",
   "difficulty-map": "difficulty_map",
   suitability: "suitability",
+  "suitability-applicability": "suitability_applicability",
 };
 
 export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): void {
@@ -29,6 +31,7 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   checkTable(t, doc, "", ctx);
   if (ctx.schemaBroken || !isObj(doc)) return;
   if (kind === "difficulty-map") validateDifficultyMapRules(doc, ctx);
+  if (kind === "suitability-applicability") validateApplicabilityRules(doc, ctx);
   if (kind === "route-geometry") {
     const n = polylineVertexCount(String(doc.polyline));
     const ts = doc.t_s as unknown[];

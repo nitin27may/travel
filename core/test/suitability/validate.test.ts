@@ -21,9 +21,9 @@ afterAll(() => tmp.forEach((d) => rmSync(d, { recursive: true, force: true })));
 const base = () => ({
   schema: "suitability/1", trip: "fixture-trip", lane: "t", researched: "2026-10-18", agent: "t", model: "t",
   sources: [{ id: "src-0001", url: "https://parks.canada.ca/x", title: "t", publisher: "Parks Canada", kind: "official", read: "2026-10-12" }],
-  records: [{ ref: "place/lago-di-braies", kind: "lake", suitability: {} }],
+  records: [{ ref: "place/lago-di-braies", kind: "lake", subkind: "lake", suitability: {} }],
 });
-const withBlock = (suitability: unknown) => ({ ...base(), records: [{ ref: "place/lago-di-braies", kind: "lake", suitability }] });
+const withBlock = (suitability: unknown) => ({ ...base(), records: [{ ref: "place/lago-di-braies", kind: "lake", subkind: "lake", suitability }] });
 const run = (doc: unknown, today = "2026-10-18") => {
   process.env.SUITABILITY_TODAY = today;
   return validateDoc(doc, "sidecar", ROOT, { kind: "suitability" });
@@ -126,13 +126,22 @@ describe("hard limits (K3)", () => {
     expect(codes(run(withBlock({ group_min: v({ n: 4 }, "operator_rule") })))).toEqual(["E_SUIT_LIMIT_BASIS"]);
     expect(run(withBlock({ group_min: v({ n: 4 }, "official_rule") })).errors).toEqual([]);
   });
-  it("the age on board of a boat tour and a rider age are rules too", () => {
-    expect(codes(run(withBlock({ water_safety: { min_age_on_board: v(5, "community") } })))).toEqual(["E_SUIT_LIMIT_BASIS"]);
-    const doc = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "activity", suitability: {}, ext: { kind: "ride", min_rider_age: v(8, "community") } }] };
+  it("the other fields that state a rule are rules too: solo, shoe size, flotation age, coaster load, weight by slot, distance, rider age", () => {
+    expect(codes(run(withBlock({ solo: v({ min_age: 8 }, "community") })))).toEqual(["E_SUIT_LIMIT_BASIS"]);
+    expect(codes(run(withBlock({ participation: { min_shoe_eu: v(34, "community") } })))).toEqual(["E_SUIT_LIMIT_BASIS"]);
+    expect(run(withBlock({ participation: { min_shoe_eu: v(34, "operator_rule") } })).errors.map((e) => e.code)).not.toContain("E_SUIT_LIMIT_BASIS");
+    const on = (ext: unknown, subkind: string, kind = "activity") => ({ ...base(), records: [{ ref: "place/lago-di-braies", kind, subkind, suitability: {}, ext }] });
+    expect(codes(run(on({ kind: "water", floats_required_under: v(8, "community") }, "hot-springs")))).toEqual(["E_SUIT_LIMIT_BASIS"]);
+    expect(codes(run(on({ kind: "coaster", max_load_kg: v(150, "community") }, "coaster")))).toEqual(["E_SUIT_LIMIT_BASIS"]);
+    expect(codes(run(on({ kind: "coaster", driver_rule: v({ min_age: 18 }, "community") }, "coaster")))).toEqual(["E_SUIT_LIMIT_BASIS"]);
+    expect(codes(run(on({ kind: "flight", weight_by_slot: v([{ slot: "07:15", max_kg: 80 }], "community") }, "paragliding")))).toEqual(["E_SUIT_LIMIT_BASIS"]);
+    expect(codes(run(on({ kind: "wildlife", min_distance_m: v([{ species: "bear", m: 100 }], "community") }, "wildlife")))).toEqual(["E_SUIT_LIMIT_BASIS"]);
+    expect(run(on({ kind: "wildlife", min_distance_m: v([{ species: "bear", m: 100 }], "official_rule") }, "wildlife")).errors).toEqual([]);
+    const doc = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "activity", subkind: "cycling", suitability: {}, ext: { kind: "ride", min_rider_age: v(8, "community") } }] };
     expect(codes(run(doc))).toEqual(["E_SUIT_LIMIT_BASIS"]);
   });
   it("offers are checked like the record", () => {
-    const doc = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "activity", suitability: {}, offers: [{ name: "A", suitability: { min_age: v(8, "community") } }] }] };
+    const doc = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "activity", subkind: "rafting", suitability: {}, offers: [{ name: "A", suitability: { min_age: v(8, "community") } }] }] };
     const r = run(doc);
     expect(r.errors[0]?.path).toBe("/records/0/offers/0/suitability/min_age/basis");
   });
@@ -169,7 +178,7 @@ describe("value states", () => {
     expect(codes(run("nope"))).toEqual(["E_SUIT_SCHEMA"]);
   });
   it("the ext union is discriminated on kind", () => {
-    const doc = (ext: unknown) => ({ ...base(), records: [{ ref: "place/lago-di-braies", kind: "trail", suitability: {}, ext }] });
+    const doc = (ext: unknown) => ({ ...base(), records: [{ ref: "place/lago-di-braies", kind: "trail", subkind: "hike", suitability: {}, ext }] });
     expect(run(doc({ kind: "trail", shape: "loop" })).errors).toEqual([]);
     expect(codes(run(doc({ kind: "teleport" })))).toEqual(["E_SUIT_SCHEMA"]);
     expect(codes(run(doc({ kind: "trail", craft: "raft" })))).toEqual(["E_SUIT_SCHEMA"]); // a paddle field on a trail
@@ -196,7 +205,7 @@ describe("sources", () => {
     expect(run(withSrc("https://parks.canada.ca/alltrails-advice")).errors).toEqual([]);
   });
   it("Trailforks is a source for community values only", () => {
-    const doc = (basis: string) => ({ ...withSrc("https://www.trailforks.com/trails/x"), records: [{ ref: "place/lago-di-braies", kind: "trail", suitability: { shade: { v: "partial", state: "value", basis, src: ["src-0001"] } } }] });
+    const doc = (basis: string) => ({ ...withSrc("https://www.trailforks.com/trails/x"), records: [{ ref: "place/lago-di-braies", kind: "trail", subkind: "hike", suitability: { shade: { v: "partial", state: "value", basis, src: ["src-0001"] } } }] });
     expect(run(doc("community")).errors).toEqual([]);
     expect(codes(run(doc("official_info")))).toEqual(["E_SUIT_LINK_ONLY_SRC"]);
   });
@@ -215,7 +224,7 @@ describe("sources", () => {
     expect(codes(run(d))).toEqual(["E_SUIT_SRC"]);
   });
   it("a hint names a known source", () => {
-    const d = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "lake", suitability: {}, hints: [{ field: "age_band", text: "t", src: ["src-9"] }] }] };
+    const d = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "lake", subkind: "lake", suitability: {}, hints: [{ field: "age_band", text: "t", src: ["src-9"] }] }] };
     expect(codes(run(d))).toEqual(["E_SUIT_SRC"]);
   });
 });
@@ -267,7 +276,7 @@ describe("family effort is computed, never typed", () => {
     expect(codes(r)).toEqual(["E_SUIT_TYPED_EFFORT"]);
   });
   it("also on an offer", () => {
-    const doc = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "activity", suitability: {}, offers: [{ name: "A", suitability: { effort: { family_effort: 2 } } }] }] };
+    const doc = { ...base(), records: [{ ref: "place/lago-di-braies", kind: "activity", subkind: "rafting", suitability: {}, offers: [{ name: "A", suitability: { effort: { family_effort: 2 } } }] }] };
     expect(run(doc).errors[0]).toMatchObject({ code: "E_SUIT_TYPED_EFFORT", path: "/records/0/offers/0/suitability/effort/family_effort" });
   });
   it("the JSON schema has no property for it", () => {
@@ -278,7 +287,7 @@ describe("family effort is computed, never typed", () => {
 });
 
 describe("refs", () => {
-  const ref = (r: string) => ({ ...base(), records: [{ ref: r, kind: "trail", suitability: {} }] });
+  const ref = (r: string) => ({ ...base(), records: [{ ref: r, kind: "trail", subkind: "hike", suitability: {} }] });
   it.each([
     "place/lago-di-braies", "legacy/canadian-rockies-sept-2029/trails/lake-agnes", "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
     "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float", "trip/fixture-trip/trail:tre cime",
@@ -329,8 +338,9 @@ describe("staleness (freshness classes)", () => {
 });
 
 describe("the flat catalogue copy (K9)", () => {
-  const flatOf = (block: Record<string, unknown>) => ({ min_age: null, max_age: null, min_height_cm: null, max_height_cm: null, min_weight_kg: null, max_weight_kg: null, house_grade: null, kid_fit: "unknown", accessibility: "unknown", walk_km: null, walk_gain_m: null, ...block });
-  const doc = (flat: unknown, block: unknown = {}) => ({ ...base(), records: [{ ref: "place/lago-di-braies", kind: "lake", suitability: block, flat }] });
+  const flatOf = (block: Record<string, unknown>) => ({ min_age: null, max_age: null, min_height_cm: null, max_height_cm: null, min_weight_kg: null, max_weight_kg: null, house_grade: null, kid_fit: "unknown", accessibility: "unknown", walk_km: null, walk_gain_m: null, suit_level: "draft", ...block });
+  // a boat tour asks for min_age (R), a lake does not: the copy skips a field the profile marks N
+  const doc = (flat: unknown, block: unknown = {}) => ({ ...base(), records: [{ ref: "place/lago-di-braies", kind: "activity", subkind: "boat-tour", suitability: block, flat }] });
   it("an up-to-date copy passes", () => {
     expect(run(doc(flatOf({}))).errors).toEqual([]);
     expect(run(doc(flatOf({ min_age: 8 }), { min_age: v(8) })).errors).toEqual([]);

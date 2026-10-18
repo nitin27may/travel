@@ -19,6 +19,7 @@
     {
       "ref": "place/lago-di-braies",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {
         "wheelchair": {
           "v": "step_free",
@@ -40,7 +41,8 @@
         "kid_fit": "unknown",
         "accessibility": "step-free",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]

@@ -18,7 +18,8 @@
   "records": [
     {
       "ref": "place/lago-di-braies",
-      "kind": "lake",
+      "kind": "activity",
+      "subkind": "boat-tour",
       "suitability": {
         "min_age": {
           "v": 8,
