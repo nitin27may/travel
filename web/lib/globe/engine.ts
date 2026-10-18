@@ -8,7 +8,7 @@ import type { Camera } from './types';
 
 type ML = typeof import('maplibre-gl');
 
-export interface HoverInfo { kicker: string; title: string; sub?: string }
+export interface HoverInfo { kicker: string; title: string; sub?: string; sub2?: string }
 export type HitLayer = 'country' | 'adm1' | 'adm2';
 export interface BasemapFeature { sourceLayer: string; kind: string; name: string; extra: string; lngLat: Pt; wikidata: string | null }
 
@@ -63,6 +63,8 @@ export interface GlobeEngine {
   setSpin(enabled: boolean, worldView: boolean): void;
   flyToBox(b: Bbox, o?: FlyOptions): void;
   flyToPoint(p: Pt, zoom: number, o?: { tilt?: boolean }): void;
+  /** Frames the whole disc in the free area: `pad` is what the open panels cover (disc centre goes to the middle of the rest). */
+  frameWorld(c: { lng: number; lat: number; zoom: number }, pad: Padding, animate: boolean): void;
   /** Snaps to a camera with no animation (a restored `?c=` or reduced motion). */
   jumpTo(c: Camera): void;
   camera(): Camera;
@@ -78,6 +80,7 @@ const HIDE_LABEL_LAYER = /village|suburb|hamlet|neighbo|quarter|label_other|poi|
 const HIDE_SOURCE_LAYERS = new Set(['poi', 'housenumber', 'aerodrome_label', 'transportation_name']);
 const HIT_SOURCE_LAYERS = new Set(['waterway', 'water_name', 'mountain_peak', 'park', 'place']);
 const NONE = '\u0000';
+const ZERO_PAD = { top: 0, right: 0, bottom: 0, left: 0 };
 
 const featureName = (p: Record<string, unknown>): string => String(p['name:en'] || p.name_en || p.name || '');
 
@@ -154,7 +157,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const k = document.createElement('div'); k.className = 'globe-tip-k'; k.textContent = info.kicker;
     const t = document.createElement('div'); t.className = 'globe-tip-t'; t.textContent = info.title;
     tip.append(k, t);
-    if (info.sub) { const s = document.createElement('div'); s.className = 'globe-tip-s'; s.textContent = info.sub; tip.append(s); }
+    for (const line of [info.sub, info.sub2]) if (line) { const s = document.createElement('div'); s.className = 'globe-tip-s'; s.textContent = line; tip.append(s); }
     tip.hidden = false;
     const w = container.clientWidth, tw = tip.offsetWidth;
     const x = e.point.x + 16 + tw > w ? e.point.x - 16 - tw : e.point.x + 16;
@@ -168,20 +171,29 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   // ---- base style ----------------------------------------------------------------------------------------
+  /** Relief, Light and Dark are three looks, not one recolour: relief keeps woods and parks and full hillshade, light is near-white with faint shading, dark follows the dark tokens. */
+  function scheme(): { land: string; wood: string; water: string; hill: number } {
+    if (styleKey === 'relief') return { land: 'rgb(236 231 219)', wood: 'rgb(208 219 190)', water: palette.water, hill: 1.15 };
+    if (styleKey === 'light') return { land: 'rgb(246 246 244)', wood: 'rgb(246 246 244)', water: 'rgb(200 217 228)', hill: 0.2 };
+    return { land: palette.land, wood: palette.land, water: palette.water, hill: 1 };
+  }
+
   function recolourBase(): void {
     const style = map.getStyle();
     if (!style?.layers) return;
+    const sc = scheme();
     const set = (id: string, kind: 'paint' | 'layout', prop: string, v: unknown) => {
       try { if (kind === 'paint') map.setPaintProperty(id, prop as never, v as never); else map.setLayoutProperty(id, prop as never, v as never); } catch { /* property not on this layer */ }
     };
     for (const l of style.layers) {
       const sl = (l as { 'source-layer'?: string })['source-layer'] ?? '';
-      if (l.type === 'background') set(l.id, 'paint', 'background-color', palette.land);
+      if (l.type === 'background') set(l.id, 'paint', 'background-color', sc.land);
       else if (l.type === 'fill') {
-        set(l.id, 'paint', 'fill-color', sl === 'water' ? palette.water : sl === 'building' ? palette.high : palette.land);
-        set(l.id, 'paint', 'fill-outline-color', palette.land);
+        const wooded = sl === 'landcover' || sl === 'park' || sl === 'landuse';
+        set(l.id, 'paint', 'fill-color', sl === 'water' ? sc.water : sl === 'building' ? palette.high : wooded ? sc.wood : sc.land);
+        set(l.id, 'paint', 'fill-outline-color', sc.land);
       } else if (l.type === 'line') {
-        if (sl === 'waterway') set(l.id, 'paint', 'line-color', palette.water);
+        if (sl === 'waterway') set(l.id, 'paint', 'line-color', sc.water);
         else if (sl === 'boundary') set(l.id, 'paint', 'line-color', palette.border);
         else if (sl === 'transportation') set(l.id, 'paint', 'line-color', palette.contour);
       } else if (l.type === 'symbol') {
@@ -200,7 +212,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       id: 'hills', type: 'hillshade', source: 'dem-hill',
       paint: {
         // Faint on the globe where tiles meet in seams, full relief once a country fills the view.
-        'hillshade-exaggeration': ['interpolate', ['linear'], ['zoom'], 0, 0.08, 2.5, 0.2, 5, 0.42, 8, 0.55],
+        'hillshade-exaggeration': ['interpolate', ['linear'], ['zoom'], 0, 0.08 * scheme().hill, 2.5, 0.2 * scheme().hill, 5, 0.42 * scheme().hill, 8, 0.55 * scheme().hill],
         'hillshade-shadow-color': palette.shade, 'hillshade-highlight-color': palette.high, 'hillshade-accent-color': palette.shade,
         'hillshade-illumination-direction': 315,
       },
@@ -242,17 +254,21 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   function addLayers(firstSymbolId: string | undefined, firstWaterId: string | undefined): void {
     const land = palette.land;
     map.addSource('countries', { type: 'geojson', data: opts.countries as never });
-    map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': accent, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.3, 0] } }, firstWaterId);
+    map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': accent, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0] } }, firstWaterId);
     map.addLayer({ id: 'country-dim', type: 'fill', source: 'countries', paint: { 'fill-color': land, 'fill-opacity': ['case', sel('dim'), 0.55, 0] } }, firstSymbolId);
-    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', paint: { 'line-color': accent, 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.4, 0], 'line-opacity': 0.95 } }, firstSymbolId);
+    // Hover: 1.5 px accent line with a 0.5 px ink casing; selected: 2 px with a 1 px casing (spec 6.3), so the edge reads on land and on water.
+    map.addLayer({ id: 'country-casing', type: 'line', source: 'countries', paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', paint: { 'line-color': accent, 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0], 'line-opacity': 1 } }, firstSymbolId);
 
     map.addSource('adm1', { type: 'geojson', data: (adm1 ?? EMPTY) as never });
-    map.addLayer({ id: 'adm1-fill', type: 'fill', source: 'adm1', paint: { 'fill-color': ['case', sel('hover'), accent, palette.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.28, 0.06] } }, firstSymbolId);
-    map.addLayer({ id: 'adm1-line', type: 'line', source: 'adm1', paint: { 'line-color': ['case', sel('selected'), accent, palette.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.6, 0.8], 'line-opacity': ['case', sel('dim'), 0.3, 0.9] } }, firstSymbolId);
+    map.addLayer({ id: 'adm1-fill', type: 'fill', source: 'adm1', paint: { 'fill-color': ['case', sel('hover'), accent, palette.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.06] } }, firstSymbolId);
+    map.addLayer({ id: 'adm1-casing', type: 'line', source: 'adm1', paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'adm1-line', type: 'line', source: 'adm1', paint: { 'line-color': ['case', sel('selected'), accent, palette.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.8], 'line-opacity': ['case', sel('dim'), 0.3, 0.9] } }, firstSymbolId);
 
     map.addSource('adm2', { type: 'geojson', data: (adm2 ?? EMPTY) as never });
-    map.addLayer({ id: 'adm2-fill', type: 'fill', source: 'adm2', paint: { 'fill-color': ['case', sel('hover'), accent, palette.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.3, 0.05] } }, firstSymbolId);
-    map.addLayer({ id: 'adm2-line', type: 'line', source: 'adm2', paint: { 'line-color': ['case', sel('selected'), accent, palette.border], 'line-width': ['case', sel('selected'), 2, 0.9], 'line-opacity': ['case', sel('dim'), 0.25, 0.85] } }, firstSymbolId);
+    map.addLayer({ id: 'adm2-fill', type: 'fill', source: 'adm2', paint: { 'fill-color': ['case', sel('hover'), accent, palette.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.05] } }, firstSymbolId);
+    map.addLayer({ id: 'adm2-casing', type: 'line', source: 'adm2', paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'adm2-line', type: 'line', source: 'adm2', paint: { 'line-color': ['case', sel('selected'), accent, palette.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.9], 'line-opacity': ['case', sel('dim'), 0.25, 0.85] } }, firstSymbolId);
     map.addLayer({
       id: 'adm2-label', type: 'symbol', source: 'adm2', minzoom: 6,
       layout: { 'text-field': ['get', 'name'], 'text-font': fontStack, 'text-size': ['interpolate', ['linear'], ['zoom'], 6, 10, 10, 13], 'text-padding': 6 },
@@ -345,44 +361,69 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     return null;
   }
 
-  function basemapAt(point: { x: number; y: number }): BasemapFeature | null {
+  /**
+   * Named basemap things under the pointer, ordered by class (spec 4.1): peaks and cities, then lakes and seas
+   * (`water_name`), rivers, parks from zoom 5. Hit box 5 px for a mouse, 12 px for a finger.
+   */
+  function basemapAt(point: { x: number; y: number }, touch = false): BasemapFeature | null {
     if (!hitLayers.length) return null;
-    const pad = 5;
-    const hits = map.queryRenderedFeatures([[point.x - pad, point.y - pad], [point.x + pad, point.y + pad]], { layers: hitLayers }).filter((f) => featureName(f.properties));
+    const z = map.getZoom();
+    const pad = touch ? 12 : 5;
+    const hits = map.queryRenderedFeatures([[point.x - pad, point.y - pad], [point.x + pad, point.y + pad]], { layers: hitLayers }).filter((f) => {
+      if (!featureName(f.properties)) return false;
+      if (f.sourceLayer === 'park' && z < 5) return false;
+      // Towns below rank 4 are too dense to be targets until the view is close.
+      if (f.sourceLayer === 'place' && z < 7 && Number(f.properties.rank ?? 9) > 4 && !['country', 'state', 'city'].includes(String(f.properties.class))) return false;
+      return true;
+    });
     if (!hits.length) return null;
-    const order: Record<string, number> = { mountain_peak: 0, place: 1, water_name: 2, waterway: 3, park: 4 };
+    const order: Record<string, number> = z < 5
+      ? { mountain_peak: 0, place: 0, water_name: 1, waterway: 2 }
+      : { mountain_peak: 0, place: 1, water_name: 2, waterway: 3, park: 4 };
     hits.sort((a, b) => (order[a.sourceLayer ?? ''] ?? 9) - (order[b.sourceLayer ?? ''] ?? 9));
     const h = hits[0];
     const d = describeBasemap(h.sourceLayer ?? '', h.properties);
     return { sourceLayer: h.sourceLayer ?? '', kind: d.kind, name: featureName(h.properties), extra: d.extra, lngLat: [0, 0], wikidata: (h.properties.wikidata as string) ?? null };
   }
 
+  const isTouch = (e: { originalEvent?: Event }) => (e.originalEvent as PointerEvent | undefined)?.pointerType === 'touch' || (e.originalEvent?.type ?? '').startsWith('touch');
+
   const onPin = (e: { originalEvent?: Event }) => !!(e.originalEvent?.target as Element | undefined)?.closest?.('[data-globe-pin]');
+
+  /** Spec 4.1: below zoom 3 the shapes are the only targets; from 3 up a named point or line within the hit box beats any fill. */
+  type Pick = { kind: 'feature'; f: BasemapFeature } | { kind: 'shape'; layer: HitLayer; id: number } | null;
+  function pick(e: MapMouseEvent): Pick {
+    if (map.getZoom() >= 3) {
+      const f = basemapAt(e.point, isTouch(e));
+      if (f) return { kind: 'feature', f };
+    }
+    const hit = shapeAt(e.point);
+    return hit ? { kind: 'shape', ...hit } : null;
+  }
 
   map.on('mousemove', (e: MapMouseEvent) => {
     if (onPin(e)) { setHover(null, null); hideTip(); return; }
-    const hit = shapeAt(e.point);
-    if (hit) {
-      const src = hit.layer === 'country' ? 'countries' : hit.layer;
-      setHover(src, hit.id);
-      const info = handlers.describe?.(hit.layer, hit.id);
+    const p = pick(e);
+    if (p?.kind === 'shape') {
+      if (hovered) { hovered = null; applyFeatureHighlight(); }
+      setHover(p.layer === 'country' ? 'countries' : p.layer, p.id);
+      const info = handlers.describe?.(p.layer, p.id);
       if (info) showTip(e, info, 'shape');
       spin = touchSpin(spin, performance.now());
       return;
     }
     setHover(null, null);
-    const f = basemapAt(e.point);
-    if (!f) { if (tipOwner) hideTip(); if (hovered) { hovered = null; applyFeatureHighlight(); } return; }
+    if (!p) { if (tipOwner) hideTip(); if (hovered) { hovered = null; applyFeatureHighlight(); } return; }
+    const f = p.f;
     if (hovered?.name !== f.name || hovered.sourceLayer !== f.sourceLayer) { hovered = f; applyFeatureHighlight(); }
     showTip(e, { kicker: f.kind, title: f.name, sub: `${f.extra ? `${f.extra} · ` : ''}click to select` }, 'basemap');
   });
   container.addEventListener('mouseleave', () => { setHover(null, null); hideTip(); if (hovered) { hovered = null; applyFeatureHighlight(); } });
   map.on('click', (e: MapMouseEvent) => {
     if (onPin(e)) return;
-    const hit = shapeAt(e.point);
-    if (hit) { handlers.onShape?.(hit.layer, hit.id); return; }
-    const f = basemapAt(e.point);
-    if (f) { f.lngLat = [e.lngLat.lng, e.lngLat.lat]; handlers.onBasemap?.(f); } else handlers.onBackground?.();
+    const p = pick(e);
+    if (p?.kind === 'shape') { handlers.onShape?.(p.layer, p.id); return; }
+    if (p) { p.f.lngLat = [e.lngLat.lng, e.lngLat.lat]; handlers.onBasemap?.(p.f); } else handlers.onBackground?.();
   });
 
   // ---- camera --------------------------------------------------------------------------------------------
@@ -435,21 +476,27 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     setFeature(f) { feature = f; applyFeatureHighlight(); },
     setPadding(p) { padding = p; },
     setSpin(enabled, world) { spinEnabled = enabled; worldView = world; },
+    frameWorld(c, pad, animate) {
+      const token = ++flyToken;
+      void token;
+      const cam = { center: [c.lng, c.lat] as [number, number], zoom: c.zoom, pitch: 0, bearing: 0, padding: pad };
+      if (!animate || reduced()) map.jumpTo(cam); else map.flyTo({ ...cam, duration: 400, essential: false });
+    },
     flyToBox(b, o = {}) {
       const token = ++flyToken;
       const tilt = o.tilt !== false;
       if (spanLon(b) > 170) {
         const c = centreOf(b);
-        if (reduced()) map.jumpTo({ center: c, zoom: 2.6, pitch: 0, bearing: 0 });
-        else map.flyTo({ center: c, zoom: 2.6, pitch: 0, bearing: 0, duration: FLY_MS, essential: false });
+        if (reduced()) map.jumpTo({ center: c, zoom: 2.6, pitch: 0, bearing: 0, padding: ZERO_PAD });
+        else map.flyTo({ center: c, zoom: 2.6, pitch: 0, bearing: 0, padding: ZERO_PAD, duration: FLY_MS, essential: false });
         return;
       }
       const cam = map.cameraForBounds([b[0], b[1]], { padding, maxZoom: o.maxZoom ?? 8 });
       if (!cam?.center) return;
       const center = cam.center as { lng: number; lat: number };
       const zoom = cam.zoom ?? 5;
-      if (reduced()) { map.jumpTo({ center, zoom, pitch: 0, bearing: 0 }); return; }
-      map.flyTo({ center, zoom, pitch: 0, bearing: 0, duration: FLY_MS, essential: false });
+      if (reduced()) { map.jumpTo({ center, zoom, pitch: 0, bearing: 0, padding: ZERO_PAD }); return; }
+      map.flyTo({ center, zoom, pitch: 0, bearing: 0, padding: ZERO_PAD, duration: FLY_MS, essential: false });
       tiltAfter(token, tilt && zoom >= TERRAIN_MIN_ZOOM);
     },
     flyToPoint(p, zoom, o = {}) {
@@ -458,7 +505,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       map.flyTo({ center: p, zoom, pitch: 0, bearing: 0, duration: FLY_MS, essential: false, padding });
       tiltAfter(token, !!o.tilt && zoom >= TERRAIN_MIN_ZOOM);
     },
-    jumpTo(c) { flyToken++; map.jumpTo({ center: [c.lng, c.lat], zoom: c.zoom }); },
+    jumpTo(c) { flyToken++; map.jumpTo({ center: [c.lng, c.lat], zoom: c.zoom, padding: ZERO_PAD }); },
     camera,
     zoomBy(d) { flyToken++; if (reduced()) map.jumpTo({ zoom: map.getZoom() + d }); else map.easeTo({ zoom: map.getZoom() + d, duration: 200 }); },
     syncMarkers(ns, specs) {
