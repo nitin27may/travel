@@ -147,4 +147,44 @@ export const WHEELCHAIR = ["step_free", "partial", "none"] as const;
 export const LIMIT_REASON = ["harness", "seat", "equipment", "insurance", "law", "policy"] as const;
 export const SUIT_KIND = [
   "trail", "viewpoint", "waterfall", "lake", "sight", "town", "activity", "lift", "swim_spot", "stay", "eatery",
+  "drive",
+] as const;
+
+// suitability applicability (docs/v2/research/suitability-applicability.md section 6.1). Append only.
+/** The profiles of data/schema/suitability-applicability.json. `river_hike` is the 35th: owner decision on Q1 (a hike with water fields). */
+export const SUIT_PROFILE = [
+  "hike", "river_hike", "walk", "viewpoint", "lake", "swim", "waterfall", "beach", "drive", "town", "sight", "lift", "boat",
+  "canoe_kayak", "sup", "rafting", "float", "zipline", "bungee", "ferrata", "mtb_lift", "mtb_xc", "cycle_path",
+  "horse", "show_cave", "caving", "glacier", "snow", "wildlife", "hot_spring", "coaster", "paraglide", "air_tour",
+  "stay", "eatery",
+] as const;
+/** Closed subkind vocabulary; the applicability file maps each (kind, subkind) pair to exactly one profile. */
+export const SUIT_SUBKIND = [
+  "hike", "river_hike", "scramble", "trek_stage", "walk", "guided-hike", "heli-hike",
+  "viewpoint", "summit", "pullout", "lake", "swim_spot", "beach", "hot_spring", "waterfall", "canyon", "gorge",
+  "scenic_drive", "town", "village", "city",
+  "museum", "castle", "landmark", "historic_site", "visitor_centre", "attraction", "cave",
+  "gondola", "cable_car", "chairlift", "funicular", "rack_railway", "scenic_train",
+  "boat-tour", "cruise", "zodiac", "boat-shuttle", "canoe", "kayak", "sup", "rafting", "float",
+  "zipline", "bungee", "swing", "via-ferrata", "bike-park", "mtb", "cycling", "horse", "caving",
+  "glacier-walk", "ice-trek", "ski", "snowshoe", "sled", "wildlife", "wildlife_viewing",
+  "hot-springs", "thermal-bath", "spa", "coaster", "paragliding", "heli", "scenic-flight", "vehicle-tour",
+  ...STAY_KIND, "restaurant", "cafe", "bakery", "teahouse", "bar", "market", "grocery", "hut_kitchen",
+] as const;
+export const APPLICABILITY = ["R", "A", "N", "op"] as const;
+export const SUIT_LEVEL = ["draft", "usable", "complete"] as const;
+export const MEDICAL = [
+  "heart", "high_blood_pressure", "epilepsy", "neurological", "back_neck", "recent_surgery", "dislocation",
+  "asthma", "diabetes", "mobility", "balance", "lung",
+] as const;
+export const KIT = [
+  "pfd", "helmet", "wetsuit", "booties", "spray_jacket", "fleece", "harness", "lanyard", "crampons",
+  "microspikes", "ice_axe", "boots", "gloves", "headlamp", "body_armour", "full_face_helmet", "bike",
+] as const;
+export const WEAR = [
+  "closed_shoes", "hiking_boots", "long_trousers", "layers", "swimwear", "change_of_clothes", "sun_hat",
+  "warm_hat", "rain_shell",
+] as const;
+export const WEATHER_CAUSE = [
+  "wind", "lightning", "rain", "river_level", "sea_state", "visibility", "heat", "snow", "fog", "maintenance",
 ] as const;

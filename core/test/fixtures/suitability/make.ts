@@ -5,7 +5,7 @@
 // broken/  one file per E_SUIT_* code; each yields that code and no other error
 // warn/    one file per W_SUIT_* code; each yields that warning and no error
 // The values are synthetic: they exercise the code and are not data.
-import { mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { projectFlat } from "../../../src/suitability/derive.ts";
@@ -35,7 +35,7 @@ function doc(records: Any[], over: Any = {}): Any {
 function flat(records: Any[]): Any[] {
   return records.map((r) => ({ ...r, flat: projectFlat(r as SuitabilityRecord) }));
 }
-const braies = (suitability: Any = {}, over: Any = {}): Any => ({ ref: "place/lago-di-braies", kind: "lake", suitability, ...over });
+const braies = (suitability: Any = {}, over: Any = {}): Any => ({ ref: "place/lago-di-braies", kind: "lake", subkind: "lake", suitability, ...over });
 
 // ---------------------------------------------------------------- root
 clear("root/data/suitability");
@@ -86,8 +86,24 @@ const lake = (): Any => braies({
   water_safety: { lifejacket: val("bring_own", "official_info"), swim_ability: val("none_needed", "official_info"), lifeguard: { v: null, state: "searched_none", basis: null, src: [], on: "2026-10-18", tried: ["lake operator page", "municipality page"] } },
   access_season: val([{ from: "06-15", to: "09-30", status: "open", via: "road", note: "booking-only access 09:00-16:00 in summer" }], "official_info", { applies_to: "2026" }),
 }, { ext: { kind: "water" } });
+// the new shared groups and extensions: an operated alpine coaster (solo rule, participation, the coaster extension)
+const coaster = (): Any => ({
+  ref: "place/funbob-monte-baranci", kind: "activity", subkind: "coaster",
+  suitability: {
+    min_age: val(3, "operator_rule"),
+    solo: val({ min_age: 8, min_height_cm: 135 }, "operator_rule", { note: "the boards disagree on 7 or 8; kept as the operator's own page says (synthetic)" }),
+    hazards: val([{ category: "road", note: "wet track closes in heavy rain" }], "official_info"),
+    participation: {
+      pregnancy: val("not_allowed", "operator_rule"),
+      weather_cancel: val({ causes: ["rain", "lightning"], policy: "refund" }, "operator_rule"),
+      waiver: val({ required: false, guardian_signs_under: null, guardian_present: null }, "operator_rule"),
+    },
+  },
+  ext: { kind: "coaster", max_load_kg: val(150, "operator_rule"), driver_rule: val({ min_age: 18 }, "operator_rule") },
+});
+put("valid/coaster.json", doc(flat([coaster()])));
 put("valid/trail-and-activity.json", doc(flat([trail(), rafting()])));
-put("valid/lake.json", doc(flat([lake(), { ref: "trip/fixture-trip/trail:tre cime", kind: "trail", suitability: {} }]), { trip: "fixture-trip", lane: "fixture-lake" }));
+put("valid/lake.json", doc(flat([lake(), { ref: "trip/fixture-trip/trail:tre cime", kind: "trail", subkind: "hike", suitability: {} }]), { trip: "fixture-trip", lane: "fixture-lake" }));
 
 // ---------------------------------------------------------------- broken
 clear("broken");
@@ -111,6 +127,15 @@ broken.E_SUIT_STEP_FREE = doc(one({ wheelchair: val("step_free", "community") })
   recs[0]!.flat.min_age = 9;
   broken.E_SUIT_FLAT_DRIFT = doc(recs);
 }
+// ---- S0b: applicability (one failing fixture per new error code)
+broken.E_SUIT_SUBKIND = doc(flat([{ ref: "place/lago-di-braies", kind: "lake", suitability: {} }]));
+broken.E_SUIT_EXT_KIND = doc(flat([braies({}, { ext: { kind: "trail", shape: "loop" } })]));
+broken.E_SUIT_NA_EXEMPT = doc(one({ wheelchair: { v: null, state: "not_applicable", basis: null, src: [] } }));
+{
+  const app = JSON.parse(readFileSync(join(HERE, "../../../../data/schema/suitability-applicability.json"), "utf8")) as Any;
+  app.profiles.swim.match.push({ kind: "lake", subkind: "lake" }); // the pair lake/lake now maps to two profiles
+  broken.E_SUIT_PROFILE_MAP = app;
+}
 for (const [code, d] of Object.entries(broken)) put(`broken/${code}.json`, d);
 
 // ---------------------------------------------------------------- warnings
@@ -120,7 +145,10 @@ warn.W_SUIT_STALE = doc(one({ min_age: val(8, "operator_rule") }), { sources: [s
 warn.W_SUIT_CONFLICT = doc(one({ effort: { drivers: { distance_km: val(7.8, "official_info", { conflicts: [{ v: 7.4, basis: "official_info", src: ["src-0001"], note: "second official figure (synthetic)" }] }) } } }));
 warn.W_SUIT_COMMUNITY_ONLY = doc(one({ shade: val("partial", "community") }));
 warn.W_SUIT_MARGINAL_CONVERSION = doc(one({ min_height_cm: val(112, "operator_rule", { quote: "44 in", note: "44 in = 112 cm" }) }));
-warn.W_SUIT_FLAT_MISSING = doc([braies({ min_age: val(8, "operator_rule") })]);
+warn.W_SUIT_FLAT_MISSING = doc([braies({ min_age: val(8, "operator_rule") }, { kind: "activity", subkind: "boat-tour" })]);
+warn.W_SUIT_NA_FIELD = doc(one({ stroller_on_board: val("no", "operator_rule") })); // a lake has no carriage rule
+warn.W_SUIT_BELOW_USABLE = doc(one({}));
+warn.W_SUIT_OPERATED_DEFAULT = doc(flat([braies({}, { operated: true })]));
 for (const [code, d] of Object.entries(warn)) put(`warn/${code}.json`, d);
 
 void ({} as SuitabilityDoc);
