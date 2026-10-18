@@ -6,14 +6,17 @@
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cleanAuthor } from './og-text.mjs';
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(WEB, process.env.NEXT_DIST_DIR || 'out');
 const CACHE = path.join(WEB, '.og-cache');
 const manifestFile = path.join(OUT, 'og-manifest.json');
-if (!existsSync(manifestFile)) { console.log('og: no manifest, skipped'); process.exit(0); }
-const { items } = JSON.parse(readFileSync(manifestFile, 'utf8'));
-rmSync(manifestFile);
+// `node scripts/og.mjs --default-only --write-public` redraws just public/og-default.png (no export needed).
+const defaultOnly = process.argv.includes('--default-only');
+if (!defaultOnly && !existsSync(manifestFile)) { console.log('og: no manifest, skipped'); process.exit(0); }
+const items = defaultOnly ? [] : JSON.parse(readFileSync(manifestFile, 'utf8')).items;
+if (!defaultOnly) rmSync(manifestFile);
 
 const themes = readFileSync(path.join(WEB, 'app', 'themes.css'), 'utf8');
 const token = (name) => new RegExp(`${name}:\\s*(#[0-9A-Fa-f]{6})`).exec(themes)?.[1] ?? '';
@@ -53,7 +56,7 @@ h1{font:800 ${it.title.length > 34 ? 92 : 120}px/.88 'Big Shoulders Display';tex
 .c{position:absolute;left:64px;right:64px;bottom:30px;display:flex;justify-content:space-between;font:500 18px 'IBM Plex Mono';color:rgba(255,255,255,.82)}
 </style><div class="ph"></div><div class="sc"></div>
 <div class="t"><div class="k">${esc(it.sub)}</div><h1>${esc(it.title)}</h1></div>
-<div class="c"><span>nks-travel.pages.dev</span><span>${photo && it.photo?.author ? esc(`Photo: ${it.photo.author.slice(0, 48)}, ${it.photo.licence ?? ''}`) : ''}</span></div><div class="bar"></div>`;
+<div class="c"><span>nks-travel.pages.dev</span><span>${photo && it.photo?.author ? esc(`Photo: ${cleanAuthor(it.photo.author).slice(0, 48)}, ${it.photo.licence ?? ''}`) : ''}</span></div><div class="bar"></div>`;
 
 let browser;
 try {
@@ -62,6 +65,8 @@ try {
 } catch (e) { console.warn(`og: no browser (${String(e).split('\n')[0]}); copying og-default.png`); }
 
 let made = 0, plain = 0;
+// The site-wide card (home, lists, anything without its own image): same pipeline, no photo, navy ground and the gold bar.
+const DEFAULT = { kind: '', slug: '', title: 'Trip plans', sub: 'Researched trips, trails and places', photo: null };
 const ctx = browser ? await browser.newContext({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 }) : null;
 for (const it of items) {
   const dir = path.join(OUT, 'og', it.kind);
@@ -76,6 +81,15 @@ for (const it of items) {
   writeFileSync(dest, await p.screenshot({ type: 'jpeg', quality: 72 }));
   await p.close();
   made++;
+}
+if (ctx) {
+  const p = await ctx.newPage();
+  await p.setContent(page(DEFAULT, null), { waitUntil: 'load' });
+  await p.evaluate(() => document.fonts.ready);
+  const png = await p.screenshot({ type: 'png' });
+  if (!defaultOnly) writeFileSync(path.join(OUT, 'og-default.png'), png);
+  if (process.argv.includes('--write-public')) writeFileSync(path.join(WEB, 'public', 'og-default.png'), png);
+  await p.close();
 }
 await browser?.close();
 console.log(`og: ${made} images (${plain} without a photo) in ${path.relative(WEB, path.join(OUT, 'og'))}`);
