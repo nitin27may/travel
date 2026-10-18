@@ -71,3 +71,34 @@ plan. The public pages are designed for the 90% first, and every screen names it
 - **Build briefs** state which principles a lane must satisfy and how its acceptance checks measure them,
   for example "every day row answers effort, time and bookings at rest" (P2, P6).
 - **The verifier sweep** includes a first-use walk with no prior knowledge (P4) and a large-data check (P1).
+
+## Applied to travel: decisions (coordinator, 18 Oct 2026, cross-checked against what is built)
+
+The owner asked that each principle be checked against the travel domain and the built site before it is locked.
+The decisions below are binding. Where a principle is adapted, the adaptation wins over the general wording above.
+
+| Principle | Decision for travel | Built today (checked) | Gap, and where it is fixed |
+|---|---|---|---|
+| P1 scale | **Adapt.** Design the structure for 10,000 places: counts, grouping, clustering, virtualised long lists, search that stays fast. Do not build a server search yet: year one has under 100 users and about 120 entities, and two years of capture is about 1-2k. Test the UI with 10,000 synthetic places, but keep budgets for the real size. | Lists group and paginate. The globe clusters. `search-index.json` is 37 KB for about 120 entities, which would be about 3 MB at 10,000. | Split the search index by kind and country, and load each part when it is needed (backlog 2.20). The 10,000-place synthetic check is part of the stage 5 sweep (5.1). |
+| P2 progressive | **Adopt, with a safety exception.** Detail opens step by step. But anything that can stop a visit or hurt someone stays visible at rest, never behind a click: hard age, height or weight limits, closures, permits and timed slots that must be booked, and the main hazards (bear spray, exposure, tides, river crossings). In travel, a hidden constraint is a failed trip. | The trip page has no timeline yet (L3c). Place pages render every section even when it is empty: Lake Louise shows 12 "No ... recorded yet" phrases. | Place pages collapse empty sections into one "Not researched yet: parking, fees, swimming ..." line (2.21). L3c and L2b briefs must keep the safety items visible at rest (3.1, 3.3). |
+| P3 glance | **Adopt.** A trip card or day row answers at a glance: how long, how hard, for whom, when to go, and what must be booked. | Trip cards show length and season. Day rows show the drive. Effort and age come with suitability S1. | S1 suitability chips on day rows and cards (3a.5). Booking-due markers on days come with L3c (3.1). |
+| P4 no manual | **Adopt, with one exception.** Filters and search must be obvious on first use. Show four primary filters (Places: Country, Kind, Season, Kids; Trips: Where, When, Length, Kids) and put the rest under "More filters". Show the result count as you choose, offer one "Clear all", and an empty result suggests the nearest match. The exception: honesty markers ("Estimate", "Sources disagree") keep a short tooltip, because trust needs the reason. | Places shows 8 filters at once. Trips shows 4. Counts and chips exist. There is no "More filters" and no nearest-match empty state. | Filter hierarchy and empty states for Places (2.22) and Trips (inside L3b, 3.2). |
+| P5 smooth | **Adopt, within a budget.** Transitions are short and keep context, and reduced motion jumps. Smoothness never costs first paint on phones in the field, where the signal is weak. | Globe at 60 fps on the GPU. One 267 ms hitch on fly-in (L2 verifier measuring). The map does not yet follow the timeline. | Globe long tasks (L2b M12, 3.3). The map following the scroll (L3c, 3.1). |
+| P6 metadata | **Adopt.** Each fact appears where the decision is made: suitability on the day row, steepness when the trail opens, the booking window on the day it falls due, the season on the card. Chips, not paragraphs, with provenance one step away. | Research markers leak into prose (INFERENCE, CALC). Units are mixed in notes. | L3c markers to chips and units (3.1). Suitability chips (3a.5). |
+| P7 the 90% | **Adopt.** The primary action on a public trip is "Copy with my dates" (or "Add to calendar" for a short trip). On a place, it is "Directions" or "Save to a trip". | "Save to a trip" and "Copy to my trips" exist, with no defined behaviour before sign-in. | Make each action real or plainly labelled (2.13). |
+
+### Travel needs the general principles do not cover (added)
+
+| ID | Principle | Why it matters in travel |
+|---|---|---|
+| T1 | **When is part of every answer.** Season windows, booking windows and opening hours are first-class, shown on cards, days and places, never only in prose. | A place that is right in July is wrong in October, and a booking missed by a week can cancel a day. |
+| T2 | **Works in the field.** Phone first, one hand, poor signal. Trip and place pages print and export cleanly (PDF, GPX, KML), and nothing essential needs a live map load. | Trailheads and car parks have little or no signal. |
+| T3 | **Trust shows its age.** Every fact that changes (prices, hours, closures, lift seasons) shows when it was read, and "2026 data used as a pattern" stays visible on future trips. | Stale travel data costs real money and time. |
+| T4 | **Families first, everyone included.** Suitability (age, stroller, effort) drives filters and the trip profile. Accessibility is shown honestly as chips, even before it is a full profile control (Q12). | The household and its audience travel with children. |
+| T5 | **Honest maps.** We draw only points and lines we hold, with their source. Approximate pins say so, and directions start from our coordinates. | A wrong pin sends a car to the wrong car park. |
+
+### Not adopted, and why
+
+- **A server search, personalisation and recommendations now.** These are not worth the cost at under 100 users. Revisit at about 1,000 users.
+- **Infinite scroll on lists.** It breaks URL state and the back button, which P4 and P5 depend on. Keep pagination with the page number in the URL.
+- **Hiding the honesty markers to look cleaner.** Trust (T3) beats tidiness. Markers stay, styled quietly.
