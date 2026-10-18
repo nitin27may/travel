@@ -1,0 +1,352 @@
+<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Trailhead · Switching trips in Bookings</title><style>@font-face { font-family: 'Big Shoulders Display'; src: url('../fonts/big-shoulders-display-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: block; }
+@font-face { font-family: 'Source Serif 4'; src: url('../fonts/source-serif-4-latin-wght-normal.woff2') format('woff2'); font-weight: 200 900; font-style: normal; font-display: block; }
+@font-face { font-family: 'Source Serif 4'; src: url('../fonts/source-serif-4-latin-wght-italic.woff2') format('woff2'); font-weight: 200 900; font-style: italic; font-display: block; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('../fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: block; }
+:root{--bg:#F5F6F8;--deep:#ECEFF3;--surface:#FFFFFF;--surface2:#E9EDF2;--line:#D8DEE5;--line2:#8C99A8;--ink:#172230;--ink2:#2B3746;--muted:#4D5B6B;
+--accent:#D9962B;--accent-ink:#241703;--accent-text:#8A5300;--accent-soft:#FBEFD9;--teal:#0B5B5E;--crit:#A8341F;--crit-fill:#B3402A;--crit-soft:#F9E5E0;
+--ok:#1D6B3A;--ok-soft:#E0F0E6;--header:#172230;--header-ink:#F4F6F8;--header-mute:#B8C3CF;--header-line:#3A4A5D;--header-2:#1F2D3D;
+--route:#172230;--halo:#FFFFFF;--img:1;--shadow:0 0 0 1px #D8DEE5,0 20px 50px rgba(23,34,48,.16);
+--display:'Big Shoulders Display','Arial Narrow',sans-serif;--serif:'Source Serif 4',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;color-scheme:light}
+[data-theme=dark]{--bg:#0F1620;--deep:#0B1119;--surface:#16202C;--surface2:#1E2A38;--line:#2A3A4C;--line2:#52667B;--ink:#E7ECF1;--ink2:#C9D2DC;--muted:#A3B0BE;
+--accent:#D9962B;--accent-ink:#241703;--accent-text:#E8A94A;--accent-soft:#2E2617;--teal:#5CC4C8;--crit:#F28E80;--crit-fill:#C4553D;--crit-soft:#3A2020;
+--ok:#8FD0A0;--ok-soft:#173025;--header:#0B1119;--header-2:#16202C;--header-line:#3A4A5D;--route:#E7ECF1;--halo:#0F1620;--img:.92;--shadow:0 0 0 1px #2A3A4C,0 20px 50px rgba(0,0,0,.5);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+[data-theme=dark] .tmap .img-light{display:none}:root:not([data-theme=dark]) .tmap .img-dark{display:none}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--serif);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;filter:brightness(var(--img))}
+.ic{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.d{font-family:var(--display);font-weight:800;letter-spacing:.005em;line-height:.95}
+.m{font-family:var(--mono)}
+.lab{font:500 12px/1.3 var(--mono);color:var(--muted)}
+.cap{font:600 11.5px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:8px;border:1px solid var(--line2);background:transparent;color:var(--ink);font:500 13px var(--mono);white-space:nowrap;cursor:pointer}
+.btn:hover{border-color:var(--accent-text)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn.sm{height:30px;padding:0 10px;font-size:12px}
+.btn.icon{width:38px;padding:0;justify-content:center}
+.pill{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;font:500 13px var(--mono);color:var(--ink2);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border:1px solid var(--line2);border-radius:999px;font:500 11.5px var(--mono);color:var(--ink2);white-space:nowrap}
+.chip .ic{width:13px;height:13px}
+.chip.acc{border-color:var(--accent);color:var(--accent-text);background:var(--accent-soft)}
+.chip.teal{border-color:color-mix(in srgb,var(--teal) 60%,transparent);color:var(--teal)}
+.chip.idea{border-style:dashed}
+.chip.crit{border-color:var(--crit-fill);color:var(--crit);background:var(--crit-soft)}
+.chip.ok{border-color:transparent;color:var(--ok);background:var(--ok-soft)}
+.chip.honest{border-style:dashed;border-color:var(--crit-fill);color:var(--crit)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none;background:var(--tc);box-shadow:0 0 0 1.5px var(--bg)}
+/* header */
+.hdr{height:60px;display:flex;align-items:center;gap:28px;padding:0 32px;background:var(--header);border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:20;color:var(--header-ink)}
+.brand{font:800 24px/1 var(--display);letter-spacing:.02em}
+.tabs-g{display:flex;gap:4px;height:100%}
+.tabs-g a{display:flex;align-items:center;padding:0 12px;font:500 13.5px var(--mono);color:var(--header-mute);border-bottom:2px solid transparent;margin-bottom:-2px}
+.tabs-g a[aria-current]{color:#F4F6F8;border-color:var(--header-ink)}
+.hdr .sp{flex:1}
+.tsw{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px 0 4px;border:1px solid var(--header-line);border-radius:999px;font:500 13px var(--mono);color:var(--header-ink);background:var(--header-2)}
+.tsw img{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--header-2),0 0 0 4.5px var(--tc)}
+.tsw b{font:800 18px/1 var(--display);letter-spacing:.01em}
+.hdr .btn{color:var(--header-ink);border-color:var(--header-line)}
+/* trip bar */
+.tbar{position:sticky;top:60px;z-index:15;background:var(--deep);border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;padding:12px 32px 0}
+.tbar .who{display:flex;align-items:center;gap:14px;padding-bottom:12px}
+.tbar .ph{width:84px;height:56px;border-radius:8px;overflow:hidden;position:relative}
+.tbar .ph img{width:100%;height:100%;object-fit:cover}
+.tbar .ph:after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--tc)}
+.tbar h1{font:800 40px/.9 var(--display)}
+.tbar .meta{display:flex;gap:8px;align-items:center;margin-top:6px}
+.ttabs{display:flex;gap:2px;align-self:end}
+.ttabs a{white-space:nowrap;display:flex;align-items:center;gap:8px;height:46px;padding:0 14px;font:500 13.5px var(--mono);color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.ttabs a span{font-size:11.5px;color:var(--muted)}
+.ttabs a[aria-current]{color:var(--ink);border-color:var(--accent)}
+.tbar .acts{display:flex;gap:8px;padding-bottom:12px}
+/* page */
+.wrap{max-width:1376px;margin:0 auto;padding:0 32px}
+.ptitle{padding:36px 0 18px;display:flex;align-items:flex-end;gap:24px}
+.ptitle h1{font:800 88px/.85 var(--display)}
+.ptitle p{font-size:19px;color:var(--ink2);margin-top:12px}
+.ptitle .acts{margin-left:auto;display:flex;gap:8px}
+.needs{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 20px 10px;margin-bottom:28px}
+.needs .hd{display:flex;align-items:baseline;gap:14px;padding:12px 0 6px}
+.needs h2{font:800 30px/1 var(--display)}
+.ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.ncol{padding:10px 18px 10px 0;border-right:1px solid var(--line)}
+.ncol+.ncol{padding-left:18px}
+.ncol:last-child{border-right:0}
+.nhead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.nhead img{width:36px;height:36px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--surface),0 0 0 4.5px var(--tc)}
+.nhead b{font:800 22px/1 var(--display)} .nhead small{display:block;font:500 11.5px var(--mono);color:var(--muted);margin-top:2px}
+.nrow{padding:9px 0;border-top:1px solid var(--line)}
+.nrow .due{display:flex;gap:8px;align-items:center;font:500 12px var(--mono);color:var(--muted)}
+.nrow .due b{color:var(--ink);font-weight:600}
+.nrow .due.crit,.nrow .due.crit b{color:var(--crit)}
+.nrow .w{font-weight:600;font-size:16px;line-height:1.3;margin:2px 0}
+.nrow .acts{display:flex;gap:6px;margin-top:6px}
+.toolbar{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:6px 0}
+.search{display:flex;align-items:center;gap:10px;height:42px;width:300px;padding:0 12px;border:1px solid var(--line2);border-radius:8px;color:var(--muted);font-size:17px}
+.search kbd{margin-left:auto;font:500 12px var(--mono);border:1px solid var(--line2);border-radius:4px;padding:0 6px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.views{display:inline-flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+.views a{display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;font:500 13px var(--mono);color:var(--ink2);border-right:1px solid var(--line2)}
+.views a:last-child{border:0}
+.views a[aria-current]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.subbar{display:flex;align-items:center;gap:12px;padding:8px 0 18px;border-bottom:1px solid var(--line)}
+.count{font:800 34px/1 var(--display);color:var(--accent-text)} .count small{font:500 13px var(--mono);color:var(--muted);margin-left:6px}
+.subbar .sp{flex:1}
+.selbox{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:1px solid var(--line2);border-radius:6px;font:500 12.5px var(--mono);color:var(--ink)}
+.ghead{display:flex;align-items:baseline;justify-content:space-between;padding:26px 0 10px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.ghead h2{font:800 34px/1 var(--display)}
+.ghead span{font:500 12.5px var(--mono);color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.card .ph{position:relative;aspect-ratio:16/10;overflow:hidden}
+.card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .ph:after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--tc)}
+.card .ph .glyph{width:100%;height:100%;display:grid;place-items:center;background:var(--surface2);color:var(--teal);font:500 12px var(--mono)}
+.card .in{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font:800 30px/.95 var(--display)}
+.card .meta{font:400 12.5px/1.45 var(--mono);color:var(--muted)}
+.card .chips{display:flex;gap:6px;flex-wrap:wrap}
+.card p{font-size:16px;line-height:1.4;color:var(--ink2)}
+.card .next{display:flex;gap:8px;align-items:flex-start;padding-top:10px;margin-top:auto;border-top:1px solid var(--line);font:500 12.5px/1.4 var(--mono);color:var(--ink2)}
+.card .next.crit{color:var(--crit)}
+.ready{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.ready i{height:4px;border-radius:2px;background:var(--line);position:relative;overflow:hidden}
+.ready i b{position:absolute;inset:0 auto 0 0;background:var(--ink2)}
+.donecards .card .ph img{filter:saturate(.6) brightness(var(--img))}
+.credits{max-width:1376px;margin:0 auto;padding:36px 32px 56px;color:var(--muted);font:400 12px/1.6 var(--mono)}
+.credits h2{font:600 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.credits ol{columns:2;column-gap:40px;margin:10px 0 0 20px}
+.credits a{text-decoration:underline}
+/* plan */
+.plan{display:grid;grid-template-columns:256px 620px 1fr;height:900px}
+.outline{border-right:1px solid var(--line);padding:18px 16px;overflow:hidden;background:var(--deep)}
+.ob{display:flex;align-items:center;gap:10px;margin:14px 0 6px}
+.ob img,.ob .ni{width:36px;height:28px;border-radius:5px;object-fit:cover;background:var(--surface2);display:grid;place-items:center;color:var(--muted)}
+.ob b{font:800 20px/1 var(--display)} .ob span{margin-left:auto;font:500 11.5px var(--mono);color:var(--muted)}
+.od{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;height:30px;padding:0 8px;border-radius:6px;font:400 14px var(--serif)}
+.od .n{font:600 12.5px var(--mono);color:var(--muted)}
+.od .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink2)}
+.od .dr{font:500 11.5px var(--mono);color:var(--muted)}
+.od .fl{width:6px;height:6px;border-radius:50%;background:var(--crit);display:inline-block;margin-left:4px;vertical-align:middle}
+.od[aria-current]{background:var(--surface2)} .od[aria-current] .n{color:var(--accent-text)} .od[aria-current] .t{color:var(--ink);font-weight:600}
+.doc{overflow:hidden;padding:20px 32px;border-right:1px solid var(--line)}
+.nextb{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font:500 13px var(--mono)}
+.nextb .btn{margin-left:auto}
+.add{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border:1px dashed var(--line2);border-radius:10px;color:var(--muted);margin:14px 0 6px;font-size:16px}
+.add kbd{margin-left:auto;font:500 12px var(--mono);border:1px solid var(--line2);border-radius:4px;padding:0 6px}
+.dcol{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.dcol .n{font:600 12.5px var(--mono);color:var(--muted)}
+.dcol b{font-weight:600} .dcol small{display:block;font:500 12px var(--mono);color:var(--muted)}
+.dcol img{width:60px;height:40px;border-radius:5px;object-fit:cover}
+.day{padding:18px 0 6px;border-bottom:1px solid var(--line)}
+.sign{display:inline-flex;align-items:center;height:30px;padding:0 14px 0 10px;background:var(--accent);color:var(--accent-ink);font:800 19px/1 var(--display);letter-spacing:.04em;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%)}
+.sign.quiet{background:var(--surface2);color:var(--ink)}
+.dh{display:flex;align-items:center;gap:14px}
+.dh h3{font:800 32px/1 var(--display)}
+.dsum{display:flex;gap:14px;margin:8px 0 4px;font:500 12.5px var(--mono);color:var(--muted);flex-wrap:wrap}
+.dsum span{display:flex;gap:6px;align-items:center}
+.it{display:grid;grid-template-columns:20px 50px 26px 1fr 96px;gap:10px;align-items:start;padding:10px 0;border-radius:10px}
+.it .gr{color:var(--muted);padding-top:3px}.it .gr .ic{stroke-width:2.8}
+.it .t{font:600 13.5px var(--mono);padding-top:3px}
+.it .kd{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);color:var(--teal)}
+.it .kd .ic{width:15px;height:15px}
+.it h4{font:600 17px/1.25 var(--serif);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.it .im{font:500 12px var(--mono);color:var(--muted);margin-top:2px}
+.it .inote{font:italic 400 15.5px/1.4 var(--serif);color:var(--ink2);margin-top:4px}
+.it img{width:96px;height:68px;border-radius:8px;object-fit:cover}
+.it .noph{width:96px;height:68px;border-radius:8px;background:var(--surface2);display:grid;place-items:center;color:var(--teal)}
+.leg{display:flex;align-items:center;gap:8px;margin-left:116px;height:26px;font:500 12px var(--mono);color:var(--muted)}
+.it.ghost{background:var(--surface2);box-shadow:var(--shadow);transform:rotate(-.8deg) translateX(14px);padding:10px 12px 10px 0;margin:8px 0 12px}
+.it.ghost .gr{color:var(--accent-text)}
+.it.from{opacity:.32}
+.ins{position:relative;height:0;border-top:2px solid var(--accent);margin:6px 0 4px 30px}
+.ins:before,.ins:after{content:'';position:absolute;top:-5px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ins:before{left:-4px}.ins:after{right:-4px}
+.ins span{position:absolute;left:30px;top:-12px;background:var(--accent);color:var(--accent-ink);font:600 11.5px var(--mono);padding:2px 8px;border-radius:999px}
+.mapc{position:relative;overflow:hidden;background:var(--deep)}
+.mapc .tmap{position:absolute;inset:0;width:100%;height:100%}
+.mtool{position:absolute;left:14px;top:14px;z-index:2;display:flex;gap:8px}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;height:34px;padding:0 12px;font:500 12.5px var(--mono);color:var(--ink2);border-right:1px solid var(--line2);cursor:pointer}
+.seg button:last-child{border:0}
+.seg button[aria-selected=true]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.mleg{position:absolute;left:14px;bottom:14px;z-index:2;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:5px;font:500 12px var(--mono)}
+.mleg div{display:flex;gap:8px;align-items:center}
+.mleg i{width:22px;height:3px;border-radius:2px}
+.tmap path{vector-effect:non-scaling-stroke}
+.tmap .river{fill:none;stroke:#3F7C8F;stroke-width:1.4;opacity:.9}
+[data-theme=light] .tmap .river{stroke:#6F9FB4}
+.tmap .border{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4;opacity:.6}
+.tmap .route-halo{fill:none;stroke:var(--halo);stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round;opacity:.9}
+.tmap .route{fill:none;stroke:var(--route);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tmap .route.sel{stroke:var(--accent);stroke-width:3.5}
+.tmap .route.dim{opacity:.28}
+.tmap .stop circle{fill:var(--ink);stroke:var(--halo)}
+.tmap .stop text{fill:var(--halo);font-family:var(--mono);font-weight:600;text-anchor:middle}
+.tmap .stop.sel circle{fill:var(--accent)} .tmap .stop.sel text{fill:var(--accent-ink)}
+.tmap .stop.dim{opacity:.35}
+.tmap .base rect{fill:var(--accent);stroke:var(--halo)}
+.tmap .base path{fill:var(--accent-ink)}
+.tmap .base-label{fill:var(--ink);font-family:var(--display);font-weight:800;letter-spacing:.02em;paint-order:stroke;stroke:var(--halo);stroke-linejoin:round}
+.tmap .edge-label{fill:var(--ink2);font-family:var(--mono);paint-order:stroke;stroke:var(--halo)}
+/* bookings */
+.fcap{width:1440px;margin:30px auto 12px;display:flex;gap:14px;align-items:baseline}
+.fcap b{font:800 28px/1 var(--display)} .fcap span{font:500 13px var(--mono);color:var(--muted)}
+.frame{width:1440px;margin:0 auto 8px;border:1px solid var(--line2);border-radius:12px;overflow:hidden;position:relative;background:var(--bg)}
+.bk{padding:22px 32px 32px}
+.bday{font:800 22px/1 var(--display);margin:20px 0 8px;display:flex;gap:10px;align-items:center}
+.bcard{display:grid;grid-template-columns:44px 1fr 220px 150px;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-bottom:8px}
+.bcard .k{width:44px;height:44px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;color:var(--teal)}
+.bcard b{font-weight:600;font-size:16.5px} .bcard small{display:block;font:500 12px var(--mono);color:var(--muted)}
+.bcard .r{text-align:right;font:500 12.5px var(--mono);display:grid;gap:4px;justify-items:end}
+.bcard.on{border-color:var(--accent)}
+.menu{position:absolute;z-index:40;right:132px;top:56px;width:440px;background:var(--surface);border:1px solid var(--line2);border-radius:12px;box-shadow:var(--shadow);padding:8px}
+.menu .cap{padding:10px 10px 6px}
+.mrow{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:8px 10px;border-radius:8px}
+.mrow img{width:52px;height:38px;border-radius:6px;object-fit:cover;box-shadow:0 0 0 2px var(--surface),0 0 0 4.5px var(--tc)}
+.mrow b{font:800 21px/1 var(--display)} .mrow small{display:block;font:500 11.5px/1.45 var(--mono);color:var(--muted);margin-top:3px}
+.mrow small.crit{color:var(--crit)}
+.mrow.hover{background:var(--surface2)}
+.mrow .go{font:600 12px var(--mono);color:var(--accent-text)}
+.mrow .here{font:500 12px var(--mono);color:var(--muted)}
+.mfoot{display:flex;justify-content:space-between;padding:10px 10px 4px;border-top:1px solid var(--line);margin-top:6px;font:500 12px var(--mono);color:var(--muted)}
+.scrim{position:absolute;inset:0;background:rgba(11,17,25,.45);z-index:30}
+.form{position:absolute;right:0;top:143px;bottom:0;width:460px;z-index:25;background:var(--surface);border-left:1px solid var(--line2);display:flex;flex-direction:column}
+.form .fh{position:relative;height:140px;overflow:hidden;color:var(--header-ink)}
+.form .fh img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.form .fh:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,17,25,.2),rgba(11,17,25,.85));z-index:1}
+.form .fh:after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--tc);z-index:2}
+.form .fh .in{position:absolute;left:22px;right:22px;bottom:16px;z-index:2}
+.form .fh small{font:600 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#F0B356}
+.form .fh h3{font:800 34px/1 var(--display)}
+.form .fb{padding:18px 22px;display:grid;gap:12px}
+.fl label{display:block;font:500 12px var(--mono);color:var(--muted);margin-bottom:5px}
+.fl .in{height:42px;border:1px solid var(--line2);border-radius:8px;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:16px;background:var(--bg)}
+.fl .in.m{font:500 13.5px var(--mono)}
+.fl .in.focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form .ff{margin-top:auto;padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.toast{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:45;background:var(--ink);color:var(--bg);border-radius:999px;padding:8px 14px 8px 8px;display:flex;gap:10px;align-items:center;font:500 13px var(--mono)}
+.toast img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+.toast a{text-decoration:underline;font-weight:600}
+/* public */
+.cover{position:relative;height:620px;overflow:hidden;color:var(--header-ink)}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,17,25,.1) 30%,rgba(11,17,25,.88));z-index:1}
+.cover .in{position:absolute;left:0;right:0;bottom:44px;z-index:2}
+.cover h1{font:800 120px/.86 var(--display);margin-top:10px}
+.cover p{font-size:21px;line-height:1.45;max-width:720px;margin-top:14px;color:#E3E8EE}
+.cover .meta{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.cover .chip{border-color:rgba(246,244,238,.4);color:#F4F6F8;background:rgba(11,17,25,.4)}
+.cover .acts{display:flex;gap:8px;margin-top:20px}
+.cover .btn{color:#F4F6F8;border-color:rgba(246,244,238,.5);background:rgba(11,17,25,.35)}
+.cover .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.band{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;padding:36px 0;border-bottom:1px solid var(--line)}
+.band h2{font:800 52px/.95 var(--display);margin-top:8px}
+.band .why{font-size:19px;color:var(--ink2);margin-top:10px}
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:22px}
+.months div{text-align:center;font:500 11.5px var(--mono);color:var(--muted)}
+.months i{display:block;height:30px;border-radius:5px;background:var(--surface2);margin-bottom:5px}
+.months .on i{background:var(--accent)} .months .on{color:var(--accent-text);font-weight:600}
+.months .sh i{background:repeating-linear-gradient(135deg,var(--accent) 0 3px,transparent 3px 8px);opacity:.6}
+.wx{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wx div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.wx b{display:block;font:800 24px/1.05 var(--display);margin:6px 0 4px}
+.wx span{font-size:14.5px;color:var(--muted)}
+.notes{display:grid;gap:8px;margin-top:14px;font-size:15.5px}
+.notes div{display:flex;gap:10px;align-items:flex-start}
+.pdays{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+/* trail */
+.glance{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);margin-top:-46px;position:relative;z-index:3}
+.glance div{padding:14px 16px;border-right:1px solid var(--line)} .glance div:last-child{border:0}
+.glance b{display:block;font:800 36px/1 var(--display);margin:6px 0 6px} .glance b small{font:500 14px var(--mono);color:var(--muted)}
+.tg{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:40px;padding:36px 0}
+.sec{padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid var(--line)}
+.sec h2{font:800 38px/1 var(--display);margin-bottom:14px}
+.elev{width:100%;height:auto;overflow:visible}
+.elev .a{fill:color-mix(in srgb,var(--accent) 16%,transparent)} .elev .l{fill:none;stroke:var(--accent);stroke-width:2.2}
+.elev .g{stroke:var(--line);stroke-width:1} .elev .gl,.elev .xl{fill:var(--muted);font:500 11px var(--mono)}
+.elev .mk circle{fill:var(--bg);stroke:var(--ink);stroke-width:2}
+.huts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}
+.huts div{border-top:2px solid var(--line2);padding-top:6px;font-size:15px} .huts b{display:block;font-weight:600} .huts span{font:500 12px var(--mono);color:var(--muted)}
+.th{display:grid;grid-template-columns:320px 1fr;gap:24px}
+.th img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:9px 16px;font-size:16px}
+.kv dt{font:500 12.5px/1.9 var(--mono);color:var(--muted)}
+.win{display:flex;gap:12px;align-items:center;margin-top:16px;padding:12px 14px;border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft);font-size:15.5px}
+.win b{color:var(--accent-text)}
+.src{display:inline-flex;gap:5px;align-items:center;font:500 11px var(--mono);color:var(--muted);margin-top:2px}
+.src i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.src.c-community i{background:var(--accent)} .src.c-plan i{background:var(--muted)}
+.lk{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.lk b{font-weight:600;font-size:16px} .lk span{font:500 12px var(--mono);color:var(--muted)}
+.lk .ic{grid-row:span 2;align-self:center;color:var(--muted)}
+.ingrp{font:600 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text);margin:18px 0 2px}
+.intrip{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-bottom:18px}
+.intrip img{width:44px;height:44px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--surface),0 0 0 4.5px var(--tc)}
+.intrip small{display:block;font:500 12px var(--mono);color:var(--muted)}
+.mm{position:relative;height:300px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.mm svg{position:absolute;inset:0;width:100%;height:100%}
+/* explore table */
+.ttools{display:flex;gap:8px;padding:14px 0}
+.ptable{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.ptable th{font:500 12px var(--mono);color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--deep)}
+.ptable td{padding:10px 12px;border-bottom:1px solid var(--line);font-size:15.5px;vertical-align:middle}
+.ptable td.m{font:500 13px var(--mono)}
+.ptable td.r,.ptable th.r{text-align:right}
+.ptable tr.grp td{background:var(--surface2);font:800 22px/1 var(--display);padding:10px 12px;position:sticky;top:0}
+.ptable tr.grp td span{float:right;font:500 12px var(--mono);color:var(--muted)}
+.st{display:inline-flex;align-items:center;gap:7px}
+.st i{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.st.idea i{background:none;border:1.5px dashed var(--muted)}
+/* phones */
+.canvas{display:flex;gap:48px;justify-content:center;padding:44px 40px;background:var(--deep);align-items:flex-start}
+.pw{display:flex;flex-direction:column;gap:12px;align-items:center}
+.pcap{width:390px;font-size:15px;color:var(--muted)} .pcap b{display:block;color:var(--ink);font:800 24px/1 var(--display);margin-bottom:4px}
+.phone{width:390px;height:844px;border-radius:44px;background:var(--bg);overflow:hidden;position:relative;box-shadow:0 0 0 9px #0B1119,0 0 0 10px #3A4A5D,0 30px 70px rgba(0,0,0,.4)}
+.status{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font:600 14px var(--mono)}
+.ptop{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:4px 14px 10px;border-bottom:2px solid var(--tc)}
+.ptop img{width:52px;height:40px;border-radius:6px;object-fit:cover}
+.ptop b{display:block;font:800 26px/.95 var(--display)} .ptop small{display:block;font:500 11.5px var(--mono);color:var(--muted);margin-top:2px}
+.bnav{position:absolute;left:0;right:0;bottom:0;height:84px;background:var(--header);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px 26px}
+.bnav a{display:flex;flex-direction:column;align-items:center;gap:3px;font:500 10.5px var(--mono);color:var(--header-mute)}
+.bsw img{width:26px;height:26px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--header),0 0 0 4px var(--tc)}
+.bnav a[aria-current]{color:var(--header-ink)} .bnav a[aria-current] .ic{color:var(--accent)}
+.pdst{display:flex;gap:6px;padding:10px 14px;overflow:hidden}
+.pdst div{flex:none;width:48px;height:56px;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:500 10.5px var(--mono);color:var(--muted)}
+.pdst div b{font:800 22px/1 var(--display);color:var(--ink)}
+.pdst div[aria-current]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)} .pdst div[aria-current] b{color:var(--accent-ink)}
+.pb{padding:0 14px}
+.lv{margin:10px 14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.lv .big{font:800 78px/.85 var(--display);color:var(--accent-text);margin-top:6px}
+.lv .cd{font:600 14px var(--mono);margin-top:6px}
+.lv p{font-size:15px;color:var(--ink2);margin-top:8px;line-height:1.4}
+.lv .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.lv .btn{height:50px;justify-content:center;font-size:14px}
+.late{margin:0 14px 10px;padding:12px;border:1px solid var(--line);border-radius:14px}
+.late .o{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.late .o span{height:44px;border:1px solid var(--line2);border-radius:10px;display:grid;place-items:center;font:600 14px var(--mono)}
+.late .o span.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.cq{display:grid;gap:7px;margin-top:10px;font-size:14px;line-height:1.35}
+.cq div{display:flex;gap:8px;align-items:flex-start}
+.cq .crit{color:var(--crit)} .cq .ok{color:var(--ok)}
+.tl{padding:0 14px}
+.tl .r{display:grid;grid-template-columns:48px 14px 1fr;gap:10px;padding:7px 0;align-items:start}
+.tl .r .t{font:600 13px var(--mono)} .tl .r i{width:12px;height:12px;border-radius:50%;border:2px solid var(--line2);margin-top:4px}
+.tl .r.now i{background:var(--accent);border-color:var(--accent)}
+.tl .r b{font-weight:600;display:block;font-size:15.5px;line-height:1.3} .tl .r small{font:500 11.5px var(--mono);color:var(--muted)}
+.note{margin:10px 14px 0;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;background:var(--surface2);font-size:14px}
+.note .dot{width:12px;height:12px}
+.note .btn{margin-left:auto;height:32px}
+.off{margin:10px 14px 0;display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:10px;border:1px dashed var(--line2);font:500 12px var(--mono)}
+.sheet{position:absolute;left:0;right:0;bottom:84px;background:var(--surface);border-top:1px solid var(--line2);border-radius:18px 18px 0 0;padding:8px 14px 12px}
+.sheet .gb{width:40px;height:5px;border-radius:3px;background:var(--line2);margin:0 auto 10px}
+</style></head><body><div style="padding-bottom:30px;background:var(--deep)"><div class="fcap"><b>1 · DOLOMITES BOOKINGS, OPEN THE SWITCHER</b><span>the trip chip in the header · in progress first, each with its next deadline</span></div><div class="frame" style="height:900px"><header class="hdr"><span class="brand">TRIP PLANS</span><nav class="tabs-g"><a href="#" aria-current=page>Trips</a><a href="#">Places</a><a href="#">Globe</a><a href="#">Discover</a></nav><span class="sp"></span><div class="tsw" style="--tc:#0072B2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" style="object-position:50% 18%" alt=""><b>Dolomites</b><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></div><button class="btn icon" aria-label="Notifications"><svg class="ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 21h4"/></svg></button><button class="btn icon" data-toggle-theme aria-label="Theme"><svg class="ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16a4 4 0 100-8 4 4 0 000 8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></header><div class="tbar" style="--tc:#0072B2"><div class="who"><div class="ph"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" style="object-position:50% 18%" alt=""></div><div><h1>DOLOMITES</h1><div class="meta"><span class="lab">13 – 26 Jul 2027 · 13 nights · 3 travellers</span><span class="chip acc"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v15H4zM4 10h16M8 3v4M16 3v4"/></svg> In 268 days</span><span class="chip">Booking</span></div></div></div><nav class="ttabs"><a href="#">Plan <span>14 days</span></a><a href="#">Today</a><a href="#" aria-current=page>Bookings <span>3/9</span></a><a href="#">Tasks <span>1/12</span></a><a href="#">Budget <span>43%</span></a></nav><div class="acts"><button class="btn sm"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a4 4 0 100-8 4 4 0 000 8zM2 21v-1a6 6 0 0112 0v1M16 3.5a4 4 0 010 7.5M22 21v-1a6 6 0 00-4-5.6"/></svg> Share</button><button class="btn sm"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg> Offline</button></div></div><div class="bk"><div style="display:flex;align-items:center;gap:12px"><h2 class="d" style="font-size:44px">BOOKINGS</h2><span class="lab">3 booked · 1 held · 5 to book</span><span style="flex:1"></span><button class="btn"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg> Forward a confirmation</button><button class="btn primary"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add a booking</button></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 1</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13.5l7-2.2V5.5a2 2 0 014 0v5.8l7 2.2v2l-7-1.6v4.3l2.4 1.8V21L12 20l-4.4 1v-1l2.4-1.8v-4.3L3 15.5z"/></svg></span><div><b>AC 892 Toronto → Venice</b><small>Mon 12 Jul 18:30 → Tue 13 Jul 09:05</small></div><div class="r"><span class="chip ok"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Booked</span><span>K7Q2PZ</span></div><div class="r"><b style="font-size:14px">CAD 4,212 paid</b></div></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16v2.5M19 16v2.5M4 16h16v-4l-2-5H6l-2 5zM4 12h16M7.5 14h.01M16.5 14h.01"/></svg></span><div><b>Automatic compact, Marco Polo</b><small>13 Jul 11:30 → 26 Jul 12:00</small></div><div class="r"><span class="chip ok"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Booked</span><span>EU-449812</span></div><div class="r"><b style="font-size:14px">CAD 462 due 13 Jul</b></div></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7v12M3 15h18v4M21 15v-3a3 3 0 00-3-3h-7v6M7 12.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg></span><div><b>Hotel, San Candido · nights 1-4</b><small>In 13 Jul 15:00 · out 17 Jul 10:00</small></div><div class="r"><span class="chip ok"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Booked</span><span>HP-20931</span></div><div class="r"><b style="font-size:14px">€1,340 paid</b></div></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 2</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM9.5 16V8h3.2a2.5 2.5 0 010 5H9.5"/></svg></span><div><b>Lago di Braies P4 parking</b><small>Wed 14 Jul, entry 05:00 – 09:00</small></div><div class="r"><span class="chip acc">To book</span><span>Online, before the day</span></div><div class="r"><b style="font-size:14px">€44</b></div></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 3</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6M2 20h20"/></svg></span><div><b>Tre Cime toll road slot</b><small>Thu 15 Jul 11:00</small></div><div class="r"><span class="chip acc">To book</span><span>Opens Tue 15 Jun 2027</span></div><div class="r"><b style="font-size:14px">€40</b></div></div></div><div class="scrim"></div><div class="menu"><div class="cap">In progress · soonest first</div><div class="mrow " style="--tc:#CC79A7"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Elora_Gorge%2C_Elora%2C_Ontario_%2821651814860%29.jpg/330px-Elora_Gorge%2C_Elora%2C_Ontario_%2821651814860%29.jpg" style="object-position:50% 55%" alt=""><div><b>Elora Gorge</b><small class="crit">Sat 24 Oct · tubing slot opens Mon 19 Oct</small></div></div><div class="mrow hover" style="--tc:#E69F00"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fitz_Roy_El_Chalten_sunrise-5.jpg/330px-Fitz_Roy_El_Chalten_sunrise-5.jpg" style="object-position:50% 60%" alt=""><div><b>Patagonia</b><small class="crit">26 Feb · flight and lodging by Sat 31 Oct</small></div><span class="go">Bookings →</span></div><div class="mrow here" style="--tc:#0072B2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" style="object-position:50% 18%" alt=""><div><b>Dolomites</b><small class="">13 Jul · Ortisei stay by Mon 15 Mar</small></div><span class="here"><svg class="ic" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> here</span></div><div class="mrow " style="--tc:#009E73"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Arenal_volcano_%2870785p%29_%28cropped%29.jpg/330px-Arenal_volcano_%2870785p%29_%28cropped%29.jpg" style="object-position:50% 50%" alt=""><div><b>Costa Rica</b><small class="">13 Feb · pick the second base</small></div></div><div class="cap">Planning</div><div class="mrow" style="--tc:#56B4E9"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240719_0935_2448.jpg/330px-J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240719_0935_2448.jpg" alt=""><div><b>Iceland by camper van</b><small>4 – 15 Sep 2027</small></div></div><div class="mfoot"><span>switching keeps the tab you are on</span><a href="#" style="color:var(--accent-text)">Done (3) →</a></div></div></div><div class="fcap"><b>2 · PATAGONIA BOOKINGS, ADD THE FLIGHT</b><span>same tab · the form header and the save button name the trip</span></div><div class="frame" style="height:900px"><header class="hdr"><span class="brand">TRIP PLANS</span><nav class="tabs-g"><a href="#" aria-current=page>Trips</a><a href="#">Places</a><a href="#">Globe</a><a href="#">Discover</a></nav><span class="sp"></span><div class="tsw" style="--tc:#E69F00"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fitz_Roy_El_Chalten_sunrise-5.jpg/330px-Fitz_Roy_El_Chalten_sunrise-5.jpg" style="object-position:50% 60%" alt=""><b>Patagonia</b><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></div><button class="btn icon" aria-label="Notifications"><svg class="ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 21h4"/></svg></button><button class="btn icon" data-toggle-theme aria-label="Theme"><svg class="ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16a4 4 0 100-8 4 4 0 000 8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></header><div class="tbar" style="--tc:#E69F00"><div class="who"><div class="ph"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fitz_Roy_El_Chalten_sunrise-5.jpg/330px-Fitz_Roy_El_Chalten_sunrise-5.jpg" style="object-position:50% 60%" alt=""></div><div><h1>PATAGONIA</h1><div class="meta"><span class="lab">26 Feb – 11 Mar 2027 · 13 nights · 3 travellers</span><span class="chip acc"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v15H4zM4 10h16M8 3v4M16 3v4"/></svg> In 131 days</span><span class="chip">Booking</span></div></div></div><nav class="ttabs"><a href="#">Plan <span>13 days</span></a><a href="#">Today</a><a href="#" aria-current=page>Bookings <span>0/8</span></a><a href="#">Tasks <span>2/19</span></a><a href="#">Budget <span>8%</span></a></nav><div class="acts"><button class="btn sm"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a4 4 0 100-8 4 4 0 000 8zM2 21v-1a6 6 0 0112 0v1M16 3.5a4 4 0 010 7.5M22 21v-1a6 6 0 00-4-5.6"/></svg> Share</button><button class="btn sm"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg> Offline</button></div></div><div class="bk" style="padding-right:500px"><div style="display:flex;align-items:center;gap:12px"><h2 class="d" style="font-size:44px">BOOKINGS</h2><span class="lab">0 booked · 1 held · 7 to book</span><span style="flex:1"></span><button class="btn"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg> Forward a confirmation</button><button class="btn primary"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add a booking</button></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 1</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13.5l7-2.2V5.5a2 2 0 014 0v5.8l7 2.2v2l-7-1.6v4.3l2.4 1.8V21L12 20l-4.4 1v-1l2.4-1.8v-4.3L3 15.5z"/></svg></span><div><b>Toronto → Buenos Aires (EZE)</b><small>Fri 26 Feb 2027 · 3 passengers</small></div><div class="r"><span class="chip acc">To book</span><span style="color:var(--crit)">Book by Sat 31 Oct</span></div><div class="r"><b style="font-size:14px">≈ CAD 5,400</b></div></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 2</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13.5l7-2.2V5.5a2 2 0 014 0v5.8l7 2.2v2l-7-1.6v4.3l2.4 1.8V21L12 20l-4.4 1v-1l2.4-1.8v-4.3L3 15.5z"/></svg></span><div><b>Buenos Aires → Ushuaia</b><small>Sat 27 Feb</small></div><div class="r"><span class="chip acc">To book</span><span>By Sun 15 Nov</span></div><div class="r"><b style="font-size:14px">≈ USD 420</b></div></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 8</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7v12M3 15h18v4M21 15v-3a3 3 0 00-3-3h-7v6M7 12.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg></span><div><b>El Chaltén, 4 nights</b><small>5 – 9 Mar · family room</small></div><div class="r"><span class="chip acc">To book</span><span style="color:var(--crit)">Book by Sat 31 Oct</span></div><div class="r"><b style="font-size:14px">≈ USD 900</b></div></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16v2.5M19 16v2.5M4 16h16v-4l-2-5H6l-2 5zM4 12h16M7.5 14h.01M16.5 14h.01"/></svg></span><div><b>Car, El Calafate to El Chaltén</b><small>5 – 10 Mar</small></div><div class="r"><span class="chip acc">To book</span><span>By Sun 15 Nov</span></div><div class="r"><b style="font-size:14px">≈ USD 520</b></div></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 11</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13.5l7-2.2V5.5a2 2 0 014 0v5.8l7 2.2v2l-7-1.6v4.3l2.4 1.8V21L12 20l-4.4 1v-1l2.4-1.8v-4.3L3 15.5z"/></svg></span><div><b>El Calafate → Buenos Aires</b><small>Mon 8 Mar</small></div><div class="r"><span class="chip acc">To book</span><span>By Sun 15 Nov</span></div><div class="r"><b style="font-size:14px">≈ USD 390</b></div></div></div><div class="form" style="--tc:#E69F00"><div class="fh"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fitz_Roy_El_Chalten_sunrise-5.jpg/960px-Fitz_Roy_El_Chalten_sunrise-5.jpg" style="object-position:50% 60%" alt=""><div class="in"><small>New booking in Patagonia</small><h3>TORONTO → BUENOS AIRES</h3></div></div><div class="fb"><div class="fl"><label>Kind</label><div style="display:flex;gap:6px"><span class="chip acc" style="height:32px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13.5l7-2.2V5.5a2 2 0 014 0v5.8l7 2.2v2l-7-1.6v4.3l2.4 1.8V21L12 20l-4.4 1v-1l2.4-1.8v-4.3L3 15.5z"/></svg> Flight</span><span class="chip" style="height:32px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7v12M3 15h18v4M21 15v-3a3 3 0 00-3-3h-7v6M7 12.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg> Stay</span><span class="chip" style="height:32px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16v2.5M19 16v2.5M4 16h16v-4l-2-5H6l-2 5zM4 12h16M7.5 14h.01M16.5 14h.01"/></svg> Car</span><span class="chip" style="height:32px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v3a2 2 0 000 4v3H4v-3a2 2 0 000-4zM14 7v10"/></svg> Activity</span></div></div><div class="fl"><label>Airline and route</label><div class="in focus">Air Canada · YYZ → EZE</div></div><div class="two"><div class="fl"><label>Departs, Toronto time</label><div class="in m">Fri 26 Feb 2027 23:50</div></div><div class="fl"><label>Arrives, Buenos Aires</label><div class="in m">Sat 27 Feb 11:05</div></div></div><div class="fl"><label>Travellers</label><div class="in">Nitin, Partner, Aarav</div></div><div class="fl"><label>Files under</label><div class="in"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Fitz_Roy_El_Chalten_sunrise-5.jpg/330px-Fitz_Roy_El_Chalten_sunrise-5.jpg" style="width:26px;height:26px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--tc)" alt=""><b>Patagonia</b><span class="lab">matched by the dates</span><a href="#" class="lab" style="margin-left:auto;text-decoration:underline;color:var(--ink)">Change</a></div></div></div><div class="ff"><button class="btn primary">Save to Patagonia</button><button class="btn">Cancel</button><span class="lab" style="margin-left:auto">Ctrl Z undoes</span></div></div><div class="toast"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" alt="">Dolomites stays on Bookings, Day 9 · <a href="#">Back</a></div></div><div class="fcap"><b>3 · BACK TO DOLOMITES, ORTISEI OPEN</b><span>second switch: Back on the toast, or the chip again · nothing landed in Patagonia</span></div><div class="frame" style="height:780px"><header class="hdr"><span class="brand">TRIP PLANS</span><nav class="tabs-g"><a href="#" aria-current=page>Trips</a><a href="#">Places</a><a href="#">Globe</a><a href="#">Discover</a></nav><span class="sp"></span><div class="tsw" style="--tc:#0072B2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" style="object-position:50% 18%" alt=""><b>Dolomites</b><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></div><button class="btn icon" aria-label="Notifications"><svg class="ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 21h4"/></svg></button><button class="btn icon" data-toggle-theme aria-label="Theme"><svg class="ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16a4 4 0 100-8 4 4 0 000 8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></header><div class="tbar" style="--tc:#0072B2"><div class="who"><div class="ph"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" style="object-position:50% 18%" alt=""></div><div><h1>DOLOMITES</h1><div class="meta"><span class="lab">13 – 26 Jul 2027 · 13 nights · 3 travellers</span><span class="chip acc"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v15H4zM4 10h16M8 3v4M16 3v4"/></svg> In 268 days</span><span class="chip">Booking</span></div></div></div><nav class="ttabs"><a href="#">Plan <span>14 days</span></a><a href="#">Today</a><a href="#" aria-current=page>Bookings <span>3/9</span></a><a href="#">Tasks <span>1/12</span></a><a href="#">Budget <span>43%</span></a></nav><div class="acts"><button class="btn sm"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a4 4 0 100-8 4 4 0 000 8zM2 21v-1a6 6 0 0112 0v1M16 3.5a4 4 0 010 7.5M22 21v-1a6 6 0 00-4-5.6"/></svg> Share</button><button class="btn sm"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg> Offline</button></div></div><div class="bk" style="padding-right:500px"><div style="display:flex;align-items:center;gap:12px"><h2 class="d" style="font-size:44px">BOOKINGS</h2><span class="lab"></span><span style="flex:1"></span><button class="btn"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg> Forward a confirmation</button><button class="btn primary"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add a booking</button></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 5</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7v12M3 15h18v4M21 15v-3a3 3 0 00-3-3h-7v6M7 12.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg></span><div><b>Hotel, Cortina · nights 5-8</b><small>17 – 21 Jul</small></div><div class="r"><span class="chip idea">Held</span><span>Hold ends 1 May</span></div><div class="r"><b style="font-size:14px">€1,880 at the hotel</b></div></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 9</span></div><div class="bcard on"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7v12M3 15h18v4M21 15v-3a3 3 0 00-3-3h-7v6M7 12.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg></span><div><b>Ortisei, 4 nights</b><small>21 – 25 Jul</small></div><div class="r"><span class="chip acc">To book</span><span>Book by Mon 15 Mar</span></div><div class="r"><b style="font-size:14px">≈ €1,600</b></div></div><div class="bday"><span class="sign quiet" style="height:24px;font-size:15px">DAY 12</span></div><div class="bcard"><span class="k"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5l18-2M12 4v5M7 9h10l1 9H6zM6 13h12"/></svg></span><div><b>Seceda lift, 08:30 slot</b><small>Sat 24 Jul 08:30</small></div><div class="r"><span class="chip acc">To book</span><span>Book by 1 Jun</span></div><div class="r"><b style="font-size:14px">€74 × 3</b></div></div></div><div class="form" style="--tc:#0072B2"><div class="fh"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/960px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" style="object-position:50% 18%" alt=""><div class="in"><small>Booking in Dolomites · nights 9-12</small><h3>ORTISEI, 4 NIGHTS</h3></div></div><div class="fb"><div class="fl"><label>Property</label><div class="in focus">Guesthouse in Ortisei (Guest Pass)</div></div><div class="two"><div class="fl"><label>Check in</label><div class="in m">Wed 21 Jul 15:00</div></div><div class="fl"><label>Check out</label><div class="in m">Sun 25 Jul 10:00</div></div></div><div class="two"><div class="fl"><label>Total</label><div class="in m">€1,560</div></div><div class="fl"><label>Free cancellation until</label><div class="in m">Mon 5 Jul</div></div></div><div class="fl"><label>Files under</label><div class="in"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" style="width:26px;height:26px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--tc)" alt=""><b>Dolomites</b><span class="lab">matched by the dates</span><a href="#" class="lab" style="margin-left:auto;text-decoration:underline;color:var(--ink)">Change</a></div></div></div><div class="ff"><button class="btn primary">Save to Dolomites</button><button class="btn">Cancel</button><span class="lab" style="margin-left:auto">Ctrl Z undoes</span></div></div></div></div><footer class="credits"><h2>Photo credits</h2><p>Photos from Wikimedia Commons, hotlinked at standard thumbnail sizes. Map relief from Mapterhorn elevation data; rivers and borders from OpenStreetMap contributors.</p><ol><li><a href="https://commons.wikimedia.org/wiki/File:Elora_Gorge%2C_Elora%2C_Ontario_%2821651814860%29.jpg">The Grand River in the Elora Gorge</a>, Ken Lund, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Fitz_Roy_El_Chalten_sunrise-5.jpg">Fitz Roy at sunrise from El Chaltén</a>, Almonroth, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg">Lago di Misurina with the Tre Cime behind</a>, kallerna, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Arenal_volcano_%2870785p%29_%28cropped%29.jpg">Arenal volcano</a>, Rhododendrites, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon%2C_Iceland%2C_20240719_0935_2448.jpg">Icebergs in Jökulsárlón</a>, Jakub Hałun, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></li></ol></footer><script>
+(function(){var t=new URLSearchParams(location.search).get('theme');if(t)document.documentElement.dataset.theme=t;
+document.addEventListener('click',function(e){var b=e.target.closest('[data-toggle-theme]');if(!b)return;
+var r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-tab]');if(!b)return;var g=b.parentElement;
+g.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')});});})();
+</script></body></html>

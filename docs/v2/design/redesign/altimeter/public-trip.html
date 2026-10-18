@@ -1,0 +1,336 @@
+<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Altimeter · Public trip</title><style>@font-face { font-family: 'Archivo'; src: url('../fonts/archivo-latin-wdth-normal.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-stretch: 62% 125%; font-display: block; }
+@font-face { font-family: 'JetBrains Mono'; src: url('../fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); font-weight: 100 800; font-style: normal; font-display: block; }
+:root{--bg:#0A0C0E;--s1:#101316;--s2:#161A1E;--s3:#1D2227;--line:#20262C;--line2:#2D353C;--ink:#E4E8EB;--ink2:#B6BEC5;--muted:#8B959D;--faint:#5E6870;
+--sig:#FFB547;--sig-text:#FFB547;--sig-ink:#1A1200;--sig-soft:#2A2010;--crit:#FF7480;--crit-soft:#2C1418;--ok:#5FD08F;--ok-soft:#10261A;--act:#E4E8EB;--act-ink:#0A0C0E;
+--route:#E4E8EB;--halo:#0A0C0E;--img:.88;--shadow:0 0 0 1px var(--line2),0 18px 50px rgba(0,0,0,.55);
+--sans:'Archivo',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;color-scheme:dark}
+[data-theme=light]{--bg:#F3F4F5;--s1:#FFFFFF;--s2:#FFFFFF;--s3:#F0F2F3;--line:#E1E4E7;--line2:#CDD2D6;--ink:#0D1013;--ink2:#33393F;--muted:#59626A;--faint:#8A939A;
+--sig:#FFB547;--sig-text:#8A4F00;--sig-ink:#1A1200;--sig-soft:#FFF1DA;--crit:#B3263E;--crit-soft:#FBE9EC;--ok:#1F7A47;--ok-soft:#E5F3EA;--act:#0D1013;--act-ink:#FFFFFF;
+--route:#0D1013;--halo:#FFFFFF;--img:1;--shadow:0 0 0 1px var(--line2),0 18px 50px rgba(13,16,19,.18);color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+[data-theme=dark] .tmap .img-light{display:none}:root:not([data-theme=dark]) .tmap .img-dark{display:none}
+body{background:var(--bg);color:var(--ink);font:400 14px/1.45 var(--sans);font-stretch:100%;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;filter:brightness(var(--img))}
+.ic{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:square;stroke-linejoin:miter;flex:none}
+.mono{font-family:var(--mono);font-feature-settings:'zero' 1}
+.cap{font:600 11px/1.2 var(--sans);font-stretch:118%;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.h{font-weight:700;font-stretch:118%;letter-spacing:-.005em}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:6px;border:1px solid var(--line2);background:var(--s2);color:var(--ink);font:600 13px var(--sans);white-space:nowrap;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--act);color:var(--act-ink);border-color:var(--act)}
+.btn.sig{background:var(--sig);color:var(--sig-ink);border-color:var(--sig)}
+.btn.icon{width:34px;padding:0;justify-content:center}
+kbd{font:500 11px var(--mono);color:var(--muted);border:1px solid var(--line2);border-radius:4px;padding:1px 5px;background:var(--s1)}
+.tag{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 7px;border-radius:4px;font:600 10.5px var(--sans);font-stretch:112%;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line2);color:var(--ink2);white-space:nowrap}
+.tag.sig{border-color:var(--sig-text);color:var(--sig-text)} .tag.ok{border-color:transparent;background:var(--ok-soft);color:var(--ok)} .tag.crit{border-color:transparent;background:var(--crit-soft);color:var(--crit)}
+.sq{width:10px;height:10px;border-radius:2px;display:inline-block;flex:none;background:var(--tc)}
+/* shell */
+.app{display:grid;grid-template-columns:244px 1fr;min-height:100vh}
+.rail{background:var(--s1);border-right:1px solid var(--line)}
+.rin{padding:14px 12px;display:flex;flex-direction:column;gap:14px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:8px;font:700 13px var(--sans);font-stretch:125%;letter-spacing:.14em;padding:4px 6px}
+.brand i{width:16px;height:16px;border:2px solid var(--ink);transform:rotate(45deg);display:inline-block}
+.tmod{background:var(--s2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.tmod .ph{position:relative;height:84px}
+.tmod .ph img{width:100%;height:100%;object-fit:cover}
+.tmod .ph:after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--tc)}
+.tmod .in{padding:10px 12px 12px}
+.tmod b{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;font-stretch:112%}
+.tmod .d{font:500 12px var(--mono);color:var(--ink2);margin-top:2px}
+.tmod .tm{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px}
+.tmod .tm span{font:600 20px var(--mono);color:var(--ink)}
+.tmod .swb{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:10px}
+.gauge{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:8px}
+.gauge i{height:5px;border-radius:1px;background:var(--line2);position:relative;overflow:hidden}
+.gauge i b{position:absolute;inset:0 auto 0 0;background:var(--ink2)}
+.gauge-l{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;font:600 9.5px var(--sans);font-stretch:112%;letter-spacing:.06em;color:var(--muted);margin-top:4px}
+.nav{display:grid;gap:1px}
+.nav a{display:grid;grid-template-columns:20px 1fr auto;gap:10px;align-items:center;height:34px;padding:0 8px;border-radius:6px;color:var(--ink2);font-weight:500}
+.nav a span{font:500 11.5px var(--mono);color:var(--muted)}
+.nav a[aria-current]{background:var(--s3);color:var(--ink);box-shadow:inset 2px 0 0 var(--sig)}
+.nav .cap{padding:6px 8px 4px}
+.rail .foot{margin-top:auto;display:flex;align-items:center;gap:8px;padding:8px 6px;border-top:1px solid var(--line)}
+.me{width:28px;height:28px;border-radius:6px;background:var(--s3);display:grid;place-items:center;font-weight:700;font-size:12px}
+.main{min-width:0}
+.bar{height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:10}
+.crumbs{display:flex;align-items:center;gap:8px;font:700 13px var(--sans);font-stretch:118%;letter-spacing:.06em;text-transform:uppercase}
+.crumbs .sq{width:12px;height:12px}
+.crumbs span{color:var(--muted)}
+.search{margin-left:auto;display:flex;align-items:center;gap:8px;height:34px;width:340px;padding:0 10px;border:1px solid var(--line2);border-radius:6px;background:var(--s1);color:var(--muted)}
+.search kbd{margin-left:auto}
+.pad{padding:20px}
+.panel{background:var(--s1);border:1px solid var(--line);border-radius:8px}
+.phead{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.phead .sp{flex:1}
+/* home */
+.hgrid{display:grid;grid-template-columns:1fr 380px;gap:16px}
+.kpis{display:flex;gap:28px;align-items:flex-end;padding:22px 20px 18px}
+.kpis h1{font:700 30px/1 var(--sans);font-stretch:118%;letter-spacing:-.01em}
+.kpis .k b{display:block;font:600 24px var(--mono)} .kpis .k{min-width:110px}
+.table{width:100%;border-collapse:collapse}
+.table th{font:600 10.5px var(--sans);font-stretch:112%;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+.table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.table tr.g td{background:var(--s2);padding:7px 12px;font-weight:700;font-stretch:112%}
+.table tr.g td img{width:22px;height:22px;border-radius:4px;object-fit:cover;display:inline-block;vertical-align:middle;margin-right:8px;box-shadow:0 0 0 2px var(--tc)}
+.table tr.g td .muted{font-weight:500;font-stretch:100%;margin-left:8px}
+.table .due{font:500 12.5px var(--mono);white-space:nowrap}
+.table .tminus{font:600 12.5px var(--mono);white-space:nowrap}
+.table .tminus.crit{color:var(--crit)}
+.table .what b{font-weight:600} .table .what small{display:block;color:var(--muted);font-size:12.5px}
+.table .acts{white-space:nowrap;text-align:right}
+.table .acts .btn{height:28px;padding:0 9px;font-size:12px}
+.tile{display:grid;grid-template-columns:96px 1fr;border-bottom:1px solid var(--line)}
+.tile:last-child{border-bottom:0}
+.tile .ph{position:relative}
+.tile .ph img{width:96px;height:100%;object-fit:cover}
+.tile .ph:after{content:'';position:absolute;top:0;bottom:0;right:0;width:3px;background:var(--tc)}
+.tile .in{padding:10px 12px}
+.tile b{font-weight:700;font-stretch:112%;font-size:15px}
+.tile .row{display:flex;justify-content:space-between;align-items:baseline}
+.tile .t{font:600 18px var(--mono)}
+.tile .m{display:flex;gap:12px;font:500 11.5px var(--mono);color:var(--muted);margin-top:6px}
+.gantt{padding:12px 14px 14px}
+.glane{display:grid;grid-template-columns:150px 1fr 150px;align-items:center;height:30px;gap:10px;font-size:13px}
+.glane .nm{display:flex;align-items:center;gap:8px;font-weight:600;white-space:nowrap;overflow:hidden}
+.glane .money{font:500 12px var(--mono);color:var(--ink2);text-align:right}
+.gtrack{position:relative;height:100%;background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/15 - 1px),var(--line) calc(100%/15 - 1px),var(--line) calc(100%/15))}
+.gtrack .b{position:absolute;top:8px;height:14px;border-radius:2px;background:var(--tc)}
+.gtrack .w{position:absolute;top:9px;width:11px;height:11px;transform:translateX(-5px) rotate(45deg);border:2px solid var(--ink);background:var(--bg)}
+.gtrack .w.crit{border-color:var(--crit)}
+.gtrack .now{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--sig);left:3%}
+.gmonths{display:grid;grid-template-columns:150px 1fr 150px;gap:10px;margin-top:4px}
+.gmonths div{display:grid;grid-template-columns:repeat(15,1fr);font:500 10.5px var(--mono);color:var(--muted)}
+.cardsB{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cb{background:var(--s1);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cb .ph{position:relative;height:120px}
+.cb .ph img{width:100%;height:100%;object-fit:cover}
+.cb .ph:after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--tc)}
+.cb .ph .tag{position:absolute;left:8px;top:8px;background:rgba(10,12,14,.75);color:#E4E8EB;border-color:transparent}
+.cb .in{padding:10px 12px 12px}
+.cb b{font-weight:700;font-stretch:112%;font-size:15px}
+.cb .d{font:500 11.5px var(--mono);color:var(--muted);margin-top:2px}
+.cb .n{font-size:12.5px;color:var(--ink2);margin-top:8px;min-height:36px}
+.donelist .r{display:grid;grid-template-columns:48px 1fr auto auto;gap:12px;align-items:center;padding:8px 14px;border-bottom:1px solid var(--line)}
+.donelist img,.donelist .noimg{width:48px;height:36px;border-radius:4px;object-fit:cover;background:var(--s3);display:grid;place-items:center;color:var(--muted)}
+.donelist img{filter:grayscale(.6) brightness(var(--img))}
+/* plan */
+.strip{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--s1)}
+.sd{border:1px solid var(--line);border-radius:6px;padding:6px 7px 7px;background:var(--bg);position:relative}
+.sd .top{display:flex;justify-content:space-between;align-items:baseline}
+.sd .n{font:600 16px var(--mono)} .sd .w{font:500 10px var(--mono);color:var(--muted)}
+.sd .base{height:3px;border-radius:1px;margin:6px 0;background:var(--bc)}
+.sd .bars{display:flex;align-items:flex-end;gap:3px;height:30px}
+.sd .bars i{width:8px;background:var(--ink2);border-radius:1px}
+.sd .bars i.walk{background:var(--faint)}
+.sd .v{font:500 10px var(--mono);color:var(--muted);margin-top:4px;white-space:nowrap}
+.sd[aria-current]{border-color:var(--sig);box-shadow:0 0 0 1px var(--sig)}
+.sd .flag{position:absolute;right:5px;top:22px;width:6px;height:6px;border-radius:50%;background:var(--crit)}
+.split{display:grid;grid-template-columns:600px 1fr;height:820px}
+.daycol{border-right:1px solid var(--line);overflow:hidden;padding:16px 20px}
+.dh{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.dh .n{font:600 34px/1 var(--mono);color:var(--sig-text)}
+.dh h2{font:700 21px/1.15 var(--sans);font-stretch:112%}
+.dsum{display:flex;white-space:nowrap;gap:16px;font:500 12px var(--mono);color:var(--muted);margin:6px 0 12px;align-items:center}
+.dsum span{display:flex;gap:5px;align-items:center}
+.tl{position:relative;margin-left:4px}
+.ti{display:grid;grid-template-columns:18px 54px 14px 1fr 72px;gap:10px;align-items:start;padding:9px 8px;border-radius:6px;position:relative}
+.ti .gr{color:var(--muted);padding-top:2px}.ti .gr .ic{stroke-width:2.8}
+.ti .t{font:600 13.5px var(--mono);padding-top:1px} .ti .t small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.ti .node{width:12px;height:12px;border:2px solid var(--ink);border-radius:50%;background:var(--bg);margin-top:4px}
+.ti b{font-weight:600;font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ti .m{font:500 12px var(--mono);color:var(--muted);margin-top:2px}
+.ti .note{color:var(--ink2);font-size:13px;margin-top:3px}
+.ti img{width:72px;height:54px;border-radius:4px;object-fit:cover}
+.tl:before{content:'';position:absolute;left:107px;top:18px;bottom:18px;width:2px;background:var(--line2)}
+.legB{display:flex;align-items:center;gap:8px;margin-left:110px;font:500 11.5px var(--mono);color:var(--muted);height:26px}
+.ti.ghost{background:var(--s2);box-shadow:var(--shadow);transform:translateX(12px);margin:6px 0 10px}
+.ti.ghost .gr{color:var(--sig-text)}
+.ti.from{opacity:.3}
+.ins{height:0;border-top:2px solid var(--sig);margin:4px 0 4px 28px;position:relative}
+.ins:before{content:'';position:absolute;left:-5px;top:-6px;width:8px;height:8px;border:2px solid var(--sig);background:var(--bg);transform:rotate(45deg)}
+.ins span{position:absolute;left:24px;top:-11px;background:var(--sig);color:var(--sig-ink);font:600 11px var(--mono);padding:2px 7px;border-radius:3px}
+.mapB{position:relative;overflow:hidden;background:var(--bg)}
+.mapB .tmap{position:absolute;inset:0;width:100%;height:100%}
+.mtools{position:absolute;left:14px;top:14px;display:flex;gap:8px;z-index:2}
+.segB{display:inline-flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;background:var(--s1)}
+.segB button{border:0;background:none;color:var(--muted);font:600 12px var(--sans);font-stretch:112%;letter-spacing:.04em;text-transform:uppercase;height:30px;padding:0 12px;cursor:pointer}
+.segB button[aria-selected=true]{background:var(--s3);color:var(--ink);box-shadow:inset 0 -2px 0 var(--sig)}
+.readout{position:absolute;right:14px;top:14px;z-index:2;background:color-mix(in srgb,var(--s1) 88%,transparent);border:1px solid var(--line2);border-radius:6px;padding:10px 12px;display:grid;grid-template-columns:auto auto;gap:4px 16px;font:500 12px var(--mono)}
+.readout span{color:var(--muted)}
+.scale{position:absolute;left:14px;bottom:14px;z-index:2;font:500 11px var(--mono);color:var(--muted);display:flex;align-items:center;gap:8px}
+.scale i{display:block;width:80px;height:6px;border:1px solid var(--muted);border-top:0}
+.tmap path{vector-effect:non-scaling-stroke}
+.tmap .river{fill:none;stroke:#2A5A73;stroke-width:1.4}
+[data-theme=light] .tmap .river{stroke:#86AFC6}
+.tmap .border{fill:none;stroke:var(--faint);stroke-width:1;stroke-dasharray:2 4}
+.tmap .route-halo{fill:none;stroke:var(--halo);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:.9}
+.tmap .route{fill:none;stroke:var(--route);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tmap .route.b0{stroke:#E4E8EB}.tmap .route.b1{stroke:#B9C3CB}.tmap .route.b2{stroke:#8E9BA6}.tmap .route.b3{stroke:#6E7C88}
+[data-theme=light] .tmap .route.b0{stroke:#0D1013}[data-theme=light] .tmap .route.b1{stroke:#3A434B}[data-theme=light] .tmap .route.b2{stroke:#5F6A74}[data-theme=light] .tmap .route.b3{stroke:#7D8892}
+.tmap .route.sel{stroke:var(--sig);stroke-width:3}
+.tmap .route.dim{opacity:.25}
+.tmap .stop circle{fill:var(--bg);stroke:var(--ink)}
+.tmap .stop text{fill:var(--ink);font-family:var(--mono);font-weight:600;text-anchor:middle}
+.tmap .stop.sel circle{fill:var(--sig);stroke:var(--sig)} .tmap .stop.sel text{fill:var(--sig-ink)}
+.tmap .stop.dim{opacity:.35}
+.tmap .base rect{fill:var(--ink);stroke:var(--bg)}
+.tmap .base path{fill:var(--bg)}
+.tmap .base-label{fill:var(--ink);font-family:var(--sans);font-weight:700;font-stretch:112%;letter-spacing:.05em;text-transform:uppercase;paint-order:stroke;stroke:var(--halo);stroke-linejoin:round}
+.tmap .edge-label{fill:var(--muted);font-family:var(--mono);paint-order:stroke;stroke:var(--halo)}
+/* bookings */
+.frame{width:1440px;margin:0 auto 10px;border:1px solid var(--line2);border-radius:10px;overflow:hidden;position:relative;background:var(--bg)}
+.frame .app{min-height:0;height:860px}
+.frame .rin{height:860px;position:relative}
+.fcap{width:1440px;margin:28px auto 12px;display:flex;gap:14px;align-items:baseline}
+.fcap b{font:700 18px var(--sans);font-stretch:118%} .fcap span{color:var(--muted)}
+.btab{width:100%;border-collapse:collapse}
+.btab th{font:600 10.5px var(--sans);font-stretch:112%;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.btab td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:13.5px}
+.btab td.mono{font:500 12.5px var(--mono);white-space:nowrap}
+.btab td b{font-weight:600}
+.btab .k{width:30px;height:30px;border-radius:6px;background:var(--s3);display:grid;place-items:center}
+.btab tr.sel td{background:var(--s2)}
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:20}
+[data-theme=light] .scrim{background:rgba(13,16,19,.25)}
+.palette{position:absolute;z-index:30;left:50%;top:110px;transform:translateX(-50%);width:640px;background:var(--s2);border:1px solid var(--line2);border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.palette .q{display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border-bottom:1px solid var(--line);font-size:16px}
+.palette .q span{color:var(--muted)}
+.palette .q kbd{margin-left:auto}
+.palette .cap{padding:10px 16px 4px}
+.prow{display:grid;grid-template-columns:40px 1fr 230px 100px;gap:12px;align-items:center;padding:8px 16px}
+.prow img{width:40px;height:30px;border-radius:4px;object-fit:cover;box-shadow:0 0 0 2px var(--tc)}
+.prow b{font-weight:700;font-stretch:112%} .prow small{display:block;font:500 11.5px var(--mono);color:var(--muted)}
+.prow .nx{font-size:12.5px;color:var(--ink2)} .prow .nx.crit{color:var(--crit)}
+.prow .go{text-align:right;font:500 11px var(--mono);color:var(--muted)}
+.prow.on{background:var(--s3);box-shadow:inset 2px 0 0 var(--sig)}
+.prow.on .go{color:var(--ink)}
+.palette .ft{display:flex;gap:16px;padding:10px 16px;border-top:1px solid var(--line);font:500 11.5px var(--mono);color:var(--muted)}
+.drawerB{position:absolute;right:0;top:52px;bottom:0;width:440px;background:var(--s1);border-left:1px solid var(--line2);z-index:15;display:flex;flex-direction:column}
+.drawerB .hd{padding:14px 18px;border-bottom:1px solid var(--line);position:relative}
+.drawerB .hd:before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--tc)}
+.drawerB .hd .who{display:flex;align-items:center;gap:10px;margin-top:4px}
+.drawerB .hd img{width:44px;height:32px;border-radius:4px;object-fit:cover}
+.drawerB .hd b{font:700 18px var(--sans);font-stretch:112%}
+.drawerB .bd{padding:14px 18px;display:grid;gap:12px}
+.fl label{display:block;font:600 10.5px var(--sans);font-stretch:112%;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.fl .in{height:38px;border:1px solid var(--line2);border-radius:6px;background:var(--bg);display:flex;align-items:center;gap:8px;padding:0 10px;font-size:14px}
+.fl .in.mono{font:500 13px var(--mono)}
+.fl .in.focus{border-color:var(--sig);box-shadow:0 0 0 2px color-mix(in srgb,var(--sig) 30%,transparent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kindsB{display:flex;gap:4px}
+.kindsB span{height:32px;padding:0 10px;border:1px solid var(--line2);border-radius:6px;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600}
+.kindsB span.on{border-color:var(--sig-text);color:var(--sig-text);background:var(--sig-soft)}
+.drawerB .ftr{margin-top:auto;padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.toastB{position:absolute;left:264px;bottom:16px;z-index:40;background:var(--s3);border:1px solid var(--line2);border-radius:8px;padding:8px 12px;display:flex;gap:10px;align-items:center;font-size:13px}
+.toastB .sq{width:12px;height:12px}
+/* public */
+.hero{position:relative;height:560px;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,12,14,.85),rgba(10,12,14,.25) 60%,rgba(10,12,14,0))}
+.hero .in{position:absolute;left:40px;top:56px;bottom:40px;z-index:2;width:560px;display:flex;flex-direction:column;color:#E4E8EB}
+.hero h1{font:800 64px/.95 var(--sans);font-stretch:125%;letter-spacing:-.01em;text-transform:uppercase;margin-top:12px}
+.hero p{font-size:16px;color:#C9D0D5;margin-top:14px;max-width:480px}
+.spec{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.15);border-radius:8px;overflow:hidden}
+.spec div{background:rgba(10,12,14,.72);padding:10px 12px}
+.spec b{display:block;font:600 18px var(--mono);color:#fff}
+.spec span{font:600 10px var(--sans);font-stretch:112%;letter-spacing:.07em;text-transform:uppercase;color:#9AA4AC}
+.hero .acts{display:flex;gap:8px;margin-top:16px}
+.hero .btn{background:rgba(22,26,30,.8);color:#E4E8EB;border-color:rgba(255,255,255,.25)}
+.hero .btn.sig{background:var(--sig);color:var(--sig-ink);border-color:var(--sig)}
+.wrapB{max-width:1360px;margin:0 auto;padding:24px 40px}
+.seasonB{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mchart{padding:14px}
+.mchart .row{display:grid;grid-template-columns:90px repeat(12,1fr);gap:4px;align-items:end;margin-bottom:6px}
+.mchart .row .l{font:600 10.5px var(--sans);font-stretch:112%;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);align-self:center}
+.mchart .bar{background:var(--line2);border-radius:2px 2px 0 0}
+.mchart .bar.on{background:var(--ink2)}
+.mchart .valid{display:grid;grid-template-columns:90px repeat(12,1fr);gap:4px;margin-bottom:8px}
+.mchart .valid i{height:22px;border-radius:3px;background:var(--s3)}
+.mchart .valid i.on{background:var(--sig)} .mchart .valid i.sh{background:repeating-linear-gradient(135deg,var(--sig) 0 3px,transparent 3px 7px);opacity:.55}
+.mchart .ml{display:grid;grid-template-columns:90px repeat(12,1fr);gap:4px;font:500 10.5px var(--mono);color:var(--muted);text-align:center}
+.wxB{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+.wxB div{padding:14px;border-right:1px solid var(--line)} .wxB div:last-child{border:0}
+.wxB b{display:block;font:600 17px var(--mono);margin-top:4px} .wxB span{font-size:12.5px;color:var(--muted)}
+.dayt td{vertical-align:middle}
+.dayt img{width:84px;height:52px;border-radius:4px;object-fit:cover}
+.dayt .n{font:600 18px var(--mono);color:var(--sig-text)}
+/* trail */
+.thB{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.thB .ph{position:relative;height:440px}
+.thB .ph img{width:100%;height:100%;object-fit:cover}
+.thB .in{padding:28px 32px;display:flex;flex-direction:column}
+.thB h1{font:800 46px/1 var(--sans);font-stretch:118%;text-transform:uppercase;letter-spacing:-.005em;margin-top:10px}
+.thB p{color:var(--ink2);font-size:15px;margin-top:12px;max-width:560px}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:auto}
+.readouts div{background:var(--s1);padding:10px 12px}
+.readouts b{display:block;font:600 22px var(--mono)} .readouts b small{font-size:13px;color:var(--muted)}
+.conf{display:inline-flex;align-items:center;gap:4px;font:600 9.5px var(--sans);font-stretch:112%;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.conf i{width:6px;height:6px;border-radius:1px;background:var(--ok)} .conf.c-community i{background:var(--sig)} .conf.c-plan i{background:var(--faint)}
+.tgB{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:16px;padding:16px 20px}
+.elev{width:100%;height:auto;overflow:visible}
+.elev .a{fill:color-mix(in srgb,var(--sig) 14%,transparent)} .elev .l{fill:none;stroke:var(--sig);stroke-width:2}
+.elev .g{stroke:var(--line);stroke-width:1} .elev .gl,.elev .xl{fill:var(--muted);font:500 11px var(--mono)}
+.elev .mk circle{fill:var(--bg);stroke:var(--ink);stroke-width:2}
+.kvB{display:grid;grid-template-columns:140px 1fr;gap:0}
+.kvB dt,.kvB dd{padding:8px 14px;border-bottom:1px solid var(--line);font-size:13.5px}
+.kvB dt{color:var(--muted)} .kvB dd.mono{font:500 13px var(--mono)}
+.ltab td{font-size:13px}
+.ltab td.k{font:600 10.5px var(--sans);font-stretch:112%;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.ltab td.dom{font:500 12px var(--mono);color:var(--muted)}
+.credits{padding:24px 20px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+.credits h2{font:600 11px var(--sans);font-stretch:112%;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.credits ol{columns:2;column-gap:40px;margin:10px 0 0 18px}
+.credits a{text-decoration:underline}
+/* phones */
+.canvas{display:flex;gap:48px;justify-content:center;padding:40px;background:#050607;align-items:flex-start}
+[data-theme=light] .canvas{background:#E4E7EA}
+.pw{display:flex;flex-direction:column;gap:12px;align-items:center}
+.pcap{width:390px;font-size:13px;color:var(--muted)} .pcap b{display:block;color:var(--ink);font:700 15px var(--sans);font-stretch:118%;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.phone{width:390px;height:844px;border-radius:44px;background:var(--bg);overflow:hidden;position:relative;box-shadow:0 0 0 9px #22272C,0 0 0 10px #3A4148}
+.status{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font:600 14px var(--mono)}
+.ptopB{margin:0 12px 8px;display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--s1);position:relative;overflow:hidden}
+.ptopB:before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--tc)}
+.ptopB img{width:48px;height:38px;border-radius:5px;object-fit:cover}
+.ptopB b{display:block;font:700 16px var(--sans);font-stretch:112%} .ptopB small{display:block;font:500 11.5px var(--mono);color:var(--muted)}
+.bnavB{position:absolute;left:0;right:0;bottom:0;height:82px;background:var(--s1);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px 24px}
+.bnavB a{display:flex;flex-direction:column;align-items:center;gap:3px;font:600 10px var(--sans);font-stretch:112%;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.bnavB a[aria-current]{color:var(--ink)} .bnavB a[aria-current] .ic{color:var(--sig-text)}
+.pstrip{display:flex;gap:4px;padding:0 12px 8px;overflow:hidden}
+.pstrip div{flex:none;width:46px;border:1px solid var(--line);border-radius:6px;padding:5px 0;text-align:center;font:500 10px var(--mono);color:var(--muted)}
+.pstrip div b{display:block;font:600 16px var(--mono);color:var(--ink)}
+.pstrip div[aria-current]{border-color:var(--sig);box-shadow:0 0 0 1px var(--sig)}
+.pin{padding:0 12px}
+.lv{margin:4px 12px 10px;border:1px solid var(--line2);border-radius:12px;background:var(--s1);padding:14px;position:relative;overflow:hidden}
+.lv .cap{display:flex;justify-content:space-between}
+.lv .big{font:600 72px/1 var(--mono);letter-spacing:-.04em;margin-top:6px;color:var(--sig-text)}
+.lv .cd{font:600 15px var(--mono);margin-top:2px}
+.lv p{font-size:13px;color:var(--ink2);margin-top:8px}
+.lv .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.lv .btn{height:46px;justify-content:center;font-size:14px}
+.ring{position:absolute;right:14px;top:34px;width:74px;height:74px}
+.lateB{margin:0 12px 10px;border:1px solid var(--line);border-radius:12px;background:var(--s1);padding:12px}
+.lateB .opts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.lateB .opts span{height:40px;border:1px solid var(--line2);border-radius:6px;display:grid;place-items:center;font:600 14px var(--mono)}
+.lateB .opts span.on{border-color:var(--sig-text);color:var(--sig-text);background:var(--sig-soft)}
+.cq{display:grid;gap:6px;margin-top:10px;font-size:12.5px}
+.cq div{display:flex;gap:8px;align-items:flex-start}
+.cq .crit{color:var(--crit)} .cq .ok{color:var(--ok)}
+.tlB{padding:0 12px}
+.tlB .r{display:grid;grid-template-columns:50px 12px 1fr;gap:10px;padding:7px 0;align-items:start;font-size:13.5px}
+.tlB .r .t{font:600 13px var(--mono)} .tlB .r i{width:10px;height:10px;border:2px solid var(--muted);border-radius:50%;margin-top:4px}
+.tlB .r.now i{border-color:var(--sig);background:var(--sig)}
+.tlB .r b{font-weight:600;display:block} .tlB .r small{font:500 11.5px var(--mono);color:var(--muted)}
+.offB{margin:0 12px 10px;display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:var(--s2);border:1px solid var(--line2);font:500 12px var(--mono)}
+.switchnote{margin:0 12px 10px;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px dashed var(--line2);border-radius:8px;font-size:12.5px;color:var(--ink2)}
+.switchnote .btn{margin-left:auto;height:28px;font-size:12px}
+.sheetB{position:absolute;left:0;right:0;bottom:82px;background:var(--s1);border-top:1px solid var(--line2);border-radius:14px 14px 0 0;padding:8px 14px 12px}
+.sheetB .gb{width:36px;height:4px;border-radius:2px;background:var(--line2);margin:0 auto 8px}
+</style></head><body><div class="main"><section class="hero"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg/1920px-Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg" style="object-position:50% 55%" alt=""><div class="in"><span class="cap" style="color:#9AA4AC">Published plan · South Tyrol and Veneto</span><h1>Dolomites<br>13 nights</h1><p>Three valley bases, early starts at the famous lakes, a Sass Pordoi day and sunset in Val di Funes. A rental car throughout.</p><div class="acts"><button class="btn sig"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9h11v11H9zM5 15H4V4h11v1"/></svg> Copy to my trips</button><button class="btn"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v13M7 8l5-5 5 5M5 13v8h14v-8"/></svg> Share</button></div><div class="spec"><div><span>Days</span><b>14</b></div><div><span>Bases</span><b>4</b></div><div><span>Drive / day</span><b>1h10</b></div><div><span>Walk</span><b>6–15 km</b></div><div><span>Effort</span><b>MOD</b></div><div><span>Age</span><b>8+</b></div></div></div></section><div class="wrapB"><div class="seasonB"><div class="panel mchart"><div class="phead" style="margin:-14px -14px 12px"><span class="cap">Valid for · Mid-July to the end of August</span><span class="sp"></span><span class="tag sig">Jul – Aug</span></div><div class="valid"><span class="cap" style="align-self:center">Plan</span><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="sh"></i><i class="on"></i><i class="on"></i><i class="sh"></i><i class=""></i><i class=""></i><i class=""></i></div><div class="row"><span class="l">Valley °C</span><div class="bar" style="height:4px"></div><div class="bar" style="height:9px"></div><div class="bar" style="height:18px"></div><div class="bar" style="height:26px"></div><div class="bar" style="height:37px"></div><div class="bar" style="height:46px"></div><div class="bar on" style="height:53px"></div><div class="bar on" style="height:51px"></div><div class="bar" style="height:42px"></div><div class="bar" style="height:31px"></div><div class="bar" style="height:18px"></div><div class="bar" style="height:9px"></div></div><div class="row"><span class="l">Rain mm</span><div class="bar" style="height:13px"></div><div class="bar" style="height:11px"></div><div class="bar" style="height:16px"></div><div class="bar" style="height:21px"></div><div class="bar" style="height:31px"></div><div class="bar" style="height:37px"></div><div class="bar on" style="height:39px"></div><div class="bar on" style="height:36px"></div><div class="bar" style="height:26px"></div><div class="bar" style="height:24px"></div><div class="bar" style="height:24px"></div><div class="bar" style="height:16px"></div></div><div class="ml"><span></span><span>J</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span><span>A</span><span>S</span><span>O</span><span>N</span><span>D</span></div><p class="muted" style="font-size:12px;margin-top:8px">Bolzano valley climate normals, shape only. Solid amber: the plan as written. Hatched: lifts and huts to check.</p></div><div class="panel"><div class="phead"><span class="cap">Mid-July conditions</span></div><div class="wxB"><div><span class="cap">Temperature</span><b>8–24 °C in the valleys</b><span>near 0 °C on 2,900 m summits</span></div><div><span class="cap">Rain</span><b>Afternoon thunderstorms</b><span>most days; be off ridges by 14:00</span></div><div><span class="cap">Daylight</span><b>Sunrise ~05:30</b><span>sunset ~20:55 mid-July</span></div></div><div style="padding:12px 14px;display:grid;gap:8px"><div style="display:flex;gap:8px;font-size:13.5px"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg>Tre Cime and Braies need booked parking or a toll slot</div><div style="display:flex;gap:8px;font-size:13.5px"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg>Early June and September close several lifts</div><div style="display:flex;gap:8px;font-size:13.5px"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg>Lagazuoi tunnels need a headlamp</div></div><div style="padding:0 14px 14px"><p style="font-size:14px;color:var(--ink2)">All lifts and high trails are open and the snow has gone from the passes.</p></div></div></div><div class="hgrid" style="grid-template-columns:1fr 560px;margin-top:16px"><div class="panel"><div class="phead"><span class="cap">Day by day · days, not dates</span></div><table class="table dayt"><tr><th>Day</th><th></th><th>Plan</th><th>Base</th><th style="text-align:right">Drive</th></tr><tr><td class="n">01</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" alt=""></td><td><b>Venice to the Alta Pusteria</b><div class="muted" style="font-size:12.5px">Venice Marco Polo Airport · Lago di Landro</div></td><td class="mono">ALTA PUSTERIA</td><td class="mono" style="text-align:right">2h30</td></tr><tr><td class="n">02</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lago_di_Braies_South_Tyrol_6.jpg/330px-Lago_di_Braies_South_Tyrol_6.jpg" alt=""></td><td><b>Lago di Braies, early</b><div class="muted" style="font-size:12.5px">Lago di Braies at first light · Val Fiscalina</div></td><td class="mono">ALTA PUSTERIA</td><td class="mono" style="text-align:right">55min</td></tr><tr><td class="n">03</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Tre_cime_-_rifugio_Locatelli.jpg/330px-Tre_cime_-_rifugio_Locatelli.jpg" alt=""></td><td><b>Tre Cime di Lavaredo</b><div class="muted" style="font-size:12.5px">Tre Cime loop, clockwise · Cadini di Misurina viewpoint</div></td><td class="mono">ALTA PUSTERIA</td><td class="mono" style="text-align:right">1h10</td></tr><tr><td class="n">04</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Lago_di_Braies_South_Tyrol_7.jpg/330px-Lago_di_Braies_South_Tyrol_7.jpg" alt=""></td><td><b>Croda del Becco or the Drava ride</b><div class="muted" style="font-size:12.5px">Croda del Becco (12+) · Drava cycle path · Funbob toboggan</div></td><td class="mono">ALTA PUSTERIA</td><td class="mono" style="text-align:right">40min</td></tr><tr><td class="n">05</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Tre_Cime_di_Lavaredo_from_Monte_Specie%2C_Val_Pusteria%2C_Trentino-Alto_Adige%2C_Italy%2C_2025_October.jpg/330px-Tre_Cime_di_Lavaredo_from_Monte_Specie%2C_Val_Pusteria%2C_Trentino-Alto_Adige%2C_Italy%2C_2025_October.jpg" alt=""></td><td><b>To Cortina via Monte Piana</b><div class="muted" style="font-size:12.5px">Monte Piana WWI plateau · Lago d&#x27;Antorno</div></td><td class="mono">CORTINA</td><td class="mono" style="text-align:right">45min</td></tr><tr><td class="n">06</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Lago_di_Sorapis_3.jpg/330px-Lago_di_Sorapis_3.jpg" alt=""></td><td><b>Lago di Sorapis</b><div class="muted" style="font-size:12.5px">Passo Tre Croci at 05:45 · Lago di Sorapis</div></td><td class="mono">CORTINA</td><td class="mono" style="text-align:right">35min</td></tr><tr><td class="n">07</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Lagazuoi_01.jpg/330px-Lagazuoi_01.jpg" alt=""></td><td><b>Lagazuoi and Scotoni</b><div class="muted" style="font-size:12.5px">Lagazuoi cable car and tunnels · Rifugio Scotoni</div></td><td class="mono">CORTINA</td><td class="mono" style="text-align:right">1h</td></tr><tr><td class="n">08</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Cinque_Torri_1.jpg/330px-Cinque_Torri_1.jpg" alt=""></td><td><b>Nuvolau, Averau, Limides at sunset</b><div class="muted" style="font-size:12.5px">Rifugio Nuvolau · Cinque Torri · Lago di Limides</div></td><td class="mono">CORTINA</td><td class="mono" style="text-align:right">50min</td></tr><tr><td class="n">09</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Sella_group_-_View_from_West.jpg/330px-Sella_group_-_View_from_West.jpg" alt=""></td><td><b>Cortina to Val Gardena, the scenic way</b><div class="muted" style="font-size:12.5px">La Val · Passo Gardena</div></td><td class="mono">VAL GARDENA</td><td class="mono" style="text-align:right">1h50</td></tr><tr><td class="n">10</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Passo_Pordoi-bops_01.jpg/330px-Passo_Pordoi-bops_01.jpg" alt=""></td><td><b>Sass Pordoi and Piz Boè</b><div class="muted" style="font-size:12.5px">Sass Pordoi (12+) · Viel dal Pan</div></td><td class="mono">VAL GARDENA</td><td class="mono" style="text-align:right">45min</td></tr><tr><td class="n">11</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Seiser_Alm_04.jpg/330px-Seiser_Alm_04.jpg" alt=""></td><td><b>Alpe di Siusi</b><div class="muted" style="font-size:12.5px">Alpe di Siusi · Witches&#x27; Benches</div></td><td class="mono">VAL GARDENA</td><td class="mono" style="text-align:right">40min</td></tr><tr><td class="n">12</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg/330px-Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg" alt=""></td><td><b>Seceda, then Val di Funes at sunset</b><div class="muted" style="font-size:12.5px">Seceda ridge · Santa Maddalena</div></td><td class="mono">VAL GARDENA</td><td class="mono" style="text-align:right">1h10</td></tr><tr><td class="n">13</td><td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Odles_as_seen_from_Seceda.JPG/330px-Odles_as_seen_from_Seceda.JPG" alt=""></td><td><b>Adolf Munkel Weg, then Bolzano</b><div class="muted" style="font-size:12.5px">Adolf Munkel Weg · Ötzi museum</div></td><td class="mono">BOLZANO</td><td class="mono" style="text-align:right">1h30</td></tr><tr><td class="n">14</td><td><span style="display:block;width:84px;height:52px;border-radius:4px;background:var(--s3)"></span></td><td><b>Bolzano to Venice</b><div class="muted" style="font-size:12.5px">Venice Marco Polo Airport</div></td><td class="mono"></td><td class="mono" style="text-align:right">2h40</td></tr></table></div><div class="panel" style="position:relative;overflow:hidden;height:700px;position:sticky;top:20px"><svg style=position:absolute;inset:0;width:100%;height:100% class="tmap" viewBox="171 249 2186 2733" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Map of the trip" style="--u:3.904px"><image class="img-light" href="../assets/map-alt-light.webp" x="0" y="0" width="2400" height="3373"/><image class="img-dark" href="../assets/map-alt-dark.webp" x="0" y="0" width="2400" height="3373"/><g class="rivers"><path class="border" d="M1729,505 L1767,519 L1766,580 L1732,627 L1635,681 L1618,722 L1628,745 L1635,772 L1645,826 L1656,852 L1667,874 L1666,896 L1643,919 L1660,926 L1697,933 L1715,942 L1734,960 L1742,975 L1752,986 L1774,994 L1841,997 L1867,1014 L1881,1065 L1882,1094 L1871,1127 L1867,1154 L1867,1184 L1871,1200 L1880,1209 L1895,1220 L1928,1233 L1962,1238 L1988,1255 L2002,1306 L2032,1381 L2088,1430 L2153,1456 L2240,1472 L2289,1505 L2316,1518 L2339,1520"/><path class="border" d="M1016,774 L1034,770 L1066,744 L1083,733 L1156,721 L1211,677 L1279,640 L1350,616 L1464,611 L1626,526 L1729,505"/><path class="border" d="M595,689 L623,695 L633,702 L643,710 L651,722 L664,730 L679,733"/><path class="border" d="M498,775 L552,722 L565,703 L579,692 L595,689"/><path class="border" d="M794,704 L877,721"/><path class="border" d="M679,733 L694,730 L710,721 L756,708 L794,704"/><path class="border" d="M904,721 L934,724 L986,763 L1016,774"/><path class="border" d="M892,723 L904,721"/><path class="border" d="M877,721 L892,723"/><path class="border" d="M877,721 L877,721"/><path class="border" d="M342,735 L399,748 L449,772 L498,775"/><path class="border" d="M-188,1249 L-165,1245 L-143,1222 L-107,1160 L-100,1154 L-82,1146 L-76,1139 L-73,1127 L-75,1103 L-73,1094 L-43,1022 L-26,939 L-13,911 L91,807 L119,790 L230,754 L342,735"/><path class="border" d="M-400,1236 L-384,1251 L-367,1257"/><path class="border" d="M-271,1234 L-215,1240 L-188,1249"/><path class="border" d="M-367,1257 L-352,1256 L-298,1238 L-271,1234"/><path class="border" d="M2432,1508 L2511,1516 L2527,1523 L2556,1545 L2570,1552"/><path class="border" d="M2339,1520 L2432,1508"/><path class="border" d="M2624,1540 L2678,1558 L2769,1617 L2880,1625"/><path class="border" d="M2570,1552 L2585,1551 L2611,1541 L2624,1540"/><path class="river" d="M1867,468 L1849,471 L1824,462 L1787,434 L1779,424"/><path class="river" d="M1728,523 L1665,556 L1584,607 L1475,661 L1391,712 L1340,760 L1331,804 L1347,847 L1367,882 L1368,909 L1361,940 L1357,1040 L1341,1101 L1316,1151 L1292,1179 L1261,1180 L1153,1142 L1056,1128 L969,1131 L924,1150 L921,1179 L935,1210 L935,1264 L898,1348 L837,1437 L710,1568 L695,1607 L659,1726 L634,1777 L600,1816 L560,1848 L510,1866 L400,1876 L357,1901 L330,1925"/><path class="river" d="M2592,1630 L2583,1671 L2554,1695 L2513,1698 L2478,1686 L2420,1688 L2326,1725 L2235,1785 L2185,1838 L2155,1891 L2069,2001 L2036,2051 L2017,2093 L2001,2164 L1956,2281 L1930,2430 L1910,2513 L1904,2583 L1893,2598 L1870,2616 L1755,2737 L1710,2767 L1638,2798"/><path class="river" d="M-400,1574 L-305,1567 L-270,1557 L-238,1541 L-212,1517 L-195,1508 L-160,1523 L-146,1517 L-134,1505 L-25,1441 L7,1430 L29,1437 L102,1531 L122,1572 L146,1668 L165,1713 L194,1732 L210,1751 L276,1858 L320,1893 L331,1908 L326,1951 L326,1975 L337,1986 L339,2013 L253,2313 L224,2382 L189,2430 L100,2493 L74,2519 L2,2637 L-14,2655 L-24,2661 L-29,2667 L-31,2684 L-28,2708 L-21,2740 L-12,2768 L12,2798"/><path class="river" d="M1912,1331 L1966,1328 L2070,1303 L2152,1294 L2204,1299 L2273,1280 L2348,1255 L2421,1236 L2464,1222 L2547,1210 L2648,1144 L2675,1084"/><path class="river" d="M2675,1084 L2781,1136 L2880,1205"/></g><path class="route-halo all" d="M1968.0,2104.2 C1978.7,2092.6 2065.2,2056.7 2032.0,2034.6 C1998.8,2012.4 1831.3,2014.0 1768.8,1971.2 C1706.3,1928.5 1644.4,1825.8 1657.1,1778.0 C1669.9,1730.2 1819.9,1720.8 1845.3,1684.3 C1870.7,1647.8 1818.0,1618.8 1809.6,1558.8 C1801.2,1498.8 1781.9,1362.4 1795.0,1324.4 C1808.2,1286.3 1872.9,1329.4 1888.5,1330.4"/><path class="route b0 all" d="M1968.0,2104.2 C1978.7,2092.6 2065.2,2056.7 2032.0,2034.6 C1998.8,2012.4 1831.3,2014.0 1768.8,1971.2 C1706.3,1928.5 1644.4,1825.8 1657.1,1778.0 C1669.9,1730.2 1819.9,1720.8 1845.3,1684.3 C1870.7,1647.8 1818.0,1618.8 1809.6,1558.8 C1801.2,1498.8 1781.9,1362.4 1795.0,1324.4 C1808.2,1286.3 1872.9,1329.4 1888.5,1330.4"/><path class="route-halo all" d="M1888.5,1330.4 C1872.9,1329.4 1841.5,1334.2 1795.0,1324.4 C1748.6,1314.5 1646.0,1255.6 1609.6,1271.4 C1573.2,1287.2 1576.5,1419.3 1576.5,1419.3 C1576.5,1419.3 1573.2,1287.2 1609.6,1271.4 C1646.0,1255.6 1748.6,1314.5 1795.0,1324.4 C1841.5,1334.2 1854.9,1317.9 1888.5,1330.4 C1922.1,1343.0 1976.9,1377.1 1996.8,1399.7 C2016.7,1422.3 2006.1,1455.1 2008.0,1466.1"/><path class="route b0 all" d="M1888.5,1330.4 C1872.9,1329.4 1841.5,1334.2 1795.0,1324.4 C1748.6,1314.5 1646.0,1255.6 1609.6,1271.4 C1573.2,1287.2 1576.5,1419.3 1576.5,1419.3 C1576.5,1419.3 1573.2,1287.2 1609.6,1271.4 C1646.0,1255.6 1748.6,1314.5 1795.0,1324.4 C1841.5,1334.2 1854.9,1317.9 1888.5,1330.4 C1922.1,1343.0 1976.9,1377.1 1996.8,1399.7 C2016.7,1422.3 2006.1,1455.1 2008.0,1466.1"/><path class="route-halo all" d="M1888.5,1330.4 C1872.9,1329.4 1808.2,1286.3 1795.0,1324.4 C1781.9,1362.4 1801.2,1498.8 1809.6,1558.8 C1818.0,1618.8 1828.1,1675.7 1845.3,1684.3 C1862.5,1692.9 1908.3,1619.9 1912.8,1610.5 C1917.3,1601.1 1878.8,1625.1 1872.0,1628.0"/><path class="route b0 all" d="M1888.5,1330.4 C1872.9,1329.4 1808.2,1286.3 1795.0,1324.4 C1781.9,1362.4 1801.2,1498.8 1809.6,1558.8 C1818.0,1618.8 1828.1,1675.7 1845.3,1684.3 C1862.5,1692.9 1908.3,1619.9 1912.8,1610.5 C1917.3,1601.1 1878.8,1625.1 1872.0,1628.0"/><path class="route-halo all" d="M1888.5,1330.4 C1872.9,1329.4 1841.5,1334.2 1795.0,1324.4 C1748.6,1314.5 1646.0,1255.6 1609.6,1271.4 C1573.2,1287.2 1587.7,1383.9 1576.5,1419.3 C1565.3,1454.6 1548.1,1472.9 1542.4,1483.6"/><path class="route b0 all" d="M1888.5,1330.4 C1872.9,1329.4 1841.5,1334.2 1795.0,1324.4 C1748.6,1314.5 1646.0,1255.6 1609.6,1271.4 C1573.2,1287.2 1587.7,1383.9 1576.5,1419.3 C1565.3,1454.6 1548.1,1472.9 1542.4,1483.6"/><path class="route-halo all" d="M1888.5,1330.4 C1872.9,1329.4 1808.2,1286.3 1795.0,1324.4 C1781.9,1362.4 1805.3,1511.6 1809.6,1558.8 C1813.9,1606.1 1813.3,1592.4 1820.8,1608.0 C1828.3,1623.5 1850.5,1639.2 1854.6,1651.9 C1858.6,1664.7 1859.7,1669.3 1845.3,1684.3 C1830.9,1699.3 1799.4,1726.3 1768.0,1742.0 C1736.6,1757.6 1675.6,1772.0 1657.1,1778.0"/><path class="route b1 all" d="M1888.5,1330.4 C1872.9,1329.4 1808.2,1286.3 1795.0,1324.4 C1781.9,1362.4 1805.3,1511.6 1809.6,1558.8 C1813.9,1606.1 1813.3,1592.4 1820.8,1608.0 C1828.3,1623.5 1850.5,1639.2 1854.6,1651.9 C1858.6,1664.7 1859.7,1669.3 1845.3,1684.3 C1830.9,1699.3 1799.4,1726.3 1768.0,1742.0 C1736.6,1757.6 1675.6,1772.0 1657.1,1778.0"/><path class="route-halo all" d="M1657.1,1778.0 C1675.6,1772.0 1745.5,1733.9 1768.0,1742.0 C1790.5,1750.0 1788.0,1812.3 1792.0,1826.3"/><path class="route b1 all" d="M1657.1,1778.0 C1675.6,1772.0 1745.5,1733.9 1768.0,1742.0 C1790.5,1750.0 1788.0,1812.3 1792.0,1826.3"/><path class="route-halo all" d="M1657.1,1778.0 C1648.9,1782.8 1641.8,1798.7 1608.0,1807.0 C1574.2,1815.4 1480.8,1827.8 1454.4,1828.0 C1428.0,1828.2 1454.7,1814.4 1449.6,1808.2 C1444.5,1802.0 1427.5,1794.1 1424.0,1790.8 C1420.5,1787.4 1427.7,1788.6 1428.5,1788.2"/><path class="route b1 all" d="M1657.1,1778.0 C1648.9,1782.8 1641.8,1798.7 1608.0,1807.0 C1574.2,1815.4 1480.8,1827.8 1454.4,1828.0 C1428.0,1828.2 1454.7,1814.4 1449.6,1808.2 C1444.5,1802.0 1427.5,1794.1 1424.0,1790.8 C1420.5,1787.4 1427.7,1788.6 1428.5,1788.2"/><path class="route-halo all" d="M1657.1,1778.0 C1648.9,1782.8 1629.0,1784.8 1608.0,1807.0 C1587.0,1829.3 1546.5,1899.5 1531.2,1911.6 C1515.9,1923.7 1518.0,1888.1 1516.2,1879.5 C1514.3,1871.0 1523.5,1866.0 1520.0,1860.5 C1516.5,1855.0 1499.5,1848.9 1495.4,1846.6"/><path class="route b1 all" d="M1657.1,1778.0 C1648.9,1782.8 1629.0,1784.8 1608.0,1807.0 C1587.0,1829.3 1546.5,1899.5 1531.2,1911.6 C1515.9,1923.7 1518.0,1888.1 1516.2,1879.5 C1514.3,1871.0 1523.5,1866.0 1520.0,1860.5 C1516.5,1855.0 1499.5,1848.9 1495.4,1846.6"/><path class="route-halo all" d="M1657.1,1778.0 C1648.9,1782.8 1641.8,1798.7 1608.0,1807.0 C1574.2,1815.4 1485.1,1830.7 1454.4,1828.0 C1423.7,1825.3 1453.1,1816.4 1424.0,1790.8 C1394.9,1765.2 1296.3,1722.2 1280.0,1674.5 C1263.7,1626.8 1326.4,1504.6 1326.4,1504.6 C1326.4,1504.6 1294.9,1632.6 1280.0,1674.5 C1265.1,1716.4 1261.6,1742.0 1236.8,1755.9 C1212.0,1769.9 1161.0,1760.4 1131.2,1758.2 C1101.4,1756.1 1094.1,1752.9 1057.9,1742.9 C1021.8,1732.9 938.2,1705.9 914.2,1698.5"/><path class="route b2 all" d="M1657.1,1778.0 C1648.9,1782.8 1641.8,1798.7 1608.0,1807.0 C1574.2,1815.4 1485.1,1830.7 1454.4,1828.0 C1423.7,1825.3 1453.1,1816.4 1424.0,1790.8 C1394.9,1765.2 1296.3,1722.2 1280.0,1674.5 C1263.7,1626.8 1326.4,1504.6 1326.4,1504.6 C1326.4,1504.6 1294.9,1632.6 1280.0,1674.5 C1265.1,1716.4 1261.6,1742.0 1236.8,1755.9 C1212.0,1769.9 1161.0,1760.4 1131.2,1758.2 C1101.4,1756.1 1094.1,1752.9 1057.9,1742.9 C1021.8,1732.9 938.2,1705.9 914.2,1698.5"/><path class="route-halo all" d="M914.2,1698.5 C938.2,1705.9 1032.7,1717.0 1057.9,1742.9 C1083.1,1768.7 1051.3,1833.1 1065.6,1853.5 C1079.9,1873.9 1124.3,1858.2 1144.0,1865.1 C1163.7,1872.1 1177.3,1890.3 1184.0,1895.3"/><path class="route b2 all" d="M914.2,1698.5 C938.2,1705.9 1032.7,1717.0 1057.9,1742.9 C1083.1,1768.7 1051.3,1833.1 1065.6,1853.5 C1079.9,1873.9 1124.3,1858.2 1144.0,1865.1 C1163.7,1872.1 1177.3,1890.3 1184.0,1895.3"/><path class="route-halo all" d="M914.2,1698.5 C885.9,1710.8 756.4,1759.1 744.0,1772.2 C731.6,1785.2 827.7,1781.5 840.0,1776.8 C852.3,1772.2 821.3,1749.7 817.6,1744.3"/><path class="route b2 all" d="M914.2,1698.5 C885.9,1710.8 756.4,1759.1 744.0,1772.2 C731.6,1785.2 827.7,1781.5 840.0,1776.8 C852.3,1772.2 821.3,1749.7 817.6,1744.3"/><path class="route-halo all" d="M914.2,1698.5 C928.0,1688.8 997.0,1640.5 997.0,1640.5 C997.0,1640.5 965.7,1697.9 914.2,1698.5 C862.7,1699.1 715.8,1669.6 688.0,1644.3 C660.2,1618.9 695.7,1562.4 747.2,1546.5 C798.7,1530.6 955.2,1548.4 996.8,1548.8"/><path class="route b2 all" d="M914.2,1698.5 C928.0,1688.8 997.0,1640.5 997.0,1640.5 C997.0,1640.5 965.7,1697.9 914.2,1698.5 C862.7,1699.1 715.8,1669.6 688.0,1644.3 C660.2,1618.9 695.7,1562.4 747.2,1546.5 C798.7,1530.6 955.2,1548.4 996.8,1548.8"/><path class="route-halo all" d="M914.2,1698.5 C876.5,1689.4 715.8,1669.6 688.0,1644.3 C660.2,1618.9 695.7,1562.4 747.2,1546.5 C798.7,1530.6 945.3,1541.1 996.8,1548.8 C1048.3,1556.6 1097.6,1593.4 1056.0,1593.1 C1014.4,1592.7 855.3,1499.3 747.2,1546.5 C639.1,1593.7 465.9,1821.4 407.7,1876.1 C349.4,1930.7 399.3,1874.7 397.6,1874.4"/><path class="route b3 all" d="M914.2,1698.5 C876.5,1689.4 715.8,1669.6 688.0,1644.3 C660.2,1618.9 695.7,1562.4 747.2,1546.5 C798.7,1530.6 945.3,1541.1 996.8,1548.8 C1048.3,1556.6 1097.6,1593.4 1056.0,1593.1 C1014.4,1592.7 855.3,1499.3 747.2,1546.5 C639.1,1593.7 465.9,1821.4 407.7,1876.1 C349.4,1930.7 399.3,1874.7 397.6,1874.4"/><path class="route-halo all" d="M407.7,1876.1 C409.1,1914.1 414.6,2066.2 416.0,2104.2"/><path class="route b3 all" d="M407.7,1876.1 C409.1,1914.1 414.6,2066.2 416.0,2104.2"/><g class="stop all b0" transform="translate(1810,1559)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">1</text></g><g class="stop all b0" transform="translate(1576,1419)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">2</text></g><g class="stop all b0" transform="translate(2008,1466)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">2</text></g><g class="stop all b0" transform="translate(1913,1611)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">3</text></g><g class="stop all b0" transform="translate(1872,1628)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">3</text></g><g class="stop all b0" transform="translate(1542,1484)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">4</text></g><g class="stop all b0" transform="translate(1872,1348)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">4</text></g><g class="stop all b1" transform="translate(1821,1608)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">5</text></g><g class="stop all b1" transform="translate(1855,1652)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">5</text></g><g class="stop all b1" transform="translate(1792,1826)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">6</text></g><g class="stop all b1" transform="translate(1450,1808)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">7</text></g><g class="stop all b1" transform="translate(1428,1788)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">7</text></g><g class="stop all b1" transform="translate(1516,1880)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">8</text></g><g class="stop all b1" transform="translate(1520,1860)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">8</text></g><g class="stop all b1" transform="translate(1495,1847)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">8</text></g><g class="stop all b2" transform="translate(1326,1505)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">9</text></g><g class="stop all b2" transform="translate(1131,1758)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">9</text></g><g class="stop all b2" transform="translate(1144,1865)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">10</text></g><g class="stop all b2" transform="translate(1184,1895)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">10</text></g><g class="stop all b2" transform="translate(840,1777)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">11</text></g><g class="stop all b2" transform="translate(818,1744)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">11</text></g><g class="stop all b2" transform="translate(997,1641)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">12</text></g><g class="stop all b2" transform="translate(997,1549)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">12</text></g><g class="stop all b3" transform="translate(1056,1593)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">13</text></g><g class="stop all b3" transform="translate(398,1874)"><circle r="35.1" stroke-width="7.8"/><text dy="12.6" font-size="36.9">13</text></g><g class="base" transform="translate(1888,1330)"><rect x="-47.4" y="-47.4" width="94.9" height="94.9" rx="16.6" stroke-width="7.8"/><path transform="translate(-26.1,-28.5) scale(2.635)" d="M2 10l8-7 8 7v8H2z"/><text class="base-label" x="64.0" y="18.0" font-size="54.7" stroke-width="15.6">San Candido</text></g><g class="base" transform="translate(1657,1778)"><rect x="-47.4" y="-47.4" width="94.9" height="94.9" rx="16.6" stroke-width="7.8"/><path transform="translate(-26.1,-28.5) scale(2.635)" d="M2 10l8-7 8 7v8H2z"/><text class="base-label" x="64.0" y="18.0" font-size="54.7" stroke-width="15.6">Cortina</text></g><g class="base" transform="translate(914,1698)"><rect x="-47.4" y="-47.4" width="94.9" height="94.9" rx="16.6" stroke-width="7.8"/><path transform="translate(-26.1,-28.5) scale(2.635)" d="M2 10l8-7 8 7v8H2z"/><text class="base-label" x="64.0" y="18.0" font-size="54.7" stroke-width="15.6">Ortisei</text></g><g class="base" transform="translate(408,1876)"><rect x="-47.4" y="-47.4" width="94.9" height="94.9" rx="16.6" stroke-width="7.8"/><path transform="translate(-26.1,-28.5) scale(2.635)" d="M2 10l8-7 8 7v8H2z"/><text class="base-label" x="64.0" y="18.0" font-size="54.7" stroke-width="15.6">Bolzano</text></g></svg></div></div></div><footer class="credits"><h2>Photo credits</h2><p>Photos from Wikimedia Commons, hotlinked at standard thumbnail sizes. Map relief from Mapterhorn elevation data; rivers and borders from OpenStreetMap contributors.</p><ol><li><a href="https://commons.wikimedia.org/wiki/File:Odle%2C_Puez%2C_Sella_and_Langkofel_groups_from_Seceda%2C_South_Tyrol.jpg">Odle, Puez, Sella and Sassolungo from the Seceda ridge</a>, NorbertNagel, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg">Lago di Misurina with the Tre Cime behind</a>, kallerna, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_6.jpg">Rowing boats on Lago di Braies</a>, kallerna, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Tre_cime_-_rifugio_Locatelli.jpg">Rifugio Locatelli and the north faces of the Tre Cime</a>, Elio Pallard, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Braies_South_Tyrol_7.jpg">Lago di Braies with the Croda del Becco ridge</a>, kallerna, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Tre_Cime_di_Lavaredo_from_Monte_Specie%2C_Val_Pusteria%2C_Trentino-Alto_Adige%2C_Italy%2C_2025_October.jpg">The Tre Cime from Monte Specie</a>, Ximonic (Simo Räsänen), <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_3.jpg">Lago di Sorapis</a>, kallerna, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Lagazuoi_01.jpg">Lagazuoi above Passo Falzarego</a>, Clemens Stockner, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Cinque_Torri_1.jpg">Cinque Torri</a>, kallerna, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Sella_group_-_View_from_West.jpg">The Sella group from the west</a>, H. Zell, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Passo_Pordoi-bops_01.jpg">Passo Pordoi in the Sella group</a>, Bops92, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Seiser_Alm_04.jpg">Alpe di Siusi with the Sassolungo group</a>, H. Zell, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Odles_as_seen_from_Seceda.JPG">The Odle from the ridge at Seceda</a>, Wolfgang Moroder, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></li></ol></footer></div><script>
+(function(){var t=new URLSearchParams(location.search).get('theme');if(t)document.documentElement.dataset.theme=t;
+document.addEventListener('click',function(e){var b=e.target.closest('[data-toggle-theme]');if(!b)return;
+var r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-tab]');if(!b)return;var g=b.parentElement;
+g.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')});});})();
+</script></body></html>
