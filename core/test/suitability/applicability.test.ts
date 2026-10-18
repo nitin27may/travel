@@ -24,12 +24,12 @@ const warnCodes = (r: { warnings: { code: string }[] }) => [...new Set(r.warning
 
 describe("the applicability file", () => {
   const profiles = Object.entries(APP.profiles);
-  it("has a row for every profile of SUIT_PROFILE, at least 34, and no other", () => {
+  it("has a row for every profile of SUIT_PROFILE (37 old and 10 new with the type tree), and no other", () => {
     expect(Object.keys(APP.profiles).sort()).toEqual([...E.SUIT_PROFILE].sort());
-    expect(profiles.length).toBeGreaterThanOrEqual(34);
+    expect(profiles.length).toBe(47);
   });
   it("every profile states every field path (N is explicit) and no other", () => {
-    expect(APPLICABILITY_PATHS).toHaveLength(148);
+    expect(APPLICABILITY_PATHS).toHaveLength(153); // 148 + change_rooms, showers, picnic, baby_change, participation.driver
     for (const [name, p] of profiles) expect(Object.keys(p.fields).sort(), name).toEqual([...APPLICABILITY_PATHS].sort());
   });
   it("every cell is R, A, N or op", () => {

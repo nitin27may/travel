@@ -76,8 +76,13 @@ function strongest(list: Strength[]): Strength {
   return "open";
 }
 
-export function checkRecord(rec: RecordLike, app: Applicability = loadApplicability()): RecordCheck {
-  const located = profileOf(rec, app);
+/**
+ * The suitability slice of the completeness engine (capture contract 5.3). `located` is the contract's marks for the record's type
+ * (core/src/capture/engine.ts passes the resolved node); without it the marks come from the applicability file, which the
+ * generator writes from the same contract, so both paths count the same cells.
+ */
+export function checkRecord(rec: RecordLike, app: Applicability = loadApplicability(), given?: Located | null): RecordCheck {
+  const located = given === undefined ? profileOf(rec, app) : given;
   if (!located) return { located: null, operated: false, level: "draft", missingRequired: [], missingApplicable: [], softRequired: [], softSafety: [], badExempt: [], naPresent: [] };
   const { profile } = located;
   const operated = isOperated(profile, rec.operated);

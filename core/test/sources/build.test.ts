@@ -97,3 +97,16 @@ describe("pruneOrphanLinks (2.33)", () => {
     expect(pruneOrphanLinks(file, ["s-aaaaaaaaaa"])).toEqual([]);
   });
 });
+
+import { notesFor } from "../../src/sources/notes.ts";
+describe("automated access (capture contract 9.2)", () => {
+  it("marks link-only platforms forbidden, open-data hosts allowed and the rest unknown", () => {
+    expect(notesFor("https://www.alltrails.com/trail/x").automated).toBe("forbidden");
+    expect(notesFor("https://www.wikiloc.com/x").automated).toBe("forbidden");
+    expect(notesFor("https://www.tripadvisor.ca/x").automated).toBe("forbidden");
+    expect(notesFor("https://www.wikidata.org/wiki/Q1").automated).toBe("allowed");
+    expect(notesFor("https://overpass-api.de/api").automated).toBe("allowed");
+    expect(notesFor("https://parks.canada.ca/x").automated).toBe("unknown");
+    expect(notesFor("docs/v2/research/suitability.md").automated).toBe("allowed");
+  });
+});
