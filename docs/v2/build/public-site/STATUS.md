@@ -19,8 +19,8 @@ Updated 2026-10-18, evening. Read this first after a context reset. Then read `d
 | L5 | copy, export, share | merged 972fbd4 | ICS only for dated copies, licence guard on GPX/KML/CSV |
 | L1 | home and global search | merged bc8d102 | the cover is still a flat map; swap to L2's `GlobeCover` after L2 merges |
 | L2 | full-screen globe | **fixing** (builder agent) | blocking: the map has no height in the export (review 3.1, L2-1). Fixing L2-1 to L2-7, then re-verify with tiles and merge |
-| L3 | trips list and trip page | **fixing** (builder agent) | day-row photos, map label collisions, map fit, country names, decimals, done-trip view, share links. Then merge |
-| L4 | places list and place/trail pages | **building** (builder agent) | uses the owner's real Google key (`web/.env.local` in v2-L4); make places-parity e2e deterministic; filter internal notes |
+| L3 | trips list and trip page | merged 65eee4c | dark-style label hiding via `web/lib/map/maplibre/labels.ts` (additive LM edit, `hideBasemapLabels`); TripsMap lazy for the JS budget |
+| L4 | places list and place/trail pages | **verifying** | real Google key confirmed working 18 Oct on trail and place pages (0 Google requests before click, our points, directions from our coordinates); trail page shows a raw "Route line: osm_relation …" note to replace |
 | L2b | globe enhancements | queued | `docs/v2/design/globe/spec.md`, after L2 merges |
 
 Merge procedure per lane:
