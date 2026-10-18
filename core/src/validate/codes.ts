@@ -73,3 +73,33 @@ export type SuitErrorCode = keyof typeof SUIT_ERROR_CODES;
 export type SuitWarningCode = keyof typeof SUIT_WARNING_CODES;
 export const SUIT_ERROR_LIST = Object.keys(SUIT_ERROR_CODES) as SuitErrorCode[];
 export const SUIT_WARNING_LIST = Object.keys(SUIT_WARNING_CODES) as SuitWarningCode[];
+
+// relevance/1 codes (docs/v2/research/relevance.md sections 2.2 and 5). A block of their own, apart from the E_SUIT_*
+// one, with a failing fixture each in fixtures/relevance/broken (enforced by core/test/relevance/validate.test.ts).
+export const REL_ERROR_CODES = {
+  E_REL_SCHEMA: "a field is missing, unknown, of the wrong type or outside its enum, or a value state contradicts its v",
+  E_REL_REF: "a record ref does not resolve to a place, a legacy row or a trip item",
+  E_REL_DUP_REF: "a ref appears twice in a file, or in two files of one trip",
+  E_REL_SRC: "a src id is not in the file's sources table, or a value has no source and is not our_inference with a note",
+  E_REL_SRC_READ: "a source has no read date",
+  E_REL_LINK_ONLY_SRC: "a source is AllTrails, Komoot, Google, Tripadvisor or another link-only platform: its ratings, review counts and ranks are never data",
+  E_REL_COPIED_RATING: "a quote, note or title carries a rating, a review count or a popularity rank (4.8 stars, 12,345 reviews, #3 of 41)",
+  E_REL_DRAW_NOTE: "draw has a value but its note names no signal (a designation, a top-list mention, the land manager's own page, a sell-out)",
+  E_REL_TYPED_DERIVED: "a derived field (draw_suggested, role, fit, badge, substitutes, detour, far_pointer, flags) is typed in a file",
+  E_REL_INHERITED_DESIGNATION: "a designation sourced from a park-level page is on a place record without scope: parent",
+  E_REL_HOUSEHOLD: "a household origin, home address or private point is in a relevance file; day-trip fit uses public hubs only",
+  E_REL_CLASS: "class_key is not in data/vocab/relevance-classes.json",
+  E_REL_QID: "a Wikidata QID is not of the form Q123, or a value-state QID carries no confirmation note",
+  E_REL_RANGE: "a draw_peak tier is not above the base draw, or a draw_peak window has equal start and end",
+} as const;
+export const REL_WARNING_CODES = {
+  W_REL_NO_QID: "the record has no confirmed Wikidata QID, so the signals tool cannot read its fame",
+  W_REL_DRAW_GAP: "draw and draw_suggested differ by 2 or more tiers and the draw note does not explain why",
+  W_REL_DISTINCTION: "distinction is unique but a same-class catalogue place lies within 100 km",
+  W_REL_NO_DETOUR: "no trip leg, base or catalogue town gives a detour for the place",
+  W_REL_STALE: "a judged field, designation, mention or access cost is older than its freshness class allows",
+} as const;
+export type RelErrorCode = keyof typeof REL_ERROR_CODES;
+export type RelWarningCode = keyof typeof REL_WARNING_CODES;
+export const REL_ERROR_LIST = Object.keys(REL_ERROR_CODES) as RelErrorCode[];
+export const REL_WARNING_LIST = Object.keys(REL_WARNING_CODES) as RelWarningCode[];

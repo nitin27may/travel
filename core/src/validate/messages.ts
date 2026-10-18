@@ -125,3 +125,31 @@ export const SUIT_MESSAGES = {
   flatMissing: (): string =>
     `the record has no flat catalogue copy. Run: node core/bin/suitability.ts derive --write. Example: "flat": {"min_age": null, "house_grade": 3}.`,
 };
+
+// relevance/1 messages, a block of their own.
+export const REL_MESSAGES = {
+  schema: (path: string, what: string): string => `${path || "the file"}: ${what}`,
+  ref: (ref: string, why: string): string =>
+    `ref "${ref}" does not resolve: ${why}. Relevance uses the suitability refs: place/<slug>, legacy/<folder>/<dataset>/<id>, trip/<trip>/<kind>:<name>. Example: "place/lago-di-braies".`,
+  dupRef: (ref: string, where: string): string =>
+    `ref "${ref}" appears more than once (${where}). Keep one relevance record per ref. Example: merge the second record into the first and delete it.`,
+  srcUnknown: (id: string): string => `src names "${id}", which is not in this file's sources. Add the source to "sources" or remove the id. Example: "src-0001".`,
+  srcMissing: (field: string): string =>
+    `"${field}" has a value but no source. A value without src must be basis "our_inference" with a note that names the method. Example: {"basis": "our_inference", "src": [], "note": "Lake Louise 11 km is the same class"}.`,
+  srcRead: (id: string): string => `source "${id}" has no read date. Every source is dated when it was read. Example: "read": "2026-10-18".`,
+  linkOnly: (id: string, host: string): string =>
+    `source "${id}" is ${host}: its ratings, review counts and ranks are never data (R6). Cite the land manager, UNESCO or the tourism board instead, and keep the link in the lane markdown. Example: "https://parks.canada.ca/...".`,
+  copiedRating: (where: string, text: string): string =>
+    `${where} contains "${text}", which reads as a rating, a review count or a popularity rank. Those are never stored (R6). Say what the place is in your own words. Example: "one of the most photographed lakes in the Rockies".`,
+  drawNote: (): string =>
+    'draw has a value but its note names no signal. Name one: a designation with its scope, a top-list mention, the land manager calling it a headline, or a booking that sells out. Example: "note": "NPS calls the Narrows one of the park\'s most popular areas (official_highlight)".',
+  typedDerived: (key: string): string =>
+    `"${key}" is derived by core/src/relevance/derive.ts and must not be typed. Remove it, or use "override" with a reason, by and on. Example: {"field": "role", "value": "highlight", "reason": "...", "by": "nitin", "on": "2026-10-18"}.`,
+  inherited: (name: string): string =>
+    `designation "${name}" comes from a park-level page, so on a place record it must say scope "parent": inherited status never raises the draw (3.1 rule 3). Example: {"type": "unesco_whs", "name": "${name}", "scope": "parent"}.`,
+  household: (what: string): string =>
+    `${what} looks like a household origin. Relevance files carry public hubs only (Toronto City Hall), never a home address or a private point. Remove it.`,
+  cls: (key: string): string => `class_key "${key}" is not in data/vocab/relevance-classes.json. Pick an existing class, or propose a new one in the lane markdown. Example: "lake/glacial-turquoise".`,
+  qid: (what: string): string => `${what}. A confirmed QID looks like "Q1072342" and its note says how it was checked. Example: {"v": "Q1072342", "state": "value", "basis": "our_inference", "src": [], "note": "checked: lake in Alberta, not Q124471170"}.`,
+  range: (what: string): string => `${what}. Example: at most 3 editorial mentions, "why" up to 120 characters, draw_peak from "09-20" to "10-15".`,
+};

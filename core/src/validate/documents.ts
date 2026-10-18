@@ -4,9 +4,10 @@ import type { Ctx } from "./rows.ts";
 import { polylineVertexCount } from "./polyline.ts";
 
 import { validateSuitability } from "./suitability.ts";
+import { validateRelevance } from "./relevance.ts";
 import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability";
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "relevance";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -15,6 +16,7 @@ const TABLE_OF: Record<DocumentKind, string> = {
   freshness: "freshness",
   "difficulty-map": "difficulty_map",
   suitability: "suitability",
+  relevance: "relevance",
 };
 
 export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): void {
@@ -22,6 +24,11 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   if (kind === "suitability") {
     // its own error codes (E_SUIT_*): the generic table check would report everything as E_SCHEMA
     validateSuitability(doc, ctx);
+    return;
+  }
+  if (kind === "relevance") {
+    // its own error codes (E_REL_*)
+    validateRelevance(doc, ctx);
     return;
   }
   // a v1 difficulty map predates `modes`; fill the column it does not have so v1 files keep validating

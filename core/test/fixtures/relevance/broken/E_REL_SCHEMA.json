@@ -1,0 +1,94 @@
+{
+  "schema": "relevance/1",
+  "trip": "fixture-trip",
+  "lane": "t",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/x",
+      "title": "t",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-12"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/lago-di-braies",
+      "kind": "lake",
+      "wikidata": {
+        "v": "Q1072342",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked by coordinates and description"
+      },
+      "class_key": "lake/glacial-turquoise",
+      "draw": {
+        "v": "galactic",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "standing_scope": "within 1 h",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture judgement"
+      },
+      "why": "A fixture place.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "fixture"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "note": "fixture"
+        },
+        "editorial": {
+          "v": [],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0001"
+          ],
+          "note": "fixture"
+        }
+      }
+    }
+  ]
+}
