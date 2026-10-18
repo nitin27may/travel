@@ -20,7 +20,12 @@
 .home-cover-inner .home-search { grid-column: auto; grid-row: auto; width: min(420px, 100%); cursor: text; text-align: left; font: inherit; }
 .home-search-text { color: var(--muted); font: var(--t-body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .home-hint { margin: 0; font: var(--t-mono); color: var(--muted); }
-/* the map under the panel stays inert-looking; its pins are the interaction */
+/* the map beside the panel stays quiet; its pins are the interaction */
+/* wide screens: the search card sits left and the globe fills the rest, so no pin hides under the card */
+@media (min-width: 1024px) {
+  .home-globe { left: 34%; }
+  .home-cover-inner { left: max(var(--margin), calc((100% - var(--max-content)) / 2 + var(--margin))); transform: translateY(-50%); }
+}
 @media (max-width: 639px) {
   /* phone: the map on top, the search card below it, so the card never covers a pin or the attribution */
   .home-cover { height: auto; display: flex; flex-direction: column; overflow: visible; }
