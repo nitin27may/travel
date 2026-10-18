@@ -1,8 +1,9 @@
 'use client';
 
+import { Button } from '@/components/ui/Button';
+import { EmptyState as EmptyBlock } from '@/components/ui/EmptyState';
 import { activeFilters, clearAll, filterRows } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetParam, ListState } from '@/lib/entities/types';
-import { Icon } from '@/components/ui/Icon';
 
 interface Props<Row> {
   d: EntityDescriptor<Row>;
@@ -12,7 +13,7 @@ interface Props<Row> {
   onState: (s: ListState, mode?: 'push' | 'replace') => void;
 }
 
-/** Never a dead end: names the filters that removed the rows and offers one-tap ways back. */
+/** Never a dead end: names the filters that removed the rows and offers one-tap ways back (components 6.1). */
 export function EmptyState<Row>({ d, state, rows, labelOf, onState }: Props<Row>) {
   const chips = activeFilters(state, d, labelOf);
   const options = chips
@@ -23,41 +24,35 @@ export function EmptyState<Row>({ d, state, rows, labelOf, onState }: Props<Row>
   const withoutQuery = state.q.trim() ? filterRows(rows, { ...state, q: '' }, d).length : 0;
   const nothingToFilter = !chips.length && !state.q.trim();
 
+  if (nothingToFilter) return <EmptyBlock glyph="search" title={`No ${d.noun.many} yet`} why="When some are added they will show up here." />;
   return (
-    <div className="empty" role="status">
-      <Icon name="search" size={28} />
-      {nothingToFilter ? (
-        <>
-          <h2>No {d.noun.many} yet</h2>
-          <p>When some are added they will show up here.</p>
-        </>
-      ) : (
-        <>
-          <h2>No {d.noun.many} match</h2>
-          <p>{d.emptyHint}</p>
-          <ul className="empty-actions">
-            {withoutQuery > 0 ? (
-              <li>
-                <button type="button" className="btn" onClick={() => onState({ ...state, q: '', focus: null }, 'push')}>
-                  Clear the search to see {withoutQuery} {withoutQuery === 1 ? d.noun.one : d.noun.many}
-                </button>
-              </li>
-            ) : null}
-            {options.map(({ chip, n }) => (
-              <li key={chip.key}>
-                <button type="button" className="btn" onClick={() => onState(chip.without, 'push')}>
-                  Remove &ldquo;{chip.label}&rdquo; to see {n} {n === 1 ? d.noun.one : d.noun.many}
-                </button>
-              </li>
-            ))}
+    <EmptyBlock
+      glyph="search"
+      title={`No ${d.noun.many} match`}
+      why={d.emptyHint}
+      action={
+        <Button variant="primary" onClick={() => onState(clearAll(state), 'push')}>
+          Clear all filters
+        </Button>
+      }
+      secondary={
+        <ul className="empty-list">
+          {withoutQuery > 0 ? (
             <li>
-              <button type="button" className="btn btn-primary" onClick={() => onState(clearAll(state), 'push')}>
-                Clear all filters
-              </button>
+              <Button onClick={() => onState({ ...state, q: '', focus: null }, 'push')}>
+                Clear the search to see {withoutQuery} {withoutQuery === 1 ? d.noun.one : d.noun.many}
+              </Button>
             </li>
-          </ul>
-        </>
-      )}
-    </div>
+          ) : null}
+          {options.map(({ chip, n }) => (
+            <li key={chip.key}>
+              <Button onClick={() => onState(chip.without, 'push')}>
+                Remove &ldquo;{chip.label}&rdquo; to see {n} {n === 1 ? d.noun.one : d.noun.many}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      }
+    />
   );
 }

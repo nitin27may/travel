@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { decodeState, encodeState, hashToQuery } from '@/lib/entities/url';
+import { decodeState, encodeState, hashToQuery, pageAfter } from '@/lib/entities/url';
 import type { ListState } from '@/lib/entities/types';
 
 const EVENT = 'travel:url';
@@ -40,7 +40,9 @@ export function useUrlState(): [ListState, (next: ListState, mode?: 'push' | 're
     window.dispatchEvent(new Event(EVENT));
   }, []);
 
-  const set = useCallback((next: ListState, mode: 'push' | 'replace' = 'replace') => {
+  const set = useCallback((requested: ListState, mode: 'push' | 'replace' = 'replace') => {
+    // anything that changes which rows show starts again at page 1
+    const next = { ...requested, page: pageAfter(decodeState(window.location.search), requested) };
     const q = encodeState(next);
     const url = `${window.location.pathname}${q ? `?${q}` : ''}`;
     if (url === `${window.location.pathname}${window.location.search}`) return;

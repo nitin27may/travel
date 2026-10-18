@@ -30,6 +30,8 @@ export interface ListState {
   focus: string | null;
   ids: string[];
   label: string | null;
+  /** 1-based page of the list (components 8.5: 48 cards or 100 rows a page); 1 is the default and is not written. */
+  page: number;
 }
 
 export interface Badge {
@@ -126,4 +128,9 @@ export interface EntityDescriptor<Row> {
   ops: { create?: string; edit?: string; remove?: string };
   /** Words for the empty state. */
   emptyHint: string;
+  /**
+   * Map view. When set, the Map segment is enabled and this renders it from the filtered rows (lanes L3 and L4 supply it
+   * from their own descriptor files, so they never edit components/entity/).
+   */
+  renderMap?: (rows: Row[], state: ListState) => ReactNode;
 }
