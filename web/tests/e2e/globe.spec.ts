@@ -16,7 +16,7 @@ test.describe('globe page', () => {
 
   test('pins are ink at rest and nothing is amber until pointed at', async ({ page, site }) => {
     await page.goto(`${site.url}/globe/`);
-    const pins = page.locator('.globe-pin');
+    const pins = page.locator('.globe-pin:visible');
     await expect(pins.first()).toBeVisible();
     expect(await page.locator('.globe-pin[data-hot="true"]').count()).toBe(0);
     const bg = await pins.first().evaluate((el) => getComputedStyle(el).backgroundColor);

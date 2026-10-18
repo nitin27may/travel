@@ -6,7 +6,8 @@ import { createPortal } from 'react-dom';
 import { BottomSheet } from '@/components/ui/BottomSheet';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
-import { GlobeController, WORLD_CAMERA, type GlobeSnapshot } from '@/lib/globe/controller';
+import { GlobeController, type GlobeSnapshot } from '@/lib/globe/controller';
+import { WORLD_LAT, WORLD_LNG, worldFrame } from '@/lib/globe/framing';
 import { loadCountries, type CountryBook } from '@/lib/globe/countries';
 import type { GlobeEngine } from '@/lib/globe/engine';
 import { DEFAULT_PREFS, loadPrefs, savePrefs, type GlobePrefs } from '@/lib/globe/prefs';
@@ -26,6 +27,8 @@ import { FeatureCard, SelectionCard, type NearbyPlace } from './SelectionCard';
 import { distanceKm } from '@/lib/map/geo';
 
 const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, pins: [], notice: null };
+/** Height of the phone sheet at rest (components 5.5). */
+const PEEK = 176;
 const strip = (p: string) => p.replace(/\/+$/, '');
 
 function useMedia(query: string, initial = false): boolean {
@@ -57,11 +60,26 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [panelOpen, setPanelOpen] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(true);
   const [optionsOpen, setOptionsOpen] = useState(false);
+  const [cardOpen, setCardOpen] = useState(true);
   const [hint, setHint] = useState(true);
   const [dark, setDark] = useState(false);
   const [cardEl, setCardEl] = useState<HTMLElement | null>(null);
   const ctrl = useRef<GlobeController | null>(null);
-  const [initialCamera] = useState<Camera | null>(() => (typeof window === 'undefined' ? null : parseCamera(window.location.search) ?? (window.matchMedia('(max-width: 639px)').matches ? WORLD_CAMERA.phone : WORLD_CAMERA.desktop)));
+  const layoutRef = useRef<() => { width: number; height: number; cover: { top: number; right: number; bottom: number; left: number } }>(() => ({ width: 1, height: 1, cover: { top: 0, right: 0, bottom: 0, left: 0 } }));
+  const short = useMedia('(max-height: 500px) and (orientation: landscape)');
+  const root = useRef<HTMLDivElement>(null);
+  // The first frame is computed from the window, before the canvas exists; the controller re-frames from the real canvas once it does.
+  const [initialCamera] = useState<Camera | null>(() => {
+    if (typeof window === 'undefined') return null;
+    const restored = parseCamera(window.location.search);
+    if (restored) return restored;
+    const isPhone = window.matchMedia('(max-width: 639px)').matches;
+    const isShort = window.matchMedia('(max-height: 500px) and (orientation: landscape)').matches;
+    const w = window.innerWidth;
+    const h = window.innerHeight - (isPhone ? 56 + 56 : 56);
+    const f = worldFrame(w, h, isPhone ? { top: 0, right: 0, bottom: PEEK, left: 0 } : { top: isShort ? 52 : 0, right: (isShort ? 300 : 360) + 24, bottom: 0, left: 0 });
+    return { lng: WORLD_LNG, lat: WORLD_LAT, zoom: f.zoom };
+  });
 
   // Full-bleed: the footer goes, the page does not scroll (patterns 3.2).
   useLayoutEffect(() => {
@@ -86,10 +104,13 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     else window.history.replaceState(null, '', url);
   }, []);
 
+  const layout = useCallback(() => layoutRef.current(), []);
   const controller = useMemo(() => {
     if (!book) return null;
-    return new GlobeController({ data, book, navigate, isPhone: () => window.matchMedia('(max-width: 639px)').matches, onChange: setSnap });
-  }, [book, data, navigate]);
+    // The controller calls `layout` from event handlers only, never during render, so the ref is read after render.
+    // eslint-disable-next-line react-hooks/refs
+    return new GlobeController({ data, book, navigate, isPhone: () => window.matchMedia('(max-width: 639px)').matches, layout, onChange: setSnap });
+  }, [book, data, navigate, layout]);
   useEffect(() => { ctrl.current = controller; }, [controller]);
 
   const handlers = useMemo(() => {
@@ -103,6 +124,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       describe: controller.describe.bind(controller),
       onCamera: (cam: Camera) => controller.onCamera(cam),
       onInteract: () => setHint(false),
+      onWorldFramed: (z: number) => controller.worldFramed(z),
     };
   }, [controller]);
 
@@ -183,6 +205,24 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       .slice(0, 4);
   }, [snap.feature, data]);
 
+  // Free canvas for the world frame: the canvas minus whatever the open panel or the resting sheet covers (spec 3.1).
+  const panelFoot = (short ? 300 : 360) + 24;
+  useEffect(() => {
+    layoutRef.current = () => {
+      const r = root.current?.getBoundingClientRect();
+      return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 } };
+    };
+  }, [phone, short, panelOpen, sheetOpen, panelFoot]);
+  useEffect(() => {
+    if (!controller || !engine) return;
+    let t: ReturnType<typeof setTimeout> | undefined;
+    const run = () => { clearTimeout(t); t = setTimeout(() => controller.reframe(), 150); };
+    run();
+    const ro = new ResizeObserver(run);
+    if (root.current) ro.observe(root.current);
+    return () => { ro.disconnect(); clearTimeout(t); };
+  }, [controller, engine, phone, short, panelOpen, sheetOpen, panelFoot]);
+
   const canBack = snap.path.length > 0 || !!snap.selected || !!snap.feature;
   const level = snap.path.length;
   const panelTitle = level === 0 ? 'Places and trips' : snap.crumbs[snap.crumbs.length - 1]?.label ?? '';
@@ -194,7 +234,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const controls = <GlobeControls prefs={prefs} style={styleKey} reducedMotion={reduced} onChange={changePrefs} />;
 
   return (
-    <div className="globe-root" data-level={level} data-panel={panelOpen && !phone ? 'open' : 'closed'} data-phone={phone ? 'true' : undefined}>
+    <div ref={root} className="globe-root" data-level={level} data-panel={panelOpen && !phone ? 'open' : 'closed'} data-phone={phone ? 'true' : undefined}>
       {book && prefsReady && handlers && initialCamera ? (
         <GlobeCanvas
           mode="full"
@@ -232,10 +272,17 @@ export function GlobeShell({ data }: { data: GlobeData }) {
         />
       ) : null}
 
-      {!phone ? (
-        <div className="globe-card-controls surface-card" aria-label="Map options">
-          {controls}
-        </div>
+      {!phone && !short ? (
+        cardOpen ? (
+          <div className="globe-card-controls surface-card" role="group" aria-label="Map options">
+            <button type="button" className="globe-card-fold" aria-expanded="true" aria-label="Collapse the map options" onClick={() => setCardOpen(false)}><Icon name="chevronDown" size={16} /></button>
+            {controls}
+          </div>
+        ) : (
+          <Button className="globe-card-pill" variant="secondary" aria-expanded="false" onClick={() => setCardOpen(true)}>
+            <Icon name="layers" size={16} /> Map options
+          </Button>
+        )
       ) : (
         <Button className="globe-options-btn" variant="secondary" onClick={() => setOptionsOpen(true)}>
           <Icon name="layers" size={16} /> Map options
@@ -272,6 +319,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
             title={level === 0 ? 'Countries' : panelTitle}
             snaps={['peek', 'half', 'full']}
             initial="peek"
+            peekPx={PEEK}
             modal={false}
             className="globe-sheet"
           >
@@ -281,11 +329,14 @@ export function GlobeShell({ data }: { data: GlobeData }) {
           <BottomSheet open={!!card} onOpenChange={(o) => { if (!o) controller?.closeCard(); }} title={card?.title ?? ''} snaps={['peek', 'half']} initial="half" modal={false} className="globe-sheet">
             {card ? <SelectionCard card={card} onClose={() => controller?.closeCard()} /> : null}
           </BottomSheet>
-          <BottomSheet open={optionsOpen} onOpenChange={setOptionsOpen} title="Map options" snaps={['half']} initial="half">
-            {controls}
-          </BottomSheet>
         </>
       )}
+
+      {phone || short ? (
+        <BottomSheet open={optionsOpen} onOpenChange={setOptionsOpen} title="Map options" snaps={['half']} initial="half">
+          {controls}
+        </BottomSheet>
+      ) : null}
 
       {snap.failed ? <p className="globe-status globe-fail-note" role="alert">{snap.failed}</p> : null}
       <ul className="sr-only" aria-label="Places and trips on the globe">

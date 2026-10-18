@@ -7,7 +7,7 @@ html[data-globe] body { overflow: hidden; height: 100dvh; }
 html[data-globe] .site-footer { display: none; }
 html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 
-.globe-root { position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
+.globe-root { --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
 @media (max-width: 639px) { .globe-root { bottom: var(--phone-bottombar-h); } }
 
 .globe-canvas { position: absolute; inset: 0; background: var(--well); }
@@ -19,7 +19,7 @@ html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 
 /* attribution stays visible and clear of the panel */
 .globe-root .maplibregl-ctrl-bottom-right { transition: right var(--d-base) var(--e-out); }
-.globe-root[data-panel='open'] .maplibregl-ctrl-bottom-right { right: 384px; }
+.globe-root[data-panel='open'] .maplibregl-ctrl-bottom-right { right: var(--globe-panel-gap); }
 
 /* ---------- pins ---------- */
 .globe-marker { pointer-events: none; }
@@ -60,7 +60,7 @@ span.globe-pin { cursor: default; }
 /* ---------- top row: breadcrumb chip and search ---------- */
 .globe-top { position: absolute; z-index: 7; top: 12px; left: 12px; right: 12px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px) minmax(0, 1fr); gap: var(--s-3); align-items: start; pointer-events: none; transition: right var(--d-base) var(--e-out); }
 .globe-top > * { pointer-events: auto; }
-.globe-root[data-panel='open'] .globe-top { right: 384px; }
+.globe-root[data-panel='open'] .globe-top { right: var(--globe-panel-gap); }
 
 .globe-crumbs { grid-column: 1; justify-self: start; display: inline-flex; align-items: center; gap: 4px; max-width: 100%; min-height: 40px; padding: 2px 6px 2px 4px; border-radius: var(--r-full); background: color-mix(in srgb, var(--surface) 92%, transparent); border: 1px solid var(--line-2); box-shadow: var(--e-1); font: var(--t-meta); }
 .globe-crumbs ol { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; min-width: 0; flex-wrap: nowrap; overflow: hidden; }
@@ -98,15 +98,15 @@ span.globe-pin { cursor: default; }
 .globe-controls .slider { max-width: 100%; }
 .globe-ctl-label { font: var(--t-cap); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .globe-zoom { position: absolute; z-index: 7; right: 12px; bottom: 72px; display: grid; gap: 6px; transition: right var(--d-base) var(--e-out); }
-.globe-root[data-panel='open'] .globe-zoom { right: 384px; }
+.globe-root[data-panel='open'] .globe-zoom { right: var(--globe-panel-gap); }
 .globe-hint { position: absolute; z-index: 6; left: 50%; bottom: 36px; transform: translateX(-50%); margin: 0; padding: 7px 14px; border-radius: var(--r-full); background: color-mix(in srgb, var(--toast-bg) 85%, transparent); color: var(--toast-ink); font: var(--t-meta); white-space: nowrap; pointer-events: none; }
-.globe-root[data-panel='open'] .globe-hint { left: calc(50% - 180px); }
+.globe-root[data-panel='open'] .globe-hint { left: calc(50% - var(--globe-panel-w) / 2); }
 .globe-status { position: absolute; z-index: 7; left: 50%; top: 64px; transform: translateX(-50%); margin: 0; padding: 6px 12px; border-radius: var(--r-full); background: var(--toast-bg); color: var(--toast-ink); font: var(--t-meta); }
-.globe-root[data-panel='open'] .globe-status { left: calc(50% - 180px); }
+.globe-root[data-panel='open'] .globe-status { left: calc(50% - var(--globe-panel-w) / 2); }
 .globe-fail-note { background: var(--surface); color: var(--crit); border: 1px solid var(--crit); }
 
 /* ---------- side panel ---------- */
-.globe-panel { position: absolute; z-index: 7; top: 12px; right: 12px; bottom: 36px; width: 360px; display: flex; flex-direction: column; border-radius: var(--r-4); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--e-2); overflow: hidden; animation: globe-fade var(--d-base) var(--e-out) both; }
+.globe-panel { position: absolute; z-index: 7; top: 12px; right: 12px; bottom: 36px; width: var(--globe-panel-w); display: flex; flex-direction: column; border-radius: var(--r-4); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--e-2); overflow: hidden; animation: globe-fade var(--d-base) var(--e-out) both; }
 .globe-panel-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); padding: 10px 10px 10px 16px; border-bottom: 1px solid var(--line); }
 .globe-panel-head h2 { margin: 0; font: var(--t-card); text-transform: uppercase; letter-spacing: 0.02em; font-size: 22px; }
 .globe-panel-body { overflow: auto; flex: 1; overscroll-behavior: contain; }
@@ -148,19 +148,37 @@ span.globe-pin { cursor: default; }
 .globe-feature-x { position: absolute; top: 4px; right: 4px; }
 
 /* ---------- phone ---------- */
-.globe-options-btn, .globe-list-btn { position: absolute; z-index: 7; right: 12px; bottom: 136px; }
+.globe-options-btn, .globe-list-btn { position: absolute; z-index: 7; right: 12px; bottom: 188px; }
 .globe-list-btn { bottom: 12px; }
 .sheet-bottom-frame.globe-sheet { bottom: var(--phone-bottombar-h); z-index: var(--z-drawer); }
 @media (max-width: 639px) {
   .globe-top { display: block; top: 8px; left: 8px; right: 8px; }
   .globe-search { width: 100%; }
-  .globe-crumbs { position: fixed; left: 8px; bottom: calc(var(--phone-bottombar-h) + 132px); max-width: calc(100vw - 150px); z-index: 7; }
+  .globe-crumbs { position: fixed; left: 8px; bottom: calc(var(--phone-bottombar-h) + 188px); max-width: calc(100vw - 150px); z-index: 7; }
   .globe-card-controls, .globe-zoom, .globe-hint { display: none; }
   .globe-status { top: 56px; }
   .globe-card { width: 100%; border: 0; box-shadow: none; border-radius: 0; animation: none; }
   .globe-card-photo { height: 140px; }
-  .globe-feature { left: 8px; right: 8px; top: auto; bottom: calc(var(--phone-bottombar-h) + 190px); width: auto; }
-  .globe-options-btn { bottom: 132px; }
+  .globe-feature { left: 8px; right: 8px; top: auto; bottom: calc(var(--phone-bottombar-h) + 246px); width: auto; }
+  .globe-options-btn { bottom: 188px; }
+}
+
+ /* ---------- landscape phone (844x390): a 300 px side peek, options behind a button, nothing stacked on the canvas ---------- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .globe-root { --globe-panel-w: 300px; }
+  .globe-top { top: 8px; left: 8px; grid-template-columns: minmax(0, 1fr) minmax(0, 300px) minmax(0, 0px); }
+  .globe-root[data-panel='open'] .globe-top { right: var(--globe-panel-gap); }
+  .globe-panel { top: 8px; bottom: 8px; right: 8px; }
+  .globe-panel-tab { top: 56px; height: 84px; }
+  .globe-card-controls { display: none; }
+  .globe-zoom { bottom: 12px; }
+  .globe-hint { display: none; }
+  .globe-options-btn { bottom: 12px; right: auto; left: 8px; }
+  .globe-root[data-panel='open'] .globe-options-btn { right: auto; }
+  .globe-card { width: 280px; }
+  .globe-card-photo { height: 96px; }
+  .globe-feature { top: 56px; width: 240px; }
+  .globe-status { top: 56px; }
 }
 
 /* ---------- reduced motion: fades only ---------- */
@@ -180,3 +198,23 @@ span.globe-pin { cursor: default; }
 .globe-feature-near button { display: flex; justify-content: space-between; gap: 8px; width: 100%; min-height: 36px; padding: 0 8px; align-items: center; border: 0; border-radius: var(--r-3); background: none; color: var(--ink); font: 500 14.5px/1.2 var(--font-body); cursor: pointer; text-align: left; }
 .globe-feature-near button:hover { background: var(--surface-2); }
 .globe-feature-near button span { font: var(--t-meta); color: var(--muted); flex: none; }
+
+/* ---------- country with nothing saved: facts only ---------- */
+.globe-country-card { display: grid; gap: var(--s-2); padding: 16px; }
+.globe-country-flag { font-size: 40px; line-height: 1; }
+.globe-country-name { margin: 0; font: var(--t-card); text-transform: uppercase; font-size: 24px; line-height: 1; }
+.globe-country-region { margin: 0; font: var(--t-meta); color: var(--muted); }
+.globe-facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: var(--s-2) 0 0; font: var(--t-meta); }
+.globe-facts dt { color: var(--muted); font: var(--t-cap); letter-spacing: 0.08em; text-transform: uppercase; padding-top: 2px; }
+.globe-facts dd { margin: 0; color: var(--ink); font: 500 15px/1.35 var(--font-body); }
+.globe-empty-note { margin: var(--s-3) 0 0; font: var(--t-meta); color: var(--muted); }
+
+.globe-root .maplibregl-ctrl-scale[hidden] { display: none; }
+
+/* ---------- collapsible control card ---------- */
+.globe-card-fold { position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: var(--r-full); background: none; color: var(--muted); cursor: pointer; }
+.globe-card-fold:hover { background: var(--surface-2); color: var(--ink); }
+.globe-card-pill { position: absolute; z-index: 7; left: 12px; bottom: 36px; }
+
+/* the hint would sit on top of the control card on narrow desktops */
+@media (max-width: 1199px) { .globe-hint { display: none; } }
