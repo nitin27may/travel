@@ -52,7 +52,7 @@ case the design has to make easy.
 8. **Reminders and notifications always name the trip and open it in context.**
    - Example: "Patagonia · Book El Chaltén lodging · due Sat 31 Oct".
 9. **URLs carry the trip.**
-   - For example `/trips/patagonia-2027/bookings/r-123`.
+   - For example `/t/patagonia-2027/bookings/bk_7f3a` (the URL table is design/foundation/patterns.md 1.2; `/trips/...` is always a public page).
    - A shared or bookmarked link never opens the wrong trip.
 
 ## Scenarios (each preview and the prototype must pass all of them)

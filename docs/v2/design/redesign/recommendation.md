@@ -31,23 +31,30 @@ Tokens and AA results: [directions.md](directions.md) section C and [contrast-re
 
 ## 2. Information architecture
 
+> **Superseded in part (18 Oct 2026, foundation gate B1).** Names, URLs, type sizes and the urgency
+> threshold below were replaced by the foundation: "Discover" is **Trips** (`/trips`), the household's own
+> trips are **Home** (`/home`), place pages are `/places/<place-slug>`, the planner is `/t/<trip-slug>/<tab>[/<item-id>]`,
+> and `/trips/<trip-slug>` is always the public page. The one URL table is
+> [../foundation/patterns.md](../foundation/patterns.md) 1.2; thresholds are tokens.md 3.1; sizes are
+> tokens.md 6. Where this page and the foundation differ, the foundation wins.
+
 The **public, no-login, read-only experience is the primary surface.** The signed-in planner sits on top of
 the same pages. Logging in adds a trip switcher, the household's deadlines and editing; it does not create a
 second app.
 
 | Area | Who | Scope | What it holds |
 |---|---|---|---|
-| **Discover** (`/discover`, `/t/<slug>`) | everyone | global | published trips: cards, list, table and map views; filters; the public trip page (season band, day by day, route map, copy, export) |
-| **Places** (`/places`, `/p/<slug>`) | everyone | global | every place and trail: filter pills for each dimension, four views, table tools, honesty markers; place and trail pages with every fact, source and link |
-| **Globe** (`/globe`) | everyone | global | the entry point: pins by continent and country, drill country to state to district, styles, 3D terrain, saved places by country, search that flies to a place |
-| **Trips** (`/trips`) | signed in | cross-trip summary | needs you this week (grouped by trip), in progress, planning, ideas, done as templates; the same card, list, table and map views as Discover; the **Year** view (all trips, their booking windows and spend, each in its own currency) |
+| **Trips** (`/trips`, `/trips/<trip-slug>`; was "Discover") | everyone | global | published trips: cards, list, table and map views; filters; the public trip page (season band, day by day, route map, copy, export) |
+| **Places** (`/places`, `/places/<place-slug>`) | everyone | global | every place and trail: filter pills for each dimension, four views, table tools, honesty markers; place and trail pages with every fact, source and link |
+| **Globe** (`/globe`, `/globe/<country>/<state>`, `/globe/place/<place-slug>`, `/globe/trip/<trip-slug>`) | everyone | global | the entry point: pins by continent and country, drill country to state to district, styles, 3D terrain, saved places by country, search that flies to a place |
+| **Home** (`/home`; was "Trips") | signed in | cross-trip summary | needs you this week (grouped by trip), in progress, planning, ideas, done as templates; the same card, list, table and map views as Discover; the **Year** view (all trips, their booking windows and spend, each in its own currency) |
 | **Inbox** (bell) | signed in | cross-trip | reminders and forwarded emails waiting for review; every row names its trip |
 | **People** (from the avatar) | signed in | household | travellers, passports, memberships and passes; checks linked to each person |
-| **Trip** (`/trips/<id>/<tab>`) | signed in, or a viewer by link | one trip | Plan, Today, Bookings, Tasks, Budget and Share |
+| **Trip** (`/t/<trip-slug>/<tab>[/<item-id>]`, e.g. `/t/patagonia-2027/bookings/bk_7f3a`) | signed in, or a viewer by link | one trip | Plan, Today, Bookings, Tasks, Budget and Share |
 
 **Desktop.**
 
-- The header carries the brand, then Trips, Places, Globe and Discover, then the **trip chip**: the selected
+- The header carries the brand, then Home, Trips, Places and Globe, then the **trip chip**: the selected
   trip's photo in its colour ring, with its name. The chip is the switcher.
 - When a trip is open, a **trip bar** sits under the header: photo, name in Big Shoulders, dates, countdown,
   phase, and the tabs Plan, Today, Bookings, Tasks, Budget, Share. It is sticky; forms and drawers open
@@ -59,14 +66,15 @@ second app.
 
 - On a trip screen, the top bar shows the trip photo, name, dates and countdown, with the trip colour as its
   bottom rule. The bottom bar holds the trip photo (the switcher), then Plan, Today, Bookings and More (Tasks, Budget, Share).
-- Outside a trip, the bottom bar holds Trips, Discover, Places, Globe and Me.
+- Outside a trip, the bottom bar holds Home, Trips, Places, Globe and Me.
 - **The trip switcher is the first item of the bottom bar**, the trip photo in its ring, so it is in thumb
   reach (S8). The swap button at the top right stays as a second way in.
 
 **The switcher.**
 
 - It lists trips in progress first, soonest first. Each row has a photo in the colour ring, the name, the
-  dates and the next deadline (coral when it is inside 14 days).
+  dates and the next deadline, coloured by the one urgency rule (tokens.md 3.1: coral inside 7 days or when a
+  window opens inside 48 hours, ochre 8 to 30 days, neutral beyond).
 - Below those come Planning, then a "Done (3)" link.
 - Picking a trip keeps the current tab, and each trip remembers its last tab, scroll position and map day.
 - A toast offers "Back" to the previous trip for 8 seconds; ⌘[ does the same on desktop.
@@ -105,17 +113,17 @@ Every item in [keep-from-live-site.md](../keep-from-live-site.md):
 
 | Kept item | Where it lives now | Preview |
 |---|---|---|
-| Real hero photo on every card | trip cards on Trips and Discover; place cards; day cards on the public trip | trailhead/home, public-trip |
-| Display title on each card, two lines when long | Big Shoulders 30 px on every card | home |
+| Real hero photo on every card | trip cards on Home and Trips; place cards; day cards on the public trip | trailhead/home, public-trip |
+| Display title on each card, two lines when long | `--t-card`, Big Shoulders 24 px, on every card | home |
 | Dates, nights and route in small mono | card meta line | home |
-| Countdown chip, link chip | amber countdown chip and status chip; "Legacy page" becomes "Public page" on published trips | home |
+| Countdown chip, link chip | neutral countdown chip and status chip; "Legacy page" becomes "Public page" on published trips | home |
 | One-sentence editorial summary in a reading serif | Source Serif 4, 16 px, on every card | home |
-| Search with `/`, live count | toolbar on Trips, Discover and Places; the count in Big Shoulders amber | home, places |
+| Search with `/`, live count | toolbar on Home, Trips and Places; the count in `--t-section` `--accent-text` | home, places |
 | Filter pills (When, Source; Country, Kind, Status, Kids, Season, Tag, Plan) | the same pills on each list; "Phase" and "Who" added on Trips | home, places |
 | Group by, Sort by with a direction toggle, group headings with counts | the subbar on each list | home, places |
-| Cards, List, Table, Map on one data set; the selected view is an amber segment | every list (Trips, Discover, Places) | home, places |
+| Cards, List, Table, Map on one data set; the selected view is an amber segment | every list (Home, Trips, Places) | home, places |
 | Top bar with brand, section tabs underlined, theme toggle | navy header with the amber rule; the trip chip added | all |
-| Place cards with a kind glyph when there is no photo | teal glyph on a tinted well | trailhead/home (Peru idea), places |
+| Place cards with a kind glyph when there is no photo | ink glyph on a `--well` disc (no teal: changes-from-preview 3) | trailhead/home (Peru idea), places |
 | Area chain on the card | card meta | places (cards view) |
 | Chips for kind, status (Idea dashed), season, kids | the same chips | places |
 | Honesty markers: location unconfirmed, unverified, no source yet, source counts | dashed coral chips; source counts in the Sources column | places, trail ("Dog policy unverified") |
@@ -142,7 +150,7 @@ Checked against the Trailhead previews. "Spec" means the behaviour is defined ab
 | S6 Tasks inside Dolomites | **Pass in spec, not drawn** | section 3: trip tasks plus linked person checks, plus the "2 more due this week in other trips" link |
 | S7 Feb budget overlap, Costa Rica and Patagonia | **Pass in spec** | each budget is its own; the Year view totals per currency (drawn in the Atlas and Altimeter homes) |
 | S8 Phone, one hand, car park | **Pass** | trailhead/plan-phone and today-phone: the trip photo is the first item of the bottom bar and opens the switcher; the next action (Navigate, Show the slot) is a 50 px button in the lower half; the top bar always names the trip |
-| S9 Shared link to a Patagonia booking | **Pass in spec** | URLs carry the trip (`/trips/patagonia-2027/bookings/r-123`); a viewer link opens read-only with the trip bar |
+| S9 Shared link to a Patagonia booking | **Pass in spec** | URLs carry the trip (`/t/patagonia-2027/bookings/bk_7f3a?share=…`, patterns.md 1.2); a viewer link opens read-only with the trip bar |
 | S10 Done trip (Vermont) | **Pass** | home: Done group, read-only, "Use as a template"; it is not in the switcher's in-progress list, and the switcher has a "Done (3)" link |
 
 ## 6. Migration: what changes in the prototype
@@ -166,7 +174,7 @@ screenshot check in light and dark.
    - Add the navy header with the global tabs and the trip chip.
    - Add a `TripBar` (sticky, with tabs) on trip screens.
    - Phone: a top trip bar, a bottom bar with the trip tabs and the trip photo as the switcher.
-   - URL becomes `#/trips/<id>/<tab>` instead of `#<screen>`.
+   - URL becomes `#/t/<trip-slug>/<tab>[/<item-id>]` (the table in foundation/patterns.md 1.2) instead of `#<screen>`.
    - Remember the tab, scroll and map day per trip in the store.
 4. **Trip switcher** (`TripSwitcher`): rebuild it as the menu in trailhead/bookings-switch, with ⌘K, ⌘[ and the
    Back toast. Switching keeps the tab.
@@ -185,7 +193,7 @@ screenshot check in light and dark.
 7. **Map** (`map/MapView.tsx`):
    - Hillshade colours to stone and slate; add a contour layer (Mapterhorn DEM, 100 m and 500 m).
    - Reduce basemap labels.
-   - Routes in ink, the picked day in amber, bases as amber signposts with a Big Shoulders label.
+   - Routes in ink, the picked day in amber, bases as ink signposts with a Big Shoulders label (the picked day's base amber).
    - Use the trip's colour nowhere on the map, so day and base colours stay readable.
 8. **Today** (`screens/Today.tsx`, `today.css`):
    - The leave-by number in amber Big Shoulders.

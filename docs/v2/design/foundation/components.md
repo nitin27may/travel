@@ -14,6 +14,9 @@ touch, do and don't. Values are tokens from [tokens.md](tokens.md); the rendered
   area via padding.
 - **Motion**: durations and easings from tokens.md 11; reduced motion collapses to 120 ms fades.
 - **Copy**: verbs on buttons, trip named in every form header, dates "Sat 31 Oct · in 13 days".
+- **Urgency colour** on any due date, deadline or window follows tokens.md 3.1 and nothing else: `--crit`
+  within 7 days (or a window opening within 48 h, or missed), `--warn` 8 to 30 days or a window open,
+  `--muted` beyond. No component defines its own threshold.
 
 ## 1. Shell and navigation
 
@@ -28,8 +31,8 @@ Anatomy: brand (Big Shoulders 24, "TRIP PLANS"), section tabs, spacer, right clu
 | signed in | Home · Trips · Places · Globe | trip chip (switcher), bell with count badge, theme, avatar menu (People, Inbox, Settings, Sign out) |
 | guest by link | Trips · Places · Globe | "Shared by Nitin · view only" info chip, Copy to my trips, Sign in |
 
-Tabs: mono 13.5/500 `--header-mute`, 12 px side padding, full height; current tab `--header-ink` with a
-2 px `--header-ink` underline sitting on the amber rule. Hover: ink at 100%, no underline. Focus: header
+Tabs: `--t-tab` (mono 13.5/500) `--header-mute`, 12 px side padding, full height; current tab `--header-ink`
+600 with a 2 px `--header-ink` underline sitting on the amber rule. Hover: ink at 100%, no underline. Focus: header
 ring. Keyboard: Tab to the tab list, arrows move, Enter opens; `aria-current="page"`. At tablet the tabs
 stay; on phone the header is 56 px with brand and the right cluster only, tabs move to the bottom bar.
 Do: keep four tabs or fewer. Don't: put trip tabs here.
@@ -41,8 +44,8 @@ truncate); meta mono 12.5 `--muted` one line (dates · nights · travellers); ph
 (neutral); trip tabs; actions (Share, Offline as small secondary buttons). Height 88 px fixed, `--well`
 background, 1 px `--line` bottom, sticky under the header, `--z-tripbar`.
 
-Trip tabs: Plan · Today · Bookings · Tasks · Budget · Share, mono 13.5/500 `--muted`, with a mono 11.5
-count after the label (14 days, 3/9, 1/12, 43%). Current: `--ink` bold, 3 px `--accent` underline
+Trip tabs: Plan · Today · Bookings · Tasks · Budget · Share, `--t-tab` `--muted`, with a mono 11.5
+count after the label (14 days, 3/9, 1/12, 43%). Current: `--ink` 600, 3 px `--accent` underline
 flush with the bar's bottom line. Hover: `--ink`. Today shows a `--accent` dot while a trip day is in
 progress. Keyboard as 1.1. The bar never scrolls away and drawers open below it (review I3). At 200% text
 it wraps to two rows (identity row, tabs row) and grows to 128 px. Phone: see 1.4.
@@ -51,14 +54,15 @@ Do: truncate the name before the bar wraps. Don't: hide tabs behind "More" on de
 
 ### 1.3 Trip switcher and ⌘K
 
-Trigger: the trip chip in the header (photo 34 px in the identity ring, name Big Shoulders 18, chevron;
-42 px pill `--header-2`) or the photo in the phone bottom bar. ⌘K / Ctrl K opens the same menu with a
+Trigger: the trip chip in the header (photo 34 px in the identity ring, name `--t-row` (Big Shoulders 21),
+chevron; 42 px pill `--header-2`) or the photo in the phone bottom bar. ⌘K / Ctrl K opens the same menu with a
 search field focused; typing filters trips, then tabs ("pata book" → Patagonia · Bookings), then places.
 
 Menu: 440 px, `--surface`, radius 12, `--e-2`, `--z-menu`, scrim at 45%. Sections with cap labels: **In
 progress · soonest first**, **Planning**, footer "switching keeps the tab you are on · Done (3) →". Row:
-photo 52 x 38 in the identity ring, name Big Shoulders 21, second line mono 11.5 (next deadline, `--crit`
-when inside 14 days), right slot: "✓ here" for the current trip or "Bookings →" (`--accent-text`) on hover
+photo 52 x 38 in the identity ring, name `--t-row`, second line mono 11.5 (next deadline, coloured by
+tokens.md 3.1: `--crit` inside 7 days or a window opening inside 48 h, `--warn` 8 to 30 days, else
+`--muted`; on 18 Oct Elora is `--crit`, Patagonia `--warn`, Dolomites `--muted`), right slot: "✓ here" for the current trip or "Bookings →" (`--accent-text`) on hover
 and focus naming the tab you will land on. Row height 56; hover `--surface-2`; selected row (keyboard)
 `--surface-2` plus the focus ring.
 
@@ -80,7 +84,8 @@ Bottom bar: 84 px including a 26 px home-indicator inset, `--header`, 1 px `--he
 `--header-ink` with the icon in `--accent`. Trip screens: **[trip photo] Plan · Today · Bookings · More**;
 the photo is 28 px in a 2 px identity ring with keyline, label "Switch", first position (thumb reach, S8).
 Outside a trip: Home · Trips · Places · Globe · Me (public: Trips · Places · Globe · Sign in). Badge on
-Home/Me: 16 px `--crit` disc with a mono 10 count when something is due this week. The bar hides while a
+Home/Me and on the header bell: 18 px `--crit-fill` disc, `--on-crit-fill` mono 11.5/600 count, when
+something is urgent (tokens 3.1). The bar hides while a
 bottom sheet is above half height and while the keyboard is open.
 
 ### 1.5 Breadcrumbs
@@ -98,14 +103,14 @@ Italy · Sesto Dolomites) and in the globe chip (World › Italy › South Tyrol
 | primary | `--accent` | none | `--accent-ink` mono 13/600 | one per view: Plan a trip, Add a booking, Save to Patagonia, Copy to my trips, Navigate |
 | secondary | transparent | 1 px `--line-2` | `--ink` mono 13/500 | everything else |
 | ghost | transparent | none | `--ink` (or `--header-ink` in the header) | toolbars, header, inline actions |
-| danger | `--crit-fill` | none | `#FFFFFF` | Delete trip, Revoke link; always behind a confirm |
+| danger | `--crit-fill` | none | `--on-crit-fill` | Delete trip, Revoke link; always behind a confirm |
 | icon | as secondary or ghost | | 17 px icon, `aria-label` required | theme, bell, switch, reverse sort |
 
 Sizes: md 38 px (padding 0 14), sm 30 px (0 10, 12 px text), lg 50 px (phone primary actions in Today),
 icon 38 x 38 (sm 30 x 30; hit area padded to 44 on touch). Radius 8. Icon-with-label gap 8.
 
 States: hover secondary and ghost: border `--ink`, text `--ink`, background `--surface-2` at 60%;
-hover primary: `#C98A22`; pressed: translateY(1px); focus: ring;
+hover primary: `--accent-hover` (5.96:1 with `--accent-ink`); pressed: translateY(1px); focus: ring;
 disabled 45%; loading: label swapped for a 16 px spinner, width locked, `aria-busy`. Labels are at most
 three words, sentence case, verb first.
 
@@ -138,8 +143,9 @@ ring; selected `--accent` fill with `--accent-ink`; range fill `--accent-soft` b
 household's region calendar) `--info-soft` with a 3 px `--info` top bar and a tooltip naming the holiday;
 school breaks `--warn-soft` hatched (2 px lines at 135°, 20% `--warn`) with the break's name in the month
 header. Legend row under the grid: three swatches with labels. Keyboard: arrows move a day, PageUp/Down a
-month, Home/End week ends, Enter selects, Esc closes; `role="grid"`, cells named "Saturday 31 October,
-weekend, long weekend: Halloween... " only when true.
+month, Home/End week ends, Enter selects, Esc closes; `role="grid"`, cells named "Saturday 10 October,
+weekend, long weekend: Thanksgiving" with each qualifier only when true (long weekends come from the
+statutory calendar: Thanksgiving Mon 12 Oct 2026, Family Day Mon 15 Feb 2027; Halloween is not one).
 
 Time: input "11:30" with a popover of 15-minute rows (scrolled to the nearest); typing "1130", "11.30"
 or "11:30 am" all parse. Zone shown after the time when it differs from the device ("09:05 Venice ·
@@ -148,7 +154,9 @@ or "11:30 am" all parse. Zone shown after the time when it differs from the devi
 ### 2.5 Checkbox, radio, switch
 
 Checkbox 20 x 20 (hit 44), radius 4, 1.5 px `--line-2`; checked `--ink` fill with a `--surface` check;
-indeterminate a 10 x 2 bar. Task rows use a 24 px round check (components 8.1). Radio 20 px circle, dot
+indeterminate a 10 x 2 bar. Task rows use a 24 px round check (3.5): off is a 1.5 px `--line-2` ring on
+`--surface`; **done is `--ok-soft` fill, `--ok` border and a `--ok` check glyph** (5.53:1 light, 7.87:1
+dark; a white glyph on `--ok` is 1.8:1 in dark and is not allowed). Radio 20 px circle, dot
 10 px `--ink`. Switch 44 x 24, thumb 20, off `--line-2` track, on `--accent` track; the thumb stays
 `--surface` with a 1 px `--line-2` keyline; label to the right, state word after it for screen readers only.
 Hover darkens the border to `--ink`; focus ring; disabled 45%. Animations: check draw 120 ms, switch thumb
@@ -180,8 +188,8 @@ so (removable chips show ×).
 | kind (Trail, Lake, Stay) | neutral with the kind icon; no hue |
 | selected or active filter | `--accent-soft`, `--accent` border, `--accent-text` |
 | to book | neutral outline, ticket icon |
-| window open | `--warn-soft`, `--warn` text, triangle |
-| urgent (≤ 7 days, missed) | `--crit-soft`, `--crit` text, clock icon |
+| caution: window open, or due in 8 to 30 days when a chip is drawn (tokens 3.1) | `--warn-soft`, `--warn` text, triangle |
+| urgent: due within 7 days, window opens within 48 h, missed (tokens 3.1) | `--crit-soft`, `--crit` text, clock icon |
 | held | neutral outline, clock icon |
 | booked, done, fits | `--ok-soft`, `--ok` text, check |
 | idea | 1 px **dashed** `--line-2`, `--muted` |
@@ -192,15 +200,16 @@ so (removable chips show ×).
 ### 2.9 Segmented control
 
 Cards / List / Table / Map; All days / Day 03 / Bases; Compact / Comfortable; By day / By category.
-Container 1 px `--line-2`, radius 8, segments 40 px (34 on maps and toolbars), mono 13, `--ink-2`,
+Container 1 px `--line-2`, radius 8, segments 40 px (34 on maps and toolbars; 32 on the phone category
+strip), mono 13, `--ink-2`,
 1 px `--line-2` dividers; selected `--accent` fill, `--accent-ink`, 600. The selected fill slides 200 ms
 `--e-std`. `role="radiogroup"`; arrows move and select. On phone segments are icon-only with
 `aria-label` when more than three.
 
 ### 2.10 Search with `/`
 
-42 px input, 300 px (full width on phone), search icon left, `kbd` "/" right (mono 12, 1 px `--line-2`,
-radius 4); `/` focuses it from anywhere except inside another input; Esc clears then blurs. Results update
+42 px input, 300 px (full width on phone), serif 16 like every input, search icon left, `kbd` "/" right
+(mono 12, 1 px `--line-2`, radius 4); `/` focuses it from anywhere except inside another input; Esc clears then blurs. Results update
 on the first character; the live count ("12 trips") updates in a polite live region. In ⌘K and the add box
 the same field drives grouped results (This trip, Near tonight's base, Elsewhere, Add "…" as my own).
 
@@ -211,8 +220,8 @@ the same field drives grouped results (This trip, Near tonight's base, Elsewhere
 Anatomy: photo 16:10 (object-fit cover, focus point from data) with the 4 px identity bar and keyline (trip
 cards) or no bar (places, public trips use `--line-2`); body padding 14 16 16; title Big Shoulders 24, two
 lines max; meta mono 12.5 `--muted`, **one line, truncate**; chip row; serif 16 summary (3 lines max,
-ellipsis); footer (readiness bar and next deadline on trip cards; "Place page · Globe" links on place
-cards; "DAY 03" quiet sign on public day cards). `--surface`, 1 px `--line`, radius 12. Whole card is one
+ellipsis); footer (readiness bar and next deadline on trip cards, the deadline line coloured by tokens 3.1;
+"Place page · Globe" links on place cards; "DAY 03" quiet sign on public day cards). `--surface`, 1 px `--line`, radius 12. Whole card is one
 link; inner links (footer) are separate focus stops.
 
 States: hover photo scales 1.03 over 400 ms `--e-out` and the border becomes `--line-2`; focus ring on the
@@ -228,27 +237,32 @@ meta, chips right, chevron. Hover `--surface-2`; selected 2 px `--accent` left b
 
 ### 3.3 Needs-you row
 
-Inside a per-trip column: due line mono 12 (`--crit` when inside 7 days) "Sat 31 Oct · in 13 days", what
+Inside a per-trip column: due line mono 12 coloured by tokens 3.1 ("Sat 31 Oct · in 13 days" is `--warn`;
+"Mon 19 Oct · tomorrow" is `--crit`), what
 serif 16/600, three actions only: round check (30 px, hit 44) "Done", "Snooze" small secondary, "Open in
 Bookings →" small secondary. Done animates the row out (200 ms height collapse) with an Undo toast;
 Snooze opens a menu (Tomorrow, Next week, Pick a date); Open lands inside the trip on the item.
-Columns are headed by the trip photo 36 px in its ring plus name and dates; a person column uses a 36 px
-initial disc and "linked to [square] Dolomites, [square] Patagonia".
+Columns are headed by the trip photo 36 px in its ring plus the name in `--t-row` and dates; a person
+column uses a 36 px initial disc and "linked to [square] Dolomites, [square] Patagonia".
 
 ### 3.4 Booking card
 
 Grid: kind glyph 44 px on `--well` · title serif 16.5/600 + mono 12.5 when · status column (status chip
-over a mono 12.5 "Book by Sat 31 Oct", `--crit` inside 7 days) · money mono 14 right-aligned ("≈ CAD
-5,400" with ≈ for estimates). 1 px `--line`, radius 10, `--surface`. Grouped under quiet day signs. Selected
+over a mono 12.5 "Book by Sat 31 Oct" coloured by tokens 3.1; the chip itself stays "To book" neutral until
+the window opens) · money mono 14 right-aligned ("≈ CAD 5,400" with ≈ for estimates). 1 px `--line`,
+radius 12 (`--r-4`), `--surface`. Grouped under quiet day signs. Selected
 (open in the drawer) 2 px `--accent` border. Secret codes render as "••••" with a Reveal button.
 
 ### 3.5 Task row
 
-24 px round check, title serif 16, due mono 12.5 ("Sat 31 Oct · in 13 days"), source chip (Plan,
-Email, Me), owner avatar 20 px, reminder chip (8.2). Grouped by month (not by category) with a drawn
-booking window where one exists. Linked person checks show the person's initial disc and "shared with
-Patagonia"; ticking clears everywhere with a toast naming both trips. Swipe right on phone = done, left =
-snooze, both with the visible buttons as equivalents.
+24 px round check (done look in 2.5: `--ok-soft` fill, `--ok` border and glyph), title serif 16, due mono
+12.5 ("Sat 31 Oct · in 13 days", coloured by tokens 3.1), source chip (Plan, Email, Me), owner avatar
+20 px, reminder chip (8.2). Grouped by month (not by category) with a drawn booking window where one
+exists. Linked person checks show the person's initial disc and "shared with Patagonia"; ticking clears
+everywhere with a toast naming both trips. Swipe right on phone = done, left = snooze, both with the visible
+buttons as equivalents. **Cross-trip link** (S6): the Tasks page ends with one mono 13 line, "2 more due
+this week in other trips →", linking to Home's Needs-you filtered to this week; it is omitted when the count
+is zero and never lists the other trips' tasks inline (rule 5). Page template: patterns.md 4.8 N1.
 
 ## 4. Data display
 
@@ -262,7 +276,7 @@ segment. `role="progressbar"` with `aria-valuetext` equal to the label.
 
 `--surface`, 1 px `--line`, radius 12, head row `--well` with mono 12 labels, sortable heads show a 14 px
 arrow on hover and the active sort arrow in `--ink`; sticky head (`--z-sticky`) and sticky group rows
-(Big Shoulders 22 country name, mono 12 count right, collapse chevron). Rows 44 px comfortable, 36 px
+(`--t-row` country name, mono 12 count right, collapse chevron). Rows 44 px comfortable, 36 px
 compact; cells serif 15.5, mono 13 for kind, elevation (right-aligned), sources; status column uses a
 filled `--ink` dot for Planned, a dashed ring for Idea, a check for Done. Tools row: Saved views (menu with
 named views, Save current), Columns (checkbox menu with drag order), Density segment, Export CSV (downloads
@@ -273,8 +287,8 @@ sticky; never horizontal page scroll. Empty: a one-row empty state (6.5). Loadin
 
 ### 4.3 Day timeline row (plan item)
 
-Grid 24 px handle · 50 px time · 26 px kind glyph · content · 96 x 68 photo. Padding 10 0, radius 10
-when lifted. Time mono 13.5/600; title serif 17/600 with optional status chip; meta mono 12 `--muted`;
+Grid 24 px handle · 50 px time · 26 px kind glyph · content · 96 x 68 photo. Padding 10 0, radius 8
+(`--r-3`) when lifted. Time mono 13.5/600; title serif 17/600 with optional status chip; meta mono 12 `--muted`;
 note serif italic 15.5 `--ink-2`. Legs between rows: mono 12 `--muted`, icon, "55 min · 41 km via
 Dobbiaco", indented to the content column; walking legs under 15 min show the trail icon. Hover: handle
 turns `--ink`, row `--surface-2` at 50%. Selected (pin clicked): 2 px `--accent` left bar. Conflict
@@ -283,10 +297,11 @@ presence colour on the photo. Queued offline: a 14 px clock after the title.
 
 ### 4.4 Elevation profile
 
-SVG, 160 px tall, `--accent` 2.2 px line with a 16% `--accent` area; gridlines `--line`, mono 11 axis
-labels (km below, m right); hut markers 8 px `--bg` circles with a 2 px `--ink` border and a label list
-under the chart (serif 15 name, mono 12 km · m). Hover or scrub shows a vertical `--ink` cursor, a mono
-readout "4.2 km · 2,405 m" and syncs a marker on the map. `role="img"` with a text summary ("10 km, 450 m
+SVG, 160 px tall, **`--ink` 2 px line with a 10% `--ink` area** (public surface: nothing amber at rest);
+gridlines `--line`, mono 11.5 axis labels (km below, m right); hut markers 8 px `--bg` circles with a 2 px
+`--ink` border and a label list under the chart (serif 15 name, mono 12 km · m). Hover or scrub shows the
+one amber element: a vertical 1.5 px `--accent` cursor with an 8 px `--accent` dot on the line (the current
+position = "now"), a mono readout "4.2 km · 2,405 m" in `--ink`, and a synced marker on the map. `role="img"` with a text summary ("10 km, 450 m
 climb, high point 2,454 m at 2.6 km"). Reduced motion: no cursor animation.
 
 ### 4.5 Photo gallery and lightbox
@@ -302,10 +317,12 @@ element), or a fade under reduced motion.
 
 ### 5.1 Side sheet (drawer)
 
-Desktop: 460 px, right edge, from the trip bar's bottom to the viewport bottom, `--surface`, 1 px
-`--line-2` left, `--e-3`, `--z-drawer`, non-modal (the page stays scrollable, no scrim) for detail sheets;
-modal with scrim for forms. Header: 140 px photo of the trip with the gradient, cap kicker in `#F0B356`
-(7.6:1 on the gradient) "NEW BOOKING IN PATAGONIA", Big Shoulders 34 title, 4 px identity bar. Body padding
+Desktop: **460 px** wide (tokens.json `side-sheet-w`; the specimen draws the same), right edge, from the
+trip bar's bottom to the viewport bottom, `--surface`, 1 px `--line-2` left, `--e-3`, `--z-drawer`,
+non-modal (the page stays scrollable, no scrim) for detail sheets; modal with scrim for forms. Header:
+**140 px** photo of the trip with the gradient (10% to 85%), cap kicker in `--kicker-on-photo` (white at
+80%, as the cover kickers; never amber on a photo) "NEW BOOKING IN PATAGONIA", `--t-section` (32) title,
+4 px identity bar. Body padding
 18 22 with sections (5.4). Footer pinned: primary "Save to Patagonia", secondary Cancel, mono 12 "Ctrl Z
 undoes". Open 260 ms slide `--e-out`, close 200 ms `--e-in`. Esc closes (asks only if the form is dirty
 and not autosaved); focus moves to the title on open and back to the opener on close. Phone: bottom sheet
@@ -329,8 +346,9 @@ live region; Undo reachable by Tab before it leaves. Enter 200 ms rise, exit 160
 
 ### 5.4 Banners
 
-Full width of their column, radius 10, 10 14 padding, icon 16, serif 15.5. Kinds: **next action**
-(`--surface`, 1 px `--line`, mono text, one button right: "Next: Ortisei stay by Mon 15 Mar · Bookings"),
+Full width of their column, radius 8 (`--r-3`), 10 14 padding, icon 16, serif 15.5. Kinds: **next action**
+(`--surface`, 1 px `--line`, mono text, the date coloured by tokens 3.1, one button right: "Next: Ortisei
+stay by Mon 15 Mar · Bookings"),
 **urgent** (`--crit-soft`, `--crit` border and text), **caution** (`--warn-soft`), **notice** (`--info-soft`;
 offline uses a dashed `--line-2` border and the saved time), **travel-day override** (`--surface-2` with the
 other trip's identity square and a one-tap button, S5). Dismiss = snooze until the condition changes; never
@@ -371,9 +389,9 @@ links to Trips, Places, Globe.
 Container `--well`, 1 px `--line`, radius 12 inside pages, full-bleed in Plan. Layers and tokens in
 tokens.md 5. Controls: top-left a segmented control (All 14 days / Day 03 / Bases; on phone All · Day ·
 Bases), top-right zoom ± and "Fit trip" (34 px icon buttons on `--surface`), bottom-left legend card
-(`--surface` at 92%, mono 12: every day by road; the picked day; base), bottom-right attribution (mono 11
-`--muted` with links: OpenFreeMap, OpenStreetMap contributors, Mapterhorn) always visible, scale bar above
-it. Pins: ink circles with mono numerals for the picked day; 6 px dots for other days; bases as ink
+(`--surface` at 92%, radius 8, mono 12: every day by road; the picked day; base), bottom-right attribution
+(mono 11.5 `--muted` with links: OpenFreeMap, OpenStreetMap contributors, Mapterhorn) always visible, scale
+bar above it. Pins: ink circles with mono numerals for the picked day; 6 px dots for other days; bases as ink
 signposts; the picked base amber; co-located stops one pin with a "3 · 5" badge that fans out on hover/tap;
 clusters at low zoom with counts; hover or focus a pin → 2 px amber ring and the row highlights; click
 scrolls the document and opens the detail sheet. Keyboard: the map is `role="application"` with a list
@@ -392,8 +410,12 @@ top-left (World › Italy › South Tyrol) with Back. Hint bar bottom-centre mon
 360 px (collapsible to a 44 px tab): saved places and published trips by country with flags and counts;
 rows 44 px; selecting a country flies in and lists its places; selecting a place opens a selection card
 (photo, name, area chain, kind chip, "Open place" primary) anchored to the pin on desktop and as a peek
-sheet on phone. Pins: amber discs with counts at country level; place pins at state level and below as ink
-dots with the kind glyph on hover. Hover a country: `--accent-soft` fill at 35% and a facts tooltip.
+sheet on phone. Pins (tokens 5): country-level pins at rest are **`--ink` discs with `--surface` mono 600
+counts**, 28 to 44 px by count, 2 px `--map-halo` edge; the **hovered or selected pin alone** becomes
+`--accent` with an `--accent-ink` count and the 2 px `--map-select-ring`. Place pins at state level and below
+are `--map-stop` ink dots with the kind glyph on hover. Signed-in trip pins sit in their identity ring, never
+amber. Hover a country: `--accent-soft` fill at 35% and a facts tooltip; the selected country has a 2 px
+`--accent` outline. Nothing on the globe is amber until the visitor points at it.
 Keyboard: Tab reaches the search, the panel and pins in list order; Enter flies in; Esc steps back one
 level. Motion in patterns.md 6.5.
 
@@ -423,7 +445,8 @@ a small mono table inside the task's expanded state, each row with its chip.
 
 Leave-by card: cap label "LEAVE HOME BY", Big Shoulders 78 `--accent-text` time, mono 14 "in 42 min ·
 2 h 05 · 182 km", serif 15 instruction, two 50 px buttons (primary Navigate, secondary ticket code).
-Running-late strip: cap label, four 44 px toggles "+15 min" (first shows the unit; all have
+The leave-by card is a card (radius 12). Running-late strip: cap label, four 44 px toggles (radius 8)
+"+15 min" (first shows the unit; all have
 `aria-label="plus 15 minutes"`), selected `--accent`; consequence list under it with `--crit` triangle,
 neutral phone, `--ok` check lines; two 46 px buttons Shift the day / This stop only. Timeline: 48 px time
 column mono 13.5/600, 12 px node ring (filled `--accent` for now), serif 15.5/600 title, mono 11.5 note;
