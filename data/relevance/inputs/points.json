@@ -970,12 +970,60 @@
   },
   "towns": [
     {
+      "id": "akureyri",
+      "name": "Akureyri",
+      "lat": 65.68353,
+      "lon": -18.0878,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "argentiere",
+      "name": "Argentiere",
+      "lat": 45.98394,
+      "lon": 6.92723,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "banff",
+      "name": "Banff",
+      "lat": 51.1781,
+      "lon": -115.572,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
       "id": "bolzano",
       "name": "Bolzano",
       "lat": 46.4983,
       "lon": 11.3548,
       "has_stay": true,
       "coord_src": "prototype"
+    },
+    {
+      "id": "bryce-canyon",
+      "name": "Bryce Canyon",
+      "lat": 37.67389,
+      "lon": -112.15694,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "buenos-aires",
+      "name": "Buenos Aires",
+      "lat": -34.59972,
+      "lon": -58.38194,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "calgary",
+      "name": "Calgary",
+      "lat": 51.0475,
+      "lon": -114.0625,
+      "has_stay": true,
+      "coord_src": "wikidata"
     },
     {
       "id": "cortina-d-ampezzo",
@@ -986,10 +1034,50 @@
       "coord_src": "prototype"
     },
     {
+      "id": "dwight",
+      "name": "Dwight",
+      "lat": 45.331,
+      "lon": -79.011,
+      "has_stay": true,
+      "coord_src": "nominatim"
+    },
+    {
+      "id": "egilsstadir",
+      "name": "Egilsstadir",
+      "lat": 65.26667,
+      "lon": -14.4,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "el-calafate",
+      "name": "El Calafate",
+      "lat": -50.33778,
+      "lon": -72.26,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
       "id": "el-chalten",
       "name": "El Chalten",
       "lat": -49.33141,
       "lon": -72.88613,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "geneva",
+      "name": "Geneva",
+      "lat": 46.2,
+      "lon": 6.15,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "grundarfjordur",
+      "name": "Grundarfjordur",
+      "lat": 64.92427,
+      "lon": -23.26313,
       "has_stay": true,
       "coord_src": "wikidata"
     },
@@ -1018,6 +1106,22 @@
       "coord_src": "wikidata"
     },
     {
+      "id": "kananaskis-village",
+      "name": "Kananaskis Village",
+      "lat": 50.91748,
+      "lon": -115.1474,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "keflavik",
+      "name": "Keflavik",
+      "lat": 64.00114,
+      "lon": -22.55332,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
       "id": "lake-louise",
       "name": "Lake Louise",
       "lat": 51.41167,
@@ -1042,6 +1146,14 @@
       "coord_src": "wikidata"
     },
     {
+      "id": "myvatn",
+      "name": "Myvatn",
+      "lat": 65.6,
+      "lon": -17,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
       "id": "ortisei",
       "name": "Ortisei",
       "lat": 46.5747,
@@ -1050,12 +1162,76 @@
       "coord_src": "prototype"
     },
     {
+      "id": "reykjavik",
+      "name": "Reykjavik",
+      "lat": 64.1475,
+      "lon": -21.935,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "salt-lake-city",
+      "name": "Salt Lake City",
+      "lat": 40.75,
+      "lon": -111.88333,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
       "id": "san-candido",
       "name": "San Candido",
       "lat": 46.7327,
       "lon": 12.2803,
       "has_stay": true,
       "coord_src": "prototype"
+    },
+    {
+      "id": "selfoss",
+      "name": "Selfoss",
+      "lat": 63.93217,
+      "lon": -21.00023,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "skaftafell",
+      "name": "Skaftafell",
+      "lat": 64.01663,
+      "lon": -16.9672,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "springdale",
+      "name": "Springdale",
+      "lat": 37.18444,
+      "lon": -112.99972,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "torrey",
+      "name": "Torrey",
+      "lat": 38.30167,
+      "lon": -111.42,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "ushuaia",
+      "name": "Ushuaia",
+      "lat": -54.80722,
+      "lon": -68.30806,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "vik",
+      "name": "Vik",
+      "lat": 63.41944,
+      "lon": -19.00972,
+      "has_stay": true,
+      "coord_src": "wikidata"
     }
   ],
   "trips": {
@@ -1075,32 +1251,23 @@
       "window": {
         "from": "09-04",
         "to": "09-15"
-      },
-      "base": {
-        "lat": 64.25,
-        "lon": -15.21667
       }
     },
     "patagonia-2027": {
       "window": {
         "from": "02-26",
         "to": "03-11"
-      },
-      "base": {
-        "lat": -49.33141,
-        "lon": -72.88613
       }
     },
-    "utah-five-parks": {
-      "base": {
-        "lat": 38.5725,
-        "lon": -109.54972
-      }
-    },
+    "utah-five-parks": {},
     "algonquin-muskoka-2026": {
       "window": {
         "from": "10-10",
         "to": "10-12"
+      },
+      "base": {
+        "lat": 45.331,
+        "lon": -79.011
       }
     },
     "vermont-fall-2026": {
@@ -1117,10 +1284,6 @@
       "window": {
         "from": "09-01",
         "to": "09-09"
-      },
-      "base": {
-        "lat": 45.93944,
-        "lon": 6.88472
       }
     }
   }
