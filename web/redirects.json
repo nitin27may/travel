@@ -295,6 +295,11 @@
     "status": 301
   },
   {
+    "from": "/places/US/WA/pierce-county/mount-rainier-national-park/",
+    "to": "/places/mount-rainier-national-park/",
+    "status": 301
+  },
+  {
     "from": "/places/US/WY/park-county/yellowstone-national-park/",
     "to": "/places/yellowstone-national-park/",
     "status": 301

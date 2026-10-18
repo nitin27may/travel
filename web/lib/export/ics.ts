@@ -1,4 +1,5 @@
 import { addDays, compact, pad, parseIso } from './dates';
+import { sourceLine } from './licence';
 import { knownZone, vtimezone } from './tz';
 import type { TripExport } from './types';
 
@@ -58,6 +59,7 @@ export function buildIcs(trip: TripExport, startDate: string, now: Date = new Da
     'PRODID:-//Trip Plans//Copy to my trips//EN',
     'CALSCALE:GREGORIAN',
     `X-WR-CALNAME:${icsText(trip.title)}`,
+    `X-WR-CALDESC:${icsText(sourceLine(trip.url))}`,
   ];
   const zone = knownZone(trip.tz) ? trip.tz : null; // an unknown zone is written as floating local time, never as a dangling TZID
   if (zone && trip.stops.some((s) => s.time)) L.push(...vtimezone(zone));

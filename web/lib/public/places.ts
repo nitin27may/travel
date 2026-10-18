@@ -4,7 +4,7 @@ import { UNCONFIRMED_TRAIL_DATA } from './honesty-overrides';
 import { honesty, uniqueHonesty } from './honesty';
 import { fileFromUrl, makePhoto } from './photos';
 import { CATEGORY_OF_KIND, PROTOTYPE_AREAS, kindLabel, mapLocationKind, mapPrototypeKind } from './taxonomy';
-import { DropLog, undatedSentences, undatedTitle } from './dateless';
+import { undatedTitle } from './dateless';
 import { folderVisibility, type ProtoFact, type ProtoPlace, type ProtoTrail, type Sources } from './sources';
 import type { AccessPoint, AreaRef, Fact, Honesty, LinkGroup, LinkNone, Photo, Point, PlaceKind, PlaceLine, PublicPlace, TripRef } from './types';
 
@@ -141,7 +141,7 @@ function buildLines(trail: ProtoTrail | undefined, placeId: string): PlaceLine[]
   }));
 }
 
-export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
+export function buildPlaces(src: Sources): PlaceBuild {
   const snap = src.snapshot;
   const folderTrips = new Map<string, TripRef>();
   const folderIsPrivate = (f: string) => folderVisibility(src.manifest.get(f)) === 'private';
@@ -152,14 +152,6 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
   for (const folder of Object.keys(TRIP_SLUGS)) {
     if (!folderIsPrivate(folder)) folderTrips.set(folder, { slug: TRIP_SLUGS[folder], title: publicTripTitle(folder) ?? undatedTitle(src.hub.get(folder)?.title ?? folder) });
   }
-  // Words that must not survive in a note: every trip folder and slug (notes say "Planned as <folder>").
-  const tripWords = [...Object.keys(TRIP_SLUGS), ...Object.values(TRIP_SLUGS)];
-  const scrub = (note: string, where: string): string => {
-    const sentences = note.match(/(?:[^.!?]|[.!?](?![\s]|$))+[.!?]*\s*/g) ?? [note];
-    const kept = sentences.filter((s) => !tripWords.some((w) => s.toLowerCase().includes(w)));
-    return undatedSentences(kept.join(' '), where, log);
-  };
-
   const recs: Rec[] = [];
 
   // ---- locations.json ----
@@ -179,8 +171,9 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
     const file = fileFromUrl(row.image);
     const photo = file ? makePhoto(file, src.credits, { caption: row.name }) : null;
     const trips = [...(src.locationTrips.get(row.id) ?? [])].filter((f) => folderTrips.has(f));
-    const linkedPrivate = [...(src.locationTrips.get(row.id) ?? [])].some((f) => folderIsPrivate(f));
-    const notes = linkedPrivate && trips.length === 0 ? '' : scrub(row.note, `place ${row.id}`);
+    // The store's `note` is the owner's capture note ("Stop 9 of the road trip post", "Owner pick for autumn colour"). It is a
+    // working note, not published copy: it never becomes a summary or a note. Researched places get theirs from the prototype
+    // and trail data below. Text that does come through is still scrubbed at render time (second guard).
     const unverifiedNote = /unverified|from memory/i.test(row.note);
     const h: Honesty[] = [];
     if (row.location_status !== 'resolved') h.push(honesty('location_unconfirmed', 'The place name matches several features and the pin is not settled.'));
@@ -200,7 +193,7 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
       point: hasPoint ? { lat: row.lat!, lon: row.lon!, pointSource, pointChecked: verifiedBy && lastVerified ? `${verifiedBy}, ${lastVerified}` : null, sourceLicence: resolver === 'wikidata' ? 'CC0' : resolver === 'manual' ? 'own' : 'ODbL' } : null,
       season,
       kidFit: row.kid_fit,
-      summary: notes.split(/(?<=[.!?])\s+/).slice(0, 2).join(' '),
+      summary: '',
       photo,
       trips: trips.map((f) => folderTrips.get(f)!),
       tags: row.tags.map((t) => t.label),
@@ -217,7 +210,7 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
       seasonNote: null,
       photos: photo ? [photo] : [],
       wikidata: row.wikidata,
-      notes,
+      notes: '',
       minAge: numOrNull(raw.min_age),
       booking: null,
       checklistComplete: null,

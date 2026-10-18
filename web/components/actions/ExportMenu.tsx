@@ -5,7 +5,7 @@ import { Icon } from '@/components/ui/Icon';
 import { Menu } from '@/components/ui/Menu';
 import type { MenuEntry } from '@/components/ui/Menu';
 import { useToast } from '@/components/ui/Toast';
-import { downloadGpx, downloadKml, downloadListCsv, downloadTripCsv, loadExport } from '@/lib/export/client';
+import { downloadGpx, downloadKml, downloadTripCsv, loadExport } from '@/lib/export/client';
 import type { Generated } from '@/lib/export/client';
 import { checkPoint } from '@/lib/export/licence';
 import type { PlaceExport, TripExport } from '@/lib/export/types';
@@ -13,9 +13,9 @@ import '@/styles/print.css';
 
 export type ExportFormat = 'pdf' | 'ics' | 'gpx' | 'kml' | 'csv';
 
-/** Final props (lane L0). For `list`, `rows` are objects (columns = the first row's keys) or arrays whose first row is the header. */
+/** One trip or one place. There is no whole-list export: the table's CSV is gone from the public site (principle P8). */
 export interface ExportMenuProps {
-  target: { type: 'trip' | 'place' | 'list'; slug?: string; rows?: unknown[] };
+  target: { type: 'trip' | 'place'; slug?: string };
   formats: ExportFormat[];
 }
 
@@ -29,7 +29,7 @@ const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? o
 export function ExportMenu({ target, formats }: ExportMenuProps) {
   const { toast } = useToast();
   const [data, setData] = useState<TripExport | PlaceExport | null>(null);
-  const needsData = target.type !== 'list' && !!target.slug;
+  const needsData = !!target.slug;
 
   useEffect(() => {
     if (!needsData || !target.slug) return;
@@ -66,7 +66,6 @@ export function ExportMenu({ target, formats }: ExportMenuProps) {
       entries.push({ label: 'Calendar: pick dates first', icon: 'calendar', disabled: true, shortcut: 'Copy to my trips' });
     } else if (f === 'gpx' || f === 'kml') {
       const word = f.toUpperCase();
-      if (target.type === 'list') continue;
       const none = wptCount === 0;
       entries.push({
         label: none ? `${word}: no licensed points` : wptCount === null ? word : `${word}: ${plural(wptCount, 'point')}`,
@@ -79,17 +78,6 @@ export function ExportMenu({ target, formats }: ExportMenuProps) {
         if (isOverview) continue;
         const n = data?.type === 'trip' ? data.stops.length : null;
         entries.push({ label: n === null ? 'CSV' : `CSV: ${plural(n, 'stop')}`, icon: 'download', onSelect: () => void run((d) => downloadTripCsv(d as TripExport)) });
-      } else if (target.type === 'list') {
-        const rows = target.rows ?? [];
-        entries.push({
-          label: `CSV: ${plural(Array.isArray(rows[0]) ? rows.length - 1 : rows.length, 'row')}`,
-          icon: 'download',
-          disabled: rows.length === 0,
-          onSelect: () => {
-            const r = downloadListCsv(target.slug ?? 'list', rows);
-            toast({ message: `Downloaded ${r.name} · ${r.summary}` });
-          },
-        });
       }
     }
   }

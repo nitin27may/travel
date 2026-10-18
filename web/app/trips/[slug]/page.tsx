@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { ExportData } from '@/components/actions/ExportData';
 import { Banner } from '@/components/ui/Banner';
 import { SeasonBand } from '@/components/trips/SeasonBand';
 import { TripCover } from '@/components/trips/TripCover';
@@ -6,6 +7,7 @@ import { TripEnd } from '@/components/trips/TripEnd';
 import { TripPlan } from '@/components/trips/TripPlan';
 import { buildTripPageModel } from '@/components/trips/model';
 import type { PlaceLookup } from '@/components/trips/model';
+import { tripExportFor } from '@/lib/export/build.server';
 import { getPlace, getTrip, tripSlugs } from '@/lib/public';
 import { ogImageFor } from '@/lib/og';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
@@ -58,6 +60,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
         <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} legacyUrl={trip.legacyUrl} />
       )}
       <TripEnd trip={trip} model={model} url={url} />
+      <ExportData data={tripExportFor(slug)} />
     </article>
   );
 }

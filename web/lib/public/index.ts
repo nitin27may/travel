@@ -34,7 +34,7 @@ export interface PublicDataInternals {
 export function createPublicData(opts: SourceOptions = {}): PublicData & { internals: PublicDataInternals } {
   const src = loadSources(opts);
   const log = new DropLog();
-  const pb = buildPlaces(src, log);
+  const pb = buildPlaces(src);
   const tb = buildTrips(src, pb, log);
   // the household's home town never reaches a public path: names, titles, notes and points near it
   scrubOrigin(pb.places);

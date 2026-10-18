@@ -6,7 +6,7 @@ import { inBox, inFeature, locate, tally, type Bbox, type Feat, type FeatColl, t
 import { areaPathOfPin, boxOfArea, nodeAt, pinsFor, pinsUnder } from './model';
 import { zoomForRank, type SearchHit } from './search';
 import type { Camera, GlobeCard, GlobeData, PinModel, View } from './types';
-import { cameraQuery, viewPath } from './url';
+import { cameraQuery, hitSuffix, viewPath } from './url';
 import { WORLD_LAT, WORLD_LNG, worldFrame, type Footprint } from './framing';
 
 export interface Crumb { label: string; path: string[] }
@@ -108,7 +108,7 @@ export class GlobeController {
     this.lastCamera = c;
     if (user || c.zoom >= 2.5) this.deepLinkPending = false;
     if (this.deepLinkPending) return;
-    this.o.navigate(`${this.currentUrl || viewPath({ kind: 'area', path: this.snap.path })}${cameraQuery(c)}`, 'replace');
+    this.o.navigate(`${this.currentUrl || viewPath({ kind: 'area', path: this.snap.path })}${cameraQuery(c)}${typeof window === 'undefined' ? '' : hitSuffix(window.location.search)}`, 'replace');
   }
 
   describe(layer: HitLayer, id: number): HoverInfo | null {

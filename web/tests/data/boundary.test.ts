@@ -1,0 +1,69 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { describe, expect, it } from 'vitest';
+import { WEB, walkFiles } from '../helpers';
+
+// Principle P9 (backlog 2.23): all catalogue data reaches the browser through one module, lib/client/data.ts, whose
+// functions have the shape of a future API. A component or another module that fetches a data URL itself would have to be
+// found and rewritten when a function moves to the server, so the build refuses it.
+
+const SOURCE_DIRS = ['app', 'components', 'lib'];
+const SOURCE = /\.(ts|tsx|mjs)$/;
+const THE_MODULE = 'lib/client/data.ts';
+
+/**
+ * The few other places that call fetch(), each for something that is not catalogue data. A new entry needs a reason.
+ * The globe reads country outlines, admin boundaries and a world gazetteer (geography from public sources, not our
+ * researched content); the map loader reads its own worker script.
+ */
+const NOT_CATALOGUE: Record<string, string> = {
+  'lib/globe/admin.ts': 'admin boundary geography',
+  'lib/globe/countries.ts': 'country outlines and facts',
+  'lib/globe/search.ts': 'world gazetteer for the globe search',
+  'components/map/MapLibreMap.tsx': 'the map library worker script',
+};
+
+/** A URL of catalogue data: search parts, exports, the old whole-list files. */
+const CATALOGUE_URL = /['"`]\/(?:search\/|search-index|export-data|data\/(?:places|trips))|\/export-data\/|search-index\.json|data\/(?:places|trips)\.json/;
+
+function sources(): { rel: string; text: string }[] {
+  const out: { rel: string; text: string }[] = [];
+  for (const d of SOURCE_DIRS) {
+    for (const f of walkFiles(path.join(WEB, d))) {
+      if (!SOURCE.test(f)) continue;
+      out.push({ rel: path.relative(WEB, f).split(path.sep).join('/'), text: readFileSync(f, 'utf8') });
+    }
+  }
+  return out;
+}
+
+describe('the client data boundary (principle P9)', () => {
+  const all = sources();
+
+  it('finds the module and the source files', () => {
+    expect(all.length).toBeGreaterThan(100);
+    expect(all.some((s) => s.rel === THE_MODULE)).toBe(true);
+  });
+
+  it('only the data module and the listed geography loaders call fetch()', () => {
+    const callers = all.filter((s) => /\bfetch\s*\(/.test(s.text)).map((s) => s.rel).sort();
+    expect(callers).toEqual([THE_MODULE, ...Object.keys(NOT_CATALOGUE)].sort());
+  });
+
+  it('no module but the data module names a catalogue data URL', () => {
+    const hits = all.filter((s) => s.rel !== THE_MODULE && CATALOGUE_URL.test(s.text)).map((s) => s.rel);
+    // the server routes that write the files live under app/search
+    expect(hits.filter((h) => !h.startsWith('app/search/'))).toEqual([]);
+  });
+
+  it('the data module exposes the functions a future API keeps', () => {
+    const text = all.find((s) => s.rel === THE_MODULE)!.text;
+    for (const fn of ['searchManifest', 'searchPart', 'searchParts', 'loadSearchRecords', 'loadExport']) expect(text, fn).toMatch(new RegExp(`export (async )?function ${fn}\\b`));
+  });
+
+  it('the check can fail: a stray fetch of a search part would be caught', () => {
+    expect(CATALOGUE_URL.test("fetch('/search/place-ca/data.json')")).toBe(true);
+    expect(CATALOGUE_URL.test('fetch(`/export-data/trips/${slug}/data.json`)')).toBe(true);
+    expect(CATALOGUE_URL.test("fetch('/globe/data/gazetteer.json')")).toBe(false);
+  });
+});

@@ -1,13 +1,18 @@
-import { publicText } from './model';
 import { placeHref } from '@/lib/data/paths';
-import type { PlaceRow, PlaceSource, PlaceTag } from '@/lib/data/types';
-import type { Completeness, Honesty, Photo, PlaceKind, PublicPlaceCard } from '@/lib/public/types';
+import type { PlaceRow, PlaceTag } from '@/lib/data/types';
+import type { Honesty, PlaceKind, PublicPlaceCard } from '@/lib/public/types';
+
+/** The honesty chip a card shows: the id and the label. The reason is a sentence of its own and stays on the place page. */
+export interface ListHonesty {
+  id: Honesty['id'];
+  label: string;
+}
 
 /**
- * One row of the Places list: the public adapter's card (every kind, one slug) joined with the legacy store row
- * where the place came from `locations.json` (citations, tags, the old region code). Pure and
- * serialisable, so the server page builds it and the client list filters it. A place's personal status
- * (idea, planned, visited ...) is household data and is deliberately never read here.
+ * One row of the Places list: card and filter fields only (principle P8, backlog 2.24). The row is built at
+ * build time and ships inside the list page, so it must never carry what the place page holds: facts, links,
+ * suitability values, times or notes. `tests/data/light-data.test.ts` pins the key list. A place's personal
+ * status (idea, planned, visited ...) is household data and is deliberately never read here either.
  */
 export interface PlaceListRow {
   /** The slug; the list's row id, so `ids=` and `focus=` use slugs. */
@@ -26,31 +31,43 @@ export interface PlaceListRow {
   regionAliases: string[];
   area: string;
   area_name: string;
+  /** The pin, for the map view, the globe link and the map-area filter. */
   lat: number | null;
   lon: number | null;
+  /**
+   * Three numbers a visitor reads at a glance (principle P3: how long, how hard), so they stay in the list row and the table:
+   * trail length in km, climb in metres and elevation in metres. They are widely published, so principle P8 does not need
+   * to hide them. Notes, source links, checks, times and suitability values stay on the place page.
+   */
+  km: number | null;
+  gain_m: number | null;
   elevation_m: number | null;
+  /** 1 to 12. */
   season: number[];
+  /** The kids chip: strong-kid, yes, no or unknown. */
   kid_fit: string;
   tags: PlaceTag[];
-  /** One sentence, for search and the card. */
-  note: string;
+  /** Card cover URL. */
   image: string | null;
-  photo: Photo | null;
   /** Every public trip that uses the place. Public trips are dateless, so no dates are carried. */
   trips: { slug: string; title: string }[];
-  trip: string | null;
-  trip_title: string | null;
-  plans: number;
-  stats: { km?: number; gain_m?: number; hours?: string };
-  stats_verified: boolean;
-  location_status: string;
-  sources: PlaceSource[];
-  completeness: Completeness;
-  honesty: Honesty[];
-  /** "locations", "prototype" or "trail": where the facts came from. */
-  origins: PublicPlaceCard['sources'];
+  honesty: ListHonesty[];
+  /** The completeness chip: its level and short label. The count of checks and which fail stay on the place page. */
+  completeness: { level: 'draft' | 'usable' | 'complete'; label: string };
+  /** Source types only ("instagram", "official"), for the card's source chip. No address, no date. */
+  sourceTypes: string[];
+  /** Whether the place has stats, and whether they are checked: a chip, never the numbers. */
+  statsState: 'verified' | 'unverified' | null;
+  /** True when the place has research beyond a saved pin. */
+  researched: boolean;
   added: string;
 }
+
+/** Every key a list row may carry. A test compares this with the keys the builder writes. */
+export const PLACE_LIST_KEYS: readonly (keyof PlaceListRow)[] = [
+  'id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name',
+  'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added',
+];
 
 /** Joins the adapter cards with the legacy rows through the old place URLs that LD already maps to slugs. */
 export function buildPlaceRows(
@@ -70,10 +87,7 @@ export function buildPlaceRows(
     const country = c.areaChain.find((a) => a.level === 'country');
     const state = c.areaChain.find((a) => a.level === 'state');
     const district = c.areaChain.find((a) => a.level === 'district');
-    const stats: PlaceListRow['stats'] = {};
-    if (c.stats.distanceKm !== null) stats.km = c.stats.distanceKm;
-    if (c.stats.gainM !== null) stats.gain_m = c.stats.gainM;
-    if (c.stats.hours) stats.hours = c.stats.hours;
+    const hasStats = c.stats.distanceKm !== null || c.stats.gainM !== null || Boolean(c.stats.hours);
     return {
       id: c.slug,
       slug: c.slug,
@@ -90,24 +104,19 @@ export function buildPlaceRows(
       area_name: district?.name ?? '',
       lat: c.point?.lat ?? null,
       lon: c.point?.lon ?? null,
+      km: c.stats.distanceKm,
+      gain_m: c.stats.gainM,
       elevation_m: elevationOf(c.slug) ?? old?.elevation_m ?? null,
       season: c.season,
       kid_fit: c.kidFit || 'unknown',
       tags: old ? old.tags.map((t) => ({ id: t.id, label: t.label, kind: t.kind })) : [],
-      note: publicText(c.summary),
       image: c.photo?.url ?? null,
-      photo: c.photo,
       trips: c.trips.map((t) => ({ slug: t.slug, title: t.title })),
-      trip: c.trips[0]?.slug ?? null,
-      trip_title: c.trips[0]?.title ?? null,
-      plans: c.trips.length,
-      stats,
-      stats_verified: old?.stats_verified ?? false,
-      location_status: old?.location_status ?? (c.honesty.some((h) => h.id === 'location_unconfirmed') ? 'unconfirmed' : 'resolved'),
-      sources: old ? old.sources.map((s) => ({ type: s.type, url: s.url, post_date: s.post_date })) : [],
-      completeness: c.completeness,
-      honesty: c.honesty,
-      origins: c.sources,
+      honesty: c.honesty.map((h) => ({ id: h.id, label: h.label })),
+      completeness: { level: c.completeness.level, label: c.completeness.label },
+      sourceTypes: old ? old.sources.map((s) => s.type) : [],
+      statsState: hasStats ? (old?.stats_verified ? 'verified' : 'unverified') : null,
+      researched: c.sources.some((o) => o !== 'locations'),
       added: old?.added ?? '',
     };
   });
