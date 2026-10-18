@@ -116,6 +116,12 @@ describe('sort and group', () => {
     const desc = sortRows(rows, decodeState('sort=-sources'), d);
     const counts = desc.map((r) => r.sourceTypes.length);
     expect(counts).toEqual([...counts].sort((a, b) => b - a));
+    for (const [key, field] of [['elevation', 'elevation_m'], ['km', 'km'], ['gain', 'gain_m']] as const) {
+      const vals = sortRows(rows, decodeState(`sort=-${key}`), d).map((r) => r[field]).filter((v): v is number => v !== null);
+      expect(vals.length, key).toBeGreaterThan(3);
+      expect(vals, key).toEqual([...vals].sort((x, y) => y - x));
+      expect(sortRows(rows, decodeState(`sort=${key}`), d)[N - 1][field], key).toBeNull();
+    }
     // empty values stay last in both directions: a place with no public trip has no plan title
     const plan = sortRows(rows, decodeState('sort=plan'), d);
     expect(plan[N - 1].trips).toHaveLength(0);

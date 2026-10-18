@@ -66,10 +66,12 @@ test.describe('places list', () => {
   test('table: tools row, completeness column, collapsible country groups', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?view=table`);
     for (const name of ['Saved views', 'Columns']) await expect(page.getByRole('button', { name })).toBeVisible();
-    // no whole-list CSV on the public site, and no fact columns (principle P8)
+    // no whole-list CSV on the public site (principle P8); elevation, length and climb stay (P3)
     await expect(page.getByRole('button', { name: 'Export CSV' })).toHaveCount(0);
     await expect(page.getByRole('radio', { name: 'Compact' })).toBeVisible();
-    await expect(page.getByRole('columnheader', { name: /Elevation|Trail stats/ })).toHaveCount(0);
+    await expect(page.getByRole('columnheader', { name: /Elevation/ })).toBeVisible();
+    await expect(page.getByRole('columnheader', { name: /Length/ })).toBeAttached();
+    await expect(page.getByRole('columnheader', { name: /Climb/ })).toBeAttached();
     await expect(page.getByRole('columnheader', { name: /Completeness/ })).toBeAttached();
   });
 

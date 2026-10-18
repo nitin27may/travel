@@ -1,6 +1,7 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import dynamic from 'next/dynamic';
 import { PlaceCardFooter } from '@/components/places/PlaceCardFooter';
+import { Elevation, Stat } from '@/components/entity/cells';
 import type { PlaceListRow } from '@/components/places/rows';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
@@ -66,6 +67,9 @@ const columns: PlaceCol[] = [
   col('country', 'Country', ({ row }) => row.original.country_name, (p) => p.country_name, { size: 130 }),
   col('region', 'Region', ({ row }) => row.original.region_name, (p) => p.region_name, { size: 150 }),
   col('area', 'Area', ({ row }) => row.original.area_name, (p) => p.area_name, { size: 200 }),
+  col('elevation', 'Elevation', ({ row }) => <Elevation m={row.original.elevation_m} />, (p) => p.elevation_m ?? '', { size: 120, align: 'right', csvLabel: 'Elevation (m)' }),
+  col('km', 'Length', ({ row }) => (row.original.km === null ? <span className="dash">&ndash;</span> : <Stat k="km" v={row.original.km} />), (p) => p.km ?? '', { size: 120, align: 'right', csvLabel: 'Length (km)' }),
+  col('gain', 'Climb', ({ row }) => (row.original.gain_m === null ? <span className="dash">&ndash;</span> : <Stat k="gain_m" v={row.original.gain_m} />), (p) => p.gain_m ?? '', { size: 120, align: 'right', csvLabel: 'Climb (m)' }),
   col('season', 'Season', ({ row }) => seasonLabel(row.original.season) || <span className="dash">&ndash;</span>, (p) => seasonLabel(p.season), { size: 130 }),
   col('kid', 'Kids', ({ row }) => (row.original.kid_fit === 'unknown' ? <span className="dash">&ndash;</span> : KID_LABELS[row.original.kid_fit] ?? row.original.kid_fit), (p) => p.kid_fit, { size: 130 }),
   col('tags', 'Tags', ({ row }) => row.original.tags.map((t) => t.label).join(', '), (p) => p.tags.map((t) => t.label).join('; '), { size: 220, sort: false }),
@@ -94,6 +98,13 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
   subtitle: placeLocation,
   image: (p) => p.image,
   badges: placeBadges,
+  listAside: (p) => (
+    <>
+      {p.km !== null ? <Stat k="km" v={p.km} /> : null}
+      {p.gain_m !== null ? <Stat k="gain_m" v={p.gain_m} /> : null}
+      {p.elevation_m !== null ? <Elevation m={p.elevation_m} /> : null}
+    </>
+  ),
   cardFooter: (p) => <PlaceCardFooter p={p} />,
   iconFor: (p) => kindIcon(p.kind),
   fallbackLabel: (p) => p.kindLabel,
@@ -159,7 +170,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     { param: 'stroller', label: 'Stroller', type: 'single', tier: 'more', hidden: true, order: ['any', 'all-terrain'], options: () => [] },
   ],
   columns,
-  defaultColumns: ['name', 'kind', 'region', 'area', 'season', 'kid', 'sources', 'complete'],
+  defaultColumns: ['name', 'kind', 'region', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'sources', 'complete'],
   groupBy: [
     { id: 'country', label: 'Country', key: (p) => p.country, title: (p) => p.country_name },
     { id: 'region', label: 'Region', key: (p) => `${p.country}/${p.region}`, title: (p) => p.region_name, subtitle: (p) => p.country_name },
@@ -175,6 +186,9 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     area: { label: 'Area', value: (p) => p.area_name },
     season: { label: 'Season', value: (p) => (p.season.length ? p.season[0] : null) },
     kid: { label: 'Kids', value: (p) => ['strong-kid', 'yes', 'no', 'unknown'].indexOf(p.kid_fit) },
+    elevation: { label: 'Elevation', value: (p) => p.elevation_m },
+    km: { label: 'Length', value: (p) => p.km },
+    gain: { label: 'Climb', value: (p) => p.gain_m },
     sources: { label: 'Sources', value: (p) => p.sourceTypes.length },
     complete: { label: 'Completeness', value: (p) => COMPLETENESS_RANK[p.completeness.level] * 100 + p.completeness.passed },
     plan: { label: 'Plan', value: (p) => p.trips[0]?.title ?? null },
