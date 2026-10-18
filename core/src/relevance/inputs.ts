@@ -9,11 +9,12 @@ import type { RelevanceDoc } from "../schema/relevance.ts";
 import type { AccessLoad } from "./fit.ts";
 import type { DeriveInput, HubMatrix, PlaceFacts, Town } from "./derive.ts";
 import { relevanceFiles } from "./refs.ts";
+import { isAllowedHub } from "./hubs.ts";
 import { loadSignalsFor } from "../validate/relevance.ts";
 
 export interface PointsFile {
   schema: "relevance-points/1";
-  points: Record<string, { lat: number; lon: number; on_site_min?: number; access_legal_public?: boolean; external_access?: AccessLoad }>;
+  points: Record<string, { lat: number; lon: number; coord_src: string; on_site_min?: number; access_legal_public?: boolean; external_access?: AccessLoad }>;
   towns: Town[];
   trips?: Record<string, { window?: { from: string; to: string }; base?: { lat: number; lon: number }; detour_min?: Record<string, number> }>;
 }
@@ -30,7 +31,7 @@ export class HouseholdHubError extends Error {
 /** A hub that is not marked public is a household origin; day-trip fit refuses it. */
 export function assertPublicHubs(m: HubMatrix): void {
   for (const h of m.hubs) {
-    if (h.public !== true) throw new HouseholdHubError(`E_REL_HOUSEHOLD: hub "${h.id}" is not marked public. Day-trip fit uses public hubs only (Toronto City Hall); remove it.`);
+    if (h.public !== true || !isAllowedHub(h.id)) throw new HouseholdHubError(`E_REL_HOUSEHOLD: hub "${h.id}" is not a public hub on the allowlist (core/src/relevance/hubs.ts: Toronto City Hall). Day-trip fit uses public hubs only; remove it.`);
   }
 }
 
@@ -88,9 +89,14 @@ export interface Loaded {
   trips: Map<string, string[]>;
 }
 
-export function loadDeriveInput(root: string, window?: { from: string; to: string } | null): Loaded {
+export function loadDeriveInput(root: string, window?: { from: string; to: string } | null, today?: string): Loaded {
   const docs = loadRelevanceDocs(root);
   const records = docs.flatMap((d) => d.doc.records);
+  const meta: NonNullable<DeriveInput["meta"]> = {};
+  for (const d of docs) {
+    const reads = Object.fromEntries(d.doc.sources.map((x) => [x.id, x.read]));
+    for (const r of d.doc.records) meta[r.ref] = { researched: d.doc.researched, reads };
+  }
   const trips = new Map<string, string[]>();
   for (const d of docs) trips.set(d.doc.trip, [...(trips.get(d.doc.trip) ?? []), ...d.doc.records.map((r) => r.ref)]);
   const pts = readJson<PointsFile>(join(root, "data", "relevance", "inputs", "points.json"));
@@ -113,7 +119,7 @@ export function loadDeriveInput(root: string, window?: { from: string; to: strin
     }
   }
   return {
-    input: { records, facts, signals: loadSignalsFor(root), towns: pts?.towns ?? [], matrix: loadHubMatrix(root), window: window ?? null },
+    input: { records, facts, signals: loadSignalsFor(root), towns: pts?.towns ?? [], matrix: loadHubMatrix(root), window: window ?? null, meta, ...(today ? { today } : {}) },
     trips,
   };
 }

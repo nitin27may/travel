@@ -86,7 +86,7 @@ export const REL_ERROR_CODES = {
   E_REL_COPIED_RATING: "a quote, note or title carries a rating, a review count or a popularity rank (4.8 stars, 12,345 reviews, #3 of 41)",
   E_REL_DRAW_NOTE: "draw has a value but its note names no signal (a designation, a top-list mention, the land manager's own page, a sell-out)",
   E_REL_TYPED_DERIVED: "a derived field (draw_suggested, role, fit, badge, substitutes, detour, far_pointer, flags) is typed in a file",
-  E_REL_INHERITED_DESIGNATION: "a designation sourced from a park-level page is on a place record without scope: parent",
+  E_REL_INHERITED_DESIGNATION: "an area designation (UNESCO, national or provincial park, conservation area, dark sky, Ramsar) has scope own on a record that is not itself an area (park, region, protected_area)",
   E_REL_HOUSEHOLD: "a household origin, home address or private point is in a relevance file; day-trip fit uses public hubs only",
   E_REL_CLASS: "class_key is not in data/vocab/relevance-classes.json",
   E_REL_QID: "a Wikidata QID is not of the form Q123, or a value-state QID carries no confirmation note",
@@ -97,6 +97,7 @@ export const REL_WARNING_CODES = {
   W_REL_DRAW_GAP: "draw and draw_suggested differ by 2 or more tiers and the draw note does not explain why",
   W_REL_DISTINCTION: "distinction is unique but a same-class catalogue place lies within 100 km",
   W_REL_NO_DETOUR: "no trip leg, base or catalogue town gives a detour for the place",
+  W_REL_NO_REACH: "a top_list mention has no reach, so it cannot raise the draw floor",
   W_REL_STALE: "a judged field, designation, mention or access cost is older than its freshness class allows",
 } as const;
 export type RelErrorCode = keyof typeof REL_ERROR_CODES;

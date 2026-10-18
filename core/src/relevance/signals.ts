@@ -7,7 +7,8 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-export const USER_AGENT = "travel-relevance-signals/1.0 (https://github.com/nitin27may/travel)";
+// The repo is private, so the contact URL is the public site. Project name and URL only: no email, no personal name.
+export const USER_AGENT = "travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)";
 
 export type FetchLike = (url: string, init: { headers: Record<string, string> }) => Promise<{ ok: boolean; status: number; headers: { get(name: string): string | null }; json(): Promise<unknown> }>;
 
@@ -35,6 +36,8 @@ export interface WikidataItem {
   sitelinks: { count: number; langs: string[] };
   /** titles only for the languages whose pageviews we read */
   titles: Record<string, string>;
+  /** the extra languages asked for when this was read; a change in langs.json triggers a re-read */
+  langs: string[];
   p1435: string[]; // heritage designation item ids
   p757: string[]; // World Heritage Site id
   p814: string[]; // IUCN protected area category item ids
@@ -136,7 +139,8 @@ export class SignalsClient {
   async wikidata(qids: string[], langs: Record<string, string[]> = {}): Promise<Record<string, WikidataItem>> {
     const path = this.path("wikidata");
     const cache = load<WikidataItem>(path, "wikidata");
-    const need = [...new Set(qids)].filter((q) => /^Q[1-9]\d*$/.test(q) && !this.fresh(cache.items[q]?.read));
+    const wantKey = (q: string): string => [...new Set(langs[q] ?? [])].sort().join(",");
+    const need = [...new Set(qids)].filter((q) => /^Q[1-9]\d*$/.test(q) && (!this.fresh(cache.items[q]?.read) || (cache.items[q]!.langs ?? []).slice().sort().join(",") !== wantKey(q)));
     for (let i = 0; i < need.length; i += 20) {
       const batch = need.slice(i, i + 20);
       const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks%7Cclaims%7Clabels&languages=en&ids=${batch.join("%7C")}`;
@@ -159,6 +163,7 @@ export class SignalsClient {
           label: e.labels?.en?.value ?? null,
           sitelinks: { count: wikis.length, langs: wikis.map(langOfSite).sort() },
           titles,
+          langs: [...new Set(langs[q] ?? [])].sort(),
           p1435: ids("P1435"),
           p757: ids("P757"),
           p814: ids("P814"),
@@ -185,7 +190,9 @@ export class SignalsClient {
     const cache = load<PageviewsItem>(path, "pageviews");
     const win = this.window();
     for (const [q, wd] of Object.entries(items)) {
-      if (this.fresh(cache.items[q]?.read) && cache.items[q]!.window.to === win.to) continue;
+      const have = Object.keys(cache.items[q]?.views ?? {}).sort().join(",");
+      const want = Object.keys(wd.titles).map((l) => `${l}.wikipedia`).sort().join(",");
+      if (this.fresh(cache.items[q]?.read) && cache.items[q]!.window.to === win.to && have === want) continue;
       const views: PageviewsItem["views"] = {};
       for (const [lang, title] of Object.entries(wd.titles)) {
         const project = `${lang}.wikipedia`;

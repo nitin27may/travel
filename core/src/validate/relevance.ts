@@ -7,7 +7,9 @@ import { z } from "zod";
 import { tableOf } from "../schema/index.ts";
 import type { RelevanceDoc, RelevanceRecord } from "../schema/relevance.ts";
 import { RefResolver } from "../relevance/refs.ts";
-import { THRESHOLDS, drawSuggested, tierIdx } from "../relevance/fit.ts";
+import { THRESHOLDS, tierIdx } from "../relevance/fit.ts";
+import { staleFields } from "../relevance/stale.ts";
+import { suggestFor } from "../relevance/suggest.ts";
 import { REL_MESSAGES as M } from "./messages.ts";
 import { isObj } from "./rows.ts";
 import type { Ctx, Row } from "./rows.ts";
@@ -51,15 +53,30 @@ const DERIVED_KEYS = [
   "draw_suggested", "effective_draw", "role", "fit", "fits", "badge", "badges", "substitutes", "similar_osm_25km", "far_pointer",
   "plan_b", "detour_min", "from_hubs", "access_load", "flags", "role_in_trip", "context_fit",
 ];
-const HOUSEHOLD_KEYS = /^(origin|home|household|home_address|private_origin|start_address|address|home_lat|home_lon)$/i;
-const HOUSEHOLD_TEXT = /\b(my home|our home|home address|household origin|private origin)\b/i;
+const HOUSEHOLD_KEYS = /^(origin|home|household|home_address|private_origin|start_address|address|home_lat|home_lon|party|kids|children|ages)$/i;
+/** Prose about the household: where we live, how many we are, how old the children are (5 rule 7). */
+const HOUSEHOLD_TEXT = new RegExp(
+  [
+    "\\b(my home|our home|home address|household origin|private origin|home ?town|hometown)\\b",
+    "\\bwe (live|stay|are based|are from)\\b",
+    "\\b(i|we) live\\b",
+    "\\b(family|party|group) of \\d+\\b",
+    "\\b(our|my) (\\d+|one|two|three|four|five|six|seven|eight|nine|ten)[- ]?(year|yr)s?[- ]?old\\b",
+    "\\b(our|my) (kids?|children|son|daughter|toddler|baby|boys?|girls?|twins?)\\b",
+    "\\b(kids?|children|boys?|girls?|sons?|daughters?) (aged|age|ages)\\s+\\d",
+    "\\bour (\\d+) (kids|children)\\b",
+  ].join("|"),
+  "i",
+);
 
 const AREA_DESIGNATIONS = ["unesco_whs", "national_park", "provincial_or_state_park", "conservation_area", "dark_sky", "ramsar"];
-const NON_AREA_KINDS = ["trail", "viewpoint", "waterfall", "swim_spot", "lift", "activity", "eatery", "stay"];
-const SIGNAL_WORDS = /(designat|unesco|whs|world heritage|national park|provincial park|state park|conservation|top[- _]?list|mention|editorial|guide|headline|official|land manager|sells? out|sold out|lottery|permit|quota|shuttle|reservation|booking|languages?|wikipedia|\bcap\b)/i;
+/** Only a record that is itself an area may own an area designation. Everything else inherits it as `parent`. */
+const AREA_KINDS = ["park", "region", "protected_area"];
+const SIGNAL_WORDS = /(designat|unesco|\bwhs\b|world heritage|national park|provincial park|state park|conservation|top[- _]?list|tourism board|editorial|headline|official_highlight|land manager|sells? out|sold out|lottery|permit|quota|shuttle)/i;
+/** Platform names that must not stand as a publisher or a title either. */
+const LINK_ONLY_NAMES = /(alltrails|komoot|gaia ?gps|outdooractive|wikiloc|trailforks|strava|hiking ?project|fatmap|google|tripadvisor|\byelp\b|booking\.com)/i;
 const GAP_EXPLAINED = /(over-?scores?|under-?scores?|despite|although|because|judg|sub-feature|roadside|\bgap\b|signals?)/i;
 
-const FRESH_DAYS = { judged: 1095, designations: 1095, editorial: 730, access: 365 };
 
 type AnyVal = { v: unknown; state: string; basis: string | null; src: string[]; read?: string; note?: string; tried?: string[]; on?: string; conflicts?: { src: string[] }[] };
 const isVal = (x: unknown): x is AnyVal => isObj(x) && "v" in x && "state" in x && "src" in x;
@@ -163,7 +180,7 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
     scrub(r, `/records/${i}`);
   });
   for (const [path, s] of walkStrings(clone, "")) {
-    if (HOUSEHOLD_TEXT.test(s)) E("E_REL_HOUSEHOLD", path, M.household(`"${s.slice(0, 40)}"`));
+    if (!path.endsWith("/quote") && HOUSEHOLD_TEXT.test(s)) E("E_REL_HOUSEHOLD", path, M.household(`"${s.slice(0, 40)}"`));
   }
 
   const t = tableOf("sidecar", "relevance");
@@ -206,6 +223,10 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
     }
     const hit = LINK_ONLY_HOSTS.find(([re]) => re.test(host));
     if (hit) E("E_REL_LINK_ONLY_SRC", `/sources/${i}/url`, M.linkOnly(s.id, hit[1]));
+    else {
+      const named = LINK_ONLY_NAMES.exec(`${s.publisher} ${s.title}`);
+      if (named) E("E_REL_LINK_ONLY_SRC", `/sources/${i}/publisher`, M.linkOnly(s.id, named[0]));
+    }
   });
   const readOf = new Map(d.sources.map((s) => [s.id, s.read]));
 
@@ -243,13 +264,6 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
     }
   };
 
-  const stale = (v: AnyVal, path: string, field: string, days: number, researched: string): void => {
-    if (v.state !== "value") return;
-    const reads = [v.read, ...v.src.map((id) => readOf.get(id))].filter((x): x is string => !!x).sort();
-    const latest = reads[reads.length - 1] ?? researched;
-    if (daysBetween(latest, today) > days) W("W_REL_STALE", path, `"${field}" was last read ${latest}, more than ${days} days ago. Re-check it.`);
-  };
-
   d.records.forEach((r: RelevanceRecord, i) => {
     const base = `/records/${i}`;
     const row = r as unknown as Row;
@@ -281,13 +295,19 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
       if (peak.v.from === peak.v.to) E("E_REL_RANGE", `${base}/draw_peak`, M.range("draw_peak starts and ends on the same day"));
     }
 
-    // inherited designations
+    // inherited designations: on anything that is not itself an area, an area designation is `parent`
     const des = r.signals.designations;
-    if (des.state === "value" && des.v && NON_AREA_KINDS.includes(r.kind)) {
+    if (des.state === "value" && des.v && !AREA_KINDS.includes(r.kind)) {
       des.v.forEach((x, k) => {
         if (x.scope === "own" && AREA_DESIGNATIONS.includes(x.type)) E("E_REL_INHERITED_DESIGNATION", `${base}/signals/designations/v/${k}/scope`, M.inherited(x.name));
       });
     }
+    // editorial mentions
+    (r.signals.editorial.state === "value" ? (r.signals.editorial.v ?? []) : []).forEach((m, k) => {
+      const named = LINK_ONLY_NAMES.exec(`${m.publisher} ${m.title}`);
+      if (named) E("E_REL_LINK_ONLY_SRC", `${base}/signals/editorial/v/${k}/publisher`, M.linkOnly(`${m.publisher}`, named[0]));
+      if (m.list === "top_list" && !m.reach) W("W_REL_NO_REACH", `${base}/signals/editorial/v/${k}`, "a top_list mention has no reach, so it cannot raise the draw floor. Add reach: regional, national or global.");
+    });
 
     // copied ratings: every prose string of the record
     for (const [p, s] of walkStrings(r, base)) {
@@ -295,18 +315,18 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
       if (hit) E("E_REL_COPIED_RATING", p, M.copiedRating(p, hit[0]));
     }
 
-    // draw gap against the cached signals
+    // draw gap against the cached signals, with the same suggestion derive uses (parent QID included)
     if (r.draw.state === "value" && r.draw.v && r.wikidata.state === "value" && r.wikidata.v && signals[r.wikidata.v]) {
-      const sug = drawSuggested({ ...signals[r.wikidata.v]!, designations: r.signals.designations.v ?? [], editorial: r.signals.editorial.v ?? [] }, THRESHOLDS);
+      const sug = suggestFor(r, signals, THRESHOLDS);
       if (Math.abs(tierIdx(sug) - tierIdx(r.draw.v)) >= 2 && !(r.draw.note && GAP_EXPLAINED.test(r.draw.note))) {
         W("W_REL_DRAW_GAP", `${base}/draw`, `draw "${r.draw.v}" and draw_suggested "${sug}" differ by 2 or more tiers and the note does not explain why. Say why the signals mislead (over-score or under-score).`);
       }
     }
 
-    // freshness
-    for (const k of ["draw", "standing", "distinction"] as const) stale(r[k] as unknown as AnyVal, `${base}/${k}`, k, FRESH_DAYS.judged, d.researched);
-    stale(r.signals.designations as unknown as AnyVal, `${base}/signals/designations`, "designations", FRESH_DAYS.designations, d.researched);
-    stale(r.signals.editorial as unknown as AnyVal, `${base}/signals/editorial`, "editorial", FRESH_DAYS.editorial, d.researched);
-    stale(r.access_cost as unknown as AnyVal, `${base}/access_cost`, "access_cost", FRESH_DAYS.access, d.researched);
+    // freshness (derive treats these as gaps)
+    for (const x of staleFields(r, d.researched, Object.fromEntries(d.sources.map((q) => [q.id, q.read])), today)) {
+      const path = x.field === "designations" || x.field === "editorial" ? `${base}/signals/${x.field}` : `${base}/${x.field}`;
+      W("W_REL_STALE", path, `"${x.field}" was last read ${x.latest}, more than ${x.limit} days ago. Re-check it; derive treats it as a gap until then.`);
+    }
   });
 }

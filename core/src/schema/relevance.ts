@@ -72,6 +72,8 @@ const accessItem = z.strictObject({
   type: z.enum(ACCESS_COST),
   note: z.string().optional(),
   book_ahead_days: z.number().int().min(0).optional(),
+  /** boat_or_ferry with limited sailings, or a lift with a capacity cap: counts as hard */
+  capped: z.boolean().optional(),
 });
 
 export const relRecord = z.strictObject({

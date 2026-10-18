@@ -200,7 +200,7 @@ Each fit is `plan_around`, `worth_it`, `if_nearby` or `skip`, with a reason stri
 |---|---|---|---|---|
 | **vacation**: a visitor is staying in the region for several days | ED `world`; or ED `national` with standing `top` | ED `national`; or ED `regional` with standing `top` and distinction not `common` | ED `regional`; or ED `local` with standing `top` or `good` and `detour_min` ≤ 20 | ED `local` with standing `ordinary`, or with `detour_min` over 20 |
 | **weekend**: 1 to 3 nights from a hub, judged per **area** | the area holds 2 or more places with ED ≥ `regional` and standing `top` within 30 min of one another, and the nearest hub is 1.5 to 4 h away | ED ≥ `regional` and a hub 1.5 to 4 h away | ED `local`, standing `top`, and a hub 1.5 to 4 h away | the rest. Under 1.5 h from a hub is a day trip, not a weekend |
-| **day trip from hub H** (one per hub in `from_hubs`) | ED ≥ `regional` with standing `top`, and H ≤ 3 h one way, and on-site time plus twice the drive ≤ 12 h | standing `top` or `good`, and H ≤ 2 h | standing `good`, and H ≤ 1 h | standing `ordinary` and H over 45 min; or H over 3 h |
+| **day trip from hub H** (one per hub in `from_hubs`) | ED ≥ `regional` with standing `top`, and H ≤ 3 h one way, and on-site time plus twice the drive ≤ 12 h | standing `top` or `good`, and H ≤ 2 h | standing `good` and H ≤ 1 h; or standing `ordinary` and H ≤ 45 min | standing `ordinary` and H over 45 min; or H over 3 h; the rest |
 | **passing through**: a stop on a road trip leg | `detour_min` ≤ 30, ED ≥ `national`, on-site ≤ 120 min, `access_load` `easy` | `detour_min` ≤ 20, ED ≥ `regional`, on-site ≤ 90 min, `access_load` `easy` | `detour_min` ≤ 10, on-site ≤ 45 min | any booking needed, or a detour over 30 min |
 
 A fit drops one step when `access_load` is `hard`, except for `plan_around` in the vacation context, because anchors are worth the booking. A fit drops one step when `weather` is `clear_only`, and the place gains the "needs clear weather" chip from the timing lane.
@@ -285,9 +285,9 @@ These are suitability.md section 3, rules 1 to 9, applied as written. In additio
 3. **Editorial mentions are facts with a link**: the publisher, the list title, the year and the list type. They carry no copied text beyond the list's title.
 4. **A designation states its scope.** A designation sourced from a park-level page on a place record must say `scope: parent` (`E_REL_INHERITED_DESIGNATION`).
 5. **Visitor volume is official only**: NPS IRMA, Parks Canada attendance, or an operator's or town's own stated cap. Media figures are kept as conflicts.
-6. **Fame signals are ours to compute, never to type.** The tool fetches them from QIDs, sequentially, with a descriptive User-Agent, and caches them with the read date.
-7. **No household data.** Day-trip fit uses public hubs only. `E_REL_HOUSEHOLD` reuses the privacy payload test: no origin string, and no point within 2 km of a private origin (short-trips 4.4).
-8. **Freshness.** Draw, standing and distinction: 3 years. Designations: 3 years. Editorial mentions: 2 years. Access cost: 365 days. Fame signals: refreshed every year by the tool. A stale field drops to `gap` at check time.
+6. **Fame signals are ours to compute, never to type.** The tool fetches them from QIDs, sequentially, with a descriptive User-Agent (`travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)`: project name and the public site, never an email), and caches them with the read date.
+7. **No household data.** Day-trip fit uses public hubs only. `E_REL_HOUSEHOLD` reuses the privacy payload test: no origin string, no prose about where the household lives, its size or the children's ages, and no point (hub, town, base or place) within 2 km of a private origin (short-trips 4.4). The origin is read from an untracked local file, `data/relevance/inputs/private-origin.local.json`, and skipped when absent; it is never committed. Hubs must also be on the allowlist in `core/src/relevance/hubs.ts` (Toronto City Hall until Q19 is answered). `relevance.ts check` validates `inputs/hub-matrix.json` and `inputs/points.json` as well as the lane files.
+8. **Freshness.** Draw, standing and distinction: 3 years. Designations: 3 years. Editorial mentions: 2 years. Access cost: 365 days. Fame signals: refreshed every year by the tool. A stale field raises `W_REL_STALE` at check time, and derive treats it as a `gap` and lists it in the derived item's `stale` flag.
 
 ## 6. How the site uses it (P1-P9, T1-T5)
 
@@ -403,8 +403,8 @@ The lanes already open, for every record, the land manager's or operator's page,
 > 5. Set `easy_payoff` and `easy_way` from the walks you already read for suitability.
 > 6. Set `weather`.
 > 7. Add `access_cost` items only when they are not already a booking or an `access_season.via`.
-> 8. Record designations from the page you are reading, with `scope: own` or `scope: parent`. Being inside a park is `parent`.
-> 9. Record at most 3 editorial top-list mentions: the publisher, the title, the year and the URL. **Copy no text, no ratings and no counts.** AllTrails, Google, Tripadvisor and Komoot are never a source.
+> 8. Record designations from the page you are reading, with `scope: own` or `scope: parent`. Being inside a park is `parent`, and so is every area designation (UNESCO, national or provincial park, conservation area, dark sky, Ramsar) on anything that is not itself a park, region or protected area (`E_REL_INHERITED_DESIGNATION`). For a `parent` national or provincial park, add the park's confirmed Wikidata QID in `wikidata` so the tool can read the parent's fame (the Narrows inside Zion).
+> 9. Record at most 3 editorial top-list mentions: the publisher, the title, the year, the list type and its `reach` (`regional`, `national` or `global`; a top list without it raises nothing and warns). **Copy no text, no ratings and no counts.** AllTrails, Google, Tripadvisor and Komoot are never a source.
 > 10. Write `why`, one line in your own words.
 >
 > **Acceptance additions:**
@@ -511,7 +511,7 @@ The local trail is not hidden. It sits in "If you are nearby" for Banff, which i
 | access | `day_permit`: released 5 days ahead at 07:00 ET, all sales final (short-trips K8) | reservations recommended, not required (Conservation Halton, via search) |
 | Day trip from Toronto | `skip` (over 3 h one way) | `plan_around` |
 | Weekend from Toronto | `plan_around` when the Highway 60 corridor holds two or more `top` regional places within 30 min of one another (to confirm in R6); Toronto is 3 h+ away | `skip`: under 1.5 h from the hub, so a day trip |
-| Vacation (a visitor from far, in October) | ED `national` with standing `top` in the peak, so `anchor`, **"Worth the journey"**. Outside the peak it is `regional` `top` `rare`, so `highlight`, "Worth a detour" | `if_nearby` (regional, but distinction `common`); `far_pointer` to Niagara Falls (about 81 km), the one people travel for |
+| Vacation (a visitor from far, in October) | ED `national` with standing `top` in the peak, so `anchor`, **"Worth the journey"**. Outside the peak it is `regional` `top` `rare`, so `highlight`, "Worth a detour" | `if_nearby` (regional, but distinction `common`); no `far_pointer`: Niagara Falls, the one people travel for, is about 81 km away, outside the 50 km reach of 3.2 |
 | Badge, day lens | none (outside the band) | **"Local favourite"** |
 
 The same visitor with a different lens gets the right answer from each. A Toronto day-tripper sees Rattlesnake Point first. A visitor from 2,000 km away in October sees Algonquin, and Rattlesnake Point appears only as a nearby option.
@@ -549,7 +549,7 @@ The same visitor with a different lens gets the right answer from each. A Toront
 | Case | Rule exercised |
 |---|---|
 | Fenland in a WHS | parent designations never raise the tier |
-| Narrows at 7 languages | the official-highlight floor; `W_REL_DRAW_GAP` explained by a note |
+| Narrows at 7 languages | the official-highlight floor under a world-fame parent (the parent QID in the designation). With the measured 15,582 views the suggestion is already `national`, one tier below the judged `world`, so no `W_REL_DRAW_GAP` fires |
 | Landro at 10 languages | an over-score kept down by judgement |
 | Limides | `clear_only` drops a fit |
 | Kanarra | `hard` access drops a vacation fit; `far_pointer` |
@@ -578,3 +578,4 @@ The same visitor with a different lens gets the right answer from each. A Toront
 | Date | Change |
 |---|---|
 | 2026-10-18 | First draft: prior art (Michelin, Lonely Planet, Google, AllTrails, Atlas Obscura, Destination Canada CSE, NPS, UNESCO, Komoot, Wikidata and pageviews), the `relevance/1` sidecar, derivation rules, lenses and display rules, globe tiers, the suitability combination, the lane additions, RV0 and RV1, and 6 worked examples with measured signals |
+| 2026-10-18 | RV0 verification fixes: `own` area designations only on park, region and protected_area records (all else `parent`); household rule widened to prose, a 2 km private-origin check from an untracked local file, a hub allowlist, and input validation in `check`; far-pointer reach stays 50 km (Niagara removed from 10.3); no draw-gap warning for the Narrows with the measured views; ordinary standing within 45 min is `if_nearby` on the day lens; stale values are gaps with a `stale` flag; capped boats and lifts are `hard`; `Mention.reach` and `Designation.wikidata` added; User-Agent contact is the public site; `coord_src` on every point (never Google) |

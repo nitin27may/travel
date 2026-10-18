@@ -135,10 +135,49 @@ describe("judged-field rules", () => {
     expect(codes(run(doc([{ ...rec(), draw: rv("regional", "pretty") }])))).toEqual(["E_REL_DRAW_NOTE"]);
     expect(run(doc([{ ...rec(), draw: rv("regional", "NPS calls it a headline (official_highlight)") }])).errors).toEqual([]);
   });
-  it("an own area designation is refused on a trail, allowed on a lake", () => {
+  it("an own area designation is refused on every kind that is not itself an area", () => {
     const own = [{ type: "national_park" as const, name: "Banff National Park", scope: "own" as const }];
-    expect(codes(run(doc([rec({ kind: "trail", designations: own })])))).toEqual(["E_REL_INHERITED_DESIGNATION"]);
-    expect(run(doc([rec({ kind: "lake", designations: own })])).errors).toEqual([]);
+    for (const kind of ["trail", "lake", "sight", "canyon", "drive", "viewpoint", "waterfall", "town", "gorge"]) {
+      expect(codes(run(doc([rec({ kind, designations: own })]))), kind).toEqual(["E_REL_INHERITED_DESIGNATION"]);
+    }
+    for (const type of ["unesco_whs", "provincial_or_state_park", "conservation_area", "dark_sky", "ramsar"] as const) {
+      expect(codes(run(doc([rec({ kind: "lake", designations: [{ type, name: "x", scope: "own" }] })]))), type).toEqual(["E_REL_INHERITED_DESIGNATION"]);
+    }
+  });
+  it("an area kind may own one, and any place may hold the same status as parent", () => {
+    const own = [{ type: "national_park" as const, name: "Banff National Park", scope: "own" as const }];
+    for (const kind of ["park", "region", "protected_area"]) expect(run(doc([rec({ kind, designations: own })])).errors, kind).toEqual([]);
+    expect(run(doc([rec({ kind: "lake", designations: [{ ...own[0]!, scope: "parent" }] })])).errors).toEqual([]);
+    expect(run(doc([rec({ kind: "lake", designations: [{ type: "natural_monument", name: "x", scope: "own" }, { type: "official_highlight", name: "y", scope: "own" }] })])).errors).toEqual([]);
+  });
+  it("a vague draw note fails; a note that names a signal passes", () => {
+    for (const n of ["a nice guide says it is great", "pretty", "popular with visitors", "very official looking", "37 Wikipedia languages", "booking is easy"]) {
+      expect(codes(run(doc([{ ...rec(), draw: rv("regional", n) }]))), n).toEqual(["E_REL_DRAW_NOTE"]);
+    }
+    for (const n of ["inside the Canadian Rocky Mountain Parks WHS (inherited)", "shuttle-only access still sells out", "the tourism board top-list names it", "NPS headline (official_highlight)", "needs a lottery permit"]) {
+      expect(run(doc([{ ...rec(), draw: rv("regional", n) }])).errors, n).toEqual([]);
+    }
+  });
+  it("rejects a link-only platform named as a publisher or a title, in sources and in editorial mentions", () => {
+    const srcDoc = doc([rec()], { sources: [{ id: "src-0001", url: "https://parks.canada.ca/x", title: "Tripadvisor traveller ranking", publisher: "Parks Canada", kind: "official", read: "2026-10-12" }] });
+    expect(codes(run(srcDoc))).toEqual(["E_REL_LINK_ONLY_SRC"]);
+    const pub = doc([rec({ editorial: [{ publisher: "AllTrails", title: "Best hikes", year: 2025, list: "listed" }] })]);
+    expect(codes(run(pub))).toEqual(["E_REL_LINK_ONLY_SRC"]);
+    const title = doc([rec({ editorial: [{ publisher: "A Guide", title: "Google Maps picks", year: 2025, list: "listed" }] })]);
+    expect(codes(run(title))).toEqual(["E_REL_LINK_ONLY_SRC"]);
+  });
+  it("warns on a top_list with no reach", () => {
+    const r = run(doc([rec({ editorial: [{ publisher: "G", title: "T", year: 2025, list: "top_list" }] })]));
+    expect(r.warnings.map((w) => w.code)).toContain("W_REL_NO_REACH");
+    const ok = run(doc([rec({ editorial: [{ publisher: "G", title: "T", year: 2025, list: "top_list", reach: "global" }] })]));
+    expect(ok.warnings.map((w) => w.code)).not.toContain("W_REL_NO_REACH");
+  });
+  it("household prose: where they live, party size, children's ages", () => {
+    for (const w of ["We live in Whitby, 40 min away.", "Day trip from our home town of Whitby.", "Good for a family of 4.", "kids aged 5 and 8", "our 6 year old loved it", "our 6-year-old loved it", "Our kids liked it.", "a party of 3 adults"]) {
+      expect(codes(run(doc([{ ...rec(), why: w }]))), w).toEqual(["E_REL_HOUSEHOLD"]);
+    }
+    for (const k of ["party", "kids", "children", "ages"]) expect(codes(run(doc([{ ...rec(), [k]: [5, 8] } as never]))), k).toEqual(["E_REL_HOUSEHOLD"]);
+    expect(run(doc([{ ...rec(), why: "Children under 8 need an adult; 1 adult per 2 children." }])).errors).toEqual([]);
   });
   it("a draw_peak must raise the tier", () => {
     expect(run(doc([rec({ draw: "regional", peak: { tier: "national", from: "09-20", to: "10-15", why: "colour" } })])).errors).toEqual([]);
@@ -171,6 +210,21 @@ describe("warnings", () => {
     expect(paths).toContain("/records/0/access_cost");
     const fresh = run(doc([rec({ access: [{ type: "timed_entry" }] })], { researched: "2026-06-01" }));
     expect(fresh.warnings.filter((w) => w.code === "W_REL_STALE")).toEqual([]);
+  });
+  it("W_REL_DRAW_GAP uses the parent QID like derive does", () => {
+    const root = mkdtempSync(join(tmpdir(), "rel-gap2-"));
+    tmp.push(root);
+    cpSync(ROOT, root, { recursive: true });
+    mkdirSync(join(root, "data/relevance/signals"), { recursive: true });
+    writeFileSync(join(root, "data/relevance/signals/wikidata.json"), JSON.stringify({ schema: "x", source: "x", items: { Q7: { read: "2026-10-01", sitelinks: { count: 7, langs: [] } }, Q8: { read: "2026-10-01", sitelinks: { count: 50, langs: [] } } } }));
+    const d = [{ type: "official_highlight" as const, name: "NPS page", scope: "own" as const }, { type: "national_park" as const, name: "Zion", scope: "parent" as const, wikidata: "Q8" }];
+    // 7 languages: regional; the highlight under a world parent: national. Local is 2 tiers below, regional is 1.
+    const near = run(doc([rec({ qid: "Q7", draw: "regional", drawNote: "NPS headline (official_highlight)", designations: d })]), "2026-10-18", root);
+    expect(near.warnings.map((w) => w.code)).not.toContain("W_REL_DRAW_GAP");
+    const far = run(doc([rec({ qid: "Q7", draw: "local", drawNote: "NPS headline (official_highlight)", designations: d })]), "2026-10-18", root);
+    expect(far.warnings.map((w) => w.code)).toContain("W_REL_DRAW_GAP");
+    const noParent = run(doc([rec({ qid: "Q7", draw: "local", drawNote: "NPS headline (official_highlight)", designations: d.slice(0, 1) })]), "2026-10-18", root);
+    expect(noParent.warnings.map((w) => w.code)).not.toContain("W_REL_DRAW_GAP"); // regional against local is 1 tier
   });
   it("W_REL_DRAW_GAP reads the cached signals and accepts an explaining note", () => {
     const root = mkdtempSync(join(tmpdir(), "rel-gap-"));

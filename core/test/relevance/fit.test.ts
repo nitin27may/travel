@@ -148,6 +148,8 @@ describe("day trip fit", () => {
     expect(d(121, { standing: "good" }).fit).toBe("skip");
     expect(d(60, { standing: "good", ed: "local" }).fit).toBe("worth_it");
     expect(d(46, { standing: "ordinary" }).fit).toBe("skip");
+    expect(d(45, { standing: "ordinary" }).fit).toBe("if_nearby");
+    expect(d(10, { standing: "ordinary", ed: "local" }).fit).toBe("if_nearby");
   });
 });
 
