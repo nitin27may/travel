@@ -1,3 +1,332 @@
 [
-  { "from": "/locations/*", "to": "/places/:splat", "status": 301 }
+  {
+    "from": "/places/CA/AB/banff-national-park/lake-louise/",
+    "to": "/places/lake-louise/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/bas-saint-laurent-gaspesie/chute-du-grand-sault/",
+    "to": "/places/grand-sault-waterfall/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/charlevoix/le-buton/",
+    "to": "/places/le-buton-lookout-le-massif-de-charlevoix/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/cote-de-beaupre/canyon-sainte-anne/",
+    "to": "/places/canyon-sainte-anne/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/cote-de-beaupre/la-crete/",
+    "to": "/places/la-crete-trail-mont-sainte-anne/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/cote-de-beaupre/montmorency-falls/",
+    "to": "/places/montmorency-falls/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/eastern-townships/montagne-de-marbre/",
+    "to": "/places/mont-saddle-and-montagne-de-marbre-loop/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/eastern-townships/sentier-des-cimes/",
+    "to": "/places/sentier-des-cimes-parc-national-du-mont-megantic/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/forillon-national-park/cap-bon-ami/",
+    "to": "/places/cap-bon-ami/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/forillon-national-park/cap-gaspe/",
+    "to": "/places/cap-gaspe/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/forillon-national-park/mont-saint-alban/",
+    "to": "/places/mont-saint-alban/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/forillon-national-park/sentier-la-chute/",
+    "to": "/places/sentier-la-chute/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/haute-gaspesie/la-martre-lighthouse/",
+    "to": "/places/la-martre-lighthouse/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/haute-gaspesie/mont-saint-pierre/",
+    "to": "/places/mont-saint-pierre/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/parc-national-de-la-gaspesie/lac-aux-americains/",
+    "to": "/places/lac-aux-americains/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/parc-national-de-la-gaspesie/mont-xalibu/",
+    "to": "/places/mont-xalibu/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/parc-national-de-la-jacques-cartier/l-eperon/",
+    "to": "/places/leperon/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/parc-national-du-bic/pic-champlain/",
+    "to": "/places/pic-champlain/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/perce/bonaventure-island/",
+    "to": "/places/bonaventure-island/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/perce/perce-rock/",
+    "to": "/places/perce-rock/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/saint-narcisse-de-rimouski/canyon-des-portes-de-l-enfer/",
+    "to": "/places/canyon-des-portes-de-lenfer/",
+    "status": 301
+  },
+  {
+    "from": "/places/CA/QC/zec-des-martres/mont-du-dome/",
+    "to": "/places/mont-du-dome/",
+    "status": 301
+  },
+  {
+    "from": "/places/CN/GD/qingyuan/qq-canyon-racer/",
+    "to": "/places/qq-canyon-racer-mountain-coaster-gulong-gorge/",
+    "status": 301
+  },
+  {
+    "from": "/places/FR/ile-de-france/grand-paris/paris/",
+    "to": "/places/paris/",
+    "status": 301
+  },
+  {
+    "from": "/places/FR/provence-alpes-cote-d-azur/alpes-de-haute-provence/provence/",
+    "to": "/places/provence/",
+    "status": 301
+  },
+  {
+    "from": "/places/IN/sikkim/mangan-district/gurudongmar-lake/",
+    "to": "/places/gurudongmar-lake/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/campania/campania/amalfi-coast/",
+    "to": "/places/sorrento-and-the-amalfi-coast/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/campania/napoli/capri/",
+    "to": "/places/capri/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/lazio/roma-capitale/rome/",
+    "to": "/places/rome/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/lombardy/como/lake-como/",
+    "to": "/places/lake-como/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/lombardy/milano/milan/",
+    "to": "/places/milan/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/belluno/dolomites/",
+    "to": "/places/dolomites/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/trentino-alto-adige/provincia-di-trento/trento/",
+    "to": "/places/trento/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/tuscany/firenze/florence/",
+    "to": "/places/florence/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/veneto/venetian-province/venice/",
+    "to": "/places/venice/",
+    "status": 301
+  },
+  {
+    "from": "/places/IT/veneto/verona/verona/",
+    "to": "/places/verona/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/AK/wrangell-st-elias-national-park/kennecott/",
+    "to": "/places/kennecott-river-rafting-wrangell-st-elias/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/AZ/coconino-county/page/",
+    "to": "/places/page/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/AZ/havasupai-reservation/havasu-falls/",
+    "to": "/places/havasupai-havasu-falls/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/AZ/navajo-nation/monument-valley/",
+    "to": "/places/monument-valley/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/CO/la-plata-county/durango/",
+    "to": "/places/durango/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/CO/manitou-springs/manitou-incline/",
+    "to": "/places/manitou-incline/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/CO/san-juan-mountains/million-dollar-highway/",
+    "to": "/places/million-dollar-highway/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/CO/san-juan-mountains/ouray/",
+    "to": "/places/ouray/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/CO/summit-county/breckenridge/",
+    "to": "/places/breckenridge/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/MA/barnstable-county/cape-cod/",
+    "to": "/places/cape-cod/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/NH/grafton-county/white-mountain-national-forest/",
+    "to": "/places/white-mountain-national-forest/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/NY/finger-lakes/watkins-glen-state-park/",
+    "to": "/places/watkins-glen-state-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/NY/seneca-county/finger-lakes/",
+    "to": "/places/finger-lakes/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/grand-county/arches-national-park/",
+    "to": "/places/arches-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/great-salt-lake/stansbury-island/",
+    "to": "/places/stansbury-island/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/hanksville/bentonite-hills/",
+    "to": "/places/bentonite-hills/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/hanksville/factory-butte/",
+    "to": "/places/factory-butte/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/hanksville/long-dong-silver/",
+    "to": "/places/long-dong-silver-spire/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/kanarraville/kanarra-falls/",
+    "to": "/places/kanarra-falls/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/kane-county/bryce-canyon-national-park/",
+    "to": "/places/bryce-canyon-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/san-juan-county/canyonlands-national-park/",
+    "to": "/places/canyonlands-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/UT/washington-county/zion-national-park/",
+    "to": "/places/zion-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/VT/lamoille-county/stowe/",
+    "to": "/places/stowe/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WY/park-county/yellowstone-national-park/",
+    "to": "/places/yellowstone-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/US/WY/teton-county/grand-teton-national-park/",
+    "to": "/places/grand-teton-national-park/",
+    "status": 301
+  },
+  {
+    "from": "/places/VN/hanoi/thanh-pho-ha-noi/hanoi/",
+    "to": "/places/hanoi/",
+    "status": 301
+  },
+  {
+    "from": "/places/VN/lao-cai/sa-pa/sa-pa/",
+    "to": "/places/sapa/",
+    "status": 301
+  },
+  {
+    "from": "/places/VN/quang-ninh/quang-ninh/ha-long-bay/",
+    "to": "/places/ha-long-bay/",
+    "status": 301
+  },
+  {
+    "from": "/locations/*",
+    "to": "/places/:splat",
+    "status": 301
+  },
+  {
+    "from": "/globe/*",
+    "to": "/globe/",
+    "status": 200
+  }
 ]
