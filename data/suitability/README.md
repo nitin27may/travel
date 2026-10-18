@@ -6,6 +6,7 @@ Sidecar files in the `suitability/1` format. They say whether a trail, activity,
 data/suitability/
   README.md                          this file
   scope.json                         the 207 in-scope refs and every place slug (generated, do not edit)
+  kind-map.json                      the reviewed kind and subkind of every record, with a reason (S0b); a lane corrects a wrong kind here
   <trip>/migrated.json               S0: values moved out of the existing fields; nothing new
   canadian-rockies-2029/migrated-offplan.json
                                      S0: the Rockies rows on no plan day (the Kicking Horse and horse fixes live here)
@@ -17,6 +18,7 @@ data/suitability/
 ```
 node core/bin/suitability.ts check [--coverage <trip>]   validate every file; with --coverage, list scope refs nobody covers
 node core/bin/suitability.ts derive [--write] [--trip t] print the computed effort; --write stores the flat catalogue copy
+node core/bin/suitability.ts fields --ref <ref>           the record's profile and the R (required), A (applicable) and N (never ask) paths; run it before researching a record
 node core/bin/suitability.ts migrate [--write|--check]   regenerate the migrated files from the existing fields
 node core/bin/suitability.ts codes                         list the E_SUIT_* and W_SUIT_* codes
 pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts   regenerate scope.json from the public adapter
@@ -44,7 +46,10 @@ pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts  
 - `sources` is the file's own table. Every `src` id in a value must be in it, and every source has a read date. A source that is a file of this repo uses `kind: computed`.
 - A record is one ref. A ref appears once across the lane files of a trip. A `migrated*.json` record for the same ref is superseded by the lane record and is not a duplicate.
 - `suitability` is the shared block (spec 1.2). Every field is optional, and every value in it is a `Val` (below).
-- `ext` is the per-kind extension (spec 2), a union on `ext.kind`: `trail`, `ride`, `paddle`, `ferrata`, `water`, `cave`, `snow`. `water` holds nothing yet; water facts are in `suitability.water_safety`.
+- `subkind` is required and comes from a closed list (`SUIT_SUBKIND` in `core/src/schema/enums.ts`). With the `kind` it picks one **profile** in `data/schema/suitability-applicability.json`, and the profile says for every field whether it is R (required for Usable), A (applicable, counts for Complete) or N (never asked, shown or counted). Never fill an N field; a field you think applies goes in the lane markdown under "Applicability questions". Wrong kind? Correct it in `kind-map.json` with a reason.
+- `operated: true` turns on the operator layer (guide, kit, waiver, weather cancellation) for profiles that are sometimes self-guided: hike, walk, wildlife, show cave, canoe and kayak, SUP, cycle path. It is fixed for every other profile; setting it there is `W_SUIT_OPERATED_DEFAULT`.
+- `ext` is the per-kind extension (applicability spec 6.3), a union on `ext.kind`, and a profile allows exactly one: `trail`, `ride`, `paddle`, `ferrata`, `water`, `cave`, `snow`, `lift`, `boat`, `zip`, `jump`, `coaster`, `horse`, `glacier`, `flight`, `wildlife`, `drive`. Hazards (typed), the walk from the car (`walk_m`), `solo`, `stroller_on_board` and the `participation` group are shared fields, not extension fields.
+- `suit_level` in `flat` is computed: `draft` until every R field of the profile is answered (a value, `none_stated` or `searched_none`), `usable` then, `complete` when the A fields are answered too. `not_applicable` is a per-record exemption from an R or A field and needs a `note` (`E_SUIT_NA_EXEMPT`).
 - `offers[]` are products that differ (Family Float and Class III). Each has a `name` and its own `suitability`. An offer's fields win; anything it leaves out falls back to the record.
 - `hints[]` are pointers for the next lane: a thing the old data said that a migration may not turn into a value (`child_6yo_ok`, a plan audience, a label such as "hard"). A lane reads them and then sets real values.
 - `flat` is the computed copy of the flat catalogue columns (`min_age`, the height and weight limits, `house_grade`, `kid_fit`, `accessibility`, `walk_km`, `walk_gain_m`). Never type it: run `derive --write`. `check` fails when it is stale.
@@ -91,6 +96,7 @@ Rules the validator enforces:
 | `place/<slug>` | an item with a public place page |
 | `legacy/<folder>/<dataset>/<id>` | a row of `legacy/<folder>/data/<dataset>.json`: `trails`, `sights` or `adventures` |
 | `trip/<trip>/<kind>:<normName>` | a summary-trip stop with no page and no id |
+| `part/<parent ref>#<slug>` | a record cut out of another one (the Lagazuoi tunnels out of the cable car); it resolves when the parent does |
 | `offer/<parent ref>#<product>` | a product of an activity (offers are normally nested, so this form is for cross-reference) |
 
 Every ref must resolve (`E_SUIT_REF`). `scope.json` lists the `place/` and `trip/` refs; `legacy/` refs are read from the dataset.
@@ -175,8 +181,9 @@ A research lane (R1-R6) fails if any of these fails:
 4. Every `searched_none` has `on` and at least two `tried` entries, one of them the operator's or the land manager's own page.
 5. Every trail with a distance or gain cites `official_info`, an operator, or a track plus a DEM. AllTrails appears only as a cross-check link in the markdown.
 6. Every unit conversion has a note. Every weight says minimum or maximum.
-7. At least 80% of records reach Usable on the F checks (spec section 4). The rest are listed with the operator contact to ask.
+7. At least 80% of records reach Usable for their profile (`check --coverage <trip>` prints the level of each), and no `W_SUIT_NA_FIELD` remains in the lane's files. The rest are listed with the operator contact to ask.
 8. The final report gives the count by level and the list of operator questions.
+9. Every record has a subkind in the vocabulary, and every kind change is in `kind-map.json` with a reason.
 
 Start from `<trip>/migrated.json`: do not re-type a migrated value without re-reading its source. A lane file supersedes the migrated record for the same ref: leave `migrated.json` alone (it is S0's file) and put the ref in your own file. A ref may appear in only one lane file; the adapter reads lane records first and falls back to the migrated record.
 

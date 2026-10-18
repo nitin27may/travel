@@ -10,6 +10,7 @@
     {
       "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
       "kind": "activity",
+      "subkind": "hot-springs",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -22,12 +23,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
       "kind": "sight",
+      "subkind": "landmark",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -40,12 +43,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -58,12 +63,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -76,12 +83,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:geysir",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -94,12 +103,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
       "kind": "sight",
+      "subkind": "museum",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -112,12 +123,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:godafoss",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -130,12 +143,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -148,12 +163,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:namaskard",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -166,12 +183,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -184,12 +203,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -202,12 +223,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -220,12 +243,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -238,12 +263,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -256,12 +283,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -274,12 +303,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -292,12 +323,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -310,12 +343,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -328,12 +363,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -346,12 +383,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -364,12 +403,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -382,12 +423,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -400,12 +443,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -418,12 +463,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -436,12 +483,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -454,7 +503,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]

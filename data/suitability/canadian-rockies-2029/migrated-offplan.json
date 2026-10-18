@@ -35,7 +35,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
       "kind": "activity",
-      "subkind": "guided-hike",
+      "subkind": "glacier-walk",
       "suitability": {
         "min_age": {
           "v": null,
@@ -81,7 +81,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -150,13 +151,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
       "kind": "activity",
-      "subkind": "other",
+      "subkind": "spa",
       "suitability": {},
       "hints": [
         {
@@ -185,13 +187,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
       "kind": "activity",
-      "subkind": "rafting",
+      "subkind": "float",
       "suitability": {},
       "hints": [
         {
@@ -220,7 +223,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -255,7 +259,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -307,7 +312,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -342,13 +348,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
       "kind": "activity",
-      "subkind": "cruise",
+      "subkind": "boat-shuttle",
       "suitability": {},
       "hints": [
         {
@@ -373,17 +380,18 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
-      "kind": "activity",
-      "subkind": "other",
+      "kind": "sight",
+      "subkind": "attraction",
       "suitability": {},
       "hints": [
         {
@@ -412,7 +420,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -464,13 +473,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
       "kind": "activity",
-      "subkind": "heli",
+      "subkind": "heli-hike",
       "suitability": {
         "min_age": {
           "v": null,
@@ -516,7 +526,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -551,7 +562,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -586,7 +598,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -617,11 +630,12 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -705,7 +719,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -757,7 +772,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -825,7 +841,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -856,11 +873,12 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -929,7 +947,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -960,11 +979,12 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -999,7 +1019,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -1030,11 +1051,12 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -1086,7 +1108,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -1121,13 +1144,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
-      "kind": "activity",
-      "subkind": "other",
+      "kind": "drive",
+      "subkind": "scenic_drive",
       "suitability": {},
       "hints": [
         {
@@ -1156,7 +1180,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -1191,7 +1216,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -1222,11 +1248,12 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -1261,12 +1288,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
-      "kind": "sight",
+      "kind": "activity",
+      "subkind": "heli",
       "suitability": {
         "kid_note": "GAP: child weight/fare and lodge pricing not found (Assiniboine Lodge site not fetched)."
       },
@@ -1281,12 +1310,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/banff-gondola",
-      "kind": "sight",
+      "kind": "lift",
+      "subkind": "gondola",
       "suitability": {
         "kid_note": "Height requirements: GAP. Private operator, not Parks Canada."
       },
@@ -1301,12 +1332,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {
         "kid_note": "Listing marks main trail for older children."
       },
@@ -1321,12 +1354,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
-      "kind": "sight",
+      "kind": "lake",
+      "subkind": "lake",
       "suitability": {
         "kid_note": "Not suitable for a young child in a day; multi-day only with reservations."
       },
@@ -1341,12 +1376,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
-      "kind": "sight",
+      "kind": "lake",
+      "subkind": "lake",
       "suitability": {
         "kid_note": "Bear warning: GAP no specific warning listed for it."
       },
@@ -1361,12 +1398,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {
         "kid_note": "GAP"
       },
@@ -1381,12 +1420,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {
         "kid_note": "Fenced viewpoints; hold hands near rail."
       },
@@ -1401,12 +1442,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {
         "kid_note": "Medium clearance vehicle, radio recommended; industrial traffic."
       },
@@ -1421,12 +1464,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
-      "kind": "sight",
+      "kind": "lake",
+      "subkind": "lake",
       "suitability": {
         "kid_note": "Camping reservation via BC Parks; core sites sell out within seconds; huts via lodge."
       },
@@ -1441,12 +1486,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "canyon",
       "suitability": {
         "kid_note": ""
       },
@@ -1461,12 +1508,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
-      "kind": "sight",
+      "kind": "swim_spot",
+      "subkind": "hot_spring",
       "suitability": {
         "kid_note": "Water temperature for a young child: GAP."
       },
@@ -1481,12 +1530,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
-      "kind": "sight",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {
         "kid_note": ""
       },
@@ -1501,12 +1552,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
       "kind": "sight",
+      "subkind": "landmark",
       "suitability": {
         "kid_note": ""
       },
@@ -1521,12 +1574,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
-      "kind": "sight",
+      "kind": "swim_spot",
+      "subkind": "hot_spring",
       "suitability": {
         "kid_note": "Pool depth/age rules: GAP."
       },
@@ -1541,12 +1596,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
-      "kind": "sight",
+      "kind": "drive",
+      "subkind": "scenic_drive",
       "suitability": {
         "kid_note": "Loop length: GAP, INFERENCE 0.7 km."
       },
@@ -1561,12 +1618,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
-      "kind": "sight",
+      "kind": "drive",
+      "subkind": "scenic_drive",
       "suitability": {
         "kid_note": "Gravel, dusty, washboard, no cell service; GAP: Alberta Parks closure chart does not list it."
       },
@@ -1581,12 +1640,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {
         "kid_note": "Remote; not for this trip."
       },
@@ -1601,12 +1662,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
-      "kind": "sight",
+      "kind": "waterfall",
+      "subkind": "waterfall",
       "suitability": {
         "kid_note": "2.2 km one way, 80 m gain: family-friendly per Parks Canada. Eastbound access only from the highway."
       },
@@ -1621,12 +1684,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
-      "kind": "sight",
+      "kind": "town",
+      "subkind": "town",
       "suitability": {
         "kid_note": "Town shoreline paths flat."
       },
@@ -1641,12 +1706,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
-      "kind": "sight",
+      "kind": "swim_spot",
+      "subkind": "hot_spring",
       "suitability": {
         "kid_note": "Steep path to springs; hot water 43 C - supervise child."
       },
@@ -1661,12 +1728,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1732,12 +1801,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 52,
-        "walk_gain_m": 1000
+        "walk_gain_m": 1000,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1808,12 +1879,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 2.8,
-        "walk_gain_m": 200
+        "walk_gain_m": 200,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1884,12 +1957,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 9.7,
-        "walk_gain_m": 354
+        "walk_gain_m": 354,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1955,12 +2030,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 46,
-        "walk_gain_m": 900
+        "walk_gain_m": 900,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2031,12 +2108,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 14.8,
-        "walk_gain_m": 470
+        "walk_gain_m": 470,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2102,12 +2181,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.7,
-        "walk_gain_m": 553
+        "walk_gain_m": 553,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2178,12 +2259,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 9,
-        "walk_gain_m": 315
+        "walk_gain_m": 315,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2254,12 +2337,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 11.7,
-        "walk_gain_m": 930
+        "walk_gain_m": 930,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2330,12 +2415,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 17.2,
-        "walk_gain_m": 675
+        "walk_gain_m": 675,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2406,12 +2493,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 0.8,
-        "walk_gain_m": 27
+        "walk_gain_m": 27,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2482,12 +2571,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 4,
-        "walk_gain_m": 30
+        "walk_gain_m": 30,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2558,12 +2649,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 2.4,
-        "walk_gain_m": 122
+        "walk_gain_m": 122,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2634,12 +2727,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 18.8,
-        "walk_gain_m": 1285
+        "walk_gain_m": 1285,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2696,12 +2791,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 22,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2772,12 +2869,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 2.9,
-        "walk_gain_m": 90
+        "walk_gain_m": 90,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2848,12 +2947,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.8,
-        "walk_gain_m": 495
+        "walk_gain_m": 495,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2919,12 +3020,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 6,
-        "walk_gain_m": 457
+        "walk_gain_m": 457,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2995,12 +3098,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 10,
-        "walk_gain_m": 990
+        "walk_gain_m": 990,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3066,12 +3171,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 0,
-        "walk_gain_m": 250
+        "walk_gain_m": 250,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3142,12 +3249,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 1,
-        "walk_gain_m": 0
+        "walk_gain_m": 0,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3218,12 +3327,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 8.2,
-        "walk_gain_m": 460
+        "walk_gain_m": 460,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3294,12 +3405,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.8,
-        "walk_gain_m": 300
+        "walk_gain_m": 300,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3370,12 +3483,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 0.7,
-        "walk_gain_m": 10
+        "walk_gain_m": 10,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3441,12 +3556,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 8.8,
-        "walk_gain_m": 0
+        "walk_gain_m": 0,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3512,12 +3629,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 44,
-        "walk_gain_m": 1650
+        "walk_gain_m": 1650,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3588,12 +3707,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 6.8,
-        "walk_gain_m": 271
+        "walk_gain_m": 271,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3664,12 +3785,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 10,
-        "walk_gain_m": 810
+        "walk_gain_m": 810,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3740,12 +3863,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 15.7,
-        "walk_gain_m": 0
+        "walk_gain_m": 0,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3816,7 +3941,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 4.4,
-        "walk_gain_m": 80
+        "walk_gain_m": 80,
+        "suit_level": "draft"
       }
     }
   ]

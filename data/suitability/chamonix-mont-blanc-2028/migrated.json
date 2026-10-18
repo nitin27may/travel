@@ -10,6 +10,7 @@
     {
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -22,12 +23,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -40,12 +43,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
       "kind": "lift",
+      "subkind": "cable_car",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -54,16 +59,18 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
       "kind": "lift",
+      "subkind": "rack_railway",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -72,16 +79,18 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": 1,
+        "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -94,12 +103,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
       "kind": "sight",
+      "subkind": "cave",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -112,12 +123,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -130,12 +143,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -148,12 +163,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -166,12 +183,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -184,12 +203,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -202,12 +223,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -220,12 +243,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -238,12 +263,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -256,7 +283,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]
