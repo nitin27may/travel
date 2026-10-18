@@ -159,15 +159,17 @@ status is a 10 px square beside a name.
 |---|---|---|---|
 | `--map-land` | `#EEECE6` | `#1A2330` | hypsometric base at valley floor |
 | `--map-high` | `#FFFFFF` | `#2E3A48` | high ground tint |
+| `--map-wood` | `#E4E0D4` | `#2B3845` | parks, woods, landcover and landuse fills: a warmer step of `--map-land` with the same hue (1.12:1 light, 1.32:1 dark against land). **No green on any map or globe style**; `--map-park` is this token, not a second one |
 | `--map-shade` | `rgba(23,34,48,.35)` | `rgba(0,0,0,.55)` | hillshade multiply |
 | `--map-contour` | `#B9B1A4` | `#3A4A5C` | 100 m contours, 0.6 px; 500 m at 1 px |
 | `--map-water` | `#6F9FB4` | `#3F7C8F` | rivers, lakes |
+| `--map-casing` | `--ink` | `#0B1119` | the dark line drawn under every amber line so its edge passes 3:1 on land and on water: 0.5 px under a 1.5 px hover line, 1 px under a 2 px selected line or the 3.5 px picked route. Ratios in 5.1 |
 | `--map-border` | `--muted` at 60%, dash 4 4 | same | |
 | `--map-label` | `--ink-2`, mono 12 px, halo `--map-halo` | | only trip places are labelled |
 | `--map-halo` | `#FFFFFF` at 90% | `#0B1119` at 90% | behind routes and labels |
 | `--map-route` | `--ink`, 2 px | `#E7ECF1`, 2 px | every day's route by road |
 | `--map-route-dim` | route at 28% | | other days when one is picked |
-| `--map-route-pick` | `--accent`, 3.5 px, 1 px `--ink` casing | same | the picked day |
+| `--map-route-pick` | `--accent`, 3.5 px, 1 px `--map-casing` | same | the picked day |
 | `--map-route-preview` | `--accent`, 2.5 px, dash 6 4 | | the dragged item's new leg |
 | `--map-stop` | `--ink` dot 6 px, halo 1.5 px | | stops in All days |
 | `--map-pin` | `--ink` 22 px circle, `--surface` numeral mono 600 11 px | | the picked day's stops |
@@ -177,14 +179,61 @@ status is a 10 px square beside a name.
 | `--map-base-pick` | `--accent` square, `--accent-ink` glyph | | base of the picked day |
 | `--map-cluster` | `--ink` circle 28 px, numeral count; co-located stops: one pin with a mono badge "3 · 5" | | |
 | `--map-select-ring` | 2 px `--accent`, 4 px offset | | hovered or focused pin |
+| `--map-pin-quiet` | the pin as drawn, no label text beside it | | `Pin.quiet`: crowded pins and numbered clusters keep their label for assistive tech and the fan-out only |
 | `--map-leg-label` | mono 12 px `--ink-2` with halo, hidden below zoom 9 | | "38 min · 24 km" |
 
-Globe (public): styles Relief, Light, Dark use the same land, water and label tokens. Country pins at
-rest are **`--ink` discs with `--surface` counts** (`--globe-pin`; public: places + published trips),
-28 to 44 px by count, 2 px `--map-halo` edge. Amber appears only on the **hovered or selected** pin
-(`--globe-pin-pick`: `--accent` disc, `--accent-ink` count) and as the selected country's 2 px `--accent`
-outline; the hovered country fills `--accent-soft` at 35%. Place pins at state level and below are `--map-stop`
-dots. The same rule holds for every public surface: nothing is amber at rest except a primary button.
+### 5.1 Hover and selection on shapes (countries, states, districts, lakes, parks)
+
+Measured on the built globe (L2 verifier, review.md L2-4) and computed from the values above. Casings are drawn
+as a wider line under the amber line, so the visible casing is half the difference in width.
+
+| State | Fill | Line | Why it passes |
+|---|---|---|---|
+| rest | none (country); `--ink` at 6% (state), 5% (district) | basemap border | |
+| hover | `--accent` at 35% over land: `#E7CEA5` light, 1.29:1 against land; `#5D4B2E` dark, 1.89:1 | 1.5 px `--accent` over a 0.5 px `--map-casing` | the fill is a hint, the cased edge is the signal. Light: casing 13.59:1 on land, 5.58:1 on water (amber alone is 2.13 / 1.14). Dark: amber 6.29:1 on land, casing 4.05:1 on water (amber alone on dark water is 1.86). Every edge has one layer at or above 3:1 on both land and water |
+| selected | none | 2 px `--accent` over a 1 px `--map-casing` | as hover; siblings covered by `--globe-dim` |
+
+The earlier rule "hovered country fills `--accent-soft` at 35%" is withdrawn: blended over land it is `#F3EDE1`,
+1.01:1, invisible. A casing wider than 1 px reads as a black border (experience review M14) and is not allowed.
+
+### 5.2 Globe
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--globe-ocean` | `#A9C4D3` | `#0F1A26` | the style `background` and `water` fills on the globe; an unloaded globe reads as sea, never as land. Ink disc 8.81:1 on it; `--ink-2` label 6.63:1 (light); `--ink` disc 14.77:1, `--ink-2` label 11.48:1 (dark) |
+| `--globe-halo` | `#CFE0EC` | `#2A4A66` | the CSS atmosphere behind the canvas: radial gradient from the disc radius to radius + 6% of the diameter, opacity 1 at zoom 0 to 0 at zoom 4. Also the first-paint placeholder disc |
+| `--globe-edge` | `--line-2` (3.18:1 on `--well`) | `rgba(255,255,255,.08)` | 1 px limb line drawn by the halo element |
+| `--globe-dim` | `#F3F1EC` at 70% | `#0B1119` at 60% | covers every sibling shape when one is open, drawn above the basemap labels so names dim with the land; our pins outside the open shape fade to 35%, our labels to 40% |
+
+Styles Relief, Light, Dark use the same land, water, wood and label tokens; `auto` follows the page theme (Relief in
+light, Dark in dark). Country pins at rest are **`--ink` discs with `--surface` counts** (`--globe-pin`; public: places +
+published trips), 28 to 44 px by count, 2 px `--map-halo` edge (disc on light water 5.58:1, dark disc on dark water
+3.93:1, both measured). Amber appears only on the **hovered or selected** pin (`--globe-pin-pick`: `--accent` disc,
+`--accent-ink` count, 6.96:1) and as the hovered or selected shape's cased line (5.1). Place pins at state level and
+below are `--map-stop` dots. The same rule holds for every public surface: nothing is amber at rest except a primary
+button.
+
+### 5.3 Proposed, pending owner question Q6 (not live tokens)
+
+The globe experience review proposes that in dark the land be lighter than the ocean, the way Apple's dark map reads,
+instead of a bright sea around near-black continents. These values are **not** in tokens.json or themes.css and no
+component may use them until Q6 (BACKLOG.md) is answered. Recorded here so the decision has its numbers.
+
+| Token | Current dark | Proposed dark | Current light | Proposed light |
+|---|---|---|---|---|
+| `--map-land` | `#1A2330` | `#263241` (1.35:1 against the dark ocean) | `#EEECE6` | `#EEE9DF` |
+| `--map-high` | `#2E3A48` | `#34434F` | `#FFFFFF` | unchanged |
+| `--map-water` | `#3F7C8F` | `#2E5A6B` (1.73:1 on the proposed land) | `#6F9FB4` | `#7FA6B9` (2.15:1 on the proposed land) |
+| `--map-border` | derived | unchanged | derived | `#8E99A6` at 0.8 px, 1.2 px from zoom 5 |
+| `--globe-pin` (dark) | `--ink` disc, `--surface` count | `--surface` disc, `--ink` count (13.83:1) | | |
+
+Ratios the decision needs. On the proposed dark land `--accent` is 5.17:1 and `--map-casing` only 1.46:1, which is
+fine: the amber carries. On the proposed dark **water** `#2E5A6B` neither layer reaches 3:1 (amber 2.99:1, casing
+2.52:1), so a hovered shoreline would fail the UI minimum there; the proposal needs either a lighter casing for dark
+water or the current `#3F7C8F` kept for rivers and lakes. A `--surface` disc on the proposed dark land is 1.26:1 and
+on the dark ocean 1.07:1; it needs a 2 px `--ink` edge to be seen at all, which the proposal does not yet say. The light re-tints are held with the dark ones because changing `--map-land` and
+`--map-water` recolours every live place and trip map through themes.css, and that ships with the globe lane, not
+with a doc edit.
 
 ## 6. Type
 

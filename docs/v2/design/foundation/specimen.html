@@ -19,14 +19,14 @@
 --accent:#D9962B;--accent-ink:#241703;--accent-text:#8A5300;--accent-soft:#FBEFD9;--crit:#A8341F;--crit-soft:#F9E5E0;--crit-fill:#B3402A;
 --warn:#7A5200;--warn-soft:#FBF0D6;--ok:#1D6B3A;--ok-soft:#E0F0E6;--info:#3D5A78;--info-soft:#E3EAF2;--focus:#172230;--accent-hover:#C98A22;--on-crit-fill:#FFFFFF;--kicker-on-photo:rgba(244,246,248,.8);
 --e2:0 0 0 1px #D8DEE5,0 20px 50px rgba(23,34,48,.16);--e3:0 0 0 1px #7A8794,0 24px 60px rgba(23,34,48,.22);
---map-land:#EEECE6;--map-contour:#B9B1A4;--map-water:#6F9FB4;--map-halo:#FFFFFF;--img:1;color-scheme:light}
+--map-land:#EEECE6;--map-wood:#E4E0D4;--map-contour:#B9B1A4;--map-water:#6F9FB4;--map-casing:#172230;--map-halo:#FFFFFF;--globe-ocean:#A9C4D3;--globe-halo:#CFE0EC;--globe-edge:#7A8794;--globe-dim:rgba(243,241,236,.7);--img:1;color-scheme:light}
 [data-theme=dark]{
 --bg:#0F1620;--well:#0B1119;--surface:#16202C;--surface-2:#1E2A38;--ink:#E7ECF1;--ink-2:#C9D2DC;--muted:#A3B0BE;--line:#2A3A4C;--line-2:#5E748E;
 --header:#0B1119;--header-2:#16202C;--header-ink:#F4F6F8;--header-mute:#B8C3CF;--header-line:#3A4A5D;--scrim:rgba(0,0,0,.6);--toast-bg:#E7ECF1;--toast-ink:#0F1620;
 --accent:#D9962B;--accent-ink:#241703;--accent-text:#E8A94A;--accent-soft:#2E2617;--crit:#F28E80;--crit-soft:#3A2020;--crit-fill:#B3402A;
 --warn:#E0B15C;--warn-soft:#2B2314;--ok:#8FD0A0;--ok-soft:#173025;--info:#9DBBDA;--info-soft:#182738;--focus:#E7ECF1;--accent-hover:#C98A22;--on-crit-fill:#FFFFFF;--kicker-on-photo:rgba(244,246,248,.8);
 --e2:0 0 0 1px #5E748E,0 20px 50px rgba(0,0,0,.5);--e3:0 0 0 1px #5E748E,0 24px 60px rgba(0,0,0,.6);
---map-land:#1A2330;--map-contour:#3A4A5C;--map-water:#3F7C8F;--map-halo:#0B1119;--img:.92;color-scheme:dark}
+--map-land:#1A2330;--map-wood:#2B3845;--map-contour:#3A4A5C;--map-water:#3F7C8F;--map-casing:#0B1119;--map-halo:#0B1119;--globe-ocean:#0F1A26;--globe-halo:#2A4A66;--globe-edge:rgba(255,255,255,.08);--globe-dim:rgba(11,17,25,.6);--img:.92;color-scheme:dark}
 :root{--display:'Big Shoulders Display','Arial Narrow',sans-serif;--serif:'Source Serif 4',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace}
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -141,6 +141,13 @@ kbd{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;p
 .chip.info{border-color:transparent;color:var(--info);background:var(--info-soft)}
 .chip.idea{border-style:dashed;color:var(--muted)}
 .chip.honest{border-style:dashed;border-color:var(--crit);color:var(--crit)}
+.chip.rule{border-color:transparent;background:var(--surface-2);color:var(--ink);font-weight:600}
+.chip.gap{border-style:dashed;color:var(--muted)}
+.globebox{position:relative;width:600px;height:200px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--globe-ocean)}
+.globebox>svg{position:absolute;inset:0;width:100%;height:100%}
+.gstage{width:200px;height:200px;border-radius:12px;background:var(--well);border:1px solid var(--line);display:grid;place-items:center;position:relative}
+.gstage .halo{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,var(--globe-ocean) 0 69%,var(--globe-halo) 70%,transparent 78%);box-shadow:inset 0 0 0 1px var(--globe-edge);display:grid;place-items:center}
+.gstage .halo i{display:block;width:104px;height:104px;border-radius:50%;background:var(--globe-ocean);box-shadow:inset 0 0 0 1px var(--globe-edge)}
 .chip img{width:16px;height:16px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1.5px var(--tc),0 0 0 2.5px var(--line-2);margin-left:-3px}
 .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden;background:var(--surface)}
 .seg span{display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;font:500 13px var(--mono);color:var(--ink-2);border-right:1px solid var(--line-2)}
@@ -463,6 +470,7 @@ kbd{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;p
 <div class="row"><span class="pill">Country <svg class="ic" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M7 10l5 5 5-5"/></svg></span><span class="pill on">Kind · Trail, Lake +1 <span class="x"><svg class="ic" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span><span class="pill" style="border-color:var(--ink)">Status <svg class="ic" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M7 10l5 5 5-5"/></svg></span><span class="pill fv">Kids <svg class="ic" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M7 10l5 5 5-5"/></svg></span><span class="tag">filter pills: default · active · hover · focus</span></div>
 <div class="row"><span class="chip">In 131 days</span><span class="chip"><i class="sq" style="--tc:#E69F00;margin-right:0"></i> Booking</span><span class="chip"><svg class="ic" viewBox="0 0 24 24"><path d="M5 20l4-9 3 4 3-7 4 12M8 5.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0"/></svg> Trail</span><span class="chip">Jun to Oct</span><span class="chip">Kid friendly</span><span class="chip acc"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg> Plan: Dolomites</span><span class="tag">neutral · phase with identity · kind · active filter</span></div>
 <div class="row"><span class="chip"><svg class="ic" viewBox="0 0 24 24"><path d="M4 7h16v3a2 2 0 000 4v3H4v-3a2 2 0 000-4zM14 7v10"/></svg> To book</span><span class="chip warn"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg> Window open</span><span class="chip crit"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21a9 9 0 100-18 9 9 0 000 18zM12 7v5l3 2"/></svg> Opens Mon 19 Oct</span><span class="chip warn"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21a9 9 0 100-18 9 9 0 000 18zM12 7v5l3 2"/></svg> Due Sat 31 Oct</span><span class="chip"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21a9 9 0 100-18 9 9 0 000 18zM12 7v5l3 2"/></svg> Held</span><span class="chip ok"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Booked</span><span class="chip ok"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Kai, 8 fits</span><span class="chip idea">Idea</span><span class="chip honest"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg> Unverified</span><span class="chip honest"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg> No source yet</span><span class="chip info"><svg class="ic" viewBox="0 0 24 24"><path d="M2 8.5a16 16 0 0120 0M5 12a11 11 0 0114 0M8.5 15.5a6 6 0 017 0M12 19h.01M3 3l18 18"/></svg> Offline</span><span class="chip info">Read-only</span><span class="chip" style="--tc:#0072B2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg/330px-Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg" alt=""> Dolomites</span><span class="tag">status (urgent ≤ 7 d or opens ≤ 48 h · caution 8–30 d or open) · honesty · notice · trip</span></div>
+<div class="row"><span class="chip rule"><svg class="ic" viewBox="0 0 24 24"><path d="M6 11V8a6 6 0 0112 0v3M5 11h14v10H5z"/></svg> Age 8+ · 23 kg min</span><span class="chip rule"><svg class="ic" viewBox="0 0 24 24"><path d="M6 11V8a6 6 0 0112 0v3M5 11h14v10H5z"/></svg> No minimum age</span><span class="chip"><svg class="ic" viewBox="0 0 24 24"><path d="M12 8a3 3 0 100-6 3 3 0 000 6zM5 21v-5a7 7 0 0114 0v5"/></svg> From about 6</span><span class="chip"><svg class="ic" viewBox="0 0 24 24"><path d="M5 20l4-9 3 4 3-7 4 12M8 5.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0"/></svg> Moderate · CAI E · 3–4 h</span><span class="chip"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21a9 9 0 100-18 9 9 0 000 18zM12 7v5l3 2"/></svg> About 1 h on site</span><span class="chip gap">Not checked yet</span><span class="chip ok"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Fits a 6-year-old</span><span class="chip warn"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg> Not suited to a 3-year-old</span><span class="chip crit">Not for under 8 · operator rule</span><span class="chip honest"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg> Sources disagree</span><span class="tag">suitability: rule (lock, solid) · advice (person) · value · gap · fits · advice fail · rule fail · honesty on the row</span></div>
 <div class="row"><div class="seg"><span class="on"><svg class="ic" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></svg> Cards</span><span>List</span><span>Table</span><span>Map</span></div><div class="seg s"><span class="on">All 14 days</span><span>Day 03</span><span>Bases</span></div><div class="seg s"><span>Compact</span><span class="on">Comfortable</span></div><div class="seg s"><span class="on">By day</span><span>By category</span></div></div>
 <div class="row"><div class="search"><svg class="ic" viewBox="0 0 24 24"><path d="M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4"/></svg> Search places<kbd>/</kbd></div><span class="count">57<small>places</small></span><span class="crumbs">Places <span>›</span> Italy <span>›</span> <b>Sesto Dolomites</b></span></div>
 </div>
@@ -585,6 +593,33 @@ kbd{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;p
 <div class="attr">© OpenStreetMap contributors · OpenFreeMap · Mapterhorn</div>
 </div>
 <div class="tag">routes: picked day amber with ink casing · dots for other days · numbered pins only for the picked day · "3·5" merged pin · cluster 12 · hollow idea ring · base signposts (label 15), picked base amber</div>
+<div class="row" style="align-items:flex-start;gap:24px;margin-top:16px;flex-wrap:nowrap">
+<div style="width:600px;flex:none">
+<div class="globebox">
+<svg viewBox="0 0 600 200" preserveAspectRatio="none" aria-label="Globe shapes at rest, hovered, selected and dimmed">
+<rect width="600" height="200" fill="var(--globe-ocean)"/>
+<path id="s1" d="M20 40 C60 20 130 25 160 60 S150 140 110 160 S30 150 20 110 Z" fill="var(--map-land)"/>
+<path d="M60 70 C80 55 110 60 120 85 S95 125 70 115 S45 85 60 70Z" fill="var(--map-wood)"/>
+<path d="M30 120 C60 110 90 130 150 115" fill="none" stroke="var(--map-water)" stroke-width="1.6"/>
+<path d="M190 30 C250 15 330 30 340 80 S300 170 250 175 S180 140 190 90 Z" fill="var(--map-land)"/>
+<path d="M190 30 C250 15 330 30 340 80 S300 170 250 175 S180 140 190 90 Z" fill="var(--accent)" fill-opacity=".35"/>
+<path d="M190 30 C250 15 330 30 340 80 S300 170 250 175 S180 140 190 90 Z" fill="none" stroke="var(--map-casing)" stroke-width="2.5" stroke-opacity=".9"/>
+<path d="M190 30 C250 15 330 30 340 80 S300 170 250 175 S180 140 190 90 Z" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+<path d="M370 50 C420 20 500 30 520 70 S520 150 470 170 S380 150 370 110 Z" fill="var(--map-land)"/>
+<path d="M370 50 C420 20 500 30 520 70 S520 150 470 170 S380 150 370 110 Z" fill="none" stroke="var(--map-casing)" stroke-width="4" stroke-opacity=".9"/>
+<path d="M370 50 C420 20 500 30 520 70 S520 150 470 170 S380 150 370 110 Z" fill="none" stroke="var(--accent)" stroke-width="2"/>
+<path d="M530 20 C570 10 600 30 600 60 L600 200 L540 200 C525 150 515 60 530 20 Z" fill="var(--map-land)"/>
+<path d="M530 20 C570 10 600 30 600 60 L600 200 L540 200 C525 150 515 60 530 20 Z" fill="var(--globe-dim)"/>
+<text x="90" y="190" text-anchor="middle" fill="var(--ink-2)" font-family="IBM Plex Mono" font-size="11.5" stroke="var(--map-halo)" stroke-width="3" paint-order="stroke">rest · wood</text>
+<text x="265" y="190" text-anchor="middle" fill="var(--ink-2)" font-family="IBM Plex Mono" font-size="11.5" stroke="var(--map-halo)" stroke-width="3" paint-order="stroke">hover</text>
+<text x="445" y="190" text-anchor="middle" fill="var(--ink-2)" font-family="IBM Plex Mono" font-size="11.5" stroke="var(--map-halo)" stroke-width="3" paint-order="stroke">selected</text>
+<text x="568" y="110" text-anchor="middle" fill="var(--ink-2)" font-family="IBM Plex Mono" font-size="11.5" stroke="var(--map-halo)" stroke-width="3" paint-order="stroke">dim</text>
+</svg>
+</div>
+<div class="tag">globe shapes on --globe-ocean: at rest no line · hover --accent 35% fill with the cased 1.5 px line (edge 13.59:1 on land, 5.58:1 on water in light; 6.29 / 4.05 in dark) · selected 2 px over a 1 px --map-casing, sibling under --globe-dim · parks and woods are --map-wood, never green</div>
+</div>
+<div style="flex:none"><div class="gstage"><div class="halo"><i></i></div></div><div class="tag">--globe-halo atmosphere on --well,<br>1 px --globe-edge limb, --globe-ocean disc (first paint)</div></div>
+</div>
 <div class="row" style="align-items:flex-start;gap:24px;margin-top:16px">
 <div class="gctl"><div class="cap">Style</div><div class="seg s"><span class="on">Relief</span><span>Light</span><span>Dark</span></div><span class="tgl"><span class="swt on"></span>3D terrain</span><div class="row"><div class="sld" style="width:150px"><span class="tr"></span><span class="fi"></span><span class="th"></span></div><span class="m" style="font-weight:500;font-size:12.5px">1.3×</span></div><span class="tgl"><span class="swt"></span>Auto-spin</span></div>
 <div class="col"><span class="gchip">World <span style="color:var(--muted)">›</span> Italy <span style="color:var(--muted)">›</span> <b>South Tyrol</b></span><span class="hint">drag to spin · scroll to zoom · click a pin to open</span>
