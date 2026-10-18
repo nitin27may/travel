@@ -32,7 +32,7 @@ const dayItems: Item[][] = [
   [it("braies", { time: "05:10", note: "Sunrise 05:32; alpenglow on the Seekofel first", ticket: "r-braies" }), it("fiscalina", { time: "14:00" })],
   [it("tre-cime", { time: "11:30", note: "Midday slot, walk clockwise", ticket: "r-auronzo" }), it("cadini", { time: "16:30" })],
   [it("seekofel", { time: "06:30", variant: "A", who: ["t1", "t2"] }), it("drava", { time: "09:30", variant: "B", who: ["t3", "t2"] }), it("funbob", { time: "15:30" })],
-  [it("antorno", { time: "09:00" }), it("monte-piana", { time: "09:20" })],
+  [it("antorno", { time: "09:00" }), it("monte-piana", { time: "09:30" })],
   [it("tre-croci", { time: "05:45", note: "Leave Cortina 05:30; lot fills by 06:00-06:30" }), it("sorapis", { time: "06:00" })],
   [it("lagazuoi", { time: "09:00", note: "Headlamp mandatory in the tunnels" }), it("scotoni", { time: "13:00" })],
   [it("nuvolau", { time: "09:30" }), it("cinque-torri", { time: "14:00", note: "Beginner via ferrata A/B: Kai 8+ OK if comfortable with heights" }), it("limides", { time: "20:15", note: "Sunset 20:59; needs dead calm" })],

@@ -10,7 +10,11 @@ import { useStore, type DayPlan } from "../state/store";
 import { Delta, DriveNum, Num } from "../ui/bits";
 import { Icon } from "../ui/Icon";
 import { AddBox } from "./AddBox";
-import { ItemCard, LegRow, MotionShell } from "./ItemCard";
+import { Lane, LegRail, Row, SunMark } from "./Timeline";
+import { clock, hm, timeline, type Slot } from "../lib/schedule";
+import type { Traveller } from "../data/trip";
+import { Avatar } from "../ui/bits";
+const short = (n: string) => n.replace(/^Example (hotel|guesthouse), /, "");
 
 export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan: DayPlan; ids: string[]; activeId?: string; collapsed?: boolean; onToggle?: () => void }) {
   const { s, place, focus, setBase } = useStore();
@@ -23,16 +27,52 @@ export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan:
   const [basePick, setBasePick] = useState(false);
   const [openDone, setOpenDone] = useState(true);
   const stops = ids.map(id => s.trip.items[id]).filter(Boolean).map(item => ({ item, place: place(item.placeId)! })).filter(x => x.place);
-  // legs shown between cards follow the live (possibly dragged) order
-  const routedPlaces = [plan.start, ...stops.filter(x => x.item.variant !== "B").map(x => x.place)];
-  const legBefore = (k: number): ReturnType<typeof leg> | undefined => {
-    const x = stops[k]; if (x.item.variant === "B") return undefined;
-    const idx = stops.slice(0, k + 1).filter(y => y.item.variant !== "B").length; // position in routedPlaces
-    const from = routedPlaces[idx - 1]; return from ? leg(from, x.place) : undefined;
-  };
-  const lastRouted = routedPlaces[routedPlaces.length - 1];
-  const legHome = plan.end && lastRouted ? leg(lastRouted, plan.end) : undefined;
   const nightsSame = s.trip.days.filter(d => d.base && d.base === day.base).map(d => d.n);
+
+  // timeline: lane A routes with the shared stops; lane B items get their own column on split days
+  const tl = timeline(stops.filter(x => x.item.variant !== "B"), plan.start, plan.end);
+  const tlB = timeline(stops.filter(x => x.item.variant === "B"), plan.start, plan.end);
+  const slotOf = new Map([...tl.slots, ...tlB.slots].map(x => [x.item.id, x]));
+  type G = { kind: "shared"; slots: Slot[]; offset: number } | { kind: "split"; offset: number; lanes: { id: string; slots: Slot[]; who: Traveller[] }[] };
+  const groups: G[] = []; let count = 0;
+  for (const x of stops) {
+    const slot = slotOf.get(x.item.id); if (!slot) continue;
+    if (!x.item.variant) {
+      const last = groups[groups.length - 1];
+      if (last?.kind === "shared") last.slots.push(slot); else groups.push({ kind: "shared", slots: [slot], offset: count });
+      count++;
+    } else {
+      let last = groups[groups.length - 1];
+      if (last?.kind !== "split") { last = { kind: "split", offset: count, lanes: [] }; groups.push(last); }
+      const lane = (last as Extract<G, { kind: "split" }>).lanes;
+      let l = lane.find(z => z.id === x.item.variant);
+      if (!l) { l = { id: x.item.variant!, slots: [], who: s.trip.travellers.filter(t => !x.item.who?.length || x.item.who.includes(t.id)) }; lane.push(l); lane.sort((a, b) => a.id.localeCompare(b.id)); }
+      l.slots.push(slot);
+    }
+  }
+  for (const g of groups) if (g.kind === "split") count = g.offset + Math.max(...g.lanes.map(l => l.slots.length));
+  const startRow = plan.start ? (
+    <Row kind="anchor" time={tl.leave !== undefined ? clock(tl.leave) : ""} sub="leave" node={<span className="dt-home"><Icon name="home" size={13} /></span>}>
+      <span className="dt-anchor">Leave <b>{short(plan.start.name)}</b></span>
+    </Row>
+  ) : null;
+  const endRow = (
+    <Row kind="anchor" className="dt-end" time={tl.back !== undefined && plan.end ? clock(tl.back) : ""} sub={plan.end ? "back" : undefined} node={<span className={`dt-home ${plan.end ? "glow" : "none"}`}><Icon name="bed" size={13} /></span>}>
+      <div className="sleep">
+        <button className={`sleep-btn ${plan.end ? "" : "unset"}`} onClick={() => setBasePick(v => !v)} aria-expanded={basePick}>
+          {plan.end ? <><span>Sleep at <b>{short(plan.end.name)}</b></span>{nightsSame.length > 1 && <span className="muted num"> · nights {nightsSame[0]}–{nightsSame[nightsSame.length - 1]}</span>}</> : plan.n <= s.trip.nights ? <span>Set where you sleep</span> : <span className="muted">Last day · no night here</span>}
+          <Icon name="edit" size={14} />
+        </button>
+        <AnimatePresence>
+          {basePick && (
+            <motion.div className="base-pick" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+              <BasePicker plan={plan} onDone={() => setBasePick(false)} onPick={(p, through) => { setBase(plan.n, p.id, through); setBasePick(false); }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </Row>
+  );
 
   return (
     <section className={`day ${s.focusDay === plan.n ? "focus" : ""} ${isOver ? "over" : ""}`} id={`day-${plan.n}`} data-day={plan.n} ref={setNodeRef} aria-labelledby={`dh-${plan.n}`}>
@@ -53,38 +93,31 @@ export function DaySection({ plan, ids, activeId, collapsed, onToggle }: { plan:
             style={{ overflow: "hidden" }} onAnimationComplete={def => { if ((def as { height?: unknown }).height === "auto") setOpenDone(true); }} onAnimationStart={() => setOpenDone(false)}
             data-open={openDone ? "1" : "0"}>
             {plan.warnings.length > 0 && <div className="warns">{plan.warnings.map(w => <span key={w} className={`chip ${w.includes("needs") ? "crit" : "warn"}`}><Icon name="alert" size={12} />{w}</span>)}</div>}
-            {plan.start && <div className="endpoint num muted"><Icon name="home" size={14} /> From {plan.start.name}</div>}
             <SortableContext items={ids} strategy={verticalListSortingStrategy}>
-              <div className="items" role="list">
-                <AnimatePresence initial={false}>
-                  {stops.map((x, k) => {
-                    const l = legBefore(k);
-                    return (
-                      <MotionShell key={x.item.id} id={x.item.id} enabled={!activeId}>
-                        {l && <LegRow l={l} />}
-                        <ItemCard item={x.item} place={x.place} index={k + 1} dragging={activeId === x.item.id} />
-                      </MotionShell>
-                    );
-                  })}
-                </AnimatePresence>
+              <div className="dt" role="list">
+                {groups.map((g, gi) => g.kind === "shared"
+                  ? <Lane key={`g${gi}`} slots={g.slots} activeId={activeId} sun={gi === groups.length - 1 ? sun : null} offset={g.offset} until={tl.back}
+                      startNode={gi === 0 ? startRow : undefined} />
+                  : (
+                    <div key={`g${gi}`} className="dt-split">
+                      <div className="dt-split-head"><span className="label">Split day</span></div>
+                      <div className="dt-split-cols">
+                        {g.lanes.map(l => (
+                          <div key={l.id} className={`dt-col lane-${l.id}`}>
+                            <div className="dt-col-head">{l.who.map(t => <Avatar key={t.id} initials={t.initials} tone="ok" title={t.name} />)}<span>{l.who.map(t => t.name).join(" + ")}</span></div>
+                            <Lane slots={l.slots} activeId={activeId} offset={g.offset} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                {groups.length === 0 && startRow}
                 {stops.length === 0 && <div className="empty-day">Nothing planned. Type below, or drag a place here from Ideas.</div>}
+                <LegRail l={tl.legHome} />
+                {endRow}
+                {sun && tl.back !== undefined && (hm(sun.sunset) ?? 0) >= tl.back && <SunMark label={`Sunset ${sun.sunset}`} icon="sunset" />}
               </div>
             </SortableContext>
-            {legHome && <LegRow l={legHome} />}
-            <div className="sleep">
-              <button className={`sleep-btn ${plan.end ? "" : "unset"}`} onClick={() => setBasePick(v => !v)} aria-expanded={basePick}>
-                <Icon name="bed" />
-                {plan.end ? <><span>Sleep: <b>{plan.end.name}</b></span>{nightsSame.length > 1 && <span className="muted num"> nights {nightsSame[0]}-{nightsSame[nightsSame.length - 1]}</span>}</> : plan.n <= s.trip.nights ? <span>Set where you sleep</span> : <span className="muted">Last day, no night</span>}
-                <Icon name="edit" size={14} />
-              </button>
-              <AnimatePresence>
-                {basePick && (
-                  <motion.div className="base-pick" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    <BasePicker plan={plan} onDone={() => setBasePick(false)} onPick={(p, through) => { setBase(plan.n, p.id, through); setBasePick(false); }} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
             <AddBox target={{ day: plan.n }} base={plan.end ?? plan.start} anchor={stops[stops.length - 1]?.place ?? plan.end} />
           </motion.div>
         )}

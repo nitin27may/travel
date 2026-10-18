@@ -58,7 +58,7 @@ interface Ctx {
   place: (id: string) => Place | undefined;
   itemPlace: (it: Item) => Place | undefined;
   add: (p: Place, to: Target, opts?: { time?: string; index?: number }) => string;
-  move: (id: string, to: Target, index?: number) => void;
+  move: (id: string, to: Target, index?: number, time?: string) => void;
   remove: (id: string) => void;
   setBase: (day: number, placeId: string | undefined, through?: number) => void;
   movePin: (placeId: string, lng: number, lat: number) => void;
@@ -85,9 +85,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       dispatch({ t: "op", label: `Added ${p.name} to ${targetLabel(trip, to)}`, trip, custom, select: id, focusDay: "day" in to ? to.day : s.focusDay });
       return id;
     },
-    move(id, to, index) {
+    move(id, to, index, time) {
       const from = containerOf(s.trip, id);
-      const trip = insertAt(removeFrom(s.trip, id), id, to, index);
+      let trip = insertAt(removeFrom(s.trip, id), id, to, index);
+      if (time) trip = { ...trip, items: { ...trip.items, [id]: { ...trip.items[id], time } } };
       const name = place(s.trip.items[id].placeId)?.name ?? "item";
       const same = from && JSON.stringify(from) === JSON.stringify(to);
       dispatch({ t: "op", label: same ? `Reordered ${name}` : `Moved ${name} to ${targetLabel(trip, to)}`, trip });
@@ -134,7 +135,7 @@ export function planDay(trip: Trip, n: number, place: (id: string) => Place | un
   // a split day routes lane A for the totals; lane B is shown as its own line on the map
   const routed = stops.filter(x => x.item.variant !== "B");
   const pts = [start, ...routed.map(x => x.place), end].filter(Boolean) as Place[];
-  const legs = pts.slice(1).map((b, i) => ({ ...leg(pts[i], b), from: pts[i], to: b })).filter(l => l.km > 0 || l.min > 2);
+  const legs = pts.slice(1).map((b, i) => ({ ...(b.trailhead === pts[i].id ? { mode: "walk" as const, min: 2, km: 0.1 } : leg(pts[i], b)), from: pts[i], to: b })).filter(l => l.km > 0 || l.min > 2);
   const driveLegs = legs.filter(l => l.mode === "drive");
   const walkKm = routed.reduce((a, x) => a + (x.place.km && x.place.kind !== "activity" ? x.place.km : 0), 0);
   const gainM = routed.reduce((a, x) => a + Math.max(0, x.place.gain ?? 0), 0);

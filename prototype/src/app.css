@@ -215,3 +215,101 @@
 .pin-wrap { position: relative; }
 .pin-name { position: absolute; left: 50%; top: calc(100% - 2px); transform: translateX(-50%); white-space: nowrap; font: 600 .7rem/1.2 var(--f-ui); color: var(--ink); background: color-mix(in srgb, var(--surface) 86%, transparent); padding: 1px 5px; border-radius: 4px; pointer-events: none; }
 .day-body[data-open="1"] { overflow: visible !important; }
+
+/* ---------- day dt (replaces boxed cards) ---------- */
+.dt { display: flex; flex-direction: column; margin-top: 6px; }
+.dt-lane { display: flex; flex-direction: column; }
+.dt-row { display: grid; grid-template-columns: 54px 22px 1fr; column-gap: 10px; position: relative; }
+.dt-time { text-align: right; font-size: .82rem; line-height: 1.2; padding-top: 10px; color: var(--ink); display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.dt-time small { color: var(--faint); font-size: .7rem; }
+.dt-rail { position: relative; display: flex; justify-content: center; }
+.dt-rail::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; transform: translateX(-50%); background: var(--line-strong); }
+.dt-body { min-width: 0; padding: 8px 0; }
+/* legs: the rail itself says how you travel */
+.dt-leg .dt-time, .dt-leg { }
+.dt-row.dtr-leg .dt-rail::before { width: 3px; background: var(--route); opacity: .55; }
+.dt-row.dtr-leg.walk .dt-rail::before { width: 2px; background: repeating-linear-gradient(var(--muted) 0 3px, transparent 3px 7px); opacity: 1; }
+.dt-row.dtr-leg .dt-body { padding: 0; display: flex; align-items: center; }
+.dt-leg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: .76rem; color: var(--muted); }
+/* stops */
+.dt-row.dtr-stop { cursor: grab; border-radius: 10px; transition: background .12s; touch-action: manipulation; outline: none; }
+.dt-row.dtr-stop:hover { background: color-mix(in srgb, var(--sunk) 70%, transparent); }
+.dt-row.dtr-stop:focus-visible { box-shadow: 0 0 0 2px var(--act); }
+.dt-row.dtr-stop.sel { background: var(--glow-soft); }
+.dt-row.dtr-stop.ghosted { opacity: .3; }
+.dt-row.dtr-stop.lifted { background: var(--raised); box-shadow: var(--shadow-lift); cursor: grabbing; }
+.dt-row.dtr-stop .dt-rail::before { background: var(--line-strong); }
+.dt-node { position: relative; z-index: 1; margin-top: 8px; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font: 600 .72rem var(--f-num); box-shadow: 0 0 0 3px var(--bg); }
+.dt-node.lane-b { background: var(--act); color: var(--act-ink); }
+.dt-row.sel .dt-node { background: var(--glow); }
+.dt-span { position: absolute; z-index: 0; top: 30px; bottom: 6px; left: 50%; width: 6px; transform: translateX(-50%); border-radius: 3px; background: color-mix(in srgb, var(--ink) 16%, transparent); }
+.dt-row.sel .dt-span { background: color-mix(in srgb, var(--glow) 35%, transparent); }
+.dt-clock { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; }
+.dt-clock.flow { color: var(--muted); font-weight: 450; }
+.dt-clock:hover { color: var(--act); text-decoration: underline; }
+.dt-stop { display: flex; flex-direction: column; gap: 2px; }
+.dt-title { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.dt-title .name { font-weight: 650; font-size: .98rem; }
+.dt-glyph { color: var(--muted); display: inline-flex; }
+.dt-meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: .76rem; color: var(--muted); }
+.dt-note { font-size: .82rem; color: var(--muted); max-width: 52ch; }
+.dt-who { display: flex; align-items: center; gap: 4px; font-size: .78rem; margin-top: 2px; }
+.dt-row.custom .dt-node { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 3px var(--bg), inset 0 0 0 2px var(--ink); }
+/* anchors: home at both ends */
+.dt-row.dtr-anchor .dt-time { padding-top: 9px; }
+.dt-row.dtr-anchor .dt-time small { text-transform: uppercase; letter-spacing: .06em; }
+.dt-home { position: relative; z-index: 1; margin-top: 6px; width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; background: var(--sunk); color: var(--muted); box-shadow: 0 0 0 3px var(--bg), inset 0 0 0 1.5px var(--line-strong); }
+.dt-home.glow { background: var(--glow); color: #fff; box-shadow: 0 0 0 3px var(--bg); }
+.dt-home.none { background: transparent; border: 1.5px dashed var(--crit); color: var(--crit); box-shadow: 0 0 0 3px var(--bg); }
+.dt-anchor .dt-anchor { font-size: .86rem; color: var(--muted); padding-top: 2px; display: block; }
+.dt-anchor .dt-anchor b { color: var(--ink); font-weight: 600; }
+.dt-row.dtr-anchor:first-child .dt-rail::before { top: 18px; }
+.dt-row.dt-end .dt-rail::before { bottom: auto; height: 18px; }
+.dt-end .sleep { margin: 0; }
+.dt-end .sleep-btn { background: transparent; border-color: transparent; padding: 4px 6px; margin-left: -6px; width: auto; }
+.dt-end .sleep-btn:hover { background: var(--sunk); }
+.dt-end .sleep-btn .icon:first-child { display: none; }
+/* sun marks */
+.dt-row.dtr-mark { min-height: 24px; }
+.dt-row.dtr-mark .dt-body { padding: 3px 0; font-size: .74rem; }
+.dt-sun { position: relative; z-index: 1; margin-top: 3px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); color: var(--warn); }
+/* split day */
+.dt-split { margin: 4px 0 4px 64px; border-left: 2px solid var(--line-strong); padding-left: 0; }
+.dt-split-head { padding: 2px 10px; }
+.dt-split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8px; }
+.dt-col { min-width: 0; border-radius: 10px; padding: 2px 0; }
+.dt-col.lane-B { background: color-mix(in srgb, var(--act-soft) 45%, transparent); }
+.dt-col-head { display: flex; align-items: center; gap: 4px; font-size: .76rem; font-weight: 600; padding: 4px 8px; color: var(--muted); }
+.dt-split .dt-row { grid-template-columns: 44px 18px 1fr; column-gap: 6px; }
+.dt-split .dt-time { font-size: .74rem; }
+.day-body .addbox { margin-left: 86px; }
+.phone-day .day-body .addbox { margin-left: 0; }
+@media (max-width: 760px) { .dt-row { grid-template-columns: 46px 20px 1fr; column-gap: 8px; } .dt-split { margin-left: 0; } .dt-split-cols { grid-template-columns: 1fr; gap: 6px; } }
+
+/* outline v2: grouped by where you sleep, with a mini day shape */
+.ol-overview { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.ol-stat { display: flex; flex-direction: column; align-items: flex-start; gap: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 10px; color: var(--ink); }
+.ol-stat .num { font-size: 1rem; font-weight: 600; }
+.ol-base-group { display: flex; flex-direction: column; margin-bottom: 6px; }
+.ol-base-head { display: flex; align-items: center; gap: 6px; padding: 6px 8px 2px; font-size: .78rem; font-weight: 650; color: var(--ink); }
+.ol-base-head .icon { color: var(--glow); }
+.ol-base-head .num { margin-left: auto; font-weight: 450; font-size: .72rem; }
+.ol-base-head.crit, .ol-base-head.crit .icon { color: var(--crit); }
+.ol-base-group .ol-day { margin-left: 6px; border-left: 1px solid var(--line); border-radius: 0 8px 8px 0; padding: 4px 8px; }
+.ol-day .ol-body { gap: 3px; }
+.spark { position: relative; display: block; height: 6px; width: 100%; border-radius: 3px; background: var(--sunk); overflow: hidden; }
+.spark i { position: absolute; top: 0; bottom: 0; }
+.sp-drive { background: var(--line-strong); }
+.sp-stop { background: var(--ink); border-radius: 2px; opacity: .75; }
+.ol-day.focus .sp-stop { background: var(--glow); opacity: 1; }
+.sp-stop.late { background: var(--crit); opacity: 1; }
+.plan { grid-template-columns: 228px minmax(400px, 620px) 1fr; }
+@media (max-width: 1180px) { .plan { grid-template-columns: 200px minmax(360px, 520px) 1fr; } }
+
+/* ideas shelf */
+.shelf { border-bottom: 1px solid var(--line); padding: 10px 0; }
+.shelf-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.shelf-toggle { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 4px 0; color: var(--ink); font-weight: 650; }
+.shelf-peek { display: flex; gap: 6px; flex-wrap: wrap; min-width: 0; }
+.shelf-peek .chip { background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-weight: 500; }
+.shelf-body { overflow: hidden; }

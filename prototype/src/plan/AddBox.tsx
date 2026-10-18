@@ -14,7 +14,7 @@ export function AddBox({ target, base, anchor, kinds, placeholder = "Add a place
   target: Target; base?: Place; anchor?: Place; kinds?: Place["kind"][]; placeholder?: string;
   onPicked?: (p: Place) => void; autoFocus?: boolean;
 }) {
-  const { s, add, place, move, setTime } = useStore();
+  const { s, add, place, move } = useStore();
   const [raw, setRaw] = useState("");
   const [open, setOpen] = useState(false);
   const [i, setI] = useState(0);
@@ -41,7 +41,7 @@ export function AddBox({ target, base, anchor, kinds, placeholder = "Add a place
     }
     const existing = r.type === "hit" && r.hit.group === "trip" && !onPicked ? Object.values(s.trip.items).find(x => x.placeId === p.id) : undefined;
     if (onPicked) onPicked(p);
-    else if (existing) { move(existing.id, to); if (parsed.time) setTimeout(() => setTime(existing.id, parsed.time), 0); }   // already planned: move it, never duplicate
+    else if (existing) move(existing.id, to, undefined, parsed.time);   // already planned: move it, never duplicate
     else add(p, to, { time: parsed.time });
     setRaw(""); setOpen(false); setI(0);
   }

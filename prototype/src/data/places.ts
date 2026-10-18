@@ -19,6 +19,7 @@ export interface Place {
   hours?: string;            // typical time
   durationMin?: number;      // planned time on site
   parking?: string;
+  trailhead?: string;        // place id of the trailhead or car park the walk starts from
   booking?: string;          // what has to be booked, and when
   facts?: Fact[];
   links?: Link[];
@@ -56,7 +57,7 @@ export const PLACES: Place[] = [
     ],
     links: [{ kind: "official", label: "Braies access rules", url: "https://www.prags.bz/en/" }] }),
   P({ id: "fiscalina", name: "Val Fiscalina", aka: ["Fischleintal", "Talschlusshütte"], kind: "trail", area: "Sesto", lng: 12.3550, lat: 46.6745, km: 3, gain: 60, hours: "1 h", durationMin: 120, summary: "Flat 20-30 min to the Talschlusshütte under the Croda dei Toni. Cars restricted; shuttle 440/446." }),
-  P({ id: "tre-cime", name: "Tre Cime di Lavaredo loop", aka: ["Drei Zinnen", "Rifugio Auronzo", "Tre Cime"], kind: "trail", area: "Auronzo", lng: 12.2955, lat: 46.6125, km: 10, gain: 450, hours: "3.5-4.5 h", durationMin: 300,
+  P({ id: "tre-cime", name: "Tre Cime di Lavaredo loop", aka: ["Drei Zinnen", "Rifugio Auronzo", "Tre Cime"], kind: "trail", area: "Auronzo", lng: 12.2955, lat: 46.6125, km: 10, gain: 450, hours: "3.5-4.5 h", durationMin: 270,
     summary: "Wide gravel loop, no exposure. Clockwise from a midday slot keeps the north faces lit at Locatelli.",
     parking: "Toll road to Rifugio Auronzo: book a slot 30 days out, €40 per car, valid 12 h from the slot, no same-day sales.",
     booking: "Toll slot at pass.auronzo.info, opens 30 days before",
@@ -79,8 +80,8 @@ export const PLACES: Place[] = [
   P({ id: "drava", name: "Drava cycle path to Lienz", aka: ["Drauradweg", "bike"], kind: "activity", area: "Alta Pusteria", lng: 12.2900, lat: 46.7360, km: 43.4, gain: 15, hours: "about 2 h 50", durationMin: 300, summary: "Downhill all the way; rent at Papin Sport, drop at Lienz, train back. Combined bike-and-person ticket at Lienz." }),
   P({ id: "funbob", name: "Funbob, Monte Baranci", aka: ["toboggan", "Haunold"], kind: "activity", area: "Alta Pusteria", lng: 12.2700, lat: 46.7250, durationMin: 90, minAge: 8, summary: "1,739 m rail toboggan, 314 m drop. From 8 riders go alone with ID; under 8 with an adult.", facts: [{ label: "Price", value: "Adult €21.50, junior €15 per ride", source: "operator", read: "Aug 2026" }] }),
   P({ id: "rafting", name: "Rafting on the Rienza", kind: "activity", area: "Val Pusteria", lng: 11.9400, lat: 46.7960, durationMin: 180, minAge: 6, summary: "Minimum age 6 (the Isarco advanced run is 14+)." }),
-  P({ id: "tre-croci", name: "Passo Tre Croci parking", kind: "parking", area: "Ampezzo", lng: 12.2050, lat: 46.5560, summary: "About 20 cars; fills by 06:00-06:30 in July." }),
-  P({ id: "sorapis", name: "Lago di Sorapis", aka: ["Sorapiss", "Rifugio Vandelli"], kind: "trail", area: "Ampezzo", lng: 12.2200, lat: 46.5197, km: 12, gain: 550, hours: "4.5-6 h", durationMin: 330, minAge: 10,
+  P({ id: "tre-croci", name: "Passo Tre Croci parking", kind: "parking", area: "Ampezzo", lng: 12.2050, lat: 46.5560, durationMin: 10, summary: "About 20 cars; fills by 06:00-06:30 in July." }),
+  P({ id: "sorapis", name: "Lago di Sorapis", aka: ["Sorapiss", "Rifugio Vandelli"], kind: "trail", area: "Ampezzo", lng: 12.2200, lat: 46.5197, km: 12, gain: 550, hours: "4.5-6 h", durationMin: 330, minAge: 10, trailhead: "tre-croci",
     summary: "A traverse whose difficulty is exposure: ladders, boards and cabled ledges. Water is most turquoise 09:00-11:00.",
     parking: "Passo Tre Croci: about 20 cars, fills by 06:00-06:30. Leave at 05:30.",
     facts: [{ label: "Route", value: "11-12.6 km, 460-630 m, 4.5-6 h", source: "PLAN.md", read: "Aug 2026" }, { label: "Rifugio Vandelli", value: "lunch 11:30-14:30, cash only", source: "PLAN.md", read: "Aug 2026" }] }),
@@ -93,7 +94,7 @@ export const PLACES: Place[] = [
   P({ id: "passo-gardena", name: "Passo Gardena", aka: ["Grödner Joch"], kind: "pass", area: "Val Gardena", lng: 11.8070, lat: 46.5490, summary: "Verify before committing: a 2026 pilot capped day-trippers at 150 pre-booked slots." }),
   P({ id: "pordoi", name: "Sass Pordoi and Piz Boè", aka: ["Piz Boe", "Pordoi"], kind: "trail", area: "Sella", lng: 11.8150, lat: 46.5033, km: 6, gain: 200, hours: "3-4 h", durationMin: 300, minAge: 12, summary: "Cable car to 2,950 m, then exposed sections with short cabled steps to 3,152 m." }),
   P({ id: "viel-dal-pan", name: "Viel dal Pan", aka: ["Bindelweg"], kind: "trail", area: "Sella", lng: 11.8400, lat: 46.4900, km: 8, gain: 380, hours: "2.5-4 h", durationMin: 240, summary: "Balcony traverse with the Marmolada glacier in view the whole way." }),
-  P({ id: "siusi", name: "Alpe di Siusi", aka: ["Seiser Alm", "Compatsch"], kind: "trail", area: "Alpe di Siusi", lng: 11.6250, lat: 46.5410, km: 6.8, gain: 200, hours: "2-3 h", durationMin: 300, summary: "Take the cable car from Siusi (€30 return); driving is banned 09:00-17:00." }),
+  P({ id: "siusi", name: "Alpe di Siusi", aka: ["Seiser Alm", "Compatsch"], kind: "trail", area: "Alpe di Siusi", lng: 11.6250, lat: 46.5410, km: 6.8, gain: 200, hours: "2-3 h", durationMin: 210, summary: "Take the cable car from Siusi (€30 return); driving is banned 09:00-17:00." }),
   P({ id: "puflatsch", name: "Bullaccia and the Witches' Benches", aka: ["Puflatsch"], kind: "trail", area: "Alpe di Siusi", lng: 11.6110, lat: 46.5550, km: 4.8, gain: 152, hours: "1.5-2.5 h", durationMin: 150 }),
   P({ id: "seceda", name: "Seceda ridge", aka: ["Seceda"], kind: "viewpoint", area: "Val Gardena", lng: 11.7231, lat: 46.5996, km: 3, gain: 100, hours: "1.5 h on the ridge", durationMin: 210,
     summary: "The famous view is along the ridge toward the Fermeda towers, not at the top station.",
