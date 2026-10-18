@@ -25,7 +25,7 @@ export function Row({ time, sub, node, children, kind = "stop", style, className
   );
 }
 
-export function LegRail({ l, free, late, fixedAt }: { l?: Leg; free?: number; late?: number; fixedAt?: string }) {
+export function LegRail({ l, free, late, fixedAt, onFix }: { l?: Leg; free?: number; late?: number; fixedAt?: string; onFix?: () => void }) {
   if (!l && !free && !late) return null;
   const h = l ? Math.min(64, 20 + l.min * 0.35) : 18;
   return (
@@ -34,6 +34,7 @@ export function LegRail({ l, free, late, fixedAt }: { l?: Leg; free?: number; la
         {l && <><Icon name={l.mode === "drive" ? "car" : "walk"} size={13} /><span className="num">{l.mode === "drive" ? "≈ " : ""}{fmtMin(l.min)} · {l.km} km</span></>}
         {free ? <span className="chip num">free {fmtMin(free)}</span> : null}
         {late ? <span className="chip crit num"><Icon name="alert" size={12} />arrives {fmtMin(late)} after {fixedAt}</span> : null}
+        {late && onFix ? <button className="btn ghost small fix-btn" onClick={e => { e.stopPropagation(); onFix(); }}>Let it follow</button> : null}
       </span>
     </Row>
   );
@@ -95,6 +96,7 @@ export function Lane({ slots, activeId, sun, startNode, endNode, offset, until }
   const placed = new Set<number>();
   const markAfter = (t: number, nextStart?: number) => marks.filter((m, k) => !placed.has(k) && m.at >= t && (nextStart === undefined || m.at < nextStart) && (placed.add(k), true));
   let n = 0;
+  const { setTime } = useStore();
   return (
     <div className="dt-lane">
       {startNode}
@@ -105,7 +107,7 @@ export function Lane({ slots, activeId, sun, startNode, endNode, offset, until }
         return (
           <motion.div key={x.item.id} layout={!activeId ? "position" : false} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ type: "spring", stiffness: 520, damping: 40 }}>
             {before.map(m => <SunMark key={m.label} {...m} />)}
-            <LegRail l={x.legIn} free={x.free} late={x.late} fixedAt={x.item.time} />
+            <LegRail l={x.legIn} free={x.free} late={x.late} fixedAt={x.item.time} onFix={x.late ? () => setTime(x.item.id, undefined) : undefined} />
             <StopRow slot={x} index={++n + (offset ?? 0)} lane={x.item.variant} dragging={activeId === x.item.id} />
             {after.map(m => <SunMark key={m.label} {...m} />)}
           </motion.div>

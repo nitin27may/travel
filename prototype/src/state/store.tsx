@@ -91,7 +91,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (time) trip = { ...trip, items: { ...trip.items, [id]: { ...trip.items[id], time } } };
       const name = place(s.trip.items[id].placeId)?.name ?? "item";
       const same = from && JSON.stringify(from) === JSON.stringify(to);
-      dispatch({ t: "op", label: same ? `Reordered ${name}` : `Moved ${name} to ${targetLabel(trip, to)}`, trip });
+      // a reordered stop keeps its place in the new order, not its old clock time: release a fixed time
+      // so it follows the previous stop (Undo brings the time back)
+      const released = same && !time && s.trip.items[id].time && "day" in to;
+      if (released) trip = { ...trip, items: { ...trip.items, [id]: { ...trip.items[id], time: undefined } } };
+      dispatch({ t: "op", label: same ? `Reordered ${name}${released ? "; its time now follows the previous stop" : ""}` : `Moved ${name} to ${targetLabel(trip, to)}`, trip });
     },
     remove(id) {
       const name = place(s.trip.items[id].placeId)?.name ?? "item";
