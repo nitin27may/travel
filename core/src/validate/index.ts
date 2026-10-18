@@ -18,7 +18,7 @@ import { checkDays, makeContext } from "../checks/index.ts";
 import type { Row as CheckRow } from "../checks/context.ts";
 
 export type { Issue, Result } from "./codes.ts";
-export { ERROR_CODES, ERROR_CODE_LIST } from "./codes.ts";
+export { ERROR_CODES, ERROR_CODE_LIST, SUIT_ERROR_CODES, SUIT_ERROR_LIST, SUIT_WARNING_CODES, SUIT_WARNING_LIST } from "./codes.ts";
 
 export interface DocInfo {
   family: Family;
@@ -50,12 +50,14 @@ export function detect(path: string | null, doc: unknown, root: string): DocInfo
     if (/(?:^|\/)data\/catalog\/policy\.json$/.test(r)) return { family: "sidecar", kind: "policy" };
     if (/(?:^|\/)data\/schema\/freshness\.json$/.test(r)) return { family: "sidecar", kind: "freshness" };
     if (/(?:^|\/)data\/schema\/difficulty-map\.json$/.test(r)) return { family: "sidecar", kind: "difficulty-map" };
+    if (/(?:^|\/)data\/suitability\/[^/]+\/[^/]+\.json$/.test(r)) return { family: "sidecar", kind: "suitability" };
     if (/(?:^|\/)data\/locations\/[^/]+\.json$/.test(r) && basename(r) !== "WISHLIST.json") return { family: "locations" };
     if (inRepo && /^research\/.*\.json$/.test(r)) return { family: "sidecar", kind: "research-sidecar" };
   }
   if (isObj(doc)) {
     if (doc.schema === "research-sidecar/1") return { family: "sidecar", kind: "research-sidecar" };
     if (doc.schema === "route-geometry/1") return { family: "sidecar", kind: "route-geometry" };
+    if (doc.schema === "suitability/1") return { family: "sidecar", kind: "suitability" };
     if ("trip" in doc && "profile" in doc) return { family: "trip" };
     if ("country" in doc && entityOfDoc(doc)) return { family: "catalog", entity: entityOfDoc(doc)! };
     if ("countries" in doc || "places" in doc || "regions" in doc) return { family: "locations" };
@@ -156,7 +158,7 @@ function walk(dir: string, out: string[]): void {
 /** Every file `--all` validates: data/trips, data/catalog, data/locations plus the policy documents. */
 export function allFiles(root: string): string[] {
   const all: string[] = [];
-  for (const d of ["data/trips", "data/catalog", "data/locations"]) walk(join(root, d), all);
+  for (const d of ["data/trips", "data/catalog", "data/locations", "data/suitability"]) walk(join(root, d), all);
   for (const f of ["data/schema/freshness.json", "data/schema/difficulty-map.json", "data/vocab/tags.json"]) if (existsSync(join(root, f))) all.push(join(root, f));
   const keep = all.filter((p) => {
     const r = norm(relative(root, p));
@@ -165,6 +167,7 @@ export function allFiles(root: string): string[] {
     if (/^data\/catalog\/legs\/geo\/[^/]+\.json$/.test(r)) return true;
     if (/^data\/catalog\/changes\/[^/]+\.jsonl$/.test(r)) return true;
     if (r === "data/catalog/policy.json" || r === "data/catalog/backlog.json") return true;
+    if (/^data\/suitability\/[^/]+\/[^/]+\.json$/.test(r)) return true;
     if (r === "data/schema/freshness.json" || r === "data/schema/difficulty-map.json" || r === "data/vocab/tags.json") return true;
     if (/^data\/locations\/(?:locations|[A-Z]{2})\.json$/.test(r)) return true;
     return false;

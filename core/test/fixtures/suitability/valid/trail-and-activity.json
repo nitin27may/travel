@@ -1,0 +1,228 @@
+{
+  "schema": "suitability/1",
+  "trip": "fixture-trip",
+  "lane": "fixture",
+  "researched": "2026-10-18",
+  "agent": "make.ts",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "title": "Lake Louise area hikes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-12"
+    }
+  ],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 10,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "11.2 km and 750 m (effort_km 18.7) is over the 6-7 and 8-9 ceilings"
+        },
+        "kid_note": "Too long and steep for a 6-year-old; the meadow is a natural turnaround.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "fixture method"
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "parks.canada.ca Moraine Lake page",
+            "Banff trail conditions"
+          ]
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 11.2,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ]
+            },
+            "gain_m": {
+              "v": 750,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ]
+            }
+          }
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "partly",
+            "where": "Sentinel Pass scree"
+          },
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0001"
+          ]
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 11.2,
+        "walk_gain_m": 750
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "kind": "activity",
+      "subkind": "rafting",
+      "suitability": {
+        "limit_reason": "seat"
+      },
+      "ext": {
+        "kind": "paddle",
+        "craft": {
+          "v": "raft",
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0001"
+          ]
+        }
+      },
+      "offers": [
+        {
+          "name": "Family float",
+          "suitability": {
+            "min_age": {
+              "v": 8,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0001"
+              ]
+            },
+            "min_weight_kg": {
+              "v": 22.7,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "50 lb",
+              "note": "50 lb = 22.7 kg, a minimum"
+            },
+            "water_safety": {
+              "lifejacket": {
+                "v": "provided_all_sizes",
+                "state": "value",
+                "basis": "operator_rule",
+                "src": [
+                  "src-0001"
+                ]
+              },
+              "class": {
+                "v": {
+                  "system": "whitewater",
+                  "value": "II"
+                },
+                "state": "value",
+                "basis": "official_grade",
+                "src": [
+                  "src-0001"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "Class III",
+          "suitability": {
+            "min_age": {
+              "v": 12,
+              "state": "value",
+              "basis": "operator_rule",
+              "src": [
+                "src-0001"
+              ]
+            },
+            "effort": {
+              "source_grade": {
+                "v": {
+                  "system": "whitewater",
+                  "value": "III"
+                },
+                "state": "value",
+                "basis": "official_grade",
+                "src": [
+                  "src-0001"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    }
+  ]
+}

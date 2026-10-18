@@ -42,3 +42,34 @@ export interface Result {
   errors: Issue[];
   warnings: Issue[];
 }
+
+// suitability/1 codes (docs/v2/research/suitability.md section 9). They live apart from ERROR_CODES because the
+// broken-fixture test of that list expects one fixture per code in fixtures/broken; these have theirs in
+// fixtures/suitability/broken (one failing file each, enforced by core/test/suitability/validate.test.ts).
+export const SUIT_ERROR_CODES = {
+  E_SUIT_SCHEMA: "a field is missing, unknown, of the wrong type or outside its enum, or a value state contradicts its v",
+  E_SUIT_REF: "a record ref does not resolve to a place, a legacy row or a trip item",
+  E_SUIT_DUP_REF: "a ref appears twice in a file, or in two files of one trip",
+  E_SUIT_SRC: "a src id is not in the file's sources table, or a value has no source and is not our_inference with a note",
+  E_SUIT_SRC_READ: "a source has no read date",
+  E_SUIT_LINK_ONLY_SRC: "a source is a link-only platform (AllTrails, Komoot, Gaia, Outdooractive, Wikiloc, Google, Tripadvisor, a booking host)",
+  E_SUIT_LIMIT_BASIS: "a hard limit rests on anything but an operator rule or an official rule",
+  E_SUIT_SEARCHED_NONE: "searched_none without the date searched (on) or the pages tried",
+  E_SUIT_UNIT: "a quote in lb, in, ft or mi has no note with the conversion",
+  E_SUIT_RANGE: "a minimum above its maximum, or a range that runs backwards",
+  E_SUIT_GRADE: "a source grade is not a grade of its system",
+  E_SUIT_TYPED_EFFORT: "family_effort, terrain, band or effort_km is typed in a file; they are computed",
+  E_SUIT_STEP_FREE: "wheelchair step_free without official_info",
+  E_SUIT_FLAT_DRIFT: "the flat catalogue copy differs from what derive computes; run: node core/bin/suitability.ts derive --write",
+} as const;
+export const SUIT_WARNING_CODES = {
+  W_SUIT_STALE: "a value was read longer ago than its freshness class allows",
+  W_SUIT_CONFLICT: "a value keeps conflicting figures from other sources",
+  W_SUIT_COMMUNITY_ONLY: "a value rests on community reports alone",
+  W_SUIT_MARGINAL_CONVERSION: "a limit was converted from imperial units; the household check treats within 1 kg or 2 cm as marginal",
+  W_SUIT_FLAT_MISSING: "the record has no flat catalogue copy yet; run: node core/bin/suitability.ts derive --write",
+} as const;
+export type SuitErrorCode = keyof typeof SUIT_ERROR_CODES;
+export type SuitWarningCode = keyof typeof SUIT_WARNING_CODES;
+export const SUIT_ERROR_LIST = Object.keys(SUIT_ERROR_CODES) as SuitErrorCode[];
+export const SUIT_WARNING_LIST = Object.keys(SUIT_WARNING_CODES) as SuitWarningCode[];

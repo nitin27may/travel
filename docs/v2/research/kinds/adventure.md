@@ -145,10 +145,8 @@ Offer:
 | Id | Level | Check | Allowed evidence |
 |---|---|---|---|
 | OD1 | Draft | `name`, `kind`, parent activity | |
-| OU1 | Usable | `min_age` with `age_rule`: value, `none_stated` or `searched_none` | `operator` or `official` only |
-| OU2 | Usable | height limits: value, `none_stated` or `searched_none` | same |
-| OU3 | Usable | weight limits: value (with min or max explicit), `none_stated` or `searched_none` | same |
-| OU4 | Usable | `adult_required` | same |
+| F1 | Usable | replaces OU1-OU3: `min_age` with `age_rule`, height limits and weight limits (with min or max explicit), each a value, `none_stated` or `searched_none` | `operator` or `official` only (suitability.md section 4) |
+| F2 | Usable | replaces OU4: `adult_required` and `group_min` (value or `none_stated`) | same |
 | OU5 | Usable | `duration_min` including check-in | `operator` or `community` |
 | OU6 | Usable | price bands with currency, `applies_to`, `price_read_on` | `operator` |
 | OU7 | Usable | `window_rule` with `window_spec.tz`, and `sellout` | `operator`, `sellout` may be `community` |
@@ -161,8 +159,11 @@ Offer:
 | OC6 | Complete | `fitness`, `swim_required`, `footwear`, `medical` as stated (SN ok) | `operator` |
 | OC7 | Complete | `waiver_signer_age` (SN ok) | `operator` |
 
-Totals: activity Draft 5, Usable 7, Complete 13 (**25**); each offer Draft 1, Usable 8, Complete 7
-(**16**). The badge reads "Usable · 19 of 25 · offers 1 of 2 Usable".
+Totals: activity Draft 5, Usable 10, Complete 18 (**33**; F7 and F11 add one Usable each when the activity is a ride, paddle or ferrata, or is on water); each offer Draft 1, Usable 6, Complete 7
+(**14**). The badge reads "Usable · 25 of 33 · offers 1 of 2 Usable".
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its activity offer, lift column: F3, F8 and F12 are Usable on the activity and F4, F5, F6, F9 and F10 are Complete; F1 and F2 sit on each offer, where they replace OU1-OU4. F7 is Usable for a ride, paddle or ferrata, and F11 for water. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -204,8 +205,8 @@ en.loenskylift.no/viaferrataloen and the Skylift prices page (lines 120-121).
 | `what_to_bring` | 1.5 l water per person, gloves, long trousers, windproof; shoes and gloves rentable | operator |
 | window, sellout, weather policy, cancel policy, duration | gaps | |
 
-Offer: **Draft · 6 of 16** (OD1, OU1, OU2, OU3, OU6, OU8 pass; OU4 adult rule, OU5 duration and OU7
-window missing). Activity: **Draft · 9 of 25** (D1-D5 with the candidate point, U1, U2, U3, U4); U5 (the
-confirmed meeting point), U6 (what cancels it) and U7 (an offer at Usable, after OU4, OU5 and OU7)
+Offer: **Draft · 4 of 14** (OD1, F1, OU6, OU8 pass; F2 adult rule, OU5 duration and OU7
+window missing). Activity: **Draft · 9 of 33** (D1-D5 with the candidate point, U1, U2, U3, U4); U5 (the
+confirmed meeting point), U6 (what cancels it) and U7 (an offer at Usable, after F2, OU5 and OU7)
 make it Usable. For a 12-year-old of 38 kg the household check returns `fail` on weight, whatever
 the age.

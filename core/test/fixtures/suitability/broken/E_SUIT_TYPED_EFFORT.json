@@ -1,0 +1,47 @@
+{
+  "schema": "suitability/1",
+  "trip": "fixture-trip",
+  "lane": "fixture",
+  "researched": "2026-10-18",
+  "agent": "make.ts",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "title": "Lake Louise area hikes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-12"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/lago-di-braies",
+      "kind": "lake",
+      "suitability": {
+        "effort": {
+          "family_effort": 3,
+          "drivers": {
+            "distance_km": {
+              "v": 5,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ]
+            },
+            "gain_m": {
+              "v": 100,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -95,7 +95,10 @@ Common checks D1-D5, U1-U2, C1-C8, plus:
 | C12 | Complete | `attrs.facilities` (or `none`) | |
 | C13 | Complete | every related access entity at least Usable | |
 
-Totals: Draft 5, Usable 10, Complete 13; **28**.
+Totals: Draft 5, Usable 16, Complete 15; **36** (37 when a walk is needed: F7).
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its viewpoint, waterfall, lake column: F3, F4, F6, F8, F11 (fencing) and F12 are Usable, F7 is Usable when a walk is needed, and F5 and F9 are Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -125,5 +128,5 @@ bearing changes. Safety, payoff, crowds: 2 years. Links: 90 days. Point: never.
 | booking | time slots every 30 minutes from summer 2026 | val-gardena.net via sights.md 1.1 |
 | `light`, `bearing`, `safety` | gaps | |
 
-Level once the point is recorded: **Draft · 11 of 28** (D1-D5, U1, U2, U3, U5, U6, U7). Missing for
+Level once the point is recorded: **Draft · 11 of 36** (D1-D5, U1, U2, U3, U5, U6, U7). Missing for
 Usable: U4 from OSM paths, U8 bearing, U9 light, U10 safety.
