@@ -62,7 +62,7 @@ describe('trips', () => {
     expect(vce.days).toEqual([1, 14]);
     // stays come from the bases, with nights, and never name an example hotel
     expect(t.categories.stays.map((s) => s.nights)).toEqual([4, 4, 4, 1]);
-    expect(t.categories.stays[0].detail).toBe('4 nights · stay not chosen yet');
+    expect(t.categories.stays[0].detail).toBe('4 nights');
     expect(JSON.stringify(t)).not.toMatch(/Example (hotel|guesthouse)/i);
   });
 

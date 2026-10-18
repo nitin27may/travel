@@ -7,9 +7,11 @@ import { TEXT_FILE, WEB, allKeys, readText, walkFiles } from './helpers';
 // Builds the whole app against tests/fixtures/root (three trips: public, unlisted, private, each
 // carrying sentinel values) into .fixture-out, then greps every file that would be published.
 const OUT = path.join(WEB, '.fixture-out');
+// the real export from `next build`, which tests/global-setup.ts also runs first
+const REAL_OUT = path.join(WEB, 'out');
 
 const SENTINELS = ['CONF-SENTINEL-7Q', 'NOTE-SENTINEL-PRIVATE', 'CITIZENSHIP-SENTINEL', 'CONTACT-SENTINEL', '+1-555-0100'];
-const PRIVATE_KEYS = ['height_cm', 'weight_kg', 'age_years', 'citizenship', 'confirmation', 'contact', 'price_paid_amount', 'insurer_tel'];
+const PRIVATE_KEYS = ['height_cm', 'weight_kg', 'age_years', 'citizenship', 'confirmation', 'contact', 'price_paid_amount', 'insurer_tel', 'status', 'stayStatus'];
 
 let files: string[] = [];
 
@@ -86,5 +88,57 @@ describe('privacy of the exported site', () => {
   it('does not name a trip a place cannot link to', () => {
     const doc = JSON.parse(readText(path.join(OUT, 'data', 'places.json'))) as { rows: { trip: string | null }[] };
     for (const r of doc.rows) expect(['private-trip', 'unlisted-trip']).not.toContain(r.trip);
+  });
+});
+
+// A place's personal status (idea, shortlisted, planned, visited, dropped) and a stay's booking state are
+// household data. They show only to a signed-in user on their own trips, never in a public build.
+const STATUS_WORDS = 'Idea|Shortlisted|Planned|Visited|Dropped';
+
+function statusLeaks(root: string): string[] {
+  const hits: string[] = [];
+  const all = walkFiles(root);
+  const r = (f: string) => path.relative(root, f).split(path.sep).join('/');
+  const pages = all.filter((f) => /\.(html|txt|json|csv|kml|gpx|xml)$/.test(f) && !r(f).startsWith('_next/'));
+  const chunks = all.filter((f) => /\.(js|css)$/.test(f));
+  for (const f of pages) {
+    const text = readText(f);
+    const found = (label: string, re: RegExp) => {
+      if (re.test(text)) hits.push(`${r(f)}: ${label}`);
+    };
+    found('"status": key', /"status"\s*:/);
+    found('stayStatus', /stayStatus/);
+    found('data-status attribute', /data-status=/);
+    found('status chip in HTML', new RegExp(`>\\s*(${STATUS_WORDS})\\s*<`));
+    found('status label in an RSC payload', new RegExp(`"(?:children|text|label|title|value)":"(${STATUS_WORDS})"`));
+    found('status filter in a URL', /[?&]status=/);
+    found('stay booking state', /stay not chosen yet/);
+  }
+  for (const f of chunks) {
+    const text = readText(f);
+    if (/stayStatus|stIdea|stPlanned|stVisited|stShortlisted|stDropped|Shortlisted/.test(text)) hits.push(`${r(f)}: status label or glyph in a client bundle`);
+    if (/\[data-status/.test(text)) hits.push(`${r(f)}: data-status style`);
+  }
+  return hits;
+}
+
+describe('no personal place status in public output', () => {
+  it('leaves status out of the fixture build (HTML, RSC payloads, data files, bundles)', () => {
+    expect(files.length).toBeGreaterThan(80);
+    expect(statusLeaks(OUT)).toEqual([]);
+  });
+
+  it('leaves status out of the real build in web/out', () => {
+    if (!existsSync(path.join(REAL_OUT, 'index.html'))) return; // `next build` has not run; global-setup normally builds it
+    const real = walkFiles(REAL_OUT);
+    expect(real.some((f) => /__next\..*\.txt$/.test(f))).toBe(true);
+    expect(statusLeaks(REAL_OUT)).toEqual([]);
+  });
+
+  it('proves the check can fail', () => {
+    const sample = '{"slug":"x","status":"planned","stayStatus":null}';
+    expect(/"status"\s*:/.test(sample)).toBe(true);
+    expect(/stayStatus/.test(sample)).toBe(true);
+    expect(new RegExp(`"(?:children|text)":"(${STATUS_WORDS})"`).test('{"text":"Planned"}')).toBe(true);
   });
 });

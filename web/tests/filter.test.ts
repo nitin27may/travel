@@ -34,13 +34,25 @@ describe('places filter', () => {
     expect(count('kind=lake&country=CA')).toBeLessThanOrEqual(lakes);
   });
 
-  it('hides dropped places unless the status facet names them', () => {
-    const dropped: PlaceListRow = { ...rows[0], id: 'x-dropped', slug: 'x-dropped', status: 'dropped' };
-    const withDropped = [...rows, dropped];
-    expect(filterRows(withDropped, decodeState(''), d)).toHaveLength(N);
-    expect(filterRows(withDropped, decodeState('status=dropped'), d)).toHaveLength(1);
-    const counts = facetCounts(withDropped, decodeState(''), d);
-    expect(counts.status.find((o) => o.value === 'dropped')?.count).toBe(1);
+  it('has no status facet, column, group or sort, and ignores an old status parameter', () => {
+    expect(d.facets.map((f) => f.param)).not.toContain('status');
+    expect(d.columns.map((c) => c.id)).not.toContain('status');
+    expect(d.groupBy.map((g) => g.id)).not.toContain('status');
+    expect(Object.keys(d.sorts)).not.toContain('status');
+    expect(count('status=planned')).toBe(N);
+    expect(count('status=visited,dropped')).toBe(N);
+  });
+
+  it('filters by public trip, and by "Not in a trip yet"', () => {
+    const inTrip = rows.filter((r) => r.trips.length > 0);
+    const none = rows.filter((r) => r.trips.length === 0);
+    expect(inTrip.length).toBeGreaterThan(0);
+    expect(count('trip=none')).toBe(none.length);
+    const slug = inTrip[0].trips[0].slug;
+    expect(count(`trip=${slug}`)).toBe(rows.filter((r) => r.trips.some((t) => t.slug === slug)).length);
+    const counts = facetCounts(rows, decodeState(''), d).trip;
+    expect(counts.at(-1)).toMatchObject({ value: 'none', label: 'Not in a trip yet', count: none.length });
+    expect(d.facets.find((f) => f.param === 'trip')?.label).toBe('In a public trip');
   });
 
   it('matches every search word, case-insensitively', () => {

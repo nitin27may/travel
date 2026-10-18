@@ -4,9 +4,9 @@ import { expect, test } from './fixtures';
 const TRAIL = '/places/tre-cime-di-lavaredo-loop/';
 
 test.describe('places list', () => {
-  test('keeps the seven filter pills, each a menu, and the four views with Map switched on', async ({ page, site }) => {
+  test('keeps the six filter pills, each a menu, and the four views with Map switched on', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
-    for (const name of ['Country', 'Kind', 'Status', 'Kids', 'Season', 'Tag', 'Plan']) await expect(page.locator('.pill-trigger', { hasText: new RegExp(`^${name}`) })).toBeVisible();
+    for (const name of ['Country', 'Kind', 'Kids', 'Season', 'Tag', 'In a public trip']) await expect(page.locator('.pill-trigger', { hasText: new RegExp(`^${name}`) })).toBeVisible();
     const views = page.getByRole('radiogroup', { name: /view/i });
     await expect(views.getByRole('radio')).toHaveText(['Cards', 'List', 'Table', 'Map']);
     await expect(views.getByRole('radio', { name: 'Map' })).not.toHaveAttribute('aria-disabled', 'true');
@@ -27,7 +27,8 @@ test.describe('places list', () => {
     const card = page.locator('article.card', { hasText: 'Grand-Sault waterfall' });
     await expect(card).toContainText('Canada');
     await expect(card.locator('.chip-kind')).toHaveText('Waterfall');
-    await expect(card.getByText('Idea', { exact: true })).toBeVisible();
+    // a place's personal status is household data and never shows on the public site
+    for (const word of ['Idea', 'Shortlisted', 'Planned', 'Visited', 'Dropped']) await expect(card.getByText(word, { exact: true })).toHaveCount(0);
     await expect(card.getByText('Location unconfirmed')).toBeVisible();
     await expect(card.getByText('No source yet').first()).toBeVisible();
     await expect(card.getByRole('link', { name: /^Place page/ })).toHaveAttribute('href', '/places/grand-sault-waterfall/');

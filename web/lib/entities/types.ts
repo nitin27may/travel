@@ -7,7 +7,7 @@ export type ViewName = 'cards' | 'list' | 'table' | 'map';
 export const VIEW_NAMES: readonly ViewName[] = ['cards', 'list', 'table', 'map'];
 
 /** URL parameters that carry a facet selection (plan 4.2). */
-export const FACET_PARAMS = ['country', 'region', 'area', 'status', 'kind', 'style', 'grade', 'kid', 'season', 'tag', 'trip', 'due'] as const;
+export const FACET_PARAMS = ['country', 'region', 'area', 'kind', 'style', 'grade', 'kid', 'season', 'tag', 'trip', 'due'] as const;
 export type FacetParam = (typeof FACET_PARAMS)[number];
 
 /** All list state; everything here is in the URL. */
@@ -67,6 +67,8 @@ export interface FacetDef<Row> {
   groupOrder?: string[];
   /** Fixed display order of values; unknown values follow by count. */
   order?: string[];
+  /** Values that always sort after the rest ("Not in a trip yet"). */
+  last?: string[];
   /** Normalise a value read from the URL. */
   normalise?: (value: string) => string;
 }

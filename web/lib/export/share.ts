@@ -8,7 +8,7 @@ export function shareUrl(trip: { slug: string }, day?: number | null): string {
   return `${origin()}/trips/${trip.slug}/${day ? `#day-${day}` : ''}`;
 }
 
-const ORDER = ['q', 'when', 'source', 'country', 'kind', 'status', 'kids', 'season', 'tag', 'plan', 'view', 'group', 'sort', 'dir', 'page'];
+const ORDER = ['q', 'when', 'source', 'country', 'kind', 'kids', 'season', 'tag', 'plan', 'view', 'group', 'sort', 'dir', 'page'];
 
 /** Link to a list with its state: keys in the table's order, empty values dropped, `c=` only when the view is the map. */
 export function listShareUrl(path: string, state: Record<string, string | null | undefined>): string {

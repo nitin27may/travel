@@ -71,12 +71,6 @@ const PATHS = {
   area: 'M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3zM9 4v13M15 7v13',
   scenic: 'M8 3 5 21M16 3l3 18M12 4v3M12 10v4M12 17v3',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 11v6M12 7.5h.01',
-  // status glyphs
-  stIdea: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z',
-  stShortlisted: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 3v18',
-  stPlanned: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z',
-  stVisited: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM8 12.5l3 3 5-6',
-  stDropped: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM6 6l12 12',
 } as const;
 
 export type IconName = keyof typeof PATHS;
@@ -87,26 +81,21 @@ interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'name'> {
 }
 
 export function Icon({ name, size = 16, className, ...rest }: IconProps) {
-  const dashed = name === 'stIdea';
-  const filled = name === 'stPlanned';
-  const half = name === 'stShortlisted';
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill={filled ? 'currentColor' : 'none'}
+      fill="none"
       stroke="currentColor"
       strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeDasharray={dashed ? '3 3.2' : undefined}
       aria-hidden="true"
       focusable="false"
       className={className}
       {...rest}
     >
-      {half ? <path d="M12 3a9 9 0 0 0 0 18Z" fill="currentColor" stroke="none" /> : null}
       <path d={PATHS[name]} />
     </svg>
   );
@@ -152,16 +141,4 @@ export const KIND_ICONS: Record<string, IconName> = {
 
 export function kindIcon(kind: string): IconName {
   return KIND_ICONS[kind] ?? 'pin';
-}
-
-const STATUS_ICONS: Record<string, IconName> = {
-  idea: 'stIdea',
-  shortlisted: 'stShortlisted',
-  planned: 'stPlanned',
-  visited: 'stVisited',
-  dropped: 'stDropped',
-};
-
-export function statusIcon(status: string): IconName {
-  return STATUS_ICONS[status] ?? 'stIdea';
 }
