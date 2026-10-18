@@ -417,7 +417,7 @@ export function Specimen() {
         <p>Drag the sheet to the peek, half and full stops, or use Expand and Collapse.</p>
         <Chip kind="neutral">Tre Cime</Chip>
       </BottomSheet>
-      <CopySheet open={copy} onClose={() => setCopy(false)} trip={{ slug: 'dolomites-2027', title: 'Dolomites', nights: 13, days: 14 }} />
+      <CopySheet open={copy} onClose={() => setCopy(false)} trip={{ slug: 'dolomites-2027', title: 'Dolomites', nights: 13, days: 14, window: { from: '07-15', to: '08-31' } }} />
     </div>
   );
 }
