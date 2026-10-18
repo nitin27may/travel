@@ -1,7 +1,6 @@
 // A day as a timeline: time down the left, a rail with stops as nodes and travel as rail segments,
 // free time and clashes between stops, sunrise/sunset where they fall, home base at both ends.
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import { motion } from "motion/react";
 import { useState, type ReactNode } from "react";
 import type { Place } from "../data/places";
@@ -12,6 +11,7 @@ import { useStore } from "../state/store";
 import { Avatar } from "../ui/bits";
 import { Icon } from "../ui/Icon";
 import { KindGlyph, KIND_LABEL } from "./ItemCard";
+import { useEdge } from "./drop";
 
 export function Row({ time, sub, node, children, kind = "stop", style, className = "", refEl, ...rest }: {
   time?: ReactNode; sub?: ReactNode; node?: ReactNode; children: ReactNode; kind?: "stop" | "leg" | "anchor" | "mark"; style?: React.CSSProperties; className?: string; refEl?: (el: HTMLElement | null) => void;
@@ -52,17 +52,18 @@ export function StopRow({ slot, index, lane, dragging, overlay }: { slot: Slot; 
   const [editTime, setEditTime] = useState(false);
   const dur = slot.end - slot.start;
   const h = Math.max(54, Math.min(150, 40 + dur * 0.28));      // semi-proportional: long stops look long
-  const style = overlay ? undefined : { transform: CSS.Translate.toString(sortable.transform), transition: sortable.transition, minHeight: h };
+  const edge = useEdge(item.id);
+  const style = overlay ? undefined : { minHeight: h };
   return (
     <Row refEl={overlay ? undefined : sortable.setNodeRef} style={overlay ? { minHeight: 54 } : style}
-      className={`${sel ? "sel" : ""} ${sortable.isDragging || dragging ? "ghosted" : ""} ${overlay ? "lifted" : ""} ${place.catalog === false ? "custom" : ""}`}
+      className={`${sel ? "sel" : ""} ${sortable.isDragging || dragging ? "ghosted" : ""} ${overlay ? "lifted" : ""} ${place.catalog === false ? "custom" : ""} ${edge ? `drop-${edge}` : ""}`}
       time={editTime ? undefined : <button className={`dt-clock ${slot.fixed ? "fixed" : "flow"}`} onPointerDown={e => e.stopPropagation()} onClick={e => { e.stopPropagation(); setEditTime(true); }} aria-label={`Start ${clock(slot.start)}${slot.fixed ? "" : ", estimated"}. Change time`}>{slot.fixed ? "" : "~"}{clock(slot.start)}</button>}
       sub={editTime ? <input type="time" className="time-input num" autoFocus defaultValue={item.time ?? clock(slot.start)} onPointerDown={e => e.stopPropagation()} onKeyDown={e => { e.stopPropagation(); if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
         onBlur={e => { setEditTime(false); if (e.target.value && e.target.value !== item.time) setTime(item.id, e.target.value); }} /> : <span>{clock(slot.end)}</span>}
       node={<><span className={`dt-node ${lane === "B" ? "lane-b" : ""}`}>{index}</span><span className="dt-span" /></>}
-      data-item={item.id} {...(overlay ? {} : sortable.attributes)} {...(overlay ? {} : sortable.listeners)}
-      onClick={() => select(item.id)} aria-label={`${place.name}, ${clock(slot.start)} to ${clock(slot.end)}. Press space to pick up and move.`}>
+      data-item={item.id} onClick={() => select(item.id)}>
       <div className="dt-stop">
+        <DragHandle name={place.name} overlay={overlay} sortable={sortable} />
         <div className="dt-title"><span className="dt-glyph"><KindGlyph kind={place.kind} /></span><span className="name">{place.name}</span>
           {res && <span className={`chip ${res.status === "booked" ? "ok" : res.status === "held" ? "act" : "warn"}`}><Icon name="ticket" size={12} />{res.status === "to_book" ? "to book" : res.status}</span>}
           {place.catalog === false && <span className="chip">my place</span>}
@@ -121,3 +122,14 @@ export const SunMark = ({ label, icon }: { label: string; icon: string }) => (
   <Row kind="mark" node={<span className="dt-sun"><Icon name={icon} size={12} /></span>}><span className="muted num">{label}</span></Row>
 );
 export type { Item };
+
+/** the only place a drag starts: always visible, 40 px target on touch, Space to pick up from the keyboard */
+export function DragHandle({ name, overlay, sortable }: { name: string; overlay?: boolean; sortable: ReturnType<typeof useSortable> }) {
+  return (
+    <button type="button" className="drag-handle" ref={overlay ? undefined : sortable.setActivatorNodeRef}
+      {...(overlay ? {} : sortable.attributes)} {...(overlay ? {} : sortable.listeners)}
+      onClick={e => e.stopPropagation()} aria-label={`Move ${name}. Press space, then the arrow keys.`} title="Drag to move">
+      <Icon name="grip" size={18} />
+    </button>
+  );
+}

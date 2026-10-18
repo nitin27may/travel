@@ -1,5 +1,6 @@
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { SortableContext } from "@dnd-kit/sortable";
+import { stayPut, useDrop } from "./drop";
 import { AnimatePresence } from "motion/react";
 import { useStore } from "../state/store";
 import { AddBox } from "./AddBox";
@@ -8,12 +9,14 @@ import { ItemCard, MotionShell } from "./ItemCard";
 export function ListSection({ listId, ids, activeId }: { listId: string; ids: string[]; activeId?: string }) {
   const { s, place } = useStore();
   const list = s.trip.lists.find(l => l.id === listId)!;
-  const { setNodeRef, isOver } = useDroppable({ id: `list:${listId}` });
+  const { setNodeRef } = useDroppable({ id: `list:${listId}` });
+  const { mark } = useDrop();
+  const isOver = mark?.key === `list:${listId}`;
   const base = place("hotel-cortina");
   return (
     <section className={`list ${isOver ? "over" : ""}`} id={`list-${listId}`} ref={setNodeRef}>
       <header className="list-head"><h2 className="sign list-title">{list.name}</h2><span className="num muted">{ids.length}</span></header>
-      <SortableContext items={ids} strategy={verticalListSortingStrategy}>
+      <SortableContext items={ids} strategy={stayPut}>
         <div className="items" role="list">
           <AnimatePresence initial={false}>
             {ids.map(id => s.trip.items[id]).filter(Boolean).map(item => {
