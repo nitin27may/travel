@@ -57,16 +57,18 @@ reached (7:1). No other text pair is allowed; add a row here before using one.
 | `--header-ink` on `--header` | 14.82 | AAA | 17.49 | AAA |
 | `--header-mute` on `--header` | 8.98 | AAA | 10.60 | AAA |
 | `--accent-ink` on `--accent` | 6.96 | AA | 6.96 | AA |
+| `--accent-ink` on `--accent-hover` | 5.96 | AA | 5.96 | AA |
 | `--accent-text` on `--bg` | 5.85 | AA | 8.83 | AAA |
 | `--accent-text` on `--surface` | 6.33 | AA | 7.99 | AAA |
 | `--accent-text` on `--accent-soft` | 5.56 | AA | 7.26 | AAA |
 | `--crit` on `--bg` | 6.11 | AA | 7.75 | AAA |
 | `--crit` on `--surface` | 6.61 | AA | 7.01 | AAA |
 | `--crit` on `--crit-soft` | 5.45 | AA | 6.36 | AA |
-| `#FFFFFF` on `--crit-fill` | 5.70 | AA | 5.70 | AA |
+| `--on-crit-fill` on `--crit-fill` | 5.70 | AA | 5.70 | AA |
 | `--ok` on `--bg` | 6.04 | AA | 10.12 | AAA |
 | `--ok` on `--surface` | 6.53 | AA | 9.16 | AAA |
 | `--ok` on `--ok-soft` | 5.53 | AA | 7.87 | AAA |
+| done check: `--ok` glyph on `--ok-soft` fill with a `--ok` border (never a white glyph on `--ok`: 1.8:1 in dark) | 5.53 | AA | 7.87 | AAA |
 | `--warn` on `--bg` | 6.40 | AA | 9.18 | AAA |
 | `--warn` on `--surface` | 6.92 | AA | 8.31 | AAA |
 | `--warn` on `--warn-soft` | 6.11 | AA | 7.84 | AAA |
@@ -76,7 +78,8 @@ reached (7:1). No other text pair is allowed; add a row here before using one.
 | `--toast-ink` on `--toast-bg` | 14.85 | AAA | 15.28 | AAA |
 | pin numeral `--surface` on `--ink` | 16.06 | AAA | 13.83 | AAA |
 | picked pin numeral `--accent-ink` on `--accent` | 6.96 | AA | 6.96 | AA |
-| `--header-ink` at 80% on cover gradient (darkest band `rgba(11,17,25,.88)` over any photo) | ≥ 7.0 | AAA | same | |
+| `--kicker-on-photo` (`--header-ink` at 80%) on the cover and drawer gradient (darkest band `rgba(11,17,25,.85)` over any photo) | ≥ 7.0 | AAA | same | |
+| globe pin count `--surface` on `--ink` disc | 16.06 | AAA | 13.83 | AAA |
 
 UI (non-text) pairs: `--line-2` on `--surface` 3.67 light / 3.42 dark; `--line-2` on `--bg` 3.39 / 3.78;
 `--accent` on `--header` 6.38 / 7.53; `--accent` on `--bg` 2.33 / 7.22 (so in light the accent never
@@ -90,19 +93,38 @@ token must pass on paper.
 | Role | Meaning | Light | Dark | Rules |
 |---|---|---|---|---|
 | `--accent` | **selected, now, primary action** (fill) | `#D9962B` | `#D9962B` | primary button, selected segment, picked day sign and route and pins, current day chip, insertion line, drag pill, active filter chip border |
+| `--accent-hover` | primary button hover fill | `#C98A22` | `#C98A22` | only with `--accent-ink` |
 | `--accent-ink` | text on `--accent` | `#241703` | `#241703` | |
 | `--accent-text` | accent as text | `#8A5300` | `#E8A94A` | the live count, the leave-by number, the active filter chip text, the "Bookings →" affordance in the switcher; never body text |
 | `--accent-soft` | accent well | `#FBEFD9` | `#2E2617` | active filter chip, booking-window callout |
-| `--crit` | **urgent**: deadline inside 7 days, missed, breaks the day, destructive text | `#A8341F` | `#F28E80` | text and icon; dashed border for honesty markers |
+| `--crit` | **urgent** (3.1): due inside 7 days, a window opening inside 48 hours, missed, breaks the day, destructive text | `#A8341F` | `#F28E80` | text and icon; dashed border for honesty markers |
 | `--crit-soft` | urgent well | `#F9E5E0` | `#3A2020` | |
-| `--crit-fill` | danger button fill, white text | `#B3402A` | `#B3402A` | |
-| `--warn` | **caution**: window open, over pace, possible-but-check, unverified value | `#7A5200` | `#E0B15C` | text + triangle icon on `--warn-soft`; **never a fill**, so it cannot be confused with `--accent` |
+| `--crit-fill` | danger button and badge fill | `#B3402A` | `#B3402A` | text on it is `--on-crit-fill` |
+| `--on-crit-fill` | text on `--crit-fill` | `#FFFFFF` | `#FFFFFF` | |
+| `--warn` | **caution** (3.1): due in 8 to 30 days, window open, over pace, possible-but-check, unverified value | `#7A5200` | `#E0B15C` | text + triangle icon on `--warn-soft`; **never a fill**, so it cannot be confused with `--accent` |
 | `--warn-soft` | caution well | `#FBF0D6` | `#2B2314` | |
 | `--ok` | **done, booked, fits** | `#1D6B3A` | `#8FD0A0` | text + check icon; the only green in the system; never a brand or surface colour |
 | `--ok-soft` | ok well | `#E0F0E6` | `#173025` | |
 | `--info` | **notice**: offline, saved at, remote edit, template, read-only | `#3D5A78` | `#9DBBDA` | text + icon on `--info-soft`; dashed border for offline |
 | `--info-soft` | notice well | `#E3EAF2` | `#182738` | |
-| `--focus` | focus ring | `#172230` | `#E7ECF1` | inside `--header`: `#F4F6F8` |
+| `--focus` | focus ring | `#172230` | `#E7ECF1` | inside `--header`: `--header-ink` |
+| `--kicker-on-photo` | cap kickers on a photo under the dark gradient (covers, drawer header) | `rgba(244,246,248,.8)` | same | never amber on a photo |
+
+### 3.1 Urgency thresholds (one rule, used everywhere)
+
+Computed at render time from the household's local date; today is day 0. The same function colours the
+switcher's second line, the needs-you due line, the booking card's "Book by" text, the task row's due, the
+trip card's next line, the badge count and the Next banner.
+
+| Level | When | Colour |
+|---|---|---|
+| urgent | due within 7 days (today to day 7), or missed, or a booking window that **opens** within 48 hours | `--crit` text; `--crit-soft` chip when a chip is drawn |
+| caution | due in 8 to 30 days, or a window that is **open** now (sell-out risk) | `--warn` text; `--warn-soft` chip |
+| neutral | due beyond 30 days, or no date | `--muted` text; neutral outline chip |
+
+On 18 Oct 2026: Elora's tubing slot opening Mon 19 Oct is urgent (window opens inside 48 h); Patagonia's
+"Book by Sat 31 Oct" (13 days) is caution; "By Sun 15 Nov" (28 days) is caution; Dolomites' Ortisei stay by
+Mon 15 Mar is neutral; the Tre Cime toll slot opening 15 Jun 2027 is neutral ("to book", not "window open").
 
 Status mapping (components.md "Chips"): to book = neutral outline; window open = caution; due ≤ 7 days or
 missed = urgent; held = outline + clock; booked and done = ok; idea = dashed neutral; unverified, no source,
@@ -111,10 +133,10 @@ location unconfirmed = dashed `--crit`.
 ## 4. Trip identity colours
 
 Okabe-Ito, unchanged in both themes. Assigned per trip at creation, unique among trips that are not done;
-done trips show `--line-2`. Each colour is used as a **ring** (2 px surface gap, then 2.5 px colour),
-a **bar** (4 px under a photo) or a **square** (10 px beside a name), always with a **1 px `--line-2`
-keyline** outside it, always within 8 px of the trip's photo or name. Never text, never a fill behind text,
-never on the map.
+done trips show `--line-2`. Each colour is used as a **ring** (2 px surface gap, then 2.5 px colour;
+2 px on the 28 px phone bottom-bar photo, the one exception), a **bar** (4 px under a photo) or a
+**square** (10 px beside a name), always with a **1 px `--line-2` keyline** outside it, always within 8 px
+of the trip's photo or name. Never text, never a fill behind text, never on the map.
 
 | Key | Hex | On white | On `--header` dark | Trip in the household data |
 |---|---|---|---|---|
@@ -151,15 +173,18 @@ status is a 10 px square beside a name.
 | `--map-pin` | `--ink` 22 px circle, `--surface` numeral mono 600 11 px | | the picked day's stops |
 | `--map-pin-pick` | `--accent` circle, `--accent-ink` numeral, 26 px | | selected item |
 | `--map-pin-idea` | hollow ring 2 px `--ink` | | unscheduled |
-| `--map-base` | `--ink` 26 px rounded square, `--surface` house glyph, Big Shoulders 800 14 px label with halo | | where you sleep |
+| `--map-base` | `--ink` 26 px rounded square, `--surface` house glyph, `--t-sign-s` (Big Shoulders 800 15 px) label with halo | | where you sleep |
 | `--map-base-pick` | `--accent` square, `--accent-ink` glyph | | base of the picked day |
 | `--map-cluster` | `--ink` circle 28 px, numeral count; co-located stops: one pin with a mono badge "3 · 5" | | |
 | `--map-select-ring` | 2 px `--accent`, 4 px offset | | hovered or focused pin |
 | `--map-leg-label` | mono 12 px `--ink-2` with halo, hidden below zoom 9 | | "38 min · 24 km" |
 
-Globe (public): styles Relief, Light, Dark use the same land, water and label tokens; country pins are
-`--accent` discs with `--accent-ink` counts (public: places + published trips), 28 to 44 px by count; the
-hovered country fills `--accent-soft` at 35%; the selected country outline is 2 px `--accent`.
+Globe (public): styles Relief, Light, Dark use the same land, water and label tokens. Country pins at
+rest are **`--ink` discs with `--surface` counts** (`--globe-pin`; public: places + published trips),
+28 to 44 px by count, 2 px `--map-halo` edge. Amber appears only on the **hovered or selected** pin
+(`--globe-pin-pick`: `--accent` disc, `--accent-ink` count) and as the selected country's 2 px `--accent`
+outline; the hovered country fills `--accent-soft` at 35%. Place pins at state level and below are `--map-stop`
+dots. The same rule holds for every public surface: nothing is amber at rest except a primary button.
 
 ## 6. Type
 
@@ -174,16 +199,23 @@ Big Shoulders Display (variable, 100 to 900), Source Serif 4 (variable, roman an
 | `--t-page` | Big Shoulders | 72 / 0.85 | 800 | page titles TRIPS, PLACES; 44 on phone |
 | `--t-trip` | Big Shoulders | 40 / 0.9 | 800 | trip name in the trip bar; 26 on phone |
 | `--t-section` | Big Shoulders | 32 / 1 | 800 | section heads, day titles, group headings |
-| `--t-card` | Big Shoulders | 24 / 0.95 | 800 | card titles, switcher rows, base names in the outline |
+| `--t-card` | Big Shoulders | 24 / 0.95 | 800 | card titles, base names in the outline, the brand |
+| `--t-row` | Big Shoulders | 21 / 1 | 800 | names in menu rows (switcher), the trip chip, table group headings, needs-you column heads, calendar month, day-strip numbers |
 | `--t-sign` | Big Shoulders | 19 / 1 | 800 | day signs (DAY 03), tracking .04em |
 | `--t-sign-s` | Big Shoulders | 15 / 1 | 800 | small signs in rows and collapsed days |
 | `--t-leave` | Big Shoulders | 78 / 0.85 | 800 | the leave-by number, `--accent-text` |
+
+The display scale is closed at these **nine** steps (96, 72, 40, 32, 24, 21, 19, 15, 78) plus the phone
+variants listed (56, 44, 26). Mapped uses: side-sheet title and the live count are `--t-section` 32; the
+season window on the public trip page and in-page tab titles (BOOKINGS) are `--t-trip` 40; nothing is set at
+18, 20, 22, 30, 34 or 52. Add a row here before using another size.
 | `--t-body` | Source Serif 4 | 16 / 1.5 | 400 | body, summaries, descriptions, row titles at 600 |
 | `--t-body-l` | Source Serif 4 | 19 / 1.45 | 400 | page intro lines, cover standfirst (21 on cover) |
 | `--t-title` | Source Serif 4 | 17 / 1.25 | 600 | item and row titles |
 | `--t-note` | Source Serif 4 italic | 15.5 / 1.4 | 400 | notes under items |
 | `--t-small` | Source Serif 4 | 14.5 / 1.4 | 400 | tile notes, help text |
-| `--t-mono` | IBM Plex Mono | 13 / 1 | 500 | buttons, tabs, pills, segments, table cells |
+| `--t-mono` | IBM Plex Mono | 13 / 1 | 500 | buttons, pills, segments, table cells |
+| `--t-tab` | IBM Plex Mono | 13.5 / 1 | 500 | header tabs and trip tabs (600 when current) |
 | `--t-meta` | IBM Plex Mono | 12.5 / 1.45 | 400 | card meta, dates, legs |
 | `--t-label` | IBM Plex Mono | 12 / 1.3 | 500 | field labels, column heads, `--muted` |
 | `--t-cap` | IBM Plex Mono | 11.5 / 1.2 | 600 | capital labels, tracking .06em, uppercase |
@@ -193,15 +225,18 @@ Big Shoulders Display (variable, 100 to 900), Source Serif 4 (variable, roman an
 Rules. Big Shoulders only at the sizes above; never for a button, a sentence or a value under 15 px. Mono
 sets one line; if it would wrap, truncate with an ellipsis and a `title`. Numbers in prose are serif;
 numbers in rows, chips and tables are mono. Mono has slashed zeros by default; no `tnum` is needed. Minimum
-text size 11.5 px, and 16 px for inputs on phone.
+text size **11.5 px with no exceptions** (badge digits, map attribution, chart axes and photo credits are all
+11.5), and 16 px for inputs everywhere (phone and desktop; the search field included).
 
 ## 7. Spacing, radius, borders, elevation
 
 - Space: `--s-1` 4, `--s-2` 8, `--s-3` 12, `--s-4` 16, `--s-5` 20, `--s-6` 24, `--s-8` 32, `--s-10` 40,
   `--s-12` 48, `--s-16` 64. Scanning density uses 8 to 12; reading density 16 to 24.
-- Radius: `--r-1` 4 (kbd, badges), `--r-2` 6 (selects, small thumbs), `--r-3` 8 (buttons, inputs, segments,
-  signs' thumbnail), `--r-4` 12 (cards, menus, drawers' header photo), `--r-5` 16 (phone cards, map
-  panel), `--r-sheet` 18 top corners, `--r-full` 999 (pills, chips, rings).
+- Radius: `--r-1` 4 (kbd), `--r-2` 6 (small thumbs, the trip bar photo), `--r-3` 8 (buttons, inputs,
+  selects, segments, signs' thumbnail, banners, legend cards, lifted rows, late toggles, day-strip cells),
+  `--r-4` 12 (cards including booking and leave-by cards, menus, tables, drawers' header photo), `--r-5` 16
+  (phone cards, map panel), `--r-sheet` 18 top corners, `--r-full` 999 (pills, chips, rings, badges). No
+  10 or 14 px radius anywhere.
 - Borders: 1 px `--line` on cards and rows; 1 px `--line-2` on inputs, buttons, pills; 2 px `--accent`
   for selected cards and inputs in focus (plus the focus ring); dashed 1 px for idea, offline and honesty.
 - Elevation (light): `--e-0` none; `--e-1` cards: 1 px `--line`; `--e-2` floating (menus, popovers,
@@ -212,8 +247,8 @@ text size 11.5 px, and 16 px for inputs on phone.
 ## 8. Focus
 
 `outline: 2px solid var(--focus); outline-offset: 2px; border-radius: inherit` on `:focus-visible` only.
-Inside `--header` and on `--accent` fills the ring is `--focus` (ink in light, which is 6.38:1 on amber), and
-inside the header it is `--header-ink`. Pins and map controls use `--map-select-ring`. Never remove the
+On `--accent` fills the ring is `--focus` (ink in light, which is 6.38:1 on amber); inside the header it is
+`--header-ink`. Pins and map controls use `--map-select-ring`. Never remove the
 ring without a replacement of equal size.
 
 ## 9. Z-index layers

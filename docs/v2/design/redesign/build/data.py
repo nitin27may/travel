@@ -85,7 +85,7 @@ TRIPS = [
          colour="blue", photo="misurina", next="Book the Ortisei stay (Guest Pass)", due="Mon 15 Mar", away="in 5 months", ready=(1, .44, .08, 0)),
     dict(id="costa-rica", title="Costa Rica", sub="Family · 2 bases", dates="13 – 23 Feb 2027", nights=10, phase="Planning",
          colour="teal", photo="arenal", next="Pick the second base: Monteverde or La Fortuna", due="", away="", ready=(.8, .1, 0, 0)),
-    dict(id="iceland", title="Iceland by camper van", sub="Ring Road · 11 nights", dates="4 – 15 Sep 2027", nights=11, phase="Planning",
+    dict(id="iceland", title="Iceland by camper van", sub="Ring Road · 10 campsites", dates="4 – 15 Sep 2027", nights=11, phase="Planning",
          colour="sky", photo="jokulsarlon", next="No campsite confirmed open for Sep 2027", due="", away="", ready=(.9, 0, 0, 0)),
     dict(id="chamonix", title="Chamonix and Mont Blanc", sub="France · 2 bases", dates="1 – 9 Sep 2028", nights=8, phase="Planning",
          colour="yellow", photo="chamonix", next="Lac Blanc refuge bookings open ~15 Oct 2027", due="", away="", ready=(.85, 0, 0, 0)),

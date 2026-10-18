@@ -16,12 +16,12 @@ MAP = {"dark": "../assets/map-trail-dark.webp", "light": "../assets/map-trail-li
 
 CSS = C.fonts_css("Big Shoulders Display", "Source Serif 4", "IBM Plex Mono") + """
 :root{--bg:#F5F6F8;--deep:#ECEFF3;--surface:#FFFFFF;--surface2:#E9EDF2;--line:#D8DEE5;--line2:#8C99A8;--ink:#172230;--ink2:#2B3746;--muted:#4D5B6B;
---accent:#D9962B;--accent-ink:#241703;--accent-text:#8A5300;--accent-soft:#FBEFD9;--teal:#0B5B5E;--crit:#A8341F;--crit-fill:#B3402A;--crit-soft:#F9E5E0;
+--accent:#D9962B;--accent-ink:#241703;--accent-text:#8A5300;--accent-soft:#FBEFD9;--teal:#0B5B5E;--crit:#A8341F;--crit-fill:#B3402A;--crit-soft:#F9E5E0;--warn:#7A5200;--warn-soft:#FBF0D6;--kicker-on-photo:rgba(244,246,248,.8);
 --ok:#1D6B3A;--ok-soft:#E0F0E6;--header:#172230;--header-ink:#F4F6F8;--header-mute:#B8C3CF;--header-line:#3A4A5D;--header-2:#1F2D3D;
 --route:#172230;--halo:#FFFFFF;--img:1;--shadow:0 0 0 1px #D8DEE5,0 20px 50px rgba(23,34,48,.16);
 --display:'Big Shoulders Display','Arial Narrow',sans-serif;--serif:'Source Serif 4',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;color-scheme:light}
 [data-theme=dark]{--bg:#0F1620;--deep:#0B1119;--surface:#16202C;--surface2:#1E2A38;--line:#2A3A4C;--line2:#52667B;--ink:#E7ECF1;--ink2:#C9D2DC;--muted:#A3B0BE;
---accent:#D9962B;--accent-ink:#241703;--accent-text:#E8A94A;--accent-soft:#2E2617;--teal:#5CC4C8;--crit:#F28E80;--crit-fill:#C4553D;--crit-soft:#3A2020;
+--accent:#D9962B;--accent-ink:#241703;--accent-text:#E8A94A;--accent-soft:#2E2617;--teal:#5CC4C8;--crit:#F28E80;--crit-fill:#C4553D;--crit-soft:#3A2020;--warn:#E0B15C;--warn-soft:#2B2314;--kicker-on-photo:rgba(244,246,248,.8);
 --ok:#8FD0A0;--ok-soft:#173025;--header:#0B1119;--header-2:#16202C;--header-line:#3A4A5D;--route:#E7ECF1;--halo:#0F1620;--img:.92;--shadow:0 0 0 1px #2A3A4C,0 20px 50px rgba(0,0,0,.5);color-scheme:dark}
 *{box-sizing:border-box;margin:0;padding:0}
 [data-theme=dark] .tmap .img-light{display:none}:root:not([data-theme=dark]) .tmap .img-dark{display:none}
@@ -92,6 +92,7 @@ img{display:block;filter:brightness(var(--img))}
 .nrow .due{display:flex;gap:8px;align-items:center;font:500 12px var(--mono);color:var(--muted)}
 .nrow .due b{color:var(--ink);font-weight:600}
 .nrow .due.crit,.nrow .due.crit b{color:var(--crit)}
+.nrow .due.warn,.nrow .due.warn b{color:var(--warn)}
 .nrow .w{font-weight:600;font-size:16px;line-height:1.3;margin:2px 0}
 .nrow .acts{display:flex;gap:6px;margin-top:6px}
 .toolbar{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:6px 0}
@@ -122,6 +123,7 @@ img{display:block;filter:brightness(var(--img))}
 .card p{font-size:16px;line-height:1.4;color:var(--ink2)}
 .card .next{display:flex;gap:8px;align-items:flex-start;padding-top:10px;margin-top:auto;border-top:1px solid var(--line);font:500 12.5px/1.4 var(--mono);color:var(--ink2)}
 .card .next.crit{color:var(--crit)}
+.card .next.warn{color:var(--warn)}
 .ready{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
 .ready i{height:4px;border-radius:2px;background:var(--line);position:relative;overflow:hidden}
 .ready i b{position:absolute;inset:0 auto 0 0;background:var(--ink2)}
@@ -219,6 +221,7 @@ img{display:block;filter:brightness(var(--img))}
 .mrow img{width:52px;height:38px;border-radius:6px;object-fit:cover;box-shadow:0 0 0 2px var(--surface),0 0 0 4.5px var(--tc)}
 .mrow b{font:800 21px/1 var(--display)} .mrow small{display:block;font:500 11.5px/1.45 var(--mono);color:var(--muted);margin-top:3px}
 .mrow small.crit{color:var(--crit)}
+.mrow small.warn{color:var(--warn)}
 .mrow.hover{background:var(--surface2)}
 .mrow .go{font:600 12px var(--mono);color:var(--accent-text)}
 .mrow .here{font:500 12px var(--mono);color:var(--muted)}
@@ -230,7 +233,7 @@ img{display:block;filter:brightness(var(--img))}
 .form .fh:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,17,25,.2),rgba(11,17,25,.85));z-index:1}
 .form .fh:after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--tc);z-index:2}
 .form .fh .in{position:absolute;left:22px;right:22px;bottom:16px;z-index:2}
-.form .fh small{font:600 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#F0B356}
+.form .fh small{font:600 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--kicker-on-photo)}
 .form .fh h3{font:800 34px/1 var(--display)}
 .form .fb{padding:18px 22px;display:grid;gap:12px}
 .fl label{display:block;font:500 12px var(--mono);color:var(--muted);margin-bottom:5px}
@@ -387,7 +390,7 @@ def tripbar(cr: C.Credits, trip: str, tab: str) -> str:
 
 def tcard(cr: C.Credits, tid: str) -> str:
     t = D.TRIP[tid]
-    nxt = f'<div class="next{" crit" if tid in ("elora", "patagonia") else ""}">{icon("clock", 15)}<span>{esc(t["next"])}{" · " + t["due"] if t["due"] else ""}</span></div>'
+    nxt = f'<div class="next{" crit" if tid == "elora" else " warn" if tid == "patagonia" else ""}">{icon("clock", 15)}<span>{esc(t["next"])}{" · " + t["due"] if t["due"] else ""}</span></div>'
     return (f'<article class="card" {tc(tid)}><div class="ph"><img src="{cr.url(t["photo"], 960)}" {D.focus(t["photo"])} alt="{esc(D.PHOTOS[t["photo"]][3])}"></div><div class="in">'
             f'<h3>{esc(t["title"])}</h3><div class="meta">{esc(t["dates"])}, {(str(t["nights"]) + " nights, " + esc(t["sub"])) if t["nights"] else esc(t["sub"]).lower()}</div>'
             f'<div class="chips"><span class="chip acc">{icon("calendar")} {D.COUNTDOWN[tid]}</span><span class="chip"><i class="dot"></i> {t["phase"]}</span></div>'
@@ -428,7 +431,7 @@ def home() -> str:
         f'<article class="card" style="--tc:var(--line2)"><div class="ph">{f"<img src={chr(34)}{cr.url(d["photo"], 960)}{chr(34)} alt={chr(34)}{chr(34)}>" if d["photo"] else "<div class=glyph>" + icon("map", 30) + "</div>"}</div>'
         f'<div class="in"><h3>{esc(d["title"])}</h3><div class="meta">{esc(d["dates"])} · read-only</div><div class="chips"><span class="chip ok">{icon("check")} Done</span></div>'
         f'<p>{esc(d["note"])}.</p><div class="next" style="border:0;padding:0"><button class="btn sm">{icon("copy", 14)} Use as a template</button></div></div></article>' for d in D.DONE)
-    body = (header(cr, trip=None, active="Trips") + '<main class="wrap"><div class="ptitle"><div><h1>TRIPS</h1><p>Monday 18 October. Three trips are moving; one needs you tomorrow.</p></div>'
+    body = (header(cr, trip=None, active="Trips") + '<main class="wrap"><div class="ptitle"><div><h1>TRIPS</h1><p>Sunday 18 October. Three trips are moving; one needs you tomorrow.</p></div>'
             f'<div class="acts"><button class="btn">{icon("mail", 15)} Forward a confirmation</button><button class="btn primary">{icon("plus", 15)} Plan a trip</button></div></div>'
             + needs + toolbar +
             f'<div class="ghead"><h2>In progress</h2><span>4</span></div><div class="cards">{inprog}</div>'
@@ -568,7 +571,7 @@ def bcards(cr, bks, on: str = "") -> str:
             last = b["day"]
         st = {"booked": f'<span class="chip ok">{icon("check")} Booked</span>', "held": '<span class="chip idea">Held</span>', "to_book": '<span class="chip acc">To book</span>'}[b["status"]]
         w = b.get("window", "") or b["code"]
-        wc = ' style="color:var(--crit)"' if "31 Oct" in w else ""
+        wc = ' style="color:var(--warn)"' if "31 Oct" in w else ""
         out += (f'<div class="bcard{" on" if on and on in b["title"] else ""}"><span class="k">{icon(C.KIND_ICON[b["kind"]], 20)}</span><div><b>{esc(b["title"])}</b><small>{esc(b["when"])}</small></div>'
                 f'<div class="r">{st}<span{wc}>{esc(w)}</span></div><div class="r"><b style="font-size:14px">{esc(b["money"])}</b></div></div>')
     return out
@@ -587,12 +590,12 @@ def bookings_switch() -> str:
     bh = lambda tid, s: (f'<div style="display:flex;align-items:center;gap:12px"><h2 class="d" style="font-size:44px">BOOKINGS</h2><span class="lab">{s}</span><span style="flex:1"></span>'
                          f'<button class="btn">{icon("mail", 15)} Forward a confirmation</button><button class="btn primary">{icon("plus", 15)} Add a booking</button></div>')
     rows = ""
-    for tid, note, crit, state in [("elora", "Sat 24 Oct · tubing slot opens Mon 19 Oct", True, ""), ("patagonia", "26 Feb · flight and lodging by Sat 31 Oct", True, "hover"),
+    for tid, note, crit, state in [("elora", "Sat 24 Oct · tubing slot opens Mon 19 Oct", "crit", ""), ("patagonia", "26 Feb · flight and lodging by Sat 31 Oct", "warn", "hover"),
                                    ("dolomites", "13 Jul · Ortisei stay by Mon 15 Mar", False, "here"), ("costa-rica", "13 Feb · pick the second base", False, "")]:
         t = D.TRIP[tid]
         right = f'<span class="go">Bookings →</span>' if state == "hover" else (f'<span class="here">{icon("check", 13)} here</span>' if state == "here" else "")
         rows += (f'<div class="mrow {state}" {tc(tid)}><img src="{cr.url(t["photo"], 330)}" {D.focus(t["photo"])} alt=""><div><b>{esc(t["title"])}</b>'
-                 f'<small class="{"crit" if crit else ""}">{esc(note)}</small></div>{right}</div>')
+                 f'<small class="{crit or ""}">{esc(note)}</small></div>{right}</div>')
     menu = (f'<div class="scrim"></div><div class="menu"><div class="cap">In progress · soonest first</div>{rows}<div class="cap">Planning</div>'
             + "".join(f'<div class="mrow" {tc(x)}><img src="{cr.url(D.TRIP[x]["photo"], 330)}" alt=""><div><b>{esc(D.TRIP[x]["title"])}</b><small>{esc(D.TRIP[x]["dates"])}</small></div></div>' for x in ("iceland",))
             + f'<div class="mfoot"><span>switching keeps the tab you are on</span><a href="#" style="color:var(--accent-text)">Done (3) →</a></div></div>')
@@ -619,7 +622,7 @@ def bookings_switch() -> str:
 
 def public() -> str:
     cr = C.Credits()
-    cover = (f'<section class="cover"><img src="{cr.url("seceda", 1920)}" {D.focus("seceda")} alt=""><div class="in"><div class="wrap"><span class="cap" style="color:#F0B356">Published plan · South Tyrol and Veneto, Italy</span>'
+    cover = (f'<section class="cover"><img src="{cr.url("seceda", 1920)}" {D.focus("seceda")} alt=""><div class="in"><div class="wrap"><span class="cap" style="color:var(--kicker-on-photo)">Published plan · South Tyrol and Veneto, Italy</span>'
              f'<h1>DOLOMITES,<br>THIRTEEN NIGHTS</h1><p>Three valley bases, early starts at the famous lakes, a Sass Pordoi day and sunset in Val di Funes. A rental car throughout.</p>'
              f'<div class="meta"><span class="chip">14 days</span><span class="chip">4 bases</span><span class="chip">drive 1 h 10 a day</span><span class="chip">moderate</span><span class="chip">ages 8+</span><span class="chip">by Nitin · copied 41 times</span></div>'
              f'<div class="acts"><button class="btn primary">{icon("copy", 15)} Copy to my trips</button><button class="btn">{icon("share", 15)} Share</button></div></div></div></section>')
@@ -646,7 +649,7 @@ def trail() -> str:
     cr = C.Credits()
     T = D.TRAIL
     th = T["trailhead"]
-    cover = (f'<section class="cover" style="height:560px"><img src="{cr.url("locatelli", 1920)}" {D.focus("locatelli")} alt=""><div class="in" style="bottom:80px"><div class="wrap"><span class="cap" style="color:#F0B356">Trail · {esc(T["area"])}</span>'
+    cover = (f'<section class="cover" style="height:560px"><img src="{cr.url("locatelli", 1920)}" {D.focus("locatelli")} alt=""><div class="in" style="bottom:80px"><div class="wrap"><span class="cap" style="color:var(--kicker-on-photo)">Trail · {esc(T["area"])}</span>'
              f'<h1 style="font-size:104px">TRE CIME DI LAVAREDO LOOP</h1><p>{esc(T["summary"])}</p>'
              f'<div class="acts"><button class="btn primary">{icon("plus", 15)} Add to Dolomites · Day 3</button><button class="btn">{icon("download", 15)} GPX</button><button class="btn">{icon("share", 15)} Share</button></div></div></div></section>')
     glance = ('<div class="wrap"><div class="glance">' + "".join(f'<div><span class="cap">{k}</span><b>{v}{f" <small>{u}</small>" if u else ""}</b><span class="src c-{c}"><i></i>{esc(s)}</span></div>' for k, v, u, s, c in T["facts"]) + "</div></div>")
@@ -680,7 +683,7 @@ def explore() -> str:
     toolbar = (f'<div class="toolbar"><div class="search">{icon("search", 17)} Search places<kbd>/</kbd></div>'
                f'<div class="filters">' + "".join(f'<span class="pill">{n} {icon("chev", 14)}</span>' for n in ("Country", "Kind", "Status", "Kids", "Season", "Tag", "Plan")) + '</div>'
                f'<div class="views"><a>{icon("layers", 15)} Cards</a><a>{icon("list", 15)} List</a><a aria-current="page">{icon("doc", 15)} Table</a><a>{icon("map", 15)} Map</a></div></div>'
-               f'<div class="subbar"><span class="count">64<small>places</small></span><span class="chip acc">{icon("x")} Plan: Dolomites</span><span class="sp"></span><span class="lab">Group by</span><span class="selbox">Country {icon("chev", 14)}</span>'
+               f'<div class="subbar"><span class="count">57<small>places</small></span><span class="chip acc">{icon("x")} Plan: Dolomites</span><span class="sp"></span><span class="lab">Group by</span><span class="selbox">Country {icon("chev", 14)}</span>'
                f'<span class="lab">Sort by</span><span class="selbox">Country, region, area {icon("chev", 14)}</span></div>'
                f'<div class="ttools"><button class="btn sm">{icon("layers", 14)} Saved views</button><button class="btn sm">{icon("list", 14)} Columns</button>'
                f'<button class="btn sm">{icon("list", 14)} Comfortable rows</button><button class="btn sm">{icon("download", 14)} Export CSV</button>'

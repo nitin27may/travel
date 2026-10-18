@@ -35,6 +35,29 @@ section 2 is the work.
 | B4 | **Amber on public surfaces.** Globe country pins are `--accent` discs at rest (tokens.md 5, components.md 7.2) and the elevation profile is an `--accent` line and area (components.md 4.4, specimen). Neither is "selected, now, primary action". Make resting globe pins and the profile `--ink`; amber only for the hovered/selected pin and the scrub cursor. | tokens.md 5, components.md 4.4, 7.2 | These are the two most-seen public components, and C1 was the review's top finding. |
 | B5 | **Category taxonomy for the trip detail.** patterns.md 3.4 names five categories (Stays, Trails, Sights, Food, Logistics) but not which of the fifteen place kinds in `docs/v2/research/kinds/` go where (lake, waterfall, viewpoint, swim spot, town, event, adventure, lift, parking, trailhead, hut). Add the mapping, the rule for an item with two kinds, and the empty-category behaviour. Also say how the category strip behaves on phone (scrolling chips or a select). | patterns.md 3.4 | The categorised trip page is the owner's top public ask; without the mapping two people build two different pages. |
 
+### Gate fixes (18 Oct, evening)
+
+All five blocking items are resolved in the foundation; the specimen and the changed previews were
+re-rendered at 2x in light and dark and read in tiles.
+
+| # | Resolved by | Where |
+|---|---|---|
+| B1 | One URL table: public `/trips/<trip-slug>`, `/places/<place-slug>`, `/globe/<country>/<state>`, `/globe/place/<slug>`, `/globe/trip/<slug>`; planner `/home`, `/t/<trip-slug>/<tab>/<item-id>`; shared `?share=<token>`; slugs carry the start year; item ids prefixed (`bk_7f3a`). Rule 9's example, recommendation.md 2/5/6 and patterns 4.5 now match. | foundation/patterns.md 1.2; trip-scope-scenarios.md rule 9; redesign/recommendation.md 2 (superseded note) |
+| B2 | One urgency rule: `--crit` within 7 days or a window opening within 48 h or missed; `--warn` 8 to 30 days or window open; neutral beyond. Switcher, needs-you, booking card, task row, trip card, badge and Next banner all cite it; Patagonia's 13-day deadlines are ochre everywhere. | foundation/tokens.md 3.1, tokens.json `urgency`; components.md shared rules, 1.3, 1.4, 2.8, 3.1, 3.3, 3.4, 3.5, 5.4; specimen Rows, Cards, Switcher, Chips; home.html and bookings-switch.html rebuilt |
+| B3 | Display scale closed at nine steps: `--t-row` 21 added (switcher rows, trip chip, group headings, needs-you heads, calendar month, day strip); 30/34 map to `--t-section` 32 (sheet title, count); 52 and the tab page title map to `--t-trip` 40; the map base label is `--t-sign-s` 15. `--t-tab` 13.5 added for tabs. | foundation/tokens.md 6, tokens.json `type.row`, `type.tab`; components.md 1.1, 1.2, 1.3, 3.3, 4.2, 5.1; patterns.md 3.4; specimen Type and every affected component |
+| B4 | Globe country pins are `--ink` discs with `--surface` counts at rest, amber only hovered or selected (`--globe-pin`, `--globe-pin-pick`); the elevation profile is an `--ink` line and 10% area with an amber scrub cursor and position dot only. | foundation/tokens.md 5, tokens.json `map.globe-pin*`; components.md 4.4, 7.2; specimen Map and globe, Elevation |
+| B5 | Six categories (Activities added, justified by the `activity` entity kind); all fifteen kinds mapped with the two-kind rule, counts, empty-category and chip-tap behaviour; phone strip: 32 px chips scrolling sideways with snap and a fade, sticky and scroll-spied in By category only. | foundation/patterns.md 3.4; changes-from-preview.md 7 |
+
+Also fixed: the date slips in 5.1 (specimen 13 and 28 days, Tre Cime slot "to book" neutral, home.html Sunday,
+Halloween replaced by Thanksgiving in components 2.4, places count 57, Iceland nights once); the dark done
+check (`--ok-soft` fill, `--ok` glyph, 7.87:1); the side sheet at 460/140/32 in both documents; hex in
+components replaced by `--accent-hover`, `--on-crit-fill`, `--kicker-on-photo`; radii 10 and 14 and text
+under 11.5 px brought onto the scale; search input 16 px; `phone-header-h` and the bottom-bar ring
+exception recorded; N1 to N6 written as one-paragraph specs in patterns.md 4.8 with the S6 cross-trip link in
+components 3.5. The preview slips were fixed in the generator and the previews rebuilt (byte-identical
+before the change), so a rebuild keeps them. Rows still open from 5.1 are the prototype's (`TODAY`
+constant, Tasks counts, the Air Canada sample) and belong to the migration.
+
 ### Fixes that can be done during implementation
 
 Listed in sections 2 (prototype migration) and 5 (consistency). The planner-only ones (N1 to N6) come before

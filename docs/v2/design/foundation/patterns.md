@@ -23,13 +23,44 @@ chip in the header is a better switcher than a rail module.
 "Discover" from the recommendation is renamed **Trips**: for a visitor the published trips *are* the
 trips. The signed-in household's own trips are **Home**. Names people already know beat a new noun.
 
-### 1.2 URLs
+### 1.2 URLs: the one table
 
-Public: `/trips`, `/trips/<slug>` (`#day-3`, `#stays` anchors), `/places`, `/places/<slug>`, `/globe`,
-`/globe/<country>/<state>`. Every list carries its state: `?q=lake&kind=trail,lake&view=table&group=country&sort=area&page=2`.
-Planner: `/home`, `/t/<trip-slug>/plan?day=3&focus=itm_…`, `/t/<slug>/bookings/<id>`, `/t/<slug>/today`,
-`/t/<slug>/tasks`, `/t/<slug>/budget`, `/t/<slug>/share`. Sheets add `?focus=`; Back closes them. A link
-never opens the wrong trip (rule 9).
+This table is the only place URLs are defined. trip-scope-scenarios.md rule 9, recommendation.md 2 and
+every component follow it; where an older page differs, this table wins. Public URLs are shared and
+bookmarked, so they never change after launch; the planner lives under `/t/` so that `/trips/...` always
+means a public, read-only page.
+
+| Surface | URL | Example |
+|---|---|---|
+| Home / inspiration | `/` | |
+| Trips search | `/trips` + list state | `/trips?when=2027&country=it&view=table&group=year&sort=start&dir=asc&page=2` |
+| Public trip page | `/trips/<trip-slug>`; anchors `#day-3`, `#stays`, `#trails`, `#sights`, `#activities`, `#food`, `#logistics`; `?view=category` for the By category segment | `/trips/dolomites-2027#day-3` |
+| Places search | `/places` + list state | `/places?q=lake&kind=trail,lake&status=planned&kids=yes&season=jul&tag=photo&plan=dolomites-2027&view=table&group=country&sort=area&dir=asc&page=2` |
+| Public place or trail page | `/places/<place-slug>` | `/places/tre-cime-di-lavaredo-loop` |
+| Globe, world | `/globe` | |
+| Globe, country / state / district | `/globe/<country>[/<state>[/<district>]]` (ISO 3166 code for the country, URL slugs below it) | `/globe/it/south-tyrol/pustertal` |
+| Globe, place | `/globe/place/<place-slug>` (flies in, opens the selection card) | `/globe/place/lago-di-braies` |
+| Globe, trip | `/globe/trip/<trip-slug>` (fits the route, pins in the trip ring when signed in) | `/globe/trip/patagonia-2027` |
+| Planner home | `/home`; `?view=year` for the Year view; `?due=week` for Needs-you, all trips | `/home?view=year` |
+| Trip (last tab) | `/t/<trip-slug>` redirects to that trip's remembered tab | `/t/patagonia-2027` |
+| Trip tab | `/t/<trip-slug>/<tab>` with `tab` in plan · today · bookings · tasks · budget · share | `/t/patagonia-2027/bookings` |
+| Plan, a day | `/t/<trip-slug>/plan?day=3` | |
+| Item inside a tab (opens the sheet) | `/t/<trip-slug>/<tab>/<item-id>`; item ids are prefixed and opaque: `it_` plan item, `bk_` booking, `tk_` task, `ex_` expense | `/t/patagonia-2027/bookings/bk_7f3a`, `/t/patagonia-2027/tasks/tk_2c91`, `/t/dolomites-2027/plan/it_9d0e` (day inferred) |
+| Shared link | the planner URL plus `?share=<token>`; a guest keeps `share` while moving inside that trip; a signed-in member of the trip is redirected to the plain URL with their own role (N4) | `/t/patagonia-2027/bookings/bk_7f3a?share=k9QwL3` |
+| Cross-trip pages | `/inbox`, `/people`, `/people/<person-id>`, `/settings` | `/people/pe_Kai` |
+| Not found | any unknown path renders the 404 template (components 6.3) at the requested URL | |
+
+Rules. **Slugs**: a trip slug is the kebab-case name plus the start year for dated trips
+(`patagonia-2027`, `elora-gorge-2026`); an undated idea uses the name alone (`peru`) and gains the year when
+it is dated, with the old slug redirecting. A place slug is the kebab-case name, disambiguated by its area
+when two share a name (`moss-glen-falls-stowe`, `moss-glen-falls-granville`). **List state** is always in the
+query string with keys in this order: `q`, filters (`when`, `source`, `country`, `kind`, `status`, `kids`,
+`season`, `tag`, `plan`), `view`, `group`, `sort`, `dir`, `page`; defaults are omitted, multi-values are
+comma-separated. **Sheets** are path segments, so Back closes a sheet and returns to the tab; nothing opens
+in a sheet without a URL. **Map view** of a list carries `?view=map&c=lon,lat,zoom`; the globe adds the same
+`c=` for camera, optional and never required to resolve a link. A link never opens the wrong trip (rule 9):
+the trip slug is in the path of every trip-scoped URL, and an item id that belongs to another trip is a 404,
+not a redirect.
 
 ### 1.3 Keyboard layer (desktop)
 
@@ -88,21 +119,66 @@ one pin per trip at its first base with the cover photo in the selection card.
    Tyrol and Veneto, Italy"), title 96, standfirst serif 21, chips (14 days, 4 bases, drive 1 h 10 a day,
    moderate, ages 8+, by Nitin · copied 41 times), actions: **Copy to my trips** (primary), Export
    (menu: PDF, GPX, CSV, calendar), Share.
-2. **Season band**: "This plan is valid for" + Big Shoulders 52 window, why, the 12-month strip (solid as
-   written, hatched possible), weather tiles (sized to content), warnings.
+2. **Season band**: "This plan is valid for" + the window in `--t-trip` (40), why, the 12-month strip
+   (solid as written, hatched possible), weather tiles (sized to content), warnings.
 3. **The route**: map, all days by road, bases named, 6 px stop dots; picking a day in the day list
    highlights it.
-4. **In this trip**: a category strip of five chips with counts — **Stays 4 · Trails 9 · Sights 6 · Food 3
-   · Logistics 5** — above a segmented control **By day / By category**.
-   - By day (default): fourteen uniform **day rows** (quiet sign DAY 03, 96 x 68 thumbnail, Big Shoulders
-     24 title, mono base · drive, serif stop list), each expandable to its stops with legs; `#day-3`
+4. **In this trip**: a category strip of **six** chips with counts — **Stays 4 · Trails 9 · Sights 6 ·
+   Activities 3 · Food 3 · Logistics 5** — above a segmented control **By day / By category**.
+   - By day (default): fourteen uniform **day rows** (quiet sign DAY 03, 96 x 68 thumbnail, `--t-card`
+     title, mono base · drive, serif stop list), each expandable to its stops with legs; `#day-3`
      anchors.
-   - By category: five sections in the strip's order; each item is a list row (components 3.2) with its
+   - By category: six sections in the strip's order; each item is a list row (components 3.2) with its
      kind glyph, name, area, the day sign it belongs to ("Day 3 · 11:30") and a link to its place page.
      Stays show nights and check-in; Logistics holds flights, car, tolls, slots and passes.
 5. **Copy and export** repeated at the end, then credits and attribution.
 
 Chronological order is never changed by the category view; category only regroups the same items.
+
+**Kind to category.** Six categories, not five: the research kinds (docs/v2/research/kinds/README.md)
+store adventures and lifts as `activity`, not `place`, and they are the items a family checks limits and
+booking windows on, so they get their own chip instead of hiding under Sights. Every one of the fifteen
+kinds maps once:
+
+| Kind (entity kind / subkind) | Category | How it reads in the row |
+|---|---|---|
+| stay (hotel, lodge, b_and_b, apartment, campsite, …) | **Stays** | nights, check-in, cancellation; the base town is the row's area, not an item of its own |
+| hut with beds (`stay` / `hut`) | **Stays** | a hut night; a hut that is only a lunch stop is its `eatery` / `hut_kitchen` row under Food |
+| trail (hike, walk, scramble, trek_stage, snowshoe, bike, paddle, via_ferrata_approach) | **Trails** | distance · climb · time; "starts at" names the trailhead; "by Seceda gondola" names a lift used only for access |
+| trailhead | **Trails** | never its own row: it is the "starts at" line of its trail; a trailhead scheduled on its own (shuttle meeting point) is **Logistics** |
+| parking | **Logistics** | always with what it serves: "P4 for Lago di Braies · reserve"; shown only when it is a booking or has a fee or fill time worth planning |
+| viewpoint (viewpoint, summit, pullout) | **Sights** | light, walk from the car |
+| lake | **Sights** | swim, boats, parking |
+| waterfall (waterfall, canyon, gorge) | **Sights** | access walk when over 2 km |
+| sight (museum, church, castle, landmark, old_town, market, garden, zoo, …) | **Sights** | hours, last entry, ticket |
+| town, village, city | **Sights** when visited (old-town stroll, market morning); a base that is only slept in is not an item (see Stays) |
+| swim spot, natural (beach, swim_spot, hot_spring) | **Sights** | with the lake or shore it belongs to |
+| swim spot, ticketed (`activity` / hot_spring, thermal_bath) | **Activities** | price, hours, ages |
+| adventure (zipline, via-ferrata, rafting, canyoning, glacier-walk, boat-tour, kayak, …) | **Activities** | operator, duration, ages and heights, booking window |
+| lift (gondola, cable_car, chairlift, funicular, rack_railway, scenic_train) | **Activities** when it is the outing; folded into a Trails row when it only shortens the walk; a pass covering several lifts is **Logistics** |
+| eatery (restaurant, cafe, bakery, hut_kitchen, winery, grocery, …) | **Food** | meal slot, booking if any |
+| event, attended (festival, market, sport) | **Activities** | dates, tickets |
+| event, affecting (closure, natural, holiday) | not an item: drawn as a warning on the day rows it touches and in the season band | |
+| bookings that are not places (flights, car hire, tolls, slots, passes, transfers, insurance) | **Logistics** | book-by date coloured by tokens 3.1 |
+
+Rules. **One item, one category**: the category comes from the item's primary entity; an item made of a
+subject and its access (a lake and its lot) files under the subject and names the access in its row, and
+the access becomes its own Logistics row only when it is a separate booking. **Counts** are distinct items in
+the trip; a place visited on two days is one row whose day signs read "Day 3 · also Day 5". **Empty
+category**: the chip shows "Food 0" at 45% opacity and is not clickable; the section is omitted in By
+category and the anchor resolves to the top of "In this trip". **Tapping a chip** (desktop and phone)
+switches to By category and scrolls to that section; in By day the chips are counts only. **Order** is
+fixed: Stays · Trails · Sights · Activities · Food · Logistics (where you sleep, then the day's spine, then
+the rest), never re-sorted by count.
+
+**Phone.** The strip is one horizontal row of 32 px chips (44 px hit via padding) that scrolls sideways
+with scroll-snap per chip and a 24 px fade at the right edge; no "More" and no select, because six chips
+with counts fit in about 1.6 screens and the scroll is the whole gesture. In **By category** the strip is
+sticky under the 56 px phone header (`--z-sticky`, `--bg` background, hairline below) and scroll-spies:
+the chip for the section in view takes the active-filter look (`--accent-soft`, `--accent` border) and the
+strip auto-scrolls to keep it visible. In **By day** the strip is not sticky; the day strip (components
+pdst) is. Counts stay on the chips at every width. The By day / By category segment sits directly above
+the strip and is 40 px, full width, two equal segments.
 
 ### 3.5 Places search (`/places`)
 
@@ -168,9 +244,11 @@ object named; Cancel is first in tab order.
 ### 4.5 Reminders and notifications
 
 Every notification names the trip first and opens it in context: "Patagonia · Book El Chaltén lodging ·
-due Sat 31 Oct". Push: title is the trip, body is the task and due; tapping opens `/t/patagonia/tasks/<id>`.
-Email: subject "Patagonia: book El Chaltén lodging by Sat 31 Oct", one button. Inbox rows carry the trip
-photo in its ring.
+due Sat 31 Oct". Push: title is the trip, body is the task and due; tapping opens
+`/t/patagonia-2027/tasks/tk_2c91` (1.2). Email: subject "Patagonia: book El Chaltén lodging by Sat 31 Oct",
+one button to the same URL. Inbox rows carry the trip photo in its ring. Notification timing follows the
+urgency rule (tokens 3.1): the ladder fires at caution (30 days), urgent (7 days), the day before and the
+day a window opens. Notification centre template: 4.8 N6.
 
 ### 4.6 Offline and Today mode
 
@@ -185,6 +263,59 @@ note (S5). On a travel day Today opens the trip in progress regardless of the la
 Inline errors replace the region, keep cached data visible and say what to do. Permission: viewers see the
 trip bar with a "view only" chip and no add controls; editors see everything; a guest by link sees the
 guest banner and Copy to my trips. Expired links: "This link expired on 1 May. Ask Nitin for a new one."
+Who sees what on a shared item link is in 4.8 N4.
+
+### 4.8 Before the planner: six templates still to write (N1 to N6)
+
+The public site does not need these. Each is specified here in one paragraph so the planner build starts
+from the same words; each becomes a full template (anatomy, states, phone) before its screen is built, and
+nothing in them changes the public templates above.
+
+- **N1 Tasks page** (`/t/<trip-slug>/tasks`, S6). Title block "TASKS · 1 of 12 done" (one count, the same
+  as the tab's), filter segment All · Open · Mine · Person checks, "Add a task" primary (N). Body: task rows
+  (components 3.5) **grouped by month** with a quiet month heading (`--t-sign-s`) and, inside a month, a
+  drawn booking window where one exists: a 4 px `--line-2` bar from opens to closes with the open date
+  labelled, turning `--warn` while open (tokens 3.1). Person checks sit in the month they fall due with the
+  person's initial disc and "shared with Patagonia". Footer: the cross-trip line "2 more due this week in
+  other trips →" to `/home?due=week`; omitted at zero. Done tasks collapse under "Done (4)" at the end.
+  Empty: "Nothing to do yet. Tasks come from bookings and the plan, or add one."
+- **N2 Inbox review** (`/inbox`, S3). One household address receives forwarded confirmations. A row:
+  sender and subject (serif 16/600), parsed facts as mono chips (dates, place, money, code), and a
+  **Files under** field pre-filled from the dates with "matched by the dates" and **Change** (switcher menu);
+  when the dates match no trip, Files under is empty and Save is disabled until a trip is chosen (rule 4).
+  Actions: **Add to Patagonia** (primary, names the trip), Not a booking, Open the email. Rows that could
+  match two trips show both with the dates that matched and no pre-selection. After saving: toast with Undo
+  and a **Move to another trip** item in the booking's menu (4.3). The bell count is the number of unreviewed
+  rows plus urgent notifications. Phone: full-width rows, the review as a bottom sheet.
+- **N3 Year view** (`/home?view=year`, S7). A horizontal 12-month axis (Big Shoulders month initials in
+  `--t-sign-s`, today as a 2 px `--accent` line, the only amber) with one 56 px row per trip that is not
+  done: photo in its ring and name left (sticky column), the trip's dates as an `--ink` bar with the identity
+  bar beneath it, booking windows as hollow `--line-2` brackets labelled with the item ("Tre Cime slot ·
+  opens 15 Jun"), book-by dates as 8 px dots coloured by tokens 3.1. Right-hand money column: **spend per
+  currency on separate lines**, never summed across currencies ("CAD 4,212 · EUR 1,340"), with "≈" for
+  estimates; a footer row totals each currency across trips the same way. Hover a bar: tooltip with phase,
+  nights, next deadline; click opens `/t/<slug>`. Phone: the axis scrolls sideways under a sticky name
+  column; money moves to a line under the name.
+- **N4 Shared item link: editor vs guest** (S9). `/t/patagonia-2027/bookings/bk_7f3a?share=k9QwL3` resolves
+  the token first. A **signed-in member** of that trip is redirected to the plain URL and sees the trip bar
+  and that booking's sheet with their own role (editor: everything, including Edit and Move; viewer: the
+  "view only" chip, no add controls). A **guest** (no account, or an account that is not a member) stays on
+  the `?share=` URL with the guest header (components 1.1: "Shared by Nitin · view only", Copy to my trips,
+  Sign in), the trip bar without Share and Offline, the booking open, and may browse that trip's tabs read
+  only; secret codes stay "••••" with no Reveal. A signed-in non-member who is offered edit by the link sees
+  "Join as editor" in the guest banner. Expired or revoked: 4.7.
+- **N5 People** (`/people`, `/people/<person-id>`, S4). A card per traveller (initial disc 56 px, name,
+  birth year and age on the next trip's dates, height and weight if entered, private). Under each: the
+  person's documents and memberships as task rows with validity ("Passport · valid to Oct 2027 · too short
+  for Dolomites" in `--crit` when a trip fails the six-month rule), and the trips they are on as identity
+  chips. Editing a person-level item here updates every trip's linked check at once; the toast names the
+  trips ("Updated in Dolomites and Patagonia"). Add a person; remove asks (4.4).
+- **N6 Notification centre** (the bell, `/inbox` second tab "Notifications"). List rows 56 px: trip photo
+  28 px in its ring, mono 12 due line coloured by tokens 3.1, serif 16 text that names the trip first
+  ("Patagonia · Book El Chaltén lodging · due Sat 31 Oct"), right: Open (lands in context at the URL in
+  1.2) and Snooze. Grouped Today · This week · Later · Done; unread rows have a 6 px `--ink` dot. Channels
+  per notification are set from the task's reminder chip (8.2), not here. Clear all is per group and
+  undoable.
 
 ## 5. Density and reading
 
