@@ -38,7 +38,7 @@ describe("pair_with", () => {
     const p = d.pair_with[0]!;
     expect(p.how).toBe("walk");
     expect(p.on_site_estimated).toBe(true);
-    expect(Math.abs(p.extra_min - (Math.round(p.km * 30) + 20))).toBeLessThanOrEqual(1);
+    expect(Math.abs(p.extra_min! - (Math.round(p.km! * 30) + 20))).toBeLessThanOrEqual(1);
   });
 
   it("a substitute (same class) never pairs, even next door", () => {
@@ -172,5 +172,30 @@ describe("two anchors pair on foot only", () => {
     const lookout = rec({ ref: "place/castle", kind: "viewpoint", class_key: "viewpoint/short-walk", draw: "local", standing: "good" });
     const d = run([louise, lookout], at(6), { driveMin: { "place/lake-louise": { "place/castle": 10 } } })["place/lake-louise"]!;
     expect(d.pair_with[0]).toMatchObject({ ref: "place/castle", how: "drive" });
+  });
+});
+
+describe("pair_with: a hand-picked pair with no point (2.33)", () => {
+  const facts: Record<string, PlaceFacts> = {
+    "place/lake-louise": { point: LOUISE, onSiteMin: 90 },
+    "place/lake-agnes": { onSiteMin: 240 }, // the record exists, its point does not
+  };
+  const hand = { ...louise, pairs_with: [{ ref: "place/lake-agnes", reason: "the teahouse walk starts at the lake" }] };
+
+  it("keeps the pair and shows no distance", () => {
+    const d = run([hand, agnes], facts)["place/lake-louise"]!;
+    expect(d.pair_with).toHaveLength(1);
+    expect(d.pair_with[0]).toMatchObject({ ref: "place/lake-agnes", km: null, how: null, extra_min: null, hand_picked: true, reason: "the teahouse walk starts at the lake" });
+  });
+
+  it("keeps it when the subject itself has no point", () => {
+    const d = run([hand, agnes], { "place/lake-agnes": { onSiteMin: 240 } })["place/lake-louise"]!;
+    expect(d.pair_with.map((p) => p.ref)).toEqual(["place/lake-agnes"]);
+    expect(d.pair_with[0]!.km).toBeNull();
+  });
+
+  it("a ref with no record at all is still dropped", () => {
+    const ghost = { ...louise, pairs_with: [{ ref: "place/nowhere", reason: "does not exist" }] };
+    expect(run([ghost], facts)["place/lake-louise"]!.pair_with).toEqual([]);
   });
 });

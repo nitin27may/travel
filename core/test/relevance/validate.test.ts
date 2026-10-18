@@ -164,10 +164,10 @@ describe("judged-field rules", () => {
     expect(run(doc([rec({ kind: "lake", designations: [{ type: "natural_monument", name: "x", scope: "own" }, { type: "official_highlight", name: "y", scope: "own" }] })])).errors).toEqual([]);
   });
   it("a vague draw note fails; a note that names a signal passes", () => {
-    for (const n of ["a nice guide says it is great", "pretty", "popular with visitors", "very official looking", "37 Wikipedia languages", "booking is easy"]) {
+    for (const n of ["a nice guide says it is great", "pretty", "popular with visitors", "very official looking", "booking is easy"]) {
       expect(codes(run(doc([{ ...rec(), draw: rv("regional", n) }]))), n).toEqual(["E_REL_DRAW_NOTE"]);
     }
-    for (const n of ["inside the Canadian Rocky Mountain Parks WHS (inherited)", "shuttle-only access still sells out", "the tourism board top-list names it", "NPS headline (official_highlight)", "needs a lottery permit"]) {
+    for (const n of ["inside the Canadian Rocky Mountain Parks WHS (inherited)", "shuttle-only access still sells out", "the tourism board top-list names it", "NPS headline (official_highlight)", "needs a lottery permit", "37 Wikipedia languages (a fame signal)", "Wikipedia language counts put it at world tier"]) {
       expect(run(doc([{ ...rec(), draw: rv("regional", n) }])).errors, n).toEqual([]);
     }
   });

@@ -86,3 +86,14 @@ describe("the committed registry", () => {
     expect(readFileSync(join(root, "data/sources/registry.json"), "utf8")).toBe(registryText(buildRegistry(root).registry));
   });
 });
+
+import { pruneOrphanLinks } from "../../src/sources/build.ts";
+describe("pruneOrphanLinks (2.33)", () => {
+  it("drops link results whose source no lane file uses and keeps the rest", () => {
+    const rec = (url: string) => ({ url, status: "ok" as const, http: 200, final: null, checked: "2026-10-18" });
+    const file = { schema: "source-links/1" as const, links: { "s-aaaaaaaaaa": rec("https://a.example/"), "s-bbbbbbbbbb": rec("https://b.example/") } };
+    expect(pruneOrphanLinks(file, ["s-aaaaaaaaaa"])).toEqual(["s-bbbbbbbbbb"]);
+    expect(Object.keys(file.links)).toEqual(["s-aaaaaaaaaa"]);
+    expect(pruneOrphanLinks(file, ["s-aaaaaaaaaa"])).toEqual([]);
+  });
+});

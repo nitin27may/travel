@@ -72,7 +72,7 @@ const HOUSEHOLD_TEXT = new RegExp(
 const AREA_DESIGNATIONS = ["unesco_whs", "national_park", "provincial_or_state_park", "conservation_area", "dark_sky", "ramsar"];
 /** Only a record that is itself an area may own an area designation. Everything else inherits it as `parent`. */
 const AREA_KINDS = ["park", "region", "protected_area"];
-const SIGNAL_WORDS = /(designat|unesco|\bwhs\b|world heritage|national park|provincial park|state park|conservation|top[- _]?list|tourism board|editorial|headline|official_highlight|land manager|sells? out|sold out|lottery|permit|quota|shuttle)/i;
+const SIGNAL_WORDS = /(designat|wikipedia languages?|wikipedia language (?:counts?|editions?)|\d+ language editions?|language counts?|unesco|\bwhs\b|world heritage|national park|provincial park|state park|conservation|top[- _]?list|tourism board|editorial|headline|official_highlight|land manager|sells? out|sold out|lottery|permit|quota|shuttle)/i;
 /** Platform names that must not stand as a publisher or a title either. */
 const LINK_ONLY_NAMES = /(alltrails|komoot|gaia ?gps|outdooractive|wikiloc|trailforks|strava|hiking ?project|fatmap|google|tripadvisor|\byelp\b|booking\.com)/i;
 const GAP_EXPLAINED = /(over-?scores?|under-?scores?|despite|although|because|judg|sub-feature|roadside|\bgap\b|signals?)/i;
