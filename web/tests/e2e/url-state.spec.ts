@@ -56,12 +56,16 @@ test.describe('the views share one URL state', () => {
     await expect(page).toHaveURL(/kind=lake/);
     await expect(count(page)).toHaveText(String(lakes));
     expect(lakes).toBeGreaterThanOrEqual(store.places.filter((p) => p.kind === 'lake').length);
-    // the Region button appears only after a country is chosen
-    await expect(page.getByRole('button', { name: 'Region' })).toHaveCount(0);
+    // Region sits under More filters and appears only after a country is chosen
+    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: 'More filters' }).click();
+    await expect(page.getByRole('dialog', { name: 'More filters' }).locator('summary', { hasText: 'Region' })).toHaveCount(0);
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: /^Country/ }).click();
     await page.getByRole('radio', { name: /^Canada/ }).check();
-    await expect(page.getByRole('button', { name: 'Region' })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: /^More filters/ }).click();
+    await expect(page.getByRole('dialog', { name: 'More filters' }).locator('summary', { hasText: 'Region' })).toBeVisible();
   });
 
   test('season filters on the app (the legacy page has no season)', async ({ page, site }) => {
@@ -93,9 +97,37 @@ test.describe('the views share one URL state', () => {
   test('an empty result names the filters to loosen', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?country=CA&kind=lighthouse&kid=strong-kid`);
     await expect(page.getByRole('heading', { name: 'No places match' })).toBeVisible();
+    // the closest match comes first as the main action, and the bar holds the only Clear all
+    await expect(page.getByRole('button', { name: 'Clear all' })).toHaveCount(1);
+    await expect(page.getByRole('button', { name: /^Clear all filters/ })).toHaveCount(0);
     await page.getByRole('button', { name: /Remove .*Kids: .* to see/ }).click();
     await expect(page.getByRole('heading', { name: 'No places match' })).toHaveCount(0);
     await expect(count(page)).not.toHaveText('0');
+  });
+
+  test('the closest match is the removal that keeps the most of the request', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?country=CA&kind=lighthouse&kid=strong-kid`);
+    const main = page.locator('.empty').getByRole('button', { name: /to see \d+ place/ });
+    const counts = (await main.allTextContents()).map((t) => Number(/to see (\d+)/.exec(t)![1]));
+    expect(counts.length).toBeGreaterThan(0);
+    expect(counts).toEqual([...counts].sort((a, b) => a - b));
+  });
+
+  test('the Kids filter says how many places were left out because nobody has checked them', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?kid=yes`);
+    await expect(page.locator('.filter-bar .count .count-note')).toHaveText(/\d+ not checked yet/);
+    await page.goto(`${site.url}/places/?kid=unknown`);
+    await expect(page.locator('.filter-bar .count .count-note')).toHaveCount(0);
+  });
+
+  test('old links with Tag, Trip, Region and effort parameters still work', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?country=CA&region=AB&tag=hiking`);
+    await expect(page.getByRole('button', { name: /Remove filter Region: / })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Remove filter Tag: / })).toBeVisible();
+    await expect(page.getByRole('button', { name: /^More filters · 2/ })).toBeVisible();
+    // the hidden slots never filter, so a link that carries them is not a dead end
+    await page.goto(`${site.url}/places/?effort=easy&stroller=any`);
+    await expect(page.getByRole('heading', { name: 'No places match' })).toHaveCount(0);
   });
 });
 
@@ -155,7 +187,7 @@ test.describe('keyboard and place links', () => {
     await expect(page.getByRole('columnheader', { name: 'Tags' })).toBeVisible();
   });
 
-  test('table: saved views round trip and CSV export', async ({ page, site }) => {
+  test('table: saved views round trip, and no whole-list CSV', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?view=table&country=CA`);
     await page.getByRole('button', { name: 'Saved views' }).click();
     await page.getByPlaceholder('Name this view').fill('Canada table');
@@ -166,8 +198,7 @@ test.describe('keyboard and place links', () => {
     await page.getByRole('button', { name: /Saved views/ }).click();
     await page.getByRole('button', { name: 'Canada table', exact: true }).click();
     await expect(page).toHaveURL(/country=CA/);
-    const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Export CSV' }).click()]);
-    expect(download.suggestedFilename()).toBe('places.csv');
+    await expect(page.getByRole('button', { name: 'Export CSV' })).toHaveCount(0);
   });
 });
 
@@ -213,12 +244,11 @@ test.describe('pages', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 
-  test('units preference converts elevations and is remembered', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/?view=table&q=lake louise`);
-    await expect(page.getByText('1,730 m')).toBeVisible();
+  test('units preference is remembered (the conversions are unit-tested in format.test.ts)', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/`);
     await page.getByRole('radio', { name: 'mi, ft' }).click();
-    await expect(page.getByText('5,680 ft')).toBeVisible();
+    await expect(page.getByRole('radio', { name: 'mi, ft' })).toBeChecked();
     await page.reload();
-    await expect(page.getByText('5,680 ft')).toBeVisible();
+    await expect(page.getByRole('radio', { name: 'mi, ft' })).toBeChecked();
   });
 });
