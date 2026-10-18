@@ -199,7 +199,9 @@
       "country": "Canada",
       "admin": "Lake of Bays Township, Muskoka, Ontario",
       "check": "no Wikidata town item found; Nominatim with countrycodes=ca returned the Lake of Bays Township centroid (45.3310,-79.0115), within the village",
-      "coord_src": "nominatim"
+      "coord_src": "nominatim",
+      "approximate": true,
+      "approximate_note": "township centroid, about 1 km from Dwight village"
     }
   ]
 }
