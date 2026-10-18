@@ -107,6 +107,8 @@ export const relRecord = z.strictObject({
       year: z.number().int().min(1900).max(2100),
     })).optional(),
   }),
+  /** hand-picked "Nearby, worth adding": always qualifies and ranks first in derive's pair_with (3.2) */
+  pairs_with: z.array(z.strictObject({ ref: z.string().min(1), reason: z.string().min(1).max(160), src: z.string().min(1).optional() })).max(3).optional(),
   override: z.strictObject({
     field: z.enum(["role", "fit"]),
     value: z.string().min(1),

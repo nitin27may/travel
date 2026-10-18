@@ -1,0 +1,1127 @@
+{
+  "schema": "relevance-points/1",
+  "points": {
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": {
+      "lat": 51.14801,
+      "lon": -115.55557,
+      "coord_src": "wikidata",
+      "point_source": "Q125749525 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs": {
+      "lat": 51.1506,
+      "lon": -115.561,
+      "coord_src": "wikidata",
+      "point_source": "Q4854872 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre": {
+      "lat": 51.0925,
+      "lon": -115.39,
+      "coord_src": "wikidata",
+      "point_source": "Q1003855 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk": {
+      "lat": 52.25917,
+      "lon": -117.27806,
+      "coord_src": "wikidata",
+      "point_source": "Q64841048 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
+      "lat": 52.8515,
+      "lon": -118.124,
+      "coord_src": "wikidata",
+      "point_source": "Q6164065 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola": {
+      "lat": 51.4419,
+      "lon": -116.161,
+      "coord_src": "wikidata",
+      "point_source": "Q13231225 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs": {
+      "lat": 53.1299,
+      "lon": -117.771,
+      "coord_src": "wikidata",
+      "point_source": "Q14874867 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/athabasca-falls": {
+      "lat": 52.66444,
+      "lon": -117.88377,
+      "coord_src": "wikidata",
+      "point_source": "Q739181 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/bow-lake": {
+      "lat": 51.66444,
+      "lon": -116.44861,
+      "coord_src": "wikidata",
+      "point_source": "Q25622 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre": {
+      "lat": 51.0925,
+      "lon": -115.39,
+      "coord_src": "wikidata",
+      "point_source": "Q1003855 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/cave-and-basin": {
+      "lat": 51.16944,
+      "lon": -115.59111,
+      "coord_src": "wikidata",
+      "point_source": "Q2943271 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier": {
+      "lat": 52.19083,
+      "lon": -117.25528,
+      "coord_src": "wikidata",
+      "point_source": "Q391165 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/emerald-lake": {
+      "lat": 51.444,
+      "lon": -116.531,
+      "coord_src": "wikidata",
+      "point_source": "Q316177 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit": {
+      "lat": 50.5994,
+      "lon": -114.988,
+      "coord_src": "wikidata",
+      "point_source": "Q5760070 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive": {
+      "lat": 52.55908,
+      "lon": -117.69103,
+      "coord_src": "wikidata",
+      "point_source": "Q1344271 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/jasper-townsite": {
+      "lat": 52.8731,
+      "lon": -118.082,
+      "coord_src": "wikidata",
+      "point_source": "Q999429 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon": {
+      "lat": 51.25001,
+      "lon": -115.83543,
+      "coord_src": "wikidata",
+      "point_source": "Q22484509 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use": {
+      "lat": 50.6181,
+      "lon": -115.154,
+      "coord_src": "wikidata",
+      "point_source": "Q7346507 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view": {
+      "lat": 53.0825,
+      "lon": -119.19278,
+      "coord_src": "wikidata",
+      "point_source": "Q317376 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka": {
+      "lat": 51.25806,
+      "lon": -115.37306,
+      "coord_src": "wikidata",
+      "point_source": "Q2671348 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island": {
+      "lat": 52.66444,
+      "lon": -117.53361,
+      "coord_src": "wikidata",
+      "point_source": "Q429646 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/marble-canyon": {
+      "lat": 51.18667,
+      "lon": -116.12528,
+      "coord_src": "wikidata",
+      "point_source": "Q6755166 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/moraine-lake": {
+      "lat": 51.3225,
+      "lon": -116.18556,
+      "coord_src": "wikidata",
+      "point_source": "Q1072342 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds": {
+      "lat": 50.96944,
+      "lon": -115.10778,
+      "coord_src": "wikidata",
+      "point_source": "Q113634403 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint": {
+      "lat": 53.11056,
+      "lon": -119.15667,
+      "coord_src": "wikidata",
+      "point_source": "Q1161258 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view": {
+      "lat": 53.0333,
+      "lon": -119.2,
+      "coord_src": "wikidata",
+      "point_source": "Q37949 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/peyto-lake": {
+      "lat": 51.725,
+      "lon": -116.52222,
+      "coord_src": "wikidata",
+      "point_source": "Q1362681 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/pyramid-lake": {
+      "lat": 52.9225,
+      "lon": -118.096,
+      "coord_src": "wikidata",
+      "point_source": "Q2119673 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls": {
+      "lat": 52.53233,
+      "lon": -117.64463,
+      "coord_src": "wikidata",
+      "point_source": "Q937311 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls": {
+      "lat": 51.49972,
+      "lon": -116.47278,
+      "coord_src": "wikidata",
+      "point_source": "Q572771 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes": {
+      "lat": 51.17806,
+      "lon": -115.59889,
+      "coord_src": "wikidata",
+      "point_source": "Q3215867 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/sights/wedge-pond": {
+      "lat": 50.87278,
+      "lon": -115.14917,
+      "coord_src": "wikidata",
+      "point_source": "Q115978512 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail": {
+      "lat": 52.66444,
+      "lon": -117.88377,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Athabasca Falls\" at legacy/canadian-rockies-sept-2029/sights/athabasca-falls"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake": {
+      "lat": 51.1356,
+      "lon": -115.79,
+      "coord_src": "wikidata",
+      "point_source": "Q17511214 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": {
+      "lat": 51.444,
+      "lon": -116.531,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Emerald Lake\" at legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": {
+      "lat": 51.07222,
+      "lon": -115.40694,
+      "coord_src": "wikidata",
+      "point_source": "Q5597550 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak": {
+      "lat": 51.06417,
+      "lon": -115.39972,
+      "coord_src": "wikidata",
+      "point_source": "Q5636437 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/iceline-trail": {
+      "lat": 51.49972,
+      "lon": -116.47278,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Takakkaw Falls parking\" at legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": {
+      "lat": 53.1299,
+      "lon": -117.771,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Miette Hot Springs\" at legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop": {
+      "lat": 52.9016,
+      "lon": -118.04827,
+      "coord_src": "wikidata",
+      "point_source": "Q22422872 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore": {
+      "lat": 51.41167,
+      "lon": -116.22806,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Lake Louise Lakeshore\" at place/lake-louise"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass": {
+      "lat": 51.33329,
+      "lon": -116.21888,
+      "coord_src": "wikidata",
+      "point_source": "Q22366287 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk": {
+      "lat": 51.18667,
+      "lon": -116.12528,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Marble Canyon\" at legacy/canadian-rockies-sept-2029/sights/marble-canyon"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore": {
+      "lat": 51.3225,
+      "lon": -116.18556,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Moraine Lake\" at legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/parker-ridge": {
+      "lat": 52.18083,
+      "lon": -117.09222,
+      "coord_src": "wikidata",
+      "point_source": "Q22490170 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers": {
+      "lat": 51.3936,
+      "lon": -116.2726,
+      "coord_src": "wikidata",
+      "point_source": "Q7200655 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque": {
+      "lat": 50.60291,
+      "lon": -114.98171,
+      "coord_src": "wikidata",
+      "point_source": "Q7256632 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": {
+      "lat": 53.1299,
+      "lon": -117.771,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Miette Hot Springs\" at legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk": {
+      "lat": 51.49972,
+      "lon": -116.47278,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Takakkaw Falls\" at legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/troll-falls": {
+      "lat": 50.94806,
+      "lon": -115.14444,
+      "coord_src": "wikidata",
+      "point_source": "Q115958301 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": {
+      "lat": 50.87278,
+      "lon": -115.14917,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Wedge Pond\" at legacy/canadian-rockies-sept-2029/sights/wedge-pond"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/wilcox-pass": {
+      "lat": 52.25002,
+      "lon": -117.23558,
+      "coord_src": "wikidata",
+      "point_source": "Q22616473 P625"
+    },
+    "place/adolf-munkel-weg": {
+      "lat": 46.63567,
+      "lon": 11.76576,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of munkel osm_node 9812786780"
+    },
+    "place/alpe-di-siusi": {
+      "lat": 46.54236,
+      "lon": 11.617,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of siusi osm_node 102561714"
+    },
+    "place/bolzano": {
+      "lat": 46.49811,
+      "lon": 11.35478,
+      "coord_src": "wikidata",
+      "point_source": "Q6526 P625"
+    },
+    "place/bullaccia-and-the-witches-benches": {
+      "lat": 46.56397,
+      "lon": 11.6159,
+      "coord_src": "wikidata",
+      "point_source": "Q2117539 P625"
+    },
+    "place/cadini-di-misurina-viewpoint": {
+      "lat": 46.57928,
+      "lon": 12.28729,
+      "coord_src": "wikidata",
+      "point_source": "Q476378 P625"
+    },
+    "place/cascate-di-fanes": {
+      "lat": 46.59452,
+      "lon": 12.08419,
+      "coord_src": "wikidata",
+      "point_source": "Q67370898 P625"
+    },
+    "place/cinque-torri": {
+      "lat": 46.50925,
+      "lon": 12.05397,
+      "coord_src": "wikidata",
+      "point_source": "Q933666 P625"
+    },
+    "place/cortina-dampezzo": {
+      "lat": 46.53833,
+      "lon": 12.13735,
+      "coord_src": "wikidata",
+      "point_source": "Q41158 P625"
+    },
+    "place/croda-del-becco": {
+      "lat": 46.67522,
+      "lon": 12.07278,
+      "coord_src": "wikidata",
+      "point_source": "Q446041 P625"
+    },
+    "place/dobbiaco": {
+      "lat": 46.73543,
+      "lon": 12.22428,
+      "coord_src": "wikidata",
+      "point_source": "Q380189 P625"
+    },
+    "place/dolomites": {
+      "lat": 46.61306,
+      "lon": 12.16306,
+      "coord_src": "wikidata",
+      "point_source": "locations.json IT/trentino-alto-adige/belluno/dolomites"
+    },
+    "place/drava-cycle-path-to-lienz": {
+      "lat": 46.6697,
+      "lon": 13.722,
+      "coord_src": "wikidata",
+      "point_source": "Q1255895 P625"
+    },
+    "place/funbob-monte-baranci": {
+      "lat": 46.725,
+      "lon": 12.27,
+      "coord_src": "prototype",
+      "point_source": "snapshot place funbob (approximate)"
+    },
+    "place/la-val": {
+      "lat": 46.65772,
+      "lon": 11.92433,
+      "coord_src": "wikidata",
+      "point_source": "Q419733 P625"
+    },
+    "place/lagazuoi-cable-car-and-tunnels": {
+      "lat": 46.51921,
+      "lon": 12.00851,
+      "coord_src": "wikidata",
+      "point_source": "Q16557871 P625"
+    },
+    "place/lago-dantorno": {
+      "lat": 46.5951,
+      "lon": 12.2654,
+      "coord_src": "wikidata",
+      "point_source": "Q2217047 P625"
+    },
+    "place/lago-di-braies": {
+      "lat": 46.69361,
+      "lon": 12.085,
+      "coord_src": "wikidata",
+      "point_source": "Q445369 P625"
+    },
+    "place/lago-di-carezza": {
+      "lat": 46.40917,
+      "lon": 11.575,
+      "coord_src": "wikidata",
+      "point_source": "Q1416530 P625"
+    },
+    "place/lago-di-dobbiaco": {
+      "lat": 46.70306,
+      "lon": 12.21917,
+      "coord_src": "wikidata",
+      "point_source": "Q2438157 P625"
+    },
+    "place/lago-di-landro": {
+      "lat": 46.63,
+      "lon": 12.23194,
+      "coord_src": "wikidata",
+      "point_source": "Q691103 P625"
+    },
+    "place/lago-di-limides": {
+      "lat": 46.51181,
+      "lon": 12.02289,
+      "coord_src": "wikidata",
+      "point_source": "Q55978735 P625"
+    },
+    "place/lago-di-misurina": {
+      "lat": 46.58194,
+      "lon": 12.25389,
+      "coord_src": "wikidata",
+      "point_source": "Q1177961 P625"
+    },
+    "place/lago-di-sorapis": {
+      "lat": 46.5204,
+      "lon": 12.2236,
+      "coord_src": "wikidata",
+      "point_source": "Q15410555 P625"
+    },
+    "place/lago-federa": {
+      "lat": 46.4881,
+      "lon": 12.1045,
+      "coord_src": "wikidata",
+      "point_source": "Q3825692 P625"
+    },
+    "place/lake-louise": {
+      "lat": 51.41167,
+      "lon": -116.22806,
+      "coord_src": "wikidata",
+      "point_source": "locations.json CA/AB/banff-national-park/lake-louise"
+    },
+    "place/monte-piana": {
+      "lat": 46.61528,
+      "lon": 12.23944,
+      "coord_src": "wikidata",
+      "point_source": "Q872637 P625"
+    },
+    "place/ortisei": {
+      "lat": 46.57521,
+      "lon": 11.67214,
+      "coord_src": "wikidata",
+      "point_source": "Q255568 P625"
+    },
+    "place/otzi-south-tyrol-museum-of-archaeology": {
+      "lat": 46.49986,
+      "lon": 11.34953,
+      "coord_src": "wikidata",
+      "point_source": "Q1755973 P625"
+    },
+    "place/passo-gardena": {
+      "lat": 46.55,
+      "lon": 11.80944,
+      "coord_src": "wikidata",
+      "point_source": "Q1416427 P625"
+    },
+    "place/rafting-on-the-rienza": {
+      "lat": 46.796,
+      "lon": 11.94,
+      "coord_src": "prototype",
+      "point_source": "snapshot place rafting (approximate)"
+    },
+    "place/san-candido": {
+      "lat": 46.73287,
+      "lon": 12.27917,
+      "coord_src": "wikidata",
+      "point_source": "Q474782 P625"
+    },
+    "place/san-vito-di-cadore": {
+      "lat": 46.45897,
+      "lon": 12.20574,
+      "coord_src": "wikidata",
+      "point_source": "Q41024 P625"
+    },
+    "place/santa-cristina": {
+      "lat": 46.55907,
+      "lon": 11.71549,
+      "coord_src": "wikidata",
+      "point_source": "Q504253 P625"
+    },
+    "place/santa-maddalena-val-di-funes": {
+      "lat": 46.63845,
+      "lon": 11.71862,
+      "coord_src": "wikidata",
+      "point_source": "Q33481488 P625"
+    },
+    "place/sass-pordoi-and-piz-boe": {
+      "lat": 46.51,
+      "lon": 11.82778,
+      "coord_src": "wikidata",
+      "point_source": "Q1478439 P625"
+    },
+    "place/seceda-ridge": {
+      "lat": 46.60059,
+      "lon": 11.72579,
+      "coord_src": "wikidata",
+      "point_source": "Q2263528 P625"
+    },
+    "place/selva-di-val-gardena": {
+      "lat": 46.55575,
+      "lon": 11.76056,
+      "coord_src": "wikidata",
+      "point_source": "Q499129 P625"
+    },
+    "place/tre-cime-di-lavaredo-loop": {
+      "lat": 46.61203,
+      "lon": 12.29648,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of tre-cime osm_node 2430381561"
+    },
+    "place/val-fiscalina": {
+      "lat": 46.66684,
+      "lon": 12.35448,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of fiscalina osm_node 12456211537"
+    },
+    "place/vallunga": {
+      "lat": 46.56395,
+      "lon": 11.77359,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of vallunga osm_node 6635822140"
+    },
+    "place/viel-dal-pan": {
+      "lat": 46.48742,
+      "lon": 11.81296,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of viel-dal-pan osm_node 469726063"
+    },
+    "trip/algonquin-muskoka-2026/sight:ragged falls": {
+      "lat": 45.39167,
+      "lon": -78.90611,
+      "coord_src": "wikidata",
+      "point_source": "Q1669132 P625"
+    },
+    "trip/algonquin-muskoka-2026/town:huntsville": {
+      "lat": 45.33333,
+      "lon": -79.21667,
+      "coord_src": "wikidata",
+      "point_source": "Q1024091 P625"
+    },
+    "trip/algonquin-muskoka-2026/trail:solitaire lake trail": {
+      "lat": 45.39183,
+      "lon": -79.00851,
+      "coord_src": "wikidata",
+      "point_source": "Q22650927 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/lake:lac des gaillands": {
+      "lat": 45.9139,
+      "lon": 6.8475,
+      "coord_src": "wikidata",
+      "point_source": "Q3215662 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/lift:aiguille du midi": {
+      "lat": 45.9182,
+      "lon": 6.87016,
+      "coord_src": "wikidata",
+      "point_source": "Q3088020 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/lift:montenvers train": {
+      "lat": 45.92271,
+      "lon": 6.87538,
+      "coord_src": "wikidata",
+      "point_source": "Q1069340 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks": {
+      "lat": 46.0675,
+      "lon": 6.9322,
+      "coord_src": "wikidata",
+      "point_source": "Q2885035 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace": {
+      "lat": 45.92704,
+      "lon": 6.92225,
+      "coord_src": "wikidata",
+      "point_source": "Q30737737 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/town:chamonix old town": {
+      "lat": 45.92222,
+      "lon": 6.86889,
+      "coord_src": "wikidata",
+      "point_source": "Q83236 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/town:les praz village": {
+      "lat": 45.93944,
+      "lon": 6.88472,
+      "coord_src": "wikidata",
+      "point_source": "Q6529888 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/town:vallorcine": {
+      "lat": 46.03444,
+      "lon": 6.93306,
+      "coord_src": "wikidata",
+      "point_source": "Q912354 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/trail:col des montets": {
+      "lat": 46.01837,
+      "lon": 6.93982,
+      "coord_src": "wikidata",
+      "point_source": "Q31661143 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": {
+      "lat": 45.98222,
+      "lon": 6.88944,
+      "coord_src": "wikidata",
+      "point_source": "Q3214753 P625"
+    },
+    "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection": {
+      "lat": 45.98222,
+      "lon": 6.88944,
+      "coord_src": "wikidata",
+      "point_source": "Q3214753 P625"
+    },
+    "trip/iceland-ring-road-2027/activity:myvatn nature baths": {
+      "lat": 65.63082,
+      "lon": -16.84847,
+      "coord_src": "wikidata",
+      "point_source": "Q27016707 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields": {
+      "lat": 63.87766,
+      "lon": -22.44816,
+      "coord_src": "wikidata",
+      "point_source": "Q1288839 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls": {
+      "lat": 64.70279,
+      "lon": -20.97985,
+      "coord_src": "wikidata",
+      "point_source": "Q427971 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:dettifoss": {
+      "lat": 65.82192,
+      "lon": -16.38817,
+      "coord_src": "wikidata",
+      "point_source": "Q210280 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:geysir": {
+      "lat": 64.31383,
+      "lon": -20.29949,
+      "coord_src": "wikidata",
+      "point_source": "Q216846 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:glaumbaer turf farm": {
+      "lat": 65.6108,
+      "lon": -19.5046,
+      "coord_src": "wikidata",
+      "point_source": "Q1530105 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:godafoss": {
+      "lat": 65.68313,
+      "lon": -17.55038,
+      "coord_src": "wikidata",
+      "point_source": "Q1137629 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:gullfoss": {
+      "lat": 64.32611,
+      "lon": -20.12111,
+      "coord_src": "wikidata",
+      "point_source": "Q38519 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:seljalandsfoss": {
+      "lat": 63.61583,
+      "lon": -19.99278,
+      "coord_src": "wikidata",
+      "point_source": "Q777882 P625"
+    },
+    "trip/iceland-ring-road-2027/sight:skogafoss": {
+      "lat": 63.52972,
+      "lon": -19.51389,
+      "coord_src": "wikidata",
+      "point_source": "Q1130718 P625"
+    },
+    "trip/iceland-ring-road-2027/town:akureyri botanical garden": {
+      "lat": 65.6751,
+      "lon": -18.0934,
+      "coord_src": "wikidata",
+      "point_source": "Q894637 P625"
+    },
+    "trip/iceland-ring-road-2027/town:hofn harbour": {
+      "lat": 64.25,
+      "lon": -15.21667,
+      "coord_src": "wikidata",
+      "point_source": "Q817118 P625"
+    },
+    "trip/iceland-ring-road-2027/town:reykjavik old harbour": {
+      "lat": 64.15272,
+      "lon": -21.93713,
+      "coord_src": "wikidata",
+      "point_source": "Q16424292 P625"
+    },
+    "trip/iceland-ring-road-2027/town:seydisfjordur": {
+      "lat": 65.26008,
+      "lon": -14.00577,
+      "coord_src": "wikidata",
+      "point_source": "Q623557 P625"
+    },
+    "trip/iceland-ring-road-2027/trail:djupalonssandur": {
+      "lat": 64.75232,
+      "lon": -23.90132,
+      "coord_src": "wikidata",
+      "point_source": "Q5285420 P625"
+    },
+    "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon": {
+      "lat": 63.77125,
+      "lon": -18.17194,
+      "coord_src": "wikidata",
+      "point_source": "Q956845 P625"
+    },
+    "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": {
+      "lat": 64.0277,
+      "lon": -16.97525,
+      "coord_src": "wikidata",
+      "point_source": "Q1145786 P625"
+    },
+    "trip/iceland-ring-road-2027/trail:thingvellir": {
+      "lat": 64.26108,
+      "lon": -21.12219,
+      "coord_src": "wikidata",
+      "point_source": "Q16419351 P625"
+    },
+    "trip/iceland-ring-road-2027/viewpoint:diamond beach": {
+      "lat": 64.05339,
+      "lon": -16.15311,
+      "coord_src": "wikidata",
+      "point_source": "Q53795710 P625"
+    },
+    "trip/iceland-ring-road-2027/viewpoint:jokulsarlon": {
+      "lat": 64.07028,
+      "lon": -16.21167,
+      "coord_src": "wikidata",
+      "point_source": "Q511933 P625"
+    },
+    "trip/iceland-ring-road-2027/viewpoint:kirkjufell": {
+      "lat": 64.9475,
+      "lon": -23.31083,
+      "coord_src": "wikidata",
+      "point_source": "Q1547402 P625"
+    },
+    "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach": {
+      "lat": 63.40494,
+      "lon": -19.06401,
+      "coord_src": "wikidata",
+      "point_source": "Q115641739 P625"
+    },
+    "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view": {
+      "lat": 64.80712,
+      "lon": -23.77623,
+      "coord_src": "wikidata",
+      "point_source": "Q1315012 P625"
+    },
+    "trip/patagonia-2027/sight:penguin colony stop": {
+      "lat": -54.9067,
+      "lon": -67.3872,
+      "coord_src": "wikidata",
+      "point_source": "Q16579929 P625"
+    },
+    "trip/patagonia-2027/sight:perito moreno walkways": {
+      "lat": -50.49322,
+      "lon": -73.12798,
+      "coord_src": "wikidata",
+      "point_source": "Q367943 P625"
+    },
+    "trip/patagonia-2027/town:palermo and recoleta walk": {
+      "lat": -34.59056,
+      "lon": -58.39056,
+      "coord_src": "wikidata",
+      "point_source": "Q1010253 P625"
+    },
+    "trip/patagonia-2027/town:san telmo market": {
+      "lat": -34.62056,
+      "lon": -58.37167,
+      "coord_src": "wikidata",
+      "point_source": "Q1026688 P625"
+    },
+    "trip/patagonia-2027/town:village and cafes": {
+      "lat": -49.33141,
+      "lon": -72.88613,
+      "coord_src": "wikidata",
+      "point_source": "Q1323978 P625"
+    },
+    "trip/patagonia-2027/trail:laguna capri": {
+      "lat": -49.3049,
+      "lon": -72.936,
+      "coord_src": "wikidata",
+      "point_source": "Q124360343 P625"
+    },
+    "trip/patagonia-2027/viewpoint:laguna nimez birds": {
+      "lat": -50.31667,
+      "lon": -72.63333,
+      "coord_src": "wikidata",
+      "point_source": "Q24942634 P625"
+    },
+    "trip/patagonia-2027/viewpoint:lapataia bay": {
+      "lat": -54.85889,
+      "lon": -68.54278,
+      "coord_src": "wikidata",
+      "point_source": "Q2879472 P625"
+    },
+    "trip/utah-five-parks/sight:fruita orchards": {
+      "lat": 38.28331,
+      "lon": -111.24648,
+      "coord_src": "wikidata",
+      "point_source": "Q5506421 P625"
+    },
+    "trip/utah-five-parks/sight:goblin valley": {
+      "lat": 38.5667,
+      "lon": -110.71,
+      "coord_src": "wikidata",
+      "point_source": "Q1411137 P625"
+    },
+    "trip/utah-five-parks/sight:temple square": {
+      "lat": 40.77056,
+      "lon": -111.8925,
+      "coord_src": "wikidata",
+      "point_source": "Q2085218 P625"
+    },
+    "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle": {
+      "lat": 37.25556,
+      "lon": -112.95472,
+      "coord_src": "wikidata",
+      "point_source": "Q3073830 P625"
+    },
+    "trip/utah-five-parks/town:main street moab": {
+      "lat": 38.5725,
+      "lon": -109.54972,
+      "coord_src": "wikidata",
+      "point_source": "Q130134 P625"
+    },
+    "trip/utah-five-parks/trail:angels landing chains view or scout lookout": {
+      "lat": 37.2694,
+      "lon": -112.948,
+      "coord_src": "wikidata",
+      "point_source": "Q2563959 P625"
+    },
+    "trip/utah-five-parks/trail:delicate arch trail": {
+      "lat": 38.74361,
+      "lon": -109.49944,
+      "coord_src": "wikidata",
+      "point_source": "Q2300616 P625"
+    },
+    "trip/utah-five-parks/trail:devils garden": {
+      "lat": 38.8039,
+      "lon": -109.614,
+      "coord_src": "wikidata",
+      "point_source": "Q5267147 P625"
+    },
+    "trip/utah-five-parks/trail:hickman bridge": {
+      "lat": 38.28981,
+      "lon": -111.23438,
+      "coord_src": "wikidata",
+      "point_source": "Q1844612 P625"
+    },
+    "trip/utah-five-parks/trail:lower calf creek falls": {
+      "lat": 37.82913,
+      "lon": -111.41992,
+      "coord_src": "wikidata",
+      "point_source": "Q105099406 P625"
+    },
+    "trip/utah-five-parks/trail:mesa arch": {
+      "lat": 38.38806,
+      "lon": -109.86361,
+      "coord_src": "wikidata",
+      "point_source": "Q6821049 P625"
+    },
+    "trip/utah-five-parks/trail:narrows from the temple of sinawava": {
+      "lat": 37.30669,
+      "lon": -112.94769,
+      "coord_src": "wikidata",
+      "point_source": "Q3029053 P625"
+    },
+    "trip/utah-five-parks/trail:navajo loop and queens garden": {
+      "lat": 37.62165,
+      "lon": -112.15575,
+      "coord_src": "wikidata",
+      "point_source": "Q104976971 P625"
+    },
+    "trip/utah-five-parks/trail:riverside walk": {
+      "lat": 37.29189,
+      "lon": -112.94679,
+      "coord_src": "wikidata",
+      "point_source": "Q96790196 P625"
+    },
+    "trip/utah-five-parks/trail:upheaval dome": {
+      "lat": 38.42455,
+      "lon": -109.92925,
+      "coord_src": "wikidata",
+      "point_source": "Q1409370 P625"
+    },
+    "trip/utah-five-parks/viewpoint:bryce amphitheatre rim": {
+      "lat": 37.62637,
+      "lon": -112.15075,
+      "coord_src": "wikidata",
+      "point_source": "Q105097228 P625"
+    },
+    "trip/utah-five-parks/viewpoint:dead horse point": {
+      "lat": 38.50582,
+      "lon": -109.73317,
+      "coord_src": "wikidata",
+      "point_source": "Q129470 P625"
+    },
+    "trip/utah-five-parks/viewpoint:grand view point": {
+      "lat": 38.32221,
+      "lon": -109.84901,
+      "coord_src": "wikidata",
+      "point_source": "Q62073199 P625"
+    },
+    "trip/utah-five-parks/viewpoint:sunset point": {
+      "lat": 37.62276,
+      "lon": -112.16603,
+      "coord_src": "wikidata",
+      "point_source": "Q105105619 P625"
+    },
+    "trip/vermont-fall-2026/town:hyde park village": {
+      "lat": 44.595,
+      "lon": -72.615,
+      "coord_src": "wikidata",
+      "point_source": "Q9005587 P625"
+    },
+    "trip/vermont-fall-2026/town:peacham village": {
+      "lat": 44.32861,
+      "lon": -72.17,
+      "coord_src": "wikidata",
+      "point_source": "Q108940081 P625"
+    },
+    "trip/vermont-fall-2026/viewpoint:burke mountain overlook": {
+      "lat": 44.5708,
+      "lon": -71.8932,
+      "coord_src": "wikidata",
+      "point_source": "Q4998953 P625"
+    },
+    "trip/vermont-fall-2026/viewpoint:smugglers notch": {
+      "lat": 44.5536,
+      "lon": -72.7961,
+      "coord_src": "wikidata",
+      "point_source": "Q7546619 P625"
+    }
+  },
+  "towns": [
+    {
+      "id": "bolzano",
+      "name": "Bolzano",
+      "lat": 46.4983,
+      "lon": 11.3548,
+      "has_stay": true,
+      "coord_src": "prototype"
+    },
+    {
+      "id": "cortina-d-ampezzo",
+      "name": "Cortina d'Ampezzo",
+      "lat": 46.5405,
+      "lon": 12.1357,
+      "has_stay": true,
+      "coord_src": "prototype"
+    },
+    {
+      "id": "el-chalten",
+      "name": "El Chalten",
+      "lat": -49.33141,
+      "lon": -72.88613,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "hofn",
+      "name": "Hofn",
+      "lat": 64.25,
+      "lon": -15.21667,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "hyde-park",
+      "name": "Hyde Park",
+      "lat": 44.595,
+      "lon": -72.615,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "jasper",
+      "name": "Jasper",
+      "lat": 52.8731,
+      "lon": -118.082,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "lake-louise",
+      "name": "Lake Louise",
+      "lat": 51.41167,
+      "lon": -116.22806,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "les-praz",
+      "name": "Les Praz",
+      "lat": 45.93944,
+      "lon": 6.88472,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "moab",
+      "name": "Moab",
+      "lat": 38.5725,
+      "lon": -109.54972,
+      "has_stay": true,
+      "coord_src": "wikidata"
+    },
+    {
+      "id": "ortisei",
+      "name": "Ortisei",
+      "lat": 46.5747,
+      "lon": 11.6714,
+      "has_stay": true,
+      "coord_src": "prototype"
+    },
+    {
+      "id": "san-candido",
+      "name": "San Candido",
+      "lat": 46.7327,
+      "lon": 12.2803,
+      "has_stay": true,
+      "coord_src": "prototype"
+    }
+  ],
+  "trips": {
+    "dolomites-2027": {
+      "window": {
+        "from": "07-13",
+        "to": "07-26"
+      }
+    },
+    "canadian-rockies-2029": {
+      "window": {
+        "from": "09-08",
+        "to": "09-22"
+      }
+    },
+    "iceland-ring-road-2027": {
+      "window": {
+        "from": "09-04",
+        "to": "09-15"
+      },
+      "base": {
+        "lat": 64.25,
+        "lon": -15.21667
+      }
+    },
+    "patagonia-2027": {
+      "window": {
+        "from": "02-26",
+        "to": "03-11"
+      },
+      "base": {
+        "lat": -49.33141,
+        "lon": -72.88613
+      }
+    },
+    "utah-five-parks": {
+      "base": {
+        "lat": 38.5725,
+        "lon": -109.54972
+      }
+    },
+    "algonquin-muskoka-2026": {
+      "window": {
+        "from": "10-10",
+        "to": "10-12"
+      }
+    },
+    "vermont-fall-2026": {
+      "window": {
+        "from": "10-01",
+        "to": "10-04"
+      },
+      "base": {
+        "lat": 44.595,
+        "lon": -72.615
+      }
+    },
+    "chamonix-mont-blanc-2028": {
+      "window": {
+        "from": "09-01",
+        "to": "09-09"
+      },
+      "base": {
+        "lat": 45.93944,
+        "lon": 6.88472
+      }
+    }
+  }
+}

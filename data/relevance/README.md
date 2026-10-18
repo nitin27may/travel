@@ -58,6 +58,8 @@ See `docs/v2/research/relevance.md` section 2.1 and 4 for the record and an abri
 
 ## Derive inputs
 
+`inputs/points.json` is generated: `node core/bin/relevance.ts points --build` (`--check` to compare). It takes coordinates only from `data/locations/locations.json` (Wikidata or Nominatim), the OSM trailheads and parking in `web/data-snapshots/prototype.json`, the legacy Rockies trailhead names (matched to the sight of that name), and the cached Wikidata P625 of each confirmed QID. Each point carries `coord_src` and `point_source`; Google is never used. Refs with no coordinate are listed and left out. Do not hand-edit.
+
 `inputs/points.json` (`relevance-points/1`): the catalogue holds no coordinates for these refs yet, so lanes or the adapter supply them here.
 
 ```jsonc

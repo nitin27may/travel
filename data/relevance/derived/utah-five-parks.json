@@ -22,14 +22,15 @@
       "draw_suggested": "national",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 802,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -55,26 +56,34 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 806,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "km": 4.1,
+          "how": "drive",
+          "extra_min": 55,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -100,12 +109,7 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
@@ -120,6 +124,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -157,14 +162,32 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 804,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+        "km": 1.6,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "km": 1.6,
+          "how": "walk",
+          "extra_min": 94,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -190,26 +213,34 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 810,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "km": 5.7,
+          "how": "drive",
+          "extra_min": 59,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -235,26 +266,56 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 612,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+            "km": 0.7,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/viewpoint:sunset point",
+            "km": 0.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+            "km": 0.7,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/viewpoint:sunset point",
+            "km": 0.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -268,7 +329,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 612 min is over 30"
         }
       },
       "role": "anchor",
@@ -280,26 +341,56 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
       "draw_suggested": "national",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 610,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "km": 0.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/viewpoint:sunset point",
+            "km": 1.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "km": 0.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/viewpoint:sunset point",
+            "km": 1.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -313,7 +404,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 610 min is over 30"
         }
       },
       "role": "anchor",
@@ -327,8 +418,8 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but trip/utah-five-parks/trail:navajo loop and queens garden has the same class within 100 km"
         }
       ]
     },
@@ -337,14 +428,49 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 614,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+            "km": 1.4,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "km": 0.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+            "km": 1.4,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "km": 0.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -358,7 +484,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 614 min is over 30"
         }
       },
       "role": "highlight",
@@ -370,26 +496,22 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:lower calf creek falls",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 446,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -403,7 +525,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 446 min is over 30"
         }
       },
       "role": "highlight",
@@ -415,26 +537,34 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:hickman bridge",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 366,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/sight:fruita orchards",
+          "km": 1.3,
+          "how": "walk",
+          "extra_min": 158,
+          "on_site_min": 120,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -448,7 +578,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 366 min is over 30"
         }
       },
       "role": "highlight",
@@ -460,26 +590,22 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 368,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -493,7 +619,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 368 min is over 30"
         }
       },
       "role": "filler",
@@ -505,26 +631,56 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:delicate arch trail",
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 48,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:devils garden",
+            "km": 12,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:devils garden",
+            "km": 12,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:mesa arch",
+            "km": 50.7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:upheaval dome",
+            "km": 51.5,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -538,7 +694,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 48 min is over 30"
         }
       },
       "role": "anchor",
@@ -552,8 +708,8 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but trip/utah-five-parks/trail:devils garden has the same class within 100 km"
         }
       ]
     },
@@ -562,14 +718,49 @@
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 64,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:delicate arch trail",
+            "km": 12,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:delicate arch trail",
+            "km": 12,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:mesa arch",
+            "km": 51.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:upheaval dome",
+            "km": 50.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -583,7 +774,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 64 min is over 30"
         }
       },
       "role": "anchor",
@@ -595,12 +786,7 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
@@ -615,6 +801,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -652,14 +839,61 @@
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 84,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:upheaval dome",
+            "km": 7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:delicate arch trail",
+            "km": 50.7,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:devils garden",
+            "km": 51.1,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:upheaval dome",
+            "km": 7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/viewpoint:grand view point",
+          "km": 7.4,
+          "how": "drive",
+          "extra_min": 108,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -673,7 +907,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 84 min is over 30"
         }
       },
       "role": "highlight",
@@ -685,26 +919,56 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 90,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/trail:mesa arch",
+            "km": 7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/trail:delicate arch trail",
+            "km": 51.5,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:mesa arch",
+            "km": 7,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/trail:devils garden",
+            "km": 50.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -718,7 +982,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 90 min is over 30"
         }
       },
       "role": "filler",
@@ -732,8 +996,8 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but trip/utah-five-parks/trail:delicate arch trail has the same class within 100 km"
         }
       ]
     },
@@ -742,14 +1006,33 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 92,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+            "km": 22.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+            "km": 22.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -763,7 +1046,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 92 min is over 30"
         }
       },
       "role": "anchor",
@@ -775,26 +1058,40 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 42,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:grand view point",
+            "km": 22.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:grand view point",
+            "km": 22.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -808,7 +1105,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 42 min is over 30"
         }
       },
       "role": "anchor",
@@ -820,26 +1117,22 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/sight:goblin valley",
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 246,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -853,7 +1146,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 246 min is over 30"
         }
       },
       "role": "highlight",
@@ -865,26 +1158,27 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/town:main street moab",
       "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/utah-five-parks/trail:delicate arch trail",
+        "km": 19.5,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -898,7 +1192,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -910,26 +1204,22 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/utah-five-parks/sight:temple square",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 770,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -955,12 +1245,7 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     }
   ]
 }

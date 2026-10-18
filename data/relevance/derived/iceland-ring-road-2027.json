@@ -15,21 +15,25 @@
       "regional": 2000
     }
   },
-  "window": null,
+  "window": {
+    "from": "09-04",
+    "to": "09-15"
+  },
   "items": [
     {
       "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 418,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -43,43 +47,38 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 418 min is over 30"
         }
       },
       "role": "filler",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
       "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 862,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "reason": "local draw with a detour over 20 min or unknown (862)"
         },
         "weekend": {
           "fit": "skip",
@@ -88,38 +87,38 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 862 min is over 30"
         }
       },
       "role": "local_only",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 684,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+        "km": 49.6,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -133,43 +132,47 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 684 min is over 30"
         }
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 446,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+            "km": 55.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -178,38 +181,45 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 446 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:geysir",
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 598,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+          "km": 8.7,
+          "how": "drive",
+          "extra_min": 82,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -223,38 +233,33 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 598 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 614,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -268,43 +273,47 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 614 min is over 30"
         }
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:godafoss",
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 472,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+            "km": 55.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -313,38 +322,45 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 472 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 576,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/sight:geysir",
+          "km": 8.7,
+          "how": "drive",
+          "extra_min": 112,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -358,24 +374,18 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 576 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:namaskard",
@@ -390,6 +400,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -408,7 +419,6 @@
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -427,14 +437,24 @@
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 594,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+            "km": 25.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -448,38 +468,42 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 594 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 548,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+            "km": 25.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -493,43 +517,43 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 548 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
       "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 508,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+        "km": 24.9,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "reason": "local draw with a detour over 20 min or unknown (508)"
         },
         "weekend": {
           "fit": "skip",
@@ -538,43 +562,38 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 508 min is over 30"
         }
       },
       "role": "local_only",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
       "draw_suggested": "national",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -583,38 +602,38 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
+        "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 792,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+        "km": 41.2,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -628,38 +647,33 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 792 min is over 30"
         }
       },
       "role": "filler",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 308,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -673,24 +687,18 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 308 min is over 30"
         }
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
@@ -705,6 +713,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -723,7 +732,6 @@
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -742,14 +750,27 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 1020,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+          "km": 8.5,
+          "how": "drive",
+          "extra_min": 50,
+          "on_site_min": 30,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -763,43 +784,38 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 1020 min is over 30"
         }
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 374,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -808,43 +824,38 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 374 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 216,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -853,38 +864,33 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 216 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
       "draw_suggested": "national",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 694,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -898,43 +904,50 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 694 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 122,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+          "km": 3.4,
+          "how": "drive",
+          "extra_min": 98,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -943,38 +956,45 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 122 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 128,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+          "km": 3.4,
+          "how": "drive",
+          "extra_min": 68,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -988,43 +1008,47 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 128 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 958,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+            "km": 27,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -1033,38 +1057,33 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 958 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 514,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1078,38 +1097,54 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 514 min is over 30"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
       "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 1006,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+            "km": 27,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+          "km": 8.5,
+          "how": "drive",
+          "extra_min": 110,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1123,24 +1158,18 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 1006 min is over 30"
         }
       },
       "role": "local_only",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     }
   ]
 }

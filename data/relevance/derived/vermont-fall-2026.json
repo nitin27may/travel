@@ -15,7 +15,10 @@
       "regional": 2000
     }
   },
-  "window": null,
+  "window": {
+    "from": "10-01",
+    "to": "10-04"
+  },
   "items": [
     {
       "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
@@ -30,6 +33,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -67,14 +71,24 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/vermont-fall-2026/town:peacham village",
+            "km": 46.1,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -88,7 +102,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "local_only",
@@ -100,26 +114,31 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/vermont-fall-2026/town:peacham village",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 112,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "trip/vermont-fall-2026/town:hyde park village",
+            "km": 46.1,
+            "draw": "local",
+            "standing": "ordinary",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -133,7 +152,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 112 min is over 30"
         }
       },
       "role": "highlight",
@@ -145,12 +164,7 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
@@ -165,6 +179,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -202,14 +217,15 @@
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 140,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -223,7 +239,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 140 min is over 30"
         }
       },
       "role": "filler",
@@ -235,31 +251,27 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
       "draw_suggested": "local",
-      "effective_draw": "regional",
+      "effective_draw": "national",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 36,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "if_nearby",
-          "reason": "draw regional, standing good"
+          "fit": "worth_it",
+          "reason": "draw national, standing good, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -268,24 +280,19 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 36 min is over 30"
         }
       },
-      "role": "filler",
+      "role": "highlight",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": null,
+      "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "peak": {
         "tier": "national",
         "role": "highlight",
