@@ -49,6 +49,13 @@ function wantedFiles() {
 
 const strip = (html) => String(html ?? '').replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ').trim();
 
+/** Some uploaders write a paragraph in the author field; keep the first sentence, at most 120 characters. */
+export function shortAuthor(a) {
+  if (a.length <= 120) return a;
+  const first = a.split(/\.\s/)[0];
+  return (first.length > 120 ? `${first.slice(0, 117)}...` : first).replace(/\.$/, '');
+}
+
 async function fetchBatch(titles) {
   const qs = new URLSearchParams({ action: 'query', format: 'json', prop: 'imageinfo', iiprop: 'extmetadata|url', titles: titles.map((t) => `File:${t}`).join('|') });
   const res = await fetch(`https://commons.wikimedia.org/w/api.php?${qs}`, { headers: { 'User-Agent': UA } });
@@ -64,7 +71,7 @@ async function fetchBatch(titles) {
     if (!info) continue;
     const m = info.extmetadata ?? {};
     out[original] = {
-      author: strip(m.Artist?.value) || null,
+      author: shortAuthor(strip(m.Artist?.value)) || null,
       licence: strip(m.LicenseShortName?.value) || null,
       licenceUrl: strip(m.LicenseUrl?.value) || null,
       sourceUrl: info.descriptionurl ?? `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(title.replace(/ /g, '_'))}`,
