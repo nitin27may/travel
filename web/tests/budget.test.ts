@@ -42,6 +42,12 @@ describe('JS budget: gzipped scripts loaded at start, per exported page', () => 
     expect(heaviest[0].kb, `${heaviest[0].page} is ${heaviest[0].kb.toFixed(1)} KB`).toBeLessThanOrEqual(LIST_BUDGET_KB);
   });
 
+  it('keeps the popover library out of the list pages start bundle (backlog 2.7: it loads after hydration)', () => {
+    for (const page of ['places', 'trips']) {
+      for (const s of startScripts(readText(path.join(OUT, page, 'index.html')))) expect(readText(path.join(OUT, s.split('?')[0])), `${page}: ${s}`).not.toContain('data-base-ui');
+    }
+  });
+
   it('does not ship a map library in the initial bundle', () => {
     for (const f of pages.slice(0, 5)) for (const s of startScripts(readText(f))) expect(readText(path.join(OUT, s.split('?')[0]))).not.toContain('maplibre');
   });

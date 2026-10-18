@@ -23,7 +23,7 @@ export function matchesRow<Row>(row: Row, state: ListState, d: EntityDescriptor<
   if (state.ids.length && !state.ids.includes(d.id(row))) return false;
   if (d.hiddenByDefault?.(row, state, ignore)) return false;
   for (const facet of d.facets) {
-    if (facet.param === ignore) continue;
+    if (facet.param === ignore || facet.hidden) continue;
     if (!facetMatches(row, facet, state.facets[facet.param] ?? [])) return false;
   }
   const box = parseBbox(state.bbox);
@@ -56,6 +56,7 @@ export interface FacetCount {
 export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptor<Row>): Record<string, FacetCount[]> {
   const out: Record<string, FacetCount[]> = {};
   for (const facet of d.facets) {
+    if (facet.hidden) continue;
     const counts = new Map<string, FacetCount>();
     for (const row of rows) {
       if (!matchesRow(row, state, d, facet.param)) continue;
@@ -122,7 +123,7 @@ export function activeFilters<Row>(state: ListState, d: EntityDescriptor<Row>, l
   const out: ActiveFilter[] = [];
   for (const param of FACET_PARAMS) {
     const facet = d.facets.find((f) => f.param === param);
-    if (!facet) continue;
+    if (!facet || facet.hidden) continue;
     for (const v of state.facets[param] ?? []) {
       const rest = (state.facets[param] ?? []).filter((x) => x !== v);
       const facets = { ...state.facets };
@@ -142,4 +143,21 @@ export function activeFilters<Row>(state: ListState, d: EntityDescriptor<Row>, l
 
 export function clearAll(state: ListState): ListState {
   return { ...state, q: '', facets: {}, bbox: null, f: null, sv: null, ids: [], label: null, focus: null };
+}
+
+/**
+ * Rows a selection left out only because they are "not checked yet" (the facet's `gap` value): they match every other filter,
+ * but the facet has a selection without that value. The count line names them so a hidden gap is never a silent loss.
+ */
+export function gapNotes<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptor<Row>): string[] {
+  const out: string[] = [];
+  for (const facet of d.facets) {
+    const gap = facet.gap;
+    const selected = state.facets[facet.param] ?? [];
+    if (!gap || facet.hidden || !selected.length || selected.includes(gap.value)) continue;
+    let n = 0;
+    for (const row of rows) if (matchesRow(row, state, d, facet.param) && facet.options(row).some((o) => o.value === gap.value)) n += 1;
+    if (n > 0) out.push(`${n} ${gap.note}`);
+  }
+  return out;
 }

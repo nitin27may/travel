@@ -2,7 +2,7 @@ import { EntityPage } from '@/components/entity/EntityPage';
 import '@/components/places/families';
 import { buildPlaceRows } from '@/components/places/rows';
 import { loadPlaces } from '@/lib/data/places';
-import { getPlace, legacyPlaceRedirects, listPlaces } from '@/lib/public';
+import { legacyPlaceRedirects, listPlaces } from '@/lib/public';
 import { pageMetadata } from '@/lib/site';
 import '@/styles/places.css';
 
@@ -13,6 +13,6 @@ export const metadata = pageMetadata({
 });
 
 export default function PlacesPage() {
-  const rows = buildPlaceRows(listPlaces(), loadPlaces(), legacyPlaceRedirects(), (slug) => getPlace(slug)?.elevationM ?? null);
+  const rows = buildPlaceRows(listPlaces(), loadPlaces(), legacyPlaceRedirects());
   return <EntityPage type="place" rows={rows} lede="Every place we want to go, by country, region and area. Filter, sort, or switch to the table or the map." />;
 }

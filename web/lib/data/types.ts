@@ -18,8 +18,8 @@ export interface PlaceSource {
 }
 
 /**
- * One place as the app and /data/places.json see it: the store joined with its area, region,
- * country and tags. Every key here is on the allow-list in lib/views/places.ts.
+ * One place as the loader sees it: the store joined with its area, region,
+ * country and tags. The Places list uses the lighter `PlaceListRow` (components/places/rows.ts).
  */
 export interface PlaceRow {
   id: string;

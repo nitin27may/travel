@@ -4,9 +4,18 @@ import { expect, test } from './fixtures';
 const TRAIL = '/places/tre-cime-di-lavaredo-loop/';
 
 test.describe('places list', () => {
-  test('keeps the six filter pills, each a menu, and the four views with Map switched on', async ({ page, site }) => {
+  test('shows four primary filter pills and More filters, and the four views with Map switched on (P4)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
-    for (const name of ['Country', 'Kind', 'Kids', 'Season', 'Tag', 'In a public trip']) await expect(page.locator('.pill-trigger', { hasText: new RegExp(`^${name}`) })).toBeVisible();
+    const pills = page.locator('.facet-group .pill-trigger');
+    await expect(pills).toHaveText([/^Country/, /^Kind/, /^Season/, /^Kids/, /^More filters/]);
+    // the rest wait one tap away, and the effort and stroller slots stay hidden until the S1 data lands
+    for (const name of ['Tag', 'In a public trip', 'Effort', 'Stroller']) await expect(page.locator('.pill-trigger', { hasText: new RegExp(`^${name}`) })).toHaveCount(0);
+    await page.getByRole('button', { name: 'More filters' }).click();
+    const more = page.getByRole('dialog', { name: 'More filters' });
+    for (const name of ['Tag', 'In a public trip']) await expect(more.locator('summary', { hasText: name })).toBeVisible();
+    await expect(more.locator('summary', { hasText: /Effort|Stroller/ })).toHaveCount(0);
+    await expect(more.getByText(/Region and Area appear once you choose a country/)).toBeVisible();
+    await page.keyboard.press('Escape');
     const views = page.getByRole('radiogroup', { name: /view/i });
     await expect(views.getByRole('radio')).toHaveText(['Cards', 'List', 'Table', 'Map']);
     await expect(views.getByRole('radio', { name: 'Map' })).not.toHaveAttribute('aria-disabled', 'true');
@@ -56,9 +65,11 @@ test.describe('places list', () => {
 
   test('table: tools row, completeness column, collapsible country groups', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?view=table`);
-    for (const name of ['Saved views', 'Columns', 'Export CSV']) await expect(page.getByRole('button', { name })).toBeVisible();
+    for (const name of ['Saved views', 'Columns']) await expect(page.getByRole('button', { name })).toBeVisible();
+    // no whole-list CSV on the public site, and no fact columns (principle P8)
+    await expect(page.getByRole('button', { name: 'Export CSV' })).toHaveCount(0);
     await expect(page.getByRole('radio', { name: 'Compact' })).toBeVisible();
-    await expect(page.getByRole('columnheader', { name: /Elevation/ })).toBeVisible();
+    await expect(page.getByRole('columnheader', { name: /Elevation|Trail stats/ })).toHaveCount(0);
     await expect(page.getByRole('columnheader', { name: /Completeness/ })).toBeAttached();
   });
 

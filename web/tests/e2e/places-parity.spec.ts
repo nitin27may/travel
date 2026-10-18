@@ -7,9 +7,12 @@ import type { Page } from '@playwright/test';
 // for the same filters. Parameter sets follow docs/PLAN-locations-g5.md 2.4. The legacy page has no
 // `season` parameter, so season is tested on the app alone in url-state.spec.ts.
 //
-// The app now lists every public place (the 64 saved ones plus the researched Dolomites places), so each app count is
-// restricted to the 64 saved places with `ids=<their slugs>` (the slug of each comes from web/redirects.json, which
+// The app now lists every public place (the saved ones plus the researched Dolomites places), so each app count is
+// restricted to the saved places with `ids=<their slugs>` (the slug of each comes from web/redirects.json, which
 // maps every old URL to its new one). The legacy page and the app must still agree on every filter.
+//
+// One known difference (backlog 2.3, 2.24): the legacy page searches the owner's capture notes, and the app does not (the
+// notes are not published and the list rows carry no note text), so the search set uses a word that appears in names.
 
 const store = readStore();
 const redirects: { from: string; to: string }[] = JSON.parse(readFileSync(path.join(ROOT, 'web', 'redirects.json'), 'utf8'));
@@ -45,7 +48,7 @@ const SETS: { name: string; params: string }[] = [
   { name: 'two kinds', params: `kind=${twoKinds}` },
   { name: 'one tag', params: `tag=${tag}` },
   { name: 'kid=yes', params: 'kid=yes' },
-  { name: 'search', params: 'q=lake' },
+  { name: 'search', params: 'q=louise' },
   { name: 'combined: country and kind', params: `country=CA&kind=${kinds[0]}` },
   { name: 'combined: two kinds and kid', params: `kind=${twoKinds}&kid=strong-kid` },
 ];
@@ -84,13 +87,14 @@ test.describe('places parity with the legacy list page', () => {
   test.describe.configure({ retries: 1, timeout: 120_000 });
   const rows: { set: string; legacy: number; app: number }[] = [];
 
-  test('unfiltered: both show the 64 saved places, and the app lists more', async ({ page, site, legacy }) => {
-    expect(store.places).toHaveLength(64);
+  test('unfiltered: both show the saved places, and the app lists more', async ({ page, site, legacy }) => {
+    const saved = store.places.length;
+    expect(saved).toBeGreaterThanOrEqual(65);
     expect(savedSlugs.every(Boolean)).toBe(true);
-    expect(new Set(savedSlugs).size).toBe(64);
-    expect(await legacyCount(page, legacy.url, '')).toBe(64);
-    expect(await appCount(page, site.url, '')).toBe(64);
-    expect(await appCount(page, site.url, '', false)).toBeGreaterThan(64);
+    expect(new Set(savedSlugs).size).toBe(saved);
+    expect(await legacyCount(page, legacy.url, '')).toBe(saved);
+    expect(await appCount(page, site.url, '')).toBe(saved);
+    expect(await appCount(page, site.url, '', false)).toBeGreaterThan(saved);
   });
 
   for (const set of SETS) {

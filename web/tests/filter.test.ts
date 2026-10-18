@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { PlaceListRow } from '@/components/places/rows';
+import { loadPlaces } from '@/lib/data/places';
 import { placeDescriptor as d } from '@/lib/entities/descriptors/place';
 import { activeFilters, clearAll, facetCounts, filterRows } from '@/lib/entities/filter';
 import { activeGroup, groupRows, sortRows } from '@/lib/entities/sort';
@@ -11,9 +12,10 @@ const count = (q: string) => filterRows(rows, decodeState(q), d).length;
 const N = rows.length;
 
 describe('places filter', () => {
-  it('lists every public place (the 64 saved ones plus the researched Dolomites places) and shows them all with no filter', () => {
-    expect(rows.filter((r) => r.legacyKind !== null)).toHaveLength(64);
-    expect(N).toBeGreaterThan(64);
+  it('lists every public place (the saved ones plus the researched Dolomites places) and shows them all with no filter', () => {
+    const saved = loadPlaces().length;
+    expect(rows.filter((r) => r.legacyKind !== null)).toHaveLength(saved);
+    expect(N).toBeGreaterThan(saved);
     expect(count('')).toBe(N);
   });
 
@@ -111,12 +113,13 @@ describe('sort and group', () => {
     expect(byDefault[0].country_name <= byDefault[N - 1].country_name).toBe(true);
     const byName = sortRows(rows, decodeState('sort=name'), d);
     expect(byName.map((r) => r.name)).toEqual([...byName.map((r) => r.name)].sort((a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' })));
-    const desc = sortRows(rows, decodeState('sort=-elevation'), d);
-    const elevs = desc.map((r) => r.elevation_m).filter((e): e is number => e !== null);
-    expect(elevs).toEqual([...elevs].sort((a, b) => b - a));
-    // empty values stay last in both directions
-    expect(desc[desc.length - 1].elevation_m).toBeNull();
-    expect(sortRows(rows, decodeState('sort=elevation'), d)[N - 1].elevation_m).toBeNull();
+    const desc = sortRows(rows, decodeState('sort=-sources'), d);
+    const counts = desc.map((r) => r.sourceTypes.length);
+    expect(counts).toEqual([...counts].sort((a, b) => b - a));
+    // empty values stay last in both directions: a place with no public trip has no plan title
+    const plan = sortRows(rows, decodeState('sort=plan'), d);
+    expect(plan[N - 1].trips).toHaveLength(0);
+    expect(sortRows(rows, decodeState('sort=-plan'), d)[N - 1].trips).toHaveLength(0);
   });
 
   it('groups with counts that add up, and "none" gives one group', () => {
@@ -138,9 +141,6 @@ describe('a place in two public trips', () => {
       { slug: 'trip-a', title: 'Trip A' },
       { slug: 'trip-b', title: 'Trip B' },
     ],
-    trip: 'trip-a',
-    trip_title: 'Trip A',
-    plans: 2,
   };
   const all = [...rows, two];
   it('shows both trips as facet options and matches the place under either', () => {

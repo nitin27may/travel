@@ -160,10 +160,6 @@ describe('no internal capture notes on public output', () => {
     }
     expect(bad).toEqual([]);
   });
-  it('every list row (card summary and search text)', () => {
-    const bad = placeRows().filter((r) => INTERNAL.test(r.note)).map((r) => `${r.slug}: ${r.note}`);
-    expect(bad).toEqual([]);
-  });
   it('publicText keeps the sentences about the place and drops the capture notes', () => {
     expect(publicText('Stop 5 of the road trip post. Remote, unpaved access; check road conditions.')).toBe('Remote, unpaved access; check road conditions.');
     expect(publicText('Loose line in Location. md, no details.')).toBe('');

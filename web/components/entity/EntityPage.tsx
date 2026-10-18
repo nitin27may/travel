@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 import { EmptyState as MapPlaceholder } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
 import { PAGE_SIZE, Pager } from '@/components/ui/Pager';
-import { facetCounts, filterRows } from '@/lib/entities/filter';
+import { facetCounts, filterRows, gapNotes } from '@/lib/entities/filter';
 import { registry } from '@/lib/entities/registry';
 import { activeGroup, groupRows, sortRows } from '@/lib/entities/sort';
 import type { EntityDescriptor, EntityType, FacetParam, ViewName } from '@/lib/entities/types';
@@ -53,6 +53,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const paged = useMemo(() => (view === 'map' ? sorted : sorted.slice((page - 1) * pageSize, page * pageSize)), [sorted, view, page, pageSize]);
   const groups = useMemo(() => groupRows(paged, group), [paged, group]);
   const counts = useMemo(() => facetCounts(rows, state, d), [rows, state, d]);
+  const notes = useMemo(() => gapNotes(rows, state, d), [rows, state, d]);
   // value -> label for every facet, from all rows, so a chip keeps its name when its rows are filtered out
   const labels = useMemo(() => {
     const map: Record<string, Map<string, string>> = {};
@@ -116,7 +117,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
       </header>
 
       <div className="filter-sticky" ref={barRef}>
-        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} onState={setState} />
+        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} notes={notes} onState={setState} />
       </div>
 
       <section className="results" aria-labelledby="results-heading" data-view={view}>

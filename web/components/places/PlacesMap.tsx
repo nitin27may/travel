@@ -80,7 +80,6 @@ export function PlacesMap({ rows }: { rows: PlaceListRow[]; state: ListState }) 
               <Icon name={kindIcon(card.kind)} size={14} /> {card.kindLabel} · {[card.area_name, card.country_name].filter(Boolean).join(', ')}
             </p>
             <h3>{card.name}</h3>
-            {card.note ? <p className="places-map-note">{card.note}</p> : null}
             <p className="places-map-links">
               <a className="btn btn-primary" href={`/places/${card.slug}/`}>
                 Place page <Icon name="arrow" size={14} />
