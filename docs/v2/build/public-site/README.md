@@ -50,6 +50,8 @@ static pages get plain JSON props.
 | `legacy/<trip>/gallery/gallery.json` | photos by section with file, caption, author, licence | read directly |
 | `docs/v2/research/kinds/*.md` | per-kind completeness checks | hand-transcribed into `web/lib/public/completeness.ts` for the checks the data can answer |
 
+> **Public trips are dateless (owner, 18 Oct 2026):** every public trip, past or upcoming, is shown as Day 1-N with a season window. Booking windows are rules, not dates. See [../../design/public-trips-dateless.md](../../design/public-trips-dateless.md); LD and L3 must follow it.
+
 ### 2.2 The adapter API (LD owns; every other lane only imports it)
 
 ```ts
