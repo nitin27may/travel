@@ -1,5 +1,7 @@
 # Clickable prototype (working draft, 18 Oct 2026)
 
+Published privately: https://claude.ai/artifact/CXW1R6aixJEy3Lmufx16Hv (rebuild with `pnpm build:artifact`, then republish `dist-single/artifact.html` with the two relief images).
+
 `prototype/` is a throwaway front-end that tests the experience, the rendering libraries and the
 interactions in docs/v2/design/interactions.md on real data: the Dolomites trip (13-26 Jul 2027) from
 `legacy/dolomites-july-2027/PLAN.md`. It has no backend; every change lives in memory with undo.
@@ -22,6 +24,10 @@ pnpm build:artifact                 # one self-contained HTML file + the two rel
 | Set where you sleep, for 1-6 nights, candidates ranked by total drive time to the day's stops | "Sleep:" under each day | working |
 | Drag between days and lists; drop on a day in the outline; the day under the card shows its **predicted change in driving** before the drop; the map follows the target day and draws the new leg dashed | plan document + outline + map | working |
 | Keyboard move (Space, arrows, Space) with spoken announcements | cards | working (dnd-kit) |
+| **Day as a timeline**: time down the left, a rail with stops as nodes (height follows how long you stay) and travel as rail segments (solid drive, dotted walk), free time and clashes between stops ("arrives 9 min after 16:30"), sunrise and sunset where they fall, home base at both ends with leave and back times, split days as side-by-side lanes | each day | working |
+| Outline grouped by where you sleep, each day with a mini shape (drive vs stops, 05:00-22:00) and a warning dot | left column | working |
+| Ideas and lists on a collapsible shelf above the days; it opens while you drag | plan document | working |
+| Trailheads: a walk that starts at its car park (Sorapis from Passo Tre Croci) is a short walk, not a drive to the lake | timeline, totals, map | working |
 | Legs between every pair of stops and day totals (driving, walking, climb, sunset) that **count** to new values with a delta chip | day sections | working; drive times are estimates (≈), straight line × 1.42 mountain factor |
 | Real sunset times from `core/src/sun` (the repo's tested sun code, imported directly) | day header | working |
 | Map: own shaded relief in light and true dark, numbered pins matching the document, base as a house, focus-day route with halo, other days faint, leg labels | right column / phone sheet | working |

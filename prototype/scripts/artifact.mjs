@@ -2,8 +2,12 @@
 // the artifact host supplies <!doctype>, <html>, <head> and <body>, so only their contents are kept.
 import { readFileSync, writeFileSync } from "node:fs";
 const html = readFileSync("dist-single/index.html", "utf8");
-const head = html.match(/<head>([\s\S]*?)<\/head>/i)?.[1] ?? "";
-const body = html.match(/<body>([\s\S]*?)<\/body>/i)?.[1] ?? "";
+// the bundled JavaScript itself contains strings like "</head>", so cut at the real tags: the last
+// "</head>" that is followed by "<body>", and the last "</body>"
+const split = [...html.matchAll(/<\/head>\s*<body>/gi)].pop();
+if (!split) throw new Error("no </head><body> boundary");
+const head = html.slice(html.indexOf("<head>") + 6, split.index);
+const body = html.slice(split.index + split[0].length, html.lastIndexOf("</body>"));
 const keep = head
   .replace(/<meta charset[^>]*>/i, "")
   .replace(/<meta name="viewport"[^>]*>/i, "");
