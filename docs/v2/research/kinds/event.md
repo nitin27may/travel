@@ -24,7 +24,7 @@ affects (`affects`).
 |---|---|---|---|
 | `area_id` | the area it happens in or affects | `area_chamonix` | |
 | `attrs.recurrence` | `fixed_date` (MM-DD), `nth_weekday` (e.g. last full week of August), `lunar` (with the calendar), `condition` (peak colour), `one_off` | `nth_weekday: last week of August, about 7 days` | |
-| occurrence for the trip's year | `event_occurrence {year, starts_on, ends_on, status: confirmed | expected | cancelled, source}` | `{year: 2028, status: "expected", starts_on: null}` | whether it overlaps the trip |
+| occurrence for the trip's year | `event_occurrence {year, starts_on, ends_on, status, source}`, status `confirmed`, `expected` or `cancelled` | `{year: 2028, status: "expected", starts_on: null}` | whether it overlaps the trip |
 | `attrs.effect` | list from the enum, with `affects` relations | `["crowds", "prices_up"]` | the base that becomes impossible |
 | `attrs.family_friendly` | `yes`, `partly`, `no`, with why | | |
 | `point` | the main venue, or the area centre for area-wide events | | |
@@ -101,7 +101,7 @@ recurrence: 365 days. Peak windows: after each season, add the observed year. Ti
 | A closing Sunday that falls inside the window | Chamonix lifts about 13 Sep; a 2028 closing Sunday could be 10 Sep (same) |
 | An early colour year | Algonquin peaked about 27 Sep 2026 (repo CLAUDE.md, Algonquin entry) |
 | Races that close passes | Sellaronda Bike Day and Maratona dles Dolomites (research/trips/dolomites-july-2027/sights.md line 282) |
-| Car-free scheme dates move between years | Passo Sella #dolomitesvives, 23 Jul - 31 Aug in the recent framework, 2027 dates GAP (dolomites transport.md section 1) |
+| Car-free scheme dates move between years | Passo Sella #dolomitesvives, 23 Jul - 31 Aug in the recent framework, 2027 dates GAP (dolomites transport.md 1.5) |
 
 ## 12. Worked example: UTMB week, 2028
 

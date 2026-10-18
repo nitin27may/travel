@@ -26,6 +26,21 @@ changesets against it before review; the review queue shows it beside the diff.
 | Family and kids | [family-and-kids.md](family-and-kids.md) | kid fit, limits, facilities, family alternatives |
 | Accessibility | [accessibility.md](accessibility.md) | step-free routes, facilities, transport access |
 
+Each lane produces one or more kinds of place. What each kind must carry, field by field, and the
+checks that make it Draft, Usable or Complete, are in the kind profiles: [../kinds/README.md](../kinds/README.md).
+
+| Lane | Kind profiles it fills |
+|---|---|
+| trails | [trail](../kinds/trail.md), [trailhead](../kinds/trailhead.md), [parking](../kinds/parking.md), [hut](../kinds/hut.md) (approach) |
+| sights and viewpoints | [lake](../kinds/lake.md), [waterfall](../kinds/waterfall.md), [viewpoint](../kinds/viewpoint.md), [sight](../kinds/sight.md), [swim spot](../kinds/swim-spot.md), [lift](../kinds/lift.md), [parking](../kinds/parking.md) |
+| adventure | [adventure](../kinds/adventure.md), [lift](../kinds/lift.md) |
+| stays | [stay](../kinds/stay.md), [hut](../kinds/hut.md), [town](../kinds/town.md) (base facts) |
+| food | [eatery](../kinds/eatery.md) |
+| destination overview | [town](../kinds/town.md) |
+| relax and luxury | [swim spot](../kinds/swim-spot.md) (ticketed pools), [lift](../kinds/lift.md) (scenic trains), [adventure](../kinds/adventure.md) |
+| events and seasonal | [event](../kinds/event.md) |
+| road trips and legs | [parking](../kinds/parking.md), [viewpoint](../kinds/viewpoint.md) (pull-outs), [town](../kinds/town.md) |
+
 ## Every contract has the same sections
 
 1. **Purpose** and the questions the lane answers.

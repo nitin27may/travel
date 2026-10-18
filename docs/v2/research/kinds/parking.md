@@ -135,7 +135,7 @@ Fills-by: 365 days. Capacity: 3 years. Hours: 180 days. Point: never. Links: 90 
 |---|---|---|
 | `point` | `[12.29439, 46.61356]`, `osm_way:74709399` (centroid; entrance node to record) | OSM, read 18 Oct 2026 |
 | `parks_for` | Rifugio Auronzo trailhead; Tre Cime loop | |
-| `fee` | 40 EUR per car, valid 12 hours from the booked entry, includes the toll road; 26 motorbike, 60 motorhome; `applies_to` 2026 | auronzo.info via research/trips/dolomites-july-2027/transport.md section 1 |
+| `fee` | 40 EUR per car, valid 12 hours from the booked entry, includes the toll road; 26 motorbike, 60 motorhome; `applies_to` 2026 | auronzo.info via research/trips/dolomites-july-2027/transport.md 1.5 |
 | `reservation` | `required`; `offer` kind `permit`, `window_rule` to be read (the research says "booking opens end of April"; the prototype says "30 days before": a conflict) | dolomites trails.md, prototype trails.ts |
 | `fills_by` | `searched_none`: the research says "fills by mid-morning in July" (undated, one source) | dolomites trails.md |
 | `capacity_cars` | conflict: "~700 vehicles" for the whole area in one blog; P4 alone unknown | |

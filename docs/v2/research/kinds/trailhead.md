@@ -119,7 +119,7 @@ Timetables: 180 days and before every trip. Facilities: 2 years. Links: 90 days.
 | `name` | Rifugio Auronzo trailhead (paths 101 and 105) | dolomites trails.md, Tre Cime loop entry |
 | `point` | pending: the path 101 start node beside the hut | OSM; the hut is way 186519265 at 46.61220, 12.29610 (read 18 Oct 2026), a reference, not the trailhead |
 | `access_mode` | `car` (toll road) and `transit` (bus 444 from Dobbiaco, DolomitiBus shuttle from Misurina) | dolomites transport.md 2.2 |
-| `access_road` | SP49 Misurina - Rifugio Auronzo toll road (paved), `access_road_season` with mandatory slot | dolomites transport.md section 1 |
+| `access_road` | SP49 Misurina - Rifugio Auronzo toll road (paved), `access_road_season` with mandatory slot | dolomites transport.md 1.5 |
 | `first_arrival` / `last_departure` | bus 444: first 08:19, last 18:08 back to Dobbiaco (2026) | dolomites transport.md 2.2 |
 | `elevation_m` | 2,320 | prototype trails.ts `tre-cime` |
 | relations | `parks_for` from four lots, P1-P4 (parking.md example) | OSM |

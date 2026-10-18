@@ -128,7 +128,7 @@ Access rules and booking windows: 365 days, and before the next window. Shuttle 
 
 | Field | Value | Source |
 |---|---|---|
-| `point` | pending: the Rockpile viewpoint node; the water way is OSM way 356877446, centre 51.32168, -116.18490, ele 1,884 (read 18 Oct 2026) | OSM |
+| `point` | one of three OSM viewpoint nodes at the Rockpile end, within about 100 m of each other: 348002836 (unnamed), 348002838 and 348002839 (both "Moraine lake viewpoint"), around 51.3276, -116.1800; a person picks the Rockpile top and sets `point_checked`. The water is way 356877446 (centre 51.32168, -116.18490, ele 1,884), never the point | OSM, read 18 Oct 2026 |
 | `shape` | way 356877446 | OSM |
 | access | `serves` from the Lake Louise Park and Ride shuttle stop; `access_note` "Moraine Lake Road is closed to personal vehicles" | Parks Canada (sights.json `moraine-lake`) |
 | `season` | `06-01..10-12 open`, shuttle season, `applies_to` 2026 | same |
@@ -137,6 +137,6 @@ Access rules and booking windows: 365 days, and before the next window. Shuttle 
 | `duration` | 180 min (the legacy `time_needed_hours: 3`) | same, `community` |
 | youth band ages | `gap` | same |
 
-Until the Rockpile node is recorded, D4 fails and `propose` bounces the create, so the first job is
-the point. With it: **Draft · 11 of 29** (D1-D5, U1, U2, U3, U5, U7, U8). Then U4 (walk from the
-stop), U6 (shuttle first and last times) and U9 (swimming) make it Usable.
+With the viewpoint node as the point: **Draft · 10 of 29** (D1-D5, U1, U2, U3, U5, U7). Then U4 (walk from the
+stop), U6 (shuttle first and last times), U8 (how fast launch-day seats sell out) and U9 (swimming)
+make it Usable.

@@ -34,8 +34,8 @@ Activity:
 | Field | Format | Example | Why it matters to a family planning a day |
 |---|---|---|---|
 | `subkind` | `ACTIVITY_TYPE` | `via-ferrata` | |
-| `point` | where it starts or happens | Loen Active base in Loen | the navigation target |
-| `attrs.operator` | `{name, url, phone}` | Loen Active | who to call when the page is silent |
+| `point` | where the party meets | Loen Active in Loen village | the navigation target |
+| `attrs.operator` | `{name, url, phone}` | Loen Skylift, en.loenskylift.no | who to call when the page is silent |
 | `season` | season structure, `applies_to` | `06-01..09-30` (example shape) | runs on the trip's dates or not |
 | `hours` / `attrs.slots` | departures by season: `[{season, days, times: ["09:00","10:00","11:00"]}]` | daily 09:00, 10:00, 11:00 in season | morning-only activities clash with the afternoon weather slot |
 | `attrs.weather_dependent` | bool, with what cancels it (wind, river level, lightning) | `true`, "wind" | needs a Plan B day |
@@ -188,12 +188,13 @@ days.
 
 ## 12. Worked example: Via Ferrata Loen (Norway)
 
-From research/trips/norway-summer/sights.md line 72 (GAP CLOSED 2026-08-31).
+From research/trips/norway-summer/sights.md line 72 (GAP CLOSED 2026-08-31); sources
+en.loenskylift.no/viaferrataloen and the Skylift prices page (lines 120-121).
 
 | Field | Value | Evidence |
 |---|---|---|
 | activity `subkind` | `via-ferrata` | |
-| `point` | pending: the Loen Active base in Loen village (OSM lookup) | |
+| `point` | OSM node 13812190758 "Loen Skylift AS" (61.87480, 6.83909) as a candidate; the operator says departures are from Loen Active in the village, so a person confirms it. The route is OSM relation 16057739 (`via_ferrata_scale` 4) with an alternate exit, relation 16057738 (scale 2), read 18 Oct 2026 | OSM |
 | `attrs.slots` | daily in season 09:00, 10:00, 11:00, `tz` Europe/Oslo | operator |
 | offer `name` | Via Ferrata Loen (instructor, equipment and Loen Skylift descent included) | operator |
 | price | 2,380 NOK per person; the ferrata + zipline package costs the same | operator, read 2026 |
@@ -204,6 +205,7 @@ From research/trips/norway-summer/sights.md line 72 (GAP CLOSED 2026-08-31).
 | window, sellout, weather policy, cancel policy, duration | gaps | |
 
 Offer: **Draft · 6 of 16** (OD1, OU1, OU2, OU3, OU6, OU8 pass; OU4 adult rule, OU5 duration and OU7
-window missing). Activity: Draft until the point is recorded and OU4, OU5, OU7 close; then U7 passes
-and it is Usable. For a 12-year-old of 38 kg the household check returns `fail` on weight, whatever
+window missing). Activity: **Draft · 9 of 25** (D1-D5 with the candidate point, U1, U2, U3, U4); U5 (the
+confirmed meeting point), U6 (what cancels it) and U7 (an offer at Usable, after OU4, OU5 and OU7)
+make it Usable. For a 12-year-old of 38 kg the household check returns `fail` on weight, whatever
 the age.

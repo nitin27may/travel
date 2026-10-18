@@ -1,6 +1,7 @@
 # Lane: stays
 
-Status: draft (17 Oct 2026).
+Status: draft (17 Oct 2026; required fields and sources made concrete 18 Oct 2026, aligned with
+[../kinds/stay.md](../kinds/stay.md), [../kinds/hut.md](../kinds/hut.md) and [../kinds/town.md](../kinds/town.md)).
 
 ## 1. Purpose
 
@@ -25,14 +26,37 @@ We never book stays; this lane feeds suggestions, the plan's night bases and the
 
 ## 3. Required fields
 
-Base town: `name`, `point`, `attrs.base.elevation_m`, `attrs.base.access` (road, car-free, lift, ferry),
-`attrs.base.why_sleep_here`, `attrs.base.why_not`, `attrs.base.groceries` (nearest real supermarket and
-minutes), `attrs.base.drive_times_min` (to the area's other bases and main sights; from routing, not
-memory).
+The exact checks per level are in the kind profiles: [../kinds/town.md](../kinds/town.md) (base
+towns), [../kinds/stay.md](../kinds/stay.md) (properties and campsites), [../kinds/hut.md](../kinds/hut.md)
+(huts). A stay is Usable (can be a night base in a plan) when these are filled with evidence:
 
-Property: `name`, `subkind`, `point`, `area_id`, `address`, `website`, `attrs.check_in_from`,
-`attrs.check_out_by` (local times), `season` (open dates, crucial for huts and campsites), `cost_band`,
-`sources`.
+**Base town** (`place/town` with `attrs.base`):
+
+| Field | Format | Example |
+|---|---|---|
+| `name`, `point`, `point_source`, `area_id` | core fields; `wikidata:` allowed for the point | Argentiere |
+| `attrs.base.elevation_m` | metres, `official` or Wikidata; never "~1,060 m INFER" | `1252` |
+| `attrs.base.access` | list of `road`, `car_free`, `rail`, `lift_only`, `ferry` | `["road", "rail"]` |
+| `attrs.base.why_sleep_here`, `attrs.base.why_not` | our words, concrete | "trailheads from the door"; "grocery limited" |
+| `attrs.base.groceries` | relation to a supermarket `eatery` entity with minutes | Super U Les Pelerins, 10 min |
+| `attrs.base.drive_times_min` | from routing (`leg_cache`), never memory | `{chamonix_centre: 15}` |
+| `attrs.base.transport` | guest card: what it covers and what it does not | carte d'hote: Servoz-Vallorcine trains only |
+| `attrs.base.parking` | free, paid with rate and year, ZTL | 24 h EUR 19.90 (2026) |
+
+**Property** (`stay`):
+
+| Field | Format | Example |
+|---|---|---|
+| `name`, `subkind`, `point`, `point_source`, `area_id` | core fields; point from OSM `tourism` (hotel, guest_house, apartment, camp_site) | |
+| `website`, `attrs.address` | the property's own site; the address as it writes it | |
+| `attrs.check_in_from`, `attrs.check_in_until`, `attrs.check_out_by` | local `HH:MM` | `15:00`, `22:00`, `10:00` |
+| `season` | open dates with `applies_to` | `05-13..09-30 (2026)` |
+| `cost_band` | 0-4 from the property's published rates, or computed from category with a note | `2` |
+| `attrs.rooms_family` or room `offer`s | beds, max occupancy, connecting, cots, extra-bed price | "two-bedroom apartment, sleeps 5" |
+| `attrs.amenities.parking` | `free`, `paid` (rate), `none`, `street`; height limit | `paid, 2.0 m` |
+| `attrs.min_stay` | nights by season and holiday weekend, or `none_stated` | `{"07-01..08-31": 3}` |
+| campsites | `attrs.pitches`, `attrs.reservation`, `attrs.max_vehicle_m` | |
+| huts | `attrs.booking` (channel and window), `attrs.half_board` (price, year), `attrs.payment`, `eligibility.min_age` for nights | see the hut profile |
 
 ## 4. Optional fields
 
@@ -55,9 +79,19 @@ Property:
 
 ## 5. Sources, in order
 
-Property's own site and terms; hut and alpine club booking systems; park campground reservation systems;
-official tourism lodging directories; OSM and Wikidata for identity; community for evening vibe, real
-noise, sun loss. Online travel agencies as links only (their content and prices are not stored).
+| # | Source | Trusted for |
+|---|---|---|
+| 1 | The property's own site, rates page and terms | check-in times, rooms, amenities (air conditioning only from here), season, min stay, parking, published rates |
+| 2 | Hut and alpine club booking systems (montourdumontblanc.com for TMB huts, CAI and SAC portals, refuge sites) | hut season, booking-open dates, half board, payment, age rules |
+| 3 | Park and municipal campground reservation systems (Parks Canada, Ontario Parks, the Iceland Camping Card list) | campsite season, pitches, windows |
+| 4 | Official tourism lodging directories (hautesavoiemontblanc-tourisme.com, the valley boards) | season, category, contact, campsite prices |
+| 5 | Municipality and tourist office | guest card terms, tourist tax, parking guide |
+| 6 | OSM and Wikidata | identity and points |
+| 7 | The property by phone or email, recorded as `operator` with the date | room layouts, air conditioning, late check-in |
+| 8 | Dated community reports | evening vibe, real noise, sun loss, whether the family room is a room |
+
+Online travel agencies (Booking.com, Expedia, Airbnb listings) are links only; their content,
+ratings and prices are never stored.
 
 ## 6. Evidence rules
 

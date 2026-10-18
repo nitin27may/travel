@@ -15,6 +15,7 @@ results (changesets, review, trust, freshness, coverage).
 |---|---|
 | [trip-types.md](trip-types.md) | Profiles for day trip, weekend, vacation, family, couple, romantic, luxury, adventure, road trip, camper, trek and more: what matters, which lanes go deep, deal-breakers |
 | [lanes/](lanes/README.md) | One strict contract per lane: required and optional fields with units, sources in order, evidence rules, freshness, traps, example changeset |
+| [kinds/](kinds/README.md) | One profile per kind of place (trail, trailhead, parking, viewpoint, lake, waterfall, sight, town, adventure, lift, hut, stay, eatery, swim spot, event): required fields with format and unit, location and `point_source`, link checklist, sources, people limits, time and money, and the exact checks for **Draft, Usable and Complete**; plus the one-page "adding a place" flow and how the validator, the badge, the skill and the MCP enforce it |
 | [sources-and-licences.md](sources-and-licences.md) | What we may store, what we may only link, how to paraphrase and attribute |
 | [skills-and-prompts.md](skills-and-prompts.md) | The Claude Code skills to build, the MCP prompts that mirror them, budgets, parallelism rules, a worked Banff example |
 | [onboarding-and-refresh.md](onboarding-and-refresh.md) | A new destination step by step, refresh by staleness, the pre-trip conditions check and its verdict |
@@ -147,6 +148,11 @@ hazards, sources, checked date, status) and `adventures.json` (43 with operator,
 2026 price, min age, height, weight, booking, weather refund). The import path is in
 `docs/v2/migration/`; the contracts keep every field those files have and add the ones they lack
 (trailhead points, parking lots as their own records, structured season windows, link checks).
+
+What "done" means for each kind of place is in [kinds/](kinds/README.md): a lane says how research
+runs, a kind profile says what a place must carry to be Draft (on the map with a warning), Usable
+(in a day plan) or Complete (verified, every link resolved, photo licensed). The level is computed,
+never set.
 
 The rules that made the current research good carry over unchanged: **record gaps as gaps** (never a
 plausible number), **official source first, AllTrails never alone**, **report ranges when sources

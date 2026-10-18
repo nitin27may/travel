@@ -1,6 +1,7 @@
 # Lane: food
 
-Status: draft (17 Oct 2026).
+Status: draft (17 Oct 2026; required fields and sources made concrete 18 Oct 2026, aligned with
+[../kinds/eatery.md](../kinds/eatery.md)).
 
 ## 1. Purpose
 
@@ -17,9 +18,20 @@ Offers only for things booked ahead (tasting menus, cooking classes, food tours)
 
 ## 3. Required fields
 
-`name`, `subkind`, `point`, `area_id`, `hours` (structured per weekday with seasonal variants),
-`attrs.closed_days`, `cost_band`, `attrs.why` (one line: the dish, the view, the fact that it is the only
-open place), `sources`.
+The checks per level are in [../kinds/eatery.md](../kinds/eatery.md). An eatery is Usable (can go in
+a day plan) when these are filled with evidence:
+
+| Field | Format | Example |
+|---|---|---|
+| `name`, `subkind`, `area_id` | core fields | `bakery` |
+| `point`, `point_source` | OSM `amenity` (restaurant, cafe, pub, bar) or `shop` (bakery, supermarket, deli); never a Google business pin | `osm_node:...` |
+| `hours` | per weekday, seasonal periods, `tz`, kitchen close when earlier | Tue-Sat 09:00-16:00, America/Toronto |
+| `attrs.closed_days` | weekdays, plus a holiday rule (`closed_public_holidays`, `open`, `unknown`) | `["sun", "mon"]`, `unknown` |
+| `season` | open period with `applies_to`; shoulder-season closing | |
+| `cost_band` | 0-4 | `1` |
+| `attrs.why` | one line: the dish, the view, the only open place | "sticky buns for Sunday's hike" |
+| `attrs.payment` | `cash_only`, `card`, `card_min` | `cash_only` |
+| `attrs.reservation` | `none`, `recommended`, `required`, with lead time and channel | "phone preorder, 48 h notice" |
 
 ## 4. Optional fields
 
@@ -31,9 +43,17 @@ lead time and window), `attrs.kid_friendly` (kids' menu, high chairs, early serv
 
 ## 5. Sources, in order
 
-The venue's own site or social page for hours; regional tourism; local press reviews; OSM
-`opening_hours` as a hint; community for real hours and queues. Google, Yelp and TripAdvisor content is
-never stored; links to the venue page only.
+| # | Source | Trusted for |
+|---|---|---|
+| 1 | The venue's own site or official social page | hours, closed days, season, payment, reservation, menu |
+| 2 | Regional tourism board (explorehuntsville.ca, the valley boards) | which places are open in the shoulder month; seasonal opening |
+| 3 | Local press reviews | why go, signature dishes |
+| 4 | The venue by phone, recorded as `operator` with the date | holiday hours, cash rule |
+| 5 | OSM `opening_hours` | a hint only, never a planning value on its own |
+| 6 | Dated community reports | real hours, queues, kid-friendliness |
+
+Google, Yelp and TripAdvisor are never stored as sources; a search snippet that shows hours is
+`community` at best and is marked as a snippet (the Algonquin research marks these `[S]`).
 
 ## 6. Evidence rules
 
@@ -50,9 +70,13 @@ Hours 180 days; closed days 180 days; seasonal opening 365 days; summaries 2 yea
 
 ## 9. Traps
 
-Sunday and Monday closures in small towns; shoulder-season closures; kitchens closing at 21:00 in the
-Alps; hut kitchens cash-only; supermarkets closed on public holidays; the one grocery in a car-free
-village with short hours.
+Sunday and Monday closures in small towns (Henrietta's Pine Bakery, Dwight: Tue-Sat only, on a
+Thanksgiving weekend; research/trips/algonquin-muskoka-oct-2026/attractions.md line 125); a page that
+is last year's text (the same bakery's "closed starting Saturday Nov 1" is 2025 because 1 Nov 2026 is a
+Sunday: check weekday-date pairs against the claimed year); hours only from snippets (Erika's Bakery,
+same file line 126); shoulder-season closures (Portage Store "late April to mid-October", line 57);
+kitchens closing at 21:00 in the Alps; hut kitchens cash-only (Rifugio Vandelli); supermarkets closed
+on public holidays; the one grocery in a car-free village with short hours.
 
 ## 10. Example changeset (abridged)
 
