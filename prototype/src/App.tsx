@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import type { Place } from "./data/places";
 import { PlanScreen } from "./plan/Plan";
 import { SCREENS, type ScreenId } from "./screens";
+import { EmptyTrip, TripPicker, TripSwitcher } from "./screens/TripGate";
+import { FULL_PLAN } from "./data/trips";
 import { useStore } from "./state/store";
 import { Toast } from "./ui/bits";
 import { Icon } from "./ui/Icon";
@@ -39,6 +41,9 @@ export default function App() {
   const [sysDark, setSysDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
   const [screen, setScreen] = useState<ScreenId>(() => (location.hash.slice(1) as ScreenId) in SCREENS || location.hash === "#plan" ? (location.hash.slice(1) as ScreenId) : "plan");
   const [openPlace, setOpenPlace] = useState<Place | undefined>();
+  // the trip that Plan, Today, Bookings, Tasks and Budget belong to; none until the person picks one
+  const [tripId, setTripId] = useState<string | undefined>(() => read("proto.trip") ?? undefined);
+  const pickTrip = (id?: string) => { setTripId(id); if (id) write("proto.trip", id); else try { localStorage.removeItem("proto.trip"); } catch { /* storage blocked */ } };
   const [more, setMore] = useState(false);
   const { s } = useStore();
   useEffect(() => { const mq = window.matchMedia("(prefers-color-scheme: dark)"); const f = () => setSysDark(mq.matches); mq.addEventListener("change", f); return () => mq.removeEventListener("change", f); }, []);
@@ -48,13 +53,19 @@ export default function App() {
     write("proto.theme", pref);
   }, [pref]);
   const theme: "light" | "dark" = pref === "dark" || (pref === "system" && sysDark) ? "dark" : "light";
-  const go = (id: ScreenId) => { setScreen(id); setMore(false); try { history.replaceState(null, "", `#${id}`); } catch { /* sandboxed */ } };
+  const go = (id: ScreenId, trip?: string) => { if (trip) pickTrip(trip); setScreen(id); setMore(false); try { history.replaceState(null, "", `#${id}`); } catch { /* sandboxed */ } };
   const cycle = () => setPref(p => (p === "system" ? (sysDark ? "light" : "dark") : p === "light" ? "dark" : p === "dark" ? "sun" : "system"));
 
   const Screen = screen === "plan" ? null : SCREENS[screen];
-  const body = screen === "plan"
-    ? <PlanScreen theme={theme} phone={phone} onOpenPlace={p => { setOpenPlace(p); go("place"); }} onShare={() => go("share")} />
-    : Screen ? <Screen phone={phone} theme={theme} go={go} place={openPlace} /> : null;
+  const tripScoped = TRIP_SCREENS.has(screen);
+  const switcher = (compact = false) => tripId ? <TripSwitcher tripId={tripId} onPick={id => pickTrip(id)} onAll={() => go("home")} className={compact ? "compact" : ""} /> : null;
+  const body = tripScoped && !tripId
+    ? <TripPicker screen={screen} onPick={id => pickTrip(id)} onNew={() => go("new")} />
+    : tripScoped && tripId && !FULL_PLAN.has(tripId)
+      ? <EmptyTrip tripId={tripId} screen={screen} go={go} switcher={switcher()} />
+      : screen === "plan"
+        ? <PlanScreen theme={theme} phone={phone} switcher={switcher()} onOpenPlace={p => { setOpenPlace(p); go("place"); }} onShare={() => go("share")} />
+        : Screen ? <Screen phone={phone} theme={theme} go={go} place={openPlace} tripId={tripId} /> : null;
 
   return (
     <div className={`app ${phone ? "is-phone" : "is-desk"}`}>
@@ -75,14 +86,17 @@ export default function App() {
       )}
       {phone && (
         <header className="phone-top">
-          {TRIP_SCREENS.has(screen) ? <span className="sign">Dolomites</span> : <span className="sign brand-mark" aria-label="Trip planner">TP</span>}
-          {TRIP_SCREENS.has(screen) && <span className="num muted small">{s.trip.travellers.length} travellers · 13 nights</span>}
+          {tripScoped && tripId ? switcher(true) : <span className="sign brand-mark" aria-label="Trip planner">TP</span>}
+          {tripScoped && tripId === "dolomites" && <span className="num muted small">{s.trip.travellers.length} travellers · 13 nights</span>}
           <button className="btn ghost" onClick={cycle} aria-label={`Theme: ${pref}`}><Icon name={theme === "dark" ? "moon" : "sun"} /></button>
         </header>
       )}
       <main className="main">
         <AnimatePresence mode="wait">
-          <motion.div key={screen} className={`screen scr-${screen}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .14 }}>{body}</motion.div>
+          <motion.div key={screen} className={`screen scr-${screen}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .14 }}>
+            {!phone && tripScoped && screen !== "plan" && tripId && FULL_PLAN.has(tripId) && <div className="tripbar"><span className="label">Trip</span>{switcher(true)}</div>}
+            {body}
+          </motion.div>
         </AnimatePresence>
       </main>
       {phone && (

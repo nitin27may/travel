@@ -15,7 +15,7 @@ import { Templates } from "./Templates";
 import { Today } from "./Today";
 
 export type ScreenId = "home" | "plan" | "today" | "bookings" | "tasks" | "budget" | "explore" | "place" | "templates" | "admin" | "settings" | "share" | "guest" | "new";
-export interface ScreenProps { phone: boolean; theme: "light" | "dark"; go: (id: ScreenId) => void; place?: Place }
+export interface ScreenProps { phone: boolean; theme: "light" | "dark"; go: (id: ScreenId, tripId?: string) => void; place?: Place; tripId?: string }
 
 const Nothing = () => null;
 export const SCREENS: Record<ScreenId, ComponentType<ScreenProps>> = {

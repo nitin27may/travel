@@ -355,3 +355,10 @@
 .phone-search { padding: 8px max(12px, env(safe-area-inset-left, 0px)) 0; }
 @media (max-width: 1180px) { .psearch-pop { right: 0; grid-template-columns: 1fr; } .psearch-preview { border-left: 0; border-top: 1px solid var(--line); } }
 @media (max-width: 760px) { .psearch-pop { position: fixed; left: 8px; right: 8px; top: 120px; max-height: 70vh; overflow: auto; } }
+
+/* trip context above Today, Bookings, Tasks and Budget (desktop); the phone top bar carries it there */
+.tripbar { display: flex; align-items: center; gap: 10px; max-width: 1080px; margin: 0 auto; padding: 16px 0 0; box-sizing: content-box; }
+.tripbar .label { margin: 0; }
+.screen:has(> .tripbar) { display: flex; flex-direction: column; }
+.screen > .tripbar { padding: 16px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); width: 100%; max-width: calc(1080px + 32px); }
+.screen > .tripbar + * { flex: 1; min-height: 0; }
