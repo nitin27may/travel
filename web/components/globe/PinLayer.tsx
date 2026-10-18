@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import { Icon, kindIcon } from '@/components/ui/Icon';
@@ -34,10 +34,12 @@ interface PinButtonProps {
   count?: number;
   merged?: boolean;
   href?: string | null;
+  /** Roving tab stop for a row of link pins: only the first is in the Tab order, the arrow keys move between them. */
+  tabIndex?: number;
   onOpen(): void;
 }
 
-function PinButton({ pin, active, interactive, count, merged, href, onOpen }: PinButtonProps) {
+function PinButton({ pin, active, interactive, count, merged, href, tabIndex, onOpen }: PinButtonProps) {
   const [hover, setHover] = useState(false);
   const n = count ?? pin.count;
   const disc = merged || pin.kind === 'country' || pin.kind === 'state' || pin.kind === 'district';
@@ -49,6 +51,21 @@ function PinButton({ pin, active, interactive, count, merged, href, onOpen }: Pi
     return (
       <Link
         href={href}
+        prefetch={false}
+        tabIndex={tabIndex}
+        onKeyDown={(e) => {
+          const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+          if (!dir) return;
+          // pins on the far side of the globe are culled (visibility hidden) and cannot take focus: skip them
+          const all = [...(e.currentTarget.closest('.globe-canvas')?.querySelectorAll<HTMLAnchorElement>('a[data-globe-pin]') ?? [])];
+          const here = all.indexOf(e.currentTarget);
+          let next: HTMLAnchorElement | undefined;
+          for (let i = 1; i <= all.length && !next; i++) {
+            const cand = all[(here + dir * i + all.length * i) % all.length];
+            if (cand && getComputedStyle(cand).visibility !== 'hidden') next = cand;
+          }
+          if (next && next !== e.currentTarget) { e.preventDefault(); all.forEach((a) => { a.tabIndex = -1; }); next.tabIndex = 0; next.focus(); }
+        }}
         className="globe-pin"
         data-globe-pin=""
         data-kind={disc ? 'disc' : pin.kind}
@@ -126,13 +143,29 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
   useLayoutEffect(() => { setEls(engine.syncMarkers('pins', specs)); }, [engine, specs]);
   useLayoutEffect(() => () => { engine.syncMarkers('pins', []); }, [engine]);
 
+  // A row of link pins (the home cover) is one Tab stop: the first pin that can take focus. The engine hides pins on the far
+  // side of the globe, so the stop moves whenever the set of visible pins changes.
+  useEffect(() => {
+    if (!hrefFor) return;
+    const box = engine.map.getContainer();
+    const settle = () => {
+      const all = [...box.querySelectorAll<HTMLAnchorElement>('a[data-globe-pin]')];
+      const usable = (a: HTMLAnchorElement) => getComputedStyle(a).visibility !== 'hidden';
+      const keep = all.find((a) => a === document.activeElement && usable(a)) ?? all.find((a) => a.tabIndex === 0 && usable(a)) ?? all.find(usable);
+      for (const a of all) a.tabIndex = a === keep ? 0 : -1;
+    };
+    settle();
+    box.addEventListener('globe-culled', settle);
+    return () => box.removeEventListener('globe-culled', settle);
+  }, [engine, hrefFor, els]);
+
   return (
     <>
       {groups.flatMap((g) => {
         if (g.pins.length === 1) {
           const p = g.pins[0];
           const el = els.get(p.id);
-          return el ? [createPortal(<PinButton key={p.id} pin={p} active={!!selectedKey && p.cardKey === selectedKey} interactive={interactive} href={hrefFor?.(p)} onOpen={() => onOpen(p)} />, el, p.id)] : [];
+          return el ? [createPortal(<PinButton key={p.id} pin={p} active={!!selectedKey && p.cardKey === selectedKey} interactive={interactive} href={hrefFor?.(p)} tabIndex={hrefFor ? -1 : undefined} onOpen={() => onOpen(p)} />, el, p.id)] : [];
         }
         const out = [];
         const gel = els.get(`g:${g.key}`);

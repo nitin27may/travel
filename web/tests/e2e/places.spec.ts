@@ -148,10 +148,10 @@ test.describe('place page', () => {
     }
   });
 
-  test('Save to a trip tells a visitor to sign in, with Copy link', async ({ page, site }) => {
+  test('Save to a trip says it comes with the planner, with Copy link', async ({ page, site }) => {
     await page.goto(`${site.url}${TRAIL}`);
     await page.getByRole('button', { name: 'Save to a trip' }).click();
-    await expect(page.getByText('Sign in to add this to a trip.')).toBeVisible();
+    await expect(page.getByText(/comes with the planner/)).toBeVisible();
     await expect(page.getByRole('button', { name: /Copy link/ })).toBeVisible();
   });
 

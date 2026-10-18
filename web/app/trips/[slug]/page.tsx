@@ -7,6 +7,7 @@ import { TripPlan } from '@/components/trips/TripPlan';
 import { buildTripPageModel } from '@/components/trips/model';
 import type { PlaceLookup } from '@/components/trips/model';
 import { getPlace, getTrip, tripSlugs } from '@/lib/public';
+import { ogImageFor } from '@/lib/og';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
 
 export const dynamicParams = false;
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const trip = getTrip(slug);
   if (!trip) return { robots: { index: false, follow: false } };
-  return pageMetadata({ title: trip.title, description: trip.subtitle, path: `/trips/${slug}/`, image: trip.cover?.url });
+  return pageMetadata({ title: trip.title, description: trip.subtitle, path: `/trips/${slug}/`, image: ogImageFor('trips', slug) });
 }
 
 const lookup: PlaceLookup = (slug) => {

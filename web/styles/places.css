@@ -90,6 +90,8 @@
 .pl-card > h2 { font: var(--t-row); }
 .pl-mapcard { padding: 0; border: 0; background: transparent; }
 .pl-map-surface { min-height: 320px; }
+@media (min-width: 1000px) { .pl-map-surface { min-height: 400px; } }
+@media (min-width: 1280px) { .pl-cols { grid-template-columns: minmax(0, 1fr) 480px; } .pl-map-surface { min-height: 460px; } }
 .pl-gap { display: inline-flex; align-items: center; gap: 6px; font: var(--t-note); color: var(--muted); margin: 0; }
 .pl-nophotos { padding: 0; }
 

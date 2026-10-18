@@ -6,6 +6,7 @@ import { countryPins, pickPlaces } from '@/components/home/pick';
 import { HomePlaceCard, HomeTripCard } from '@/components/home/Strips';
 import { Credits, type PhotoCredit } from '@/components/ui/Credits';
 import { globeIndex, listPlaces, listTrips, type Photo } from '@/lib/public';
+import { buildGlobeData } from '@/lib/globe/data';
 import { pageMetadata } from '@/lib/site';
 import '@/styles/home.css';
 
@@ -23,11 +24,13 @@ export default function Home() {
   const allPlaces = listPlaces();
   const places = pickPlaces(allPlaces, 8);
   const pins = countryPins(globeIndex());
+  // the cover draws country discs from the tree alone; the cards (photos, titles) are for the full globe
+  const cover = { index: buildGlobeData().index, cards: {} };
   const photos = [...trips.map((t) => t.cover), ...places.map((p) => p.photo)].filter((p): p is Photo => !!p);
   return (
     <div className="home">
       <section className="home-cover" aria-label="Where we have been and where we are going">
-        <CoverGlobe pins={pins} />
+        <CoverGlobe data={cover} />
         <div className="home-cover-inner">
           <h1 className="home-title">Trip plans</h1>
           <CoverSearch />

@@ -59,7 +59,7 @@ export function DayRow({ trip, day, open, picked, onToggle }: Props) {
           <span className="day-thumb" aria-hidden="true">
             {day.thumb ? (
               // eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs
-              <img src={sizedImage(day.thumb.url, 192)} alt="" loading="lazy" decoding="async" />
+              <img src={sizedImage(day.thumb.url, 192)} alt="" width={192} height={136} loading="lazy" decoding="async" />
             ) : (
               <Icon name="mountain" size={22} />
             )}
