@@ -1186,8 +1186,8 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
-      "kind": "activity",
-      "subkind": "guided-hike",
+      "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "hints": [
         {
@@ -1339,7 +1339,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
       "kind": "sight",
-      "subkind": "attraction",
+      "subkind": "park",
       "suitability": {
         "kid_note": "Listing marks main trail for older children."
       },
@@ -1405,7 +1405,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
       "kind": "sight",
-      "subkind": "attraction",
+      "subkind": "park",
       "suitability": {
         "kid_note": "GAP"
       },
@@ -1449,7 +1449,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
       "kind": "sight",
-      "subkind": "attraction",
+      "subkind": "park",
       "suitability": {
         "kid_note": "Medium clearance vehicle, radio recommended; industrial traffic."
       },
@@ -1470,8 +1470,8 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
-      "kind": "lake",
-      "subkind": "lake",
+      "kind": "sight",
+      "subkind": "area",
       "suitability": {
         "kid_note": "Camping reservation via BC Parks; core sites sell out within seconds; huts via lodge."
       },
@@ -1647,7 +1647,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
       "kind": "sight",
-      "subkind": "attraction",
+      "subkind": "park",
       "suitability": {
         "kid_note": "Remote; not for this trip."
       },
@@ -2422,7 +2422,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2798,7 +2798,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3178,7 +3178,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3412,7 +3412,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {

@@ -30,7 +30,7 @@
     {
       "ref": "trip/utah-five-parks/sight:goblin valley",
       "kind": "sight",
-      "subkind": "attraction",
+      "subkind": "park",
       "suitability": {},
       "flat": {
         "min_age": null,

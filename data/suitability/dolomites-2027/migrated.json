@@ -272,8 +272,8 @@
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -317,7 +317,7 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": null,
+        "house_grade": 1,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 2,
@@ -398,8 +398,8 @@
     },
     {
       "ref": "place/cinque-torri",
-      "kind": "sight",
-      "subkind": "landmark",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -471,7 +471,7 @@
         "house_grade": null,
         "kid_fit": "strong-kid",
         "accessibility": "unknown",
-        "walk_km": null,
+        "walk_km": 2,
         "walk_gain_m": null,
         "suit_level": "draft"
       }
@@ -604,8 +604,8 @@
     },
     {
       "ref": "place/dolomites",
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
+      "kind": "sight",
+      "subkind": "area",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -868,6 +868,28 @@
       "kind": "lake",
       "subkind": "lake",
       "suitability": {
+        "kid_note": "Not suitable for pushchairs (steps on the east side)"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-braies#walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
         "effort": {
           "drivers": {
             "distance_km": {
@@ -907,8 +929,7 @@
             "src-0001"
           ],
           "note": "converted from prototype.json trail fact duration_hours (conf operator, src PLAN.md) \"1-1.5\" to minutes; not re-read at the source"
-        },
-        "kid_note": "Not suitable for pushchairs (steps on the east side)"
+        }
       },
       "hints": [
         {
@@ -940,7 +961,7 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": null,
+        "house_grade": 1,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 3.7,
@@ -972,6 +993,26 @@
       "ref": "place/lago-di-dobbiaco",
       "kind": "lake",
       "subkind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-dobbiaco#walk",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1015,7 +1056,7 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": null,
+        "house_grade": 1,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 3.5,
@@ -1047,6 +1088,26 @@
       "ref": "place/lago-di-limides",
       "kind": "lake",
       "subkind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-limides#walk",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1090,7 +1151,7 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": null,
+        "house_grade": 1,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 2,
@@ -1218,6 +1279,26 @@
       "ref": "place/lago-federa",
       "kind": "lake",
       "subkind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/place/lago-federa#walk",
+      "kind": "trail",
+      "subkind": "hike",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1276,7 +1357,7 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": null,
+        "house_grade": 3,
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": 7.9,
@@ -1626,8 +1707,8 @@
     },
     {
       "ref": "place/seceda-ridge",
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
+      "kind": "trail",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {

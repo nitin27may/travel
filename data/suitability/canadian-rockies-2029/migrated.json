@@ -802,8 +802,8 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
-      "kind": "lake",
-      "subkind": "lake",
+      "kind": "sight",
+      "subkind": "area",
       "suitability": {
         "kid_note": "Lakeside strolls at Lower Lake and Interlakes are flat; keep away from shoreline in bear closure zones."
       },
@@ -1177,7 +1177,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1489,7 +1489,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -1879,7 +1879,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2035,7 +2035,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2269,7 +2269,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2425,7 +2425,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2503,7 +2503,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2581,7 +2581,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2659,7 +2659,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -2815,7 +2815,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3049,7 +3049,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3361,7 +3361,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3439,7 +3439,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
@@ -3595,7 +3595,7 @@
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
       "kind": "trail",
-      "subkind": "hike",
+      "subkind": "walk",
       "suitability": {
         "effort": {
           "drivers": {
