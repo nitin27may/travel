@@ -7,9 +7,9 @@
 .bg-chart { display: flex; flex-direction: column; gap: 10px; position: relative; }
 .bg-legend { display: flex; gap: 16px; color: var(--muted); }
 .bg-legend span { display: inline-flex; align-items: center; gap: 6px; }
-.sw { width: 14px; height: 8px; border-radius: 2px; display: inline-block; }
-.sw.plan { background: var(--line); box-shadow: inset 0 0 0 1px var(--line-strong); }
-.sw.act { background: var(--act); }
+.bg-sw { width: 14px; height: 8px; border-radius: 2px; display: inline-block; }
+.bg-sw.plan { background: var(--line); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.bg-sw.act { background: var(--act); }
 .bg-rows { display: flex; flex-direction: column; gap: 10px; }
 .bg-row { display: grid; grid-template-columns: 150px 1fr 150px; gap: 12px; align-items: center; }
 .bg-cat { display: flex; gap: 6px; align-items: center; font-size: .88rem; font-weight: 600; min-width: 0; }
@@ -35,7 +35,10 @@
 .bg-exp-title { font-weight: 600; overflow-wrap: anywhere; }
 .bg-exp-amt { display: flex; flex-direction: column; align-items: flex-end; }
 @media (max-width: 760px) {
-  .bg-totals { grid-template-columns: 1fr; }
+  .bg-totals { gap: 6px; }
+  .bg-tot { padding: 10px; }
+  .bg-big { font-size: 1.1rem; }
+  .bg-tot .muted { font-size: .7rem; }
   .bg-row { grid-template-columns: 1fr auto; grid-template-areas: "cat nums" "track track"; gap: 4px 8px; }
   .bg-cat { grid-area: cat; } .bg-nums { grid-area: nums; } .bg-track { grid-area: track; }
 }

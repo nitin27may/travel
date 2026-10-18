@@ -25,10 +25,11 @@
 .tk-title { font-weight: 600; overflow-wrap: anywhere; }
 .tk-item.done .tk-title { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-strong); }
 .tk-meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; font-size: .78rem; }
-.warn-text { color: var(--warn); }
+.tk-warn { color: var(--warn); }
 .tk-rem-btn { border: 0; cursor: pointer; }
 .tk-rems { list-style: none; margin: 8px 0 0 36px; padding: 8px 10px; background: var(--sunk); border-radius: var(--r-card); display: flex; flex-direction: column; gap: 4px; font-size: .8rem; }
-.tk-rems li { display: grid; grid-template-columns: 9.5em 1fr auto; gap: 8px; align-items: center; }
+.tk-rems .num { white-space: nowrap; }
+.tk-rems li { display: grid; grid-template-columns: 10.5em 1fr auto; gap: 8px; align-items: center; }
 .tk-check-list { list-style: none; margin: 6px 0 0 36px; padding: 0; display: flex; flex-direction: column; gap: 2px; font-size: .85rem; }
 .tk-check-list label { display: inline-flex; gap: 6px; align-items: center; }
 .tk-empty { padding: 6px 0; }
@@ -39,3 +40,4 @@
 .tk-toast-wrap { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 61; }
 .is-phone .tk-toast-wrap { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
 @media (max-width: 760px) { .tk-rems li { grid-template-columns: 1fr auto; } .tk-rems li .num { grid-column: 1 / -1; } }
+@media (max-width: 760px) { .tk-rems li + li { border-top: 1px solid var(--line); padding-top: 4px; } }

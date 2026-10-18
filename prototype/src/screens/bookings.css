@@ -1,10 +1,10 @@
 .bk .page-inner { gap: 16px; }
 .bk-head { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; }
 .bk-sub { margin: 4px 0 0; font-size: .85rem; }
-.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--sunk); padding: 2px; gap: 2px; }
-.seg button { border: 0; background: transparent; border-radius: 4px; padding: 5px 10px; display: inline-flex; gap: 6px; align-items: center; font-weight: 600; font-size: .85rem; color: var(--muted); min-height: 32px; }
-.seg button.on { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
-.seg.small button { padding: 3px 9px; font-size: .8rem; }
+.bk-tabs { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--sunk); padding: 2px; gap: 2px; }
+.bk-tabs button { border: 0; background: transparent; border-radius: 4px; padding: 5px 10px; display: inline-flex; gap: 6px; align-items: center; font-weight: 600; font-size: .85rem; color: var(--muted); min-height: 32px; }
+.bk-tabs button.on { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.bk-tabs.small button { padding: 3px 9px; font-size: .8rem; }
 .btn.small { min-height: 30px; padding: 4px 9px; font-size: .82rem; }
 .bk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
 .bk-grid.one { grid-template-columns: 1fr; }
@@ -82,19 +82,24 @@
 .bk-seg-form { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; border: 1px solid var(--line); border-radius: var(--r-card); padding: 10px; }
 .bk-seg-form .bk-form-grid { width: 100%; }
 .bk-pax-form { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; }
-.wallet { display: flex; flex-direction: column; gap: 14px; }
-.wallet-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
-.wallet-day { font-size: 2rem; color: var(--glow); }
-.wallet-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-.wallet.one .wallet-cards { grid-template-columns: 1fr; }
-.wcard { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-.wcard.to_book { border-style: dashed; }
-.wcard-h { display: flex; gap: 8px; align-items: center; }
-.wcard-h .chip { margin-left: auto; }
-.wcard-title { margin: 0; font-size: 1.25rem; line-height: 1.2; }
-.wcard-when { font-size: .95rem; }
-.wcard-code-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-.wcard-code { font-size: 1.6rem; font-weight: 600; letter-spacing: .1em; }
-.wcard-f { display: flex; gap: 8px; }
-.qr { width: min(220px, 70%); align-self: center; }
-.qr-bg { fill: #FFFFFF; } .qr-fg { fill: #0A0A0A; }
+.bk-wallet { display: flex; flex-direction: column; gap: 14px; }
+.bk-wallet-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.bk-wallet-day { font-size: 2rem; color: var(--glow); }
+.bk-wallet-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.bk-wallet.one .bk-wallet-cards { grid-template-columns: 1fr; }
+.bk-wcard { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.bk-wcard.to_book { border-style: dashed; }
+.bk-wcard-h { display: flex; gap: 8px; align-items: center; }
+.bk-wcard-h .chip { margin-left: auto; }
+.bk-wcard-title { margin: 0; font-size: 1.25rem; line-height: 1.2; }
+.bk-wcard-when { font-size: .95rem; }
+.bk-wcard-code-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.bk-wcard-code { font-size: 1.6rem; font-weight: 600; letter-spacing: .1em; }
+.bk-wcard-f { display: flex; gap: 8px; }
+.bk-qr { width: min(220px, 70%); align-self: center; }
+.bk-qr-bg { fill: #FFFFFF; } .bk-qr-fg { fill: #0A0A0A; }
+@media (max-width: 760px) {
+  .bk-open-row { grid-template-columns: auto 1fr; }
+  .bk-open-row .muted { grid-column: 2; }
+  .bk-sub { font-family: var(--f-ui); }
+}

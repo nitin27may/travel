@@ -17,7 +17,7 @@ const CATS: { id: Cat; label: string; icon: string }[] = [
 ];
 // Example rate for the prototype; the app stores the rate it used and the date it was read.
 const RATE = 1.52; const RATE_DATE = "18 Oct 2026";
-const PLANNED: Record<Cat, number> = { getting_there: 4212, local_transport: 1650, lodging: 7550, food: 2470, activities: 1290, misc: 1030 };
+const PLANNED: Record<Cat, number> = { getting_there: 4400, local_transport: 1650, lodging: 7550, food: 2470, activities: 1290, misc: 1030 };
 
 interface Exp { id: string; date: string; label: string; amount: number; cur: "CAD" | "EUR"; cat: Cat; booked?: boolean }
 const toCad = (e: Exp) => e.cur === "EUR" ? e.amount * RATE : e.amount;
@@ -69,7 +69,7 @@ export function Budget({ phone }: ScreenProps) {
         </section>
 
         <section className="panelbox bg-chart" aria-label="Planned and actual by category">
-          <div className="bg-legend small"><span><i className="sw plan" />Planned</span><span><i className="sw act" />Spent or committed</span></div>
+          <div className="bg-legend small"><span><i className="bg-sw plan" />Planned</span><span><i className="bg-sw act" />Spent or committed</span></div>
           <div className="bg-rows">
             {CATS.map(c => {
               const p = PLANNED[c.id], a = actual[c.id], over = a > p;
