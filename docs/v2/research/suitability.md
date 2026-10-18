@@ -266,6 +266,8 @@ Snow extension: `ski_school_min_age` (operator rule), `magic_carpet` (bool), `li
 
 ## 4. Completeness checks (added to every kind profile)
 
+> **Superseded in part (18 Oct 2026):** which kind counts which field is now set per profile (kind and subkind) as R, A or N in [suitability-applicability.md](suitability-applicability.md) and its data file `data/schema/suitability-applicability.json`. The F ids below remain as the badge labels. The lane briefs in 8.1 are amended by section 8 of that page, and the "Flatwater only" filter in 6.3 is dropped.
+
 These are the family checks `F1` to `F12`. Each kind profile includes the ones its column marks. **U** counts for Usable, **C** for Complete, and a blank means not applicable. They replace trail U10 and adventure OU1 to OU4. Their wording moves here, and the profiles link to it.
 
 | Id | Check | trail | viewpoint, waterfall, lake | sight, town | activity offer, lift | swim spot | stay, eatery |
@@ -590,4 +592,5 @@ L3c timeline (parallel) ────────────────┤  own
 
 | Date | Change |
 |---|---|
+| 2026-10-18 | Applicability cross-check: section 4 marks, 6.3 "Flatwater only" and the 8.1 lane brief amended by [suitability-applicability.md](suitability-applicability.md) |
 | 2026-10-18 | First draft: shared model, per-kind scales with sources, F checks, sidecar storage, scope counts (207 records, 46% with any signal, 0% Usable), lanes R1-R6, S0 brief, tuned age gates (superset of trip-timeline.md 3.11) |
