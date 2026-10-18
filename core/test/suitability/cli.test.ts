@@ -29,7 +29,7 @@ describe("suitability check", () => {
   it("passes on the repository", () => {
     const r = run(REPO, "check");
     expect(r.status, r.stdout + r.stderr).toBe(0);
-    expect(r.stdout).toMatch(/^OK: 9 suitability file\(s\), 0 error\(s\)/m);
+    expect(r.stdout).toMatch(/^OK: \d+ suitability file\(s\), 0 error\(s\)/m);
   });
   it("covers every in-scope ref of every migrated trip", () => {
     for (const trip of ["dolomites-2027", "canadian-rockies-2029", "iceland-ring-road-2027", "utah-five-parks", "patagonia-2027", "chamonix-mont-blanc-2028", "algonquin-muskoka-2026", "vermont-fall-2026"]) {

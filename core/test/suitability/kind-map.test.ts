@@ -96,7 +96,7 @@ describe("every record has a subkind of the vocabulary and a profile", () => {
       expect(r.errors, `${rel}: ${JSON.stringify(r.errors.slice(0, 2))}`).toEqual([]);
     }
   });
-  it("the committed files are what the migration writes, and they check clean", () => {
+  it("the committed migration files are what the migration writes; lane files may sit beside them and check clean", () => {
     for (const [rel, d] of m.docs) {
       const p = join(REPO, "data", "suitability", rel);
       expect(existsSync(p), rel).toBe(true);
@@ -104,7 +104,13 @@ describe("every record has a subkind of the vocabulary and a profile", () => {
     }
     const dirs = readdirSync(join(REPO, "data", "suitability"), { withFileTypes: true }).filter((e) => e.isDirectory());
     const files = dirs.flatMap((d) => readdirSync(join(REPO, "data", "suitability", d.name)).map((f) => `${d.name}/${f}`));
-    expect(files.sort()).toEqual([...m.docs.keys()].sort());
+    const extra = files.filter((f) => !m.docs.has(f));
+    for (const f of extra) expect(f, "only research lane files (R<n>*.json) may sit beside the migration output").toMatch(/^[^/]+\/R\d+[^/]*\.json$/);
+    for (const f of extra) {
+      const r = validateDoc(JSON.parse(readFileSync(join(REPO, "data", "suitability", f), "utf8")), "sidecar", REPO, { kind: "suitability" });
+      expect(r.errors, `${f}: ${JSON.stringify(r.errors.slice(0, 2))}`).toEqual([]);
+    }
+    expect(files.filter((f) => m.docs.has(f)).sort()).toEqual([...m.docs.keys()].sort());
   });
   it("the refs of the new record resolve", () => {
     expect(new RefResolver(REPO).why("part/place/lagazuoi-cable-car-and-tunnels#tunnels")).toBeNull();
@@ -116,26 +122,49 @@ describe("every record has a subkind of the vocabulary and a profile", () => {
 });
 
 describe("M1: subkinds assigned by rule", () => {
+  const ruleTrails = () => map.entries.filter((e) => e.from.kind === "trail" && e.from.subkind === null && !e.by);
   it("trails become hike, or walk when the data is short and flat; towns town; the rest by name", () => {
     const by = (kind: string) => map.entries.filter((e) => e.from.kind === kind && e.from.subkind === null);
     expect(by("trail")).toHaveLength(104);
-    for (const e of by("trail")) expect(["trail/hike", "trail/walk"]).toContain(`${e.kind}/${e.subkind}`);
+    for (const e of ruleTrails()) expect(["trail/hike", "trail/walk"]).toContain(`${e.kind}/${e.subkind}`);
     expect(by("town").filter((e) => e.subkind === "town")).toHaveLength(25); // Akureyri botanical garden is an attraction
   });
   it("a walk is a trail of at most 3 km and 100 m climb, and its reason says so", () => {
-    const walks = map.entries.filter((e) => e.from.kind === "trail" && e.from.subkind === null && e.subkind === "walk");
-    expect(walks.length).toBeGreaterThanOrEqual(18);
+    const walks = ruleTrails().filter((e) => e.subkind === "walk");
+    expect(walks.length).toBeGreaterThanOrEqual(10);
     for (const e of walks) {
       const d = find(e.ref).suitability.effort?.drivers;
       expect(d?.distance_km?.v, e.ref).toBeLessThanOrEqual(3);
       expect(d?.gain_m?.v, e.ref).toBeLessThanOrEqual(100);
       expect(e.reason, e.ref).toMatch(/at most 3 km and 100 m/);
     }
-    for (const e of map.entries.filter((x) => x.from.kind === "trail" && x.from.subkind === null && x.subkind === "hike")) {
+    for (const e of ruleTrails().filter((x) => x.subkind === "hike")) {
       const d = find(e.ref).suitability.effort?.drivers;
       const short = typeof d?.distance_km?.v === "number" && typeof d?.gain_m?.v === "number" && d.distance_km.v <= 3 && d.gain_m.v <= 100;
       expect(short, e.ref).toBe(false);
     }
+  });
+  it("a lane override is explicit: `by` names the lane, the reason opens with that lane and a date", () => {
+    const overrides = map.entries.filter((e) => e.by);
+    expect(overrides.length).toBeGreaterThan(0);
+    for (const e of overrides) {
+      expect(e.by, e.ref).toMatch(/^lane R\d+$/);
+      expect(e.reason.startsWith(`${e.by!.slice(5)} (20`), e.ref).toBe(true);
+      expect(e.reason.length, e.ref).toBeGreaterThan(40);
+    }
+  });
+  it("every entry that is not a rule assignment carries the override: a rule-trail outside hike/walk, or a lane-written reason", () => {
+    for (const e of map.entries) {
+      const laneReason = /^R\d+ \(\d{4}-\d{2}-\d{2}\)/.test(e.reason);
+      if (laneReason) expect(e.by, `${e.ref}: lane reason without \`by\``).toBeTruthy();
+      if (e.from.kind === "trail" && e.from.subkind === null && !["trail/hike", "trail/walk"].includes(`${e.kind}/${e.subkind}`)) expect(e.by, `${e.ref}: reclassified trail without \`by\``).toBeTruthy();
+      if (e.by) expect(laneReason, `${e.ref}: \`by\` without a lane reason`).toBe(true);
+    }
+  });
+  it("a lane-override walk gives its distance in the reason, or says why the 3 km / 100 m rule does not apply", () => {
+    const walks = map.entries.filter((e) => e.by && e.kind === "trail" && e.subkind === "walk");
+    expect(walks.length).toBeGreaterThan(0);
+    for (const e of walks) expect(e.reason, e.ref).toMatch(/\d+(\.\d+)? ?(km|mi\b|mile)|paved|flat|level|short made path/i);
   });
   it("241 records had no subkind; every one has one now, 5 had the invalid `other` and 1 the invalid `glacier`", () => {
     expect(map.entries.filter((e) => e.from.subkind === null)).toHaveLength(241);

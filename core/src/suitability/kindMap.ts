@@ -14,6 +14,8 @@ export interface KindMapEntry {
   kind: string;
   subkind: string;
   reason: string;
+  /** set only when a research lane overrides the rule-assigned kind, e.g. "lane R4"; the reason then starts with that lane's id and date */
+  by?: string;
 }
 export interface KindMapSplit {
   /** the record that keeps the values not named in `move` */
