@@ -468,3 +468,9 @@ Decision: **no infinite scroll.** Lists show 48 cards or 100 rows per page with 
 "‹ 1 2 3 ›", current `--accent`) and the count ("49 to 64 of 64"); the URL carries `?page=`. Reason: the
 public site is read and shared by link, the footer (credits, attribution) must stay reachable, and the
 table's CSV export and group collapse need a bounded set. Collapsed country groups load on expand.
+
+
+## Amendment (18 Oct, from design/suitability-display.md)
+
+- 2.8 Chip: new kinds `rule`, `advice`, `gap`, `fits`, `advice-fail` and `rule-fail`, with existing tokens only (see design/suitability-display.md, chip table).
+- 3.1 Card: the chip row may wrap; chips never truncate.

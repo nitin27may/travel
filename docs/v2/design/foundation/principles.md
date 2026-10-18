@@ -113,7 +113,7 @@ What this means in practice (decided):
 - **No bulk files.** No public file holds the whole catalogue: `/data/places.json` and `/data/trips.json` go. The
   per-slug export files at predictable URLs (`/export-data/<type>s/<slug>/data.json`) go too.
 - **Light list data.** List and search pages ship only the fields that cards and filters need: name, kind, area,
-  season, the kids chip and the slug. Never facts, links, suitability values, times or notes. The search index
+  season, the kids and effort chips, and the slug. Never facts, links, suitability values, times or notes. The search index
   carries names and areas only.
 - **Exports are per item, for personal use.** "Copy to my trips", ICS, PDF and print stay per trip. The table's
   CSV of a whole list is removed from the public site. At go-live, CSV, GPX and KML require sign-in and are

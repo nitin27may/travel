@@ -556,3 +556,8 @@ became "no walking".
    "~" before every suggested time (the spec's 1.3)?
 3. The selector sits above the season band and stays open on phone (this page); the spec puts it under the
    band and collapses it on phone. Which order and phone treatment?
+
+
+## Amendment (18 Oct, from design/suitability-display.md)
+
+Suitability chips (kids, effort, limits) lead each entry's chip row and may wrap to two lines on phone. The entry meta line drops its "child rule" text, because the limits chip carries it. Where the two pages differ, design/suitability-display.md wins for suitability chips.
