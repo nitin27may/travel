@@ -5,6 +5,7 @@ const store = readStore();
 const count = (page: Page) => page.locator('.filter-bar .count strong');
 const pressed = (page: Page, view: string) => page.locator(`.seg-btn[data-view="${view}"]`);
 const CHECKED = 'aria-checked';
+// the app lists every public place, not only the 64 saved ones, so counts here are read from the page or bounded by the saved set
 const caKinds = (kind: string) => store.places.filter((p) => p.kind === kind && p.area_id.startsWith('CA/')).length;
 
 test.describe('the views share one URL state', () => {
@@ -35,24 +36,26 @@ test.describe('the views share one URL state', () => {
   });
 
   test('chips remove one filter, Clear all removes the rest, Back undoes', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/?country=CA&kind=lake,park`);
+    await page.goto(`${site.url}/places/?country=CA&kind=lake,area`);
     await expect(page.locator('.chips .chip')).toHaveCount(3);
-    await page.getByRole('button', { name: /Remove filter Kind: Park/ }).click();
+    await page.getByRole('button', { name: /Remove filter Kind: Area/ }).click();
     await expect(page).toHaveURL(/kind=lake$/);
     await page.goBack();
-    await expect(page).toHaveURL(/kind=lake,park/);
+    await expect(page).toHaveURL(/kind=lake,area/);
     await page.getByRole('button', { name: 'Clear all' }).click();
     await expect(page).not.toHaveURL(/country|kind/);
-    await expect(count(page)).toHaveText('64');
+    expect(Number(await count(page).textContent())).toBeGreaterThan(64);
   });
 
   test('a facet menu filters with live counts', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     await page.getByRole('button', { name: 'Kind' }).click();
     const lakeOption = page.getByRole('checkbox', { name: /^Lake/ });
+    const lakes = Number(((await lakeOption.evaluate((el) => el.closest('label')?.textContent)) ?? '').replace(/\D/g, ''));
     await lakeOption.check();
     await expect(page).toHaveURL(/kind=lake/);
-    await expect(count(page)).toHaveText(String(store.places.filter((p) => p.kind === 'lake').length));
+    await expect(count(page)).toHaveText(String(lakes));
+    expect(lakes).toBeGreaterThanOrEqual(store.places.filter((p) => p.kind === 'lake').length);
     // the Region button appears only after a country is chosen
     await expect(page.getByRole('button', { name: 'Region' })).toHaveCount(0);
     await page.keyboard.press('Escape');
@@ -65,7 +68,8 @@ test.describe('the views share one URL state', () => {
     const july = store.places.filter((p) => p.status !== 'dropped' && p.season_months.includes(7)).length;
     expect(july).toBeGreaterThan(0);
     await page.goto(`${site.url}/places/?season=7`);
-    await expect(count(page)).toHaveText(String(july));
+    // the saved places plus the researched Dolomites places that are open in July
+    expect(Number(await count(page).textContent())).toBeGreaterThanOrEqual(july);
   });
 
   test('a legacy hash is rewritten to the query string, and view=grid means cards', async ({ page, site }) => {
@@ -77,13 +81,13 @@ test.describe('the views share one URL state', () => {
     await expect(pressed(page, 'cards')).toHaveAttribute(CHECKED, 'true');
   });
 
-  test('the map tab is present but disabled with a reason', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/`);
+  test('the map tab is on: it opens the Map view and keeps the filters', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?country=IT`);
     const map = pressed(page, 'map');
-    await expect(map).toHaveAttribute('aria-disabled', 'true');
-    await expect(map).toHaveAttribute('title', 'Map view arrives in the next release');
-    await map.click({ force: true });
-    await expect(page).not.toHaveURL(/view=map/);
+    await expect(map).not.toHaveAttribute('aria-disabled', 'true');
+    await map.click();
+    await expect(page).toHaveURL(/country=IT.*view=map|view=map.*country=IT/);
+    await expect(page.locator('.places-map')).toBeVisible();
   });
 
   test('an empty result names the filters to loosen', async ({ page, site }) => {
@@ -95,7 +99,7 @@ test.describe('the views share one URL state', () => {
   });
 });
 
-test.describe('keyboard and detail sheet', () => {
+test.describe('keyboard and place links', () => {
   test('"/" focuses search', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     await page.keyboard.press('/');
@@ -105,25 +109,15 @@ test.describe('keyboard and detail sheet', () => {
     await expect(page).toHaveURL(/q=louise/);
   });
 
-  test('opening a card shows the sheet, Escape closes it and focus returns to the trigger', async ({ page, site }) => {
+  test('a card opens its place page (places are pages, not sheets)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?q=louise`);
     const open = page.locator('a.card-open', { hasText: 'Lake Louise' });
+    await expect(open).toHaveAttribute('href', '/places/lake-louise/');
     await open.focus();
     await page.keyboard.press('Enter');
-    const dialog = page.getByRole('dialog');
-    await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('heading', { name: 'Lake Louise' })).toBeVisible();
-    await expect(page).toHaveURL(/focus=CA/);
-    await page.keyboard.press('Escape');
-    await expect(dialog).toHaveCount(0);
-    await expect(page).not.toHaveURL(/focus=/);
-    await expect(open).toBeFocused();
-  });
-
-  test('a ?focus= deep link opens the sheet on load', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/?focus=CA/AB/banff-national-park/lake-louise`);
-    await expect(page.getByRole('dialog').getByRole('heading', { name: 'Lake Louise' })).toBeVisible();
-    await expect(page.getByRole('dialog').getByRole('link', { name: /Open place page/ })).toHaveAttribute('href', '/places/CA/AB/banff-national-park/lake-louise/');
+    await expect(page).toHaveURL(/\/places\/lake-louise\/$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Lake Louise' })).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 
   test('table: header sorts with aria-sort, arrows move between rows, Enter opens', async ({ page, site }) => {
@@ -143,15 +137,13 @@ test.describe('keyboard and detail sheet', () => {
     await page.keyboard.press('ArrowUp');
     await expect(rows.first()).toBeFocused();
     await page.keyboard.press('Enter');
-    await expect(page.getByRole('dialog')).toBeVisible();
-    await page.keyboard.press('Escape');
-    await expect(rows.first()).toBeFocused();
+    await expect(page).toHaveURL(/\/places\/[a-z0-9-]+\/$/);
   });
 
   test('table: group by with counts, collapse a group, choose columns', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?view=table`);
     const groups = page.locator('tr.grp-row');
-    await expect(groups).toHaveCount(7);
+    expect(await groups.count()).toBeGreaterThanOrEqual(7);
     const first = groups.first();
     const n = Number(await first.locator('.gh-count').textContent());
     const rowsBefore = await page.locator('tr[data-row]').count();
@@ -181,10 +173,10 @@ test.describe('keyboard and detail sheet', () => {
 
 test.describe('pages', () => {
   test('a place page links onward and has its own title', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/CA/AB/banff-national-park/lake-louise/`);
+    await page.goto(`${site.url}/places/lake-louise/`);
     await expect(page.getByRole('heading', { level: 1, name: 'Lake Louise' })).toBeVisible();
-    await expect(page.locator('main').getByRole('link', { name: 'Globe' }).first()).toHaveAttribute('href', /^\/globe\/#c=CAN&p=/);
-    await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', /\/places\/CA\/AB\/banff-national-park\/lake-louise\/$/);
+    await expect(page.locator('main').getByRole('link', { name: 'Globe' }).first()).toHaveAttribute('href', '/globe/place/lake-louise/');
+    await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', /\/places\/lake-louise\/$/);
   });
 
   test('/locations/ forwards to /places/ and keeps the hash', async ({ page, site }) => {
@@ -222,7 +214,7 @@ test.describe('pages', () => {
   });
 
   test('units preference converts elevations and is remembered', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/CA/AB/banff-national-park/lake-louise/`);
+    await page.goto(`${site.url}/places/?view=table&q=lake louise`);
     await expect(page.getByText('1,730 m')).toBeVisible();
     await page.getByRole('radio', { name: 'mi, ft' }).click();
     await expect(page.getByText('5,680 ft')).toBeVisible();
