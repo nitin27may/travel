@@ -108,7 +108,7 @@ tours: 365 days. Accessibility and facilities: 2 years. Summary: 2 years. Links:
 |---|---|
 | Closed Mondays | Museum Ladin Ciastel de Tor (research/trips/dolomites-july-2027/sights.md line 372) |
 | Guided tour only, limited days | Castel Rodengo (dolomites sights.md, hidden gems) |
-| Car-free centres with cameras | Bressanone and Cortina ZTL, fines and hours GAP (dolomites transport.md section 1) |
+| Car-free centres with cameras | Bressanone and Cortina ZTL, fines and hours GAP (dolomites transport.md 1.5) |
 | An assumption the user brought, verified | "the Stowe gondola was actually operating" (lanes/sights-and-viewpoints.md section 6) |
 | Prices not published, only online booking | Bletterbach (dolomites sights.md) |
 | Rainy-day option worth having | Klimastollen Prettau climate tunnel (dolomites sights.md, Cascate di Riva entry) |

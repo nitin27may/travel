@@ -120,5 +120,8 @@ Height: never. Links: 90 days.
 | links | gostowe, Trailfinder, AllTrails (link only) | vermont trails.md |
 | `flow` | `gap` | |
 
-Level: with the falls point from OSM, **Draft · 12 of 28** (D1-D5, U1, U2, U3, U4, U5, U6, U7); U8
+`point`: OSM node 3003882646 (`waterway=waterfall`, "Moss Glen Falls", 44.48238, -72.62450, read 18
+Oct 2026), 300-400 m from the lot node above, which matches the research's 380 m.
+
+Level: **Draft · 12 of 28** (D1-D5, U1, U2, U3, U4, U5, U6, U7); U8
 (flow in October) is the one check between it and Usable.
