@@ -30,8 +30,15 @@ Lead the final response with what changed, not with a restatement of their plan.
 
 Launch these as concurrent `Agent` calls in a single message. Tell each one its output is **raw data for another agent to synthesize, not a human-facing report**, and that every claim needs a source URL.
 
-1. **Trails & hikes** — exact distance (mi AND km), elevation gain, difficulty, time, trailhead
-   location, **parking capacity, cost and how early it fills**, AllTrails **and** an official
+1. **Trails & hikes** — exact distance (mi AND km), elevation gain, difficulty, time,
+   **trailhead and car-park coordinates (WGS84, 5 decimals) with their source** — OpenStreetMap
+   node/way id (`highway=trailhead`, `amenity=parking`, guidepost, the path's start node) or the
+   agency's data; **never copied from Google Maps** (its terms forbid it, and its pin is often the
+   village); the page generates Google/Apple Maps navigation links from our point —
+   **every trail link, as a checklist**: official, conditions, OSM relation, GPX, AllTrails,
+   Komoot, Wikiloc, Outdooractive, webcam, parking/permit booking, trip report — each either a URL
+   or "searched, none found" with the date,
+   **parking capacity, cost and how early it fills**, AllTrails **and** an official
    source, recent closures/alerts, what you actually see at the top, season-specific notes,
    and **whether offline maps need a paid tier**. Flag any popular route that crosses a
    closed section — people download those and follow them into a barrier with no signal.
