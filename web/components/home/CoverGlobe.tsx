@@ -33,7 +33,7 @@ export function CoverGlobe({ pins }: { pins: CoverPin[] }) {
   useEffect(() => whenIdle(() => setReady(true)), []);
   const spec = useMemo<MapSpec>(
     () => ({
-      pins: pins.map((p) => ({ id: p.cc, at: { lng: p.lon, lat: p.lat }, style: 'trip' as const, label: `${p.name} ${p.count}` })),
+      pins: pins.map((p) => ({ id: p.cc, at: { lng: p.lon, lat: p.lat }, style: 'stop-numbered' as const, number: p.count, label: p.name })),
       lines: [],
       fit: 'all',
       style: 'auto',

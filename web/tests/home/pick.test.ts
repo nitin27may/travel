@@ -29,3 +29,17 @@ describe('countryPins', () => {
     }
   });
 });
+
+describe('publicSummary', () => {
+  const base = { kindLabel: 'Lake', areaLabel: 'Braies, Italy' };
+  it('replaces internal notes with kind and area', async () => {
+    const { publicSummary } = await import('@/components/home/Strips');
+    for (const s of ['Loose line in Location. md, no details.', 'Stop 8 of the road trip post; already in the Utah parks plan.', 'Gaspesie road trip stop 3.', 'see notes.json'])
+      expect(publicSummary({ ...base, summary: s })).toBe('Lake in Braies, Italy');
+    expect(publicSummary({ ...base, summary: 'Turquoise lake under the Croda del Becco.' })).toBe('Turquoise lake under the Croda del Becco.');
+  });
+  it('no summary on the home strip carries an internal marker', async () => {
+    const { publicSummary } = await import('@/components/home/Strips');
+    for (const p of pickPlaces(listPlaces(), 8)) expect(publicSummary(p)).not.toMatch(/\.md\b|\bmd\b|\bpost\b|\bstop \d+|\bplan\b|\.json|\.py/i);
+  });
+});
