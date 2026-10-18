@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './themes.css';
+@import '../components/ui/ui.css';
 @import './app.css';
 
 @font-face {
@@ -60,6 +61,7 @@
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-well: var(--well);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-line: var(--line);
@@ -67,20 +69,14 @@
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
-  --color-muted-2: var(--muted-2);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-accent-text: var(--accent-text);
   --color-accent-soft: var(--accent-soft);
-  --color-teal: var(--teal);
-  --color-teal-ink: var(--teal-ink);
-  --color-teal-text: var(--teal-text);
+  --color-crit: var(--crit);
   --color-warn: var(--warn);
-  --color-warn-text: var(--warn-text);
-  --color-ok-text: var(--ok-text);
+  --color-ok: var(--ok);
+  --color-info: var(--info);
   --color-header: var(--header);
   --color-header-ink: var(--header-ink);
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
 }
