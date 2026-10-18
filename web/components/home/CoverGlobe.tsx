@@ -12,6 +12,7 @@ export function CoverGlobe({ data }: { data: GlobeData }) {
   return (
     <div className="home-globe">
       <GlobeCover data={data} className="home-map" label="Globe of the countries with trips and places" />
+      <p className="home-globe-cue" aria-hidden="true">Tap a pin to open its country</p>
     </div>
   );
 }

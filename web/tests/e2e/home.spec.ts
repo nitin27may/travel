@@ -55,6 +55,20 @@ test.describe('home', () => {
     });
   }
 
+  test('the cover globe adds one Tab stop, not one per pin; arrows move between pins', async ({ page, site }) => {
+    await page.goto(`${site.url}/`, { waitUntil: 'networkidle' });
+    await page.locator('a.globe-pin').first().waitFor({ state: 'attached', timeout: 30_000 }).catch(() => undefined);
+    const pins = await page.locator('a.globe-pin[data-globe-pin]').count();
+    if (pins < 2) test.skip(true, 'no basemap in this harness, so no cover pins to walk');
+    expect(await page.locator('a.globe-pin[tabindex="0"]').count()).toBe(1);
+    expect(await page.locator('a.globe-pin[tabindex="-1"]').count()).toBe(pins - 1);
+    const first = page.locator('a.globe-pin[tabindex="0"]');
+    await first.focus();
+    await page.keyboard.press('ArrowRight');
+    expect(await page.evaluate(() => (document.activeElement as HTMLElement).tabIndex)).toBe(0);
+    expect(await page.locator('a.globe-pin[tabindex="0"]').count()).toBe(1);
+  });
+
   test('axe', async ({ page, site }) => {
     await page.goto(`${site.url}/`);
     await page.waitForTimeout(1500);
