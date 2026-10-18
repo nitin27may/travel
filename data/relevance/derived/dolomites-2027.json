@@ -105,6 +105,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -169,10 +170,6 @@
         {
           "ref": "place/lago-di-sorapis",
           "km": 8.2
-        },
-        {
-          "ref": "place/cortina-dampezzo",
-          "km": 12.3
         }
       ],
       "part_of": [],
@@ -194,6 +191,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -262,7 +260,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -276,6 +274,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -332,10 +331,6 @@
           "km": 4.5
         },
         {
-          "ref": "place/cortina-dampezzo",
-          "km": 7.2
-        },
-        {
           "ref": "place/cascate-di-fanes",
           "km": 9.8
         }
@@ -359,6 +354,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -427,10 +423,6 @@
           "km": 10.6
         },
         {
-          "ref": "place/cortina-dampezzo",
-          "km": 11.6
-        },
-        {
           "ref": "place/cascate-di-fanes",
           "km": 12.1
         }
@@ -454,6 +446,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -518,10 +511,6 @@
         {
           "ref": "place/cascate-di-fanes",
           "km": 9
-        },
-        {
-          "ref": "place/la-val",
-          "km": 11.5
         }
       ],
       "part_of": [],
@@ -543,6 +532,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -581,10 +571,6 @@
           "km": 9.1
         },
         {
-          "ref": "place/san-candido",
-          "km": 9.3
-        },
-        {
           "ref": "place/lago-di-landro",
           "km": 10.2
         },
@@ -603,10 +589,6 @@
         {
           "ref": "place/lago-di-misurina",
           "km": 12.2
-        },
-        {
-          "ref": "place/dobbiaco",
-          "km": 12.5
         }
       ],
       "part_of": [],
@@ -628,6 +610,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -680,10 +663,6 @@
           "km": 4.5
         },
         {
-          "ref": "place/cortina-dampezzo",
-          "km": 6.1
-        },
-        {
           "ref": "place/lago-di-limides",
           "km": 6.8
         },
@@ -711,6 +690,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": true,
         "hidden_gem": false
@@ -740,10 +720,6 @@
       },
       "pair_with": [],
       "pair_pending": [
-        {
-          "ref": "place/cortina-dampezzo",
-          "km": 7.5
-        },
         {
           "ref": "place/cinque-torri",
           "km": 9.8
@@ -784,6 +760,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -858,24 +835,8 @@
           "km": 8
         },
         {
-          "ref": "place/selva-di-val-gardena",
-          "km": 8.9
-        },
-        {
-          "ref": "place/santa-cristina",
-          "km": 9.3
-        },
-        {
-          "ref": "place/ortisei",
-          "km": 9.8
-        },
-        {
           "ref": "place/passo-gardena",
           "km": 10.1
-        },
-        {
-          "ref": "place/la-val",
-          "km": 12.4
         }
       ],
       "part_of": [],
@@ -897,6 +858,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -958,20 +920,8 @@
           "km": 2.4
         },
         {
-          "ref": "place/ortisei",
-          "km": 5.6
-        },
-        {
-          "ref": "place/santa-cristina",
-          "km": 7.8
-        },
-        {
           "ref": "place/seceda-ridge",
           "km": 10.5
-        },
-        {
-          "ref": "place/selva-di-val-gardena",
-          "km": 11.1
         },
         {
           "ref": "place/vallunga",
@@ -983,7 +933,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction unique"
         },
         "weekend": {
           "fit": "skip",
@@ -997,6 +947,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1052,20 +1003,7 @@
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "place/ortisei",
-          "km": 4.5
-        },
-        {
-          "ref": "place/santa-cristina",
-          "km": 7.6
-        },
-        {
-          "ref": "place/selva-di-val-gardena",
-          "km": 11.1
-        }
-      ],
+      "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -1085,6 +1023,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1112,35 +1051,15 @@
         "draw": "national",
         "same_class": false
       },
-      "pair_with": [
-        {
-          "ref": "place/selva-di-val-gardena",
-          "km": 1.4,
-          "how": "walk",
-          "extra_min": 131,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
         {
           "ref": "place/passo-gardena",
           "km": 3.1
         },
         {
-          "ref": "place/santa-cristina",
-          "km": 4.5
-        },
-        {
           "ref": "place/seceda-ridge",
           "km": 5.5
-        },
-        {
-          "ref": "place/ortisei",
-          "km": 7.9
         },
         {
           "ref": "place/adolf-munkel-weg",
@@ -1182,6 +1101,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1216,16 +1136,8 @@
           "km": 7
         },
         {
-          "ref": "place/selva-di-val-gardena",
-          "km": 8.6
-        },
-        {
           "ref": "place/vallunga",
           "km": 9
-        },
-        {
-          "ref": "place/santa-cristina",
-          "km": 10.9
         }
       ],
       "part_of": [],
@@ -1247,6 +1159,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1304,16 +1217,8 @@
           "km": 4.7
         },
         {
-          "ref": "place/selva-di-val-gardena",
-          "km": 7.2
-        },
-        {
           "ref": "place/vallunga",
           "km": 7.3
-        },
-        {
-          "ref": "place/santa-cristina",
-          "km": 10.2
         }
       ],
       "part_of": [],
@@ -1335,6 +1240,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1385,10 +1291,6 @@
           "km": 8.1
         },
         {
-          "ref": "place/cortina-dampezzo",
-          "km": 10.1
-        },
-        {
           "ref": "place/cascate-di-fanes",
           "km": 10.2
         }
@@ -1412,6 +1314,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1469,18 +1372,6 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/santa-cristina",
-          "km": 4.7
-        },
-        {
-          "ref": "place/ortisei",
-          "km": 5
-        },
-        {
-          "ref": "place/selva-di-val-gardena",
-          "km": 5.7
-        },
-        {
           "ref": "place/passo-gardena",
           "km": 8.5
         }
@@ -1490,7 +1381,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -1504,6 +1395,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1531,10 +1423,6 @@
         {
           "ref": "place/cascate-di-fanes",
           "km": 11
-        },
-        {
-          "ref": "place/dobbiaco",
-          "km": 11.6
         }
       ],
       "part_of": [],
@@ -1542,7 +1430,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -1556,6 +1444,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1626,7 +1515,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -1640,6 +1529,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1752,24 +1642,12 @@
           "km": 7
         },
         {
-          "ref": "place/dobbiaco",
-          "km": 11.7
-        },
-        {
           "ref": "place/cascate-di-fanes",
-          "km": 12
-        },
-        {
-          "ref": "place/san-candido",
           "km": 12
         },
         {
           "ref": "place/lago-di-sorapis",
           "km": 12.2
-        },
-        {
-          "ref": "place/cortina-dampezzo",
-          "km": 12.5
         }
       ],
       "part_of": [],
@@ -1791,6 +1669,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1905,10 +1784,6 @@
         {
           "ref": "place/lago-di-sorapis",
           "km": 8.9
-        },
-        {
-          "ref": "place/cortina-dampezzo",
-          "km": 11.6
         }
       ],
       "part_of": [],
@@ -1930,6 +1805,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -2026,14 +1902,6 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/dobbiaco",
-          "km": 3.6
-        },
-        {
-          "ref": "place/san-candido",
-          "km": 5.6
-        },
-        {
           "ref": "place/monte-piana",
           "km": 9.9
         }
@@ -2057,6 +1925,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -2171,10 +2040,6 @@
         {
           "ref": "place/lago-di-sorapis",
           "km": 7.2
-        },
-        {
-          "ref": "place/cortina-dampezzo",
-          "km": 10.1
         }
       ],
       "part_of": [],
@@ -2196,6 +2061,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -2300,10 +2166,6 @@
           "km": 6.8
         },
         {
-          "ref": "place/cortina-dampezzo",
-          "km": 9.2
-        },
-        {
           "ref": "place/cascate-di-fanes",
           "km": 10.3
         }
@@ -2327,6 +2189,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -2357,20 +2220,8 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/selva-di-val-gardena",
-          "km": 3.8
-        },
-        {
-          "ref": "place/santa-cristina",
-          "km": 7.3
-        },
-        {
           "ref": "place/seceda-ridge",
           "km": 8.5
-        },
-        {
-          "ref": "place/ortisei",
-          "km": 10.9
         }
       ],
       "part_of": [],
@@ -2392,6 +2243,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -2421,18 +2273,6 @@
           "km": 4.2
         },
         {
-          "ref": "place/ortisei",
-          "km": 7.9
-        },
-        {
-          "ref": "place/santa-cristina",
-          "km": 8.8
-        },
-        {
-          "ref": "place/selva-di-val-gardena",
-          "km": 9.7
-        },
-        {
           "ref": "place/bullaccia-and-the-witches-benches",
           "km": 11.4
         },
@@ -2446,7 +2286,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction unique; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -2460,6 +2300,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": true,
         "hidden_gem": false
@@ -2568,7 +2409,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -2582,6 +2423,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -2693,6 +2535,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -2804,6 +2647,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -2915,6 +2759,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -3002,6 +2847,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -3097,6 +2943,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -3196,6 +3043,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -3278,6 +3126,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -3346,6 +3195,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -3368,26 +3218,14 @@
         "area": []
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "place/bolzano",
-          "km": 0.4,
-          "how": "walk",
-          "extra_min": 103,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction unique"
         },
         "weekend": {
           "fit": "skip",
@@ -3401,6 +3239,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": true,
         "hidden_gem": false
@@ -3501,6 +3340,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -3533,24 +3373,8 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [
-        {
-          "ref": "place/san-candido",
-          "km": 1.1,
-          "how": "walk",
-          "extra_min": 124,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
-        {
-          "ref": "place/dobbiaco",
-          "km": 3.7
-        },
         {
           "ref": "place/lago-di-landro",
           "km": 11
@@ -3579,6 +3403,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -3627,6 +3452,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -3670,6 +3496,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false

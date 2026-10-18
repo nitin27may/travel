@@ -149,3 +149,28 @@ describe("pair_with is tight (RVC round 2)", () => {
     expect(run([louise, heavy], small)["place/lake-louise"]!.pair_with).toHaveLength(1);
   });
 });
+
+describe("two anchors pair on foot only", () => {
+  const castle = rec({ ref: "place/castle", kind: "sight", class_key: "sight/castle", draw: "world", standing: "top" });
+  const at = (km: number): Record<string, PlaceFacts> => ({
+    "place/lake-louise": { point: LOUISE, onSiteMin: 120 },
+    "place/castle": { point: { lat: LOUISE.lat + km / 111.19, lon: LOUISE.lon }, onSiteMin: 60 },
+  });
+  it("both are anchors", () => {
+    const d = run([louise, castle], at(1));
+    expect(d["place/lake-louise"]!.role).toBe("anchor");
+    expect(d["place/castle"]!.role).toBe("anchor");
+  });
+  it("pairs when walkable", () => {
+    expect(run([louise, castle], at(1))["place/lake-louise"]!.pair_with.map((p) => p.ref)).toEqual(["place/castle"]);
+  });
+  it("does not pair by car, even with a real 10 min drive time", () => {
+    const d = run([louise, castle], at(6), { driveMin: { "place/lake-louise": { "place/castle": 10 } } })["place/lake-louise"]!;
+    expect(d.pair_with).toEqual([]);
+  });
+  it("a lighter non-anchor still pairs by car with a real drive time", () => {
+    const lookout = rec({ ref: "place/castle", kind: "viewpoint", class_key: "viewpoint/short-walk", draw: "local", standing: "good" });
+    const d = run([louise, lookout], at(6), { driveMin: { "place/lake-louise": { "place/castle": 10 } } })["place/lake-louise"]!;
+    expect(d.pair_with[0]).toMatchObject({ ref: "place/castle", how: "drive" });
+  });
+});

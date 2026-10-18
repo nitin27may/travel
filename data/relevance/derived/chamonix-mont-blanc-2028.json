@@ -64,14 +64,6 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-          "km": 1.9
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-          "km": 4
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 6
         },
@@ -99,6 +91,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -141,6 +134,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -190,27 +184,11 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-          "km": 0.5,
-          "how": "walk",
-          "extra_min": 104,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "world",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
           "km": 1.8
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-          "km": 2.6
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
@@ -230,11 +208,20 @@
         }
       ],
       "part_of": [],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+        "km": 0.6,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [
+          "lift_only"
+        ],
+        "family_effort": 1
+      },
       "fits": {
         "vacation": {
-          "fit": "worth_it",
-          "reason": "draw world, standing top; clear weather only drops it one step"
+          "fit": "plan_around",
+          "reason": "draw world, standing top; clear weather only: a world top draw keeps its step and gains go_clear_day"
         },
         "weekend": {
           "fit": "skip",
@@ -246,13 +233,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "highlight",
+      "role": "anchor",
       "flags": {
+        "go_clear_day": true,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth a detour",
+      "badge": "Worth the journey",
       "stale": [],
       "warnings": []
     },
@@ -294,24 +282,8 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-          "km": 0.5,
-          "how": "walk",
-          "extra_min": 105,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "world",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-          "km": 2
-        },
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
           "km": 2.4
@@ -338,7 +310,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -352,6 +324,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -381,10 +354,6 @@
       },
       "pair_with": [],
       "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-          "km": 3.7
-        },
         {
           "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
           "km": 5.5
@@ -417,6 +386,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -447,14 +417,6 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-          "km": 3.2
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-          "km": 4.2
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
           "km": 6
         },
@@ -465,10 +427,6 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
           "km": 6.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-          "km": 12
         }
       ],
       "part_of": [],
@@ -490,6 +448,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -584,6 +543,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -626,6 +586,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -730,6 +691,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -825,6 +787,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -855,10 +818,6 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-          "km": 1.9
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
           "km": 5.6
         },
@@ -867,16 +826,8 @@
           "km": 5.6
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-          "km": 9.8
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 10.2
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-          "km": 12
         }
       ],
       "part_of": [],
@@ -898,6 +849,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -923,20 +875,8 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-          "km": 4.8
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 6.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-          "km": 6.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-          "km": 6.9
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
@@ -950,7 +890,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -964,6 +904,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -992,7 +933,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -1006,6 +947,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1054,20 +996,8 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-          "km": 4.8
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 6.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-          "km": 6.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-          "km": 6.9
         }
       ],
       "part_of": [
@@ -1077,7 +1007,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -1091,6 +1021,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
