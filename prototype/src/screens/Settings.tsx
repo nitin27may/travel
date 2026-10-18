@@ -68,9 +68,9 @@ function Household() {
             <div key={i} className="prow" role="row">
               <input id={`p-name-${i}`} value={p.name} aria-label="Name" onChange={e => setPeople(x => x.map((y, k) => k === i ? { ...y, name: e.target.value } : y))} />
               <input id={`p-born-${i}`} className="num" value={p.born} aria-label="Birth year" inputMode="numeric" onChange={e => setPeople(x => x.map((y, k) => k === i ? { ...y, born: e.target.value } : y))} />
-              <input id={`p-h-${i}`} className="num" value={p.height} placeholder="only if needed" aria-label="Height in cm" onChange={e => setPeople(x => x.map((y, k) => k === i ? { ...y, height: e.target.value } : y))} />
+              <input id={`p-h-${i}`} className="num" value={p.height} placeholder="optional" aria-label="Height in cm" onChange={e => setPeople(x => x.map((y, k) => k === i ? { ...y, height: e.target.value } : y))} />
               <span className="pp"><input id={`p-pp-${i}`} type="month" className="num" value={p.passport} aria-label="Passport valid to" onChange={e => setPeople(x => x.map((y, k) => k === i ? { ...y, passport: e.target.value } : y))} />
-                {soon(p.passport) && <span className="chip warn">renew before trips after Mar 2027</span>}</span>
+                {soon(p.passport) && <span className="chip warn">too short for Dolomites: needs valid to Oct 2027</span>}</span>
             </div>
           ))}
         </div>

@@ -86,3 +86,8 @@
   .need .btn { grid-column: 2; justify-self: start; }
   .home-head .seg { margin-left: auto; }
 }
+.tl-row.r-trip .tl-track, .tl-row.r-idea .tl-track { height: 52px; }
+.tl-row.r-trip .tl-band, .tl-row.r-idea .tl-band { top: 4px; bottom: auto; height: 18px; }
+.tl-tag { position: absolute; top: 25px; font-size: .7rem; font-weight: 650; white-space: nowrap; color: var(--ink); pointer-events: none; }
+.tl-tag.low { top: 37px; }
+.r-idea .tl-tag { color: var(--muted); }

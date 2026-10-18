@@ -84,8 +84,8 @@ function TripsList({ phone, go }: { phone: boolean; go: ScreenProps["go"] }) {
   const all = [dolo, ...STATIC];
   const live = all.filter(t => t.phase !== "done").filter(t => filter === "all" || t.phase === filter || (filter === "plan" && t.phase === "prepare"))
     .sort((a, b) => (a.start ?? "9999").localeCompare(b.start ?? "9999"));
-  const soon = live.filter(t => t.start && daysUntil(t.start) <= 120);
-  const later = live.filter(t => t.start && daysUntil(t.start) > 120);
+  const soon = live.filter(t => t.start && daysUntil(t.start) <= 60);
+  const later = live.filter(t => t.start && daysUntil(t.start) > 60);
   const ideas = live.filter(t => !t.start);
   const past = all.filter(t => t.phase === "done");
   const needs = [
@@ -155,7 +155,7 @@ function Card({ t, go }: { t: TripCard; go: ScreenProps["go"] }) {
       </div>
       <div className="tc-body">
         <div className="tc-title">{t.title}</div>
-        <div className="tc-meta num">{t.start ? `${fmt(t.start, { weekday: "short", day: "numeric", month: "short" })} – ${fmt(t.end!, { day: "numeric", month: "short", year: "numeric" })}` : "Dates open"}{t.nights ? ` · ${t.nights} nights` : t.nights === 0 ? " · day trip" : ""}</div>
+        <div className="tc-meta num">{t.start ? (t.start === t.end ? fmt(t.start, { weekday: "short", day: "numeric", month: "short", year: "numeric" }) : `${fmt(t.start, { weekday: "short", day: "numeric", month: "short" })} – ${fmt(t.end!, { day: "numeric", month: "short", year: "numeric" })}`) : "Dates open"}{t.nights ? ` · ${t.nights} nights` : t.nights === 0 ? " · day trip" : ""}</div>
         <div className="tc-meta muted">{t.region} · {t.kind}</div>
         <div className="ready" aria-label={`Readiness: ${steps.map((s, i) => `${s} ${Math.round(t.ready[i] * 100)}%`).join(", ")}`}>
           {steps.map((s, i) => (
@@ -221,17 +221,21 @@ function Year({ phone, go }: { phone: boolean; go: ScreenProps["go"] }) {
         <div className="timeline" role="grid" aria-label="2027 timeline">
           <div className="tl-months" aria-hidden="true"><span />{MONTHS.map(m => <span key={m} className="label">{m}</span>)}</div>
           {rows.map(r => (
-            <div key={r.key} className="tl-row">
+            <div key={r.key} className={`tl-row r-${r.key}`}>
               <span className="tl-label label">{r.label}</span>
               <div className="tl-track">
                 {MONTHS.map((_, i) => <span key={i} className="tl-grid" style={{ left: `${(dayOfYear(`${Y}-${String(i + 1).padStart(2, "0")}-01`) / 365) * 100}%` }} />)}
-                {BANDS.filter(b => b.kind === r.key).map(b => {
+                {BANDS.filter(b => b.kind === r.key).map((b, k) => {
                   const l = dayOfYear(b.from) / 365 * 100, w = Math.max(.8, (dayOfYear(b.to) - dayOfYear(b.from) + 1) / 365 * 100);
+                  const inside = r.key === "school" && w > 6;
                   return (
-                    <button key={b.label} className={`tl-band k-${b.kind} ${sel === b ? "on" : ""} ${b.kind === "long" && freeLong.includes(b) ? "free" : ""}`} style={{ left: `${l}%`, width: `${w}%` }}
-                      onClick={() => setSel(b)} title={`${b.label}: ${fmt(b.from)} – ${fmt(b.to)}`} aria-label={`${b.label}, ${fmt(b.from)} to ${fmt(b.to)}`}>
-                      {(r.key === "trip" || r.key === "idea" || r.key === "school") && w > 2.4 ? <span>{b.label}</span> : null}
-                    </button>
+                    <span key={b.label}>
+                      <button className={`tl-band k-${b.kind} ${sel === b ? "on" : ""} ${b.kind === "long" && freeLong.includes(b) ? "free" : ""}`} style={{ left: `${l}%`, width: `${w}%` }}
+                        onClick={() => setSel(b)} title={`${b.label}: ${fmt(b.from)} – ${fmt(b.to)}`} aria-label={`${b.label}, ${fmt(b.from)} to ${fmt(b.to)}`}>
+                        {inside ? <span>{b.label}</span> : null}
+                      </button>
+                      {(r.key === "trip" || r.key === "idea") && <span className={`tl-tag ${k % 2 ? "low" : ""}`} style={{ left: `${l}%` }} aria-hidden="true">{b.label}</span>}
+                    </span>
                   );
                 })}
               </div>
