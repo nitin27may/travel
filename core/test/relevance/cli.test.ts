@@ -148,3 +148,41 @@ describe("check validates the inputs", () => {
     expect(cli(root, "check").stdout).toContain("E_REL_HOUSEHOLD");
   });
 });
+
+describe("freshness and the calendar", () => {
+  const setup = () => {
+    const root = repo();
+    put(root, "data/relevance/t/R1.json", doc([rec({ ref: "place/fenland-loop", draw: "world", standing: "top" })], { trip: "t", researched: "2026-10-01" }));
+    return root;
+  };
+  it("derive --write pins as_of, and --check on a later date still passes, with a warning count", () => {
+    const root = setup();
+    expect(cli(root, "derive", "--write", "--today", "2026-10-18").status).toBe(0);
+    expect(JSON.parse(readFileSync(join(root, "data/relevance/derived/t.json"), "utf8")).as_of).toBe("2026-10-18");
+    const later = cli(root, "derive", "--check", "--today", "2031-01-01");
+    expect(later.status).toBe(0);
+    expect(later.stdout).toMatch(/WARN \d+ value\(s\) went stale/);
+    const same = cli(root, "derive", "--check", "--today", "2026-10-19");
+    expect(same.status).toBe(0);
+    expect(same.stdout).not.toContain("WARN");
+  });
+  it("a real change in the data still fails --check", () => {
+    const root = setup();
+    cli(root, "derive", "--write", "--today", "2026-10-18");
+    put(root, "data/relevance/t/R1.json", doc([rec({ ref: "place/fenland-loop", draw: "local", standing: "top" })], { trip: "t", researched: "2026-10-01" }));
+    expect(cli(root, "derive", "--check", "--today", "2031-01-01").status).toBe(1);
+  });
+  it("stale values are gaps in a file written at a late date", () => {
+    const root = setup();
+    cli(root, "derive", "--write", "--today", "2031-01-01");
+    const j = JSON.parse(readFileSync(join(root, "data/relevance/derived/t.json"), "utf8"));
+    expect(j.items[0].stale).toContain("draw");
+  });
+  it("freshness lists stale values and never fails", () => {
+    const root = setup();
+    const r = cli(root, "freshness", "--today", "2031-01-01");
+    expect(r.status).toBe(0);
+    expect(r.stdout).toContain("place/fenland-loop\tdraw");
+    expect(cli(root, "freshness", "--today", "2026-10-18").stdout).toContain("0 stale value(s)");
+  });
+});

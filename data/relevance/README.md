@@ -24,6 +24,7 @@ node core/bin/relevance.ts derive [--write|--check] compute fits, role, badge, s
         [--window MM-DD:MM-DD]                      season window for effective_draw (otherwise the trip's window in points.json)
 node core/bin/relevance.ts signals --fetch [--osm] [--refresh] [--max-age-days n]
                                                     the only command that uses the network
+node core/bin/relevance.ts freshness                list stale values for a re-check pass (never fails)
 node core/bin/relevance.ts calibrate                draw against draw_suggested confusion table
 node core/bin/relevance.ts codes                    list the codes
 ```
@@ -94,4 +95,4 @@ The 3.1 starting thresholds (version 1): languages 25 / 10 / 3 for world / natio
 - Being inside a park is not draw. A parent designation never raises the tier.
 - Fame is not worth. The tool suggests; the judgement decides.
 - The far pointer reaches 50 km (3.2). Niagara Falls, 81 km from Rattlesnake Point, is outside it, so that place has none.
-- Derived items depend on today's date only through `stale`; `derive --check` in `check-all` fails when a value ages out, which is the prompt to re-check it.
+- Derived files pin `as_of`, the date staleness was judged at. `derive --check` compares against that date, so the calendar alone never fails `check-all`; values that went stale since are a warning count. `node core/bin/relevance.ts freshness` lists them for a re-check pass, and `derive --write` re-pins the date.
