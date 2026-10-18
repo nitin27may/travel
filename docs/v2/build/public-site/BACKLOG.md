@@ -102,7 +102,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 
 | ID | Item | Source | Status |
 |---|---|---|---|
-| 4.1 | Fable site review (`review.md`) of every page type on desktop and phone, light and dark | gate | queued |
+| 4.1 | Fable site review (`review.md`) of every page type on desktop and phone, light and dark, scored against the UX principles P1-P7 (`design/foundation/principles.md`) | gate | queued |
 | 4.2 | Known items for it to judge: the dark trips map shows water lighter than land; the mobile trail hero; table "Sources" column clipping at 1440; label overlap on place maps; the 844x390 globe | verifiers, coordinator | queued |
 | 4.3 | Fixes from the review | gate | queued |
 
@@ -110,7 +110,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 
 | ID | Item | Source | Status |
 |---|---|---|---|
-| 5.1 | travel-verifier full sweep on the GPU: every page at 1440 and 390, light and dark, Chromium and WebKit; globe frame times | owner ask | queued |
+| 5.1 | travel-verifier full sweep on the GPU, including a first-use walk with no prior knowledge (P4) and a large-data check at 10,000 synthetic places (P1): every page at 1440 and 390, light and dark, Chromium and WebKit; globe frame times | owner ask | queued |
 | 5.2 | Independent Opus audit over `web/out`: privacy (no household data, no status, no booking state), data honesty (sources, estimates labelled), the dateless rule, licences and credits, and the Google terms (one map family per page, no Google coordinates) | owner ask | queued |
 
 ## Stage 6: owner review
