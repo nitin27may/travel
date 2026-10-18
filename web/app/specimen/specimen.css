@@ -15,7 +15,7 @@
 .sw span { font: var(--t-chip); color: var(--muted); }
 .pairs { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-2); }
 .pairs div { border-radius: var(--r-3); padding: 10px 12px; font: 600 15px var(--font-body); }
-.pairs small { display: block; font: var(--t-chip); opacity: 0.85; margin-top: 2px; }
+.pairs small { display: block; font: var(--t-chip); margin-top: 2px; }
 .ring { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--surface), 0 0 0 4.5px var(--tc), 0 0 0 5.5px var(--line-2); }
 .idbar { height: 4px; background: var(--tc); box-shadow: 0 1px 0 var(--line-2); }
 .type > div { border-bottom: 1px solid var(--line); padding: var(--s-2) 0; display: grid; grid-template-columns: 150px 1fr; gap: var(--s-3); align-items: baseline; }
