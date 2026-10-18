@@ -214,3 +214,4 @@
 .pin-wrap[draggable], .maplibregl-marker-draggable .pin { cursor: grab; }
 .pin-wrap { position: relative; }
 .pin-name { position: absolute; left: 50%; top: calc(100% - 2px); transform: translateX(-50%); white-space: nowrap; font: 600 .7rem/1.2 var(--f-ui); color: var(--ink); background: color-mix(in srgb, var(--surface) 86%, transparent); padding: 1px 5px; border-radius: 4px; pointer-events: none; }
+.day-body[data-open="1"] { overflow: visible !important; }

@@ -14,7 +14,7 @@ export function AddBox({ target, base, anchor, kinds, placeholder = "Add a place
   target: Target; base?: Place; anchor?: Place; kinds?: Place["kind"][]; placeholder?: string;
   onPicked?: (p: Place) => void; autoFocus?: boolean;
 }) {
-  const { s, add, place } = useStore();
+  const { s, add, place, move, setTime } = useStore();
   const [raw, setRaw] = useState("");
   const [open, setOpen] = useState(false);
   const [i, setI] = useState(0);
@@ -39,7 +39,10 @@ export function AddBox({ target, base, anchor, kinds, placeholder = "Add a place
       const name = r.type === "link" ? (url!.replace(/^https?:\/\/(www\.)?/, "").split(/[/?#]/)[0]) : raw.replace(/\b([01]?\d|2[0-3])[:.]([0-5]\d)\b|\bday\s*\d+\b/gi, "").trim();
       p = { id: `c${Date.now()}`, name: name || "My place", kind: "sight", area: "My places", lng: near.lng + 0.012, lat: near.lat - 0.008, catalog: false, summary: r.type === "link" ? `From ${url}` : "Your own place. Drag its pin on the map to where it is." };
     }
-    if (onPicked) onPicked(p); else add(p, to, { time: parsed.time });
+    const existing = r.type === "hit" && r.hit.group === "trip" && !onPicked ? Object.values(s.trip.items).find(x => x.placeId === p.id) : undefined;
+    if (onPicked) onPicked(p);
+    else if (existing) { move(existing.id, to); if (parsed.time) setTimeout(() => setTime(existing.id, parsed.time), 0); }   // already planned: move it, never duplicate
+    else add(p, to, { time: parsed.time });
     setRaw(""); setOpen(false); setI(0);
   }
   function key(e: KeyboardEvent<HTMLInputElement>) {
@@ -66,7 +69,7 @@ export function AddBox({ target, base, anchor, kinds, placeholder = "Add a place
                 <li key={k} role="presentation">
                   {head && <div className="label addbox-group">{head}</div>}
                   <button role="option" aria-selected={k === i} className={`addbox-row ${k === i ? "on" : ""}`} onMouseEnter={() => setI(k)} onMouseDown={e => e.preventDefault()} onClick={() => choose(k)}>
-                    {r.type === "hit" ? <HitRow hit={r.hit} base={base} /> :
+                    {r.type === "hit" ? <HitRow hit={r.hit} base={base} moving={r.hit.group === "trip" && !onPicked} /> :
                      r.type === "link" ? <><span className="glyph"><Icon name="link" /></span><span className="addbox-name">Add from link<small className="muted"> {url}</small></span></> :
                      <><span className="glyph"><Icon name="plus" /></span><span className="addbox-name">Add “{raw.trim()}” as my own place<small className="muted"> drop a pin, drag it into place</small></span></>}
                   </button>
@@ -80,7 +83,7 @@ export function AddBox({ target, base, anchor, kinds, placeholder = "Add a place
   );
 }
 
-function HitRow({ hit, base }: { hit: Hit; base?: Place }) {
+function HitRow({ hit, base, moving }: { hit: Hit; base?: Place; moving?: boolean }) {
   const { s } = useStore();
   const p = hit.place;
   const l = base ? leg(base, p) : undefined;
@@ -91,6 +94,7 @@ function HitRow({ hit, base }: { hit: Hit; base?: Place }) {
       <span className="addbox-name">{p.name}<small className="muted"> {p.area}{p.km ? ` · ${p.km} km` : ""}{p.gain && p.gain > 0 ? ` · ${p.gain} m` : ""}</small></span>
       <span className="addbox-meta">
         {young.length ? <span className="chip crit">{young[0].name} {young[0].age}: needs {p.minAge}+</span> : p.minAge ? <span className="chip ok">fits all</span> : null}
+        {moving && <span className="chip act">move here</span>}
         {l && <span className="num muted">{l.mode === "drive" ? "≈ " : ""}{fmtMin(l.min)}</span>}
       </span>
     </>

@@ -97,6 +97,7 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
     if (orig && orig[0] === to && orig[1].indexOf(id) === index) return; // dropped where it was
     void before;
     move(id, toTarget(to), index);
+    if (String(e.over?.id ?? "").startsWith("ol-")) setTimeout(() => jump(to.startsWith("day:") ? `day-${to.slice(4)}` : `list-${to.slice(5)}`), 60);
   }
   const announcements: Announcements = {
     onDragStart: ({ active }) => `Picked up ${place(s.trip.items[String(active.id)]?.placeId)?.name}.`,
@@ -120,6 +121,13 @@ export function PlanScreen({ theme, phone, onOpenPlace, onShare }: { theme: "lig
     const nextP = k < ids.length - 1 ? place(s.trip.items[ids[k + 1]].placeId) : live.end;
     if (prevP) preview = { from: prevP, to: dragPlace, back: nextP };
   }
+
+  // while dragging over another day, bring that day onto the map so the dashed preview leg is visible
+  useEffect(() => {
+    if (!activeId || !dragTo?.startsWith("day:")) return;
+    const n = Number(dragTo.slice(4)); if (n === s.focusDay) return;
+    const h = setTimeout(() => focus(n), 280); return () => clearTimeout(h);
+  }, [activeId, dragTo, s.focusDay, focus]);
 
   // ---------- focus, scroll spy, map ----------
   const jump = (id: string) => {
