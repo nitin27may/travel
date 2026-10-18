@@ -130,3 +130,22 @@ describe("same_place_as in the validator", () => {
     expect(bad[0]!.path).toBe("/records/0/same_place_as");
   });
 });
+
+describe("4(b) a lift yields the anchor to the summit it serves", () => {
+  const summit = () => rec({ ref: "place/summit", kind: "viewpoint", qid: "Q9", draw: "world", standing: "top", distinction: "unique" });
+  const lift = (over: Record<string, unknown> = {}) => ({ ...rec({ ref: "trip/x/lift:cable-car", kind: "lift", qid: null, draw: "world", standing: "top", distinction: "rare" }), ...over });
+  it("by same_place_as", () => {
+    const d = run([summit(), lift({ same_place_as: "place/summit" })]);
+    expect(d["place/summit"]!.role).toBe("anchor");
+    expect(d["trip/x/lift:cable-car"]!.role).toBe("highlight");
+  });
+  it("by QID", () => {
+    const l = lift();
+    l.wikidata = { ...summit().wikidata };
+    const d = run([summit(), l]);
+    expect(d["trip/x/lift:cable-car"]!.role).toBe("highlight");
+  });
+  it("unlinked, it stays an anchor", () => {
+    expect(run([summit(), lift()])["trip/x/lift:cable-car"]!.role).toBe("anchor");
+  });
+});
