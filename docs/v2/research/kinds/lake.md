@@ -105,7 +105,10 @@ Common checks D1-D5, U1-U2, C1-C8, plus:
 | C14 | Complete | `attrs.photo_spot` | `community` |
 | C15 | Complete | every related access entity is at least Usable | |
 
-Totals: Draft 5, Usable 9, Complete 15; **29**.
+Totals: Draft 5, Usable 15, Complete 17; **37** (38 when a walk is needed: F7).
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its viewpoint, waterfall, lake column: F3, F4, F6, F8, F11 (fencing, and water safety for a swim spot) and F12 are Usable, F7 is Usable when a walk is needed, and F5 and F9 are Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -137,6 +140,6 @@ Access rules and booking windows: 365 days, and before the next window. Shuttle 
 | `duration` | 180 min (the legacy `time_needed_hours: 3`) | same, `community` |
 | youth band ages | `gap` | same |
 
-With the viewpoint node as the point: **Draft · 10 of 29** (D1-D5, U1, U2, U3, U5, U7). Then U4 (walk from the
+With the viewpoint node as the point: **Draft · 10 of 37** (D1-D5, U1, U2, U3, U5, U7). Then U4 (walk from the
 stop), U6 (shuttle first and last times), U8 (how fast launch-day seats sell out) and U9 (swimming)
 make it Usable.

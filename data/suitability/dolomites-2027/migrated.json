@@ -1,0 +1,1931 @@
+{
+  "schema": "suitability/1",
+  "trip": "dolomites-2027",
+  "lane": "S0-migrated",
+  "researched": "2026-10-18",
+  "agent": "travel-builder",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "web/data-snapshots/prototype.json",
+      "title": "prototype snapshot of the Dolomites trips",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "data/locations/locations.json",
+      "title": "locations store",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-17"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/adolf-munkel-weg",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 12.4,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"12.4\" (conf official, src odlesdolomites.com: Zans to Ranui, point to point; the loop back to Zans is 9 km, 3 h, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 593,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"593\" (conf official, src odlesdolomites.com, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "loss_m": {
+              "v": 876,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_loss_m \"876\" (conf official, src odlesdolomites.com, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            228,
+            228
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src odlesdolomites.com: 3:50 h) \"3.8\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"moderate\" (conf official, src odlesdolomites.com: Intermediate, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"none\" (conf operator, src PLAN.md, read Aug 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 12.4,
+        "walk_gain_m": 593
+      }
+    },
+    {
+      "ref": "place/alpe-di-siusi",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 9.9,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"9.9\" (conf official, src seiser-alm.it Hans and Paula Steger Trail, Compatsch to Saltria (the same page also says 4.5 km), read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 333,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"333\" (conf official, src seiser-alm.it Steger Trail, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src seiser-alm.it: 03:00 h) \"3\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf official, src seiser-alm.it: easy, stroller-friendly, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 9.9,
+        "walk_gain_m": 333
+      }
+    },
+    {
+      "ref": "place/bolzano",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 9.1,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"9.1\" (conf official, src seiser-alm.it Bullaccia round trail and Witches' Benches, from Compatsch; seiseralm.it variant 8.4 km, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 340,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"340\" (conf official, src seiser-alm.it, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            192,
+            192
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src seiser-alm.it: 03:10 h) \"3.2\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf official, src seiser-alm.it: easy (the 8.4 km variant is rated medium), read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 9.1,
+        "walk_gain_m": 340
+      }
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "kind": "viewpoint",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place km 2; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 150,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place gain 150; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            40
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json place hours \"30-40 min\" to minutes; not re-read at the source"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 2,
+        "walk_gain_m": 150
+      }
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"7\" (conf official, src cortina.dolomiti.org botanical path from Pian de Loa; the full park loop from Sant'Uberto is 9-9.5 km, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 249,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"249\" (conf official, src cortina.dolomiti.org, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            150,
+            150
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src cortina.dolomiti.org: 2 h 30') \"2.5\" to minutes; not re-read at the source"
+        },
+        "kid_note": "A via ferrata runs through the gorge; not for small children"
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf official, src cortina.dolomiti.org: Easy, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7,
+        "walk_gain_m": 249
+      }
+    },
+    {
+      "ref": "place/cinque-torri",
+      "kind": "sight",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"2\" (conf community, src Audley Travel short loop from Scoiattoli, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf community, src Audley Travel) \"1\" to minutes; not re-read at the source"
+        },
+        "age_band": {
+          "v": {
+            "from": 10,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "prototype.json trail fact min_age \"10\" (conf operator, src PLAN.md, read Aug 2026). PLAN.md is not an operator, so this is a recommended age and not a minimum (spec 7.2)."
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf community, src guide: virtually flat, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"none\" (conf operator, src PLAN.md, read Aug 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 2,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/cortina-dampezzo",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.3,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"7.3\" (conf operator, src Prags tourism tour 17276369 on outdooractive.com, apparently one way lake to summit, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 1314,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"1314\" (conf operator, src same tour, as embedded on suedtirol.live, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            210,
+            270
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src dreizinnen.com tour 544 gives 3 h 30 in the facts and 4.5 h in the text) \"3.5-4.5\" to minutes; not re-read at the source"
+        },
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 12,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place minAge 12; no source recorded, so it is not a rule; carried over unchanged; the official or operator page was not re-read."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"hard\" (conf official, src dreizinnen.com: Difficult; very demanding, vertigo and slip resistance required, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7.3,
+        "walk_gain_m": 1314
+      }
+    },
+    {
+      "ref": "place/dobbiaco",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/dolomites",
+      "kind": "viewpoint",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/drava-cycle-path-to-lienz",
+      "kind": "activity",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 43.4,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place km 43.4; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 15,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place gain 15; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            170,
+            170
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json place hours \"about 2 h 50\" to minutes; not re-read at the source"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 43.4,
+        "walk_gain_m": 15
+      }
+    },
+    {
+      "ref": "place/funbob-monte-baranci",
+      "kind": "activity",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 8,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place minAge 8; no source recorded, so it is not a rule; carried over unchanged; the official or operator page was not re-read."
+            }
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/la-val",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "kind": "lift",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 3,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"3\" (conf inferred, src existing prototype catalogue, read Aug 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "loss_m": {
+              "v": 647,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_loss_m \"647\" (conf official, src cortina.dolomiti.org (the operator gives 639 m), read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            90,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf operator, src lagazuoi.it: tunnel under an hour, then about half an hour to the pass) \"1.5\" to minutes; not re-read at the source"
+        },
+        "age_band": {
+          "v": {
+            "from": 10,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "prototype.json trail fact min_age \"10\" (conf operator, src PLAN.md, read Aug 2026). PLAN.md is not an operator, so this is a recommended age and not a minimum (spec 7.2)."
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf operator, src lagazuoi.it: easy, equipped tunnel; helmet, headlamp and gloves, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"some\" (conf community, src tunnels are dark, slippery and steep, read 18 Oct 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 3,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/lago-dantorno",
+      "kind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/lago-di-braies",
+      "kind": "lake",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 3.7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"3.7\" (conf operator, src PLAN.md, read Aug 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 30,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"30\" (conf operator, src PLAN.md, read Aug 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf operator, src PLAN.md) \"1-1.5\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Not suitable for pushchairs (steps on the east side)"
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf community, src Komoot rates the loop easy, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"some\" (conf community, src east shore passes close to the wall, read 18 Oct 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "surface",
+          "text": "prototype.json trail fact surface \"West shore wide and flat; east shore narrow with rock-cut steps\" (conf community, src hoehenrausch.de report, read 18 Oct 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 3.7,
+        "walk_gain_m": 30
+      }
+    },
+    {
+      "ref": "place/lago-di-carezza",
+      "kind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/lago-di-dobbiaco",
+      "kind": "lake",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 3.5,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place km 3.5; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 10,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place gain 10; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json place hours \"1 h\" to minutes; not re-read at the source"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 3.5,
+        "walk_gain_m": 10
+      }
+    },
+    {
+      "ref": "place/lago-di-landro",
+      "kind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/lago-di-limides",
+      "kind": "lake",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place km 2; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 80,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place gain 80; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            20,
+            30
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json place hours \"20-30 min each way\" to minutes; not re-read at the source"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 2,
+        "walk_gain_m": 80
+      }
+    },
+    {
+      "ref": "place/lago-di-misurina",
+      "kind": "lake",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 11,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"11\" (conf operator, src PLAN.md, read Aug 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 550,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"550\" (conf operator, src PLAN.md, read Aug 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            270,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf operator, src PLAN.md) \"4.5-6\" to minutes; not re-read at the source"
+        },
+        "age_band": {
+          "v": {
+            "from": 10,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "prototype.json trail fact min_age \"10\" (conf operator, src PLAN.md, read Aug 2026). PLAN.md is not an operator, so this is a recommended age and not a minimum (spec 7.2)."
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"hard\" (conf community, src AllTrails reviewers rate it hard, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"significant\" (conf operator, src ladders, boards, cables, read Aug 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "surface",
+          "text": "prototype.json trail fact surface \"Path with ladders, boards and cabled ledges\" (conf operator, src PLAN.md, read Aug 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 11,
+        "walk_gain_m": 550
+      }
+    },
+    {
+      "ref": "place/lago-federa",
+      "kind": "lake",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.9,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"7.9\" (conf official, src Belluno tourism board route from Ru Curto (outdooractive.com); the hut's GPX is about 4.7 km one way, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 466,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"466\" (conf official, src same route; the hut FAQ says about 300 m and 2 h one way, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src same route: 3:05 h) \"3\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"moderate\" (conf official, src same route: T2, medium difficulty, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7.9,
+        "walk_gain_m": 466
+      }
+    },
+    {
+      "ref": "place/monte-piana",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 3.9,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"3.9\" (conf official, src dreizinnen.com tour 22272: Lago d'Antorno to Rifugio Bosi, one way on path 122, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 368,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"368\" (conf official, src dreizinnen.com tour 22272, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            150,
+            150
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src dreizinnen.com tour 22272: 2 h 30 min one way) \"2.5\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"moderate\" (conf official, src dreizinnen.com: Intermediate, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 3.9,
+        "walk_gain_m": 368
+      }
+    },
+    {
+      "ref": "place/ortisei",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+      "kind": "sight",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/passo-gardena",
+      "kind": "viewpoint",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/rafting-on-the-rienza",
+      "kind": "activity",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 6,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place minAge 6; no source recorded, so it is not a rule; carried over unchanged; the official or operator page was not re-read."
+            }
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/san-candido",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/san-vito-di-cadore",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/santa-cristina",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/santa-maddalena-val-di-funes",
+      "kind": "viewpoint",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"7.8\" (conf official, src trentino.com: from the Sas Pordoi top station to Piz Boe, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 561,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"561\" (conf official, src trentino.com, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            195,
+            195
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src trentino.com: 03:15 h) \"3.25\" to minutes; not re-read at the source"
+        },
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 12,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place minAge 12; no source recorded, so it is not a rule; carried over unchanged; the official or operator page was not re-read."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"moderate\" (conf official, src trentino.com: moderate summit route with lifts; fassa.com rates Piz Boe E/EE, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"some\" (conf community, src fixed ropes on the steepest sections, read 18 Oct 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7.8,
+        "walk_gain_m": 561
+      }
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "kind": "viewpoint",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "gain_m": {
+              "v": 100,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"100\" (conf operator, src PLAN.md, read Aug 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            90,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf operator, src PLAN.md) \"1.5\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "distance_km",
+          "text": "prototype.json distance_km reads \"1 or 3 km: sources disagree\" (conf community); sources disagree, so no value was chosen",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"some\" (conf inferred, src guide notes steep drops either side, read 18 Oct 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": 100
+      }
+    },
+    {
+      "ref": "place/selva-di-val-gardena",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 10,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"10\" (conf official, src Auronzo toll road site, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 450,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"450\" (conf operator, src PLAN.md, read Aug 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            210,
+            270
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf operator, src PLAN.md) \"3.5-4.5\" to minutes; not re-read at the source"
+        },
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "prototype.json trail fact min_age \"6\" (conf operator, src PLAN.md, read Aug 2026). PLAN.md is not an operator, so this is a recommended age and not a minimum (spec 7.2)."
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"moderate\" (conf community, src AllTrails listing: moderately challenging, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"none\" (conf operator, src PLAN.md, read Aug 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "surface",
+          "text": "prototype.json trail fact surface \"Wide gravel, stony in places\" (conf operator, src PLAN.md, read Aug 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 10,
+        "walk_gain_m": 450
+      }
+    },
+    {
+      "ref": "place/val-fiscalina",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 4.7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"4.7\" (conf official, src dreizinnen.com listing, one way from Sesto, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 190,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"190\" (conf official, src dreizinnen.com listing, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf operator, src PLAN.md) \"1\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Winter walks with a buggy are listed, so a pushchair works on this track"
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf official, src dreizinnen.com: wide, very easy path, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "exposure",
+          "text": "prototype.json trail fact exposure \"none\" (conf official, src dreizinnen.com, read 18 Oct 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "surface",
+          "text": "prototype.json trail fact surface \"Asphalt or gravel, wide\" (conf official, src dreizinnen.com, read 18 Oct 2026); not migrated as a value",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 4.7,
+        "walk_gain_m": 190
+      }
+    },
+    {
+      "ref": "place/vallunga",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.5,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact distance_km \"7.5\" (conf official, src valgardena.it Vallunga walk (winter listing); suedtirol.info summer listing says 6 km, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 200,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json trail fact elevation_gain_m \"200\" (conf official, src valgardena.it Vallunga walk, read 18 Oct 2026); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            120,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json trail fact duration_hours (conf official, src valgardena.it: 2:00 h) \"2\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"easy\" (conf official, src valgardena.it: Easy, read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7.5,
+        "walk_gain_m": 200
+      }
+    },
+    {
+      "ref": "place/viel-dal-pan",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place km 8; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 380,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "prototype.json place gain 380; no source recorded; carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            150,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "converted from prototype.json place hours \"2.5-4 h\" to minutes; not re-read at the source"
+        }
+      },
+      "hints": [
+        {
+          "field": "source_grade",
+          "text": "prototype.json trail fact difficulty \"moderate\" (conf official, src grandeguerra.dolomiti.org: Medium (for the Porta Vescovo - Passo Pordoi traverse), read 18 Oct 2026); a label, not a published grade",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 8,
+        "walk_gain_m": 380
+      }
+    }
+  ]
+}

@@ -80,3 +80,48 @@ export function describeMissing(t: Table, col: string): string {
   const type = String(m?.["x-type"] ?? "text");
   return `column "${col}" is missing. ${nullable ? "Add it with null when there is no value, or a value like " : "Add it with a value like "}${EXAMPLES[type] ?? '"..."'}.`;
 }
+
+// suitability/1: what is wrong, then an example of a fix.
+export const SUIT_MESSAGES = {
+  schema: (path: string, what: string): string => `${path || "the file"}: ${what}`,
+  ref: (ref: string, why: string): string =>
+    `ref "${ref}" does not resolve: ${why}. Refs are place/<slug>, legacy/<folder>/<dataset>/<id>, trip/<trip>/<kind>:<name> or offer/<parent ref>#<product>. Example: "place/lago-di-braies".`,
+  dupRef: (ref: string, where: string): string =>
+    `ref "${ref}" appears more than once (${where}). Keep one record per ref; move the extra values into it. Example: merge the second record's fields into the first and delete it.`,
+  srcUnknown: (id: string): string =>
+    `src names "${id}", which is not in this file's sources. Add the source to "sources" or remove the id. Example: "src-0001".`,
+  srcMissing: (field: string): string =>
+    `"${field}" has a value but no source. A value without src must be basis "our_inference" with a note that names the method. Example: {"basis": "our_inference", "src": [], "note": "Naismith from 7.4 km and 385 m"}.`,
+  srcRead: (id: string): string =>
+    `source "${id}" has no read date. Every source is dated when it was read. Example: "read": "2026-10-18".`,
+  linkOnly: (id: string, host: string): string =>
+    `source "${id}" is ${host}, a link-only platform: its figures are never a source (K10). Cite the land manager or operator instead and keep the link in the markdown notes. Example: "https://parks.canada.ca/...".`,
+  limitBasis: (field: string, basis: string | null): string =>
+    `"${field}" rests on ${basis === null ? "no basis" : `"${basis}"`}, but a hard limit may only rest on "operator_rule" or "official_rule". Move the figure to "conflicts" and set state "searched_none" with "on" and "tried". Example: {"v": 8, "state": "value", "basis": "operator_rule", "src": ["src-0001"]}.`,
+  groupMinBasis: (basis: string | null): string =>
+    `"group_min" rests on ${basis === null ? "no basis" : `"${basis}"`}, but a group minimum is a land manager's rule: use "official_rule". Example: {"v": {"n": 4}, "state": "value", "basis": "official_rule", "src": ["src-0001"]}.`,
+  searchedNone: (field: string, lacks: string): string =>
+    `"${field}" is searched_none but has no ${lacks}. Say when you looked and what you tried. Example: {"state": "searched_none", "on": "2026-10-18", "tried": ["operator terms page", "booking FAQ"]}.`,
+  unit: (field: string): string =>
+    `"${field}" has a quote in lb, in, ft or mi but no note with the conversion. Add one. Example: "note": "44 in = 112 cm".`,
+  range: (field: string, detail: string): string =>
+    `"${field}" runs backwards: ${detail}. Check which end each figure is. Example: min_weight_kg 22.7 with max_weight_kg 113.`,
+  grade: (system: string, value: string, allowed: string[]): string =>
+    `"${value}" is not a grade of "${system}". The grades are ${allowed.map((a) => JSON.stringify(a)).join(", ")}. If the source uses another word, keep the word under system "local". Example: {"system": "local", "value": "easy"}.`,
+  typedEffort: (key: string): string =>
+    `"${key}" is typed in the file, but terrain, band, effort_km and family_effort are computed from the grade and the drivers. Remove it. Example: keep "source_grade" and "drivers" only.`,
+  stepFree: (): string =>
+    `wheelchair "step_free" needs basis "official_info": an accessible entrance with one step is "partial". Example: {"v": "partial", "state": "value", "basis": "official_info", "src": ["src-0001"]}.`,
+  flatDrift: (diff: string): string =>
+    `the flat catalogue copy differs from what derive computes (${diff}). Run: node core/bin/suitability.ts derive --write. Example: "flat": {"min_age": null, "house_grade": 3}.`,
+  stale: (field: string, read: string, days: number): string =>
+    `"${field}" was read on ${read}, more than ${days} days ago. Re-read the source before it counts. Example: set "read" to today's date after checking.`,
+  conflict: (field: string, n: number): string =>
+    `"${field}" keeps ${n} conflicting figure${n === 1 ? "" : "s"}. A person or the next lane decides; nothing is averaged.`,
+  community: (field: string): string =>
+    `"${field}" rests on community reports alone. Fine for shade, signal and stroller; confirm anything that gates a child.`,
+  marginal: (field: string): string =>
+    `"${field}" was converted from imperial units. The household check treats a figure within 1 kg or 2 cm as marginal; confirm with the operator.`,
+  flatMissing: (): string =>
+    `the record has no flat catalogue copy. Run: node core/bin/suitability.ts derive --write. Example: "flat": {"min_age": null, "house_grade": 3}.`,
+};

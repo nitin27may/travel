@@ -1,0 +1,119 @@
+{
+  "schema": "suitability/1",
+  "trip": "vermont-fall-2026",
+  "lane": "S0-migrated",
+  "researched": "2026-10-18",
+  "agent": "travel-builder",
+  "model": "sonnet",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+      "kind": "sight",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:hyde park village",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:peacham village",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "kind": "trail",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+      "kind": "viewpoint",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
+      "kind": "viewpoint",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    }
+  ]
+}

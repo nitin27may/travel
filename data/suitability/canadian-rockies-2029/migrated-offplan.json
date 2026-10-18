@@ -1,0 +1,3823 @@
+{
+  "schema": "suitability/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "S0-migrated-offplan",
+  "researched": "2026-10-18",
+  "agent": "travel-builder",
+  "model": "sonnet",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "legacy/canadian-rockies-sept-2029/data/adventures.json",
+      "title": "adventures.json of the Rockies plan",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "legacy/canadian-rockies-sept-2029/data/sights.json",
+      "title": "sights.json of the Rockies plan",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "legacy/canadian-rockies-sept-2029/data/trails.json",
+      "title": "trails.json of the Rockies plan",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 7,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 7 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "kind": "activity",
+      "subkind": "horse",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 8,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 8 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        },
+        "max_weight_kg": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 104,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json max_weight_kg 104; carried over unchanged; the official or operator page was not re-read."
+            }
+          ]
+        },
+        "limit_reason": "policy"
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "kind": "activity",
+      "subkind": "other",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "kind": "activity",
+      "subkind": "rafting",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "kind": "activity",
+      "subkind": "cycling",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"with_adult\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 8,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "kind": "activity",
+      "subkind": "cruise",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+      "kind": "activity",
+      "subkind": "other",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "kind": "activity",
+      "subkind": "heli",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 2,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 2 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "kind": "activity",
+      "subkind": "heli",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 4,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 4 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+      "kind": "activity",
+      "subkind": "cycling",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
+      "kind": "activity",
+      "subkind": "horse",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+      "kind": "activity",
+      "subkind": "wildlife",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+      "kind": "activity",
+      "subkind": "rafting",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 5,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 5 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        },
+        "max_weight_kg": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 18.1,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json stores 18.1 as max_weight_kg."
+            }
+          ]
+        },
+        "min_weight_kg": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 18.1,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "the row's booking field (\"check weight min 40 lb\") reads the 40 lb (18.1 kg) as a minimum weight, not a maximum. The two readings conflict; R2b confirms which end it is at the operator page."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-class3-4",
+      "kind": "activity",
+      "subkind": "rafting",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 12,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 12 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "kind": "activity",
+      "subkind": "rafting",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 8,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 8 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        },
+        "min_weight_kg": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 22.7,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json stores 22.7 as max_weight_kg, but the row's own booking field says the 50 lb (22.7 kg) is a MINIMUM weight, not a maximum. Migrated as the minimum; it becomes a value only after R2b re-reads the operator page."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+      "kind": "lift",
+      "subkind": "gondola",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "kind": "activity",
+      "subkind": "horse",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 8,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 8 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        },
+        "max_weight_kg": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 113,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json max_weight_kg 113; carried over unchanged; the official or operator page was not re-read."
+            }
+          ]
+        },
+        "limit_reason": "policy"
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "kind": "lift",
+      "subkind": "gondola",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+      "kind": "activity",
+      "subkind": "cycling",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"with_adult\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+      "kind": "lift",
+      "subkind": "gondola",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "kind": "activity",
+      "subkind": "via-ferrata",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": [],
+          "conflicts": [
+            {
+              "v": 12,
+              "basis": "our_inference",
+              "src": [
+                "src-0001"
+              ],
+              "note": "adventures.json min_age 12 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. R2b confirms it at the operator."
+            }
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "kind": "activity",
+      "subkind": "other",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"unknown\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity both; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "kind": "activity",
+      "subkind": "cruise",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"yes\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity family; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "suitability": {},
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's own fit label child_6yo_ok is \"no\"; a hint for the research lane, not a fact about the activity",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan marks this activity adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "GAP: child weight/fare and lodge pricing not found (Assiniboine Lodge site not fetched)."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/banff-gondola",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Height requirements: GAP. Private operator, not Parks Canada."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Listing marks main trail for older children."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Not suitable for a young child in a day; multi-day only with reservations."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Bear warning: GAP no specific warning listed for it."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "GAP"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Fenced viewpoints; hold hands near rail."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Medium clearance vehicle, radio recommended; industrial traffic."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Camping reservation via BC Parks; core sites sell out within seconds; huts via lodge."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": ""
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Water temperature for a young child: GAP."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": ""
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": ""
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Pool depth/age rules: GAP."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Loop length: GAP, INFERENCE 0.7 km."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Gravel, dusty, washboard, no cell service; GAP: Alberta Parks closure chart does not list it."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Remote; not for this trip."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "2.2 km one way, 80 m gain: family-friendly per Parks Canada. Eastbound access only from the highway."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Town shoreline paths flat."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "kind": "sight",
+      "suitability": {
+        "kid_note": "Steep path to springs; hot water 43 C - supervise child."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 52,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 52 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 1000,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 1000 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "About 27 km one way (about 54 km return); not for a young child on foot."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"1.5-2 days one way\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 52,
+        "walk_gain_m": 1000
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 2.8 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 200,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 200 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"1-1.5 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Short but steep with drop offs; ability varies."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 2.8,
+        "walk_gain_m": 200
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 9.7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 9.7 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 354,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 354 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            150,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"2.5-4 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Listing says older children only."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 9.7,
+        "walk_gain_m": 354
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 46,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 46 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 900,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 900 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "Multi-day permit hike; not feasible with a young child."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"2-3 days\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 46,
+        "walk_gain_m": 900
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 14.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 14.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 470,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 470 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            300,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Long and steep climb; official 7.4 km one way."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 14.8,
+        "walk_gain_m": 470
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 7.7 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: https://www.alltrails.com/en-gb/trail/canada/alberta/edith-cavell-meadows-trail (search result: 7.7 km, 553 m)"
+            },
+            "gain_m": {
+              "v": 553,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 553 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: https://www.alltrails.com/en-gb/trail/canada/alberta/edith-cavell-meadows-trail (search result: 7.7 km, 553 m)"
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "GAP distance not verified."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"GAP\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7.7,
+        "walk_gain_m": 553
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 9,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 9 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 315,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 315 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Gentle old road, best family larch hike; 9 km is a long day for a young child but doable with breaks."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this both; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 9,
+        "walk_gain_m": 315
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 11.7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 11.7 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 930,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 930 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            300,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "11.7 km, 930 m, scrambling: no."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 11.7,
+        "walk_gain_m": 930
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 17.2,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 17.2 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 675,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 675 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            360,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"6 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Includes a tunnel and narrow ledge: Parks Canada difficult. Not for a young child."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 17.2,
+        "walk_gain_m": 675
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 0.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 0.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 27,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 27 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            30
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"30 min\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Short loop."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 0.8,
+        "walk_gain_m": 27
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 4,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 4 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 30,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 30 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            90,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"1.5 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Flat 2 km one way (1 km + 1 km)."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this both; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 4,
+        "walk_gain_m": 30
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2.4,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 2.4 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 122,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 122 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            90,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"1.5 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Steep and route-finding; not a good fit."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 2.4,
+        "walk_gain_m": 122
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 18.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 18.8 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 1285,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 1285 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            420,
+            480
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"7-8 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "18.8 km loop, 1285 m: not suitable."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 18.8,
+        "walk_gain_m": 1285
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 22,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 22 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: https://parks.canada.ca/pn-np/ab/jasper/activ/passez-stay/arrierepays-backcountry/sugg-sentiers_trip-ideas/fryatt (search result)"
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "Backpacking only."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"overnight\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 22,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2.9,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 2.9 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 90,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 90 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"1 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Easy loop."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 2.9,
+        "walk_gain_m": 90
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 495,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 495 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "3.9 km one way, 495 m: steady switchbacks; a fit a young child may manage but it is long. Classified adult_only for safety."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7.8,
+        "walk_gain_m": 495
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 6,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 6 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: Alberta Parks Galatea Creek trail report (6.0 km one-way to Lillian Lake, 457 m; campground page says 475 m)"
+            },
+            "gain_m": {
+              "v": 457,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 457 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: Alberta Parks Galatea Creek trail report (6.0 km one-way to Lillian Lake, 457 m; campground page says 475 m)"
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "GAP: separate Lillian data not found; combined Lillian+Galatea listing is 9.3 mi and 3018 ft."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"GAP\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 6,
+        "walk_gain_m": 457
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 10,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 10 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 990,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 990 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            240,
+            300
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"4-5 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "5 km one way, 990 m: no."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 10,
+        "walk_gain_m": 990
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 0,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 0 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 250,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 250 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "Unofficial decommissioned trail in grizzly habitat; not for a child."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"GAP\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 0,
+        "walk_gain_m": 250
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 1,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 1 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 0,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 0 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            30
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"30 min\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Easy flat."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 1,
+        "walk_gain_m": 0
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 8.2,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 8.2 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 460,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 460 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"3-4 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "8.2 km, 460 m."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 8.2,
+        "walk_gain_m": 460
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 7.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 7.8 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 300,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 300 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"3-4 h return\" to minutes; not re-read at the source"
+        },
+        "kid_note": ""
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this both; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7.8,
+        "walk_gain_m": 300
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 0.7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 0.7 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 10,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 10 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            30
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"30 min\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Easy."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 0.7,
+        "walk_gain_m": 10
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 8.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 8.8 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: Alberta Parks Ribbon Creek (Summer) trail report: 8.8 km one-way to Ribbon Falls (+2.0 km to Ribbon Lake)"
+            },
+            "gain_m": {
+              "v": 0,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 0 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: Alberta Parks Ribbon Creek (Summer) trail report: 8.8 km one-way to Ribbon Falls (+2.0 km to Ribbon Lake)"
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "GAP: distances not found; no search result covered Ribbon Creek."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"GAP\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 8.8,
+        "walk_gain_m": 0
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 44,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 44 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: https://www.alltrails.com/trail/canada/alberta/skyline-trail-jasper (search result, 5,413 ft)"
+            },
+            "gain_m": {
+              "v": 1650,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 1650 (status INFERENCE, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: https://www.alltrails.com/trail/canada/alberta/skyline-trail-jasper (search result, 5,413 ft)"
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "kid_note": "Multi-day backpack."
+      },
+      "hints": [
+        {
+          "field": "adult_time_min",
+          "text": "trails.json hours says \"2 days\", which is not a time range",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 44,
+        "walk_gain_m": 1650
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 6.8,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 6.8 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: https://www.alltrails.com/trail/canada/british-columbia/sunburst-and-cerulean-lake-via-lake-magog-campground (4.2 mi, 889 ft; loop including Cerulean Lake)"
+            },
+            "gain_m": {
+              "v": 271,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 271 (status GAP, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read. Row note: https://www.alltrails.com/trail/canada/british-columbia/sunburst-and-cerulean-lake-via-lake-magog-campground (4.2 mi, 889 ft; loop including Cerulean Lake)"
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            20,
+            20
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"20 min from Magog\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Short but needs park access; GAP: Sunburst Peak details not found."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 6.8,
+        "walk_gain_m": 271
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 10,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 10 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 810,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 810 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            240,
+            330
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"4-5.5 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Scramble sections and exposed ridge; not for a young child."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"hard\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 10,
+        "walk_gain_m": 810
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 15.7,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 15.7 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 0,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 0 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            300,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"5-6 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Too long for a young child."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this adult_only; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"moderate\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 15.7,
+        "walk_gain_m": 0
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+      "kind": "trail",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 4.4,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json km 4.4 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            },
+            "gain_m": {
+              "v": 80,
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0003"
+              ],
+              "note": "trails.json gain_m 80 (status VERIFIED, checked 2026-10-12); carried over unchanged; the official or operator page was not re-read."
+            }
+          },
+          "source_grade": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            90,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0003"
+          ],
+          "note": "converted from trails.json hours \"1.5 h\" to minutes; not re-read at the source"
+        },
+        "kid_note": "Family-friendly."
+      },
+      "hints": [
+        {
+          "field": "age_band",
+          "text": "the plan's tracks mark this family; the research lane sets the recommended ages",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "field": "source_grade",
+          "text": "our label \"easy\" is not Parks Canada's grade; source_grade stays a gap until the official page is read",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 4.4,
+        "walk_gain_m": 80
+      }
+    }
+  ]
+}

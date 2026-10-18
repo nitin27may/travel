@@ -1,0 +1,24 @@
+{
+"schema_version": 1,
+"updated": "2026-10-17",
+"scale": [
+  {"house": 1, "label": "Easy", "technical": "Paved, boardwalk or wide flat path; no exposure"},
+  {"house": 2, "label": "Moderate", "technical": "Well-marked path, some steep sections, no hands"},
+  {"house": 3, "label": "Challenging", "technical": "Steep, rough or loose; sure-footedness needed"},
+  {"house": 4, "label": "Hard", "technical": "Long steep sections, rough terrain, possible short hands-on steps, some exposure"},
+  {"house": 5, "label": "Alpine", "technical": "Exposure, scrambling, route-finding, unmarked"}
+],
+"systems": [
+  {"id": "sac", "label": "SAC (OSM sac_scale)", "mappings": [{"local": "strolling", "house": 1, "note": "T1 when short"}, {"local": "T1", "house": 2, "note": ""}, {"local": "T2", "house": 3, "note": ""}, {"local": "T3", "house": 4, "note": ""}, {"local": "T4", "house": 5, "note": ""}, {"local": "T5", "house": 5, "note": ""}, {"local": "T6", "house": 5, "note": ""}], "note": "Hiking (T1) maps to grade 2; a short T1 stroll maps to grade 1."},
+  {"id": "parks-canada", "label": "Parks Canada", "mappings": [{"local": "Easy", "house": 1, "note": "Upper end can read as grade 2"}, {"local": "Moderate", "house": 2, "note": "Upper end can read as grade 3"}, {"local": "Difficult", "house": 4, "note": "Lower end can read as grade 3"}, {"local": "Route", "house": 5, "note": ""}], "note": "Plan 3A table: house 2 is Easy (upper) to Moderate, house 3 is Moderate (upper) to Difficult."},
+  {"id": "sepaq", "label": "Sepaq and Quebec resorts", "mappings": [{"local": "Facile", "house": 1, "note": ""}, {"local": "Beginner", "house": 1, "note": ""}, {"local": "Intermediaire", "house": 2, "note": ""}, {"local": "Intermediate", "house": 2, "note": ""}, {"local": "Difficile", "house": 3, "note": ""}, {"local": "Advanced", "house": 3, "note": ""}, {"local": "Tres difficile", "house": 4, "note": ""}, {"local": "Expert only", "house": 4, "note": ""}], "note": "Grade 5 does not exist in this system."},
+  {"id": "nps", "label": "US agency (NPS, state parks)", "mappings": [{"local": "Easy", "house": 1, "note": ""}, {"local": "Moderate", "house": 2, "note": ""}, {"local": "Strenuous", "house": 3, "note": ""}, {"local": "Strenuous (very)", "house": 4, "note": "Agencies that separate very strenuous routes"}], "note": "Grade 5 does not exist in this system."},
+  {"id": "yds", "label": "Yosemite Decimal System", "mappings": [{"local": "Class 1 (flat)", "house": 1, "note": ""}, {"local": "Class 1", "house": 2, "note": ""}, {"local": "Class 1-2", "house": 3, "note": ""}, {"local": "Class 2-3", "house": 4, "note": ""}, {"local": "Class 3-4+", "house": 5, "note": ""}], "note": ""},
+  {"id": "uk", "label": "UK and Scotland", "mappings": [{"local": "Easy access", "house": 1, "note": ""}, {"local": "Easy", "house": 1, "note": ""}, {"local": "Moderate", "house": 2, "note": ""}, {"local": "Strenuous", "house": 3, "note": ""}, {"local": "Scramble grade 1", "house": 4, "note": ""}, {"local": "Scramble grade 2-3", "house": 5, "note": ""}], "note": ""},
+  {"id": "apn", "label": "Argentine national parks (APN)", "mappings": [{"local": "Medium", "house": 2, "note": "The only APN label the plan has used so far (Senda Costera)"}], "note": "Extend as research meets more APN labels."},
+  {"id": "dnt", "label": "Norwegian Trekking Association (DNT)", "mappings": [], "note": "Green, blue, red and black are not mapped yet; add them when a Norway trail is researched."},
+  {"id": "other", "label": "Other or unknown system", "mappings": [], "note": "Without a mapping the house grade equals the effort grade and house_basis is effort-only."}
+],
+"effort": {"formula": "effort_km = km + gain_m / 100", "bands": [{"below": 6, "grade": 1}, {"below": 12, "grade": 2}, {"below": 20, "grade": 3}, {"below": 30, "grade": 4}, {"below": null, "grade": 4}], "note": "Grade 5 is reserved for technical terrain. Bands are the half-open ranges [0,6), [6,12), [12,20), [20,30) and 30 or more."},
+"rule": {"house_grade": "house_grade = max(technical grade from the local system, effort grade)", "no_local_grade": "When the local grade is missing, technical is null, house_grade equals the effort grade and house_basis is effort-only (shown as a hollow badge)."}
+}

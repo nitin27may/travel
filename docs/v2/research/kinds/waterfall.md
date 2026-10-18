@@ -90,7 +90,10 @@ Common checks D1-D5, U1-U2, C1-C8, plus:
 | C14 | Complete | `eligibility.accessibility` | `official` |
 | C15 | Complete | related access entities at least Usable | |
 
-Totals: Draft 5, Usable 8, Complete 15; **28**.
+Totals: Draft 5, Usable 14, Complete 17; **36** (37 when a walk is needed: F7).
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its viewpoint, waterfall, lake column: F3, F4, F6, F8, F11 (fencing) and F12 are Usable, F7 is Usable when a walk is needed, and F5 and F9 are Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -123,5 +126,5 @@ Height: never. Links: 90 days.
 `point`: OSM node 3003882646 (`waterway=waterfall`, "Moss Glen Falls", 44.48238, -72.62450, read 18
 Oct 2026), 300-400 m from the lot node above, which matches the research's 380 m.
 
-Level: **Draft · 12 of 28** (D1-D5, U1, U2, U3, U4, U5, U6, U7); U8
+Level: **Draft · 12 of 36** (D1-D5, U1, U2, U3, U4, U5, U6, U7); U8
 (flow in October) is the one check between it and Usable.

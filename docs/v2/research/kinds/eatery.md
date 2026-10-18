@@ -91,8 +91,11 @@ Common checks D1-D5, U1-U2, C1-C8, plus. U1 (summary) is satisfied by `attrs.why
 | C12 | Complete | `attrs.accessibility` (SN ok) | |
 | C13 | Complete | `attrs.parking` or a `parks_for` relation, or `not_applicable` (on a trail) | |
 
-C4 (photo) is `not_applicable` for groceries and supermarkets. Totals: Draft 5, Usable 7, Complete 13;
-**25**.
+C4 (photo) is `not_applicable` for groceries and supermarkets. Totals: Draft 5, Usable 8, Complete 14;
+**27**.
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its stay, eatery column: F6 is Usable and F4 is Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -124,6 +127,6 @@ years. Links: 90 days.
 | `cost_band` | 1 | `community` |
 | `point` | pending: OSM lookup for 2868 Hwy 60, Dwight | |
 
-Level once the point is recorded: **Draft · 10 of 25** (D1-D5, U1, U3, U4, U5, U7 pass; C4 applies,
+Level once the point is recorded: **Draft · 10 of 27** (D1-D5, U1, U3, U4, U5, U7 pass; C4 applies,
 since a bakery gets a photo). U2 fails because the season evidence is stale; U6
 payment is missing. One phone call closes both.

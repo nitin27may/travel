@@ -1,0 +1,119 @@
+{
+  "schema": "suitability/1",
+  "trip": "algonquin-muskoka-2026",
+  "lane": "S0-migrated",
+  "researched": "2026-10-18",
+  "agent": "travel-builder",
+  "model": "sonnet",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "kind": "sight",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/town:huntsville",
+      "kind": "town",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "kind": "trail",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "kind": "trail",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "kind": "viewpoint",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "kind": "viewpoint",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    }
+  ]
+}

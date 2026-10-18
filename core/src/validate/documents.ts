@@ -3,7 +3,10 @@ import { checkTable, err, isObj } from "./rows.ts";
 import type { Ctx } from "./rows.ts";
 import { polylineVertexCount } from "./polyline.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map";
+import { validateSuitability } from "./suitability.ts";
+import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
+
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -11,12 +14,21 @@ const TABLE_OF: Record<DocumentKind, string> = {
   policy: "policy",
   freshness: "freshness",
   "difficulty-map": "difficulty_map",
+  suitability: "suitability",
 };
 
 export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): void {
   const t = tableOf("sidecar", TABLE_OF[kind]);
+  if (kind === "suitability") {
+    // its own error codes (E_SUIT_*): the generic table check would report everything as E_SCHEMA
+    validateSuitability(doc, ctx);
+    return;
+  }
+  // a v1 difficulty map predates `modes`; fill the column it does not have so v1 files keep validating
+  if (kind === "difficulty-map" && isObj(doc) && doc.schema_version === 1 && !("modes" in doc)) doc = { ...doc, modes: null };
   checkTable(t, doc, "", ctx);
   if (ctx.schemaBroken || !isObj(doc)) return;
+  if (kind === "difficulty-map") validateDifficultyMapRules(doc, ctx);
   if (kind === "route-geometry") {
     const n = polylineVertexCount(String(doc.polyline));
     const ts = doc.t_s as unknown[];

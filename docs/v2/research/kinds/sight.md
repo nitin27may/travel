@@ -95,7 +95,10 @@ Common checks D1-D5, U1-U2, C1-C8, plus:
 | C14 | Complete | `attrs.crowds` | `community` |
 | C15 | Complete | `attrs.languages` for guided or audio content | `operator` |
 
-Totals: Draft 5, Usable 9, Complete 15; **29**.
+Totals: Draft 5, Usable 11, Complete 19; **35**.
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its sight, town column: F4 and F6 are Usable, F3, F8, F9 and F12 are Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -123,6 +126,6 @@ tours: 365 days. Accessibility and facilities: 2 years. Summary: 2 years. Links:
 | ticket, reservation, visit mode, duration, access | gaps | |
 | identity | museumladin.it; the research also names it as the source for Longiaru | dolomites sights.md line 334 |
 
-Level once the point is recorded: **Draft · 8 of 28** (C13 does not apply). The missing list is the
+Level once the point is recorded: **Draft · 8 of 34** (C13 does not apply). The missing list is the
 whole Usable block except U3: ticket bands (U4), reservation (U5), visit mode (U6), duration (U7),
 access and parking (U8), indoor flag (U9). One read of museumladin.it closes most of it.

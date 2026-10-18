@@ -97,8 +97,11 @@ Common checks D1-D5, U1-U2, C1-C8, plus. For a town that is not a base, only U3 
 | C14 | Complete, base | `attrs.base.evening_vibe` | `community` |
 | C15 | Complete, base | `attrs.base.ev_charging`, `pharmacy`, `atm` | OSM |
 
-Totals for a base: Draft 5, Usable 9, Complete 15; **29**. For a town that is not a base: Draft 5,
-Usable 3, Complete 10; **18**.
+Totals for a base: Draft 5, Usable 11, Complete 19; **35**. For a town that is not a base: Draft 5,
+Usable 5, Complete 14; **24**.
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its sight, town column: F4 and F6 are Usable, F3, F8, F9 and F12 are Complete; the effort checks F7 and F11 are not applicable to a town (lite profile). They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -131,5 +134,5 @@ vibe: 2 years. Links: 90 days.
 | `last_transport` | Chamo'nuit night bus Les Houches - Argentiere every 45 min 20:50-midnight (search summary) | chamonix stay.md line 36 |
 | `tourist_tax` | gap: 2027 grid on the council agenda; 2019 grid obsolete | chamonix stay.md lines 42-44 |
 
-Level: **Draft · 10 of 29** (D1-D5, U1, U2, U3, U5, U8). Missing for Usable: U4 an official elevation,
+Level: **Draft · 10 of 35** (D1-D5, U1, U2, U3, U5, U8). Missing for Usable: U4 an official elevation,
 U6 a supermarket entity, U7 drive times from routing, U9 parking.
