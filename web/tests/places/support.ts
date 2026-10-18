@@ -8,6 +8,6 @@ let cached: PlaceListRow[] | null = null;
 export function placeRows(): PlaceListRow[] {
   if (cached) return cached;
   const data = createPublicData();
-  cached = buildPlaceRows(data.listPlaces(), loadPlaces(), data.legacyPlaceRedirects());
+  cached = buildPlaceRows(data.listPlaces(), loadPlaces(), data.legacyPlaceRedirects(), (slug) => data.getPlace(slug)?.elevationM ?? null);
   return cached;
 }

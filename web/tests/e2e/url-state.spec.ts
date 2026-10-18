@@ -244,11 +244,12 @@ test.describe('pages', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 
-  test('units preference is remembered (the conversions are unit-tested in format.test.ts)', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/`);
+  test('units preference converts the elevation column and is remembered', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?view=table&q=lake louise`);
+    await expect(page.getByText('1,730 m')).toBeVisible();
     await page.getByRole('radio', { name: 'mi, ft' }).click();
-    await expect(page.getByRole('radio', { name: 'mi, ft' })).toBeChecked();
+    await expect(page.getByText('5,680 ft')).toBeVisible();
     await page.reload();
-    await expect(page.getByRole('radio', { name: 'mi, ft' })).toBeChecked();
+    await expect(page.getByText('5,680 ft')).toBeVisible();
   });
 });

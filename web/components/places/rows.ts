@@ -34,6 +34,14 @@ export interface PlaceListRow {
   /** The pin, for the map view, the globe link and the map-area filter. */
   lat: number | null;
   lon: number | null;
+  /**
+   * Three numbers a visitor reads at a glance (principle P3: how long, how hard), so they stay in the list row and the table:
+   * trail length in km, climb in metres and elevation in metres. They are widely published, so principle P8 does not need
+   * to hide them. Notes, source links, checks, times and suitability values stay on the place page.
+   */
+  km: number | null;
+  gain_m: number | null;
+  elevation_m: number | null;
   /** 1 to 12. */
   season: number[];
   /** The kids chip: strong-kid, yes, no or unknown. */
@@ -58,7 +66,7 @@ export interface PlaceListRow {
 /** Every key a list row may carry. A test compares this with the keys the builder writes. */
 export const PLACE_LIST_KEYS: readonly (keyof PlaceListRow)[] = [
   'id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name',
-  'lat', 'lon', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added',
+  'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added',
 ];
 
 /** Joins the adapter cards with the legacy rows through the old place URLs that LD already maps to slugs. */
@@ -66,6 +74,7 @@ export function buildPlaceRows(
   cards: readonly PublicPlaceCard[],
   legacy: readonly PlaceRow[],
   redirects: readonly { from: string; to: string }[],
+  elevationOf: (slug: string) => number | null = () => null,
 ): PlaceListRow[] {
   const slugOfLegacy = new Map(redirects.map((r) => [r.from, r.to.replace(/^\/places\//, '').replace(/\/$/, '')]));
   const legacyBySlug = new Map<string, PlaceRow>();
@@ -95,6 +104,9 @@ export function buildPlaceRows(
       area_name: district?.name ?? '',
       lat: c.point?.lat ?? null,
       lon: c.point?.lon ?? null,
+      km: c.stats.distanceKm,
+      gain_m: c.stats.gainM,
+      elevation_m: elevationOf(c.slug) ?? old?.elevation_m ?? null,
       season: c.season,
       kid_fit: c.kidFit || 'unknown',
       tags: old ? old.tags.map((t) => ({ id: t.id, label: t.label, kind: t.kind })) : [],
