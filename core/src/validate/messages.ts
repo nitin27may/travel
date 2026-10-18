@@ -85,7 +85,7 @@ export function describeMissing(t: Table, col: string): string {
 export const SUIT_MESSAGES = {
   schema: (path: string, what: string): string => `${path || "the file"}: ${what}`,
   ref: (ref: string, why: string): string =>
-    `ref "${ref}" does not resolve: ${why}. Refs are place/<slug>, legacy/<folder>/<dataset>/<id>, trip/<trip>/<kind>:<name> or offer/<parent ref>#<product>. Example: "place/lago-di-braies".`,
+    `ref "${ref}" does not resolve: ${why}. Refs are place/<slug>, legacy/<folder>/<dataset>/<id>, trip/<trip>/<kind>:<name>, offer/<parent ref>#<product> or part/<parent ref>#<slug>. Example: "place/lago-di-braies".`,
   dupRef: (ref: string, where: string): string =>
     `ref "${ref}" appears more than once (${where}). Keep one record per ref; move the extra values into it. Example: merge the second record's fields into the first and delete it.`,
   srcUnknown: (id: string): string =>
@@ -124,4 +124,27 @@ export const SUIT_MESSAGES = {
     `"${field}" was converted from imperial units. The household check treats a figure within 1 kg or 2 cm as marginal; confirm with the operator.`,
   flatMissing: (): string =>
     `the record has no flat catalogue copy. Run: node core/bin/suitability.ts derive --write. Example: "flat": {"min_age": null, "house_grade": 3}.`,
+};
+
+// ---- S0b: suitability applicability messages (own block, like the codes) ----
+export const SUIT_APPLICABILITY_MESSAGES = {
+  subkindMissing: (kind: string, allowed: string[]): string =>
+    `the record has no subkind. Every record needs one from the closed vocabulary; for kind "${kind}" the subkinds are ${allowed.map((a) => JSON.stringify(a)).join(", ")}. Example: "subkind": ${JSON.stringify(allowed[0] ?? "hike")}.`,
+  subkindUnknown: (subkind: string): string =>
+    `subkind "${subkind}" is not in the closed vocabulary (core/src/schema/enums.ts SUIT_SUBKIND). Check the spelling, or correct the kind in data/suitability/kind-map.json. Example: "boat-tour", "gondola", "hike".`,
+  subkindKind: (kind: string, subkind: string, allowed: string[]): string =>
+    `subkind "${subkind}" is not a subkind of kind "${kind}". The subkinds of "${kind}" are ${allowed.map((a) => JSON.stringify(a)).join(", ")}. If the kind is wrong, correct both in data/suitability/kind-map.json with a reason. Example: "subkind": ${JSON.stringify(allowed[0] ?? "hike")}.`,
+  extKind: (got: string, profile: string, want: string | null): string =>
+    want === null
+      ? `ext.kind "${got}" is not allowed on profile "${profile}", which has no extension. Remove the ext block. Example: drop "ext" from the record.`
+      : `ext.kind "${got}" is not allowed on profile "${profile}", whose only extension is "${want}". Change the ext block. Example: "ext": {"kind": "${want}"}.`,
+  naExempt: (path: string, profile: string): string =>
+    `"${path}" is not_applicable but profile "${profile}" asks for it, and no note says why. Give a note, or research the field instead. Example: "note": "no walk at the top of this lift".`,
+  naField: (path: string, profile: string): string =>
+    `"${path}" is not applicable to profile "${profile}", so it should not hold a value. Remove it. If you think it applies, say so in the lane markdown under "Applicability questions".`,
+  belowUsable: (profile: string, missing: string[], total: number): string =>
+    `draft on profile "${profile}": ${total} required field${total === 1 ? "" : "s"} unanswered (${missing.join(", ")}${total > missing.length ? `, +${total - missing.length} more` : ""}). Run: node core/bin/suitability.ts fields --ref <ref> to see them. Example: answer with a value, none_stated or searched_none.`,
+  operatedDefault: (profile: string, mode: string): string =>
+    `operated is set on profile "${profile}", where it is always ${mode === "always" ? "true" : "false"}. Remove the flag. Example: delete "operated" from the record.`,
+  profileMap: (what: string): string => `${what}`,
 };

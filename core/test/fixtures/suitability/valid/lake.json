@@ -19,6 +19,7 @@
     {
       "ref": "place/lago-di-braies",
       "kind": "lake",
+      "subkind": "lake",
       "suitability": {
         "stroller": {
           "v": "smooth",
@@ -101,12 +102,14 @@
         "kid_fit": "unknown",
         "accessibility": "partial",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/fixture-trip/trail:tre cime",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -119,7 +122,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]

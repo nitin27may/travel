@@ -5,10 +5,12 @@ import { tableOf } from "../schema/index.ts";
 import { deriveEffort, projectFlat } from "../suitability/derive.ts";
 import { gradesOf, loadMap } from "../suitability/map.ts";
 import type { DifficultyMap } from "../suitability/map.ts";
+import { loadApplicability } from "../suitability/applicability.ts";
 import { RefResolver } from "../suitability/refs.ts";
 import { LIMIT_FIELDS, RULE_BASES } from "../suitability/types.ts";
 import type { SuitabilityDoc, SuitabilityRecord } from "../schema/suitability.ts";
 import { SUIT_MESSAGES as M } from "./messages.ts";
+import { checkApplicability } from "./suitabilityApplicability.ts";
 import { err, isObj } from "./rows.ts";
 import type { Ctx, Row } from "./rows.ts";
 
@@ -39,7 +41,12 @@ const TRAILFORKS = /(^|\.)trailforks\.com$/;
 const TYPED_EFFORT_KEYS = ["family_effort", "terrain", "terrain_basis", "effort_km", "band"];
 const FRESH_DAYS = { limit: 365, grade: 1095, season: 365, facility: 730 };
 const UNIT_RE = /\d\s*(lbs?|pounds?|in|inch(?:es)?|"|ft|feet|foot|mi|miles?)(?![a-z])/i;
-const SECOND_RULE_FIELDS = ["min_age_on_board", "min_rider_age", "ski_school_min_age"];
+// fields outside the shared limit list that still state a rule an operator or a land manager makes (K3)
+const SECOND_RULE_FIELDS = [
+  "min_rider_age", "ski_school_min_age",
+  // S0b: shoe size for crampons, flotation age, coaster load and driver rule, weight by time slot, distance from wildlife
+  "min_shoe_eu", "floats_required_under", "max_load_kg", "driver_rule", "weight_by_slot", "min_distance_m",
+];
 
 type AnyVal = {
   v: unknown;
@@ -128,6 +135,7 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
 
   const d = parsed.data as unknown as SuitabilityDoc;
   const map: DifficultyMap = loadMap(root);
+  const app = loadApplicability(root);
   const today = opts.today ?? process.env.SUITABILITY_TODAY ?? new Date().toISOString().slice(0, 10);
 
   // ---- sources ----
@@ -239,6 +247,14 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
         }
       }
     }
+    const part = b.participation;
+    if (isObj(part)) {
+      for (const [k, x] of Object.entries(part)) {
+        if (!isVal(x)) continue;
+        checkVal(x, `${base}/participation/${k}`, k, null, null);
+        if (SECOND_RULE_FIELDS.includes(k) && (x.state === "value" || x.state === "none_stated") && !(x.basis !== null && (RULE_BASES as readonly string[]).includes(x.basis))) E("E_SUIT_LIMIT_BASIS", `${base}/participation/${k}/basis`, M.limitBasis(k, x.basis));
+      }
+    }
     const ad = b.access_detail;
     if (isObj(ad)) for (const [k, x] of Object.entries(ad)) if (isVal(x)) checkVal(x, `${base}/access_detail/${k}`, k, null, null);
     // wheelchair
@@ -286,10 +302,12 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
     // the flat copy
     if (r.flat === undefined) W("W_SUIT_FLAT_MISSING", `${base}/flat`, M.flatMissing());
     else {
-      const want = projectFlat(r, map);
+      const want = projectFlat(r, map, app);
       const diff = (Object.keys(want) as (keyof typeof want)[]).filter((k) => want[k] !== r.flat![k]).map((k) => `${k}: file ${JSON.stringify(r.flat![k])}, computed ${JSON.stringify(want[k])}`);
       if (diff.length) E("E_SUIT_FLAT_DRIFT", `${base}/flat`, M.flatDrift(diff.join("; ")));
     }
+    // S0b: subkind, extension, not-applicable fields, suit_level (own module)
+    checkApplicability(r, base, app, E, W);
     // computing must not throw on a valid record
     deriveEffort({ kind: r.kind, subkind: r.subkind, block: r.suitability, ext: r.ext }, map);
   });

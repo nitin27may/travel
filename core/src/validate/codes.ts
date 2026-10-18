@@ -46,6 +46,20 @@ export interface Result {
 // suitability/1 codes (docs/v2/research/suitability.md section 9). They live apart from ERROR_CODES because the
 // broken-fixture test of that list expects one fixture per code in fixtures/broken; these have theirs in
 // fixtures/suitability/broken (one failing file each, enforced by core/test/suitability/validate.test.ts).
+// ---- S0b: suitability applicability (kept in its own block so the relevance lane can add its codes beside it) ----
+const APPLICABILITY_ERROR_CODES = {
+  E_SUIT_SUBKIND: "a record's subkind is missing, outside the closed vocabulary, or not a subkind of its kind",
+  E_SUIT_PROFILE_MAP: "in the applicability file, a profile list is incomplete, a (kind, subkind) pair maps to no profile or to two, or a profile misses a field path",
+  E_SUIT_EXT_KIND: "a record's ext.kind is not the extension its profile allows",
+  E_SUIT_NA_EXEMPT: "a not_applicable state on a field the profile asks for (R or A) has no note saying why",
+} as const;
+const APPLICABILITY_WARNING_CODES = {
+  W_SUIT_NA_FIELD: "a field the profile marks not applicable (N) holds a value; remove it, or correct the record's kind",
+  W_SUIT_BELOW_USABLE: "required (R) fields of the profile are unanswered, so the record is draft",
+  W_SUIT_OPERATED_DEFAULT: "operated is set on a profile where it is fixed (always or never)",
+} as const;
+// ---- end S0b block ----
+
 export const SUIT_ERROR_CODES = {
   E_SUIT_SCHEMA: "a field is missing, unknown, of the wrong type or outside its enum, or a value state contradicts its v",
   E_SUIT_REF: "a record ref does not resolve to a place, a legacy row or a trip item",
@@ -61,6 +75,7 @@ export const SUIT_ERROR_CODES = {
   E_SUIT_TYPED_EFFORT: "family_effort, terrain, band or effort_km is typed in a file; they are computed",
   E_SUIT_STEP_FREE: "wheelchair step_free without official_info",
   E_SUIT_FLAT_DRIFT: "the flat catalogue copy differs from what derive computes; run: node core/bin/suitability.ts derive --write",
+  ...APPLICABILITY_ERROR_CODES,
 } as const;
 export const SUIT_WARNING_CODES = {
   W_SUIT_STALE: "a value was read longer ago than its freshness class allows",
@@ -68,6 +83,7 @@ export const SUIT_WARNING_CODES = {
   W_SUIT_COMMUNITY_ONLY: "a value rests on community reports alone",
   W_SUIT_MARGINAL_CONVERSION: "a limit was converted from imperial units; the household check treats within 1 kg or 2 cm as marginal",
   W_SUIT_FLAT_MISSING: "the record has no flat catalogue copy yet; run: node core/bin/suitability.ts derive --write",
+  ...APPLICABILITY_WARNING_CODES,
 } as const;
 export type SuitErrorCode = keyof typeof SUIT_ERROR_CODES;
 export type SuitWarningCode = keyof typeof SUIT_WARNING_CODES;

@@ -75,7 +75,7 @@ export class RefResolver {
   /** null when the ref resolves, else the reason it does not. */
   why(ref: string): string | null {
     const m = /^([a-z]+)\/(.+)$/.exec(ref);
-    if (!m) return "it does not start with place/, legacy/, trip/ or offer/";
+    if (!m) return "it does not start with place/, legacy/, trip/, offer/ or part/";
     const [, form, rest] = m as unknown as [string, string, string];
     if (form === "place") {
       if (!this.scope) return "data/suitability/scope.json is missing (run the scope dump)";
@@ -93,6 +93,12 @@ export class RefResolver {
     if (form === "trip") {
       if (!this.scope) return "data/suitability/scope.json is missing (run the scope dump)";
       return this.refs.has(ref) ? null : "that trip has no such item in scope.json";
+    }
+    if (form === "part") {
+      // S0b: a record cut out of another (the Lagazuoi tunnels out of the cable car): part/<parent ref>#<slug>
+      const parent = rest.split("#")[0] ?? "";
+      if (!rest.includes("#") || (rest.split("#")[1] ?? "").trim() === "") return "a part ref is part/<parent ref>#<slug>, and the slug is not empty";
+      return this.why(parent);
     }
     if (form === "offer") {
       const parent = rest.split("#")[0] ?? "";

@@ -1,0 +1,131 @@
+{
+  "schema": "suitability/1",
+  "trip": "fixture-trip",
+  "lane": "fixture",
+  "researched": "2026-10-18",
+  "agent": "make.ts",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "title": "Lake Louise area hikes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-12"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/funbob-monte-baranci",
+      "kind": "activity",
+      "subkind": "coaster",
+      "suitability": {
+        "min_age": {
+          "v": 3,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0001"
+          ]
+        },
+        "solo": {
+          "v": {
+            "min_age": 8,
+            "min_height_cm": 135
+          },
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0001"
+          ],
+          "note": "the boards disagree on 7 or 8; kept as the operator's own page says (synthetic)"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "wet track closes in heavy rain"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ]
+        },
+        "participation": {
+          "pregnancy": {
+            "v": "not_allowed",
+            "state": "value",
+            "basis": "operator_rule",
+            "src": [
+              "src-0001"
+            ]
+          },
+          "weather_cancel": {
+            "v": {
+              "causes": [
+                "rain",
+                "lightning"
+              ],
+              "policy": "refund"
+            },
+            "state": "value",
+            "basis": "operator_rule",
+            "src": [
+              "src-0001"
+            ]
+          },
+          "waiver": {
+            "v": {
+              "required": false,
+              "guardian_signs_under": null,
+              "guardian_present": null
+            },
+            "state": "value",
+            "basis": "operator_rule",
+            "src": [
+              "src-0001"
+            ]
+          }
+        }
+      },
+      "ext": {
+        "kind": "coaster",
+        "max_load_kg": {
+          "v": 150,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0001"
+          ]
+        },
+        "driver_rule": {
+          "v": {
+            "min_age": 18
+          },
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0001"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": 3,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    }
+  ]
+}

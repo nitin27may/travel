@@ -5,8 +5,11 @@
 // core/src/schedule/suitability.ts `export type { ScheduleSuitability as Suitability } from '../suitability/project.ts'`;
 // core/test/suitability/schedule-type.test.ts asserts the two shapes match.
 import type { SuitabilityBlock, SuitabilityRecord, SuitabilitySource } from "../schema/suitability.ts";
+import { hasEffort, isOperated, loadApplicability, markOf, maskNotApplicable, profileOf } from "./applicability.ts";
+import type { Applicability } from "./applicability.ts";
 import { deriveEffort, ruleValOf, valOf } from "./derive.ts";
 import { DEFAULT_MAP } from "./map.ts";
+import { mergeBlock } from "./merge.ts";
 import type { DifficultyMap } from "./map.ts";
 import type { Basis, Grade5, GradeSystem } from "./types.ts";
 
@@ -44,20 +47,12 @@ export interface ProjectOptions {
   /** The file's sources table, used to word the provenance and to date it. */
   sources?: SuitabilitySource[];
   map?: DifficultyMap;
+  applicability?: Applicability;
 }
 
 type Offer = NonNullable<SuitabilityRecord["offers"]>[number];
 
-/** An offer's own fields win; anything it leaves out falls back to the record (effort drivers merge one level down). */
-export function mergeBlock(base: SuitabilityBlock, offer?: Offer): SuitabilityBlock {
-  if (!offer) return base;
-  const o = offer.suitability;
-  const merged: SuitabilityBlock = { ...base, ...o };
-  if (base.effort || o.effort) {
-    merged.effort = { ...base.effort, ...o.effort, drivers: { ...base.effort?.drivers, ...o.effort?.drivers } };
-  }
-  return merged;
-}
+export { mergeBlock };
 
 const MONTH = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function longDate(iso: string): string {
@@ -101,9 +96,12 @@ function strollerOf(b: SuitabilityBlock): { value: ScheduleSuitability["stroller
 
 export function projectForSchedule(record: SuitabilityRecord, offer?: Offer, opts: ProjectOptions = {}): ScheduleSuitability {
   const map = opts.map ?? DEFAULT_MAP;
-  const b = mergeBlock(record.suitability, offer);
+  // fields the record's profile marks N are skipped (applicability spec 5.4); a record with no valid subkind is read whole
+  const located = profileOf(record, opts.applicability ?? loadApplicability());
+  const b = maskNotApplicable(mergeBlock(record.suitability, offer), located, record.operated);
   const ext = offer?.ext ?? record.ext;
-  const effort = deriveEffort({ kind: record.kind, subkind: record.subkind, block: b, ext }, map);
+  const effort = deriveEffort({ kind: record.kind, subkind: record.subkind, operated: record.operated, block: b, ext }, map);
+  const effortApplies = !located || hasEffort(located.profile, isOperated(located.profile, record.operated));
   const ruleByField: Partial<Record<LimitName, RuleKind>> = {};
   const ageKind: RuleKind = b.age_rule === "recommendation" ? "advice" : "hard";
   const limits: [LimitName, number | null, RuleKind][] = [
@@ -141,7 +139,7 @@ export function projectForSchedule(record: SuitabilityRecord, offer?: Offer, opt
   const timeBasis = (v: AnyVal): string => (v?.basis === "our_inference" ? "our rule" : v?.basis ? BASIS_LABEL[v.basis as Basis] : "source not recorded");
   if (at) parts.push(`adult time ${timeBasis(b.adult_time_min)}`);
   if (ct) parts.push(`child time ${timeBasis(b.child_time_min)}`);
-  else parts.push("child time our rule");
+  else if (!located || markOf(located.profile, "child_time_min", isOperated(located.profile, record.operated)) !== "N") parts.push("child time our rule");
 
   return {
     minAge: ruleValOf(b.min_age),
@@ -154,8 +152,8 @@ export function projectForSchedule(record: SuitabilityRecord, offer?: Offer, opt
     stroller: stroller.value,
     wheelchair: w === "step_free" ? "yes" : w === "partial" ? "partly" : w === "none" ? "no" : null,
     carrierOk: valOf(b.carrier_ok),
-    familyEffort: effort.family_effort,
-    sourceGrade: effort.source_grade,
+    familyEffort: effortApplies ? effort.family_effort : null,
+    sourceGrade: effortApplies ? effort.source_grade : null,
     childTime: ct && ct.length
       ? { byAge: ct.map((c) => ({ fromAge: c.from_age, minutes: Math.round((c.range[0] + c.range[1]) / 2) })), source: timeBasis(b.child_time_min) }
       : null,
@@ -164,8 +162,8 @@ export function projectForSchedule(record: SuitabilityRecord, offer?: Offer, opt
     gainM: valOf(b.effort?.drivers?.gain_m),
     lossM: valOf(b.effort?.drivers?.loss_m),
     provenance: parts.join("; "),
-    terrain: effort.terrain,
-    effortKm: effort.effort_km,
+    terrain: effortApplies ? effort.terrain : null,
+    effortKm: effortApplies ? effort.effort_km : null,
     exposureUnfenced: !!expo && (expo.level === "significant" || expo.level === "serious") && expo.fenced === "unfenced",
     ruleByField,
     strollerNote: stroller.note,

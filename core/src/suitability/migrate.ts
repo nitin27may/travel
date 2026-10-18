@@ -11,6 +11,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { SuitabilityBlock, SuitabilityDoc, SuitabilityRecord, SuitabilitySource, SuitVal } from "../schema/suitability.ts";
 import { projectFlat } from "./derive.ts";
+import { loadKindMap } from "./kindMap.ts";
+import type { KindMap, KindMapEntry } from "./kindMap.ts";
 import { loadMap } from "./map.ts";
 import type { DifficultyMap } from "./map.ts";
 import { loadScope } from "./refs.ts";
@@ -132,6 +134,8 @@ interface Ctx {
   locations: Map<string, Row>;
   locUpdated: string;
   rockies: Map<string, Map<string, Row>>; // "folder/dataset" -> id -> row
+  kinds: KindMap;
+  kindOf: Map<string, KindMapEntry>;
 }
 
 function loadCtx(root: string): Ctx {
@@ -148,8 +152,9 @@ function loadCtx(root: string): Ctx {
     const rows = readJson<Row[]>(join(root, "legacy", l.folder, "data", `${l.dataset}.json`)) ?? [];
     rockies.set(key, new Map(rows.map((r) => [String(r.id), r])));
   }
+  const kinds = loadKindMap(root);
   return {
-    root, map: loadMap(root), scope, snap,
+    root, map: loadMap(root), scope, snap, kinds, kindOf: new Map(kinds.entries.map((e) => [e.ref, e])),
     locations: new Map((loc?.places ?? []).map((p) => [String(p.id), p])),
     locUpdated: loc?.updated ?? MIGRATION_DATE,
     rockies,
@@ -352,10 +357,34 @@ function migrateLocation(it: ScopeItem, ctx: Ctx, r: Recorder): void {
   if (ma !== null && !r.block.min_age && !r.block.age_band) r.minAgeConflict(ma, s, `locations.json min_age ${ma}; no source recorded, so it is not a rule.`);
 }
 
-function ofKind(kind: string): SuitabilityRecord["kind"] {
-  const allowed = ["trail", "viewpoint", "waterfall", "lake", "sight", "town", "activity", "lift", "swim_spot", "stay", "eatery"];
-  if (!allowed.includes(kind)) throw new Error(`scope kind "${kind}" is not a suitability kind`);
-  return kind as SuitabilityRecord["kind"];
+/** The kind and subkind of a ref from the reviewed map (applicability spec 7, M1-M6). A ref the map lacks stops the migration. */
+function kindFor(ctx: Ctx, ref: string): { kind: SuitabilityRecord["kind"]; subkind: string } {
+  const e = ctx.kindOf.get(ref);
+  if (!e) throw new Error(`${ref}: no entry in data/suitability/kind-map.json; add one with a reason`);
+  return { kind: e.kind as SuitabilityRecord["kind"], subkind: e.subkind };
+}
+
+/** Cut a record in two as the map says (M6): the named block fields and hints move to the new record. */
+function splitRecord(ctx: Ctx, rec: SuitabilityRecord): SuitabilityRecord[] {
+  const sp = ctx.kinds.split.find((x) => x.from_ref === rec.ref);
+  if (!sp) return [rec];
+  const moved: Row = {};
+  const kept: Row = { ...rec.suitability };
+  for (const f of sp.move) {
+    if (f === "hints") continue;
+    if (f in kept) {
+      moved[f] = kept[f];
+      delete kept[f];
+    }
+  }
+  const part: SuitabilityRecord = {
+    ref: sp.ref, kind: sp.kind as SuitabilityRecord["kind"], subkind: sp.subkind, suitability: moved as SuitabilityBlock,
+    ...(sp.move.includes("hints") && rec.hints ? { hints: rec.hints } : {}),
+  };
+  part.flat = projectFlat(part, ctx.map);
+  const lift: SuitabilityRecord = { ref: rec.ref, kind: rec.kind, subkind: rec.subkind, suitability: kept as SuitabilityBlock };
+  lift.flat = projectFlat(lift, ctx.map);
+  return [lift, part];
 }
 
 export function migrate(root: string): Migration {
@@ -376,10 +405,9 @@ export function migrate(root: string): Migration {
       migrateProto(it, ctx, book, r);
       migrateLocation(it, ctx, r);
       // a Rockies item with a place page keeps its place ref; the legacy row was read above
-      const subkind = it.source.legacy?.dataset === "adventures" ? String(ctx.rockies.get(`${it.source.legacy.folder}/adventures`)?.get(it.source.legacy.id)?.type ?? "").replace(/_/g, "-") || undefined : undefined;
-      const rec: SuitabilityRecord = { ref: it.ref, kind: ofKind(it.kind), ...(subkind ? { subkind } : {}), suitability: r.block, ...(r.hints.length ? { hints: r.hints } : {}) };
+      const rec: SuitabilityRecord = { ref: it.ref, ...kindFor(ctx, it.ref), suitability: r.block, ...(r.hints.length ? { hints: r.hints } : {}) };
       rec.flat = projectFlat(rec, ctx.map);
-      records.push(rec);
+      records.push(...splitRecord(ctx, rec));
       rep.resolved++;
       if (r.signal) rep.anySignal++;
       if (Object.keys(r.block).length > 0 || r.hints.length > 0) rep.withAnyData++;
@@ -411,8 +439,7 @@ export function migrate(root: string): Migration {
         const kind = dataset === "trails" ? "trail" : dataset === "sights" ? "sight" : row.type === "gondola" ? "lift" : "activity";
         const it: ScopeItem = { ref: `legacy/${folder}/${dataset}/${id}`, key: null, trip: rockiesTrip, kind, name: String(row.name), days: [], source: { legacy: { folder, dataset, id } } };
         const r = migrateRockies(it, ctx, book);
-        const subkind = dataset === "adventures" ? String(row.type).replace(/_/g, "-") : undefined;
-        const rec: SuitabilityRecord = { ref: it.ref, kind: ofKind(kind), ...(subkind ? { subkind } : {}), suitability: r.block, ...(r.hints.length ? { hints: r.hints } : {}) };
+        const rec: SuitabilityRecord = { ref: it.ref, ...kindFor(ctx, it.ref), suitability: r.block, ...(r.hints.length ? { hints: r.hints } : {}) };
         rec.flat = projectFlat(rec, ctx.map);
         records.push(rec);
         rep[dataset]++;

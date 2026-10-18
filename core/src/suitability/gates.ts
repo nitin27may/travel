@@ -5,9 +5,11 @@
 import type { SuitabilityBlock, SuitabilityRecord } from "../schema/suitability.ts";
 import { deriveEffort, ruleValOf, valOf } from "./derive.ts";
 import type { ComputedEffort } from "./derive.ts";
+import { isOperated, loadApplicability, markOf, maskNotApplicable, profileOf } from "./applicability.ts";
+import type { Applicability } from "./applicability.ts";
 import { DEFAULT_MAP } from "./map.ts";
 import type { DifficultyMap } from "./map.ts";
-import { mergeBlock } from "./project.ts";
+import { mergeBlock } from "./merge.ts";
 
 export interface Gate {
   /** inclusive age range of the youngest traveller */
@@ -57,7 +59,7 @@ export interface Profile {
 
 export type CheckStatus = "ok" | "fail" | "unknown" | "advice";
 export interface FitCheck {
-  gate: "terrain_cap" | "ceiling_km" | "ceiling_gain" | "effort_km" | "carried" | "min_age" | "max_age" | "min_height" | "max_height" | "min_weight" | "max_weight" | "exposure";
+  gate: "terrain_cap" | "ceiling_km" | "ceiling_gain" | "effort_km" | "carried" | "on_board" | "min_age" | "max_age" | "min_height" | "max_height" | "min_weight" | "max_weight" | "exposure";
   status: CheckStatus;
   detail: string;
 }
@@ -70,11 +72,16 @@ export interface FitResult {
   effort: ComputedEffort;
 }
 
-export function fits(record: SuitabilityRecord, profile: Profile, opts: { offerIndex?: number; map?: DifficultyMap } = {}): FitResult {
+export function fits(record: SuitabilityRecord, profile: Profile, opts: { offerIndex?: number; map?: DifficultyMap; applicability?: Applicability } = {}): FitResult {
   const map = opts.map ?? DEFAULT_MAP;
+  const app = opts.applicability ?? loadApplicability();
   const offer = opts.offerIndex === undefined ? undefined : record.offers?.[opts.offerIndex];
-  const b: SuitabilityBlock = mergeBlock(record.suitability, offer);
-  const effort = deriveEffort({ kind: record.kind, subkind: record.subkind, block: b, ext: offer?.ext ?? record.ext }, map);
+  // a field the record's profile marks N is never read (applicability spec 5.3); a record with no valid subkind has no profile and is read whole
+  const located = profileOf(record, app);
+  const operated = located ? isOperated(located.profile, record.operated) : false;
+  const asked = (path: string): boolean => !located || markOf(located.profile, path, operated) !== "N";
+  const b: SuitabilityBlock = maskNotApplicable(mergeBlock(record.suitability, offer), located, record.operated);
+  const effort = deriveEffort({ kind: record.kind, subkind: record.subkind, operated: record.operated, block: b, ext: offer?.ext ?? record.ext }, map);
   const gate = gateFor(profile.youngestAge);
   const relaxed = profile.relaxed === true;
   const cap = Math.max(1, gate.terrainCap - (relaxed ? RELAXED.capDrop : 0));
@@ -118,14 +125,25 @@ export function fits(record: SuitabilityRecord, profile: Profile, opts: { offerI
     else add("effort_km", effort.effort_km <= maxE + 1e-9 ? "ok" : "fail", `effort ${effort.effort_km} km against ${maxE} km`);
   }
 
-  // carried child: a carrier, or a stroller that works
+  // A carried child (0-3): a carrier, or a stroller that works. Only where the profile asks for those fields: a surface
+  // (carrier_ok, stroller), or a carriage rule for a conveyance (stroller_on_board). A bungee asks for neither, and its
+  // minimum age already excludes a toddler.
   if (gate.carried) {
-    const carrier = valOf(b.carrier_ok);
-    const stroller = valOf(b.stroller);
-    if (carrier === true || (stroller !== null && stroller !== "none")) add("carried", "ok", "carrier ok or a stroller works");
-    else if (carrier === false && stroller === "none") add("carried", "fail", "no carrier and no stroller");
-    else if (carrier === null && stroller === null) add("carried", "unknown", "carrier and stroller not known");
-    else add("carried", "fail", "a carrier is not sensible and the stroller does not work");
+    if (asked("carrier_ok") || asked("stroller")) {
+      const carrier = asked("carrier_ok") ? valOf(b.carrier_ok) : null;
+      const stroller = asked("stroller") ? valOf(b.stroller) : null;
+      if (carrier === true || (stroller !== null && stroller !== "none")) add("carried", "ok", "carrier ok or a stroller works");
+      else if (carrier === false && stroller === "none") add("carried", "fail", "no carrier and no stroller");
+      else if (carrier === null && stroller === null) add("carried", "unknown", "carrier and stroller not known");
+      else add("carried", "fail", "a carrier is not sensible and the stroller does not work");
+    } else if (asked("stroller_on_board")) {
+      const board = valOf(b.stroller_on_board);
+      if (board === null) add("on_board", "unknown", "the stroller rule on board is not known");
+      else if (board === "no") {
+        add("on_board", "advice", "strollers are not taken on board: a carrier or arms for a young child");
+        advice.push("no strollers on board");
+      } else add("on_board", "ok", `strollers on board: ${board}`);
+    }
   }
 
   // hard limits. A limit nobody found is unknown; a measurement the party has not given is not checked.
