@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suitability display mock · Who it suits, chips, filters</title>
+<style>
+@font-face{font-family:'Big Shoulders Display';src:url('../../redesign/fonts/big-shoulders-display-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url('../../redesign/fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');font-weight:200 900;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url('../../redesign/fonts/source-serif-4-latin-wght-italic.woff2') format('woff2');font-weight:200 900;font-style:italic;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');font-weight:600;font-display:swap}
+
+/* ---- Trailhead tokens (docs/v2/design/foundation/tokens.json) ---- */
+:root{
+  --bg:#F5F6F8;--well:#ECEFF3;--surface:#FFFFFF;--surface-2:#E9EDF2;--ink:#172230;--ink-2:#2B3746;--muted:#4D5B6B;
+  --line:#D8DEE5;--line-2:#7A8794;--header:#172230;--header-2:#1F2D3D;--header-ink:#F4F6F8;--header-mute:#B8C3CF;--header-line:#3A4A5D;
+  --scrim:rgba(11,17,25,.45);--toast-bg:#172230;--toast-ink:#F5F6F8;
+  --accent:#D9962B;--accent-hover:#C98A22;--accent-ink:#241703;--accent-text:#8A5300;--accent-soft:#FBEFD9;
+  --crit:#A8341F;--crit-soft:#F9E5E0;--warn:#7A5200;--warn-soft:#FBF0D6;--ok:#1D6B3A;--ok-soft:#E0F0E6;--info:#3D5A78;--info-soft:#E3EAF2;
+  --focus:#172230;
+  --e2:0 0 0 1px var(--line),0 20px 50px rgba(23,34,48,.16);
+  --f-display:'Big Shoulders Display','Arial Narrow',sans-serif;--f-serif:'Source Serif 4',Georgia,serif;--f-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --d-fast:120ms;--d-base:200ms;--e-out:cubic-bezier(.2,.8,.2,1);--e-std:cubic-bezier(.2,0,0,1);
+}
+[data-theme="dark"]{
+  --bg:#0F1620;--well:#0B1119;--surface:#16202C;--surface-2:#1E2A38;--ink:#E7ECF1;--ink-2:#C9D2DC;--muted:#A3B0BE;
+  --line:#2A3A4C;--line-2:#5E748E;--header:#0B1119;--header-2:#16202C;--scrim:rgba(0,0,0,.6);--toast-bg:#E7ECF1;--toast-ink:#0F1620;
+  --accent-text:#E8A94A;--accent-soft:#2E2617;--crit:#F28E80;--crit-soft:#3A2020;--warn:#E0B15C;--warn-soft:#2B2314;--ok:#8FD0A0;--ok-soft:#173025;--info:#9DBBDA;--info-soft:#182738;
+  --focus:#E7ECF1;--e2:0 0 0 1px var(--line-2),0 20px 50px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{transition-duration:0ms!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-serif);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:inherit}
+.mono{font-family:var(--f-mono)}
+.wrap{max-width:1376px;margin:0 auto;padding:0 32px}
+@media (max-width:639px){.wrap{padding:0 14px}}
+svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.12em;flex:none}
+
+/* ---- header ---- */
+.hdr{height:60px;background:var(--header);color:var(--header-ink);border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:20}
+.hdr .wrap{display:flex;align-items:center;height:100%;gap:18px}
+.brand{font:800 24px/1 var(--f-display);letter-spacing:.01em;text-transform:uppercase}
+.tabs{display:flex;gap:4px;height:100%}
+.tabs a{display:flex;align-items:center;padding:0 12px;font:500 13.5px/1 var(--f-mono);color:var(--header-mute);text-decoration:none;position:relative}
+.tabs a[aria-current]{color:var(--header-ink);font-weight:600}
+.tabs a[aria-current]::after{content:"";position:absolute;left:12px;right:12px;bottom:-2px;height:2px;background:var(--header-ink)}
+.hdr .sp{flex:1}
+@media (max-width:639px){.hdr{height:56px}.tabs{display:none}}
+
+/* ---- page framing ---- */
+.intro{margin:28px 0 0}
+.intro h1{font:800 72px/.85 var(--f-display);text-transform:uppercase;margin:0 0 10px}
+.intro p{margin:0;color:var(--muted);font-size:19px;max-width:76ch}
+.part{margin-top:44px}
+.part>h2{font:800 32px/1 var(--f-display);text-transform:uppercase;margin:0 0 4px}
+.part>p{margin:0 0 18px;color:var(--muted);font-size:15.5px;max-width:76ch}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:1023px){.grid2{grid-template-columns:1fr}.intro h1{font-size:44px}}
+.lab{font:500 12px/1.3 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
+/* ---- chips (components 2.8 + this design 3.1) ---- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;border:1px solid var(--line-2);font:500 11.5px/1 var(--f-mono);color:var(--ink-2);background:var(--surface);white-space:nowrap;max-width:100%}
+.chip .i{width:13px;height:13px}
+.chip.rule{background:var(--surface-2);border-color:transparent;color:var(--ink);font-weight:600}
+.chip.gap{border-style:dashed;color:var(--muted)}
+.chip.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.chip.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.chip.crit{background:var(--crit-soft);color:var(--crit);border-color:transparent}
+.chip.honest{border:1px dashed var(--crit);color:var(--crit)}
+.chip.act{background:var(--accent-soft);color:var(--accent-text);border-color:var(--accent)}
+.chip .more{margin-left:2px;padding-left:6px;border-left:1px solid var(--line-2);font-weight:600}
+.chip.rule .more{border-left-color:var(--line-2)}
+
+/* ---- place page section ---- */
+.pp{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 22px 10px;min-width:0}
+.pp .kind{font:500 12px/1.3 var(--f-mono);color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pp .kind b{color:var(--ink-2);font-weight:500}
+.pp .head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pp h3{font:800 32px/1 var(--f-display);text-transform:uppercase;margin:0}
+.pp .research{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.pp .research b{font-weight:600;color:var(--ink-2);white-space:nowrap}
+.pp .chips{margin-top:12px}
+.warnline{margin:12px 0 0;display:flex;gap:8px;align-items:flex-start;color:var(--warn);font-size:15.5px;line-height:1.4}
+.warnline .i{width:16px;height:16px;margin-top:3px}
+.groups{margin-top:12px;border-top:1px solid var(--line)}
+.g{border-bottom:1px solid var(--line)}
+.g:last-child{border-bottom:0}
+.g-h{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:8px 0}
+.g-h .chev{width:16px;height:16px;color:var(--muted);transition:transform var(--d-base) var(--e-out)}
+.g-h[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.g-h .t{font:800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;color:var(--ink);flex:none}
+.g-h .sum{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;min-width:0}
+.g-h .sum .chip{height:22px}
+.g-h .sum>span+span::before{content:"·";color:var(--line-2);margin-right:10px}
+.g-h[aria-expanded="true"] .sum{display:none}
+.rows{margin:0 0 6px;padding:0}
+.row{display:grid;grid-template-columns:150px 1fr;gap:4px 16px;padding:8px 0 8px 26px;min-height:44px;align-items:baseline;border-top:1px solid var(--line);position:relative}
+.row:first-child{border-top:0}
+.row dt{font:500 12px/1.3 var(--f-mono);color:var(--muted);padding-top:3px}
+.row dd{margin:0;font-size:15.5px;line-height:1.4;color:var(--ink);min-width:0}
+.row dd .k{display:inline-flex;align-items:center;gap:6px}
+.row dd .k .i{width:14px;height:14px;color:var(--muted)}
+.row dd .stub{display:block;font:400 12.5px/1.45 var(--f-mono);color:var(--muted);margin-top:2px}
+.row dd .stub .chip{height:20px;margin-left:6px;vertical-align:middle}
+.row.ns dd{color:var(--ink-2)}
+.row.ns dd .i{color:var(--muted)}
+.row dd .note{font-style:italic;color:var(--ink-2)}
+.row .chevr{position:absolute;right:0;top:12px;width:16px;height:16px;color:var(--muted)}
+.row.clickable{cursor:pointer}
+.row.clickable:hover{background:color-mix(in srgb,var(--surface-2) 50%,transparent)}
+.gapline{display:flex;gap:8px;align-items:center;padding:8px 0 10px 26px;font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.gapline .i{width:14px;height:14px}
+@media (max-width:639px){.g-h{flex-wrap:wrap;gap:6px 10px}.g-h .sum{flex-basis:100%;padding-left:26px}.pp{padding:14px 14px 6px}.pp h3{font-size:26px}.row{grid-template-columns:1fr;padding-left:22px;gap:2px}.row dt{padding-top:0}.row .chevr{top:10px}.gapline{padding-left:22px}}
+
+/* provenance popover (components 5.2) */
+.popwrap{position:relative}
+.pop{position:relative;margin-top:10px;z-index:5;width:min(380px,100%);background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--e2);padding:14px 16px}
+.pop .lab{margin-bottom:4px}
+.pop p{margin:0 0 8px;font-size:15.5px;line-height:1.4}
+.pop q{font-style:italic;color:var(--ink-2)}
+.pop .src{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.pop .src a{color:var(--ink-2)}
+.pop .conf{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.pop .conf .chip{margin-bottom:6px}
+.pop .close{position:absolute;right:8px;top:8px;width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted)}
+
+/* ---- cards and day row ---- */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media (max-width:1279px){.cards{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:1023px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:639px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.card .ph{aspect-ratio:16/10;background:var(--well);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.card .ph .i{width:22px;height:22px}
+.card .b{padding:14px 16px 16px}
+.card h4{font:800 24px/.95 var(--f-display);text-transform:uppercase;margin:0 0 6px}
+.card .meta{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .chips{margin-top:8px}
+.card .sum{margin:10px 0 0;font-size:16px;line-height:1.5;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card.faded{opacity:.6}
+
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 22px}
+.entry{display:grid;grid-template-columns:50px 24px 1fr;gap:0 14px;align-items:start}
+.entry .time{font:600 13.5px/1 var(--f-mono);color:var(--muted);font-weight:500;text-align:right;padding-top:5px}
+.entry .node{width:12px;height:12px;border-radius:999px;border:2px solid var(--line-2);background:var(--surface);margin:5px 6px}
+.entry .c{min-width:0}
+.entry .tl{display:flex;align-items:flex-start;gap:10px}
+.entry .tt{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;padding-top:3px}
+.entry .gly{width:26px;height:26px;border-radius:8px;background:var(--well);display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+.entry .gly .i{width:15px;height:15px}
+.entry .title{font:600 17px/1.25 var(--f-serif);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+.entry .dur{font:400 12.5px/1 var(--f-mono);color:var(--muted)}
+.entry .chips{margin-top:8px}
+.entry .meta{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.entry .meta .w{color:var(--warn);display:inline-flex;gap:4px;align-items:center}
+.entry .note{margin:6px 0 0;font:italic 400 15.5px/1.4 var(--f-serif);color:var(--ink-2)}
+@media (max-width:639px){.day{padding:14px}.entry{grid-template-columns:44px 24px 1fr;gap:0 10px}}
+
+/* ---- filters ---- */
+.pills{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pill{height:36px;padding:0 12px 0 14px;border-radius:999px;border:1px solid var(--line-2);font:500 13px/1 var(--f-mono);color:var(--ink-2);display:inline-flex;align-items:center;gap:8px;background:var(--surface)}
+.pill .i{width:14px;height:14px}
+.pill.act{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text)}
+.pill.act .x{width:28px;height:28px;margin-right:-8px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px}
+.pill.more{border-style:dashed}
+.count{font:400 13px/1.45 var(--f-mono);color:var(--muted);margin-top:12px}
+.count b{color:var(--ink-2);font-weight:600}
+.menus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:22px}
+@media (max-width:1023px){.menus{grid-template-columns:1fr}}
+.menu{background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--e2);padding:8px;min-width:0}
+.menu .lab{padding:8px 10px 4px}
+.menu .opt{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 10px;border-radius:8px;font:500 13px/1 var(--f-mono);color:var(--ink)}
+.menu .opt:hover{background:var(--surface-2)}
+.menu .opt .box{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--line-2);flex:none;display:inline-flex;align-items:center;justify-content:center;background:var(--surface)}
+.menu .opt .box.on{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.menu .opt .box.rad{border-radius:999px}
+.menu .opt .box.rad.on{background:var(--surface);color:var(--ink)}
+.menu .opt .box.rad.on::after{content:"";width:10px;height:10px;border-radius:999px;background:var(--ink)}
+.menu .opt .lbl{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.menu .opt .lbl small{font:400 12.5px/1.3 var(--f-mono);color:var(--muted);white-space:normal}
+.menu .opt .n{color:var(--muted);font-weight:400}
+.menu .foot{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:10px 10px 4px;border-top:1px solid var(--line);margin-top:6px;font:500 13px/1.4 var(--f-mono);color:var(--ink-2)}
+.menu .foot span{flex:none;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.menu .foot b{color:var(--muted);font-weight:400;text-align:right;flex:1}
+.stepper{display:flex;align-items:center;gap:12px;padding:6px 10px 10px}
+.age{display:inline-flex;align-items:center;gap:6px;height:40px;border:1px solid var(--line-2);border-radius:8px;padding:0 6px 0 12px;font:500 13px/1 var(--f-mono);background:var(--surface)}
+.age b{font-weight:600;min-width:2ch;text-align:center}
+.age button{width:30px;height:30px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center}
+.age button:hover{background:var(--surface-2)}
+.quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 10px 8px}
+.quick .chip{height:28px;padding:0 11px;font-size:12.5px}
+
+/* ---- legend ---- */
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px 28px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 22px}
+.legend div{display:grid;grid-template-columns:236px 1fr;gap:12px;align-items:start;font-size:15.5px;line-height:1.4;color:var(--ink-2)}
+.legend .chip{justify-self:start}
+@media (max-width:639px){.legend{grid-template-columns:1fr}.legend div{grid-template-columns:1fr;gap:6px}}
+
+/* dev pill */
+.dev{position:fixed;right:16px;bottom:16px;z-index:40;background:var(--toast-bg);color:var(--toast-ink);border-radius:999px;padding:0 6px 0 14px;height:40px;display:flex;align-items:center;gap:8px;font:500 12.5px/1 var(--f-mono)}
+.dev button{height:28px;padding:0 10px;border-radius:999px;color:inherit;border:1px solid currentColor}
+.foot{margin:48px 0 40px;font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="1.5"/><path d="M10 21l2-7 3 3v4M7 13l3-5 3 1 3 4M9 14l-2 7"/></symbol>
+  <symbol id="wave" viewBox="0 0 24 24"><path d="M2 12c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 17c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></symbol>
+  <symbol id="stroller" viewBox="0 0 24 24"><path d="M4 5h2l2 8h10l2-6H8"/><circle cx="9" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+  <symbol id="boat" viewBox="0 0 24 24"><path d="M3 17l2 3h14l2-3M4 15l8-3 8 3M12 4v8M8 8h8"/></symbol>
+  <symbol id="brake" viewBox="0 0 24 24"><path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="therm" viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z"/></symbol>
+  <symbol id="kit" viewBox="0 0 24 24"><path d="M9 4h6l4 3-2 3-2-1v11H9V9L7 10 5 7z"/></symbol>
+  <symbol id="climb" viewBox="0 0 24 24"><path d="M6 21l4-8 4 3 4-11M3 21h18"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol>
+  <symbol id="tri" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17.5h.01"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.7M12 17h.01"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></symbol>
+  <symbol id="eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="spring" viewBox="0 0 24 24"><path d="M4 18c3 0 3-3 6-3s3 3 6 3 3-3 4-3M7 11c0-3 2-4 2-6M12 11c0-3 2-4 2-6M17 11c0-3 2-4 2-6"/></symbol>
+</svg>
+
+<header class="hdr"><div class="wrap">
+  <div class="brand">Trip plans</div>
+  <nav class="tabs"><a href="#">Trips</a><a href="#" aria-current="page">Places</a><a href="#">Globe</a></nav>
+  <div class="sp"></div>
+</div></header>
+
+<main class="wrap">
+  <div class="intro">
+    <h1>Who it suits</h1>
+    <p>How suitability shows on a place page, a card, a day row and in the filters. Six kinds, one vocabulary. Values are illustrative; every chip and row opens its source on the built page.</p>
+  </div>
+
+  <section class="part" aria-labelledby="leg">
+    <h2 id="leg">The three looks</h2>
+    <p>A rule is filled and locked. Our advice is outlined with a person. A gap is dashed. Nothing here is amber; green only when a profile fits.</p>
+    <div class="legend">
+      <div><span class="chip rule"><svg class="i"><use href="#lock"/></svg>Age 8+ · 23 kg min</span> an operator or official rule, including "No minimum age" when the operator states none</div>
+      <div><span class="chip"><svg class="i"><use href="#person"/></svg>From about 6 · our judgement</span> our recommended age, with its reasons one click away</div>
+      <div><span class="chip gap">Not checked yet</span> a required field nobody has researched; the place stays below Usable</div>
+      <div><span class="chip ok"><svg class="i"><use href="#check"/></svg>Fits a 6-year-old</span> with a party profile, when every rule and our advice pass</div>
+      <div><span class="chip warn"><svg class="i"><use href="#tri"/></svg>Not suited to a 3-year-old</span> our advice says no; no rule does</div>
+      <div><span class="chip crit">Not for under 8 · operator rule</span> a rule excludes the youngest; it breaks the day</div>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="pp">
+    <h2 id="pp">On a place page</h2>
+    <p>The section as it sits under "When to go". Chip row, one warning line, the research line, then the groups the kind has. Limits and Who it suits open; the rest collapsed with their values inline.</p>
+    <div class="grid2">
+
+      <!-- 1 family trail -->
+      <article class="pp">
+        <div class="kind"><span>Trail · <b>hike</b> · Johnston Canyon, Lower Falls</span><span>Banff</span></div>
+        <div class="head"><h3>Who it suits</h3><span class="research"><b>11 of 12</b> family checks done · read 12 Oct 2026</span></div>
+        <ul class="chips" aria-label="Who it suits">
+          <li><span class="chip"><svg class="i"><use href="#person"/></svg>From about 4 · our judgement</span></li>
+          <li><span class="chip"><svg class="i"><use href="#walk"/></svg>Easy · Parks Canada Easy · 1–1 h 30</span></li>
+          <li><span class="chip"><svg class="i"><use href="#ban"/></svg>No stroller · steps</span></li>
+        </ul>
+        <p class="warnline"><svg class="i"><use href="#tri"/></svg>Catwalks are fenced; ice cleats needed Nov–Apr</p>
+        <div class="groups">
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span></button>
+            <dl class="rows">
+              <div class="row clickable ns"><dt>Minimum age</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>No minimum age</span><span class="stub">operator states none · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row ns"><dt>Group size</dt><dd>Not stated by Parks Canada<span class="stub">searched 12 Oct 2026 · no seasonal restriction found for this trail</span></dd></div>
+            </dl>
+          </div>
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Recommended</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>From about 4</span><span class="stub">our judgement · 2.4 km, 50 m, fenced catwalks</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row"><dt>For a child</dt><dd><span class="note">Short and fenced; the Lower Falls tunnel is the payoff for under-6s.</span></dd></div>
+              <div class="row clickable"><dt>Carrier</dt><dd>Carrier OK<span class="stub">our judgement · no ladders, no unfenced edge</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Stroller</dt><dd>None · steps and narrow catwalks<span class="stub">Parks Canada · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+            <div class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: wheelchair, limited capacity</div>
+          </div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span>Easy · Parks Canada Easy</span><span>2.4 km · 50 m up</span><span>adults 1–1 h 30</span><span>with a 6-year-old about 2 h · our rule</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">On the trail</span><span class="sum"><span class="chip gap">Not checked yet · waymarking</span><span>catwalks fenced</span><span>2 bridges</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Facilities</span><span class="sum"><span>toilets at the lot</span><span>cafe at the lot</span><span>Not checked yet: water, shade, signal</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>open all year via road</span><span>bears: carry spray</span></span></button></div>
+        </div>
+      </article>
+
+      <!-- 2 rafting -->
+      <article class="pp">
+        <div class="kind"><span>Activity · <b>rafting</b> · Kicking Horse River, family section</span><span>Golden</span></div>
+        <div class="head"><h3>Who it suits</h3><span class="research"><b>15 of 15</b> family checks done · read 12 Oct 2026</span></div>
+        <ul class="chips" aria-label="Who it suits">
+          <li><span class="chip rule"><svg class="i"><use href="#lock"/></svg>Age 6+ · 23 kg min · swim test<span class="more">+2</span></span></li>
+          <li><span class="chip"><svg class="i"><use href="#wave"/></svg>Class I–III · 2 h on water · 3 h 30 total</span></li>
+          <li><span class="chip"><svg class="i"><use href="#kit"/></svg>Wetsuit, helmet, PFD provided</span></li>
+        </ul>
+        <p class="warnline"><svg class="i"><use href="#tri"/></svg>Age and weight can rise with the river level; glacial water</p>
+        <div class="groups">
+          <div class="g popwrap">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Minimum age</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>6</span><span class="stub">operator rule · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable" aria-expanded="true"><dt>Minimum weight</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>23 kg (50 lb) · not negotiable</span><span class="stub">operator rule · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg>
+                <div class="pop" role="dialog" aria-label="Where this comes from">
+                  <button class="close" aria-label="Close"><svg class="i"><use href="#x"/></svg></button>
+                  <div class="lab">Operator rule · read 12 Oct 2026</div>
+                  <p><q>Minimum weight 50 lbs. River conditions may raise the minimum age and weight at short notice.</q></p>
+                  <p class="src">Family rafting, Kicking Horse · <a href="#">operator page</a> · 50 lb = 22.7 kg, shown as 23</p>
+                  <div class="conf"><span class="chip honest"><svg class="i"><use href="#tri"/></svg>Sources disagree</span><p class="src">A reseller lists 40 lb (18.1 kg) · read 12 Oct 2026 · we keep the operator's figure</p></div>
+                </div>
+              </dd></div>
+              <div class="row ns"><dt>Maximum weight</dt><dd>Not stated by the operator<span class="stub">searched 12 Oct 2026 · ask before booking</span></dd></div>
+              <div class="row clickable"><dt>Swimming</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Must be comfortable in moving water</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Pregnancy</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Not allowed</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Medical</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Heart, back and neck conditions excluded</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Waiver</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>A parent or guardian signs for under-18s</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+          </div>
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Recommended</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>From about 8</span><span class="stub">our judgement · Class III waves on the Tradition section</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row"><dt>For a child</dt><dd><span class="note">The Gentle section is the one for a first raft; the Tradition section adds Class III.</span></dd></div>
+            </dl>
+          </div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">On the water</span><span class="sum"><span>Gentle: Class I–III</span><span>Tradition: Class II–IV</span><span>July high water raises both</span><span>water temperature not published · glacial, our inference</span><span>child PFDs from 15 kg</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span>2 h on the water</span><span>3 h 30 on site</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Facilities</span><span class="sum"><span>toilets at the base</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>mid-May to September</span><span>cancelled for river level and lightning · refund</span></span></button></div>
+        </div>
+      </article>
+
+      <!-- 3 zip line -->
+      <article class="pp">
+        <div class="kind"><span>Activity · <b>zipline</b> · Golden Skybridge zip</span><span>Golden</span></div>
+        <div class="head"><h3>Who it suits</h3><span class="research"><b>13 of 13</b> family checks done · read 12 Oct 2026</span></div>
+        <ul class="chips" aria-label="Who it suits">
+          <li><span class="chip rule"><svg class="i"><use href="#lock"/></svg>Age 8+ · 30–125 kg · height not stated<span class="more">+1</span></span></li>
+          <li><span class="chip"><svg class="i"><use href="#clock"/></svg>About 1 h on site</span></li>
+          <li><span class="chip"><svg class="i"><use href="#brake"/></svg>Guide brakes for you</span></li>
+        </ul>
+        <p class="warnline"><svg class="i"><use href="#tri"/></svg>You are weighed on site; wind cancels</p>
+        <div class="groups">
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Minimum age</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>8</span><span class="stub">operator rule · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Weight</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>30 to 125 kg · harness · not negotiable</span><span class="stub">operator rule · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row ns"><dt>Height</dt><dd>Not stated by the operator<span class="stub">searched 12 Oct 2026 · ask before booking</span></dd></div>
+              <div class="row clickable"><dt>With an adult</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Under 14 with an adult on the course</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Pregnancy</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Not allowed</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Waiver</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Guardian signs for under-18s</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+          </div>
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Recommended</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>From about 8</span><span class="stub">our judgement · the weight floor, not nerves</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row"><dt>For a child</dt><dd><span class="note">Under 30 kg cannot ride; there is no tandem option here.</span></dd></div>
+            </dl>
+            <div class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: wheelchair</div>
+          </div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span>about 1 h on site</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">The course</span><span class="sum"><span>guide brakes</span><span>2 lines · longest 600 m</span><span>stairs between lines</span><span>Not checked yet: tandem option</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Facilities</span><span class="sum"><span>toilets at the base</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>May–October</span><span>cancelled for wind and lightning · rebook</span></span></button></div>
+        </div>
+      </article>
+
+      <!-- 4 boat -->
+      <article class="pp">
+        <div class="kind"><span>Activity · <b>boat</b> · Maligne Lake cruise</span><span>Jasper</span></div>
+        <div class="head"><h3>Who it suits</h3><span class="research"><b>9 of 10</b> family checks done · read 12 Oct 2026</span></div>
+        <ul class="chips" aria-label="Who it suits">
+          <li><span class="chip rule"><svg class="i"><use href="#lock"/></svg>No minimum age</span></li>
+          <li><span class="chip"><svg class="i"><use href="#clock"/></svg>90 min · stop at Spirit Island</span></li>
+          <li><span class="chip"><svg class="i"><use href="#stroller"/></svg>Strollers stay at the dock</span></li>
+        </ul>
+        <p class="warnline"><svg class="i"><use href="#tri"/></svg>Sailings cancelled in high wind</p>
+        <div class="groups">
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Minimum age</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>No minimum age</span><span class="stub">operator states none · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+          </div>
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Recommended</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>Any age</span><span class="stub">our judgement · enclosed, heated, 90 min</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row"><dt>For a child</dt><dd><span class="note">A 15-minute shore stop breaks the sit; bring a snack for the return.</span></dd></div>
+              <div class="row clickable"><dt>Stroller on board</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Not allowed on the boat; leave it at the dock</span><span class="stub">operator rule · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Wheelchair</dt><dd>Partial · two accessible boats, book ahead<span class="stub">operator info · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+          </div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">The boat</span><span class="sum"><span>enclosed</span><span>sheltered lake</span><span>seasickness risk low</span><span>landing: Spirit Island, 15 min</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span>90 min on site</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Facilities</span><span class="sum"><span>toilets on board</span><span>no food on board</span><span>Not checked yet: accessible toilet</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>June to early October</span><span>cancelled for wind · refund</span></span></button></div>
+        </div>
+      </article>
+
+      <!-- 5 via ferrata -->
+      <article class="pp">
+        <div class="kind"><span>Activity · <b>ferrata</b> · Mt Norquay, Explorer route</span><span>Banff</span></div>
+        <div class="head"><h3>Who it suits</h3><span class="research"><b>14 of 14</b> family checks done · read 12 Oct 2026</span></div>
+        <ul class="chips" aria-label="Who it suits">
+          <li><span class="chip rule"><svg class="i"><use href="#lock"/></svg>Age 12+ · 40–120 kg · guide required</span></li>
+          <li><span class="chip"><svg class="i"><use href="#climb"/></svg>Hard · Schall B · 2–2 h 30</span></li>
+          <li><span class="chip"><svg class="i"><use href="#kit"/></svg>Harness, helmet, lanyard provided</span></li>
+        </ul>
+        <p class="warnline"><svg class="i"><use href="#tri"/></svg>Serious exposure; lightning closes the route; exit after the bridge at 45 min</p>
+        <div class="groups">
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Minimum age</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>12 · 14 for Skyline and Summiteer</span><span class="stub">operator rule · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Weight</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>40 to 120 kg · harness · not negotiable</span><span class="stub">operator rule · read 12 Oct 2026 <span class="chip honest"><svg class="i"><use href="#tri"/></svg>Sources disagree</span></span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Guide</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Required</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Fitness</dt><dd><q>Comfortable hiking continuously for one hour or more</q><span class="stub">operator · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Waiver</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Legal guardian signs for under-18s</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+          </div>
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Recommended</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>From 12</span><span class="stub">the operator's rule · our judgement adds 40 kg as the real gate</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row"><dt>For a child</dt><dd><span class="note">A 12-year-old under 40 kg cannot go. Children's full-body harnesses are rated to about 40 kg.</span></dd></div>
+            </dl>
+          </div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span>Hard · Schall B</span><span>2–2 h 30 on the cable</span><span>300 m vertical</span><span>approach 20 min by chairlift</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">On the cable</span><span class="sum"><span>kit provided</span><span>Not checked yet: child harness</span><span>descent by chairlift</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Facilities</span><span class="sum"><span>bail-out: after the bridge, 45 min</span><span>Not checked yet: signal</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>June–October</span><span>cancelled for lightning · rebook</span></span></button></div>
+        </div>
+      </article>
+
+      <!-- 6 hot spring -->
+      <article class="pp">
+        <div class="kind"><span>Swim spot · <b>hot_spring</b> · Myvatn Nature Baths</span><span>North Iceland</span></div>
+        <div class="head"><h3>Who it suits</h3><span class="research"><b>10 of 11</b> family checks done · read 12 Oct 2026</span></div>
+        <ul class="chips" aria-label="Who it suits">
+          <li><span class="chip rule"><svg class="i"><use href="#lock"/></svg>Age 1+ · adult under 12 · armbands under 8</span></li>
+          <li><span class="chip gap">Not checked yet · time on site</span></li>
+          <li><span class="chip"><svg class="i"><use href="#therm"/></svg>36–40 °C · cloudy water</span></li>
+        </ul>
+        <p class="warnline"><svg class="i"><use href="#tri"/></svg>Cloudy water: a child under the surface cannot be seen</p>
+        <div class="groups">
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Minimum age</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>1</span><span class="stub">operator rule · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>With an adult</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Under 12 in an adult's care at all times</span><span class="stub">operator rule</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Floats</dt><dd><span class="k"><svg class="i"><use href="#lock"/></svg>Armbands required for ages 1 to 8</span><span class="stub">operator rule · "they do not replace continuous adult supervision"</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row clickable"><dt>Pregnancy</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>Ask a doctor</span><span class="stub">operator advice · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+          </div>
+          <div class="g">
+            <button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span></button>
+            <dl class="rows">
+              <div class="row clickable"><dt>Recommended</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>Any age from 1</span><span class="stub">our judgement · shallow entry, warm, but cloudy</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+              <div class="row"><dt>For a child</dt><dd><span class="note">The water is cloudy; keep under-8s within arm's reach even with armbands.</span></dd></div>
+              <div class="row clickable"><dt>Wheelchair</dt><dd>Step-free<span class="stub">official info · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            </dl>
+            <div class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: limited capacity</div>
+          </div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span class="chip gap">Not checked yet · time on site</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">The water</span><span class="sum"><span>36–40 °C</span><span>cloudy</span><span>entry by steps</span><span>Not checked yet: lifeguard</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Facilities</span><span class="sum"><span>toilets</span><span>cafe</span><span>Not checked yet: accessible toilet, parking</span></span></button></div>
+          <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>open all year</span><span>Not checked yet: closures</span></span></button></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="cards">
+    <h2 id="cards">On cards</h2>
+    <p>Two chips: who (kids) and how hard (effort). A kind with no effort shows one. A place nobody has researched shows the gap chip and stays in the list.</p>
+    <div class="cards">
+      <article class="card"><div class="ph"><svg class="i"><use href="#walk"/></svg></div><div class="b"><h4>Johnston Canyon</h4><div class="meta">Trail · Banff · open all year</div><ul class="chips"><li class="chip"><svg class="i"><use href="#person"/></svg>From about 4</li><li class="chip"><svg class="i"><use href="#walk"/></svg>Easy · Parks Canada Easy</li></ul><p class="sum">Catwalks bolted to the canyon wall lead to the Lower Falls tunnel in 1.2 km.</p></div></article>
+      <article class="card"><div class="ph"><svg class="i"><use href="#wave"/></svg></div><div class="b"><h4>Kicking Horse, family raft</h4><div class="meta">Rafting · Golden · May–Sep</div><ul class="chips"><li class="chip rule"><svg class="i"><use href="#lock"/></svg>Age 6+ · 23 kg min</li><li class="chip"><svg class="i"><use href="#wave"/></svg>Class I–III</li></ul><p class="sum">The Gentle section is the first-raft choice; glacial water, wetsuits provided.</p></div></article>
+      <article class="card"><div class="ph"><svg class="i"><use href="#boat"/></svg></div><div class="b"><h4>Maligne Lake cruise</h4><div class="meta">Boat tour · Jasper · Jun–Oct</div><ul class="chips"><li class="chip rule"><svg class="i"><use href="#lock"/></svg>No minimum age</li></ul><p class="sum">Ninety minutes in an enclosed boat with a shore stop at Spirit Island.</p></div></article>
+      <article class="card"><div class="ph"><svg class="i"><use href="#eye"/></svg></div><div class="b"><h4>Lake Louise</h4><div class="meta">Lake · Banff · shuttle May–Oct</div><ul class="chips"><li class="chip gap">Not checked yet</li></ul><p class="sum">The lakeshore path is flat and paved to the far end; the canoe rental is a separate record.</p></div></article>
+    </div>
+    <p class="count" style="margin-top:18px">With <b>Kids · 6</b> active, a place whose advice age is above 6 stays in the list at 60%: <span class="chip" style="vertical-align:middle"><svg class="i"><use href="#person"/></svg>From about 8</span> is the reason on the card. A hard rule above 6 hides the place.</p>
+  </section>
+
+  <section class="part" aria-labelledby="row">
+    <h2 id="row">On a day row</h2>
+    <p>Three chips after the title, before honesty and To book chips; the meta line no longer repeats the child rule. On phone the chips wrap to a second line, limits first.</p>
+    <div class="day">
+      <div class="entry">
+        <div class="time">16:30</div><div class="node" aria-hidden="true"></div>
+        <div class="c">
+          <div class="tl"><span class="gly"><svg class="i"><use href="#walk"/></svg></span><span class="tt"><a class="title" href="#">Johnston Canyon, Lower Falls</a><span class="dur">45 min</span></span></div>
+          <ul class="chips" aria-label="Who it suits"><li class="chip"><svg class="i"><use href="#person"/></svg>From about 4</li><li class="chip"><svg class="i"><use href="#walk"/></svg>Easy · Parks Canada Easy</li><li class="chip"><svg class="i"><use href="#ban"/></svg>No stroller · steps</li></ul>
+          <div class="meta"><span>2.4 km</span>·<span>50 m up</span>·<span>catwalks</span>·<span class="w"><svg class="i"><use href="#tri"/></svg>ice cleats Nov–Apr</span></div>
+          <p class="note">Short and fenced; the Lower Falls tunnel is the payoff for under-6s.</p>
+        </div>
+      </div>
+      <div class="entry" style="margin-top:18px;padding-top:18px;border-top:1px solid var(--line)">
+        <div class="time">09:00</div><div class="node" style="border-radius:3px;background:var(--ink);border-color:var(--ink)" aria-hidden="true"></div>
+        <div class="c">
+          <div class="tl"><span class="gly"><svg class="i"><use href="#bolt"/></svg></span><span class="tt"><a class="title" href="#">Kicking Horse family raft</a><span class="dur">3 h 30</span><span class="chip"><svg class="i"><use href="#clock"/></svg>To book</span></span></div>
+          <ul class="chips" aria-label="Who it suits"><li class="chip crit">Not for under 6 · operator rule</li><li class="chip"><svg class="i"><use href="#wave"/></svg>Class I–III · 2 h on water</li><li class="chip"><svg class="i"><use href="#kit"/></svg>Wetsuit, helmet, PFD provided</li></ul>
+          <div class="meta"><span>Slot</span>·<span>CAD 109 per child · 2026 price</span>·<span class="w"><svg class="i"><use href="#tri"/></svg>age and weight can rise with river level</span></div>
+          <p class="note">With a party profile set (youngest 5), the first chip becomes the fit result; the rule that failed opens first when the entry expands: minimum age 6.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="flt">
+    <h2 id="flt">Filters</h2>
+    <p>"Kids" is primary. "Effort" and "Stroller" sit under More filters. The three menus are drawn open here so their options can be read side by side.</p>
+    <div class="pills">
+      <span class="pill">Country <svg class="i"><use href="#chev"/></svg></span>
+      <span class="pill">Kind <svg class="i"><use href="#chev"/></svg></span>
+      <span class="pill">Season <svg class="i"><use href="#chev"/></svg></span>
+      <span class="pill act">Kids · 6 <span class="x" aria-label="Clear Kids"><svg class="i"><use href="#x"/></svg></span></span>
+      <span class="pill more">More filters (2) <svg class="i"><use href="#chev"/></svg></span>
+    </div>
+    <p class="count"><b>38 places</b> for a 6-year-old · 4 more are a stretch, shown faded · 11 not checked yet · <u>Clear all</u></p>
+    <div class="menus">
+      <div class="menu" role="dialog" aria-label="Kids">
+        <div class="lab">Youngest child</div>
+        <div class="stepper"><span class="age"><span>youngest</span><button aria-label="Younger"><svg class="i"><use href="#minus"/></svg></button><b>6</b><button aria-label="Older"><svg class="i"><use href="#plus"/></svg></button></span></div>
+        <div class="quick"><span class="chip">Baby</span><span class="chip">4</span><span class="chip act">6</span><span class="chip">8</span><span class="chip">10</span><span class="chip">12</span></div>
+        <div class="foot"><span>Any age</span><b>hides a hard rule above 6 · fades our advice above 6</b></div>
+      </div>
+      <div class="menu" role="dialog" aria-label="Effort">
+        <div class="lab">How hard</div>
+        <div class="opt"><span class="box on"><svg class="i"><use href="#check"/></svg></span><span class="lbl">Stroll<small>flat, made surface</small></span><span class="n">12</span></div>
+        <div class="opt"><span class="box on"><svg class="i"><use href="#check"/></svg></span><span class="lbl">Easy<small>a clear path, no hands</small></span><span class="n">21</span></div>
+        <div class="opt"><span class="box"></span><span class="lbl">Moderate<small>rough or steep, sure footing</small></span><span class="n">18</span></div>
+        <div class="opt"><span class="box"></span><span class="lbl">Hard<small>long, exposed, or hands sometimes</small></span><span class="n">9</span></div>
+        <div class="opt"><span class="box"></span><span class="lbl">Technical<small>harness or scrambling</small></span><span class="n">3</span></div>
+        <div class="foot"><span>Clear</span><b>12 places have no effort rating and are not shown</b></div>
+      </div>
+      <div class="menu" role="dialog" aria-label="Stroller">
+        <div class="lab">Push a stroller here</div>
+        <div class="opt"><span class="box rad on"></span><span class="lbl">Any stroller<small>paved, boardwalk or fine gravel</small></span><span class="n">17</span></div>
+        <div class="opt"><span class="box rad"></span><span class="lbl">All-terrain stroller<small>packed gravel and roots too</small></span><span class="n">26</span></div>
+        <div class="foot"><span>Off</span><b>5 places for part of the way, marked on the row</b></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">Suitability display mock · 18 Oct 2026 · tokens from docs/v2/design/foundation · values illustrative</p>
+</main>
+
+<div class="dev" aria-label="Mock switcher"><span>theme</span><button id="th">dark</button></div>
+<script>
+const q=new URLSearchParams(location.search);
+if(q.get('theme')==='dark')document.documentElement.dataset.theme='dark';
+const th=document.getElementById('th');
+const sync=()=>th.textContent=document.documentElement.dataset.theme==='dark'?'light':'dark';
+th.onclick=()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';sync()};sync();
+if(q.has('nodev'))document.querySelector('.dev').remove();
+document.querySelectorAll('.g-h').forEach(b=>b.onclick=()=>b.setAttribute('aria-expanded',b.getAttribute('aria-expanded')!=='true'));
+document.querySelectorAll('.g-h[aria-expanded="false"]').forEach(b=>{const dl=b.nextElementSibling;if(dl)dl.hidden=true});
+new MutationObserver(ms=>ms.forEach(m=>{const dl=m.target.nextElementSibling;if(dl)dl.hidden=m.target.getAttribute('aria-expanded')!=='true'})).observe(document.body,{attributes:true,subtree:true,attributeFilter:['aria-expanded']});
+</script>
+</body>
+</html>

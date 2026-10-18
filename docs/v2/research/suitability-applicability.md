@@ -25,7 +25,7 @@ It does not cover **relevance**: whether a place is worth the journey, its draw 
 | A4 | **A new shared `participation` group** holds the adventure rules that apply only to operated activities: guide, kit provided, what to wear, minimum shoe size, fitness, medical exclusions, pregnancy, waiver and guardian age, weigh-in, and weather cancellation. Offers inherit it. | These rules differ by product (Norquay routes 12+ and 14+), so they belong in the block that offers carry, not in a kind extension | The shared block grows by one group. It is N for 12 of 34 profiles and applies only when operated for 3 more. |
 | A5 | **Ten new extensions** (`lift`, `boat`, `zip`, `jump`, `coaster`, `horse`, `glacier`, `flight`, `wildlife`, `drive`) and new fields on four existing ones (`ride`, `paddle`, `ferrata`, `cave`, plus `water`) | Each holds facts that only that kind has: a crampon's minimum shoe size, a paraglider's weight limit by time slot, a 100 m bear distance | 41 new fields in total (section 6.1) |
 | A6 | **Three new shared fields**: `solo` (age or height to go without an adult), `stroller_on_board` (a carriage rule, unlike `stroller`, which is a surface), and `hazards` (moved out of the trail extension and typed with `HAZARD_CATEGORY`) | All three apply across several kinds: chairlift, coaster and ski lift for `solo`; lift, boat and flight for `stroller_on_board`; trails, beaches and wildlife for `hazards` | `hazards` changes type. No record uses the old field. |
-| A7 | **Three suitability chips at rest. Hard limits are merged into one chip.** Participation rules go into the entry's "Know before you go" bullets, which are visible at rest on an expanded day (trip-timeline.md 3.10). | It satisfies the P2 safety exception and the 3-chip cap together (section 5.1) | The limits chip can be long: "8+ · 23 kg min". The rule is at most three values, then "+n". |
+| A7 | **Three suitability chips at rest on a day row and the place page; two on a place card (kids, effort; P8). Hard limits are merged into one chip, and its "+n" counts every remaining operator ban, including pregnancy and medical exclusions.** Kit, wear, fitness, waiver and weigh-in go into the entry's "Know before you go" bullets (trip-timeline.md 3.10). Display design: [design/suitability-display.md](../design/suitability-display.md). | It satisfies the P2 safety exception and the 3-chip cap together (section 5.1) | The limits chip can be long: "Age 8+ · 23 kg min · swim test +2". The rule is at most three values, then "+n". |
 | A8 | **Every kind feeds two derived values**: `kids_from` and `family_effort`, plus the tri-state `stroller_ok`. The filters read only these. | Adding a kind adds a mapping row and never a filter (P4) | Kinds with effort N (bungee, boat, lift) leave the results while the Effort filter is active. The count line says so. |
 | A9 | **A present N field is a warning (`W_SUIT_NA_FIELD`), and a missing R field caps the record below Usable** (`suit_level` computed). A per-record exemption from an R or A field is the existing `not_applicable` state, which needs a `note`. | The owner's validator rule. The exemption covers real one-offs, such as a lift with no walk at the top. | Lanes must not use `not_applicable` to dodge research. An exemption without a `note` is an error. |
 | A10 | **Water class is the effort grade for paddling.** For paddle profiles `effort.source_grade` is N, and derive reads `water_safety.class`. | The same grade in two places would drift | derive.ts gains one branch. The Class II terrain-3 test (S0 step 4) moves to `water_safety.class`. |
@@ -584,14 +584,17 @@ The maximum weight changes with the time of day. A limit stored without its slot
 
 ## 5. The principle check
 
-### 5.1 At rest: three chips on a day row and a place card (P2 safety exception, P3, P6)
+### 5.1 At rest: three chips on a day row and the place page, two on a place card (P2 safety exception, P3, P6, P8)
+
+The chip looks, wording and filter labels are designed in [design/suitability-display.md](../design/suitability-display.md) (18 Oct 2026); where this section and that page differ, that page wins.
 
 Chip rules for every kind:
-1. **Slot 1, limits.** When any rule-based limit exists, one merged chip shows at most three values: "8+ · 23 kg min · swim test". Rule chips are solid and advice chips are outlined. Anything more becomes "+2", which opens the detail. With a party profile set, slot 1 becomes the fit result: "Fits a 6-year-old" or "Not for under 8 (operator rule)".
-2. **Slot 2, effort or time.** For kinds with effort: "FE3 · CAI E · 3-4 h". For kinds with effort N: the time, with the kind's grade if it has one ("2 h on water · Class II").
+1. **Slot 1, limits.** When any rule-based limit exists, one merged chip shows at most three values: "Age 8+ · 23 kg min · swim test". A `searched_none` R limit counts as a value ("height not stated"). Rule chips are filled with a lock (`--surface-2`, `--ink`); advice chips are outlined with a person glyph. Anything more becomes "+2", which opens the detail; the count includes pregnancy and medical bans. With a party profile set, slot 1 becomes the fit result: "Fits a 6-year-old" (`--ok`), "Not suited to a 3-year-old" (`--warn`, our advice) or "Not for under 8 · operator rule" (`--crit`, a rule).
+2. **Slot 2, effort or time.** For kinds with effort: the family-effort **name**, never the number: "Moderate · CAI E · 3-4 h" (P4). On a day row the time is omitted because the entry carries its duration. For kinds with effort N: the time, with the kind's grade if it has one ("Class II · 2 h on water").
 3. **Slot 3, the kind's deciding condition**, from the table below.
-4. **Outside the three chips.** Closures (`access_season` out of window), bookings due and the main hazard are the L3c day-row **warning marks** and booking markers (trip-timeline.md 3.10). They are visible at rest and are not part of the three. The participation rules (medical, pregnancy, waiver, what to wear) go into the entry's "Know before you go" bullets, which are visible at rest on an expanded day.
+4. **Outside the three chips.** Closures (`access_season` out of window), bookings due and the main hazard are the L3c day-row **warning marks** and booking markers (trip-timeline.md 3.10); on the place page they are one warning line under the chips. They are visible at rest and are not part of the three. Pregnancy and medical bans are operator rules and count in the limits chip's "+n"; kit, wear, fitness, waiver and weigh-in go into the entry's "Know before you go" bullets.
 5. A chip is never drawn for an N field, and never as "FE n/a".
+6. **Place cards carry two chips** (P8 light list data): `kids_from` as a rule or advice chip, and the family-effort name (omitted when effort is N). Slot 3 is never on a card.
 
 | Profile | Slot 1 (limits or fit) | Slot 2 | Slot 3 | Warning mark (outside chips) |
 |---|---|---|---|---|
@@ -632,7 +635,7 @@ Chip rules for every kind:
 
 ### 5.2 On the detail view (P2, P3, P6)
 
-Order, for every kind. A section with no R or A fields for the profile is not drawn at all:
+Order, for every kind. A section with no R or A fields for the profile is not drawn at all (this is not a missing-data case, so the owner's "empty markers stay visible" rule does not apply to it; that rule covers sections with R or A fields):
 
 1. **Limits and rules**: limits per offer, `solo`, `adult_required`, `group_min`, then participation (guide, waiver and guardian age, medical, pregnancy, weigh-in).
 2. **Who it suits**: age band with its reason, kid note, carrier, stroller or stroller on board, wheelchair and access detail, limited-capacity note.
@@ -643,11 +646,11 @@ Order, for every kind. A section with no R or A fields for the profile is not dr
 
 **One step away (provenance):** every chip and row opens its basis, source link, read date, quote and conflicts. "Sources disagree" keeps its short tooltip (P4 exception). Freshness shows as "read 12 Oct 2026" (T3).
 
-**Gaps:** a missing R field shows "Not checked yet" in its row. All missing A fields of a section collapse into one closing line, "Not checked yet: toilets, signal". N fields never appear.
+**Gaps:** a missing R field shows "Not checked yet" in its row as a dashed `--line-2` chip. All missing A fields of a section collapse into one closing line, "Not checked yet: toilets, signal". N fields never appear. The section head carries "n of m family checks done · read <date>" so gaps read as research in progress.
 
 ### 5.3 How each kind feeds the filters and the trip profile (P4: at most four primary)
 
-Primary Places filters stay **Country, Kind, Season, Kids** (principles.md P4 decision). Effort, Stroller, Carrier OK and Step-free sit under "More filters". Every kind feeds only these derived values:
+Primary Places filters stay **Country, Kind, Season, Kids** (principles.md P4 decision). Effort, Stroller, Carrier OK and Step-free sit under "More filters". Labels, options and count lines for Kids, Effort and Stroller are in suitability-display.md section 5. Every kind feeds only these derived values:
 
 | Derived value | Rule | Used by |
 |---|---|---|
@@ -675,7 +678,7 @@ Primary Places filters stay **Country, Kind, Season, Kids** (principles.md P4 de
 
 | # | Conflict | Resolution |
 |---|---|---|
-| PC1 | **P2 safety exception against the 3-chip cap.** A Class III raft has five hard rules: age, weight, swim test, pregnancy and a guardian waiver. | Numeric limits merge into chip 1 (at most three values, then "+n"). Rules that depend on the traveller rather than the party profile (medical, pregnancy) go into "Know before you go", which is visible at rest. Closures and bookings are L3c warning marks, outside the cap. |
+| PC1 | **P2 safety exception against the 3-chip cap.** A Class III raft has five hard rules: age, weight, swim test, pregnancy and a guardian waiver. | Limits merge into chip 1 (at most three values, then "+n"). Pregnancy and medical bans count in "+n", so they are marked at rest and one click away (the timeline's "Know before you go" is a collapsed panel, so it does not satisfy "visible at rest"). Kit, wear, fitness and the waiver go into "Know before you go". Closures and bookings are L3c warning marks, outside the cap. |
 | PC2 | **The owner's "empty sections stay visible" (P2 decision) against clutter (P4).** | Markers are drawn only for missing R and A fields. A gaps collapse into one line. N is never drawn. |
 | PC3 | **P6 "effort and age on the day row" for kinds with no effort** (boat, bungee, lift) | Slot 2 becomes time. No "FE n/a" chip. |
 | PC4 | **T4 families first against P4's four primary filters** | Kids is primary. Stroller, Carrier OK, Step-free and Effort are in "More filters". "Flatwater only" is dropped. |
@@ -684,6 +687,9 @@ Primary Places filters stay **Country, Kind, Season, Kids** (principles.md P4 de
 | PC7 | **Operations fields against suitability fields** (lift `weather_closure`, adventure `weather_dependent`) | `participation.weather_cancel` is the one home, and the catalog `attrs` project from it later |
 | PC8 | **T1 "when" for activities whose limits change with the season or the slot** (paraglide weights, river levels) | `weight_by_slot` and `class_at_level` hold the condition. Chip 1 shows the strictest slot with "+ by time". |
 | PC9 | **The `carried` gate fires on every kind** (gates.ts) | Gated by the profile (5.3) |
+| PC10 | **Three chips on a card against P8** (list data carries only the kids chip and filter fields) | Cards carry two derived chips, kids and effort (both filter facets); slot 3 stays on day rows and place pages (design C3) |
+| PC11 | **"FE3" on chips against P4** | Chips name the family effort; the number is internal (design C1) |
+| PC12 | **Three chips on a phone day row against timeline-design 10** ("chips wrap only in the selector footer") | Suitability chips may wrap to a second line on an entry, limits first; the entry's meta drops "child rule". Flagged to the coordinator for timeline-design.md 4.2 and 10 (design C4) |
 
 ## 6. Schema delta against core/src/schema/suitability.ts
 
@@ -944,4 +950,5 @@ There are no other blocking questions. suitability.md section 10 questions 1-5 s
 
 | Date | Change |
 |---|---|
+| 2026-10-18 (display rules) | Fable check of section 5: chips name the effort (no "FE3"); the limits chip's "+n" counts pregnancy and medical bans; cards carry two chips (P8); rule, advice and gap looks defined; a whole-profile N section is not a missing-data marker; the research line on the section head; PC10-PC12 added; filter labels moved to design/suitability-display.md |
 | 2026-10-18 | First draft: 34 profiles (a 35th, `river_hike`, waits on Q1); R, A and N matrix across six field groups plus the extensions; kind-specific fields from operator and authority sources; at-rest, detail, filter and completeness rules checked against P1-P7 and T1-T5 (9 conflicts resolved); S0b schema delta; migration consequences M1-M10; lane instructions with the relevance slot |
