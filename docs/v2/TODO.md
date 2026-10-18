@@ -31,6 +31,7 @@ Newest first. Each line links to where it is specified. Move a line to "Done" wi
 
 | Date | Item | Commit |
 |---|---|---|
+| 2026-10-18 | **All 14 trips are public** (owner): the 7 private flags are removed from legacy/MANIFEST.json, reversing b06fb01. Household data inside trip plans (names, ages, booking codes, costs, phones) still stays out of the public site through LD's allow-list. | (this commit) |
 | 2026-10-18 | Trailhead and parking coordinates from OpenStreetMap for 18 trails, with the full link checklist (133 links checked) and Google/Apple Maps buttons. Lift-start trails send Directions to the valley car park; fee disagreements are shown as conflicts. | 0673ca9 |
 | 2026-10-18 | Per-kind research profiles (15 kinds, Draft/Usable/Complete checks, enforcement design) | 236a874, 34f2c7e, ca086e6 |
 | 2026-10-18 | Fable design foundation (tokens, components, patterns, specimen) and the scenario-check gate: Go for the public site | 74314f2, fb904a8, 47d4059 |

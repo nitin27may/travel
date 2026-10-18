@@ -80,7 +80,8 @@ def test_hub_today_is_honoured(tmp_path, monkeypatch):
 
 def test_private_pages_are_placeholders(staged):
     private = {f["slug"] for f in _manifest()["folders"] if f.get("private")}
-    assert private, "expected at least one private page in the manifest"
+    if not private:
+        pytest.skip("no private pages in the manifest (owner made every trip public, 18 Oct 2026)")
     for slug in private:
         doc = (staged / slug / "index.html").read_text(encoding="utf-8")
         assert 'name="trip-private"' in doc and 'name="robots" content="noindex' in doc
