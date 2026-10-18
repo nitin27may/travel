@@ -3,29 +3,13 @@
 import { buildGpx } from './gpx';
 import type { GpxSource } from './gpx';
 import { buildKml } from './kml';
-import { tripCsv, listCsv } from './csv';
+import { tripCsv } from './csv';
 import { buildIcs, icsEventCount, NoCalendarError } from './ics';
 import { fileName, saveFile } from './download';
 import type { PlaceExport, TripExport } from './types';
 
-const cache = new Map<string, Promise<TripExport | PlaceExport>>();
-
-/** The export data of a public trip or place, from the static file the build wrote. Cached per page view. */
-export function loadExport(type: 'trip', slug: string): Promise<TripExport>;
-export function loadExport(type: 'place', slug: string): Promise<PlaceExport>;
-export function loadExport(type: 'trip' | 'place', slug: string): Promise<TripExport | PlaceExport> {
-  const key = `${type}:${slug}`;
-  let p = cache.get(key);
-  if (!p) {
-    p = fetch(`/export-data/${type}s/${encodeURIComponent(slug)}/data.json`).then((r) => {
-      if (!r.ok) throw new Error(`No export data for ${slug}`);
-      return r.json();
-    });
-    p.catch(() => cache.delete(key));
-    cache.set(key, p);
-  }
-  return p;
-}
+// Where the export data comes from is the client data module's business (lib/client/data.ts); this file only turns it into files.
+export { loadExport } from '@/lib/client/data';
 
 export interface Generated {
   name: string;
@@ -51,11 +35,6 @@ export function downloadTripCsv(d: TripExport): Generated {
   const name = fileName(d.slug, 'csv');
   saveFile(name, 'csv', tripCsv(d));
   return { name, summary: `${d.stops.length} stops` };
-}
-export function downloadListCsv(slug: string, rows: unknown[]): Generated {
-  const name = fileName(slug, 'csv');
-  saveFile(name, 'csv', listCsv(rows));
-  return { name, summary: `${Math.max(0, rows.length - (Array.isArray(rows[0]) ? 1 : 0))} rows` };
 }
 export function downloadIcs(d: TripExport, startDate: string): Generated {
   const name = fileName(d.slug, 'ics');
