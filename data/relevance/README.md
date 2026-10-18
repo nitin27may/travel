@@ -58,6 +58,8 @@ See `docs/v2/research/relevance.md` section 2.1 and 4 for the record and an abri
 
 ## Derive inputs
 
+`inputs/points.json` is generated: `node core/bin/relevance.ts points --build` (`--check` to compare). It takes coordinates only from `data/locations/locations.json` (Wikidata or Nominatim), the OSM trailheads and parking in `web/data-snapshots/prototype.json`, the legacy Rockies trailhead names (matched to the sight of that name), and the cached Wikidata P625 of each confirmed QID. Each point carries `coord_src` and `point_source`; Google is never used. Refs with no coordinate are listed and left out. Do not hand-edit.
+
 `inputs/points.json` (`relevance-points/1`): the catalogue holds no coordinates for these refs yet, so lanes or the adapter supply them here.
 
 ```jsonc
@@ -87,7 +89,18 @@ Family effort for the substitutes list, on-site time and a coarse access load ar
 
 ## Thresholds and calibration
 
-The 3.1 starting thresholds (version 1): languages 25 / 10 / 3 for world / national / regional; views 40,000 / 10,000 / 2,000. They live in `core/src/relevance/fit.ts` (`THRESHOLDS`). After the lanes run, `calibrate` prints the confusion table of `draw` against `draw_suggested`; the target is 80% within one tier and none three apart. Record the thresholds and the table here when that is done. Not done yet: no lane has produced records.
+Thresholds, version 2 (calibrated 18 Oct 2026 on 209 records): languages 25 / 10 / 2 for world / national / regional; views 40,000 / 10,000 / 2,000. Settlements (`town` classes) ignore the language count and use views only. They live in `core/src/relevance/fit.ts` (`THRESHOLDS`) and `suggest.ts`. Version 1 had 3 as the regional language floor and counted languages for towns (85% within one tier, 6 three apart).
+
+Confusion table, rows are the judged `draw`, columns `draw_suggested`:
+
+| draw \ suggested | local | regional | national | world |
+|---|---|---|---|---|
+| local | 25 | 10 | 2 | 0 |
+| regional | 46 | 32 | 18 | 6 |
+| national | 14 | 8 | 21 | 7 |
+| world | 0 | 1 | 5 | 14 |
+
+209 records, 89% within one tier, none three apart. The large `regional`-judged, `local`-suggested cell is places with no Wikidata item or no article: signals cannot see them, and judgement decides. Judgement still decides the tier; thresholds only change the suggestion and when `W_REL_DRAW_GAP` fires.
 
 ## Gotchas
 

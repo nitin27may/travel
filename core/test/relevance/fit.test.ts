@@ -15,13 +15,23 @@ describe("fame tier (3.1 rule 1)", () => {
     expect(fameTier(10, null)).toBe("national");
     expect(fameTier(9, null)).toBe("regional");
     expect(fameTier(3, null)).toBe("regional");
-    expect(fameTier(2, null)).toBe("local");
+    expect(fameTier(2, null)).toBe("regional");
+    expect(fameTier(1, null)).toBe("local");
     expect(fameTier(1, 40000)).toBe("world");
     expect(fameTier(1, 10000)).toBe("national");
     expect(fameTier(1, 2000)).toBe("regional");
     expect(fameTier(1, 1999)).toBe("local");
     expect(fameTier(null, null)).toBe("local");
     expect(fameTier(3, 40000)).toBe("world");
+  });
+});
+
+describe("settlements use views only (RVC calibration)", () => {
+  it("ignores the language count for a town but keeps its views", () => {
+    const t = { designations: [], editorial: [] };
+    expect(drawSuggested({ languages: 49, views: 5965, ...t })).toBe("world");
+    expect(drawSuggested({ languages: 49, views: 5965, ...t, ignoreLanguages: true })).toBe("regional");
+    expect(drawSuggested({ languages: 49, views: 45000, ...t, ignoreLanguages: true })).toBe("world");
   });
 });
 

@@ -35,7 +35,13 @@ export interface PlaceFacts {
   accessLegalPublic?: boolean;
   /** computed family effort of the same ref, for the substitutes list */
   familyEffort?: number | null;
+  /** this ref's point was copied from another ref (a legacy trail at the trailhead named after a sight) */
+  aliasOf?: string;
+  /** feature tags (locations tags); when both places have some, a substitute must share one */
+  tags?: string[];
 }
+/** The party, when a profile is set. Nothing here is household data: only the ceiling the party can do. */
+export interface PartyFit { maxFamilyEffort?: number }
 export interface Signals { languages: number | null; views: number | null }
 
 export interface DeriveInput {
@@ -52,9 +58,27 @@ export interface DeriveInput {
   today?: string;
   /** radius of the far pointer; the spec says 50 km (3.2) */
   farPointerKm?: number;
+  profile?: PartyFit | null;
+  /** real drive minutes between two refs (the ORS leg matrix, once it exists): driveMin[a][b]. Absent: no drive pairs */
+  driveMin?: Record<string, Record<string, number>>;
 }
 
 export interface Substitute { ref: string; km: number; draw: DrawTier; standing: string; access_cost: string[]; family_effort: number | null }
+export interface Pair {
+  ref: string;
+  km: number;
+  how: "walk" | "drive";
+  /** minutes the pair adds: travel there and back plus time on site */
+  extra_min: number;
+  on_site_min: number;
+  /** true when on_site_min comes from the class table, not a suitability time */
+  on_site_estimated: boolean;
+  draw: DrawTier;
+  standing: string;
+  hand_picked: boolean;
+  reason?: string;
+  src?: string;
+}
 export interface FarPointer { ref: string; km: number; draw: DrawTier; same_class: boolean }
 export interface FitOut { fit: Fit; reason: string }
 export interface Derived {
@@ -68,6 +92,12 @@ export interface Derived {
   from_hubs: Record<string, { min: number; approx: boolean }>;
   substitutes: { near: Substitute[]; area: Substitute[] };
   far_pointer: FarPointer | null;
+  /** "Nearby, worth adding": at most 3, hand-picked first (3.2) */
+  pair_with: Pair[];
+  /** would qualify on a straight-line guess but has no real drive time yet; never shown (3.2) */
+  pair_pending: { ref: string; km: number }[];
+  /** same coordinate (about 100 m) or a trailhead alias of this place: part of it, not a pairing */
+  part_of: string[];
   plan_b: Substitute | null;
   fits: { vacation: FitOut; weekend: FitOut; day: Record<string, FitOut>; passing: FitOut };
   role: Role;
@@ -82,6 +112,15 @@ export interface Derived {
 
 const NEAR_KM = 25;
 const AREA_KM = 100;
+
+const WALK_KM = 1.5;
+const PAIR_DRIVE_MIN = 15;
+const SAME_POINT_KM = 0.1;
+const PAIR_LIGHT_MAX = 90;
+const PAIR_MAX = 3;
+/** On-site minutes by class head when no suitability time exists; marked as an estimate. Trails are deliberately long. */
+const ON_SITE_ESTIMATE: Record<string, number> = { viewpoint: 20, waterfall: 30, lake: 60, sight: 45, town: 90, trail: 150, lift: 90, drive: 60, canyon: 45, gorge: 45, beach: 60, peak: 180, cave: 45, glacier: 120, water: 60, wildlife: 60, activity: 90, park: 90 };
+const classHead = (k: string): string => k.split("/")[0] ?? k;
 
 const rank = (s: string): number => (s === "top" ? 2 : s === "good" ? 1 : 0);
 
@@ -190,8 +229,24 @@ export function deriveAll(input: DeriveInput): Derived[] {
     // substitutes (3.2)
     const others = nearbyOthers(r.ref);
     const sameClass = others.filter((o) => o.rec.class_key === r.class_key);
-    const near = sameClass.filter((o) => o.km <= NEAR_KM).map((o) => subOf(r, o.rec, o.km)).sort(bySort);
-    const area = sameClass.filter((o) => o.km <= AREA_KM).map((o) => subOf(r, o.rec, o.km)).sort(bySort);
+    // attribute-aware (3.2): family effort within one level, on-site time within 0.5x to 2x, a shared feature tag
+    const alike = (o: { rec: RelevanceRecord }): boolean => {
+      const a = input.facts[r.ref] ?? {};
+      const b = input.facts[o.rec.ref] ?? {};
+      if (a.familyEffort != null && b.familyEffort != null && Math.abs(a.familyEffort - b.familyEffort) > 1) return false;
+      if (a.onSiteMin && b.onSiteMin && (b.onSiteMin < a.onSiteMin * 0.5 || b.onSiteMin > a.onSiteMin * 2)) return false;
+      if (a.tags?.length && b.tags?.length && !a.tags.some((t) => b.tags!.includes(t))) return false;
+      return true;
+    };
+    const maxEffort = input.profile?.maxFamilyEffort;
+    const fitsParty = (s: Substitute): number => (maxEffort === undefined || s.family_effort === null || s.family_effort <= maxEffort ? 0 : 1);
+    const subSort = (a: Substitute, b: Substitute): number => fitsParty(a) - fitsParty(b) || bySort(a, b);
+    const gated = sameClass.filter(alike);
+    const near = gated.filter((o) => o.km <= NEAR_KM).map((o) => subOf(r, o.rec, o.km)).sort(subSort);
+    // plan b reads the ungated list: a roadside stop beats a 3 h lake on time by design (Peyto for Moraine)
+    const areaAll = sameClass.filter((o) => o.km <= AREA_KM).map((o) => subOf(r, o.rec, o.km)).sort(bySort);
+    const area = gated.filter((o) => o.km <= AREA_KM).map((o) => subOf(r, o.rec, o.km)).sort(subSort);
+
 
     // far pointer: nearest within farKm with a draw at least two tiers higher; same class preferred
     let far: FarPointer | null = null;
@@ -227,7 +282,7 @@ export function deriveAll(input: DeriveInput): Derived[] {
     // plan b: an anchor whose access can fail gets the best same-class substitute without such a cost
     let planB: Substitute | null = null;
     if (role === "anchor" && j.access.some((a) => FAILING_COSTS.includes(a.type))) {
-      planB = area.find((s) => !s.access_cost.some((c) => FAILING_COSTS.includes(c as never))) ?? null;
+      planB = areaAll.find((s) => !s.access_cost.some((c) => FAILING_COSTS.includes(c as never))) ?? null;
     }
 
     // distinction check
@@ -246,6 +301,9 @@ export function deriveAll(input: DeriveInput): Derived[] {
       from_hubs: fromHubs,
       substitutes: { near, area },
       far_pointer: far,
+      pair_with: [],
+      pair_pending: [],
+      part_of: [],
       plan_b: planB,
       fits: { vacation: vac, weekend, day, passing },
       role,
@@ -263,6 +321,7 @@ export function deriveAll(input: DeriveInput): Derived[] {
     results.push(out);
   }
   demoteDoubleAnchors(input.records, results);
+  assignPairs(input, results, J, haversineKm);
   return results;
 }
 
@@ -320,6 +379,82 @@ function demoteDoubleAnchors(records: RelevanceRecord[], results: Derived[]): vo
         d.peak = { ...d.peak, role: "highlight", badge: badgeOf("highlight", records.find((r) => r.ref === d.ref)!.standing.v ?? "ordinary", d.peak.tier, "place"), vacation: { fit: "worth_it", reason: `${d.peak.vacation.reason}; same place as ${holderPeak.ref}, which keeps the anchor` } };
       }
     }
+  }
+}
+
+const ANCHORISH = new Set(["anchor"]);
+
+/**
+ * pair_with (3.2, tightened): a different-class place you can add to the visit.
+ *  - walk only: within 1.5 km straight line of the place's own point; a drive pair needs a real drive time
+ *    (input.driveMin) of 15 min or less, and without one a straight-line candidate is listed in pair_pending, not shown;
+ *  - never two records at one point (within 100 m) or one a trailhead alias of the other: that is part_of;
+ *  - lighter than the place: on-site time no more than the place's own, or at most 90 min;
+ *  - two anchors pair only on foot; standing top or good; fits the party when a profile is set.
+ * Hand-picked pairs always qualify and rank first.
+ */
+function assignPairs(input: DeriveInput, results: Derived[], J: Map<string, ReturnType<typeof judged>>, dist: typeof haversineKm): void {
+  const byRef = new Map(results.map((d) => [d.ref, d]));
+  const recBy = new Map(input.records.map((r) => [r.ref, r]));
+  const onSite = (ref: string): { min: number; est: boolean } => {
+    const m = input.facts[ref]?.onSiteMin;
+    return m != null ? { min: m, est: false } : { min: ON_SITE_ESTIMATE[classHead(recBy.get(ref)!.class_key)] ?? 60, est: true };
+  };
+  const maxEffort = input.profile?.maxFamilyEffort;
+  for (const r of input.records) {
+    const d = byRef.get(r.ref)!;
+    const me = input.facts[r.ref] ?? {};
+    if (!me.point) continue;
+    const mine = onSite(r.ref);
+    const cands: { rec: RelevanceRecord; km: number }[] = [];
+    for (const o of input.records) {
+      const q = input.facts[o.ref]?.point;
+      if (o.ref !== r.ref && q) cands.push({ rec: o, km: dist(me.point, q) });
+    }
+    const partOf = (o: { rec: RelevanceRecord; km: number }): boolean =>
+      o.km <= SAME_POINT_KM || me.aliasOf === o.rec.ref || input.facts[o.rec.ref]?.aliasOf === r.ref || (me.aliasOf !== undefined && me.aliasOf === input.facts[o.rec.ref]?.aliasOf);
+    d.part_of = cands.filter((o) => o.rec.class_key !== r.class_key && partOf(o)).map((o) => o.rec.ref).sort();
+    const pairOf = (o: { rec: RelevanceRecord; km: number }, how: "walk" | "drive", hand: { reason: string; src?: string } | null): Pair => {
+      const os = onSite(o.rec.ref);
+      const jo = J.get(o.rec.ref)!;
+      const travel = how === "walk" ? Math.round(o.km * 15 * 2) : 2 * (input.driveMin?.[r.ref]?.[o.rec.ref] ?? input.driveMin?.[o.rec.ref]?.[r.ref] ?? 0);
+      return { ref: o.rec.ref, km: Math.round(o.km * 10) / 10, how, extra_min: travel + os.min, on_site_min: os.min, on_site_estimated: os.est, draw: jo.draw, standing: jo.standing, hand_picked: hand !== null, ...(hand ? { reason: hand.reason, ...(hand.src ? { src: hand.src } : {}) } : {}) };
+    };
+    const pairs: Pair[] = [];
+    const picked = new Set<string>();
+    for (const pw of r.pairs_with ?? []) {
+      const o = cands.find((x) => x.rec.ref === pw.ref);
+      if (o && !picked.has(pw.ref)) {
+        picked.add(pw.ref);
+        pairs.push(pairOf(o, o.km <= WALK_KM ? "walk" : "drive", { reason: pw.reason, ...(pw.src ? { src: pw.src } : {}) }));
+      }
+    }
+    const pending: Derived["pair_pending"] = [];
+    const auto: Pair[] = [];
+    for (const o of cands) {
+      if (picked.has(o.rec.ref) || o.rec.class_key === r.class_key || partOf(o) || classHead(o.rec.class_key) === "town") continue;
+      const jo = J.get(o.rec.ref)!;
+      if (rank(jo.standing) < 1) continue;
+      const os = onSite(o.rec.ref);
+      if (os.min > mine.min && os.min > PAIR_LIGHT_MAX) continue; // lighter than the place, or at most 90 min
+      const fo = input.facts[o.rec.ref] ?? {};
+      if (maxEffort !== undefined && fo.familyEffort != null && fo.familyEffort > maxEffort) continue;
+      const walk = o.km <= WALK_KM;
+      if (!walk && ANCHORISH.has(byRef.get(o.rec.ref)!.role) && ANCHORISH.has(d.role)) continue; // two anchors pair on foot only
+      if (walk) {
+        auto.push(pairOf(o, "walk", null));
+        continue;
+      }
+      const dm = input.driveMin?.[r.ref]?.[o.rec.ref] ?? input.driveMin?.[o.rec.ref]?.[r.ref];
+      if (dm !== undefined) {
+        if (dm <= PAIR_DRIVE_MIN) auto.push(pairOf(o, "drive", null));
+      } else if (approxMinutes(o.km) <= PAIR_DRIVE_MIN) {
+        pending.push({ ref: o.rec.ref, km: Math.round(o.km * 10) / 10 });
+      }
+    }
+    auto.sort((a, b) => a.extra_min - b.extra_min || rank(b.standing) - rank(a.standing) || a.km - b.km);
+    d.pair_with = [...pairs, ...auto].slice(0, PAIR_MAX);
+    d.pair_pending = pending.sort((a, b) => a.km - b.km);
   }
 }
 
