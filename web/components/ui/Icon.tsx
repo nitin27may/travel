@@ -34,6 +34,42 @@ const PATHS = {
   link: 'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
   clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 7v5l3 2',
   user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21a8 8 0 0 1 16 0',
+  // controls and states
+  bell: 'M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4',
+  ticket: 'M4 7h16v3a2 2 0 0 0 0 4v3H4v-3a2 2 0 0 0 0-4zM14 7v10',
+  warn: 'M12 3 22 21H2zM12 10v5M12 18h.01',
+  plus: 'M12 5v14M5 12h14',
+  minus: 'M5 12h14',
+  chevronLeft: 'm15 6-6 6 6 6',
+  chevronUp: 'm6 15 6-6 6 6',
+  share: 'M12 15V4M8 8l4-4 4 4M5 13v6h14v-6',
+  copy: 'M9 9h11v11H9zM5 15V4h10',
+  pencil: 'M4 20l4-1 11-11-3-3L5 16zM14 7l3 3',
+  signin: 'M10 7l5 5-5 5M15 12H3M14 4h6v16h-6',
+  wifiOff: 'M2 8.5a16 16 0 0 1 20 0M5 12a11 11 0 0 1 14 0M8.5 15.5a6 6 0 0 1 7 0M12 19h.01M3 3l18 18',
+  grip: 'M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01',
+  swap: 'M7 4 3 8l4 4M3 8h14M17 12l4 4-4 4M21 16H7',
+  navigate: 'M3 11 21 3l-8 18-2-8z',
+  expand: 'M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5',
+  collapse: 'M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5',
+  home: 'M3 11 12 4l9 7v9H3zM9 20v-6h6v6',
+  // kind glyphs (components 3.1: ink on --well)
+  flight: 'M3 13.5l7-2.2V5.5a2 2 0 0 1 4 0v5.8l7 2.2v2l-7-1.6v4.3l2.4 1.8V21L12 20l-4.4 1v-1l2.4-1.8v-4.3L3 15.5z',
+  stay: 'M3 7v12M3 15h18v4M21 15v-3a3 3 0 0 0-3-3h-7v6M7 12.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z',
+  car: 'M5 16v2.5M19 16v2.5M4 16h16v-4l-2-5H6l-2 5zM4 12h16',
+  trail: 'M5 20l4-9 3 4 3-7 4 12M8 5.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0',
+  trailhead: 'M12 3v18M6 5h10l2 2.5-2 2.5H6zM18 13H8l-2 2.5L8 18h10',
+  parking: 'M5 3h14v18H5zM9 17V7h4a3 3 0 0 1 0 6H9',
+  lake: 'M2 15c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M2 19c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M6 11l4-6 3 4 2-2 3 4',
+  waterfall: 'M7 3v7M12 3v10M17 3v7M5 21l3-5 3 3 3-6 5 8',
+  sight: 'M4 20V9l8-5 8 5v11M9 20v-6h6v6M2 20h20',
+  hut: 'M3 20h18M5 20v-9l7-6 7 6v9M10 20v-5h4v5',
+  eatery: 'M6 3v8a2 2 0 0 0 2 2v8M10 3v8M8 3v8M17 3c-2 2-2 6 0 8v10',
+  lift: 'M3 5l18 4M12 7v4M8 11h8v7H8z',
+  swim: 'M2 17c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M8 13l3-5 3 2 3-3M17 5.5a1.5 1.5 0 1 0 0 .01',
+  event: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4M12 13v4',
+  area: 'M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3zM9 4v13M15 7v13',
+  scenic: 'M8 3 5 21M16 3l3 18M12 4v3M12 10v4M12 17v3',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 11v6M12 7.5h.01',
   // status glyphs
   stIdea: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z',
@@ -61,7 +97,7 @@ export function Icon({ name, size = 16, className, ...rest }: IconProps) {
       viewBox="0 0 24 24"
       fill={filled ? 'currentColor' : 'none'}
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.75}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeDasharray={dashed ? '3 3.2' : undefined}
@@ -76,22 +112,42 @@ export function Icon({ name, size = 16, className, ...rest }: IconProps) {
   );
 }
 
-const KIND_ICONS: Record<string, IconName> = {
-  mountain: 'mountain',
-  valley: 'mountain',
-  canyon: 'mountain',
-  lake: 'water',
-  waterfall: 'water',
-  island: 'water',
-  city: 'building',
-  town: 'building',
-  park: 'tree',
-  trail: 'route',
+/**
+ * Kind to glyph. The fifteen research kinds (docs/v2/research/kinds) plus area and scenic drive, then the
+ * kinds today's data still uses (locations.json) so nothing falls back to a pin that has a better glyph.
+ */
+export const KIND_ICONS: Record<string, IconName> = {
+  trail: 'trail',
+  trailhead: 'trailhead',
+  parking: 'parking',
   viewpoint: 'eye',
+  lake: 'lake',
+  waterfall: 'waterfall',
+  sight: 'sight',
+  town: 'building',
+  adventure: 'bolt',
+  lift: 'lift',
+  hut: 'hut',
+  stay: 'stay',
+  eatery: 'eatery',
+  swim_spot: 'swim',
+  event: 'event',
+  area: 'area',
+  scenic_drive: 'scenic',
+  // legacy data kinds
+  mountain: 'mountain',
+  valley: 'area',
+  canyon: 'waterfall',
+  island: 'lake',
+  city: 'building',
+  park: 'tree',
+  drive: 'scenic',
   lighthouse: 'eye',
-  drive: 'road',
   activity: 'bolt',
-  region: 'map',
+  region: 'area',
+  place: 'pin',
+  flight: 'flight',
+  car: 'car',
 };
 
 export function kindIcon(kind: string): IconName {

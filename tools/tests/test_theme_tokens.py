@@ -1,4 +1,4 @@
-"""theme_tokens.py: every legacy token survives, output is deterministic, shell pairs meet AA."""
+"""theme_tokens.py: generated from tokens.json, deterministic, the allowed text pairs meet AA."""
 import re
 import sys
 from pathlib import Path
@@ -21,36 +21,71 @@ def contrast(a: str, b: str) -> float:
     return (la + 0.05) / (lb + 0.05)
 
 
-def test_every_legacy_token_appears_in_its_block():
-    themes = tt.legacy_themes()
-    assert len(themes) == 8
-    out = tt.render(themes)
-    for name, tokens in themes.items():
-        m = re.search(r'\[data-theme="%s"\] \{(.*?)\}' % re.escape(name), out, flags=re.S)
-        assert m, name
-        for token, value in tokens.items():
-            assert f"{token}: {value};" in m.group(1), (name, token)
+# tokens.md 2.2: every allowed text pair, with the minimum the doc states (4.5 for text)
+TEXT_PAIRS = [
+    ("ink", "bg"), ("ink", "surface"), ("ink", "surface-2"), ("ink", "well"),
+    ("ink-2", "bg"), ("ink-2", "surface"), ("ink-2", "surface-2"),
+    ("muted", "bg"), ("muted", "surface"), ("muted", "surface-2"), ("muted", "well"),
+    ("header-ink", "header"), ("header-mute", "header"),
+    ("accent-ink", "accent"), ("accent-ink", "accent-hover"),
+    ("accent-text", "bg"), ("accent-text", "surface"), ("accent-text", "accent-soft"),
+    ("crit", "bg"), ("crit", "surface"), ("crit", "crit-soft"), ("on-crit-fill", "crit-fill"),
+    ("ok", "bg"), ("ok", "surface"), ("ok", "ok-soft"),
+    ("warn", "bg"), ("warn", "surface"), ("warn", "warn-soft"),
+    ("info", "bg"), ("info", "surface"), ("info", "info-soft"),
+    ("toast-ink", "toast-bg"),
+]
+
+
+def block_of(css: str, selector: str) -> str:
+    m = re.search(re.escape(selector) + r" \{(.*?)\n\}", css, flags=re.S)
+    assert m, selector
+    return m.group(1)
 
 
 def test_output_is_deterministic_and_checked_in():
-    assert tt.render(tt.legacy_themes()) == tt.render(tt.legacy_themes())
+    assert tt.render() == tt.render()
     assert tt.main(["--check"]) == 0, "web/app/themes.css is stale; run tools/theme_tokens.py"
 
 
-def test_shell_has_both_variants():
-    out = tt.render(tt.legacy_themes())
-    assert '[data-theme="shell"]' in out and '[data-theme="shell-light"]' in out
-    assert "#14251d" in out and "#d69329" in out
+def test_every_colour_role_is_emitted_for_both_themes():
+    tokens = tt.load()
+    out = tt.render(tokens)
+    light = block_of(out, ':root,\n[data-theme="light"]')
+    dark = block_of(out, '[data-theme="dark"]')
+    for name, value in tokens["color"]["light"].items():
+        assert f"--{name}: {value};" in light, ("light", name)
+    for name, value in tokens["color"]["dark"].items():
+        assert f"--{name}: {value};" in dark, ("dark", name)
 
 
-def test_shell_text_pairs_meet_aa():
-    for label, shell in (("dark", tt.SHELL_DARK), ("light", tt.SHELL_LIGHT)):
-        for fg in ("--ink", "--ink-2", "--muted", "--muted-2", "--accent-text", "--teal-text", "--warn-text"):
-            for bg in ("--bg", "--surface", "--surface-2"):
-                assert contrast(shell[fg], shell[bg]) >= 4.5, (label, fg, bg, contrast(shell[fg], shell[bg]))
-        assert contrast(shell["--accent-ink"], shell["--accent"]) >= 4.5, label
-        assert contrast(shell["--teal-ink"], shell["--teal"]) >= 4.5, label
-        assert contrast(shell["--header-ink"], shell["--header"]) >= 4.5, label
-        # control borders and focus rings need 3:1 against the surface
-        assert contrast(shell["--line-2"], shell["--surface"]) >= 3.0, (label, "line-2")
-        assert contrast(shell["--focus"], shell["--bg"]) >= 3.0, (label, "focus")
+def test_no_legacy_green_shell():
+    out = tt.render()
+    assert 'data-theme="shell' not in out
+    assert "#14251d" not in out.lower() and "#d69329" not in out.lower()
+
+
+def test_type_and_phone_variants():
+    out = tt.render()
+    assert "--t-page: 800 72px/0.85 var(--font-display);" in out
+    phone = block_of(out, "@media (max-width: 639px) {\n  :root")
+    assert "--t-page: 800 44px/0.85 var(--font-display);" in phone
+    assert "--t-cover: 800 56px/0.86 var(--font-display);" in phone
+    assert "--t-trip: 800 26px/0.9 var(--font-display);" in phone
+
+
+def test_allowed_text_pairs_meet_aa():
+    colours = tt.load()["color"]
+    for theme in ("light", "dark"):
+        for fg, bg in TEXT_PAIRS:
+            ratio = contrast(colours[theme][fg], colours[theme][bg])
+            assert ratio >= 4.5, (theme, fg, bg, round(ratio, 2))
+        # control borders and focus rings need 3:1 against the surface and page
+        assert contrast(colours[theme]["line-2"], colours[theme]["surface"]) >= 3.0, (theme, "line-2")
+        assert contrast(colours[theme]["focus"], colours[theme]["bg"]) >= 3.0, (theme, "focus")
+
+
+def test_minimum_text_size_is_11_5():
+    tokens = tt.load()
+    sizes = [t["size"] for k, t in tokens["type"].items() if k != "rules"]
+    assert min(sizes) >= 11.5

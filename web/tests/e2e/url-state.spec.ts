@@ -4,13 +4,14 @@ import type { Page } from '@playwright/test';
 const store = readStore();
 const count = (page: Page) => page.locator('.filter-bar .count strong');
 const pressed = (page: Page, view: string) => page.locator(`.seg-btn[data-view="${view}"]`);
+const CHECKED = 'aria-checked';
 const caKinds = (kind: string) => store.places.filter((p) => p.kind === kind && p.area_id.startsWith('CA/')).length;
 
 test.describe('the views share one URL state', () => {
   test('a view switch keeps the filters, and reload restores everything', async ({ page, site }) => {
     const lakes = caKinds('lake');
     await page.goto(`${site.url}/places/?country=CA&kind=lake&view=table`);
-    await expect(pressed(page, 'table')).toHaveAttribute('aria-pressed', 'true');
+    await expect(pressed(page, 'table')).toHaveAttribute(CHECKED, 'true');
     await expect(count(page)).toHaveText(String(lakes));
     await expect(page.locator('.data-table tbody tr[data-row]')).toHaveCount(lakes);
 
@@ -28,7 +29,7 @@ test.describe('the views share one URL state', () => {
 
     await pressed(page, 'table').click();
     await page.reload();
-    await expect(pressed(page, 'table')).toHaveAttribute('aria-pressed', 'true');
+    await expect(pressed(page, 'table')).toHaveAttribute(CHECKED, 'true');
     await expect(count(page)).toHaveText(String(lakes));
     await expect(page.getByRole('button', { name: /Remove filter Kind: Lake/ })).toBeVisible();
   });
@@ -70,10 +71,10 @@ test.describe('the views share one URL state', () => {
   test('a legacy hash is rewritten to the query string, and view=grid means cards', async ({ page, site }) => {
     await page.goto(`${site.url}/places/#country=CA&view=grid&kind=lake`);
     await expect(page).toHaveURL(/\/places\/\?country=CA&kind=lake$/);
-    await expect(pressed(page, 'cards')).toHaveAttribute('aria-pressed', 'true');
+    await expect(pressed(page, 'cards')).toHaveAttribute(CHECKED, 'true');
     await expect(count(page)).toHaveText(String(caKinds('lake')));
     await page.goto(`${site.url}/places/?view=grid`);
-    await expect(pressed(page, 'cards')).toHaveAttribute('aria-pressed', 'true');
+    await expect(pressed(page, 'cards')).toHaveAttribute(CHECKED, 'true');
   });
 
   test('the map tab is present but disabled with a reason', async ({ page, site }) => {
@@ -134,7 +135,7 @@ test.describe('keyboard and detail sheet', () => {
     await expect(page).toHaveURL(/sort=name/);
     await nameHeader.getByRole('button').click();
     await expect(nameHeader).toHaveAttribute('aria-sort', 'descending');
-    await expect(page).toHaveURL(/sort=-name/);
+    await expect(page).toHaveURL(/sort=name&dir=desc/);
     const rows = page.locator('tr[data-row]');
     await rows.first().focus();
     await page.keyboard.press('ArrowDown');
@@ -169,7 +170,7 @@ test.describe('keyboard and detail sheet', () => {
     await page.getByRole('button', { name: 'Save', exact: true }).click();
     await page.keyboard.press('Escape');
     await page.goto(`${site.url}/places/`);
-    await page.getByRole('button', { name: 'Table', exact: true }).click();
+    await page.getByRole('radio', { name: 'Table', exact: true }).click();
     await page.getByRole('button', { name: /Saved views/ }).click();
     await page.getByRole('button', { name: 'Canada table', exact: true }).click();
     await expect(page).toHaveURL(/country=CA/);
@@ -208,19 +209,19 @@ test.describe('pages', () => {
     for (const name of ['OpenStreetMap', 'Natural Earth', 'Wikimedia Commons', 'Open-Meteo', 'geoBoundaries']) await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
   });
 
-  test('theme toggle switches and is remembered', async ({ page, site }) => {
+  test('theme toggle switches and is remembered (light is the default)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'shell');
-    await page.getByRole('button', { name: /Switch to light theme/ }).click();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'shell-light');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await page.getByRole('button', { name: /Switch to dark theme/ }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     await page.reload();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'shell-light');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 
   test('units preference converts elevations and is remembered', async ({ page, site }) => {
     await page.goto(`${site.url}/places/CA/AB/banff-national-park/lake-louise/`);
     await expect(page.getByText('1,730 m')).toBeVisible();
-    await page.getByRole('button', { name: 'mi, ft' }).click();
+    await page.getByRole('radio', { name: 'mi, ft' }).click();
     await expect(page.getByText('5,680 ft')).toBeVisible();
     await page.reload();
     await expect(page.getByText('5,680 ft')).toBeVisible();

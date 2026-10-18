@@ -27,9 +27,9 @@ export default function Home() {
           <Link className="btn btn-primary" href="/places/">
             Browse {places.length} places in {countries} countries
           </Link>
-          <a className="btn" href="/globe/">
+          <Link className="btn" href="/globe/">
             Explore the globe
-          </a>
+          </Link>
           <Link className="btn" href="/trips/">
             All trips
           </Link>
