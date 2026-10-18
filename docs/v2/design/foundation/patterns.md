@@ -34,13 +34,15 @@ means a public, read-only page.
 |---|---|---|
 | Home / inspiration | `/` | |
 | Trips search | `/trips` + list state | `/trips?when=2027&country=it&view=table&group=year&sort=start&dir=asc&page=2` |
-| Public trip page | `/trips/<trip-slug>`; anchors `#day-3`, `#stays`, `#trails`, `#sights`, `#activities`, `#food`, `#logistics`; `?view=category` for the By category segment | `/trips/dolomites-2027#day-3` |
+| Public trip page | `/trips/<trip-slug>`; anchors `#day-3`, `#stays`, `#trails`, `#sights`, `#activities`, `#food`, `#logistics`; timeline keys in this order, defaults omitted (features/trip-timeline.md 3.8, codec `core/src/schedule/profileCodec.ts`): `p=` party (`adults`, `family-<youngest age>`), `pace=` (`relaxed`, `standard`, `full`), `a=1` one adult, `walk=` longest walk in km, `split=1` parallel lanes, `d=` per-day variant overrides (`5C,9A`), `add=` visitor additions `<day>.<place-slug>` in insertion order; then `view=category` for the By category segment. Unknown values fall back silently; an `add` slug that no longer resolves is dropped with a note | `/trips/canadian-rockies-2029?p=family-4&pace=relaxed&d=5C&add=5.pyramid-lake#day-5` |
 | Places search | `/places` + list state | `/places?q=lake&kind=trail,lake&status=planned&kids=yes&season=jul&tag=photo&plan=dolomites-2027&view=table&group=country&sort=area&dir=asc&page=2` |
 | Public place or trail page | `/places/<place-slug>` | `/places/tre-cime-di-lavaredo-loop` |
 | Globe, world | `/globe` | |
-| Globe, country / state / district | `/globe/<country>[/<state>[/<district>]]` (ISO 3166 code for the country, URL slugs below it) | `/globe/it/south-tyrol/pustertal` |
+| Globe, country / state / district | `/globe/<country>[/<state>[/<district>]]` (ISO 3166 code for the country, URL slugs below it; the resolver also accepts the ISO code of a state, `it-32`, so a renamed node keeps old links) | `/globe/it/south-tyrol/pustertal` |
 | Globe, place | `/globe/place/<place-slug>` (flies in, opens the selection card) | `/globe/place/lago-di-braies` |
 | Globe, trip | `/globe/trip/<trip-slug>` (fits the route, pins in the trip ring when signed in) | `/globe/trip/patagonia-2027` |
+| Globe, basemap feature | any globe URL plus `?f=<class>:<id>` (class in river, lake, sea, peak, range, park, city; id the Wikidata QID or the name): the feature card floats, the level does not change. `replaceState`, optional, never needed to resolve the page | `/globe/it?f=lake:Q13364` |
+| Globe, filters | `?show=trips` or `?show=places`, and `?kind=trail,lake` when places are shown; list-state order rule below | `/globe/ca?show=places&kind=trail` |
 | Planner home | `/home`; `?view=year` for the Year view; `?due=week` for Needs-you, all trips | `/home?view=year` |
 | Trip (last tab) | `/t/<trip-slug>` redirects to that trip's remembered tab | `/t/patagonia-2027` |
 | Trip tab | `/t/<trip-slug>/<tab>` with `tab` in plan · today · bookings · tasks · budget · share | `/t/patagonia-2027/bookings` |
@@ -58,7 +60,9 @@ query string with keys in this order: `q`, filters (`when`, `source`, `country`,
 `season`, `tag`, `plan`), `view`, `group`, `sort`, `dir`, `page`; defaults are omitted, multi-values are
 comma-separated. **Sheets** are path segments, so Back closes a sheet and returns to the tab; nothing opens
 in a sheet without a URL. **Map view** of a list carries `?view=map&c=lon,lat,zoom`; the globe adds the same
-`c=` for camera, optional and never required to resolve a link. A link never opens the wrong trip (rule 9):
+`c=` for camera as `c=lng,lat,zoom[,pitch,bearing]` (pitch and bearing because the fly-in tilts; both omitted when
+zero), written with `replaceState` at most every 400 ms after `moveend`, optional and never required to resolve a
+link. Globe key order: `f`, `show`, `kind`, `c`. A link never opens the wrong trip (rule 9):
 the trip slug is in the path of every trip-scoped URL, and an item id that belongs to another trip is a 404,
 not a redirect.
 
@@ -115,25 +119,49 @@ one pin per trip at its first base with the cover photo in the selection card.
 
 ### 3.4 Trip detail (`/trips/<slug>`), categorised and chronological
 
+Full design: design/trip-page/timeline-design.md (its section 10 is the list of changes applied here); model and
+URL keys: features/trip-timeline.md.
+
 1. **Cover** 620 px (phone 420): photo, gradient 10% to 88%, kicker white 80% ("Published plan · South
    Tyrol and Veneto, Italy"), title 96, standfirst serif 21, chips (14 days, 4 bases, drive 1 h 10 a day,
-   moderate, ages 8+, by Nitin · copied 41 times), actions: **Copy to my trips** (primary), Export
-   (menu: PDF, GPX, CSV, calendar), Share.
-2. **Season band**: "This plan is valid for" + the window in `--t-trip` (40), why, the 12-month strip
+   moderate, kids from 8, by Nitin · copied 41 times), actions: **Copy to my trips** (primary), Export
+   (menu: PDF, GPX, CSV, calendar), Share. The glance strip overlaps the cover by 46 px (section 2).
+2. **Plan it for** (the party profile selector, timeline-design 3.2): one card, "Plan it for" + who is going
+   (Adults · Family, youngest [age]), pace (Relaxed · Standard · Full), longest walk, units; it sets `?p=`,
+   `pace=` and the rest of the timeline keys (1.2). Nothing is preselected on first visit except what the URL
+   carries; the default plan is the one as written. **There is no per-day Track A / B / C control anywhere on
+   the page**: the profile picks the variant for every day, and a per-day override lives in the day card (4.6).
+3. **Season band**: "This plan is valid for" + the window in `--t-trip` (40), why, the 12-month strip
    (solid as written, hatched possible), weather tiles (sized to content), warnings.
-3. **The route**: map, all days by road, bases named, 6 px stop dots; picking a day in the day list
-   highlights it.
-4. **In this trip**: a category strip of **six** chips with counts — **Stays 4 · Trails 9 · Sights 6 ·
+4. **Sticky plan bar** (timeline-design 3.4) from the selector down: 52 px, `--bg`, hairline below,
+   `--z-sticky`, under the header. Profile line (mono 12.5, "Planned for Family, youngest 6 · 14 nights ·
+   Standard", Change in `--accent-text`), the **day rail** (one cell per day, `--t-sign-s` number over a 3 px
+   bar whose width is the day's drive load, 44 px min, radius 8; the day in view is `--accent` with
+   `--accent-ink`, the only amber at rest on the page because it is "now"), the unit switch (km | mi, desktop).
+   On phone it wraps to two rows (about 88 px) and is the By day navigation; the category strip stays sticky in
+   By category as written below.
+5. **The trip at a glance** (timeline-design 3.3): the whole-trip strip, one column per day with base, drive and
+   the day's shape, replacing the old "The route" map block. The **map** moves into a sticky column beside the
+   days on desktop (1fr / 400 px) and a "Map · Day 1" bottom sheet on phone; all days by road, bases named,
+   6 px stop dots; the day in view is the picked day on the map (route amber with the casing, numbered pins).
+6. **In this trip**: a category strip of **six** chips with counts — **Stays 4 · Trails 9 · Sights 6 ·
    Activities 3 · Food 3 · Logistics 5** — above a segmented control **By day / By category**.
-   - By day (default): fourteen uniform **day rows** (quiet sign DAY 03, 96 x 68 thumbnail, `--t-card`
-     title, mono base · drive, serif stop list), each expandable to its stops with legs; `#day-3`
-     anchors.
+   - By day (default): one **day card per day** (timeline-design 4.1) with the quiet sign DAY 03, title, base ·
+     drive, and its **per-day timeline always open**: time rail (`--t-time`), typed entries (components 4.3),
+     legs as connectors, sun rows, the suitability chips on each entry, "Know before you go" collapsed under the
+     card. Details expand per entry; the timeline itself never collapses. `#day-3` anchors. Entries whose times
+     are rule-derived show the confidence styling of the time (timeline-design 4.2) and the honesty wording
+     (trip-timeline 2.12).
    - By category: six sections in the strip's order; each item is a list row (components 3.2) with its
-     kind glyph, name, area, the day sign it belongs to ("Day 3 · 11:30") and a link to its place page.
-     Stays show nights and check-in; Logistics holds flights, car, tolls, slots and passes.
-5. **Copy and export** repeated at the end, then credits and attribution.
+     kind glyph, name, area, the day sign it belongs to ("Day 3 · 11:30", with the same confidence styling of
+     the time) and a link to its place page. Stays show nights and check-in; Logistics holds flights, car,
+     tolls, slots and passes.
+7. **Copy and export** repeated at the end, then credits and attribution.
 
-Chronological order is never changed by the category view; category only regroups the same items.
+Chronological order is never changed by the category view; category only regroups the same items. Tokens: no new
+colour; the only new type use is `--t-time` on the rail. New components the page adds to components.md: party
+profile selector, day rail, trip strip, timeline entry and leg (shared with 4.3), sun row, add row; they are
+specified in timeline-design 3 and 4 until their components.md sections are written.
 
 **Kind to category.** Six categories, not five: the research kinds (docs/v2/research/kinds/README.md)
 store adventures and lifts as `activity`, not `place`, and they are the items a family checks limits and
@@ -334,7 +362,7 @@ A screen uses one density per region and never a third.
 | Add from search | the result row flies to its slot; the pin drops on the map at the same moment; the day's totals count | 300 ms move, pin drop 260 ms + settle |
 | Map fly-to (outline click, day pick) | camera eases to the day's bounds; the picked route fades to amber as the others dim | 600 to 900 ms by distance; route colour 200 ms |
 | Map pins | hover ring 120 ms; cluster split 200 ms; co-located fan-out 200 ms | |
-| Globe | auto-spin 1 revolution per 90 s; on pointer down spin decays over 400 ms; fly-in to a country 1200 ms with zoom then tilt (terrain on) | resumes after 20 s idle; off under reduced motion |
+| Globe | auto-spin 1 revolution per 90 s; on pointer down spin decays over 400 ms; drag has inertia (deceleration 2500, at rest within 600 ms); one fly-in per step, 1200 ms, with the tilt inside the last 15% of the zoom and the terrain ramp over the last 400 ms; hover styles 120 ms | resumes 20 s after the last interaction at world, 2 s after stepping out to world; off under reduced motion, where flights jump |
 | Today | the next-stop card grows into place on arrival; leave-by counts when it changes | 300 ms |
 | Toast | rise 200 ms, fade 160 ms | |
 | Theme switch | surfaces cross-fade; images do not flash | 200 ms |

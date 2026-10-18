@@ -191,11 +191,31 @@ so (removable chips show ×).
 | caution: window open, or due in 8 to 30 days when a chip is drawn (tokens 3.1) | `--warn-soft`, `--warn` text, triangle |
 | urgent: due within 7 days, window opens within 48 h, missed (tokens 3.1) | `--crit-soft`, `--crit` text, clock icon |
 | held | neutral outline, clock icon |
-| booked, done, fits | `--ok-soft`, `--ok` text, check |
+| booked, done | `--ok-soft`, `--ok` text, check |
 | idea | 1 px **dashed** `--line-2`, `--muted` |
-| honesty: Unverified, No source yet, Location unconfirmed, Dates open | 1 px dashed `--crit`, `--crit` text, triangle |
+| honesty: Unverified, No source yet, Location unconfirmed, Dates open, Sources disagree | 1 px dashed `--crit`, `--crit` text, triangle; on a suitability row, never in the three slots |
 | notice (Offline, Read-only, Template) | `--info-soft`, `--info`, icon |
 | trip identity | 20 px photo in the ring plus name, or the 10 px square plus name; never colour alone |
+
+**Suitability chips** (from design/suitability-display.md 3; existing tokens only). They answer "for whom" and "how
+hard" on cards, day rows and place pages in up to three slots: slot 1 is the limit or the fit, slots 2 and 3 are
+values for the kind. Ratios light / dark.
+
+| Kind | Look | Glyph | Text pair | When |
+|---|---|---|---|---|
+| **rule** (hard limit, "No minimum age", guide required) | `--surface-2` fill, no border, `--ink` 600 | lock 13 px | `--ink` on `--surface-2` 13.66 / 12.24 AAA | slot 1 when any operator or official rule exists; the lock and the fill together say "rule" without colour |
+| **advice** (age band, our judgement: "From about 6") | 1 px `--line-2`, `--ink-2` 500 | person 13 px | `--ink-2` on `--surface` 12.09 / 10.76 AAA | slot 1 when no rule exists; detail rows |
+| **value** ("Moderate · CAI E · 3–4 h", "Class I–III · 2 h on water") | neutral: 1 px `--line-2`, `--ink-2` | the kind glyph | as advice | slots 2 and 3 |
+| **gap** ("Not checked yet") | 1 px **dashed** `--line-2`, `--muted` | none | `--muted` on `--surface` 6.94 / 7.45 AA | a missing field's row, or the whole row when nothing was checked; it replaces italic prose |
+| **fits** ("Fits a 6-year-old") | `--ok-soft`, `--ok` | check | 5.53 / 7.87 AA | slot 1 with a party profile, when every rule and our advice pass |
+| **advice fail** ("Not suited to a 3-year-old") | `--warn-soft`, `--warn` text | triangle | 6.11 / 7.84 AA | slot 1 with a profile, when our advice says no and no rule does |
+| **rule fail** ("Not for under 8 · operator rule") | `--crit-soft`, `--crit` text | none, the words carry it | 5.45 / 6.36 AA | slot 1 with a profile, when a rule excludes the youngest |
+
+Rules for the set. A chip never wraps inside itself; a limits chip holds at most three values and "+n", and if it
+would still overflow it truncates with an ellipsis and a `title` on cards only; on a day row or a place page it takes
+the full row width instead. The kids chip is the first chip on every surface. No codes ("FE3"): the family-effort
+name goes on the chip, the number stays in the filter's `title`. Nothing in the set is amber; green appears only on
+fits; coral only on a rule fail and on honesty chips; `--warn` is text on `--warn-soft`, never a fill (tokens 3).
 
 ### 2.9 Segmented control
 
@@ -219,7 +239,9 @@ the same field drives grouped results (This trip, Near tonight's base, Elsewhere
 
 Anatomy: photo 16:10 (object-fit cover, focus point from data) with the 4 px identity bar and keyline (trip
 cards) or no bar (places, public trips use `--line-2`); body padding 14 16 16; title Big Shoulders 24, two
-lines max; meta mono 12.5 `--muted`, **one line, truncate**; chip row; serif 16 summary (3 lines max,
+lines max; meta mono 12.5 `--muted`, **one line, truncate**; chip row (**wraps to a second row rather than
+truncating a chip**; a chip never truncates except the one limits-chip case in 2.8; place and trip cards carry the
+kids chip first, then effort); serif 16 summary (3 lines max,
 ellipsis); footer (readiness bar and next deadline on trip cards, the deadline line coloured by tokens 3.1;
 "Place page · Globe" links on place cards; "DAY 03" quiet sign on public day cards). `--surface`, 1 px `--line`, radius 12. Whole card is one
 link; inner links (footer) are separate focus stops.
@@ -294,6 +316,13 @@ Dobbiaco", indented to the content column; walking legs under 15 min show the tr
 turns `--ink`, row `--surface-2` at 50%. Selected (pin clicked): 2 px `--accent` left bar. Conflict
 ("arrives 9 min after 16:30") a `--warn` line under the leg. Editing by someone else: 2 px ring in their
 presence colour on the photo. Queued offline: a 14 px clock after the title.
+
+**Public trip page (timeline entry).** The same anatomy is the public day card's entry (design/trip-page/
+timeline-design.md 4.2 and 4.3: time rail in `--t-time`, typed entries, legs as connectors, sun rows, "Know before
+you go"), so the planner row and the public entry share one component. On an entry the suitability chips (2.8) lead
+the chip row, before honesty, idea and To book, and the mono meta drops the child rule because the chips carry it.
+**Chips may wrap to a second line on a phone entry**, limits chip first: the one exception to "mono never wraps"
+besides the selector footer (recorded in timeline-design 10 and suitability-display 3.3).
 
 ### 4.4 Elevation profile
 
@@ -399,6 +428,18 @@ equivalent on screen; arrows pan, +/- zoom, Tab cycles pins, Enter opens. Fly-to
 600 to 900 ms by distance; jump under reduced motion. Day filter chip in the legend repeats the current
 filter and clears it. Offline: PMTiles pack or `--well` with routes and pins only, notice banner.
 
+`MapSpec` options the pages set (`web/lib/map/types.ts`):
+
+- `style: 'relief' | 'light' | 'dark' | 'auto'`. **`auto` is the default for every page map**: Relief in the light
+  theme, Dark in the dark theme, switching with the theme (tokens 5.2). A page names a style only when the content
+  needs it (a trail page may pin Relief).
+- `hideBasemapLabels: ('towns' | 'regions' | 'countries')[]`. Hides the basemap's own place names of that rank where
+  the page's pins and labels would sit on them (a place map hides `towns` around a labelled trailhead; a trip map at
+  country zoom hides `regions`). Our labels always win over the basemap's; the basemap's never fight a pin.
+- `Pin.quiet`. The pin is drawn, its label is kept for assistive tech, the selection card and the fan-out, but no text
+  is drawn beside it. Used for crowded pins (parking stacked under a trailhead) and the members of a numbered cluster.
+  A quiet pin still gets the hover ring and the row highlight.
+
 ### 7.2 Globe controls
 
 Full-bleed canvas under the header. Floating control card bottom-left (`--surface` at 92%, radius 12,
@@ -414,10 +455,19 @@ sheet on phone. Pins (tokens 5): country-level pins at rest are **`--ink` discs 
 counts**, 28 to 44 px by count, 2 px `--map-halo` edge; the **hovered or selected pin alone** becomes
 `--accent` with an `--accent-ink` count and the 2 px `--map-select-ring`. Place pins at state level and below
 are `--map-stop` ink dots with the kind glyph on hover. Signed-in trip pins sit in their identity ring, never
-amber. Hover a country: `--accent-soft` fill at 35% and a facts tooltip; the selected country has a 2 px
-`--accent` outline. Nothing on the globe is amber until the visitor points at it.
+amber. **Hover a shape** (country, state, district; lake and park the same): `--accent` fill at 35% plus a
+1.5 px `--accent` line over a 0.5 px `--map-casing`, and a facts tooltip. **Selected**: no fill, a 2 px `--accent`
+line over a 1 px `--map-casing`; every other shape at that level is covered by `--globe-dim`, drawn above the
+basemap labels so neighbours' names dim with their land. The casing is what makes the edge legal on water
+(tokens 5.1 has the ratios); never wider than 1 px. Nothing on the globe is amber until the visitor points at it.
+Canvas: the style `background` is `--globe-ocean`; behind it the `.globe-halo` element draws the `--globe-halo`
+atmosphere and the 1 px `--globe-edge` limb, and doubles as the first-paint placeholder. The three styles and
+`auto` are as 7.1. A basemap feature (river, sea, peak, park, city) can be selected too: its card floats and the
+URL gains `?f=<class>:<id>` (patterns 1.2); the "Showing" filter row (All · Trips · Places, then a kind menu) is
+`?show=` / `?kind=`. The rest of the globe (What is here, immersive mode, the landscape layout, the zoom-by-class
+fly table, the keyboard table) is specified in design/globe/spec.md 3 to 5 and 7 and is not repeated here.
 Keyboard: Tab reaches the search, the panel and pins in list order; Enter flies in; Esc steps back one
-level. Motion in patterns.md 6.5.
+level; Home or Shift+Esc resets to the world. Motion in patterns.md 6.
 
 ## 8. Trip-specific
 
@@ -468,9 +518,3 @@ Decision: **no infinite scroll.** Lists show 48 cards or 100 rows per page with 
 "‹ 1 2 3 ›", current `--accent`) and the count ("49 to 64 of 64"); the URL carries `?page=`. Reason: the
 public site is read and shared by link, the footer (credits, attribution) must stay reachable, and the
 table's CSV export and group collapse need a bounded set. Collapsed country groups load on expand.
-
-
-## Amendment (18 Oct, from design/suitability-display.md)
-
-- 2.8 Chip: new kinds `rule`, `advice`, `gap`, `fits`, `advice-fail` and `rule-fail`, with existing tokens only (see design/suitability-display.md, chip table).
-- 3.1 Card: the chip row may wrap; chips never truncate.
