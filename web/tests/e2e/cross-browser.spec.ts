@@ -57,3 +57,23 @@ test.describe('smoke', () => {
     expect(await page.evaluate(() => document.documentElement.getAttribute('data-theme'))).toBe('dark');
   });
 });
+
+// The harness blocks every remote host, so the specs above never see a basemap. This one lets the tile servers through
+// and asks each engine, headless, whether the globe actually draws (WebGL context, style loaded, one canvas, no fallback).
+test.describe('basemap draws (real tiles)', () => {
+  test.use({ allowRemote: true });
+  test.setTimeout(90_000);
+  test.beforeAll(async () => {
+    const ok = await fetch('https://tiles.openfreemap.org/styles/liberty').then((r) => r.ok).catch(() => false);
+    test.skip(!ok, 'tile server not reachable from this machine');
+  });
+  for (const [name, url, sel] of [['home cover', '/', '.home-globe .globe-canvas'], ['globe page', '/globe/', '.globe-root .globe-canvas']] as const) {
+    test(`${name}: WebGL, style loaded, no tile fallback`, async ({ page, site }) => {
+      await page.goto(`${site.url}${url}`);
+      await expect(page.locator(sel)).toHaveAttribute('data-ready', 'true', { timeout: 60_000 });
+      await expect(page.locator(`${sel} canvas.maplibregl-canvas`)).toHaveCount(1);
+      await expect(page.locator('.globe-fail, .globe-fail-note')).toHaveCount(0);
+      await expect(page.getByText(/AJAXError/)).toHaveCount(0);
+    });
+  }
+});
