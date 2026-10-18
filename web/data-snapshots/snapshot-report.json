@@ -1,0 +1,177 @@
+{
+  "schema": "snapshot-report/1",
+  "note": "Dropped from the public view because it carries a calendar date. Rewrite each as a season, a day number or a rule.",
+  "count": 34,
+  "items": [
+    {
+      "where": "place CA/AB/banff-national-park/lake-louise",
+      "text": "In the Canadian Rockies plan (September 2029).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "place CA/QC/zec-des-martres/mont-du-dome",
+      "text": "Video dated 30 Sep 2025.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 booking closures-after-labour-day",
+      "text": "INFERENCE 2029: most services run through 15 Sep; check for Two Jack Main (2 Sep) and Marble Canyon (7 Sep) closings.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 booking lake-ohara-bus",
+      "text": "2026 season 19 Jun - 4 Oct; 2027 season 18 Jun - 3 Oct.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 booking lake-ohara-bus",
+      "text": "INFERENCE 2029: apply first three weeks of March 2029 if wanted.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 booking pass-discovery",
+      "text": "INFERENCE 2029: buy at first park gate or online before trip; next scheduled increase reported 1 Jan 2028, so 2029 prices will be at or above 2026.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 booking shuttle-moraine-lakelouise",
+      "text": "INFERENCE 2029: launch about mid-April 2029; book the Moraine/Lake Louise days on launch day; be ready for the 08:00 two-days-ahead release for any day missed.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 booking shuttle-moraine-lakelouise",
+      "text": "Season ends about Thanksgiving (8 Oct 2029), so 1-15 Sep is in season.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 booking yoho-valley-road",
+      "text": "INFERENCE 2029: open throughout 1-15 Sep.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 1 track C notes",
+      "text": "2026 hours 8 Sep-12 Oct 09:00-21:00, last ride up 19:30.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 11 track A notes",
+      "text": "Larches: first trees yellow about mid-September, peak about 10 days later (2026 guide), so 18 Sep is the edge of colour at best.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 11 track B notes",
+      "text": "Canoe: first come, about 160 per hour, mid-June to mid-September, so it may be closed by 18 Sep (GAP); own boats banned since 2026.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 12 track B notes",
+      "text": "Canmore groceries (Safeway, Save-On-Foods, the IGA that opened in April 2026): Kananaskis Village has almost none.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 13 track A notes",
+      "text": "2026: Rawson and Sarrail grizzly advisory from 5 Jul, and the Upper Kananaskis Lake circuit (upper-kananaskis-lake-loop) closed from North Interlakes to White Spruce for a grizzly with cubs.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 14 track B notes",
+      "text": "5 km, 210 m, 2-3 h, starting at 2,206 m; larches turn mid-September to early October (Alberta Parks), so 21 Sep is plausibly early colour (INFERENCE).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 2 track A notes",
+      "text": "Gondola up with the family at 08:00 (2026: 6 Jul-20 Sep, 08:00-18:00, no pre-booking needed; price GAP; the gondola has no id in the dataset).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 2 track A notes",
+      "text": "Larches here usually turn mid to late September, so expect green on 9 Sep.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 2 track B notes",
+      "text": "6 km one way if legs remain (2026: trail beyond the bridge closed from 16 Sep).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 2 track B notes",
+      "text": "Afternoon Lake Minnewanka Classic cruise (2026: 1-17 Sep 10:00-18:00; a 6-15 child needs a seat; no strollers; the Junior Explorer kids' cruise ended 31 Aug).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 3 track B notes",
+      "text": "A seasonal vehicle restriction on the eastern 17 km of the Bow Valley Parkway (Parks Canada 28 Aug-2 Oct; a blog says 1 Sep-6 Oct; 2026, conflict) means reaching Johnston from Castle Junction, not from Banff.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 4 track A notes",
+      "text": "Fair with snow patches on 8 Oct 2026.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 5 track A notes",
+      "text": "2 km, 460 m) is the shorter loop but was closed for grizzly activity on 8 Oct 2026: a 2029 unknown.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 5 track A notes",
+      "text": "4 km, 500 m, 4-5 h from Maligne Lake; rated Poor on 8 Oct 2026 (2029 GAP).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 5 track B notes",
+      "text": "Book a 10:00 cruise (2026: 7 Sep-3 Oct, 09:00-17:30; morning calm is the common advice).",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 7 track B notes",
+      "text": "Pools 2026: 8 Sep-12 Oct, 11:00-21:00, last entry 20:30; adult 19.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 8 track B notes",
+      "text": "8 km, 60 m; stay behind signs and ropes (a child died in a crevasse in 1990 and a backcountry skier in May 2026); lunch and full toilets at the Icefield Centre.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 day 9 track A notes",
+      "text": "Fair with deadfall and snow at high elevation on 5 Oct 2026.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip canadian-rockies-2029 weather note",
+      "text": "Larch gold peaks about 20 Sep to 5 Oct",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip chamonix-mont-blanc-2028 season reason",
+      "text": "Brevent and Planpraz lifts close about 13 September.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip chamonix-mont-blanc-2028 weather note",
+      "text": "Huts close about 20 September",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip iceland-ring-road-2027 season label",
+      "text": "4 to 22 September",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip iceland-ring-road-2027 season reason",
+      "text": "Dark enough for aurora from early September, while most campsites stay open until about 15 September.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip new-hampshire-stopover-2026 subtitle",
+      "text": "September 30 – October 1, 2026.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    },
+    {
+      "where": "trip niagara-day-2026 subtitle",
+      "text": "Saturday, August 29, 2026.",
+      "why": "carries a calendar date; rewrite it relative to a day or a season"
+    }
+  ]
+}
