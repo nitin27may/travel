@@ -145,6 +145,8 @@ export const GRADE_SYSTEM = [
   "whitewater", "flatwater",
   "piste-eu", "piste-at-ch", "piste-na", "piste-jp",
   "local", "operator",
+  // capture contract 2.6 (backlog 3a.12 step 1): grade systems of the new activity domains. Append only.
+  "yds-rock", "french", "uiaa", "font", "v-scale", "ifas", "canyon-fr", "sac-wt",
 ] as const;
 export const STROLLER = ["smooth", "all_terrain", "none"] as const;
 export const WHEELCHAIR = ["step_free", "partial", "none"] as const;
@@ -161,6 +163,8 @@ export const SUIT_PROFILE = [
   "canoe_kayak", "sup", "rafting", "float", "zipline", "bungee", "ferrata", "mtb_lift", "mtb_xc", "cycle_path",
   "horse", "show_cave", "caving", "glacier", "snow", "wildlife", "hot_spring", "coaster", "paraglide", "air_tour",
   "vehicle_tour", "area", "stay", "eatery",
+  // capture contract 2.3: ten profiles new with the type tree. Their rows are drafts for design review (types.json `profiles`).
+  "river", "motor_water", "dive", "surf", "climb", "canyoning", "play", "theme_park", "access", "amenity",
 ] as const;
 /** Closed subkind vocabulary; the applicability file maps each (kind, subkind) pair to exactly one profile. */
 export const SUIT_SUBKIND = [
@@ -192,3 +196,35 @@ export const WEAR = [
 export const WEATHER_CAUSE = [
   "wind", "lightning", "rain", "river_level", "sea_state", "visibility", "heat", "snow", "fog", "maintenance",
 ] as const;
+
+// capture/1 (docs/v2/research/capture-contract.md; backlog 3a.12). Append only.
+/** The record layers of CC1. `event` is the dated-occurrence record of K event.md (CC2, `event` domain). */
+export const CAP_LAYER = ["place", "route", "offer", "event"] as const;
+/** Offer classes (2.2): the class decides the offer base contract (3.3). */
+export const OFFER_CLASS = ["experience", "rental", "ticket", "access", "lodging"] as const;
+/** Stored relations (CC5). `reached_by` is the derived inverse of `reaches` and is never stored. */
+export const CAP_RELATION = [
+  "reaches", "passes", "part_of", "on", "at", "run_by", "starts_at", "ends_at", "parks_for", "serves", "combo_with", "alternative_to", "variant_of",
+] as const;
+/** Derived relations: typing one in a file is E_CAP_REL_DERIVED. */
+export const CAP_RELATION_DERIVED = ["reached_by"] as const;
+/** The one link vocabulary (3.4). `navigation` is generated at render time and `google-maps` is gone. */
+export const CAP_LINK_KIND = [
+  "official", "hours_rates", "booking", "conditions", "status", "timetable", "terms", "waiver", "safety", "accessibility", "menu",
+  "tourism_board", "osm", "wikidata", "wikipedia", "wikivoyage", "commons", "webcam", "map_sheet", "gpx_download", "track_source",
+  "trip_report", "video", "alltrails", "komoot", "gaia", "outdooractive", "wikiloc", "trailforks", "reseller",
+] as const;
+/** The platforms that are link-only (9.2): never fetched, never a source of a stored value. */
+export const CAP_LINK_ONLY_KIND = ["alltrails", "komoot", "gaia", "outdooractive", "wikiloc", "trailforks", "reseller"] as const;
+/** One price `per` vocabulary (D9). */
+export const PRICE_PER_V2 = ["person", "adult", "child", "family", "group", "vehicle", "vehicle_day", "hour", "night", "room", "boat", "weight"] as const;
+/** How a source value was taken (9.4). Scraping is a method, never a basis. */
+export const SOURCE_METHOD = ["read", "crawl", "api", "computed", "owner"] as const;
+/** Whether a host's terms allow an automated crawler (9.2); `unknown` counts as forbidden for crawling and allowed for a single-page read. */
+export const AUTOMATED = ["allowed", "forbidden", "unknown"] as const;
+export const CAP_MARK = ["R", "R?", "A", "N"] as const;
+/** The 14 fixed page sections (6.1), in order. */
+export const CAP_SECTION = [
+  "cover", "glance", "warnings", "suits", "activity", "options", "access", "when", "facilities", "around", "pairs", "photos", "links", "sources",
+] as const;
+export const RUN_OUTCOME = ["filled", "searched_none", "gap", "blocked", "conflict"] as const;

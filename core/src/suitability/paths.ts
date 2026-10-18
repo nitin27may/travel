@@ -13,14 +13,14 @@ export const BLOCK_PATHS = [
   "effort.source_grade", "effort.drivers.distance_km", "effort.drivers.gain_m", "effort.drivers.surface", "effort.drivers.scrambling",
   "effort.drivers.fixed_aids", "effort.drivers.loss_m", "effort.drivers.max_grade_pct", "adult_time_min", "child_time_min", "on_site_min",
   // facilities
-  "toilets", "water", "food", "shade", "bail_out", "signal",
+  "toilets", "water", "food", "shade", "bail_out", "signal", "change_rooms", "showers", "picnic", "baby_change",
   // hazards, water, season
   "exposure", "altitude_m", "hazards", "walk_m", "water_safety.class", "water_safety.lifejacket", "water_safety.child_sizes_from_kg",
   "water_safety.swim_ability", "water_safety.lifeguard", "water_safety.entry", "water_safety.water_temp_c", "water_safety.current_or_tide",
   "access_season",
   // participation (adventures only)
   "participation.guide", "participation.kit_provided", "participation.wear", "participation.min_shoe_eu", "participation.fitness",
-  "participation.medical", "participation.pregnancy", "participation.waiver", "participation.weigh_in", "participation.weather_cancel",
+  "participation.medical", "participation.pregnancy", "participation.waiver", "participation.weigh_in", "participation.weather_cancel", "participation.driver",
 ] as const;
 
 /** Keys of the shared block that are not a field of their own: a flag on another field, or a group named by its members. */

@@ -23,6 +23,8 @@ export const SECOND_RULE_FIELDS: readonly string[] = [
   "min_rider_age", "ski_school_min_age",
   // S0b: shoe size for crampons, flotation age, coaster load and driver rule, weight by time slot, distance from wildlife
   "min_shoe_eu", "floats_required_under", "max_load_kg", "driver_rule", "weight_by_slot", "min_distance_m",
+  // capture contract 2.6: who may steer a jet ski, go-kart, ATV or snowmobile
+  "driver",
 ];
 
 /** True for a field whose basis may only be a rule: a limit or a second-list rule. */
