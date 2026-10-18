@@ -6,6 +6,7 @@ Newest first. Each line links to where it is specified. Move a line to "Done" wi
 
 | Added | Item | Spec |
 |---|---|---|
+| 2026-10-18 | **The globe is a major feature.** Use the full screen. Rotate, zoom and click every feature: countries, states and districts, rivers, lakes, seas, peaks, ranges, parks, cities, saved places and trips. Selection cards and smooth motion. Fable reviews the live globe and the L2 build, then an enhancement lane (L2b) follows. Parity with the live globe (selectable rivers, lakes, seas, peaks, parks) is required in L2 now. | design/globe/ (in progress) |
 | 2026-10-18 | **Public trips are dateless templates.** Every public trip shows Day 1-N, its length and a season window; date-bound details become relative (booking rules, a long weekend in mid-October, observed-in-2026, weekday checks, sun-time ranges). Dates attach only when a trip is copied into an account and a start date is picked. | [design/public-trips-dateless.md](design/public-trips-dateless.md) |
 | 2026-10-18 | **Map stack decided** (hybrid: MapLibre for globe/trip/planner, Google on place pages, Maps URLs for directions, ORS for legs); owner to create Google Cloud project, restricted key, daily cap, ORS key, R2 bucket | [research/map-stack-2026-10-18.md](research/map-stack-2026-10-18.md) |
 | 2026-10-18 | Public site L0: foundation in code (tokens to CSS, fonts, base components, public header, routes, contract stubs, screenshot harness). Wave 1, lands first | [build/public-site/L0-foundation.md](build/public-site/L0-foundation.md) |
