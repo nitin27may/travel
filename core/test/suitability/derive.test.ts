@@ -46,8 +46,8 @@ describe("deriveEffort", () => {
     expect(deriveEffort({ kind: "trail", block }).band).toBe(4);
   });
 
-  it("a Class II raft has terrain 3", () => {
-    const e = deriveEffort({ kind: "activity", subkind: "rafting", block: { effort: { source_grade: sg("whitewater", "II", "official_grade") } }, ext: { kind: "paddle" } });
+  it("a Class II raft has terrain 3, read from water_safety.class (A10: the water class is the effort grade for paddling)", () => {
+    const e = deriveEffort({ kind: "activity", subkind: "rafting", block: { water_safety: { class: v({ system: "whitewater" as const, value: "II" }, "official_grade") } }, ext: { kind: "paddle" } });
     expect(e.terrain).toBe(3);
     expect(e.terrain_basis).toBe("mapped");
     expect(e.family_effort).toBe(3);
