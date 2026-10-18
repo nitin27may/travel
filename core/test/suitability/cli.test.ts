@@ -97,11 +97,13 @@ describe("suitability derive", () => {
   });
   it("--write adds a missing flat copy", () => {
     const root = scratch({ "R1.json": "warn/W_SUIT_FLAT_MISSING.json" });
-    expect(run(root, "check").stdout).toContain("0 error(s), 1 warning(s)");
+    const warns = (): string[] => (JSON.parse(run(root, "check", "--json").stdout) as { warnings: { code: string }[] }[]).flatMap((f) => f.warnings.map((w) => w.code));
+    expect(warns()).toContain("W_SUIT_FLAT_MISSING");
     run(root, "derive", "--write");
     const doc = JSON.parse(readFileSync(join(root, "data/suitability/fixture-trip/R1.json"), "utf8"));
     expect(doc.records[0].flat.min_age).toBe(8);
-    expect(run(root, "check").stdout).toContain("0 error(s), 0 warning(s)");
+    expect(warns()).not.toContain("W_SUIT_FLAT_MISSING");
+    expect(run(root, "check").stdout).toContain("0 error(s)");
   });
   it("--from-tracks is off until L4b tracks exist, and says so", () => {
     const r = run(REPO, "derive", "--from-tracks");
@@ -126,7 +128,8 @@ describe("suitability migrate and codes", () => {
     const out = run(REPO, "codes").stdout.trim().split("\n");
     expect(out).toContain("E_SUIT_LIMIT_BASIS");
     expect(out).toContain("W_SUIT_STALE");
-    expect(out.length).toBe(19);
+    expect(out.length).toBe(26);
+    for (const c of ["E_SUIT_SUBKIND", "E_SUIT_PROFILE_MAP", "E_SUIT_EXT_KIND", "E_SUIT_NA_EXEMPT", "W_SUIT_NA_FIELD", "W_SUIT_BELOW_USABLE", "W_SUIT_OPERATED_DEFAULT"]) expect(out).toContain(c);
   });
   it("an unknown command is a usage error", () => {
     expect(run(REPO, "frobnicate").status).toBe(2);

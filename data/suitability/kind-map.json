@@ -1,0 +1,3148 @@
+{
+  "schema": "suitability-kind-map/1",
+  "note": "Reviewed assignment of kind and subkind to every record of data/suitability (docs/v2/research/suitability-applicability.md section 7, M1-M6). The kind and subkind here are MIGRATION values, chosen by name: a research lane may correct one with a reason, here, and then use the new profile's fields. `from` is what the record had before; `name` is for the reviewer and is not read. `split` lists records cut in two.",
+  "reviewed": "2026-10-18",
+  "entries": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+      "name": "Athabasca Glacier guided ice walk (Icewalks)",
+      "from": {
+        "kind": "activity",
+        "subkind": "guided-hike"
+      },
+      "kind": "activity",
+      "subkind": "glacier-walk",
+      "reason": "A guided walk on a glacier, not a hike."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "name": "Banff Gondola (Sulphur Mountain summit)",
+      "from": {
+        "kind": "lift",
+        "subkind": "gondola"
+      },
+      "kind": "lift",
+      "subkind": "gondola",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "name": "Banff horseback rides (Banff Trail Riders / Warner Stables, Spray River, Bow River, Sulphur Mountain)",
+      "from": {
+        "kind": "activity",
+        "subkind": "horse"
+      },
+      "kind": "activity",
+      "subkind": "horse",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "name": "Fairmont Banff Springs spa",
+      "from": {
+        "kind": "activity",
+        "subkind": "other"
+      },
+      "kind": "activity",
+      "subkind": "spa",
+      "reason": "M3: a spa."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "name": "Banff Upper Hot Springs",
+      "from": {
+        "kind": "activity",
+        "subkind": "hot-springs"
+      },
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "name": "Bow River float / raft",
+      "from": {
+        "kind": "activity",
+        "subkind": "rafting"
+      },
+      "kind": "activity",
+      "subkind": "float",
+      "reason": "M4: a float with no rapids, not whitewater."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "name": "Bow Valley Parkway cycling (seasonal vehicle closure 17 km)",
+      "from": {
+        "kind": "activity",
+        "subkind": "cycling"
+      },
+      "kind": "activity",
+      "subkind": "cycling",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "name": "Burgess Shale guided hike: Mount Stephen fossil beds (Parks Canada, Yoho)",
+      "from": {
+        "kind": "activity",
+        "subkind": "guided-hike"
+      },
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "name": "Burgess Shale guided hike: Walcott Quarry (Parks Canada, Yoho)",
+      "from": {
+        "kind": "activity",
+        "subkind": "guided-hike"
+      },
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "name": "Canmore Nordic Centre summer (mountain biking, skills park, hiking, disc golf)",
+      "from": {
+        "kind": "activity",
+        "subkind": "cycling"
+      },
+      "kind": "activity",
+      "subkind": "mtb",
+      "reason": "M4: the summer product is mountain biking."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "name": "Columbia Icefield Adventure (Ice Explorer onto Athabasca Glacier)",
+      "from": {
+        "kind": "activity",
+        "subkind": "glacier"
+      },
+      "kind": "activity",
+      "subkind": "vehicle-tour",
+      "reason": "M4: a bus on the ice, not a walk."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "name": "Crypt Lake boat shuttle (Waterton Shoreline Cruises)",
+      "from": {
+        "kind": "activity",
+        "subkind": "cruise"
+      },
+      "kind": "activity",
+      "subkind": "boat-shuttle",
+      "reason": "M4: a boat shuttle, not a cruise."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "name": "Elk rut viewing (Banff, Jasper) and bighorn rut",
+      "from": {
+        "kind": "activity",
+        "subkind": "wildlife"
+      },
+      "kind": "activity",
+      "subkind": "wildlife",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "name": "Emerald Lake canoe rental (Boathouse Trading Co.)",
+      "from": {
+        "kind": "activity",
+        "subkind": "canoe"
+      },
+      "kind": "activity",
+      "subkind": "canoe",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+      "name": "Columbia Icefield Skywalk (Glacier Skywalk)",
+      "from": {
+        "kind": "activity",
+        "subkind": "other"
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "M3: a viewing walkway."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+      "name": "Golden Skybridge (bridges, coaster, zipline)",
+      "from": {
+        "kind": "activity",
+        "subkind": "other"
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "M3: a bridge attraction; its coaster and zip line are offers a lane adds."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "name": "Scenic helicopter flights (Three Sisters, Assiniboine, Continental Divide)",
+      "from": {
+        "kind": "activity",
+        "subkind": "heli"
+      },
+      "kind": "activity",
+      "subkind": "heli",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "name": "Heli-hiking (Backroads family option etc.)",
+      "from": {
+        "kind": "activity",
+        "subkind": "heli"
+      },
+      "kind": "activity",
+      "subkind": "heli-hike",
+      "reason": "By name, heli-hiking."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+      "name": "Jasper bike rentals",
+      "from": {
+        "kind": "activity",
+        "subkind": "cycling"
+      },
+      "kind": "activity",
+      "subkind": "cycling",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "name": "Jasper Dark Sky Preserve stargazing",
+      "from": {
+        "kind": "activity",
+        "subkind": "other"
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "M3: a stargazing site."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "name": "Jasper SkyTram (Whistlers Mountain)",
+      "from": {
+        "kind": "lift",
+        "subkind": "gondola"
+      },
+      "kind": "lift",
+      "subkind": "gondola",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
+      "name": "Jasper and Waterton horseback rides",
+      "from": {
+        "kind": "activity",
+        "subkind": "horse"
+      },
+      "kind": "activity",
+      "subkind": "horse",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+      "name": "Jasper wildlife tours (SunDog, Maligne Adventures)",
+      "from": {
+        "kind": "activity",
+        "subkind": "wildlife"
+      },
+      "kind": "activity",
+      "subkind": "wildlife",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+      "name": "Kananaskis River rafting (Class II-III)",
+      "from": {
+        "kind": "activity",
+        "subkind": "rafting"
+      },
+      "kind": "activity",
+      "subkind": "rafting",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-class3-4",
+      "name": "Kicking Horse whitewater rafting (Class III-IV: Exciter, Tradition, Maximum Horsepower)",
+      "from": {
+        "kind": "activity",
+        "subkind": "rafting"
+      },
+      "kind": "activity",
+      "subkind": "rafting",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "name": "Kicking Horse family/gentle rafting (Wild Water Adventures Gentle Introduction; Banff Adventures family trip)",
+      "from": {
+        "kind": "activity",
+        "subkind": "rafting"
+      },
+      "kind": "activity",
+      "subkind": "rafting",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+      "name": "Kicking Horse Mountain Resort Golden Eagle Express gondola and Grizzly Bear Refuge (Boo)",
+      "from": {
+        "kind": "lift",
+        "subkind": "gondola"
+      },
+      "kind": "lift",
+      "subkind": "gondola",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "name": "Lake Louise canoe rental",
+      "from": {
+        "kind": "activity",
+        "subkind": "canoe"
+      },
+      "kind": "activity",
+      "subkind": "canoe",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "name": "Lake Louise Summer Gondola (grizzly/wildlife viewing, Whitehorn corridor)",
+      "from": {
+        "kind": "lift",
+        "subkind": "gondola"
+      },
+      "kind": "lift",
+      "subkind": "gondola",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "name": "Brewster Stables Lake Louise horseback",
+      "from": {
+        "kind": "activity",
+        "subkind": "horse"
+      },
+      "kind": "activity",
+      "subkind": "horse",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "name": "Lake Louise Sightseeing (same product as Lake Louise Gondola)",
+      "from": {
+        "kind": "lift",
+        "subkind": "gondola"
+      },
+      "kind": "lift",
+      "subkind": "gondola",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "name": "Lake Minnewanka Cruise (Classic, Premium, Junior Explorer)",
+      "from": {
+        "kind": "activity",
+        "subkind": "cruise"
+      },
+      "kind": "activity",
+      "subkind": "cruise",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+      "name": "Legacy Trail Banff to Canmore",
+      "from": {
+        "kind": "activity",
+        "subkind": "cycling"
+      },
+      "kind": "activity",
+      "subkind": "cycling",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "name": "Maligne Lake Cruise and Spirit Island",
+      "from": {
+        "kind": "activity",
+        "subkind": "cruise"
+      },
+      "kind": "activity",
+      "subkind": "cruise",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "name": "Miette Hot Springs",
+      "from": {
+        "kind": "activity",
+        "subkind": "hot-springs"
+      },
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "name": "Moraine Lake canoe rental",
+      "from": {
+        "kind": "activity",
+        "subkind": "canoe"
+      },
+      "kind": "activity",
+      "subkind": "canoe",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+      "name": "Nakiska summer gondola / coaster",
+      "from": {
+        "kind": "lift",
+        "subkind": "gondola"
+      },
+      "kind": "lift",
+      "subkind": "gondola",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "name": "Mount Norquay Via Ferrata (Explorer, Ridgewalker; also Skyline, Summiteer)",
+      "from": {
+        "kind": "activity",
+        "subkind": "via-ferrata"
+      },
+      "kind": "activity",
+      "subkind": "via-ferrata",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "name": "Radium Hot Springs pools",
+      "from": {
+        "kind": "activity",
+        "subkind": "hot-springs"
+      },
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "name": "Waterton Red Rock Parkway (scenic drive)",
+      "from": {
+        "kind": "activity",
+        "subkind": "other"
+      },
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "M3: a scenic drive."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "name": "Sulphur Mountain switchback trail (hike up, gondola down)",
+      "from": {
+        "kind": "activity",
+        "subkind": "guided-hike"
+      },
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "name": "Waterton border cruise and Goat Haunt cruise",
+      "from": {
+        "kind": "activity",
+        "subkind": "cruise"
+      },
+      "kind": "activity",
+      "subkind": "cruise",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "name": "Yamnuska guided scrambles (Yamnuska Mountain Adventures)",
+      "from": {
+        "kind": "activity",
+        "subkind": "guided-hike"
+      },
+      "kind": "activity",
+      "subkind": "guided-hike",
+      "reason": "Kept: the activity type of the old row is already a subkind."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
+      "name": "Mount Assiniboine helicopter access",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "heli",
+      "reason": "By name, a helicopter transfer to Mount Assiniboine, not a place to visit."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+      "name": "Athabasca Falls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/banff-gondola",
+      "name": "Banff Gondola (Sulphur Mountain)",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lift",
+      "subkind": "gondola",
+      "reason": "By name, the Banff Gondola; the adventure row banff-gondola is the same lift (M5)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "name": "Beauvais Lake Provincial Park",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A provincial park; no park subkind exists, so attraction."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+      "name": "Berg Lake",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+      "name": "Bow Lake",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "name": "Cameron Lake",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
+      "name": "Canmore Nordic Centre Provincial Park",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "mtb",
+      "reason": "The Nordic Centre summer product is mountain biking and trails; the adventure row canmore-nordic-centre is the same place (M4, M5)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "name": "Castle Provincial Park",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A provincial park; no park subkind exists, so attraction."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+      "name": "Cave and Basin National Historic Site",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "historic_site",
+      "reason": "A National Historic Site."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+      "name": "Athabasca Glacier and Columbia Icefield",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A glacier visit area, not a walk; the glacier walk is the adventure row athabasca-icewalks."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+      "name": "Elbow Falls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "name": "Elk Lakes Provincial Park",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A provincial park; no park subkind exists, so attraction."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+      "name": "Emerald Lake",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+      "name": "Highwood Pass and Hwy 40 corridor",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "The Highwood Pass and Hwy 40 corridor is a road, so a drive."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+      "name": "Icefields Parkway (Hwy 93N) scenic drive",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "By name, a scenic drive."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+      "name": "Jasper Townsite",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "By name, a town."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "name": "Johnston Canyon",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "canyon",
+      "reason": "By name, a canyon with falls."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+      "name": "Upper and Lower Kananaskis Lakes",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "Upper and Lower Kananaskis Lakes, a lake day-use area."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
+      "name": "Kinney Lake",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+      "name": "Lake Magog and Assiniboine core area",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+      "name": "Lake Minnewanka",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+      "name": "Maligne Canyon",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "canyon",
+      "reason": "By name, a canyon."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+      "name": "Maligne Lake and Spirit Island",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake; the cruise is the adventure row maligne-lake-cruise."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+      "name": "Marble Canyon",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "canyon",
+      "reason": "By name, a canyon."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "name": "Miette Hot Springs",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "swim_spot",
+      "subkind": "hot_spring",
+      "reason": "Hot springs; the adventure row miette-hot-springs is the same place (M5)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "name": "Moraine Lake",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+      "name": "Mount Edith Cavell and Cavell Meadows",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "Mount Edith Cavell and the Cavell Meadows, a viewing area."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+      "name": "Mount Lorette Ponds",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, ponds, a shore visit."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+      "name": "Mount Robson Visitor Centre viewpoint",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "By name, a viewpoint."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+      "name": "Natural Bridge",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "gorge",
+      "reason": "A river cut through rock, closest to a gorge."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+      "name": "Overlander Falls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+      "name": "Paint Pots",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "Ochre beds and springs, a natural attraction."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+      "name": "Peyto Lake Lookout",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "Peyto Lake Lookout, a viewpoint."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+      "name": "Prince of Wales Hotel",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "landmark",
+      "reason": "A hotel visited as a landmark."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+      "name": "Pyramid Lake",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+      "name": "Radium Hot Springs",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "swim_spot",
+      "subkind": "hot_spring",
+      "reason": "Hot springs; the adventure row radium-hot-springs is the same place (M5)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+      "name": "Red Rock Parkway and Red Rock Canyon",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "Red Rock Parkway is a road; the adventure row red-rock-parkway is the same drive (M5)."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+      "name": "Smith-Dorrien / Spray Trail (Hwy 742)",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "Hwy 742 (Smith-Dorrien / Spray Trail) is a gravel road, so a drive."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+      "name": "Sunwapta Falls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+      "name": "Takakkaw Falls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "name": "Top of the World Provincial Park",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A provincial park; no park subkind exists, so attraction."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+      "name": "Vermilion Lakes Drive",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "By name, Vermilion Lakes Drive."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+      "name": "Wapta Falls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+      "name": "Waterton Townsite",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "By name, a town."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+      "name": "Wedge Pond",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a pond, a shore visit."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "name": "Whiteswan Lake and Lussier Hot Springs",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "swim_spot",
+      "subkind": "hot_spring",
+      "reason": "Whiteswan Lake and Lussier Hot Springs; the hot springs are the visit."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+      "name": "Mount Shark to Lake Magog",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "name": "Athabasca Falls Walk",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+      "name": "Bald Hills",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "name": "Bear's Hump",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+      "name": "Beauvais Lake Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "name": "Berg Lake Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "name": "Bourgeau Lake",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+      "name": "Burstall Pass",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "name": "Cavell Meadows",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+      "name": "Chester Lake",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "name": "Cory Pass Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "name": "Crypt Lake",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "name": "Elbow Falls loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "name": "Elk Lakes (Lower and Upper)",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "name": "Elk Lakes Viewpoint trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "name": "Emerald Lakeshore",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+      "name": "Emerald Triangle (via Wapta Highline)",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "name": "Fenland Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "name": "Fryatt Valley",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "name": "Grassi Lakes (easy route)",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "name": "Ha Ling Peak",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+      "name": "Iceline Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+      "name": "Interlakes Trail (Upper and Lower Lake)",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "name": "Miette Mine Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "name": "Johnson Lake Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "name": "Kinney Lake",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
+      "name": "Lake Agnes Tea House",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+      "name": "Lake Annette Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "name": "Lake Louise Lakeshore",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "name": "Larch Valley to Sentinel Pass",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "name": "Lillian Lake",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "name": "Marble Canyon Walk",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+      "name": "Mary Schaffer Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+      "name": "Moose Lake Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+      "name": "Moraine Lakeshore",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+      "name": "Mount Fairview",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+      "name": "Indefatigable Bench viewpoint",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+      "name": "Mount Lorette Ponds loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "name": "Opal Hills Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "name": "Overlander Falls trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "name": "Paint Pots Walk",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+      "name": "Parker Ridge",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "name": "Peyto Lake Lookout",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+      "name": "Plain of Six Glaciers (to teahouse and Abbot Pass viewpoint)",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+      "name": "Ptarmigan Cirque",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "name": "Rawson Lake",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "name": "Red Rock Canyon Loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+      "name": "Ribbon Creek",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "name": "Rockwall Lookout (Rockwall fen)",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "name": "Sarrail Ridge",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "name": "Skyline Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "name": "Sulphur Skyline",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+      "name": "Sunburst Lake to Lake Magog",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+      "name": "Sunshine Meadows to Citadel Pass",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "name": "Takakkaw Falls Walk",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "name": "Tent Ridge Horseshoe",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "name": "Toe of Athabasca Glacier",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "name": "Troll Falls",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "name": "Upper Kananaskis Lake Circuit",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+      "name": "Wapta Falls",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "name": "Wedge Pond loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+      "name": "Wilcox Pass",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/adolf-munkel-weg",
+      "name": "Adolf Munkel Weg",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/alpe-di-siusi",
+      "name": "Alpe di Siusi",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/bolzano",
+      "name": "Bolzano",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "name": "Bullaccia and the Witches' Benches",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "name": "Cadini di Misurina viewpoint",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "name": "Cascate di Fanes",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/cinque-torri",
+      "name": "Cinque Torri",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "landmark",
+      "reason": "A rock formation and open-air war site."
+    },
+    {
+      "ref": "place/cortina-dampezzo",
+      "name": "Cortina d'Ampezzo",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "name": "Croda del Becco",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/dobbiaco",
+      "name": "Dobbiaco",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/dolomites",
+      "name": "Dolomites",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "place/drava-cycle-path-to-lienz",
+      "name": "Drava cycle path to Lienz",
+      "from": {
+        "kind": "activity",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "cycling",
+      "reason": "M1: a cycle path."
+    },
+    {
+      "ref": "place/funbob-monte-baranci",
+      "name": "Funbob, Monte Baranci",
+      "from": {
+        "kind": "activity",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "coaster",
+      "reason": "M1: an alpine coaster."
+    },
+    {
+      "ref": "place/la-val",
+      "name": "La Val",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "name": "Lagazuoi cable car and tunnels",
+      "from": {
+        "kind": "lift",
+        "subkind": null
+      },
+      "kind": "lift",
+      "subkind": "cable_car",
+      "reason": "M1: a cable car; the tunnels are a walk record, split out (M6)."
+    },
+    {
+      "ref": "place/lago-dantorno",
+      "name": "Lago d'Antorno",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lago-di-braies",
+      "name": "Lago di Braies",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lago-di-carezza",
+      "name": "Lago di Carezza",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lago-di-dobbiaco",
+      "name": "Lago di Dobbiaco",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lago-di-landro",
+      "name": "Lago di Landro",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lago-di-limides",
+      "name": "Lago di Limides",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lago-di-misurina",
+      "name": "Lago di Misurina",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "name": "Lago di Sorapis",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/lago-federa",
+      "name": "Lago Federa",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "place/lake-louise",
+      "name": "Lake Louise",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "By name, a lake."
+    },
+    {
+      "ref": "place/monte-piana",
+      "name": "Monte Piana",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/ortisei",
+      "name": "Ortisei",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+      "name": "Ötzi, South Tyrol Museum of Archaeology",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "museum",
+      "reason": "By name, a museum."
+    },
+    {
+      "ref": "place/passo-gardena",
+      "name": "Passo Gardena",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "place/rafting-on-the-rienza",
+      "name": "Rafting on the Rienza",
+      "from": {
+        "kind": "activity",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "rafting",
+      "reason": "M1: rafting."
+    },
+    {
+      "ref": "place/san-candido",
+      "name": "San Candido",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/san-vito-di-cadore",
+      "name": "San Vito di Cadore",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/santa-cristina",
+      "name": "Santa Cristina",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/santa-maddalena-val-di-funes",
+      "name": "Santa Maddalena, Val di Funes",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "name": "Sass Pordoi and Piz Boè",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "name": "Seceda ridge",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "place/selva-di-val-gardena",
+      "name": "Selva di Val Gardena",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "name": "Tre Cime di Lavaredo loop",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/val-fiscalina",
+      "name": "Val Fiscalina",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/vallunga",
+      "name": "Vallunga",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "place/viel-dal-pan",
+      "name": "Viel dal Pan",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "name": "Ragged Falls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall."
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/town:huntsville",
+      "name": "Huntsville",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "name": "Solitaire Lake Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "name": "Track and Tower Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "name": "Dorset lookout tower",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "name": "Dwight Beach sunset",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+      "name": "Lac des Gaillands",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "name": "Lac du Chatelard",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "lake",
+      "subkind": "lake",
+      "reason": "M1: a lake."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "name": "Aiguille du Midi",
+      "from": {
+        "kind": "lift",
+        "subkind": null
+      },
+      "kind": "lift",
+      "subkind": "cable_car",
+      "reason": "By name, a cable car."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "name": "Montenvers train",
+      "from": {
+        "kind": "lift",
+        "subkind": null
+      },
+      "kind": "lift",
+      "subkind": "rack_railway",
+      "reason": "By name, a rack railway."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+      "name": "Emosson dam and dinosaur tracks",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A dam and a track site, a natural and built attraction."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+      "name": "Grotte de la Mer de Glace",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "cave",
+      "reason": "An ice grotto cut into the glacier, visited as a show cave."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "name": "Chamonix market",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+      "name": "Chamonix old town",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+      "name": "Les Praz village",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+      "name": "Vallorcine",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+      "name": "Col des Montets",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "name": "Lac Blanc via Flegere",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "name": "Plan de l'Aiguille",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+      "name": "Mont Blanc reflection",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+      "name": "Myvatn Nature Baths",
+      "from": {
+        "kind": "activity",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "reason": "M1: a geothermal bath."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+      "name": "Blue Lagoon area lava fields",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "landmark",
+      "reason": "A lava field landscape."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+      "name": "Borgarfjordur waterfalls",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, waterfalls."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+      "name": "Dettifoss",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall (foss)."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:geysir",
+      "name": "Geysir",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A geothermal field."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+      "name": "Glaumbaer turf farm",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "museum",
+      "reason": "A turf farm museum."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+      "name": "Godafoss",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall (foss)."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+      "name": "Gullfoss",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall (foss)."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+      "name": "Namaskard",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A geothermal area."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+      "name": "Seljalandsfoss",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall (foss)."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+      "name": "Skogafoss",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "reason": "By name, a waterfall (foss)."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+      "name": "Akureyri botanical garden",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+      "name": "Hofn harbour",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+      "name": "Reykjavik old harbour",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
+      "name": "Seydisfjordur",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "name": "Arnarstapi to Hellnar",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+      "name": "Djupalonssandur",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "name": "Fjadrargljufur canyon",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "name": "Skaftafell Svartifoss",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+      "name": "Thingvellir",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+      "name": "Diamond Beach",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+      "name": "Jokulsarlon",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+      "name": "Kirkjufell",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+      "name": "Reynisfjara beach",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+      "name": "Snaefellsjokull view",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
+      "name": "Minitrekking on the glacier",
+      "from": {
+        "kind": "activity",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "glacier-walk",
+      "reason": "M1: a guided walk on a glacier."
+    },
+    {
+      "ref": "trip/patagonia-2027/lake:beagle channel boat",
+      "name": "Beagle Channel boat",
+      "from": {
+        "kind": "lake",
+        "subkind": null
+      },
+      "kind": "activity",
+      "subkind": "boat-tour",
+      "reason": "Recorded as a lake, but it is a boat trip on the Beagle Channel."
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:penguin colony stop",
+      "name": "Penguin colony stop",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "wildlife_viewing",
+      "reason": "A penguin colony visit."
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+      "name": "Perito Moreno walkways",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "Walkways facing a glacier, a viewing attraction."
+    },
+    {
+      "ref": "trip/patagonia-2027/town:cafe and bookshops",
+      "name": "Cafe and bookshops",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/patagonia-2027/town:harbour walk",
+      "name": "Harbour walk",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+      "name": "Palermo and Recoleta walk",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/patagonia-2027/town:san telmo market",
+      "name": "San Telmo market",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/patagonia-2027/town:village and cafes",
+      "name": "Village and cafes",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "name": "Chorrillo del Salto",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:coastal path",
+      "name": "Coastal path",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "name": "Laguna Capri",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "name": "Laguna de los Tres",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "name": "Laguna Esmeralda",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "name": "Mirador de las Aguilas",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "name": "Mirador de los Condores",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+      "name": "Evening Fitz Roy glow",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
+      "name": "Laguna Nimez birds",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
+      "name": "Lapataia Bay",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:fruita orchards",
+      "name": "Fruita orchards",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "historic_site",
+      "reason": "The Fruita historic district."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:goblin valley",
+      "name": "Goblin Valley",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A state park landscape."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:temple square",
+      "name": "Temple Square",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "landmark",
+      "reason": "A city landmark."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
+      "name": "Zion Canyon Scenic Drive by shuttle",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "By name, a scenic drive."
+    },
+    {
+      "ref": "trip/utah-five-parks/town:main street moab",
+      "name": "Main Street Moab",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "name": "Angels Landing chains view or Scout Lookout",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:delicate arch trail",
+      "name": "Delicate Arch trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:devils garden",
+      "name": "Devils Garden",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:hickman bridge",
+      "name": "Hickman Bridge",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "name": "Lower Calf Creek Falls",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:mesa arch",
+      "name": "Mesa Arch",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "name": "Narrows from the Temple of Sinawava",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "name": "Navajo Loop and Queens Garden",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "name": "Pa'rus Trail",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:riverside walk",
+      "name": "Riverside Walk",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:upheaval dome",
+      "name": "Upheaval Dome",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "name": "Windows section",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+      "name": "Bryce amphitheatre rim",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+      "name": "Dead Horse Point",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "name": "Grand View Point",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:sunset point",
+      "name": "Sunset Point",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+      "name": "Covered bridge loop",
+      "from": {
+        "kind": "sight",
+        "subkind": null
+      },
+      "kind": "sight",
+      "subkind": "landmark",
+      "reason": "Covered bridges, visited as landmarks; a lane may make it a drive."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:hyde park village",
+      "name": "Hyde Park village",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:peacham village",
+      "name": "Peacham village",
+      "from": {
+        "kind": "town",
+        "subkind": null
+      },
+      "kind": "town",
+      "subkind": "town",
+      "reason": "M1: a town."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "name": "Stowe Recreation Path",
+      "from": {
+        "kind": "trail",
+        "subkind": null
+      },
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+      "name": "Burke Mountain overlook",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
+      "name": "Smugglers' Notch",
+      "from": {
+        "kind": "viewpoint",
+        "subkind": null
+      },
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "reason": "M1: a viewpoint."
+    }
+  ],
+  "split": [
+    {
+      "from_ref": "place/lagazuoi-cable-car-and-tunnels",
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "kind": "trail",
+      "subkind": "walk",
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "age_band",
+        "kid_note",
+        "hints"
+      ],
+      "reason": "M6: the tunnels are a walk. The lift keeps no walk fields; the trail facts of the old row (distance, descent, time, recommended age, hints) move to the walk record. Nothing is deleted."
+    }
+  ]
+}

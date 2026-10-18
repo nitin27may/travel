@@ -10,6 +10,7 @@
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
       "kind": "sight",
+      "subkind": "historic_site",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -22,12 +23,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/sight:goblin valley",
       "kind": "sight",
+      "subkind": "attraction",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -40,12 +43,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/sight:temple square",
       "kind": "sight",
+      "subkind": "landmark",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -58,12 +63,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
-      "kind": "sight",
+      "kind": "drive",
+      "subkind": "scenic_drive",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -76,12 +83,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/town:main street moab",
       "kind": "town",
+      "subkind": "town",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -94,12 +103,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -112,12 +123,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:delicate arch trail",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -130,12 +143,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -148,12 +163,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:hickman bridge",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -166,12 +183,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:lower calf creek falls",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -184,12 +203,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:mesa arch",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -202,12 +223,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -220,12 +243,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -238,12 +263,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -256,12 +283,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:riverside walk",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -274,12 +303,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -292,12 +323,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
       "kind": "trail",
+      "subkind": "hike",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -310,12 +343,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -328,12 +363,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -346,12 +383,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -364,12 +403,14 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:sunset point",
       "kind": "viewpoint",
+      "subkind": "viewpoint",
       "suitability": {},
       "flat": {
         "min_age": null,
@@ -382,7 +423,8 @@
         "kid_fit": "unknown",
         "accessibility": "unknown",
         "walk_km": null,
-        "walk_gain_m": null
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]
