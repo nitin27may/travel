@@ -148,6 +148,9 @@ def missing_urls(site: Path, urls: list[str]) -> list[str]:
     missing = []
     for u in urls:
         rel = u.split("?")[0].split("#")[0].lstrip("/")
+        # an app-owned route keeps its pages (the app serves them) but not the legacy page's internal assets
+        if any(rel.startswith(f"{slug}/assets/") for slug in APP_OWNED):
+            continue
         path = site / rel
         if rel == "" or rel.endswith("/"):
             path = path / "index.html"
