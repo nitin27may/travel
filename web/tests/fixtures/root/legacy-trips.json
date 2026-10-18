@@ -10,5 +10,17 @@
   "region": "Legacyland",
   "status": "",
   "badge": ""
+ },
+ {
+  "slug": "legacy-two",
+  "title": "Legacy Two Title",
+  "sub": "Another legacy page",
+  "img": "",
+  "date": "2027-06-01",
+  "dates": "1 Jun 2027",
+  "dur": "3 days",
+  "region": "Legacyland",
+  "status": "",
+  "badge": ""
  }
 ]

@@ -1,4 +1,5 @@
 import type { PlaceRow, TripRow } from '@/lib/data/types';
+import { publicSentences, undatedTitle } from '@/lib/public/dateless';
 
 /**
  * What /data/places.json may contain. This is an allow-list: a field that is not named here is never
@@ -10,7 +11,7 @@ export const PLACE_VIEW_FIELDS = [
   'stats_verified', 'location_status', 'wikidata', 'sources', 'added',
 ] as const satisfies readonly (keyof PlaceRow)[];
 
-export const TRIP_VIEW_FIELDS = ['id', 'slug', 'title', 'subtitle', 'img', 'date', 'dates', 'duration', 'region', 'source', 'href'] as const satisfies readonly (keyof TripRow)[];
+export const TRIP_VIEW_FIELDS = ['id', 'slug', 'title', 'subtitle', 'img', 'duration', 'region', 'source', 'href'] as const satisfies readonly (keyof TripRow)[];
 
 function pick<T extends object, K extends keyof T>(row: T, keys: readonly K[]): Pick<T, K> {
   const out = {} as Pick<T, K>;
@@ -27,8 +28,9 @@ export function placeView(row: PlaceRow): Pick<PlaceRow, (typeof PLACE_VIEW_FIEL
   };
 }
 
+/** A trip row for the data file: dateless (no start date, no date range) and through the shared text scrubber. */
 export function tripView(row: TripRow): Pick<TripRow, (typeof TRIP_VIEW_FIELDS)[number]> {
-  return pick(row, TRIP_VIEW_FIELDS);
+  return { ...pick(row, TRIP_VIEW_FIELDS), title: undatedTitle(row.title), subtitle: publicSentences(row.subtitle) };
 }
 
 export interface EntityViewDoc<T> {
