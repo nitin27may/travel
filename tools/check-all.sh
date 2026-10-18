@@ -25,6 +25,8 @@ step "generated schema is up to date"
 node "$ROOT/core/bin/schema.ts" generate --check --root "$ROOT"
 step "validate every data file"
 node "$ROOT/core/bin/validate.ts" --all --root "$ROOT"
+step "suitability sidecars (suitability/1)"
+node "$ROOT/core/bin/suitability.ts" check --root "$ROOT"
 
 if [[ -f "$ROOT/web/package.json" ]]; then
   for script in typecheck lint test build; do
