@@ -61,9 +61,9 @@ describe('trail page: tre-cime-di-lavaredo-loop', () => {
     expect(page).toMatch(/Usable\s*·\s*13 of 15/);
     expect(page).toContain('13 of 15 tracked checks pass; 23 checks are not tracked yet');
   });
-  it('renders the L5 stubs without implementing them', () => {
-    expect(page).toContain('data-stub="ExportMenu"');
-    expect(page).toContain('data-stub="ShareButton"');
+  it('renders the L5 export menu and share button on the cover', () => {
+    expect(page).toContain('Export');
+    expect(page).toContain('aria-label="Share Tre Cime di Lavaredo loop"');
   });
 });
 

@@ -3,6 +3,7 @@ import { test as base, expect } from '@playwright/test';
 import type { ChildProcess } from 'node:child_process';
 import { spawn } from 'node:child_process';
 import { cpSync, mkdtempSync, mkdirSync, readFileSync } from 'node:fs';
+import http from 'node:http';
 import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
@@ -27,13 +28,24 @@ function freePort(): Promise<number> {
   });
 }
 
+/**
+ * Polls until the server answers. Uses node:http, not fetch: undici throws an internal `assert(!this.paused)` when a
+ * request lands on a server that is still starting under CPU load, and that failed the first test of a worker.
+ */
 async function waitFor(url: string): Promise<void> {
-  for (let i = 0; i < 100; i++) {
-    try {
-      if ((await fetch(url)).status < 500) return;
-    } catch {
-      /* not up yet */
-    }
+  for (let i = 0; i < 150; i++) {
+    const ok = await new Promise<boolean>((resolve) => {
+      const req = http.get(url, (res) => {
+        res.resume();
+        resolve((res.statusCode ?? 500) < 500);
+      });
+      req.on('error', () => resolve(false));
+      req.setTimeout(1000, () => {
+        req.destroy();
+        resolve(false);
+      });
+    });
+    if (ok) return;
     await new Promise((r) => setTimeout(r, 100));
   }
   throw new Error(`server at ${url} did not start`);
