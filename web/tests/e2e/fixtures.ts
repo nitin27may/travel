@@ -69,7 +69,9 @@ async function serveLegacyList(): Promise<Server> {
   return serve(tmp);
 }
 
-export const test = base.extend<{ blockRemote: void }, { site: Server; legacy: Server }>({
+export const test = base.extend<{ blockRemote: void; allowRemote: boolean }, { site: Server; legacy: Server }>({
+  // `test.use({ allowRemote: true })` lets a spec reach real tile servers (the cross-browser basemap check)
+  allowRemote: [false, { option: true }],
   site: [
     async ({}, use) => {
       const s = await serve(SITE);
@@ -88,8 +90,8 @@ export const test = base.extend<{ blockRemote: void }, { site: Server; legacy: S
   ],
   // no network in tests: photos fall back to the tinted placeholder, fonts are local
   blockRemote: [
-    async ({ page }, use) => {
-      await page.route((url) => !/^(127\.0\.0\.1|localhost)$/.test(url.hostname), (route) => route.abort());
+    async ({ page, allowRemote }, use) => {
+      if (!allowRemote) await page.route((url) => !/^(127\.0\.0\.1|localhost)$/.test(url.hostname), (route) => route.abort());
       await use();
     },
     { auto: true },
