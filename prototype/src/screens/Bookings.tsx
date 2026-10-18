@@ -120,7 +120,7 @@ export function Bookings({ phone }: ScreenProps) {
                 </div>
                 <div className="bk-addbtns">
                   {(["flight", "stay", "car", "lift", "parking", "activity"] as Kind[]).map(k => (
-                    <button key={k} className="btn ghost small" onClick={() => { setPrefill(undefined); setAdding(k); }}><Icon name={KIND_ICON[k]} size={14} />{ONE[k]}</button>
+                    <button key={k} className="btn small" onClick={() => { setPrefill(undefined); setAdding(k); }}><Icon name={KIND_ICON[k]} size={14} />{ONE[k]}</button>
                   ))}
                   <button className="btn primary small" onClick={() => setAdding("paste")}><Icon name="inbox" size={14} />Paste confirmation</button>
                 </div>

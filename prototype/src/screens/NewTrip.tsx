@@ -163,7 +163,7 @@ export function NewTrip({ phone, go }: ScreenProps) {
         </div>
         {!phone && <aside className="nt-summary muted small">
           <span className="label">So far</span>
-          <span>{mode === "surprise" ? `Within ${radius / 60} h of Whitby` : where} · {dayTrip ? "day trip" : when === "dates" ? `${nights} nights from ${start}` : when === "month" ? `${month}, ~${nightsRange} nights` : when}</span>
+          <span>{mode === "surprise" ? `Within ${radius / 60} h of Whitby` : where} · {dayTrip ? "day trip" : when === "dates" ? `${nights} nights from ${new Date(start + "T12:00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" })}` : when === "month" ? `${month}, ~${nightsRange} nights` : when}</span>
           <span>{who.length + guests.length} people · {pace.toLowerCase()} · ≤ {walk} km, {gain} m</span>
           <span>{kinds.join(", ")}</span>
         </aside>}

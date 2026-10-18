@@ -41,7 +41,7 @@ Names say what a colour does, never what it is (as in `legacy/_system/`).
 | `--ink` | primary text | `#131C18` (16:1 on bg) | `#D3DBD7` (14:1 on bg; not pure white, to avoid halation on black) |
 | `--muted` | secondary text, icons | `#56635D` (5.9:1) | `#86938D` (6.2:1) |
 | `--line` | hairlines, dividers | `#D6DCD8` | `#222A27` |
-| `--act` | actions, links, selection outline | `#0B6B5E` glacier teal (6.0:1) | `#5CC0AE` (9.1:1); buttons use `--bg` text on it |
+| `--act` | actions, links, selection outline | `#16191C` charcoal (17:1; was glacier teal, changed 18 Oct 2026: the owner rejected green, and green buttons beside the crimson accent read as two brands) | `#E4E6E8` (15:1); buttons use `--bg` text on it. Green stays only in `--ok` for done and booked states |
 | `--glow` | *now and here*: selected day, base, dragging, next stop | `#C2385C` alpenglow (4.9:1) | `#E58BA1` (8.1:1) |
 | `--ok` / `--warn` / `--crit` | fits / caution / blocks | `#2D7A4B` / `#9A6200` / `#B3362F` | `#6BBF8A` / `#D9A45A` / `#E57F77` |
 | `--route` | route lines on the map | `--ink` at 80% | `--ink` at 70% |
@@ -62,11 +62,14 @@ check of tomorrow's plan does not flash a white map. Images are dimmed 8% in dar
 |---|---|---|
 | Signpost (display) | **Big Shoulders Display** 700-800 | day numbers ("DAY 3"), section labels in capitals, the trip title; never body text |
 | Interface and reading | **Schibsted Grotesk** 400-700 | everything else: controls, cards, notes |
-| Numbers | **IBM Plex Mono** 450-600, tabular | times, distances, durations, prices, elevations |
+| Numbers | **Schibsted Grotesk**, proportional figures | times, distances, durations, prices, elevations |
+| Codes | **IBM Plex Mono** 450-600 | booking codes, email addresses, field keys in the admin review |
 
 Scale (rem, 16 px base): 0.75 caption · 0.875 small · 1 body · 1.125 card title · 1.375 section ·
 2 day number (display) · 2.75 trip title (display). Body line height 1.5; labels in capitals get 0.06 em
-letter spacing. Numbers always tabular so columns of times line up.
+letter spacing. Numbers use the interface face (changed 18 Oct 2026: mono for every number made prose
+sentences look like code). Do not turn on `tnum`: Schibsted's tabular set also widens `:` `,` `.`, which
+renders 18:30 as "18 : 30". Columns of numbers right-align instead.
 
 ## 4. Space, shape, elevation
 

@@ -12,6 +12,7 @@
 .rail-foot { margin-top: auto; }
 .phone-top { display: flex; align-items: center; gap: 10px; padding: 8px max(14px, env(safe-area-inset-right, 0px)) 8px max(14px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--line); background: var(--surface); }
 .phone-top .sign { font-size: 1.5rem; }
+.phone-top .brand-mark { color: var(--glow); }
 .phone-top .btn { margin-left: auto; }
 .bottombar { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--line); background: var(--surface); padding-bottom: env(safe-area-inset-bottom, 0px); position: relative; z-index: 30; }
 .bb-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 6px; border: 0; background: none; color: var(--muted); font-size: .66rem; font-weight: 600; min-height: 52px; }
@@ -138,6 +139,10 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(.85); } }
 .maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--surface) 80%, transparent) !important; color: var(--muted); font-size: 10px; }
 .maplibregl-ctrl-attrib a { color: var(--muted); }
+.maplibregl-ctrl-attrib, .maplibregl-ctrl-attrib-inner, .maplibregl-ctrl-attrib-inner a { color: var(--muted) !important; }
+.maplibregl-ctrl-attrib-button { filter: var(--attrib-filter, none); }
+:root[data-theme="dark"] { --attrib-filter: invert(.85); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --attrib-filter: invert(.85); } }
 .pin { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--surface); background: var(--ink); color: var(--surface); font: 600 .75rem var(--f-num); padding: 0; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .15s var(--spring), opacity .15s, background .15s; }
 .pin:hover { transform: scale(1.15); z-index: 5; }
 .pin[data-dim="1"] { width: 12px; height: 12px; opacity: .55; border-width: 1.5px; }

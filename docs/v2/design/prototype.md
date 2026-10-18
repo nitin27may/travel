@@ -11,6 +11,9 @@ interactions in docs/v2/design/interactions.md on real data: the Dolomites trip 
 ```
 cd prototype
 pnpm install --ignore-workspace     # its own lockfile; not part of the pnpm workspace
+# pnpm 12 gotcha: --ignore-workspace still resolves the repo root as the workspace and installs into
+# prototype/prototype/node_modules (and edits the root lockfile). If vite cannot resolve 'vite', run
+# `npm install` instead (every version in package.json is pinned exactly); package-lock.json stays uncommitted.
 pnpm dev                            # bundles MapLibre's worker, then starts Vite
 pnpm build:artifact                 # one self-contained HTML file + the two relief images, for publishing
 ```

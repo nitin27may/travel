@@ -16,7 +16,7 @@
 .scr-settings .settings input[type="range"] { accent-color: var(--act); }
 .scr-settings .chips-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .scr-settings .ptable { display: flex; flex-direction: column; gap: 6px; overflow-x: auto; }
-.scr-settings .prow { display: grid; grid-template-columns: 1.2fr .7fr .8fr 1.6fr; gap: 6px; align-items: start; min-width: 520px; }
+.scr-settings .prow { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.6fr) minmax(0,.6fr) minmax(0,1.6fr); gap: 6px; align-items: start; min-width: 520px; }
 .scr-settings .prow.head { font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .scr-settings .pp { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .scr-settings .tog.sensitive b { color: var(--warn); }
@@ -24,4 +24,13 @@
 .scr-settings .sched { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: .88rem; }
 .scr-settings .code { background: var(--sunk); border-radius: 6px; padding: 8px 10px; display: block; overflow-x: auto; }
 .scr-settings .tok-once { border: 1px solid var(--warn); background: var(--warn-soft); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-.scr-settings .settings .lrow { grid-template-columns: auto 1fr auto; }
+.scr-settings .settings ul:has(> .lrow) { list-style: none; margin: 0; padding: 0; }
+.scr-settings .settings .lrow { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.scr-settings .settings .lrow:last-child { border-bottom: 0; }
+.scr-settings .pp .chip { white-space: normal; border-radius: 8px; padding: 4px 9px; }
+.scr-settings .set-grid.one .set-nav { flex-wrap: wrap; overflow: visible; }
+@media (max-width: 760px) {
+  .scr-settings .prow { grid-template-columns: minmax(0,1fr) minmax(0,1fr); min-width: 0; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .scr-settings .prow > input:first-child, .scr-settings .prow .pp { grid-column: 1 / -1; }
+  .scr-settings .prow.head { display: none; }
+}

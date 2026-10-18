@@ -28,6 +28,8 @@ function usePhone() {
   useEffect(() => { const mq = window.matchMedia(q); const f = () => setM(mq.matches); mq.addEventListener("change", f); return () => mq.removeEventListener("change", f); }, []);
   return m;
 }
+// Screens that belong to one trip: the phone top bar names the trip, and the screen keeps its own title.
+const TRIP_SCREENS = new Set<ScreenId>(["plan", "today", "bookings", "tasks", "budget", "share"]);
 const read = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
 const write = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* storage blocked */ } };
 
@@ -73,8 +75,8 @@ export default function App() {
       )}
       {phone && (
         <header className="phone-top">
-          <span className="sign">{screen === "plan" ? "Dolomites" : NAV.find(n => n.id === screen)?.label ?? ""}</span>
-          <span className="num muted small">{s.trip.travellers.length} travellers · 13 nights</span>
+          {TRIP_SCREENS.has(screen) ? <span className="sign">Dolomites</span> : <span className="sign brand-mark" aria-label="Trip planner">TP</span>}
+          {TRIP_SCREENS.has(screen) && <span className="num muted small">{s.trip.travellers.length} travellers · 13 nights</span>}
           <button className="btn ghost" onClick={cycle} aria-label={`Theme: ${pref}`}><Icon name={theme === "dark" ? "moon" : "sun"} /></button>
         </header>
       )}
