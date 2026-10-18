@@ -1,0 +1,70 @@
+import { DATA_BASE } from './admin';
+import type { CountryFacts, GlobeCard } from './types';
+
+/** Gazetteer row: [kind, name, lon, lat, a3, extra, rank, population]. */
+export type GazRow = [string, string, number, number, string | null, string | null, number?, number?];
+export interface GazEntry { row: GazRow; n: string }
+
+export type SearchAction =
+  | { type: 'country'; a3: string }
+  | { type: 'admin1'; a3: string; name: string; lng: number; lat: number }
+  | { type: 'city'; a3: string | null; state: string | null; name: string; lng: number; lat: number; rank: number }
+  | { type: 'feature'; name: string; lng: number; lat: number; rank: number }
+  | { type: 'place'; slug: string }
+  | { type: 'trip'; slug: string };
+
+export interface SearchHit { id: string; name: string; kindLabel: string; where: string; flag?: string; action: SearchAction }
+
+export const norm = (s: string): string => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+const KIND_LABEL: Record<string, string> = { country: 'Country', admin1: 'State or province', city: 'City', physical: 'Landform', marine: 'Sea or ocean' };
+const KIND_ORDER: Record<string, number> = { country: 0, admin1: 1, city: 2, marine: 3, physical: 4 };
+
+let gazPromise: Promise<GazEntry[]> | null = null;
+export function loadGazetteer(): Promise<GazEntry[]> {
+  return (gazPromise ??= fetch(`${DATA_BASE}gazetteer.json`).then((r) => r.json() as Promise<GazRow[]>).then((rows) => rows.map((row) => ({ row, n: norm(row[1]) }))));
+}
+
+export interface SearchSources {
+  gazetteer: GazEntry[];
+  cards: GlobeCard[];
+  countriesByA3: Record<string, CountryFacts>;
+}
+
+const score = (r: GazRow): number => KIND_ORDER[r[0]] * 10 + (r[0] === 'city' || r[0] === 'physical' || r[0] === 'marine' ? Math.min(9, r[6] ?? 9) : 0);
+
+/** Saved places and trips first (they are what this site is about), then the gazetteer by kind and rank. */
+export function search(q: string, src: SearchSources, limit = 12): SearchHit[] {
+  const nq = norm(q.trim());
+  if (!nq) return [];
+  const own: SearchHit[] = [];
+  for (const c of src.cards) {
+    const n = norm(c.title);
+    if (n.startsWith(nq) || (nq.length >= 3 && n.includes(nq))) {
+      own.push({ id: c.key, name: c.title, kindLabel: c.kind === 'trip' ? 'Trip' : c.kindLabel, where: c.areaLabel, action: { type: c.kind, slug: c.slug } });
+    }
+  }
+  own.sort((a, b) => Number(norm(b.name).startsWith(nq)) - Number(norm(a.name).startsWith(nq)) || a.name.length - b.name.length);
+  const starts: GazEntry[] = [], contains: GazEntry[] = [];
+  for (const e of src.gazetteer) {
+    if (e.n.startsWith(nq)) starts.push(e);
+    else if (nq.length >= 3 && e.n.includes(nq)) contains.push(e);
+    if (starts.length > 400) break;
+  }
+  const byScore = (a: GazEntry, b: GazEntry) => score(a.row) - score(b.row) || a.row[1].length - b.row[1].length;
+  const gaz = [...starts.sort(byScore), ...contains.sort(byScore)].map((e) => toHit(e.row, src.countriesByA3));
+  return [...own.slice(0, 5), ...gaz].slice(0, limit);
+}
+
+function toHit(r: GazRow, byA3: Record<string, CountryFacts>): SearchHit {
+  const c = r[4] ? byA3[r[4]] : undefined;
+  const id = `${r[0]}:${r[1]}:${r[2]}:${r[3]}`;
+  const kindLabel = KIND_LABEL[r[0]] ?? r[0];
+  if (r[0] === 'country') return { id, name: r[1], kindLabel, where: r[5] ? `Capital ${r[5]}` : '', flag: c?.flag, action: { type: 'country', a3: r[4]! } };
+  if (r[0] === 'admin1') return { id, name: r[1], kindLabel, where: c?.name ?? r[5] ?? '', action: { type: 'admin1', a3: r[4]!, name: r[1], lng: r[2], lat: r[3] } };
+  if (r[0] === 'city') return { id, name: r[1], kindLabel, where: [r[5], c?.name].filter(Boolean).join(', '), action: { type: 'city', a3: r[4], state: r[5], name: r[1], lng: r[2], lat: r[3], rank: r[6] ?? 9 } };
+  return { id, name: r[1], kindLabel, where: r[5] ? String(r[5]).replace(/_/g, ' ').toLowerCase() : '', action: { type: 'feature', name: r[1], lng: r[2], lat: r[3], rank: r[6] ?? 5 } };
+}
+
+/** Zoom that suits a landform or sea of a given rank (0 is an ocean). */
+export const zoomForRank = (rank: number): number => (rank <= 1 ? 2.2 : rank <= 3 ? 3.2 : rank <= 5 ? 4.5 : 6);

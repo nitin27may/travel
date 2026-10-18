@@ -1,16 +1,21 @@
+import { pinnedSlugs } from '@/lib/globe/data';
 import { pageMetadata } from '@/lib/site';
-import { StubPage, titleFromSlug } from '@/components/shell/StubPage';
+import { titleFromSlug } from '@/components/shell/StubPage';
 
-// STUB (lane L0, handed to L2): /globe/trip/<trip-slug>, the globe fitted to one trip's route.
+// /globe/trip/<trip-slug>: the globe fits the trip and opens its card. The trip has its own indexed page, so this URL is noindex.
 export const dynamicParams = false;
-export const metadata = pageMetadata({ title: 'Globe trip', description: 'Globe fitted to one trip (placeholder).', path: '/globe/trip/stub/', noindex: true });
 
 export function generateStaticParams(): { slug: string }[] {
-  // `output: export` refuses an empty list, so one placeholder page (noindex, not in the sitemap) is built until the owning lane fills this.
-  return [{ slug: 'stub' }];
+  const slugs = pinnedSlugs('trip').map((slug) => ({ slug }));
+  // `output: export` refuses an empty list (the privacy fixture has no data), so one noindex placeholder keeps the build valid.
+  return slugs.length ? slugs : [{ slug: 'stub' }];
 }
 
-export default async function GlobeTripPage({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return <StubPage title={titleFromSlug(slug)} stub="globe/trip/[slug]" />;
+  return pageMetadata({ title: `Globe: ${titleFromSlug(slug)}`, description: 'A trip on the globe.', path: `/globe/trip/${slug}/`, noindex: true });
+}
+
+export default function GlobeTripPage() {
+  return null;
 }

@@ -36,6 +36,16 @@ async function startBundledWorker(ml: typeof import('maplibre-gl')): Promise<voi
   workerReady = true;
 }
 
+/**
+ * REQUEST from lane L2 (globe): the one place maplibre-gl is imported, exported so the globe can build its own
+ * Map (globe projection, country shapes, DOM pins) without a second dynamic import of the package.
+ */
+export async function loadMapLibre(): Promise<typeof import('maplibre-gl')> {
+  const ml = await import('maplibre-gl');
+  await startBundledWorker(ml);
+  return ml;
+}
+
 function usePageDark(): boolean {
   const [dark, setDark] = useState(false);
   useEffect(() => {
