@@ -106,7 +106,7 @@ export function DayRow({ trip, day, open, picked, onToggle }: Props) {
             ) : (
               <StopList stops={day.stops} />
             )}
-            <p className="day-share" data-print="hide">
+            <p className="day-share" data-print="hide" data-day-link={day.n}>
               <CopyDayLink trip={trip} day={day.n} />
             </p>
           </>

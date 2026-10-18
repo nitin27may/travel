@@ -170,7 +170,6 @@ describe('CSV', () => {
     expect(keys).toEqual([...keys].sort());
   });
   it('flags approximate points in an Approximate column', () => {
-    const rows = lines.slice(1).map((l) => l.split(','));
     const col = TRIP_CSV_HEADER.indexOf('Approximate');
     expect(col).toBe(8);
     const approx = dolomites.stops.filter((s) => s.point?.pointSource === 'prototype_approx').length;
