@@ -15,21 +15,26 @@
       "regional": 2000
     }
   },
-  "window": null,
+  "window": {
+    "from": "10-10",
+    "to": "10-12"
+  },
   "items": [
     {
       "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 1224,
+      "detour_basis": "town",
+      "detour_town": "Hyde Park",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -55,26 +60,23 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/algonquin-muskoka-2026/town:huntsville",
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 1280,
+      "detour_basis": "town",
+      "detour_town": "Hyde Park",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -88,7 +90,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 1280 min is over 30"
         }
       },
       "role": "filler",
@@ -100,31 +102,40 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 1242,
+      "detour_basis": "town",
+      "detour_town": "Hyde Park",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+          "km": 8,
+          "how": "drive",
+          "extra_min": 95,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "reason": "local draw with a detour over 20 min or unknown (1242)"
         },
         "weekend": {
           "fit": "skip",
@@ -133,7 +144,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 1242 min is over 30"
         }
       },
       "role": "local_only",
@@ -145,17 +156,12 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
       "draw_suggested": "local",
-      "effective_draw": "regional",
+      "effective_draw": "national",
       "access_load": "plan",
       "detour_min": null,
       "detour_basis": "none",
@@ -165,11 +171,12 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "worth_it",
-          "reason": "draw regional, standing top, distinction rare"
+          "fit": "plan_around",
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -181,14 +188,14 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "highlight",
+      "role": "anchor",
       "flags": {
         "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth a detour",
+      "badge": "Worth the journey",
       "stale": [],
       "warnings": [
         {
@@ -219,6 +226,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -264,6 +272,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {

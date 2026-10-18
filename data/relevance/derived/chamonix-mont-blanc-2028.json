@@ -15,26 +15,91 @@
       "regional": 2000
     }
   },
-  "window": null,
+  "window": {
+    "from": "09-01",
+    "to": "09-09"
+  },
   "items": [
     {
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 10,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+            "km": 8.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+            "km": 8.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+        "km": 8.3,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 8.3,
+          "how": "drive",
+          "extra_min": 80,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 6,
+          "how": "drive",
+          "extra_min": 89,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+          "km": 4,
+          "how": "drive",
+          "extra_min": 100,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -43,24 +108,18 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
@@ -75,6 +134,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -93,7 +153,6 @@
       },
       "role": "local_only",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -112,19 +171,76 @@
       "draw_suggested": "regional",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 6,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+            "km": 0.6,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 1
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+            "km": 0.6,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": 1
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 7.3,
+          "how": "drive",
+          "extra_min": 78,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 7.3,
+          "how": "drive",
+          "extra_min": 78,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 4.1,
+          "how": "drive",
+          "extra_min": 85,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "plan_around",
-          "reason": "draw world, standing top; clear weather only: a world top draw keeps its step and gains go_clear_day"
+          "fit": "worth_it",
+          "reason": "draw world, standing top; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -136,40 +252,93 @@
           "reason": "needs a booking or permit"
         }
       },
-      "role": "anchor",
+      "role": "highlight",
       "flags": {
-        "go_clear_day": true,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
-      "badge": "Worth the journey",
+      "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 4,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+            "km": 0.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry",
+              "lift_only"
+            ],
+            "family_effort": 1
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+            "km": 0.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry",
+              "lift_only"
+            ],
+            "family_effort": 1
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 2.4,
+          "how": "drive",
+          "extra_min": 66,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 6.7,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.7,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -183,33 +352,67 @@
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 36,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+        "km": 16.9,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 10,
+          "how": "drive",
+          "extra_min": 84,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 10,
+          "how": "drive",
+          "extra_min": 84,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+          "km": 3.7,
+          "how": "drive",
+          "extra_min": 98,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -223,38 +426,72 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 36 min is over 30"
         }
       },
       "role": "filler",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 8,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+        "km": 4.1,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 6,
+          "how": "drive",
+          "extra_min": 74,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 6.6,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.6,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -273,33 +510,96 @@
       },
       "role": "filler",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
       "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 6,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 2.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 13.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 2.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 13.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 6.9,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.9,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 4.2,
+          "how": "drive",
+          "extra_min": 85,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -313,24 +613,18 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
@@ -345,6 +639,7 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -363,7 +658,6 @@
       },
       "role": "local_only",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -382,19 +676,93 @@
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 0,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 2.3,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 2.3,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+        "km": 2.3,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 4,
+          "how": "drive",
+          "extra_min": 70,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 4.8,
+          "how": "drive",
+          "extra_min": 72,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 4.8,
+          "how": "drive",
+          "extra_min": 72,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
         },
         "weekend": {
           "fit": "skip",
@@ -403,43 +771,111 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
-      "role": "local_only",
+      "role": "filler",
       "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
+        "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
       "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 28,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 13.4,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 13.4,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+        "km": 13.4,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 6.7,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.7,
+          "how": "drive",
+          "extra_min": 76,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 12,
+          "how": "drive",
+          "extra_min": 105,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+          "reason": "local draw with a detour over 20 min or unknown (28)"
         },
         "weekend": {
           "fit": "skip",
@@ -448,38 +884,72 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "local_only",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 24,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+        "km": 12,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 5.6,
+          "how": "drive",
+          "extra_min": 74,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 5.6,
+          "how": "drive",
+          "extra_min": 74,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 10.2,
+          "how": "drive",
+          "extra_min": 99,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -493,43 +963,72 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 12,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
         "near": [],
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 0,
+          "how": "walk",
+          "extra_min": 60,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 8.3,
+          "how": "drive",
+          "extra_min": 80,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 6.6,
+          "how": "drive",
+          "extra_min": 91,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+          "reason": "draw national, standing top; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -543,19 +1042,13 @@
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
@@ -570,11 +1063,12 @@
         "area": []
       },
       "far_pointer": null,
+      "pair_with": [],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top, distinction rare"
+          "reason": "draw national, standing top"
         },
         "weekend": {
           "fit": "skip",
@@ -588,7 +1082,6 @@
       },
       "role": "anchor",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -607,19 +1100,72 @@
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 12,
+      "detour_basis": "base",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+            "km": 8.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+            "km": 8.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "km": 0,
+          "how": "walk",
+          "extra_min": 60,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 6.6,
+          "how": "drive",
+          "extra_min": 91,
+          "on_site_min": 75,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+          "km": 4.8,
+          "how": "drive",
+          "extra_min": 102,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
       "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+          "reason": "draw national, standing top; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -633,19 +1179,13 @@
       },
       "role": "highlight",
       "flags": {
-        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": []
     }
   ]
 }

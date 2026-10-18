@@ -8,6 +8,7 @@ import { THRESHOLDS, tierIdx, TIERS } from "../src/relevance/fit.ts";
 import { HouseholdHubError, loadDeriveInput, loadRelevanceDocs } from "../src/relevance/inputs.ts";
 import type { PointsFile } from "../src/relevance/inputs.ts";
 import { duplicateRefs } from "../src/relevance/derivedFiles.ts";
+import { buildPoints, loadSources, pointsPath } from "../src/relevance/points.ts";
 import { SignalsClient, USER_AGENT } from "../src/relevance/signals.ts";
 import { REL_ERROR_LIST, REL_WARNING_LIST } from "../src/validate/codes.ts";
 import { validateFile } from "../src/validate/index.ts";
@@ -28,6 +29,9 @@ Commands:
                                QIDs of parent designations); with --osm also Overpass class counts within 25 km.
                                Sequential, cached, identified as ${USER_AGENT}
   freshness [--today d]        list the stale values (past their freshness limit) for a re-check pass; never fails
+  points --build [--check]     build data/relevance/inputs/points.json (coordinates, towns with a stay, trip windows)
+                               from locations.json, the prototype snapshot's OSM points and the cached Wikidata P625.
+                               --check exits 1 when the stored file differs. Offline.
   calibrate                    print the draw against draw_suggested confusion table (9.1 step 6)
   codes                        list the error and warning codes
 
@@ -212,6 +216,32 @@ async function signals(argv: string[], root: string): Promise<number> {
   return 0;
 }
 
+function pointsCmd(argv: string[], root: string): number {
+  if (!argv.includes("--build") && !argv.includes("--check")) {
+    process.stderr.write("points needs --build (write) or --check\n");
+    return 2;
+  }
+  const { file, report } = buildPoints(loadSources(root));
+  const text = JSON.stringify(file, null, 2) + "\n";
+  const path = pointsPath(root);
+  const n = Object.keys(file.points).length;
+  process.stdout.write(`${n} point(s) by coord_src ${JSON.stringify(report.by_src)}; ${report.missing.length} ref(s) with no coordinate; ${file.towns.length} town(s) with a stay\n`);
+  if (report.missing.length) process.stdout.write(`no coordinate: ${report.missing.join(", ")}\n`);
+  if (report.unresolved_bases.length) process.stdout.write(`bases with no coordinate: ${report.unresolved_bases.map((b) => `${b.trip}/${b.base}`).join(", ")}\n`);
+  if (report.windows_missing.length) process.stdout.write(`no window: ${report.windows_missing.join(", ")}\n`);
+  if (argv.includes("--check")) {
+    if (!existsSync(path) || readFileSync(path, "utf8") !== text) {
+      process.stderr.write(`${relative(root, path)} differs from what points --build produces; run: node core/bin/relevance.ts points --build\n`);
+      return 1;
+    }
+    return 0;
+  }
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, text);
+  process.stdout.write(`wrote ${relative(root, path)}\n`);
+  return 0;
+}
+
 function calibrate(root: string): number {
   const { input } = loadDeriveInput(root);
   const matrix: Record<string, Record<string, number>> = {};
@@ -245,6 +275,7 @@ async function main(argv: string[]): Promise<number> {
     case "check": return check(argv, root);
     case "derive": return derive(argv, root);
     case "signals": return signals(argv, root);
+    case "points": return pointsCmd(argv, root);
     case "calibrate": return calibrate(root);
     case "freshness": return freshness(argv, root);
     case "codes":

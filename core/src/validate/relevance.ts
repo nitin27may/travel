@@ -50,7 +50,7 @@ const NON_PROSE = new Set(["ref", "same_place_as", "class_key", "easy_way", "kin
 
 /** Fields a person must not type: they are computed. */
 const DERIVED_KEYS = [
-  "draw_suggested", "effective_draw", "role", "fit", "fits", "badge", "badges", "substitutes", "similar_osm_25km", "far_pointer",
+  "draw_suggested", "effective_draw", "role", "fit", "fits", "badge", "badges", "substitutes", "similar_osm_25km", "far_pointer", "pair_with",
   "plan_b", "detour_min", "from_hubs", "access_load", "flags", "role_in_trip", "context_fit",
 ];
 const HOUSEHOLD_KEYS = /^(origin|home|household|home_address|private_origin|start_address|address|home_lat|home_lon|party|kids|children|ages)$/i;
@@ -240,6 +240,11 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
       const why2 = r.same_place_as === r.ref ? "it is the record's own ref" : resolver.why(r.same_place_as);
       if (why2) E("E_REL_REF", `/records/${i}/same_place_as`, M.ref(r.same_place_as, why2));
     }
+    (r.pairs_with ?? []).forEach((pw, k) => {
+      const w = pw.ref === r.ref ? "a place cannot pair with itself" : resolver.why(pw.ref);
+      if (w) E("E_REL_REF", `/records/${i}/pairs_with/${k}/ref`, M.ref(pw.ref, w));
+      if (pw.src && !ids.has(pw.src)) E("E_REL_SRC", `/records/${i}/pairs_with/${k}/src`, M.srcUnknown(pw.src));
+    });
     const first = seen.get(r.ref);
     if (first !== undefined) E("E_REL_DUP_REF", `/records/${i}/ref`, M.dupRef(r.ref, `records ${first} and ${i} of this file`));
     else seen.set(r.ref, i);

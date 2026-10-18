@@ -41,6 +41,8 @@ export interface WikidataItem {
   p1435: string[]; // heritage designation item ids
   p757: string[]; // World Heritage Site id
   p814: string[]; // IUCN protected area category item ids
+  /** P625 coordinate location (Wikidata, CC0); null when the item has none. Absent in readings made before RVC, which triggers one re-read */
+  p625?: { lat: number; lon: number } | null;
 }
 export interface PageviewsItem {
   read: string;
@@ -140,7 +142,7 @@ export class SignalsClient {
     const path = this.path("wikidata");
     const cache = load<WikidataItem>(path, "wikidata");
     const wantKey = (q: string): string => [...new Set(langs[q] ?? [])].sort().join(",");
-    const need = [...new Set(qids)].filter((q) => /^Q[1-9]\d*$/.test(q) && (!this.fresh(cache.items[q]?.read) || (cache.items[q]!.langs ?? []).slice().sort().join(",") !== wantKey(q)));
+    const need = [...new Set(qids)].filter((q) => /^Q[1-9]\d*$/.test(q) && (!this.fresh(cache.items[q]?.read) || cache.items[q]!.p625 === undefined || (cache.items[q]!.langs ?? []).slice().sort().join(",") !== wantKey(q)));
     for (let i = 0; i < need.length; i += 20) {
       const batch = need.slice(i, i + 20);
       const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks%7Cclaims%7Clabels&languages=en&ids=${batch.join("%7C")}`;
@@ -167,6 +169,10 @@ export class SignalsClient {
           p1435: ids("P1435"),
           p757: ids("P757"),
           p814: ids("P814"),
+          p625: ((): { lat: number; lon: number } | null => {
+            const v = e.claims?.P625?.[0]?.mainsnak?.datavalue?.value;
+            return v && typeof v.latitude === "number" && typeof v.longitude === "number" ? { lat: Math.round(v.latitude * 1e5) / 1e5, lon: Math.round(v.longitude * 1e5) / 1e5 } : null;
+          })(),
         };
       }
       save(path, cache);
