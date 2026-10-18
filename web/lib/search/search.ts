@@ -79,10 +79,10 @@ export function createSearcher(records: readonly SearchRecord[]): Searcher {
         list.sort((a, b) => b.score - a.score || a.record.n.localeCompare(b.record.n));
         return { id: g.id, label: g.label, total: list.length, hits: list.slice(0, limit ?? g.limit) };
       });
-      // a group whose best hit is an exact name or a notable range goes first; otherwise Trips, Places, Areas
-      const best = (g: (typeof groups)[number]) => g.hits[0]?.score ?? 0;
-      const lead = [...groups].sort((a, b) => best(b) - best(a))[0];
-      if (lead && best(lead) >= 150) groups.splice(0, groups.length, lead, ...groups.filter((g) => g !== lead));
+      // Trips, Places, Areas, except that a notable range or sea (an area with a rank boost) that is an exact or strong match leads:
+      // "alps" is the mountains before any place with the word in its name
+      const areas = groups.find((g) => g.id === 'areas');
+      if (areas && (areas.hits[0]?.record.b ?? 0) > 0 && areas.hits[0].score >= 200) groups.splice(0, groups.length, areas, ...groups.filter((g) => g !== areas));
       return {
         query: q,
         counts: { trips: groups[0].total, places: groups[1].total, areas: groups[2].total },
