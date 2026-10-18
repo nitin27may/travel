@@ -46,7 +46,7 @@ const RATING_PATTERNS: RegExp[] = [
   /\brated\s+\d(?:\.\d)?\b/i,
 ];
 /** keys whose strings are ids, dates or enums, never prose */
-const NON_PROSE = new Set(["ref", "class_key", "easy_way", "kind", "subkind", "src", "from", "to", "id", "type", "state", "basis", "wikidata", "on", "read", "unit", "scope", "list", "reach", "field", "by"]);
+const NON_PROSE = new Set(["ref", "same_place_as", "class_key", "easy_way", "kind", "subkind", "src", "from", "to", "id", "type", "state", "basis", "wikidata", "on", "read", "unit", "scope", "list", "reach", "field", "by"]);
 
 /** Fields a person must not type: they are computed. */
 const DERIVED_KEYS = [
@@ -236,6 +236,10 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
   d.records.forEach((r, i) => {
     const why = resolver.why(r.ref);
     if (why) E("E_REL_REF", `/records/${i}/ref`, M.ref(r.ref, why));
+    if (r.same_place_as !== undefined) {
+      const why2 = r.same_place_as === r.ref ? "it is the record's own ref" : resolver.why(r.same_place_as);
+      if (why2) E("E_REL_REF", `/records/${i}/same_place_as`, M.ref(r.same_place_as, why2));
+    }
     const first = seen.get(r.ref);
     if (first !== undefined) E("E_REL_DUP_REF", `/records/${i}/ref`, M.dupRef(r.ref, `records ${first} and ${i} of this file`));
     else seen.set(r.ref, i);

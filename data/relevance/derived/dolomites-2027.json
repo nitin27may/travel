@@ -48,6 +48,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -92,6 +93,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -122,7 +124,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -136,6 +138,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -180,6 +183,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -224,6 +228,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -268,6 +273,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -312,6 +318,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -356,6 +363,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -400,6 +408,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -444,6 +453,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -474,7 +484,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction unique"
         },
         "weekend": {
           "fit": "skip",
@@ -488,6 +498,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -532,6 +543,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -576,6 +588,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -620,6 +633,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -664,6 +678,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -708,6 +723,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -738,7 +754,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -752,6 +768,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -782,7 +799,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -796,6 +813,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -826,7 +844,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -840,6 +858,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -884,6 +903,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -928,6 +948,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -972,6 +993,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1016,6 +1038,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1060,6 +1083,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1104,6 +1128,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1134,7 +1159,7 @@
       "fits": {
         "vacation": {
           "fit": "worth_it",
-          "reason": "draw national, standing top; clear weather only drops it one step"
+          "reason": "draw national, standing top, distinction unique; clear weather only drops it one step"
         },
         "weekend": {
           "fit": "skip",
@@ -1148,6 +1173,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1178,7 +1204,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction rare"
         },
         "weekend": {
           "fit": "skip",
@@ -1192,6 +1218,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1236,6 +1263,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1280,6 +1308,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1324,6 +1353,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1368,6 +1398,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1412,6 +1443,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1456,6 +1488,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1500,6 +1533,7 @@
       },
       "role": "local_only",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1544,6 +1578,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1574,7 +1609,7 @@
       "fits": {
         "vacation": {
           "fit": "plan_around",
-          "reason": "draw national, standing top"
+          "reason": "draw national, standing top, distinction unique"
         },
         "weekend": {
           "fit": "skip",
@@ -1588,6 +1623,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1632,6 +1668,7 @@
       },
       "role": "anchor",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1676,6 +1713,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false
@@ -1720,6 +1758,7 @@
       },
       "role": "filler",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": true,
         "en_route": false,
         "hidden_gem": false
@@ -1764,6 +1803,7 @@
       },
       "role": "highlight",
       "flags": {
+        "go_clear_day": false,
         "rainy_day": false,
         "en_route": false,
         "hidden_gem": false

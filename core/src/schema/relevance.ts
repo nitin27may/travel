@@ -81,6 +81,8 @@ export const relRecord = z.strictObject({
   kind: z.string().min(1),
   subkind: z.string().min(1).optional(),
   wikidata: rval(qid),
+  /** CF: the ref of the record that is the same physical place (a cruise and its lake); the place keeps the anchor (3.5) */
+  same_place_as: z.string().min(1).optional(),
   class_key: z.string().regex(/^[a-z0-9-]+\/[a-z0-9-]+$/),
   // judged
   draw: rval(z.enum(DRAW_TIER)),

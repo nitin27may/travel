@@ -120,6 +120,12 @@ export interface FitResult {
   reason: string;
 }
 
+/**
+ * CF 4(a): a world draw with top standing keeps its step when the weather is clear_only. It is still worth the journey,
+ * on the right day; the `go_clear_day` flag says so. National draws still step down.
+ */
+export const isGoClearDay = (f: { ed: DrawTier; standing: Standing; weather: Weather }): boolean => f.weather === "clear_only" && f.ed === "world" && f.standing === "top";
+
 function applyDrops(base: Fit, f: FitFacts, vacationPlanAround: boolean): { fit: Fit; notes: string[] } {
   let fit = base;
   const notes: string[] = [];
@@ -128,8 +134,11 @@ function applyDrops(base: Fit, f: FitFacts, vacationPlanAround: boolean): { fit:
     notes.push("hard access drops it one step");
   }
   if (f.weather === "clear_only") {
-    fit = dropOne(fit);
-    notes.push("clear weather only drops it one step");
+    if (vacationPlanAround && isGoClearDay(f)) notes.push("clear weather only: a world top draw keeps its step and gains go_clear_day");
+    else {
+      fit = dropOne(fit);
+      notes.push("clear weather only drops it one step");
+    }
   }
   return { fit, notes };
 }
@@ -141,7 +150,9 @@ export function vacationFit(f: FitFacts): FitResult {
   const detourOk = f.detourMin !== null && f.detourMin <= 20;
   let base: Fit;
   let why: string;
-  if (ed === "world" || (ed === "national" && standing === "top")) [base, why] = ["plan_around", `draw ${ed}, standing ${standing}`];
+  if (ed === "world") [base, why] = ["plan_around", `draw ${ed}, standing ${standing}`];
+  else if (ed === "national" && standing === "top" && distinction !== "common") [base, why] = ["plan_around", `draw ${ed}, standing ${standing}, distinction ${distinction}`];
+  else if (ed === "national" && standing === "top") [base, why] = ["worth_it", `draw ${ed}, standing ${standing}, but distinction common: an anchor needs unique or rare, or a world draw`];
   else if (ed === "national" || (ed === "regional" && standing === "top" && distinction !== "common")) [base, why] = ["worth_it", `draw ${ed}, standing ${standing}, distinction ${distinction}`];
   else if (ed === "regional" || (ed === "local" && (standing === "top" || standing === "good") && detourOk)) [base, why] = ["if_nearby", `draw ${ed}, standing ${standing}`];
   else [base, why] = ["skip", ed === "local" && standing !== "ordinary" ? `local draw with a detour over 20 min or unknown (${f.detourMin ?? "unknown"})` : `local draw, standing ${standing}`];
@@ -207,12 +218,15 @@ export type Role = "anchor" | "highlight" | "filler" | "local_only";
 export const roleOf = (vac: Fit): Role => (vac === "plan_around" ? "anchor" : vac === "worth_it" ? "highlight" : vac === "if_nearby" ? "filler" : "local_only");
 
 export interface Flags {
+  /** CF: a world top draw that needs a clear day; it stays an anchor and the planner picks the day */
+  go_clear_day: boolean;
   rainy_day: boolean;
   en_route: boolean;
   hidden_gem: boolean;
 }
 export function flagsOf(i: { role: Role; weather: Weather; passing: Fit; standing: Standing; ed: DrawTier; accessLegalPublic: boolean }): Flags {
   return {
+    go_clear_day: i.role === "anchor" && isGoClearDay(i),
     rainy_day: (i.weather === "indoor" || i.weather === "any_weather") && i.role !== "local_only",
     en_route: i.passing === "plan_around" || i.passing === "worth_it",
     hidden_gem: i.standing === "top" && (i.ed === "local" || i.ed === "regional") && i.accessLegalPublic,

@@ -262,7 +262,65 @@ export function deriveAll(input: DeriveInput): Derived[] {
     }
     results.push(out);
   }
+  demoteDoubleAnchors(input.records, results);
   return results;
+}
+
+/** Record kinds that are a product at a place rather than the place itself. An activity shares its place with a place record. */
+export const ACTIVITY_KINDS: readonly string[] = ["activity"];
+
+/**
+ * CF 4(b): a place and an activity at that place cannot both be anchors (the cruise and its lake). Records share a place
+ * when one names the other in `same_place_as`, or when they carry the same confirmed QID. In such a group, each activity
+ * record that is an anchor steps down to a highlight while a place record holds the anchor. The place keeps it.
+ */
+function demoteDoubleAnchors(records: RelevanceRecord[], results: Derived[]): void {
+  const parent = new Map<string, string>(records.map((r) => [r.ref, r.ref]));
+  const find = (x: string): string => {
+    let root = x;
+    while (parent.get(root) !== root) root = parent.get(root)!;
+    return root;
+  };
+  const union = (a: string, b: string): void => {
+    if (parent.has(a) && parent.has(b)) parent.set(find(a), find(b));
+  };
+  const byQid = new Map<string, string>();
+  for (const r of records) {
+    if (r.same_place_as) union(r.ref, r.same_place_as);
+    const q = r.wikidata.state === "value" ? r.wikidata.v : null;
+    if (q) {
+      const first = byQid.get(q);
+      if (first) union(r.ref, first);
+      else byQid.set(q, r.ref);
+    }
+  }
+  const kindOf = new Map(records.map((r) => [r.ref, r.kind]));
+  const overridden = new Set(records.filter((r) => r.override?.field === "role").map((r) => r.ref));
+  const groups = new Map<string, Derived[]>();
+  for (const d of results) {
+    const g = groups.get(find(d.ref)) ?? [];
+    g.push(d);
+    groups.set(find(d.ref), g);
+  }
+  for (const g of groups.values()) {
+    if (g.length < 2) continue;
+    const places = g.filter((d) => !ACTIVITY_KINDS.includes(kindOf.get(d.ref)!));
+    const holder = places.find((d) => d.role === "anchor");
+    const holderPeak = places.find((d) => (d.peak?.role ?? d.role) === "anchor");
+    for (const d of g) {
+      if (!ACTIVITY_KINDS.includes(kindOf.get(d.ref)!) || overridden.has(d.ref)) continue;
+      if (holder && d.role === "anchor") {
+        d.role = "highlight";
+        d.fits.vacation = { fit: "worth_it", reason: `${d.fits.vacation.reason}; same place as ${holder.ref}, which keeps the anchor` };
+        d.badge = badgeOf("highlight", records.find((r) => r.ref === d.ref)!.standing.v ?? "ordinary", d.effective_draw, "place");
+        d.plan_b = null;
+        d.flags = { ...d.flags, go_clear_day: false };
+      }
+      if (holderPeak && d.peak && d.peak.role === "anchor") {
+        d.peak = { ...d.peak, role: "highlight", badge: badgeOf("highlight", records.find((r) => r.ref === d.ref)!.standing.v ?? "ordinary", d.peak.tier, "place"), vacation: { fit: "worth_it", reason: `${d.peak.vacation.reason}; same place as ${holderPeak.ref}, which keeps the anchor` } };
+      }
+    }
+  }
 }
 
 /** The badge for a lens, given the derived fits (3.6 "Lens" column). `hub` selects the day fit. */

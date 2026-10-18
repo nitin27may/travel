@@ -198,12 +198,14 @@ Each fit is `plan_around`, `worth_it`, `if_nearby` or `skip`, with a reason stri
 
 | Context | `plan_around` | `worth_it` | `if_nearby` | `skip` |
 |---|---|---|---|---|
-| **vacation**: a visitor is staying in the region for several days | ED `world`; or ED `national` with standing `top` | ED `national`; or ED `regional` with standing `top` and distinction not `common` | ED `regional`; or ED `local` with standing `top` or `good` and `detour_min` ≤ 20 | ED `local` with standing `ordinary`, or with `detour_min` over 20 |
+| **vacation**: a visitor is staying in the region for several days | ED `world`; or ED `national` with standing `top` and distinction `unique` or `rare` | ED `national` (including `national`, `top`, `common`, which caps here); or ED `regional` with standing `top` and distinction not `common` | ED `regional`; or ED `local` with standing `top` or `good` and `detour_min` ≤ 20 | ED `local` with standing `ordinary`, or with `detour_min` over 20 |
 | **weekend**: 1 to 3 nights from a hub, judged per **area** | the area holds 2 or more places with ED ≥ `regional` and standing `top` within 30 min of one another, and the nearest hub is 1.5 to 4 h away | ED ≥ `regional` and a hub 1.5 to 4 h away | ED `local`, standing `top`, and a hub 1.5 to 4 h away | the rest. Under 1.5 h from a hub is a day trip, not a weekend |
 | **day trip from hub H** (one per hub in `from_hubs`) | ED ≥ `regional` with standing `top`, and H ≤ 3 h one way, and on-site time plus twice the drive ≤ 12 h | standing `top` or `good`, and H ≤ 2 h | standing `good` and H ≤ 1 h; or standing `ordinary` and H ≤ 45 min | standing `ordinary` and H over 45 min; or H over 3 h; the rest |
 | **passing through**: a stop on a road trip leg | `detour_min` ≤ 30, ED ≥ `national`, on-site ≤ 120 min, `access_load` `easy` | `detour_min` ≤ 20, ED ≥ `regional`, on-site ≤ 90 min, `access_load` `easy` | `detour_min` ≤ 10, on-site ≤ 45 min | any booking needed, or a detour over 30 min |
 
-A fit drops one step when `access_load` is `hard`, except for `plan_around` in the vacation context, because anchors are worth the booking. A fit drops one step when `weather` is `clear_only`, and the place gains the "needs clear weather" chip from the timing lane.
+A fit drops one step when `access_load` is `hard`, except for `plan_around` in the vacation context, because anchors are worth the booking. A fit drops one step when `weather` is `clear_only`, and the place gains the "needs clear weather" chip from the timing lane. **Exception (CF):** in the vacation context, a place with ED `world` and standing `top` does not drop. It stays `plan_around` and gains the `go_clear_day` flag (3.5), so the planner books the day for the weather. The step-down still applies to every other draw, national included, and to the weekend, day-trip and passing contexts.
+
+**Anchor test (CF).** An anchor needs distinction `unique` or `rare`, or a `world` draw. A `national` draw with standing `top` and distinction `common` caps at `worth_it`, so its role is `highlight` (Sunset Point).
 
 ### 3.5 Role in a trip (vacation context) and flags
 
@@ -214,7 +216,9 @@ A fit drops one step when `access_load` is `hard`, except for `plan_around` in t
 | `filler` | vacation fit `if_nearby` | a short add-on, or a rest-day option |
 | `local_only` | vacation fit `skip` | shown under the day lens. Under the vacation lens it is collapsed into "Local outings" |
 
-Flags, which are independent of role: `rainy_day` (weather `indoor` or `any_weather`, and role `filler` or above), `en_route` (passing-through fit `worth_it` or better), `hidden_gem` (standing `top`, ED `local` or `regional`, and the hidden-gems lane's `access_legal: public`).
+**One anchor per place (CF).** A place record and an activity record at that place (a lake and its cruise) are never both anchors. Two records share a place when one names the other in `same_place_as` (a ref, validated like `ref`), or when both carry the same confirmed `wikidata` QID. When a place record in such a group is an anchor, each `activity` record in the group that would be an anchor becomes a `highlight` (vacation fit `worth_it`, with the place named in the reason, no Plan B). The place keeps the anchor. A role `override` on the activity wins. Only the `activity` kind steps down today (`ACTIVITY_KINDS` in `derive.ts`); add `lift` there if a cable car should yield to its summit.
+
+Flags, which are independent of role: `go_clear_day` (role `anchor`, weather `clear_only`, ED `world`, standing `top`: worth the journey on a clear day, so plan the day around the forecast), `rainy_day` (weather `indoor` or `any_weather`, and role `filler` or above), `en_route` (passing-through fit `worth_it` or better), `hidden_gem` (standing `top`, ED `local` or `regional`, and the hidden-gems lane's `access_legal: public`).
 
 ### 3.6 The badge (one chip)
 
@@ -579,3 +583,4 @@ The same visitor with a different lens gets the right answer from each. A Toront
 |---|---|
 | 2026-10-18 | First draft: prior art (Michelin, Lonely Planet, Google, AllTrails, Atlas Obscura, Destination Canada CSE, NPS, UNESCO, Komoot, Wikidata and pageviews), the `relevance/1` sidecar, derivation rules, lenses and display rules, globe tiers, the suitability combination, the lane additions, RV0 and RV1, and 6 worked examples with measured signals |
 | 2026-10-18 | RV0 verification fixes: `own` area designations only on park, region and protected_area records (all else `parent`); household rule widened to prose, a 2 km private-origin check from an untracked local file, a hub allowlist, and input validation in `check`; far-pointer reach stays 50 km (Niagara removed from 10.3); no draw-gap warning for the Narrows with the measured views; ordinary standing within 45 min is `if_nearby` on the day lens; stale values are gaps with a `stale` flag; capped boats and lifts are `hard`; `Mention.reach` and `Designation.wikidata` added; User-Agent contact is the public site; `coord_src` on every point (never Google) |
+| 2026-10-18 | CF: world top draws that need clear weather keep their anchor and gain `go_clear_day` (national draws still step down); an anchor needs distinction `unique` or `rare`, or a `world` draw (national top common caps at highlight); a place and its activity are not both anchors, matched by the new `same_place_as` ref or a shared QID (3.4, 3.5) |
