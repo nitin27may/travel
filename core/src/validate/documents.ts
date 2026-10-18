@@ -6,9 +6,10 @@ import { polylineVertexCount } from "./polyline.ts";
 import { validateSuitability } from "./suitability.ts";
 import { validateApplicabilityRules } from "./applicability.ts";
 import { validateRelevance } from "./relevance.ts";
+import { validateSourcesRules } from "./sources.ts";
 import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance";
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -19,6 +20,7 @@ const TABLE_OF: Record<DocumentKind, string> = {
   suitability: "suitability",
   "suitability-applicability": "suitability_applicability",
   relevance: "relevance",
+  sources: "sources",
 };
 
 export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): void {
@@ -39,6 +41,7 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   if (ctx.schemaBroken || !isObj(doc)) return;
   if (kind === "difficulty-map") validateDifficultyMapRules(doc, ctx);
   if (kind === "suitability-applicability") validateApplicabilityRules(doc, ctx);
+  if (kind === "sources") validateSourcesRules(doc, ctx);
   if (kind === "route-geometry") {
     const n = polylineVertexCount(String(doc.polyline));
     const ts = doc.t_s as unknown[];

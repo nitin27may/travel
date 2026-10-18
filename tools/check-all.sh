@@ -34,6 +34,8 @@ step "relevance sidecars (relevance/1; no AllTrails, Google, Tripadvisor or Komo
 node "$ROOT/core/bin/relevance.ts" check --root "$ROOT"
 step "relevance derived files are current"
 node "$ROOT/core/bin/relevance.ts" derive --check --root "$ROOT"
+step "source registry is current and valid (sources/1; derived from the lane files)"
+node "$ROOT/core/bin/sources.ts" check --root "$ROOT"
 
 if [[ -f "$ROOT/web/package.json" ]]; then
   for script in typecheck lint test build; do

@@ -1,0 +1,88 @@
+[
+  {
+    "name": "a page that answers 200 to HEAD",
+    "url": "https://piratour.net/producto/trekking-laguna-esmeralda-2",
+    "calls": [
+      {
+        "method": "HEAD",
+        "status": 200,
+        "url": "https://piratour.net/producto/trekking-laguna-esmeralda-2/"
+      }
+    ],
+    "expect": {
+      "status": "ok",
+      "http": 200,
+      "final": "https://piratour.net/producto/trekking-laguna-esmeralda-2/"
+    }
+  },
+  {
+    "name": "a page that redirects to another URL",
+    "url": "https://www.lagazuoi.it/Pdf18/FuniviaLagazuoi_Estate2026_Altaebassastagione.pdf",
+    "calls": [
+      {
+        "method": "HEAD",
+        "status": 200,
+        "url": "https://lagazuoi.it/Pdf18/FuniviaLagazuoi_Estate2026_Altaebassastagione.pdf"
+      }
+    ],
+    "expect": {
+      "status": "redirect",
+      "http": 200,
+      "final": "https://lagazuoi.it/Pdf18/FuniviaLagazuoi_Estate2026_Altaebassastagione.pdf"
+    }
+  },
+  {
+    "name": "a page that is gone (404 to HEAD and GET)",
+    "url": "https://www.iceman.it/en/opening-times-and-fees",
+    "calls": [
+      {
+        "method": "HEAD",
+        "status": 404
+      },
+      {
+        "method": "GET",
+        "status": 404
+      }
+    ],
+    "expect": {
+      "status": "broken",
+      "http": 404,
+      "final": null
+    }
+  },
+  {
+    "name": "a host that does not resolve",
+    "url": "https://no-such-host.invalid/page",
+    "calls": [
+      {
+        "method": "HEAD",
+        "error": "ENOTFOUND"
+      },
+      {
+        "method": "GET",
+        "error": "ENOTFOUND"
+      }
+    ],
+    "expect": {
+      "status": "broken",
+      "http": null,
+      "final": null
+    }
+  },
+  {
+    "name": "the gondola FAQ page that failed in the first run",
+    "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/experience/faqs",
+    "calls": [
+      {
+        "method": "HEAD",
+        "status": 200,
+        "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/"
+      }
+    ],
+    "expect": {
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/banff-gondola/faqs/"
+    }
+  }
+]
