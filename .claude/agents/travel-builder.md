@@ -33,3 +33,4 @@ Report: what changed, the test results, the screenshot paths, and anything left 
 GPU rendering: this machine (nks-ubuntu) has an Intel Arc A770M. Launch Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization` so WebGL maps render on the real GPU (globe idle spin 60 fps, p95 16.8 ms). The SwiftShader flags render vector tiles but run about 35 times slower (1.7 fps on the same scene), so never judge motion, smoothness or frame time under SwiftShader.
 
 UX principles: read `docs/v2/design/foundation/principles.md` (P1-P7: design for scale, progressive disclosure, a glance then a few clicks, no manual needed, smooth linked open and close, the right metadata at the right moment, the 90% primary goal) before any design, build or review, and cite them by number.
+Also P8 (protect the catalogue: no bulk files, light list data, per-item exports) and P9 (server-ready: one data boundary, no new client-side bulk loads) in the same file.

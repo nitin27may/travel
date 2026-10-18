@@ -102,3 +102,39 @@ The decisions below are binding. Where a principle is adapted, the adaptation wi
 - **A server search, personalisation and recommendations now.** These are not worth the cost at under 100 users. Revisit at about 1,000 users.
 - **Infinite scroll on lists.** It breaks URL state and the back button, which P4 and P5 depend on. Keep pagination with the page number in the URL.
 - **Hiding the honesty markers to look cleaner.** Trust (T3) beats tidiness. Markers stay, styled quietly.
+
+## P8. Protect the catalogue (core principle, owner, 18 Oct 2026)
+
+Our researched content is the product: the trips, the place facts, suitability, times, links and checklists.
+At go-live the UI must not hand it over in bulk. A visitor can read, copy one trip into their account and
+export what they need for one trip. Nobody can pull the whole catalogue in a few requests.
+
+What this means in practice (decided):
+- **No bulk files.** No public file holds the whole catalogue: `/data/places.json` and `/data/trips.json` go. The
+  per-slug export files at predictable URLs (`/export-data/<type>s/<slug>/data.json`) go too.
+- **Light list data.** List and search pages ship only the fields that cards and filters need: name, kind, area,
+  season, the kids chip and the slug. Never facts, links, suitability values, times or notes. The search index
+  carries names and areas only.
+- **Exports are per item, for personal use.** "Copy to my trips", ICS, PDF and print stay per trip. The table's
+  CSV of a whole list is removed from the public site. At go-live, CSV, GPX and KML require sign-in and are
+  limited to one trip or place at a time. Every export says where it came from.
+- **Edge protection.** Turn on Cloudflare's free bot protection, its AI-crawler block and one rate-limit rule.
+  Search engines stay allowed, because the public site depends on being found.
+- **Terms.** A short terms and copyright page states that the content may not be reused in bulk.
+- **Honest limits.** Anything a page shows can be copied by a determined person, one page at a time. The goal is
+  to stop bulk extraction, not to stop reading. We never use hostile tricks: no disabled right-click, no blocked
+  text selection, no obfuscated text. They break accessibility and P4, and they stop nobody.
+- **What we cannot restrict.** OpenStreetMap-derived points and lines are ODbL, so they need credit and share-alike.
+  Wikimedia Commons photos carry their own licences. Only our own words and research are ours to protect.
+
+## P9. Server-ready by default (owner, 18 Oct 2026)
+
+The site starts static and moves to a server gradually: search, filters, details and exports, one at a time.
+Nothing built now may make that move hard:
+- **One data boundary.** All data goes through the adapter functions (`web/lib/public`, and later an API client
+  with the same signatures). No component reads a JSON file or a URL for data directly.
+- **Server-shaped state.** URL state and list state (filters, sort, page) already map onto query parameters a server
+  can answer. Keep pagination; never ship "load everything then filter" for the detail fields.
+- **Moving in steps.** Each server step replaces one adapter function and its static file: first search, then list
+  queries, then exports. The static pages stay as the cache.
+- **No new client-side bulk loads.** Do not add one for convenience. If a feature needs one, it is a server feature.
