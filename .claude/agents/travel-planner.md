@@ -27,3 +27,5 @@ Rules:
   - the commit rules
 - Never put travel material in the Obsidian notes vault.
 - Commit only the paths you wrote, with `git -C <abs path> add <paths>`. Never use `-A`. End the message with the project's Co-Authored-By trailer.
+
+UX principles: read `docs/v2/design/foundation/principles.md` (P1-P7: design for scale, progressive disclosure, a glance then a few clicks, no manual needed, smooth linked open and close, the right metadata at the right moment, the 90% primary goal) before any design, build or review, and cite them by number.
