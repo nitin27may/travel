@@ -65,3 +65,9 @@ export function attributionFor(points: Pick<Point, 'pointSource' | 'sourceLicenc
   for (const l of lines) if (lineExportable(l)) out.add(OSM.test(l.ref) ? OSM_ATTRIBUTION : `${l.ref} (${l.licence})`);
   return [...out];
 }
+
+/** The same sentence in every format for a point that is only roughly placed; null for a surveyed or pinned one. */
+export function approxNote(p: Pick<Point, 'pointSource' | 'sourceLicence'>): string | null {
+  const v = checkPoint(p);
+  return v.ok && v.approximate ? 'Approximate position, not surveyed' : null;
+}

@@ -52,8 +52,25 @@ describe('ICS', () => {
   it('refuses an overview trip: there is nothing to put on a calendar', () => {
     expect(() => buildIcs(trip('costa-rica-2027'), '2027-03-01')).toThrow(NoCalendarError);
   });
+  it('writes a VTIMEZONE for the TZID with yearly rules, before the first event', () => {
+    expect(ics).toContain('BEGIN:VTIMEZONE\r\nTZID:Europe/Rome');
+    expect(ics).toMatch(/BEGIN:DAYLIGHT\r\nTZOFFSETFROM:\+0100\r\nTZOFFSETTO:\+0200[\s\S]*RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU/);
+    expect(ics.indexOf('BEGIN:VTIMEZONE')).toBeLessThan(ics.indexOf('BEGIN:VEVENT'));
+    const used = new Set([...ics.matchAll(/TZID=([^:;]+)/g)].map((m) => m[1]));
+    for (const z of used) expect(ics).toContain(`TZID:${z}\r\n`);
+  });
+  it('gives the Rockies America/Edmonton from their base point, and writes unknown zones as floating time', () => {
+    expect(trip('canadian-rockies-2029').tz).toBe('America/Edmonton');
+    const r0 = trip('canadian-rockies-2029');
+    const rock = buildIcs({ ...r0, stops: r0.stops.map((x, i) => (i === 0 ? { ...x, time: '09:00' } : x)) }, '2029-09-08', NOW);
+    expect(rock).toContain('TZID:America/Edmonton');
+    expect(rock).toContain('TZOFFSETTO:-0600');
+    const odd = buildIcs({ ...dolomites, tz: 'Mars/Olympus' }, '2027-07-13', NOW);
+    expect(odd).not.toContain('TZID');
+    expect(odd).toMatch(/DTSTART:\d{8}T\d{6}\r\n/);
+  });
   it('escapes text and folds long lines', () => {
-    expect(icsText('a, b; c\\d\ne')).toBe('a\\, b\; c\\\\d\\ne');
+    expect(icsText('a, b; c\\d\ne')).toBe('a\\, b\\; c\\\\d\\ne');
     const long = { ...dolomites, title: 'Ü'.repeat(80), days: [{ n: 1, title: 'é'.repeat(90), base: null }], stops: [] };
     const out = buildIcs(long, '2027-07-13', NOW);
     expect(() => parseIcs(out)).not.toThrow();
@@ -132,6 +149,11 @@ describe('KML', () => {
     expect(Math.abs(lon)).toBeLessThanOrEqual(180);
     expect(Math.abs(lat)).toBeLessThanOrEqual(90);
   });
+  it('marks approximate points in the description, as GPX does', () => {
+    expect(r.xml).toContain('Approximate position, not surveyed');
+    const surveyed = buildKml({ ...dolomites, waypoints: dolomites.waypoints.filter((w) => w.point.pointSource.startsWith('osm_')) });
+    expect(surveyed.xml).not.toContain('Approximate position');
+  });
   it('leaves out the same points GPX leaves out', () => {
     expect(r.points).toBe(buildGpx(dolomites).points);
     expect(r.skipped).toBe(buildGpx(dolomites).skipped);
@@ -146,6 +168,14 @@ describe('CSV', () => {
     expect(lines).toHaveLength(dolomites.stops.length + 1);
     const keys = lines.slice(1).map((l) => l.split(',').slice(0, 2)).map(([d, t]) => `${d.padStart(2, '0')} ${t || '99:99'}`);
     expect(keys).toEqual([...keys].sort());
+  });
+  it('flags approximate points in an Approximate column', () => {
+    const rows = lines.slice(1).map((l) => l.split(','));
+    const col = TRIP_CSV_HEADER.indexOf('Approximate');
+    expect(col).toBe(8);
+    const approx = dolomites.stops.filter((s) => s.point?.pointSource === 'prototype_approx').length;
+    expect(approx).toBeGreaterThan(0);
+    expect(csv.match(/,yes,/g)).toHaveLength(approx);
   });
   it('writes coordinates only where the point may be exported', () => {
     const hidden = { ...dolomites, stops: dolomites.stops.map((s) => ({ ...s, point: s.point ? { ...s.point, pointSource: 'google_maps' } : null })) };
