@@ -156,13 +156,13 @@ export const isValLike = (x: unknown): x is { v: unknown; state: string; note?: 
 export type Answer = "answered" | "exempt" | "bad_exempt" | "open";
 
 /**
- * Whether a field is answered. A `value`, `none_stated` or `searched_none` is; a `gap` is not. A `not_applicable` with a
+ * Whether a field is answered. A `value`, `no_limit`, `none_stated` or `searched_none` is; a `gap` is not. A `not_applicable` with a
  * note is a per-record exemption (A9) and counts as answered; without a note it is an error and stays open.
  */
 export function answerOf(x: unknown): Answer {
   if (x === undefined || x === null) return "open";
   if (isValLike(x)) {
-    if (x.state === "value" || x.state === "none_stated" || x.state === "searched_none") return "answered";
+    if (x.state === "value" || x.state === "no_limit" || x.state === "none_stated" || x.state === "searched_none") return "answered";
     if (x.state === "not_applicable") return typeof x.note === "string" && x.note.trim().length > 0 ? "exempt" : "bad_exempt";
     return "open";
   }

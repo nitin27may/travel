@@ -441,7 +441,7 @@
         "accessibility": "unknown",
         "walk_km": 6.3,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -634,7 +634,7 @@
         "accessibility": "unknown",
         "walk_km": 7.5,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {

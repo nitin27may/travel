@@ -22,7 +22,7 @@ It **supersedes** three things:
 | # | Decision | Why | Trade-off |
 |---|---|---|---|
 | K1 | **One `suitability` block for every kind**, plus a per-kind extension (`trail`, `ride`, `paddle`, `ferrata`, `water`, `cave`, `snow`). Products that differ (offers) carry their own block. | A 6-year-old filter has to work the same way on a lake, a zip line and a hike | Some fields are `not_applicable` for many kinds; the validator removes those from the totals |
-| K2 | **Every value is a `Val`**: a value or a state (`value`, `none_stated`, `searched_none`, `not_applicable`, `gap`), a **basis** (`operator_rule`, `official_rule`, `official_grade`, `official_info`, `community`, `our_inference`), source ids, and a read date | The owner's honesty rule; "not stated by the operator" is a valid, displayable answer | Records are about three times larger than flat columns |
+| K2 | **Every value is a `Val`**: a value or a state (`value`, `no_limit`, `none_stated`, `searched_none`, `not_applicable`, `gap`), a **basis** (`operator_rule`, `operator_info`, `official_rule`, `official_grade`, `official_info`, `community`, `our_inference`), source ids, and a read date | The owner's honesty rule; "not stated by the operator" is a valid, displayable answer | Records are about three times larger than flat columns |
 | K3 | **Hard limits are only `operator_rule` or `official_rule`.** Age, height, weight, swimming and adult-ratio rules from anyone else are kept as conflicts. They never become the chosen value. | Resellers copy stale limits. A harness weight is not negotiable. | Many limits stay `searched_none` until someone asks the operator |
 | K4 | **Recommended age is separate from minimum age.** `age_band` is our judgement (`our_inference`) with its reasons. `min_age` is a rule. | "Recommended from 12" is not "minimum 12" (Via Ferrata Loen trap) | Two age numbers on a card need careful wording (section 7.3) |
 | K5 | **Family effort (FE1 to FE5) is computed, never typed.** It is `max(terrain grade, effort band)`. The terrain grade comes from the official grade through one mapping file. The effort band comes from `effort_km = km + gain_m / 100`, the formula already in `data/schema/difficulty-map.json`. The original grade always stays visible. | One filter across SAC, CAI, Parks Canada, IMBA, whitewater classes and piste colours. A reviewer can see why. | The mapping is ours; we publish it and cite each scale |
@@ -40,18 +40,19 @@ It **supersedes** three things:
 // core/src/schema/suitability.ts
 type Basis =
   | 'operator_rule'   // the operator's own rule: age, height, weight, harness, swim test, adult ratio
+  | 'operator_info'   // an operator-published fact that is not a rule: hours, altitude, kit, ride time, last up and down, season, food
   | 'official_rule'   // a land manager's or a law's rule: group of four, permit age, no strollers on the bus
   | 'official_grade'  // a published grade in a recognised system: SAC T2, CAI E, Parks Canada Moderate, Class II
   | 'official_info'   // a land manager or operator states a fact that is not a rule: "paved for 1.2 km", "toilets at the lot"
   | 'community'       // dated trip reports, parent blogs, forum posts; never for a hard limit
   | 'our_inference';  // our judgement or our computation, with the method in `note`
 
-type State = 'value' | 'none_stated' | 'searched_none' | 'not_applicable' | 'gap';
+type State = 'value' | 'no_limit' | 'none_stated' | 'searched_none' | 'not_applicable' | 'gap';
 
 interface Val<T> {
   v: T | null;              // null unless state = 'value'
   state: State;
-  basis: Basis | null;      // required when state is 'value' or 'none_stated'
+  basis: Basis | null;      // required when state is 'value', 'no_limit' or 'none_stated'
   src: string[];            // ids into the file's sources table (each has url and read date); [] only for computed values
   read?: string;            // ISO date when this value was read later than its source row
   quote?: string;           // up to 300 characters, the words the value rests on (units as written)
@@ -69,7 +70,8 @@ The states mean exactly what [kinds/README.md](kinds/README.md) section 4 says. 
 | `value`, `operator_rule` | "Minimum age 8 (operator rule, read 12 Oct 2026)" |
 | `value`, `official_grade` | "CAI E (official grade)" |
 | `value`, `our_inference` | "Recommended from 8 (our judgement: 11 km and 750 m of climbing)" |
-| `none_stated` | "No minimum age (operator states none, read ...)" |
+| `no_limit` | "No minimum age (operator states none, read ...)" |
+| `none_stated` | "No minimum age found in the operator's or land manager's rules" (soft: see 3.1) |
 | `searched_none` | "Minimum height not stated by the operator (searched 12 Oct 2026). Ask before booking." |
 | `gap` | "Not checked yet" (hollow chip) |
 | `not_applicable` | hidden |
@@ -264,6 +266,18 @@ Snow extension: `ski_school_min_age` (operator rule), `magic_carpet` (bool), `li
 8. **Pattern year.** Limits, seasons and prices carry `applies_to` (the year read) and stay valid as a pattern. A public trip is a dateless template.
 9. **Freshness.** Limits 365 days. Grades and stats 3 years. Access season 365 days. Facilities, signal and shade 2 years. The completeness engine drops a stale field to `gap` at check time (kinds/README.md C7).
 
+### 3.1 Three ways to say "no limit", and which basis fits what (CF, 18 Oct 2026)
+
+| State | Means | Needs | Counts toward `usable` as |
+|---|---|---|---|
+| `no_limit` | the operator or land manager **affirmatively says** there is none: "all children are welcome", "no minimum age", "free entry" | a rule basis on a hard limit (`operator_rule`, `official_rule`), the words in `quote` (or the reason in `note`), and `src` | firm |
+| `none_stated` | the sources are **silent**: the rule is not on the group-access list, the terms page names no age. We record no limit but nobody said so | a basis, `src` | soft (4.1) |
+| `searched_none` | we looked at the pages in `tried` on `on` and found nothing | `on`, `tried` | soft (4.1) |
+
+Use `no_limit` only for words you can quote. `none_stated` was used for both meanings before this change; the research pass moves each affirmative one ("all children are welcome") to `no_limit` and leaves the silent ones.
+
+**`operator_rule` against `operator_info`.** `operator_rule` is a rule: it excludes someone or imposes a condition. It is the only operator basis a hard limit accepts, with `official_rule` (`E_SUIT_LIMIT_BASIS`). `operator_info` is everything else an operator publishes: opening hours, altitude, kit supplied, ride time, last up and last down, season, food. The validator refuses `operator_info` on a limit field and on the second-list rule fields (`min_rider_age`, `ski_school_min_age`, `min_shoe_eu`, `floats_required_under`, `max_load_kg`, `driver_rule`, `weight_by_slot`, `min_distance_m`). The relevance sidecar shares the list. Rewrite old data with `node core/bin/suitability.ts rebase-basis [--write] [--trip t] [--keep f1,f2]`: it changes `operator_rule` to `operator_info` on every field that is not a rule field (conflicts included), prints a count per file, and is a dry run without `--write`. Pass `--keep` for a rule the shared lists do not know yet.
+
 ## 4. Completeness checks (added to every kind profile)
 
 > **Superseded in part (18 Oct 2026):** which kind counts which field is now set per profile (kind and subkind) as R, A or N in [suitability-applicability.md](suitability-applicability.md) and its data file `data/schema/suitability-applicability.json`. The F ids below remain as the badge labels. The lane briefs in 8.1 are amended by section 8 of that page, and the "Flatwater only" filter in 6.3 is dropped.
@@ -285,7 +299,16 @@ These are the family checks `F1` to `F12`. Each kind profile includes the ones i
 | F11 | `exposure` (and `water_safety` for any water kind) | **U** | **U** (fencing) | | **U** for water | **U** | |
 | F12 | `access_season` | **U** | **U** | C | **U** | **U** | |
 
-The badge counts them like any other check: "Usable · 21 of 30". Kind profiles get a one-line change, "Family checks F1-F12 from suitability.md apply as marked", and their totals are recomputed (S0 step 7).
+The badge counts them like any other check: "Usable · 21 of 30".
+
+### 4.1 The softer level: `usable_partial` (CF)
+
+`suit_level` is `draft`, `usable_partial`, `usable` or `complete`. A record with every R field answered is `usable_partial` instead of `usable` or `complete` when either holds:
+
+1. its profile has at least 6 R fields and more than 40% of them are soft (`searched_none` or `none_stated`; `no_limit` is firm);
+2. any **safety-critical** R field is soft. Safety-critical means the hard limits (`min_age`, `max_age`, the height and weight limits, `adult_required`, `solo`, `group_min`), every `water_safety` field, `exposure`, and, when the record is operated, an `age_band` that is soft or rests on `our_inference` or `community` instead of the operator.
+
+Otherwise the rules above hold. A field asked by several offers is firm when any offer answers it firmly. A `not_applicable` with a note is outside the share. The level is in the flat copy (`flat.suit_level`) and in `projectFlat`; `checkRecord` also returns `softRequired` and `softSafety` so a surface can name the fields. The label ("usable, partly unverified") is a pending display rule in [suitability-display.md](../design/suitability-display.md) section 9. Kind profiles get a one-line change, "Family checks F1-F12 from suitability.md apply as marked", and their totals are recomputed (S0 step 7).
 
 ## 5. Storage
 
@@ -592,5 +615,6 @@ L3c timeline (parallel) ────────────────┤  own
 
 | Date | Change |
 |---|---|
+| 2026-10-18 | CF: basis `operator_info` (facts that are not rules; refused on hard limits and second-list rules), state `no_limit` (affirmative "no minimum", distinct from the soft `none_stated` and from `searched_none`), 3.1 spells out the three meanings, `suit_level` gains `usable_partial` (4.1), and `rebase-basis` migrates old `operator_rule` bases |
 | 2026-10-18 | Applicability cross-check: section 4 marks, 6.3 "Flatwater only" and the 8.1 lane brief amended by [suitability-applicability.md](suitability-applicability.md) |
 | 2026-10-18 | First draft: shared model, per-kind scales with sources, F checks, sidecar storage, scope counts (207 records, 46% with any signal, 0% Usable), lanes R1-R6, S0 brief, tuned age gates (superset of trip-timeline.md 3.11) |
