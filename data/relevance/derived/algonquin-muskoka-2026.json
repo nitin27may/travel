@@ -3,11 +3,11 @@
   "trip": "algonquin-muskoka-2026",
   "as_of": "2026-10-18",
   "thresholds": {
-    "version": 1,
+    "version": 2,
     "languages": {
       "world": 25,
       "national": 10,
-      "regional": 3
+      "regional": 2
     },
     "views": {
       "world": 40000,
@@ -64,7 +64,7 @@
     },
     {
       "ref": "trip/algonquin-muskoka-2026/town:huntsville",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,

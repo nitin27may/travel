@@ -3,11 +3,11 @@
   "trip": "dolomites-2027",
   "as_of": "2026-10-18",
   "thresholds": {
-    "version": 1,
+    "version": 2,
     "languages": {
       "world": 25,
       "national": 10,
-      "regional": 3
+      "regional": 2
     },
     "views": {
       "world": 40000,
@@ -19,7 +19,7 @@
   "items": [
     {
       "ref": "place/tre-cime-di-lavaredo-loop",
-      "draw_suggested": "national",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "plan",
       "detour_min": null,
@@ -64,7 +64,7 @@
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
@@ -109,7 +109,7 @@
     },
     {
       "ref": "place/lago-di-sorapis",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -154,7 +154,7 @@
     },
     {
       "ref": "place/cinque-torri",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
@@ -199,7 +199,7 @@
     },
     {
       "ref": "place/monte-piana",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
@@ -244,7 +244,7 @@
     },
     {
       "ref": "place/croda-del-becco",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
@@ -289,7 +289,7 @@
     },
     {
       "ref": "place/val-fiscalina",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -469,7 +469,7 @@
     },
     {
       "ref": "place/alpe-di-siusi",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
       "detour_min": null,
@@ -514,7 +514,7 @@
     },
     {
       "ref": "place/bullaccia-and-the-witches-benches",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
@@ -559,7 +559,7 @@
     },
     {
       "ref": "place/vallunga",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -649,7 +649,7 @@
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
@@ -694,7 +694,7 @@
     },
     {
       "ref": "place/lagazuoi-cable-car-and-tunnels",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
       "detour_min": null,
@@ -739,7 +739,7 @@
     },
     {
       "ref": "place/seceda-ridge",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
       "detour_min": null,
@@ -784,7 +784,7 @@
     },
     {
       "ref": "place/lago-di-braies",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "plan",
       "detour_min": null,
@@ -829,7 +829,7 @@
     },
     {
       "ref": "place/lago-di-carezza",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -874,7 +874,7 @@
     },
     {
       "ref": "place/lago-di-landro",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -919,7 +919,7 @@
     },
     {
       "ref": "place/lago-dantorno",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -964,7 +964,7 @@
     },
     {
       "ref": "place/lago-di-dobbiaco",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -1009,7 +1009,7 @@
     },
     {
       "ref": "place/lago-di-misurina",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -1099,7 +1099,7 @@
     },
     {
       "ref": "place/passo-gardena",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -1144,7 +1144,7 @@
     },
     {
       "ref": "place/santa-maddalena-val-di-funes",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -1189,7 +1189,7 @@
     },
     {
       "ref": "place/cortina-dampezzo",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -1234,7 +1234,7 @@
     },
     {
       "ref": "place/ortisei",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -1279,7 +1279,7 @@
     },
     {
       "ref": "place/selva-di-val-gardena",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -1324,7 +1324,7 @@
     },
     {
       "ref": "place/santa-cristina",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -1369,7 +1369,7 @@
     },
     {
       "ref": "place/san-candido",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -1414,7 +1414,7 @@
     },
     {
       "ref": "place/dobbiaco",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -1459,7 +1459,7 @@
     },
     {
       "ref": "place/san-vito-di-cadore",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -1504,7 +1504,7 @@
     },
     {
       "ref": "place/la-val",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -1549,7 +1549,7 @@
     },
     {
       "ref": "place/bolzano",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -1594,7 +1594,7 @@
     },
     {
       "ref": "place/otzi-south-tyrol-museum-of-archaeology",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -1639,7 +1639,7 @@
     },
     {
       "ref": "place/dolomites",
-      "draw_suggested": "national",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "plan",
       "detour_min": null,
@@ -1774,7 +1774,7 @@
     },
     {
       "ref": "place/drava-cycle-path-to-lienz",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,

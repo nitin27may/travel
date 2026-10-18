@@ -3,11 +3,11 @@
   "trip": "utah-five-parks",
   "as_of": "2026-10-18",
   "thresholds": {
-    "version": 1,
+    "version": 2,
     "languages": {
       "world": 25,
       "national": 10,
-      "regional": 3
+      "regional": 2
     },
     "views": {
       "world": 40000,
@@ -19,7 +19,7 @@
   "items": [
     {
       "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
-      "draw_suggested": "regional",
+      "draw_suggested": "national",
       "effective_draw": "world",
       "access_load": "plan",
       "detour_min": null,
@@ -64,7 +64,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "plan",
       "detour_min": null,
@@ -199,7 +199,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "plan",
       "detour_min": null,
@@ -244,7 +244,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
-      "draw_suggested": "regional",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -289,7 +289,7 @@
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
-      "draw_suggested": "regional",
+      "draw_suggested": "national",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -424,7 +424,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:hickman bridge",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -469,7 +469,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -514,7 +514,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:delicate arch trail",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -559,7 +559,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -649,7 +649,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:mesa arch",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -694,7 +694,7 @@
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -784,7 +784,7 @@
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -829,7 +829,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:goblin valley",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -874,7 +874,7 @@
     },
     {
       "ref": "trip/utah-five-parks/town:main street moab",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -919,7 +919,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:temple square",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
       "detour_min": null,

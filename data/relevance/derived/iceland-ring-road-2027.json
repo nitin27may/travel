@@ -3,11 +3,11 @@
   "trip": "iceland-ring-road-2027",
   "as_of": "2026-10-18",
   "thresholds": {
-    "version": 1,
+    "version": 2,
     "languages": {
       "world": 25,
       "national": 10,
-      "regional": 3
+      "regional": 2
     },
     "views": {
       "world": 40000,
@@ -19,7 +19,7 @@
   "items": [
     {
       "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -64,7 +64,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -109,7 +109,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
-      "draw_suggested": "regional",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -154,7 +154,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -199,7 +199,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:geysir",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -244,7 +244,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -289,7 +289,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:godafoss",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -334,7 +334,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -424,7 +424,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -469,7 +469,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -514,7 +514,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -559,7 +559,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "local",
       "access_load": "easy",
       "detour_min": null,
@@ -649,7 +649,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -739,7 +739,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
-      "draw_suggested": "local",
+      "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
@@ -784,7 +784,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -829,7 +829,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -964,7 +964,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -1009,7 +1009,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
-      "draw_suggested": "local",
+      "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
       "detour_min": null,
@@ -1054,7 +1054,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
-      "draw_suggested": "regional",
+      "draw_suggested": "world",
       "effective_draw": "world",
       "access_load": "easy",
       "detour_min": null,
@@ -1099,7 +1099,7 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
-      "draw_suggested": "local",
+      "draw_suggested": "world",
       "effective_draw": "regional",
       "access_load": "easy",
       "detour_min": null,
