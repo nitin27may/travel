@@ -102,7 +102,10 @@ Common checks D1-D5, U1-U2, C1-C8, plus:
 | C14 | Complete, scenic trains | `attrs.seat_side` | `community` |
 | C15 | Complete, chairlifts | `eligibility` for riding (SN ok) | `operator` |
 
-Totals: Draft 5, Usable 8, Complete 15; **28** (26 for a gondola: C14 and C15 drop out).
+Totals: Draft 5, Usable 13, Complete 20; **38** (36 for a gondola: C14 and C15 drop out).
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its activity offer, lift column: F1, F2, F3, F8 and F12 are Usable; F4, F5, F6, F9 and F10 are Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -138,6 +141,6 @@ header: "re-check all lift and hut opening dates in April-May 2027"). Prices: 12
 | `reservation` | `required`, time slots every 30 minutes, from summer 2026; window rule gap | val-gardena.net Q&A |
 | `passes` | SuperSummer not valid; Gardena Card covers Val Gardena lifts (prices not published) | dolomiti.it; dolomites sights.md line 196 |
 
-Level once the valley station is settled: **Draft · 10 of 26** (D1-D5, U1, U2, U3, U5, U8). Missing for
+Level once the valley station is settled: **Draft · 10 of 36** (D1-D5, U1, U2, U3, U5, U8). Missing for
 Usable: U4 last up and last down, U6 the slot window and sell-out, U7 the `serves` relation to the
 ridge viewpoint ([viewpoint.md](viewpoint.md) example).

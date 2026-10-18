@@ -108,7 +108,10 @@ Common checks D1-D5, U1-U2, C1-C8, plus:
 | C15 | Complete, campsites | `attrs.hookups`, `showers`, `dump_station`, `camping_card`, `quiet_hours` | `operator` |
 | C16 | Complete | `attrs.check_in_until` (late arrival rule) | `operator` |
 
-Totals: hotel Draft 5, Usable 8, Complete 15 (**28**); campsite **30**.
+Totals: hotel Draft 5, Usable 9, Complete 16 (**30**); campsite **32**.
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its stay, eatery column: F6 is Usable and F4 is Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -136,6 +139,6 @@ Campsite windows: 365 days and before the window. Links: 90 days.
 | tourist tax | 0.20 EUR per person per night (2026) | stay.md line 43 |
 | `point`, check-in, pitches, max vehicle, reservation rule, showers | gaps | |
 
-Level once the point is recorded: **Draft · 8 of 30** (D1-D5, U1, U2, U5). Missing for Usable: U3 the
+Level once the point is recorded: **Draft · 8 of 32** (D1-D5, U1, U2, U5). Missing for Usable: U3 the
 campsite's own site, U4 check-in, U6 pitch offers, U7 parking, U8 min stay, U9 pitches and vehicle
 length.

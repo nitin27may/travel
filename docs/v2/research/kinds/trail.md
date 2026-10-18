@@ -149,7 +149,7 @@ Common checks D1-D5, U1-U2, C1-C8 (README section 10) plus:
 | U7 | Usable | `attrs.time_h` | `official`, or computed (lanes/trails.md section 7) and marked `agent_inferred` |
 | U8 | Usable | `attrs.local_grade` with `local_system`, and `attrs.house_grade` | local grade `official`; house grade computed |
 | U9 | Usable | access resolved: the trailhead has a `parks_for` parking, or `access_mode` is `shuttle_only`, `transit` or `walk_in` with a `serves` relation or an access note | |
-| U10 | Usable | `eligibility.stroller`, `carrier_ok`, `min_age_guidance`, `fitness` | `agent_inferred` allowed, with the stats in the quote |
+| U10 | replaced | superseded by the family checks F1-F12 (suitability.md section 4): stroller is F4, carrier F5, the recommended age F3, fitness F7 | |
 | U11 | Usable | `attrs.dogs` and `attrs.restrictions` (value or `none_stated`) | `official` |
 | U12 | Usable | `attrs.hazards` (list or `none_stated`) | `official` or `community` |
 | U13 | Usable | `attrs.payoff` | `community` allowed |
@@ -166,8 +166,11 @@ Common checks D1-D5, U1-U2, C1-C8 (README section 10) plus:
 | C17 | Complete | `attrs.crowds` with a dated source | `community` allowed |
 | C18 | Complete | its trailhead and every related parking lot are at least Usable | |
 
-Totals before conditional checks drop out: Draft 5, Usable 15, Complete 18; **38**. C4 (photo) applies.
-C5 exempts U7 computed time, U10, U12 community hazards, U13, C12, C16 and C17.
+Totals before conditional checks drop out: Draft 5, Usable 22, Complete 22; **49** (U10 is gone; the trail column of the family checks adds eight Usable and four Complete). C4 (photo) applies.
+C5 exempts U7 computed time, F3-F5 inferred values, U12 community hazards, U13, C12, C16 and C17.
+
+Family checks F1-F12 from [suitability.md](../suitability.md) section 4 apply as marked in its trail column: F2, F3, F4, F5, F7, F8, F11 and F12 are Usable; F1, F6, F9 and F10 are Complete. They are counted like any other check and are in the totals above.
+
 
 ## 10. Freshness
 
@@ -212,12 +215,12 @@ prototype/src/data/trails.ts (`sorapis`); OSM ids read 18 Oct 2026.
 | U7 | pass | computed 4.5-6 h, `agent_inferred` |
 | U8 | **fail** | CAI grade not recorded (the research says "Moderate" and "difficult" from blogs) |
 | U9 | **fail** | parking not an entity; sources disagree: "free roadside on SR48 plus an overflow lot, no published capacity" versus "free gravel car park near the bridge, ~20 spaces" |
-| U10, U12, U13 | pass | stroller no, guidance 10 with "ladders and cabled ledges" as the reason, fitness 3; hazards (exposure, July storms); payoff is the lake itself |
+| F3, F4, U12, U13 | pass | recommended age from 10 with "ladders and cabled ledges" as the reason (F3); stroller no (F4); hazards (exposure, July storms); payoff is the lake itself |
 | U11 | **fail** | dogs and restrictions not recorded |
 | U15 | **fail** | no conditions page recorded |
 | C checks | mostly fail | no `point_checked`, no photo, links unresolved, conflicts open |
 
-Result: **Draft · 14 of 37** (U14 does not apply: no permit or slot; C13 applies because the lake is
+Result: **Draft · 15 of 48** (U14 does not apply: no permit or slot; C13 applies because the lake is
 at 1,923 m; C16 applies). The missing list starts: U3 add the
 path 215 start node and relate it; U8 read the CAI Cortina grade; U9 create the two lots with
 `point_source` from OSM and record the capacity conflict; U11 dogs; U15 conditions page. That is the
