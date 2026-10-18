@@ -266,8 +266,8 @@ export function deriveAll(input: DeriveInput): Derived[] {
   return results;
 }
 
-/** Record kinds that are a product at a place rather than the place itself. An activity shares its place with a place record. */
-export const ACTIVITY_KINDS: readonly string[] = ["activity"];
+/** Record kinds that are a product at a place rather than the place itself (an activity, or a lift serving a summit). It shares its place with a place record. */
+export const ACTIVITY_KINDS: readonly string[] = ["activity", "lift"];
 
 /**
  * CF 4(b): a place and an activity at that place cannot both be anchors (the cruise and its lake). Records share a place
