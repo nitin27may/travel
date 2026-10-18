@@ -131,8 +131,12 @@ export const LOCATION_SOURCE_TYPES = [
 // suitability/1 (docs/v2/research/suitability.md). Append only.
 export const SUIT_BASIS = [
   "operator_rule", "official_rule", "official_grade", "official_info", "community", "our_inference",
+  // CF: an operator-published fact that is not a rule (hours, altitude, kit, ride time, last up and down, season, food)
+  "operator_info",
 ] as const;
-export const SUIT_STATE = ["value", "none_stated", "searched_none", "not_applicable", "gap"] as const;
+// `no_limit` (CF): the source affirmatively says there is no limit ("all children welcome"). `none_stated` is the soft
+// sibling: the sources are silent, so we record no limit. `searched_none` means we looked and found nothing.
+export const SUIT_STATE = ["value", "none_stated", "searched_none", "not_applicable", "gap", "no_limit"] as const;
 /** Every published scale a source_grade can name. The first nine are the difficulty-map v1 ids. */
 export const GRADE_SYSTEM = [
   "sac", "parks-canada", "sepaq", "nps", "yds", "uk", "apn", "dnt", "other",
@@ -172,7 +176,7 @@ export const SUIT_SUBKIND = [
   ...STAY_KIND, "restaurant", "cafe", "bakery", "teahouse", "bar", "market", "grocery", "hut_kitchen",
 ] as const;
 export const APPLICABILITY = ["R", "A", "N", "op"] as const;
-export const SUIT_LEVEL = ["draft", "usable", "complete"] as const;
+export const SUIT_LEVEL = ["draft", "usable_partial", "usable", "complete"] as const;
 export const MEDICAL = [
   "heart", "high_blood_pressure", "epilepsy", "neurological", "back_neck", "recent_surgery", "dislocation",
   "asthma", "diabetes", "mobility", "balance", "lung",

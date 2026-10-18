@@ -277,16 +277,17 @@ const NON_VAL: Record<string, unknown> = {
   "ext.ferrata.kit_weight_note": "Fill note.",
   "ext.trail.shape": "loop",
 };
-/** Answer a path with a searched_none (or the plain value a non-Val field takes). */
-function answer(rec: SuitabilityRecord, path: string): void {
+const firmVal = (): Obj => ({ v: "fixture", state: "value", basis: "operator_info", src: [], note: "fixture" });
+/** Answer a path with a firm value (or the plain value a non-Val field takes); `soft` answers it with a searched_none. */
+function answer(rec: SuitabilityRecord, path: string, soft = false): void {
   const target = path.startsWith("ext.") ? ((rec.ext ??= { kind: path.split(".")[1] } as never) as unknown as Obj) : (rec.suitability as unknown as Obj);
   const parts = path.startsWith("ext.") ? [path.split(".")[2]!] : path.split(".");
   let cur = target;
   for (const part of parts.slice(0, -1)) cur = (cur[part] ??= {}) as Obj;
-  cur[parts[parts.length - 1]!] = path in NON_VAL ? NON_VAL[path] : searchedNone();
+  cur[parts[parts.length - 1]!] = path in NON_VAL ? NON_VAL[path] : soft ? searchedNone() : firmVal();
 }
-const fill = (rec: SuitabilityRecord, paths: string[]): SuitabilityRecord => {
-  for (const p of paths) answer(rec, p);
+const fill = (rec: SuitabilityRecord, paths: string[], soft: readonly string[] = []): SuitabilityRecord => {
+  for (const p of paths) answer(rec, p, soft.includes(p));
   return rec;
 };
 const lake = (): SuitabilityRecord => ({ ref: "place/lago-di-braies", kind: "lake", subkind: "lake", suitability: {} });
@@ -510,7 +511,8 @@ describe("W_SUIT_BELOW_USABLE", () => {
     expect(ws[0]!.message).toMatch(/\+\d+ more/);
   });
   it("is absent once every R field is answered", () => {
-    const rec = fill(lake(), requiredPaths(APP.profiles.lake!, false));
+    const paths = requiredPaths(APP.profiles.lake!, false);
+    const rec = fill(lake(), paths, paths); // searched_none everywhere: schema-valid for every field
     const r = run([{ ...rec, flat: undefined }]);
     expect(r.errors).toEqual([]);
     expect(warnCodes(r)).not.toContain("W_SUIT_BELOW_USABLE");
@@ -568,7 +570,7 @@ describe("the new shared fields and extensions", () => {
     expect(E.KIT).toContain("crampons");
     expect(E.WEAR).toContain("swimwear");
     expect(E.WEATHER_CAUSE).toContain("river_level");
-    expect(E.SUIT_LEVEL).toEqual(["draft", "usable", "complete"]);
+    expect(E.SUIT_LEVEL).toEqual(["draft", "usable_partial", "usable", "complete"]);
   });
 });
 

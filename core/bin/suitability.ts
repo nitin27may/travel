@@ -7,6 +7,7 @@ import { loadApplicability } from "../src/suitability/applicability.ts";
 import { checkRecord, fieldsOf } from "../src/suitability/level.ts";
 import { loadMap } from "../src/suitability/map.ts";
 import { assertSpecCounts, migrate } from "../src/suitability/migrate.ts";
+import { rebaseOperatorInfo } from "../src/suitability/rebaseBasis.ts";
 import { duplicateRefsAcrossFiles, loadScope, missingCoverage } from "../src/suitability/refs.ts";
 import type { SuitabilityDoc } from "../src/schema/suitability.ts";
 import { SUIT_ERROR_LIST, SUIT_WARNING_LIST } from "../src/validate/codes.ts";
@@ -17,12 +18,16 @@ const USAGE = `Usage: node core/bin/suitability.ts <command> [options]
 Commands:
   check [--coverage <trip>]   validate every data/suitability/<trip>/*.json (E_SUIT_* errors, W_SUIT_* warnings), refs shared
                               across a trip's files, and with --coverage list the scope refs of the trip no file covers
-                              and the level (draft, usable, complete) of each record
+                              and the level (draft, usable_partial, usable, complete) of each record
   derive [--write] [--trip t] print the computed effort of every record; with --write store the flat catalogue copy
   derive --from-tracks        add gain and loss from L4b track files (off by default; needs data/catalog/trails/geo/*.json)
   fields --ref <ref>          print a record's profile and the paths a lane researches: R (required), A (applicable), N (never)
   fields --kind K --subkind S [--operated] [--all]   the same for a kind and subkind; --all lists the N paths
   migrate [--write] [--check] move the existing child and access fields into data/suitability/<trip>/migrated.json
+  rebase-basis [--write] [--trip t] [--keep f1,f2]
+                              rewrite basis operator_rule to operator_info on every field that is not a hard limit or a
+                              second-list rule (min_rider_age, driver_rule and so on). Dry run unless --write; --keep names
+                              more fields to leave as operator_rule. Prints the count per file.
   codes                       list the error and warning codes
 
 Options:
@@ -104,7 +109,7 @@ function check(argv: string[], root: string): number {
 /** Applicability spec 8.1, acceptance check 7: the level of every record of a trip, counted once per ref. */
 function coverageLevels(root: string, trip: string): void {
   const app = loadApplicability(root);
-  const tally = { draft: 0, usable: 0, complete: 0 };
+  const tally = { draft: 0, usable_partial: 0, usable: 0, complete: 0 };
   const lines: string[] = [];
   const seen = new Set<string>();
   const files = suitFiles(root, trip).sort((a, b) => Number(/migrated/.test(a)) - Number(/migrated/.test(b))); // a lane record supersedes a migrated one
@@ -118,7 +123,7 @@ function coverageLevels(root: string, trip: string): void {
       lines.push(`${c.level}\t${r.ref}\t${c.located?.name ?? "no profile"}\t${c.missingRequired.length} required open`);
     }
   }
-  process.stdout.write(`levels in ${trip}: ${tally.complete} complete, ${tally.usable} usable, ${tally.draft} draft of ${seen.size} record(s)\n`);
+  process.stdout.write(`levels in ${trip}: ${tally.complete} complete, ${tally.usable} usable, ${tally.usable_partial} usable (partly unverified), ${tally.draft} draft of ${seen.size} record(s)\n`);
   for (const l of lines) process.stdout.write(`  ${l}\n`);
 }
 
@@ -218,6 +223,24 @@ function runMigrate(argv: string[], root: string): number {
   return drift > 0 ? 1 : 0;
 }
 
+function runRebaseBasis(argv: string[], root: string): number {
+  const doWrite = argv.includes("--write");
+  const keep = (arg(argv, "--keep") ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+  let total = 0;
+  let touched = 0;
+  for (const f of suitFiles(root, arg(argv, "--trip"))) {
+    const doc = JSON.parse(readFileSync(f, "utf8")) as SuitabilityDoc;
+    const r = rebaseOperatorInfo(doc, { keep });
+    if (r.changed === 0) continue;
+    touched++;
+    total += r.changed;
+    process.stdout.write(`${r.changed}\t${relative(root, f)}\n`);
+    if (doWrite) write(f, r.doc);
+  }
+  process.stdout.write(`${doWrite ? "rewrote" : "would rewrite"} ${total} basis value(s) in ${touched} file(s)\n`);
+  return 0;
+}
+
 function main(argv: string[]): number {
   if (argv.length === 0 || argv.includes("--help")) {
     process.stdout.write(USAGE);
@@ -233,6 +256,8 @@ function main(argv: string[]): number {
       return fieldsCommand(argv, root);
     case "migrate":
       return runMigrate(argv, root);
+    case "rebase-basis":
+      return runRebaseBasis(argv, root);
     case "codes":
       process.stdout.write([...SUIT_ERROR_LIST, ...SUIT_WARNING_LIST].join("\n") + "\n");
       return 0;

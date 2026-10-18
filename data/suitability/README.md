@@ -75,13 +75,14 @@ pnpm --dir web exec vitest run -c ../tools/suitability-scope/vitest.config.mts  
 | `operator_rule` | the operator's own rule: age, height, weight, harness, swim test, adult ratio |
 | `official_rule` | a land manager's or a law's rule: a group of four, a permit age |
 | `official_grade` | a published grade in a recognised system: SAC T2, CAI E, Parks Canada Moderate, Class II |
-| `official_info` | a fact from an operator or land manager that is not a rule: "paved for 1.2 km" |
+| `operator_info` | a fact the operator publishes that is not a rule: hours, altitude, kit, ride time, last up and down, season, food |
+| `official_info` | a fact from a land manager or other official body that is not a rule: "paved for 1.2 km" |
 | `community` | dated trip reports and forum posts; never for a limit; fine for shade, signal, stroller |
 | `our_inference` | our judgement or computation, with the method in `note` |
 
 Rules the validator enforces:
 
-- **A hard limit** (`min_age`, `max_age`, the height and weight limits, `adult_required`) rests on `operator_rule` or `official_rule`. `group_min` rests on `official_rule`. Anyone else's figure goes under `conflicts`, never into `v` (`E_SUIT_LIMIT_BASIS`).
+- **A hard limit** (`min_age`, `max_age`, the height and weight limits, `adult_required`) rests on `operator_rule` or `official_rule`, never `operator_info`. `group_min` rests on `official_rule`. Anyone else's figure goes under `conflicts`, never into `v` (`E_SUIT_LIMIT_BASIS`).
 - **Say which end it is.** `min_weight_kg` and `max_weight_kg` are two fields. The Kicking Horse 50 lb minimum was once stored as a maximum.
 - **Units.** A quote in lb, in, ft or mi needs a `note` with the conversion: "44 in = 112 cm" (`E_SUIT_UNIT`). Weights to one decimal.
 - **Link-only sources.** AllTrails, Komoot, Gaia, Outdooractive, Wikiloc, Google, Tripadvisor and booking sites are never a `src` (`E_SUIT_LINK_ONLY_SRC`). Trailforks only for `community` values.

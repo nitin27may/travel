@@ -803,7 +803,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -1099,7 +1099,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -1868,7 +1868,7 @@
         "accessibility": "partial",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2039,7 +2039,7 @@
         "accessibility": "partial",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2213,7 +2213,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2386,7 +2386,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2566,7 +2566,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2745,7 +2745,7 @@
         "accessibility": "step-free",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2912,7 +2912,7 @@
         "accessibility": "step-free",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -3039,7 +3039,7 @@
         "accessibility": "partial",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {

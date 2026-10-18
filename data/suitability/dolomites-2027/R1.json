@@ -717,7 +717,7 @@
         "accessibility": "unknown",
         "walk_km": 8.8,
         "walk_gain_m": 550,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -1132,7 +1132,7 @@
         "accessibility": "unknown",
         "walk_km": 12.6,
         "walk_gain_m": 550,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -1478,7 +1478,7 @@
         "accessibility": "unknown",
         "walk_km": 9.2,
         "walk_gain_m": 600,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -1702,7 +1702,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -1905,7 +1905,7 @@
         "accessibility": "unknown",
         "walk_km": 4.5,
         "walk_gain_m": 101,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2111,7 +2111,7 @@
         "accessibility": "unknown",
         "walk_km": 8,
         "walk_gain_m": 350,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2300,7 +2300,7 @@
         "accessibility": "unknown",
         "walk_km": 7,
         "walk_gain_m": 249,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2506,7 +2506,7 @@
         "accessibility": "unknown",
         "walk_km": 12.42,
         "walk_gain_m": 593,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2699,7 +2699,7 @@
         "accessibility": "unknown",
         "walk_km": 9.9,
         "walk_gain_m": 333,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -2926,7 +2926,7 @@
         "accessibility": "unknown",
         "walk_km": 9.1,
         "walk_gain_m": 340,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -3111,7 +3111,7 @@
         "accessibility": "unknown",
         "walk_km": 7.5,
         "walk_gain_m": 200,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -3308,7 +3308,7 @@
         "accessibility": "unknown",
         "walk_km": 7.2,
         "walk_gain_m": 511,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -3558,7 +3558,7 @@
         "accessibility": "unknown",
         "walk_km": 7.8,
         "walk_gain_m": 561,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -6262,7 +6262,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {
@@ -6572,7 +6572,7 @@
         "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "usable_partial"
       }
     },
     {

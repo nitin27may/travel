@@ -7,7 +7,7 @@ import { gradesOf, loadMap } from "../suitability/map.ts";
 import type { DifficultyMap } from "../suitability/map.ts";
 import { loadApplicability } from "../suitability/applicability.ts";
 import { RefResolver } from "../suitability/refs.ts";
-import { LIMIT_FIELDS, RULE_BASES } from "../suitability/types.ts";
+import { LIMIT_FIELDS, RULE_BASES, SECOND_RULE_FIELDS } from "../suitability/types.ts";
 import type { SuitabilityDoc, SuitabilityRecord } from "../schema/suitability.ts";
 import { SUIT_MESSAGES as M } from "./messages.ts";
 import { checkApplicability } from "./suitabilityApplicability.ts";
@@ -41,12 +41,6 @@ const TRAILFORKS = /(^|\.)trailforks\.com$/;
 const TYPED_EFFORT_KEYS = ["family_effort", "terrain", "terrain_basis", "effort_km", "band"];
 const FRESH_DAYS = { limit: 365, grade: 1095, season: 365, facility: 730 };
 const UNIT_RE = /\d\s*(lbs?|pounds?|in|inch(?:es)?|"|ft|feet|foot|mi|miles?)(?![a-z])/i;
-// fields outside the shared limit list that still state a rule an operator or a land manager makes (K3)
-const SECOND_RULE_FIELDS = [
-  "min_rider_age", "ski_school_min_age",
-  // S0b: shoe size for crampons, flotation age, coaster load and driver rule, weight by time slot, distance from wildlife
-  "min_shoe_eu", "floats_required_under", "max_load_kg", "driver_rule", "weight_by_slot", "min_distance_m",
-];
 
 type AnyVal = {
   v: unknown;
@@ -175,6 +169,10 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
     } else if (v.v !== null) {
       E("E_SUIT_SCHEMA", path, M.schema(path, `"${field}" has state "${v.state}" so v must be null. Move the figure to "conflicts" or set state "value". Example: {"v": null, "state": "searched_none"}.`));
     }
+    if (v.state === "no_limit") {
+      if (v.basis === null) E("E_SUIT_SCHEMA", `${path}/basis`, M.schema(`${path}/basis`, `"${field}" is no_limit but names no basis: whose statement is it? Example: "basis": "operator_rule".`));
+      if (!v.quote && !(v.note && v.note.length > 0)) E("E_SUIT_SCHEMA", `${path}/quote`, M.schema(`${path}/quote`, `"${field}" is no_limit, which says the source affirms there is no limit. Give the words in "quote" (or the reason in "note"). Example: "quote": "All children are welcome."`));
+    }
     if (v.state === "none_stated" && v.basis === null) E("E_SUIT_SCHEMA", `${path}/basis`, M.schema(`${path}/basis`, `"${field}" is none_stated but names no basis: whose statement is it? Example: "basis": "operator_rule".`));
     if (v.state === "searched_none") {
       if (!v.on) E("E_SUIT_SEARCHED_NONE", path, M.searchedNone(field, '"on" date'));
@@ -186,7 +184,7 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
     };
     checkSrc(v.src, `${path}/src`);
     (v.conflicts ?? []).forEach((c, k) => checkSrc(c.src, `${path}/conflicts/${k}/src`));
-    const asserts = v.state === "value" || v.state === "none_stated";
+    const asserts = v.state === "value" || v.state === "none_stated" || v.state === "no_limit";
     if (asserts && v.basis !== null && v.src.length === 0 && !(v.basis === "our_inference" && v.note && v.note.length > 0)) E("E_SUIT_SRC", path, M.srcMissing(field));
     if (asserts && v.basis !== "community" && v.src.some((id) => trailforksIds.has(id))) {
       E("E_SUIT_LINK_ONLY_SRC", `${path}/src`, M.linkOnly(v.src.find((id) => trailforksIds.has(id))!, "Trailforks (community basis only)"));
@@ -240,7 +238,7 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
       for (const [k, x] of Object.entries(ws)) {
         if (!isVal(x)) continue;
         checkVal(x, `${base}/water_safety/${k}`, k, null, null);
-        if (SECOND_RULE_FIELDS.includes(k) && (x.state === "value" || x.state === "none_stated") && !(x.basis !== null && (RULE_BASES as readonly string[]).includes(x.basis))) E("E_SUIT_LIMIT_BASIS", `${base}/water_safety/${k}/basis`, M.limitBasis(k, x.basis));
+        if ((SECOND_RULE_FIELDS as readonly string[]).includes(k) && (x.state === "value" || x.state === "none_stated" || x.state === "no_limit") && !(x.basis !== null && (RULE_BASES as readonly string[]).includes(x.basis))) E("E_SUIT_LIMIT_BASIS", `${base}/water_safety/${k}/basis`, M.limitBasis(k, x.basis));
         if (k === "class" && x.state === "value" && isObj(x.v)) {
           const allowed = gradesOf(map, x.v.system as never);
           if (allowed && !allowed.includes(String(x.v.value))) E("E_SUIT_GRADE", `${base}/water_safety/class`, M.grade(String(x.v.system), String(x.v.value), allowed));
@@ -252,7 +250,7 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
       for (const [k, x] of Object.entries(part)) {
         if (!isVal(x)) continue;
         checkVal(x, `${base}/participation/${k}`, k, null, null);
-        if (SECOND_RULE_FIELDS.includes(k) && (x.state === "value" || x.state === "none_stated") && !(x.basis !== null && (RULE_BASES as readonly string[]).includes(x.basis))) E("E_SUIT_LIMIT_BASIS", `${base}/participation/${k}/basis`, M.limitBasis(k, x.basis));
+        if ((SECOND_RULE_FIELDS as readonly string[]).includes(k) && (x.state === "value" || x.state === "none_stated" || x.state === "no_limit") && !(x.basis !== null && (RULE_BASES as readonly string[]).includes(x.basis))) E("E_SUIT_LIMIT_BASIS", `${base}/participation/${k}/basis`, M.limitBasis(k, x.basis));
       }
     }
     const ad = b.access_detail;
@@ -286,7 +284,7 @@ export function validateSuitability(doc: unknown, ctx: Ctx, opts: SuitOptions = 
     for (const [k, v] of Object.entries(x)) {
       if (!isVal(v)) continue;
       checkVal(v, `${base}/${k}`, k, null, null);
-      if (SECOND_RULE_FIELDS.includes(k) && (v.state === "value" || v.state === "none_stated") && !(v.basis !== null && (RULE_BASES as readonly string[]).includes(v.basis))) E("E_SUIT_LIMIT_BASIS", `${base}/${k}/basis`, M.limitBasis(k, v.basis));
+      if ((SECOND_RULE_FIELDS as readonly string[]).includes(k) && (v.state === "value" || v.state === "none_stated" || v.state === "no_limit") && !(v.basis !== null && (RULE_BASES as readonly string[]).includes(v.basis))) E("E_SUIT_LIMIT_BASIS", `${base}/${k}/basis`, M.limitBasis(k, v.basis));
     }
   };
 
