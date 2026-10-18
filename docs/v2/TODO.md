@@ -2,6 +2,8 @@
 
 Newest first. Each line links to where it is specified. Move a line to "Done" with the commit when it ships.
 
+> The public site's complete, staged backlog (every finding, every status) is [build/public-site/BACKLOG.md](build/public-site/BACKLOG.md). Public-site items there are not repeated here line by line.
+
 ## Open
 
 | Added | Item | Spec |

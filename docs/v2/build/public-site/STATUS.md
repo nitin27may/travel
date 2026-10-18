@@ -1,6 +1,6 @@
 # Public site build: live status (coordinator handover)
 
-Updated 2026-10-18, late evening. Read this first after a context reset. Then read `docs/v2/TODO.md` and `README.md` in this folder.
+Updated 2026-10-18, late evening. Read this first after a context reset. **The full backlog to go-live, with every finding and its status, is `BACKLOG.md` in this folder: every new finding goes there first.** Then read `docs/v2/TODO.md` and `README.md`.
 
 ## Where things are
 
