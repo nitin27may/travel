@@ -489,3 +489,13 @@ td[data-align='right'] { text-align: right; font: var(--t-mono); }
 .sheet-media .img-fallback { background: var(--header-2); color: var(--header-mute); }
 .sheet-media .img-fallback > * { display: none; }
 .img-fallback span { max-width: 90%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Touch devices: form text at 16 px so iOS never zooms on focus, and every pill and segment gets a 44 px hit area */
+@media (pointer: coarse) {
+  input, select, textarea, .input-mono input { font-size: 16px; }
+  .pill-trigger, .pill-x, .seg button, .segmented button { position: relative; }
+  .pill-trigger::after, .pill-x::after, .seg button::after, .segmented button::after {
+    content: ''; position: absolute; inset: 50% auto auto 50%;
+    width: max(100%, var(--touch-min)); height: max(100%, var(--touch-min)); transform: translate(-50%, -50%);
+  }
+}
