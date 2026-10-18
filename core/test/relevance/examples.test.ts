@@ -231,12 +231,12 @@ describe("10.3 An Algonquin day hike against Rattlesnake Point, from Toronto Cit
     expect(badgeFor(d["place/track-and-tower"]!, track, "day", "toronto")).toBeNull(); // outside the band
     expect(badgeFor(d["place/track-and-tower"]!, track, "vacation")).toBe("Worth the journey");
   });
-  it("the far pointer of Rattlesnake Point is Niagara Falls, about 81 km: outside the spec's 50 km, so it needs a 100 km reach", () => {
-    expect(run(records, facts, { matrix: m })["place/rattlesnake-point"]!.far_pointer).toBeNull();
-    const far = run(records, facts, { matrix: m, farPointerKm: 100 })["place/rattlesnake-point"]!.far_pointer!;
-    expect(far.ref).toBe("place/niagara-falls");
-    expect(far.km).toBeGreaterThan(75);
-    expect(far.km).toBeLessThan(90);
+  it("Rattlesnake Point has no far pointer: Niagara Falls is about 81 km away, outside the 50 km reach", () => {
+    const d = run(records, facts, { matrix: m });
+    expect(d["place/rattlesnake-point"]!.far_pointer).toBeNull();
+    const km = haversineKm(facts["place/rattlesnake-point"].point, facts["place/niagara-falls"].point);
+    expect(km).toBeGreaterThan(75);
+    expect(km).toBeLessThan(90);
   });
   it("a hub cell missing from the matrix falls back to a straight-line estimate marked approximate", () => {
     const part = matrix({ "place/rattlesnake-point": 55 });
@@ -244,6 +244,10 @@ describe("10.3 An Algonquin day hike against Rattlesnake Point, from Toronto Cit
     expect(d.from_hubs.toronto!.approx).toBe(true);
     expect(d.from_hubs.toronto!.min).toBe(approxMinutes(haversineKm(HUB, facts["place/track-and-tower"].point)));
     expect(run(records, facts, { matrix: part })["place/rattlesnake-point"]!.from_hubs.toronto).toEqual({ min: 55, approx: false });
+  });
+  it("a hub that is public but not on the allowlist is skipped too", () => {
+    const other: HubMatrix = { ...m, hubs: [{ ...HUB, id: "somewhere", name: "A private spot", public: true }], minutes: { "place/rattlesnake-point": { somewhere: 10 } } };
+    expect(run(records, facts, { matrix: other })["place/rattlesnake-point"]!.from_hubs).toEqual({});
   });
   it("a non-public hub is skipped by derive", () => {
     const bad: HubMatrix = { ...m, hubs: [{ ...HUB, public: false }] };
@@ -400,5 +404,49 @@ describe("derive is offline and advisory", () => {
     const f = rec({ ref: "place/x" });
     const facts = { "place/x": { point: pt(51.2, -115.5) } };
     expect(JSON.stringify(deriveAll({ records: [f], facts, signals: SIG, towns: [banff] }))).toBe(JSON.stringify(deriveAll({ records: [f], facts, signals: SIG, towns: [banff] })));
+  });
+});
+
+describe("stale values are gaps", () => {
+  const r = rec({ ref: "place/x", draw: "world", standing: "top", distinction: "rare", designations: [], class_key: "lake/glacial-turquoise" });
+  const facts = { "place/x": { point: pt(51.2, -115.5) } };
+  const meta = (researched: string) => ({ "place/x": { researched, reads: { "src-0001": researched } } });
+  it("fresh data keeps its tiers and has no stale flag", () => {
+    const d = run([r], facts, { meta: meta("2026-10-01"), today: "2026-10-18" })["place/x"]!;
+    expect(d.stale).toEqual([]);
+    expect(d.role).toBe("anchor");
+  });
+  it("a draw older than three years is treated as a gap (local) and flagged", () => {
+    const d = run([r], facts, { meta: meta("2022-01-01"), today: "2026-10-18" })["place/x"]!;
+    expect(d.stale).toEqual(expect.arrayContaining(["draw", "standing", "distinction"]));
+    expect(d.effective_draw).toBe("local");
+    expect(d.role).not.toBe("anchor");
+  });
+  it("without a date nothing is stale", () => {
+    expect(run([r], facts, { meta: meta("2000-01-01") })["place/x"]!.stale).toEqual([]);
+  });
+});
+
+describe("access: capped boats and lifts are hard", () => {
+  it("boat_or_ferry or lift_only with a cap is hard even when booked days ahead", async () => {
+    const { accessLoad } = await import("../../src/relevance/fit.ts");
+    expect(accessLoad([{ type: "boat_or_ferry", capped: true }])).toBe("hard");
+    expect(accessLoad([{ type: "lift_only", capped: true }])).toBe("hard");
+    expect(accessLoad([{ type: "lift_only", book_ahead_days: 30 }])).toBe("hard");
+    expect(accessLoad([{ type: "lift_only", book_ahead_days: 3 }])).toBe("plan");
+    expect(accessLoad([{ type: "timed_entry", capped: true }])).toBe("plan");
+  });
+});
+
+describe("guard for the S0b rebase: suitability's deriveEffort still returns a family effort", () => {
+  it("Larch Valley (11.2 km, 750 m) keeps effort_km 18.7, band 3 and family effort 3", async () => {
+    const { deriveEffort } = await import("../../src/suitability/derive.ts");
+    const { loadMap } = await import("../../src/suitability/map.ts");
+    const { walk } = await import("../suitability/helpers.ts");
+    const e = deriveEffort({ kind: "trail", block: walk(11.2, 750) }, loadMap());
+    expect(e.effort_km).toBe(18.7);
+    expect(e.band).toBe(3);
+    expect(e.family_effort).not.toBeNull();
+    expect(e.family_effort).toBe(3);
   });
 });

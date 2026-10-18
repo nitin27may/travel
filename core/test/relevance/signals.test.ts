@@ -48,7 +48,7 @@ const client = (f: ReturnType<typeof fake>, o: Partial<ConstructorParameters<typ
 
 describe("identification", () => {
   it("names the project and the repo URL, and nothing personal", () => {
-    expect(USER_AGENT).toMatch(/^[a-z-]+\/\d+\.\d+ \(https:\/\/github\.com\/[A-Za-z0-9-]+\/[A-Za-z0-9-]+\)$/);
+    expect(USER_AGENT).toMatch(/^[a-z-]+\/\d+\.\d+ \(\+https:\/\/nks-travel\.pages\.dev\/about\/\)$/);
     expect(USER_AGENT).not.toContain("@");
   });
   it("sends the User-Agent on every request and no other identifying header", async () => {
@@ -61,6 +61,23 @@ describe("identification", () => {
       expect(c.url).not.toContain("@");
       expect(c.url.toLowerCase()).not.toMatch(/mailto|email|nitin/);
     }
+  });
+});
+
+describe("langs.json changes", () => {
+  it("re-reads an item and its page views when the wanted languages change", async () => {
+    const f1 = fake();
+    const c1 = client(f1);
+    await c1.pageviews(await c1.wikidata(["Q1257207"], { Q1257207: ["de"] }));
+    const same = fake();
+    const c2 = client(same);
+    await c2.pageviews(await c2.wikidata(["Q1257207"], { Q1257207: ["de"] }));
+    expect(same.calls).toHaveLength(0);
+    const changed = fake();
+    const c3 = client(changed);
+    const pv = await c3.pageviews(await c3.wikidata(["Q1257207"], { Q1257207: ["de", "it"] }));
+    expect(changed.calls.some((x) => x.url.includes("wikidata.org"))).toBe(true);
+    expect(Object.keys(pv.Q1257207!.views).sort()).toEqual(["de.wikipedia", "en.wikipedia", "it.wikipedia"]);
   });
 });
 

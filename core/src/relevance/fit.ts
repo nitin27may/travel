@@ -85,7 +85,11 @@ export function accessLoad(items: RelAccessItem[], external: AccessLoad = "easy"
   let load: AccessLoad = external;
   for (const it of items) {
     if (HARD_ALWAYS.includes(it.type)) load = worst(load, "hard");
-    else if (PLAN_TYPES.includes(it.type)) load = worst(load, (it.book_ahead_days ?? 0) >= 30 ? "hard" : "plan");
+    else if (PLAN_TYPES.includes(it.type)) {
+      // a month-ahead sell-out is hard; so are limited sailings or a capped lift (it.capped)
+      const capped = it.capped === true && (it.type === "boat_or_ferry" || it.type === "lift_only");
+      load = worst(load, (it.book_ahead_days ?? 0) >= 30 || capped ? "hard" : "plan");
+    }
     // long_walk_in and seasonal_road cost effort or a season, not a booking: easy
   }
   return load;
@@ -176,8 +180,8 @@ export function dayTripFit(f: DayFacts): FitResult {
   if (h > 180) [base, why] = ["skip", "over 3 h one way"];
   else if (atLeast(f.ed, "regional") && f.standing === "top" && total <= 720) [base, why] = ["plan_around", `draw ${f.ed}, top, ${h} min away`];
   else if ((f.standing === "top" || f.standing === "good") && h <= 120) [base, why] = ["worth_it", `standing ${f.standing}, ${h} min away`];
-  else if (f.standing === "good" && h <= 60) [base, why] = ["if_nearby", `good, ${h} min away`];
-  else [base, why] = ["skip", f.standing === "ordinary" && h > 45 ? "ordinary and over 45 min away" : "the rest"];
+  else if ((f.standing === "good" && h <= 60) || (f.standing === "ordinary" && h <= 45)) [base, why] = ["if_nearby", `${f.standing}, ${h} min away`];
+  else [base, why] = ["skip", f.standing === "ordinary" ? "ordinary and over 45 min away" : "the rest"];
   const { fit, notes } = applyDrops(base, f, false);
   return finish(fit, why, notes);
 }

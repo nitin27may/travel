@@ -32,3 +32,6 @@ web/out/
 web/.next/
 web/.generated/
 web/.fixture-*/
+
+# relevance: a private origin for the 2 km household check, local only
+data/relevance/inputs/private-origin.local.json

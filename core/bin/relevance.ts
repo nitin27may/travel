@@ -12,6 +12,7 @@ import { SignalsClient, USER_AGENT } from "../src/relevance/signals.ts";
 import { REL_ERROR_LIST, REL_WARNING_LIST } from "../src/validate/codes.ts";
 import { validateFile } from "../src/validate/index.ts";
 import { relevanceFiles } from "../src/relevance/refs.ts";
+import { checkInputs } from "../src/relevance/inputsCheck.ts";
 
 const USAGE = `Usage: node core/bin/relevance.ts <command> [options]
 
@@ -55,6 +56,11 @@ function check(argv: string[], root: string): number {
     if (json) report.push({ file: shown, errors: res.errors, warnings: res.warnings });
     else for (const e of res.errors) process.stdout.write(`ERROR ${e.code} ${shown}#${e.path}: ${e.message}\n`);
   }
+  for (const i of checkInputs(root)) {
+    errors++;
+    if (json) report.push({ file: i.file, errors: [{ code: i.code, path: i.path, message: i.message }], warnings: [] });
+    else process.stdout.write(`ERROR ${i.code} ${i.file}#${i.path}: ${i.message}\n`);
+  }
   for (const [trip, ref, where] of duplicateRefs(root)) {
     errors++;
     const msg = `ref "${ref}" is in more than one file of ${trip}: ${where.map((w) => relative(root, w)).join(", ")}. Keep one record per ref.`;
@@ -62,7 +68,7 @@ function check(argv: string[], root: string): number {
     else process.stdout.write(`ERROR E_REL_DUP_REF data/relevance/${trip}: ${msg}\n`);
   }
   if (json) process.stdout.write(JSON.stringify(report, null, 2) + "\n");
-  else process.stdout.write(`${errors === 0 ? "OK" : "FAILED"}: ${files.length} relevance file(s), ${errors} error(s), ${warnings} warning(s)\n`);
+  else process.stdout.write(`${errors === 0 ? "OK" : "FAILED"}: ${files.length} relevance file(s) and the inputs, ${errors} error(s), ${warnings} warning(s)\n`);
   return errors > 0 ? 1 : 0;
 }
 
@@ -72,8 +78,8 @@ function tripWindow(root: string, trip: string): { from: string; to: string } | 
   return (JSON.parse(readFileSync(p, "utf8")) as PointsFile).trips?.[trip]?.window ?? null;
 }
 
-function deriveFiles(root: string, window: { from: string; to: string } | null): Map<string, string> {
-  const { input, trips } = loadDeriveInput(root, window);
+function deriveFiles(root: string, window: { from: string; to: string } | null, today: string): Map<string, string> {
+  const { input, trips } = loadDeriveInput(root, window, today);
   const out = new Map<string, string>();
   for (const [trip, refs] of trips) {
     const w = window ?? tripWindow(root, trip);
@@ -90,7 +96,7 @@ function derive(argv: string[], root: string): number {
   const window = win ? { from: win.split(":")[0]!, to: win.split(":")[1]! } : null;
   let files: Map<string, string>;
   try {
-    files = deriveFiles(root, window);
+    files = deriveFiles(root, window, arg(argv, "--today") ?? new Date().toISOString().slice(0, 10));
   } catch (e) {
     if (e instanceof HouseholdHubError) {
       process.stderr.write(e.message + "\n");

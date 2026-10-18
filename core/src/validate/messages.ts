@@ -146,7 +146,7 @@ export const REL_MESSAGES = {
   typedDerived: (key: string): string =>
     `"${key}" is derived by core/src/relevance/derive.ts and must not be typed. Remove it, or use "override" with a reason, by and on. Example: {"field": "role", "value": "highlight", "reason": "...", "by": "nitin", "on": "2026-10-18"}.`,
   inherited: (name: string): string =>
-    `designation "${name}" comes from a park-level page, so on a place record it must say scope "parent": inherited status never raises the draw (3.1 rule 3). Example: {"type": "unesco_whs", "name": "${name}", "scope": "parent"}.`,
+    `designation "${name}" is an area designation, and only a record that is itself an area (park, region, protected_area) may own one. On a place it must say scope "parent": inherited status never raises the draw (3.1 rule 3). Example: {"type": "unesco_whs", "name": "${name}", "scope": "parent"}.`,
   household: (what: string): string =>
     `${what} looks like a household origin. Relevance files carry public hubs only (Toronto City Hall), never a home address or a private point. Remove it.`,
   cls: (key: string): string => `class_key "${key}" is not in data/vocab/relevance-classes.json. Pick an existing class, or propose a new one in the lane markdown. Example: "lake/glacial-turquoise".`,

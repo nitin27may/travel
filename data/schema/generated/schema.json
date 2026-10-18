@@ -6232,6 +6232,9 @@
                             "book_ahead_days": {
                               "type": "integer",
                               "minimum": 0
+                            },
+                            "capped": {
+                              "type": "boolean"
                             }
                           },
                           "required": [
@@ -6337,6 +6340,9 @@
                               "book_ahead_days": {
                                 "type": "integer",
                                 "minimum": 0
+                              },
+                              "capped": {
+                                "type": "boolean"
                               }
                             },
                             "required": [

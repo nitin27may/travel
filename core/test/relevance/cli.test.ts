@@ -50,7 +50,7 @@ describe("relevance CLI", () => {
   it("derive --write stores a deterministic file and --check detects drift", () => {
     const root = repo();
     put(root, "data/relevance/t/R1.json", doc([rec({ ref: "place/fenland-loop", draw: "local", standing: "good" })], { trip: "t" }));
-    put(root, "data/relevance/inputs/points.json", { schema: "relevance-points/1", points: { "place/fenland-loop": { lat: 51.183, lon: -115.561 } }, towns: [{ id: "banff", name: "Banff", lat: 51.1784, lon: -115.5708, has_stay: true }] });
+    put(root, "data/relevance/inputs/points.json", { schema: "relevance-points/1", points: { "place/fenland-loop": { lat: 51.183, lon: -115.561, coord_src: "wikidata:P625" } }, towns: [{ id: "banff", name: "Banff", lat: 51.1784, lon: -115.5708, has_stay: true }] });
     expect(cli(root, "derive", "--check").status).toBe(1); // nothing stored yet
     expect(cli(root, "derive", "--write").status).toBe(0);
     const path = join(root, "data/relevance/derived/t.json");
@@ -94,5 +94,57 @@ describe("relevance CLI", () => {
     const r = cli(repo(), "codes");
     expect(r.stdout).toContain("E_REL_COPIED_RATING");
     expect(r.stdout).toContain("W_REL_DRAW_GAP");
+  });
+});
+
+describe("check validates the inputs", () => {
+  const tor = { id: "toronto", name: "Toronto City Hall", lat: 43.6534, lon: -79.3841, public: true };
+  const pts = (over: Record<string, unknown> = {}) => ({ schema: "relevance-points/1", points: { "place/x": { lat: 51.1, lon: -115.5, coord_src: "wikidata:P625" } }, towns: [], ...over });
+  it("accepts a public allowlisted hub and a point with a coord_src", () => {
+    const root = repo();
+    put(root, "data/relevance/inputs/hub-matrix.json", { schema: "hub-matrix/1", hubs: [tor], minutes: { "place/x": { toronto: 55 } } });
+    put(root, "data/relevance/inputs/points.json", pts());
+    const r = cli(root, "check");
+    expect(r.status, r.stdout).toBe(0);
+  });
+  it("refuses a hub that is not public, or public but off the allowlist", () => {
+    for (const hub of [{ ...tor, public: false }, { ...tor, id: "elsewhere", name: "Elsewhere" }]) {
+      const root = repo();
+      put(root, "data/relevance/inputs/hub-matrix.json", { schema: "hub-matrix/1", hubs: [hub], minutes: {} });
+      const r = cli(root, "check");
+      expect(r.status).toBe(1);
+      expect(r.stdout).toContain("E_REL_HOUSEHOLD");
+    }
+  });
+  it("refuses a point, town, hub or base within 2 km of a private origin, and skips quietly when there is none", () => {
+    const root = repo();
+    put(root, "data/relevance/inputs/points.json", pts({ towns: [{ id: "t", name: "T", lat: 51.1005, lon: -115.5005, has_stay: true }] }));
+    expect(cli(root, "check").status).toBe(0); // no private-origin.local.json: nothing to compare
+    put(root, "data/relevance/inputs/private-origin.local.json", { lat: 51.1, lon: -115.5 });
+    const r = cli(root, "check");
+    expect(r.status).toBe(1);
+    expect(r.stdout).toMatch(/point "place\/x" lies within 2 km/);
+    expect(r.stdout).toMatch(/town "T" lies within 2 km/);
+    // 2.5 km away is fine
+    put(root, "data/relevance/inputs/points.json", pts({ points: { "place/x": { lat: 51.1225, lon: -115.5, coord_src: "osm:node/1" } } }));
+    expect(cli(root, "check").status).toBe(0);
+  });
+  it("the private origin file is gitignored", () => {
+    const g = readFileSync(join(CORE, "..", ".gitignore"), "utf8");
+    expect(g).toContain("data/relevance/inputs/private-origin.local.json");
+  });
+  it("needs a coord_src that is not Google", () => {
+    const root = repo();
+    put(root, "data/relevance/inputs/points.json", pts({ points: { "place/x": { lat: 51.1, lon: -115.5 } } }));
+    expect(cli(root, "check").stdout).toContain("coord_src");
+    put(root, "data/relevance/inputs/points.json", pts({ points: { "place/x": { lat: 51.1, lon: -115.5, coord_src: "google maps pin" } } }));
+    const r = cli(root, "check");
+    expect(r.status).toBe(1);
+    expect(r.stdout).toContain("E_REL_LINK_ONLY_SRC");
+  });
+  it("rejects household keys in the inputs", () => {
+    const root = repo();
+    put(root, "data/relevance/inputs/points.json", pts({ home: { lat: 1, lon: 2 } }));
+    expect(cli(root, "check").stdout).toContain("E_REL_HOUSEHOLD");
   });
 });

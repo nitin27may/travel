@@ -6,6 +6,9 @@ import {
   haversineKm, passingFit, roleOf, tierIdx, vacationFit, weekendFit,
 } from "./fit.ts";
 import type { AccessLoad, Badge, Fit, Flags, Role, Thresholds } from "./fit.ts";
+import { isAllowedHub } from "./hubs.ts";
+import { staleFields } from "./stale.ts";
+import { suggestFor } from "./suggest.ts";
 
 export interface Point { lat: number; lon: number }
 export interface Town extends Point { id: string; name: string; has_stay: boolean }
@@ -44,6 +47,9 @@ export interface DeriveInput {
   /** trip season window, MM-DD; picks effective_draw */
   window?: { from: string; to: string } | null;
   thresholds?: Thresholds;
+  /** per ref: the file's researched date and its sources' read dates; with `today` it lets derive spot stale values */
+  meta?: Record<string, { researched: string; reads: Record<string, string> }>;
+  today?: string;
   /** radius of the far pointer; the spec says 50 km (3.2) */
   farPointerKm?: number;
 }
@@ -69,6 +75,8 @@ export interface Derived {
   badge: Badge | null;
   /** the same derivation at the peak tier, when the record has a draw_peak */
   peak?: { tier: DrawTier; role: Role; badge: Badge | null; vacation: FitOut };
+  /** judged or evidence fields past their freshness limit; derive treated each as a gap */
+  stale: string[];
   warnings: { code: string; message: string }[];
 }
 
@@ -82,22 +90,27 @@ function valueOf<T>(x: { v: T | null; state: string }): T | null {
 }
 
 /** The three judged tiers a derive run reads from a record; a `gap` field reads as the lower option. */
-function judged(r: RelevanceRecord) {
+function judged(r: RelevanceRecord, stale: ReadonlySet<string> = new Set()) {
+  const live = <T,>(field: string, x: { v: T | null; state: string }): T | null => (stale.has(field) ? null : valueOf(x));
   return {
-    draw: valueOf(r.draw) ?? "local",
-    standing: valueOf(r.standing) ?? "ordinary",
-    distinction: valueOf(r.distinction) ?? "common",
+    draw: live("draw", r.draw) ?? "local",
+    standing: live("standing", r.standing) ?? "ordinary",
+    distinction: live("distinction", r.distinction) ?? "common",
     weather: valueOf(r.weather) ?? "any_weather",
-    access: valueOf(r.access_cost) ?? [],
-    designations: valueOf(r.signals.designations) ?? [],
-    editorial: valueOf(r.signals.editorial) ?? [],
+    access: live("access_cost", r.access_cost) ?? [],
+    designations: live("designations", r.signals.designations) ?? [],
+    editorial: live("editorial", r.signals.editorial) ?? [],
     peak: valueOf(r.draw_peak ?? { v: null, state: "gap" }),
   } as const;
 }
 
 export function deriveAll(input: DeriveInput): Derived[] {
   const th = input.thresholds ?? THRESHOLDS;
-  const J = new Map(input.records.map((r) => [r.ref, judged(r)]));
+  const staleOf = (r: RelevanceRecord): string[] => {
+    const m = input.meta?.[r.ref];
+    return m && input.today ? staleFields(r, m.researched, m.reads, input.today).map((x) => x.field) : [];
+  };
+  const J = new Map(input.records.map((r) => [r.ref, judged(r, new Set(staleOf(r)))]));
   const farKm = input.farPointerKm ?? 50;
   const matrix = input.matrix ?? null;
 
@@ -127,18 +140,11 @@ export function deriveAll(input: DeriveInput): Derived[] {
     return out;
   };
 
-  const fameOf = (qid: string | null): { languages: number | null; views: number | null } => (qid && input.signals[qid]) || { languages: null, views: null };
-
   const results: Derived[] = [];
   for (const r of input.records) {
     const j = J.get(r.ref)!;
     const facts = input.facts[r.ref] ?? {};
-    const qid = valueOf(r.wikidata);
-    const sig = fameOf(qid);
-    const parentQid = j.designations.find((d) => d.scope === "parent" && d.wikidata)?.wikidata ?? null;
-    const parentSig = parentQid ? fameOf(parentQid) : null;
-    const parentFame = parentSig ? drawSuggested({ ...parentSig, designations: [], editorial: [] }, th) : null;
-    const suggested = drawSuggested({ ...sig, designations: j.designations, editorial: j.editorial, parentFame }, th);
+    const suggested = suggestFor({ ...r, signals: { ...r.signals, designations: { ...r.signals.designations, v: j.designations, state: "value" }, editorial: { ...r.signals.editorial, v: j.editorial, state: "value" } } } as RelevanceRecord, input.signals, th);
     const ed = effectiveDraw(j.draw, j.peak, input.window);
     const warnings: Derived["warnings"] = [];
 
@@ -173,7 +179,7 @@ export function deriveAll(input: DeriveInput): Derived[] {
     // hubs (3.3 from_hubs): the matrix wins, a straight-line estimate fills a missing cell and is marked approximate
     const fromHubs: Derived["from_hubs"] = {};
     for (const hub of matrix?.hubs ?? []) {
-      if (!hub.public) continue; // never a household origin
+      if (!hub.public || !isAllowedHub(hub.id)) continue; // never a household origin: public and on the allowlist
       const m = matrix!.minutes[r.ref]?.[hub.id];
       if (typeof m === "number") fromHubs[hub.id] = { min: m, approx: false };
       else if (facts.point) fromHubs[hub.id] = { min: approxMinutes(haversineKm(facts.point, hub)), approx: true };
@@ -245,6 +251,7 @@ export function deriveAll(input: DeriveInput): Derived[] {
       role,
       flags,
       badge: badgeOf(role, j.standing, ed, "place"),
+      stale: staleOf(r),
       warnings,
     };
     if (j.peak) {

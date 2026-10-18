@@ -32,27 +32,28 @@ node core/bin/relevance.ts codes                    list the codes
 
 ## The file
 
-See `docs/v2/research/relevance.md` section 2.1 and 4 for the record and an abridged example. Three small additions to the spec's shapes, all optional:
+See `docs/v2/research/relevance.md` section 2.1 and 4 for the record and an abridged example. Small additions to the spec's shapes, all optional:
 
 - `Mention.reach` (`regional`, `national`, `global`): only a `top_list` mention with `national` or `global` reach raises the draw floor (3.1 rule 4). Without it the tool cannot tell a national guide from a regional board.
 - `Designation.wikidata`: the confirmed QID of a parent area. The tool reads its fame, and an `official_highlight` under a world-fame parent gets the national floor (the Narrows inside Zion).
+- `AccessItem.capped`: a boat with limited sailings or a capacity-capped lift counts as `hard`.
 - Nothing else. Role, fits, badge, substitutes, detour, `far_pointer`, `plan_b` and flags are computed and are rejected if typed (`E_REL_TYPED_DERIVED`). A person can override with `override` and a reason.
 
 ## Rules the validator enforces
 
 | Code | Rule |
 |---|---|
-| `E_REL_LINK_ONLY_SRC` | AllTrails, Komoot, Gaia, Outdooractive, Wikiloc, Trailforks, Strava, Google, Tripadvisor, Yelp and booking hosts are never a source |
+| `E_REL_LINK_ONLY_SRC` | in a source url, publisher or title, an editorial publisher or title, or a point's `coord_src`: AllTrails, Komoot, Gaia, Outdooractive, Wikiloc, Trailforks, Strava, Google, Tripadvisor, Yelp and booking hosts are never a source |
 | `E_REL_COPIED_RATING` | no "4.8 stars", "4.8/5", "9 out of 10", "12,345 reviews", "#3 of 41", "ranked #2", "rated 4.5" anywhere in prose, titles or notes |
-| `E_REL_DRAW_NOTE` | a `draw` note must name a signal: a designation, a top-list mention, the land manager's own page, a sell-out |
+| `E_REL_DRAW_NOTE` | a `draw` note must name a signal: a designation (UNESCO, national or provincial park, conservation area), a top list or tourism board, a headline from the land manager, a sell-out, a lottery or permit, a shuttle |
 | `E_REL_TYPED_DERIVED` | derived fields are not typed |
 | `E_REL_INHERITED_DESIGNATION` | on a trail, viewpoint, waterfall, swim spot, lift, activity, eatery or stay, an area designation (UNESCO, national park, provincial or state park, conservation area, dark sky, Ramsar) must be `scope: parent`. Lakes, sights and towns may own one |
-| `E_REL_HOUSEHOLD` | no `origin`, `home`, `household` or `address` key, no "our home" wording; the hub matrix refuses a hub not marked `public` |
+| `E_REL_HOUSEHOLD` | no `origin`, `home`, `household`, `address`, `party`, `kids` or `ages` key; no "we live in", "our home town", "family of 4", "our 6 year old" or "kids aged 5" prose. `check` also validates both input files: hubs must be public and on the allowlist, and no point, town, hub or base may lie within 2 km of the private origin in `inputs/private-origin.local.json` (gitignored, `{"lat": .., "lon": ..}`; skipped when absent) |
 | `E_REL_CLASS` | `class_key` must be in `data/vocab/relevance-classes.json` |
 | `E_REL_QID` | a QID is `Q123` and its note says how a person confirmed it |
 | `E_REL_RANGE` | a `draw_peak` must lift the tier and span more than one day |
 | `E_REL_REF`, `E_REL_DUP_REF`, `E_REL_SRC`, `E_REL_SRC_READ`, `E_REL_SCHEMA` | as in suitability |
-| `W_REL_NO_QID`, `W_REL_DRAW_GAP`, `W_REL_STALE` | warnings; `W_REL_DISTINCTION` and `W_REL_NO_DETOUR` come from derive |
+| `W_REL_NO_QID`, `W_REL_NO_REACH`, `W_REL_DRAW_GAP`, `W_REL_STALE` | warnings; `W_REL_DISTINCTION` and `W_REL_NO_DETOUR` come from derive |
 
 ## Derive inputs
 
@@ -61,13 +62,13 @@ See `docs/v2/research/relevance.md` section 2.1 and 4 for the record and an abri
 ```jsonc
 {
   "schema": "relevance-points/1",
-  "points": { "place/moraine-lake": { "lat": 51.3217, "lon": -116.186, "on_site_min": 180, "access_legal_public": true, "external_access": "plan" } },
+  "points": { "place/moraine-lake": { "lat": 51.3217, "lon": -116.186, "coord_src": "wikidata:P625", "on_site_min": 180, "access_legal_public": true, "external_access": "plan" } },
   "towns":  [ { "id": "banff", "name": "Banff", "lat": 51.1784, "lon": -115.5708, "has_stay": true } ],
   "trips":  { "canadian-rockies-2029": { "window": { "from": "09-08", "to": "09-22" }, "base": { "lat": 51.18, "lon": -115.57 }, "detour_min": { "place/fenland-loop": 4 } } }
 }
 ```
 
-`inputs/hub-matrix.json` (`hub-matrix/1`) is the interface for the hub drive matrix (backlog 3.12): `{ "hubs": [{ "id": "toronto", "name": "Toronto City Hall", "lat": 43.6534, "lon": -79.3841, "public": true }], "minutes": { "<ref>": { "toronto": 55 } } }`, one-way minutes. A missing cell falls back to straight line x 1.42 at 70 km/h and is marked `approx: true`. Public hubs only. Until the matrix exists derive runs on the approximation, and the tests use a fixture matrix. Nothing here calls a routing service.
+`inputs/hub-matrix.json` (`hub-matrix/1`) is the interface for the hub drive matrix (backlog 3.12): `{ "hubs": [{ "id": "toronto", "name": "Toronto City Hall", "lat": 43.6534, "lon": -79.3841, "public": true }], "minutes": { "<ref>": { "toronto": 55 } } }`, one-way minutes. A missing cell falls back to straight line x 1.42 at 70 km/h and is marked `approx: true`. Public hubs only, and only those on the allowlist in `core/src/relevance/hubs.ts` (Toronto City Hall). Until the matrix exists derive runs on the approximation, and the tests use a fixture matrix. Nothing here calls a routing service.
 
 Detour (3.3) is, in order: the trip's stored leg, the trip's base, or the nearest catalogue town with a stay, round trip, straight line x 1.42 at 70 km/h. Unknown detour makes the fits that need one conservative and raises `W_REL_NO_DETOUR`.
 
@@ -79,8 +80,8 @@ Family effort for the substitutes list, on-site time and a coarse access load ar
 
 - Never searches by name. Anything that is not `Q` and digits is ignored.
 - Sequential. 250 ms between two requests to one host. A 429 or 5xx is retried twice, waiting for `Retry-After` when sent (else 2 s, 4 s). A 404 on page views is "no article".
-- Cached in `signals/*.json` with a read date. A reading under 365 days old (`--max-age-days`) is reused, so a second run makes no request. Page views are re-read when the 12-month window moves on. `--refresh` forces a re-read.
-- Identifies itself as `travel-relevance-signals/1.0 (https://github.com/nitin27may/travel)`: a project name and the repo URL. No email and no personal name goes into any header, URL or payload.
+- Cached in `signals/*.json` with a read date. A reading under 365 days old (`--max-age-days`) is reused unless the languages asked for in `langs.json` changed, so a second run makes no request. Page views are re-read when the 12-month window moves on. `--refresh` forces a re-read.
+- Identifies itself as `travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)`: a project name and the public site (the repo is private). No email and no personal name goes into any header, URL or payload.
 - Tests run offline against recorded responses in `core/test/fixtures/relevance/recorded/`.
 
 ## Thresholds and calibration
@@ -92,4 +93,5 @@ The 3.1 starting thresholds (version 1): languages 25 / 10 / 3 for world / natio
 - A name search finds the wrong place (Moraine Lake in California, the Lake Louise hamlet, the Smugglers' Notch ski resort). Only a person-confirmed QID is read.
 - Being inside a park is not draw. A parent designation never raises the tier.
 - Fame is not worth. The tool suggests; the judgement decides.
-- The far pointer reaches 50 km (3.2); the 10.3 example quotes Niagara at 81 km. `deriveAll` takes `farPointerKm` so the spec can settle which one holds.
+- The far pointer reaches 50 km (3.2). Niagara Falls, 81 km from Rattlesnake Point, is outside it, so that place has none.
+- Derived items depend on today's date only through `stale`; `derive --check` in `check-all` fails when a value ages out, which is the prompt to re-check it.
