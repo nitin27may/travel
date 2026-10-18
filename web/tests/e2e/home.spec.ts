@@ -37,6 +37,17 @@ test.describe('home', () => {
     await expect(page).toHaveURL(/\/trips\/dolomites-2027\//);
   });
 
+  test('a question with no matching record offers the filtered Places list once every part has loaded', async ({ page, site }) => {
+    await page.goto(`${site.url}/about/data/`, { waitUntil: 'domcontentloaded' });
+    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByRole('combobox').fill('family trail italy');
+    const link = page.getByRole('link', { name: /Kid-friendly trails in Italy/ });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute('href', '/places/?country=IT&kind=trail&kid=yes');
+    await link.click();
+    await expect(page).toHaveURL(/\/places\/\?country=IT&kind=trail&kid=yes/);
+  });
+
   test('no result message, and the header search works on another page', async ({ page, site }) => {
     await page.goto(`${site.url}/about/data/`, { waitUntil: 'networkidle' });
     // the header's own "/" handler skips pages that have a [aria-keyshortcuts="/"] element, and its Search button is one (request to L0), so click

@@ -26,6 +26,12 @@ html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 .globe-zoom .btn { background: var(--surface); }
 .globe-options-btn, .globe-list-btn, .globe-card-pill { background: var(--surface); }
 
+/* ---------- search-hit marker (?m=) ---------- */
+.globe-hit { pointer-events: none; }
+.globe-hit-pin { position: relative; display: inline-flex; align-items: center; }
+.globe-hit-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--globe-pin-pick); border: 3px solid var(--map-halo); box-shadow: 0 0 0 2px var(--map-select-ring); box-sizing: border-box; }
+.globe-hit-label { position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); white-space: nowrap; padding: 4px 9px; border-radius: 6px; background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); font: var(--t-label); }
+
 /* ---------- pins ---------- */
 .globe-marker { pointer-events: none; }
 .globe-marker > * { pointer-events: auto; }

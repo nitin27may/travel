@@ -5,6 +5,8 @@ import type { EntityDescriptor, EntityType, ListState } from '@/lib/entities/typ
 import { queryTokens } from '@/lib/search/aliases';
 import { createSearcher } from '@/lib/search/search';
 import type { Searcher } from '@/lib/search/search';
+import { suggest as suggestFrom } from '@/lib/search/suggest';
+import type { Suggestion } from '@/lib/search/suggest';
 import type { SearchManifest, SearchPartRef, SearchRecord, SearchResult } from '@/lib/search/types';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { PlaceListRow } from '@/components/places/rows';
@@ -130,6 +132,23 @@ export async function search(q: string, scope: SearchScope = {}, limit?: number)
   const inScope = new Set(refs.map((r) => r.id));
   const searcher = scope.kind || scope.country ? createSearcher([...loadedParts].filter(([id]) => inScope.has(id)).flatMap(([, v]) => v)) : searcherOver();
   return { ...searcher.search(q, limit), partial: pending.length > 0 };
+}
+
+/**
+ * What to offer when `search` found nothing, in the shape a server answers: `suggest(q, scope)`. It needs every part of the
+ * scope (a country is read from the area records, and the fallback counts matches per word), so it waits for them all.
+ * The component never holds the record list; it asks here and shows the answer.
+ */
+export async function suggest(q: string, scope: SearchScope = {}): Promise<Suggestion | null> {
+  const refs = await searchParts(scope);
+  await Promise.all(refs.map((r) => searchPart(r.id).then((records) => void loadedParts.set(r.id, records))));
+  const inScope = new Set(refs.map((r) => r.id));
+  const records = [...loadedParts].filter(([id]) => inScope.has(id)).flatMap(([, v]) => v);
+  const searcher = createSearcher(records);
+  return suggestFrom(q, records, (t) => {
+    const r = searcher.search(t);
+    return r.counts.trips + r.counts.places + r.counts.areas;
+  });
 }
 
 // ---------------------------------------------------------------- lists

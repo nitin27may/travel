@@ -178,7 +178,8 @@ test.describe('place page', () => {
     const page = await ctx.newPage();
     for (const url of ['/places/', '/places/?view=table', '/places/?view=map', TRAIL, '/places/lago-di-braies/', '/places/capri/']) {
       await page.goto(`${site.url}${url}`);
-      await page.waitForLoadState('networkidle');
+      await expect(page.locator('main h1').first()).toBeVisible();
+      await page.waitForTimeout(400);
       const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(over, url).toBeLessThanOrEqual(0);
     }

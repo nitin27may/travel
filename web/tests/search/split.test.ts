@@ -195,3 +195,20 @@ describe('search() loads by query, after the first keystroke', () => {
     expect(fetched.slice(1).every((u) => /-ca\//.test(u))).toBe(true);
   });
 });
+
+describe('suggest() in the data module', () => {
+  beforeEach(() => {
+    vi.resetModules();
+    vi.stubGlobal('fetch', async (url: string) => {
+      const body = url === '/search/manifest.json' ? manifest : parts[decodeURIComponent(url.replace(/^\/search\/|\/data\.json$/g, ''))];
+      return { ok: true, status: 200, json: async () => body };
+    });
+  });
+  afterEach(() => vi.unstubAllGlobals());
+  it('turns "family trail italy" into the filtered Places link once every part is in', async () => {
+    const data = await import('@/lib/client/data');
+    expect((await data.search('family trail italy')).groups).toEqual([]);
+    expect(await data.suggest('family trail italy')).toEqual({ label: 'Kid-friendly trails in Italy: open the filtered Places list', href: '/places/?country=IT&kind=trail&kid=yes' });
+    expect(await data.suggest('xyzq')).toBeNull();
+  });
+});

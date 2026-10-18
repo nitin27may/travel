@@ -4,7 +4,8 @@ import { Dialog } from '@base-ui/react/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { onSearchGrow, search } from '@/lib/client/data';
+import { onSearchGrow, search, suggest } from '@/lib/client/data';
+import type { Suggestion } from '@/lib/search/suggest';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { describeCounts } from '@/lib/search/search';
 import type { SearchHit, SearchRecord, SearchResult } from '@/lib/search/types';
@@ -33,6 +34,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const [answer, setResult] = useState<SearchResult | null>(null);
   const [failed, setFailed] = useState(false);
   const [tick, setTick] = useState(0);
+  const [suggested, setSuggested] = useState<{ q: string; s: Suggestion | null } | null>(null);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -63,6 +65,21 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       live = false;
     };
   }, [open, q, tick]);
+
+  // nothing matched and every part is in: ask the data module for the nearest question that does have an answer
+  const nothing = !!answer && answer.groups.length === 0 && !answer.partial;
+  useEffect(() => {
+    if (!open || !nothing || !q.trim()) return;
+    let live = true;
+    suggest(q).then(
+      (s) => live && setSuggested({ q, s }),
+      () => live && setSuggested({ q, s: null }),
+    );
+    return () => {
+      live = false;
+    };
+  }, [open, nothing, q]);
+  const suggestion = suggested?.q === q ? suggested.s : null;
 
   // an empty box shows the hint, never the last answer
   const result = q.trim() ? answer : null;
@@ -144,7 +161,12 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               <p className="gs-hint">Searching.</p>
             ) : result.groups.length === 0 ? (
               <p className="gs-empty">
-                No trip or place matches &lsquo;{q.trim()}&rsquo;. Try a country or a kind, like lake.
+                No trip or place matches &lsquo;{q.trim()}&rsquo;. {suggestion ? '' : 'Try a country or a kind, like lake.'}
+                {suggestion?.href ? (
+                  <a className="gs-suggest" href={suggestion.href} onClick={(e) => { e.preventDefault(); onClose(); router.push(suggestion.href!); }}>{suggestion.label}</a>
+                ) : suggestion?.query ? (
+                  <button type="button" className="gs-suggest" onClick={() => { setQ(suggestion.query!); setActive(0); inputRef.current?.focus(); }}>{suggestion.label}</button>
+                ) : null}
               </p>
             ) : (
               result.groups.map((g) => (
