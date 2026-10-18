@@ -450,9 +450,9 @@
         "kind": "activity",
         "subkind": "guided-hike"
       },
-      "kind": "activity",
-      "subkind": "guided-hike",
-      "reason": "Kept: the activity type of the old row is already a subkind."
+      "kind": "trail",
+      "subkind": "hike",
+      "reason": "Not guided: the row is the switchback trail up Sulphur Mountain (hike up, gondola down), so a trail and not a guided hike."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
@@ -517,8 +517,8 @@
         "subkind": null
       },
       "kind": "sight",
-      "subkind": "attraction",
-      "reason": "A provincial park; no park subkind exists, so attraction."
+      "subkind": "park",
+      "reason": "A park (provincial or state) with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
@@ -572,8 +572,8 @@
         "subkind": null
       },
       "kind": "sight",
-      "subkind": "attraction",
-      "reason": "A provincial park; no park subkind exists, so attraction."
+      "subkind": "park",
+      "reason": "A park (provincial or state) with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
@@ -616,8 +616,8 @@
         "subkind": null
       },
       "kind": "sight",
-      "subkind": "attraction",
-      "reason": "A provincial park; no park subkind exists, so attraction."
+      "subkind": "park",
+      "reason": "A park (provincial or state) with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -681,9 +681,9 @@
         "kind": "sight",
         "subkind": null
       },
-      "kind": "lake",
-      "subkind": "lake",
-      "reason": "Upper and Lower Kananaskis Lakes, a lake day-use area."
+      "kind": "sight",
+      "subkind": "area",
+      "reason": "A named area with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
@@ -703,9 +703,9 @@
         "kind": "sight",
         "subkind": null
       },
-      "kind": "lake",
-      "subkind": "lake",
-      "reason": "By name, a lake."
+      "kind": "sight",
+      "subkind": "area",
+      "reason": "A named area with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
@@ -935,8 +935,8 @@
         "subkind": null
       },
       "kind": "sight",
-      "subkind": "attraction",
-      "reason": "A provincial park; no park subkind exists, so attraction."
+      "subkind": "park",
+      "reason": "A park (provincial or state) with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
@@ -1012,8 +1012,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 0.2 km and 5 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
@@ -1133,8 +1133,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 0.8 km and 27 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
@@ -1188,8 +1188,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 1.9 km and 20 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
@@ -1254,8 +1254,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 0.8 km and 0 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
@@ -1265,8 +1265,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 2.9 km and 90 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
@@ -1298,8 +1298,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 2.4 km and 90 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
@@ -1342,8 +1342,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 1.8 km and 65 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
@@ -1364,8 +1364,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 2.7 km and 59 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
@@ -1375,8 +1375,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 2.6 km and 10 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
@@ -1408,8 +1408,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 1 km and 0 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
@@ -1430,8 +1430,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 2.3 km and 90 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
@@ -1441,8 +1441,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 2 km and 35 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
@@ -1463,8 +1463,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 1.2 km and 30 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
@@ -1507,8 +1507,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 0.7 km and 10 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
@@ -1529,8 +1529,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 0.5 km and 7 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
@@ -1595,8 +1595,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 1.8 km and 5 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
@@ -1617,8 +1617,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 1.8 km and 60 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
@@ -1661,8 +1661,8 @@
         "subkind": null
       },
       "kind": "trail",
-      "subkind": "hike",
-      "reason": "M1: a trail without a subkind becomes hike; a lane may reclassify it to walk with a reason."
+      "subkind": "walk",
+      "reason": "M1 walk: the migrated figures are 1 km and 0 m of climb (at most 3 km and 100 m), so a walk and not a hike; a lane may change it with a reason."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
@@ -1726,9 +1726,9 @@
         "kind": "viewpoint",
         "subkind": null
       },
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
-      "reason": "M1: a viewpoint."
+      "kind": "trail",
+      "subkind": "walk",
+      "reason": "The migrated data is a walk (2 km, 150 m, 30-40 min), so a walk record."
     },
     {
       "ref": "place/cascate-di-fanes",
@@ -1748,9 +1748,9 @@
         "kind": "sight",
         "subkind": null
       },
-      "kind": "sight",
-      "subkind": "landmark",
-      "reason": "A rock formation and open-air war site."
+      "kind": "trail",
+      "subkind": "walk",
+      "reason": "The migrated data is a loop walk (2 km, 60 min), so a walk record."
     },
     {
       "ref": "place/cortina-dampezzo",
@@ -1792,9 +1792,9 @@
         "kind": "viewpoint",
         "subkind": null
       },
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
-      "reason": "M1: a viewpoint."
+      "kind": "sight",
+      "subkind": "area",
+      "reason": "A named area with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "place/drava-cycle-path-to-lienz",
@@ -2067,9 +2067,9 @@
         "kind": "viewpoint",
         "subkind": null
       },
-      "kind": "viewpoint",
-      "subkind": "viewpoint",
-      "reason": "M1: a viewpoint."
+      "kind": "trail",
+      "subkind": "walk",
+      "reason": "The migrated data is a ridge walk (100 m climb, 90 min), so a walk record."
     },
     {
       "ref": "place/selva-di-val-gardena",
@@ -2474,9 +2474,9 @@
         "kind": "town",
         "subkind": null
       },
-      "kind": "town",
-      "subkind": "town",
-      "reason": "M1: a town."
+      "kind": "sight",
+      "subkind": "attraction",
+      "reason": "A botanical garden inside a town, not a town: an attraction."
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
@@ -2849,8 +2849,8 @@
         "subkind": null
       },
       "kind": "sight",
-      "subkind": "attraction",
-      "reason": "A state park landscape."
+      "subkind": "park",
+      "reason": "A park (provincial or state) with trails inside it; the trail records carry the effort, so the area profile."
     },
     {
       "ref": "trip/utah-five-parks/sight:temple square",
@@ -3068,9 +3068,9 @@
         "kind": "sight",
         "subkind": null
       },
-      "kind": "sight",
-      "subkind": "landmark",
-      "reason": "Covered bridges, visited as landmarks; a lane may make it a drive."
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "reason": "A loop of covered bridges that is driven from one to the next, so a scenic drive."
     },
     {
       "ref": "trip/vermont-fall-2026/town:hyde park village",
@@ -3143,6 +3143,62 @@
         "hints"
       ],
       "reason": "M6: the tunnels are a walk. The lift keeps no walk fields; the trail facts of the old row (distance, descent, time, recommended age, hints) move to the walk record. Nothing is deleted."
+    },
+    {
+      "from_ref": "place/lago-di-braies",
+      "ref": "part/place/lago-di-braies#walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "age_band",
+        "hints"
+      ],
+      "reason": "The place is a lake and stays a lake record; the migrated trail facts are the lake loop (3.7 km, 30 m, 60-90 min), so they move to a walk record. The kid note about the place stays on the lake. Nothing is deleted."
+    },
+    {
+      "from_ref": "place/lago-di-dobbiaco",
+      "ref": "part/place/lago-di-dobbiaco#walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "age_band",
+        "hints"
+      ],
+      "reason": "The place is a lake and stays a lake record; the migrated trail facts are the lake loop (3.5 km, 10 m, 60 min), so they move to a walk record. The kid note about the place stays on the lake. Nothing is deleted."
+    },
+    {
+      "from_ref": "place/lago-di-limides",
+      "ref": "part/place/lago-di-limides#walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "age_band",
+        "hints"
+      ],
+      "reason": "The place is a lake and stays a lake record; the migrated trail facts are the walk to the lake (2 km, 80 m, 20-30 min), so they move to a walk record. The kid note about the place stays on the lake. Nothing is deleted."
+    },
+    {
+      "from_ref": "place/lago-federa",
+      "ref": "part/place/lago-federa#walk",
+      "kind": "trail",
+      "subkind": "hike",
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "age_band",
+        "hints"
+      ],
+      "reason": "The place is a lake and stays a lake record; the migrated trail facts are the hike to the lake (7.9 km, 466 m, 3 h), so they move to a hike record. The kid note about the place stays on the lake. Nothing is deleted."
     }
   ]
 }

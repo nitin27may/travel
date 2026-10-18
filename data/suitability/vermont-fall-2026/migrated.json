@@ -9,8 +9,8 @@
   "records": [
     {
       "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
-      "kind": "sight",
-      "subkind": "landmark",
+      "kind": "drive",
+      "subkind": "scenic_drive",
       "suitability": {},
       "flat": {
         "min_age": null,

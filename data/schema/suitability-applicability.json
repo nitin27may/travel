@@ -223,7 +223,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "river_hike": {
@@ -379,7 +383,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "walk": {
@@ -535,7 +543,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "viewpoint": {
@@ -699,7 +711,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "lake": {
@@ -855,7 +871,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "swim": {
@@ -1011,7 +1031,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "waterfall": {
@@ -1175,7 +1199,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "beach": {
@@ -1331,7 +1359,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "drive": {
@@ -1487,7 +1519,11 @@
         "ext.drive.drive_min": "R",
         "ext.drive.fuel_gap_km": "A",
         "ext.drive.winding": "A",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "town": {
@@ -1651,7 +1687,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "sight": {
@@ -1827,7 +1867,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "lift": {
@@ -2003,7 +2047,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "boat": {
@@ -2171,7 +2219,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "canoe_kayak": {
@@ -2331,7 +2383,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "sup": {
@@ -2487,7 +2543,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "rafting": {
@@ -2643,7 +2703,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "float": {
@@ -2799,7 +2863,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "zipline": {
@@ -2955,7 +3023,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "bungee": {
@@ -2974,7 +3046,7 @@
       "fields": {
         "min_age": "R",
         "max_age": "A",
-        "min_height_cm": "N",
+        "min_height_cm": "A",
         "max_height_cm": "N",
         "min_weight_kg": "R",
         "max_weight_kg": "R",
@@ -3115,7 +3187,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "ferrata": {
@@ -3271,7 +3347,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "mtb_lift": {
@@ -3427,7 +3507,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "mtb_xc": {
@@ -3583,7 +3667,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "cycle_path": {
@@ -3739,7 +3827,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "horse": {
@@ -3895,7 +3987,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "show_cave": {
@@ -4051,7 +4147,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "A"
+        "ext.cave.tour_m": "A",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "caving": {
@@ -4207,7 +4307,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "A"
+        "ext.cave.tour_m": "A",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "glacier": {
@@ -4367,7 +4471,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "snow": {
@@ -4531,7 +4639,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "wildlife": {
@@ -4691,7 +4803,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "hot_spring": {
@@ -4859,7 +4975,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "coaster": {
@@ -5015,7 +5135,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "paraglide": {
@@ -5171,7 +5295,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "air_tour": {
@@ -5183,10 +5311,6 @@
         {
           "kind": "activity",
           "subkind": "scenic-flight"
-        },
-        {
-          "kind": "activity",
-          "subkind": "vehicle-tour"
         }
       ],
       "operated": "always",
@@ -5335,7 +5459,335 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
+      }
+    },
+    "vehicle_tour": {
+      "match": [
+        {
+          "kind": "activity",
+          "subkind": "vehicle-tour"
+        }
+      ],
+      "operated": "always",
+      "ext": null,
+      "fields": {
+        "min_age": "R",
+        "max_age": "N",
+        "min_height_cm": "N",
+        "max_height_cm": "N",
+        "min_weight_kg": "A",
+        "max_weight_kg": "A",
+        "limit_reason": "A",
+        "adult_required": "A",
+        "solo": "N",
+        "group_min": "N",
+        "age_band": "R",
+        "kid_note": "R",
+        "carrier_ok": "N",
+        "stroller": "N",
+        "stroller_extent": "N",
+        "stroller_on_board": "R",
+        "wheelchair": "R",
+        "access_detail": "N",
+        "accessible_toilet": "N",
+        "accessible_parking": "N",
+        "limited_capacity_note": "A",
+        "effort.source_grade": "N",
+        "effort.drivers.distance_km": "N",
+        "effort.drivers.gain_m": "N",
+        "effort.drivers.surface": "N",
+        "effort.drivers.scrambling": "N",
+        "effort.drivers.fixed_aids": "N",
+        "effort.drivers.loss_m": "N",
+        "effort.drivers.max_grade_pct": "N",
+        "adult_time_min": "N",
+        "child_time_min": "N",
+        "on_site_min": "R",
+        "toilets": "A",
+        "water": "N",
+        "food": "N",
+        "shade": "N",
+        "bail_out": "N",
+        "signal": "N",
+        "exposure": "N",
+        "altitude_m": "A",
+        "hazards": "N",
+        "water_safety.class": "N",
+        "water_safety.lifejacket": "N",
+        "water_safety.child_sizes_from_kg": "N",
+        "water_safety.swim_ability": "N",
+        "water_safety.lifeguard": "N",
+        "water_safety.entry": "N",
+        "water_safety.water_temp_c": "N",
+        "water_safety.current_or_tide": "N",
+        "access_season": "R",
+        "participation.guide": "N",
+        "participation.kit_provided": "N",
+        "participation.wear": "N",
+        "participation.min_shoe_eu": "N",
+        "participation.fitness": "N",
+        "participation.medical": "A",
+        "participation.pregnancy": "A",
+        "participation.waiver": "A",
+        "participation.weigh_in": "A",
+        "participation.weather_cancel": "R",
+        "ext.trail.navigation": "N",
+        "ext.trail.shape": "N",
+        "ext.trail.water_crossings": "N",
+        "ext.trail.dogs": "N",
+        "ext.trail.snowfields_until": "N",
+        "walk_m": "N",
+        "ext.ride.traffic": "N",
+        "ext.ride.bike_hire": "N",
+        "ext.ride.min_rider_age": "N",
+        "ext.ride.one_way_return": "N",
+        "ext.ride.lift_served": "N",
+        "ext.ride.e_bike": "N",
+        "ext.ride.kids_bike_sizes": "N",
+        "ext.ride.skills_park": "N",
+        "ext.ride.trail_mix": "N",
+        "ext.paddle.craft": "N",
+        "ext.paddle.class_at_level": "N",
+        "ext.paddle.sections": "N",
+        "ext.paddle.on_water_min": "N",
+        "ext.paddle.wind_exposure": "N",
+        "ext.paddle.portages": "N",
+        "ext.paddle.craft_capacity": "N",
+        "ext.paddle.guided": "N",
+        "ext.paddle.trip_style": "N",
+        "ext.ferrata.kit": "N",
+        "ext.ferrata.child_harness": "N",
+        "ext.ferrata.approach_min": "N",
+        "ext.ferrata.descent": "N",
+        "ext.ferrata.kit_weight_note": "N",
+        "ext.water.swimming": "N",
+        "ext.water.clarity": "N",
+        "ext.water.floats_required_under": "N",
+        "ext.cave.air_temp_c": "N",
+        "ext.cave.steps": "N",
+        "ext.cave.squeeze": "N",
+        "ext.cave.darkness": "N",
+        "ext.cave.wet": "N",
+        "ext.cave.carry_child": "N",
+        "ext.snow.ski_school_min_age": "N",
+        "ext.snow.magic_carpet": "N",
+        "ext.snow.lift_child_rules": "N",
+        "ext.lift.cabin": "N",
+        "ext.lift.last_up": "N",
+        "ext.lift.last_down": "N",
+        "ext.lift.ride_min": "N",
+        "ext.boat.vessel": "N",
+        "ext.boat.sea_state": "N",
+        "ext.boat.seasick_risk": "N",
+        "ext.boat.landing": "N",
+        "ext.zip.braking": "N",
+        "ext.zip.lines": "N",
+        "ext.zip.tandem_under_kg": "N",
+        "ext.zip.kids_course": "N",
+        "ext.zip.between_lines": "N",
+        "ext.jump.height_m": "N",
+        "ext.jump.tandem": "N",
+        "ext.jump.harness": "N",
+        "ext.coaster.max_riders": "N",
+        "ext.coaster.max_load_kg": "N",
+        "ext.coaster.driver_rule": "N",
+        "ext.coaster.brake": "N",
+        "ext.horse.lead_rein": "N",
+        "ext.horse.share_horse": "N",
+        "ext.horse.pace": "N",
+        "ext.horse.pony_option": "N",
+        "ext.glacier.traction": "N",
+        "ext.glacier.boots": "N",
+        "ext.glacier.ice_min": "N",
+        "ext.flight.flight_min": "N",
+        "ext.flight.weight_by_slot": "N",
+        "ext.flight.takeoff_run_m": "N",
+        "ext.flight.seat_weight_rule": "N",
+        "ext.wildlife.min_distance_m": "N",
+        "ext.wildlife.best_time": "N",
+        "ext.wildlife.stay_in_vehicle": "N",
+        "ext.wildlife.sightings": "N",
+        "ext.wildlife.quiet_needed": "N",
+        "ext.wildlife.peak_months": "N",
+        "ext.drive.vehicle_limits": "N",
+        "ext.drive.road_surface": "N",
+        "ext.drive.drive_min": "N",
+        "ext.drive.fuel_gap_km": "N",
+        "ext.drive.winding": "N",
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
+      }
+    },
+    "area": {
+      "match": [
+        {
+          "kind": "sight",
+          "subkind": "park"
+        },
+        {
+          "kind": "sight",
+          "subkind": "area"
+        }
+      ],
+      "operated": "never",
+      "ext": "area",
+      "fields": {
+        "min_age": "N",
+        "max_age": "N",
+        "min_height_cm": "N",
+        "max_height_cm": "N",
+        "min_weight_kg": "N",
+        "max_weight_kg": "N",
+        "limit_reason": "N",
+        "adult_required": "N",
+        "solo": "N",
+        "group_min": "A",
+        "age_band": "N",
+        "kid_note": "R",
+        "carrier_ok": "N",
+        "stroller": "A",
+        "stroller_extent": "A",
+        "stroller_on_board": "N",
+        "wheelchair": "A",
+        "access_detail": "N",
+        "accessible_toilet": "A",
+        "accessible_parking": "N",
+        "limited_capacity_note": "A",
+        "effort.source_grade": "N",
+        "effort.drivers.distance_km": "N",
+        "effort.drivers.gain_m": "N",
+        "effort.drivers.surface": "N",
+        "effort.drivers.scrambling": "N",
+        "effort.drivers.fixed_aids": "N",
+        "effort.drivers.loss_m": "N",
+        "effort.drivers.max_grade_pct": "N",
+        "adult_time_min": "N",
+        "child_time_min": "N",
+        "on_site_min": "R",
+        "toilets": "A",
+        "water": "A",
+        "food": "A",
+        "shade": "N",
+        "bail_out": "N",
+        "signal": "A",
+        "exposure": "N",
+        "altitude_m": "A",
+        "hazards": "R",
+        "water_safety.class": "N",
+        "water_safety.lifejacket": "N",
+        "water_safety.child_sizes_from_kg": "N",
+        "water_safety.swim_ability": "N",
+        "water_safety.lifeguard": "N",
+        "water_safety.entry": "N",
+        "water_safety.water_temp_c": "N",
+        "water_safety.current_or_tide": "N",
+        "access_season": "R",
+        "participation.guide": "N",
+        "participation.kit_provided": "N",
+        "participation.wear": "N",
+        "participation.min_shoe_eu": "N",
+        "participation.fitness": "N",
+        "participation.medical": "N",
+        "participation.pregnancy": "N",
+        "participation.waiver": "N",
+        "participation.weigh_in": "N",
+        "participation.weather_cancel": "N",
+        "ext.trail.navigation": "N",
+        "ext.trail.shape": "N",
+        "ext.trail.water_crossings": "N",
+        "ext.trail.dogs": "N",
+        "ext.trail.snowfields_until": "N",
+        "walk_m": "N",
+        "ext.ride.traffic": "N",
+        "ext.ride.bike_hire": "N",
+        "ext.ride.min_rider_age": "N",
+        "ext.ride.one_way_return": "N",
+        "ext.ride.lift_served": "N",
+        "ext.ride.e_bike": "N",
+        "ext.ride.kids_bike_sizes": "N",
+        "ext.ride.skills_park": "N",
+        "ext.ride.trail_mix": "N",
+        "ext.paddle.craft": "N",
+        "ext.paddle.class_at_level": "N",
+        "ext.paddle.sections": "N",
+        "ext.paddle.on_water_min": "N",
+        "ext.paddle.wind_exposure": "N",
+        "ext.paddle.portages": "N",
+        "ext.paddle.craft_capacity": "N",
+        "ext.paddle.guided": "N",
+        "ext.paddle.trip_style": "N",
+        "ext.ferrata.kit": "N",
+        "ext.ferrata.child_harness": "N",
+        "ext.ferrata.approach_min": "N",
+        "ext.ferrata.descent": "N",
+        "ext.ferrata.kit_weight_note": "N",
+        "ext.water.swimming": "N",
+        "ext.water.clarity": "N",
+        "ext.water.floats_required_under": "N",
+        "ext.cave.air_temp_c": "N",
+        "ext.cave.steps": "N",
+        "ext.cave.squeeze": "N",
+        "ext.cave.darkness": "N",
+        "ext.cave.wet": "N",
+        "ext.cave.carry_child": "N",
+        "ext.snow.ski_school_min_age": "N",
+        "ext.snow.magic_carpet": "N",
+        "ext.snow.lift_child_rules": "N",
+        "ext.lift.cabin": "N",
+        "ext.lift.last_up": "N",
+        "ext.lift.last_down": "N",
+        "ext.lift.ride_min": "N",
+        "ext.boat.vessel": "N",
+        "ext.boat.sea_state": "N",
+        "ext.boat.seasick_risk": "N",
+        "ext.boat.landing": "N",
+        "ext.zip.braking": "N",
+        "ext.zip.lines": "N",
+        "ext.zip.tandem_under_kg": "N",
+        "ext.zip.kids_course": "N",
+        "ext.zip.between_lines": "N",
+        "ext.jump.height_m": "N",
+        "ext.jump.tandem": "N",
+        "ext.jump.harness": "N",
+        "ext.coaster.max_riders": "N",
+        "ext.coaster.max_load_kg": "N",
+        "ext.coaster.driver_rule": "N",
+        "ext.coaster.brake": "N",
+        "ext.horse.lead_rein": "N",
+        "ext.horse.share_horse": "N",
+        "ext.horse.pace": "N",
+        "ext.horse.pony_option": "N",
+        "ext.glacier.traction": "N",
+        "ext.glacier.boots": "N",
+        "ext.glacier.ice_min": "N",
+        "ext.flight.flight_min": "N",
+        "ext.flight.weight_by_slot": "N",
+        "ext.flight.takeoff_run_m": "N",
+        "ext.flight.seat_weight_rule": "N",
+        "ext.wildlife.min_distance_m": "N",
+        "ext.wildlife.best_time": "N",
+        "ext.wildlife.stay_in_vehicle": "N",
+        "ext.wildlife.sightings": "N",
+        "ext.wildlife.quiet_needed": "N",
+        "ext.wildlife.peak_months": "N",
+        "ext.drive.vehicle_limits": "N",
+        "ext.drive.road_surface": "N",
+        "ext.drive.drive_min": "N",
+        "ext.drive.fuel_gap_km": "N",
+        "ext.drive.winding": "N",
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "A",
+        "ext.area.access_road": "A",
+        "ext.area.stay_on_site": "A",
+        "ext.area.child_trails": "A"
       }
     },
     "stay": {
@@ -5515,7 +5967,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     },
     "eatery": {
@@ -5699,7 +6155,11 @@
         "ext.drive.drive_min": "N",
         "ext.drive.fuel_gap_km": "N",
         "ext.drive.winding": "N",
-        "ext.cave.tour_m": "N"
+        "ext.cave.tour_m": "N",
+        "ext.area.pass": "N",
+        "ext.area.access_road": "N",
+        "ext.area.stay_on_site": "N",
+        "ext.area.child_trails": "N"
       }
     }
   }

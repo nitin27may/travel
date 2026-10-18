@@ -229,8 +229,8 @@
     },
     {
       "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
-      "kind": "town",
-      "subkind": "town",
+      "kind": "sight",
+      "subkind": "attraction",
       "suitability": {},
       "flat": {
         "min_age": null,
