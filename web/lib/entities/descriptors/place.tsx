@@ -5,7 +5,7 @@ import { Elevation, Stat } from '@/components/entity/cells';
 import type { PlaceListRow } from '@/components/places/rows';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
-import { KID_ICONS, KID_LABELS, TAG_KIND_ORDER, cap } from '../labels';
+import { KID_HINTS, KID_ICONS, KID_LABELS, TAG_KIND_ORDER, cap } from '../labels';
 import type { Badge, EntityDescriptor } from '../types';
 
 // the Map view loads when first opened, so the list's first load stays inside the JS budget
@@ -28,7 +28,7 @@ export function placeBadges(p: PlaceListRow): Badge[] {
     { text: p.kindLabel, tone: 'kind', icon: kindIcon(p.kind) },
   ];
   if (p.season.length) out.push({ text: seasonLabel(p.season), tone: 'season', icon: 'calendar', title: 'Best months' });
-  if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: p.kid_fit === 'strong-kid' ? 'Suitable only for strong, experienced children' : undefined });
+  if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: KID_HINTS[p.kid_fit] });
   for (const h of p.honesty) if (h.id in CARD_HONESTY) out.push({ text: h.label, tone: 'warn', icon: 'info', title: CARD_HONESTY[h.id] });
   return out;
 }
@@ -71,7 +71,7 @@ const columns: PlaceCol[] = [
   col('km', 'Length', ({ row }) => (row.original.km === null ? <span className="dash">&ndash;</span> : <Stat k="km" v={row.original.km} />), (p) => p.km ?? '', { size: 120, align: 'right', csvLabel: 'Length (km)' }),
   col('gain', 'Climb', ({ row }) => (row.original.gain_m === null ? <span className="dash">&ndash;</span> : <Stat k="gain_m" v={row.original.gain_m} />), (p) => p.gain_m ?? '', { size: 120, align: 'right', csvLabel: 'Climb (m)' }),
   col('season', 'Season', ({ row }) => seasonLabel(row.original.season) || <span className="dash">&ndash;</span>, (p) => seasonLabel(p.season), { size: 130 }),
-  col('kid', 'Kids', ({ row }) => (row.original.kid_fit === 'unknown' ? <span className="dash">&ndash;</span> : KID_LABELS[row.original.kid_fit] ?? row.original.kid_fit), (p) => p.kid_fit, { size: 130 }),
+  col('kid', 'Kids', ({ row }) => (row.original.kid_fit === 'unknown' ? <span className="dash">&ndash;</span> : KID_LABELS[row.original.kid_fit] ?? row.original.kid_fit), (p) => KID_LABELS[p.kid_fit] ?? p.kid_fit, { size: 150 }),
   col('tags', 'Tags', ({ row }) => row.original.tags.map((t) => t.label).join(', '), (p) => p.tags.map((t) => t.label).join('; '), { size: 220, sort: false }),
   col('sources', 'Sources', ({ row }) => (row.original.sourceTypes.length ? sourceText(row.original) : <span className="dash">None yet</span>), sourceCount, { size: 110 }),
   col('complete', 'Completeness', ({ row }) => completenessText(row.original), (p) => p.completeness.label, { size: 160 }),
@@ -132,8 +132,8 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       param: 'kid',
       label: 'Kids',
       type: 'single',
-      order: ['strong-kid', 'yes', 'no', 'unknown'],
-      options: (p) => [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit }],
+      order: ['yes', 'strong-kid', 'no', 'unknown'],
+      options: (p) => [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit, hint: KID_HINTS[p.kid_fit] }],
       // a place nobody has assessed never passes a Kids choice, and the count line says how many were left out
       gap: { value: 'unknown', note: 'not checked yet' },
     },
@@ -185,12 +185,12 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     region: { label: 'Region', value: (p) => p.region_name },
     area: { label: 'Area', value: (p) => p.area_name },
     season: { label: 'Season', value: (p) => (p.season.length ? p.season[0] : null) },
-    kid: { label: 'Kids', value: (p) => ['strong-kid', 'yes', 'no', 'unknown'].indexOf(p.kid_fit) },
+    kid: { label: 'Kids', value: (p) => ['yes', 'strong-kid', 'no', 'unknown'].indexOf(p.kid_fit) },
     elevation: { label: 'Elevation', value: (p) => p.elevation_m },
     km: { label: 'Length', value: (p) => p.km },
     gain: { label: 'Climb', value: (p) => p.gain_m },
     sources: { label: 'Sources', value: (p) => p.sourceTypes.length },
-    complete: { label: 'Completeness', value: (p) => COMPLETENESS_RANK[p.completeness.level] * 100 + p.completeness.passed },
+    complete: { label: 'Completeness', value: (p) => COMPLETENESS_RANK[p.completeness.level] },
     plan: { label: 'Plan', value: (p) => p.trips[0]?.title ?? null },
     added: { label: 'Date added', value: (p) => p.added || null },
   },

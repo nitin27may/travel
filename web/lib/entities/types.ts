@@ -50,6 +50,8 @@ export interface FacetOption {
   label: string;
   /** Heading the option sits under (tag kind); options with a group are listed group by group. */
   group?: string;
+  /** One line under the label in the menu: what the option means, visible without a tooltip. */
+  hint?: string;
 }
 
 export interface FacetDef<Row> {

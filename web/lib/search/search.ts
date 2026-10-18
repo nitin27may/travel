@@ -1,3 +1,4 @@
+import { queryTokens } from './aliases';
 import { normalize, similarity, trigrams } from './normalize';
 import type { SearchGroupId, SearchHit, SearchRecord, SearchResult } from './types';
 
@@ -42,7 +43,7 @@ function tokenScore(p: Prepared, tok: string, tokGrams: Set<string> | null): num
 }
 
 export interface Searcher {
-  search(query: string): SearchResult;
+  search(query: string, limit?: number): SearchResult;
   size: number;
 }
 
@@ -55,9 +56,9 @@ export function createSearcher(records: readonly SearchRecord[]): Searcher {
   const all = records.map(prepare);
   return {
     size: all.length,
-    search(query: string): SearchResult {
+    search(query: string, limit?: number): SearchResult {
       const q = normalize(query);
-      const toks = q.split(' ').filter(Boolean);
+      const toks = queryTokens(query);
       const hits = new Map<SearchRecord['k'], SearchHit[]>([['trip', []], ['place', []], ['area', []]]);
       if (toks.length) {
         const grams = toks.map((t) => (t.length >= 4 ? trigrams(t) : null));
@@ -69,14 +70,19 @@ export function createSearcher(records: readonly SearchRecord[]): Searcher {
             if (!s) { ok = false; break; }
             total += s;
           }
-          if (ok) hits.get(p.record.k)!.push({ record: p.record, score: total });
+          // an exact name beats everything; a notable range or sea beats a plain prefix match
+          if (ok) hits.get(p.record.k)!.push({ record: p.record, score: total + (p.name === q ? 60 : 0) + (p.record.b ?? 0) });
         }
       }
       const groups = GROUPS.map((g) => {
         const list = hits.get(g.k)!;
         list.sort((a, b) => b.score - a.score || a.record.n.localeCompare(b.record.n));
-        return { id: g.id, label: g.label, total: list.length, hits: list.slice(0, g.limit) };
+        return { id: g.id, label: g.label, total: list.length, hits: list.slice(0, limit ?? g.limit) };
       });
+      // a group whose best hit is an exact name or a notable range goes first; otherwise Trips, Places, Areas
+      const best = (g: (typeof groups)[number]) => g.hits[0]?.score ?? 0;
+      const lead = [...groups].sort((a, b) => best(b) - best(a))[0];
+      if (lead && best(lead) >= 150) groups.splice(0, groups.length, lead, ...groups.filter((g) => g !== lead));
       return {
         query: q,
         counts: { trips: groups[0].total, places: groups[1].total, areas: groups[2].total },

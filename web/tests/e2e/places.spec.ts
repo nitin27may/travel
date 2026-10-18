@@ -14,7 +14,7 @@ test.describe('places list', () => {
     const more = page.getByRole('dialog', { name: 'More filters' });
     for (const name of ['Tag', 'In a public trip']) await expect(more.locator('summary', { hasText: name })).toBeVisible();
     await expect(more.locator('summary', { hasText: /Effort|Stroller/ })).toHaveCount(0);
-    await expect(more.getByText(/Region and Area appear once you choose a country/)).toBeVisible();
+    await expect(more.getByText(/Region appears once you choose a country; Area once you choose a region/)).toBeVisible();
     await page.keyboard.press('Escape');
     const views = page.getByRole('radiogroup', { name: /view/i });
     await expect(views.getByRole('radio')).toHaveText(['Cards', 'List', 'Table', 'Map']);

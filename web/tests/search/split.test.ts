@@ -30,7 +30,7 @@ describe('the split index', () => {
     expect(all).toHaveLength(whole.length);
     expect(new Set(all.map((r) => `${r.k}:${r.h}`)).size).toBe(all.length);
   });
-  it('answers every query exactly as the whole index does', () => {
+  it('answers every query exactly as the whole index does (aliases and ranks included)', () => {
     const a = createSearcher(whole);
     const b = createSearcher(Object.values(parts).flat());
     for (const q of QUERIES) {
@@ -133,6 +133,65 @@ describe('globe features in the header search (seas, oceans and ranges)', () => 
   it('lives in its own part, so a country scope does not load it', () => {
     expect(manifest.parts.some((p) => p.id === 'area-sea')).toBe(true);
     expect(manifest.parts.some((p) => p.id === 'area-land')).toBe(true);
-    for (const id of ['area-sea', 'area-land']) expect(JSON.stringify(parts[id]).length, id).toBeLessThan(40_000);
+    for (const id of ['area-sea', 'area-land']) expect(JSON.stringify(parts[id]).length, id).toBeLessThan(50_000);
+  });
+});
+
+describe('ranking and aliases', () => {
+  const s = createSearcher(Object.values(parts).flat());
+  it('"rockies" finds the Rocky Mountains', () => {
+    const hits = s.search('rockies').groups.flatMap((g) => g.hits);
+    expect(hits.some((h) => h.record.n === 'Rocky Mountains')).toBe(true);
+  });
+  it('a range or sea is the first hit of its name, ahead of a plain prefix match', () => {
+    const first = (q: string) => s.search(q).groups[0].hits[0].record.n;
+    expect(first('alps')).toBe('Alps');
+    expect(first('mediterranean')).toBe('Mediterranean Sea');
+    expect(first('himalayas')).toBe('Himalayas');
+  });
+  it('globe hits frame the feature: zoom 4 or more, and a marker name', () => {
+    for (const r of [...parts['area-land'], ...parts['area-sea']]) {
+      const m = /^\/globe\/\?c=(-?[\d.]+),(-?[\d.]+),([\d.]+)&m=/.exec(r.h);
+      expect(m, r.h).toBeTruthy();
+      expect(Number(m![3]), r.h).toBeGreaterThanOrEqual(4);
+    }
+  });
+});
+
+describe('search() loads by query, after the first keystroke', () => {
+  const fetched: string[] = [];
+  beforeEach(() => {
+    fetched.length = 0;
+    vi.resetModules();
+    vi.stubGlobal('fetch', async (url: string) => {
+      fetched.push(url);
+      const body = url === '/search/manifest.json' ? manifest : parts[decodeURIComponent(url.replace(/^\/search\/|\/data\.json$/g, ''))];
+      return { ok: true, status: 200, json: async () => body };
+    });
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('fetches nothing until search is called, then the parts that can match first', async () => {
+    const data = await import('@/lib/client/data');
+    expect(fetched).toEqual([]);
+    const r = await data.search('lago braies');
+    expect(r.groups.flatMap((g) => g.hits).some((h) => h.record.n.includes('Braies'))).toBe(true);
+    const first = fetched.slice(1);
+    const can = manifest.parts.filter((p) => ['lag', 'bra'].every((g) => p.w!.some((w) => w.startsWith(g))));
+    expect(can.length).toBeLessThan(manifest.parts.length);
+    expect(first.slice(0, can.length).sort()).toEqual(can.map((p) => `/search/${p.id}/data.json`).sort());
+  });
+  it('says partial while the other parts load, and tells listeners when they land', async () => {
+    const data = await import('@/lib/client/data');
+    const grown = new Promise<void>((resolve) => data.onSearchGrow(resolve));
+    const r = await data.search('zz');
+    expect(r.partial).toBe(true);
+    await grown;
+    expect((await data.search('lago')).partial).toBe(false);
+  });
+  it('a country scope never loads outside it', async () => {
+    const data = await import('@/lib/client/data');
+    await data.search('lake', { country: 'ca' });
+    expect(fetched.slice(1).every((u) => /-ca\//.test(u))).toBe(true);
   });
 });

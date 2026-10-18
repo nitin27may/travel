@@ -33,15 +33,11 @@ function visibleFacets<Row>(d: EntityDescriptor<Row>, state: ListState): FacetDe
   return d.facets.filter((f) => !f.hidden && (!f.dependsOn || (state.facets[f.dependsOn]?.length ?? 0) > 0));
 }
 
-/** More-tier facets that cannot show yet because an ancestor has no value (region and area before a country), with the root facet's name. */
+/** More-tier facets that cannot show yet because the facet they depend on has no value (region before a country, area before a region), with that facet's name. */
 function waitingFacets<Row>(d: EntityDescriptor<Row>, state: ListState): { facet: FacetDef<Row>; parent: string }[] {
-  const root = (f: FacetDef<Row>): FacetDef<Row> => {
-    const up = f.dependsOn ? d.facets.find((p) => p.param === f.dependsOn) : undefined;
-    return up ? root(up) : f;
-  };
   return d.facets
     .filter((f) => !f.hidden && f.tier === 'more' && f.dependsOn && !(state.facets[f.dependsOn]?.length ?? 0))
-    .map((facet) => ({ facet, parent: root(facet).label }));
+    .map((facet) => ({ facet, parent: d.facets.find((p) => p.param === facet.dependsOn)?.label ?? facet.dependsOn! }));
 }
 
 // generic components lose their type parameter through dynamic(); restore it

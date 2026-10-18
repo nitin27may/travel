@@ -1,10 +1,17 @@
 export const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 
+/** The kids options, easiest first. Each has a plain meaning that the filter menu shows under the name. */
 export const KID_LABELS: Record<string, string> = {
-  'strong-kid': 'Strong kids only',
-  yes: 'Kid friendly',
-  no: 'Not for young kids',
-  unknown: 'Not assessed',
+  yes: 'Easy with kids',
+  'strong-kid': 'Older or strong kids',
+  no: 'Not for kids',
+  unknown: 'Not checked yet',
+};
+export const KID_HINTS: Record<string, string> = {
+  yes: 'Short and gentle; young children manage it',
+  'strong-kid': 'Longer or steeper; for older or experienced children',
+  no: 'Hazards or hard limits make it a poor fit for young kids',
+  unknown: 'Nobody has assessed it yet; hidden when you pick another option',
 };
 
 export const SOURCE_LABELS: Record<string, string> = {

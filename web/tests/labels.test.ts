@@ -5,7 +5,7 @@ import { placeRows } from './places/support';
 
 describe('kid fit labels', () => {
   it('pins the four honest labels', () => {
-    expect(KID_LABELS).toEqual({ yes: 'Kid friendly', 'strong-kid': 'Strong kids only', no: 'Not for young kids', unknown: 'Not assessed' });
+    expect(KID_LABELS).toEqual({ yes: 'Easy with kids', 'strong-kid': 'Older or strong kids', no: 'Not for kids', unknown: 'Not checked yet' });
   });
 
   it('strong-kid has its own glyph, so the cue is not colour or text alone', () => {
@@ -16,8 +16,8 @@ describe('kid fit labels', () => {
     const base = placeRows()[0];
     const kidBadge = (kid: string) => placeBadges({ ...base, kid_fit: kid }).find((b) => b.tone === 'kid');
     expect(kidBadge('unknown')).toBeUndefined();
-    expect(kidBadge('yes')?.text).toBe('Kid friendly');
-    expect(kidBadge('strong-kid')?.text).toBe('Strong kids only');
-    expect(kidBadge('no')?.text).toBe('Not for young kids');
+    expect(kidBadge('yes')?.text).toBe('Easy with kids');
+    expect(kidBadge('strong-kid')?.text).toBe('Older or strong kids');
+    expect(kidBadge('no')?.text).toBe('Not for kids');
   });
 });

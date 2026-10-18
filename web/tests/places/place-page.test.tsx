@@ -4,7 +4,6 @@ import PlaceRoute, * as route from '@/app/places/[slug]/page';
 import { LinksTabs } from '@/components/places/LinksTabs';
 import { linkTabs, publicText, summaryOrKind } from '@/components/places/model';
 import { PlacePage } from '@/components/places/PlacePage';
-import { placeRows } from './support';
 import { createPublicData } from '@/lib/public';
 
 const data = createPublicData();

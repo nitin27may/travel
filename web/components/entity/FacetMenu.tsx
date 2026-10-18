@@ -18,7 +18,7 @@ interface OptionsProps<Row> {
   searchAbove?: number;
 }
 
-const toOptions = (options: FacetCount[]): PillOption[] => options.map((o) => ({ value: o.value, label: o.label, count: o.count, group: o.group }));
+const toOptions = (options: FacetCount[]): PillOption[] => options.map((o) => ({ value: o.value, label: o.label, count: o.count, group: o.group, hint: o.hint }));
 const groupLabel = (g: string) => TAG_KIND_LABELS[g] ?? g;
 
 /** Checkbox list (multi) or radio list (single) with live counts. Used in the pill menu and the phone sheet. */

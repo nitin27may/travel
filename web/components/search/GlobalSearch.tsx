@@ -4,10 +4,10 @@ import { Dialog } from '@base-ui/react/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { loadSearchRecords } from '@/lib/client/data';
+import { onSearchGrow, search } from '@/lib/client/data';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
-import { createSearcher, describeCounts, type Searcher } from '@/lib/search/search';
-import type { SearchHit, SearchRecord } from '@/lib/search/types';
+import { describeCounts } from '@/lib/search/search';
+import type { SearchHit, SearchRecord, SearchResult } from '@/lib/search/types';
 import '@/styles/home.css';
 
 export interface GlobalSearchProps {
@@ -23,17 +23,16 @@ function glyph(r: SearchRecord) {
 
 /**
  * One search over trips, places and areas (components 2.10). A popover under the header on desktop and a
- * full-height sheet on phone. Results come on the first character from an in-memory index. The index is split by
- * kind and country; the parts are fetched the first time the dialog opens and searched as each one arrives. Arrow keys move, Enter opens, Esc clears and then closes.
+ * full-height sheet on phone. Nothing loads until the first character: the index is split by kind and country, and the
+ * parts that can match the query load first (lib/client/data.ts `search`); the rest follow and the answer refreshes. Arrow keys move, Enter opens, Esc clears and then closes.
  */
 export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const router = useRouter();
   const listId = useId();
   const [q, setQ] = useState(() => takeBuffer());
-  const [searcher, setSearcher] = useState<Searcher | null>(null);
-  const [complete, setComplete] = useState(false);
+  const [answer, setResult] = useState<SearchResult | null>(null);
   const [failed, setFailed] = useState(false);
-  const started = useRef(false);
+  const [tick, setTick] = useState(0);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -46,20 +45,27 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
     return () => stopBuffer();
   }, []);
 
-  useEffect(() => {
-    if (!open || started.current) return;
-    started.current = true;
-    setFailed(false);
-    loadSearchRecords(undefined, (soFar) => setSearcher(createSearcher(soFar))).then(
-      () => setComplete(true),
-      () => {
-        started.current = false;
-        setFailed(true);
-      },
-    );
-  }, [open]);
+  // more parts landed after an answer: ask again
+  useEffect(() => onSearchGrow(() => setTick((t) => t + 1)), []);
 
-  const result = useMemo(() => (searcher && q.trim() ? searcher.search(q) : null), [searcher, q]);
+  useEffect(() => {
+    if (!open || !q.trim()) return;
+    let live = true;
+    search(q).then(
+      (r) => {
+        if (!live) return;
+        setFailed(false);
+        setResult(r);
+      },
+      () => live && setFailed(true),
+    );
+    return () => {
+      live = false;
+    };
+  }, [open, q, tick]);
+
+  // an empty box shows the hint, never the last answer
+  const result = q.trim() ? answer : null;
   const flat: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
   const status = failed ? 'Search is unavailable' : result ? describeCounts(result) : '';
 
@@ -132,11 +138,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               <p className="gs-empty">Search could not load. Reload the page to try again.</p>
             ) : !q.trim() ? (
               <p className="gs-hint">Try a country, a trail or a kind, like lake.</p>
-            ) : !searcher ? (
-              <p className="gs-hint">Loading the index.</p>
-            ) : !complete && (!result || result.groups.length === 0) ? (
-              <p className="gs-hint">Loading the index.</p>
-            ) : !result || result.groups.length === 0 ? (
+            ) : !result ? (
+              <p className="gs-hint">Searching.</p>
+            ) : result.groups.length === 0 && result.partial ? (
+              <p className="gs-hint">Searching.</p>
+            ) : result.groups.length === 0 ? (
               <p className="gs-empty">
                 No trip or place matches &lsquo;{q.trim()}&rsquo;. Try a country or a kind, like lake.
               </p>

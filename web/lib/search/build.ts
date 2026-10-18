@@ -1,9 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { travelRoot } from '@/lib/data/root';
-import { zoomForRank } from '@/lib/globe/search';
 import { globeIndex, listPlaces, listTrips } from '@/lib/public';
 import type { GlobeNode } from '@/lib/public';
+import { normalize } from './normalize';
 import type { SearchManifest, SearchPartRef, SearchRecord } from './types';
 
 const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`;
@@ -31,6 +31,12 @@ function areaRecords(node: GlobeNode, path: string[], parents: string[], out: Lo
   for (const c of node.children) areaRecords(c, here, [node.name, ...parents], out);
 }
 
+/**
+ * The globe zoom that frames a landform or sea of a given rank (0 is an ocean). The gazetteer has no bounding boxes, so this
+ * is by rank, and never less than 4: lower shows a hemisphere with nothing marked. `&m=<name>` asks the globe for a marker.
+ */
+const featureZoom = (rank: number): number => (rank <= 0 ? 4 : rank <= 1 ? 4.5 : rank <= 2 ? 5 : 5.5);
+
 const FEATURE_LABEL: Record<string, string> = { ocean: 'Ocean', sea: 'Sea', bay: 'Bay', gulf: 'Gulf', strait: 'Strait', channel: 'Channel' };
 
 /**
@@ -47,7 +53,7 @@ function featureRecords(): Located[] {
     // the notable ones only: oceans, seas and the ranks of landform that a visitor would name (the rest stay on the globe's own search)
     if ((kind !== 'physical' && kind !== 'marine') || (rank ?? 9) > (kind === 'marine' ? 4 : 3)) continue;
     const label = kind === 'marine' ? (FEATURE_LABEL[String(extra).toLowerCase()] ?? 'Sea or ocean') : /range|mtn/i.test(String(extra)) ? 'Mountain range' : 'Landform';
-    out.push({ cc: kind === 'marine' ? 'sea' : 'land', record: { k: 'area', h: `/globe/?c=${lng.toFixed(2)},${lat.toFixed(2)},${zoomForRank(rank ?? 5).toFixed(1)}`, n: name, s: label, x: '' } });
+    out.push({ cc: kind === 'marine' ? 'sea' : 'land', record: { b: (rank ?? 9) <= 1 ? 80 : (rank ?? 9) <= 3 ? 40 : 0, k: 'area', h: `/globe/?c=${lng.toFixed(2)},${lat.toFixed(2)},${featureZoom(rank ?? 5).toFixed(1)}&m=${encodeURIComponent(name)}`, n: name, s: label, x: '' } });
   }
   return out;
 }
@@ -120,6 +126,11 @@ export function buildSearchParts(): SearchParts {
     const id = partId(record.k, cc);
     (parts[id] ??= []).push(record);
     refs.set(id, { id, k: record.k, cc, n: parts[id].length });
+  }
+  for (const ref of refs.values()) {
+    const grams = new Set<string>();
+    for (const r of parts[ref.id]) for (const w of normalize(`${r.n} ${r.x}`).split(' ')) if (w) grams.add(w.slice(0, 3));
+    ref.w = [...grams].sort();
   }
   const list = [...refs.values()].sort((a, b) => KIND_ORDER[a.k] - KIND_ORDER[b.k] || a.cc.localeCompare(b.cc));
   return { manifest: { v: 1, parts: list }, parts };
