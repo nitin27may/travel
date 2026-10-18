@@ -946,9 +946,29 @@ There are no other blocking questions. suitability.md section 10 questions 1-5 s
 - **Cloudy water is a supervision hazard** (Myvatn). It is not obvious from photos.
 - **"Not applicable" is not "not checked".** A lane that types `not_applicable` on an R field to reach Usable fails `E_SUIT_NA_EXEMPT` unless it says why.
 
+## 11. Resolutions made while building S0b (18 Oct 2026)
+
+Where the spec was silent or two parts disagreed, the build chose as follows. The code and `data/schema/suitability-applicability.json` are the source of truth.
+
+| # | Question | Resolution |
+|---|---|---|
+| B1 | `river_hike` (Q1) | A 35th profile, subkind `river_hike` of kind `trail`: the hike row with `water_safety.current_or_tide` and `water_temp_c` R and `swim_ability` A. `access_season` is already R, which carries the flow closure. |
+| B2 | One record has one `ext` block, but 2.7 gives `walk_m` (trail) to lakes and beaches that also need `ext.water.swimming` | `walk_m` moved out of `ext.trail` to the shared block, so a lake or a beach keeps `water` as its one extension. No record used it. |
+| B3 | `subkind` is "required and closed" and E_SUIT_SUBKIND exists | Zod keeps `subkind` an optional string and the validator raises E_SUIT_SUBKIND for a missing, unknown or wrong-kind value, so the error is specific and not E_SUIT_SCHEMA. A (kind, subkind) pair that no profile claims is also E_SUIT_SUBKIND. |
+| B4 | The `op` cells and "the other participation cells become A" | `op` is R when the record is operated, else N. Every other `participation.*` cell keeps its mark when operated and is N when not. A profile marked `always` is operated, `never` is not, `flag` takes the record's `operated`. `never` profiles ask for no participation field (checked in the file). Flag profiles: hike, river_hike, walk, wildlife, show_cave, canoe_kayak, sup, cycle_path. Jasper Dark Sky stays a `sight` with no `operated` flag, because participation is N for a sight. |
+| B5 | `stroller_extent` and `min_shoe_eu` share a cell with `stroller` and `wear` | `stroller_extent` is A wherever `stroller` is R or A (a record with `stroller: none` has no extent). `min_shoe_eu` is R on a glacier walk, A on ferrata and caving, N elsewhere. |
+| B6 | Paths the tables do not carry | `effort.drivers.loss_m` is A where `gain_m` is R or A. `effort.drivers.max_grade_pct` is A on walk, cycle_path and mtb_xc. `ext.cave.tour_m` (in the 6.3 block, not in 2.7) is A on show_cave and caving. |
+| B7 | Field counts | The 2.7 table plus 6.3 give 23 new fields on the five existing extensions (ride 5, paddle 7, ferrata 3, water 3, cave 5), not 18, and 42 fields on the ten new extensions, not 34. Three fields left the extensions (`trail.hazards`, `trail.walk_m`, `ferrata.guide`). The file lists 144 paths per profile. |
+| B8 | M5 duplicates, and `combo_with` | There is no `combo_with` field. The sight rows that are the same place as an adventure (Banff Gondola, Miette, Radium, Red Rock Parkway, the Nordic Centre) take the adventure's profile, and both records stay; coverage counts both refs because `scope.json` lists both. |
+| B9 | M6, a second record for the Lagazuoi tunnels | It needs a ref that resolves without changing the 207 in `scope.json`. A new ref form `part/<parent ref>#<slug>` resolves when its parent does. The lift keeps no walk field; the walk record holds the trail facts (distance, descent, time, recommended age, hints). |
+| B10 | The effort of a profile where it is N and the kind defaults | `deriveEffort` keeps the kind defaults (fixed keys). The flat copy, `projectForSchedule` and `familyEffortOf` return no family effort for a profile without one (`hasEffort`), so a gondola has `house_grade` null. |
+| B11 | `ScheduleSuitability` | No field is added. The structural test against trip-timeline 3.11 still holds. Projections skip N fields by masking the block (`maskNotApplicable`) before they read it. The chips of the display design read the block and the profile in S1. |
+| B12 | W_SUIT_BELOW_USABLE | One warning per draft record, naming the profile and the first six open R paths. `check` counts it; `check --coverage <trip>` prints each record's level. |
+
 ## Change log
 
 | Date | Change |
 |---|---|
+| 2026-10-18 (S0b) | Built: schema delta, 35-profile file, kind-map, migration; section 11 records the choices made where this page was silent |
 | 2026-10-18 (display rules) | Fable check of section 5: chips name the effort (no "FE3"); the limits chip's "+n" counts pregnancy and medical bans; cards carry two chips (P8); rule, advice and gap looks defined; a whole-profile N section is not a missing-data marker; the research line on the section head; PC10-PC12 added; filter labels moved to design/suitability-display.md |
 | 2026-10-18 | First draft: 34 profiles (a 35th, `river_hike`, waits on Q1); R, A and N matrix across six field groups plus the extensions; kind-specific fields from operator and authority sources; at-rest, detail, filter and completeness rules checked against P1-P7 and T1-T5 (9 conflicts resolved); S0b schema delta; migration consequences M1-M10; lane instructions with the relevance slot |
