@@ -5,14 +5,14 @@ import { mkdirSync } from 'node:fs';
 
 // The smoke set the WebKit (iPhone 14, desktop Safari) and Firefox projects run (2.10), screenshots included.
 // Chromium runs it too, so a failure that appears only in one engine is plain.
-const PAGES: [string, string, RegExp][] = [
+const PAGES: [string, string, RegExp | null][] = [
   ['home', '/', /Trip plans/i],
   ['trips', '/trips/', /Trips/i],
   ['trip', '/trips/dolomites-2027/', /Dolomites/i],
   ['places', '/places/', /Places/i],
   ['place', '/places/lago-di-braies/', /Lago di Braies/i],
   ['trail', '/places/tre-cime-di-lavaredo-loop/', /Tre Cime/i],
-  ['globe', '/globe/', /Globe|World/i],
+  ['globe', '/globe/', null],
 ];
 
 test.describe('smoke', () => {
@@ -21,7 +21,8 @@ test.describe('smoke', () => {
       const errors: string[] = [];
       page.on('pageerror', (e) => errors.push(e.message));
       await page.goto(`${site.url}${url}`, { waitUntil: 'networkidle' });
-      await expect(page.getByRole('heading', { name: heading }).first()).toBeVisible();
+      if (heading) await expect(page.getByRole('heading', { name: heading }).first()).toBeVisible();
+      else await expect(page.locator('.globe-root')).toBeVisible(); // the globe has no page heading; its shell is the page
       const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(over, 'horizontal overflow').toBeLessThanOrEqual(0);
       expect(errors).toEqual([]);
@@ -40,9 +41,11 @@ test.describe('smoke', () => {
 
   test('globe: the shell loads, a country drills in, the canvas element exists', async ({ page, site }) => {
     await page.goto(`${site.url}/globe/`);
-    await expect(page.locator('.globe-panel')).toBeVisible();
     await expect(page.locator('.globe-canvas')).toHaveCount(1);
-    await page.locator('.globe-panel').getByRole('button', { name: /Italy/ }).click();
+    // on a phone the list is the 'Countries' sheet, on a wide screen the side panel
+    const list = (page.viewportSize()?.width ?? 1280) < 640 ? page.getByRole('dialog', { name: 'Countries' }) : page.locator('.globe-panel');
+    await expect(list).toBeVisible();
+    await list.getByRole('button', { name: /Italy/ }).click();
     await expect(page).toHaveURL(/\/globe\/it\//);
   });
 
