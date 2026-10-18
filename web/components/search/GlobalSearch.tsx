@@ -4,10 +4,9 @@ import { Dialog } from '@base-ui/react/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { loadSearchIndex } from '@/lib/search/client';
+import { loadSearchRecords } from '@/lib/client/data';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { createSearcher, describeCounts, type Searcher } from '@/lib/search/search';
-import { suggest } from '@/lib/search/suggest';
 import type { SearchHit, SearchRecord } from '@/lib/search/types';
 import '@/styles/home.css';
 
@@ -24,16 +23,17 @@ function glyph(r: SearchRecord) {
 
 /**
  * One search over trips, places and areas (components 2.10). A popover under the header on desktop and a
- * full-height sheet on phone. Results come on the first character from an in-memory index that is fetched the
- * first time the dialog opens. Arrow keys move, Enter opens, Esc clears and then closes.
+ * full-height sheet on phone. Results come on the first character from an in-memory index. The index is split by
+ * kind and country; the parts are fetched the first time the dialog opens and searched as each one arrives. Arrow keys move, Enter opens, Esc clears and then closes.
  */
 export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const router = useRouter();
   const listId = useId();
   const [q, setQ] = useState(() => takeBuffer());
   const [searcher, setSearcher] = useState<Searcher | null>(null);
-  const [records, setRecords] = useState<SearchRecord[]>([]);
+  const [complete, setComplete] = useState(false);
   const [failed, setFailed] = useState(false);
+  const started = useRef(false);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -47,17 +47,19 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   }, []);
 
   useEffect(() => {
-    if (!open || searcher) return;
-    let dead = false;
-    loadSearchIndex().then(
-      (recs) => { if (!dead) { setRecords(recs); setSearcher(createSearcher(recs)); } },
-      () => { if (!dead) setFailed(true); },
+    if (!open || started.current) return;
+    started.current = true;
+    setFailed(false);
+    loadSearchRecords(undefined, (soFar) => setSearcher(createSearcher(soFar))).then(
+      () => setComplete(true),
+      () => {
+        started.current = false;
+        setFailed(true);
+      },
     );
-    return () => { dead = true; };
-  }, [open, searcher]);
+  }, [open]);
 
   const result = useMemo(() => (searcher && q.trim() ? searcher.search(q) : null), [searcher, q]);
-  const suggestion = useMemo(() => (searcher && q.trim() && result && result.groups.length === 0 ? suggest(q, records, (t) => { const r = searcher.search(t); return r.counts.trips + r.counts.places + r.counts.areas; }) : null), [searcher, q, result, records]);
   const flat: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
   const status = failed ? 'Search is unavailable' : result ? describeCounts(result) : '';
 
@@ -132,14 +134,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               <p className="gs-hint">Try a country, a trail or a kind, like lake.</p>
             ) : !searcher ? (
               <p className="gs-hint">Loading the index.</p>
+            ) : !complete && (!result || result.groups.length === 0) ? (
+              <p className="gs-hint">Loading the index.</p>
             ) : !result || result.groups.length === 0 ? (
               <p className="gs-empty">
-                No trip or place matches &lsquo;{q.trim()}&rsquo;. {suggestion ? '' : 'Try a country or a kind, like lake.'}
-                {suggestion?.href ? (
-                  <a className="gs-suggest" href={suggestion.href} onClick={(e) => { e.preventDefault(); onClose(); router.push(suggestion.href!); }}>{suggestion.label}</a>
-                ) : suggestion?.query ? (
-                  <button type="button" className="gs-suggest" onClick={() => { setQ(suggestion.query!); setActive(0); inputRef.current?.focus(); }}>{suggestion.label}</button>
-                ) : null}
+                No trip or place matches &lsquo;{q.trim()}&rsquo;. Try a country or a kind, like lake.
               </p>
             ) : (
               result.groups.map((g) => (
