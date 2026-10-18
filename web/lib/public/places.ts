@@ -89,6 +89,27 @@ function accessPoint(p: { lat: number; lon: number; point_source: string; point_
   };
 }
 
+/**
+ * Platforms whose terms allow a link only: we never show a value, rating or difficulty copied from them (backlog 2.31).
+ * A fact whose source names one of these is dropped at this boundary; the platform stays available as a link.
+ */
+const LINK_ONLY_SOURCE = /\b(alltrails|komoot|gaia(?:\s*gps)?|outdooractive|wikiloc|strava|google|tripadvisor)\b/i;
+export function citesLinkOnlyPlatform(source: string | undefined): boolean {
+  return !!source && LINK_ONLY_SOURCE.test(source);
+}
+
+/**
+ * The source line to show for a fact, or null when the fact has to go. A source made only of link-only platforms drops
+ * the fact; "AllTrails (best months) and PLAN.md" keeps it, sourced to "PLAN.md" alone. A value that itself names a
+ * platform ("May-Oct on AllTrails") is a copied statement and goes too.
+ */
+export function publicSource(source: string | undefined, value: string): string | null | undefined {
+  if (citesLinkOnlyPlatform(value)) return null;
+  if (!citesLinkOnlyPlatform(source)) return source;
+  const own = (source ?? '').split(/\s+(?:and|\/)\s+/).filter((part) => part.trim() && !citesLinkOnlyPlatform(part));
+  return own.length ? own.join(' and ') : null;
+}
+
 function linkOnly(kind: string): boolean {
   return kind === 'alltrails' || kind === 'komoot' || kind === 'wikiloc' || kind === 'gaia' || kind === 'fatmap';
 }
@@ -247,14 +268,30 @@ export function buildPlaces(src: Sources): PlaceBuild {
       for (const f of snap.fields) {
         if (['th_lat', 'th_lon', 'th_name', 'th_elev', 'geometry_source', 'geometry_ids'].includes(f.key)) continue;
         const v = trail.facts[f.key];
-        if (!v) continue;
-        facts.push({ label: f.label, value: f.unit ? `${v.v} ${f.unit}` : v.v, provenance: provenance(v), conflicts: (v.conflict ?? []).map((c) => ({ value: c.v, provenance: provenance(c) })) });
+        const src = v ? publicSource(v.src, v.v) : null;
+        if (!v || src === null) continue;
+        facts.push({
+          label: f.label,
+          value: f.unit ? `${v.v} ${f.unit}` : v.v,
+          provenance: provenance({ ...v, src }),
+          conflicts: (v.conflict ?? []).flatMap((c) => {
+            const cs = publicSource(c.src, c.v);
+            return cs === null ? [] : [{ value: c.v, provenance: provenance({ ...c, src: cs }) }];
+          }),
+        });
       }
     }
     for (const f of p.facts ?? []) {
-      if (!facts.some((x) => x.label.toLowerCase() === f.label.toLowerCase())) facts.push({ label: f.label, value: f.value, provenance: [f.source, f.read ? `read ${f.read}` : null].filter(Boolean).join(', '), conflicts: [] });
+      const fsrc = publicSource(f.source, f.value);
+      if (fsrc === null) continue;
+      if (!facts.some((x) => x.label.toLowerCase() === f.label.toLowerCase())) facts.push({ label: f.label, value: f.value, provenance: [fsrc, f.read ? `read ${f.read}` : null].filter(Boolean).join(', '), conflicts: [] });
     }
-    const seasonFact = trail?.facts.season?.v ?? '';
+    // A trail fact read from a link-only platform is not used for the figures either (stats, season, age).
+    const tf = (key: string) => {
+      const v = trail?.facts[key];
+      return v && publicSource(v.src, v.v) !== null ? v.v : undefined;
+    };
+    const seasonFact = tf('season') ?? '';
     const months = parseSeasonMonths(seasonFact);
     const h: Honesty[] = [];
     if (p.id in UNCONFIRMED_TRAIL_DATA) h.push(honesty('location_unconfirmed', UNCONFIRMED_TRAIL_DATA[p.id]));
@@ -283,9 +320,9 @@ export function buildPlaces(src: Sources): PlaceBuild {
       tags: [],
       honesty: h,
       stats: {
-        distanceKm: numOrNull(trail?.facts.distance_km?.v) ?? p.km ?? null,
-        gainM: numOrNull(trail?.facts.elevation_gain_m?.v) ?? (p.gain !== undefined && p.gain > 0 ? p.gain : null),
-        hours: trail?.facts.duration_hours?.v ?? p.hours ?? null,
+        distanceKm: numOrNull(tf('distance_km')) ?? p.km ?? null,
+        gainM: numOrNull(tf('elevation_gain_m')) ?? (p.gain !== undefined && p.gain > 0 ? p.gain : null),
+        hours: tf('duration_hours') ?? p.hours ?? null,
       },
       sources: trail ? ['prototype', 'trail'] : ['prototype'],
       elevationM: th?.elevationM ?? null,
@@ -299,13 +336,13 @@ export function buildPlaces(src: Sources): PlaceBuild {
       photos: [],
       wikidata: null,
       notes: '',
-      minAge: p.minAge ?? numOrNull(trail?.facts.min_age?.v),
+      minAge: p.minAge ?? numOrNull(tf('min_age')),
       booking: p.booking ?? null,
       checklistComplete: trail ? checklistComplete(src, trail) : null,
       hasDatedSource: datedSource,
       hasTrailheadPoint: !!th,
       durationMin: p.durationMin ?? null,
-      timeHours: trail?.facts.duration_hours?.v ?? null,
+      timeHours: tf('duration_hours') ?? null,
       tripFolders: new Set(['dolomites-july-2027'].filter((f) => !folderIsPrivate(f))),
     };
     if (p.trailhead && !rec.access) rec.access = null;
