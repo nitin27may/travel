@@ -1,0 +1,126 @@
+{
+  "schema": "suitability/1",
+  "trip": "fixture-trip",
+  "lane": "fixture-lake",
+  "researched": "2026-10-18",
+  "agent": "make.ts",
+  "model": "none",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/lakelouise",
+      "title": "Lake Louise area hikes",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-12"
+    }
+  ],
+  "records": [
+    {
+      "ref": "place/lago-di-braies",
+      "kind": "lake",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ]
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "west shore only; steps on the east side"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ]
+        },
+        "water_safety": {
+          "lifejacket": {
+            "v": "bring_own",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0001"
+            ]
+          },
+          "swim_ability": {
+            "v": "none_needed",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0001"
+            ]
+          },
+          "lifeguard": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "lake operator page",
+              "municipality page"
+            ]
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-15",
+              "to": "09-30",
+              "status": "open",
+              "via": "road",
+              "note": "booking-only access 09:00-16:00 in summer"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "water"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    },
+    {
+      "ref": "trip/fixture-trip/trail:tre cime",
+      "kind": "trail",
+      "suitability": {},
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null
+      }
+    }
+  ]
+}

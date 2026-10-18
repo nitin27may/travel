@@ -1,0 +1,46 @@
+{
+  "schema": "suitability-scope/1",
+  "places": [
+    "lago-di-braies",
+    "funbob-monte-baranci"
+  ],
+  "items": [
+    {
+      "ref": "place/lago-di-braies",
+      "key": "lago-di-braies",
+      "trip": "fixture-trip",
+      "kind": "lake",
+      "name": "Lago di Braies",
+      "days": [],
+      "source": {}
+    },
+    {
+      "ref": "trip/fixture-trip/trail:tre cime",
+      "key": "trail:tre cime",
+      "trip": "fixture-trip",
+      "kind": "trail",
+      "name": "Tre Cime",
+      "days": [
+        1
+      ],
+      "source": {}
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "key": "trail:larch",
+      "trip": "fixture-trip",
+      "kind": "trail",
+      "name": "Larch Valley",
+      "days": [
+        2
+      ],
+      "source": {
+        "legacy": {
+          "folder": "canadian-rockies-sept-2029",
+          "dataset": "trails",
+          "id": "larch-valley-sentinel-pass"
+        }
+      }
+    }
+  ]
+}
