@@ -79,7 +79,9 @@ describe("difficulty-map.json (plan 3A)", () => {
     expect(effortGrade(3, 0)).toBe(1);
   });
   it("covers every local system the catalog allows", () => {
-    expect(d.systems.map((s: { id: string }) => s.id).sort()).toEqual(["apn", "dnt", "nps", "other", "parks-canada", "sac", "sepaq", "uk", "yds"]);
+    // the nine of difficulty-map v1 must stay; v2 adds the scales of docs/v2/research/suitability.md section 2
+    const ids = d.systems.map((s: { id: string }) => s.id);
+    for (const v1 of ["apn", "dnt", "nps", "other", "parks-canada", "sac", "sepaq", "uk", "yds"]) expect(ids).toContain(v1);
   });
   it("maps SAC T1 to 2 and T3 to 4", () => {
     const sac = d.systems.find((s: { id: string }) => s.id === "sac").mappings;

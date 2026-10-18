@@ -1,24 +1,183 @@
 {
-"schema_version": 1,
-"updated": "2026-10-17",
+"schema_version": 2,
+"updated": "2026-10-18",
 "scale": [
-  {"house": 1, "label": "Easy", "technical": "Paved, boardwalk or wide flat path; no exposure"},
-  {"house": 2, "label": "Moderate", "technical": "Well-marked path, some steep sections, no hands"},
-  {"house": 3, "label": "Challenging", "technical": "Steep, rough or loose; sure-footedness needed"},
+  {"house": 1, "label": "Stroll", "technical": "Paved, boardwalk or wide flat path; no exposure"},
+  {"house": 2, "label": "Easy", "technical": "Well-marked path, some steep sections, no hands"},
+  {"house": 3, "label": "Moderate", "technical": "Steep, rough or loose; sure-footedness needed"},
   {"house": 4, "label": "Hard", "technical": "Long steep sections, rough terrain, possible short hands-on steps, some exposure"},
-  {"house": 5, "label": "Alpine", "technical": "Exposure, scrambling, route-finding, unmarked"}
+  {"house": 5, "label": "Technical", "technical": "Exposure, scrambling, route-finding, unmarked, harness and lanyards"}
 ],
 "systems": [
-  {"id": "sac", "label": "SAC (OSM sac_scale)", "mappings": [{"local": "strolling", "house": 1, "note": "T1 when short"}, {"local": "T1", "house": 2, "note": ""}, {"local": "T2", "house": 3, "note": ""}, {"local": "T3", "house": 4, "note": ""}, {"local": "T4", "house": 5, "note": ""}, {"local": "T5", "house": 5, "note": ""}, {"local": "T6", "house": 5, "note": ""}], "note": "Hiking (T1) maps to grade 2; a short T1 stroll maps to grade 1."},
-  {"id": "parks-canada", "label": "Parks Canada", "mappings": [{"local": "Easy", "house": 1, "note": "Upper end can read as grade 2"}, {"local": "Moderate", "house": 2, "note": "Upper end can read as grade 3"}, {"local": "Difficult", "house": 4, "note": "Lower end can read as grade 3"}, {"local": "Route", "house": 5, "note": ""}], "note": "Plan 3A table: house 2 is Easy (upper) to Moderate, house 3 is Moderate (upper) to Difficult."},
-  {"id": "sepaq", "label": "Sepaq and Quebec resorts", "mappings": [{"local": "Facile", "house": 1, "note": ""}, {"local": "Beginner", "house": 1, "note": ""}, {"local": "Intermediaire", "house": 2, "note": ""}, {"local": "Intermediate", "house": 2, "note": ""}, {"local": "Difficile", "house": 3, "note": ""}, {"local": "Advanced", "house": 3, "note": ""}, {"local": "Tres difficile", "house": 4, "note": ""}, {"local": "Expert only", "house": 4, "note": ""}], "note": "Grade 5 does not exist in this system."},
-  {"id": "nps", "label": "US agency (NPS, state parks)", "mappings": [{"local": "Easy", "house": 1, "note": ""}, {"local": "Moderate", "house": 2, "note": ""}, {"local": "Strenuous", "house": 3, "note": ""}, {"local": "Strenuous (very)", "house": 4, "note": "Agencies that separate very strenuous routes"}], "note": "Grade 5 does not exist in this system."},
-  {"id": "yds", "label": "Yosemite Decimal System", "mappings": [{"local": "Class 1 (flat)", "house": 1, "note": ""}, {"local": "Class 1", "house": 2, "note": ""}, {"local": "Class 1-2", "house": 3, "note": ""}, {"local": "Class 2-3", "house": 4, "note": ""}, {"local": "Class 3-4+", "house": 5, "note": ""}], "note": ""},
-  {"id": "uk", "label": "UK and Scotland", "mappings": [{"local": "Easy access", "house": 1, "note": ""}, {"local": "Easy", "house": 1, "note": ""}, {"local": "Moderate", "house": 2, "note": ""}, {"local": "Strenuous", "house": 3, "note": ""}, {"local": "Scramble grade 1", "house": 4, "note": ""}, {"local": "Scramble grade 2-3", "house": 5, "note": ""}], "note": ""},
-  {"id": "apn", "label": "Argentine national parks (APN)", "mappings": [{"local": "Medium", "house": 2, "note": "The only APN label the plan has used so far (Senda Costera)"}], "note": "Extend as research meets more APN labels."},
-  {"id": "dnt", "label": "Norwegian Trekking Association (DNT)", "mappings": [], "note": "Green, blue, red and black are not mapped yet; add them when a Norway trail is researched."},
-  {"id": "other", "label": "Other or unknown system", "mappings": [], "note": "Without a mapping the house grade equals the effort grade and house_basis is effort-only."}
+  {"id": "sac", "label": "SAC (OSM sac_scale)", "mappings": [
+    {"local": "T1", "house": 2, "note": "Hiking. A short, flat T1 on a made surface maps to 1 (the flat row).", "source": "https://www.baspo.admin.ch/dam/fr/sd-web/qKSxeWIiXYZa/sac-berg-und-alpinwanderskala_FR.pdf", "read": "2026-10-18"},
+    {"local": "T1", "house": 1, "note": "Short and flat, made surface, no exposure", "when": "flat", "source": "https://www.baspo.admin.ch/dam/fr/sd-web/qKSxeWIiXYZa/sac-berg-und-alpinwanderskala_FR.pdf", "read": "2026-10-18"},
+    {"local": "T2", "house": 3, "note": "Mountain hiking", "source": "https://www.baspo.admin.ch/dam/fr/sd-web/qKSxeWIiXYZa/sac-berg-und-alpinwanderskala_FR.pdf", "read": "2026-10-18"},
+    {"local": "T3", "house": 4, "note": "Demanding mountain hiking", "source": "https://www.baspo.admin.ch/dam/fr/sd-web/qKSxeWIiXYZa/sac-berg-und-alpinwanderskala_FR.pdf", "read": "2026-10-18"},
+    {"local": "T4", "house": 5, "note": "Alpine hiking", "source": "https://www.baspo.admin.ch/dam/fr/sd-web/qKSxeWIiXYZa/sac-berg-und-alpinwanderskala_FR.pdf", "read": "2026-10-18"},
+    {"local": "T5", "house": 5, "note": "Demanding alpine hiking", "source": "https://www.baspo.admin.ch/dam/fr/sd-web/qKSxeWIiXYZa/sac-berg-und-alpinwanderskala_FR.pdf", "read": "2026-10-18"},
+    {"local": "T6", "house": 5, "note": "Difficult alpine hiking", "source": "https://www.baspo.admin.ch/dam/fr/sd-web/qKSxeWIiXYZa/sac-berg-und-alpinwanderskala_FR.pdf", "read": "2026-10-18"}
+  ], "note": "Grades assume good conditions. Hiking (T1) maps to 2; a short flat T1 on a made surface maps to 1."},
+  {"id": "cai", "label": "CAI (Club Alpino Italiano)", "mappings": [
+    {"local": "T", "house": 1, "note": "Turistico: lanes, mule tracks, easy paths. The effort band lifts a long T to 2 (6 effort-km or more).", "source": "https://mappe.regione.vda.it/MOBILE/Sentieri/documenti/scala_difficolta_esc_CAI.pdf", "read": "2026-10-18"},
+    {"local": "E", "house": 3, "note": "Escursionistico: paths over mixed terrain, some steep protected bits", "source": "https://mappe.regione.vda.it/MOBILE/Sentieri/documenti/scala_difficolta_esc_CAI.pdf", "read": "2026-10-18"},
+    {"local": "EE", "house": 4, "note": "Escursionisti esperti: fixed ropes, short ladders, steep slippery slopes", "source": "https://mappe.regione.vda.it/MOBILE/Sentieri/documenti/scala_difficolta_esc_CAI.pdf", "read": "2026-10-18"},
+    {"local": "EEA", "house": 5, "note": "Via ferrata path: helmet, harness and lanyard with an energy absorber. Refine with the ferrata grade (cai-ferrata, schall).", "source": "https://mappe.regione.vda.it/MOBILE/Sentieri/documenti/scala_difficolta_esc_CAI.pdf", "read": "2026-10-18"}
+  ], "note": "EAI (snowshoe) is not mapped: use the hiking scale for snowshoe routes."},
+  {"id": "parks-canada", "label": "Parks Canada", "mappings": [
+    {"local": "Easy", "house": 1, "note": "Upper end can read as grade 2", "source": "https://www.parks.canada.ca/voyage-travel/experiences/sports/randonnee-hiking/niveaux-sentiers-trail-ratings", "read": "2026-10-17"},
+    {"local": "Moderate", "house": 2, "note": "Upper end can read as grade 3", "source": "https://www.parks.canada.ca/voyage-travel/experiences/sports/randonnee-hiking/niveaux-sentiers-trail-ratings", "read": "2026-10-17"},
+    {"local": "Difficult", "house": 4, "note": "Lower end can read as grade 3", "source": "https://www.parks.canada.ca/voyage-travel/experiences/sports/randonnee-hiking/niveaux-sentiers-trail-ratings", "read": "2026-10-17"},
+    {"local": "Route", "house": 5, "note": "Unmarked, route-finding", "source": "https://www.parks.canada.ca/voyage-travel/experiences/sports/randonnee-hiking/niveaux-sentiers-trail-ratings", "read": "2026-10-17"}
+  ], "note": "Definitions vary by park. Plan 3A table: 2 is Easy (upper) to Moderate, 3 is Moderate (upper) to Difficult. The effort band usually lifts a long Moderate to 3."},
+  {"id": "sepaq", "label": "Sepaq and Quebec resorts", "mappings": [
+    {"local": "Facile", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Beginner", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Intermediaire", "house": 2, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Intermediate", "house": 2, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Difficile", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Advanced", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Tres difficile", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Expert only", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+  ], "note": "Grade 5 does not exist in this system. Rows kept from plan 3A."},
+  {"id": "nps", "label": "US agency (NPS, state parks)", "mappings": [
+    {"local": "Easy", "house": 1, "note": "", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
+    {"local": "Moderate", "house": 2, "note": "", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
+    {"local": "Strenuous", "house": 3, "note": "", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
+    {"local": "Very strenuous", "house": 4, "note": "Agencies that separate very strenuous routes", "source": "https://home.nps.gov/shen/planyourvisit/how-to-determine-hiking-difficulty.htm", "read": "2026-10-18"},
+    {"local": "Strenuous (very)", "house": 4, "note": "Same as Very strenuous; the v1 spelling", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+  ], "note": "No national NPS scale: parks use their own words. Shenandoah's numeric score (sqrt(gain_ft x 2 x miles)) is effort only and feeds the band, not the terrain grade."},
+  {"id": "yds", "label": "Yosemite Decimal System", "mappings": [
+    {"local": "Class 1", "house": 2, "note": "Trail. A short flat Class 1 on a made surface maps to 1 (the flat row).", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
+    {"local": "Class 1", "house": 1, "note": "Level made surface", "when": "flat", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
+    {"local": "Class 1-2", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Class 2", "house": 4, "note": "Simple scrambling, hands occasionally", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
+    {"local": "Class 2-3", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Class 3", "house": 5, "note": "Scrambling, hands needed", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
+    {"local": "Class 3-4+", "house": 5, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Class 4", "house": 5, "note": "Simple climbing, exposure: out of family scope", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"},
+    {"local": "Class 5", "house": 5, "note": "Roped climbing: out of family scope", "source": "https://en.wikipedia.org/wiki/Yosemite_Decimal_System", "read": "2026-10-18"}
+  ], "note": "The class is set by the hardest move; definitions vary by source."},
+  {"id": "uk", "label": "UK and Scotland", "mappings": [
+    {"local": "Easy access", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Easy", "house": 1, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Moderate", "house": 2, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Strenuous", "house": 3, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Scramble grade 1", "house": 4, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"},
+    {"local": "Scramble grade 2-3", "house": 5, "note": "", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+  ], "note": "Rows kept from plan 3A."},
+  {"id": "apn", "label": "Argentine national parks (APN)", "mappings": [
+    {"local": "Medium", "house": 2, "note": "The only APN label the plan has used so far (Senda Costera)", "source": "docs/PLAN-platform.md#3A", "read": "2026-10-17"}
+  ], "note": "Extend as research meets more APN labels."},
+  {"id": "dnt", "label": "Norwegian Trekking Association (DNT)", "mappings": [], "note": "Green, blue, red and black are not mapped yet; add them when a Norway trail is researched (out of scope until L3d)."},
+  {"id": "other", "label": "Other or unknown system", "mappings": [], "note": "Without a mapping the terrain grade comes from the drivers and the family effort equals the effort band."},
+  {"id": "local", "label": "A local word on a valley or park page", "mappings": [], "note": "No mapping: terrain comes from drivers (terrain_basis drivers). The original word stays visible."},
+  {"id": "operator", "label": "An operator's own levels", "mappings": [], "note": "Canyoning and some rafting operators publish their own levels. No mapping: terrain comes from drivers or a reviewer override."},
+  {"id": "schall", "label": "Schall (via ferrata, A to E)", "mappings": [
+    {"local": "A", "house": 4, "note": "Easy: beginners and children with protection", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "B", "house": 4, "note": "Moderate: the most common", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "C", "house": 5, "note": "Difficult", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "D", "house": 5, "note": "Very difficult: vertical, holds far apart", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "E", "house": 5, "note": "Extremely difficult: partly overhanging", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "F", "house": 5, "note": "Exists on two routes", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"}
+  ], "note": "Ferrata sets are tested for 50 kg and over: see spec 2.3. Never turn the advice chip into a rule."},
+  {"id": "huesler", "label": "Huesler (via ferrata, K1 to K6)", "mappings": [
+    {"local": "K1", "house": 4, "note": "About Schall A", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "K2", "house": 4, "note": "", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "K3", "house": 5, "note": "", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "K4", "house": 5, "note": "", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "K5", "house": 5, "note": "", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"},
+    {"local": "K6", "house": 5, "note": "", "source": "https://climbers-paradise.com/en/blog/article/via-ferrata-tutorial-05-types-and-difficulties", "read": "2026-10-18"}
+  ], "note": "The K-level wording was not found in the sources read: GAP. The mapping follows the spec table."},
+  {"id": "cai-ferrata", "label": "Italian ferrata guides (F to ED)", "mappings": [
+    {"local": "F", "house": 4, "note": "Facile", "source": "https://www.montagna.tv/186309/scala-difficolta-vie-ferrate/amp/", "read": "2026-10-18"},
+    {"local": "PD", "house": 4, "note": "Poco difficile", "source": "https://www.montagna.tv/186309/scala-difficolta-vie-ferrate/amp/", "read": "2026-10-18"},
+    {"local": "D", "house": 5, "note": "Difficile", "source": "https://www.montagna.tv/186309/scala-difficolta-vie-ferrate/amp/", "read": "2026-10-18"},
+    {"local": "MD", "house": 5, "note": "Molto difficile", "source": "https://www.montagna.tv/186309/scala-difficolta-vie-ferrate/amp/", "read": "2026-10-18"},
+    {"local": "ED", "house": 5, "note": "Estremamente difficile", "source": "https://www.montagna.tv/186309/scala-difficolta-vie-ferrate/amp/", "read": "2026-10-18"}
+  ], "note": ""},
+  {"id": "osm-ferrata", "label": "OSM via_ferrata_scale (1 to 6)", "mappings": [
+    {"local": "1", "house": 4, "note": "", "source": "https://wiki.openstreetmap.org/wiki/Key:via_ferrata_scale", "read": "2026-10-18"},
+    {"local": "2", "house": 4, "note": "", "source": "https://wiki.openstreetmap.org/wiki/Key:via_ferrata_scale", "read": "2026-10-18"},
+    {"local": "3", "house": 5, "note": "", "source": "https://wiki.openstreetmap.org/wiki/Key:via_ferrata_scale", "read": "2026-10-18"},
+    {"local": "4", "house": 5, "note": "", "source": "https://wiki.openstreetmap.org/wiki/Key:via_ferrata_scale", "read": "2026-10-18"},
+    {"local": "5", "house": 5, "note": "", "source": "https://wiki.openstreetmap.org/wiki/Key:via_ferrata_scale", "read": "2026-10-18"},
+    {"local": "6", "house": 5, "note": "", "source": "https://wiki.openstreetmap.org/wiki/Key:via_ferrata_scale", "read": "2026-10-18"}
+  ], "note": "As tagged in OSM."},
+  {"id": "imba", "label": "IMBA Trail Difficulty Rating", "mappings": [
+    {"local": "white", "house": 1, "note": "White circle: hardened, under 5% average", "source": "https://imbacanada.com/trail-difficulty-rating-system/", "read": "2026-10-18"},
+    {"local": "green", "house": 2, "note": "Green circle", "source": "https://imbacanada.com/trail-difficulty-rating-system/", "read": "2026-10-18"},
+    {"local": "blue", "house": 3, "note": "Blue square", "source": "https://imbacanada.com/trail-difficulty-rating-system/", "read": "2026-10-18"},
+    {"local": "black", "house": 4, "note": "Black diamond", "source": "https://imbacanada.com/trail-difficulty-rating-system/", "read": "2026-10-18"},
+    {"local": "double-black", "house": 5, "note": "Double black diamond", "source": "https://imbacanada.com/trail-difficulty-rating-system/", "read": "2026-10-18"}
+  ], "note": "Rates the technical challenge only, not fitness. Fitness comes from the effort band."},
+  {"id": "sts", "label": "Singletrail-Skala (OSM mtb:scale)", "mappings": [
+    {"local": "S0", "house": 2, "note": "", "source": "https://singletrail-skala.de/downloads?lang=en", "read": "2026-10-18"},
+    {"local": "S1", "house": 3, "note": "", "source": "https://singletrail-skala.de/downloads?lang=en", "read": "2026-10-18"},
+    {"local": "S2", "house": 4, "note": "", "source": "https://singletrail-skala.de/downloads?lang=en", "read": "2026-10-18"},
+    {"local": "S3", "house": 5, "note": "", "source": "https://singletrail-skala.de/downloads?lang=en", "read": "2026-10-18"},
+    {"local": "S4", "house": 5, "note": "", "source": "https://singletrail-skala.de/downloads?lang=en", "read": "2026-10-18"},
+    {"local": "S5", "house": 5, "note": "", "source": "https://singletrail-skala.de/downloads?lang=en", "read": "2026-10-18"}
+  ], "note": "Technical only, ideal conditions, rated by the predominant section."},
+  {"id": "trailforks", "label": "Trailforks", "mappings": [
+    {"local": "white", "house": 1, "note": "", "source": "https://www.trailforks.com/about/metadata/", "read": "2026-10-18"},
+    {"local": "green", "house": 2, "note": "", "source": "https://www.trailforks.com/about/metadata/", "read": "2026-10-18"},
+    {"local": "blue", "house": 3, "note": "", "source": "https://www.trailforks.com/about/metadata/", "read": "2026-10-18"},
+    {"local": "black", "house": 4, "note": "", "source": "https://www.trailforks.com/about/metadata/", "read": "2026-10-18"},
+    {"local": "double-black", "house": 5, "note": "", "source": "https://www.trailforks.com/about/metadata/", "read": "2026-10-18"},
+    {"local": "proline", "house": 5, "note": "", "source": "https://www.trailforks.com/about/metadata/", "read": "2026-10-18"}
+  ], "note": "Community platform: its grade is community-basis unless the land manager publishes the same."},
+  {"id": "whistler", "label": "Whistler trails database", "mappings": [
+    {"local": "green", "house": 2, "note": "", "source": "https://whistler.com/trails/bike", "read": "2026-10-18"},
+    {"local": "blue", "house": 3, "note": "", "source": "https://whistler.com/trails/bike", "read": "2026-10-18"},
+    {"local": "black", "house": 4, "note": "", "source": "https://whistler.com/trails/bike", "read": "2026-10-18"},
+    {"local": "double-black", "house": 5, "note": "", "source": "https://whistler.com/trails/bike", "read": "2026-10-18"}
+  ], "note": "Aligned with IMBA. Whistler says its trails run harder than other networks: show the chip 'local grades run hard (the operator says so)'."},
+  {"id": "bike-path", "label": "Cycle path surface and traffic (ours)", "mappings": [
+    {"local": "car_free_paved", "house": 1, "note": "Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"},
+    {"local": "car_free_gravel", "house": 2, "note": "Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"},
+    {"local": "quiet_road", "house": 3, "note": "Traffic. Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"},
+    {"local": "shared_road", "house": 4, "note": "For children. Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"}
+  ], "note": "Our grade, labelled as ours."},
+  {"id": "whitewater", "label": "International Scale of River Difficulty", "mappings": [
+    {"local": "I", "house": 2, "note": "Easy: riffles, small waves, little risk to swimmers", "source": "https://americanwhitewater.org/content/Wiki/safety:ratingssurvey", "read": "2026-10-18"},
+    {"local": "II", "house": 3, "note": "Novice: clear channels", "source": "https://americanwhitewater.org/content/Wiki/safety:ratingssurvey", "read": "2026-10-18"},
+    {"local": "III", "house": 4, "note": "Intermediate", "source": "https://americanwhitewater.org/content/Wiki/safety:ratingssurvey", "read": "2026-10-18"},
+    {"local": "IV", "house": 5, "note": "Advanced", "source": "https://americanwhitewater.org/content/Wiki/safety:ratingssurvey", "read": "2026-10-18"},
+    {"local": "V", "house": 5, "note": "Expert", "source": "https://americanwhitewater.org/content/Wiki/safety:ratingssurvey", "read": "2026-10-18"},
+    {"local": "VI", "house": 5, "note": "Rarely run", "source": "https://americanwhitewater.org/content/Wiki/safety:ratingssurvey", "read": "2026-10-18"}
+  ], "note": "The class changes with water level: store the level the grade assumes in the note."},
+  {"id": "flatwater", "label": "Flatwater (ours)", "mappings": [
+    {"local": "sheltered", "house": 1, "note": "Small lake, rental zone. Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"},
+    {"local": "open", "house": 2, "note": "Big lake, wind fetch, glacial cold. Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"},
+    {"local": "sea_sheltered", "house": 2, "note": "Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"},
+    {"local": "sea_open", "house": 3, "note": "Our rule", "source": "docs/v2/research/suitability.md", "read": "2026-10-18"}
+  ], "note": "Our grade, labelled as ours."},
+  {"id": "piste-eu", "label": "Piste colours, most of Europe", "mappings": [
+    {"local": "green", "house": 1, "note": "Beginner", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "blue", "house": 2, "note": "Easy", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "red", "house": 3, "note": "Intermediate", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "black", "house": 4, "note": "Expert", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "off-piste", "house": 5, "note": "Off-piste or itinerary", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"}
+  ], "note": "Resort-relative. Colours differ by region."},
+  {"id": "piste-at-ch", "label": "Piste colours, Austria and Switzerland", "mappings": [
+    {"local": "blue", "house": 2, "note": "Beginner", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "red", "house": 3, "note": "", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "black", "house": 4, "note": "", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"}
+  ], "note": "No green. Resort-relative."},
+  {"id": "piste-na", "label": "Piste ratings, North America", "mappings": [
+    {"local": "green", "house": 2, "note": "Green circle", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "blue", "house": 3, "note": "Blue square", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "black", "house": 4, "note": "Black diamond", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "double-black", "house": 5, "note": "Double black diamond", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"}
+  ], "note": "Consistent only within one resort."},
+  {"id": "piste-jp", "label": "Piste colours, Japan", "mappings": [
+    {"local": "green", "house": 2, "note": "", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "red", "house": 3, "note": "", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"},
+    {"local": "black", "house": 4, "note": "", "source": "https://en.wikipedia.org/wiki/Piste", "read": "2026-10-18"}
+  ], "note": "No blue."}
 ],
-"effort": {"formula": "effort_km = km + gain_m / 100", "bands": [{"below": 6, "grade": 1}, {"below": 12, "grade": 2}, {"below": 20, "grade": 3}, {"below": 30, "grade": 4}, {"below": null, "grade": 4}], "note": "Grade 5 is reserved for technical terrain. Bands are the half-open ranges [0,6), [6,12), [12,20), [20,30) and 30 or more."},
-"rule": {"house_grade": "house_grade = max(technical grade from the local system, effort grade)", "no_local_grade": "When the local grade is missing, technical is null, house_grade equals the effort grade and house_basis is effort-only (shown as a hollow badge)."}
+"effort": {"formula": "effort_km = km * mode_factor + gain_m / 100", "bands": [{"below": 6, "grade": 1}, {"below": 12, "grade": 2}, {"below": 20, "grade": 3}, {"below": 30, "grade": 4}, {"below": null, "grade": 4}], "note": "Grade 5 is reserved for technical terrain. Bands are the half-open ranges [0,6), [6,12), [12,20), [20,30) and 30 or more. The formula is the v1 one with the mode factor of `modes`; walking is 1."},
+"modes": {"walk": 1, "ride": 0.25, "note": "Four km of riding count as one km of walking. This factor is our rule, labelled as ours."},
+"rule": {"house_grade": "family_effort = max(terrain grade from the source grade, effort band). The terrain grade comes from the source grade through this file, else from the drivers, else from a reviewer override.", "no_local_grade": "When the source grade is missing or unmapped, the terrain grade comes from the drivers (terrain_basis drivers). With no drivers either, family_effort equals the effort band and is shown as a hollow badge."}
 }

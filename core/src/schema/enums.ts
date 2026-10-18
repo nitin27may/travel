@@ -127,3 +127,24 @@ export const LOCATION_SOURCE_TYPES = [
   "instagram", "facebook", "tiktok", "youtube", "reddit", "blog", "article", "official", "guidebook", "friend",
   "note",
 ] as const;
+
+// suitability/1 (docs/v2/research/suitability.md). Append only.
+export const SUIT_BASIS = [
+  "operator_rule", "official_rule", "official_grade", "official_info", "community", "our_inference",
+] as const;
+export const SUIT_STATE = ["value", "none_stated", "searched_none", "not_applicable", "gap"] as const;
+/** Every published scale a source_grade can name. The first nine are the difficulty-map v1 ids. */
+export const GRADE_SYSTEM = [
+  "sac", "parks-canada", "sepaq", "nps", "yds", "uk", "apn", "dnt", "other",
+  "cai", "schall", "huesler", "cai-ferrata", "osm-ferrata",
+  "imba", "sts", "trailforks", "whistler", "bike-path",
+  "whitewater", "flatwater",
+  "piste-eu", "piste-at-ch", "piste-na", "piste-jp",
+  "local", "operator",
+] as const;
+export const STROLLER = ["smooth", "all_terrain", "none"] as const;
+export const WHEELCHAIR = ["step_free", "partial", "none"] as const;
+export const LIMIT_REASON = ["harness", "seat", "equipment", "insurance", "law", "policy"] as const;
+export const SUIT_KIND = [
+  "trail", "viewpoint", "waterfall", "lake", "sight", "town", "activity", "lift", "swim_spot", "stay", "eatery",
+] as const;
