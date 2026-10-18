@@ -188,6 +188,7 @@ C5 exempts U7 computed time, U10, U12 community hazards, U13, C12, C16 and C17.
 | Forested summit, view 0.4 mi beyond | Mt. Pisgah, research/trips/vermont-fall-2026/trails.md |
 | One-way figure read as round trip, and the reverse | Sorapis 215 is "5.6 km one-way, ~114 m gain to the lake" in one source and "11-12.6 km, 475-630 m" round trip in others (research/trips/dolomites-july-2027/trails.md sections 0.6 and 3); the gain figures cannot both be right, so it is a conflict, not a range to average |
 | Conflicting official figures | Iceline 20.3 km/1,090 m versus 20.8 km/710 m; Stanley Glacier 4.9 km one way versus 8.4 km return (research/trips/canadian-rockies-sept-2029/trails-national.md) |
+| Two records of one official page disagree | Lake Agnes: 7.8 km / 495 m in legacy/canadian-rockies-sept-2029/data/trails.json versus 7.4 km / 385 m in the lanes/trails.md example, both citing Parks Canada; the example is illustrative, so the import must re-read the page |
 | Trailhead taken from a Google Maps address | "Trailhead: Passo Tre Croci (Google Maps: Passo Tre Croci, 32043 Cortina d'Ampezzo)" (dolomites trails.md section 3); the Rockies `trails.json` stores only `map_url` name searches such as `maps.google.com/?q=Moraine+Lake...`, no point at all |
 | A lot that fills at 06:00-06:30 | Sorapis, Passo Tre Croci (dolomites trails.md section 0.6) |
 | The dangerous return loop | Sorapis 216 descent: steep rubble, exposed ledge, no aids (dolomites trails.md 0.6) |

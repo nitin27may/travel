@@ -145,7 +145,7 @@ found (checked 18 Oct 2026)". Sites that block the link checker (AllTrails) are 
 Link kinds used across profiles: `official` (the land manager's or operator's own page),
 `hours_rates`, `booking`, `conditions` (closures, trail status), `status` (live lift or road status),
 `timetable`, `terms` (T&C, waiver, cancellation), `tourism_board`, `osm`, `wikidata`, `wikipedia`,
-`commons` (category), `webcam`, `map_sheet`, `menu`, `accessibility`, `trip_report`, `video`, and the
+`commons` (category), `wikivoyage` (facts only, CC BY-SA), `webcam`, `map_sheet`, `menu`, `accessibility`, `trip_report`, `video`, and the
 link-only platforms `alltrails`, `komoot`, `gaia`, `outdooractive`, `wikiloc`. `navigation` is
 generated (section 5).
 
