@@ -1,0 +1,434 @@
+{
+  "schema": "relevance-signals-osm/1",
+  "source": "OpenStreetMap via Overpass, count within 25 km",
+  "credit": "Contains data (c) OpenStreetMap contributors, ODbL 1.0",
+  "items": {
+    "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/roadside",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 21
+    },
+    "legacy/canadian-rockies-sept-2029/sights/athabasca-falls": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/roadside",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 6
+    },
+    "legacy/canadian-rockies-sept-2029/sights/bow-lake": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 64
+    },
+    "legacy/canadian-rockies-sept-2029/sights/emerald-lake": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 72
+    },
+    "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 95
+    },
+    "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view": {
+      "read": "2026-10-18",
+      "class_key": "lake/alpine-hike-in",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 13
+    },
+    "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 53
+    },
+    "legacy/canadian-rockies-sept-2029/sights/moraine-lake": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 88
+    },
+    "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 36
+    },
+    "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/roadside",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 17
+    },
+    "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/hike-in",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 4
+    },
+    "legacy/canadian-rockies-sept-2029/sights/peyto-lake": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/roadside",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 19
+    },
+    "legacy/canadian-rockies-sept-2029/sights/pyramid-lake": {
+      "read": "2026-10-18",
+      "class_key": "lake/swim-beach",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 59
+    },
+    "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/roadside",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 9
+    },
+    "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/giant",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 18
+    },
+    "legacy/canadian-rockies-sept-2029/sights/wedge-pond": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 47
+    },
+    "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/roadside",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 6
+    },
+    "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake": {
+      "read": "2026-10-18",
+      "class_key": "lake/alpine-hike-in",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 45
+    },
+    "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": {
+      "read": "2026-10-18",
+      "class_key": "lake/alpine-hike-in",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 42
+    },
+    "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak": {
+      "read": "2026-10-18",
+      "class_key": "peak/summit",
+      "tag": "[\"natural\"=\"peak\"]",
+      "radius_km": 25,
+      "count": 189
+    },
+    "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/summit-panorama",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 5
+    },
+    "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/giant",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 18
+    },
+    "legacy/canadian-rockies-sept-2029/trails/troll-falls": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/hike-in",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 24
+    },
+    "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 47
+    },
+    "place/bullaccia-and-the-witches-benches": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/summit-panorama",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 288
+    },
+    "place/cadini-di-misurina-viewpoint": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/summit-panorama",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 171
+    },
+    "place/cascate-di-fanes": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/hike-in",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 65
+    },
+    "place/croda-del-becco": {
+      "read": "2026-10-18",
+      "class_key": "peak/summit",
+      "tag": "[\"natural\"=\"peak\"]",
+      "radius_km": 25,
+      "count": 812
+    },
+    "place/dolomites": {
+      "read": "2026-10-18",
+      "class_key": "peak/summit",
+      "tag": "[\"natural\"=\"peak\"]",
+      "radius_km": 25,
+      "count": 874
+    },
+    "place/lago-dantorno": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 40
+    },
+    "place/lago-di-braies": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 46
+    },
+    "place/lago-di-carezza": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 86
+    },
+    "place/lago-di-dobbiaco": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 51
+    },
+    "place/lago-di-landro": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 43
+    },
+    "place/lago-di-limides": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 45
+    },
+    "place/lago-di-misurina": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 41
+    },
+    "place/lago-di-sorapis": {
+      "read": "2026-10-18",
+      "class_key": "lake/alpine-hike-in",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 41
+    },
+    "place/lago-federa": {
+      "read": "2026-10-18",
+      "class_key": "lake/alpine-hike-in",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 45
+    },
+    "place/lake-louise": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 94
+    },
+    "place/sass-pordoi-and-piz-boe": {
+      "read": "2026-10-18",
+      "class_key": "peak/summit",
+      "tag": "[\"natural\"=\"peak\"]",
+      "radius_km": 25,
+      "count": 869
+    },
+    "place/seceda-ridge": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/summit-panorama",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 289
+    },
+    "trip/algonquin-muskoka-2026/sight:ragged falls": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/roadside",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 9
+    },
+    "trip/chamonix-mont-blanc-2028/lake:lac des gaillands": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 168
+    },
+    "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace": {
+      "read": "2026-10-18",
+      "class_key": "cave/show",
+      "tag": "[\"natural\"=\"cave_entrance\"]",
+      "radius_km": 25,
+      "count": 70
+    },
+    "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": {
+      "read": "2026-10-18",
+      "class_key": "lake/alpine-hike-in",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 170
+    },
+    "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection": {
+      "read": "2026-10-18",
+      "class_key": "lake/small-mirror",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 170
+    },
+    "trip/iceland-ring-road-2027/activity:myvatn nature baths": {
+      "read": "2026-10-18",
+      "class_key": "lake/swim-beach",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 342
+    },
+    "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/roadside",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 70
+    },
+    "trip/iceland-ring-road-2027/sight:dettifoss": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/giant",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 11
+    },
+    "trip/iceland-ring-road-2027/sight:godafoss": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/giant",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 8
+    },
+    "trip/iceland-ring-road-2027/sight:gullfoss": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/giant",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 23
+    },
+    "trip/iceland-ring-road-2027/sight:seljalandsfoss": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/roadside",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 21
+    },
+    "trip/iceland-ring-road-2027/sight:skogafoss": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/roadside",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 54
+    },
+    "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/hike-in",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 20
+    },
+    "trip/iceland-ring-road-2027/viewpoint:jokulsarlon": {
+      "read": "2026-10-18",
+      "class_key": "lake/glacial-turquoise",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 48
+    },
+    "trip/iceland-ring-road-2027/viewpoint:kirkjufell": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/roadside",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 44
+    },
+    "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/roadside",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 36
+    },
+    "trip/patagonia-2027/trail:laguna capri": {
+      "read": "2026-10-18",
+      "class_key": "lake/alpine-hike-in",
+      "tag": "[\"natural\"=\"water\"][\"water\"=\"lake\"]",
+      "radius_km": 25,
+      "count": 31
+    },
+    "trip/patagonia-2027/viewpoint:lapataia bay": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/roadside",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 47
+    },
+    "trip/utah-five-parks/trail:lower calf creek falls": {
+      "read": "2026-10-18",
+      "class_key": "waterfall/hike-in",
+      "tag": "[\"waterway\"=\"waterfall\"]",
+      "radius_km": 25,
+      "count": 3
+    },
+    "trip/vermont-fall-2026/viewpoint:burke mountain overlook": {
+      "read": "2026-10-18",
+      "class_key": "viewpoint/summit-panorama",
+      "tag": "[\"tourism\"=\"viewpoint\"]",
+      "radius_km": 25,
+      "count": 23
+    }
+  }
+}
