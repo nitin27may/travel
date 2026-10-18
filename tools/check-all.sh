@@ -30,6 +30,10 @@ pnpm --dir "$ROOT/web" exec vitest run -c ../tools/suitability-scope/vitest.conf
 git -C "$ROOT" diff --exit-code -- data/suitability/scope.json
 step "suitability sidecars (suitability/1)"
 node "$ROOT/core/bin/suitability.ts" check --root "$ROOT"
+step "relevance sidecars (relevance/1; no AllTrails, Google, Tripadvisor or Komoot ratings, counts or ranks)"
+node "$ROOT/core/bin/relevance.ts" check --root "$ROOT"
+step "relevance derived files are current"
+node "$ROOT/core/bin/relevance.ts" derive --check --root "$ROOT"
 
 if [[ -f "$ROOT/web/package.json" ]]; then
   for script in typecheck lint test build; do
