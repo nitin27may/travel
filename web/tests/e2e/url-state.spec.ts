@@ -192,15 +192,18 @@ test.describe('pages', () => {
     await expect(page).toHaveURL(/\/places\/\?country=CA/);
   });
 
-  test('home lists the legacy trips with date badges and links onward', async ({ page, site }) => {
+  test('home shows the cover, the trips strip from the data and season chips', async ({ page, site }) => {
     await page.goto(`${site.url}/`);
-    await expect(page.getByRole('heading', { level: 1, name: 'Trip plans' })).toBeVisible();
-    await expect(page.getByRole('complementary').getByText('Next up')).toBeVisible();
-    await expect(page.locator('.hero-feature .card')).toBeVisible();
-    await expect(page.getByText(/In \d+ days|Past trip/).first()).toBeVisible();
-    const hrefs = await page.locator('main a.card-open').evaluateAll((els) => els.map((e) => e.getAttribute('href')));
-    expect(hrefs.length).toBe(14);
-    expect(hrefs.every((h) => /^\/[a-z0-9-]+\/$/.test(h ?? ''))).toBe(true);
+    const heads = await page.locator('main h1, main h2').allInnerTexts();
+    expect(heads.map((h) => h.toLowerCase())).toEqual(['trip plans', 'trips', 'places worth a trip', 'about the data']);
+    await expect(page.getByRole('link', { name: 'All 14 trips →' })).toHaveAttribute('href', '/trips/');
+    const strip = page.locator('section[aria-labelledby="home-trips-h"]');
+    const hrefs = await strip.locator('a.card-open').evaluateAll((els) => els.map((e) => e.getAttribute('href')));
+    expect(hrefs.length).toBe(6);
+    expect(hrefs.every((h) => /^\/trips\/[a-z0-9-]+\/$/.test(h ?? ''))).toBe(true);
+    // public trips are dateless: a season chip, never a countdown or a date
+    await expect(strip.getByText(/In \d+ days|Past trip/)).toHaveCount(0);
+    await expect(strip.locator('.chip').filter({ hasText: /September|Season not set yet|July/ }).first()).toBeVisible();
   });
 
   test('about the data lists every source and the privacy line', async ({ page, site }) => {

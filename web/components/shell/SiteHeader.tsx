@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { GlobalSearch as GlobalSearchType } from '@/components/search/GlobalSearch';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { startBuffer } from '@/lib/search/typeahead';
 import { ThemeToggle } from './ThemeToggle';
 
 // the search dialog (and its dialog code) loads the first time it opens
@@ -35,8 +36,9 @@ export function SiteHeader() {
       const t = e.target as HTMLElement | null;
       if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
       // list pages own "/" for their in-page search
-      if (document.querySelector('[aria-keyshortcuts="/"]')) return;
+      if (document.querySelector('main [aria-keyshortcuts="/"]')) return;
       e.preventDefault();
+      startBuffer();
       setSearchOpen(true);
     };
     window.addEventListener('keydown', onKey);
