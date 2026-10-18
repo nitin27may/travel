@@ -143,7 +143,7 @@ test.describe('keyboard and place links', () => {
   test('table: group by with counts, collapse a group, choose columns', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?view=table`);
     const groups = page.locator('tr.grp-row');
-    expect(await groups.count()).toBeGreaterThanOrEqual(7);
+    await expect.poll(() => groups.count(), { message: 'groups render after hydration' }).toBeGreaterThanOrEqual(3); // one page of 48 rows spans a few countries, not all seven
     const first = groups.first();
     const n = Number(await first.locator('.gh-count').textContent());
     const rowsBefore = await page.locator('tr[data-row]').count();

@@ -69,10 +69,9 @@ test.describe('places list', () => {
     await expect(page).toHaveURL(/c=11\.9,46\.6,8/);
   });
 
-  test('old query links still work: a legacy kind name and a region code', async ({ page, site }) => {
-    await page.goto(`${site.url}/places/?country=CA&region=QC&kind=park`);
-    const n = Number(await page.locator('.filter-bar .count strong').textContent());
-    expect(n).toBeGreaterThan(0);
+  test('old query links still work: a legacy kind name (lighthouse is now a sight) and a region code', async ({ page, site }) => {
+    await page.goto(`${site.url}/places/?country=CA&region=QC&kind=lighthouse`);
+    await expect.poll(async () => Number(await page.locator('.filter-bar .count strong').textContent()), { message: 'the count is written after hydration' }).toBeGreaterThan(0);
   });
 });
 
@@ -87,7 +86,7 @@ test.describe('place page', () => {
     expect((hazards?.y ?? 0) < (route?.y ?? 0)).toBe(true);
     const dir = page.getByRole('link', { name: /Google Maps directions/ });
     await expect(dir).toHaveAttribute('href', /destination=46\.61285,12\.29267/);
-    await expect(page.getByRole('link', { name: /^Apple Maps/ }).first()).toHaveAttribute('href', /maps\.apple\.com\/\?daddr=46\.61285,12\.29267/);
+    await expect(page.locator('section[aria-labelledby="h-dir"]').getByRole('link', { name: /^Apple Maps/ }).first()).toHaveAttribute('href', /maps\.apple\.com\/\?daddr=46\.61285,12\.29267/);
     await expect(page.getByRole('tab')).toHaveText([/Official\s*2/, /Booking\s*1/, /Route\s*10/, /Conditions\s*4/, /Report\s*2/]);
     await page.getByRole('tab', { name: /Conditions/ }).click();
     await expect(page.getByRole('tabpanel').getByRole('link').first()).toBeVisible();
