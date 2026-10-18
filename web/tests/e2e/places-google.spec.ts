@@ -46,6 +46,23 @@ test.describe('place page on the google-js family with a fake key', () => {
     expect(requests.filter((u) => /maplibre|openfreemap|mapterhorn/i.test(u))).toEqual([]);
   });
 
+  test('click loads the Maps script once with the key and nothing else; a refused script leaves the points and links', async ({ page }) => {
+    const google: string[] = [];
+    page.on('request', (r) => { if (/googleapis\.com|gstatic\.com|google\.com\/maps/.test(r.url())) google.push(r.url()); });
+    await page.goto(`${server.url}/places/tre-cime-di-lavaredo-loop/`);
+    const facade = page.locator('[data-map-family="google-js"][data-map-facade]');
+    await facade.getByRole('button', { name: 'Load Google map' }).click();
+    // the harness blocks every remote host, so the script is refused: the page must say so and keep the text points and links
+    await expect(page.getByRole('alert').filter({ hasText: 'could not be loaded' })).toBeVisible();
+    expect(google).toHaveLength(1);
+    const u = new URL(google[0]);
+    expect(u.origin + u.pathname).toBe('https://maps.googleapis.com/maps/api/js');
+    expect(u.searchParams.get('key')).toBe('fake-key-for-tests');
+    await expect(facade.getByRole('link', { name: /Directions in Google Maps/ })).toBeVisible();
+    await expect(facade).toContainText('46.61285,12.29267');
+    await expect(facade.getByRole('button', { name: 'Load Google map' })).toBeEnabled();
+  });
+
   test('the list page stays on maplibre', async ({ page }) => {
     await page.goto(`${server.url}/places/?view=map`);
     await expect(page.locator('[data-map-family="maplibre"]')).toBeVisible();

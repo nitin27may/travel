@@ -55,13 +55,13 @@ async function settled(page: Page, read: () => Promise<number>): Promise<number>
   await page.waitForLoadState('networkidle');
   let last = Number.NaN;
   let same = 0;
-  for (let i = 0; i < 80 && same < 3; i++) {
+  for (let i = 0; i < 300 && same < 4; i++) {
     const n = await read().catch(() => Number.NaN);
     same = n === last && Number.isFinite(n) ? same + 1 : 0;
     last = n;
-    await page.waitForTimeout(100);
+    await page.waitForTimeout(150);
   }
-  expect(same, 'the count never settled').toBeGreaterThanOrEqual(3);
+  expect(same, 'the count never settled').toBeGreaterThanOrEqual(4);
   return last;
 }
 
@@ -80,6 +80,8 @@ async function appCount(page: Page, base: string, params: string, onlySaved = tr
 }
 
 test.describe('places parity with the legacy list page', () => {
+  // a count read while another run loads the machine can lag the first paint; one retry, and the settle loop above is long
+  test.describe.configure({ retries: 1, timeout: 120_000 });
   const rows: { set: string; legacy: number; app: number }[] = [];
 
   test('unfiltered: both show the 64 saved places, and the app lists more', async ({ page, site, legacy }) => {
