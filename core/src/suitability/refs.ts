@@ -97,7 +97,7 @@ export class RefResolver {
     if (form === "part") {
       // S0b: a record cut out of another (the Lagazuoi tunnels out of the cable car): part/<parent ref>#<slug>
       const parent = rest.split("#")[0] ?? "";
-      if (!rest.includes("#")) return "a part ref is part/<parent ref>#<slug>";
+      if (!rest.includes("#") || (rest.split("#")[1] ?? "").trim() === "") return "a part ref is part/<parent ref>#<slug>, and the slug is not empty";
       return this.why(parent);
     }
     if (form === "offer") {

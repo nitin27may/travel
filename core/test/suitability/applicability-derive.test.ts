@@ -168,6 +168,16 @@ describe("projectForSchedule skips N fields", () => {
     expect(s).toMatchObject({ minAge: null, maxWeightKg: null, rule: null, familyEffort: null, sourceGrade: null });
     expect(s.ruleByField).toEqual({});
   });
+  it("a profile with no effort projects no terrain or effort km either", () => {
+    const g = rec(walk(5, 100, { effort: { source_grade: sg("sac", "T2") } }), { kind: "activity", subkind: "boat-tour" });
+    expect(projectForSchedule(g)).toMatchObject({ terrain: null, effortKm: null, familyEffort: null });
+    expect(projectForSchedule(rec(walk(5, 100, { effort: { source_grade: sg("sac", "T2") } }), { kind: "trail", subkind: "hike" })).effortKm).not.toBeNull();
+  });
+  it("child time our rule is written only where child_time_min applies", () => {
+    expect(projectForSchedule(rec({}, { kind: "trail", subkind: "hike" })).provenance).toContain("child time our rule");
+    expect(projectForSchedule(rec({}, { kind: "activity", subkind: "bungee" })).provenance).not.toContain("child time");
+    expect(projectForSchedule(rec({}, { kind: "lift", subkind: "gondola" })).provenance).toBe("");
+  });
   it("a boat has no family effort; a hike keeps it", () => {
     const g = { effort: { source_grade: sg("sac", "T2") } };
     expect(projectForSchedule(rec(g, { kind: "activity", subkind: "boat-tour" })).familyEffort).toBeNull();
@@ -178,6 +188,6 @@ describe("projectForSchedule skips N fields", () => {
   });
   it("the provenance line is built from the same masked block", () => {
     const s = projectForSchedule(rec({ min_age: v(8) }, { kind: "lake", subkind: "lake" }));
-    expect(s.provenance).toBe("child time our rule"); // no operator rule line: min_age is N on a lake
+    expect(s.provenance).toBe(""); // min_age is N on a lake, and so is child_time_min: neither line is written
   });
 });

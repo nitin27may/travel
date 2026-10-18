@@ -156,14 +156,14 @@ export const SUIT_PROFILE = [
   "hike", "river_hike", "walk", "viewpoint", "lake", "swim", "waterfall", "beach", "drive", "town", "sight", "lift", "boat",
   "canoe_kayak", "sup", "rafting", "float", "zipline", "bungee", "ferrata", "mtb_lift", "mtb_xc", "cycle_path",
   "horse", "show_cave", "caving", "glacier", "snow", "wildlife", "hot_spring", "coaster", "paraglide", "air_tour",
-  "stay", "eatery",
+  "vehicle_tour", "area", "stay", "eatery",
 ] as const;
 /** Closed subkind vocabulary; the applicability file maps each (kind, subkind) pair to exactly one profile. */
 export const SUIT_SUBKIND = [
   "hike", "river_hike", "scramble", "trek_stage", "walk", "guided-hike", "heli-hike",
   "viewpoint", "summit", "pullout", "lake", "swim_spot", "beach", "hot_spring", "waterfall", "canyon", "gorge",
   "scenic_drive", "town", "village", "city",
-  "museum", "castle", "landmark", "historic_site", "visitor_centre", "attraction", "cave",
+  "museum", "castle", "landmark", "historic_site", "visitor_centre", "attraction", "park", "area", "cave",
   "gondola", "cable_car", "chairlift", "funicular", "rack_railway", "scenic_train",
   "boat-tour", "cruise", "zodiac", "boat-shuttle", "canoe", "kayak", "sup", "rafting", "float",
   "zipline", "bungee", "swing", "via-ferrata", "bike-park", "mtb", "cycling", "horse", "caving",

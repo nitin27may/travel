@@ -5,7 +5,7 @@
 // core/src/schedule/suitability.ts `export type { ScheduleSuitability as Suitability } from '../suitability/project.ts'`;
 // core/test/suitability/schedule-type.test.ts asserts the two shapes match.
 import type { SuitabilityBlock, SuitabilityRecord, SuitabilitySource } from "../schema/suitability.ts";
-import { hasEffort, isOperated, loadApplicability, maskNotApplicable, profileOf } from "./applicability.ts";
+import { hasEffort, isOperated, loadApplicability, markOf, maskNotApplicable, profileOf } from "./applicability.ts";
 import type { Applicability } from "./applicability.ts";
 import { deriveEffort, ruleValOf, valOf } from "./derive.ts";
 import { DEFAULT_MAP } from "./map.ts";
@@ -139,7 +139,7 @@ export function projectForSchedule(record: SuitabilityRecord, offer?: Offer, opt
   const timeBasis = (v: AnyVal): string => (v?.basis === "our_inference" ? "our rule" : v?.basis ? BASIS_LABEL[v.basis as Basis] : "source not recorded");
   if (at) parts.push(`adult time ${timeBasis(b.adult_time_min)}`);
   if (ct) parts.push(`child time ${timeBasis(b.child_time_min)}`);
-  else parts.push("child time our rule");
+  else if (!located || markOf(located.profile, "child_time_min", isOperated(located.profile, record.operated)) !== "N") parts.push("child time our rule");
 
   return {
     minAge: ruleValOf(b.min_age),
@@ -162,8 +162,8 @@ export function projectForSchedule(record: SuitabilityRecord, offer?: Offer, opt
     gainM: valOf(b.effort?.drivers?.gain_m),
     lossM: valOf(b.effort?.drivers?.loss_m),
     provenance: parts.join("; "),
-    terrain: effort.terrain,
-    effortKm: effort.effort_km,
+    terrain: effortApplies ? effort.terrain : null,
+    effortKm: effortApplies ? effort.effort_km : null,
     exposureUnfenced: !!expo && (expo.level === "significant" || expo.level === "serious") && expo.fenced === "unfenced",
     ruleByField,
     strollerNote: stroller.note,
