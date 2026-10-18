@@ -27,7 +27,7 @@ test.describe('copy, export, share', () => {
     await expect(page.getByRole('menuitem', { name: /^Calendar/ })).toBeDisabled();
   });
 
-  test('copy sheet: primary off until a date is picked, then a dated calendar downloads and sign-in is offered', async ({ page, site }) => {
+  test('copy sheet: primary off until a date is picked, then a dated calendar downloads and the sheet says plainly that the planner is not open', async ({ page, site }) => {
     await page.goto(`${site.url}/specimen/`);
     await page.getByRole('button', { name: /Open copy sheet/ }).click();
     const copy = page.getByRole('button', { name: 'Copy to my trips' });
@@ -46,7 +46,8 @@ test.describe('copy, export, share', () => {
     expect(text.match(/BEGIN:VEVENT/g)!.length).toBeGreaterThanOrEqual(14);
     await copy.click();
     await expect(page.getByText('held in this browser only')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Sign in to keep it' })).toHaveAttribute('href', '/sign-in/');
+    await expect(page.getByText('not open yet').first()).toBeVisible();
+    await expect(page.getByRole('link', { name: 'About the planner' })).toHaveAttribute('href', '/sign-in/');
   });
 
   test('season window: the trip season is underlined and a start that runs past it warns', async ({ page, site }) => {

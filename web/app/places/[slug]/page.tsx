@@ -3,6 +3,7 @@ import '@/components/places/families';
 import { summaryOrKind } from '@/components/places/model';
 import { PlacePage } from '@/components/places/PlacePage';
 import { getPlace, listPlaces, placeSlugs } from '@/lib/public';
+import { ogImageFor } from '@/lib/og';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
 import '@/styles/places.css';
 
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: place.name,
     description: summaryOrKind(place.summary, place.kindLabel, place.areaLabel) || `${place.kindLabel} in ${place.areaLabel}.`,
     path: `/places/${slug}/`,
+    image: ogImageFor('places', slug),
   });
 }
 

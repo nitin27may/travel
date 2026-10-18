@@ -144,9 +144,11 @@
   --e-3: 0 0 0 1px #7A8794, 0 24px 60px rgba(23,34,48,0.22);
   --map-land: #EEECE6;
   --map-high: #FFFFFF;
+  --map-wood: #E4E0D4;
   --map-shade: rgba(23,34,48,0.35);
   --map-contour: #B9B1A4;
   --map-water: #6F9FB4;
+  --map-casing: #172230;
   --map-halo: rgba(255,255,255,0.9);
   --map-route: #172230;
   --map-route-pick: #D9962B;
@@ -156,6 +158,10 @@
   --globe-pin-ink: #FFFFFF;
   --globe-pin-pick: #D9962B;
   --globe-pin-pick-ink: #241703;
+  --globe-ocean: #A9C4D3;
+  --globe-halo: #CFE0EC;
+  --globe-edge: var(--line-2);
+  --globe-dim: rgba(243,241,236,0.7);
   --map-border: color-mix(in srgb, var(--muted) 60%, transparent);
   --map-label: var(--ink-2);
   --map-route-dim: color-mix(in srgb, var(--map-route) 28%, transparent);
@@ -206,9 +212,11 @@
   --e-3: 0 0 0 1px #5E748E, 0 24px 60px rgba(0,0,0,0.6);
   --map-land: #1A2330;
   --map-high: #2E3A48;
+  --map-wood: #2B3845;
   --map-shade: rgba(0,0,0,0.55);
   --map-contour: #3A4A5C;
   --map-water: #3F7C8F;
+  --map-casing: #0B1119;
   --map-halo: rgba(11,17,25,0.9);
   --map-route: #E7ECF1;
   --map-route-pick: #D9962B;
@@ -218,6 +226,10 @@
   --globe-pin-ink: #16202C;
   --globe-pin-pick: #D9962B;
   --globe-pin-pick-ink: #241703;
+  --globe-ocean: #0F1A26;
+  --globe-halo: #2A4A66;
+  --globe-edge: rgba(255,255,255,0.08);
+  --globe-dim: rgba(11,17,25,0.6);
   --map-border: color-mix(in srgb, var(--muted) 60%, transparent);
   --map-label: var(--ink-2);
   --map-route-dim: color-mix(in srgb, var(--map-route) 28%, transparent);
@@ -268,9 +280,11 @@
   --e-3: 0 0 0 1px #7A8794, 0 24px 60px rgba(23,34,48,0.22);
   --map-land: #EEECE6;
   --map-high: #FFFFFF;
+  --map-wood: #E4E0D4;
   --map-shade: rgba(23,34,48,0.35);
   --map-contour: #B9B1A4;
   --map-water: #6F9FB4;
+  --map-casing: #172230;
   --map-halo: rgba(255,255,255,0.9);
   --map-route: #172230;
   --map-route-pick: #D9962B;
@@ -280,6 +294,10 @@
   --globe-pin-ink: #FFFFFF;
   --globe-pin-pick: #D9962B;
   --globe-pin-pick-ink: #241703;
+  --globe-ocean: #A9C4D3;
+  --globe-halo: #CFE0EC;
+  --globe-edge: var(--line-2);
+  --globe-dim: rgba(243,241,236,0.7);
   --map-border: color-mix(in srgb, var(--muted) 60%, transparent);
   --map-label: var(--ink-2);
   --map-route-dim: color-mix(in srgb, var(--map-route) 28%, transparent);

@@ -42,7 +42,7 @@ const localToday = (): string => {
 /**
  * Copy to my trips (patterns 3.7). Asks for a start date and who is going, nothing else; the copy keeps days, and the
  * dates attach here. Nothing is picked for the visitor, so the primary stays off until a date is chosen. Signing in is a
- * later lane: until then the copy is held in this browser, and the sheet says so and ends at "Sign in to keep it".
+ * later lane: until then the copy is held in this browser, and the sheet says so and points at the files.
  * The exports are live in both steps: the calendar uses the picked start date.
  */
 export function CopySheet({ trip, open, onClose }: CopySheetProps) {
@@ -72,6 +72,7 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   const hasCalendar = data ? data.depth !== 'overview' && data.days.length > 0 : true;
 
   const ready = !!start && adults !== null && children.every((a) => a !== null);
+  const missing = [!start && 'a start date', adults === null && 'the number of adults', !children.every((a) => a !== null) && 'each child’s age'].filter(Boolean) as string[];
 
   const reset = () => {
     setStep('form');
@@ -174,8 +175,8 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
       <div className="copy-body copy-done">
         <Banner kind="caution" icon="warn">
           {held
-            ? 'This copy is held in this browser only. Clearing site data, or opening the site on another device, loses it.'
-            : 'This browser would not keep the copy. Sign in to keep it, or export the files below before you leave.'}
+            ? 'This copy is held in this browser only. Clearing site data, or opening the site on another device, loses it. Trips you keep and edit come with the planner, which is not open yet, so take the files below.'
+            : 'This browser would not keep the copy, and the planner that keeps trips is not open yet. Take the files below before you leave.'}
         </Banner>
         <p>
           {trip.title}, {trip.days} days from {start ? formatDate(start) : ''}, {adults ?? 0} adult{adults === 1 ? '' : 's'}
@@ -188,19 +189,21 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   const footer =
     step === 'form' ? (
       <>
-        <Button variant="primary" disabled={!ready} onClick={copy} title={ready ? undefined : 'Pick a start date, the number of adults and each child’s age'}>
-          Copy to my trips
-        </Button>
-        <ButtonLink variant="ghost" href="/sign-in/">
-          Sign in to save it to your trips
-        </ButtonLink>
+        <div className="copy-foot">
+          <Button variant="primary" disabled={!ready} aria-describedby="copy-foot-note" onClick={copy}>
+            Copy to my trips
+          </Button>
+          <p className="copy-note" id="copy-foot-note">
+            {ready ? 'Keeping copies in an account comes with the planner. The calendar and print files work now.' : `Still needed: ${missing.join(', ')}.`}
+          </p>
+        </div>
       </>
     ) : (
       <>
-        <ButtonLink variant="primary" href="/sign-in/">
-          Sign in to keep it
+        <Button variant="primary" onClick={close}>Done</Button>
+        <ButtonLink variant="ghost" href="/sign-in/">
+          About the planner
         </ButtonLink>
-        <Button onClick={close}>Close</Button>
       </>
     );
 

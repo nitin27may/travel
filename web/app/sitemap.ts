@@ -1,15 +1,13 @@
 import type { MetadataRoute } from 'next';
-import { loadPlaces } from '@/lib/data/places';
-import { placeHref } from '@/lib/data/paths';
-import { loadListedTrips } from '@/lib/data/trips';
+import { placeSlugs, tripSlugs } from '@/lib/public';
 import { absoluteUrl } from '@/lib/site';
 
 export const dynamic = 'force-static';
 
-/** Public pages only: lists, place pages and listed trips. Unlisted and private trips never appear. */
+/** Public pages only, at the same canonical URLs the pages declare: lists, every place and every listed trip. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const fixed = ['/', '/trips/', '/places/', '/about/data/'];
-  const places = loadPlaces().map((p) => placeHref(p.id));
-  const trips = loadListedTrips().map((t) => t.href).filter(Boolean);
+  const fixed = ['/', '/trips/', '/places/', '/globe/', '/about/data/'];
+  const places = placeSlugs().map((s) => `/places/${s}/`);
+  const trips = tripSlugs().map((s) => `/trips/${s}/`);
   return [...fixed, ...places, ...trips].map((p) => ({ url: absoluteUrl(p) }));
 }

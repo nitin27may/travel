@@ -15,13 +15,17 @@ interface Props {
   /** Where the subject sits in the photo, 0 to 100 on each axis (components 3.1: focus point from data). */
   focus?: { x: number; y: number };
   className?: string;
+  /** Intrinsic height for the width/height pair (layout is set by the container; this only reserves the ratio). Default 16:10. */
+  height?: number;
+  /** Above the fold: load now, not lazily. */
+  priority?: boolean;
 }
 
 /**
  * Lazy image. With no image, or when it fails to load, the kind glyph (22 px ink) sits on `--well`
  * (components 3.1). Decorative: the card title next to it carries the meaning.
  */
-export function EntityImage({ src, width, fallbackIcon, fallbackLabel, focus, className }: Props) {
+export function EntityImage({ src, width, fallbackIcon, fallbackLabel, focus, className, height, priority }: Props) {
   const [failed, setFailed] = useState(false);
   // An image that failed before hydration never fires onError on the client; catch it on mount.
   const ref = useCallback((img: HTMLImageElement | null) => {
@@ -38,6 +42,6 @@ export function EntityImage({ src, width, fallbackIcon, fallbackLabel, focus, cl
   const style: CSSProperties | undefined = focus ? { objectPosition: `${focus.x}% ${focus.y}%` } : undefined;
   return (
     // eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs
-    <img ref={ref} src={sizedImage(src, width)} alt="" loading="lazy" decoding="async" className={className} style={style} onError={() => setFailed(true)} />
+    <img ref={ref} src={sizedImage(src, width)} alt="" width={width} height={height ?? Math.round(width * 0.625)} loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : undefined} decoding="async" className={className} style={style} onError={() => setFailed(true)} />
   );
 }

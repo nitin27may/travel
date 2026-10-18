@@ -29,7 +29,7 @@
 .btn-sm::after, .btn-icon::after { content: ''; position: absolute; inset: 50% auto auto 50%; width: max(100%, var(--touch-min)); height: max(100%, var(--touch-min)); transform: translate(-50%, -50%); }
 .btn-spin, .input-spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: ui-spin 1s linear infinite; }
 .btn[data-loading] .btn-spin { position: absolute; }
-.btn[data-loading] .btn-label { visibility: hidden; }
+.btn[data-loading] .btn-label { opacity: 0; } /* not visibility: hidden, which would take the button's name out of the accessibility tree */
 @keyframes ui-spin { to { transform: rotate(360deg); } }
 
 /* in the header the ghost and icon buttons use the header's own colours */

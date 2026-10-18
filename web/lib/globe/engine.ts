@@ -15,6 +15,9 @@ export interface BasemapFeature { sourceLayer: string; kind: string; name: strin
 export interface Focus { country: number | null; s: number | null; d: number | null }
 export interface Padding { top: number; right: number; bottom: number; left: number }
 
+/** What a visitor reads when the style or tiles cannot be had; the technical reason goes to the console only. */
+export const TILES_DOWN = 'The globe tiles are not available right now. The list of places still works.';
+
 export interface GlobeHandlers {
   /** The exact world frame landed once the style loaded; the controller adopts its zoom as the world zoom. */
   onWorldFramed?(zoom: number): void;
@@ -164,7 +167,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   tip.hidden = true;
   container.appendChild(tip);
 
-  const failTimer = window.setTimeout(() => { if (!styleLoaded && !destroyed) handlers.onFail?.('The map style did not load.'); }, 15000);
+  const failTimer = window.setTimeout(() => { if (!styleLoaded && !destroyed) { console.warn('[globe] the map style did not load in 15 s'); handlers.onFail?.(TILES_DOWN); } }, 15000);
 
   // ---- tooltip -------------------------------------------------------------------------------------------
   function showTip(e: { point: { x: number; y: number } }, info: HoverInfo, owner: string): void {
@@ -360,10 +363,11 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     applyFeatureHighlight();
     handlers.onReady?.();
     scheduleWarm();
+    if (!warmPending) runQueued();
   });
   map.on('error', (ev) => {
     const e = ev as unknown as { error?: { message?: string }; sourceId?: string };
-    if (!styleLoaded && !e.sourceId && !destroyed) handlers.onFail?.(e.error?.message ?? 'The map style failed to load.');
+    if (!styleLoaded && !e.sourceId && !destroyed) { console.warn('[globe] style error:', e.error?.message); handlers.onFail?.(TILES_DOWN); } // the raw AJAXError text stays in the console
   });
   map.on('zoomend', applyTerrain);
 
@@ -470,7 +474,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   window.addEventListener('keydown', onEsc);
   map.on('moveend', (e) => {
     const ev = e as { originalEvent?: unknown; spin?: boolean; ours?: boolean };
-    if (ev.spin) return;
+    if (ev.spin || container.dataset.warming === 'true') return; // the shader warm-up borrows the camera; it is not the visitor's view
     const c = map.getCenter();
     handlers.onCamera?.({ lng: c.lng, lat: c.lat, zoom: map.getZoom() }, !!ev.originalEvent);
   });
@@ -493,19 +497,28 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     if (destroyed) return;
     const w = container.clientWidth, h = container.clientHeight;
     const tr = (map as unknown as { transform?: { isLocationOccluded?(l: unknown): boolean } }).transform;
+    let changed = false;
     for (const m of markers.values()) {
       const ll = m.marker.getLngLat();
       const pt = map.project(ll);
       const hidden = pt.x < -20 || pt.y < -20 || pt.x > w + 20 || pt.y > h + 20 || !!tr?.isLocationOccluded?.(ll);
       const v = hidden ? 'hidden' : '';
-      if (m.el.style.visibility !== v) m.el.style.visibility = v;
+      if (m.el.style.visibility !== v) { m.el.style.visibility = v; changed = true; }
     }
+    if (changed) container.dispatchEvent(new CustomEvent('globe-culled')); // the cover's roving tab stop moves to a pin that can take focus
   }
   const queueCull = (): void => { if (!cullQueued) { cullQueued = true; requestAnimationFrame(cullMarkers); } };
   map.on('move', queueCull);
   map.on('resize', queueCull);
   map.on('idle', queueCull);
 
+  /**
+   * A fly asked for before the style has loaded (a deep link such as /globe/it/ calls it as soon as the engine exists).
+   * The shader warm-up stops every move when the style loads, which used to cancel it and leave the camera at the world
+   * frame, so the move waits here and runs once the warm-up has put the camera back.
+   */
+  let queuedMove: (() => void) | null = null;
+  const runQueued = (): void => { const q = queuedMove; queuedMove = null; q?.(); };
   let pendingFrame: { c: { lng: number; lat: number; zoom: number; diameter?: number }; pad: Padding; token: number } | null = null;
   /**
    * MapLibre's globe size depends on its padding and viewport, so one silent measure-and-correct pass lands the disc at the
@@ -526,14 +539,16 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
    * layers. Once the world has painted, draw one zoomed-in frame with the canvas hidden, then put the camera back.
    */
   let warmed = false;
+  let warmPending = false;
   function scheduleWarm(): void {
     if (warmed || opts.interactive === false || !map.getCanvas()) return;
     warmed = true;
+    warmPending = true;
     holdUntil = Infinity; // nothing may move the camera while we borrow it
     const release = (): void => { if (holdUntil === Infinity && !pointerDown) holdUntil = performance.now() + 500; };
     map.stop();
     map.once('idle', () => {
-      if (destroyed || pointerDown) { release(); return; }
+      if (destroyed || pointerDown) { warmPending = false; release(); runQueued(); return; }
       const token = flyToken;
       const from = { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing(), padding: map.getPadding() };
       container.dataset.warming = 'true';
@@ -542,7 +557,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
         if (finished) return;
         finished = true;
         window.clearTimeout(timer);
-        if (!destroyed) { if (token === flyToken) map.jumpTo(from); delete container.dataset.warming; }
+        warmPending = false;
+        if (!destroyed) { if (queuedMove) { delete container.dataset.warming; release(); runQueued(); return; } if (token === flyToken) map.jumpTo(from); delete container.dataset.warming; }
         release();
       };
       const timer = window.setTimeout(finish, 2500);
@@ -587,6 +603,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     },
     setMinZoom(z) { map.setMinZoom(Math.max(0, z)); },
     frameWorld(c, pad, animate) {
+      queuedMove = null;
       const token = ++flyToken;
       let zoom = c.zoom;
       // The globe projection only exists once the style has loaded; measuring before that reads a flat map. Until then use
@@ -601,6 +618,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       return zoom;
     },
     flyToBox(b, o = {}) {
+      if (!styleLoaded) { queuedMove = () => engine.flyToBox(b, o); return; }
       const token = ++flyToken;
       const tilt = o.tilt !== false;
       if (spanLon(b) > 170) {
@@ -618,12 +636,13 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       tiltAfter(token, tilt && zoom >= TERRAIN_MIN_ZOOM);
     },
     flyToPoint(p, zoom, o = {}) {
+      if (!styleLoaded) { queuedMove = () => engine.flyToPoint(p, zoom, o); return; }
       const token = ++flyToken;
       if (reduced()) { map.jumpTo({ center: p, zoom }); return; }
       map.flyTo({ center: p, zoom, pitch: 0, bearing: 0, duration: FLY_MS, essential: false, padding });
       tiltAfter(token, !!o.tilt && zoom >= TERRAIN_MIN_ZOOM);
     },
-    jumpTo(c) { flyToken++; map.jumpTo({ center: [c.lng, c.lat], zoom: c.zoom, padding: ZERO_PAD }); },
+    jumpTo(c) { queuedMove = null; flyToken++; map.jumpTo({ center: [c.lng, c.lat], zoom: c.zoom, padding: ZERO_PAD }); },
     camera,
     zoomBy(d) { flyToken++; if (reduced()) map.jumpTo({ zoom: map.getZoom() + d }); else map.easeTo({ zoom: map.getZoom() + d, duration: 200 }); },
     syncMarkers(ns, specs) {
@@ -653,6 +672,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       window.removeEventListener('pointerup', release);
       window.removeEventListener('pointercancel', release);
       window.removeEventListener('keydown', onEsc);
+      rm?.removeEventListener('change', restartLoop);
       for (const m of markers.values()) m.marker.remove();
       markers.clear();
       tip.remove();
@@ -669,10 +689,16 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     map.easeTo({ center: [c.lng + spinStepDeg(), c.lat], duration: SPIN_EASE_MS, easing: (t) => t, essential: false }, { spin: true });
   }
   map.on('moveend', (e) => { if ((e as { spin?: boolean }).spin) spinOnce(); });
+  // Under reduced motion nothing spins, so the frame loop stops altogether instead of waking 60 times a second to do nothing;
+  // it starts again if the setting changes.
   const tick = (): void => {
+    if (reduced()) { raf = 0; return; }
     raf = requestAnimationFrame(tick);
     spinOnce();
   };
-  raf = requestAnimationFrame(tick);
+  const rm = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
+  const restartLoop = (): void => { if (!destroyed && loopActive && !raf) raf = requestAnimationFrame(tick); };
+  rm?.addEventListener('change', restartLoop);
+  raf = reduced() ? 0 : requestAnimationFrame(tick);
   return engine;
 }
