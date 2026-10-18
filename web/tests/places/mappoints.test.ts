@@ -23,3 +23,15 @@ describe('place map points', () => {
     expect([...labelledIds(pts)]).toEqual(['trailhead']);
   });
 });
+
+import { stackParking } from '@/components/places/mapPoints';
+describe('stacked car parks', () => {
+  it('snaps car parks within 180 m onto the first, leaves far ones and non-parking alone', () => {
+    const pts = [pt('trailhead', 'trailhead', 46.0, 12.0), pt('p0', 'parking', 46.0001, 12.0), pt('p1', 'parking', 46.0004, 12.0), pt('p2', 'parking', 46.01, 12.0)];
+    const out = stackParking(pts);
+    expect(out[1].at).toEqual(pts[1].at);
+    expect(out[2].at).toEqual(pts[1].at);
+    expect(out[3].at).toEqual(pts[3].at);
+    expect(out[0].at).toEqual(pts[0].at);
+  });
+});
