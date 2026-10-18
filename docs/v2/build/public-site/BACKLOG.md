@@ -65,7 +65,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 2.17 | Foundation patterns: trip-page URL keys in 1.2 (`?p=`, `pace`, `d=`, `add=`); remove the Track A/B/C segment from 3.4; globe tokens `--globe-ocean`, `--globe-halo`, `--globe-edge`, `--globe-dim`, `--map-wood`, dark `--map-land`, `--map-high`, `--map-water` (after Q6) | planner, Fable | queued |
 | 2.18 | Bring main's newer captures into v2 (for example Mount Rainier National Park, added 18 Oct as 7997941) and refresh the data snapshots, so new places reach the new site | owner capture | queued |
 | 2.20 | Search index split by kind and country, each part loaded on demand, so search stays fast as the catalogue grows (today 37 KB for about 120 entities; about 3 MB at 10,000) | principles P1 | queued |
-| 2.21 | Place pages collapse empty sections into one "Not researched yet: ..." line. Lake Louise shows 12 "No ... recorded yet" phrases today. Safety items stay visible at rest | principles P2 | queued |
+| 2.21 | ~~Collapse empty place sections~~ **Dropped (owner, 18 Oct):** empty sections stay as visible markers of missing data. They are filled by enrichment instead: a later research or scraping pass over place pages (parking, fees, swimming, boats, best time), using the same provenance rules as the suitability lanes (see L8) | owner | dropped |
 | 2.22 | Places filter hierarchy: four primary filters (Country, Kind, Season, Kids) and "More filters"; one Clear all; live counts; an empty result suggests the nearest match | principles P4 | queued |
 | 2.16 | Integration sweep by travel-verifier on the GPU, recorded in `verify-integration.md` | gate | queued |
 | 2.19 | **Privacy: household origin in public output.** "Whitby" is in `web/out/trips/index.html` and the Québec, Algonquin and Vermont trip pages. The adapter replaces the household origin with the trip's hub label ("from Toronto") in every public string; the origin list lives in gitignored `data/private/origins.json`; a payload test fails on the origin string or a point within 2 km of it ([short-trips.md](../../features/short-trips.md) 4.4) | planner, 18 Oct | done e883636 (flat \"Toronto\"; a per-trip public start city comes with short trips 3.12) |
@@ -164,4 +164,5 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | L4 | A person to confirm trail data: Braies P1, Monte Piana trailhead, the Fanes, Seceda and Nuvolau routes, Lago d'Antorno about 500 m off | trails lane |
 | L5 | R2 bucket for planner offline maps | map stack |
 | L6 | Prototype items: bookings wallet on stored bookings (F08), Explore map labels (F15), person-level items | TODO |
+| L8 | Place-page data enrichment: fill the empty sections (parking, fees, swimming, boats, loops, best time of day) on every public place, by research lanes or a sourced scraping pass, with provenance per value | owner |
 | L7 | Older work: P4b PR #7 (verify or close), the parked P3b worktree | STATUS |
