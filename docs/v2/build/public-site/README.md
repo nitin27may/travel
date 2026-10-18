@@ -295,3 +295,7 @@ named.
 | Date | Change |
 |---|---|
 | 2026-10-18 | First version. Supersedes recommendation.md section 6 steps 11 and 12. |
+
+## Gotchas
+
+- GPU rendering: this machine (nks-ubuntu) has an Intel Arc A770M. Launch Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization` so WebGL maps render on the real GPU (globe idle spin 60 fps, p95 16.8 ms). The SwiftShader flags render vector tiles but run about 35 times slower (1.7 fps on the same scene), so never judge motion, smoothness or frame time under SwiftShader.
