@@ -6,9 +6,9 @@ import type { ReactElement } from 'react';
 import { EmptyState as MapPlaceholder } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
 import { PAGE_SIZE, Pager } from '@/components/ui/Pager';
-import { facetCounts, filterRows, gapNotes } from '@/lib/entities/filter';
+import { listPlaces, listTrips, registerList } from '@/lib/client/data';
 import { registry } from '@/lib/entities/registry';
-import { activeGroup, groupRows, sortRows } from '@/lib/entities/sort';
+import { activeGroup, groupRows } from '@/lib/entities/sort';
 import type { EntityDescriptor, EntityType, FacetParam, ViewName } from '@/lib/entities/types';
 import { CardsView } from './CardsView';
 import type { DetailSheetProps } from './DetailSheet';
@@ -42,9 +42,14 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const [announce, setAnnounce] = useState('');
   const [sheetEver, setSheetEver] = useState(false);
 
-  const filtered = useMemo(() => filterRows(rows, state, d), [rows, state, d]);
-  const sorted = useMemo(() => sortRows(filtered, state, d), [filtered, state, d]);
-  const group = activeGroup(state, d);
+  // the list answers come from the data module, in the shape a server will answer (principle P9)
+  const version = registerList(d, rows);
+  const answer = useMemo(() => (void version, d.type === 'trip' ? listTrips(state) : listPlaces(state)) as unknown as ReturnType<typeof listPlaces> & { rows: Row[] }, [version, state, d]);
+  const sorted = answer.rows as Row[];
+  const filtered = sorted;
+  // grouping by country with one country chosen would head the whole list with that country's name again: no header then
+  const chosen = activeGroup(state, d);
+  const group = chosen?.id === 'country' && (state.facets.country?.length ?? 0) === 1 ? null : chosen;
   // 48 cards or 100 rows a page, with `?page=` in the URL (components 8.5)
   const view: ViewName = state.view === 'map' ? 'map' : state.view;
   const pageSize = PAGE_SIZE[view];
@@ -52,8 +57,8 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const page = Math.min(state.page, pages);
   const paged = useMemo(() => (view === 'map' ? sorted : sorted.slice((page - 1) * pageSize, page * pageSize)), [sorted, view, page, pageSize]);
   const groups = useMemo(() => groupRows(paged, group), [paged, group]);
-  const counts = useMemo(() => facetCounts(rows, state, d), [rows, state, d]);
-  const notes = useMemo(() => gapNotes(rows, state, d), [rows, state, d]);
+  const counts = answer.counts;
+  const notes = answer.notes;
   // value -> label for every facet, from all rows, so a chip keeps its name when its rows are filtered out
   const labels = useMemo(() => {
     const map: Record<string, Map<string, string>> = {};

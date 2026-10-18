@@ -10,7 +10,6 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import type { KeyboardEvent } from 'react';
-import { Button } from '@/components/ui/Button';
 import { DataTableShell } from '@/components/ui/DataTable';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Icon } from '@/components/ui/Icon';

@@ -52,8 +52,8 @@ export interface PlaceListRow {
   /** Every public trip that uses the place. Public trips are dateless, so no dates are carried. */
   trips: { slug: string; title: string }[];
   honesty: ListHonesty[];
-  /** The completeness chip: its level and label. Which checks fail stays on the place page. */
-  completeness: { level: 'draft' | 'usable' | 'complete'; label: string; tooltip: string; passed: number };
+  /** The completeness chip: its level and short label. The count of checks and which fail stay on the place page. */
+  completeness: { level: 'draft' | 'usable' | 'complete'; label: string };
   /** Source types only ("instagram", "official"), for the card's source chip. No address, no date. */
   sourceTypes: string[];
   /** Whether the place has stats, and whether they are checked: a chip, never the numbers. */
@@ -113,7 +113,7 @@ export function buildPlaceRows(
       image: c.photo?.url ?? null,
       trips: c.trips.map((t) => ({ slug: t.slug, title: t.title })),
       honesty: c.honesty.map((h) => ({ id: h.id, label: h.label })),
-      completeness: { level: c.completeness.level, label: c.completeness.label, tooltip: c.completeness.tooltip, passed: c.completeness.passed },
+      completeness: { level: c.completeness.level, label: c.completeness.label },
       sourceTypes: old ? old.sources.map((s) => s.type) : [],
       statsState: hasStats ? (old?.stats_verified ? 'verified' : 'unverified') : null,
       researched: c.sources.some((o) => o !== 'locations'),

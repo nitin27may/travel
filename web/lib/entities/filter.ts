@@ -47,6 +47,7 @@ export interface FacetCount {
   label: string;
   count: number;
   group?: string;
+  hint?: string;
 }
 
 /**
@@ -66,7 +67,7 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
         seen.add(o.value);
         const hit = counts.get(o.value);
         if (hit) hit.count += 1;
-        else counts.set(o.value, { value: o.value, label: o.label, count: 1, group: o.group });
+        else counts.set(o.value, { value: o.value, label: o.label, count: 1, group: o.group, hint: o.hint });
       }
     }
     for (const v of state.facets[facet.param] ?? []) {

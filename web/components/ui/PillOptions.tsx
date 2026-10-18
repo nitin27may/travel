@@ -12,6 +12,8 @@ export interface PillOption {
   count?: number;
   /** Heading the option sits under; options with a group are listed group by group. */
   group?: string;
+  /** What the option means, shown under its label. */
+  hint?: string;
 }
 
 export interface PillOptionsProps {
@@ -66,7 +68,10 @@ export function PillOptions({ label, options, selected, onChange, mode = 'multi'
                   onChange={() => toggle(o.value)}
                   onClick={single ? () => selected[0] === o.value && toggle(o.value) : undefined}
                 />
-                <span className="opt-label">{o.label}</span>
+                <span className="opt-label">
+                  {o.label}
+                  {o.hint ? <span className="opt-hint">{o.hint}</span> : null}
+                </span>
                 {o.count !== undefined ? <span className="opt-count num">{o.count}</span> : null}
               </label>
             </li>

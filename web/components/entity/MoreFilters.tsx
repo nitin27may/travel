@@ -20,7 +20,8 @@ export interface MoreFiltersProps<Row> {
 /** "More filters": the secondary facets in one menu (principle P4). The button shows how many values are on inside. */
 export function MoreFilters<Row>({ facets, waiting, counts, state, setFacet }: MoreFiltersProps<Row>) {
   const active = facets.reduce((n, f) => n + (state.facets[f.param]?.length ?? 0), 0);
-  const hint = waiting.length ? `${waiting.map((w) => w.facet.label).join(' and ')} ${waiting.length === 1 ? 'appears' : 'appear'} once you choose a ${waiting[0].parent.toLowerCase()}.` : null;
+  // "Region appears once you choose a country; Area once you choose a region"
+  const hint = waiting.length ? `${waiting.map((w, i) => `${w.facet.label}${i === 0 ? ' appears' : ''} once you choose a ${w.parent.toLowerCase()}`).join('; ')}.` : null;
   return (
     <span className="pill more-filters-pill" data-active={active > 0 || undefined}>
       <Popover.Root>

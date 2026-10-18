@@ -20,7 +20,7 @@ export function PlaceCardFooter({ p }: { p: PlaceListRow }) {
             {p.statsState === 'verified' ? 'Verified' : 'Unverified'}
           </span>
         ) : null}
-        <span className="pc-complete" data-level={p.completeness.level} title={p.completeness.tooltip}>
+        <span className="pc-complete" data-level={p.completeness.level}>
           {p.completeness.label}
         </span>
       </p>

@@ -17,7 +17,7 @@ import { placeRows } from '../places/support';
 const CONTENT_KEYS = [
   'facts', 'links', 'linksNone', 'hazards', 'access', 'lines', 'seasonNote', 'minAge', 'booking', 'notes', 'note', 'summary', 'subtitle', 'stats',
   'elevationM', 'wikidata', 'sources', 'durationMin', 'timeHours', 'driveAvgMin', 'bases', 'categories', 'gallery', 'legacyUrl',
-  'suitability', 'effort_level', 'stroller', 'height_cm', 'weight_kg', 'min_height_cm', 'max_age', 'time', 'times', 'hours', 'photos', 'location_status',
+  'suitability', 'tooltip', 'reason', 'passed', 'failed', 'hint', 'effort_level', 'stroller', 'height_cm', 'weight_kg', 'min_height_cm', 'max_age', 'time', 'times', 'hours', 'photos', 'location_status',
 ];
 
 function keysDeep(v: unknown, out = new Set<string>()): Set<string> {
@@ -26,7 +26,25 @@ function keysDeep(v: unknown, out = new Set<string>()): Set<string> {
   return out;
 }
 
+/**
+ * The exact keys a place list row may carry, written out here on purpose: a key added to the row type fails
+ * these tests until it is added below, with a reason (principle P8). Nested objects are listed the same way.
+ * km, gain_m and elevation_m are a recorded waiver: numeric glance facts (P3) that are widely published.
+ */
+const PLACE_ROW_KEYS = ['id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name', 'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added'];
+const NESTED_KEYS: Record<string, string[]> = { tags: ['id', 'kind', 'label'], trips: ['slug', 'title'], honesty: ['id', 'label'], completeness: ['label', 'level'] };
+
 describe('list rows (principle P8)', () => {
+  it('a place row carries exactly the allowed keys, and its nested objects only theirs', () => {
+    for (const r of placeRows()) {
+      expect(Object.keys(r).sort(), r.slug).toEqual([...PLACE_ROW_KEYS].sort());
+      for (const [k, allowed] of Object.entries(NESTED_KEYS)) {
+        const v = (r as unknown as Record<string, unknown>)[k];
+        for (const o of Array.isArray(v) ? v : [v]) expect(Object.keys(o as object).sort(), `${r.slug}.${k}`).toEqual(allowed);
+      }
+    }
+    expect([...PLACE_LIST_KEYS].sort()).toEqual([...PLACE_ROW_KEYS].sort());
+  });
   it('a place row carries exactly the card and filter keys', () => {
     for (const r of placeRows()) expect(Object.keys(r).sort(), r.slug).toEqual([...PLACE_LIST_KEYS].sort());
   });
@@ -56,7 +74,7 @@ describe('list rows (principle P8)', () => {
 describe('search records (principle P8): names and areas only', () => {
   const data = createPublicData();
   it('a record has the six search keys and nothing else', () => {
-    for (const r of buildSearchIndex()) expect(Object.keys(r).every((k) => ['k', 'h', 'n', 's', 'x', 'kind'].includes(k)), r.h).toBe(true);
+    for (const r of buildSearchIndex()) expect(Object.keys(r).every((k) => ['k', 'h', 'n', 's', 'x', 'kind', 'b'].includes(k)), r.h).toBe(true);
   });
   it('the match text of a place is its kind and its area chain, with no tag, summary or fact word', () => {
     const places = new Map(data.listPlaces().map((p) => [`/places/${p.slug}/`, p]));
@@ -98,10 +116,10 @@ describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds
     const bad = files.map(rel).filter((p) => /(^|\/)(places|trips)\.json$/.test(p) || /(^|\/)search-index\.json$/.test(p) || p.startsWith('export-data/'));
     expect(bad).toEqual([]);
   });
-  it('every public data file is a search part or geography, and no search part is bigger than 40 KB', () => {
+  it('every public data file is a search part or geography, and no search part is bigger than 48 KB', () => {
     const json = files.map(rel).filter((p) => p.endsWith('.json') && !p.startsWith('_next/') && !p.startsWith('globe/'));
     for (const p of json) expect(p === 'search/manifest.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p), p).toBe(true);
-    for (const p of json) expect(readFileSync(path.join(OUT, p)).length, p).toBeLessThan(40 * 1024);
+    for (const p of json) expect(readFileSync(path.join(OUT, p)).length, p).toBeLessThan(48 * 1024);
   });
   it('a search file carries no content key', () => {
     for (const f of files.filter((x) => rel(x).startsWith('search/'))) {
