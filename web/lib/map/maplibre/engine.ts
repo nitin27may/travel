@@ -154,7 +154,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
         id: undefined,
         properties: {
           id: g.id, style: g.style, n: g.pins.length, text: g.text, w: g.text.length,
-          label: g.pins.length === 1 ? (g.pins[0].label ?? '') : '',
+          label: g.pins.length === 1 && !g.pins[0].quiet ? (g.pins[0].label ?? '') : '',
         },
         geometry: { type: 'Point' as const, coordinates: [g.at.lng, g.at.lat] },
       })),

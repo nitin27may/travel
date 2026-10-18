@@ -77,7 +77,7 @@ export async function shoot(
       const context = await browser.newContext({ viewport: size, deviceScaleFactor: 2, locale: 'en-CA' });
       const page = await context.newPage();
       await setTheme(page, theme);
-      await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (route) => route.abort());
+      if (!process.env.SHOTS_NETWORK) await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (route) => route.abort());
       await page.goto(`${baseURL}${url}`, { waitUntil: 'networkidle' });
       await page.evaluate(() => document.fonts.ready);
       if (prepare) await prepare(page);

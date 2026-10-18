@@ -1,16 +1,36 @@
-import { pageMetadata } from '@/lib/site';
-import { StubPage, titleFromSlug } from '@/components/shell/StubPage';
+import { notFound } from 'next/navigation';
+import '@/components/places/families';
+import { summaryOrKind } from '@/components/places/model';
+import { PlacePage } from '@/components/places/PlacePage';
+import { getPlace, listPlaces, placeSlugs } from '@/lib/public';
+import { absoluteUrl, pageMetadata } from '@/lib/site';
+import '@/styles/places.css';
 
-// STUB (lane L0, handed to L4): the public place and trail page. L4 fills generateStaticParams from placeSlugs() (lane LD).
 export const dynamicParams = false;
-export const metadata = pageMetadata({ title: 'Place', description: 'Public place page (placeholder).', path: '/places/stub/', noindex: true });
 
 export function generateStaticParams(): { slug: string }[] {
-  // `output: export` refuses an empty list, so one placeholder page (noindex, not in the sitemap) is built until the owning lane fills this.
-  return [{ slug: 'stub' }];
+  return placeSlugs().map((slug) => ({ slug }));
 }
 
-export default async function PlacePage({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return <StubPage title={titleFromSlug(slug)} stub="places/[slug]" />;
+  const place = getPlace(slug);
+  if (!place) return {};
+  return pageMetadata({
+    title: place.name,
+    description: summaryOrKind(place.summary, place.kindLabel, place.areaLabel) || `${place.kindLabel} in ${place.areaLabel}.`,
+    path: `/places/${slug}/`,
+  });
+}
+
+export default async function PlaceRoute({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const place = getPlace(slug);
+  if (!place) notFound();
+  const district = place.areaChain.find((a) => a.level === 'district');
+  const state = place.areaChain.find((a) => a.level === 'state');
+  const inside = listPlaces()
+    .filter((c) => c.slug !== place.slug && c.areaChain.find((a) => a.level === 'state')?.slug === state?.slug && c.areaChain.find((a) => a.level === 'district')?.slug === district?.slug && c.areaChain[0]?.slug === place.areaChain[0]?.slug)
+    .slice(0, 24);
+  return <PlacePage place={place} inside={inside} url={absoluteUrl(`/places/${slug}/`)} />;
 }

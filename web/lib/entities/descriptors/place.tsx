@@ -1,38 +1,50 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import dynamic from 'next/dynamic';
 import { Elevation, Stats } from '@/components/entity/cells';
+import { PlaceCardFooter } from '@/components/places/PlaceCardFooter';
+import type { PlaceListRow } from '@/components/places/rows';
 import { Icon, kindIcon, statusIcon } from '@/components/ui/Icon';
-import { placeHref } from '@/lib/data/paths';
 import { PLACE_STATUSES } from '@/lib/data/types';
-import type { PlaceRow } from '@/lib/data/types';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
-import { PlaceCardFooter, PlaceLinks, PlaceSections } from '@/components/entity/PlaceSections';
 import { KID_ICONS, KID_LABELS, STATUS_LABELS, TAG_KIND_ORDER, cap } from '../labels';
 import type { Badge, EntityDescriptor } from '../types';
 
+// the Map view loads when first opened, so the list's first load stays inside the JS budget
+const PlacesMap = dynamic(() => import('@/components/places/PlacesMap').then((m) => m.PlacesMap), { ssr: false, loading: () => <p className="muted">Loading map</p> });
+
+/** The facet and group name of a kind: one name per kind, whatever a place's own label says (a hut is an Eatery here). */
+const kindName = (k: string) => cap(k);
+
 const lc = (s: string) => s.toLowerCase();
 
-export function placeBadges(p: PlaceRow): Badge[] {
+/** The honesty markers a card shows (keep-from-live-site). The full list, with reasons, is on the place page. */
+const CARD_HONESTY = new Set(['location_unconfirmed', 'unverified', 'no_source']);
+
+export function placeBadges(p: PlaceListRow): Badge[] {
   const out: Badge[] = [
-    { text: cap(p.kind), tone: 'kind', icon: kindIcon(p.kind) },
+    { text: p.kindLabel, tone: 'kind', icon: kindIcon(p.kind) },
     { text: STATUS_LABELS[p.status] ?? cap(p.status), tone: 'status', value: p.status, icon: statusIcon(p.status) },
   ];
   if (p.season.length) out.push({ text: seasonLabel(p.season), tone: 'season', icon: 'calendar', title: 'Best months' });
   if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: p.kid_fit === 'strong-kid' ? 'Suitable only for strong, experienced children' : undefined });
-  if (p.location_status !== 'resolved') out.push({ text: 'Location unconfirmed', tone: 'warn', icon: 'info', title: 'Coordinates not confirmed yet' });
+  for (const h of p.honesty) if (CARD_HONESTY.has(h.id)) out.push({ text: h.label, tone: 'warn', icon: 'info', title: h.reason });
   return out;
 }
 
-export const placeLocation = (p: PlaceRow) => `${p.area_name}, ${p.region_name}, ${p.country_name}`;
+export const placeLocation = (p: PlaceListRow) => [p.area_name, p.region_name, p.country_name].filter(Boolean).join(', ');
 
-type PlaceCol = ColumnDef<PlaceRow, unknown>;
+/** "Usable · 13 of 15" for the table and the card. */
+export const completenessText = (p: PlaceListRow) => p.completeness.label;
+
+type PlaceCol = ColumnDef<PlaceListRow, unknown>;
 interface ColMeta {
   label: string;
   align?: 'right';
   /** Plain text of the cell, for CSV export. */
-  text: (p: PlaceRow) => string | number;
+  text: (p: PlaceListRow) => string | number;
   csvLabel: string;
 }
-function col(id: string, header: string, cell: PlaceCol['cell'], text: (p: PlaceRow) => string | number, opts: { size?: number; align?: 'right'; sort?: boolean; csvLabel?: string } = {}): PlaceCol {
+function col(id: string, header: string, cell: PlaceCol['cell'], text: (p: PlaceListRow) => string | number, opts: { size?: number; align?: 'right'; sort?: boolean; csvLabel?: string } = {}): PlaceCol {
   return {
     id,
     header,
@@ -44,11 +56,13 @@ function col(id: string, header: string, cell: PlaceCol['cell'], text: (p: Place
   } as PlaceCol;
 }
 
-const statsText = (p: PlaceRow) => Object.entries(p.stats).map(([k, v]) => `${k} ${v}`).join('; ');
+const statsText = (p: PlaceListRow) => Object.entries(p.stats).map(([k, v]) => `${k} ${v}`).join('; ');
+const sourceCount = (p: PlaceListRow) => p.sources.length;
+const sourceText = (p: PlaceListRow) => (p.sources.length ? `${p.sources.length} ${p.sources.length === 1 ? 'source' : 'sources'}` : 'None yet');
 
 const columns: PlaceCol[] = [
   col('name', 'Name', ({ row }) => <span className="cell-name">{row.original.name}</span>, (p) => p.name, { size: 230 }),
-  col('kind', 'Kind', ({ row }) => <span className="cell-icon"><Icon name={kindIcon(row.original.kind)} size={14} />{cap(row.original.kind)}</span>, (p) => p.kind, { size: 120 }),
+  col('kind', 'Kind', ({ row }) => <span className="cell-icon"><Icon name={kindIcon(row.original.kind)} size={14} />{row.original.kindLabel}</span>, (p) => p.kindLabel, { size: 130 }),
   col('status', 'Status', ({ row }) => <span className="cell-icon" data-status={row.original.status}><Icon name={statusIcon(row.original.status)} size={14} />{STATUS_LABELS[row.original.status] ?? row.original.status}</span>, (p) => p.status, { size: 130 }),
   col('country', 'Country', ({ row }) => row.original.country_name, (p) => p.country_name, { size: 130 }),
   col('region', 'Region', ({ row }) => row.original.region_name, (p) => p.region_name, { size: 150 }),
@@ -58,7 +72,8 @@ const columns: PlaceCol[] = [
   col('elevation', 'Elevation', ({ row }) => <Elevation m={row.original.elevation_m} />, (p) => p.elevation_m ?? '', { size: 130, align: 'right', csvLabel: 'Elevation (m)' }),
   col('stats', 'Trail stats', ({ row }) => <Stats stats={row.original.stats} />, statsText, { size: 220, sort: false }),
   col('tags', 'Tags', ({ row }) => row.original.tags.map((t) => t.label).join(', '), (p) => p.tags.map((t) => t.label).join('; '), { size: 220, sort: false }),
-  col('sources', 'Sources', ({ row }) => (row.original.sources.length ? `${row.original.sources.length} ${row.original.sources.length === 1 ? 'source' : 'sources'}` : <span className="dash">None yet</span>), (p) => p.sources.length, { size: 110 }),
+  col('sources', 'Sources', ({ row }) => (row.original.sources.length ? sourceText(row.original) : <span className="dash">None yet</span>), sourceCount, { size: 110 }),
+  col('complete', 'Completeness', ({ row }) => completenessText(row.original), (p) => p.completeness.label, { size: 160 }),
   col('plan', 'Plan', ({ row }) => row.original.trip_title ?? <span className="dash">&ndash;</span>, (p) => p.trip_title ?? '', { size: 190 }),
 ];
 
@@ -67,7 +82,9 @@ const aliasMatch = (values: (string | undefined)[], selected: string[]) => {
   return !want || values.some((v) => lc(v ?? '') === want);
 };
 
-export const placeDescriptor: EntityDescriptor<PlaceRow> = {
+const COMPLETENESS_RANK: Record<string, number> = { draft: 0, usable: 1, complete: 2 };
+
+export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
   type: 'place',
   schemaId: '#/$defs/places',
   dataUrl: '/data/places.json',
@@ -87,8 +104,8 @@ export const placeDescriptor: EntityDescriptor<PlaceRow> = {
   ),
   cardFooter: (p) => <PlaceCardFooter p={p} />,
   iconFor: (p) => kindIcon(p.kind),
-  fallbackLabel: (p) => cap(p.kind),
-  primary: 'sheet',
+  fallbackLabel: (p) => p.kindLabel,
+  primary: 'link',
   geo: (p) => (p.lat !== null && p.lon !== null ? { lat: p.lat, lon: p.lon } : null),
   facets: [
     { param: 'country', label: 'Country', type: 'single', options: (p) => [{ value: p.country, label: p.country_name }] },
@@ -98,7 +115,7 @@ export const placeDescriptor: EntityDescriptor<PlaceRow> = {
       type: 'single',
       dependsOn: 'country',
       options: (p) => [{ value: p.region, label: p.region_name }],
-      match: (p, sel) => aliasMatch([p.region, p.region_name, p.region_iso], sel),
+      match: (p, sel) => aliasMatch(p.regionAliases, sel),
     },
     {
       param: 'area',
@@ -108,7 +125,14 @@ export const placeDescriptor: EntityDescriptor<PlaceRow> = {
       options: (p) => [{ value: p.area, label: p.area_name }],
       match: (p, sel) => aliasMatch([p.area, p.area_name], sel),
     },
-    { param: 'kind', label: 'Kind', type: 'multi', options: (p) => [{ value: p.kind, label: cap(p.kind) }] },
+    {
+      param: 'kind',
+      label: 'Kind',
+      type: 'multi',
+      options: (p) => [{ value: p.kind, label: kindName(p.kind) }],
+      // an old link may still say kind=park or kind=city
+      match: (p, sel) => sel.some((v) => v === p.kind || v === p.legacyKind),
+    },
     { param: 'status', label: 'Status', type: 'multi', order: [...PLACE_STATUSES], options: (p) => [{ value: p.status, label: STATUS_LABELS[p.status] ?? cap(p.status) }] },
     { param: 'kid', label: 'Kids', type: 'single', order: ['strong-kid', 'yes', 'no', 'unknown'], options: (p) => [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit }] },
     {
@@ -122,19 +146,19 @@ export const placeDescriptor: EntityDescriptor<PlaceRow> = {
     { param: 'trip', label: 'Plan', type: 'single', options: (p) => (p.trip ? [{ value: p.trip, label: p.trip_title ?? p.trip }] : []) },
   ],
   columns,
-  defaultColumns: ['name', 'kind', 'status', 'region', 'area', 'season', 'kid', 'elevation', 'sources'],
+  defaultColumns: ['name', 'kind', 'status', 'region', 'area', 'season', 'kid', 'elevation', 'sources', 'complete'],
   groupBy: [
     { id: 'country', label: 'Country', key: (p) => p.country, title: (p) => p.country_name },
     { id: 'region', label: 'Region', key: (p) => `${p.country}/${p.region}`, title: (p) => p.region_name, subtitle: (p) => p.country_name },
     { id: 'area', label: 'Area', key: (p) => `${p.country}/${p.region}/${p.area}`, title: (p) => p.area_name, subtitle: (p) => `${p.region_name}, ${p.country_name}` },
-    { id: 'kind', label: 'Kind', key: (p) => p.kind, title: (p) => cap(p.kind) },
+    { id: 'kind', label: 'Kind', key: (p) => p.kind, title: (p) => kindName(p.kind) },
     { id: 'status', label: 'Status', key: (p) => p.status, title: (p) => STATUS_LABELS[p.status] ?? cap(p.status) },
   ],
   defaultGroup: 'country',
   sorts: {
     name: { label: 'Name', value: (p) => p.name },
-    kind: { label: 'Kind', value: (p) => p.kind },
-    status: { label: 'Status', value: (p) => PLACE_STATUSES.indexOf(p.status as (typeof PLACE_STATUSES)[number]) },
+    kind: { label: 'Kind', value: (p) => p.kindLabel },
+    status: { label: 'Status', value: (p) => PLACE_STATUSES.indexOf(p.status) },
     country: { label: 'Country', value: (p) => p.country_name },
     region: { label: 'Region', value: (p) => p.region_name },
     area: { label: 'Area', value: (p) => p.area_name },
@@ -142,17 +166,18 @@ export const placeDescriptor: EntityDescriptor<PlaceRow> = {
     kid: { label: 'Kids', value: (p) => ['strong-kid', 'yes', 'no', 'unknown'].indexOf(p.kid_fit) },
     elevation: { label: 'Elevation', value: (p) => p.elevation_m },
     sources: { label: 'Sources', value: (p) => p.sources.length },
+    complete: { label: 'Completeness', value: (p) => COMPLETENESS_RANK[p.completeness.level] * 100 + p.completeness.passed },
     plan: { label: 'Plan', value: (p) => p.trip_title },
     added: { label: 'Date added', value: (p) => p.added || null },
   },
   defaultSort: (a, b) =>
     a.country_name.localeCompare(b.country_name) || a.region_name.localeCompare(b.region_name) || a.area_name.localeCompare(b.area_name) || a.name.localeCompare(b.name),
   defaultSortLabel: 'Country, region, area',
-  search: (p) => [p.name, p.area_name, p.region_name, p.country_name, p.note, p.tags.map((t) => t.label).join(' '), p.kind].join(' '),
+  search: (p) => [p.name, p.area_name, p.region_name, p.country_name, p.note, p.tags.map((t) => t.label).join(' '), p.kindLabel, p.kind].join(' '),
   hiddenByDefault: (p, state, ignore) => ignore !== 'status' && p.status === 'dropped' && !state.facets.status?.length,
-  href: (p) => placeHref(p.id),
-  detail: PlaceSections,
-  actions: (p) => <PlaceLinks p={p} primary />,
+  href: (p) => `/places/${p.slug}/`,
+  detail: [],
   ops: {},
   emptyHint: 'Try removing a filter, or search for a different name.',
+  renderMap: (rows, state) => <PlacesMap rows={rows} state={state} />,
 };

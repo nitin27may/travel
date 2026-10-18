@@ -6,6 +6,8 @@ export interface Pin {
   at: LngLat;
   style: PinStyle;
   label?: string;
+  /** Keeps the label for assistive tech and the fan-out, but draws no text beside the pin (crowded pins, numbered clusters). */
+  quiet?: boolean;
   number?: number;
   days?: number[];
   kind?: string;
