@@ -114,3 +114,21 @@ describe('decimals in prose', () => {
     }
   });
 });
+
+describe('route map and thumbnails', () => {
+  it('hides basemap town labels and draws no on-map legend', async () => {
+    const { routeSpec } = await import('@/components/trips/TripRouteMap');
+    const model = buildTripPageModel(getTrip('dolomites-2027')!, lookup);
+    const spec = routeSpec(model.route, null);
+    expect(spec.hideBasemapLabels).toContain('towns');
+    expect(spec.legend).toBeUndefined();
+  });
+  it('most days of a full trip carry a thumbnail', () => {
+    const model = buildTripPageModel(getTrip('dolomites-2027')!, lookup);
+    const withThumb = model.days.filter((d) => d.thumb).length;
+    expect(withThumb / model.days.length).toBeGreaterThan(0.6);
+  });
+  it('country names are never codes', () => {
+    for (const r of tripListRows()) expect(r.countryName, r.slug).not.toMatch(/^[A-Z]{2}$/);
+  });
+});

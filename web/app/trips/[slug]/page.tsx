@@ -42,6 +42,11 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
     <article className="trip-page" data-depth={trip.depth}>
       <TripCover trip={trip} url={url} />
       <SeasonBand trip={trip} />
+      {trip.isDone ? (
+        <section className="trip-sec" aria-label="About this plan" data-print="hide">
+          <Banner kind="notice">This trip has been taken, so the plan is read-only. Use it as a template to plan your own dates.</Banner>
+        </section>
+      ) : null}
       {trip.depth === 'overview' ? (
         <section className="trip-sec" aria-label="About this plan">
           <Banner kind="notice" action={<a className="btn btn-sm" href={trip.legacyUrl}>Read the full plan</a>}>
@@ -49,7 +54,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
           </Banner>
         </section>
       ) : (
-        <TripPlan model={model} title={trip.title} depth={trip.depth} legacyUrl={trip.legacyUrl} />
+        <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} legacyUrl={trip.legacyUrl} />
       )}
       <TripEnd trip={trip} model={model} url={url} />
     </article>

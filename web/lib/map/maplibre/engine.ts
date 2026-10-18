@@ -97,7 +97,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
         else if (sl === 'boundary') set(l.id, 'paint', 'line-color', palette.border);
         else if (sl === 'transportation') set(l.id, 'paint', 'line-color', palette.contour);
       } else if (l.type === 'symbol') {
-        if (HIDE_SOURCE_LAYERS.has(sl) || HIDE_LABEL_LAYER.test(l.id)) { set(l.id, 'layout', 'visibility', 'none'); continue; }
+        if (HIDE_SOURCE_LAYERS.has(sl) || HIDE_LABEL_LAYER.test(l.id) || (spec.hideBasemapLabels?.includes('towns') && /^label_(town|city)/.test(l.id)) || (spec.hideBasemapLabels?.includes('regions') && l.id === 'label_state') || (spec.hideBasemapLabels?.includes('countries') && /^label_country/.test(l.id))) { set(l.id, 'layout', 'visibility', 'none'); continue; }
         set(l.id, 'paint', 'text-color', palette.label);
         set(l.id, 'paint', 'text-halo-color', palette.halo);
         set(l.id, 'paint', 'text-halo-width', 1.5);

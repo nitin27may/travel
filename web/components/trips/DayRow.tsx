@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { CopyDayLink } from '@/components/actions/ShareButton';
 import { DaySign } from '@/components/ui/DaySign';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
@@ -11,6 +12,7 @@ import type { DayRowModel, StopModel } from './model';
 import { StopStats } from './StopStats';
 
 interface Props {
+  trip: { slug: string; title: string };
   day: DayRowModel;
   open: boolean;
   picked: boolean;
@@ -43,7 +45,7 @@ function StopList({ stops }: { stops: StopModel[] }) {
 }
 
 /** One uniform day row (patterns 3.4): quiet DAY sign, thumbnail, title, base and drive, the stop list; opens to the stops. */
-export function DayRow({ day, open, picked, onToggle }: Props) {
+export function DayRow({ trip, day, open, picked, onToggle }: Props) {
   const [track, setTrack] = useState<'A' | 'B' | 'C' | null>(day.defaultTrack);
   const tracks = day.tracks;
   const shown = tracks ? (tracks.find((t) => t.id === track) ?? tracks[0]) : null;
@@ -104,6 +106,9 @@ export function DayRow({ day, open, picked, onToggle }: Props) {
             ) : (
               <StopList stops={day.stops} />
             )}
+            <p className="day-share" data-print="hide">
+              <CopyDayLink trip={trip} day={day.n} />
+            </p>
           </>
         ) : null}
       </div>
