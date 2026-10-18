@@ -1,0 +1,142 @@
+/*
+ * Print stylesheet (lane L5, patterns 3.7). "Export as PDF" is the browser's print dialog with this file applied.
+ * Reading order is the page's own: cover title and facts, season band, days in order with their stops, the category
+ * lists, then credits. No header, bottom bar, maps or controls. Links print their address after the text.
+ * Credits and map attribution always print. Pages mark their own extras with data-print="hide" or data-print="show".
+ * No hex colours here (a test enforces it); printing is always on white, whatever theme is active.
+ */
+@page {
+  size: auto; /* A4 or Letter, whatever the printer says */
+  margin: 16mm 14mm 18mm;
+}
+
+@media print {
+  html,
+  html[data-theme] {
+    color-scheme: light;
+    --bg: white !important;
+    --surface: white !important;
+    --surface-2: whitesmoke !important;
+    --well: whitesmoke !important;
+    --ink: black !important;
+    --ink-2: black !important;
+    --muted: dimgray !important;
+    --line: lightgray !important;
+    --line-2: gray !important;
+    --accent-text: black !important;
+    --img: 1 !important;
+    background: white !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+    -webkit-print-color-adjust: economy;
+    print-color-adjust: economy;
+  }
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* chrome and controls */
+  .site-header,
+  .bottom-bar,
+  .site-footer,
+  .skip-link,
+  .toast-region,
+  .scrim,
+  .sheet,
+  .sheet-bottom-frame,
+  .lb,
+  .maplibregl-map,
+  .map-surface,
+  [data-map],
+  [data-print='hide'],
+  main button,
+  main .btn,
+  main .menu,
+  main [role='tablist'],
+  main .seg,
+  main .pager {
+    display: none !important;
+  }
+
+  /* open everything that collapses: day rows, details, truncated notes */
+  details::details-content {
+    content-visibility: visible;
+    display: block;
+  }
+  details > *:not(summary) {
+    display: revert;
+  }
+  [data-print='show'],
+  [hidden][data-print='show'] {
+    display: block !important;
+  }
+  .clamp,
+  [class*='line-clamp'] {
+    display: block;
+    -webkit-line-clamp: unset;
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* links print their address; in-page and relative links stay as text */
+  main a[href^='http']:not([data-print='plain'])::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.82em;
+    color: dimgray;
+    word-break: break-all;
+  }
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  /* a day row stays whole on one page; headings stay with what follows */
+  [id^='day-'],
+  .day-row,
+  .card,
+  figure,
+  li {
+    break-inside: avoid;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  /* gallery reduced to one row */
+  .gal {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .gal > :nth-child(n + 5) {
+    display: none;
+  }
+  .gal-credit {
+    opacity: 1;
+    position: static;
+    background: none;
+    color: dimgray;
+    white-space: normal;
+  }
+
+  /* credits and attribution: never dropped */
+  .credits {
+    display: block !important;
+    break-inside: avoid;
+    color: black;
+  }
+  main::after {
+    content: 'Map data © OpenStreetMap contributors (ODbL). Photo credits are listed with the photos on this page. Trip Plans.';
+    display: block;
+    margin-top: 12pt;
+    padding-top: 6pt;
+    border-top: 0.5pt solid gray;
+    font-size: 8.5pt;
+    color: dimgray;
+  }
+}
