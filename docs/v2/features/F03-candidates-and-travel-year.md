@@ -33,6 +33,37 @@ budget. This feature makes those tables live.
 10. **Conflicts**: two trips overlapping dates show a warning on both bars.
 11. Phone: a vertical list by month instead of the horizontal timeline.
 
+### School calendar, weekends and holidays (owner request, 18 Oct 2026; TO DO)
+
+The household enters its school calendar once a year, and the year view uses it to show when the family is free.
+
+1. **School calendar editor** (Settings > Household > School calendar, and inline from the year view):
+   - School year from and to (first and last day of classes).
+   - Named breaks with from and to dates: Winter break, March break, Thanksgiving, others.
+   - PA days (professional activity days, single dates).
+   - One calendar per school, so two children at different schools works; each child links to a school.
+   - The board's published calendar can be pasted (text or a link to the PDF). The assistant or the MCP reads it into a draft that the parent confirms. Durham District School Board is first.
+   - Next year's calendar is copied from this one with the dates left for confirmation, flagged "not confirmed yet".
+2. **Public holidays** for the household's region come from reference data (Ontario statutory and civic holidays first). The household can switch individual ones on or off; for example, Civic Holiday is not a day off for everyone.
+3. **The household's own days off**: add a holiday or personal day (a family event, a work day off, "Diwali", a day already taken off work). Each is a single date or a range, with a label, and is visible to the household only.
+4. **Highlighting on the year view and the date pickers:**
+   - Weekends are shaded.
+   - Public holidays are marked.
+   - **Long weekends** are a weekend joined to a holiday, a PA day or an own day off. They are computed and highlighted, with their length ("4 days: Fri PA day + Sat-Mon Thanksgiving").
+   - School breaks are drawn as bands.
+   - Trips are bars; a trip's bar turns amber if it overlaps school days and shows "misses N school days".
+5. **Free windows**: a "Find time" filter lists every stretch of N or more days off for everyone in the group (school breaks, long weekends, holidays combined), with work days needed if any. Tapping one starts a trip with those dates.
+6. **Date pickers everywhere** (new trip, booking forms, public trip "pick your start date") use the same shading, so weekends, long weekends, breaks and PA days are visible while choosing dates.
+
+Data: `calendar_window` rows with kind `school_term`, `school_break`, `pa_day`, `public_holiday`, `own_day_off`; `school` and `child_school` link rows; a computed `long_weekend` view.
+MCP: `set_school_calendar`, `add_day_off`, `find_free_windows(year, min_days, people)`.
+
+Acceptance:
+- The 2026-27 DDSB calendar (first day, winter break, March break, PA days, last day) can be entered in under 3 minutes or pasted and confirmed.
+- The year view shades weekends and highlights every long weekend, including PA-day ones.
+- "Find time ≥ 4 days" lists the expected windows.
+- A trip over school days shows how many days it misses.
+
 ## Data touched
 
 `trip_candidate`, `trip` (`date_window`, phase), `travel_goal`, `calendar_window`, `task` (household tasks), `budget_line`, `expense`.
