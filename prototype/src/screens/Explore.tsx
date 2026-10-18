@@ -17,10 +17,10 @@ import "./explore.css";
 type Filters = { kinds: Kind[]; maxKm?: number; maxDrive?: number; kidsFit?: boolean; minGain?: number; text: string };
 const EMPTY: Filters = { kinds: [], text: "" };
 const ORIGINS = [
-  { id: "cortina", label: "Tonight: Cortina" },
+  { id: "cortina", label: "Cortina (tonight)" },
   { id: "ortisei", label: "Ortisei base" },
   { id: "san-candido", label: "San Candido base" },
-  { id: "whitby", label: "Home: Whitby, ON" },
+  { id: "whitby", label: "Whitby (home)" },
 ];
 const WHITBY: Place = { id: "whitby", name: "Whitby, ON", kind: "town", area: "Durham", lng: -78.94, lat: 43.88 };
 const BROWSABLE: Kind[] = ["lake", "trail", "viewpoint", "lift", "hut", "activity", "sight"];
@@ -96,7 +96,7 @@ export function Explore({ phone, theme, go }: ScreenProps) {
 
   const pins: Pin[] = [
     ...(origin !== "whitby" ? [{ id: "origin", place: base, label: "", kind: "base" as const }] : []),
-    ...results.slice(0, 30).map((x, i) => ({ id: `ex-${x.p.id}`, itemId: x.p.id, place: x.p, label: String(i + 1), kind: "stop" as const, dim: hover !== undefined && hover !== x.p.id && results.length > 12 })),
+    ...results.slice(0, 30).map((x, i) => ({ id: `ex-${x.p.id}`, itemId: x.p.id, place: x.p, label: String(i + 1), kind: "stop" as const, dim: hover ? hover !== x.p.id : i >= 8 })),
   ];
   const doAdd = (p: Place, to: Target) => { add(p, to); setAddOpen(undefined); };
 

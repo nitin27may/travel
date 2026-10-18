@@ -40,4 +40,9 @@
 .ex-rescue { flex-direction: column; gap: 4px; background: var(--sunk); }
 .ex-rescue h3 { margin: 0; font-size: 1rem; }
 .ex-rescue p { margin: 0; }
-@media (max-width: 760px) { .ex-cards { grid-template-columns: 1fr; } .ex-origin select { max-width: 120px; } }
+@media (max-width: 760px) { .ex-cards { grid-template-columns: 1fr; } .ex-origin select { max-width: none; } }
+.explore.phone .ex-bar { position: static; padding-top: 12px; }
+.explore.phone .ex-top { flex-wrap: wrap; }
+.explore.phone .ex-search { flex-basis: 100%; }
+.explore.phone .ex-personas, .explore.phone .ex-kinds { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.explore.phone .ex-persona, .explore.phone .ex-kind { flex: none; }
