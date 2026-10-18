@@ -102,8 +102,12 @@ export class GlobeController {
   ready(): void { this.emit({ ready: true }); }
   fail(reason: string): void { this.emit({ failed: reason }); }
 
-  onCamera(c: Camera): void {
+  /** True from a deep link until the camera has actually arrived (or the visitor takes over): world frames are not written to ?c=. */
+  private deepLinkPending = false;
+  onCamera(c: Camera, user = false): void {
     this.lastCamera = c;
+    if (user || c.zoom >= 2.5) this.deepLinkPending = false;
+    if (this.deepLinkPending) return;
     this.o.navigate(`${this.currentUrl || viewPath({ kind: 'area', path: this.snap.path })}${cameraQuery(c)}`, 'replace');
   }
 
@@ -336,6 +340,7 @@ export class GlobeController {
   /** Applies a view read from the URL (first load, Back, a link). `camera` is a restored `?c=`. */
   async applyView(v: View, o: { camera?: Camera | null; fly?: boolean } = {}): Promise<void> {
     this.currentUrl = viewPath(v);
+    this.deepLinkPending = !o.camera && (v.kind !== 'area' || v.path.length > 0);
     if (v.kind === 'area') {
       this.engine?.setFeature(null);
       this.emit({ selected: null, feature: null, notice: null });
