@@ -1,9 +1,12 @@
-import { StubPage } from '@/components/shell/StubPage';
 import { pageMetadata } from '@/lib/site';
 
-// STUB (lane L0, handed to L2): the full-screen globe at /globe.
-export const metadata = pageMetadata({ title: 'Globe', description: 'Every place and published trip on a globe.', path: '/globe/' });
+export const metadata = pageMetadata({
+  title: 'Globe',
+  description: 'Every saved place and published trip on a globe. Spin it, fly into a country, a state or a district, and open a place or trip from its pin.',
+  path: '/globe/',
+});
 
+// The globe itself is drawn by the layout; this page exists for its URL and metadata.
 export default function GlobePage() {
-  return <StubPage title="Globe" stub="globe" note="The full-screen globe arrives with its own page." />;
+  return null;
 }
