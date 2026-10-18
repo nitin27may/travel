@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-units="km">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trip page timeline mock · Canadian Rockies, 14 nights</title>
+<style>
+@font-face{font-family:'Big Shoulders Display';src:url('../../redesign/fonts/big-shoulders-display-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url('../../redesign/fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');font-weight:200 900;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url('../../redesign/fonts/source-serif-4-latin-wght-italic.woff2') format('woff2');font-weight:200 900;font-style:italic;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');font-weight:600;font-display:swap}
+
+/* ---- Trailhead tokens (docs/v2/design/foundation/tokens.json) ---- */
+:root{
+  --bg:#F5F6F8;--well:#ECEFF3;--surface:#FFFFFF;--surface-2:#E9EDF2;--ink:#172230;--ink-2:#2B3746;--muted:#4D5B6B;
+  --line:#D8DEE5;--line-2:#7A8794;--header:#172230;--header-2:#1F2D3D;--header-ink:#F4F6F8;--header-mute:#B8C3CF;--header-line:#3A4A5D;
+  --scrim:rgba(11,17,25,.45);--toast-bg:#172230;--toast-ink:#F5F6F8;
+  --accent:#D9962B;--accent-hover:#C98A22;--accent-ink:#241703;--accent-text:#8A5300;--accent-soft:#FBEFD9;
+  --crit:#A8341F;--crit-soft:#F9E5E0;--warn:#7A5200;--warn-soft:#FBF0D6;--ok:#1D6B3A;--ok-soft:#E0F0E6;--info:#3D5A78;--info-soft:#E3EAF2;
+  --focus:#172230;--kicker:rgba(244,246,248,.8);
+  --e2:0 0 0 1px var(--line),0 20px 50px rgba(23,34,48,.16);
+  --f-display:'Big Shoulders Display','Arial Narrow',sans-serif;--f-serif:'Source Serif 4',Georgia,serif;--f-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --d-fast:120ms;--d-base:200ms;--e-out:cubic-bezier(.2,.8,.2,1);--e-std:cubic-bezier(.2,0,0,1);
+  --img-dim:1;
+}
+[data-theme="dark"]{
+  --bg:#0F1620;--well:#0B1119;--surface:#16202C;--surface-2:#1E2A38;--ink:#E7ECF1;--ink-2:#C9D2DC;--muted:#A3B0BE;
+  --line:#2A3A4C;--line-2:#5E748E;--header:#0B1119;--header-2:#16202C;--scrim:rgba(0,0,0,.6);--toast-bg:#E7ECF1;--toast-ink:#0F1620;
+  --accent-text:#E8A94A;--accent-soft:#2E2617;--crit:#F28E80;--crit-soft:#3A2020;--warn:#E0B15C;--warn-soft:#2B2314;--ok:#8FD0A0;--ok-soft:#173025;--info:#9DBBDA;--info-soft:#182738;
+  --focus:#E7ECF1;--e2:0 0 0 1px var(--line-2),0 20px 50px rgba(0,0,0,.5);--img-dim:.92;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition-duration:0ms!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-serif);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:inherit}
+.mono{font-family:var(--f-mono)}
+.wrap{max-width:1376px;margin:0 auto;padding:0 32px}
+@media (max-width:639px){.wrap{padding:0 14px}}
+svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.12em;flex:none}
+
+/* ---- header ---- */
+.hdr{height:60px;background:var(--header);color:var(--header-ink);border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:20}
+.hdr .wrap{display:flex;align-items:center;height:100%;gap:18px}
+.brand{font:800 24px/1 var(--f-display);letter-spacing:.01em;text-transform:uppercase}
+.tabs{display:flex;gap:4px;height:100%}
+.tabs a{display:flex;align-items:center;padding:0 12px;font:500 13.5px/1 var(--f-mono);color:var(--header-mute);text-decoration:none;position:relative}
+.tabs a[aria-current]{color:var(--header-ink);font-weight:600}
+.tabs a[aria-current]::after{content:"";position:absolute;left:12px;right:12px;bottom:-2px;height:2px;background:var(--header-ink)}
+.hdr .sp{flex:1}
+.ib{width:38px;height:38px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--header-ink)}
+.ib:hover{background:var(--header-2)}
+.ghost-h{height:38px;padding:0 12px;border-radius:8px;font:500 13px/1 var(--f-mono);color:var(--header-ink)}
+@media (max-width:639px){.hdr{height:56px}.tabs,.ghost-h{display:none}}
+
+/* ---- cover ---- */
+.cover{position:relative;height:620px;border-radius:16px;overflow:hidden;margin-top:24px;background:var(--well)}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;filter:brightness(var(--img-dim))}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,17,25,.10) 0%,rgba(11,17,25,.88) 100%)}
+.cover .in{position:absolute;left:44px;right:44px;bottom:118px;color:var(--header-ink);z-index:1}
+.kick{font:600 11.5px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--kicker)}
+.cover h1{font:800 96px/.86 var(--f-display);text-transform:uppercase;margin:12px 0 18px;max-width:900px;letter-spacing:.005em}
+.stand{font:400 21px/1.4 var(--f-serif);max-width:720px;margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;border:1px solid var(--line-2);font:500 11.5px/1 var(--f-mono);color:var(--ink-2);background:var(--surface);white-space:nowrap}
+.chip.honest{border:1px dashed var(--crit);color:var(--crit)}
+.chip.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.chip.act{background:var(--accent-soft);color:var(--accent-text);border-color:var(--accent)}
+.chip.info{background:var(--info-soft);color:var(--info);border-color:transparent}
+.chip.idea{border-style:dashed;color:var(--muted)}
+.cover .acts{display:flex;gap:10px;margin-top:18px}
+.btn{height:38px;padding:0 14px;border-radius:8px;border:1px solid var(--line-2);font:500 13px/1 var(--f-mono);display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);white-space:nowrap}
+.btn:hover{border-color:var(--ink);background:color-mix(in srgb,var(--surface-2) 60%,transparent)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:600}
+.btn.pri:hover{background:var(--accent-hover)}
+.btn.sm{height:30px;padding:0 10px;font-size:12px}
+.btn.gh{border-color:transparent}
+.cover .acts .btn{background:var(--surface);color:var(--ink)}
+.cover .acts .btn.pri{background:var(--accent);color:var(--accent-ink)}
+.glance{position:relative;z-index:2;margin:-46px 32px 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;display:grid;grid-template-columns:repeat(4,1fr)}
+.glance>div{padding:18px 22px;border-left:1px solid var(--line)}
+.glance>div:first-child{border-left:0}
+.lab{font:500 12px/1.3 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.glance b{display:block;font:600 17px/1.25 var(--f-serif);margin-top:6px}
+@media (max-width:1023px){.cover h1{font-size:72px}.glance{grid-template-columns:repeat(2,1fr)}.glance>div:nth-child(3){border-left:0;border-top:1px solid var(--line)}.glance>div:nth-child(4){border-top:1px solid var(--line)}}
+@media (max-width:639px){.cover{height:420px;margin-top:14px;border-radius:12px}.cover .in{left:16px;right:16px;bottom:92px}.cover h1{font-size:56px;margin:8px 0 10px}.stand{font-size:17px}.cover .acts .btn:not(.pri){display:none}.glance{margin:-40px 14px 0}.glance>div{padding:12px 14px}}
+
+/* ---- profile bar ---- */
+.profile{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 22px}
+.profile .top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.profile h2{font:800 32px/1 var(--f-display);text-transform:uppercase;margin:0}
+.profile .top p{margin:0;color:var(--muted);font-size:15.5px}
+.pgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr auto;gap:22px;margin-top:16px;align-items:end}
+.field .lab{margin-bottom:6px}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden;background:var(--surface);position:relative}
+.seg button{height:40px;padding:0 14px;font:500 13px/1 var(--f-mono);color:var(--ink-2);border-left:1px solid var(--line-2);display:inline-flex;align-items:center;gap:8px;transition:background var(--d-base) var(--e-std),color var(--d-base) var(--e-std)}
+.seg button:first-child{border-left:0}
+.seg button[aria-checked="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.seg.s button{height:32px;padding:0 10px}
+.age{display:inline-flex;align-items:center;gap:6px;height:40px;border:1px solid var(--line-2);border-radius:8px;padding:0 6px 0 12px;font:500 13px/1 var(--f-mono);background:var(--surface);transition:opacity var(--d-base)}
+.age b{font-weight:600;min-width:2ch;text-align:center}
+.age button{width:30px;height:30px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center}
+.age button:hover{background:var(--surface-2)}
+.age[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.sub{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);margin-top:6px}
+.pfoot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:15.5px}
+.pfoot .count{font:800 32px/1 var(--f-display);color:var(--accent-text)}
+.pfoot .stat{display:inline-flex;align-items:baseline;gap:8px;margin-right:16px}
+.pfoot .stat span{font:400 12.5px/1 var(--f-mono);color:var(--muted)}
+@media (max-width:1023px){.pgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:639px){.profile{padding:14px;margin-top:18px}.pgrid{grid-template-columns:1fr;gap:14px}.seg{width:100%}.seg button{flex:1;justify-content:center;padding:0 6px}.pfoot .stat{margin-right:8px}.pfoot .chip{white-space:normal;height:auto;min-height:24px;padding:4px 9px;line-height:1.3;max-width:100%}}
+
+/* sticky plan bar (compressed profile + day rail) */
+.planbar{position:sticky;top:60px;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);margin-top:28px;transition:box-shadow var(--d-base)}
+.planbar .wrap{display:flex;align-items:center;gap:16px;height:52px}
+.planbar .who{font:500 12.5px/1 var(--f-mono);color:var(--ink-2);display:inline-flex;gap:8px;align-items:center;white-space:nowrap}
+.planbar .who b{font-weight:600;color:var(--ink)}
+.planbar .who button{color:var(--accent-text);text-decoration:underline;font:500 12.5px/1 var(--f-mono)}
+.rail{display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail a{scroll-snap-align:center;flex:1 0 auto;min-width:44px;height:40px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:var(--muted);font:800 15px/1 var(--f-display);letter-spacing:.04em;position:relative}
+.rail a:hover{background:var(--surface-2);color:var(--ink)}
+.rail a i{display:block;width:14px;height:3px;border-radius:2px;background:var(--line-2)}
+.rail a[aria-current]{color:var(--accent-ink);background:var(--accent)}
+.rail a[aria-current] i{background:var(--accent-ink)}
+.rail a.move::before{content:"";position:absolute;left:-2px;top:8px;bottom:8px;width:1px;background:var(--line-2)}
+.planbar .units{display:none}
+@media (min-width:1024px){.planbar .units{display:inline-flex}}
+@media (max-width:639px){.planbar{top:56px}.planbar .wrap{height:auto;flex-wrap:wrap;gap:4px 10px;padding:6px 14px 8px}.planbar .who{width:100%;justify-content:space-between;height:28px}.planbar .who span.l{display:none}.rail{flex-basis:100%;order:2}.rail a{min-width:48px;height:36px}}
+
+/* ---- trip overview (whole-trip timeline) ---- */
+.sec{margin-top:36px}
+.sec h2{font:800 32px/1 var(--f-display);text-transform:uppercase;margin:0 0 6px}
+.sec .note{margin:0 0 16px;color:var(--muted);font-size:15.5px;max-width:76ch}
+.ov{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 22px 16px;overflow:hidden}
+.bases{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin-bottom:6px}
+.base{grid-column:span var(--n);border-top:2px solid var(--line-2);padding-top:6px;min-width:0}
+.base b{display:block;font:800 15px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.base span{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);white-space:nowrap}
+.days{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+.dcell{display:flex;flex-direction:column;align-items:stretch;gap:6px;text-decoration:none;color:inherit;border-radius:8px;padding:8px 6px 6px;min-width:0;border:1px solid transparent;transition:background var(--d-fast)}
+.dcell:hover{background:var(--surface-2)}
+.dcell[aria-current]{border-color:var(--accent);background:var(--accent-soft)}
+.dcell .n{font:800 19px/1 var(--f-display);letter-spacing:.04em}
+.dcell .bar{height:28px;display:flex;align-items:flex-end;gap:2px}
+.dcell .bar i{flex:1;background:var(--ink);opacity:.85;border-radius:2px 2px 0 0;min-height:2px;height:var(--h)}
+.dcell .bar i.walk{background:var(--line-2)}
+.dcell .w{font:400 12.5px/1.2 var(--f-mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dcell .hl{font:600 14.5px/1.2 var(--f-serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dcell .pins{display:flex;gap:4px;height:12px;align-items:center}
+.dcell .pins i{width:8px;height:8px;border-radius:999px;border:1.5px solid var(--ink)}
+.dcell .pins i.fix{background:var(--ink)}
+.dcell .pins i.split{border-style:dashed;border-color:var(--line-2)}
+.ovfoot{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.ovfoot b{font-weight:500;color:var(--ink-2)}
+.ovfoot .k{display:inline-flex;align-items:center;gap:6px}
+.ovfoot .k i{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--ink)}
+.ovfoot .k i.w{background:var(--line-2)}
+.ovfoot .k i.p{border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);width:8px;height:8px}
+@media (max-width:1023px){.ov{overflow-x:auto}.bases,.days{min-width:900px}}
+@media (max-width:639px){.ov{padding:14px}.ov .scroller{overflow-x:auto;margin:0 -14px;padding:0 14px}.bases,.days{min-width:860px}}
+
+/* ---- body: timeline + map ---- */
+.body{display:grid;grid-template-columns:minmax(0,680px) minmax(360px,1fr);gap:32px;align-items:start;margin-top:28px}
+.body .mapcol{position:sticky;top:124px}
+@media (max-width:1023px){.body{grid-template-columns:1fr}.body .mapcol{position:static;order:-1}}
+@media (max-width:639px){.body{margin-top:20px}.body .mapcol{display:none}}
+.seghead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.seghead .legend{display:flex;gap:14px;align-items:center;font:400 12.5px/1 var(--f-mono);color:var(--muted);flex-wrap:wrap}
+.legend .t{font-weight:600;color:var(--ink)}
+.legend .t.s{color:var(--muted);font-weight:500}
+.legend .n{display:inline-block;width:10px;height:10px;border-radius:999px;border:2px solid var(--ink);vertical-align:-1px;margin-right:4px}
+.legend .n.f{background:var(--ink);border-radius:2px}
+.legend .n.a{border-color:var(--accent-text);background:var(--accent-soft)}
+
+/* day card */
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:18px;scroll-margin-top:124px;transition:border-color var(--d-base)}
+.day[data-picked]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.dh{display:grid;grid-template-columns:96px 1fr auto;gap:0 16px;padding:16px 18px 14px;align-items:start}
+.dh .thumb{width:96px;height:68px;border-radius:8px;object-fit:cover;background:var(--well);filter:brightness(var(--img-dim))}
+.dh .thumb.ph{display:flex;align-items:center;justify-content:center;color:var(--ink);font-size:22px}
+.sign{display:inline-flex;align-items:center;height:24px;padding:0 10px 0 8px;font:800 15px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase;background:var(--surface-2);color:var(--ink);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%);border-radius:4px 0 0 4px}
+.day[data-picked] .sign{background:var(--accent);color:var(--accent-ink)}
+.dh .meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.dh h3{font:800 24px/.95 var(--f-display);margin:8px 0 6px;letter-spacing:.005em}
+.dh .tot{display:flex;flex-wrap:wrap;gap:6px 14px;font:400 12.5px/1.45 var(--f-mono);color:var(--ink-2)}
+.dh .tot span{display:inline-flex;align-items:center;gap:5px}
+.dh .tot .est{text-decoration:underline dotted;text-underline-offset:3px;cursor:help}
+.dh .acts{display:flex;gap:6px;align-items:center}
+.ovr{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent);color:var(--accent-text);font:500 11.5px/1 var(--f-mono)}
+.ovr button{text-decoration:underline;color:inherit;font:inherit}
+.fallback{margin:0 18px 10px;padding:8px 12px;border-radius:8px;background:var(--info-soft);color:var(--info);font-size:14.5px;display:flex;gap:8px;align-items:flex-start}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:4px 18px 6px;position:relative}
+.tl::before{content:"";position:absolute;top:10px;bottom:16px;left:calc(18px + 62px);width:2px;background:var(--line)}
+.e{display:grid;grid-template-columns:50px 24px 1fr;gap:0 14px;padding:9px 0;position:relative;align-items:start}
+.e .t{font:600 13.5px/1 var(--f-mono);color:var(--ink);padding-top:5px;text-align:right;white-space:nowrap}
+.e[data-c="suggested"] .t{color:var(--muted);font-weight:500}
+.e .node{width:24px;height:24px;display:flex;align-items:center;justify-content:center;position:relative}
+.e .node i{display:block;width:12px;height:12px;border-radius:999px;border:2px solid var(--ink);background:var(--surface)}
+.e[data-c="suggested"] .node i{border-color:var(--line-2)}
+.e[data-c="fixed"] .node i{background:var(--ink);border-radius:3px}
+.e[data-c="anchored"] .node i{border-color:var(--accent-text);background:var(--accent-soft)}
+.e[data-k="meal"] .node i,.e[data-k="snack"] .node i,.e[data-k="rest"] .node i{width:8px;height:8px;border-width:2px;margin:2px}
+.e .c{min-width:0}
+.e .ttl{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.e .ttl .g{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:var(--well);color:var(--ink);font-size:14px;vertical-align:middle}
+.e .ttl b{font:600 17px/1.25 var(--f-serif)}
+.e .ttl b a{text-decoration:none;border-bottom:1px solid var(--line-2)}
+.e .ttl b a:hover{border-color:var(--ink)}
+.e .ttl .d{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.e .m{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.e .m .sep{opacity:.6}
+.e .nt{font:italic 400 15.5px/1.4 var(--f-serif);color:var(--ink-2);margin:4px 0 0}
+.e.quiet .ttl b{font-weight:400;font-size:16px;color:var(--ink-2)}
+.e.quiet .ttl .g{background:transparent;color:var(--muted)}
+.e[data-k="meal"],.e[data-k="snack"],.e[data-k="rest"]{padding:6px 0}
+.e .more{margin-top:8px;font:500 12.5px/1 var(--f-mono);color:var(--muted);display:inline-flex;gap:6px;align-items:center;height:28px;padding:0 8px;border-radius:6px;margin-left:-8px}
+.e .more:hover{background:var(--surface-2);color:var(--ink)}
+.e .more svg{transition:transform var(--d-base) var(--e-std)}
+.e[data-open] .more svg{transform:rotate(180deg)}
+.e .kb{display:none;margin:8px 0 0;padding:10px 14px;border-radius:8px;background:var(--well);font-size:15px;color:var(--ink-2)}
+.e[data-open] .kb{display:block;animation:kb var(--d-base) var(--e-out)}
+@keyframes kb{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.kb ul{margin:4px 0 0;padding-left:18px}
+.kb li{margin:3px 0}
+.kb .lab{margin-bottom:2px}
+/* legs */
+.leg{display:grid;grid-template-columns:50px 24px 1fr;gap:0 14px;padding:2px 0;align-items:center;position:relative}
+.leg .ln{height:34px;display:flex;justify-content:center}
+.leg .ln i{display:block;width:0;border-left:2px dashed var(--line-2);height:100%}
+.leg .lb{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);display:flex;align-items:flex-start;gap:8px}.leg .lb>span:not(.g){flex:1;min-width:0}
+.leg .lb .g{font-size:14px;color:var(--muted);margin-top:2px}
+.leg .lb .est{text-decoration:underline dotted;text-underline-offset:3px;cursor:help}
+.leg.walk .ln i{border-left-style:dotted}
+/* sun band */
+.sun{display:grid;grid-template-columns:50px 24px 1fr;gap:0 14px;align-items:center;padding:4px 0;color:var(--muted)}
+.sun .t{font:600 13.5px/1 var(--f-mono);text-align:right;color:var(--ink)}
+.sun .node{display:flex;justify-content:center;color:var(--accent-text)}
+.sun .lb{font:400 12.5px/1.45 var(--f-mono)}
+/* end / add */
+.tlfoot{display:grid;grid-template-columns:50px 24px 1fr;gap:0 14px;padding:8px 0 4px;align-items:center}
+.tlfoot .node{display:flex;justify-content:center}
+.tlfoot .node i{display:block;width:12px;height:12px;border-radius:999px;background:var(--ink)}
+.tlfoot .lb{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.add{margin:6px 18px 0 calc(18px + 88px);min-height:40px;text-align:left;border:1px dashed var(--line-2);border-radius:8px;display:flex;align-items:center;gap:8px;padding:0 12px;font:500 13px/1 var(--f-mono);color:var(--muted);width:calc(100% - 18px - 18px - 88px)}
+.add:hover{border-color:var(--ink);color:var(--ink);background:var(--surface-2)}
+.dfoot{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:12px 18px 16px;border-top:1px solid var(--line);margin-top:12px;font:500 12.5px/1 var(--f-mono);color:var(--muted)}
+.dfoot button{display:inline-flex;gap:6px;align-items:center;height:30px;padding:0 10px;border-radius:8px;border:1px solid var(--line-2);color:var(--ink);font:500 12px/1 var(--f-mono)}
+.dfoot .know{display:none;flex-basis:100%;font:400 15px/1.45 var(--f-serif);color:var(--ink-2);margin-top:4px}
+.day[data-know] .dfoot .know{display:block}
+.dfoot .know ul{margin:6px 0 0;padding-left:18px}
+.dfoot .know li{margin:4px 0}
+.day[data-know] .dfoot .kbtn{background:var(--surface-2);border-color:var(--ink)}
+
+@media (max-width:639px){
+  .dh{grid-template-columns:72px 1fr;padding:14px 14px 10px}
+  .dh .thumb{width:72px;height:52px}
+  .dh .acts{grid-column:1/-1;justify-content:flex-start}
+  .dh h3{font-size:21px}
+  .tl{padding:2px 12px 6px}
+  .tl::before{left:calc(12px + 56px)}
+  .e,.leg,.sun,.tlfoot{grid-template-columns:44px 24px 1fr;gap:0 12px}
+  .e .t,.sun .t{font-size:12.5px}
+  .e .ttl b{font-size:16px}
+  .add{margin-left:calc(12px + 80px);width:calc(100% - 24px - 80px)}
+}
+
+/* map */
+.map{background:var(--well);border:1px solid var(--line);border-radius:12px;height:560px;position:relative;overflow:hidden}
+.map svg.land{position:absolute;inset:0;width:100%;height:100%}
+.map .ctl{position:absolute;top:12px;left:12px;display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden;background:var(--surface)}
+.map .ctl button{height:34px;padding:0 12px;font:500 13px/1 var(--f-mono);color:var(--ink-2);border-left:1px solid var(--line-2)}
+.map .ctl button:first-child{border-left:0}
+.map .ctl button[aria-checked="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.map .zoom{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:6px}
+.map .zoom button{width:34px;height:34px;background:var(--surface);border:1px solid var(--line-2);border-radius:8px;font:500 14px/1 var(--f-mono)}
+.map .leg2{position:absolute;left:12px;bottom:12px;background:color-mix(in srgb,var(--surface) 92%,transparent);border-radius:8px;padding:8px 10px;font:400 12px/1.5 var(--f-mono);color:var(--ink-2)}
+.map .leg2 i{display:inline-block;width:18px;height:0;border-top:2px solid var(--ink);vertical-align:middle;margin-right:6px}
+.map .leg2 i.p{border-top:3.5px solid var(--accent);box-shadow:0 0 0 1px var(--ink)}
+.map .leg2 i.b{width:10px;height:10px;border:0;background:var(--ink);border-radius:3px}
+.map .attr{position:absolute;right:12px;bottom:12px;font:400 11.5px/1 var(--f-mono);color:var(--muted)}
+.map .attr a{text-decoration:none}
+.map .daylab{position:absolute;left:12px;top:54px;font:800 19px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.map .daylab span{display:block;font:400 12.5px/1.45 var(--f-mono);color:var(--muted);letter-spacing:0;text-transform:none}
+.pin{font:600 11px/1 var(--f-mono)}
+
+/* phone map sheet button */
+.sheetbtn{display:none}
+@media (max-width:639px){
+  .sheetbtn{display:flex;position:fixed;left:50%;bottom:100px;transform:translateX(-50%);height:44px;padding:0 16px;border-radius:999px;background:var(--toast-bg);color:var(--toast-ink);font:500 13px/1 var(--f-mono);align-items:center;gap:8px;z-index:19;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .bbar{display:flex;position:fixed;left:0;right:0;bottom:0;height:84px;padding-bottom:26px;background:var(--header);border-top:1px solid var(--header-line);z-index:20;align-items:center;justify-content:space-around}
+  .bbar a{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:56px;font:500 11.5px/1 var(--f-mono);color:var(--header-mute);text-decoration:none}
+  .bbar a svg{font-size:22px}
+  .bbar a[aria-current]{color:var(--header-ink)}
+  .bbar a[aria-current] svg{color:var(--accent)}
+  body{padding-bottom:100px}
+}
+@media (min-width:640px){.bbar{display:none}}
+
+/* category strip (kept) */
+.catbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px}
+.strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip .chip{height:32px;padding:0 12px;font-size:13px}
+.strip .chip.off{opacity:.45}
+.end{margin:40px 0 48px;padding-top:24px;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.end p{margin:0;flex-basis:100%;font:400 12.5px/1.5 var(--f-mono);color:var(--muted)}
+
+/* dev toolbar (mock only) */
+.dev{position:fixed;right:12px;bottom:12px;z-index:60;display:flex;gap:6px;background:var(--toast-bg);color:var(--toast-ink);padding:6px;border-radius:999px;font:500 12px/1 var(--f-mono)}
+.dev button{color:inherit;height:30px;padding:0 10px;border-radius:999px;border:1px solid transparent}
+.dev button:hover{border-color:currentColor}
+@media (max-width:639px){.dev{bottom:auto;top:64px}}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 13l2-5h14l2 5v5H3z"/><circle cx="7.5" cy="16" r="1.5"/><circle cx="16.5" cy="16" r="1.5"/><path d="M5 13h14"/></symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="1.5"/><path d="M10 21l2-7 3 3v4M8 13l3-5 3 1 2 3h2M12 11l-2 10"/></symbol>
+    <symbol id="i-fork" viewBox="0 0 24 24"><path d="M7 3v8M5 3v5a2 2 0 004 0V3M7 11v10M17 3v18M17 3c-2 1-3 4-3 7h3"/></symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24"><path d="M4 8h12v6a4 4 0 01-4 4H8a4 4 0 01-4-4zM16 10h2a2 2 0 010 4h-2M6 4c0 1 1 1 1 2M10 4c0 1 1 1 1 2"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M3 14V11h11a4 4 0 014 4"/><circle cx="7" cy="10" r="1.5"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></symbol>
+    <symbol id="i-sunset" viewBox="0 0 24 24"><path d="M3 18h18M6 18a6 6 0 0112 0M12 4v4M5 9l1.5 1.5M19 9l-1.5 1.5"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 9a2 2 0 002-2V5h14v2a2 2 0 000 4v2a2 2 0 000 4v2H5v-2a2 2 0 00-2-2zM12 5v14" stroke-dasharray="2 2"/><path d="M3 9V7h2M3 15v2h2"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M2 16l20-6-3-2-8 3-7-5-2 1 5 6-4 2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-mtn" viewBox="0 0 24 24"><path d="M3 19l6-10 4 6 2-3 6 7z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L5 14h6l-1 8 9-13h-6z"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="14" r="4"/><path d="M11 11l9-9M16 6l3 3M14 8l2 2"/></symbol>
+    <symbol id="i-rest" viewBox="0 0 24 24"><path d="M3 20h18M4 20V9l7 5V9l7 5v6"/></symbol>
+    <symbol id="i-boat" viewBox="0 0 24 24"><path d="M3 17l2 3h14l2-3zM4 17l1-4h14l1 4M12 5v8M12 5l5 6"/></symbol>
+    <symbol id="i-lift" viewBox="0 0 24 24"><path d="M2 6l20 4M12 8v3M8 11h8v7H8z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14A8 8 0 1110 4a7 7 0 0010 10z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17l9 5 9-5"/></symbol>
+    <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M5 13v7h14v-7"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 22V3h12l-2 4 2 4H5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M12 3h7v18h-7"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 7h13l-3-3M20 17H7l3 3"/></symbol>
+  </defs>
+</svg>
+
+<header class="hdr">
+  <div class="wrap">
+    <div class="brand">Trip plans</div>
+    <nav class="tabs" aria-label="Sections"><a href="#" aria-current="page">Trips</a><a href="#">Places</a><a href="#">Globe</a></nav>
+    <span class="sp"></span>
+    <button class="ib" aria-label="Search"><svg class="i"><use href="#i-search"/></svg></button>
+    <button class="ib" id="themeBtn" aria-label="Switch theme"><svg class="i"><use href="#i-moon"/></svg></button>
+    <button class="ghost-h">Sign in</button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <section class="cover" aria-label="Canadian Rockies, 14 nights">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Banff_Avenue_%283866849216%29.jpg?width=1600" alt="Banff Avenue with Cascade Mountain at its end">
+    <div class="in">
+      <div class="kick">Published plan · Alberta and British Columbia</div>
+      <h1>Canadian Rockies, 14 nights</h1>
+      <p class="stand">Five bases from Banff to Kananaskis. Pick who is going and the pace once; every day below is laid out hour by hour for that choice.</p>
+      <div class="chips"><span class="chip"><svg class="i"><use href="#i-mtn"/></svg> Moderate</span><span class="chip">Ages 5+</span><span class="chip">by Nitin</span><span class="chip">copied 41 times</span><span class="chip honest">2026 data used as a pattern</span></div>
+      <div class="acts"><button class="btn pri"><svg class="i"><use href="#i-copy"/></svg> Copy to my trips</button><button class="btn"><svg class="i"><use href="#i-dl"/></svg> Export</button><button class="btn"><svg class="i"><use href="#i-share"/></svg> Share</button></div>
+    </div>
+  </section>
+  <div class="glance" role="list">
+    <div><div class="lab">Length</div><b>14 nights · 15 days</b></div>
+    <div><div class="lab">Bases</div><b>5 bases</b></div>
+    <div><div class="lab">Drive a day</div><b>≈1 h 40 on average</b></div>
+    <div><div class="lab">Valid for</div><b>Early to late September</b></div>
+  </div>
+
+  <!-- ===== party profile ===== -->
+  <section class="profile" id="profile" aria-labelledby="pf-h">
+    <div class="top"><h2 id="pf-h">Plan it for</h2><p>One choice for the whole trip. Any day can still be changed on its own.</p></div>
+    <div class="pgrid">
+      <div class="field">
+        <div class="lab">Who is going</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <div class="seg" role="radiogroup" aria-label="Who is going" id="whoSeg">
+            <button role="radio" aria-checked="false" data-v="adults">Adults only</button>
+            <button role="radio" aria-checked="true" data-v="family">Family</button>
+          </div>
+          <div class="age" id="ageCtl" aria-label="Youngest child"><span>youngest</span><button id="ageDn" aria-label="Younger">−</button><b id="ageVal">6</b><button id="ageUp" aria-label="Older">+</button></div>
+        </div>
+        <div class="sub" id="whoSub">Family days: walks under about 6 km, catwalks and bridges fenced, a rest after lunch.</div>
+      </div>
+      <div class="field">
+        <div class="lab">Days</div>
+        <div class="seg" role="radiogroup" aria-label="Days" id="daysSeg">
+          <button role="radio" aria-checked="true" data-v="14">14 nights</button>
+          <button role="radio" aria-checked="false" data-v="16">16 nights</button>
+        </div>
+        <div class="sub" id="daysSub">As published. 16 nights adds Waterton Lakes.</div>
+      </div>
+      <div class="field">
+        <div class="lab">Pace</div>
+        <div class="seg" role="radiogroup" aria-label="Pace" id="paceSeg">
+          <button role="radio" aria-checked="false" data-v="relaxed">Relaxed</button>
+          <button role="radio" aria-checked="true" data-v="standard">Standard</button>
+          <button role="radio" aria-checked="false" data-v="full">Full</button>
+        </div>
+        <div class="sub" id="paceSub">Standard: one main outing a day, back at base before dinner.</div>
+      </div>
+      <div class="field"><button class="btn pri" style="height:40px"><svg class="i"><use href="#i-copy"/></svg> Copy with these choices</button></div>
+    </div>
+    <div class="pfoot">
+      <span class="stat"><span class="count" id="fitCount">14</span><span>of 14 days fit</span></span>
+      <span class="stat"><b id="walkTot">≈ 48 km</b><span>walking</span></span>
+      <span class="stat"><b id="driveTot">≈ 23 h</b><span>driving</span></span>
+      <span class="stat"><b id="slotTot">6</b><span>fixed slots</span></span>
+      <span class="chip info" id="profNote"><svg class="i"><use href="#i-info"/></svg> Showing the plan as Nitin wrote it: family, youngest 6</span>
+    </div>
+  </section>
+
+  <!-- ===== sticky plan bar: compressed profile + day rail ===== -->
+  <div class="planbar" id="planbar">
+    <div class="wrap">
+      <span class="who"><span class="l">Planned for</span> <b id="whoLine">Family, youngest 6 · 14 nights · Steady</b> <button type="button" data-go="#profile">Change</button></span>
+      <nav class="rail" id="rail" aria-label="Days"></nav>
+      <div class="seg s units" role="radiogroup" aria-label="Units"><button role="radio" aria-checked="true" data-u="km">km</button><button role="radio" aria-checked="false" data-u="mi">mi</button></div>
+    </div>
+  </div>
+
+  <!-- ===== whole-trip timeline ===== -->
+  <section class="sec" id="overview" aria-labelledby="ov-h">
+    <h2 id="ov-h">The trip at a glance</h2>
+    <p class="note">Fourteen days under five bases. Bars show how much of each day is spent driving and walking; a filled dot is a fixed slot you book for a time. Pick a day to jump to it.</p>
+    <div class="ov">
+      <div class="scroller">
+        <div class="bases" id="bases"></div>
+        <div class="days" id="daysGrid"></div>
+      </div>
+      <div class="ovfoot">
+        <span class="k"><i></i> driving</span><span class="k"><i class="w"></i> walking</span><span class="k"><i class="p"></i> fixed slot</span>
+        <span><b>Light:</b> sunrise 07:05 to 07:25 · sunset 20:16 to 19:45 across the window</span>
+        <span><b>Move days:</b> 3, 4, 8, 12</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== timeline + map ===== -->
+  <section class="sec" id="in-this-trip" aria-labelledby="it-h">
+    <h2 id="it-h">Day by day</h2>
+    <div class="catbar">
+      <div class="seg" role="radiogroup" aria-label="Group the trip"><button role="radio" aria-checked="true">By day</button><button role="radio" aria-checked="false">By category</button></div>
+      <div class="strip"><span class="chip">Stays 5</span><span class="chip">Trails 33</span><span class="chip">Sights 28</span><span class="chip">Activities 15</span><span class="chip off">Food 0</span><span class="chip">Logistics 15</span></div>
+    </div>
+    <div class="body">
+      <div>
+        <div class="seghead">
+          <div class="legend"><span class="t">Suggested times</span><span><i class="n f"></i>fixed slot</span><span><i class="n a"></i>sun</span><span><i class="n"></i>suggested</span></div>
+          <span class="mono" style="font:400 12.5px/1 var(--f-mono);color:var(--muted)">Showing Days 1 to 3 of 14 in this mock</span>
+        </div>
+        <ol id="dayList" style="list-style:none;margin:0;padding:0"></ol>
+      </div>
+      <aside class="mapcol" aria-label="Map">
+        <div class="map" id="map">
+          <svg class="land" viewBox="0 0 560 560" aria-hidden="true">
+            <defs><pattern id="hs" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6L6 0" stroke="currentColor" stroke-width=".6" opacity=".25"/></pattern></defs>
+            <g style="color:var(--line-2)">
+              <path d="M40 90 C120 60 200 140 260 110 S380 60 520 100" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <path d="M30 170 C130 140 190 220 280 190 S400 150 540 190" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <path d="M20 260 C110 230 180 300 290 270 S420 240 540 280" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <path d="M30 350 C120 320 200 390 300 360 S430 330 540 370" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <path d="M40 440 C130 410 210 470 310 440 S440 410 540 460" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <path d="M60 520 C150 490 230 540 330 510 S450 480 540 530" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+            </g>
+            <path d="M0 0h560v560H0z" fill="url(#hs)" style="color:var(--ink)"/>
+            <path d="M120 60 C150 120 140 180 170 240 S150 330 190 400" fill="none" stroke="#6F9FB4" stroke-width="2" opacity=".8"/>
+            <!-- routes by day -->
+            <g id="routes" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path data-d="1" d="M500 500 C440 470 400 440 360 420 S330 390 300 370" stroke="var(--ink)" stroke-width="2"/>
+              <path data-d="2" d="M300 370 C280 350 270 320 250 300 M300 370 C330 350 360 340 390 320" stroke="var(--ink)" stroke-width="2"/>
+              <path data-d="3" d="M300 370 C260 330 230 300 200 260 S170 200 150 160" stroke="var(--ink)" stroke-width="2"/>
+            </g>
+            <g id="pins" style="font-family:var(--f-mono)"></g>
+          </svg>
+          <div class="ctl" role="radiogroup" aria-label="Show"><button role="radio" aria-checked="false">All 14 days</button><button role="radio" aria-checked="true" id="mapDayBtn">Day 1</button><button role="radio" aria-checked="false">Bases</button></div>
+          <div class="zoom"><button aria-label="Zoom in">+</button><button aria-label="Zoom out">−</button></div>
+          <div class="daylab" id="mapDayLab">Day 1<span>Calgary → Banff · follows your scroll</span></div>
+          <div class="leg2"><div><i></i>every day by road</div><div><i class="p"></i>the day in view</div><div><i class="b"></i>base</div></div>
+          <div class="attr">© OpenFreeMap · OpenStreetMap contributors · Mapterhorn</div>
+        </div>
+        <p class="mono" style="font:400 12.5px/1.5 var(--f-mono);color:var(--muted);margin:10px 2px 0">Lines are straight estimates between stops; road routes come later. Hover an entry to ring its pin.</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="end"><button class="btn pri"><svg class="i"><use href="#i-copy"/></svg> Copy to my trips</button><button class="btn"><svg class="i"><use href="#i-dl"/></svg> Export PDF</button><button class="btn">Calendar (.ics)</button><p>Photos: Phil Whitehouse, Chris Woodrich, Tobias Alt and others on Wikimedia Commons (CC BY / CC BY-SA). Times are suggestions from the published plan; fixed slots and sun times are exact for the season window.</p></div>
+</main>
+
+<button class="sheetbtn" id="sheetBtn"><svg class="i"><use href="#i-map"/></svg> Map · Day 1</button>
+<nav class="bbar" aria-label="Sections"><a href="#" aria-current="page"><svg class="i"><use href="#i-grid"/></svg>Trips</a><a href="#"><svg class="i"><use href="#i-pin"/></svg>Places</a><a href="#"><svg class="i"><use href="#i-globe"/></svg>Globe</a><a href="#"><svg class="i"><use href="#i-in"/></svg>Sign in</a></nav>
+
+<div class="dev" aria-label="Mock controls"><button id="devTheme">Theme</button><button data-dev="adults">Adults</button><button data-dev="family">Family 6</button><button data-dev="easy">Relaxed</button><button data-dev="dolo">Dolomites day</button></div>
+
+<script>
+/* ---------------- data (real Rockies Days 1-3 and Dolomites Day 3; times authored for the mock) ---------------- */
+const KIND = {start:'i-key',drive:'i-car',visit:'i-eye',trail:'i-walk',meal:'i-fork',snack:'i-cup',rest:'i-rest',checkin:'i-bed',slot:'i-ticket',flight:'i-plane',activity:'i-bolt',boat:'i-boat',lift:'i-lift',end:'i-pin'};
+const TRIP = {
+  bases:[{name:'Banff',n:2},{name:'Lake Louise',n:1},{name:'Jasper',n:4},{name:'Lake Louise',n:4},{name:'Kananaskis',n:3}],
+  // whole-trip strip: drive and walk load 0..1, highlight, fixed slot, move day
+  strip:[
+    {d:1,drive:.55,walk:.1,hl:'Vermilion Lakes',fix:false,move:true},
+    {d:2,drive:.3,walk:.35,hl:'Sunshine · cruise',fix:true,split:true},
+    {d:3,drive:.6,walk:.4,hl:'Johnston Canyon',fix:false,move:true},
+    {d:4,drive:1,walk:.25,hl:'Icefields Parkway',fix:true,move:true},
+    {d:5,drive:.35,walk:.45,hl:'Maligne Lake',fix:true},
+    {d:6,drive:.5,walk:.4,hl:'Mount Robson',fix:false},
+    {d:7,drive:.25,walk:.5,hl:'Miette Hot Springs',fix:false,split:true},
+    {d:8,drive:1,walk:.2,hl:'Parkway south',fix:true,move:true},
+    {d:9,drive:.2,walk:.55,hl:'Lake Louise shore',fix:true,split:true},
+    {d:10,drive:.2,walk:.6,hl:'Moraine Lake',fix:true,split:true},
+    {d:11,drive:.45,walk:.5,hl:'Emerald Lake',fix:false,split:true},
+    {d:12,drive:.7,walk:.3,hl:'To Kananaskis',fix:false,move:true},
+    {d:13,drive:.3,walk:.55,hl:'Highwood larches',fix:false,split:true},
+    {d:14,drive:.3,walk:.4,hl:'Kananaskis Lakes',fix:false}
+  ],
+  days:{
+    1:{title:'Toronto to Banff, then the first evening flat',base:'Banff',baseDays:'night 1 of 2',sunrise:'07:05',sunset:'20:16',thumb:'https://commons.wikimedia.org/wiki/Special:FilePath/Banff_Avenue_%283866849216%29.jpg?width=400',
+      know:['Bear spray cannot fly, not even checked. Buy or rent it today in Calgary, Canmore or Banff (about C$10 to 12 a day at Banff shops, 2025 to 26 prices).','Elk rut: stay at least 30 m from all elk, never park between a bull and cows, keep the child within arm\'s reach in town.','If the flight lands after about 15:00, skip Vermilion Lakes and go straight to the hotel.','Wet weather: Cave and Basin or the hotel pool.'],
+      tracks:{
+        B:{label:'Family',items:[
+          {k:'flight',t:'10:40',c:'suggested',name:'Land at Calgary, YYC',meta:['from Toronto, about 4 h 15 in the air'],dur:'',note:null,chips:[['honest','2029 schedules not out']]},
+          {k:'start',t:'11:30',c:'suggested',name:'Collect the car and bear spray',meta:['rental desk, then a grocery stop in Calgary'],dur:'50 min',kb:['Ask in writing about gravel roads (Hwy 742) and animal-strike cover.','Bring the child\'s own booster: required in BC to age 9 or 145 cm.']},
+          {leg:'drive',min:90,km:128,via:'Trans-Canada Hwy 1',est:true},
+          {k:'meal',t:'13:30',c:'suggested',name:'Lunch in Canmore',meta:['Main Street, 45 min'],quiet:true},
+          {leg:'drive',min:25,km:26,via:'Hwy 1 into Banff'},
+          {k:'checkin',t:'14:45',c:'suggested',name:'Check in, Banff',meta:['2 nights','stay not chosen yet'],chips:[['idea','stay to choose']]},
+          {k:'rest',t:'15:15',c:'suggested',name:'Rest at the hotel',meta:['the child\'s body clock is 2 h ahead'],quiet:true},
+          {k:'trail',t:'16:30',c:'suggested',name:'Fenland Loop',slug:true,meta:['1.9 km','20 m up','45 min','flat'],note:'A forest loop from the townsite lot; mosquitoes near the water.',kb:['Trailhead: Fenland Trail, Banff townsite lot.','Short and flat; fine for a 6-year-old after a travel day.']},
+          {k:'meal',t:'18:00',c:'suggested',name:'Early dinner, Banff Avenue',meta:['walkable from the hotel'],quiet:true},
+          {leg:'drive',min:10,km:5,via:'Vermilion Lakes Rd'},
+          {k:'visit',t:'19:15',c:'anchored',name:'Vermilion Lakes Drive',slug:true,meta:['the last hour before sunset','short stops, flat'],note:'Mount Rundle across the wetland; elk and birds at dusk.',chips:[['honest','no official page yet']]},
+          {sun:'set',t:'20:16'},
+          {k:'end',t:'20:45',c:'suggested',name:'Back at base, Banff'}
+        ]},
+        C:{label:'Easy',items:[
+          {k:'flight',t:'10:40',c:'suggested',name:'Land at Calgary, YYC',meta:['about 4 h 15 in the air'],chips:[['honest','2029 schedules not out']]},
+          {k:'start',t:'11:30',c:'suggested',name:'Collect the car and bear spray',meta:['rental desk, grocery stop'],dur:'50 min'},
+          {leg:'drive',min:90,km:128,via:'Trans-Canada Hwy 1',est:true},
+          {k:'checkin',t:'13:30',c:'suggested',name:'Check in, Banff',meta:['2 nights']},
+          {k:'rest',t:'14:00',c:'suggested',name:'Rest and pool',quiet:true},
+          {k:'lift',t:'17:00',c:'fixed',name:'Banff Gondola, Sulphur Mountain',slug:true,meta:['zero walking','last ride up 19:30','child fare at 6'],note:'2026 hours 09:00 to 21:00 used as a pattern.',chips:[['honest','2029 hours unknown']]},
+          {k:'meal',t:'18:30',c:'suggested',name:'Dinner at the summit or in town',quiet:true},
+          {sun:'set',t:'20:16'},
+          {k:'end',t:'20:30',c:'suggested',name:'Back at base, Banff'}
+        ]}
+      }},
+    2:{title:'Sunshine Meadows, then the Lake Minnewanka cruise',base:'Banff',baseDays:'night 2 of 2',sunrise:'07:06',sunset:'20:13',thumb:'https://commons.wikimedia.org/wiki/Special:FilePath/Banff_Sunshine_and_Sunflowers.jpg?width=400',
+      know:['At 07:00 check the forecast and the Sunshine webcams. Cloud or fresh snow on the meadows: take the Easy day instead; Citadel Pass is dropped, not moved.','Sunshine usually closes on the third Sunday of September; the 2029 date is not published.','The free Minnewanka shuttle ended on Labour Day in 2026, so drive.','A 6 to 15 child needs a seat on the cruise; no strollers aboard.'],
+      tracks:{
+        A:{label:'Adults',items:[
+          {k:'meal',t:'07:15',c:'suggested',name:'Breakfast at base',quiet:true},
+          {leg:'drive',min:20,km:18,via:'Sunshine Rd',est:true},
+          {k:'lift',t:'08:00',c:'fixed',name:'Sunshine Village gondola, first ride',meta:['opens 08:00','no pre-booking','price not found'],chips:[['honest','2026 season used']]},
+          {k:'trail',t:'08:40',c:'suggested',name:'Sunshine Meadows to Citadel Pass',slug:true,meta:['10.2 km','580 m up','4 to 6 h','turn around by 13:30'],note:'Larches here turn mid to late September; expect green on an early-September day.',kb:['Solo in grizzly country: carry bear spray and agree the turnaround time.','Back at the gondola by about 15:30.']},
+          {k:'snack',t:'11:30',c:'suggested',name:'Trail lunch at the pass',quiet:true},
+          {k:'lift',t:'15:30',c:'suggested',name:'Gondola down'},
+          {leg:'drive',min:20,km:18,via:'back to Banff'},
+          {k:'activity',t:'17:00',c:'suggested',name:'Banff Upper Hot Springs',slug:true,meta:['13:00 to 22:00','adult 19.75, youth 17.25, 2026'],note:'Walk-up; busy afternoons.'},
+          {k:'meal',t:'19:00',c:'suggested',name:'Dinner in Banff',quiet:true},
+          {sun:'set',t:'20:13'},
+          {k:'end',t:'20:30',c:'suggested',name:'Back at base, Banff'}
+        ]},
+        B:{label:'Family',items:[
+          {k:'meal',t:'07:15',c:'suggested',name:'Breakfast at base',quiet:true},
+          {leg:'drive',min:20,km:18,via:'Sunshine Rd',est:true},
+          {k:'lift',t:'08:00',c:'fixed',name:'Sunshine Village gondola, first ride',meta:['opens 08:00','no pre-booking','price not found'],chips:[['honest','2026 season used']],kb:['Open 6 Jul to 20 Sep in 2026, 08:00 to 18:00.','Altitude 2,159 to 2,385 m: low risk after a night at 1,383 m.']},
+          {k:'trail',t:'08:40',c:'suggested',name:'Sunshine Meadows, short meadow paths',meta:['1 to 2 h','near the village','distance not set yet'],note:'Boardwalks and three small lakes; the child sets the distance.',chips:[['honest','family loop distance missing']]},
+          {k:'snack',t:'10:30',c:'suggested',name:'Coffee at the day lodge',quiet:true},
+          {k:'lift',t:'11:30',c:'suggested',name:'Gondola down'},
+          {leg:'drive',min:35,km:32,via:'Banff, then Lake Minnewanka Scenic Dr',est:true},
+          {k:'meal',t:'12:30',c:'suggested',name:'Picnic lunch on the Minnewanka shore',quiet:true},
+          {k:'boat',t:'14:00',c:'fixed',name:'Lake Minnewanka Classic cruise',slug:true,meta:['1 h','book 48 h ahead for 10% off','child 6 to 15 needs a seat'],note:'Sailings 10:00 to 18:00 in the first half of September (2026).',chips:[['','To book']]},
+          {k:'trail',t:'15:15',c:'suggested',name:'Stewart Canyon bridge, if legs remain',meta:['1.6 km one way','flat','optional'],note:'Trail beyond the bridge closed from 16 Sep in 2026.'},
+          {leg:'drive',min:15,km:12,via:'back to Banff'},
+          {k:'activity',t:'17:00',c:'suggested',name:'Banff Upper Hot Springs',slug:true,meta:['13:00 to 22:00','youth 13 and under with an adult'],note:'Walk-up; busy afternoons.'},
+          {k:'meal',t:'19:00',c:'suggested',name:'Dinner in Banff',quiet:true},
+          {sun:'set',t:'20:13'},
+          {k:'end',t:'20:30',c:'suggested',name:'Back at base, Banff'}
+        ]},
+        C:{label:'Easy',items:[
+          {k:'meal',t:'08:00',c:'suggested',name:'Slow breakfast',quiet:true},
+          {leg:'drive',min:10,km:4,via:'Mountain Ave'},
+          {k:'lift',t:'10:00',c:'fixed',name:'Banff Gondola, Sulphur Mountain',slug:true,meta:['zero walking','boardwalk at the top']},
+          {k:'meal',t:'12:00',c:'suggested',name:'Lunch at the summit',quiet:true},
+          {leg:'drive',min:8,km:3,via:'Cave Ave'},
+          {k:'visit',t:'13:30',c:'suggested',name:'Cave and Basin',slug:true,meta:['indoor, good in rain','1 h 30'],chips:[['honest','hours and admission unknown']]},
+          {k:'rest',t:'15:30',c:'suggested',name:'Rest at base',quiet:true},
+          {k:'activity',t:'17:00',c:'suggested',name:'Banff Upper Hot Springs',slug:true,meta:['13:00 to 22:00']},
+          {k:'meal',t:'19:00',c:'suggested',name:'Dinner in Banff',quiet:true},
+          {sun:'set',t:'20:13'},
+          {k:'end',t:'20:30',c:'suggested',name:'Back at base, Banff'}
+        ]}
+      }},
+    3:{title:'Johnston Canyon and two Kootenay walks, moving to Lake Louise',base:'Lake Louise',baseDays:'night 1 of 1',sunrise:'07:10',sunset:'20:14',thumb:'https://commons.wikimedia.org/wiki/Special:FilePath/Johnston_Canyon-Lower_Falls.jpg?width=400',
+      know:['The eastern 17 km of the Bow Valley Parkway is closed to cars in September (Parks Canada says 28 Aug to 2 Oct in 2026), so reach Johnston Canyon from Castle Junction, not from Banff.','If Johnston Canyon is still closed for rock-slope work, or the lot is full at 08:00, go straight to Marble Canyon and Paint Pots.','Wet weather: Marble Canyon works in light rain; skip the Paint Pots mud; check in early at Lake Louise.','The Lake Louise lot fills before sunrise; evening parking is unverified.'],
+      tracks:{
+        A:{label:'Adults',items:[
+          {k:'start',t:'06:30',c:'suggested',name:'Check out, Banff'},
+          {leg:'drive',min:15,km:14,via:'Hwy 1 west'},
+          {k:'trail',t:'07:00',c:'suggested',name:'Bourgeau Lake',slug:true,meta:['13.4 km','730 m up','5 to 6 h','collect about 13:30'],note:'Larches present; timing not confirmed.',kb:['Trailhead on the Trans-Canada west of Banff, on today\'s route.','Drop at 07:00, collect at the trailhead lot about 13:30.']},
+          {k:'snack',t:'10:30',c:'suggested',name:'Trail lunch at the lake',quiet:true},
+          {leg:'drive',min:40,km:45,via:'Hwy 1 to Lake Louise'},
+          {k:'checkin',t:'14:30',c:'suggested',name:'Check in, Lake Louise',meta:['1 night']},
+          {k:'rest',t:'15:00',c:'suggested',name:'Rest',quiet:true},
+          {k:'visit',t:'17:30',c:'suggested',name:'Lake Louise lakeshore, a first look',slug:true,meta:['flat shore path','parking unverified'],chips:[['honest','evening parking unknown']]},
+          {k:'meal',t:'19:00',c:'suggested',name:'Dinner, Lake Louise village',quiet:true},
+          {sun:'set',t:'20:14'},
+          {k:'end',t:'20:30',c:'suggested',name:'Back at base, Lake Louise'}
+        ]},
+        B:{label:'Family',items:[
+          {k:'start',t:'07:15',c:'suggested',name:'Check out, Banff',meta:['bags in the car; breakfast to go']},
+          {leg:'drive',min:35,km:30,via:'Hwy 1 to Castle Junction, then the Parkway',est:true},
+          {k:'trail',t:'08:00',c:'suggested',name:'Johnston Canyon, Lower Falls',slug:true,meta:['2.2 km return','85 m up','1 h 15','catwalks'],note:'On the trail by 08:00 on a weekday to beat the crowds; exposed catwalks, hold hands.',chips:[['honest','2029 trail status unknown']],kb:['Lower Falls only; the Upper Falls adds 2.6 km each way.','Parking is free with a park pass; the lot fills early.']},
+          {k:'snack',t:'09:30',c:'suggested',name:'Coffee at Johnston Canyon Lodge',quiet:true},
+          {leg:'drive',min:35,km:40,via:'Hwy 93 S over Vermilion Pass into Kootenay',est:true},
+          {k:'trail',t:'10:30',c:'suggested',name:'Marble Canyon',slug:true,meta:['1.8 km','65 m up','45 min','fenced bridges'],note:'Slippery after rain.'},
+          {leg:'drive',min:5,km:3,via:'Hwy 93 S'},
+          {k:'trail',t:'11:30',c:'suggested',name:'Paint Pots',slug:true,meta:['2.0 km','35 m up','45 min','easy'],note:'Ochre beds; muddy after rain.'},
+          {k:'meal',t:'12:30',c:'suggested',name:'Picnic lunch at the Paint Pots lot',quiet:true},
+          {leg:'drive',min:45,km:55,via:'back over Vermilion Pass, Hwy 1 to Lake Louise',est:true},
+          {k:'checkin',t:'14:00',c:'suggested',name:'Check in, Lake Louise',meta:['1 night','stay not chosen yet'],chips:[['idea','stay to choose']]},
+          {k:'rest',t:'14:30',c:'suggested',name:'Rest',meta:['about 6 km walked in three short pieces'],quiet:true},
+          {k:'visit',t:'17:30',c:'suggested',name:'Lake Louise lakeshore, a first look',slug:true,meta:['flat shore path','parking unverified'],chips:[['honest','evening parking unknown']]},
+          {k:'meal',t:'19:00',c:'suggested',name:'Dinner, Lake Louise village',quiet:true},
+          {sun:'set',t:'20:14'},
+          {k:'end',t:'20:30',c:'suggested',name:'Early night before the Parkway'}
+        ]},
+        C:{label:'Easy',items:[
+          {k:'start',t:'09:00',c:'suggested',name:'Check out, Banff'},
+          {leg:'drive',min:50,km:60,via:'Hwy 1, Hwy 93 S',est:true},
+          {k:'trail',t:'10:30',c:'suggested',name:'Marble Canyon',slug:true,meta:['0.9 km one way','fenced bridges','45 min']},
+          {k:'meal',t:'12:00',c:'suggested',name:'Lunch at Castle Mountain Chalets store or picnic',quiet:true},
+          {leg:'drive',min:45,km:55,via:'Hwy 1 to Lake Louise',est:true},
+          {k:'checkin',t:'14:00',c:'suggested',name:'Check in, Lake Louise',meta:['1 night']},
+          {k:'rest',t:'14:30',c:'suggested',name:'Rest',quiet:true},
+          {k:'visit',t:'17:30',c:'suggested',name:'Lake Louise lakeshore, a first look',slug:true,meta:['flat shore path'],chips:[['honest','evening parking unknown']]},
+          {k:'meal',t:'19:00',c:'suggested',name:'Dinner, Lake Louise village',quiet:true},
+          {sun:'set',t:'20:14'},
+          {k:'end',t:'20:30',c:'suggested',name:'Back at base, Lake Louise'}
+        ]}
+      }}
+  }
+};
+const DOLO = {n:3,title:'Tre Cime di Lavaredo',base:'San Candido',baseDays:'night 3 of 4',sunrise:'05:36',sunset:'20:57',thumb:'https://commons.wikimedia.org/wiki/Special:FilePath/Lago_di_Misurina_Tre_Cime_di_Lavaredo_1.jpg?width=400',
+  know:['Settled forecast: take a midday slot and walk clockwise so the north faces are lit at Locatelli, after the 09:00 to 12:00 crush. Unsettled: earliest slot, off the loop by 14:00.','The toll slot is 12 hours from the booked time; no same-day sales.','Cadini di Misurina ends at a drop-off; do not continue onto the Bonacossa, it becomes via ferrata.'],
+  tracks:{B:{label:'Family',items:[
+    {k:'meal',t:'06:45',c:'suggested',name:'Breakfast at base',quiet:true},
+    {leg:'drive',min:45,km:35,via:'Dobbiaco, Lago di Landro, Misurina'},
+    {k:'slot',t:'08:00',c:'fixed',name:'Tre Cime toll gate, booked slot',meta:['opens 30 days before Day 3','EUR 40 per car, 2026 price','valid 12 h'],chips:[['','To book']],kb:['Book at pass.auronzo.info the moment the window opens; slots sell out.']},
+    {k:'trail',t:'08:30',c:'suggested',name:'Tre Cime loop from Rifugio Auronzo',slug:true,meta:['10 km','450 m up','4 h','wide gravel, no exposure'],note:'Clockwise, so the north faces are lit when you reach Locatelli.'},
+    {k:'snack',t:'10:45',c:'suggested',name:'Rifugio Locatelli: coffee and strudel',meta:['cash'],quiet:true},
+    {k:'meal',t:'12:30',c:'suggested',name:'Lunch at Rifugio Lavaredo',meta:['cash; polenta and goulash'],quiet:true},
+    {k:'visit',t:'13:15',c:'suggested',name:'Cadini di Misurina viewpoint',slug:true,meta:['40 min return on trail 117','exposed spur','optional'],note:'Hold hands at the end; turn back at the drop-off.'},
+    {leg:'drive',min:45,km:35,via:'back to San Candido'},
+    {k:'rest',t:'15:30',c:'suggested',name:'Rest at base',quiet:true},
+    {k:'trail',t:'17:30',c:'suggested',name:'Lago di Dobbiaco boardwalk',slug:true,meta:['3.5 km','flat','optional']},
+    {k:'meal',t:'19:30',c:'suggested',name:'Dinner, San Candido',quiet:true},
+    {sun:'set',t:'20:57'},
+    {k:'end',t:'21:15',c:'suggested',name:'Back at base, San Candido'}
+  ]}}};
+
+/* ---------------- state ---------------- */
+const S = {who:'family',age:6,days:'14',pace:'standard',units:'km',over:{},dolo:false};
+const pfx = {adults:'Adults only',family:a=>`Family, youngest ${a}`};
+function trackFor(n){ // profile → track; pace wins, then party
+  if(S.over[n]) return S.over[n];
+  if(S.pace==='relaxed') return 'C';
+  if(S.who==='adults') return 'A';
+  if(S.who==='family' && S.age>=12 && S.pace==='full') return 'A';
+  return 'B';
+}
+const TLAB={A:'Adults\' hike',B:'Family version',C:'Easy version'};
+const TWHY={A:'the longest option fits the party',B:'fits a 6 year old',C:'the easiest option'};
+const km=v=>S.units==='km'?`${v} km`:`${(v*0.621371).toFixed(v<10?1:0)} mi`;
+const mUp=v=>S.units==='km'?`${v} m up`:`${Math.round(v*3.281)} ft up`;
+const hm=m=>m>=60?`${Math.floor(m/60)} h${m%60?' '+String(m%60).padStart(2,'0'):''}`:`${m} min`;
+const metaFmt=s=>{let m=s.match(/^([\d.]+) km(.*)$/);if(m)return km(parseFloat(m[1]))+m[2];m=s.match(/^(\d+) m up$/);if(m)return mUp(+m[1]);return s};
+const ico=id=>`<svg class="i"><use href="#${id}"/></svg>`;
+
+function entryHTML(e,idx,n){
+  if(e.leg){
+    return `<li class="leg ${e.leg}"><span></span><span class="ln"><i></i></span><span class="lb"><span class="g">${ico(e.leg==='drive'?'i-car':'i-walk')}</span><span>${e.leg==='drive'?'Drive':'Walk'} <b style="font-weight:500;color:var(--ink-2)">${hm(e.min)}</b> · ${km(e.km)}${e.via?` <span class="sep">${/^back/.test(e.via)?'·':'via'}</span> ${e.via}`:''}${e.est?` <span class="est" title="A straight line scaled to a road time; road routing comes later">estimated</span>`:''}</span></span></li>`;
+  }
+  if(e.sun){
+    return `<li class="sun" data-c="anchored"><span class="t">${e.t}</span><span class="node">${ico('i-sunset')}</span><span class="lb">Sunset · about ${e.t} in this window</span></li>`;
+  }
+  const chips=(e.chips||[]).map(([k,l])=>`<span class="chip ${k}">${k==='honest'?'⚠ ':''}${l}</span>`).join('');
+  const meta=(e.meta||[]).map(metaFmt).map((m,i)=>`${i?'<span class="sep">·</span>':''}<span>${m}</span>`).join('');
+  const name=e.slug?`<a href="#">${e.name}</a>`:e.name;
+  const kb=e.kb?`<button class="more" aria-expanded="false" data-more>${ico('i-chev')} Know before you go · ${e.kb.length}</button><div class="kb"><ul>${e.kb.map(x=>`<li>${x}</li>`).join('')}</ul></div>`:'';
+  return `<li class="e ${e.quiet?'quiet':''}" data-k="${e.k}" data-c="${e.c}" data-d="${n}" data-i="${idx}"><span class="t">${e.t}</span><span class="node"><i></i></span><div class="c"><div class="ttl"><span class="g">${ico(KIND[e.k]||'i-pin')}</span><b>${name}</b>${e.dur?`<span class="d">${e.dur}</span>`:''}${chips}</div>${meta?`<div class="m">${meta}</div>`:''}${e.note?`<p class="nt">${e.note}</p>`:''}${kb}</div></li>`;
+}
+function totals(items){let walk=0,drive=0,fixed=0;items.forEach(e=>{if(e.leg==='drive')drive+=e.min;if(e.c==='fixed')fixed++;if(e.k==='trail'){const m=(e.meta||[]).join(' ').match(/([\d.]+) km( return| one way)?/);if(m)walk+=parseFloat(m[1]);}});return{walk,drive,fixed}}
+function dayHTML(n,d,track,isDolo){
+  const tr=d.tracks[track]||d.tracks.B||Object.values(d.tracks)[0];
+  const fallback=!d.tracks[track]&&!isDolo;
+  const tot=totals(tr.items);
+  const estDrive=tr.items.some(e=>e.leg&&e.est);
+  const overridden=!!S.over[n];
+  const sign=isDolo?`Day 03`:`Day ${String(n).padStart(2,'0')}`;
+  return `<li class="day" id="day-${n}" data-n="${n}">
+    <div class="dh">
+      <img class="thumb" src="${d.thumb}" alt="" loading="lazy">
+      <div>
+        <div class="meta"><span class="sign">${sign}</span><span>${d.base} · ${d.baseDays}</span><span>${ico('i-sun')} ${d.sunrise} → ${d.sunset}</span></div>
+        <h3>${d.title}</h3>
+        <div class="tot"><span>${ico('i-car')} <span class="${estDrive?'est':''}" ${estDrive?'title="Some legs are estimates"':''}>${hm(tot.drive)} driving</span></span><span>${ico('i-walk')} ${tot.walk?km(Math.round(tot.walk*10)/10)+' walking':'no walking'}</span>${tot.fixed?`<span>${ico('i-ticket')} ${tot.fixed} fixed slot${tot.fixed>1?'s':''}</span>`:''}</div>
+      </div>
+      <div class="acts">${overridden?`<span class="ovr">Changed for this day <button data-reset="${n}">Reset</button></span>`:''}<button class="btn sm" data-swap="${n}" title="${overridden?'Chosen by you':TWHY[track]}" aria-haspopup="menu">${TLAB[track]||tr.label} ${ico('i-chev')}</button></div>
+    </div>
+    ${fallback?`<div class="fallback">${ico('i-info')}<span>No adults-only option on this day: an arrival day after a 4 h flight. Showing the family plan.</span></div>`:''}
+    <ol class="tl">${tr.items.map((e,i)=>entryHTML(e,i,n)).join('')}</ol>
+    <button class="add">${ico('i-plus')} Add a stop, meal or break to this day</button>
+    <div class="dfoot"><button class="kbtn" data-know="${n}">${ico('i-flag')} Know before you go · ${d.know.length}</button><button>${ico('i-share')} Copy link to this day</button><button>${ico('i-map')} Open on the map</button><div class="know"><ul>${d.know.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+  </li>`;
+}
+function render(){
+  const list=document.getElementById('dayList');
+  if(S.dolo){
+    list.innerHTML=dayHTML(3,DOLO,'B',true);
+    document.getElementById('mapDayLab').innerHTML='Day 3<span>San Candido → Tre Cime · follows your scroll</span>';
+  } else {
+    list.innerHTML=[1,2,3].map(n=>dayHTML(n,TRIP.days[n],trackFor(n),false)).join('');
+  }
+  document.getElementById('whoLine').textContent=`${S.who==='adults'?'Adults only':pfx.family(S.age)} · ${S.days} nights · ${S.pace[0].toUpperCase()+S.pace.slice(1)}`;
+  document.getElementById('ageCtl').setAttribute('aria-disabled',S.who!=='family');
+  document.getElementById('whoSub').textContent=S.who==='adults'?'Adults\' days: the longer hikes (10 to 14 km), early starts, no rest block.':`Family days: walks under about 6 km, catwalks and bridges fenced, a rest after lunch.`;
+  document.getElementById('paceSub').textContent={relaxed:'Relaxed: lifts, boardwalks and hot springs; walks under 2 km; start 08:30.',standard:'Standard: one main outing a day, back at base before dinner.',full:'Full: the longest option every day; start 07:00, dinner late.'}[S.pace];
+  const n=document.getElementById('profNote');
+  const isAuthor=S.who==='family'&&S.age===6&&S.days==='14'&&S.pace==='standard';
+  n.innerHTML=`${ico('i-info')} ${isAuthor?'Showing the plan as Nitin wrote it: family, youngest 6':'Re-laid for your choice; Nitin planned it for a family with a 6-year-old'}`;
+  const w={adults:'≈ 96 km',family:'≈ 48 km'}[S.who]; document.getElementById('walkTot').textContent=S.pace==='relaxed'?'≈ 18 km':w;
+  document.getElementById('fitCount').textContent=S.who==='adults'?'13':'14';
+  pins();
+}
+/* rail + overview */
+function rail(){
+  const r=document.getElementById('rail');
+  r.innerHTML=TRIP.strip.map(s=>`<a href="#day-${s.d}" class="${s.move?'move':''}" ${s.d===1?'aria-current="true"':''} aria-label="Day ${s.d}: ${s.hl}">${s.d}<i style="width:${Math.round(8+s.drive*16)}px"></i></a>`).join('');
+  const b=document.getElementById('bases');
+  b.innerHTML=TRIP.bases.map(x=>`<div class="base" style="--n:${x.n}"><b>${x.name}</b><span>${x.n} night${x.n>1?'s':''}</span></div>`).join('');
+  const g=document.getElementById('daysGrid');
+  g.innerHTML=TRIP.strip.map(s=>`<a class="dcell" href="#day-${s.d}" ${s.d===1?'aria-current="true"':''}><span class="n">${String(s.d).padStart(2,'0')}</span><span class="bar"><i style="--h:${Math.round(s.drive*100)}%"></i><i class="walk" style="--h:${Math.round(s.walk*100)}%"></i></span><span class="hl">${s.hl}</span><span class="pins">${s.fix?'<i class="fix" title="fixed slot"></i>':''}${s.split?'<i class="split" title="split option for adults"></i>':''}</span></a>`).join('');
+}
+/* map pins for the day in view */
+function pins(){
+  const g=document.getElementById('pins'); const d=S.cur||1;
+  const P=S.dolo?{3:[[300,370,'San Candido'],[150,160,'Tre Cime']]}[d]||[]:{1:[[500,500,'YYC'],[300,370,'Banff']],2:[[300,370,'Banff'],[250,300,'Sunshine'],[390,320,'Minnewanka']],3:[[300,370,'Banff'],[230,300,'Johnston'],[200,260,'Marble'],[150,160,'Lake Louise']]}[d]||[];
+  document.querySelectorAll('#routes path').forEach(p=>{const on=p.dataset.d==String(d);p.setAttribute('stroke',on?'var(--accent)':'var(--ink)');p.setAttribute('stroke-width',on?3.5:2);p.setAttribute('opacity',on?1:.28);p.style.filter=on?'drop-shadow(0 0 0 var(--ink))':'';});
+  g.innerHTML=P.map((p,i)=>`<g><circle cx="${p[0]}" cy="${p[1]}" r="11" fill="var(--ink)" stroke="var(--surface)" stroke-width="1.5"/><text x="${p[0]}" y="${p[1]+4}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--surface)">${i+1}</text><text x="${p[0]+15}" y="${p[1]+4}" font-size="12" fill="var(--ink-2)" style="paint-order:stroke;stroke:var(--well);stroke-width:3px">${p[2]}</text></g>`).join('');
+  document.getElementById('mapDayBtn').textContent=`Day ${d}`;
+  document.getElementById('sheetBtn').innerHTML=`${ico('i-map')} Map · Day ${d}`;
+  if(!S.dolo){const lab={1:'Calgary → Banff',2:'Banff · Sunshine · Minnewanka',3:'Banff → Lake Louise via Kootenay'}[d];document.getElementById('mapDayLab').innerHTML=`Day ${d}<span>${lab} · follows your scroll</span>`;}
+}
+/* events */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button,a'); if(!b) return;
+  if(b.closest('#whoSeg')){S.who=b.dataset.v;seg('#whoSeg',S.who);S.over={};render();}
+  if(b.closest('#daysSeg')){S.days=b.dataset.v;seg('#daysSeg',S.days);render();}
+  if(b.closest('#paceSeg')){S.pace=b.dataset.v;seg('#paceSeg',S.pace);S.over={};render();}
+  if(b.id==='ageUp'){S.age=Math.min(17,S.age+1);document.getElementById('ageVal').textContent=S.age;render();}
+  if(b.id==='ageDn'){S.age=Math.max(1,S.age-1);document.getElementById('ageVal').textContent=S.age;render();}
+  if(b.dataset.u){S.units=b.dataset.u;document.querySelectorAll('[data-u]').forEach(x=>x.setAttribute('aria-checked',x.dataset.u===S.units));render();}
+  if(b.dataset.swap){const n=+b.dataset.swap;const order=['A','B','C'].filter(t=>TRIP.days[n].tracks[t]);const cur=trackFor(n);S.over[n]=order[(order.indexOf(cur)+1)%order.length];render();}
+  if(b.dataset.reset){delete S.over[+b.dataset.reset];render();}
+  if(b.dataset.know!==undefined){const d=b.closest('.day');d.toggleAttribute('data-know');}
+  if(b.hasAttribute('data-more')){const li=b.closest('.e');li.toggleAttribute('data-open');b.setAttribute('aria-expanded',li.hasAttribute('data-open'));}
+  if(b.dataset.go){e.preventDefault();document.querySelector(b.dataset.go).scrollIntoView({block:'start'});}
+  if(b.id==='themeBtn'||b.id==='devTheme'){const h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';}
+  if(b.dataset.dev){S.dolo=false;S.over={};if(b.dataset.dev==='adults'){S.who='adults';S.pace='standard'}if(b.dataset.dev==='family'){S.who='family';S.age=6;S.pace='standard'}if(b.dataset.dev==='easy'){S.who='family';S.pace='relaxed'}if(b.dataset.dev==='dolo'){S.dolo=true}
+    seg('#whoSeg',S.who);seg('#paceSeg',S.pace);document.getElementById('ageVal').textContent=S.age;render();}
+});
+function seg(sel,v){document.querySelectorAll(sel+' [role=radio]').forEach(x=>x.setAttribute('aria-checked',x.dataset.v===v))}
+/* scroll spy: day in view drives the rail, the overview and the map */
+const io=new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting){const n=+x.target.dataset.n;S.cur=n;document.querySelectorAll('#rail a,.dcell').forEach(a=>{a.toggleAttribute('aria-current',a.getAttribute('href')===`#day-${n}`)});document.querySelectorAll('.day').forEach(d=>d.toggleAttribute('data-picked',+d.dataset.n===n));pins();}})},{rootMargin:'-30% 0px -55% 0px'});
+new MutationObserver(()=>document.querySelectorAll('.day').forEach(d=>io.observe(d))).observe(document.getElementById('dayList'),{childList:true});
+/* init from query */
+const q=new URLSearchParams(location.search);
+if(q.get('theme'))document.documentElement.dataset.theme=q.get('theme');
+if(q.get('p')==='adults'){S.who='adults'} if(q.get('p')==='easy'||q.get('pace')==='relaxed'){S.who='family';S.pace='relaxed'} if(q.get('p')==='dolo'){S.dolo=true}
+if(q.get('units'))S.units=q.get('units');
+if(q.has('nodev'))document.querySelector('.dev').hidden=true;
+seg('#whoSeg',S.who);seg('#paceSeg',S.pace);document.querySelectorAll('[data-u]').forEach(x=>x.setAttribute('aria-checked',x.dataset.u===S.units));
+rail();render();
+if(q.get('open')){document.querySelectorAll('[data-more]')[0]?.click();document.querySelector('[data-know]')?.click();}
+</script>
+</body>
+</html>

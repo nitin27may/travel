@@ -39,7 +39,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 1.9 | Merge PS | gate | queued |
 | 1.10 | Fable globe experience review: `globe/experience-review.md` (M1-M14, S1-S12), rewritten `spec.md` as the L2b build spec, mock at `globe/mock/` | owner F1 | done 3769fe7 |
 | 1.11a | Trip timeline model `features/trip-timeline.md` and brief `L3c-trip-timeline.md` (Opus): the entry list, a scheduler in `core/src/schedule/`, the party profile, ORS legs stored at publish, markers to chips. Audit: 1 of 14 trips timed today, 10 of 14 can get authored schedules (about 330 legacy time cells and 80 Rockies note times exist), 4 rule-only, 6 overview trips need days | owner | done (this commit) |
-| 1.11b | Trip timeline design `design/trip-page/timeline-design.md` with a mock (Fable) | owner | doing |
+| 1.11b | Trip timeline design `design/trip-page/timeline-design.md` with a mock (Fable): a "Plan it for" selector, a sticky plan bar with a day rail, "The trip at a glance" strip, always-open day timelines with leg connectors, notes as "Know before you go", a sticky map in step with the scroll | owner | done (this commit) |
 | 1.13 | Globe M1, blocking: drag dead at world zoom and the release drills into a country (the spin tick calls `jumpTo` while the pointer is down); sent to the L2 builder | Fable review | doing |
 | 1.12 | Show the owner the timeline mock and the globe mock before those lanes build | owner rule | queued |
 
@@ -133,6 +133,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | Q3 | Hide the old live `/locations/` page now, or let it go at go-live? | 18 Oct |
 | Q4 | Confirm that old trip URLs redirect to the new trip pages at go-live (7.1) | 18 Oct |
 | Q5 | Timeline: default party per trip is the party it was written for (the Rockies: 2 adults and a 6-year-old)? Generated meals and coffee shown by default as "suggested" rows? "Add to this day" covers the trip's places plus the catalogue within 30 km of the base? Imported legacy times show as "suggested" until a person checks each trip? Pace and child rules of thumb (day caps, walk ceilings, 1.6x trail time at age 6-7) accepted to start? Recommended: yes to all | 18 Oct |
+| Q7 | Trip page: open on the author's party ("Showing the plan as Nitin wrote it") or make a visitor choose first? Suggested times shown lighter with one "Suggested times" banner, or a "~" before each? The "Plan it for" selector above the season band and open on phone, or under the band and collapsed on phone? Recommended: author's party; banner; above the band, collapsed to one line on phone | 18 Oct |
 | Q6 | Globe palette: accept the dark-theme direction in the experience review (land lighter than ocean; new globe tokens) so the foundation docs can change | 18 Oct |
 
 ## Later: after go-live (planner and data)
