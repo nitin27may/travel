@@ -1,0 +1,1 @@
+{"type":"Topology","arcs":[[[412,408],[305,-201],[-717,-207],[412,408]]],"transform":{"scale":[0.0001,0.0001],"translate":[7.3658,43.7227]},"objects":{"MCO":{"type":"GeometryCollection","geometries":[{"arcs":[[0]],"type":"Polygon","properties":{"name":"Monaco","local":"Monaco","iso":"MC-X01~","type":null,"region":null,"wd":"Q55115","gn":3319178,"lat":43.7461,"lon":7.39979}}]}}}
