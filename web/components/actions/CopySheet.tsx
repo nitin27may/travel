@@ -72,6 +72,7 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   const hasCalendar = data ? data.depth !== 'overview' && data.days.length > 0 : true;
 
   const ready = !!start && adults !== null && children.every((a) => a !== null);
+  const missing = [!start && 'a start date', adults === null && 'the number of adults', !children.every((a) => a !== null) && 'each child’s age'].filter(Boolean) as string[];
 
   const reset = () => {
     setStep('form');
@@ -188,10 +189,14 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
   const footer =
     step === 'form' ? (
       <>
-        <Button variant="primary" disabled={!ready} onClick={copy} title={ready ? undefined : 'Pick a start date, the number of adults and each child’s age'}>
-          Copy to my trips
-        </Button>
-        <p className="copy-note">Keeping copies in an account comes with the planner. The calendar and print files work now.</p>
+        <div className="copy-foot">
+          <Button variant="primary" disabled={!ready} aria-describedby="copy-foot-note" onClick={copy}>
+            Copy to my trips
+          </Button>
+          <p className="copy-note" id="copy-foot-note">
+            {ready ? 'Keeping copies in an account comes with the planner. The calendar and print files work now.' : `Still needed: ${missing.join(', ')}.`}
+          </p>
+        </div>
       </>
     ) : (
       <>

@@ -32,3 +32,22 @@ export function labelledIds(points: PlaceMapPoint[], selectedId?: string): Set<s
   if (th) out.add(th.id);
   return out;
 }
+
+/** Car parks closer together than this (about the width of three P icons at the fitted zoom) are drawn as one numbered disc that fans out on a tap. */
+export const STACK_M = 180;
+
+/**
+ * Snaps car parks that sit within STACK_M of an earlier one onto it, so the map engine groups them into a single
+ * numbered disc (tap to fan out) instead of drawing P icons on top of each other (Tre Cime, Braies). Only for the
+ * MapLibre family: the Google families build directions links from the stored coordinates, which must not move.
+ */
+export function stackParking(points: PlaceMapPoint[]): PlaceMapPoint[] {
+  const seeds: PlaceMapPoint[] = [];
+  return points.map((p) => {
+    if (p.style !== 'parking') return p;
+    const seed = seeds.find((s) => metres(s, p) <= STACK_M);
+    if (seed) return { ...p, at: seed.at };
+    seeds.push(p);
+    return p;
+  });
+}

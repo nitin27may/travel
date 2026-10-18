@@ -58,3 +58,23 @@ describe('the built index', () => {
     expect(s.search('canada').counts.areas).toBeGreaterThan(0);
   });
 });
+
+import { suggest } from '@/lib/search/suggest';
+describe('suggestions when nothing matches', () => {
+  const recs2: SearchRecord[] = [...recs, { k: 'area', h: '/globe/ca/', n: 'Canada', s: '', x: '' }];
+  const s2 = createSearcher(recs2);
+  const count = (t: string) => { const r = s2.search(t); return r.counts.trips + r.counts.places + r.counts.areas; };
+  it('turns "family trail italy" into a filtered Places link', () => {
+    expect(s2.search('family trail italy').groups).toEqual([]);
+    expect(suggest('family trail italy', recs2, count)).toEqual({ label: 'Kid-friendly trails in Italy: open the filtered Places list', href: '/places/?country=IT&kind=trail&kid=yes' });
+  });
+  it('handles a country and a kind, or a kind alone', () => {
+    expect(suggest('lakes in canada', recs2, count)?.href).toBe('/places/?country=CA&kind=lake');
+    expect(suggest('waterfalls', recs2, count)?.href).toBe('/places/?kind=waterfall');
+  });
+  it('falls back to the word that matches the most records', () => {
+    const r = suggest('braies zzzz', recs2, count);
+    expect(r?.query).toBe('braies');
+  });
+  it('offers nothing for gibberish', () => expect(suggest('xyzq', recs2, count)).toBeNull());
+});

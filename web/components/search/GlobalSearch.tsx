@@ -7,6 +7,7 @@ import { Icon, kindIcon } from '@/components/ui/Icon';
 import { loadSearchIndex } from '@/lib/search/client';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { createSearcher, describeCounts, type Searcher } from '@/lib/search/search';
+import { suggest } from '@/lib/search/suggest';
 import type { SearchHit, SearchRecord } from '@/lib/search/types';
 import '@/styles/home.css';
 
@@ -31,6 +32,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const listId = useId();
   const [q, setQ] = useState(() => takeBuffer());
   const [searcher, setSearcher] = useState<Searcher | null>(null);
+  const [records, setRecords] = useState<SearchRecord[]>([]);
   const [failed, setFailed] = useState(false);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,13 +50,14 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
     if (!open || searcher) return;
     let dead = false;
     loadSearchIndex().then(
-      (records) => { if (!dead) setSearcher(createSearcher(records)); },
+      (recs) => { if (!dead) { setRecords(recs); setSearcher(createSearcher(recs)); } },
       () => { if (!dead) setFailed(true); },
     );
     return () => { dead = true; };
   }, [open, searcher]);
 
   const result = useMemo(() => (searcher && q.trim() ? searcher.search(q) : null), [searcher, q]);
+  const suggestion = useMemo(() => (searcher && q.trim() && result && result.groups.length === 0 ? suggest(q, records, (t) => { const r = searcher.search(t); return r.counts.trips + r.counts.places + r.counts.areas; }) : null), [searcher, q, result, records]);
   const flat: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
   const status = failed ? 'Search is unavailable' : result ? describeCounts(result) : '';
 
@@ -131,7 +134,12 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               <p className="gs-hint">Loading the index.</p>
             ) : !result || result.groups.length === 0 ? (
               <p className="gs-empty">
-                No trip or place matches &lsquo;{q.trim()}&rsquo;. Try a country or a kind, like lake.
+                No trip or place matches &lsquo;{q.trim()}&rsquo;. {suggestion ? '' : 'Try a country or a kind, like lake.'}
+                {suggestion?.href ? (
+                  <a className="gs-suggest" href={suggestion.href} onClick={(e) => { e.preventDefault(); onClose(); router.push(suggestion.href!); }}>{suggestion.label}</a>
+                ) : suggestion?.query ? (
+                  <button type="button" className="gs-suggest" onClick={() => { setQ(suggestion.query!); setActive(0); inputRef.current?.focus(); }}>{suggestion.label}</button>
+                ) : null}
               </p>
             ) : (
               result.groups.map((g) => (
