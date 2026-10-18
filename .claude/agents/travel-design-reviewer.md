@@ -20,3 +20,5 @@ Rank each finding critical, important or polish. Each one names the screen, what
 When you change the foundation, keep these consistent with each other: `tokens.md`, `tokens.json`, `components.md`, `patterns.md`, `specimen.html` and `changes-from-preview.md`.
 
 Plain direct English, no emojis. Commit only design docs.
+
+GPU rendering: this machine (nks-ubuntu) has an Intel Arc A770M. Launch Chromium with `--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization` so WebGL maps render on the real GPU (globe idle spin 60 fps, p95 16.8 ms). The SwiftShader flags render vector tiles but run about 35 times slower (1.7 fps on the same scene), so never judge motion, smoothness or frame time under SwiftShader.
