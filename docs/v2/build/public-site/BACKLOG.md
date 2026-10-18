@@ -36,8 +36,10 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 1.7 | Re-verify L2, merge, run tsc/test/build on the merged branch | gate | queued |
 | 1.8 | Privacy lane PS: personal place status and `stayStatus` off all public output; "In a public trip" facet; payload test | owner F7 | doing (verifying 832ccb7) |
 | 1.9 | Merge PS | gate | queued |
-| 1.10 | Fable globe experience review: `globe/experience-review.md`, rewritten `spec.md`, mock | owner F1 | doing |
-| 1.11 | Trip timeline: Fable design `design/trip-page/timeline-design.md` with a mock; Opus model `features/trip-timeline.md` and brief `L3c-trip-timeline.md` | owner | doing |
+| 1.10 | Fable globe experience review: `globe/experience-review.md` (M1-M14, S1-S12), rewritten `spec.md` as the L2b build spec, mock at `globe/mock/` | owner F1 | done 3769fe7 |
+| 1.11a | Trip timeline model `features/trip-timeline.md` and brief `L3c-trip-timeline.md` (Opus): the entry list, a scheduler in `core/src/schedule/`, the party profile, ORS legs stored at publish, markers to chips. Audit: 1 of 14 trips timed today, 10 of 14 can get authored schedules (about 330 legacy time cells and 80 Rockies note times exist), 4 rule-only, 6 overview trips need days | owner | done (this commit) |
+| 1.11b | Trip timeline design `design/trip-page/timeline-design.md` with a mock (Fable) | owner | doing |
+| 1.13 | Globe M1, blocking: drag dead at world zoom and the release drills into a country (the spin tick calls `jumpTo` while the pointer is down); sent to the L2 builder | Fable review | doing |
 | 1.12 | Show the owner the timeline mock and the globe mock before those lanes build | owner rule | queued |
 
 ## Stage 2: integration pass (coordinator, after stage 1 merges)
@@ -59,13 +61,25 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | 2.13 | Honest actions without accounts: check what "Save to a trip" and "Copy to my trips" do before sign-in exists; each must do something real (download, ICS for a dated copy) or say plainly that it comes with the planner | gap audit | queued |
 | 2.14 | Images: Commons thumbnails at the sizes used (no full-size originals), lazy loading, width and height set to avoid layout shift | gap audit | queued |
 | 2.15 | Full e2e on a quiet machine, a real Lighthouse (home first paint was 1.47 s against a 1.5 s target), the privacy grep of `web/out` | STATUS | queued |
+| 2.17 | Foundation patterns: trip-page URL keys in 1.2 (`?p=`, `pace`, `d=`, `add=`); remove the Track A/B/C segment from 3.4; globe tokens `--globe-ocean`, `--globe-halo`, `--globe-edge`, `--globe-dim`, `--map-wood`, dark `--map-land`, `--map-high`, `--map-water` (after Q6) | planner, Fable | queued |
 | 2.16 | Integration sweep by travel-verifier on the GPU, recorded in `verify-integration.md` | gate | queued |
+
+## Stage 3a: data foundation (runs alongside stages 2 and 3; data and core only)
+
+| ID | Item | Source | Status |
+|---|---|---|---|
+| 3a.1 | **Suitability metadata schema** (`research/suitability.md`): a shared model for every kind covering min age, height or weight rules, recommended age band, carry-able toddler, stroller access, wheelchair and step-free access, an effort grade with its basis, child-pace time, toilets, shade, water, bail-out and signal, water safety, and access season. Kind detail on recognised scales (SAC, CAI, YDS, Parks Canada, via ferrata A-E, IMBA, Singletrack S0-S5, whitewater I-VI, operator rules for zip line and bungee), mapped onto one family effort scale. Every value has provenance; "not stated by the operator" is a valid value | owner | doing (Opus planner) |
+| 3a.2 | Schema, validator and migration in `core/` (Zod, generated JSON schema), before any enrichment | owner | queued |
+| 3a.3 | **Enrichment of every place linked to a planned trip**, in researcher lanes by trip (travel-researcher, Opus); places with no data yet wait. Web research in parallel; Commons stays sequential | owner | queued |
+| 3a.4 | **Short trips** (`features/short-trips.md`): day trip, overnight, weekend and long weekend in the schema; origin and return legs, leave-by and home-by, day-use permits and timed slots, a weather go/no-go and Plan B; a compact public page; a "Day trips" filter; quick creation in the planner later. The household's origin stays private | owner | doing (Opus planner) |
 
 ## Stage 3: wave 3 (four lanes in parallel, disjoint files)
 
 | ID | Item | Source | Status |
 |---|---|---|---|
 | 3.1 | **L3c trip page timeline.** Whole-trip timeline and per-day timelines with times (fixed, anchored, suggested), drive legs, visits, meals and breaks, sun anchors, booking slots. A scheduler in `core/` (pure, tested) with authored overrides. A trip-level party profile replaces per-day A/B/C, with per-day override and "add to this day". Research markers (INFERENCE, CALC, "low confidence") become honesty chips; units follow the preference inside notes; long notes become "Know before you go" bullets | owner | queued (design and model doing) |
+| 3.1b | L3c ownership is split from L3b: L3c owns the trip-page files and `components/trips/timeline/`; L3b owns the list page, `TripCover.tsx`, `components/trips/tags/` and `lib/public/tags.ts`, and must not edit `trips.ts`. L3c merges before L3b | L3c brief | queued |
+| 3.1c | **L3d**, after L3c merges: import the about 330 legacy time cells for 8 trips (Patagonia, Iceland, Algonquin, Vermont, Niagara, New Hampshire, Quebec, Switzerland), shown as suggested until a person checks each trip; convert the 6 overview trips to days | L3c audit | queued |
 | 3.2 | **L3b trip tags and filters** at parity with Places, using the same tag vocabulary, mostly derived (continent, countries, length band, season, kids' age, activities from places, hike effort, getting around, driving per day, one base or road trip); tag chips link to filtered lists | owner | queued |
 | 3.3 | **L2b globe experience** from the rewritten spec: rendering (atmosphere, edge, palette, labels in one script), motion (spin, inertia, fly-to), selection cards per feature class, chrome that lets the canvas dominate, pin clustering that means something at world view, loading with no pop-in, a performance budget on the GPU | owner F1, coordinator shot | queued |
 | 3.4 | L2b: city areas from OSM admin_level 8, pre-built for cities with our content, with an honest fallback | owner F3 | queued |
@@ -116,6 +130,8 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 | Q2 | Keep the date a place was saved and the Instagram post date in public place data, or remove them? (low risk) | 18 Oct |
 | Q3 | Hide the old live `/locations/` page now, or let it go at go-live? | 18 Oct |
 | Q4 | Confirm that old trip URLs redirect to the new trip pages at go-live (7.1) | 18 Oct |
+| Q5 | Timeline: default party per trip is the party it was written for (the Rockies: 2 adults and a 6-year-old)? Generated meals and coffee shown by default as "suggested" rows? "Add to this day" covers the trip's places plus the catalogue within 30 km of the base? Imported legacy times show as "suggested" until a person checks each trip? Pace and child rules of thumb (day caps, walk ceilings, 1.6x trail time at age 6-7) accepted to start? Recommended: yes to all | 18 Oct |
+| Q6 | Globe palette: accept the dark-theme direction in the experience review (land lighter than ocean; new globe tokens) so the foundation docs can change | 18 Oct |
 
 ## Later: after go-live (planner and data)
 

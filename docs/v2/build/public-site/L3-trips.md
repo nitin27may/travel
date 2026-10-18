@@ -62,7 +62,8 @@ render them, do not edit them), `web/lib/public/**` (LD), `web/lib/map/**` (LM),
    - By day (default): uniform day rows (quiet DAY 03 sign, 96 x 68 thumbnail, `--t-card` title, mono base · drive,
      serif stop list), expandable to stops with legs; `#day-3` anchors; chronological, never re-sorted. Rockies days
      with tracks show a Track A · B · C segment inside the expanded row; the collapsed row lists track B (family) by
-     default and says "3 options".
+     default and says "3 options". **Superseded 18 Oct 2026** by the trip-level party profile and day timelines in
+     [features/trip-timeline.md](../../features/trip-timeline.md) (lane [L3c](L3c-trip-timeline.md)).
    - By category: six sections in fixed order; list rows with kind glyph, name, area, the day sign ("Day 3 · 11:30",
      "Day 3 · also Day 5") and a link to the place page; Stays show nights; Logistics shows book-by dates coloured by
      tokens 3.1 (all neutral for a visitor unless a window is open).
