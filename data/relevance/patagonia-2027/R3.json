@@ -1,0 +1,1989 @@
+{
+  "schema": "relevance/1",
+  "trip": "patagonia-2027",
+  "lane": "R3",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/losglaciares",
+      "title": "Parque Nacional Los Glaciares (World Heritage Site, created 1937, UNESCO 1981)",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/tierradelfuego",
+      "title": "Parque Nacional Tierra del Fuego",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.argentina.gob.ar/senderos-del-parque-nacional-tierra-del-fuego",
+      "title": "Senderos del Parque Nacional Tierra del Fuego",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.argentina.travel/planea-tu-viaje/parque-nacional-los-glaciares-el-chalten-y-el-calafate-santa-cruz",
+      "title": "Parque Nacional Los Glaciares: El Chaltén y El Calafate, Santa Cruz",
+      "publisher": "Visit Argentina (Instituto Nacional de Promoción Turística)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://elchalten.tur.ar/laguna-de-los-tres/",
+      "title": "Laguna de Los Tres",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+      "title": "Mirador de los Cóndores y Águilas",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://elchalten.tur.ar/el-chorrillo-del-salto/",
+      "title": "El Chorrillo del Salto",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://elchalten.tur.ar/",
+      "title": "Turismo Chaltén: Capital Nacional del Trekking",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://turismoushuaia.com/actividad/laguna-esmeralda/?lang=es_AR",
+      "title": "Laguna Esmeralda",
+      "publisher": "Secretaría de Turismo, Municipalidad de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://turismoushuaia.com/actividad/navegacion-a-la-pinguinera/?lang=es_AR",
+      "title": "Navegación a la pingüinera",
+      "publisher": "Secretaría de Turismo, Municipalidad de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://piratour.net/producto/caminata-en-isla-martillo/",
+      "title": "Caminata en Pingüinera (Isla Martillo)",
+      "publisher": "Piratour Travel",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://piratour.net/producto/navegacion-en-canal-beagle-catamaran-verano/",
+      "title": "Navegación en Canal Beagle - Catamarán",
+      "publisher": "Piratour Travel",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://api.hieloyaventura.com/api/excurtions",
+      "title": "Minitrekking product data (hieloyaventura.com)",
+      "publisher": "Hielo y Aventura S.A.",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://argentina.gob.ar/sites/default/files/2019/06/mapa_pasarelas_-_el_calafate_2024.pdf",
+      "title": "Mapa de pasarelas, Glaciar Perito Moreno",
+      "publisher": "Parque Nacional Los Glaciares, APN",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.wikidata.org/w/api.php?action=wbgetentities",
+      "title": "Wikidata entities read by QID (labels, descriptions, P625 coordinates, sitelinks)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://es.wikipedia.org/wiki/Laguna_Nimez",
+      "title": "Laguna Nimez",
+      "publisher": "Wikipedia (es)",
+      "kind": "community",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q125565893",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed by label: 'Sentiero Laguna de los Tres' (it), the trail itself, with a Laguna de Los Tres image; the item has no coordinates, so a person should re-check it."
+      },
+      "class_key": "lake/alpine-hike-in",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004",
+          "src-0005"
+        ],
+        "note": "The national tourism board's top list names it 'para la postal icónica'; the municipal board calls it one of the most important treks in El Chaltén; inside the Los Glaciares WHS (parent)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004",
+          "src-0005"
+        ],
+        "note": "The headline day hike of El Chaltén on both the national and municipal boards."
+      },
+      "standing_scope": "El Chaltén and the north zone of Los Glaciares",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Laguna Torre (about 7 km away) is the same class under Cerro Torre; Base Torres in Torres del Paine (about 250 km) is the nearest comparable spire-and-lake hike."
+      },
+      "unique_because": "The closest walkers get to the east face of Fitz Roy",
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Laguna Capri, on the same trail, gives Fitz Roy over water at about a third of the effort, but not the face up close."
+      },
+      "easy_way": "trip/patagonia-2027/trail:laguna capri",
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The payoff is the Fitz Roy face, which disappears in cloud; wind makes the final climb unsafe."
+      },
+      "why": "The classic Fitz Roy view from the lake at its foot, the hardest and best day hike in El Chaltén.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Only the park entry ticket, bought online and shown as a QR code; no cap, slot or permit found."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Visit Argentina (INPROTUR)",
+              "title": "Parque Nacional Los Glaciares: El Chaltén y El Calafate, Santa Cruz",
+              "year": 2026,
+              "list": "top_list",
+              "reach": "national"
+            },
+            {
+              "publisher": "Secretaría de Turismo El Chaltén",
+              "title": "Laguna de Los Tres",
+              "year": 2017,
+              "list": "top_list",
+              "reach": "regional"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0004",
+            "src-0005"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q124360343",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed: 'lake in Argentina', -49.3049, -72.936, about 4 km north-west of El Chaltén (Q1323978 at -49.331, -72.886)."
+      },
+      "class_key": "lake/alpine-hike-in",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "note": "On the national tourism board's top list of El Chaltén treks; inside the Los Glaciares WHS (parent)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Laguna de los Tres and Laguna Torre are the headline walks; Capri is the moderate Fitz Roy view."
+      },
+      "standing_scope": "El Chaltén and the north zone of Los Glaciares",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Laguna de los Tres (same trail) and Laguna Torre (about 6 km) are the same class nearby."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Mirador de los Cóndores shows Fitz Roy from the village edge, without the lake."
+      },
+      "easy_way": "trip/patagonia-2027/trail:mirador de los condores",
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Still a fine forest walk in cloud, but the Fitz Roy reflection needs a clear morning."
+      },
+      "why": "Fitz Roy over a forest lake for half a day's walk from the village.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Only the park entry ticket, bought online and shown as a QR code; no cap, slot or permit found."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Visit Argentina (INPROTUR)",
+              "title": "Parque Nacional Los Glaciares: El Chaltén y El Calafate, Santa Cruz",
+              "year": 2026,
+              "list": "top_list",
+              "reach": "national"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0004"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "wbsearchentities 'Mirador de los Cóndores' (es, en): no item",
+          "full-text search '\"Mirador de los Cóndores\"' and 'Cóndores Chaltén': no item"
+        ]
+      },
+      "class_key": "viewpoint/summit-panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "note": "Listed by the El Chaltén tourism board as the shortest trek and the best panoramic photo of the valley; inside the Los Glaciares WHS (parent), which does not raise it."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "note": "The board calls it the place for the best panoramic photo of the whole valley; the standard sunset walk."
+      },
+      "standing_scope": "short walks in El Chaltén",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Mirador de las Águilas (about 1 km) and Loma del Pliegue Tumbado (same trailhead) are the same class."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk is the easy way; nothing shorter reaches the view."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The valley view works in cloud; Fitz Roy needs a clear evening."
+      },
+      "why": "A short climb from the visitor centre to the classic view of El Chaltén under Fitz Roy.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Only the park entry ticket, bought online and shown as a QR code; no cap, slot or permit found."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Secretaría de Turismo El Chaltén",
+              "title": "Mirador de los Cóndores y Águilas",
+              "year": 2016,
+              "list": "listed"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0006"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "wbsearchentities 'Mirador de las Águilas' (es, en): no item",
+          "full-text search on Wikidata for the name with El Chaltén: no item"
+        ]
+      },
+      "class_key": "viewpoint/summit-panorama",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006"
+        ],
+        "note": "Only on the municipal tourism board's page, as part of the Cóndores circuit; inside the Los Glaciares WHS (parent), which does not raise it."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A short add-on to Cóndores with the Lago Viedma view."
+      },
+      "standing_scope": "short walks in El Chaltén",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Mirador de los Cóndores is about 1 km away on the same path."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A short walk; nothing shorter reaches the Lago Viedma view."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Lago Viedma and the steppe still show in cloud."
+      },
+      "why": "Lago Viedma and the steppe from a short spur past Cóndores.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Only the park entry ticket, bought online and shown as a QR code; no cap, slot or permit found."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Secretaría de Turismo El Chaltén",
+              "title": "Mirador de los Cóndores y Águilas",
+              "year": 2016,
+              "list": "listed"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0006"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "wbsearchentities 'Chorrillo del Salto' (es, en): no item",
+          "full-text search '\"Chorrillo del Salto\"': no item"
+        ]
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0007"
+        ],
+        "note": "On the municipal tourism board's list as an easy trek 4 km from the village; no designation of its own (the WHS is parent)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The easy rest-day walk of El Chaltén; the big hikes outrank it."
+      },
+      "standing_scope": "El Chaltén",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Waterfalls are common in the Fitz Roy valleys; Cascada Escondida and others lie within 20 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0007"
+        ],
+        "note": "A car park near the falls leaves only a short walk."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A forest waterfall works in rain and cloud."
+      },
+      "why": "A 20 m waterfall in lenga forest, an easy walk from the village.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Only the park entry ticket, bought online and shown as a QR code; no cap, slot or permit found."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Secretaría de Turismo El Chaltén",
+              "title": "El Chorrillo del Salto",
+              "year": 2016,
+              "list": "listed"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0007"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "no item for an evening view from the village; Mount Fitz Roy (Q215138) is the subject, not this record",
+          "wbsearchentities 'Fitz Roy' (es, en)"
+        ],
+        "note": "Using the mountain's QID would read its fame for a roadside stop."
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "note": "Seen from the village by anyone staying in El Chaltén; the mountain is the headline of Los Glaciares WHS (parent), but this stop is a by-product of sleeping there."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Pleasant from the village; the classic glow is at sunrise from Capri or Cóndores."
+      },
+      "standing_scope": "El Chaltén",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Fitz Roy is one of a kind, but the view from town is shared by every lookout around the village."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No walk."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A cloudy evening hides the peak entirely."
+      },
+      "why": "Fitz Roy catching the evening light, from the village with no walk.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Nothing to book or buy."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "argentina.travel El Chaltén pages",
+            "elchalten.tur.ar"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q24942634",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed by description: eswiki 'reserva natural municipal ... El Calafate', P131 Lago Argentino department; its P625 (-50.317, -72.633) is about 26 km west of the reserve and needs a person's fix."
+      },
+      "class_key": "wildlife/viewing",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0016"
+        ],
+        "note": "A municipal nature reserve (conservation area, parent) on the edge of El Calafate; no tourism-board top list found."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The easy birding walk in town; the glacier is why people come."
+      },
+      "standing_scope": "El Calafate",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Lago Argentino shores and Bahía Redonda next to town hold the same flamingos and waterfowl."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A flat loop at the edge of town."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Birds stay in cloud; wind is the real limit."
+      },
+      "why": "Flamingos and waterfowl on a flat reserve loop at the edge of El Calafate.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "elcalafate.tur.ar (no reserve page)",
+          "lagunanimez.com (did not resolve)"
+        ],
+        "note": "Visitors report a small entry fee; not official."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Reserva Natural Laguna Nimez (municipal)",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0016"
+          ],
+          "note": "Recorded as parent because this record is the viewpoint, not the reserve."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "elcalafate.tur.ar home and attraction pages",
+            "web search for the municipal reserve page"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q2879472",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed: 'Bay of Argentina', -54.859, -68.543, inside Tierra del Fuego National Park (Q828709 at -54.667, -68.5)."
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "The end of Ruta 3 inside Tierra del Fuego national park (parent), which does not raise it; visitors to Ushuaia add it with the park day. Chose the lower of regional and national."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The closing image of a visit to the park."
+      },
+      "standing_scope": "Tierra del Fuego National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Other bays of the park (Ensenada Zaratiegui, Lago Roca) are the same class within 10 km; only this one is the road's end."
+      },
+      "unique_because": "Where Argentina's Ruta 3 ends, at the southern tip of the road network",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Roadside, with boardwalks."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The bay and the boardwalks work in rain."
+      },
+      "why": "The end of Ruta 3 on a quiet bay of the Beagle Channel, with short boardwalks.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "Inside the paid national park; nothing beyond the park ticket."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Tierra del Fuego",
+              "scope": "parent",
+              "wikidata": "Q828709"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "argentina.gob.ar Tierra del Fuego park page",
+            "turismoushuaia.com search 'lapataia' (gallery only)"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:coastal path",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "wbsearchentities 'Senda Costera' (es, en): no item",
+          "full-text search '\"Senda Costera\"': no item"
+        ]
+      },
+      "class_key": "trail/forest-loop",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "The longest of the park's medium trails in Tierra del Fuego national park (parent); no top list of its own found."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The park's main day walk along the Beagle Channel."
+      },
+      "standing_scope": "Tierra del Fuego National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Coastal forest on the Beagle Channel; Hito XXIV along Lago Roca is the nearest similar walk."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Lapataia boardwalks and short trails give the channel shore in under an hour."
+      },
+      "easy_way": "trip/patagonia-2027/viewpoint:lapataia bay",
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Forest and shore walking works in cloud and drizzle."
+      },
+      "why": "An 8 km forest and shore path along the Beagle Channel, the park's main day walk.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "Inside the paid national park; nothing beyond the park ticket."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Tierra del Fuego",
+              "scope": "parent",
+              "wikidata": "Q828709"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "argentina.gob.ar Tierra del Fuego pages",
+            "turismoushuaia.com"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "wbsearchentities 'Laguna Esmeralda': Q23645333 (-47.33, -72.59) and Q23660098 (-46.86, -72.06) are other lakes, not the Ushuaia lagoon (about -54.67, -68.1)",
+          "full-text search 'Laguna Esmeralda Ushuaia': only a 2023 article item"
+        ]
+      },
+      "class_key": "lake/glacial-turquoise",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "note": "The Ushuaia tourism board calls it one of the most recommended treks and an emblematic place of Ushuaia; outside the national park, no designation."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "note": "The board's first-choice trek for a short stay."
+      },
+      "standing_scope": "Ushuaia and Ruta 3",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Laguna de los Témpanos and the Ojo del Albino glacier are nearby lagoon hikes of the same kind."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The lagoon is reached only by the 9 km walk."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Still worth it in cloud, but the colour needs light; rain turns the bog to deep mud."
+      },
+      "why": "A turquoise glacial lagoon reached through lenga forest and peat bog, Ushuaia's classic hike.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Trailhead car park on Ruta 3; no fee found."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "note": "Outside the national park; the tourism board names no protected area."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Secretaría de Turismo, Municipalidad de Ushuaia",
+              "title": "Laguna Esmeralda",
+              "year": 2026,
+              "list": "top_list",
+              "reach": "regional"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0009"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/lake:beagle channel boat",
+      "kind": "activity",
+      "subkind": "boat-tour",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Beagle Channel (Q202671) is the strait, not this boat trip",
+          "no item for the Isla de los Lobos and Les Eclaireurs navigation"
+        ],
+        "note": "Using the strait's QID would read a world-fame signal for one boat trip."
+      },
+      "class_key": "water/boat-tour",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0012"
+        ],
+        "note": "The standard Ushuaia outing, listed by the municipal tourism board through its licensed operators; no designation."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Several operators run the same route; the penguin landing outranks it."
+      },
+      "standing_scope": "Ushuaia",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The only sea-lion and lighthouse route of its kind in Argentina's far south; Punta Arenas runs similar trips in Chile."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A seated boat trip."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Sea lions and the lighthouse show in cloud; wind can cancel."
+      },
+      "why": "Sea lions, cormorants and Les Eclaireurs lighthouse from a catamaran on the Beagle Channel.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "boat_or_ferry",
+            "note": "several sailings a day, all year",
+            "capped": false
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0012"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "piratour.net catamaran page",
+            "turismoushuaia.com Canoero and pingüinera pages"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "turismoushuaia.com"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:penguin colony stop",
+      "kind": "sight",
+      "subkind": "wildlife_viewing",
+      "wikidata": {
+        "v": "Q16579929",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed: 'island in Argentina', -54.907, -67.387 in the Beagle Channel, P131 Ushuaia department; eswiki: 'Isla Martillo ... en el canal Beagle'."
+      },
+      "class_key": "wildlife/viewing",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010"
+        ],
+        "note": "The Ushuaia tourism board calls Isla Martillo the only penguin colony of Tierra del Fuego; the landing has a strict daily quota and sells out ahead in summer (plan research)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010",
+          "src-0011"
+        ],
+        "note": "Only one operator may land; the walk among the birds is the headline of a Ushuaia stay."
+      },
+      "standing_scope": "Ushuaia",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Punta Tombo (about 1,500 km north) is far larger; nothing comparable within 500 km on the Argentine side."
+      },
+      "unique_because": "The only penguin colony in Tierra del Fuego, and a walk among the birds",
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010"
+        ],
+        "note": "Boats from Ushuaia view the colony from the water without landing."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The birds are there in any weather; wind can cancel the zodiac."
+      },
+      "why": "A guided walk among Magellanic and Gentoo penguins on a small Beagle Channel island.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "boat_or_ferry",
+            "note": "one licensed operator lands; small groups and a daily quota",
+            "capped": true,
+            "book_ahead_days": 60
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0011",
+          "src-0010"
+        ],
+        "note": "book_ahead_days is the plan research's 'two months ahead' (secondary); our pattern, not an operator rule."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "turismoushuaia.com Navegación a la pingüinera (no protected status named)",
+            "web search for a provincial reserve rule on Isla Martillo (none found)"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "turismoushuaia.com Navegación a la pingüinera (describes, no list)"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+      "kind": "sight",
+      "subkind": "attraction",
+      "wikidata": {
+        "v": "Q367943",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed: 'glacier located in the Patagonian Andes', -50.493, -73.128, in Los Glaciares. The walkways exist to face it, so the glacier is the subject."
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004",
+          "src-0001"
+        ],
+        "note": "The glacier is a headline of Los Glaciares WHS (parent); the national tourism board calls the walkways the most famous in the country."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The way almost every visitor sees the glacier."
+      },
+      "standing_scope": "El Calafate and the south zone of Los Glaciares",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No other glacier front in the country faces a railed walkway a short way across the water."
+      },
+      "unique_because": "A calving glacier front seen from railed walkways across a narrow channel",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "note": "The 565 m Sendero Accesible faces the glacier."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The ice is impressive under grey sky; rain makes the grating slippery."
+      },
+      "why": "A 5 km-wide glacier front calving into Lago Argentino, seen from railed walkways.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Only the park entry ticket, bought online or at the gate on RP 11."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Visit Argentina (INPROTUR)",
+              "title": "Parque Nacional Los Glaciares: El Chaltén y El Calafate, Santa Cruz",
+              "year": 2026,
+              "list": "top_list",
+              "reach": "national"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0004"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
+      "kind": "activity",
+      "subkind": "glacier-walk",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "no item for the Minitrekking product",
+          "the glacier is Q367943 (held on the walkways record)"
+        ]
+      },
+      "class_key": "glacier/walk-on",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0013",
+          "src-0001"
+        ],
+        "note": "Run by the park's only concessionaire for glacier trekking on Perito Moreno, inside Los Glaciares WHS (parent); the product sells out ahead in summer (plan research)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The one glacier walk on Perito Moreno open to ages 8 to 65."
+      },
+      "standing_scope": "El Calafate",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Big Ice (same operator, adults only) and the Viedma glacier treks near El Chaltén are the same class."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "note": "The walkways and the Safari Náutico boat show the same ice from outside, without crampons."
+      },
+      "easy_way": "trip/patagonia-2027/sight:perito moreno walkways",
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0013"
+        ],
+        "note": "The operator runs it in changing weather unless unsafe."
+      },
+      "why": "About an hour in crampons on Perito Moreno, among cracks and seracs, with a guide.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Held as a booking in the plan; the operator's own booking is the only access."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "El Parque Nacional Los Glaciares fue creado en 1937 y declarado Sitio de Patrimonio Mundial por la UNESCO en 1981."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "argentina.travel Los Glaciares itinerary (mentions water excursions, not this product)",
+            "elcalafate.tur.ar Perito Moreno page"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1010253",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed: Recoleta, 'neighborhood of Buenos Aires, Argentina', -34.591, -58.391. The walk also covers Palermo (Q1018128)."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or tourism-board top list opened in this pass; Buenos Aires is the arrival city, and the Recoleta Cemetery is its best-known sight (plan research)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement within the city or village."
+      },
+      "standing_scope": "Buenos Aires",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "San Telmo and Puerto Madero are other walkable districts of the city."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk itself is the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A city walk with indoor options."
+      },
+      "why": "Parks, cafes and the Recoleta Cemetery on a first afternoon in Buenos Aires.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Nothing to book."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no designation searched beyond the trip's research for this stop",
+            "Wikidata item claims (P1435) not read; the tool reads them"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no tourism-board top list opened for this stop"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:san telmo market",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1026688",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed: San Telmo, 'neighborhood of the city of Buenos Aires', -34.621, -58.372. The Sunday fair is Q5444293; this stop is not on a Sunday."
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or tourism-board top list opened in this pass; the old quarter and its Sunday fair are a standard Buenos Aires visit (plan research)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement within the city or village."
+      },
+      "standing_scope": "Buenos Aires",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "La Boca is the other old port quarter of the city."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk itself is the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The covered market works in rain."
+      },
+      "why": "Cobbled streets, the covered market and antique shops of Buenos Aires' oldest quarter.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Nothing to book."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no designation searched beyond the trip's research for this stop",
+            "Wikidata item claims (P1435) not read; the tool reads them"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no tourism-board top list opened for this stop"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:cafe and bookshops",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "no single place for this stop; El Ateneo Grand Splendid is one candidate",
+          "wbsearchentities not run for a generic stop"
+        ]
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or tourism-board top list opened; a generic last-morning stop."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement within the city or village."
+      },
+      "standing_scope": "Buenos Aires",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Cafes and bookshops are everywhere in central Buenos Aires."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk itself is the visit."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Cafes and shops."
+      },
+      "why": "A slow last morning of cafes and bookshops in Buenos Aires.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Nothing to book."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no designation searched beyond the trip's research for this stop",
+            "Wikidata item claims (P1435) not read; the tool reads them"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no tourism-board top list opened for this stop"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:harbour walk",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "no item for Ushuaia's waterfront promenade; the city is Q44254, which would over-score a short walk"
+        ]
+      },
+      "class_key": "town/lakeside",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation or tourism-board top list for the promenade itself; a stop for anyone staying in Ushuaia."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement within the city or village."
+      },
+      "standing_scope": "Ushuaia",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Every channel-side town has a waterfront; this one adds the boat ticket booths."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk itself is the visit."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The channel and the mountains need some light."
+      },
+      "why": "The Ushuaia waterfront, the boat pier and the Beagle Channel on arrival day.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Nothing to book."
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no designation searched beyond the trip's research for this stop",
+            "Wikidata item claims (P1435) not read; the tool reads them"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no tourism-board top list opened for this stop"
+          ]
+        }
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/town:village and cafes",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1323978",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0015"
+        ],
+        "note": "Confirmed: El Chaltén, 'human settlement in Santa Cruz, Argentina', -49.331, -72.886."
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The tourism board styles the village the 'Capital Nacional del Trekking', the gateway to the north zone of Los Glaciares WHS (parent)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Our judgement within the city or village."
+      },
+      "standing_scope": "the north zone of Los Glaciares",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "El Calafate is the other base for Los Glaciares, a much larger town without the trailheads."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk itself is the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Cafes and a rest day."
+      },
+      "why": "A small trekking village with bakeries and cafes under Fitz Roy, every trail starting at its edge.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Nothing to book."
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Los Glaciares National Park",
+              "id": "145",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            },
+            {
+              "type": "national_park",
+              "name": "Parque Nacional Los Glaciares",
+              "scope": "parent",
+              "wikidata": "Q215992"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "note": "The village is the gateway; the park designations are parent."
+        },
+        "editorial": {
+          "v": [
+            {
+              "publisher": "Secretaría de Turismo El Chaltén",
+              "title": "Capital Nacional del Trekking",
+              "year": 2025,
+              "list": "listed"
+            }
+          ],
+          "state": "value",
+          "basis": "editorial",
+          "src": [
+            "src-0008"
+          ]
+        }
+      }
+    }
+  ]
+}

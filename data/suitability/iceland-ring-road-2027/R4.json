@@ -1,0 +1,3346 @@
+{
+  "schema": "suitability/1",
+  "trip": "iceland-ring-road-2027",
+  "lane": "R4",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarnipa-s6",
+      "title": "Svartifoss - Sjonarnipa (S6)",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarsker-sel-s2",
+      "title": "Svartifoss - Sjonarsker - Sel (S2)",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/destination-svartifoss",
+      "title": "Destination Svartifoss",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+      "title": "Dettifoss",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur",
+      "title": "Jokulsargljufur",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/news/landslide-by-dettifoss",
+      "title": "Landslide by Dettifoss",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsarlon",
+      "title": "Jokulsarlon",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/destination-breidamerkursandur",
+      "title": "Breidamerkursandur",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/warnings/temporary-closure-of-main-parking-lot-by-jokulsarlon",
+      "title": "Temporary closure of main parking lot by Jokulsarlon",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/gullfoss/",
+      "title": "Gullfoss",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/gullfoss/about-the-area/",
+      "title": "Gullfoss: about the area",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/skogafoss/",
+      "title": "Skogafoss",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/skogafoss/access-and-management/",
+      "title": "Skogafoss: access and management",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/",
+      "title": "Geysir area",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/",
+      "title": "Geysir area: supervision and service",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/north-east/godafoss-in-thingeyjarsveit/",
+      "title": "Godafoss in Thingeyjarsveit",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/north-east/dettifoss-and-a-row-of-waterfalls/",
+      "title": "Dettifoss and a row of waterfalls",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/west/hraunfossar-borgarbyggd/",
+      "title": "Hraunfossar",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.thingvellir.is/en/service/parking-service/",
+      "title": "Parking service",
+      "publisher": "Thingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.thingvellir.is/en/things-to-do/visitor-centre/",
+      "title": "Visitor centre",
+      "publisher": "Thingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.thingvellir.is/en/things-to-do/hiking-trails/",
+      "title": "Hiking trails",
+      "publisher": "Thingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.ferdamalastofa.is/en/news/increased-safety-and-better-information-with-new-signs-in-reynisfjara-black-sand-beach",
+      "title": "Increased safety and better information with new signs in Reynisfjara black sand beach",
+      "publisher": "Icelandic Tourist Board (Ferdamalastofa)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.ferdamalastofa.is/en/news/reynisfjara-recent-changes-due-to-coastal-erosion",
+      "title": "Reynisfjara Beach: recent changes due to coastal erosion",
+      "publisher": "Icelandic Tourist Board (Ferdamalastofa)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://snaefellsjokull.is/en/aningastadur/djupalonsandur-2",
+      "title": "Djupalonsandur",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://snaefellsjokull.is/en/gonguleid/djupalonssandur-dritvik-2",
+      "title": "Djupalonssandur - Dritvik",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://snaefellsjokull.is/en/aningastadur/arnarstapi",
+      "title": "Arnarstapi",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2",
+      "title": "Arnarstapi - Hellnar",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.snaefellsjokull.is/en/hiking-trails-destinations/travel-and-safety-advice",
+      "title": "Travel and safety advice",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://snaefellsjokull.is/en/gonguleid/snaefellsjokull-glacier",
+      "title": "Snaefellsjokull Glacier",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.earthlagoon.is/",
+      "title": "Earth Lagoon Myvatn (formerly Myvatn Nature Baths)",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.earthlagoon.is/faq",
+      "title": "FAQ",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.earthlagoon.is/lagoon",
+      "title": "The lagoon",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.earthlagoon.is/enjoy-pricing",
+      "title": "Pricing",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.glaumbaer.is/is/en",
+      "title": "Opening hours and admission",
+      "publisher": "Skagafjordur Heritage Museum",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.lystigardur.akureyri.is/is/english/practical-information",
+      "title": "Garden information",
+      "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://lystigardur.akureyri.is/en/moya/adverts/9",
+      "title": "Opening hours and directions",
+      "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://safetravel.is/",
+      "title": "Safetravel: eruptions and earthquakes in Reykjanes peninsula",
+      "publisher": "ICE-SAR (Safetravel)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://en.vedur.is/about-imo/news/ground-uplift-and-magma-accumulation-continue-beneath-svartsengi",
+      "title": "Ground uplift and magma accumulation continue beneath Svartsengi (read through search results; the fetched page showed only the site banner)",
+      "publisher": "Icelandic Meteorological Office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0039",
+      "url": "legacy/iceland-ring-road/PLAN.md",
+      "title": "Iceland Ring Road plan",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0040",
+      "url": "research/trips/iceland-ring-road/route.md",
+      "title": "Iceland route, stops and activity limits (research)",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0041",
+      "url": "prototype/src/data/public-trips.ts",
+      "title": "Iceland public trip days (stop durations)",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "suitability": {
+        "min_age": {
+          "v": null,
+          "state": "none_stated",
+          "basis": "operator_rule",
+          "src": [
+            "src-0031"
+          ],
+          "quote": "Yes, all children are welcome.",
+          "note": "The operator's FAQ welcomes all children and states no minimum age. The renovated facility reopened in 2026 under the name Earth Lagoon Myvatn."
+        },
+        "adult_required": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "earthlagoon.is/faq",
+            "earthlagoon.is/enjoy-pricing ('Children 0-5 years old: Free with an adult', a price condition, not a supervision rule)",
+            "myvatnnaturebaths.is/terms (301 to earthlagoon.is/terms, which returns 404)"
+          ],
+          "note": "An earlier repo note (suitability-applicability.md 3.12) gave 'children up to 12 in an adult's care' and 'armbands 1-8' from the old terms page. A 2026-10-18 search snippet of that page shows only 'guests take full responsibility for ... the children in their care'; the armband 2-8 rule found is the Blue Lagoon's. Not carried over."
+        },
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Any age with an adult in the water; 36-40 C water, so short soaks and shade breaks for babies and toddlers (our judgement)."
+        },
+        "kid_note": "Warm (36-40 C) milky geothermal water; keep small children within arm's reach and keep soaks short.",
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ],
+          "quote": "The lagoon is accessible for wheelchairs.",
+          "note": "A wheelchair is available from the shower to the lagoon (FAQ)."
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            150
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 90 min; changing and showering add about 30 min."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0032"
+          ],
+          "note": "Changing rooms for up to 630 guests with showers (operator); toilets are not named on the pages read."
+        },
+        "water_safety": {
+          "water_temp_c": {
+            "v": [
+              36,
+              40
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0031"
+            ],
+            "quote": "temperatures ranging from 36-40C"
+          },
+          "lifeguard": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "earthlagoon.is/faq",
+              "earthlagoon.is/lagoon"
+            ]
+          }
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "note": "Earth Lagoon Bistro is listed as a facility."
+        },
+        "participation": {
+          "pregnancy": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "earthlagoon.is/faq",
+              "earthlagoon.is/lagoon",
+              "earthlagoon.is/info"
+            ]
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Daily 12:00-22:00; 'Hours may vary seasonally'. The new facility was scheduled to open in summer 2026."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030",
+            "src-0033"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "water",
+        "floats_required_under": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "earthlagoon.is/faq",
+            "earthlagoon.is/lagoon"
+          ],
+          "note": "Not stated since the 2026 reopening; see the adult_required note."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+      "kind": "sight",
+      "subkind": "area",
+      "suitability": {
+        "kid_note": "A landscape stop on the Reykjanes peninsula; it depends on the volcanic status that morning, so treat it as a bonus.",
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 60 min."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "other",
+              "note": "Magma keeps accumulating under Svartsengi; an intrusion or eruption can start with a short warning and areas close on instruction."
+            },
+            {
+              "category": "health",
+              "note": "Volcanic gas near any new vents; follow Civil Protection closures."
+            },
+            {
+              "category": "terrain",
+              "note": "Open ground cracks around Grindavik; stay on marked paths."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037",
+            "src-0038",
+            "src-0040"
+          ],
+          "note": "IMO update of 21 Jul 2026 read through search results; the crack advice is from repo research (route.md)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Open unless Civil Protection closes areas; check safetravel.is the morning of."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Short marked paths to defined viewpoints (land manager)."
+        },
+        "kid_note": "Short paths between viewpoints over Hraunfossar and Barnafoss; hold hands at the gorge rails.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Marked paths with no hands-on sections stated."
+        },
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "The land manager says wheelchair access is good in parts of the area, so a big-wheeled stroller should manage those parts."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "the wheelchair-accessible parts only"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "There is good wheelchair access in parts of the Hraunfossar and Barnafoss area."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is Hraunfossar page",
+                "ust.is protected-areas English section (south, west, north-east lists) read 2026-10-18"
+              ]
+            }
+          }
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Hraunfossar page",
+            "ust.is protected-areas English section (south, west, north-east lists) read 2026-10-18"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 60 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "viewpoints above the Hvita gorge"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Viewpoints are 'clearly defined' (land manager); fencing is not stated."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "Toilet facilities are available"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "The area is accessible all year round",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "1 km each way on a marked path; small children carried or held near the canyon edge."
+        },
+        "kid_note": "1 km each way from the west car park; hold hands near the edge, and part of the platform is shut after a landslide.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A marked 1 km path with no hands-on sections stated."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is Dettifoss page",
+            "ust.is Dettifoss natural monument page"
+          ],
+          "note": "Path surface not stated."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is Dettifoss page",
+            "vatnajokulsthjodgardur.is Jokulsargljufur page"
+          ]
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "From the parking lot to the viewpoint at Dettifoss, it is a 1 km walk (one way).",
+              "note": "Return the same way: 2 km."
+            }
+          }
+        },
+        "walk_m": {
+          "v": 1000,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "it is a 1 km walk (one way)"
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 60 min for 2 km of walking and the viewpoint."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "partly",
+            "where": "the canyon edge by the viewing platform; the northern part of the platform and the path down to the falls are closed"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004",
+            "src-0006"
+          ],
+          "note": "'Care must be exercised whichever route is chosen' (park); landslide closure per the park's news page. Level 'some' is our reading: the marked path and platform keep you back from the edge."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "A landslide fell beside the viewing platform; cracks found nearby; closed spots stay shut until assessed."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ]
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "There are good toilet facilities at the major destinations."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "West side by paved road 862, limited winter service; the east gravel road 864 closes when snow falls in autumn."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004",
+            "src-0005"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 2,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:geysir",
+      "kind": "sight",
+      "subkind": "attraction",
+      "suitability": {
+        "kid_note": "Strokkur erupts every few minutes; the pools are boiling, so keep children on the paths and behind the ropes.",
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A short level visit; the hazard is the boiling water beside the paths, managed by holding hands."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Geysir area pages (about, supervision and service, hiking trails)",
+            "ust.is protected-areas English section (south, west, north-east lists) read 2026-10-18"
+          ],
+          "note": "Path surface not stated."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Geysir area: supervision and service",
+            "ust.is Geysir area: hiking trails"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min; Laugarfjall's viewing platforms add time."
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "quote": "shops and restaurants in Geysir Center",
+          "note": "Just outside the protected area."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+      "kind": "sight",
+      "subkind": "museum",
+      "suitability": {
+        "kid_note": "A walk through low turf houses with narrow passages; children enter free.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Turf-house interiors with low doorways and narrow passages; leave the stroller outside (our judgement; no rule found)."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "glaumbaer.is opening hours and admission",
+            "thjodminjasafn.is Glaumbaer page (via search)"
+          ],
+          "note": "The museum lists a disability rate, not an access description."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-20",
+              "to": "09-20",
+              "status": "open",
+              "via": "road",
+              "note": "Daily 10:00-18:00"
+            },
+            {
+              "from": "09-21",
+              "to": "10-20",
+              "status": "limited",
+              "via": "road",
+              "note": "Weekdays 10:00-16:00"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0034"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A roadside waterfall on Route 1 (plan)."
+        },
+        "kid_note": "Right off Route 1; hold hands at the riverbank viewpoints.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Short paths from the car park."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Godafoss page",
+            "ust.is protected-areas English section (south, west, north-east lists) read 2026-10-18"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Godafoss page",
+            "ust.is protected-areas English section (south, west, north-east lists) read 2026-10-18"
+          ]
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is Godafoss page",
+                "ust.is protected-areas English section (south, west, north-east lists) read 2026-10-18"
+              ],
+              "note": "The plan says 'no walking'; not confirmed by the land manager."
+            }
+          }
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Godafoss page",
+            "ust.is protected-areas English section (south, west, north-east lists) read 2026-10-18"
+          ],
+          "note": "The plan says 'right on Route 1, no walking'."
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            45
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "riverbank above the falls"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A 9-17 m fall into a river; fencing not stated by the land manager."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ],
+          "quote": "visited by a large number of tourists all year round",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Viewpoints from the car park area; the lower path beside the falls needs held hands."
+        },
+        "kid_note": "Upper and lower viewpoints; the lower path is wet with spray, so waterproofs and held hands.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Made paths and stairs; no hands-on sections in the plan."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Gullfoss page",
+            "ust.is Gullfoss: about the area"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Gullfoss page",
+            "ust.is Gullfoss: about the area"
+          ]
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is Gullfoss page",
+                "ust.is Gullfoss: about the area"
+              ]
+            }
+          }
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Gullfoss page",
+            "ust.is Gullfoss: about the area"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the canyon edge beside the lower path"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A two-tier fall into a canyon (land manager); the paths keep visitors back from the edge, fencing is not stated on its pages."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Gullfoss page",
+            "ust.is Gullfoss: about the area"
+          ],
+          "note": "No season or winter path closure stated."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+      "kind": "sight",
+      "subkind": "attraction",
+      "suitability": {
+        "kid_note": "Boiling mud and steam vents beside the path; the ground off the path can be scalding, and the sulphur smell is strong.",
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A short walk on marked paths; carry or hold small children."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, north-east list (no Hverir page)",
+            "Wikidata search: no confirmed item for Hverir"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, north-east list (no Hverir page)",
+            "Wikidata search: no confirmed item for Hverir"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The front view is beside the car park; the path behind is wet and slippery, so from about 4 on foot or carried."
+        },
+        "kid_note": "Walking behind the falls soaks everyone and the rock is slippery; waterproofs, and carry small children.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A path with steps; no hands-on sections in the plan."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, south list (no Seljalandsfoss page)",
+            "search for an official Seljalandsfoss site, 2026-10-18 (none found)"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, south list (no Seljalandsfoss page)",
+            "search for an official Seljalandsfoss site, 2026-10-18 (none found)"
+          ]
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is protected areas, south list",
+                "search for an official Seljalandsfoss site, 2026-10-18"
+              ]
+            }
+          }
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, south list",
+            "search for an official Seljalandsfoss site, 2026-10-18"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0039",
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min; Gljufrabui, 500 m on, adds 20-30 min (plan)."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "wet rock on the path behind the falls"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The plan's own walk; no land-manager page found."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, south list",
+            "search for an official Seljalandsfoss site, 2026-10-18"
+          ],
+          "note": "Travel sites say the path behind closes in winter for ice; no official source found."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The base is beside the car park; the stairs to the top platform suit children who walk well or are carried."
+        },
+        "kid_note": "The base is flat and wet with spray; the stairs to the top are long, so carriers rather than strollers.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Stairs, no hands-on sections."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Skogafoss page",
+            "ust.is Skogafoss: access and management"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Skogafoss page",
+            "ust.is Skogafoss: access and management"
+          ]
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is Skogafoss page",
+                "ust.is Skogafoss: access and management"
+              ]
+            },
+            "fixed_aids": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is Skogafoss page",
+                "ust.is Skogafoss: access and management"
+              ],
+              "note": "Travel sites give 525-527 stairs; no land-manager figure."
+            }
+          }
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is Skogafoss page",
+            "ust.is Skogafoss: access and management"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min; the stairs add 20-30 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the top platform above the 60 m drop"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A 60 m waterfall (land manager); fencing not stated."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "A land ranger is on duty all year; camping only at the site below the falls."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "a land ranger is available all year round",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+      "kind": "sight",
+      "subkind": "attraction",
+      "suitability": {
+        "kid_note": "A free, flat town garden with lawns and a cafe; an easy rest-day stop.",
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A level public garden."
+        },
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0036"
+          ],
+          "note": "The garden says it is fully accessible to those with mobility issues, so its paths take any stroller."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "quote": "The garden is fully accessible to those with mobility issues."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 60 min."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0035"
+          ],
+          "quote": "the garden operates two unisex toilets located on the western side of Jonshus",
+          "note": "Summer only (1 Jun - 30 Sep)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-01",
+              "to": "09-30",
+              "status": "open",
+              "via": "road",
+              "note": "Gates and toilets 08:00-22:00"
+            },
+            {
+              "from": "10-01",
+              "to": "05-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Gates open, toilets closed"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0035"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "A working fishing harbour; walk the quay and the waterfront.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Paved streets and quays (our judgement; no town access page read)."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "paved streets and quays"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Paved streets; individual buildings not checked (our judgement; no town access page read)."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45-90 min."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "The old harbour quarter: museums, whale-watching quays and cafes.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Paved streets and quays (our judgement; no town access page read)."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "paved streets and quays"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Paved streets; individual buildings not checked (our judgement; no town access page read)."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45-90 min."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "A small fjord town; the rainbow street leads to the blue church.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Paved streets and quays (our judgement; no town access page read)."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "paved streets and quays"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Paved streets; individual buildings not checked (our judgement; no town access page read)."
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45-90 min."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "snaefellsjokull.is Arnarstapi - Hellnar trail page",
+            "snaefellsjokull.is travel and safety advice"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "2 km each way on a coastal lava path (effort_km about 4 return); under-4s carried. Cliff edges need held hands."
+        },
+        "kid_note": "An easy coastal path, but the cliffs and arches beside it are unfenced; hold hands at the edge.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A coastal path with no ladders or hands-on sections stated."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A track across a lava field (land manager's description)."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "snaefellsjokull.is Arnarstapi - Hellnar trail page",
+              "snaefellsjokull.is Arnarstapi page"
+            ]
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 2,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0026"
+              ],
+              "quote": "A 2km hiking trail runs through the lava field between Arnarstapi and Hellnar.",
+              "note": "One way; 4 km if you walk back."
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "snaefellsjokull.is Arnarstapi - Hellnar trail page",
+                "snaefellsjokull.is Arnarstapi page"
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            25,
+            40
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "One way, Naismith at 5 km/h for 2 km plus stops; double it to walk back."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "sea cliffs, arches and gullies near Arnarstapi; the path keeps back from most edges"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0027"
+          ],
+          "note": "The land manager describes 'unique cliff formations' and kittiwakes nesting in the gills; no fencing mentioned."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Unfenced sea cliffs beside the path."
+            },
+            {
+              "category": "wind",
+              "note": "Exposed coast; gusts on the cliff top."
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0027",
+            "src-0039"
+          ],
+          "note": "From the land manager's description of the coast and the plan's wind warning."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "trail",
+              "note": "No seasonal closure found on the park pages."
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0027",
+            "src-0028"
+          ],
+          "note": "Searched the trail and safety pages; the park can close areas temporarily."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "point-to-point",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "snaefellsjokull.is Arnarstapi - Hellnar trail page",
+            "snaefellsjokull.is Arnarstapi page"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 2,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A short visit on foot or carried; the danger is the surf, managed by staying back from the water."
+        },
+        "kid_note": "Lift the four old fishermen's stones, but keep well back from the water: heavy surf and a strong undertow.",
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 90 min."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "quote": "Parking and toilets are up by the main road."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "water",
+              "note": "Heavy surf with a strong undertow on the beach."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0025"
+          ],
+          "quote": "there may be heavy surf on the beach with a strong undertow"
+        },
+        "water_safety": {
+          "lifeguard": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "snaefellsjokull.is Djupalonsandur page",
+              "snaefellsjokull.is Djupalonssandur - Dritvik page"
+            ]
+          },
+          "entry": {
+            "v": "drop_off",
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "note": "A steep pebble beach under heavy surf (land manager); not a place to wade."
+          },
+          "current_or_tide": {
+            "v": "strong",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0025"
+            ],
+            "quote": "a strong undertow"
+          }
+        },
+        "walk_m": {
+          "v": 2000,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "quote": "A 2km hiking trail runs through the lava field from the upper parking lot down to Djupalonssandur.",
+          "note": "From the upper lot; a smaller lot by the lagoon is closer (distance not stated)."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "quote": "A viewing platform above Djupalonssandur is accessible to wheelchairs",
+          "note": "The platform only; the beach path is through lava."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road"
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0024",
+            "src-0028"
+          ],
+          "note": "No seasonal closure found on the park pages."
+        }
+      },
+      "ext": {
+        "kind": "water",
+        "swimming": {
+          "v": "unsafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0025"
+          ],
+          "note": "Heavy surf and a strong undertow (land manager)."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, south list (no Fjadrargljufur page; the old URL returns 404)",
+            "safetravel.is home"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A rim path with platforms, about 1 h return in the plan; under-4s carried; held hands at the rim."
+        },
+        "kid_note": "A path along the canyon rim to viewing platforms; stay behind the rails, the walls drop about 100 m.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A rim path with no hands-on sections in the plan."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, south list",
+            "safetravel.is home"
+          ]
+        },
+        "effort": {
+          "source_grade": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "ust.is protected areas, south list",
+              "safetravel.is home"
+            ]
+          },
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is protected areas, south list",
+                "safetravel.is home"
+              ],
+              "note": "Travel sources give about 2 km to the end viewpoint; no land-manager figure."
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "ust.is protected areas, south list",
+                "safetravel.is home"
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            45,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 60 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "partly",
+            "where": "rim viewpoints above the canyon"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The plan's '100 m mossy canyon'; platforms at some viewpoints, open rim between (travel sources)."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Canyon rim; stay on the path and behind the rails."
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0039"
+          ],
+          "note": "From the canyon's depth in the plan."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "The Environment Agency has closed the paths before (2019) and may close them in spring to protect vegetation; not expected in September (repo research)."
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0040"
+          ],
+          "note": "Repo research; no current official notice found."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ust.is protected areas, south list",
+            "safetravel.is home"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is S2 and S6 trail pages",
+            "vatnajokulsthjodgardur.is destination Svartifoss"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "5.8 km and 250 m (effort_km 8.3) fits the 6-7 ceiling (6 km, 350 m) and is over the 4-5 one; many steps. Under-6s carried."
+        },
+        "kid_note": "Many wooden and stone steps, slippery when wet; the falls are the turnaround for a short version.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Steps and platforms, no hands-on sections (land manager's description)."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "note": "The land manager lists 'quite a few wooden steps and platforms and stone steps'."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Easy"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0002"
+            ],
+            "quote": "Easy",
+            "note": "The park's own word for S2; S6 (7.1 km) is 'Challenging'."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 5.8,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0002"
+              ],
+              "quote": "5,8 km",
+              "conflicts": [
+                {
+                  "v": 5.4,
+                  "basis": "community",
+                  "src": [
+                    "src-0040"
+                  ],
+                  "note": "repo research: the direct route out and back"
+                },
+                {
+                  "v": 7.1,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0001"
+                  ],
+                  "note": "S6, the full circuit via Sjonarnipa"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": 250,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0002"
+              ],
+              "note": "Listed as 'Elevation' on the S2 page.",
+              "conflicts": [
+                {
+                  "v": 120,
+                  "basis": "community",
+                  "src": [
+                    "src-0040"
+                  ],
+                  "note": "repo research: the direct route"
+                },
+                {
+                  "v": 310,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0001"
+                  ],
+                  "note": "S6"
+                }
+              ]
+            },
+            "surface": {
+              "v": [
+                "dirt",
+                "boardwalk"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0002"
+              ],
+              "quote": "mostly well-compacted soil or mats"
+            },
+            "fixed_aids": {
+              "v": [
+                "steps"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0002"
+              ],
+              "quote": "quite a few wooden steps and platforms and stone steps"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            110,
+            130
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "quote": "2 hours"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "ravine viewpoints above the falls"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "note": "The route drops into a ravine and climbs basalt steps (land manager); fencing not stated."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Paths become slippery in wet weather."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "trail"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "the path through the forest offers a unique experience at any time of the year",
+          "applies_to": "2026"
+        },
+        "limited_capacity_note": "The park says the route can be challenging for those with weak legs or in poor health; turn back at the falls for the shortest version."
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "well indicated"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 5.8,
+        "walk_gain_m": 250,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A walk down the Almannagja rift from the Hakid visitor centre; any age on foot or carried."
+        },
+        "kid_note": "Walk down the rift wall from the visitor centre to the old assembly site; the exhibition takes about 40 min.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A made path down the gorge; no hands-on sections."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "thingvellir.is hiking trails",
+            "thingvellir.is visitor centre"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "thingvellir.is hiking trails",
+            "thingvellir.is visitor centre"
+          ],
+          "note": "Travel sources disagree: one says the main paths are accessible, another that the Almannagja path is too steep for most manual chairs."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "thingvellir.is hiking trails",
+                "thingvellir.is visitor centre"
+              ]
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "thingvellir.is hiking trails",
+                "thingvellir.is visitor centre"
+              ]
+            },
+            "surface": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "thingvellir.is hiking trails",
+                "thingvellir.is visitor centre"
+              ]
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 90 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "rift edges beside the path"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The path runs in the gorge below the Hakid platform; fencing not stated."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "restroom building next to the Visitor Center"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Daily parking fee at P1, P2 and P5 (park); exhibition Apr-Oct 09:00-18:00."
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019",
+            "src-0020"
+          ],
+          "note": "No closure found; the park operates paid parking and the visitor centre through the season."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "quote": "The trails at the assembly site are quite well signed."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A flat black-sand beach; the danger is the surf, managed by staying back."
+        },
+        "kid_note": "Ice blocks on black sand; keep children off the ice and well back from the waves.",
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min."
+        },
+        "toilets": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is Jokulsarlon page (toilets named at Jokulsarlon and Fjallsarlon only)",
+            "vatnajokulsthjodgardur.is Breidamerkursandur page"
+          ]
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "water",
+              "note": "Open Atlantic surf; waves can run far up the beach and move ice blocks."
+            }
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "note": "The same open south-coast shore as Reynisfjara; no warning text found on the park pages."
+        },
+        "water_safety": {
+          "lifeguard": {
+            "v": null,
+            "state": "searched_none",
+            "basis": null,
+            "src": [],
+            "on": "2026-10-18",
+            "tried": [
+              "vatnajokulsthjodgardur.is Jokulsarlon page",
+              "vatnajokulsthjodgardur.is Breidamerkursandur page"
+            ]
+          },
+          "entry": {
+            "v": "drop_off",
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "note": "A shelving surf beach (our judgement)."
+          },
+          "current_or_tide": {
+            "v": "strong",
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "note": "Open Atlantic surf (our judgement; no official statement found)."
+          }
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is Breidamerkursandur page",
+            "vatnajokulsthjodgardur.is Jokulsarlon page"
+          ],
+          "note": "The park names a trail along Eystri-Fellsfjara and parking there; no distance."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "The region is accessible year-round",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "water",
+        "swimming": {
+          "v": "unsafe",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Open Atlantic surf with ice blocks (our judgement)."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A shore visit beside the car park."
+        },
+        "kid_note": "Icebergs at the shore; keep children off the ice floes and the steep gravel banks.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is Jokulsarlon page",
+            "vatnajokulsthjodgardur.is Breidamerkursandur page"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is Jokulsarlon page",
+            "vatnajokulsthjodgardur.is Jokulsarlon parking warning"
+          ],
+          "note": "During the 2026 lot closure the park asked visitors with reduced mobility to ask staff for help."
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 75 min."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vatnajokulsthjodgardur.is Jokulsarlon page",
+            "vatnajokulsthjodgardur.is Breidamerkursandur page"
+          ]
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "There are flush toilets at Jokulsarlon and Fjallsarlon"
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "privately operated restaurants"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Rangers on duty every day of the year. The main lot was closed 2-7 Oct 2026 for works; the Fellsfjara lots stayed open."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007",
+            "src-0009"
+          ],
+          "quote": "The region is accessible year-round",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A short walk from the car park to the waterfall viewpoints."
+        },
+        "kid_note": "The classic view is from the Kirkjufellsfoss path; hold hands near the small gorge.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "Grundarfjordur search 2026-10-18 (no official site page found)",
+            "snaefellsjokull.is destinations (Kirkjufell is outside the park)"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "Grundarfjordur search 2026-10-18 (no official site page found)",
+            "snaefellsjokull.is destinations (Kirkjufell is outside the park)"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 60 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "the gorge edge at Kirkjufellsfoss"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A small river gorge (our judgement)."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "Grundarfjordur search 2026-10-18",
+            "snaefellsjokull.is destinations"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "Grundarfjordur search 2026-10-18",
+            "snaefellsjokull.is destinations"
+          ],
+          "note": "Travel sources say a parking fee is collected by app; no season found."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Any age carried or held; children must stay on the upper ridge with an adult."
+        },
+        "kid_note": "The most dangerous beach in Iceland for sneaker waves; stay on the upper ridge and never turn your back on the sea.",
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 45 min."
+        },
+        "toilets": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "ferdamalastofa.is Reynisfjara signs page",
+            "ferdamalastofa.is Reynisfjara erosion page"
+          ]
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "water",
+              "note": "Sneaker waves; zones by warning light: under yellow stay out of the yellow zone, under red no further than the light sign."
+            },
+            {
+              "category": "terrain",
+              "note": "Since Feb 2026 erosion: access only to the upper beach ridge, not down to the basalt columns; the viewing platform is to be rebuilt."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022",
+            "src-0023"
+          ]
+        },
+        "water_safety": {
+          "lifeguard": {
+            "v": false,
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0022"
+            ],
+            "quote": "There is no manned security on site",
+            "note": "Safety is by information only."
+          },
+          "entry": {
+            "v": "drop_off",
+            "state": "value",
+            "basis": "our_inference",
+            "src": [],
+            "note": "A steep beach where waves surge high (Tourist Board's sneaker-wave warning)."
+          },
+          "current_or_tide": {
+            "v": "strong",
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0022"
+            ],
+            "quote": "sneaker waves also make it one of the most dangerous destinations in Iceland"
+          }
+        },
+        "walk_m": {
+          "v": 300,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "note": "A 300 m chain along the car park leads the footpath past the signs to the beach."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Never closed; zoned by the warning light. Since Feb 2026, only the upper ridge is reachable."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022",
+            "src-0023"
+          ],
+          "quote": "Reynisfjara beach is never closed",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "water",
+        "swimming": {
+          "v": "unsafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ],
+          "note": "Sneaker waves (Tourist Board)."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A roadside view of the glacier; no walking needed."
+        },
+        "kid_note": "A view of the glacier from the road; walking onto the glacier is a guided activity only.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "snaefellsjokull.is destinations",
+            "snaefellsjokull.is Snaefellsjokull glacier page"
+          ],
+          "note": "The plan names no single viewpoint."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "snaefellsjokull.is destinations",
+            "snaefellsjokull.is Snaefellsjokull glacier page"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            15,
+            30
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0041"
+          ],
+          "note": "The trip day gives 30 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A view from the road (our judgement)."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "snaefellsjokull.is destinations",
+            "snaefellsjokull.is Snaefellsjokull glacier page"
+          ],
+          "note": "No defined viewpoint in the plan."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "glacier",
+              "note": "Deep crevasses open in summer on the glacier itself; only relevant if you go onto it."
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0029"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "snaefellsjokull.is destinations",
+            "snaefellsjokull.is travel and safety advice"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

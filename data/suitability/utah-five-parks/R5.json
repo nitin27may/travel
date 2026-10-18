@@ -1,0 +1,3852 @@
+{
+  "schema": "suitability/1",
+  "trip": "utah-five-parks",
+  "lane": "R5",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.nps.gov/zion/planyourvisit/thenarrows.htm",
+      "title": "The Narrows",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm",
+      "title": "Angels Landing Permits & Hiking",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.nps.gov/zion/planyourvisit/accessibility.htm",
+      "title": "Accessibility",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm",
+      "title": "Pa'rus Trail",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/thingstodo/hike-riverside-walk.htm",
+      "title": "Riverside Walk",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/zion/planyourvisit/zion-canyon-shuttle-system.htm",
+      "title": "Zion Canyon Shuttle System",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.nps.gov/zion/planyourvisit/conditions.htm",
+      "title": "Current Conditions (last updated 16 Sep 2026)",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.nps.gov/thingstodo/hike-to-scout-lookout.htm",
+      "title": "West Rim to Scout Lookout",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.nps.gov/zion/planyourvisit/zion-canyon-trail-descriptions.htm",
+      "title": "Zion Canyon Trail Descriptions",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.zionguru.com/blog/2026/8/3/best-times-of-year-to-hike-the-zion-narrows",
+      "title": "Best times of year to hike the Zion Narrows",
+      "publisher": "Zion Guru (Springdale outfitter)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.nps.gov/brca/planyourvisit/day-hikes.htm",
+      "title": "Day Hikes",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.nps.gov/brca/planyourvisit/qgnavajocombo.htm",
+      "title": "Queen's Garden/Navajo Combination Loop (last updated 22 May 2024)",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.nps.gov/brca/planyourvisit/accessibility.htm",
+      "title": "Accessibility",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://www.nps.gov/brca/planyourvisit/viewpoints.htm",
+      "title": "Viewpoints",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://www.nps.gov/brca/planyourvisit/shuttle.htm",
+      "title": "Shuttle",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://www.kutv.com/news/local/multiple-mudslides-force-full-navajo-loop-trail-closure-at-bryce-canyon-national-park",
+      "title": "Multiple mudslides force full Navajo Loop Trail closure",
+      "publisher": "KUTV (via search result)",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://www.nps.gov/brca/planyourvisit/conditions.htm",
+      "title": "Current Conditions (last updated 31 Aug 2026; alerts did not render)",
+      "publisher": "NPS Bryce Canyon",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.blm.gov/visit/lower-calf-creek-falls-trail",
+      "title": "Lower Calf Creek Falls Trail",
+      "publisher": "BLM Utah",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.blm.gov/sites/default/files/documents/files/BLMUtahLowerCalfCreekFalls.pdf",
+      "title": "Lower Calf Creek Falls Trail brochure",
+      "publisher": "BLM Utah",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.blm.gov/announcement/video-blm-warns-dangerous-falling-rocks-lower-calf-creek-falls",
+      "title": "BLM warns of dangerous falling rocks at Lower Calf Creek Falls (25 Jun 2025)",
+      "publisher": "BLM Utah",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.nps.gov/care/planyourvisit/trailguide.htm",
+      "title": "Trail Guide",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.nps.gov/care/learn/news/hickman-bridge-trail-reopens.htm",
+      "title": "Hickman Bridge Trail Reopens (via search result)",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.nps.gov/places/fruita-orchards.htm",
+      "title": "Capitol Reef Orchards (last updated 11 Jan 2021)",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://www.nps.gov/care/learn/historyculture/orchards.htm",
+      "title": "Orchards (last updated 22 Jul 2026)",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://www.nps.gov/care/planyourvisit/accessibility.htm",
+      "title": "Accessibility",
+      "publisher": "NPS Capitol Reef",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.nps.gov/arch/planyourvisit/physical-mobility.htm",
+      "title": "Physical / Mobility Accessibility",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.nps.gov/places/wolfe-ranch-trailhead.htm",
+      "title": "Delicate Arch Trail",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.nps.gov/arch/planyourvisit/delicate-arch.htm",
+      "title": "Delicate Arch",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.nps.gov/places/delicate-arch-viewpoints.htm",
+      "title": "Delicate Arch Viewpoint Trails",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.nps.gov/places/devils-garden-trailhead.htm",
+      "title": "Devils Garden Trailhead",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.nps.gov/places/the-windows-section-trailhead.htm",
+      "title": "The Windows Viewpoint and Trail",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.nps.gov/arch/planyourvisit/conditions.htm",
+      "title": "Current Conditions (last updated 18 Mar 2026)",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.nps.gov/arch/planyourvisit/hiking.htm",
+      "title": "Hiking",
+      "publisher": "NPS Arches",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.nps.gov/cany/planyourvisit/hiking.htm",
+      "title": "Hiking",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.nps.gov/places/mesa-arch.htm",
+      "title": "Mesa Arch Trail",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://www.nps.gov/places/upheaval-dome-overlook-trails.htm",
+      "title": "Upheaval Dome Overlooks Trail",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://www.nps.gov/places/grand-view-point.htm",
+      "title": "Grand View Point",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://www.nps.gov/cany/planyourvisit/physical-mobility.htm",
+      "title": "Physical / Mobility Accessibility",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://www.nps.gov/cany/planyourvisit/islandinthesky.htm",
+      "title": "Island in the Sky",
+      "publisher": "NPS Canyonlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://stateparks.utah.gov/parks/dead-horse/",
+      "title": "Dead Horse Point State Park",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0041",
+      "url": "https://stateparks.utah.gov/parks/dead-horse/park-fees/",
+      "title": "Dead Horse Point park fees",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://stateparks.utah.gov/?p=11460",
+      "title": "Dead Horse Point State Park overlook text (read via search result; the page returned 404 to fetch)",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0043",
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/",
+      "title": "Goblin Valley State Park",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0044",
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/hiking-and-rappelling/",
+      "title": "Goblin Valley hiking and rappelling",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0045",
+      "url": "https://stateparks.utah.gov/parks/goblin-valley/park-fees",
+      "title": "Goblin Valley park fees",
+      "publisher": "Utah State Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0046",
+      "url": "https://www.templesquare.org/",
+      "title": "Temple Square",
+      "publisher": "The Church of Jesus Christ of Latter-day Saints",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0047",
+      "url": "https://www.thechurchnews.com/temples/2026/10/02/with-construction-barriers-gone-temple-square-is-more-open-than-it-has-been-in-years/",
+      "title": "With construction barriers gone, Temple Square is more open than it has been in years (2 Oct 2026)",
+      "publisher": "Church News",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0048",
+      "url": "https://www.churchofjesuschrist.org/learn/temple-square-parking-and-directions",
+      "title": "Temple Square Parking and Directions",
+      "publisher": "The Church of Jesus Christ of Latter-day Saints",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0049",
+      "url": "https://www.lonelyplanet.com/articles/getting-around-moab",
+      "title": "Getting around Moab (via search result)",
+      "publisher": "Lonely Planet",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0050",
+      "url": "https://www.nps.gov/zion/learn/news/zionroadrepaved.htm",
+      "title": "Zion National Park's Red Roads Get Repaved (7 Sep 2013)",
+      "publisher": "NPS Zion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0051",
+      "url": "https://www.wikidata.org/wiki/Q2085218",
+      "title": "Temple Square (Wikidata P1435)",
+      "publisher": "Wikidata",
+      "kind": "community",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "kind": "trail",
+      "subkind": "river_hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "nps.gov/zion/planyourvisit/thenarrows.htm",
+            "nps.gov park trail and permit pages for a minimum party size"
+          ],
+          "note": "NPS publishes group maximums for permits, not a minimum party size"
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "To Big Spring 16.1 km (effort_km over 16, band 3) is over every child ceiling; the usual family turnaround at Wall Street is not an NPS figure. Wading against current on slick rock in cold water; the paved Riverside Walk is the under-8 version"
+        },
+        "kid_note": "A walk up a river in a slot canyon: cold water, slick stones, current. Families usually turn round well before Big Spring; the paved Riverside Walk is the easy taste.",
+        "carrier_ok": {
+          "v": false,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "wading on slippery, uneven rock in current; a fall with a carrier is the risk"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Closed-toed shoes and a sturdy hiking stick are recommended for hiking on the slick, uneven rocks",
+          "note": "river bed; stroller only on the Riverside Walk before it"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Strenuous"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0001"
+            ],
+            "quote": "a strenuous, ten-mile round trip, all-day adventure (10 mi = 16.1 km)",
+            "note": "NPS wording for the bottom-up hike to Big Spring"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 16.1,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "a strenuous, ten-mile round trip",
+              "note": "10 mi = 16.1 km, to Big Spring and back; a shorter out-and-back is the visitor's choice"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "nps.gov/zion/planyourvisit/thenarrows.htm",
+                "nps.gov/zion/planyourvisit/zion-canyon-trail-descriptions.htm (trail list did not render)"
+              ],
+              "note": "NPS gives no gain for the bottom-up hike"
+            },
+            "surface": {
+              "v": [
+                "water",
+                "rock",
+                "paved"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "note": "paved Riverside Walk 1 mi, then the river bed"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            360,
+            540
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "NPS calls Big Spring an all-day adventure; 6-9 h is our reading of 'all-day' for 16 km of wading"
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no drop-offs; the hazards are water, cold and flash floods"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "water",
+              "note": "closed above 150 cfs and during a National Weather Service Flash Flood Warning, and for at least 2 hours after a warning is lifted"
+            },
+            {
+              "category": "water",
+              "note": "toxic cyanobacteria advisory: do not submerge your head or drink the river water"
+            },
+            {
+              "category": "cold",
+              "note": "hypothermia risk; the water cools through the autumn"
+            },
+            {
+              "category": "terrain",
+              "note": "slips and falls on slick, uneven rocks"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001",
+            "src-0007"
+          ]
+        },
+        "water_safety": {
+          "water_temp_c": {
+            "v": [
+              5,
+              12
+            ],
+            "state": "value",
+            "basis": "community",
+            "src": [
+              "src-0010"
+            ],
+            "quote": "the average water temperature during the fall is 41° to 53° F (5° to 12° C)",
+            "note": "October-November, converted by the source (41-53 F = 5-12 C); summer 56-68 F (13-20 C); winter 38-45 F (3-7 C). NPS publishes no figure"
+          },
+          "current_or_tide": {
+            "v": "some",
+            "state": "value",
+            "basis": "our_inference",
+            "src": [
+              "src-0001"
+            ],
+            "note": "NPS: below 70 cfs walking is moderately difficult; closed above 150 cfs"
+          }
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "03-01",
+              "to": "11-28",
+              "status": "open",
+              "via": "shuttle",
+              "note": "Temple of Sinawava is shuttle stop 9; closed whenever flow exceeds 150 cfs or a flash-flood warning is in force"
+            },
+            {
+              "from": "03-01",
+              "to": "06-30",
+              "status": "limited",
+              "via": "shuttle",
+              "note": "spring snowmelt raises the river over 150 cfs and closes it for weeks in many years (NPS past-closure table)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001",
+            "src-0006"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005",
+            "src-0003"
+          ],
+          "note": "Temple of Sinawava; flush toilets temporarily closed, accessible portable toilet in the lot"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "route_finding",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no marked trail in the river; the canyon is the route, so the task is picking footing and crossings, not the direction"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 16.1,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm",
+            "nps.gov park trail and permit pages for a minimum party size"
+          ],
+          "note": "NPS publishes group maximums for permits, not a minimum party size"
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "To Scout Lookout and back: 6.1 km and 362 m (effort_km 9.7); over the 6-7 ceiling (6 km, 350 m), inside 8-9 (9 km, 500 m). The chains beyond need a permit and are not part of this record"
+        },
+        "kid_note": "Steep paved switchbacks (Walter's Wiggles) to Scout Lookout; the view of the Angels Landing chains is the turnaround. The chain section beyond needs a lottery permit.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "note": "paved or concrete path, no hands needed to Scout Lookout; steep (typical grade 12.9%)"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0008"
+          ],
+          "note": "typical grade 12.9%, maximum 43%, steps up to 6 in on the NPS trail data"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Strenuous"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0008"
+            ],
+            "quote": "strenuous"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 6.1,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0008"
+              ],
+              "quote": "1.9 mi (3 km)",
+              "note": "1.9 mi one way = 3.06 km; 6.1 km out and back",
+              "conflicts": [
+                {
+                  "v": 7.2,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0002"
+                  ],
+                  "note": "permit page: about 2.25 mi (3.62 km) from the Grotto to Scout Lookout, 7.2 km out and back"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": 362,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0008"
+              ],
+              "quote": "Gain: 1187 ft (361.8 m)",
+              "note": "1187 ft = 362 m",
+              "conflicts": [
+                {
+                  "v": 305,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0002"
+                  ],
+                  "note": "permit page: climb 1000 ft (305 m) to Scout Lookout"
+                }
+              ]
+            },
+            "surface": {
+              "v": [
+                "paved",
+                "dirt"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0008"
+              ],
+              "note": "81.1% hard concrete, 17.3% concrete under firm soil, 1.7% soft sand"
+            },
+            "fixed_aids": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "nps.gov/thingstodo/hike-to-scout-lookout.htm",
+                "nps.gov/zion/planyourvisit/angels-landing-hiking-permits.htm"
+              ],
+              "note": "chains start beyond Scout Lookout; none stated below it"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "quote": "3-4 Hours"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null,
+            "where": "Scout Lookout rim; the knife-edge with drop-offs is beyond, on the permit section"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "note": "NPS does not describe railings at Scout Lookout"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "dangerous in rain or thunderstorms; wet or icy rock is slippery; rockfall near cliffs"
+            },
+            {
+              "category": "heat",
+              "note": "no drinkable water on the trail; water at The Grotto"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002",
+            "src-0008"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "03-01",
+              "to": "11-28",
+              "status": "open",
+              "via": "shuttle",
+              "note": "Zion Canyon Scenic Drive closed to private vehicles in shuttle season; Sept 13-Oct 24 first bus 07:00, last up-canyon 18:00, last out of Temple of Sinawava 19:15"
+            },
+            {
+              "from": "11-29",
+              "to": "02-28",
+              "status": "open",
+              "via": "road",
+              "note": "non-shuttle season: private vehicles usually December to February; shuttle also runs 26 Dec-2 Jan"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start",
+            "payoff"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "quote": "restrooms are available at Scout Lookout"
+        },
+        "water": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "quote": "no water available at Scout Lookout",
+          "note": "water at The Grotto trailhead"
+        },
+        "shade": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "quote": "with some shade",
+          "note": "at Scout Lookout"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a single paved NPS trail from The Grotto (shuttle stop 6); junction with the permit route at Scout Lookout"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 6.1,
+        "walk_gain_m": 362,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "paved, typical grade 2.6%, 46 m of gain over 5.6 km end to end; any length can be walked and turned"
+        },
+        "kid_note": "A paved, nearly level path beside the Virgin River from the visitor center; bikes and leashed dogs share it. Turn round wherever you like.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "paved, level"
+        },
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "93.6% of the trail is paved and 6.4% is hard wood decking",
+          "note": "surface stated by NPS; strollers are not named, the surface decides"
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "can be traversed by wheelchairs with assistance",
+          "note": "1.2% of the trail is at 8.3% or steeper (max 11.4%); bridge decking gaps up to 3 in",
+          "conflicts": [
+            {
+              "v": "step_free",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "note": "trail page: accessible for wheelchairs, pets on leashes, and bicycles"
+            }
+          ]
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 5.6,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "3.5 mile (5.6 km) from one end to the other",
+              "note": "end to end, one way; most visitors walk part of it and return",
+              "conflicts": [
+                {
+                  "v": 2.5,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0004"
+                  ],
+                  "note": "the same page's accessibility table lists 1.6 mi (2.5 km) one way"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": 46,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "Gain: 151.7 ft (46.3 m)",
+              "note": "units as published; the source gives the metric figure (46.3 m)"
+            },
+            "loss_m": {
+              "v": 19,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "Loss: 62.7 ft (19.12 m)",
+              "note": "units as published; the source gives the metric figure (19.12 m)"
+            },
+            "surface": {
+              "v": [
+                "paved",
+                "boardwalk"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ]
+            },
+            "max_grade_pct": {
+              "v": 11.4,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "Maximum: 11.4%"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "30-120 Minutes"
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "riverside path with no drop-offs stated"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "starts at the Zion Canyon Visitor Center, reachable by car all year (outside the shuttle-only Scenic Drive)"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004",
+            "src-0006"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "Restrooms and water filling stations are available at the Visitor Center"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "note": "visitor center plaza"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "point-to-point",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "must be restrained on a leash no longer than 6 feet",
+          "note": "6 ft = 1.8 m"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": 5.6,
+        "walk_gain_m": 46,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:riverside walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "3.2 km out and back on concrete; short steep pitches (max 25.9%) are pushable with help"
+        },
+        "kid_note": "Paved path along the river to where the Narrows begins; you see the canyon close in without getting wet. Sand can make it slippery.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "paved; minor drop-offs only"
+        },
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "100% of the trail is concrete",
+          "note": "17.5% of the trail is at 8.3% or steeper; overhanging rock with 4 ft clearance in places"
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "considered wheelchair-friendly at the visitor's own discretion",
+          "note": "maximum grade 25.9%; minimum tread 50 in"
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 3.2,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ],
+              "quote": "1 mi (1.6 km)",
+              "note": "1 mi one way; 3.2 km out and back"
+            },
+            "gain_m": {
+              "v": 47,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ],
+              "quote": "Gain: 154.2 ft (47.0 m)",
+              "note": "the same gain and loss figures appear on the NPS Canyon Overlook page; possibly a copy error on NPS's side, kept as published"
+            },
+            "loss_m": {
+              "v": 15,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ],
+              "quote": "Loss: 48.5 ft (14.8 m)",
+              "note": "units as published; the source gives the metric figure (14.8 m)"
+            },
+            "surface": {
+              "v": [
+                "paved"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ]
+            },
+            "max_grade_pct": {
+              "v": 25.9,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ],
+              "quote": "Maximum: 25.9%"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "1-2 Hours"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "minor drop-offs are present"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "sections may close in winter for ice; sand makes the concrete slippery"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "03-01",
+              "to": "11-28",
+              "status": "open",
+              "via": "shuttle",
+              "note": "Zion Canyon Scenic Drive closed to private vehicles in shuttle season; Sept 13-Oct 24 first bus 07:00, last up-canyon 18:00, last out of Temple of Sinawava 19:15"
+            },
+            {
+              "from": "11-29",
+              "to": "02-28",
+              "status": "open",
+              "via": "road",
+              "note": "non-shuttle season: private vehicles usually December to February; shuttle also runs 26 Dec-2 Jan"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005",
+            "src-0003"
+          ],
+          "quote": "Water and restrooms are available at the Temple of Sinawava",
+          "note": "flush toilets temporarily closed; accessible portable toilet in the lot (accessibility page)"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "Pets Allowed: No"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": 3.2,
+        "walk_gain_m": 47,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "suitability": {
+        "on_site_min": {
+          "v": [
+            90,
+            360
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "the shuttle round trip is about 90 min (NPS); stops for walks stretch it to most of a day"
+        },
+        "kid_note": "Seen from the free park shuttle for most of the year; strollers go on the bus's front bike rack, loaded by you.",
+        "access_season": {
+          "v": [
+            {
+              "from": "03-01",
+              "to": "11-28",
+              "status": "open",
+              "via": "shuttle",
+              "note": "Zion Canyon Scenic Drive closed to private vehicles in shuttle season; Sept 13-Oct 24 first bus 07:00, last up-canyon 18:00, last out of Temple of Sinawava 19:15"
+            },
+            {
+              "from": "11-29",
+              "to": "02-28",
+              "status": "open",
+              "via": "road",
+              "note": "non-shuttle season: private vehicles usually December to February; shuttle also runs 26 Dec-2 Jan"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "station"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "note": "restrooms at Zion Lodge and the Temple of Sinawava; other stops not stated"
+        }
+      },
+      "ext": {
+        "kind": "drive",
+        "vehicle_limits": {
+          "v": {},
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0006"
+          ],
+          "note": "No size limit applies to visitors: private vehicles are barred from the drive in shuttle season (Zion Lodge guests with reservations excepted); in the non-shuttle season NPS may close the road when parking fills"
+        },
+        "road_surface": {
+          "v": "paved",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0050"
+          ],
+          "quote": "Local red cinders are used to create Zion's signature red roads",
+          "note": "chip-sealed road, 2013 release"
+        },
+        "drive_min": {
+          "v": [
+            80,
+            90
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "a round trip takes about an hour and a half",
+          "note": "the shuttle narration says about 40 minutes one way"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "nps.gov/brca/planyourvisit/qgnavajocombo.htm",
+            "nps.gov park trail and permit pages for a minimum party size"
+          ],
+          "note": "NPS publishes group maximums for permits, not a minimum party size"
+        },
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "combination 4.6 km and 191 m (effort_km 6.5) is inside the 6-7 ceiling; every return is uphill at 2,400-2,500 m"
+        },
+        "kid_note": "Down among the hoodoos and back up; the climb out is at over 2,400 m. The Queen's Garden out-and-back (2.9 km) is the gentler half.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a graded path with no hands needed; steep switchbacks on the Navajo side"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "note": "steep switchbacks and unpaved tread below the rim; only the rim between Sunset and Sunrise is paved"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Moderate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0012"
+            ],
+            "quote": "Moderate (less than 1000 feet elevation gain, moderate length)",
+            "note": "1000 ft = 305 m",
+            "conflicts": [
+              {
+                "v": {
+                  "system": "nps",
+                  "value": "Strenuous"
+                },
+                "basis": "official_grade",
+                "src": [
+                  "src-0011"
+                ],
+                "note": "the Day Hikes page lists Queen's Garden, Navajo Loop and the combination under Strenuous"
+              }
+            ]
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 4.6,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0012",
+                "src-0011"
+              ],
+              "quote": "2.9 miles (4.6 km)",
+              "note": "2.9 mi = 4.6 km, as published"
+            },
+            "gain_m": {
+              "v": 191,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0012",
+                "src-0011"
+              ],
+              "quote": "625 feet (191 meters)",
+              "note": "625 ft = 191 m, as published"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            120,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "quote": "2-3 hours"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "note": "steep slopes beside a wide path; NPS says most injuries happen on the steeper Navajo side"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "altitude",
+              "note": "the park is at 8,000 to over 9,000 ft; turn back before tiring, all returns are uphill"
+            },
+            {
+              "category": "terrain",
+              "note": "Navajo Loop fully closed after mudslides and rockfall in spring 2026 (no reopening date found); the Wall Street side also closes when rain meets freezing nights"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011",
+            "src-0012",
+            "src-0016"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Queen's Garden and Two Bridges open year-round; Wall Street side closed in freeze-thaw months"
+            },
+            {
+              "from": "03-01",
+              "to": "12-31",
+              "status": "limited",
+              "via": "road",
+              "note": "Navajo Loop closed after spring 2026 mudslides (press report); reopening not confirmed by NPS, whose alerts did not render: call 435 834-5322"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012",
+            "src-0016",
+            "src-0017"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "quote": "Accessible restrooms available at Sunset Point (year-round)"
+        },
+        "water": {
+          "v": "potable",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "quote": "Water-fill stations available at Sunset Point (seasonally)"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "note": "maintained NPS trails between two rim viewpoints; NPS recommends clockwise"
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ],
+          "quote": "Pets are not allowed on this trail"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 4.6,
+        "walk_gain_m": 191,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "paved, level rim section; hold hands at the edge"
+        },
+        "kid_note": "The rim above the hoodoos; the half mile between Sunset and Sunrise Points is paved and level. Railings are not described by NPS, so keep small children by the hand.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013",
+            "src-0011"
+          ],
+          "quote": "only a 1/2 mile section of the Rim Trail between Sunset and Sunrise Points is wheelchair accessible",
+          "note": "the rest of the 11 mi rim is unpaved"
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "Sunset Point to Sunrise Point only",
+          "part_km": 0.8
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "only a 1/2 mile section of the Rim Trail between Sunset and Sunrise Points is wheelchair accessible",
+          "note": "1/2 mi = 0.8 km"
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "note": "the paved half mile and two viewpoints; NPS gives 1 h for Sunset to Sunrise"
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null,
+            "where": "rim above the amphitheatre"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "NPS pages read give no railing information"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "shuttle optional, April to 18 October 2026; vehicles of 23 ft or more cannot park at the viewpoints during shuttle hours"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": 150,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "about 494 ft (150m) from parking lot to the viewing area",
+          "note": "Sunset Point; 494 ft = 150 m"
+        },
+        "altitude_m": {
+          "v": 2440,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "note": "NPS: the park ranges from 8,000 to over 9,000 ft; the amphitheatre rim is near 8,000 ft (2,440 m)"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:sunset point",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "150 m paved, level path from the car park"
+        },
+        "kid_note": "A short paved path to a rim view of Thor's Hammer and the main hoodoos; busy at sunset.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "Paved, level trail, about 494 ft (150m) from parking lot to the viewing area",
+          "note": "units as published; the source gives the metric figure (150m)"
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "Paved, level trail, about 494 ft (150m) from parking lot to the viewing area",
+          "note": "NPS rates it 'very good access'"
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a view stop; longer for sunset"
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "rim viewpoint; railings not described on the NPS pages read"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "on the shuttle route April to 18 October 2026; private cars may still drive"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0015"
+          ],
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": 150,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "about 494 ft (150m)",
+          "note": "494 ft = 150 m"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "quote": "Restrooms at Sunset Point are accessible with assistance"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "blm.gov/visit/lower-calf-creek-falls-trail",
+            "nps.gov park trail and permit pages for a minimum party size"
+          ],
+          "note": "NPS publishes group maximums for permits, not a minimum party size"
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "9.7 km in sand (effort_km about 9.7) is over the 6-7 distance ceiling (6 km); the gain is small"
+        },
+        "kid_note": "A long, mostly flat walk in soft sand to a 126-foot waterfall and a cool pool; hot in summer, so start early.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0019"
+          ],
+          "note": "level, no hands; sand makes it tiring"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "sandy sections (BLM)"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Moderate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0018"
+            ],
+            "quote": "The hike is moderately difficult due to sandy sections.",
+            "note": "BLM wording, mapped to the US agency scale"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 9.7,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0018",
+                "src-0019"
+              ],
+              "quote": "The 6.0 mile round trip hike",
+              "note": "6 mi = 9.7 km"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "blm.gov/visit/lower-calf-creek-falls-trail",
+                "BLM trail brochure PDF"
+              ],
+              "note": "BLM states 'Elevation change on the trail is minimal' and gives no figure"
+            },
+            "surface": {
+              "v": [
+                "dirt"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0019"
+              ],
+              "quote": "the trail is sandy and walking can be strenuous, especially in hot weather"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            240
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "takes average hikers 3-4 hours"
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "canyon-floor trail beside the creek"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "heat",
+              "note": "can be hot, especially in summer; carry water, do not drink the creek"
+            },
+            {
+              "category": "terrain",
+              "note": "large rocks fall from the cliffs at the falls; stay alert on the beach and in the water"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018",
+            "src-0019",
+            "src-0020"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "Calf Creek Recreation Area on UT-12, open year-round; $5 per vehicle day-use fee"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "There are no facilities along the trail. Please use the restrooms at the parking area or in the campground."
+        },
+        "water": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "Bring water with you. Do not drink creek water.",
+          "note": "potable water in the campground April-October"
+        },
+        "shade": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "the falls provide a delightfully cool, shady haven",
+          "note": "shade at the falls; the sandy trail is largely open (our reading)"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "waymarked",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0018"
+          ],
+          "note": "BLM: a developed trail beside Calf Creek, with numbered interpretive stops"
+        },
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "Keep dogs leashed"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 9.7,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:hickman bridge",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "nps.gov/care/planyourvisit/trailguide.htm",
+            "nps.gov park trail and permit pages for a minimum party size"
+          ],
+          "note": "NPS publishes group maximums for permits, not a minimum party size"
+        },
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "2.9 km and 122 m (effort_km 4.1) is inside the 4-5 ceiling (4 km, 200 m)"
+        },
+        "kid_note": "A short climb to a 133-foot natural bridge you walk under and around; little shade, so go early or late.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "note": "a path with steep grades and level sections, no hands"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "note": "NPS: a mix of steep grades and level sections on a rocky trail"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Moderate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0021"
+            ],
+            "quote": "Moderate"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 2.9,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0021"
+              ],
+              "quote": "0.9 mi (1.4 km)",
+              "note": "0.9 mi one way = 1.4 km; 2.9 km out and back",
+              "conflicts": [
+                {
+                  "v": 3.2,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0022"
+                  ],
+                  "note": "NPS news release (via search): 2 miles round trip (3.2 km)"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": 122,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0021"
+              ],
+              "quote": "400 ft (122 m)",
+              "note": "units as published; the source gives the metric figure (122 m)"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Naismith from 2.9 km and 122 m is about 50 min; 60-90 with the bridge"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0022"
+          ],
+          "note": "steep sections; the top of the bridge is closed to the public (falling-debris risk)"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "heat",
+              "note": "intense summer sun; always carry water"
+            },
+            {
+              "category": "water",
+              "note": "monsoon rains can bring flash floods"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "on UT-24; trailhead parking often fills by 9 am and stays crowded until after 4 pm"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0021"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "signed_junctions",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0021"
+          ],
+          "note": "maintained NPS trail off UT-24; NPS asks visitors to stay on established trails"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 2.9,
+        "walk_gain_m": 122,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:fruita orchards",
+      "kind": "sight",
+      "subkind": "historic_site",
+      "suitability": {
+        "kid_note": "Pioneer orchards you may stroll in when unlocked; in season you pick fruit with the ladders and pickers provided. No tree climbing.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0023"
+          ],
+          "note": "grass and orchard rows; no surface is published"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0025"
+          ],
+          "quote": "A portion of the Fremont River Trail near the Gifford House and Fruita Campground is also wheelchair-accessible",
+          "note": "orchards themselves not described; the schoolhouse is accessible; two all-terrain wheelchairs are lent free"
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "a stroll, or longer when an orchard is posted open for picking"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-20",
+              "to": "07-15",
+              "status": "limited",
+              "via": "road",
+              "note": "apricots, late June to mid-July"
+            },
+            {
+              "from": "07-20",
+              "to": "09-10",
+              "status": "limited",
+              "via": "road",
+              "note": "peaches and pears, late July to early September"
+            },
+            {
+              "from": "08-15",
+              "to": "10-15",
+              "status": "limited",
+              "via": "road",
+              "note": "apples, mid-August to mid-October; U-pick only in orchards posted open; fenced orchards 09:00-17:00, unfenced dawn to dusk"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ],
+          "note": "NPS: harvest can shift a few weeks either way; fruit hotline (435) 425-3791, option 5",
+          "applies_to": "2026"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0025"
+          ],
+          "note": "visitor center and picnic area"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:delicate arch trail",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "nps.gov/places/wolfe-ranch-trailhead.htm",
+            "nps.gov park trail and permit pages for a minimum party size"
+          ],
+          "note": "NPS publishes group maximums for permits, not a minimum party size"
+        },
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "4.8 km and 164 m (effort_km 6.4) is inside the 6-7 ceiling; the last 200 yd is a narrow ledge with a drop-off and there is no shade"
+        },
+        "kid_note": "A steady climb on open slickrock with no shade, then a narrow ledge to the arch. The Lower Viewpoint (61 m, level) shows the arch a mile away.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0026"
+          ],
+          "note": "no hands needed, but steep (46% of the trail over 8%, max 80%) and a ledge at the end"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "quote": "steep climb, rock steps, ledge with drop-off"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026"
+          ],
+          "note": "the Lower Delicate Arch Viewpoint nearby is accessible to wheelchairs"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Strenuous"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0027"
+            ],
+            "quote": "Strenuous"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 4.8,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0027"
+              ],
+              "quote": "3 mi (4.8 km)",
+              "note": "units as published; the source gives the metric figure (4.8 km)",
+              "conflicts": [
+                {
+                  "v": 5.1,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0026"
+                  ],
+                  "note": "accessibility page: 3.2 mi (5.1 km)"
+                }
+              ]
+            },
+            "gain_m": {
+              "v": 164,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0027"
+              ],
+              "quote": "538 ft (164 m)",
+              "note": "538 ft = 164 m",
+              "conflicts": [
+                {
+                  "v": 146,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0028"
+                  ],
+                  "note": "park page: climbs 480 feet (146 m)"
+                }
+              ]
+            },
+            "surface": {
+              "v": [
+                "rock"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0026"
+              ],
+              "quote": "hard, bedrock"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            120,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "quote": "2-3 hours"
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null,
+            "where": "the last 200 yd (183 m) on a narrow rock ledge"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027",
+            "src-0026"
+          ],
+          "quote": "follows a narrow rock ledge for about 200 yards (183 m)",
+          "note": "railings not described"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "heat",
+              "note": "avoid midday summer heat; no shade; bring at least 2 quarts (2 L) per person"
+            },
+            {
+              "category": "terrain",
+              "note": "the ledge is often icy in winter; rangers frequently rescue people who underestimated the trail"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027",
+            "src-0028"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "park open 24 hours year-round; no timed entry in 2026, but entries may be delayed on busy days and the March-October queue can exceed 60 min"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0032"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "quote": "Toilet - Vault/Composting"
+        },
+        "water": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "quote": "There is no drinking water at this trailhead."
+        },
+        "shade": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0027"
+          ],
+          "quote": "a steep slickrock slope with no shade"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "cairns",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0033"
+          ],
+          "quote": "Many trails use cairns (stacks of rocks) for markers and cross broad rock surfaces",
+          "note": "park-wide statement; the slickrock section is cairned"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 4.8,
+        "walk_gain_m": 164,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:devils garden",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "nps.gov/places/devils-garden-trailhead.htm",
+            "nps.gov park trail and permit pages for a minimum party size"
+          ],
+          "note": "NPS publishes group maximums for permits, not a minimum party size"
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "to Double O Arch and back: 6.4 km and 84 m (effort_km 7.2) on narrow ledges with steep drop-offs past Landscape Arch; Landscape Arch alone (2.9 km, easy) suits from 4"
+        },
+        "kid_note": "Easy, partly paved to Landscape Arch; beyond it the trail climbs fins with narrow ledges and drop-offs to Double O Arch. The full primitive loop (12.7 km) adds scrambling.",
+        "carrier_ok": {
+          "v": false,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0030"
+          ],
+          "note": "past Landscape Arch: uneven surfaces and narrow ledges with steep drop-offs"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030",
+            "src-0026"
+          ],
+          "note": "to Landscape Arch the surface is pavement and bedrock with rock steps at the end; beyond it narrow ledges"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Strenuous"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0030"
+            ],
+            "quote": "Strenuous",
+            "note": "Double O Arch out-and-back; Landscape Arch alone is Easy"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 6.4,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0030"
+              ],
+              "quote": "4.0 mi (6.4 km)",
+              "note": "Double O Arch round trip; full loop 7.9 mi (12.7 km)"
+            },
+            "gain_m": {
+              "v": 84,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0030"
+              ],
+              "quote": "275 ft (84 m)",
+              "note": "units as published; the source gives the metric figure (84 m)"
+            },
+            "scrambling": {
+              "v": "hands_occasional",
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0030"
+              ],
+              "note": "NPS: uneven surfaces and narrow ledges to Double O; rock scrambling on the full loop"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            120,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "2-3 hours"
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null,
+            "where": "beyond Landscape Arch"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "uneven surfaces and narrow ledges with steep drop-offs"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "heat",
+              "note": "bring at least 2 quarts (2 L) of water per person to Double O"
+            },
+            {
+              "category": "terrain",
+              "note": "avoid the ledges when wet or icy; few trail markers on the full loop"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "18 mi (28 km) from the park entrance; park open 24 hours; entry may be delayed on busy days"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030",
+            "src-0032"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "Toilets are open year-round."
+        },
+        "water": {
+          "v": "potable",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0030"
+          ],
+          "quote": "Drinking water is available spring through fall."
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": "cairns",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0033",
+            "src-0030"
+          ],
+          "note": "NPS: cairns across rock; few trail markers on the full loop"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 6.4,
+        "walk_gain_m": 84,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "1.6 km loop, 30 m; rock stairs to the arches"
+        },
+        "kid_note": "A short loop to North and South Window and Turret Arch; the first 300 ft is barrier free, then a slope and rock stairs.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0031"
+          ],
+          "note": "short, no hands; rock stairs"
+        },
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ],
+          "quote": "The first 300 ft (91 m) of this trail is considered barrier free",
+          "note": "units as published; the source gives the metric figure (91 m)"
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "first 300 ft (91 m); then a slope and rock stairs",
+          "part_km": 0.09
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ],
+          "quote": "The first 300 ft (91 m) of this trail is considered barrier free and may be accessible to wheelchairs.",
+          "note": "units as published; the source gives the metric figure (91 m)"
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 1.6,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0031",
+                "src-0026"
+              ],
+              "quote": "1 mi (1.6 km)",
+              "note": "units as published; the source gives the metric figure (1.6 km)"
+            },
+            "gain_m": {
+              "v": 30,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0031"
+              ],
+              "quote": "99 ft (30 m)",
+              "note": "units as published; the source gives the metric figure (30 m)"
+            },
+            "surface": {
+              "v": [
+                "dirt",
+                "rock"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0026"
+              ],
+              "quote": "firm, bedrock"
+            },
+            "fixed_aids": {
+              "v": [
+                "steps"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0026"
+              ],
+              "quote": "rock stairs"
+            },
+            "max_grade_pct": {
+              "v": 38,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0026"
+              ],
+              "note": "typical 6%, maximum 38%"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ],
+          "quote": "30-60 min"
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "arch bases on broad slopes; no drop-off stated"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "park open 24 hours; entry may be delayed on busy days"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0032"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ],
+          "quote": "Toilets are open year-round."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "the primitive return has fewer trail markers and very uneven steps"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0031"
+          ]
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": 1.6,
+        "walk_gain_m": 30,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:mesa arch",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "1 km and 17 m is easy for any age; the arch sits on the cliff edge with no railing described, so hold small children"
+        },
+        "kid_note": "A short loop to an arch on the very edge of the mesa, framing the canyon far below; crowded at sunrise. Keep children close at the rim.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0035"
+          ],
+          "note": "short loop with stone steps"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0038"
+          ],
+          "note": "NPS lists the trail among those that 'may include steps, uneven terrain'"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0035"
+          ],
+          "quote": "It is not accessible to wheelchairs."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 1,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0035",
+                "src-0034"
+              ],
+              "quote": "0.6 mi (1 km)",
+              "note": "units as published; the source gives the metric figure (1 km)"
+            },
+            "gain_m": {
+              "v": 17,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0035"
+              ],
+              "quote": "56 ft (17 m)",
+              "note": "units as published; the source gives the metric figure (17 m)"
+            },
+            "surface": {
+              "v": [
+                "dirt",
+                "rock"
+              ],
+              "state": "value",
+              "basis": "our_inference",
+              "src": [
+                "src-0035",
+                "src-0038"
+              ],
+              "note": "NPS: steps and uneven terrain; clockwise has fewer stairs"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            30
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0035"
+          ],
+          "quote": "30 min"
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null,
+            "where": "the arch on the mesa edge"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0035",
+            "src-0039"
+          ],
+          "note": "NPS: 'Perched at the edge of the mesa top'; the mesa stands on cliffs over 1,000 ft; no railing described"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "paved Island in the Sky scenic drive"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0039"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "loop"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 4,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 1,
+        "walk_gain_m": 17,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:upheaval dome",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "1 km and 35 m to the first overlook, but short, steep and rocky"
+        },
+        "kid_note": "A short, steep, rocky climb to look into a crater-like bowl of crumpled rock; the second overlook adds about 1 km.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0036"
+          ],
+          "note": "short; rocky hill and stone steps, no hands"
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "quote": "requires walking up and down a rocky hill and stone steps"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "quote": "It is not accessible to wheelchairs."
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "nps",
+              "value": "Moderate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0036",
+              "src-0034"
+            ],
+            "quote": "Moderate"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 1,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0036",
+                "src-0034"
+              ],
+              "quote": "0.6 mi (1 km)",
+              "note": "first overlook round trip; second overlook 1.2 mi (1.9 km)"
+            },
+            "gain_m": {
+              "v": 35,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0036"
+              ],
+              "quote": "115 ft (35m)",
+              "note": "units as published; the source gives the metric figure (35m)",
+              "conflicts": [
+                {
+                  "v": 30,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0034"
+                  ],
+                  "note": "hiking page: One-hundred-foot elevation change (30 m)"
+                }
+              ]
+            },
+            "surface": {
+              "v": [
+                "rock"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0036"
+              ],
+              "quote": "rough, uneven, and requires walking up and down a rocky hill and stone steps"
+            },
+            "fixed_aids": {
+              "v": [
+                "steps"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0036"
+              ],
+              "quote": "stone steps"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            60
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "quote": "1 hr",
+          "conflicts": [
+            {
+              "v": [
+                30,
+                30
+              ],
+              "basis": "official_info",
+              "src": [
+                "src-0034"
+              ],
+              "note": "hiking page: 30 minutes"
+            }
+          ]
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "overlook above the dome; no drop-off or railing stated"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "at the end of the paved Upheaval Dome road; snow or ice possible in winter, traction devices recommended"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036",
+            "src-0039"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "quote": "Restroom"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0036"
+          ],
+          "quote": "Dogs are not allowed on this trail."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 2,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": 1,
+        "walk_gain_m": 35,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "paved sidewalk to the first viewpoint; the 2.9 km rim trail beyond follows the canyon edge"
+        },
+        "kid_note": "A paved path to a huge view over layered canyons; the rim trail beyond runs along the edge for another mile.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037",
+            "src-0038"
+          ],
+          "quote": "A paved sidewalk leads from the parking lot to the program location"
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "paved sidewalk to the first viewpoint; the trail beyond is unpaved"
+        },
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0038"
+          ],
+          "quote": "These overlooks are accessible for people using a wheelchair.",
+          "note": "the overlook; the trail beyond 'is not accessible to wheelchairs' (place page)"
+        },
+        "on_site_min": {
+          "v": [
+            20,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0034"
+          ],
+          "note": "the overlook alone, or the 2.9 km rim trail (NPS 1.5 hours)"
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "the trail follows the canyon edge; railings not described"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "end of the paved Island in the Sky scenic drive"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0039"
+          ],
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "nps.gov/places/grand-view-point.htm",
+            "nps.gov/cany/planyourvisit/physical-mobility.htm"
+          ],
+          "note": "a 'short paved sidewalk' with no length given"
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2.9,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0037"
+              ],
+              "quote": "1.8 mi (2.9 km)",
+              "note": "the optional rim trail"
+            },
+            "gain_m": {
+              "v": 22,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0037"
+              ],
+              "quote": "73 ft (22 m)",
+              "note": "units as published; the source gives the metric figure (22 m)"
+            }
+          }
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037"
+          ],
+          "quote": "Restroom, Toilet - Vault/Composting"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": 2.9,
+        "walk_gain_m": 22,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "short paved path from the overlook car park"
+        },
+        "kid_note": "A short paved path to the point above a gooseneck of the Colorado River about 2,000 ft below; most overlooks in the park are not fenced.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0042"
+          ],
+          "quote": "a short paved ADA accessible pathway leads to breathtaking views of the Colorado River",
+          "note": "read via search result text of the park page"
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "the main overlook and shade shelter; the east and west spurs have steeper grades and slickrock"
+        },
+        "wheelchair": {
+          "v": "step_free",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0042"
+          ],
+          "quote": "a short paved ADA accessible pathway",
+          "note": "the primary overlook and shade shelter; spur trails are not accessible"
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "the point, plus the visitor center or a rim spur"
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0042"
+          ],
+          "note": "a 2023 park brochure (search result) says most overlooks are not fenced; fencing at the main point not confirmed"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "park open year-round 06:00-22:00; $20 per private vehicle, no entry reservation required"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0040",
+            "src-0041"
+          ],
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": 61,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0042"
+          ],
+          "quote": "about 200 feet one way",
+          "note": "200 ft = 61 m; read via search result"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0040"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:goblin valley",
+      "kind": "sight",
+      "subkind": "park",
+      "suitability": {
+        "kid_note": "A free-roaming valley of mushroom-shaped rock formations children love to explore; no shade, and the heat is the main risk.",
+        "on_site_min": {
+          "v": [
+            90,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0044"
+          ],
+          "note": "a wander in the first valley plus a short trail; the Third Valley needs navigation"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "heat",
+              "note": "heat exhaustion and heat stroke are daily risks; carry at least 32 oz of water per person per hour"
+            },
+            {
+              "category": "water",
+              "note": "check the flash flood forecast before entering slot canyons; Toadstool Canyon is marked flash-flood risk"
+            },
+            {
+              "category": "remoteness",
+              "note": "the Third Valley has no trails or markings; desert navigation experience required"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0043",
+            "src-0044"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "open every day 06:00-22:00; visitor center 09:00-17:00; $20 per private vehicle, valid to 22:00 the day after purchase"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0043",
+            "src-0045"
+          ],
+          "applies_to": "2026"
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0043"
+          ],
+          "note": "restrooms and vault toilets listed as amenities"
+        }
+      },
+      "ext": {
+        "kind": "area",
+        "pass": {
+          "v": "pass",
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0045"
+          ],
+          "note": "state park day-use fee; federal passes not listed on the fees page"
+        },
+        "stay_on_site": {
+          "v": [
+            "camping"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0043"
+          ],
+          "note": "primitive, RV and tent sites and yurts listed; yurts are not a lodge"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/town:main street moab",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0049"
+          ],
+          "quote": "Main St is easily navigable via wheelchair or mobility scooter",
+          "note": "a travel publisher, read via search result; no official statement found"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0049"
+          ],
+          "note": "a press guide says Main St is easily navigable by wheelchair, but step_free needs an official statement and shop entrances vary"
+        },
+        "kid_note": "The gateway town's main street: shops, food and outfitters within a short walk; busy sidewalks in season."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:temple square",
+      "kind": "sight",
+      "subkind": "landmark",
+      "suitability": {
+        "kid_note": "Walkable gardens and visitor centers in central Salt Lake City; the temple itself is closed for renovation until its 2027 open house.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0048"
+          ],
+          "note": "paved grounds; inferred from the operator's statement that wheelchair access is provided to all facilities except the Beehive House"
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0048"
+          ],
+          "quote": "Wheelchair access is provided to all the facilities on Temple Square except the Beehive House.",
+          "note": "wheelchairs lent free; the Conference Center checkout point is closed until March 2027"
+        },
+        "on_site_min": {
+          "v": [
+            60,
+            150
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "grounds, the Visitors' Center and the Tabernacle"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "road",
+              "note": "gates open 07:00-22:00; Visitors' Center 09:00-21:00 daily; Tabernacle Mon-Sat 09:00-21:00 (Oct 2026)"
+            },
+            {
+              "from": "04-05",
+              "to": "10-01",
+              "status": "limited",
+              "via": "road",
+              "note": "2027 Salt Lake Temple open house: tickets released from 1 Oct 2026; an expected 5 million visitors"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0046",
+            "src-0047"
+          ],
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

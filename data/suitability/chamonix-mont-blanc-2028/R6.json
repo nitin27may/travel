@@ -1,0 +1,1865 @@
+{
+  "schema": "suitability/1",
+  "trip": "chamonix-mont-blanc-2028",
+  "lane": "R6",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/aiguille-du-midi-cable-car",
+      "title": "Aiguille du Midi cable car",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.chamonix.net/english/lift-systems/dates-times",
+      "title": "Lift systems: dates and times 2026",
+      "publisher": "Chamonix.net",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/the-montenvers-mer-de-glace-train",
+      "title": "The Montenvers - Mer de Glace train",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/mer-de-glace-gondola-lift",
+      "title": "Mer de Glace gondola lift",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://en.chamonix.com/spring-hikes/grand-balcon-nord-plan-de-l-aiguille-du-midi-montenvers",
+      "title": "Grand Balcon Nord: Plan de l'Aiguille du Midi - Montenvers",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://en.chamonix.com/things-to-see-and-do/sports-and-outdoor/hiking/lakes-waterfalls-and-gorges/hike-to-the-lac-blanc-from-la-flegere",
+      "title": "Hike to the Lac Blanc from La Flegere",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://hautesavoiemontblanc-tourisme.com/offres/site-descalade-des-gaillands-chamonix-mont-blanc-fr-5885451/",
+      "title": "Site d'escalade des Gaillands",
+      "publisher": "Haute-Savoie Mont-Blanc Tourisme",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://en.chamonix.com/objet_touristique/1322",
+      "title": "Lac des Gaillands",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://chamonix.loopi-velo.fr/download/balade/pdf/5b8dbe90-dd16-41e9-9e24-b4908df6460c/fr/e7a6a121-1933-4acf-8340-4d6efa96e01f",
+      "title": "Randonnee a l'Aiguillette des Posettes (route sheet)",
+      "publisher": "Office de Tourisme de Chamonix (Loopi)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://hautesavoiemontblanc-tourisme.com/offres/randonnee-a-laiguillette-des-posettes-argentiere-fr-5867507/",
+      "title": "Randonnee a l'Aiguillette des Posettes",
+      "publisher": "Haute-Savoie Mont-Blanc Tourisme",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://en.chamonix.com/la-vallee/patrimoine-culture/patrimoine-culturel-de-la-vallee/emosson-dam",
+      "title": "Emosson dam",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.valais.ch/en/explore/activities/hiking/hikes/geological-hike-to-the-vieux-emosson-reservoir",
+      "title": "Geological hike to the Vieux Emosson reservoir",
+      "publisher": "Valais/Wallis Promotion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://en.chamonix.com/usual-information-services/tourism-and-the-disabled",
+      "title": "Tourism and disability",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "note": "A flat valley-floor lake at 1,017 m beside a car park, bus stop and climbing boulders; nothing on the shore limits age."
+        },
+        "kid_note": "A flat lakeside stop 2 km from Chamonix centre with a picnic area, public toilets and easy climbing boulders; the lake itself is the payoff, so no walking is needed.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007",
+            "src-0008"
+          ],
+          "note": "No surface is published; the listings describe a flat natural site reached by car, bus or a 2 km walk. All-terrain until a person checks the shore path."
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "the shore path surface is not published"
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "hautesavoiemontblanc-tourisme.com climbing-site listing (accessibility not stated)",
+            "en.chamonix.com objet_touristique/1322 Lac des Gaillands (search result)",
+            "en.chamonix.com tourism-and-the-disabled page"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our estimate for a lakeside stop with a picnic; the trip gives it 60 min."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "04-01",
+              "to": "11-30",
+              "status": "open",
+              "via": "road",
+              "note": "listing period of the climbing site at the lake; depends on snow"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "Du 1 avril 2026 au 30 novembre 2026",
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "hautesavoiemontblanc-tourisme.com climbing-site listing: 'Parking gratuit sur place (hauteur limitee a 2m)', no distance",
+            "en.chamonix.com Lac des Gaillands listing (search result)"
+          ],
+          "note": "Free parking is on site; the distance to the shore is not published."
+        },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "WC publics"
+        },
+        "altitude_m": {
+          "v": 1017,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ],
+          "quote": "a 1017 m d'altitude"
+        }
+      },
+      "ext": {
+        "kind": "water"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "age_band": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name near Argentiere, Vallorcine or Le Chatelard",
+            "web search 'Lac du Chatelard' Vallorcine / Argentiere / Le Chatelard: only Lac du Chatelard at Nevache (Hautes-Alpes), 200 km away"
+          ],
+          "note": "The lake could not be identified, so no judgement is possible."
+        },
+        "kid_note": "We could not identify a lake of this name near Argentiere or Vallorcine. Le Chatelard is the Swiss border village below the Emosson dam; the nearest named lakes are Lac d'Emosson and the Montets ponds. Treat this stop as unverified.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name near Argentiere, Vallorcine or Le Chatelard",
+            "web search 'Lac du Chatelard' Vallorcine / Argentiere / Le Chatelard: only Lac du Chatelard at Nevache (Hautes-Alpes), 200 km away"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name near Argentiere, Vallorcine or Le Chatelard",
+            "web search 'Lac du Chatelard' Vallorcine / Argentiere / Le Chatelard: only Lac du Chatelard at Nevache (Hautes-Alpes), 200 km away"
+          ]
+        },
+        "on_site_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name near Argentiere, Vallorcine or Le Chatelard",
+            "web search 'Lac du Chatelard' Vallorcine / Argentiere / Le Chatelard: only Lac du Chatelard at Nevache (Hautes-Alpes), 200 km away"
+          ]
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name near Argentiere, Vallorcine or Le Chatelard",
+            "web search 'Lac du Chatelard' Vallorcine / Argentiere / Le Chatelard: only Lac du Chatelard at Nevache (Hautes-Alpes), 200 km away"
+          ]
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name near Argentiere, Vallorcine or Le Chatelard",
+            "web search 'Lac du Chatelard' Vallorcine / Argentiere / Le Chatelard: only Lac du Chatelard at Nevache (Hautes-Alpes), 200 km away"
+          ]
+        }
+      },
+      "ext": {
+        "kind": "water"
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "kind": "lift",
+      "subkind": "cable_car",
+      "suitability": {
+        "min_age": {
+          "v": 3,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Children under 3 years of age are not allowed to visit, and children under 5 are not recommended."
+        },
+        "age_rule": "rule",
+        "age_band": {
+          "v": {
+            "from": 5,
+            "to": null
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "children under 5 are not recommended",
+          "note": "The operator's own advice, not a rule; the reason is the 2,800 m rise to 3,842 m in one ride."
+        },
+        "kid_note": "Under 3s are not allowed and under 5s are not recommended. The cable car climbs from 1,033 m to 3,842 m in about 20 minutes and the summit terraces are near or below freezing, so bring warm layers and keep the visit short if anyone feels unwell.",
+        "stroller_on_board": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Aiguille du Midi cable car page (no pushchair rule)",
+            "web search 'Aiguille du Midi poussette' (no operator statement found)"
+          ],
+          "note": "Ask the operator (Compagnie du Mont-Blanc, +33 4 50 53 22 75) before bringing a pushchair."
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Accessible, except for the ticket office windows. However, it won't be possible for you to stop at the intermediate stage Plan de l'Aiguille if you are unaccompanied"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Adapted toilet at the departure."
+        },
+        "toilets": {
+          "v": [
+            "station"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "Adapted toilet at the departure."
+        },
+        "on_site_min": {
+          "v": [
+            150,
+            240
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Ride up and back (about 40 min) plus summit terraces; the trip gives 150 min, the attractions research 3-4 h at peak."
+        },
+        "altitude_m": {
+          "v": 3842,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "at an altitude of 3842 meters"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "08-31",
+              "to": "09-13",
+              "status": "open",
+              "via": "lift",
+              "note": "first ascent 08:10, last round-trip ascent 16:00, last descent 17:30"
+            },
+            {
+              "from": "09-14",
+              "to": "09-27",
+              "status": "open",
+              "via": "lift",
+              "note": "first 08:10, last round-trip ascent 15:30, last descent 17:00"
+            },
+            {
+              "from": "09-28",
+              "to": "11-01",
+              "status": "open",
+              "via": "lift",
+              "note": "first 08:10, last round-trip ascent 15:00, last descent 16:30"
+            },
+            {
+              "from": "11-02",
+              "to": "12-18",
+              "status": "closed",
+              "via": "lift",
+              "note": "closed for works and maintenance"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002",
+            "src-0001"
+          ],
+          "note": "2026 timetable used as a pattern; no 2028 timetable exists. Timed tickets, with new ones released the day before.",
+          "applies_to": "2026"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": null,
+              "status": "Subject to favorable weather."
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0001"
+            ],
+            "quote": "Subject to favorable weather.",
+            "note": "The page names no causes and no refund policy."
+          }
+        }
+      },
+      "ext": {
+        "kind": "lift",
+        "cabin": {
+          "v": "enclosed",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "An aerial tramway (Wikidata Q3088020) with enclosed cabins."
+        },
+        "last_up": {
+          "v": [
+            {
+              "from": "08-31",
+              "to": "09-13",
+              "time": "16:00"
+            },
+            {
+              "from": "09-14",
+              "to": "09-27",
+              "time": "15:30"
+            },
+            {
+              "from": "09-28",
+              "to": "11-01",
+              "time": "15:00"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "note": "last round-trip ascent",
+          "applies_to": "2026"
+        },
+        "last_down": {
+          "v": [
+            {
+              "from": "08-31",
+              "to": "09-13",
+              "time": "17:30"
+            },
+            {
+              "from": "09-14",
+              "to": "09-27",
+              "time": "17:00"
+            },
+            {
+              "from": "09-28",
+              "to": "11-01",
+              "time": "16:30"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "applies_to": "2026"
+        },
+        "ride_min": {
+          "v": [
+            20,
+            20
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "In just 20 minutes, the cable car takes you from the town center to the gates of the Haute Montagne"
+        }
+      },
+      "flat": {
+        "min_age": 3,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "kind": "lift",
+      "subkind": "rack_railway",
+      "suitability": {
+        "min_age": {
+          "v": 1,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "1 years old",
+          "note": "The page's minimum-age field."
+        },
+        "age_rule": "rule",
+        "kid_note": "A 20-minute rack railway to the Mer de Glace viewpoint at 1,913 m with restaurants and adapted toilets at the top. The ice cave is a separate step: a short gondola then about 200 metal stairs down and back up.",
+        "stroller_on_board": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Montenvers train page (no pushchair rule)",
+            "web search 'Montenvers train poussette' (no operator statement)"
+          ]
+        },
+        "wheelchair": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "The access to the Montenvers train station is on a sloping ground and requires to be accompanied.",
+          "note": "The ice cave is not accessible (same page)."
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Adapted toilets are to be found on the right side at the arrival of the train."
+        },
+        "toilets": {
+          "v": [
+            "station"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Adapted toilets are to be found on the right side at the arrival of the train."
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Bar des Glaciers: For a quick bite."
+        },
+        "on_site_min": {
+          "v": [
+            120,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Allow 2 to 3 hours for the complete visit (including travel time and the cave)."
+        },
+        "altitude_m": {
+          "v": 1913,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "Arrival at Montenvers station at 1913 m"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "09-14",
+              "to": "11-01",
+              "status": "open",
+              "via": "lift",
+              "note": "departures 08:30-16:30; last departure to visit the ice cave 14:00"
+            },
+            {
+              "from": "11-02",
+              "to": "12-04",
+              "status": "closed",
+              "via": "lift",
+              "note": "closed for works"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003",
+            "src-0002"
+          ],
+          "note": "2026 pattern. The 31 Aug - 13 Sep timetable had already rolled off both pages; it is a gap.",
+          "applies_to": "2026"
+        },
+        "participation": {
+          "weather_cancel": {
+            "v": {
+              "causes": [],
+              "policy": null,
+              "status": "Subject to favorable weather."
+            },
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0003"
+            ],
+            "quote": "Subject to favorable weather."
+          }
+        }
+      },
+      "ext": {
+        "kind": "lift",
+        "cabin": {
+          "v": "train",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A rack railway (Wikidata Q1069340)."
+        },
+        "last_up": {
+          "v": [
+            {
+              "from": "09-14",
+              "to": "11-01",
+              "time": "16:00"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "note": "last departure from Chamonix",
+          "applies_to": "2026"
+        },
+        "last_down": {
+          "v": [
+            {
+              "from": "09-14",
+              "to": "11-01",
+              "time": "16:30"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "note": "last return from the summit",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": 1,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+      "kind": "sight",
+      "subkind": "attraction",
+      "suitability": {
+        "kid_note": "The dam top (free, open mid-May to end of October) is the easy part, with a view to Mont Blanc. The dinosaur footprints are not a short visit: a 12.9 km, +845 m hike rated difficult (4 h 40), snow-free only from about mid-July.",
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0011"
+          ],
+          "note": "For the dam viewpoint only. The footprint hike (12.9 km, +845 m) is over every under-10 ceiling in our rule."
+        },
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Emosson dam page (no accessibility or pushchair information)",
+            "valais.ch Vieux-Emosson geological hike page"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Emosson dam page (no accessibility or pushchair information)",
+            "valais.ch Vieux-Emosson geological hike page"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            90,
+            180
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0012"
+          ],
+          "note": "The dam and its viewpoint; the trip gives 150 min. The footprint hike alone is 4 h 40 (valais.ch), so it is not part of this estimate."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-16",
+              "to": "10-31",
+              "status": "open",
+              "via": "road",
+              "note": "dam open daily, free; post bus from Finhaut or the Le Chatelard funicular, whose status conflicts between sources"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "quote": "From 16/05 to 31/10 daily.",
+          "applies_to": "2026"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+      "kind": "sight",
+      "subkind": "cave",
+      "suitability": {
+        "min_age": {
+          "v": 1,
+          "state": "value",
+          "basis": "operator_rule",
+          "src": [
+            "src-0003"
+          ],
+          "note": "The Montenvers package (train, gondola and cave) gives a minimum age of 1; no separate cave rule found."
+        },
+        "age_rule": "rule",
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "About 200 metal stairs down from the gondola and the same back up, in glacier cold; a child under about 4 is likely carried both ways."
+        },
+        "kid_note": "Reached by the Mer de Glace gondola, then about 200 metal openwork stairs down and back up. The cave is cold; bring a warm layer. Not possible with a pushchair or wheelchair.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No operator ban on carriers was found; a back carrier leaves hands free for the stair rails. Ask the operator."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "about 200 steps are to be walked down from the arrival of the cable car until the cave."
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "not accessible at all"
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Gondola, stairs and cave; the trip gives 60 min; the whole Montenvers visit is 2-3 h (official)."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "10-17",
+              "to": "11-01",
+              "status": "closed",
+              "via": "lift",
+              "note": "the gondola runs 10:00-15:00 but the ice cave is closed"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "Please Note: The Ice Cave Is Closed.",
+          "note": "The summer opening date is not on the official page (trip research cites 6 Jun 2026 from chamonix.net).",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "cave",
+        "air_temp_c": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Montenvers train page",
+            "en.chamonix.com Mer de Glace gondola page",
+            "web search 'Mer de Glace ice cave temperature'"
+          ],
+          "note": "Only a visitor review figure (about -5 C) was found; not used."
+        },
+        "steps": {
+          "v": 200,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "about 200 steps are to be walked down from the arrival of the cable car until the cave.",
+          "conflicts": [
+            {
+              "v": 100,
+              "basis": "official_info",
+              "src": [
+                "src-0003"
+              ],
+              "note": "the train page says 100 steps; the count grows as the glacier drops"
+            }
+          ]
+        },
+        "carry_child": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Montenvers train page",
+            "en.chamonix.com Mer de Glace gondola page"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": 1,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "The pedestrian centre is compact and flat; the tourist office has step-free entrances and accessible toilets.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: the centre's pedestrian streets are paved and flat; side streets have kerbs. No official statement."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com tourism-and-the-disabled page (no street-level statement)",
+            "web search 'Chamonix centre-ville accessibilite fauteuil roulant'"
+          ]
+        },
+        "stroller_extent": {
+          "scope": "part",
+          "part_note": "pedestrian centre"
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0013"
+          ],
+          "note": "Search result text for the tourist office listing: accessible toilets with a grab bar; not opened."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "The Saturday morning market on Place du Mont-Blanc is crowded by late morning; go early with a pushchair.",
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: a paved town square; crowds, not surface, are the limit."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com tourism-and-the-disabled page (no street-level statement)",
+            "web search 'Chamonix centre-ville accessibilite fauteuil roulant'"
+          ]
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A market browse; the trip gives 90 min."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "A quiet hamlet at the foot of the Flegere gondola, on the Mont-Blanc Express line.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: a hamlet of lanes and the riverside path; no published surface information."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com tourism-and-the-disabled page (no street-level statement)",
+            "web search 'Chamonix centre-ville accessibilite fauteuil roulant'"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "A small upper-valley village on the train line near the Swiss border.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: village lanes; no published surface information."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com tourism-and-the-disabled page (no street-level statement)",
+            "web search 'Chamonix centre-ville accessibilite fauteuil roulant'"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com hiking pages (no group rule)",
+            "chamonix.loopi-velo.fr Posettes route sheet"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 10,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "note": "Official 7 km and 4 h 15 one way, rated Moyenne; GPS tracks put the climb at about 800 m, over the 8-9 ceiling of 9 km and 500 m."
+        },
+        "kid_note": "The official route to the Aiguillette des Posettes starts at Le Tour, not the Col des Montets: many zigzags up to a ridge, 4 h 15 one way to Vallorcine. The Vallorcine gondola to the Col des Posettes shortens it when it runs.",
+        "carrier_ok": {
+          "v": false,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "note": "A long climb (about 800 m by GPS tracks) and a ridge to the top; too long for a carrying adult."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "note": "A mountain path with many hairpins."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Moyenne"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0009"
+            ],
+            "note": "Chamonix tourist office route sheet; a local word, no scale."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 7,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0009"
+              ],
+              "quote": "7.00 km",
+              "note": "Le Tour to Vallorcine, one way."
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "chamonix.loopi-velo.fr Posettes route sheet (no gain given)",
+                "hautesavoiemontblanc-tourisme.com Posettes listing (search result)"
+              ],
+              "note": "Not published officially. GPS tracks give +700 to +860 m on comparable routes."
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            255,
+            255
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "4 h 15 min"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the ridge (arete) to the Aiguillette"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "l'arete qui mene a l'Aiguillette"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Steep hairpins, then a ridge to the summit"
+            },
+            {
+              "category": "other",
+              "note": "The tourist office warns trail conditions change; check before setting off"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ]
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-01",
+              "to": "10-31",
+              "status": "open",
+              "via": "trail",
+              "note": "subject to snow and weather"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010"
+          ],
+          "note": "Read through a search result of the listing.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "point-to-point",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "chamonix.loopi-velo.fr Posettes route sheet (no gain given)",
+            "hautesavoiemontblanc-tourisme.com Posettes listing (search result)"
+          ]
+        }
+      },
+      "hints": [
+        {
+          "field": "ref",
+          "text": "The trip stop is named 'Col des Montets' on an 'Aiguillette des Posettes' day; this record uses the official Posettes route. The Col des Montets nature trail (about 45 min, reserve chalet) is a different walk.",
+          "src": [
+            "src-0009"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 7,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Lac Blanc from La Flegere page (no group rule)",
+            "Aiguilles Rouges nature reserve rules on the same page"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "Official 7 km and +500 m round trip (effort_km 12) is over the 6-7 ceiling of 6 km and 350 m and inside the 8-9 ceiling."
+        },
+        "kid_note": "Official 7 km and 500 m up and down, rated difficult for its gradient, about 3 h return from the Flegere gondola. The lake is a natural turnaround and the hut serves drinks; the Cheserys ladder variant is exposed, so take the direct path with small children.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "The direct path from Flegere has no ladders; avoid the Cheserys ladder variant with a carrier."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "A steep rocky mountain path."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Difficult (high gradient)"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0006"
+            ],
+            "quote": "Difficult (high gradient)"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 7,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0006"
+              ],
+              "quote": "7km",
+              "note": "round trip"
+            },
+            "gain_m": {
+              "v": 500,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0006"
+              ],
+              "quote": "500m"
+            },
+            "loss_m": {
+              "v": 500,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0006"
+              ],
+              "quote": "500m"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            180,
+            180
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "3h",
+          "note": "round trip; 1 h 45 one way"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "rocky path; the ladders on the Cheserys variant"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement from the trip research; the official page lists no hazards."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Steep rocky path; ladders on the Cheserys variant"
+            },
+            {
+              "category": "other",
+              "note": "Swimming banned at Lac Blanc and the Cheserys lakes by prefectural order; no dogs in the nature reserve"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "Swimming is prohibited at Lac Blanc and the Cheserys Lakes by prefectural order."
+        },
+        "altitude_m": {
+          "v": 2352,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "2352m"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "07-01",
+              "to": "09-30",
+              "status": "open",
+              "via": "lift",
+              "note": "depends on the Flegere gondola; in 2026 it ran to 20 Sep, gondola only from 14 Sep"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006",
+            "src-0002"
+          ],
+          "quote": "From 01/07 to 30/09/2026 daily.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Lac Blanc from La Flegere page (no group rule)",
+            "Aiguilles Rouges nature reserve rules on the same page"
+          ]
+        },
+        "dogs": {
+          "v": "banned",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "Dogs are not permitted as the path is in the Nature Reserve Les Aiguilles Rouges."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "strong-kid",
+        "accessibility": "unknown",
+        "walk_km": 7,
+        "walk_gain_m": 500,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "group_min": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Grand Balcon Nord page (no group rule, no waymarking note)",
+            "en.chamonix.com Aiguille du Midi cable car page"
+          ]
+        },
+        "age_band": {
+          "v": {
+            "from": 6,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "Official 5.7 km, +140 m and -523 m one way (effort_km 7.1), inside the 6-7 ceiling for distance and climb; the long descent is the tiring part."
+        },
+        "kid_note": "The Grand Balcon Nord from the Aiguille du Midi mid-station to Montenvers: 5.7 km, mostly downhill (523 m down), 2 h 30. At the fork at 2,071 m take the right branch via Signal Forbes; the left shortcut crosses couloirs.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "A mountain path with no ladders on the right-hand branch."
+        },
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0005"
+          ],
+          "note": "A rough mountain path."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "local",
+              "value": "Medium (on the slopes)"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0005"
+            ],
+            "quote": "Medium (on the slopes)"
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 5.7,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ],
+              "quote": "5.7km",
+              "note": "one way"
+            },
+            "gain_m": {
+              "v": 140,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ],
+              "quote": "140m"
+            },
+            "loss_m": {
+              "v": 523,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0005"
+              ],
+              "quote": "523m"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            150,
+            150
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "2h30min",
+          "note": "one way"
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the left shortcut through couloirs at the 2,071 m fork"
+          },
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "dangerous in snow (for experienced hikers)"
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "terrain",
+              "note": "Steep shortcut through couloirs at 2,071 m, dangerous in snow; take the right fork via Signal Forbes"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "dangerous in snow (for experienced hikers)"
+        },
+        "altitude_m": {
+          "v": 2310,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "2310m"
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "06-15",
+              "to": "10-31",
+              "status": "open",
+              "via": "lift",
+              "note": "depends on the Aiguille du Midi and Montenvers lifts; subject to snow"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "From 15/06 to 31/10 daily.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "point-to-point",
+        "navigation": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "en.chamonix.com Grand Balcon Nord page (no group rule, no waymarking note)",
+            "en.chamonix.com Aiguille du Midi cable car page"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 5.7,
+        "walk_gain_m": 140,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 8,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "The view is at Lac Blanc, reached only by the 7 km, +500 m return walk from Flegere."
+        },
+        "kid_note": "The reflection of the Mont Blanc massif in Lac Blanc needs calm water, usually early or late in the day; it is the end point of the Lac Blanc walk.",
+        "stroller": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "Reached only on a mountain path."
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0006"
+          ],
+          "note": "Reached only on a mountain path."
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            60
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our estimate; the trip gives 30 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "lakeshore"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: an open lakeshore with no drop."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "07-01",
+              "to": "09-30",
+              "status": "open",
+              "via": "lift",
+              "note": "via the Flegere gondola and the Lac Blanc path"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "From 01/07 to 30/09/2026 daily.",
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": 3500,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "7km",
+          "note": "Half of the official 7 km round trip from the Flegere gondola (1 h 45 one way)."
+        },
+        "altitude_m": {
+          "v": 2352,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "2352m"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "strong-kid",
+        "accessibility": "none",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

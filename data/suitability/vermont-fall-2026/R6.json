@@ -1,0 +1,630 @@
+{
+  "schema": "suitability/1",
+  "trip": "vermont-fall-2026",
+  "lane": "R6",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://gostowe.com/listing/stowe-recreation-path",
+      "title": "Stowe Recreation Path",
+      "publisher": "Go Stowe (Stowe Area Association)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://vtrans.vermont.gov/notch",
+      "title": "Smugglers Notch",
+      "publisher": "Vermont Agency of Transportation",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.vermontpublic.org/local-news/2023-11-15/smugglers-notch-road-officially-closed-for-winter-season",
+      "title": "Smugglers Notch road officially closed for winter season",
+      "publisher": "Vermont Public",
+      "kind": "press",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://fpr.vermont.gov/darling-state-park",
+      "title": "Darling State Park",
+      "publisher": "Vermont Department of Forests, Parks and Recreation",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://skiburke.com/plan-your-trip/area-activities",
+      "title": "Area activities",
+      "publisher": "Burke Mountain Resort",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.montgomeryhistoricalsociety.org/mhshistorymaps.html",
+      "title": "Historic Montgomery maps",
+      "publisher": "Montgomery Historical Society",
+      "kind": "community",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "legacy/vermont-fall-2026/PLAN.md",
+      "title": "Vermont fall 2026 plan (route notes)",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+      "kind": "drive",
+      "subkind": "scenic_drive",
+      "suitability": {
+        "kid_note": "A loop of short roadside stops at Montgomery's covered bridges off VT-118; most are a few steps from the car.",
+        "on_site_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "note": "The plan gives about 65 min for five bridges and 120 min for the stop."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "montgomeryhistoricalsociety.org maps page (no road or clearance data)",
+            "web search 'Montgomery Vermont covered bridges town map' (no official town map found)"
+          ],
+          "note": "Town roads; no seasonal closure found."
+        }
+      },
+      "ext": {
+        "kind": "drive",
+        "vehicle_limits": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "montgomeryhistoricalsociety.org maps page (no road or clearance data)",
+            "web search 'Montgomery Vermont covered bridges town map' (no official town map found)"
+          ],
+          "note": "Covered bridges carry posted clearance and weight limits; none were found online."
+        },
+        "road_surface": {
+          "v": "mixed",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "note": "The plan's directions say the road to Hutchins Bridge turns to dirt after about 50 yards; VT-118 is paved."
+        },
+        "drive_min": {
+          "v": [
+            60,
+            100
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0007"
+          ],
+          "note": "From the plan's timings for the bridge loop, before stops."
+        }
+      },
+      "hints": [
+        {
+          "field": "ref",
+          "text": "The trip stop sits on a day with Cabot and Peacham; the plan's covered-bridge loop is Montgomery on the drive home. This record uses Montgomery.",
+          "src": [
+            "src-0007"
+          ]
+        }
+      ],
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:hyde park village",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "A small village with the Opera House and the Lamoille Valley Rail Trail at its edge.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: village roads with few or no sidewalks; no published surface information."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vermontvacation.com and the town website (no accessibility statement found)",
+            "web search for village accessibility (nothing published)"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:peacham village",
+      "kind": "town",
+      "subkind": "town",
+      "suitability": {
+        "kid_note": "A small hilltop village, often photographed in fall; part of the Northeast Kingdom fall foliage festival in early October.",
+        "stroller": {
+          "v": "all_terrain",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: village roads with few or no sidewalks; no published surface information."
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vermontvacation.com and the town website (no accessibility statement found)",
+            "web search for village accessibility (nothing published)"
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "A paved, mostly flat path walked for any length."
+        },
+        "kid_note": "A 5.3 mile (8.5 km) paved path along the river from the village, mostly flat, with many bridges; walk any part of it and turn back.",
+        "carrier_ok": {
+          "v": true,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "A paved flat path."
+        },
+        "stroller": {
+          "v": "smooth",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "This 5.3-mile paved public path is free to use and easy to access.",
+          "note": "5.3 mi = 8.5 km"
+        },
+        "stroller_extent": {
+          "scope": "whole"
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "gostowe.com Stowe Recreation Path listing (no gain, no accessibility statement)",
+            "stowerec.org (linked from the listing; not opened)"
+          ],
+          "note": "Paved and mostly flat, but no official accessibility statement was found."
+        },
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 8.5,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "5.3-mile paved public path",
+              "note": "5.3 mi = 8.5 km, one way"
+            },
+            "gain_m": {
+              "v": null,
+              "state": "searched_none",
+              "basis": null,
+              "src": [],
+              "on": "2026-10-18",
+              "tried": [
+                "gostowe.com Stowe Recreation Path listing (no gain, no accessibility statement)",
+                "stowerec.org (linked from the listing; not opened)"
+              ],
+              "note": "Described as mostly flat and level; no figure."
+            },
+            "surface": {
+              "v": [
+                "paved"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "5.3-mile paved public path"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            30,
+            130
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0001"
+          ],
+          "note": "Any length; the full 8.5 km one way at 4 km/h is about 130 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "none",
+            "fenced": null,
+            "where": "riverside path"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: a paved riverside greenway."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "01-01",
+              "to": "12-31",
+              "status": "open",
+              "via": "trail"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "The Stowe Recreation Path is open all year long.",
+          "applies_to": "2026"
+        }
+      },
+      "ext": {
+        "kind": "trail",
+        "shape": "out-and-back",
+        "dogs": {
+          "v": "leash",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "dogs must be leashed on the Stowe Recreation Path"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": 8.5,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 4,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "A drive-up summit with a historic fire tower to climb; a child under about 4 is carried on the tower stairs."
+        },
+        "kid_note": "The CCC toll road climbs to near the summit; the 1912 fire tower gives a 360 degree view toward Willoughby Gap. The road can close for private events.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "fpr.vermont.gov Darling State Park page (no season, fee or walk distance)",
+            "skiburke.com area activities page (no season, fee or walk distance)",
+            "northstarmonthly.com toll road article (HTTP 429 on 2026-10-18)"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "fpr.vermont.gov Darling State Park page (no season, fee or walk distance)",
+            "skiburke.com area activities page (no season, fee or walk distance)",
+            "northstarmonthly.com toll road article (HTTP 429 on 2026-10-18)"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            45,
+            90
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Toll road up and down plus the tower; the trip gives 45 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "significant",
+            "fenced": null,
+            "where": "the fire tower"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0004"
+          ],
+          "note": "Railings not described."
+        },
+        "access_season": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "fpr.vermont.gov Darling State Park page (no season, fee or walk distance)",
+            "skiburke.com area activities page (no season, fee or walk distance)",
+            "northstarmonthly.com toll road article (HTTP 429 on 2026-10-18)"
+          ],
+          "note": "Trip research reports a $5 carload fee, 08:00-17:00, ending mid-October (press, not re-read). The resort says the road closes for private events."
+        },
+        "walk_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "fpr.vermont.gov Darling State Park page (no season, fee or walk distance)",
+            "skiburke.com area activities page (no season, fee or walk distance)",
+            "northstarmonthly.com toll road article (HTTP 429 on 2026-10-18)"
+          ]
+        },
+        "altitude_m": {
+          "v": 1067,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004"
+          ],
+          "quote": "Burke Mountain, the main feature of Darling State Park, is 3500 feet in elevation.",
+          "note": "3500 ft = 1,067 m"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "age_band": {
+          "v": {
+            "from": 0,
+            "to": null
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0002"
+          ],
+          "note": "Seen from the road and the pull-offs; any age."
+        },
+        "kid_note": "A narrow pass on VT-108 between cliffs, with hairpins and boulders at the top. Pull-offs are small and fill at midday in foliage season; car-sick children may struggle on the bends.",
+        "stroller": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vtrans.vermont.gov/notch (vehicle limits; no surface or accessibility data)",
+            "web search 'Smugglers Notch Route 108 closed winter'"
+          ]
+        },
+        "wheelchair": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "vtrans.vermont.gov/notch (vehicle limits; no surface or accessibility data)",
+            "web search 'Smugglers Notch Route 108 closed winter'"
+          ]
+        },
+        "on_site_min": {
+          "v": [
+            30,
+            75
+          ],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The drive through and a pull-off stop; the trip gives 75 min."
+        },
+        "exposure": {
+          "v": {
+            "level": "some",
+            "fenced": "unfenced",
+            "where": "the boulder field beside the road at the top"
+          },
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement from the trip research; no official statement."
+        },
+        "access_season": {
+          "v": [
+            {
+              "from": "05-15",
+              "to": "11-15",
+              "status": "open",
+              "via": "road",
+              "note": "closed each winter; dates vary by year (closed in early November in 2025 per trip research). Single vehicles over 40 ft and combinations over 45 ft are banned all season"
+            }
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0003",
+            "src-0002"
+          ],
+          "note": "Approximate window from press reports; VTrans does not publish fixed dates.",
+          "applies_to": "2026"
+        },
+        "walk_m": {
+          "v": 0,
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Our judgement: the views are from the road and the roadside pull-offs."
+        },
+        "hazards": {
+          "v": [
+            {
+              "category": "road",
+              "note": "Hairpin bends; vehicles over 40 ft (or 45 ft with a trailer) banned, fines from $10,000"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0002"
+          ],
+          "quote": "Fines begin at $10,000 and can increase to $20,000 if the vehicle blocks or impedes traffic."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    }
+  ]
+}

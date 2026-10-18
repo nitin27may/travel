@@ -1,0 +1,1282 @@
+{
+  "schema": "relevance/1",
+  "trip": "chamonix-mont-blanc-2028",
+  "lane": "R6",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/aiguille-du-midi-cable-car",
+      "title": "Aiguille du Midi cable car",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/the-montenvers-mer-de-glace-train",
+      "title": "The Montenvers - Mer de Glace train",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://en.chamonix.com/things-to-see-and-do/sports-and-outdoor/hiking/lakes-waterfalls-and-gorges/hike-to-the-lac-blanc-from-la-flegere",
+      "title": "Hike to the Lac Blanc from La Flegere",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://en.chamonix.com/spring-hikes/grand-balcon-nord-plan-de-l-aiguille-du-midi-montenvers",
+      "title": "Grand Balcon Nord",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://hautesavoiemontblanc-tourisme.com/offres/site-descalade-des-gaillands-chamonix-mont-blanc-fr-5885451/",
+      "title": "Site d'escalade des Gaillands",
+      "publisher": "Haute-Savoie Mont-Blanc Tourisme",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://en.chamonix.com/la-vallee/patrimoine-culture/patrimoine-culturel-de-la-vallee/emosson-dam",
+      "title": "Emosson dam",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.valais.ch/en/explore/activities/hiking/hikes/geological-hike-to-the-vieux-emosson-reservoir",
+      "title": "Geological hike to the Vieux Emosson reservoir",
+      "publisher": "Valais/Wallis Promotion",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://chamonix.loopi-velo.fr/download/balade/pdf/5b8dbe90-dd16-41e9-9e24-b4908df6460c/fr/e7a6a121-1933-4acf-8340-4d6efa96e01f",
+      "title": "Randonnee a l'Aiguillette des Posettes",
+      "publisher": "Office de Tourisme de Chamonix (Loopi)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://en.chamonix.com/activities/practical-information-about-the-lifts/mer-de-glace-gondola-lift",
+      "title": "Mer de Glace gondola lift",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q3215662",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match the lake at Les Gaillands, 45.914 N 6.848 E, 'lake in France'"
+      },
+      "class_key": "lake/small-mirror",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "note": "No designation; the tourism board lists it as a climbing site with a lake and picnic area, 2 km from Chamonix."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A pleasant valley-floor lake with a Mont Blanc reflection; the alpine lakes are the stronger version."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Lac de l'Anglais beside it, Lac des Chavants (Les Houches), Lac Vert and the alpine lakes of the Aiguilles Rouges, all within 25 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Roadside: the lake and the reflection are next to the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The reflection of the massif needs clear, still air; a lakeside picnic still works in cloud."
+      },
+      "why": "A flat lakeside picnic with Mont Blanc reflected, 2 km from town.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking, permit or lift."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No own or parent designation found on the page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Lac du Chatelard': only a lake at Nevache, Hautes-Alpes",
+          "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name in the valley"
+        ]
+      },
+      "class_key": "lake/small-mirror",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Unidentified: no designation, no tourism board page and no Wikidata item for a lake of this name near Le Chatelard."
+      },
+      "standing": {
+        "v": "ordinary",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Cannot be judged; the place is unidentified."
+      },
+      "standing_scope": "upper Chamonix valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Cannot be judged; the place is unidentified."
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Lac du Chatelard': only a lake at Nevache, Hautes-Alpes",
+          "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name in the valley"
+        ]
+      },
+      "weather": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Lac du Chatelard': only a lake at Nevache, Hautes-Alpes",
+          "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name in the valley"
+        ]
+      },
+      "why": "Unverified stop: no lake of this name was found near Le Chatelard.",
+      "access_cost": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Lac du Chatelard': only a lake at Nevache, Hautes-Alpes",
+          "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name in the valley"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "Wikidata search 'Lac du Chatelard': only a lake at Nevache, Hautes-Alpes",
+            "en.chamonix.com and hautesavoiemontblanc-tourisme.com: no lake of this name in the valley"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "kind": "lift",
+      "subkind": "cable_car",
+      "wikidata": {
+        "v": "Q3088020",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match the aerial tramway, 45.918 N 6.870 E; the mountain is Q404728"
+      },
+      "class_key": "lift/panorama",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "The tourism board's headline lift: one rise from 1,033 m to 3,842 m; timed tickets, new ones released the day before, sell out on clear mornings."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The highest and best-known lift in the Mont Blanc valleys."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Skyway Monte Bianco from Courmayeur (Pointe Helbronner, 3,466 m) is the one comparable lift within 100 km."
+      },
+      "unique_because": "One continuous cable-car rise of about 2,800 m to 3,842 m.",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The cable car is the easy way; the view is at the terraces."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "In cloud the summit shows nothing and the lift may stop."
+      },
+      "why": "A single cable car rise to 3,842 m, face to face with Mont Blanc.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "timed slots; new tickets released the day before (D-1); pass holders must reserve too",
+            "book_ahead_days": 1
+          },
+          {
+            "type": "lift_only"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The Mont Blanc massif holds no UNESCO or park designation; none found on the page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "kind": "lift",
+      "subkind": "rack_railway",
+      "wikidata": {
+        "v": "Q1069340",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match the Montenvers rack railway, 'railway line in France'; the viewpoint is Q1946088"
+      },
+      "class_key": "lift/panorama",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "The tourism board's classic Mer de Glace outing; the glacier is France's largest (Wikidata Q583591)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The only lift to the Mer de Glace viewpoint."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Aiguille du Midi and Brevent lifts give other high views, but not of a valley glacier this close."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The train is the easy way to the viewpoint."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The viewpoint wants clear air; the ice cave and the Glaciorium work in cloud."
+      },
+      "why": "A rack railway to the Mer de Glace, with the glacier's retreat marked on the stairs.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "lift_only"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation found on the page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+      "kind": "sight",
+      "subkind": "attraction",
+      "wikidata": {
+        "v": "Q2885035",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match Emosson Dam, Finhaut, Valais, 46.068 N 6.932 E"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0006",
+          "src-0007"
+        ],
+        "note": "A free dam viewpoint listed by the Chamonix and Valais tourism boards; the footprints need a difficult 4 h 40 hike."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A strong half-day across the Swiss border; the footprints are the unusual part."
+      },
+      "standing_scope": "Chamonix valley and Trient",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Few dinosaur trackways are open to walkers in the Alps; big dams with Mont Blanc views are less rare."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The dam top and its Mont Blanc view are easy; the footprints need the 12.9 km, +845 m hike."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Mont Blanc view needs clear air; the footprints are snow-free only from about mid-July."
+      },
+      "why": "A high dam with a view to Mont Blanc and 240-million-year-old footprints above it.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Post bus or funicular; neither is a booking. The funicular's status conflicts between sources."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation found on the pages read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+      "kind": "sight",
+      "subkind": "cave",
+      "wikidata": {
+        "v": "Q30737737",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match 'Ice cave in France', 45.927 N 6.922 E"
+      },
+      "class_key": "cave/show",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "note": "Part of the tourism board's Montenvers visit; re-cut in the glacier each year."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best-known glacier ice cave in the area; about 200 stairs each way."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Glacier ice grottoes elsewhere in the Alps lie beyond 100 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The gondola and stairs are the only way; no harder version exists."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Inside the glacier; works in any weather."
+      },
+      "why": "A walk-through cave cut into the Mer de Glace, re-carved every year.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "lift_only"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0009"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation found on the page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q83236",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match the commune of Chamonix-Mont-Blanc, 45.922 N 6.869 E"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001"
+        ],
+        "note": "Host of the first Winter Olympics (1924) and the tourism board's base for the whole massif; the one town the region is known by."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The main town of the valley."
+      },
+      "standing_scope": "Mont Blanc valleys",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Courmayeur (15 km through the tunnel) and Zermatt (beyond 100 km) are the comparable resort towns."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A flat town centre."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Shops, museum and cafes work in rain."
+      },
+      "why": "The mountaineering capital, with Mont Blanc over its main street.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation on a page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Chamonix market' and 'marche de Chamonix': no item",
+          "en.chamonix.com market page (search result)"
+        ]
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A weekly town market; the tourism board lists it as a practical service, not a headline."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A good Saturday market; Annecy's markets are larger."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Weekly markets in Les Houches, Megeve and Annecy."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "On the town square."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Outdoors; it runs in light rain."
+      },
+      "why": "A Saturday morning market on Place du Mont-Blanc.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q6529888",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match 'village in France', 45.939 N 6.885 E, Les Praz de Chamonix"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A hamlet base at the Flegere gondola; no designation or tourism board headline."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A quiet base beside a lift and the train line."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Other hamlets on the line: Les Bois, Les Tines, Argentiere."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A village walk."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A village stroll works in any weather."
+      },
+      "why": "A quiet hamlet at the foot of the Flegere gondola.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q912354",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match the commune of Vallorcine, 46.034 N 6.933 E"
+      },
+      "class_key": "town/alpine-resort",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A small border commune; the tourism board lists it as a quieter base, not a headline."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A quiet upper-valley village."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Argentiere and Le Tour nearby."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A village walk."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A village stroll."
+      },
+      "why": "A quiet village at the Swiss border on the Mont-Blanc Express.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q31661143",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match the Aiguillette des Posettes summit, 46.018 N 6.940 E; the trip stop 'Col des Montets' is the start area, Q948024"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0008"
+        ],
+        "note": "A tourism board route sheet, rated Moyenne; no designation of its own."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A strong balcony view of the Mont Blanc massif and the Glacier du Tour; Brevent and Lac Blanc are more famous."
+      },
+      "standing_scope": "upper Chamonix valley",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Aiguilles Rouges balconies (Brevent, Flegere, Lac Blanc, Cheserys) within 15 km."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Vallorcine gondola to the Col des Posettes, when it runs, cuts most of the climb."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The ridge view needs clear air."
+      },
+      "why": "A ridge walk with Mont Blanc and the Glacier du Tour in one view.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking; the gondola shortcut is optional."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation found on the route sheet."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q3214753",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match Lac Blanc in the Aiguilles Rouges, 45.982 N 6.889 E (not the Vosges Lac Blanc, Q267332); the trail has no item"
+      },
+      "class_key": "lake/alpine-hike-in",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "Inside the Aiguilles Rouges nature reserve (parent); the tourism board's best-known lake hike, with the massif reflected."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The valley's most famous lake walk."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Cheserys lakes (1 km) and Lac Cornu share the view; nothing else in the region matches the full reflection."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Index chairlift route (2.9 km) is shorter, but still a mountain path."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The reflection needs a clear, calm day."
+      },
+      "why": "The Mont Blanc massif mirrored in a lake at 2,352 m.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "lift_only",
+            "note": "via the Flegere gondola; the walk from Les Praz adds about 800 m"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0003"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Reserve naturelle des Aiguilles Rouges",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "the path is in the Nature Reserve Les Aiguilles Rouges"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Grand Balcon Nord' and 'Plan de l'Aiguille': no item for the route",
+          "en.chamonix.com route page"
+        ]
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "note": "The tourism board's classic balcony between the Aiguille du Midi and Montenvers; reached by the timed-ticket lift."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best face-on walk below the Aiguilles de Chamonix."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Grand Balcon Sud opposite is the same class of balcony walk."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Plan de l'Aiguille itself is a lift stop with the view; the walk adds the Mer de Glace."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Views of the needles want clear air."
+      },
+      "why": "A mostly downhill balcony under the Aiguilles to the Mer de Glace.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "lift_only"
+          },
+          {
+            "type": "timed_entry",
+            "note": "the Aiguille du Midi ticket to the mid-station is a timed slot"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004",
+          "src-0001"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation found on the page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q3214753",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match Lac Blanc, 45.982 N 6.889 E; the reflection is seen there"
+      },
+      "class_key": "lake/small-mirror",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "Inside the Aiguilles Rouges nature reserve (parent); the image the tourism board uses for the valley's lakes."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The valley's defining reflection."
+      },
+      "standing_scope": "Chamonix valley",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Cheserys lakes and Lac des Gaillands give lesser reflections."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Only reached on the Lac Blanc walk."
+      },
+      "easy_way": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Needs clear, still air."
+      },
+      "why": "Mont Blanc reflected in Lac Blanc at dawn or late afternoon.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "lift_only"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0003"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Reserve naturelle des Aiguilles Rouges",
+              "scope": "parent"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "the path is in the Nature Reserve Les Aiguilles Rouges"
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    }
+  ]
+}

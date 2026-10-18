@@ -1,0 +1,588 @@
+{
+  "schema": "relevance/1",
+  "trip": "algonquin-muskoka-2026",
+  "lane": "R6",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.algonquinpark.on.ca/visit/recreational_activites/track-and-tower-trail.php",
+      "title": "Track and Tower Trail",
+      "publisher": "The Friends of Algonquin Park (park information site)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.algonquinpark.on.ca/visit/general_park_info/fees-day-use.php",
+      "title": "Day use fees",
+      "publisher": "The Friends of Algonquin Park (park information site)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.ontarioparks.ca/park/oxtongueriverraggedfalls",
+      "title": "Oxtongue River-Ragged Falls Provincial Park",
+      "publisher": "Ontario Parks",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.algonquinhighlands.ca/explore-play/parks-and-outdoor-spaces/dorset-scenic-lookout-tower/",
+      "title": "Dorset Scenic Lookout Tower",
+      "publisher": "Township of Algonquin Highlands",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://limberlostforest.com/activities/hiking-trails/",
+      "title": "Hiking Trails",
+      "publisher": "Limberlost Forest and Wildlife Reserve",
+      "kind": "operator",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q1669132",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match 'waterfall on the Oxtongue River in Canada', 45.392 N 78.906 W (not the New Brunswick falls, Q112671742)"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "Inside Oxtongue River-Ragged Falls Provincial Park (parent); regional tourism lists it among Muskoka's big falls."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The most powerful falls near Dwight and Huntsville."
+      },
+      "standing_scope": "within 1 h of Huntsville",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Stubb's Falls (Arrowhead, about 35 km) and the Bracebridge falls (about 70 km) are smaller and gentler."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A short trail from the lot gives the view."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A waterfall works in rain."
+      },
+      "why": "An 80 ft whitewater cascade a short walk from the car.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Ontario Parks day-use permit, bought online; fee not published on the park page"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0003"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Oxtongue River-Ragged Falls Provincial Park",
+              "scope": "parent",
+              "wikidata": "Q22463352"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/town:huntsville",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q1024091",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match 'town in Ontario, Canada', 45.333 N 79.217 W"
+      },
+      "class_key": "town/lakeside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The service town for Algonquin's west side; the regional tourism board (Discover Muskoka) lists its murals and lookout."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A useful lakeside town; Bracebridge and Gravenhurst are similar."
+      },
+      "standing_scope": "Muskoka",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Bracebridge, Gravenhurst and Port Carling within 100 km."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A walkable downtown."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Shops and cafes."
+      },
+      "why": "Muskoka's lakeside town on the road to Algonquin.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q22650927",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "checked: coordinates and description on Wikidata match Solitaire Lake, Muskoka, 45.392 N 79.009 W, the lake the trail circles; the trail has no item"
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0005"
+        ],
+        "note": "On a private reserve with no designation; listed by the operator and regional tourism, not a headline."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A good lake loop with one strong lookout; Algonquin's lookout trails are the bigger draw."
+      },
+      "standing_scope": "within 1 h of Huntsville",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Lions Lookout, Arrowhead's Big Bend and Algonquin's Hwy 60 lookouts within 100 km."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The Echo Rock lookout is about 1.5 km from the Clear Lake Creek lot, so a shorter out and back gets the view."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The lookout wants clear air; the forest loop works in light rain."
+      },
+      "why": "A quiet lake loop with one lookout over fall colour, no permit needed.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No permit; a free online waiver is required."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "A private reserve; no public designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Track and Tower Trail': no item",
+          "algonquinpark.on.ca trail page"
+        ]
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0001",
+          "src-0002"
+        ],
+        "note": "Inside Algonquin Provincial Park (parent); the park's daily vehicle permits for the Hwy 60 corridor sell out on fall weekends."
+      },
+      "draw_peak": {
+        "v": {
+          "tier": "national",
+          "from": "09-20",
+          "to": "10-15",
+          "why": "Algonquin fall colour on Highway 60"
+        },
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "The fall-colour season, when the corridor's permits sell out; pattern year 2026."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "One of the corridor's best lookout loops."
+      },
+      "standing_scope": "Algonquin Highway 60 corridor",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Lookout Trail, Centennial Ridges and Booth's Rock are the same class within 30 km."
+      },
+      "easy_payoff": {
+        "v": "none",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The lookout is about 4 km in; there is no short way."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The ledge view wants clear air."
+      },
+      "why": "A loop to an open ledge over Cache Lake in fall colour.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "day_permit",
+            "note": "Highway 60 daily vehicle permit, online or by phone only, up to 5 days ahead",
+            "book_ahead_days": 5
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0002"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "provincial_or_state_park",
+              "name": "Algonquin Provincial Park",
+              "scope": "parent",
+              "wikidata": "Q1543478"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Dorset Lookout Tower' and 'Dorset Scenic Lookout Tower': no item",
+          "algonquinhighlands.ca tower page"
+        ]
+      },
+      "class_key": "viewpoint/summit-panorama",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004"
+        ],
+        "note": "The township (land manager) requires booked fall-colour slots from 19 Sep to 25 Oct; the regional tourism board lists it as a fall-colour stop."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best drive-up colour panorama in the Lake of Bays area."
+      },
+      "standing_scope": "within 1 h of Huntsville",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Lions Lookout (Huntsville) and Algonquin's lookouts within 100 km; none is a tower."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A short walk and a climb from the lot."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The panorama wants clear air."
+      },
+      "why": "A 30 m tower 142 m above Lake of Bays, 360 degrees of colour.",
+      "access_cost": {
+        "v": [
+          {
+            "type": "timed_entry",
+            "note": "booked slot required 19 Sep - 25 Oct; reservations open 09:00 on 1 Sep at ahtrails.ca"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ]
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation found on the page read."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Dwight Beach': no item (Dwight community is Q1268459)",
+          "web search for a township beach page"
+        ]
+      },
+      "class_key": "lake/swim-beach",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A public village beach; no designation or tourism board headline."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A good sunset spot near the lodge."
+      },
+      "standing_scope": "Lake of Bays",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Many public beaches on Lake of Bays and the Muskoka lakes."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Next to the parking."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A sunset view needs a clear western sky."
+      },
+      "why": "A southwest-facing beach for sunset over Dwight Bay.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No booking."
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No designation."
+        },
+        "editorial": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the national tourism board's top lists (overview search)",
+            "Lonely Planet and Michelin top lists in the overview search"
+          ],
+          "note": "No top-list mention surfaced in the pass."
+        }
+      }
+    }
+  ]
+}

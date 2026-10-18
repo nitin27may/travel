@@ -1,0 +1,2429 @@
+{
+  "schema": "relevance/1",
+  "trip": "iceland-ring-road-2027",
+  "lane": "R4",
+  "researched": "2026-10-18",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarnipa-s6",
+      "title": "Svartifoss - Sjonarnipa (S6)",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarsker-sel-s2",
+      "title": "Svartifoss - Sjonarsker - Sel (S2)",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/destination-svartifoss",
+      "title": "Destination Svartifoss",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur/dettifoss",
+      "title": "Dettifoss",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsargljufur",
+      "title": "Jokulsargljufur",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/news/landslide-by-dettifoss",
+      "title": "Landslide by Dettifoss",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/jokulsarlon",
+      "title": "Jokulsarlon",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/destination-breidamerkursandur",
+      "title": "Breidamerkursandur",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/warnings/temporary-closure-of-main-parking-lot-by-jokulsarlon",
+      "title": "Temporary closure of main parking lot by Jokulsarlon",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/gullfoss/",
+      "title": "Gullfoss",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/gullfoss/about-the-area/",
+      "title": "Gullfoss: about the area",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/skogafoss/",
+      "title": "Skogafoss",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/skogafoss/access-and-management/",
+      "title": "Skogafoss: access and management",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/",
+      "title": "Geysir area",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/south/geysir-area/supervision-and-service/",
+      "title": "Geysir area: supervision and service",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/north-east/godafoss-in-thingeyjarsveit/",
+      "title": "Godafoss in Thingeyjarsveit",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/north-east/dettifoss-and-a-row-of-waterfalls/",
+      "title": "Dettifoss and a row of waterfalls",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://ust.is/english/visiting-iceland/protected-areas/west/hraunfossar-borgarbyggd/",
+      "title": "Hraunfossar",
+      "publisher": "Environment Agency of Iceland (Umhverfisstofnun)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.thingvellir.is/en/service/parking-service/",
+      "title": "Parking service",
+      "publisher": "Thingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.thingvellir.is/en/things-to-do/visitor-centre/",
+      "title": "Visitor centre",
+      "publisher": "Thingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://www.thingvellir.is/en/things-to-do/hiking-trails/",
+      "title": "Hiking trails",
+      "publisher": "Thingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.ferdamalastofa.is/en/news/increased-safety-and-better-information-with-new-signs-in-reynisfjara-black-sand-beach",
+      "title": "Increased safety and better information with new signs in Reynisfjara black sand beach",
+      "publisher": "Icelandic Tourist Board (Ferdamalastofa)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.ferdamalastofa.is/en/news/reynisfjara-recent-changes-due-to-coastal-erosion",
+      "title": "Reynisfjara Beach: recent changes due to coastal erosion",
+      "publisher": "Icelandic Tourist Board (Ferdamalastofa)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://snaefellsjokull.is/en/aningastadur/djupalonsandur-2",
+      "title": "Djupalonsandur",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://snaefellsjokull.is/en/gonguleid/djupalonssandur-dritvik-2",
+      "title": "Djupalonssandur - Dritvik",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://snaefellsjokull.is/en/aningastadur/arnarstapi",
+      "title": "Arnarstapi",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2",
+      "title": "Arnarstapi - Hellnar",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.snaefellsjokull.is/en/hiking-trails-destinations/travel-and-safety-advice",
+      "title": "Travel and safety advice",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://snaefellsjokull.is/en/gonguleid/snaefellsjokull-glacier",
+      "title": "Snaefellsjokull Glacier",
+      "publisher": "Snaefellsjokull National Park",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://www.earthlagoon.is/",
+      "title": "Earth Lagoon Myvatn (formerly Myvatn Nature Baths)",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.earthlagoon.is/faq",
+      "title": "FAQ",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.earthlagoon.is/lagoon",
+      "title": "The lagoon",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.earthlagoon.is/enjoy-pricing",
+      "title": "Pricing",
+      "publisher": "Earth Lagoon Myvatn (Jardbodin)",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.glaumbaer.is/is/en",
+      "title": "Opening hours and admission",
+      "publisher": "Skagafjordur Heritage Museum",
+      "kind": "operator",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.lystigardur.akureyri.is/is/english/practical-information",
+      "title": "Garden information",
+      "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://lystigardur.akureyri.is/en/moya/adverts/9",
+      "title": "Opening hours and directions",
+      "publisher": "Akureyri Botanic Garden (Lystigardur Akureyrar)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://safetravel.is/",
+      "title": "Safetravel: eruptions and earthquakes in Reykjanes peninsula",
+      "publisher": "ICE-SAR (Safetravel)",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://en.vedur.is/about-imo/news/ground-uplift-and-magma-accumulation-continue-beneath-svartsengi",
+      "title": "Ground uplift and magma accumulation continue beneath Svartsengi (read through search results; the fetched page showed only the site banner)",
+      "publisher": "Icelandic Meteorological Office",
+      "kind": "official",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0039",
+      "url": "legacy/iceland-ring-road/PLAN.md",
+      "title": "Iceland Ring Road plan",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0040",
+      "url": "research/trips/iceland-ring-road/route.md",
+      "title": "Iceland route, stops and activity limits (research)",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0041",
+      "url": "prototype/src/data/public-trips.ts",
+      "title": "Iceland public trip days (stop durations)",
+      "publisher": "this repo",
+      "kind": "computed",
+      "read": "2026-10-18"
+    },
+    {
+      "id": "src-0042",
+      "url": "https://www.wikidata.org/wiki/Special:EntityData",
+      "title": "Wikidata entity lookups (wbsearchentities then wbgetentities, description and coordinates checked)",
+      "publisher": "Wikidata",
+      "kind": "official",
+      "read": "2026-10-18"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+      "kind": "activity",
+      "subkind": "hot-springs",
+      "wikidata": {
+        "v": "Q27016707",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'hot springs in Iceland', 65.631 -16.848; a second item Q140586475 'Earth Lagoon Myvatn' has 1 sitelink and should be merged"
+      },
+      "class_key": "lake/swim-beach",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0030"
+        ],
+        "note": "No own designation; the operator markets it as the north's lagoon. Visitors add it when staying at Myvatn, not a reason to come."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The main geothermal bath of the Myvatn area."
+      },
+      "standing_scope": "North Iceland, Akureyri to Myvatn and Dettifoss",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Same class within 100 km: GeoSea at Husavik (about 50 km) and the Forest Lagoon at Akureyri."
+      },
+      "easy_payoff": {
+        "v": null,
+        "state": "not_applicable",
+        "basis": null,
+        "src": [],
+        "note": "the bath is the visit; there is no easier way"
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A warm outdoor bath works in rain and wind."
+      },
+      "why": "A warm milky geothermal bath above Myvatn, a quieter alternative to the Blue Lagoon.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+      "kind": "sight",
+      "subkind": "area",
+      "wikidata": {
+        "v": "Q1288839",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'volcanic system in Iceland' (Svartsengi), 63.878 -22.448; the record is the lava landscape around it"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0037"
+        ],
+        "note": "No own designation on the pages read (Reykjanes is a UNESCO Global Geopark, a type our list lacks); a bonus stop beside the airport."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Fresh lava is also at Fagradalsfjall and Eldhraun."
+      },
+      "standing_scope": "Reykjanes peninsula",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Same class within 100 km: Eldhraun, Fagradalsfjall and the Reykjanes lava fields."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The lava fields are seen from the road."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The landscape reads in any weather; views of the craters need clear air."
+      },
+      "why": "Young lava fields of the 2020s eruptions, seen on the drive from the airport.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q427971",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 64.703 -20.980"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0018"
+        ],
+        "note": "Natural monument (own) since 1987; the land manager calls it among the most popular destinations in West Iceland."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best-known waterfalls of Borgarfjordur."
+      },
+      "standing_scope": "West Iceland and Snaefellsnes",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No other spring-fed falls seeping out of a lava field along a kilometre of cliff are known within 500 km."
+      },
+      "unique_because": "Spring water seeps from under a lava field in hundreds of falls along about 1 km of cliff.",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0018"
+        ],
+        "note": "Viewpoints sit beside the car park, with partial wheelchair access (land manager)."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Waterfalls work in rain."
+      },
+      "why": "Clear springs pour out of a lava field into a glacial river, beside the Barnafoss arches.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Hraunfossar og Barnafoss",
+              "scope": "own"
+            },
+            {
+              "type": "official_highlight",
+              "name": "among the most popular tourist destinations in West Iceland",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0018"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q210280",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall', 65.822 -16.388"
+      },
+      "class_key": "waterfall/giant",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004",
+          "src-0017"
+        ],
+        "note": "Natural monument (own) since 1996; the national park's page leads with 'the most powerful waterfall in Europe' (official_highlight). Inside Vatnajokull National Park (parent)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The headline waterfall of the north."
+      },
+      "standing_scope": "North Iceland, Akureyri to Myvatn and Dettifoss",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Godafoss (about 70 km) is the other big northern fall; Selfoss and Hafragilsfoss are in the same canyon."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0004",
+          "src-0006"
+        ],
+        "note": "A 1 km walk from the west car park gets the main view; part of the platform is shut after a landslide."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Spray and power work in any weather."
+      },
+      "why": "Europe's most powerful waterfall, 44 m into the Jokulsargljufur canyon.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Dettifoss, Selfoss and Hafragilsfoss",
+              "scope": "own"
+            },
+            {
+              "type": "official_highlight",
+              "name": "the most powerful waterfall in Europe",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Vatnajokull National Park",
+              "scope": "parent",
+              "wikidata": "Q1353292"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0004",
+            "src-0005",
+            "src-0017"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:geysir",
+      "kind": "sight",
+      "subkind": "attraction",
+      "wikidata": {
+        "v": "Q216846",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'geyser in southwestern Iceland', 64.314 -20.299 (Great Geysir; Strokkur is Q1128186)"
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0014"
+        ],
+        "note": "Natural monument (own); the land manager calls it one of the most renowned hot spring areas in the world; a Golden Circle anchor."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The geyser field of Iceland."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The geyser that named all geysers; no other erupting geyser in Iceland is regular like Strokkur."
+      },
+      "unique_because": "The place name Geysir gave the word geyser to many languages (land manager).",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Strokkur erupts beside the path from the car park."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The eruptions do not depend on the weather."
+      },
+      "why": "Strokkur erupts every few minutes in the field that gave the word geyser.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Geysir area in Haukadalur",
+              "scope": "own"
+            },
+            {
+              "type": "official_highlight",
+              "name": "one of the most renowned hot spring areas in the world",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+      "kind": "sight",
+      "subkind": "museum",
+      "wikidata": {
+        "v": "Q1530105",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'museum and reconstructed farm in Skagafjordur', 65.611 -19.505"
+      },
+      "class_key": "sight/museum",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0034"
+        ],
+        "note": "No own designation on the museum's page; a stop on the road between Akureyri and the west."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best-kept turf farm on the Ring Road route."
+      },
+      "standing_scope": "North-west Iceland, Skagafjordur",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Turf farms: Laufas (about 100 km) and Vidimyri church nearby."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The farm is beside the car park."
+      },
+      "weather": {
+        "v": "indoor",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Most of the visit is inside the turf houses."
+      },
+      "why": "A turf farm you walk through room by room, as rural Iceland lived until the 20th century.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q1137629",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 65.683 -17.550"
+      },
+      "class_key": "waterfall/giant",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0016"
+        ],
+        "note": "Natural monument (own) since 2020; the land manager calls it one of the largest waterfalls in Iceland by flow."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The roadside waterfall of the north."
+      },
+      "standing_scope": "North Iceland, Akureyri to Myvatn and Dettifoss",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Dettifoss (about 70 km) and Aldeyjarfoss in the same region."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Right off Route 1 (plan)."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Waterfalls work in rain."
+      },
+      "why": "A wide horseshoe fall right on Route 1, with a saga story.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Godafoss",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0016"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q38519",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 64.326 -20.121"
+      },
+      "class_key": "waterfall/giant",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0010",
+          "src-0011"
+        ],
+        "note": "Protected since 1979 (own); the land manager calls it one of Iceland's best known waterfalls; a Golden Circle anchor."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The headline waterfall of the Golden Circle."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Big falls into canyons also at Dettifoss (far) and Haifoss; within 100 km it stands out."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The upper viewpoint is by the car park (plan)."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Spray and power work in any weather."
+      },
+      "why": "A two-tier fall dropping into a canyon; the upper and lower views differ.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Gullfoss and Hvitargljufur",
+              "scope": "own"
+            },
+            {
+              "type": "official_highlight",
+              "name": "one of Iceland's best known waterfalls",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0010",
+            "src-0011"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+      "kind": "sight",
+      "subkind": "attraction",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Hverir' (Q2113293 has no description or coordinates, rejected)",
+          "Wikidata search 'Hverir Iceland' (none)",
+          "Namafjall Q940545 is the mountain above, not the field"
+        ]
+      },
+      "class_key": "sight/landmark",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No own designation found; visitors to Myvatn add it, but nobody plans Iceland around it."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The most striking mud-pot field at Myvatn."
+      },
+      "standing_scope": "North Iceland, Akureyri to Myvatn and Dettifoss",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Krafla's Viti and Leirhnjukur (about 10 km) and Geysir (far) are the comparable fields."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The field is beside the car park."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Steam shows best in cool damp air."
+      },
+      "why": "Boiling mud pots and steaming vents on bare orange ground below Namafjall.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q777882",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall in Iceland', 63.616 -19.993"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No own designation page found; one of the images that stand for Iceland, and a south-coast anchor on every Ring Road plan (our judgement, lower-bound evidence)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk-behind waterfall of the south coast."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Gljufrabui is 500 m away; Skogafoss is 30 km away (same class)."
+      },
+      "unique_because": "One of few big falls with a path all the way behind it.",
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0039"
+        ],
+        "note": "The front view is from the car park; the walk behind is the full payoff."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "You get wet anyway."
+      },
+      "why": "A 60 m curtain of water you can walk behind.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "wikidata": {
+        "v": "Q1130718",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall on the Skoga River in Iceland', 63.530 -19.514"
+      },
+      "class_key": "waterfall/roadside",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0012",
+          "src-0013"
+        ],
+        "note": "Natural monument designation (own) since 1987, managed by the land manager with a ranger all year; one of the classic south-coast images."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The biggest roadside fall of the south coast."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Seljalandsfoss is 30 km away; Kvernufoss is behind the museum."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The base is by the car park."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Spray and rainbows; works in rain."
+      },
+      "why": "A 60 m fall straight off the old sea cliff, with stairs to the top.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "natural_monument",
+              "name": "Skogafoss",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0012"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+      "kind": "sight",
+      "subkind": "attraction",
+      "wikidata": {
+        "v": "Q894637",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'botanical garden in Akureyri, Iceland', 65.675 -18.093"
+      },
+      "class_key": "park/urban",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0035"
+        ],
+        "note": "Protected public park by law, no other designation; a town outing for anyone staying in Akureyri."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best garden in the north; a rest-day stop."
+      },
+      "standing_scope": "Akureyri",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Few botanic gardens in Iceland; Reykjavik's is 390 km away."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Free, flat and step-free (garden)."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A garden is better in sun."
+      },
+      "why": "A free, step-free town garden of Arctic plants, with a cafe.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q817118",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'town in Iceland', 64.25 -15.217 (the record is its harbour)"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "local",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation; a base town for the glacier lagoons, not a reason to come."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The langoustine town of the south-east."
+      },
+      "standing_scope": "East Iceland, Hofn to Seydisfjordur",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Harbour towns all along the coast."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The harbour is the town centre."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A town works in any weather."
+      },
+      "why": "A working fishing harbour with views of Vatnajokull's outlet glaciers.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q16424292",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'harbour in Iceland', 64.153 -21.937"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation; part of any Reykjavik day, not a reason to come (no top list checked)."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The capital's harbour quarter."
+      },
+      "standing_scope": "Reykjavik",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Harbour quarters in every town."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A walk from the centre."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Museums and cafes for rain."
+      },
+      "why": "The capital's old harbour: boats, museums and cafes a short walk from the centre.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
+      "kind": "town",
+      "subkind": "town",
+      "wikidata": {
+        "v": "Q623557",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'town in Iceland', 65.260 -14.006 (not the fjord items Q2275965 and Q1641039)"
+      },
+      "class_key": "town/historic-village",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation found; the best-known town of the East Fjords and the ferry port, a detour for those in the east."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The prettiest fjord town in the east."
+      },
+      "standing_scope": "East Iceland, Hofn to Seydisfjordur",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Other East Fjords towns (Faskrudsfjordur, Djupivogur) within 100 km, none as known."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The town is the visit."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The pass and the fjord view need clear air."
+      },
+      "why": "A small fjord town of wooden houses, a rainbow street and the blue church.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "Wikidata search 'Arnarstapi' (Q774048 is the village)",
+          "Wikidata search 'Hellnar' (Q1366915 is the village); no item for the path"
+        ]
+      },
+      "class_key": "trail/lookout",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0026",
+          "src-0027"
+        ],
+        "note": "The coast is protected (1979) and inside Snaefellsjokull National Park (parent); a highlight of a Snaefellsnes day, not of a trip."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The classic short coastal walk of Snaefellsnes."
+      },
+      "standing_scope": "West Iceland and Snaefellsnes",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Basalt sea-cliff walks also at Londrangar and Svalthufa (about 10 km)."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0026"
+        ],
+        "note": "The arches and cliffs at Arnarstapi are beside the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Cliffs and birds need dry weather; it works in cloud."
+      },
+      "why": "A 2 km coastal path over lava past sea arches, bird cliffs and the old fishing village.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "conservation_area",
+              "name": "Arnarstapi - Hellnar coast (protected 1979)",
+              "scope": "parent"
+            },
+            {
+              "type": "national_park",
+              "name": "Snaefellsjokull National Park",
+              "scope": "parent",
+              "wikidata": "Q738103"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0026",
+            "src-0027"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "wikidata": {
+        "v": "Q5285420",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'bay in Iceland', 64.752 -23.901"
+      },
+      "class_key": "beach/ocean",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0024"
+        ],
+        "note": "Inside Snaefellsjokull National Park (parent); a highlight of a Snaefellsnes day."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The best beach stop on the peninsula."
+      },
+      "standing_scope": "West Iceland and Snaefellsnes",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Black beaches elsewhere on Snaefellsnes and the south coast; the lifting stones and the 1948 wreck are its own."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0024"
+        ],
+        "note": "The wheelchair-accessible platform gives the view; the beach is down a lava path."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A storm beach works in rough weather from a safe distance."
+      },
+      "why": "A black pebble beach with an old trawler wreck and four fishermen's lifting stones.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Snaefellsjokull National Park",
+              "scope": "parent",
+              "wikidata": "Q738103"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0024"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q956845",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'valley in Iceland', 63.771 -18.172"
+      },
+      "class_key": "gorge/river-limestone",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0040"
+        ],
+        "note": "No own designation on a page read; a south-coast headline whose fame brought a closure by the Environment Agency in 2019 (repo research)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The south coast's canyon walk."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Mulagljufur and Stakkholtsgja are comparable canyons within about 100 km."
+      },
+      "easy_payoff": {
+        "v": "most",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0039"
+        ],
+        "note": "The first viewpoints are close to the lower car park (plan)."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The moss and depth read better in sun, fine in cloud."
+      },
+      "why": "A 100 m deep mossy canyon seen from a rim path with platforms.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "kind": "trail",
+      "subkind": "hike",
+      "wikidata": {
+        "v": "Q1145786",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'waterfall surrounded with basalt columns in Iceland', 64.028 -16.975"
+      },
+      "class_key": "waterfall/hike-in",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0003"
+        ],
+        "note": "The national park calls Svartifoss one of the highlights of Skaftafell; inside Vatnajokull National Park (parent)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The classic Skaftafell walk."
+      },
+      "standing_scope": "Skaftafell, Vatnajokull National Park",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Basalt-column falls also at Aldeyjarfoss and Hengifoss, both far."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0002"
+        ],
+        "note": "The marked S2 loop (5.8 km, 'Easy') reaches the falls; the longer circuits add views, not the falls."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A forest walk to a waterfall works in rain."
+      },
+      "why": "A waterfall framed by black basalt columns, on a marked loop from the visitor centre.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "one of the highlights of Skaftafell",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Vatnajokull National Park",
+              "scope": "parent",
+              "wikidata": "Q1353292"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+      "kind": "trail",
+      "subkind": "walk",
+      "wikidata": {
+        "v": "Q16419351",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'canyon in Iceland' (Almannagja), 64.261 -21.122; the park is Q107370"
+      },
+      "class_key": "sight/heritage-site",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0019",
+          "src-0020"
+        ],
+        "note": "Inside Thingvellir National Park, a UNESCO World Heritage site (parent); the Assembly site is the park's most visited location (land manager)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The rift walk of the Golden Circle."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "unique",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Nowhere else can you walk down a continental rift to the site of a 10th-century parliament."
+      },
+      "unique_because": "A walkable continental rift that is also the site of the parliament founded in 930.",
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The walk down Almannagja from the Hakid visitor centre is the visit."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A gorge walk works in rain."
+      },
+      "why": "Walk down the rift between two plates to where the Althing met from 930.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "unesco_whs",
+              "name": "Thingvellir National Park",
+              "scope": "parent",
+              "wikidata": "Q107370"
+            },
+            {
+              "type": "national_park",
+              "name": "Thingvellir National Park",
+              "scope": "parent",
+              "wikidata": "Q107370"
+            },
+            {
+              "type": "official_highlight",
+              "name": "the national park's most visited location, the Assembly Haven",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019",
+            "src-0020"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "wikidata": {
+        "v": "Q53795710",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'Diamond Beach', 64.053 -16.153 in Iceland (not the Australian, US or Ontario items)"
+      },
+      "class_key": "beach/ocean",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0008"
+        ],
+        "note": "Part of Vatnajokull National Park since 2017 (parent, Breidamerkursandur); paired with Jokulsarlon on every Ring Road plan."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The iceberg beach."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Fjallsarlon's shore (10 km) has ice but no surf beach; nothing else like it in the country."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0009"
+        ],
+        "note": "The beach is beside the Fellsfjara car parks."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Depends on what ice has washed up; better in low sun."
+      },
+      "why": "Lagoon icebergs washed onto black sand; whatever the sea left that day.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Vatnajokull National Park",
+              "scope": "parent",
+              "wikidata": "Q1353292"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+      "kind": "lake",
+      "subkind": "lake",
+      "wikidata": {
+        "v": "Q511933",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'glacial lake', 64.070 -16.212"
+      },
+      "class_key": "lake/glacial-turquoise",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0007"
+        ],
+        "note": "The national park calls the lagoons among the most popular tourist destinations in the country; inside Vatnajokull National Park (parent)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The glacier lagoon of Iceland."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Fjallsarlon (about 10 km) is the same class, smaller."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The shore is beside the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Icebergs show in any light; the glacier view needs clear air."
+      },
+      "why": "Icebergs calving from Breidamerkurjokull drift in a lagoon beside the Ring Road.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "among the most popular tourist destinations in the country",
+              "scope": "own"
+            },
+            {
+              "type": "national_park",
+              "name": "Vatnajokull National Park",
+              "scope": "parent",
+              "wikidata": "Q1353292"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0007"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q1547402",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'mountain in Snaefellsnes peninsula', 64.948 -23.311 (Kirkjufellsfoss is Q2447177)"
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "national",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "No designation; one of the most photographed mountains in Iceland, but the evidence read is no top list and no headline page (lower tier chosen)."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The classic view of Snaefellsnes."
+      },
+      "standing_scope": "West Iceland and Snaefellsnes",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Vestrahorn at Stokksnes is the other famous mountain view (far)."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The view with the waterfall is a short walk from the car park."
+      },
+      "weather": {
+        "v": "better_clear",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The peak needs clear air; it hides in low cloud."
+      },
+      "why": "The cone-shaped mountain above Kirkjufellsfoss, Iceland's best-known mountain view.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no designation named on the land manager's pages read"
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+      "kind": "swim_spot",
+      "subkind": "beach",
+      "wikidata": {
+        "v": "Q115641739",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'black sand beach in southern Iceland near ... Vik', 63.405 -19.064"
+      },
+      "class_key": "beach/ocean",
+      "draw": {
+        "v": "world",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0022"
+        ],
+        "note": "The Tourist Board calls it a very popular tourist destination (headline) and one of the most dangerous; a south-coast anchor."
+      },
+      "standing": {
+        "v": "top",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The black-sand beach of the south coast."
+      },
+      "standing_scope": "South Iceland, Reykjavik to Hofn",
+      "distinction": {
+        "v": "rare",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Black beaches at Dyrholaey (5 km) and Solheimasandur; the basalt columns and stacks are its own."
+      },
+      "easy_payoff": {
+        "v": "part",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0023"
+        ],
+        "note": "Since February 2026 only the upper ridge is reachable; the basalt columns are off limits."
+      },
+      "weather": {
+        "v": "any_weather",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "Dramatic in storms, but the zones close the lower beach."
+      },
+      "why": "Black sand, basalt columns and the Reynisdrangar stacks, seen from the upper ridge.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "official_highlight",
+              "name": "a very popular tourist destination (Icelandic Tourist Board)",
+              "scope": "own"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0022"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "wikidata": {
+        "v": "Q1315012",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0042"
+        ],
+        "note": "confirmed by a person-run check (agent, 2026-10-18): 'mountain in Iceland', 64.807 -23.776 (the park is Q738103)"
+      },
+      "class_key": "viewpoint/roadside",
+      "draw": {
+        "v": "regional",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0029"
+        ],
+        "note": "Inside Snaefellsjokull National Park (parent); a view, not a destination, on a Snaefellsnes day."
+      },
+      "standing": {
+        "v": "good",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The glacier is seen from many points on the peninsula."
+      },
+      "standing_scope": "West Iceland and Snaefellsnes",
+      "distinction": {
+        "v": "common",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The glacier is visible from much of the peninsula."
+      },
+      "easy_payoff": {
+        "v": "full",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "A roadside view."
+      },
+      "weather": {
+        "v": "clear_only",
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "The glacier cap is often in cloud; without clear air there is nothing to see."
+      },
+      "why": "The glacier-capped volcano Jules Verne made the entrance to the centre of the earth.",
+      "access_cost": {
+        "v": [],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [],
+        "note": "nothing beyond the parking fees, which are not an access-cost type"
+      },
+      "signals": {
+        "designations": {
+          "v": [
+            {
+              "type": "national_park",
+              "name": "Snaefellsjokull National Park",
+              "scope": "parent",
+              "wikidata": "Q738103"
+            }
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0029"
+          ]
+        },
+        "editorial": {
+          "v": null,
+          "state": "gap",
+          "basis": null,
+          "src": []
+        }
+      }
+    }
+  ]
+}
