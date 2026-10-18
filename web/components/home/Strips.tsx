@@ -7,6 +7,15 @@ import type { PublicPlaceCard, PublicTripCard } from '@/lib/public';
 /** Honesty chips that say how deep a trip page goes. */
 const DEPTH_IDS = new Set(['condensed', 'overview_only']);
 
+/** Notes from the research store that must never reach a public card. */
+const INTERNAL = /\.(md|json|py|html|txt)\b|\bmd\b|\bpost\b|\bstop \d+|\bplan\b|\bloose line\b|\bGAP\b|\bTODO\b|\bINFERENCE\b/i;
+
+/** The place's own summary when it reads as public text; otherwise its kind and area. */
+export function publicSummary(p: Pick<PublicPlaceCard, 'summary' | 'kindLabel' | 'areaLabel'>): string {
+  const s = p.summary.trim();
+  return s && !INTERNAL.test(s) ? s : [p.kindLabel, p.areaLabel].filter(Boolean).join(' in ');
+}
+
 export function HomeTripCard({ trip }: { trip: PublicTripCard }) {
   const meta = [trip.daysCount ? `${trip.daysCount} days` : null, trip.region].filter(Boolean).join(' · ');
   return (
@@ -69,7 +78,7 @@ export function HomePlaceCard({ place }: { place: PublicPlaceCard }) {
           </li>
         </ul>
       }
-      summary={place.summary}
+      summary={publicSummary(place)}
       footer={
         <>
           <span className="src">{place.honesty.some((h) => h.id === 'no_source') ? 'No source yet' : ''}</span>

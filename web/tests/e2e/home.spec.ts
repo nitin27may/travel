@@ -45,6 +45,16 @@ test.describe('home', () => {
     await expect(page.getByText('No trip or place matches')).toBeVisible();
   });
 
+  for (const [name, path] of [['home', '/'], ['another page', '/about/data/']] as const) {
+    test(`keys typed straight after "/" are kept (${name})`, async ({ page, site }) => {
+      await page.goto(`${site.url}${path}`, { waitUntil: 'networkidle' });
+      await page.keyboard.press('/');
+      await page.keyboard.type('dolomites', { delay: 0 });
+      await expect(page.getByRole('combobox')).toHaveValue('dolomites');
+      await expect(page.getByRole('group', { name: 'Trips' })).toBeVisible();
+    });
+  }
+
   test('axe', async ({ page, site }) => {
     await page.goto(`${site.url}/`);
     await page.waitForTimeout(1500);
@@ -57,10 +67,10 @@ test.describe('home', () => {
     const wait = async (p: import('@playwright/test').Page) => { await p.waitForTimeout(2500); };
     await shoot(browser, site.url, LANE, 'home', '/', { fullPage: true, tile: true, prepare: wait });
     await shoot(browser, site.url, LANE, 'search-results', '/', {
-      prepare: async (p) => { await p.keyboard.press('/'); await p.keyboard.type('lake'); await p.waitForTimeout(500); },
+      prepare: async (p) => { await p.keyboard.press('/'); await p.getByRole('combobox').waitFor(); await p.getByRole('combobox').fill('lake'); await p.getByRole('option').first().waitFor(); },
     });
     await shoot(browser, site.url, LANE, 'search-empty', '/', {
-      prepare: async (p) => { await p.keyboard.press('/'); await p.keyboard.type('xyzq'); await p.waitForTimeout(500); },
+      prepare: async (p) => { await p.keyboard.press('/'); await p.getByRole('combobox').waitFor(); await p.getByRole('combobox').fill('xyzq'); await p.getByText('No trip or place matches').waitFor(); },
     });
   });
 });

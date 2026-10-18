@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import { loadSearchIndex } from '@/lib/search/client';
+import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { createSearcher, describeCounts, type Searcher } from '@/lib/search/search';
 import type { SearchHit, SearchRecord } from '@/lib/search/types';
 import '@/styles/home.css';
@@ -28,11 +29,19 @@ function glyph(r: SearchRecord) {
 export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const router = useRouter();
   const listId = useId();
-  const [q, setQ] = useState('');
+  const [q, setQ] = useState(() => takeBuffer());
   const [searcher, setSearcher] = useState<Searcher | null>(null);
   const [failed, setFailed] = useState(false);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // keys typed before the input had focus (see typeahead.ts)
+  useEffect(() => {
+    const pending = takeBuffer();
+    setSink((apply) => { setQ(apply); setActive(0); });
+    if (pending) setQ(pending);
+    return () => stopBuffer();
+  }, []);
 
   useEffect(() => {
     if (!open || searcher) return;
@@ -98,6 +107,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 value={q}
                 onChange={(e) => { setQ(e.target.value); setActive(0); }}
                 onKeyDown={onKeyDown}
+                onFocus={stopBuffer}
               />
               {q ? (
                 <button type="button" className="search-clear" aria-label="Clear search" onClick={() => { setQ(''); inputRef.current?.focus(); }}>

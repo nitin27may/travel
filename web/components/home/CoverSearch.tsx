@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import type { GlobalSearch as GlobalSearchType } from '@/components/search/GlobalSearch';
+import { startBuffer } from '@/lib/search/typeahead';
 import { Icon } from '@/components/ui/Icon';
 
 // the same lazy chunk the header uses; it loads the first time the field is used
@@ -20,6 +21,7 @@ export function CoverSearch() {
       const t = e.target as HTMLElement | null;
       if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
       e.preventDefault();
+      startBuffer();
       setOpen(true);
     };
     window.addEventListener('keydown', onKey);
