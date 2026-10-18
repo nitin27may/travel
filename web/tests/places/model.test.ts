@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { accessFacts, directionsTarget, elevationAt, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, lerpPoint, linkTabs, observed, phoneParts, profileSummary, sampleProfile, seasonMonths } from '@/components/places/model';
+import { accessFacts, directionsTarget, elevationAt, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, lerpPoint, linkTabs, observed, phoneParts, profileSummary, profileTicks, pointSourceInfo, routeLineInfo, publicProvenance, publicText, shortDate, sampleProfile, seasonMonths } from '@/components/places/model';
 import { createPublicData } from '@/lib/public';
 import type { Fact, PublicPlace } from '@/lib/public/types';
 
@@ -9,7 +9,7 @@ const place = (slug: string): PublicPlace => {
   if (!p) throw new Error(`no place ${slug}`);
   return p;
 };
-const fact = (label: string, value: string): Fact => ({ label, value, provenance: 'Trip research notes, read Aug 2026, (operator)', conflicts: [] });
+const fact = (label: string, value: string): Fact => ({ label, value, provenance: 'Our research, read Aug 2026, (operator)', conflicts: [] });
 
 describe('observed: dated operator facts read "observed 2026"', () => {
   it('turns a day-month range into the year it was seen', () => {
@@ -138,5 +138,47 @@ describe('elevation profile sketch', () => {
     expect(elevationAt(pts, -1)).toBe(100);
     expect(elevationAt(pts, 99)).toBe(200);
     expect(lerpPoint({ lng: 0, lat: 0 }, { lng: 10, lat: 20 }, 0.5)).toEqual({ lng: 5, lat: 10 });
+  });
+});
+
+describe('wording for visitors', () => {
+  it('provenance names no file, record id or pipeline', () => {
+    expect(publicProvenance('PLAN.md, read Aug 2026')).toBe('Our research, read Aug 2026');
+    expect(publicProvenance('existing prototype catalogue, read Aug 2026')).toBe('Our research, read Aug 2026');
+    expect(publicProvenance('OpenStreetMap node 2984514849, read 18 Oct 2026')).toBe('OpenStreetMap, read 18 Oct 2026');
+    expect(publicProvenance('Overpass query 18 Oct 2026')).toBe('OpenStreetMap query 18 Oct 2026');
+  });
+  it('capture notes with record ids are dropped', () => {
+    expect(publicText('Signpost 6 m from the Seeweg lake path (OSM relation 12043472)')).toBe('');
+    expect(publicText("Unnamed lot beside the bus stop (OSM node 12106651301); confirm this is P1")).toBe('');
+    expect(publicText('Closest lot, 3-4 min walk')).toBe('Closest lot, 3-4 min walk');
+  });
+  it('a pin source reads as words with a link to the record', () => {
+    expect(pointSourceInfo({ pointSource: 'osm_node:2430381561', pointChecked: null })).toEqual({ text: 'From OpenStreetMap \u00b7 not yet checked', url: 'https://www.openstreetmap.org/node/2430381561' });
+    expect(pointSourceInfo({ pointSource: 'prototype_approx', pointChecked: null }).text).toBe('Approximate position \u00b7 not yet checked');
+  });
+  it('the route line is a sentence with linked records', () => {
+    const r = routeLineInfo([{ ref: 'osm_relation:1' }, { ref: 'osm_relation:2' }]);
+    expect(r?.text).toBe('Route from OpenStreetMap (2 records); not yet confirmed by a person.');
+    expect(r?.refs.map((x) => x.url)).toEqual(['https://www.openstreetmap.org/relation/1', 'https://www.openstreetmap.org/relation/2']);
+  });
+  it('shortDate formats an ISO date', () => {
+    expect(shortDate('2026-10-18')).toBe('18 Oct 2026');
+  });
+});
+
+describe('profile axes follow the units preference', () => {
+  it('metric: km and metres', () => {
+    const t = profileTicks(2300, 2600, 10, 'km', 'm');
+    expect(t.x.at(-1)?.label).toBe('10 km');
+    expect(t.y.map((v) => v.label)).toEqual(['2300', '2400', '2500', '2600']);
+  });
+  it('imperial: miles and feet, ticks placed at the right spot on the metric scale', () => {
+    const t = profileTicks(2300, 2600, 10, 'mi', 'ft');
+    expect(t.x.every((v) => v.label.endsWith(' mi'))).toBe(true);
+    expect(t.x[1].at).toBeCloseTo(1.609344, 3);
+    expect(t.y[0].label).toBe('8000');
+    expect(Number(t.y[0].label) / 3.280839895).toBeCloseTo(t.y[0].at, 5);
+    expect(t.y.some((v) => v.label.includes('m'))).toBe(false);
   });
 });

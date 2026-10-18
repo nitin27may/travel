@@ -160,6 +160,7 @@
   .pl-cover, .pl-cover[data-trail] { min-height: 420px; border-radius: var(--r-4); }
   .pl-cover-body { padding: var(--s-5) var(--s-4) calc(var(--s-5) + 46px); }
   .pl-cover h1 { font: var(--t-page); text-transform: uppercase; }
+  .pl-cover-glyph { top: var(--s-4); right: var(--s-4); } .pl-cover-glyph svg { width: 40px; height: 40px; }
   .pl-glance { margin: -46px var(--s-2) 0; padding: var(--s-4); }
   .pl-kv-wide > div, .pl-kv > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .pl-save-note { left: 0; right: auto; width: min(17rem, calc(100vw - 2 * var(--margin))); }

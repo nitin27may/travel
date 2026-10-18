@@ -1,7 +1,8 @@
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import PlaceRoute, * as route from '@/app/places/[slug]/page';
-import { publicText, summaryOrKind } from '@/components/places/model';
+import { LinksTabs } from '@/components/places/LinksTabs';
+import { linkTabs, publicText, summaryOrKind } from '@/components/places/model';
 import { PlacePage } from '@/components/places/PlacePage';
 import { placeRows } from './support';
 import { createPublicData } from '@/lib/public';
@@ -35,7 +36,7 @@ describe('trail page: tre-cime-di-lavaredo-loop', () => {
     expect(page).toContain('Trail');
     expect(page).toContain('Auronzo');
     expect(page).toContain('Distance');
-    expect(page).toMatch(/Trip research notes, read Aug 2026/);
+    expect(page).toMatch(/Our research, read Aug 2026/);
     expect(page).not.toContain('PLAN.md');
     expect(page.indexOf('Hazards')).toBeLessThan(page.indexOf('The route'));
   });
@@ -118,8 +119,38 @@ describe('every place page renders', () => {
   });
 });
 
+describe('links tabs: searched and found nothing', () => {
+  const p = data.getPlace('tre-cime-di-lavaredo-loop');
+  const tabs = linkTabs(p?.links ?? [], p?.linksNone ?? []);
+  it('carries a "none found (checked <date>)" entry for each kind searched without a result', () => {
+    const none = tabs.flatMap((t) => t.none);
+    expect(none.length).toBeGreaterThan(0);
+    for (const n of none) expect(n.checked).toMatch(/^\d{1,2} \w{3} 2026$/);
+  });
+  it('renders the active tab with those lines and never the old empty line or the private note', () => {
+    const page = renderToString(<LinksTabs tabs={tabs.filter((t) => t.none.length).map((t) => ({ ...t, links: [] }))} checked="18 Oct 2026" />).replace(/<!-- -->/g, '');
+    expect(page).toMatch(/none found \(checked \d{1,2} \w{3} 2026\)/);
+    expect(page).not.toContain('Nothing recorded in this group yet');
+    expect(html('tre-cime-di-lavaredo-loop')).not.toContain('WebSearch');
+  });
+  it('a tab nobody searched says "Not checked yet"', () => {
+    const page = renderToString(<LinksTabs tabs={[{ id: 'x', label: 'X', links: [], none: [] }]} checked={null} />);
+    expect(page).toContain('Not checked yet.');
+  });
+});
+
+describe('route line and point source wording', () => {
+  const page = html('tre-cime-di-lavaredo-loop').replace(/<!-- -->/g, '');
+  it('names the route plainly and links the OpenStreetMap records', () => {
+    expect(page).toContain('Route from OpenStreetMap (2 records); not yet confirmed by a person.');
+    expect(page).toContain('href="https://www.openstreetmap.org/relation/1116663"');
+    expect(page).toContain('From OpenStreetMap');
+    expect(page).toContain('not yet checked');
+  });
+});
+
 describe('no internal capture notes on public output', () => {
-  const INTERNAL = /\.\s?md\b|road ?trip|\bstops? \d+\b|\bplans?\b|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
+  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|\bstops? \d+\b|\bplans?\b|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
   const text = (h: string) => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&');
   it('every place page, in its visible text', () => {
     const bad: string[] = [];

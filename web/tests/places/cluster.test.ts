@@ -39,3 +39,15 @@ describe('?c=lon,lat,zoom', () => {
     expect(parseCamera('a,b,c')).toBeNull();
   });
 });
+
+describe('cluster pins draw no text beside the number', () => {
+  it('a numbered cluster is quiet so the count and "N places" never stack', () => {
+    const pts = [
+      { id: 'a', at: { lng: 10, lat: 46 }, label: 'A' },
+      { id: 'b', at: { lng: 10.001, lat: 46.001 }, label: 'B' },
+    ];
+    const { pins } = clusterPins(pts, 4);
+    expect(pins).toHaveLength(1);
+    expect(pins[0].quiet).toBe(true);
+  });
+});

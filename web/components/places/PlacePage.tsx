@@ -13,7 +13,7 @@ import { KID_LABELS } from '@/lib/entities/labels';
 import { seasonLabel } from '@/lib/format/season';
 import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
-import type { AccessPoint, Fact, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
+import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { GalleryLazy } from './GalleryLazy';
 import { ElevationProfile } from './ElevationProfile';
 import { LinksTabs } from './LinksTabs';
@@ -21,7 +21,7 @@ import type { PlaceMapPoint } from './PlaceMap';
 import { PlaceMapLazy } from './PlaceMapLazy';
 import { PlaceShell } from './PlaceShell';
 import { SaveToTrip } from './SaveToTrip';
-import { accessFacts, directionsTarget, publicProvenance, publicText, summaryOrKind, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, linkTabs, observed, phoneParts, pointAt, pointNote, seasonMonths } from './model';
+import { accessFacts, directionsTarget, publicProvenance, publicText, summaryOrKind, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, linkTabs, observed, phoneParts, pointAt, pointSourceInfo, routeLineInfo, seasonMonths } from './model';
 
 /* ---------- small pieces ---------- */
 
@@ -105,6 +105,44 @@ function MapLinks({ at, label }: { at: LngLat; label: string }) {
   );
 }
 
+function PointSource({ p }: { p: AccessPoint }) {
+  const info = pointSourceInfo(p);
+  const [head, ...rest] = info.text.split(' · ');
+  return (
+    <span className="pl-prov">
+      {info.url ? (
+        <a href={info.url} target="_blank" rel="noopener noreferrer">
+          {head}
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      ) : (
+        head
+      )}
+      {rest.length ? ` · ${rest.join(' · ')}` : ''}
+    </span>
+  );
+}
+
+function RouteLine({ lines, confirmed }: { lines: PlaceLineT[]; confirmed: boolean }) {
+  const info = routeLineInfo(lines, confirmed);
+  if (!info) return <p className="muted small">No route line is stored for this place yet.</p>;
+  return (
+    <p className="muted small">
+      {info.text}
+      {info.refs.length ? ' Records: ' : ''}
+      {info.refs.map((r, i) => (
+        <span key={r.url}>
+          {i ? ', ' : ''}
+          <a href={r.url} target="_blank" rel="noopener noreferrer">
+            {r.label}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </span>
+      ))}
+    </p>
+  );
+}
+
 function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead' | 'Parking'; unconfirmed: boolean }) {
   return (
     <article className="pl-access" data-role={role.toLowerCase()}>
@@ -147,7 +185,7 @@ function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead
         <div>
           <dt>Point</dt>
           <dd>
-            <Coordinates p={p} /> <span className="pl-prov">{pointNote(p)}</span>
+            <Coordinates p={p} /> <PointSource p={p} />
           </dd>
         </div>
       </dl>
@@ -222,7 +260,7 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
   });
   const formats: ExportFormat[] = place.lines.length ? (place.lines.every((l) => l.exportable) ? ['gpx', 'kml'] : ['gpx']) : ['gpx'];
   const checked = lastRead(place.facts);
-  const tabs = linkTabs(place.links);
+  const tabs = linkTabs(place.links, place.linksNone);
   const photos = place.photos.length ? place.photos : place.photo ? [place.photo] : [];
   const credits = photos.map((p) => ({ title: p.caption || p.file, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl }));
   const suits: string[] = [];
@@ -341,13 +379,7 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
                     ))}
                   </ul>
                 ) : null}
-                {place.lines.length ? (
-                  <p className="muted small">
-                    Route line: {place.lines.map((l) => l.ref.replace(':', ' ')).join(', ')}. {place.lines[0].label}
-                  </p>
-                ) : (
-                  <p className="muted small">No route line is stored for this place yet.</p>
-                )}
+                <RouteLine lines={place.lines} confirmed={!unconfirmed && Boolean(place.access?.trailhead?.pointChecked)} />
               </Section>
             ) : null}
 
@@ -559,9 +591,9 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
             </section>
 
             {!trail ? (
-              <section className="pl-hazards" aria-labelledby="h-hazards">
+              <section className={place.hazards.length ? 'pl-hazards' : 'pl-card'} aria-labelledby="h-hazards">
                 <h2 id="h-hazards">
-                  <Icon name="warn" size={16} /> Hazards
+                  {place.hazards.length ? <Icon name="warn" size={16} /> : null} Hazards
                 </h2>
                 {place.hazards.length ? (
                   <ul>

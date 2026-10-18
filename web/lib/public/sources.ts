@@ -21,7 +21,7 @@ export interface ProtoTrail {
   facts: Record<string, ProtoFact>; hazards: ProtoFact[];
   links: { id: string; kind: string; url: string; label: string; checked_at?: string; note?: string; opened?: boolean }[];
   trailhead?: ProtoPoint; parking?: ProtoPoint[];
-  none?: Record<string, { date: string; query: string }>;
+  none?: Record<string, { date: string; query: string; note?: string }>;
 }
 export interface ProtoStop { name: string; kind: string; durationMin: number; note?: string }
 export interface ProtoPubDay { n: number; title: string; base: string; stops: ProtoStop[]; driveMin: number }

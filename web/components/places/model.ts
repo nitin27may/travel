@@ -1,4 +1,4 @@
-import type { AccessPoint, Fact, LinkGroup, PublicPlace } from '@/lib/public/types';
+import type { AccessPoint, Fact, LinkGroup, LinkNone, PublicPlace } from '@/lib/public/types';
 import type { LngLat } from '@/lib/map/types';
 
 /* ---------- text helpers ---------- */
@@ -175,10 +175,34 @@ export function directionsTarget(place: Pick<PublicPlace, 'access' | 'point' | '
 
 export const pointAt = (p: Pick<AccessPoint, 'lat' | 'lon'>): LngLat => ({ lat: p.lat, lng: p.lon });
 
-/** Point sources that mean a person has not looked at the pin yet. */
-export function pointNote(p: Pick<AccessPoint, 'pointSource' | 'pointChecked'>): string {
-  const src = p.pointSource.replace(/^(osm_(?:node|way|relation)):/, '$1 ').replace(/^official:/, 'official ');
-  return p.pointChecked ? `${src}; ${p.pointChecked}` : `${src}; not checked by a person yet`;
+/** Where a stored pin came from, as visitor-facing text plus a link to the record when there is one. */
+export function pointSourceInfo(p: Pick<AccessPoint, 'pointSource' | 'pointChecked'>): { text: string; url: string | null } {
+  const [kind, ref = ''] = p.pointSource.split(/[:\s]+/, 2);
+  const osm = /^osm_(node|way|relation)$/.exec(kind);
+  let text = 'Source recorded';
+  let url: string | null = null;
+  if (osm && /^\d+$/.test(ref)) {
+    text = 'From OpenStreetMap';
+    url = `https://www.openstreetmap.org/${osm[1]}/${ref}`;
+  } else if (kind === 'official') text = 'From the operator';
+  else if (kind === 'wikidata' && /^Q\d+$/.test(ref)) {
+    text = 'From Wikidata';
+    url = `https://www.wikidata.org/wiki/${ref}`;
+  } else if (kind === 'prototype_approx') text = 'Approximate position';
+  else if (kind === 'manual_pin') text = 'Placed by hand';
+  return { text: `${text} · ${p.pointChecked ? 'checked by a person' : 'not yet checked'}`, url };
+}
+
+/** OSM relations in a place's route lines, as `{id, url}`, with a plain sentence about them. */
+export function routeLineInfo(lines: readonly { ref: string }[], confirmed = false): { text: string; refs: { label: string; url: string }[] } | null {
+  const refs = lines.flatMap((l) => {
+    const m = /^osm_(relation|way):(\d+)$/.exec(l.ref);
+    return m ? [{ label: `${m[1]} ${m[2]}`, url: `https://www.openstreetmap.org/${m[1]}/${m[2]}` }] : [];
+  });
+  if (!lines.length) return null;
+  const n = refs.length;
+  const what = n ? `Route from OpenStreetMap (${n} ${n === 1 ? 'record' : 'records'})` : 'Route line stored';
+  return { text: `${what}; ${confirmed ? 'confirmed by a person' : 'not yet confirmed by a person'}.`, refs };
 }
 
 /* ---------- links ---------- */
@@ -195,11 +219,28 @@ export interface LinkTab {
   id: string;
   label: string;
   links: LinkGroup['links'];
+  /** Kinds searched here with nothing found: "none found (checked 18 Oct 2026)". */
+  none: { label: string; checked: string }[];
+}
+
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+/** "2026-10-18" -> "18 Oct 2026"; anything else is returned as written. */
+export function shortDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  return m ? `${Number(m[3])} ${MON[Number(m[2]) - 1]} ${m[1]}` : iso;
 }
 
 /** Regroups the adapter's five link groups into the five tabs of patterns 3.6. A group with no links still gets its tab. */
-export function linkTabs(groups: readonly LinkGroup[]): LinkTab[] {
-  return LINK_TABS.map((t) => ({ id: t.id, label: t.label, links: groups.filter((g) => (t.groups as readonly string[]).includes(g.group)).flatMap((g) => g.links) }));
+export function linkTabs(groups: readonly LinkGroup[], none: readonly LinkNone[] = []): LinkTab[] {
+  return LINK_TABS.map((t) => {
+    const inTab = (g: string) => (t.groups as readonly string[]).includes(g);
+    return {
+      id: t.id,
+      label: t.label,
+      links: groups.filter((g) => inTab(g.group)).flatMap((g) => g.links),
+      none: none.filter((n) => inTab(n.group)).map((n) => ({ label: n.label, checked: shortDate(n.date) })),
+    };
+  });
 }
 
 /** The most recent "read 18 Oct 2026" date in the fact provenance: when the researched links were read. */
@@ -226,7 +267,7 @@ export function seasonMonths(months: readonly number[]): ('open' | 'closed')[] {
 
 // Sentences that describe how a place was captured, not the place: file names, "stop 8 of the road trip post",
 // "already in the Utah parks plan". They are dropped at render time (the adapter still carries them).
-const INTERNAL = /\.\s?(?:md|json|txt|csv)\b|\bloose line\b|\broad ?trip\b|\bstops? \d+\b|\bposts?\b|\bplans?\b|\bfrom memory\b|\bfolders?\b|\blegacy\b|\bno details\b|\bsaved\b|\binstagram\b/i;
+const INTERNAL = /\.\s?(?:md|json|txt|csv)\b|\bloose line\b|\broad ?trip\b|\bstops? \d+\b|\bposts?\b|\bplans?\b|\bfrom memory\b|\bfolders?\b|\blegacy\b|\bno details\b|\bsaved\b|\binstagram\b|\bosm[ _](?:node|way|relation)\b|\bconfirm this\b|\bprototype\b|\bcatalogue\b|\bresearch notes\b/i;
 const INTERNAL_PAREN = /\s*\((?:from memory|unverified)[^)]*\)/gi;
 
 /** Keeps the sentences that are about the place. Returns '' when nothing public is left. */
@@ -237,12 +278,50 @@ export function publicText(text: string | null | undefined): string {
   return sentences.filter((s) => !INTERNAL.test(s)).join(' ').trim();
 }
 
-/** A source line without a file name: "PLAN.md, read Aug 2026" reads "Trip research notes, read Aug 2026". */
+/** A source line in visitor words: no file names, no internal record ids, no pipeline names. */
 export function publicProvenance(text: string): string {
-  return text.replace(/\bPLAN\.md\b/g, 'Trip research notes').replace(/\b[\w-]+\.md\b/gi, 'research notes');
+  return text
+    .replace(/\bPLAN\.md\b/g, 'Our research')
+    .replace(/\b[\w-]+\.md\b/gi, 'Our research')
+    .replace(/\bexisting prototype catalogue\b/gi, 'Our research')
+    .replace(/\btrails-and-media research\b/gi, 'Our research')
+    .replace(/\bOpenStreetMap (?:node|way|relation) \d+/g, 'OpenStreetMap')
+    .replace(/\bOverpass query\b/g, 'OpenStreetMap query')
+    .replace(/\s*\(OSM: ([^)]*)\)/g, ' (OpenStreetMap: $1)');
 }
 
 /** The text the page would show for a place's one-line summary: the sanitised summary, else its kind and area. */
 export function summaryOrKind(summary: string, kindLabel: string, areaLabel: string): string {
   return publicText(summary) || `${kindLabel} in ${areaLabel}.`;
+}
+
+/* ---------- elevation profile axes follow the units preference ---------- */
+
+const KM_PER_MI = 1.609344;
+const FT_PER_M = 3.280839895;
+
+/**
+ * Axis ticks for the profile. Geometry stays in km and metres; each tick has its value in the display unit (`label`)
+ * and its place on the km or metre scale (`at`), so distance and elevation both follow the preference.
+ */
+export function profileTicks(
+  loM: number,
+  hiM: number,
+  maxKm: number,
+  distance: 'km' | 'mi',
+  elevation: 'm' | 'ft',
+): { x: { at: number; label: string }[]; y: { at: number; label: string }[]; distanceUnit: string } {
+  const fd = distance === 'mi' ? 1 / KM_PER_MI : 1;
+  const fe = elevation === 'ft' ? FT_PER_M : 1;
+  const maxD = maxKm * fd;
+  const xStep = maxD > 10 ? 2 : maxD > 4 ? 1 : 0.5;
+  const x: { at: number; label: string }[] = [];
+  for (let v = 0; v <= maxD + 1e-6; v += xStep) x.push({ at: v / fd, label: `${Number.isInteger(v) ? v : v.toFixed(1)} ${distance}` });
+  const loE = loM * fe;
+  const hiE = hiM * fe;
+  const span = hiE - loE;
+  const yStep = elevation === 'ft' ? (span > 2000 ? 1000 : span > 800 ? 500 : 200) : span > 600 ? 200 : 100;
+  const y: { at: number; label: string }[] = [];
+  for (let v = Math.ceil(loE / yStep) * yStep; v <= hiE + 1e-6; v += yStep) y.push({ at: v / fe, label: String(v) });
+  return { x, y, distanceUnit: distance };
 }

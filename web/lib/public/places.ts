@@ -6,7 +6,7 @@ import { fileFromUrl, makePhoto } from './photos';
 import { CATEGORY_OF_KIND, PROTOTYPE_AREAS, kindLabel, mapLocationKind, mapPrototypeKind } from './taxonomy';
 import { DropLog, undatedSentences } from './dateless';
 import { folderVisibility, type ProtoFact, type ProtoPlace, type ProtoTrail, type Sources } from './sources';
-import type { AccessPoint, AreaRef, Fact, Honesty, LinkGroup, Photo, Point, PlaceKind, PlaceLine, PublicPlace, TripRef } from './types';
+import type { AccessPoint, AreaRef, Fact, Honesty, LinkGroup, LinkNone, Photo, Point, PlaceKind, PlaceLine, PublicPlace, TripRef } from './types';
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
@@ -113,6 +113,11 @@ function buildLinks(src: Sources, trail: ProtoTrail | undefined, place: ProtoPla
   return src.snapshot.linkGroups.filter((g) => groups.has(g)).map((g) => groups.get(g)!);
 }
 
+function buildLinksNone(src: Sources, trail: ProtoTrail | undefined): LinkNone[] {
+  const kinds = new Map(src.snapshot.linkKinds.map((k) => [k.kind, k]));
+  return Object.entries(trail?.none ?? {}).map(([kind, n]) => ({ group: kinds.get(kind)?.group ?? 'Reports and videos', kind, label: kinds.get(kind)?.label ?? kind, date: n.date }));
+}
+
 function checklistComplete(src: Sources, trail: ProtoTrail): boolean {
   return src.snapshot.checkKinds.every((c) => {
     if (c.optional) return true;
@@ -205,6 +210,7 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
       facts: [],
       hazards: [],
       links: [],
+      linksNone: [],
       seasonNote: null,
       photos: photo ? [photo] : [],
       wikidata: row.wikidata,
@@ -256,7 +262,7 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
     const months = parseSeasonMonths(seasonFact);
     const h: Honesty[] = [];
     if (p.id in UNCONFIRMED_TRAIL_DATA) h.push(honesty('location_unconfirmed', UNCONFIRMED_TRAIL_DATA[p.id]));
-    if (point.pointSource === 'prototype_approx') h.push(honesty('unverified', 'The coordinates are approximate and come from the prototype data, not from OpenStreetMap.'));
+    if (point.pointSource === 'prototype_approx') h.push(honesty('unverified', 'Approximate position, not yet checked against OpenStreetMap.'));
     const hasFacts = facts.length > 0 || (trail?.links.length ?? 0) > 0 || (p.links?.length ?? 0) > 0;
     if (!hasFacts) h.push(honesty('no_source', 'No fact or link is recorded for this place yet.'));
     if (facts.some((f) => /2026/.test(f.provenance))) h.push(honesty('pattern_2026', 'Figures were read in 2026 and are used as a pattern for 2027.'));
@@ -292,6 +298,7 @@ export function buildPlaces(src: Sources, log: DropLog): PlaceBuild {
       facts,
       hazards: (trail?.hazards ?? []).map((x) => x.v),
       links: buildLinks(src, trail, p),
+      linksNone: buildLinksNone(src, trail),
       seasonNote: seasonFact || null,
       photos: [],
       wikidata: null,

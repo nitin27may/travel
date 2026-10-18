@@ -43,7 +43,7 @@ export function clusterPins(points: readonly PointLike[], zoom: number, selected
     const lat = list.reduce((n, p) => n + p.at.lat, 0) / list.length;
     const id = `cluster:${key}`;
     members.set(id, list.map((p) => p.id));
-    pins.push({ id, at: { lng, lat }, style: 'stop-numbered', number: list.length, label: `${list.length} places` });
+    pins.push({ id, at: { lng, lat }, style: 'stop-numbered', number: list.length, label: `${list.length} places`, quiet: true });
   }
   return { pins, members };
 }
