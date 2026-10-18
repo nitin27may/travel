@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Globe chrome and selection card, direction mock (Trailhead tokens)</title>
+<style>
+/* Tokens from docs/v2/design/foundation/tokens.md plus the globe tokens proposed in experience-review.md 6.1-6.2 */
+:root{
+  --bg:#F5F6F8;--well:#ECEFF3;--surface:#FFFFFF;--surface-2:#E9EDF2;--ink:#172230;--ink-2:#2B3746;--muted:#4D5B6B;
+  --line:#D8DEE5;--line-2:#7A8794;--header:#172230;--header-ink:#F4F6F8;--accent:#E09A1C;--accent-ink:#172230;
+  --toast-bg:#172230;--toast-ink:#F5F6F8;--ok:#2F7A4A;
+  --globe-ocean:#A9C4D3;--map-land:#EEE9DF;--map-wood:#E4E0D4;--globe-halo:#CFE0EC;--globe-edge:#7A8794;--globe-pin:#172230;--globe-pin-ink:#FFFFFF;
+  --font-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;--font-body:"Source Serif 4",Georgia,serif;--font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r-3:10px;--r-4:14px;--r-full:999px;--e-1:0 1px 2px rgba(23,34,48,.08),0 2px 8px rgba(23,34,48,.06);--e-2:0 2px 6px rgba(23,34,48,.10),0 12px 32px rgba(23,34,48,.12);
+}
+html[data-theme=dark]{
+  --bg:#0F1620;--well:#0B1119;--surface:#16202C;--surface-2:#1E2A38;--ink:#E7ECF1;--ink-2:#C9D2DC;--muted:#A3B0BE;--line:#2A3A4C;--line-2:#5E748E;
+  --header:#0B1119;--accent:#EBA830;--toast-bg:#E7ECF1;--toast-ink:#0F1620;
+  --globe-ocean:#0F1A26;--map-land:#263241;--map-wood:#2B3845;--globe-halo:#2A4A66;--globe-edge:rgba(255,255,255,.08);--globe-pin:#E7ECF1;--globe-pin-ink:#172230;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15.5px/1.45 var(--font-body)}
+.frame{position:relative;width:1440px;height:900px;overflow:hidden;background:var(--well)}
+.header{height:60px;background:var(--header);color:var(--header-ink);display:flex;align-items:center;gap:36px;padding:0 48px;border-bottom:2px solid var(--accent)}
+.brand{font:800 24px/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em}
+.nav{display:flex;gap:28px;font:500 13px/1 var(--font-mono)}
+.nav b{color:#fff;border-bottom:2px solid var(--accent);padding-bottom:20px;margin-bottom:-22px}
+.stage{position:absolute;inset:60px 0 0 0}
+/* globe: halo, disc, land blobs */
+.halo{position:absolute;left:150px;top:30px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle, transparent 0 48.5%, var(--globe-halo) 49%, transparent 56%)}
+.disc{position:absolute;left:172px;top:52px;width:716px;height:716px;border-radius:50%;background:radial-gradient(circle at 42% 38%, color-mix(in srgb, var(--globe-ocean) 86%, white) 0, var(--globe-ocean) 62%, color-mix(in srgb, var(--globe-ocean) 80%, var(--well)) 100%);box-shadow:inset 0 0 0 1px var(--globe-edge),inset -40px -30px 90px rgba(0,0,0,.10);overflow:hidden}
+.land{position:absolute;background:var(--map-land);border-radius:46% 54% 50% 50%/55% 45% 55% 45%;filter:drop-shadow(0 0 0.5px rgba(23,34,48,.35))}
+.wood{position:absolute;background:var(--map-wood);border-radius:50%}
+.pin{position:absolute;display:grid;place-items:center;border-radius:50%;background:var(--globe-pin);color:var(--globe-pin-ink);border:2px solid var(--surface);font:600 13px/1 var(--font-mono);box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.pin.pick{background:var(--accent);color:var(--accent-ink);outline:2px solid var(--accent);outline-offset:4px}
+.lbl{position:absolute;font:600 12px/1 "Noto Sans",system-ui,sans-serif;color:var(--ink-2);text-shadow:0 0 2px var(--surface),0 0 2px var(--surface)}
+/* chrome */
+.crumb{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:4px;height:40px;padding:0 12px 0 4px;border-radius:var(--r-full);background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line-2);box-shadow:var(--e-1);font:400 13px/1 var(--font-mono)}
+.crumb .back{width:32px;height:32px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;color:var(--ink)}
+.crumb .cur{font-weight:600}
+.crumb .sep,.crumb .dim{color:var(--muted)}
+.search{position:absolute;left:50%;top:12px;transform:translateX(calc(-50% - 170px));width:420px;height:40px;border-radius:var(--r-full);border:1px solid var(--line-2);background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:var(--e-1);display:flex;align-items:center;gap:10px;padding:0 14px;color:var(--muted)}
+.rail{position:absolute;right:calc(340px + 24px + 12px);bottom:72px;display:grid;gap:6px}
+.rail button{width:36px;height:36px;border-radius:var(--r-3);border:1px solid var(--line-2);background:color-mix(in srgb,var(--surface) 94%,transparent);color:var(--ink);box-shadow:var(--e-1);font:600 16px/1 var(--font-mono);display:grid;place-items:center}
+.pill{position:absolute;left:12px;bottom:36px;height:36px;padding:0 14px;border-radius:var(--r-full);border:1px solid var(--line-2);background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:var(--e-1);font:500 13px/1 var(--font-mono);display:inline-flex;align-items:center;gap:8px}
+.attr{position:absolute;right:calc(340px + 24px + 12px);bottom:12px;font:400 11.5px/1 var(--font-mono);color:var(--muted)}
+.hint{position:absolute;left:50%;bottom:36px;transform:translateX(calc(-50% - 170px));padding:7px 14px;border-radius:var(--r-full);background:color-mix(in srgb,var(--toast-bg) 85%,transparent);color:var(--toast-ink);font:400 13px/1 var(--font-mono);opacity:.9}
+.panel{position:absolute;right:12px;top:12px;bottom:36px;width:340px;border-radius:var(--r-4);background:var(--surface);border:1px solid var(--line);box-shadow:var(--e-2);overflow:hidden}
+.panel h2{margin:0;padding:14px 16px 10px;font:600 20px/1.2 var(--font-body);display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line)}
+.panel h2 span{font:400 13px/1 var(--font-mono);color:var(--muted)}
+.ph{padding:14px 16px 4px;font:600 11px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.ph span{letter-spacing:0;text-transform:none;font-weight:400}
+.row{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 16px;border-bottom:1px solid var(--line)}
+.row .flag{width:20px;height:15px;border-radius:2px;background:linear-gradient(90deg,#2E7D4F 33%,#F2F2F2 33% 66%,#C9323C 66%);flex:none}
+.row .name{font:500 15.5px/1.3 var(--font-body)}
+.row .meta{font:400 12px/1.3 var(--font-mono);color:var(--muted)}
+.row.cur{background:var(--well);box-shadow:inset 3px 0 0 var(--ink)}
+.row .chev{margin-left:auto;color:var(--muted)}
+/* card */
+.card{position:absolute;left:690px;top:300px;width:320px;border-radius:var(--r-4);background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--e-2);overflow:hidden}
+.card .photo{position:relative;height:150px;background:linear-gradient(180deg,#9DB7C9 0,#5F8AA3 45%,#3E5E4E 46%,#2C3F38 100%)}
+.card .photo .x{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--surface) 92%,transparent);display:grid;place-items:center;color:var(--ink);font:600 14px/1 var(--font-mono)}
+.card .credit{position:absolute;left:10px;bottom:6px;font:400 11px/1 var(--font-mono);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.card .body{padding:12px 14px 14px;display:grid;gap:8px}
+.kick{font:600 11px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kick b{color:var(--ink-2);font-weight:600}
+.title{margin:0;font:600 20px/1.2 var(--font-body)}
+.sum{margin:0;font:400 14px/1.4 var(--font-body);color:var(--ink-2)}
+.facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{display:grid;gap:3px}
+.facts .k{font:500 10.5px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.facts .v{font:500 14px/1.2 var(--font-body)}
+.used{font:400 13px/1.3 var(--font-mono);color:var(--muted)}
+.used a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.btn{height:36px;padding:0 14px;white-space:nowrap;border-radius:var(--r-3);font:600 13px/1 var(--font-mono);display:inline-flex;align-items:center;gap:8px;border:1px solid transparent}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:none;color:var(--ink-2);border-color:var(--line);padding:0 11px}
+.badge{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 var(--font-mono);color:var(--ok)}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block}
+.anchor{position:absolute;left:640px;top:378px;width:18px;height:18px;border-radius:50%;background:var(--accent);outline:2px solid var(--accent);outline-offset:4px;border:2px solid var(--surface)}
+.tie{position:absolute;left:658px;top:386px;width:32px;height:1px;background:var(--line-2)}
+.caption{position:absolute;left:0;right:0;bottom:-30px;font:400 12px/1 var(--font-mono);color:var(--muted)}
+.theme{position:absolute;left:16px;top:916px}
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+  <div class="header"><div class="brand">Trip plans</div><div class="nav"><span>Trips</span><span>Places</span><b>Globe</b></div></div>
+  <div class="stage">
+    <div class="halo"></div>
+    <div class="disc">
+      <!-- land blobs stand in for continents; the point is the palette, the edge and the discs, not geography -->
+      <div class="land" style="left:120px;top:60px;width:300px;height:230px"></div>
+      <div class="land" style="left:330px;top:70px;width:290px;height:170px;border-radius:40% 60% 55% 45%/50% 40% 60% 50%"></div>
+      <div class="land" style="left:290px;top:250px;width:230px;height:330px;border-radius:55% 45% 60% 40%/40% 60% 40% 60%"></div>
+      <div class="land" style="left:60px;top:330px;width:190px;height:280px;border-radius:50% 50% 60% 40%/60% 40% 70% 30%"></div>
+      <div class="wood" style="left:340px;top:330px;width:140px;height:110px"></div>
+      <div class="wood" style="left:170px;top:120px;width:120px;height:80px"></div>
+      <div class="lbl" style="left:200px;top:160px">Canada</div>
+      <div class="lbl" style="left:430px;top:120px">Germany</div>
+      <div class="lbl" style="left:370px;top:420px">Nigeria</div>
+      <div class="lbl" style="left:110px;top:470px">Brazil</div>
+      <div class="pin" style="left:236px;top:96px;width:41px;height:41px">26</div>
+      <div class="pin" style="left:150px;top:200px;width:41px;height:41px">28</div>
+      <div class="pin pick" style="left:470px;top:170px;width:43px;height:43px">52</div>
+      <div class="pin" style="left:405px;top:150px;width:32px;height:32px">3</div>
+      <div class="pin" style="left:150px;top:560px;width:28px;height:28px">1</div>
+    </div>
+    <div class="crumb"><span class="back">&#8249;</span><span class="dim">World</span><span class="sep">&#8250;</span><span class="dim">Italy</span><span class="sep">&#8250;</span><span class="cur">South Tyrol</span></div>
+    <div class="search">&#9906;&nbsp; Search places, trips, countries, towns, seas</div>
+    <div class="rail"><button aria-label="Zoom in">+</button><button aria-label="Zoom out">&minus;</button><button aria-label="Reset to the world" title="Reset view">&#9679;</button></div>
+    <div class="pill">&#9776;&nbsp; Map options</div>
+    <div class="hint">Drag to spin · scroll to zoom · tap anything with a name</div>
+    <div class="attr">© Mapterhorn · OpenFreeMap · © OpenMapTiles · OpenStreetMap</div>
+
+    <aside class="panel">
+      <h2>South Tyrol <span>25 places · 1 trip</span></h2>
+      <div class="ph">Districts <span>10</span></div>
+      <div class="row"><div><div class="name">Alta Pusteria</div><div class="meta">6 places</div></div><span class="chev">&#8250;</span></div>
+      <div class="row"><div><div class="name">Val Gardena</div><div class="meta">6 places</div></div><span class="chev">&#8250;</span></div>
+      <div class="row cur"><div><div class="name">Braies</div><div class="meta">2 places</div></div><span class="chev">&#8250;</span></div>
+      <div class="ph">Trips</div>
+      <div class="row"><div><div class="name">Dolomites, 13 nights</div><div class="meta">13-26 Jul 2027 · 4 bases</div></div><span class="chev">&#8250;</span></div>
+      <div class="ph">Places <span>25</span></div>
+      <div class="row"><div><div class="name">Adolf Munkel Weg</div><div class="meta">Trail · Val di Funes</div></div></div>
+      <div class="row"><div><div class="name">Alpe di Siusi</div><div class="meta">Trail</div></div></div>
+      <div class="row cur"><div><div class="name">Lago di Braies</div><div class="meta">Lake · Braies</div></div></div>
+    </aside>
+
+    <div class="anchor"></div><div class="tie"></div>
+    <article class="card" aria-label="Lago di Braies">
+      <div class="photo"><div class="x">&#215;</div><div class="credit">Photo: M. Rossi · CC BY-SA 4.0</div></div>
+      <div class="body">
+        <div class="kick"><b>Lake</b> · Braies, South Tyrol, Italy</div>
+        <h3 class="title">Lago di Braies</h3>
+        <p class="sum">A turquoise lake under the Croda del Becco; the boat house is the photo everyone takes.</p>
+        <div class="facts"><div><span class="k">Best</span><span class="v">Jun to Sep</span></div><div><span class="k">Kids</span><span class="v">Yes, flat loop</span></div><div><span class="k">Elevation</span><span class="v">1,496 m</span></div></div>
+        <div class="used">Used in <a href="#">Dolomites 2027</a>, day 3</div>
+        <div class="actions"><span class="btn primary">Open place &rarr;</span><span class="btn ghost">Directions</span><span class="btn ghost">Share</span></div>
+        <div class="badge"><i></i> Usable · 13 of 15</div>
+      </div>
+    </article>
+  </div>
+</div>
+<button class="theme" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">Toggle theme</button>
+</body>
+</html>
