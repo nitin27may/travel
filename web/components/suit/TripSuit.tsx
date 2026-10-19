@@ -2,6 +2,8 @@
 
 import { createContext, useContext, type ReactNode } from 'react';
 import { SuitGlyph } from '@/components/suit/SuitGlyph';
+import { convertText } from '@/lib/format/convert';
+import { usePrefs } from '@/lib/format/prefs';
 import type { ItemSuit } from '@/lib/public/types';
 
 // What a timeline entry draws about the place it visits (suitability-display 3.3 and D6; relevance 6.2). The trip page provides
@@ -44,11 +46,12 @@ const norm = (t: string): string => t.normalize('NFD').replace(/[\u0300-\u036f]/
 
 export function EntrySuit({ slug, title, kind }: { slug: string | null | undefined; title: string; kind: string }) {
   const { byPlace, youngest } = useTripSuit();
+  const [prefs] = usePrefs();
   const s = (slug ? byPlace[slug] : undefined) ?? byPlace[`n:${norm(title)}`];
   if (!s || (s.chips.length === 0 && !s.badge)) {
     // a stop with no record is never silent: it reads "not checked yet", not as fine (M8)
     return kind === 'visit' || kind === 'trail' ? (
-      <span className="su-chip su-entry" data-kind="gap">
+      <span className="ch su-entry" data-kind="gap">
         <span className="ci" aria-label="Not checked yet: who it suits">
           <span>Kids: not checked yet</span>
         </span>
@@ -60,7 +63,7 @@ export function EntrySuit({ slug, title, kind }: { slug: string | null | undefin
   return (
     <>
       {fit ? (
-        <span className="su-chip su-entry" data-kind={fit.kind}>
+        <span className="ch su-entry" data-kind={fit.kind}>
           <span className="ci" aria-label={fit.label}>
             <SuitGlyph name={fit.kind === 'fits' ? 'check' : fit.kind === 'advice_fail' ? 'triangle' : 'none'} />
             <span>{fit.text}</span>
@@ -69,11 +72,11 @@ export function EntrySuit({ slug, title, kind }: { slug: string | null | undefin
       ) : null}
       {s.chips.map((c, i) =>
         chips[i] ? (
-          <span key={`${c.field ?? c.kind}-${i}`} className="su-chip su-entry" data-kind={c.kind}>
+          <span key={`${c.field ?? c.kind}-${i}`} className="ch su-entry" data-kind={c.kind}>
             <span className="ci" aria-label={c.label}>
               <SuitGlyph name={c.glyph} />
-              <span>{c.textNoTime ?? c.text}</span>
-              {c.extra > 0 ? <span className="su-chip-more">+{c.extra}</span> : null}
+              <span>{convertText(c.textNoTime ?? c.text, prefs)}</span>
+              {c.extra > 0 ? <span className="ch-more">+{c.extra}</span> : null}
             </span>
           </span>
         ) : null,

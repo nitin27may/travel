@@ -38,6 +38,20 @@ the built `web/components/places/PlacePage.tsx`; the Rockies capture, suitabilit
 | PS13 | **The glance strip** reads `display.glance`, else the first six R properties with a short renderer, **skipping any property the Who it suits chip row already shows**, ordered by home section with section-4 properties last. Slots are links: a click scrolls to the home row (smooth, or a jump under reduced motion) and the row flashes a 3 px `--ink` ring for 1.2 s. A missing R slot shows the gap chip; a type with fewer properties draws fewer slots and never pads. | P3: six answers at a glance, one click to the evidence. Repeating "1 h 30 – 3 h" in the strip and in the chip below wastes one of six slots. |
 | PS14 | **Empty and gap states use only four forms**, the same in every section: a value; a searched-none value sentence in `--ink-2` with its search date ("No public transport found · searched 12 Oct 2026"); the dashed gap chip "Not checked yet" at an R slot; one closing line "? Not checked yet: a, b, c" for missing A properties or for an R section with no values. A section is absent only when every property is N for the record (D9), and the derived blocks (Similar nearby, the pointer, Plan B) are absent when derive finds nothing, since nothing was researched. | The owner's marker rule (P2 table) with suitability-display D8 and D9, applied to every section. "No data" and italic prose are gone. |
 
+### Research level words (S1b round 4)
+
+The word beside the count counts every check the page has, the place checks and the family checks of Who it suits together, and says why a page is held back.
+
+| Level from the engine | Words | Rule |
+|---|---|---|
+| complete | "Checked" | nothing missing |
+| usable | "Partly checked · n of m" | required checks done, some optional ones open |
+| draft, a third or more of the checks done | "Early research · n of m" | a required check is open |
+| draft, under a third done | "Basics only" | |
+| any level, no point stored | "Early research · n of m, no map point yet" | a place with no point never reads above Early research, and the count is followed by the reason |
+
+"Draft" is never shown. The hints a researcher follows ("add a point with 5 decimals") stay in the research tools (`capture.ts gaps`); the page shows only "Not checked yet".
+
 ## 2. The page frame
 
 ```

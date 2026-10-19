@@ -84,23 +84,23 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "type", group: "identity", label: "Type", value: "type_id", section: "cover", display: ["rest", "card", "filter"], base: "R", gap: "A record needs a type", home: cap("type") }),
   def({ key: "point", group: "identity", label: "Location", value: "point", section: "access", display: ["rest"], base: "R", gap: "Location approximate", home: cap("point") }),
   def({ key: "area_id", group: "identity", label: "Area", value: "ref", section: "cover", display: ["rest", "card"], base: "R", home: cap("area_id") }),
-  def({ key: "wikidata", group: "identity", label: "Wikidata", value: "qid", section: "sources", display: ["detail"], base: "R", gap: "No Wikidata entry", home: rel("wikidata") }),
-  def({ key: "osm_ref", group: "identity", label: "OpenStreetMap", value: "text", section: "links", display: ["detail"], base: "A", gap: "Not mapped in OSM", home: cap("osm_ref") }),
-  def({ key: "summary", group: "identity", label: "Summary", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "No summary yet", home: rel("why") }),
+  def({ key: "wikidata", group: "identity", label: "Wikidata", value: "qid", section: "sources", display: ["detail"], base: "R", gap: "Not linked to Wikidata yet", home: rel("wikidata") }),
+  def({ key: "osm_ref", group: "identity", label: "OpenStreetMap", value: "text", section: "links", display: ["detail"], base: "A", gap: "Not linked to OpenStreetMap yet", home: cap("osm_ref") }),
+  def({ key: "summary", group: "identity", label: "Summary", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Summary not written yet", home: rel("why") }),
 
   // When
   def({ key: "season", group: "when", label: "Operating season", value: "season_rows", section: "when", display: ["rest", "card", "filter"], base: "R?", trigger: "operates", gap: "Season not published; ask the operator", home: cap("season"), filter: { scopes: ["play", "snow", "intent:do"], control: "enum", label: "Season", band: "season_band" } }),
-  def({ key: "best_window", group: "when", label: "Best weeks", value: "season_rows", section: "when", display: ["rest"], base: "A", gap: "No best weeks recorded", home: cap("best_window") }),
-  def({ key: "best_time", group: "when", label: "Best time of day", value: "object_list", section: "when", display: ["rest", "filter"], base: "A", gap: "No best time of day recorded", home: cap("best_time"), filter: { scopes: ["nature.viewpoint", "nature.summit"], control: "enum", label: "Best time of day" } }),
+  def({ key: "best_window", group: "when", label: "Best weeks", value: "season_rows", section: "when", display: ["rest"], base: "A", gap: "Best weeks not recorded", home: cap("best_window") }),
+  def({ key: "best_time", group: "when", label: "Best time of day", value: "object_list", section: "when", display: ["rest", "filter"], base: "A", gap: "Best time of day not recorded", home: cap("best_time"), filter: { scopes: ["nature.viewpoint", "nature.summit"], control: "enum", label: "Best time of day" } }),
   def({ key: "hours", group: "when", label: "Opening hours", value: "hours", section: "when", display: ["rest", "filter"], base: "R?", trigger: "operates", gap: "Hours not published; check before you go", home: cap("hours"), filter: { scopes: ["culture", "animals.see"], control: "enum", label: "Open on" } }),
   def({ key: "duration_min", group: "when", label: "Door-to-door time", value: "range", unit: "min", section: "options", display: ["rest", "card", "filter"], base: "N", gap: "Time not published; our estimate", layers: ["offer"], filter: { scopes: ["intent:do"], control: "range", label: "Duration", promote: { "intent:do": 2 }, band: "time_band" } }),
   def({ key: "activity_min", group: "when", label: "Time on the activity", value: "range", unit: "min", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
   def({ key: "check_in_out", group: "when", label: "Check-in and check-out", value: "object", section: "options", display: ["rest"], base: "N", layers: ["offer"] }),
 
   // Access
-  def({ key: "access_points", group: "access", label: "Trailhead and parking", value: "relation_list", section: "access", display: ["rest"], base: "R?", trigger: "no_door_access", gap: "No parking or stop recorded", home: { in: "none" } }),
-  def({ key: "transit", group: "access", label: "Public transport", value: "relation_list", section: "access", display: ["detail"], base: "A", gap: "No public transport found" }),
-  def({ key: "access_cost", group: "access", label: "Permit or booking", value: "object_list", section: "warnings", display: ["rest!"], base: "R", gap: "No permit or booking needed is a value", home: rel("access_cost") }),
+  def({ key: "access_points", group: "access", label: "Trailhead and parking", value: "relation_list", section: "access", display: ["rest"], base: "R?", trigger: "no_door_access", gap: "Parking or stop not recorded", home: { in: "none" } }),
+  def({ key: "transit", group: "access", label: "Public transport", value: "relation_list", section: "access", display: ["detail"], base: "A", gap: "Public transport not checked yet" }),
+  def({ key: "access_cost", group: "access", label: "Permit or booking", value: "object_list", section: "warnings", display: ["rest!"], base: "R", gap: "Permit or booking not checked yet", home: rel("access_cost") }),
   def({ key: "price", group: "access", label: "Price", value: "price_list", section: "options", display: ["rest", "card", "filter"], base: "R?", trigger: "sells", gap: "Price not published", home: cap("price"), filter: { scopes: ["intent:do", "culture", "play", "snow"], control: "enum", label: "Price band", promote: { "culture": 2, "animals.see": 2, "play": 2 }, band: "price_band" } }),
   def({ key: "window", group: "access", label: "Booking window", value: "window", section: "options", display: ["rest!", "filter"], base: "R?", trigger: "bookable", gap: "Booking window not published; book as early as possible", home: cap("window"), filter: { scopes: ["intent:do", "culture"], control: "enum", label: "Booking needed", band: "booking" } }),
   def({ key: "book_url", group: "access", label: "Booking page", value: "text", section: "links", display: ["detail"], base: "N", layers: ["offer"] }),
@@ -109,7 +109,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "included", group: "access", label: "What is included", value: "text", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
   def({ key: "cancellation", group: "access", label: "Cancellation", value: "text", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
   def({ key: "deposit", group: "access", label: "Deposit or ID rule", value: "text", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
-  def({ key: "variants", group: "offer", label: "Variants", value: "object_list", section: "options", display: ["rest"], base: "N", gap: "No variants recorded", layers: ["offer"] }),
+  def({ key: "variants", group: "offer", label: "Variants", value: "object_list", section: "options", display: ["rest"], base: "N", gap: "Variants not recorded", layers: ["offer"] }),
 
   // Relevance (relevance/1)
   def({ key: "class_key", group: "relevance", label: "Class", value: "enum", section: "cover", display: ["rest"], base: "R", gap: "Not judged yet", home: rel("class_key"), layers: ["place", "route", "offer"] }),
@@ -123,17 +123,17 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "pairs_with", group: "relevance", label: "Nearby, worth adding", value: "object_list", section: "pairs", display: ["rest"], base: "A", gap: "Derived pairs fill in", home: rel("pairs_with") }),
 
   // Safety
-  def({ key: "closures", group: "safety", label: "Closures and conditions", value: "object_list", section: "warnings", display: ["rest!"], base: "R?", trigger: "status_page", gap: "No closure page found" }),
+  def({ key: "closures", group: "safety", label: "Closures and conditions", value: "object_list", section: "warnings", display: ["rest!"], base: "R?", trigger: "status_page", gap: "Closures not checked yet" }),
 
   // Links and media
-  def({ key: "links", group: "links", label: "Links", value: "link_list", section: "links", display: ["detail"], base: "R", gap: "none found", home: cap("links") }),
-  def({ key: "photos", group: "media", label: "Photos", value: "photo_list", section: "photos", display: ["rest", "card"], base: "A", gap: "No licensed photo yet", home: cap("photos") }),
+  def({ key: "links", group: "links", label: "Links", value: "link_list", section: "links", display: ["detail"], base: "R", gap: "Links not checked yet", home: cap("links") }),
+  def({ key: "photos", group: "media", label: "Photos", value: "photo_list", section: "photos", display: ["rest", "card"], base: "A", gap: "Licensed photo not found yet", home: cap("photos") }),
 
   // Relations (2.5). `reached_by` is derived and is not a property.
   def({ key: "reaches", group: "relations", label: "Reaches", value: "relation_list", section: "access", display: ["rest"], base: "N", gap: "Payoff not recorded", home: cap("reaches"), layers: ["route"] }),
   def({ key: "passes", group: "relations", label: "Passes", value: "relation_list", section: "access", display: ["rest"], base: "N", home: cap("passes"), layers: ["route"] }),
   def({ key: "part_of", group: "relations", label: "Part of", value: "relation_list", section: "around", display: ["rest"], base: "A", trigger: "part_of_something", home: cap("part_of") }),
-  def({ key: "starts_at", group: "relations", label: "Starts at", value: "relation_list", section: "access", display: ["rest"], base: "N", gap: "No parking or stop recorded", home: cap("starts_at"), layers: ["route", "offer"] }),
+  def({ key: "starts_at", group: "relations", label: "Starts at", value: "relation_list", section: "access", display: ["rest"], base: "N", gap: "Parking or stop not recorded", home: cap("starts_at"), layers: ["route", "offer"] }),
   def({ key: "ends_at", group: "relations", label: "Ends at", value: "relation_list", section: "access", display: ["detail"], base: "N", home: cap("ends_at"), layers: ["route"] }),
   def({ key: "on", group: "relations", label: "On the route", value: "relation_list", section: "around", display: ["rest"], base: "N", home: cap("on"), layers: ["offer"] }),
   def({ key: "at", group: "relations", label: "At the place", value: "relation_list", section: "around", display: ["rest"], base: "N", home: cap("at"), layers: ["offer"] }),
@@ -145,7 +145,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "variant_of", group: "relations", label: "Variant of", value: "relation_list", section: "options", display: ["detail"], base: "N", home: cap("variant_of"), layers: ["offer"] }),
 
   // Route facts no suitability field holds
-  def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "No track yet", layers: ["route"] }),
+  def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", layers: ["route"] }),
   def({ key: "high_point_m", group: "type_facts", label: "High point", value: "number", unit: "m", section: "activity", display: ["detail"], base: "N", layers: ["route"] }),
   def({ key: "gpx_licence", group: "type_facts", label: "Track licence", value: "text", section: "links", display: ["detail"], base: "N", layers: ["route"] }),
   def({ key: "snow_free_window", group: "type_facts", label: "Snow-free window", value: "season_rows", section: "when", display: ["rest"], base: "N", layers: ["route"] }),

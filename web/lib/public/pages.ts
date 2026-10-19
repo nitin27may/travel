@@ -9,6 +9,7 @@ import { defaultContract, type Contract } from './contract';
 import type { DropLog } from './dateless';
 import { loadRelevanceContext, publicRelevance, type PublicRelevance } from './relevance';
 import { scrubMarkers } from './prose';
+import { humaniseTokens } from '@/components/suit/html';
 import { buildSections, type PageModel } from './sections';
 import { publicSuitability, suitMarksFor, type PublicSuitability } from './suitability';
 import type { Completeness, CompletenessLevel, ItemSuit, PublicPlace, PublicTrip } from './types';
@@ -30,24 +31,30 @@ export interface PageExtras {
 export const LEVEL_WORDS = { basics: 'Basics only', early: 'Early research', usable: 'Partly checked', complete: 'Checked' } as const;
 
 /**
- * "Basics only", "Early research · n of m", "Partly checked · n of m" or "Checked". Draft is by definition missing a required check, so it never
- * reads above Early research; a place with no point stored (a basic check) never reads above Early research either, and a page with under a
- * quarter of its checks reads "Basics only" (S1b review, research levels).
+ * The research level in words. It counts every check the page has (the place checks and the family checks of "Who it suits") and says
+ * why a page is held back:
+ *  - complete reads "Checked";
+ *  - usable reads "Partly checked · n of m";
+ *  - draft with at least a third of its checks done reads "Early research · n of m", under a third just "Basics only";
+ *  - a place with no point stored never reads above Early research, and says "no map point yet" after the count.
+ * Documented in place-page-sections.md ("Research level words").
  */
 export function levelLabel(level: CompletenessLevel, passed: number, total: number, noPoint = false): string {
   const effective: CompletenessLevel = noPoint ? 'draft' : level;
+  const why = noPoint ? ', no map point yet' : '';
   if (effective === 'complete') return LEVEL_WORDS.complete;
-  if (effective === 'usable') return `${LEVEL_WORDS.usable} · ${passed} of ${total}`;
-  return total > 0 && passed * 4 < total ? LEVEL_WORDS.basics : `${LEVEL_WORDS.early} · ${passed} of ${total}`;
+  if (effective === 'usable') return `${LEVEL_WORDS.usable} · ${passed} of ${total}${why}`;
+  return total > 0 && passed * 3 < total ? LEVEL_WORDS.basics : `${LEVEL_WORDS.early} · ${passed} of ${total}${why}`;
 }
 
 const engineLevel = (l: string | undefined): CompletenessLevel => (l === 'complete' ? 'complete' : l === 'usable' || l === 'usable_partial' ? 'usable' : 'draft');
 
 /** The page's research level from the core engine: the place checks done out of asked, and what is missing. */
-function completenessOf(world: World, ref: string, model: PageModel, contract: Contract, noPoint: boolean): Completeness {
+function completenessOf(world: World, ref: string, model: PageModel, contract: Contract, noPoint: boolean, family: { done: number; total: number } | null): Completeness {
   const comp = engineCompleteness(world, ref);
   const level = noPoint ? 'draft' : engineLevel(comp?.level);
-  const { done, total } = model.checks;
+  const done = model.checks.done + (family?.done ?? 0);
+  const total = model.checks.total + (family?.total ?? 0);
   const keys = comp ? [...comp.missingBase, ...comp.missingSuitability, ...comp.conditionalMissing] : [];
   const failed = keys.map((k) => ({ id: `check:${k}`, label: contract.properties[k]?.label ?? k.replace(/[._]/g, ' '), hint: contract.properties[k]?.gap ?? 'Not checked yet.' }));
   return {
@@ -57,7 +64,7 @@ function completenessOf(world: World, ref: string, model: PageModel, contract: C
     notTracked: 0,
     failed,
     label: levelLabel(level, done, total, noPoint),
-    tooltip: `${done} of ${total} place checks done`,
+    tooltip: `${done} of ${total} checks done, place and family`,
   };
 }
 
@@ -79,14 +86,21 @@ function nameRefs(text: string, world: World): string {
   return out.replace(/(?:,\s*)+(?=,|$)/g, '').replace(/\s{2,}/g, ' ').replace(/,\s*([,.;])/g, '$1').replace(/:\s*$/, '').trim();
 }
 
+/** Fields that hold words for a visitor; the others (ids, keys, states, urls, raw values) are never reworded. */
+const WORDS_KEYS = new Set(['text', 'short', 'closing', 'warning', 'quote', 'note', 'why', 'gapWording', 'basisLabel', 'reason', 'label', 'name', 'title', 'scopeText', 'access', 'risk', 'honesty', 'judgement', 'summary', 'hint', 'tooltip']);
+
 function deepScrub<T>(value: T, scrub: TextScrub, where: string, world: World): T {
-  const walk = (v: unknown): unknown => {
-    if (typeof v === 'string') return v.length > 8 ? nameRefs(v.length > 24 ? scrub.text(v, where) : v, world) : v;
+  const walk = (v: unknown, key = ''): unknown => {
+    if (typeof v === 'string') {
+      if (v.length <= 8) return v;
+      const t = nameRefs(v.length > 24 ? scrub.text(v, where) : v, world);
+      return WORDS_KEYS.has(key) ? humaniseTokens(t) : t;
+    }
     if (Array.isArray(v)) {
-      v.forEach((x, i) => (v[i] = walk(x)));
+      v.forEach((x, i) => (v[i] = walk(x, key)));
     } else if (v && typeof v === 'object') {
       const o = v as Record<string, unknown>;
-      for (const k of Object.keys(o)) if (k !== 'ref' && k !== 'url') o[k] = walk(o[k]);
+      for (const k of Object.keys(o)) if (k !== 'ref' && k !== 'url') o[k] = walk(o[k], k);
     }
     return v;
   };
@@ -147,7 +161,7 @@ export function buildPageExtras(root: string, world: World, places: readonly Pic
       if (s && s !== p.slug) refSlugs[r] = s;
     }
     // the last pass over every string of the blocks: a research marker or a dataset word never reaches a page (3.20)
-    extras.set(p.slug, scrubMarkers(deepScrub({ sections: model, suitability, relevance, refSlugs, completeness: completenessOf(world, primaryRef(world, ref), model, contract, p.point === null) }, scrub, `page ${p.slug}`, world)));
+    extras.set(p.slug, scrubMarkers(deepScrub({ sections: model, suitability, relevance, refSlugs, completeness: completenessOf(world, primaryRef(world, ref), model, contract, p.point === null, suitability ? { done: suitability.research.done, total: suitability.research.total } : null) }, scrub, `page ${p.slug}`, world)));
   }
   return { extras };
 }

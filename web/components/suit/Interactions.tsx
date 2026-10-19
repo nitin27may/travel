@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { PREFS_KEY, formatDistance, formatElevation, parsePrefs } from '@/lib/format/units';
+import { convertNumber, unitWord } from '@/lib/format/convert';
+import { PREFS_KEY, parsePrefs } from '@/lib/format/units';
 
 /**
  * The only script of the suitability and section blocks. Esc closes an open provenance row and returns focus to it; a link to a
@@ -36,15 +37,9 @@ export function Interactions() {
     // distances and heights follow the visitor's units (km or mi, m or ft)
     const applyUnits = (): void => {
       const prefs = parsePrefs(window.localStorage.getItem(PREFS_KEY), navigator.language);
-      const one = (v: string, u: string): string => {
-        const n = Number(v.replace(/,/g, ''));
-        const out = u === 'km' ? formatDistance(n, prefs.distance) : formatElevation(n, prefs.elevation);
-        return out.replace(/ \w+$/, '');
-      };
       for (const el of document.querySelectorAll<HTMLElement>('data.ukm, data.um')) {
         const u = el.classList.contains('ukm') ? 'km' : 'm';
-        const unit = u === 'km' ? prefs.distance : prefs.elevation;
-        el.textContent = `${(el.getAttribute('value') ?? '').split('–').map((v) => one(v, u)).join('–')} ${unit}`;
+        el.textContent = `${(el.getAttribute('value') ?? '').split('–').map((v) => convertNumber(v, u, prefs)).join('–')} ${unitWord(u, prefs)}`;
       }
     };
     applyUnits();

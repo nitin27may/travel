@@ -91,9 +91,9 @@ describe('completeness', () => {
   it('a place with a capture record takes its level from the contract engine, in the public words', () => {
     const p = d.getPlace('tre-cime-di-lavaredo-loop')!;
     expect(p.sections).not.toBeNull();
-    expect(p.completeness.passed).toBe(p.sections!.checks.done);
-    expect(p.completeness.total).toBe(p.sections!.checks.total);
-    expect(p.completeness.label).toMatch(/^(Basics only|Early research · \d+ of \d+|Partly checked · \d+ of \d+|Checked)$/);
+    expect(p.completeness.passed).toBe(p.sections!.checks.done + (p.suitability?.research.done ?? 0));
+    expect(p.completeness.total).toBe(p.sections!.checks.total + (p.suitability?.research.total ?? 0));
+    expect(p.completeness.label).toMatch(/^(Basics only|Early research · \d+ of \d+(?:, no map point yet)?|Partly checked · \d+ of \d+(?:, no map point yet)?|Checked)$/);
     expect(p.completeness.failed.every((f) => f.id.startsWith('check:'))).toBe(true);
   });
   it('"Draft" is nobody\'s label: no place says it', () => {

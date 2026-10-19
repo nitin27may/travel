@@ -1,3 +1,4 @@
+import { UNIT_PATTERN } from '@/lib/format/convert';
 import type { Chip } from '@/lib/public/suitability';
 import type { PublicSuitability, SuitGroup } from '@/lib/public/suitability';
 import type { PVal } from '@/lib/public/vals';
@@ -8,6 +9,9 @@ import type { PVal } from '@/lib/public/vals';
 // this is what keeps the place pages inside their size budget (S13). Every dynamic value goes through `esc`; nothing here reads a file.
 
 const ESC: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;' };
+/** snake_case ids that reached free text ("official_highlight", "cai_scale") read as words; an id is never printed (verifier 6). */
+export const humaniseTokens = (t: string): string => t.replace(/\b([a-z]{2,})(?:_([a-z]+))+\b/g, (m) => m.replace(/_/g, ' '));
+
 export const esc = (s: unknown): string => String(s ?? '').replace(/[&<>"']/g, (c) => ESC[c]!);
 
 const MONTH = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -48,12 +52,11 @@ export const stubOf = (val: PVal | null): string => (val ? [val.basisLabel, val.
  * Text with its distances and heights as spans the units toggle can rewrite (km or mi, m or ft): "2.3 km" becomes
  * <data class="ukm" value="2.3">2.3 km</data> (a range keeps both ends in value). The page ships metric; `Interactions` applies the visitor's choice (M9).
  */
-const UNIT = /(\d[\d,]*(?:\.\d+)?)(?:–(\d[\d,]*(?:\.\d+)?))?\s?(km|m)\b/g;
 export function withUnits(text: string | null | undefined): string {
   const t = String(text ?? '');
   let out = '';
   let last = 0;
-  for (const m of t.matchAll(UNIT)) {
+  for (const m of t.matchAll(UNIT_PATTERN)) {
     const at = m.index ?? 0;
     out += esc(t.slice(last, at));
     out += `<data class="u${m[3]}" value="${esc(m[1])}${m[2] ? `–${esc(m[2])}` : ''}">${esc(m[0])}</data>`;
@@ -63,7 +66,7 @@ export function withUnits(text: string | null | undefined): string {
 }
 
 export const gapChip = (text: string = GAP_WORDS): string => `<span class="gc">${esc(text)}</span>`;
-export const closing = (text: string | null): string => (text ? `<p class="su-closing">${esc(text)}</p>` : '');
+export const closing = (text: string | null): string => (text ? `<p class="sc">${esc(text)}</p>` : '');
 
 /** A source worth showing to a visitor: a public web page. Our own repo, a plan file or a relative path is the workshop, never a source. */
 export const publicSource = (s: PVal['sources'][number]): boolean => /^https?:\/\//.test(s.url) && !/this repo|^repo$/i.test(s.publisher) && !/^trip plan$/i.test(s.title);
@@ -78,15 +81,15 @@ export const refLink = (r: { ref: string; name: string }, slugs: Slugs): string 
 function panel(val: PVal): string {
   const sources = val.sources.filter(publicSource);
   // the row above already says "basis · read date"; the panel adds only what the stub does not
-  let h = `<div class="su-pop">${val.appliesTo ? `<p class="su-pop-basis">Applies to ${esc(val.appliesTo.replace(/_/g, ' '))}</p>` : ''}`;
-  if (val.quote) h += `<blockquote class="su-pop-quote">${esc(val.quote)}</blockquote>`;
+  let h = `<div class="sp">${val.appliesTo ? `<p class="sp-basis">Applies to ${esc(val.appliesTo.replace(/_/g, ' '))}</p>` : ''}`;
+  if (val.quote) h += `<blockquote class="sp-quote">${esc(val.quote)}</blockquote>`;
   if (sources.length) {
-    h += '<ul class="su-pop-src" aria-label="Sources, each opens in a new tab">';
-    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(sourceTitle(s.title))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
+    h += '<ul class="sp-src" aria-label="Sources, each opens in a new tab">';
+    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noreferrer">${esc(sourceTitle(s.title))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
     h += '</ul>';
   }
   if (val.conflicts.length) {
-    h += '<div class="su-pop-conf"><p><strong>Sources disagree</strong></p><ul>';
+    h += '<div class="sp-conf"><p><strong>Sources disagree</strong></p><ul>';
     for (const c of val.conflicts) {
       const src = c.sources.filter(publicSource)[0];
       h += `<li>${esc(valueWords(c.value))}${c.basisLabel ? ` · ${esc(c.basisLabel)}` : ''}${src ? ` · ${esc(src.publisher)}` : ''}</li>`;
@@ -184,12 +187,12 @@ const GLYPH: Record<string, string> = {
   check: 'm5 12.5 4.5 4.5L19 7.5',
   triangle: 'M12 3 22 21H2zM12 10v5M12 18h.01',
 };
-export const glyph = (name: string, size = 13): string => (GLYPH[name] ? `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="${GLYPH[name]}"/></svg>` : '');
+export const glyph = (name: string, size = 13): string => (GLYPH[name] ? `<svg class="gy${size === 16 ? ' gy16' : ''}" viewBox="0 0 24 24" aria-hidden="true"><path d="${GLYPH[name]}"/></svg>` : '');
 
 export function chipsHtml(chips: readonly (Chip | null)[]): string {
   const shown = chips.filter((c): c is Chip => c !== null);
   if (!shown.length) return '';
-  return `<ul class="su-chips" aria-label="Who it suits">${shown.map((c) => `<li class="su-chip" data-kind="${c.kind}"><span class="ci" aria-label="${esc(c.label)}">${glyph(c.glyph)}<span>${esc(c.text)}</span>${c.extra > 0 ? `<span class="su-chip-more">+${c.extra}</span>` : ''}</span></li>`).join('')}</ul>`;
+  return `<ul class="chs" aria-label="Who it suits">${shown.map((c) => `<li class="ch" data-kind="${c.kind}"><span class="ci"${c.label === c.text ? '' : ` aria-label="${esc(c.label)}"`}>${glyph(c.glyph)}<span>${withUnits(c.text)}</span>${c.extra > 0 ? `<span class="ch-more">+${c.extra}</span>` : ''}</span></li>`).join('')}</ul>`;
 }
 
 const ECHO = new Set<string>(['facilities', 'when']);
@@ -200,17 +203,17 @@ function groupHtml(g: SuitGroup, slugs: Slugs): string {
   if (ECHO.has(g.id)) {
     // Facilities and When you can go are sections of their own (9 and 8): here only their values, with a link, so nothing is said twice (PS1, Q31)
     if (values.length === 0) return '';
-    return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${values.map((r) => esc(clip(r.short))).join(' · ')}</span><a href="#${g.id}">See section</a></p>`;
+    return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${values.map((r) => withUnits(clip(r.short))).join(' · ')}</span><a href="#${g.id}">See section</a></p>`;
   }
   const gaps = g.rows.filter((r) => r.gap);
-  const sum = g.open ? '' : `<span class="gs">${values.map((r) => esc(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;
+  const sum = g.open ? '' : `<span class="gs">${values.map((r) => withUnits(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;
   const rows = g.rows.map((r) => rowLine({ ...r, text: r.gap ? null : r.text, gapWording: r.gap && r.text !== GAP_WORDS ? r.text : undefined }, slugs, `su-${r.key}`)).join('');
   return `<details class="su-group" data-group="${g.id}"${g.open ? ' open' : ''}><summary><span class="gt">${esc(g.title)}</span>${sum}</summary><div class="su-gbody">${rows}${closing(g.closing)}</div></details>`;
 }
 
 /** The inside of the "Who it suits" section: head, chips, warning line and the groups. */
 export function suitsInner(suit: PublicSuitability, slugs: Slugs, title: string): string {
-  return `<header class="ph"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml(suit.chips)}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${esc(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
+  return `<header class="ph"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml(suit.chips)}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${withUnits(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
 }
 
 // ---- glance and "Before you go" ---------------------------------------------------------------------------------------------
@@ -231,12 +234,12 @@ export function glanceHtml(slots: GlanceSlotHtml[], level: { level: string; labe
         .map(({ row, href, value }) => `<li${row.gap ? ' data-empty' : ''}><a href="${esc(href)}" class="ga"><span class="gl">${esc(row.label)}</span>${row.gap ? gapChip() : `<strong class="gv">${withUnits(value)}</strong>`}${row.val ? `<span class="pb">${esc(stubOf(row.val))}</span>` : ''}${row.val && row.val.conflicts.length ? `<span class="su-honest">${row.val.conflicts.length + 1} values</span>` : ''}</a></li>`)
         .join('')}</ul>`
     : '';
-  return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="pb">${checks.total && !/ of \d+$/.test(level.label) ? `${checks.done} of ${checks.total} place checks done` : ''}${checks.read ? `${checks.total && !/ of \d+$/.test(level.label) ? ' · ' : ''}read ${esc(longDate(checks.read))}` : ''}</span></p>`;
+  return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="pb">${checks.total && !/ of \d+(?:,.*)?$/.test(level.label) ? `${checks.done} of ${checks.total} place checks done` : ''}${checks.read ? `${checks.total && !/ of \d+(?:,.*)?$/.test(level.label) ? ' · ' : ''}read ${esc(longDate(checks.read))}` : ''}</span></p>`;
 }
 
 const li = (kind: string, glyphName: string, inner: string, cls = 'ps-line'): string => `<li class="${cls}" data-kind="${esc(kind)}">${glyph(glyphName, 16)}<div>${inner}</div></li>`;
 const cap1 = (t: string): string => (t ? `${t.charAt(0).toUpperCase()}${t.slice(1)}` : t);
-const kmText = (n: number): string => `${n < 10 ? Math.round(n * 10) / 10 : Math.round(n)} km`;
+const kmText = (n: number): string => withUnits(`${n < 10 ? Math.round(n * 10) / 10 : Math.round(n)} km`);
 
 /** Section 3: the Rest! lines, Plan B under the booking line (PS8), the older record's hazards and booking window, "none" lines and the closing line. */
 export function warningsHtml(sec: SectionModel, rel: PublicRelevance | null, slugs: Slugs, bookingHtml: string | null, hazards: string[], suitWarning: string | null): string {
@@ -258,11 +261,11 @@ export function warningsHtml(sec: SectionModel, rel: PublicRelevance | null, slu
   let out = '';
   sec.lines.forEach((l, i) => {
     const row = byKey.get(l.home);
-    out += li(l.kind, 'triangle', `<p class="pt"><span class="pk">${esc(l.kind)}</span> ${esc(l.text)}</p>${row?.val ? `<p class="pb">${esc(stubOf(row.val))}</p>` : ''}`);
+    out += li(l.kind, 'triangle', `<p class="pt"><span class="pk">${esc(l.kind)}</span> ${withUnits(l.text)}</p>${row?.val ? `<p class="pb">${esc(stubOf(row.val))}</p>` : ''}`);
     if (i === riskIdx) out += planB;
   });
   if (bookingHtml) out += li('Book', 'triangle', `<div class="pt"><span class="pk">Book</span> ${bookingHtml}</div>`);
-  for (const h of haz) out += li('Hazard', 'triangle', `<p class="pt"><span class="pk">Hazard</span> ${esc(h)}</p>`);
+  for (const h of haz) out += li('Hazard', 'triangle', `<p class="pt"><span class="pk">Hazard</span> ${withUnits(h)}</p>`);
   for (const r of noneRows) out += li('', 'check', `<p class="pt">${r.key === 'access_cost' ? 'No booking or permit needed' : `${esc(r.label)}: none`}</p>${r.val ? `<p class="pb">${esc(stubOf(r.val))}</p>` : ''}`, 'ps-line ps-line-none');
   let closingText = sec.closing;
   if (unknownBooking) {
