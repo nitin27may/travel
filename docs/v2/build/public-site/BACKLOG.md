@@ -132,7 +132,7 @@ for its stage), **owner** (needs Nitin), **later** (after go-live).
 
 | ID | Item | Source | Status |
 |---|---|---|---|
-| 3.1 | **L3c trip page timeline.** Whole-trip timeline and per-day timelines with times (fixed, anchored, suggested), drive legs, visits, meals and breaks, sun anchors, booking slots. A scheduler in `core/` (pure, tested) with authored overrides. A trip-level party profile replaces per-day A/B/C, with per-day override and "add to this day". Research markers (INFERENCE, CALC, "low confidence") become honesty chips; units follow the preference inside notes; long notes become "Know before you go" bullets | owner | next (design and model done; build after stage 2) |
+| 3.1 | **L3c trip page timeline.** Whole-trip timeline and per-day timelines with times (fixed, anchored, suggested), drive legs, visits, meals and breaks, sun anchors, booking slots. A scheduler in `core/` (pure, tested) with authored overrides. A trip-level party profile replaces per-day A/B/C, with per-day override and "add to this day". Research markers (INFERENCE, CALC, "low confidence") become honesty chips; units follow the preference inside notes; long notes become "Know before you go" bullets | owner | doing: round 2 fixing the 8 review must-fixes |
 | 3.1b | L3c ownership is split from L3b: L3c owns the trip-page files and `components/trips/timeline/`; L3b owns the list page, `TripCover.tsx`, `components/trips/tags/` and `lib/public/tags.ts`, and must not edit `trips.ts`. L3c merges before L3b | L3c brief | queued |
 | 3.1c | **L3d**, after L3c merges: import the about 330 legacy time cells for 8 trips (Patagonia, Iceland, Algonquin, Vermont, Niagara, New Hampshire, Quebec, Switzerland), shown as suggested until a person checks each trip; convert the 6 overview trips to days | L3c audit | queued |
 | 3.2 | **L3b trip tags and filters** at parity with Places, using the same tag vocabulary, mostly derived (continent, countries, length band, season, kids' age, activities from places, hike effort, getting around, driving per day, one base or road trip); tag chips link to filtered lists | owner | queued |
@@ -182,6 +182,7 @@ Stage 3 briefs (19 Oct): [L3c](L3c-trip-timeline.md) (3.1), [L3b](L3b-trip-tags-
 | 4.1 | the design reviewer (Opus) site review (`review.md`) of every page type on desktop and phone, light and dark, scored against the UX principles P1-P7 (`design/foundation/principles.md`) | gate | queued |
 | 4.2 | Known items for it to judge: the dark trips map shows water lighter than land; the mobile trail hero; table "Sources" column clipping at 1440; label overlap on place maps; the 844x390 globe | verifiers, coordinator | queued |
 | 4.3 | Fixes from the review | gate | queued |
+| 4.4 | **Trip timeline stage-4 polish (L3c Opus review).** Fade the day cards on a profile change (they swap instantly now); the whole-trip strip: no clipped drive text, hour ticks, drop the repeated variant column; consequence lines in the variant menu; a shorter phone day header; the profile selector above the season band; the sticky plan bar names the profile; the map follows the scrolled day (a sticky column on desktop, a pill on phone); the route map opens zoomed on one dot (check against v2 first) | L3c review | queued |
 
 ## Stage 5: sanity checks across models
 
