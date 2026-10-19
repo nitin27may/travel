@@ -1,6 +1,12 @@
 {
   "schema": "relevance-points/1",
   "points": {
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": {
+      "lat": 51.14785,
+      "lon": -115.55562,
+      "coord_src": "osm",
+      "point_source": "OSM node 10809307066 Banff Gondola Lower Terminal (where the ride starts); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs": {
       "lat": 51.1506,
       "lon": -115.561,
@@ -13,17 +19,65 @@
       "coord_src": "wikidata",
       "point_source": "Q1003855 P625"
     },
+    "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer": {
+      "lat": 52.22031,
+      "lon": -117.22417,
+      "coord_src": "osm",
+      "point_source": "OSM way 282985047 Columbia Icefield Glacier Discovery Centre (the Ice Explorer check-in); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe": {
+      "lat": 51.43971,
+      "lon": -116.5413,
+      "coord_src": "osm",
+      "point_source": "OSM node 9902888899 (amenity=boat_rental, Canoe Rental) at Emerald Lake; agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk": {
       "lat": 52.25917,
       "lon": -117.27806,
       "coord_src": "wikidata",
       "point_source": "Q64841048 P625"
     },
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
+      "lat": 52.85134,
+      "lon": -118.12371,
+      "coord_src": "osm",
+      "point_source": "OSM node 263473399 Jasper Skytram station; the lower of the two (node 263473400 is nearer the Whistlers summit, Q22701843 P625 52.82694,-118.13278); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe": {
+      "lat": 51.41536,
+      "lon": -116.21653,
+      "coord_src": "osm",
+      "point_source": "OSM way 128099295 Boathouse (amenity=boat_rental) at Lake Louise; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola": {
+      "lat": 51.44214,
+      "lon": -116.16119,
+      "coord_src": "osm",
+      "point_source": "OSM way 1263557754 Grizzly Express Gondola base station (the top station is way 392355325); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise": {
+      "lat": 51.2475,
+      "lon": -115.49671,
+      "coord_src": "osm",
+      "point_source": "OSM way 223576165 (leisure=marina, Lake Minnewanka), the cruise dock; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise": {
+      "lat": 52.72895,
+      "lon": -117.64004,
+      "coord_src": "osm",
+      "point_source": "OSM node 4336196151 Maligne Lake Cruise (the dock); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs": {
       "lat": 53.1299,
       "lon": -117.771,
       "coord_src": "wikidata",
       "point_source": "Q14874867 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe": {
+      "lat": 51.32695,
+      "lon": -116.18288,
+      "coord_src": "osm",
+      "point_source": "OSM node 2956259306 Canoe Rentals (amenity=boat_rental) at Moraine Lake; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/sights/athabasca-falls": {
       "lat": 52.66444,
@@ -133,6 +187,12 @@
       "coord_src": "wikidata",
       "point_source": "Q1161258 P625"
     },
+    "legacy/canadian-rockies-sept-2029/sights/natural-bridge": {
+      "lat": 51.38181,
+      "lon": -116.53024,
+      "coord_src": "osm",
+      "point_source": "OSM node 1783220701 Natural Bridge (tourism=attraction), Yoho; agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view": {
       "lat": 53.0333,
       "lon": -119.2,
@@ -181,6 +241,18 @@
       "coord_src": "wikidata",
       "point_source": "trailhead \"Athabasca Falls\" at legacy/canadian-rockies-sept-2029/sights/athabasca-falls"
     },
+    "legacy/canadian-rockies-sept-2029/trails/bald-hills": {
+      "lat": 52.72667,
+      "lon": -117.64458,
+      "coord_src": "osm",
+      "point_source": "OSM relation 21018594 Maligne Lake Parking (the trailhead the record names); Bald Hills Trail is relation 7467684; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake": {
+      "lat": 51.16816,
+      "lon": -115.73106,
+      "coord_src": "osm",
+      "point_source": "OSM way 764291447 Harvey Pass Trail Parking on the Trans-Canada Highway (the Bourgeau Lake trail continues to Harvey Pass); name is not Bourgeau; agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": {
       "lat": 51.444,
       "lon": -116.531,
@@ -193,11 +265,35 @@
       "coord_src": "wikidata",
       "point_source": "trailhead \"Emerald Lake\" at legacy/canadian-rockies-sept-2029/sights/emerald-lake"
     },
+    "legacy/canadian-rockies-sept-2029/trails/fenland-loop": {
+      "lat": 51.18421,
+      "lon": -115.58261,
+      "coord_src": "osm",
+      "point_source": "OSM node 4218161190 (tourism=attraction, Fenland Trail), at the trail by the townsite; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": {
+      "lat": 51.08122,
+      "lon": -115.39447,
+      "coord_src": "osm",
+      "point_source": "OSM way 29234142 Grassi Lakes Parking; the upper lot on the Smith-Dorrien road is node 5902271285; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak": {
+      "lat": 51.06174,
+      "lon": -115.41863,
+      "coord_src": "osm",
+      "point_source": "OSM way 1208175233 (public parking, unnamed), the lot nearest the start of the Ha Ling Trail way 119212025; agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/trails/iceline-trail": {
       "lat": 51.49972,
       "lon": -116.47278,
       "coord_src": "wikidata",
       "point_source": "trailhead \"Takakkaw Falls parking\" at legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/interlakes-trail": {
+      "lat": 50.63157,
+      "lon": -115.13998,
+      "coord_src": "osm",
+      "point_source": "OSM node 269821248 North Interlakes (amenity=parking); agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": {
       "lat": 53.1299,
@@ -235,6 +331,18 @@
       "coord_src": "wikidata",
       "point_source": "trailhead \"Marble Canyon\" at legacy/canadian-rockies-sept-2029/sights/marble-canyon"
     },
+    "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop": {
+      "lat": 52.72667,
+      "lon": -117.64458,
+      "coord_src": "osm",
+      "point_source": "OSM relation 21018594 Maligne Lake Parking (the trailhead the record names); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop": {
+      "lat": 52.72131,
+      "lon": -117.64221,
+      "coord_src": "osm",
+      "point_source": "OSM node 13970495503 Moose Lake Trail (trail start by the Maligne Lake road); relation 16336077; agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore": {
       "lat": 51.3225,
       "lon": -116.18556,
@@ -253,11 +361,29 @@
       "coord_src": "wikidata",
       "point_source": "trailhead \"Mount Lorette Ponds\" at legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds"
     },
+    "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail": {
+      "lat": 53.02818,
+      "lon": -119.23067,
+      "coord_src": "osm",
+      "point_source": "OSM node 14197983910 (information board, Overlander Falls Trail), the west end of the trail; the falls are node 6864440723; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk": {
+      "lat": 51.16992,
+      "lon": -116.14761,
+      "coord_src": "osm",
+      "point_source": "OSM way 234163234 Paint Pots Parking; trailhead node 3611622970 is 10 m away; agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/trails/parker-ridge": {
       "lat": 52.18083,
       "lon": -117.09222,
       "coord_src": "wikidata",
       "point_source": "Q22490170 P625"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout": {
+      "lat": 51.71673,
+      "lon": -116.49876,
+      "coord_src": "osm",
+      "point_source": "OSM way 436272890 Peyto Lake Parking at Bow Summit; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers": {
       "lat": 51.3936,
@@ -271,17 +397,53 @@
       "coord_src": "wikidata",
       "point_source": "Q7256632 P625"
     },
+    "legacy/canadian-rockies-sept-2029/trails/rawson-lake": {
+      "lat": 50.60709,
+      "lon": -115.1328,
+      "coord_src": "osm",
+      "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout": {
+      "lat": 50.68633,
+      "lon": -115.11493,
+      "coord_src": "osm",
+      "point_source": "OSM way 262483241 Peter Lougheed visitor centre parking (fee=no); agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge": {
+      "lat": 50.60709,
+      "lon": -115.1328,
+      "coord_src": "osm",
+      "point_source": "OSM node 269822212 Rawson Lake Trailhead (highway=trailhead), Upper Kananaskis Lake; agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": {
       "lat": 53.1299,
       "lon": -117.771,
       "coord_src": "wikidata",
       "point_source": "trailhead \"Miette Hot Springs\" at legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
     },
+    "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass": {
+      "lat": 51.11493,
+      "lon": -115.76374,
+      "coord_src": "osm",
+      "point_source": "OSM way 285056656 Sunshine Base Station (gondola base, where the day starts; the meadows are reached by gondola); agent checked, needs a person's check"
+    },
     "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk": {
       "lat": 51.49972,
       "lon": -116.47278,
       "coord_src": "wikidata",
       "point_source": "trailhead \"Takakkaw Falls\" at legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk": {
+      "lat": 52.21262,
+      "lon": -117.23292,
+      "coord_src": "osm",
+      "point_source": "OSM way 26751964 (Parks Canada parking, fee=no), 580 m from the toe point used for the payoff; lot name not tagged; agent checked, needs a person's check"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/troll-falls": {
+      "lat": 50.94213,
+      "lon": -115.14946,
+      "coord_src": "osm",
+      "point_source": "OSM way 184249543 North Parking Lot, the public lot nearest the Troll Falls path (way 371535509); the OSM lot is not named Stoney; agent checked, needs a person's check"
     },
     "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": {
       "lat": 50.87278,
