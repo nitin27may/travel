@@ -93,7 +93,7 @@
         "title": "Banff Gondola if energy is left",
         "sight_ids": ["banff-gondola"],
         "adventure_ids": ["banff-gondola"],
-        "notes": "Zero walking. 2026 hours 8 Sep-12 Oct 09:00-21:00, last ride up 19:30. A 6-year-old pays the child fare (5 and under free). The child's body clock is 2 h ahead, so expect a crash around 19:00 local time (INFERENCE)."
+        "notes": "Zero walking. 2026 hours 8 Sep-12 Oct 09:00-21:00, last ride up 19:30. A 6-year-old pays the child fare (5 and under free). A young child's body clock is still about 2 h ahead, so expect a crash around 19:00 local time (INFERENCE)."
       },
       "needs_split": false,
       "rejoin": "Together all day",
@@ -402,7 +402,7 @@
         "trail_ids": ["takakkaw-falls-walk", "emerald-lakeshore"],
         "sight_ids": ["takakkaw-falls", "emerald-lake", "natural-bridge"],
         "adventure_ids": ["emerald-lake-canoe"],
-        "notes": "08:00 at Lake Louise: book Tuesday's Moraine shuttle seats in the 60% release before driving into the Yoho Valley (cell coverage there GAP). Takakkaw Falls walk 1.8 km flat at 08:00 while it is quiet (late-day cloud is typical). Emerald Lake about 10:00: canoe (2026: 10:00-16:45 but the page also says last rental 14:00; 70-100 per hour; one adult 19+ per canoe; 2 adults plus 2 children under 30 kg allowed). Lakeshore loop 5.2 km with a muddy, rooty east side: walk the west side out and back. Natural Bridge on the way back, almost no walking. Back at Takakkaw for 15:30. The Burgess Shale Mt Stephen hike is age 8+, so not for the child."
+        "notes": "08:00 at Lake Louise: book Tuesday's Moraine shuttle seats in the 60% release before driving into the Yoho Valley (cell coverage there GAP). Takakkaw Falls walk 1.8 km flat at 08:00 while it is quiet (late-day cloud is typical). Emerald Lake about 10:00: canoe (2026: 10:00-16:45 but the page also says last rental 14:00; 70-100 per hour; one adult 19+ per canoe; 2 adults plus 2 children under 30 kg allowed). Lakeshore loop 5.2 km with a muddy, rooty east side: walk the west side out and back. Natural Bridge on the way back, almost no walking. Back at Takakkaw for 15:30. The Burgess Shale Mt Stephen hike is age 8+, so not for younger children."
       },
       "track_c": {
         "title": "Viewpoints and a canoe",

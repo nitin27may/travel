@@ -176,3 +176,16 @@ describe('trip pins from data/trips/base-points.json (backlog 3.41)', () => {
     expect(pin('dolomites-2027').lat).toBeCloseTo(46.7327, 3);
   });
 });
+
+describe('the two Rockies sentences the party scrub used to drop (backlog 3.22)', () => {
+  const text = JSON.stringify(getTrip('canadian-rockies-2029'));
+  it('are kept, in their neutral wording', () => {
+    expect(text).toContain("A young child's body clock is still about 2 h ahead");
+    expect(text).toContain('age 8+, so not for younger children');
+  });
+  it('are not in the scrub drop log', async () => {
+    const { createPublicData } = await import('@/lib/public');
+    const dropped = JSON.stringify(createPublicData().internals.dropped);
+    expect(dropped).not.toMatch(/body clock|Mt Stephen|not for the child/i);
+  });
+});
