@@ -242,11 +242,12 @@ span.globe-pin { cursor: default; }
   .globe-hint { display: none; }
   .globe-options-btn { bottom: 40px; right: 60px; left: auto; } /* beside the zoom stack: clear of the attribution line and of the card dock */
   .globe-root[data-panel='open'] .globe-options-btn { right: calc(var(--globe-panel-gap) + 48px); }
-  .globe-zoom { bottom: 40px; }
+  .globe-zoom { bottom: 36px; gap: 3px; }
   .globe-card { width: 280px; }
   .globe-card-photo { height: 96px; }
   .globe-feature { top: 56px; width: 240px; }
   .globe-status { top: 104px; bottom: auto; }
+  .globe-root:has(.globe-card-dock) .globe-status { left: calc(300px + (100% - 300px - var(--globe-panel-gap)) / 2); max-width: calc(100% - 300px - var(--globe-panel-gap) - 16px); }
 }
 
 /* ---------- reduced motion: fades only ---------- */
