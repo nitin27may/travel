@@ -14,11 +14,13 @@ import { CategoryView } from './CategoryView';
 import { DayRow } from './DayRow';
 import { DEPTH_NOTICE } from './format';
 import { routeHasPositions, type TripPageModel } from './model';
+import { dayOfHash } from './timeline/currentDay';
 import { DayTimeline } from './timeline/DayTimeline';
 import { orderRoute, timeOfRow } from './timeline/model';
 import { PlanBar } from './timeline/PlanBar';
 import { ProfileBar } from './timeline/ProfileBar';
 import { TripTimeline } from './timeline/TripTimeline';
+import { useScrollSpy } from './timeline/useScrollSpy';
 import { useTimeline } from './timeline/useTimeline';
 import { dayFitIds, RouteKey, TripRouteMap } from './TripRouteMap';
 import { useTripUrl } from './useTripUrl';
@@ -51,7 +53,7 @@ function TimesBanner({ condensed }: { condensed: boolean }) {
 
 /**
  * The trip as a timeline: the "Suggested times" banner, the party profile, the whole trip at a glance, the route map, then each
- * day on a time rail (trip-timeline spec). A picked day highlights on the map; By category regroups the same items and never
+ * day on a time rail (trip-timeline spec). The day at the top of the screen is the current day: it lights the rail, the strip and the day, and the map follows it once scrolling settles; By category regroups the same items and never
  * changes the order inside a day. Trips without schedule data keep the plain day rows.
  */
 export function TripPlan({ slug, model, title, depth }: Props) {
@@ -64,71 +66,91 @@ export function TripPlan({ slug, model, title, depth }: Props) {
 function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlModel: NonNullable<TripPageModel['timeline']>; url: ReturnType<typeof useTripUrl> }) {
   const api = useTimeline(tlModel, url);
   const showCategory = url.view === 'category';
-  const [picked, setPicked] = useState<number | null>(null);
-  const [inView, setInView] = useState<number | null>(null);
-  const [active, setActive] = useState<Category | null>(null);
   const map = useRef<MapHandle>(null);
+  // the hash this page wrote itself while following the scroll or jumping; the hash effect must not scroll to it again
+  const ownHash = useRef<string | null>(null);
 
-  // `#day-3` picks that day, on load and on Back (state adjusted while rendering, not in an effect)
-  const [seenDay, setSeenDay] = useState<number | null>(null);
-  if (url.day !== seenDay) {
-    setSeenDay(url.day);
-    if (url.day !== null && tlModel.days.some((d) => d.n === url.day)) setPicked(url.day);
-  }
+  // The current day is decided by the scroll position alone (design 3.4); a click or a `#day-N` link scrolls and pins it until the visitor scrolls on.
+  // When a scroll settles, the URL follows with replaceState, so Back leaves the page instead of walking back through every day.
+  const follow = useCallback(
+    (day: number | null) => {
+      const now = dayOfHash(window.location.hash);
+      if (day === null ? now === null : now === day) return;
+      ownHash.current = day === null ? '' : `day-${day}`;
+      url.go({ view: 'day', hash: day === null ? undefined : `day-${day}` }, 'replace');
+    },
+    [url],
+  );
+  const daySpy = useScrollSpy<number>({
+    enabled: !showCategory,
+    itemSelector: 'li.tl-day',
+    keyOf: (el) => dayOfHash(el.id),
+    barSelector: '.tl-planbar',
+    onSettle: follow,
+  });
+  const catSpy = useScrollSpy<Category>({
+    enabled: showCategory,
+    itemSelector: 'section[data-cat]',
+    keyOf: (el) => (el.dataset.cat as Category | undefined) ?? null,
+    barSelector: '.cat-strip',
+    onSettle: (key) => {
+      if (key && window.location.hash !== `#${key}`) {
+        ownHash.current = key;
+        url.go({ view: 'category', hash: key }, 'replace');
+      }
+    },
+  });
+  const current = showCategory ? null : daySpy.current;
+  const active = showCategory ? catSpy.current : null;
 
   const route = useMemo(() => orderRoute(model.route, api.timelines), [model.route, api.timelines]);
+
+  // The map follows the settled current day, and only while the map is on screen; scrolling back up to it shows today's day.
+  const [mapOn, setMapOn] = useState(false);
+  const [mapDay, setMapDay] = useState<number | null>(null);
+  useEffect(() => {
+    const el = document.getElementById('route');
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setMapOn(!!e?.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  const dayNow = showCategory ? null : daySpy.reached;
+  useEffect(() => {
+    if (!mapOn) return;
+    const t = window.setTimeout(() => setMapDay(dayNow), 350);
+    return () => window.clearTimeout(t);
+  }, [mapOn, dayNow]);
   const first = useRef(true);
   useEffect(() => {
     if (first.current) {
       first.current = false;
       return;
     }
-    if (picked !== null) map.current?.fit(dayFitIds(route, picked));
-  }, [picked, route]);
+    if (mapDay !== null) map.current?.fit(dayFitIds(route, mapDay));
+  }, [mapDay, route]);
 
   // an anchor (`#day-5`, `#trails`) scrolls to its target once the right view is on screen; an empty category goes to the strip
+  const goDay = daySpy.goTo;
+  const goCat = catSpy.goTo;
+  const booted = useRef(false);
   useEffect(() => {
-    if (!url.hash) return;
+    if (!url.hash || ownHash.current === url.hash) return;
+    // the first anchor (a shared link, a reload) lands at once; later ones glide
+    const instant = !booted.current;
+    booted.current = true;
     const id = url.category && !model.sections.find((s) => s.id === url.category)?.count ? 'in-this-trip' : url.hash;
-    const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' }));
+    const frame = requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const day = dayOfHash(id);
+      if (day !== null && !showCategory) goDay(el, day, instant);
+      else if (showCategory && url.category === id) goCat(el, url.category, instant);
+      else if (showCategory) goCat(el, null, instant);
+      else goDay(el, null, instant);
+    });
     return () => cancelAnimationFrame(frame);
-  }, [url.hash, url.view, url.category, model.sections]);
-
-  // scroll-spy: the rail's cell for the day on screen takes the active look
-  useEffect(() => {
-    if (showCategory) return;
-    const days = [...document.querySelectorAll<HTMLElement>('li.tl-day')];
-    if (!days.length) return;
-    const seen = new Map<number, number>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) seen.set(Number((e.target as HTMLElement).id.replace('day-', '')), e.isIntersecting ? e.boundingClientRect.top : Number.POSITIVE_INFINITY);
-        const best = [...seen].filter(([, t]) => Number.isFinite(t)).sort((a, b) => Math.abs(a[1]) - Math.abs(b[1]))[0];
-        if (best) setInView(best[0]);
-      },
-      { rootMargin: '-25% 0px -60% 0px' },
-    );
-    days.forEach((d) => io.observe(d));
-    return () => io.disconnect();
-  }, [showCategory, api.timelines.length]);
-
-  // scroll-spy in By category: the chip for the section in view takes the active look
-  useEffect(() => {
-    if (url.view !== 'category') return;
-    const sections = [...document.querySelectorAll<HTMLElement>('section[data-cat]')];
-    if (!sections.length) return;
-    const seen = new Map<string, number>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) seen.set((e.target as HTMLElement).dataset.cat as string, e.isIntersecting ? e.boundingClientRect.top : Number.POSITIVE_INFINITY);
-        const best = [...seen].filter(([, t]) => Number.isFinite(t)).sort((a, b) => Math.abs(a[1]) - Math.abs(b[1]))[0];
-        if (best) setActive(best[0] as Category);
-      },
-      { rootMargin: '-20% 0px -65% 0px' },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, [url.view, model.sections]);
+  }, [url.hash, url.view, url.category, model.sections, showCategory, goDay, goCat]);
 
   // the copy sheet and the calendar file read the timeline the visitor is looking at
   useEffect(() => {
@@ -145,7 +167,16 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
     return () => registerYoungest(null);
   }, [setProfile, party]);
 
-  const pickDay = useCallback((n: number) => url.go({ view: 'day', hash: `day-${n}` }, 'push'), [url]);
+  // A pick scrolls itself (lock, sticky offsets, pin) and writes the hash; the hash effect skips a hash it did not receive from outside.
+  const pickDay = useCallback(
+    (n: number) => {
+      const el = document.getElementById(`day-${n}`);
+      if (el) goDay(el, n);
+      ownHash.current = `day-${n}`;
+      url.go({ view: 'day', hash: `day-${n}` }, 'push');
+    },
+    [url, goDay],
+  );
   const sections = useMemo(
     () => model.sections.map((s) => ({ ...s, rows: s.rows.map((r) => ({ ...r, time: timeOfRow(r, r.days[0] ?? 0, api.timelines) ?? r.time })) })),
     [model.sections, api.timelines],
@@ -157,7 +188,7 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
     <div className="tl-wrap">
       <TimesBanner condensed={tlModel.condensed} />
       <ProfileBar model={tlModel} api={api} />
-      {!showCategory ? <TripTimeline model={tlModel} timelines={api.timelines} changedDays={api.changedDays} picked={picked} onPick={pickDay} /> : null}
+      {!showCategory ? <TripTimeline model={tlModel} timelines={api.timelines} changedDays={api.changedDays} picked={current} onPick={pickDay} /> : null}
 
       <section className="trip-sec" aria-labelledby="route-h" id="route" data-print="hide">
         <h2 id="route-h" className="trip-h">The route</h2>
@@ -172,14 +203,14 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
               {route.unplaced ? ` ${route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
             </p>
             <MapFamilyProvider family="maplibre">
-              <TripRouteMap ref={map} route={route} picked={picked} title={title} />
+              <TripRouteMap ref={map} route={route} picked={mapDay} title={title} />
             </MapFamilyProvider>
             <RouteKey />
           </>
         )}
       </section>
 
-      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={picked ?? inView} onPick={pickDay} /> : null}
+      {!showCategory ? <PlanBar model={tlModel} label={planLabel} active={current} onPick={pickDay} /> : null}
 
       <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip">
         <h2 id="in-trip-h" className="trip-h">In this trip</h2>
@@ -217,7 +248,7 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
                   key={d.n}
                   day={d}
                   tl={tl}
-                  picked={picked === d.n}
+                  picked={current === d.n}
                   changed={api.changedDays.has(d.n) && (api.state.overrides[d.n] !== undefined || mine.length > 0)}
                   candidates={(tlModel.addByDay[d.n] ?? []).map((k) => tlModel.addables[k]!).filter(Boolean)}
                   taken={mine.map((x) => x.key)}
@@ -243,7 +274,14 @@ function PlainPlan({ slug, model, title, depth }: Props) {
   const showCategory = url.view === 'category';
   const [open, setOpen] = useState<ReadonlySet<number>>(new Set());
   const [picked, setPicked] = useState<number | null>(null);
-  const [active, setActive] = useState<Category | null>(null);
+  const catSpy = useScrollSpy<Category>({
+    enabled: showCategory,
+    itemSelector: 'section[data-cat]',
+    keyOf: (el) => (el.dataset.cat as Category | undefined) ?? null,
+    barSelector: '.cat-strip',
+  });
+  const active = showCategory ? catSpy.current : null;
+  const goCat = catSpy.goTo;
   const map = useRef<MapHandle>(null);
   const quiet = useRef(false);
 
@@ -271,25 +309,14 @@ function PlainPlan({ slug, model, title, depth }: Props) {
       return;
     }
     const id = url.category && !model.sections.find((s) => s.id === url.category)?.count ? 'in-this-trip' : url.hash;
-    const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' }));
+    const frame = requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (showCategory) goCat(el, url.category === id ? url.category : null);
+      else el.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
+    });
     return () => cancelAnimationFrame(frame);
-  }, [url.hash, url.view, url.category, model.sections]);
-  useEffect(() => {
-    if (url.view !== 'category') return;
-    const sections = [...document.querySelectorAll<HTMLElement>('section[data-cat]')];
-    if (!sections.length) return;
-    const seen = new Map<string, number>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) seen.set((e.target as HTMLElement).dataset.cat as string, e.isIntersecting ? e.boundingClientRect.top : Number.POSITIVE_INFINITY);
-        const best = [...seen].filter(([, t]) => Number.isFinite(t)).sort((a, b) => Math.abs(a[1]) - Math.abs(b[1]))[0];
-        if (best) setActive(best[0] as Category);
-      },
-      { rootMargin: '-20% 0px -65% 0px' },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, [url.view, model.sections]);
+  }, [url.hash, url.view, url.category, model.sections, showCategory, goCat]);
   const toggle = (n: number) => {
     if (open.has(n)) {
       setOpen((prev) => {
