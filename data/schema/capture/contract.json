@@ -57,7 +57,7 @@
     "combo_with": {"label":"Combines with","group":"relations","value":"relation_list","gap":"Not recorded","section":"around","display":["detail"],"home":{"in":"capture","path":"combo_with"}},
     "alternative_to": {"label":"Alternative to","group":"relations","value":"relation_list","gap":"Not recorded","section":"around","display":["detail"],"home":{"in":"capture","path":"alternative_to"}},
     "variant_of": {"label":"Variant of","group":"relations","value":"relation_list","gap":"Not recorded","section":"options","display":["detail"],"home":{"in":"capture","path":"variant_of"},"layers":["offer"]},
-    "geometry": {"label":"Track","group":"type_facts","value":"object","gap":"Track not recorded yet","section":"activity","display":["detail"],"home":{"in":"none"},"layers":["route"]},
+    "geometry": {"label":"Track","group":"type_facts","value":"object","gap":"Track not recorded yet","section":"activity","display":["detail"],"home":{"in":"tracks","path":"data/tracks"},"layers":["route"]},
     "high_point_m": {"label":"High point","group":"type_facts","value":"number","unit":"m","gap":"Not recorded","section":"activity","display":["detail"],"home":{"in":"none"},"layers":["route"]},
     "gpx_licence": {"label":"Track licence","group":"type_facts","value":"text","gap":"Not recorded","section":"links","display":["detail"],"home":{"in":"none"},"layers":["route"]},
     "snow_free_window": {"label":"Snow-free window","group":"type_facts","value":"season_rows","gap":"Not recorded","section":"when","display":["rest"],"home":{"in":"none"},"layers":["route"]},

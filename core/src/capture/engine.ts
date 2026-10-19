@@ -13,6 +13,7 @@ import type { Located, Profile } from "../suitability/applicability.ts";
 import { checkRecord } from "../suitability/level.ts";
 import type { RecordCheck, SuitLevel } from "../suitability/level.ts";
 import { incomingOf } from "./records.ts";
+import { GEOMETRY_GAP_REASON, tracksByRef, UNCONFIRMED_TRACK_COUNTS } from "./tracks.ts";
 import type { World } from "./records.ts";
 import { resolveNode } from "./resolve.ts";
 import type { Layer, ResolvedNode } from "./resolve.ts";
@@ -40,6 +41,8 @@ export interface Completeness {
   conditionUnknown: string[];
   /** properties the contract marks N that hold a value (W_CAP_NA_FIELD) */
   naPresent: string[];
+  /** why a base property is a gap when "not recorded" would mislead (geometry: a track exists but is held back) */
+  gapReasons: Record<string, string>;
 }
 
 /** A synthetic suitability profile from the resolved marks of a node, so checkRecord reads the contract. */
@@ -76,6 +79,12 @@ export function readProperty(world: World, key: string, ref: string, cap: Captur
     }
     case "photos": return (cap.photos?.length ?? 0) > 0 ? "firm" : "gap";
     case "transit": return inc.serves.length > 0 ? "firm" : "gap";
+    case "geometry": {
+      // the line lives in data/tracks; a route with no stored line, or whose line is held back, has no confirmed geometry
+      const t = tracksByRef(world).get(ref);
+      if (!t || !t.stitched) return "gap";
+      return t.confirmed || UNCONFIRMED_TRACK_COUNTS ? "firm" : "gap";
+    }
     default: break;
   }
   if (def.home.in === "capture") {
@@ -158,8 +167,10 @@ export function completeness(world: World, ref: string, file?: TypesFile): Compl
   const conditionalMissing: string[] = [];
   const conditionUnknown: string[] = [];
   const naPresent: string[] = [];
+  const gapReasons: Record<string, string> = {};
   for (const [key, mark] of Object.entries(rl.base) as [string, Mark][]) {
     const st = readProperty(world, key, ref, cap, rel);
+    if (key === "geometry" && st === "gap" && tracksByRef(world).has(ref)) gapReasons[key] = GEOMETRY_GAP_REASON;
     if (mark === "R") {
       if (st === "gap") missingBase.push(key);
       else if (st === "soft") soft.push(key);
@@ -199,7 +210,7 @@ export function completeness(world: World, ref: string, file?: TypesFile): Compl
   const required = missingBase.length + missingSuitability.length + conditionalMissing.length;
   const partial = (suitCheck?.level === "usable_partial") || soft.length > 0 && soft.length / Math.max(1, Object.values(rl.base).filter((m) => m === "R").length) > 0.4;
   const level: CapLevel = !hasIdentity ? "stub" : required > 0 ? "draft" : partial ? "usable_partial" : missingApplicable.length > 0 ? "usable" : "complete";
-  return { ref, type: cap.type, layer: cap.layer, level, suitability: suitCheck, missingBase, missingSuitability, missingApplicable, soft, conditionalMissing, conditionUnknown, naPresent };
+  return { ref, type: cap.type, layer: cap.layer, level, suitability: suitCheck, missingBase, missingSuitability, missingApplicable, soft, conditionalMissing, conditionUnknown, naPresent, gapReasons };
 }
 
 export type { SuitLevel };
