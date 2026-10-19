@@ -554,6 +554,13 @@
       "final": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/faqs/",
       "checked": "2026-10-18"
     },
+    "s-3f4d276a8b": {
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-19"
+    },
     "s-3f93c9bf03": {
       "url": "https://www.trentino.com/en/leisure-activities/mountains-and-hiking/alpine-tours/from-sass-pordoi-to-piz-boe",
       "status": "redirect",
@@ -799,6 +806,13 @@
       "final": null,
       "checked": "2026-10-18"
     },
+    "s-5b053f6ea5": {
+      "url": "https://www.dreizinnenhuette.com",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.dreizinnenhuette.com/index.php",
+      "checked": "2026-10-19"
+    },
     "s-5b779480c5": {
       "url": "https://www.thingvellir.is/en/things-to-do/visitor-centre",
       "status": "ok",
@@ -939,6 +953,13 @@
       "final": null,
       "checked": "2026-10-18"
     },
+    "s-71b8083e05": {
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola",
+      "status": "ok",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+      "checked": "2026-10-19"
+    },
     "s-71d0b182c5": {
       "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/wedge-pond",
       "status": "ok",
@@ -1001,6 +1022,13 @@
       "http": 200,
       "final": null,
       "checked": "2026-10-18"
+    },
+    "s-7dcb9ad7f9": {
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/dining/sky-bistro",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.banffjaspercollection.com/dining/sky-bistro/",
+      "checked": "2026-10-19"
     },
     "s-7ddbf3a9c0": {
       "url": "https://elchalten.tur.ar/laguna-de-los-tres",
@@ -1247,6 +1275,13 @@
       "final": "https://bcparks.ca/mount-robson-park/",
       "checked": "2026-10-18"
     },
+    "s-9f3249bf62": {
+      "url": "https://www.vatnajokulsthjodgardur.is/en/pricelist",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://www.vatnajokulsthjodgardur.is/en/communities--businesses/pricelist",
+      "checked": "2026-10-19"
+    },
     "s-9ffb91c939": {
       "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling",
       "status": "ok",
@@ -1310,12 +1345,26 @@
       "final": null,
       "checked": "2026-10-18"
     },
+    "s-a9d4c89f17": {
+      "url": "https://www.rifugiolavaredo.com",
+      "status": "redirect",
+      "http": 200,
+      "final": "https://rifugiolavaredo.com/",
+      "checked": "2026-10-19"
+    },
     "s-aa0f1509ba": {
       "url": "https://www.nps.gov/care/planyourvisit/trailguide.htm",
       "status": "ok",
       "http": 200,
       "final": null,
       "checked": "2026-10-18"
+    },
+    "s-aa2e28c051": {
+      "url": "https://www.pragsparking.com/en",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-19"
     },
     "s-aa46002d23": {
       "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lago-di-braies-pragser-wildsee-mountain-croda-del-becco-seekofel-_544",
@@ -1421,6 +1470,13 @@
       "http": 200,
       "final": null,
       "checked": "2026-10-18"
+    },
+    "s-b3528166e2": {
+      "url": "https://wildwater.com/kicking-horse-rafting-trips",
+      "status": "ok",
+      "http": 200,
+      "final": "https://wildwater.com/kicking-horse-rafting-trips/",
+      "checked": "2026-10-19"
     },
     "s-b37345ea47": {
       "url": "https://www.nps.gov/zion/planyourvisit/accessibility.htm",
@@ -1730,6 +1786,13 @@
       "final": "https://piratour.net/producto/caminata-en-isla-martillo-version-terrestre/",
       "checked": "2026-10-18"
     },
+    "s-db48196ae2": {
+      "url": "https://aiguilledumidi.montblancnaturalresort.com/en",
+      "status": "ok",
+      "http": 200,
+      "final": null,
+      "checked": "2026-10-19"
+    },
     "s-db945abf56": {
       "url": "https://vtrans.vermont.gov/notch",
       "status": "ok",
@@ -1821,6 +1884,13 @@
       "final": "https://elchalten.tur.ar/",
       "checked": "2026-10-18"
     },
+    "s-eaeeedf469": {
+      "url": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo",
+      "status": "ok",
+      "http": 200,
+      "final": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/",
+      "checked": "2026-10-19"
+    },
     "s-ec868fb6ea": {
       "url": "https://www.raftbanff.com/the-experience/faq",
       "status": "ok",
@@ -1911,6 +1981,13 @@
       "http": 200,
       "final": null,
       "checked": "2026-10-18"
+    },
+    "s-f5bbaed52a": {
+      "url": "https://rifugioauronzo.it",
+      "status": "ok",
+      "http": 200,
+      "final": "https://rifugioauronzo.it/",
+      "checked": "2026-10-19"
     },
     "s-f5d8eaa9ee": {
       "url": "https://www.montgomeryhistoricalsociety.org/mhshistorymaps.html",

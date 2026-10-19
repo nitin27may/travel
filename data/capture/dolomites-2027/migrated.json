@@ -5,7 +5,44 @@
   "researched": "2026-10-18",
   "agent": "core/bin/capture.ts migrate",
   "model": "none",
-  "sources": [],
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lago-di-braies-pragser-wildsee-mountain-croda-del-becco-seekofel-_544",
+      "title": "Lago di Braies to Croda del Becco/Seekofel",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://cortina.dolomiti.org/it/escursioni/botanical-path-to-the-cascate-di-fanes-en",
+      "title": "Botanical path to the Cascate di Fanes",
+      "publisher": "Cortina d'Ampezzo tourist office (IAT)",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches",
+      "title": "Bullaccia round trail and Witches' Benches",
+      "publisher": "Seiser Alm Marketing (tourism board)",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.seceda.it/en/summer",
+      "title": "Seceda summer: hours and prices",
+      "publisher": "Seceda AG (lift operator)",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
   "records": [
     {
       "ref": "place/tre-cime-di-lavaredo-loop",
@@ -13,7 +50,22 @@
       "layer": "route",
       "name": "Tre Cime di Lavaredo loop",
       "route_is_attraction": true,
-      "attraction_reason": "The loop is the experience (spec 2.7.1 example 4): the world draw also sits on the mountain and the north-face viewpoint, whose places and the huts come from research later."
+      "attraction_reason": "The loop is the experience (spec 2.7.1 example 4). The mountain, the north-face viewpoint and the three huts now exist as places (CS7); the world draw also belongs on the mountain and the viewpoint once a relevance edit is allowed.",
+      "starts_at": [
+        "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo"
+      ],
+      "passes": [
+        {
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo"
+        },
+        {
+          "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli"
+        }
+      ],
+      "reaches": [
+        "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
+        "part/place/tre-cime-di-lavaredo-loop#tre-cime"
+      ]
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
@@ -32,7 +84,41 @@
       "origin": {
         "from": "place/cadini-di-misurina-viewpoint",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Cadini di Misurina viewpoint official page",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q476378",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Cadini di Misurina – field of pinnacles and scree gullies.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Punteador",
+          "attribution": "Punteador, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cadini_di_Misurina_%E2%80%93_field_of_pinnacles_and_scree_gullies.jpg",
+          "width": 4032,
+          "height": 3024
+        },
+        {
+          "file": "File:Cadini di Misurina – scree slopes and rock towers in summer.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Punteador",
+          "attribution": "Punteador, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cadini_di_Misurina_%E2%80%93_scree_slopes_and_rock_towers_in_summer.jpg",
+          "width": 4032,
+          "height": 3024
+        }
+      ]
     },
     {
       "ref": "place/lago-di-sorapis",
@@ -51,7 +137,41 @@
       "origin": {
         "from": "place/lago-di-sorapis",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Lago di Sorapis official page",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q15410555",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Sorapiss e lago.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Llorenzi",
+          "attribution": "Llorenzi, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Sorapiss_e_lago.JPG",
+          "width": 4016,
+          "height": 2720
+        },
+        {
+          "file": "File:Lago di Sorapis 1.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "kallerna",
+          "attribution": "kallerna, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_di_Sorapis_1.jpg",
+          "width": 6300,
+          "height": 3800
+        }
+      ]
     },
     {
       "ref": "place/cinque-torri",
@@ -59,7 +179,7 @@
       "layer": "route",
       "name": "Cinque Torri",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged this route as the thing visited (class sight/heritage-site); no place for it is recorded yet."
+      "attraction_reason": "A walk through restored WWI trenches among the five towers: the open-air museum circuit is the experience."
     },
     {
       "ref": "place/monte-piana",
@@ -67,7 +187,7 @@
       "layer": "route",
       "name": "Monte Piana",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged this route as the thing visited (class sight/heritage-site); no place for it is recorded yet."
+      "attraction_reason": "A walk through WWI trenches and tunnels on the plateau: the circuit is the experience."
     },
     {
       "ref": "place/croda-del-becco",
@@ -86,7 +206,41 @@
       "origin": {
         "from": "place/croda-del-becco",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Croda del Becco land manager page",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lago-di-braies-pragser-wildsee-mountain-croda-del-becco-seekofel-_544",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q446041",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Dalla cima della Croda del Becco in fondo si vedono le 3 Cime - panoramio.jpg",
+          "licence": "CC BY 3.0",
+          "author": "Maurizio Ceol",
+          "attribution": "Maurizio Ceol, CC BY 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Dalla_cima_della_Croda_del_Becco_in_fondo_si_vedono_le_3_Cime_-_panoramio.jpg",
+          "width": 4000,
+          "height": 3000
+        }
+      ]
     },
     {
       "ref": "place/val-fiscalina",
@@ -94,7 +248,7 @@
       "layer": "route",
       "name": "Val Fiscalina",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A flat valley walk under the Croda dei Toni: the valley walk is the experience."
     },
     {
       "ref": "part/place/lago-federa#walk",
@@ -122,7 +276,50 @@
       "origin": {
         "from": "place/cascate-di-fanes",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Cascate di Fanes park page",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://cortina.dolomiti.org/it/escursioni/botanical-path-to-the-cascate-di-fanes-en",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q67370898",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Cascate del Fanes -Cortina d'Ampezzo - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Pier B.",
+          "attribution": "Pier B., CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cascate_del_Fanes_-Cortina_d%27Ampezzo_-_panoramio.jpg",
+          "width": 2288,
+          "height": 1712
+        },
+        {
+          "file": "File:Cascate del Fanes -Cortina d'Ampezzo - panoramio (1).jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Pier B.",
+          "attribution": "Pier B., CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cascate_del_Fanes_-Cortina_d%27Ampezzo_-_panoramio_(1).jpg",
+          "width": 2484,
+          "height": 828
+        }
+      ]
     },
     {
       "ref": "place/adolf-munkel-weg",
@@ -130,7 +327,7 @@
       "layer": "route",
       "name": "Adolf Munkel Weg",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A balcony path under the Odle north faces: the traverse is the experience."
     },
     {
       "ref": "place/alpe-di-siusi",
@@ -138,7 +335,7 @@
       "layer": "route",
       "name": "Alpe di Siusi",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A walk across the high pasture under the Sassolungo: the meadows walk is the experience."
     },
     {
       "ref": "place/bullaccia-and-the-witches-benches",
@@ -157,7 +354,50 @@
       "origin": {
         "from": "place/bullaccia-and-the-witches-benches",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Bullaccia land manager page",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q2117539",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Puflatscher Schwaige.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Wolfgang Moroder",
+          "attribution": "Wolfgang Moroder, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Puflatscher_Schwaige.jpg",
+          "width": 4288,
+          "height": 2848
+        },
+        {
+          "file": "File:Urtijëi from Bulacia.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Wolfgang Moroder",
+          "attribution": "Wolfgang Moroder, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Urtij%C3%ABi_from_Bulacia.JPG",
+          "width": 4288,
+          "height": 2848
+        }
+      ]
     },
     {
       "ref": "place/vallunga",
@@ -165,7 +405,7 @@
       "layer": "route",
       "name": "Vallunga",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A gentle valley walk under steep walls: the valley walk is the experience."
     },
     {
       "ref": "place/viel-dal-pan",
@@ -173,7 +413,7 @@
       "layer": "route",
       "name": "Viel dal Pan",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A balcony path with the Marmolada in view the whole way: the traverse is the experience."
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
@@ -192,7 +432,21 @@
       "origin": {
         "from": "place/sass-pordoi-and-piz-boe",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Piz Boe official page",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1478439",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
     },
     {
       "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
@@ -220,7 +474,35 @@
       "origin": {
         "from": "place/seceda-ridge",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.seceda.it/en/summer",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q2263528",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Odles as seen from Seceda.JPG",
+          "licence": "CC BY-SA 3.0",
+          "author": "Wolfgang Moroder",
+          "attribution": "Wolfgang Moroder, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Odles_as_seen_from_Seceda.JPG",
+          "width": 7360,
+          "height": 4912
+        }
+      ]
     },
     {
       "ref": "part/place/lago-di-braies#walk",
@@ -423,7 +705,7 @@
       "layer": "route",
       "name": "Drava cycle path to Lienz",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A downhill cycle path along the Drava: the ride is the experience."
     },
     {
       "ref": "place/lagazuoi-cable-car-and-tunnels",

@@ -5,7 +5,62 @@
   "researched": "2026-10-18",
   "agent": "core/bin/capture.ts migrate",
   "model": "none",
-  "sources": [],
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "title": "Day hikes in Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling/",
+      "title": "Ha Ling trail report",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper/",
+      "title": "Grassi Lakes Upper trail report",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+      "title": "Day hiking in Jasper National Park (trail table)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/kananaskis-valley/troll-falls/",
+      "title": "Troll Falls trail report",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+      "title": "Icefields Parkway day hikes (Jasper)",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
   "records": [
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
@@ -13,7 +68,7 @@
       "layer": "route",
       "name": "Bald Hills",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The draw is the open summit ridges of the Bald Hills over Maligne Lake, a named payoff. Create the place and move the draw; until then the route carries it."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
@@ -32,7 +87,45 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
         "reason": "payoff of the trail"
-      }
+      },
+      "area_id": "CA/AB/banff-national-park",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q17511214",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Bourgeau Lake 02.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bourgeau_Lake_02.jpg",
+          "width": 5472,
+          "height": 3648
+        },
+        {
+          "file": "File:Bourgeau Lake 01.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bourgeau_Lake_01.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
@@ -40,7 +133,7 @@
       "layer": "route",
       "name": "Emerald Lakeshore",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The lakeshore circuit is the experience: a loop round Emerald Lake whose payoff is the whole shore, not one point."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
@@ -48,7 +141,7 @@
       "layer": "route",
       "name": "Iceline Trail",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A high circuit past glaciers and moraine lakes: the walk itself is what people come for, with no single payoff place."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
@@ -56,7 +149,7 @@
       "layer": "route",
       "name": "Interlakes Trail (Upper and Lower Lake)",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A level walk between the two Kananaskis Lakes: the shoreline route is the experience."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
@@ -75,7 +168,44 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q5636437",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Canmore & Fairholme Range seen from Ha Ling Peak.jpg",
+          "licence": "CC BY-SA 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Canmore_%26_Fairholme_Range_seen_from_Ha_Ling_Peak.jpg",
+          "width": 4608,
+          "height": 2592
+        },
+        {
+          "file": "File:Ha Ling Peak and Mount Lawrence Grassi 01.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Ha_Ling_Peak_and_Mount_Lawrence_Grassi_01.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
@@ -94,7 +224,44 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q5597550",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Grassi Lake - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Jack Borno",
+          "attribution": "Jack Borno, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Grassi_Lake_-_panoramio.jpg",
+          "width": 2311,
+          "height": 1540
+        },
+        {
+          "file": "File:Grassi Lakes road trip Canmore Alberta Canada (10277672766).jpg",
+          "licence": "CC BY 2.0",
+          "author": "Thank you for visiting my page (Flickr user, Calgary)",
+          "attribution": "Thank you for visiting my page (Flickr user, Calgary), CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Grassi_Lakes_road_trip_Canmore_Alberta_Canada_(10277672766).jpg",
+          "width": 5184,
+          "height": 3456
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
@@ -111,7 +278,7 @@
       "layer": "route",
       "name": "Lake Louise Lakeshore",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The level shore walk along Lake Louise is the experience; the lake has its own place record and the walk ends at no named point."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
@@ -119,7 +286,18 @@
       "layer": "route",
       "name": "Larch Valley to Sentinel Pass",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "Sentinel Pass and the Larch Valley meadows now exist as places (CS7); the draw belongs on Sentinel Pass and moves when the migration ledger allows a relevance edit. Until then the route carries it.",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
+      ],
+      "passes": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley"
+        }
+      ],
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
@@ -127,7 +305,7 @@
       "layer": "route",
       "name": "Mary Schaffer Loop",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A short shore loop at Maligne Lake: the loop is the experience."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
@@ -135,7 +313,7 @@
       "layer": "route",
       "name": "Parker Ridge",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The draw is the ridge-top view over the Saskatchewan Glacier, a named payoff. Create the viewpoint and move the draw; until then the route carries it."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
@@ -143,7 +321,7 @@
       "layer": "route",
       "name": "Plain of Six Glaciers (to teahouse and Abbot Pass viewpoint)",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The payoff is the Plain of Six Glaciers teahouse and the viewpoint beyond it. Create the places and move the draw; until then the route carries it."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
@@ -151,7 +329,7 @@
       "layer": "route",
       "name": "Ptarmigan Cirque",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The payoff is Ptarmigan Cirque itself, a named landform. Create the place and move the draw; until then the route carries it."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
@@ -170,7 +348,39 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "node/7042108468",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Sarrail Ridge Alberta Parks",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/7042108468",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Sarrail Ridge",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:.Upper Kananaskis Lake & Mount Indefatigable 01.jpg",
+          "licence": "CC BY 4.0",
+          "author": "Khoshhat",
+          "attribution": "Khoshhat, CC BY 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:.Upper_Kananaskis_Lake_%26_Mount_Indefatigable_01.jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
@@ -189,7 +399,42 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "node/6548652085",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/6548652085",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Sulphur Skyline",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Utopia Mountain from Sulphur Skyline.jpg",
+          "licence": "CC BY 2.0",
+          "author": "dvs",
+          "attribution": "dvs, CC BY 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Utopia_Mountain_from_Sulphur_Skyline.jpg",
+          "width": 2048,
+          "height": 1536
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
@@ -197,7 +442,7 @@
       "layer": "route",
       "name": "Sunshine Meadows to Citadel Pass",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A walk across the Sunshine Meadows on the Divide: the meadows walk is the experience; Citadel Pass is an optional end."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
@@ -205,7 +450,7 @@
       "layer": "route",
       "name": "Wilcox Pass",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The draw is the view of the Athabasca Glacier from Wilcox Pass, a named payoff. Create the pass viewpoint and move the draw; until then the route carries it."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
@@ -224,7 +469,24 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-and-public-safety/trail-reports/kananaskis-valley/troll-falls/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q115958301",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
@@ -241,7 +503,7 @@
       "layer": "route",
       "name": "Fenland Loop",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A forest loop with no destination (contract T4): the route is its own payoff."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
@@ -249,7 +511,7 @@
       "layer": "route",
       "name": "Miette Mine Trail",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A short loop round the old mine site: the loop is the experience."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
@@ -257,7 +519,7 @@
       "layer": "route",
       "name": "Lake Annette Loop",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The step-free loop round Lake Annette is the experience."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
@@ -274,7 +536,7 @@
       "layer": "route",
       "name": "Moose Lake Loop",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A forest loop to a small lake and back: the loop is the experience."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
@@ -282,7 +544,10 @@
       "layer": "route",
       "name": "Moraine Lakeshore",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The shore walk under the Ten Peaks is the experience; Moraine Lake has its own place record.",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
@@ -299,7 +564,7 @@
       "layer": "route",
       "name": "Paint Pots Walk",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged this route as the thing visited (class sight/landmark); no place for it is recorded yet."
+      "attraction_reason": "The payoff is the Paint Pots, which already has a place record (sights/paint-pots); the draw moves to it when the ledger allows a relevance edit."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
@@ -316,7 +581,7 @@
       "layer": "route",
       "name": "Rockwall Lookout (Rockwall fen)",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The payoff is the fen lookout behind the visitor centre. Create the lookout and move the draw; until then the route carries it."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
@@ -344,7 +609,51 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "node/4546035994",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/4546035994",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q391165",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Athabasca Glacier (14942484663).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Norton Ip from Hong Kong",
+          "attribution": "Norton Ip from Hong Kong, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier_(14942484663).jpg",
+          "width": 5616,
+          "height": 3744
+        },
+        {
+          "file": "File:Athabasca Glacier-Moraine.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Carlos Delgado",
+          "attribution": "Carlos Delgado, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Athabasca_Glacier-Moraine.jpg",
+          "width": 2816,
+          "height": 2112
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
@@ -438,7 +747,17 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
         "reason": "the route to the place"
-      }
+      },
+      "passes": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
+          "at_km": 1.1
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
+          "at_km": 2.4
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
@@ -488,7 +807,7 @@
       "layer": "route",
       "name": "Icefields Parkway (Hwy 93N) scenic drive",
       "route_is_attraction": true,
-      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
+      "attraction_reason": "A scenic drive is the experience: 232 km of icefields, lakes and falls."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
@@ -496,7 +815,7 @@
       "layer": "route",
       "name": "Highwood Pass and Hwy 40 corridor",
       "route_is_attraction": true,
-      "attraction_reason": "A scenic drive is the experience (class drive/mountain-pass)."
+      "attraction_reason": "A scenic mountain-pass drive is the experience: Canada's highest paved pass."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
@@ -504,7 +823,7 @@
       "layer": "route",
       "name": "Vermilion Lakes Drive",
       "route_is_attraction": true,
-      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
+      "attraction_reason": "A scenic drive along the Vermilion Lakes is the experience."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
@@ -562,7 +881,10 @@
         }
       ],
       "run_by": "operator/wild-water-adventures",
-      "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
+      "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base"
+      ]
     },
     {
       "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
@@ -633,7 +955,10 @@
       "origin": {
         "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
         "reason": "the top station of the lift"
-      }
+      },
+      "part_of": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
+      ]
     },
     {
       "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
@@ -856,7 +1181,7 @@
         "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre"
       ],
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one.",
+      "attraction_reason": "A trail network ridden or walked for itself, with no single payoff.",
       "aliases": [
         "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre"
       ]
@@ -959,7 +1284,12 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-class3-4",
       "type": "water.river.rafting",
       "layer": "offer",
-      "name": "Kicking Horse whitewater rafting (Class III-IV: Exciter, Tradition, Maximum Horsepower)"
+      "name": "Kicking Horse whitewater rafting (Class III-IV: Exciter, Tradition, Maximum Horsepower)",
+      "on": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon"
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
@@ -1013,7 +1343,11 @@
       "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Sulphur Mountain switchback trail (hike up, gondola down)"
+      "name": "Sulphur Mountain switchback trail (hike up, gondola down)",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak"
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
