@@ -35,7 +35,10 @@ export interface Sources {
   wikidata: Record<string, WdPoint>;
   /** data/relevance/inputs/bases.config.json: resolved base towns with their check notes */
   bases?: BaseConfig[];
+  /** data/capture/points.json: points read for capture records (OSM, Wikidata) and corrections; they beat every other source */
+  captured?: Record<string, CapturedPoint>;
 }
+export interface CapturedPoint { lat: number; lon: number; coord_src: string; point_source?: string }
 export interface BaseConfig { trip: string; name: string; qid?: string; lat?: number; lon?: number; coord_src: "wikidata" | "nominatim"; country: string; admin: string; check: string; approximate?: boolean; approximate_note?: string }
 
 export interface BuildReport {
@@ -131,6 +134,18 @@ export function buildPoints(src: Sources, windows: Record<string, { from: string
     }
     points[r.ref] = { lat: hit.lat, lon: hit.lon, coord_src: hit.coord_src, ...(hit.point_source ? { point_source: hit.point_source } : {}) } as PointsFile["points"][string];
     report.by_src[hit.coord_src] = (report.by_src[hit.coord_src] ?? 0) + 1;
+  }
+
+  // Points that research lanes read for capture records (data/capture/points.json). They hold for refs with no relevance record
+  // (access places, stops) and replace a generic pick when a lane found the right station or building.
+  for (const [ref, c] of Object.entries(src.captured ?? {})) {
+    if (!points[ref]) report.by_src[c.coord_src] = (report.by_src[c.coord_src] ?? 0) + 1;
+    else if (points[ref]!.coord_src !== c.coord_src) {
+      report.by_src[points[ref]!.coord_src] = (report.by_src[points[ref]!.coord_src] ?? 1) - 1;
+      report.by_src[c.coord_src] = (report.by_src[c.coord_src] ?? 0) + 1;
+    }
+    points[ref] = { lat: r5(c.lat), lon: r5(c.lon), coord_src: c.coord_src, ...(c.point_source ? { point_source: c.point_source } : {}) } as PointsFile["points"][string];
+    report.missing = report.missing.filter((x) => x !== ref);
   }
 
   // A legacy trail that names its trailhead ("Moraine Lake", "Takakkaw Falls parking") starts where the sight of that
@@ -233,6 +248,7 @@ export function loadSources(root: string): Sources {
     locations: (loc?.places ?? []).map((p) => ({ id: p.id, name: p.name, lat: p.lat ?? null, lon: p.lon ?? null, resolver: p.resolver, location_status: p.location_status })),
     snapshot: readJson<Snapshot>(join(root, "web", "data-snapshots", "prototype.json")),
     wikidata: wd?.items ?? {},
+    captured: readJson<{ points: Record<string, CapturedPoint> }>(join(root, "data", "capture", "points.json"))?.points ?? {},
     bases: readJson<{ bases: BaseConfig[] }>(join(root, "data", "relevance", "inputs", "bases.config.json"))?.bases ?? [],
   };
 }

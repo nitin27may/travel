@@ -1,0 +1,288 @@
+{
+  "schema": "capture-points/1",
+  "note": "Points of capture records that no other input holds (OSM nodes and Wikidata P625 read by research lanes, with the source in point_source), and corrections that beat the generic order of trust. relevance.ts points --build merges them into data/relevance/inputs/points.json, so a rebuild keeps them. Coordinates never come from Google.",
+  "points": {
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak": {
+      "lat": 51.14706,
+      "lon": -115.57836,
+      "coord_src": "osm",
+      "point_source": "OSM node 12244949797 (natural=peak, name tag '2260'); the Cosmic Ray Station, node 4110686120, stands 15 m away; agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro": {
+      "lat": 51.14475,
+      "lon": -115.57502,
+      "coord_src": "osm",
+      "point_source": "OSM node 678977497 (amenity=restaurant, Sky Bistro); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain": {
+      "lat": 51.12361,
+      "lon": -115.55556,
+      "coord_src": "wikidata",
+      "point_source": "Q842987 P625 (the mountain's high point, about 2.5 km south of the gondola top and Sanson's Peak); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking": {
+      "lat": 51.66986,
+      "lon": -116.44804,
+      "coord_src": "osm",
+      "point_source": "OSM relation 18335545 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking": {
+      "lat": 51.43895,
+      "lon": -116.54119,
+      "coord_src": "osm",
+      "point_source": "OSM way 230454536 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots": {
+      "lat": 51.27857,
+      "lon": -115.82358,
+      "coord_src": "osm",
+      "point_source": "OSM node 1366399455 (tourism=attraction, Ink Pots); Wikidata Q22438559 P625 is 580 m north-east; agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls": {
+      "lat": 51.25486,
+      "lon": -115.83732,
+      "coord_src": "osm",
+      "point_source": "OSM node 3005639506 (waterway=waterfall); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls": {
+      "lat": 51.26186,
+      "lon": -115.83128,
+      "coord_src": "osm",
+      "point_source": "OSM node 3005649801 (waterway=waterfall); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking": {
+      "lat": 51.24852,
+      "lon": -115.50038,
+      "coord_src": "osm",
+      "point_source": "OSM way 48295612 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking": {
+      "lat": 52.72667,
+      "lon": -117.64458,
+      "coord_src": "osm",
+      "point_source": "OSM relation 21018594 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile": {
+      "lat": 51.32786,
+      "lon": -116.18069,
+      "coord_src": "osm",
+      "point_source": "OSM node 348002838 (tourism=viewpoint; its name tag reads 'Moraine lake'; it sits on the Rockpile); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop": {
+      "lat": 51.32897,
+      "lon": -116.18179,
+      "coord_src": "osm",
+      "point_source": "OSM node 13240062778 (bus stop, operator Parks Canada, route_ref Parks Canada Shuttle); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking": {
+      "lat": 50.96904,
+      "lon": -115.11027,
+      "coord_src": "osm",
+      "point_source": "OSM way 261038378 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking": {
+      "lat": 52.92376,
+      "lon": -118.09542,
+      "coord_src": "osm",
+      "point_source": "OSM way 1282422641 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking": {
+      "lat": 50.87389,
+      "lon": -115.14649,
+      "coord_src": "osm",
+      "point_source": "OSM way 262156429 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley": {
+      "lat": 51.33329,
+      "lon": -116.21888,
+      "coord_src": "wikidata",
+      "point_source": "Q22366287 P625 (valley in Alberta); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass": {
+      "lat": 51.34055,
+      "lon": -116.2219,
+      "coord_src": "osm",
+      "point_source": "OSM node 2706106443 (natural=saddle, ele 2611); Wikidata Q22562892 carries the same coordinate as Larch Valley, so OSM is used; agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff": {
+      "lat": 50.59942,
+      "lon": -115.15976,
+      "coord_src": "osm",
+      "point_source": "OSM node 7042108468 (natural=peak, Sarrail Ridge, ele 2362); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff": {
+      "lat": 53.1157,
+      "lon": -117.74485,
+      "coord_src": "osm",
+      "point_source": "OSM node 6548652085 (tourism=viewpoint, Sulphur Skyline Trail Viewpoint); agent checked, needs a person's check"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff": {
+      "lat": 52.20748,
+      "lon": -117.23449,
+      "coord_src": "osm",
+      "point_source": "OSM node 4546035994 (tourism=attraction, Athabasca Glacier, at the toe); agent checked, needs a person's check"
+    },
+    "part/place/lago-dantorno#parking": {
+      "lat": 46.59104,
+      "lon": 12.26322,
+      "coord_src": "osm",
+      "point_source": "OSM way 234899048 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/place/lago-di-braies#parking": {
+      "lat": 46.70039,
+      "lon": 12.0847,
+      "coord_src": "osm",
+      "point_source": "OSM way 442280371 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/place/lago-di-carezza#parking": {
+      "lat": 46.41177,
+      "lon": 11.5754,
+      "coord_src": "osm",
+      "point_source": "OSM relation 19117506 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/place/lago-di-dobbiaco#parking": {
+      "lat": 46.70631,
+      "lon": 12.22027,
+      "coord_src": "osm",
+      "point_source": "OSM way 75384548 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/place/lago-di-landro#parking": {
+      "lat": 46.63258,
+      "lon": 12.23004,
+      "coord_src": "osm",
+      "point_source": "OSM way 437446697 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/place/lago-di-misurina#parking": {
+      "lat": 46.57951,
+      "lon": 12.2522,
+      "coord_src": "osm",
+      "point_source": "OSM way 178543599 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/place/lake-louise#parking": {
+      "lat": 51.41501,
+      "lon": -116.21343,
+      "coord_src": "osm",
+      "point_source": "OSM way 26752321 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/place/lake-louise#shuttle-stop": {
+      "lat": 51.41616,
+      "lon": -116.21364,
+      "coord_src": "osm",
+      "point_source": "OSM node 12164756005 (bus stop named Parks Canada Shuttle); agent checked, needs a person's check"
+    },
+    "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park": {
+      "lat": 46.61356,
+      "lon": 12.29439,
+      "coord_src": "osm",
+      "point_source": "OSM way 74709399 centroid (amenity=parking, Parcheggio Rifugio Auronzo (P4)); agent checked, needs a person's check"
+    },
+    "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint": {
+      "lat": 46.63817,
+      "lon": 12.30926,
+      "coord_src": "osm",
+      "point_source": "OSM node 12091634369 (tourism=viewpoint, unnamed, 160 m north-west of the Locatelli hut); agent checked, needs a person's check"
+    },
+    "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo": {
+      "lat": 46.61222,
+      "lon": 12.29417,
+      "coord_src": "wikidata",
+      "point_source": "Q681466 P625; agent checked, needs a person's check"
+    },
+    "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo": {
+      "lat": 46.61833,
+      "lon": 12.31222,
+      "coord_src": "wikidata",
+      "point_source": "Q3935531 P625; agent checked, needs a person's check"
+    },
+    "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli": {
+      "lat": 46.63694,
+      "lon": 12.31056,
+      "coord_src": "wikidata",
+      "point_source": "Q1258258 P625; agent checked, needs a person's check"
+    },
+    "part/place/tre-cime-di-lavaredo-loop#toll-road": {
+      "lat": 46.59985,
+      "lon": 12.26997,
+      "coord_src": "osm",
+      "point_source": "OSM node 277726434 (barrier=toll_booth at the foot of the road); agent checked, needs a person's check"
+    },
+    "part/place/tre-cime-di-lavaredo-loop#tre-cime": {
+      "lat": 46.61861,
+      "lon": 12.30556,
+      "coord_src": "wikidata",
+      "point_source": "Q1257207 P625; agent checked, needs a person's check"
+    },
+    "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop": {
+      "lat": 45.91598,
+      "lon": 6.8505,
+      "coord_src": "osm",
+      "point_source": "OSM node 30983901 (bus stop, Les Gaillands); agent checked, needs a person's check"
+    },
+    "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking": {
+      "lat": 45.91492,
+      "lon": 6.84832,
+      "coord_src": "osm",
+      "point_source": "OSM way 232431306 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void": {
+      "lat": 45.87868,
+      "lon": 6.88721,
+      "coord_src": "osm",
+      "point_source": "OSM node 5590167495 (tourism=attraction, Le Pas dans le Vide); agent checked, needs a person's check"
+    },
+    "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit": {
+      "lat": 45.87864,
+      "lon": 6.88735,
+      "coord_src": "osm",
+      "point_source": "OSM node 167075493 (natural=peak, ele 3842, wikidata Q404728); agent checked, needs a person's check"
+    },
+    "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking": {
+      "lat": 64.04801,
+      "lon": -16.17969,
+      "coord_src": "osm",
+      "point_source": "OSM way 298932452 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/trip/patagonia-2027/trail:chorrillo del salto#parking": {
+      "lat": -49.29985,
+      "lon": -72.90359,
+      "coord_src": "osm",
+      "point_source": "OSM way 747061337 centroid (amenity=parking); agent checked, needs a person's check"
+    },
+    "part/trip/patagonia-2027/trail:chorrillo del salto#payoff": {
+      "lat": -49.29552,
+      "lon": -72.90771,
+      "coord_src": "osm",
+      "point_source": "OSM node 1237892708 (waterway=waterfall, name 'Chorillo del Salto'); agent checked, needs a person's check"
+    },
+    "part/trip/patagonia-2027/trail:laguna de los tres#payoff": {
+      "lat": -49.27846,
+      "lon": -72.98945,
+      "coord_src": "osm",
+      "point_source": "OSM way 1362578795 centroid (natural=water, name 'Lago de los Tres'); agent checked, needs a person's check"
+    },
+    "part/trip/patagonia-2027/trail:laguna esmeralda#payoff": {
+      "lat": -54.69033,
+      "lon": -68.12985,
+      "coord_src": "osm",
+      "point_source": "OSM way 290281459 centroid (natural=water, Laguna Esmeralda); agent checked, needs a person's check"
+    },
+    "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff": {
+      "lat": -49.35033,
+      "lon": -72.87099,
+      "coord_src": "osm",
+      "point_source": "OSM node 568391373 (tourism=viewpoint); agent checked, needs a person's check"
+    },
+    "part/trip/patagonia-2027/trail:mirador de los condores#payoff": {
+      "lat": -49.33952,
+      "lon": -72.88036,
+      "coord_src": "osm",
+      "point_source": "OSM node 4722282707 (tourism=viewpoint); a second node of the same name, 2847352131, lies 3 km west and is not used; agent checked, needs a person's check"
+    },
+    "part/trip/patagonia-2027/trail:mirador de los condores#trailhead": {
+      "lat": -49.33738,
+      "lon": -72.88142,
+      "coord_src": "osm",
+      "point_source": "OSM node 660024150 (highway=trailhead); agent checked, needs a person's check"
+    }
+  }
+}
