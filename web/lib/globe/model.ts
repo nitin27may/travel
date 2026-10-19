@@ -1,4 +1,5 @@
 import { boxOfPoints, type Bbox, type Pt } from './geometry';
+import { TIER_RANK } from './cluster';
 import type { CountryFacts, GlobeData, GlobeTreeNode as GlobeNode, LightPin as GlobePin, PinModel } from './types';
 
 /** The node of the index tree at `path` (['it', 'south-tyrol']), or null. */
@@ -27,10 +28,19 @@ const meanPoint = (pins: GlobePin[]): Pt => [pins.reduce((s, p) => s + p.lon, 0)
 /** Rounds to about 11 m so co-located pins share a key. */
 export const colocationKey = (p: { lng: number; lat: number }): string => `${p.lng.toFixed(4)},${p.lat.toFixed(4)}`;
 
-const placePin = (p: GlobePin): PinModel => {
+const placePin = (p: GlobePin, quiet = false): PinModel => {
   const key = `${p.kind}:${p.slug}`;
-  return { id: key, kind: p.kind, lng: p.lon, lat: p.lat, count: 1, label: p.name, cardKey: key, glyph: p.kind === 'trip' ? 'trip' : p.type };
+  return { id: key, kind: p.kind, lng: p.lon, lat: p.lat, count: 1, label: p.name, cardKey: key, glyph: p.kind === 'trip' ? 'trip' : p.type, tier: p.tier ?? 'local', ...(quiet ? { quiet: true } : {}) };
 };
+
+/** Place pins drawn as pins at a country (spec relevance 6.4): world and national only, world first, at most 30. */
+export const COUNTRY_PIN_CAP = 30;
+export function topPlaces(places: GlobePin[], cap = COUNTRY_PIN_CAP): GlobePin[] {
+  return places
+    .filter((p) => p.kind === 'place' && (p.tier === 'world' || p.tier === 'national'))
+    .sort((a, b) => TIER_RANK[b.tier] - TIER_RANK[a.tier] || a.name.localeCompare(b.name))
+    .slice(0, cap);
+}
 
 /**
  * What the globe draws at a given area path (patterns 3.2): the world shows one pin per country with content;
@@ -46,7 +56,7 @@ export function pinsFor(data: GlobeData, path: string[], countries: Record<strin
       if (!total) continue;
       const facts = Object.values(countries).find((f) => f.a2.toLowerCase() === c.slug);
       const at: Pt | null = facts?.latlng ? [facts.latlng[1], facts.latlng[0]] : (c.at ?? null);
-      if (at) out.push({ id: `country:${c.slug}`, kind: 'country', lng: at[0], lat: at[1], count: total, label: facts?.name ?? c.name, path: [c.slug] });
+      if (at) out.push({ id: `country:${c.slug}`, kind: 'country', lng: at[0], lat: at[1], count: total, label: facts?.name ?? c.name, path: [c.slug], tier: 'world' });
     }
     return out;
   }
@@ -60,8 +70,10 @@ export function pinsFor(data: GlobeData, path: string[], countries: Record<strin
       const under = pinsUnder(data, [path[0], s.slug], 'place');
       if (!under.length) continue;
       const [lng, lat] = meanPoint(under);
-      out.push({ id: `state:${path[0]}/${s.slug}`, kind: 'state', lng, lat, count: s.places + s.trips, label: s.name, path: [path[0], s.slug] });
+      out.push({ id: `state:${path[0]}/${s.slug}`, kind: 'state', lng, lat, count: s.places + s.trips, label: s.name, path: [path[0], s.slug], tier: 'national' });
     }
+    // The places people travel for are pins from here (relevance 6.4); the rest wait in the state discs until a state opens.
+    for (const p of topPlaces(places)) out.push(placePin(p));
     return out;
   }
   const districtPlaces = new Set<string>();
@@ -71,12 +83,31 @@ export function pinsFor(data: GlobeData, path: string[], countries: Record<strin
       if (under.length < 2) continue;
       under.forEach((p) => districtPlaces.add(p.slug));
       const [lng, lat] = meanPoint(under);
-      out.push({ id: `district:${path.join('/')}/${d.slug}`, kind: 'district', lng, lat, count: d.places + d.trips, label: d.name, path: [path[0], path[1], d.slug] });
+      out.push({ id: `district:${path.join('/')}/${d.slug}`, kind: 'district', lng, lat, count: d.places + d.trips, label: d.name, path: [path[0], path[1], d.slug], tier: 'regional' });
+    }
+    // The neighbouring states stay on the map as discs, dimmed, so a neighbour is one click away (spec 6.4).
+    for (const s of country?.children ?? []) {
+      if (s.slug === path[1]) continue;
+      const under = pinsUnder(data, [path[0], s.slug], 'place');
+      if (!under.length) continue;
+      const [lng, lat] = meanPoint(under);
+      out.push({ id: `state:${path[0]}/${s.slug}`, kind: 'state', lng, lat, count: s.places + s.trips, label: s.name, path: [path[0], s.slug], tier: 'national', dim: true });
+    }
+  }
+  if (path.length === 3) {
+    const state = nodeAt(data, path.slice(0, 2));
+    for (const d of state?.children ?? []) {
+      if (d.slug === path[2]) continue;
+      const under = pinsUnder(data, [path[0], path[1], d.slug], 'place');
+      if (under.length < 2) continue;
+      const [lng, lat] = meanPoint(under);
+      out.push({ id: `district:${path[0]}/${path[1]}/${d.slug}`, kind: 'district', lng, lat, count: d.places + d.trips, label: d.name, path: [path[0], path[1], d.slug], tier: 'regional', dim: true });
     }
   }
   for (const p of places) {
     if (districtPlaces.has(p.slug)) continue;
-    out.push(placePin(p));
+    // State level: regional and above are pins, local places are quiet dots; a district shows them all (relevance 6.4).
+    out.push(placePin(p, path.length === 2 && p.tier === 'local'));
   }
   return out;
 }

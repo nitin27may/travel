@@ -1,4 +1,4 @@
-import type { GlobeNode, GlobePin } from '@/lib/public/types';
+import type { DrawTier, GlobeNode, GlobePin } from '@/lib/public/types';
 
 /** A country, state or district of the tree. A country also carries the point its disc sits on when the world is drawn. */
 export interface GlobeTreeNode extends Omit<GlobeNode, 'children'> {
@@ -72,6 +72,12 @@ export interface PinModel {
   /** Card key for place and trip pins. */
   cardKey?: string;
   glyph?: string;
+  /** How far people travel for it: the label of a merged disc is its highest-tier member's (relevance 6.4). */
+  tier: DrawTier;
+  /** A local place drawn as a quiet dot (state level): merges on a 48 px grid. */
+  quiet?: boolean;
+  /** Outside the open area: drawn at 35% and still clickable (spec 6.4). */
+  dim?: boolean;
 }
 
 /** The map view the URL describes. */
@@ -80,7 +86,7 @@ export type View =
   | { kind: 'place'; slug: string }
   | { kind: 'trip'; slug: string };
 
-export interface Camera { lng: number; lat: number; zoom: number }
+export interface Camera { lng: number; lat: number; zoom: number; pitch?: number; bearing?: number }
 
 export interface CountryFacts {
   a2: string; a3: string; name: string; official?: string; capital?: string; region?: string; subregion?: string;

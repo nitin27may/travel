@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import type { GlobeEngine, MarkerSpec } from '@/lib/globe/engine';
-import { discSize, groupColocated, type Group } from '@/lib/globe/model';
+import { clusterItems, isMerged, type Cluster, type ClusterItem } from '@/lib/globe/cluster';
+import { colocationKey, discSize } from '@/lib/globe/model';
 import type { PinModel } from '@/lib/globe/types';
 
 interface Props {
@@ -20,12 +21,15 @@ interface Props {
 }
 
 const FAN_RADIUS = 44;
-const total = (g: Group) => g.pins.reduce((s, p) => s + p.count, 0);
 
 function ariaLabel(p: PinModel): string {
   if (p.kind === 'country' || p.kind === 'state' || p.kind === 'district') return `${p.label}, ${p.count} ${p.count === 1 ? 'item' : 'items'}. Fly in.`;
   return `${p.label}${p.kind === 'trip' ? ', trip' : p.glyph ? `, ${p.glyph.replace(/_/g, ' ')}` : ''}. Open details.`;
 }
+
+const isDisc = (p: PinModel): boolean => p.kind === 'country' || p.kind === 'state' || p.kind === 'district';
+/** Radius in px of what a pin draws: half a disc, 13 for a trip, 9 for a place dot, 5 for a quiet dot. */
+const radiusOf = (p: PinModel): number => (isDisc(p) ? discSize(p.count) / 2 : p.kind === 'trip' ? 13 : p.quiet ? 5 : 9);
 
 interface PinButtonProps {
   pin: PinModel;
@@ -33,19 +37,22 @@ interface PinButtonProps {
   interactive: boolean;
   count?: number;
   merged?: boolean;
+  /** The label of a merged disc: its highest-draw member's. */
+  mergedLabel?: string;
+  dim?: boolean;
   href?: string | null;
   /** Roving tab stop for a row of link pins: only the first is in the Tab order, the arrow keys move between them. */
   tabIndex?: number;
   onOpen(): void;
 }
 
-function PinButton({ pin, active, interactive, count, merged, href, tabIndex, onOpen }: PinButtonProps) {
+function PinButton({ pin, active, interactive, count, merged, mergedLabel, dim, href, tabIndex, onOpen }: PinButtonProps) {
   const [hover, setHover] = useState(false);
   const n = count ?? pin.count;
   const disc = merged || pin.kind === 'country' || pin.kind === 'state' || pin.kind === 'district';
-  const size = disc ? discSize(n) : pin.kind === 'trip' ? 26 : 14;
+  const size = disc ? discSize(n) : pin.kind === 'trip' ? 26 : pin.quiet ? 10 : 18;
   const hot = active || hover;
-  const label = merged ? `${n} items here. Show them.` : ariaLabel(pin);
+  const label = merged ? `${mergedLabel ?? pin.label} and ${n - 1} more, ${n} items. Zoom in.` : ariaLabel(pin);
   const content = disc ? <span className="globe-pin-n">{n}</span> : pin.kind === 'trip' ? <Icon name="route" size={14} /> : null;
   if (href) {
     return (
@@ -70,6 +77,7 @@ function PinButton({ pin, active, interactive, count, merged, href, tabIndex, on
         data-globe-pin=""
         data-kind={disc ? 'disc' : pin.kind}
         data-hot={hot ? 'true' : undefined}
+        data-dim={dim ? 'true' : undefined}
         style={{ width: size, height: size }}
         aria-label={`${pin.label}, ${n} ${n === 1 ? 'item' : 'items'}. Open on the globe.`}
         onPointerEnter={() => setHover(true)}
@@ -91,6 +99,8 @@ function PinButton({ pin, active, interactive, count, merged, href, tabIndex, on
       data-globe-pin=""
       data-kind={disc ? 'disc' : pin.kind}
       data-hot={hot ? 'true' : undefined}
+      data-dim={dim ? 'true' : undefined}
+      data-quiet={pin.quiet ? 'true' : undefined}
       data-active={active ? 'true' : undefined}
       style={{ width: size, height: size }}
       aria-label={label}
@@ -111,43 +121,94 @@ function PinButton({ pin, active, interactive, count, merged, href, tabIndex, on
   );
 }
 
+/** What the camera is at: enough to know the clusters have to be worked out again. */
+const sig = (cs: Cluster[]): string => cs.map((c) => `${c.id}@${Math.round(c.x / 4)},${Math.round(c.y / 4)}`).join('|');
+
 /**
- * Draws pins as DOM markers: ink discs at rest, amber only when hovered, focused or selected (tokens 5).
- * The engine owns the marker positions; React renders each pin into its marker element.
+ * Draws pins as DOM markers: ink discs at rest, amber only when hovered, focused or selected (tokens 5). Discs and pins that would
+ * touch on screen merge into one disc with the summed count and the label of the highest-draw member (spec 6.5, relevance 6.4);
+ * the merge is worked out after each camera move and every 100 ms during a flight. The engine owns the marker positions; React
+ * renders each pin into its marker element.
  */
 export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFor, onOpen }: Props) {
-  const groups = useMemo(() => groupColocated(pins), [pins]);
+  const [clusters, setClusters] = useState<Cluster[]>([]);
   const [fan, setFan] = useState<string | null>(null);
-  const stagger = useRef(false);
   const [els, setEls] = useState<Map<string, HTMLElement>>(new Map());
+  const stagger = useRef(false);
+  const byId = useMemo(() => new Map(pins.map((p) => [p.id, p])), [pins]);
 
   // A new set of pins closes any open fan.
   const [seen, setSeen] = useState(pins);
   if (seen !== pins) { setSeen(pins); setFan(null); }
 
+  const last = useRef('');
+  const recompute = useMemo(() => {
+    return () => {
+      const items: ClusterItem[] = [];
+      for (const p of pins) {
+        const at = engine.project(p.lng, p.lat);
+        if (at) items.push({ id: p.id, x: at.x, y: at.y, lng: p.lng, lat: p.lat, r: radiusOf(p), count: p.count, label: p.label, tier: p.tier, quiet: p.quiet });
+      }
+      const next = clusterItems(items);
+      const key = sig(next);
+      if (key === last.current) return;
+      last.current = key;
+      setClusters(next);
+    };
+  }, [engine, pins]);
+
+  useEffect(() => {
+    const map = engine.map;
+    const first = window.setTimeout(recompute, 0);
+    let timer = 0;
+    // every 100 ms while the camera moves, and once more when it rests
+    const tick = () => { if (!timer) timer = window.setTimeout(() => { timer = 0; recompute(); }, 100); };
+    map.on('move', tick);
+    map.on('moveend', recompute);
+    map.on('resize', recompute);
+    return () => { map.off('move', tick); map.off('moveend', recompute); map.off('resize', recompute); window.clearTimeout(timer); window.clearTimeout(first); };
+  }, [engine, recompute]);
+
+  const members = (c: Cluster): PinModel[] => c.items.map((i) => byId.get(i.id)).filter((p): p is PinModel => !!p);
+  const colocated = (c: Cluster): boolean => new Set(members(c).map((p) => colocationKey(p))).size === 1;
+  const clusterAt = (c: Cluster): { lng: number; lat: number } => (colocated(c) ? { lng: c.items[0].lng, lat: c.items[0].lat } : { lng: c.lng, lat: c.lat });
+
   const specs = useMemo<MarkerSpec[]>(() => {
     const out: MarkerSpec[] = [];
-    for (const g of groups) {
-      if (g.pins.length === 1) { out.push({ key: g.pins[0].id, lng: g.at[0], lat: g.at[1], className: 'globe-marker' }); continue; }
-      out.push({ key: `g:${g.key}`, lng: g.at[0], lat: g.at[1], className: 'globe-marker' });
-      if (fan === g.key) {
-        g.pins.forEach((p, i) => {
-          const a = -Math.PI / 2 + (i * 2 * Math.PI) / g.pins.length;
-          out.push({ key: p.id, lng: g.at[0], lat: g.at[1], offset: [Math.cos(a) * FAN_RADIUS, Math.sin(a) * FAN_RADIUS], className: 'globe-marker globe-marker-fan' });
+    for (const c of clusters) {
+      if (!isMerged(c)) { out.push({ key: c.id, lng: c.lng, lat: c.lat, className: 'globe-marker' }); continue; }
+      const at = clusterAt(c);
+      out.push({ key: `g:${c.id}`, lng: at.lng, lat: at.lat, className: 'globe-marker' });
+      if (fan === c.id) {
+        c.items.forEach((it, i) => {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / c.items.length;
+          out.push({ key: it.id, lng: at.lng, lat: at.lat, offset: [Math.cos(a) * FAN_RADIUS, Math.sin(a) * FAN_RADIUS], className: 'globe-marker globe-marker-fan' });
         });
       }
     }
     return out;
-  }, [groups, fan]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- clusterAt reads `byId`, which changes with `pins`
+  }, [clusters, fan, byId]);
 
   useLayoutEffect(() => {
     const made = engine.syncMarkers('pins', specs);
     // The first set of pins arrives staggered by latitude, north first, 15 ms apart (spec 8.3).
-    if (!stagger.current) { stagger.current = true; [...specs].sort((a, b) => b.lat - a.lat).forEach((sp, i) => made.get(sp.key)?.style.setProperty('--pin-d', `${Math.min(i, 40) * 15}ms`)); }
+    if (!stagger.current && specs.length) { stagger.current = true; [...specs].sort((a, b) => b.lat - a.lat).forEach((sp, i) => made.get(sp.key)?.style.setProperty('--pin-d', `${Math.min(i, 40) * 15}ms`)); }
     // eslint-disable-next-line react-hooks/set-state-in-effect -- the marker elements exist only after the engine syncs them
     setEls(made);
   }, [engine, specs]);
   useLayoutEffect(() => () => { engine.syncMarkers('pins', []); }, [engine]);
+
+  // The discs drawn here keep the map's own labels off them (collision boxes).
+  useEffect(() => {
+    engine.setDiscs(clusters.flatMap((c) => {
+      const m = members(c);
+      const disc = isMerged(c) || (m[0] && isDisc(m[0]));
+      return disc ? [{ lng: c.lng, lat: c.lat, size: discSize(c.count) }] : [];
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `members` reads `byId`
+  }, [engine, clusters, byId]);
+  useEffect(() => () => engine.setDiscs([]), [engine]);
 
   // A row of link pins (the home cover) is one Tab stop: the first pin that can take focus. The engine hides pins on the far
   // side of the globe, so the stop moves whenever the set of visible pins changes.
@@ -165,19 +226,28 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
     return () => box.removeEventListener('globe-culled', settle);
   }, [engine, hrefFor, els]);
 
+  /** A merged disc zooms in by 1.5 around itself; one that cannot separate (the same spot, or already at the closest zoom) fans out. */
+  const openMerged = (c: Cluster) => {
+    const map = engine.map;
+    if (colocated(c) || map.getZoom() >= 15.5) { setFan(fan === c.id ? null : c.id); return; }
+    const at = clusterAt(c);
+    map.easeTo({ center: [at.lng, at.lat], zoom: Math.min(16, map.getZoom() + 1.5), duration: 500 });
+  };
+
   return (
     <>
-      {groups.flatMap((g) => {
-        if (g.pins.length === 1) {
-          const p = g.pins[0];
-          const el = els.get(p.id);
-          return el ? [createPortal(<PinButton key={p.id} pin={p} active={!!selectedKey && p.cardKey === selectedKey} interactive={interactive} href={hrefFor?.(p)} tabIndex={hrefFor ? -1 : undefined} onOpen={() => onOpen(p)} />, el, p.id)] : [];
+      {clusters.flatMap((c) => {
+        if (!isMerged(c)) {
+          const p = byId.get(c.id);
+          const el = els.get(c.id);
+          return p && el ? [createPortal(<PinButton key={p.id} pin={p} active={!!selectedKey && p.cardKey === selectedKey} interactive={interactive} dim={p.dim} href={hrefFor?.(p)} tabIndex={hrefFor ? -1 : undefined} onOpen={() => onOpen(p)} />, el, p.id)] : [];
         }
         const out = [];
-        const gel = els.get(`g:${g.key}`);
-        if (gel) out.push(createPortal(<PinButton key={`g:${g.key}`} pin={g.pins[0]} active={g.pins.some((p) => !!selectedKey && p.cardKey === selectedKey)} interactive={interactive} merged count={total(g)} onOpen={() => setFan(fan === g.key ? null : g.key)} />, gel, `g:${g.key}`));
-        if (fan === g.key) {
-          for (const p of g.pins) {
+        const ms = members(c);
+        const gel = els.get(`g:${c.id}`);
+        if (gel && ms[0]) out.push(createPortal(<PinButton key={`g:${c.id}`} pin={ms[0]} active={ms.some((p) => !!selectedKey && p.cardKey === selectedKey)} interactive={interactive} merged mergedLabel={c.label} count={c.count} dim={ms.every((p) => p.dim)} href={hrefFor?.(ms[0])} tabIndex={hrefFor ? -1 : undefined} onOpen={() => openMerged(c)} />, gel, `g:${c.id}`));
+        if (fan === c.id) {
+          for (const p of ms) {
             const el = els.get(p.id);
             if (el) out.push(createPortal(<PinButton key={p.id} pin={p} active={!!selectedKey && p.cardKey === selectedKey} interactive={interactive} onOpen={() => { setFan(null); onOpen(p); }} />, el, p.id));
           }

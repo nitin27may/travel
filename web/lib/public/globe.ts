@@ -1,9 +1,9 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { CONTINENT_OF } from './taxonomy';
 import { normName } from './places';
 import { TRIP_SLUGS } from './slugs';
-import type { GlobeIndex, GlobeNode, GlobePin, PublicPlace, PublicTrip } from './types';
+import type { DrawTier, GlobeIndex, GlobeNode, GlobePin, PublicPlace, PublicTrip } from './types';
 
 /** Country of each trip (ISO alpha-2 and alpha-3), written out: overview trips have no day data to infer it from. */
 export const TRIP_COUNTRY: Record<string, { cc: string; a3: string }> = {
@@ -30,6 +30,32 @@ function readGazetteer(root: string): GazRow[] {
   return existsSync(file) ? (JSON.parse(readFileSync(file, 'utf8')) as GazRow[]) : [];
 }
 
+const TIER_ORDER: Record<DrawTier, number> = { local: 0, regional: 1, national: 2, world: 3 };
+const isTier = (v: unknown): v is DrawTier => typeof v === 'string' && v in TIER_ORDER;
+
+/**
+ * The effective draw of each place, by normalised name, from the relevance sidecars (`data/relevance/derived`, read only). Refs look
+ * like `trip/<slug>/<kind>:<name>` or `part/trip/<slug>/<kind>:<name>#<part>`; the highest tier wins when a place appears in several
+ * trips. A place with no record is not in the map and counts as `local`.
+ */
+export function readDrawTiers(root: string): Map<string, DrawTier> {
+  const dir = path.join(root, 'data', 'relevance', 'derived');
+  const out = new Map<string, DrawTier>();
+  if (!existsSync(dir)) return out;
+  for (const f of readdirSync(dir).filter((n) => n.endsWith('.json')).sort()) {
+    let items: { ref?: unknown; effective_draw?: unknown }[] = [];
+    try { items = (JSON.parse(readFileSync(path.join(dir, f), 'utf8')) as { items?: typeof items }).items ?? []; } catch { continue; }
+    for (const it of items) {
+      if (typeof it.ref !== 'string' || !isTier(it.effective_draw)) continue;
+      const name = it.ref.slice(it.ref.lastIndexOf(':') + 1).split('#')[0];
+      const key = normName(name);
+      const have = out.get(key);
+      if (!have || TIER_ORDER[it.effective_draw] > TIER_ORDER[have]) out.set(key, it.effective_draw);
+    }
+  }
+  return out;
+}
+
 /** The pin of a trip: its first base, from our own points, then a place of that name, then the globe's gazetteer. */
 function tripPin(trip: PublicTrip, folder: string, places: PublicPlace[], gaz: GazRow[]): { lat: number; lon: number; approx: boolean } | null {
   const bp = trip.bases[0]?.point;
@@ -48,11 +74,12 @@ function tripPin(trip: PublicTrip, folder: string, places: PublicPlace[], gaz: G
 
 export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTrip[], listedFolders: Map<string, string>): GlobeIndex {
   const gaz = readGazetteer(root);
+  const tiers = readDrawTiers(root);
   const folderOf = new Map([...listedFolders].map(([f, s]) => [s, f]));
   const pins: GlobePin[] = [];
   for (const p of places) {
     if (!p.point) continue;
-    pins.push({ kind: 'place', slug: p.slug, name: p.name, lat: p.point.lat, lon: p.point.lon, type: p.kind, path: p.areaChain.map((a) => a.slug), approx: p.point.pointSource === 'prototype_approx' });
+    pins.push({ kind: 'place', slug: p.slug, name: p.name, lat: p.point.lat, lon: p.point.lon, type: p.kind, path: p.areaChain.map((a) => a.slug), approx: p.point.pointSource === 'prototype_approx', tier: tiers.get(normName(p.name)) ?? 'local' });
   }
   const tripCountry = new Map<string, string>();
   for (const t of trips) {
@@ -61,7 +88,7 @@ export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTri
     if (!cc) continue;
     tripCountry.set(t.slug, cc);
     const pin = tripPin(t, folder, places, gaz);
-    if (pin) pins.push({ kind: 'trip', slug: t.slug, name: t.title, lat: pin.lat, lon: pin.lon, type: t.depth, path: [cc], approx: pin.approx });
+    if (pin) pins.push({ kind: 'trip', slug: t.slug, name: t.title, lat: pin.lat, lon: pin.lon, type: t.depth, path: [cc], approx: pin.approx, tier: 'world' });
   }
 
   const countries = new Map<string, GlobeNode>();

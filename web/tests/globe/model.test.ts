@@ -34,9 +34,9 @@ describe('pins by level', () => {
   });
   it('co-located pins merge into one group', () => {
     const g = groupColocated([
-      { id: 'a', kind: 'trip', lng: 1, lat: 1, count: 1, label: 'a' },
-      { id: 'b', kind: 'trip', lng: 1, lat: 1, count: 1, label: 'b' },
-      { id: 'c', kind: 'trip', lng: 2, lat: 2, count: 1, label: 'c' },
+      { id: 'a', kind: 'trip', lng: 1, lat: 1, count: 1, label: 'a', tier: 'local' as const },
+      { id: 'b', kind: 'trip', lng: 1, lat: 1, count: 1, label: 'b', tier: 'local' as const },
+      { id: 'c', kind: 'trip', lng: 2, lat: 2, count: 1, label: 'c', tier: 'local' as const },
     ]);
     expect(g.map((x) => x.pins.length).sort()).toEqual([1, 2]);
   });
@@ -111,9 +111,9 @@ describe('split globe data (backlog 2.39)', () => {
     expect(JSON.stringify(files.tree)).not.toContain('"lat"');
     expect(countries.find((c) => c.slug === 'it')?.at).toHaveLength(2);
   });
-  it('pins are light: name, kind, slug, position, area path and nothing else', () => {
+  it('pins are light: name, kind, slug, position, area path, one draw tier and nothing else', () => {
     const keys = new Set(Object.values(files.pins).flat().flatMap((p) => Object.keys(p)));
-    expect([...keys].sort()).toEqual(['approx', 'kind', 'kindLabel', 'lat', 'lon', 'name', 'path', 'slug', 'type']);
+    expect([...keys].sort()).toEqual(['approx', 'kind', 'kindLabel', 'lat', 'lon', 'name', 'path', 'slug', 'tier', 'type']);
   });
   it('every pin has a card file, and the card file carries the pin', () => {
     for (const [cc, pins] of Object.entries(files.pins)) {

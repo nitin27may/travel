@@ -385,7 +385,13 @@ export interface GlobePin {
   path: string[];
   /** True when the pin is a country centre or an approximate prototype point, not the real spot. */
   approx: boolean;
+  /**
+   * How far people travel for it (relevance 6.4): the globe draws `world` and `national` first, adds `regional` at state level and shows
+   * `local` as quiet dots. One word per pin, no judgement note and no signal (P8). A place nobody has judged counts as `local`; a trip is `world`.
+   */
+  tier: DrawTier;
 }
+export type DrawTier = 'world' | 'national' | 'regional' | 'local';
 export interface GlobeIndex {
   continents: { slug: string; name: string; places: number; trips: number; countries: GlobeNode[] }[];
   pins: GlobePin[];

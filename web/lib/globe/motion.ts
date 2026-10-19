@@ -50,10 +50,18 @@ export function zoomForSpan(spanLon: number, spanLat: number, viewportW: number,
 }
 
 /** The spin is chained one-second linear eases (MapLibre's own spinning-globe pattern), never a per-frame jump. */
-export const SPIN_EASE_MS = 1000;
+export const SPIN_EASE_MS = 500;
 /** Quiet time before the spin resumes: after a drag or wheel, and after the pointer last moved over a shape. */
 export const SPIN_AFTER_GESTURE_MS = 2000;
-export const SPIN_AFTER_HOVER_MS = 4000;
+/** Hovering a country or feature slows the spin to a quarter of its speed and never stops it (spec 5.2); full speed returns 20 s after the last hover. */
+export const SPIN_AFTER_HOVER_MS = 20_000;
+export const SPIN_HOVER_SPEED = 0.25;
+/** How far the spin speed moves toward its target at each step: a stop is never abrupt, a start never a jump. */
+export const SPIN_RAMP_PER_STEP = 0.5;
+
+/** The speed multiplier for the next step: from `speed` toward `target` by at most `SPIN_RAMP_PER_STEP`. */
+export const spinSpeedToward = (speed: number, target: number): number =>
+  target > speed ? Math.min(target, speed + SPIN_RAMP_PER_STEP) : Math.max(target, speed - SPIN_RAMP_PER_STEP);
 /** A press that moves farther than this is a drag, and its release is not a click. */
 export const CLICK_SLOP_PX = 4;
 
