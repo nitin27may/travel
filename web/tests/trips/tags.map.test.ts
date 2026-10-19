@@ -1,6 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import { clusterPins } from '@/components/places/cluster';
+import { tripListRows } from '@/app/trips/rows';
 import { clusterAtMembers } from '@/components/trips/TripsMap';
+
+describe('trip pins are honest (T5)', () => {
+  const rows = tripListRows();
+  it('no trip with a real position sits at a country middle, and the ones that do are marked approximate', () => {
+    const middles = ['38,-97', '60,-95'];
+    for (const r of rows) {
+      const at = `${r.lat?.toFixed(0)},${r.lon?.toFixed(0)}`;
+      if (!r.approx) expect(middles, r.slug).not.toContain(at);
+    }
+    expect(rows.find((r) => r.slug === 'vermont-fall-2026')?.approx).toBe(false);
+    expect(rows.find((r) => r.slug === 'utah-five-parks')?.approx).toBe(false);
+  });
+});
 
 describe('trips map clusters (backlog 2.41)', () => {
   it('a cluster sits on one of its members, never at the mean between them', () => {

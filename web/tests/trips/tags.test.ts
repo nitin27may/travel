@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { tagChips } from '@/components/trips/tags/chips';
-import { hubBandOf, lengthLine } from '@/components/trips/tags/labels';
+import { hikeLabel, hubBandOf, kidsLabel, lengthLine } from '@/components/trips/tags/labels';
 import { tripListRows } from '@/app/trips/rows';
 import { listTrips } from '@/lib/public';
 import { activitiesTag, activityIdsOf, aroundTag, highlightsTag, hikeEffortTag, hikeTag, kidsFromTag, lengthTag, perDayTag, shapeTag, strollerTag } from '@/lib/public/tags';
@@ -14,6 +14,7 @@ import type { PublicDay } from '@/lib/public/types';
 import { travelRoot } from '@/lib/data/root';
 
 const cards = listTrips();
+const rows0 = tripListRows();
 const bySlug = (slug: string) => cards.find((c) => c.slug === slug)!;
 const day = (n: number, over: Partial<PublicDay> = {}): PublicDay => ({ n, title: '', baseId: null, base: null, driveMin: null, driveIsEstimate: false, summary: null, items: [], tracks: null, scheduleInput: null, variants: [], know: [], summaryProse: null, light: null, ...over });
 const titem = (title: string, over: Partial<ScheduleItem> = {}): ScheduleItem => ({
@@ -163,6 +164,27 @@ describe('the real trips', () => {
   });
 });
 
+describe('Kids from N says what it rests on', () => {
+  it('never shows less than the data proves: the plan raised to the fit age when gaps are counted as passes', () => {
+    for (const c of cards.filter((x) => x.tags.kidsBasis === 'floor')) expect(c.tags.kidsFrom, c.slug).toBeGreaterThan(0);
+    const utah = bySlug('utah-five-parks').tags;
+    const dolo = bySlug('dolomites-2027').tags;
+    expect(utah.kidsFrom).toBeGreaterThanOrEqual(10);
+    expect(dolo.kidsFrom).toBeGreaterThanOrEqual(10);
+    expect(utah.kidsBasis).toBe('floor');
+  });
+  it('the chip, the tooltip and the table cell carry the basis', () => {
+    expect(kidsLabel(8, 'plan').text).toBe('Kids from 8 · our plan');
+    expect(kidsLabel(10, 'floor').text).toBe('Kids from 10 · checked');
+    expect(kidsLabel(0, 'computed').text).toBe('All ages · checked');
+    for (const r of rows0.filter((x) => x.ageFit !== null)) {
+      const k = tagChips(r).suit.find((c) => c.key === 'kids')!;
+      expect(k.label, r.slug).toMatch(/ · (our plan|checked)$/);
+      expect(k.aria, r.slug).toContain(kidsLabel(r.ageFit as number, r.kidsBasis).why);
+    }
+  });
+});
+
 describe('the card chips', () => {
   const rows = tripListRows();
   it('at most two suitability chips, and every chip links to the filtered list', () => {
@@ -173,8 +195,8 @@ describe('the card chips', () => {
     }
   });
   it('Kids from 7 opens the list for a child of 8 (the nearest standard age at or above)', () => {
-    const r = { ...rows[0]!, ageFit: 7, hike: null as null };
-    expect(tagChips(r).suit[0]).toMatchObject({ label: 'Kids from 7', href: '/trips/?kid=8' });
+    const r = { ...rows[0]!, ageFit: 7, kidsBasis: 'plan' as const, hike: null as null };
+    expect(tagChips(r).suit[0]).toMatchObject({ label: 'Kids from 7 · our plan', href: '/trips/?kid=8' });
   });
   it('the mono line says what kind of trip it is', () => {
     const base = rows.find((r) => r.depth === 'full')!;
@@ -201,5 +223,22 @@ describe('the hub matrix', () => {
   });
   it('bands: under 1 h, 1-2 h, 2-3 h, 3 h and more', () => {
     expect([30, 59, 60, 119, 120, 179, 180, 400].map((m) => hubBandOf(m).n)).toEqual([1, 1, 2, 2, 3, 3, 4, 4]);
+  });
+});
+
+describe('Hike effort says what it rests on, and never undercuts the plan', () => {
+  it('shows the plan\'s word when unknown trails could make the known maximum too low', () => {
+    for (const c of cards.filter((x) => x.depth !== 'overview' && x.tags.hike)) {
+      const t = c.tags;
+      expect(['computed', 'plan'], c.slug).toContain(t.hikeBasis);
+    }
+    const rockies = bySlug('canadian-rockies-2029').tags;
+    // 7+ family trails have no effort on record: "easy" computed from the rest must not replace the plan's "moderate"
+    expect(rockies.hike).toBe('moderate');
+    expect(rockies.hikeBasis).toBe('plan');
+  });
+  it('the chip carries the same two words as Kids', () => {
+    expect(hikeLabel('moderate', 'plan').text).toBe('Hike effort: moderate · our plan');
+    expect(hikeLabel('strenuous', 'computed').text).toBe('Hike effort: strenuous · checked');
   });
 });

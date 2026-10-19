@@ -21,6 +21,8 @@ export interface TripListRow {
   /** True when the pin is a country centre, not the first base. */
   approx: boolean;
   ageFit: number | null;
+  /** What Kids from N rests on: the scheduler on known data, a proven floor, or the plan's own number. */
+  kidsBasis: 'computed' | 'floor' | 'plan' | null;
   effort: string | null;
   firstBase: string | null;
   // ---- derived tags (L3b): ids and labels only, never the plan (principle P8) ----
@@ -33,6 +35,8 @@ export interface TripListRow {
   lengthClass: string | null;
   /** The Kids filter reads `ageFit` ("Kids from N"). */
   hike: 'easy' | 'moderate' | 'strenuous' | null;
+  /** What Hike effort rests on: trails with a known effort, or the plan's own word. */
+  hikeBasis: 'computed' | 'plan' | null;
   strollerDays: 'friendly' | { n: number; of: number } | null;
   activities: { id: string; label: string }[];
   /** Up to two anchors, by draw then by day. */
@@ -50,6 +54,6 @@ export interface TripListRow {
 /** Every key a trip list row may carry (principle P8, backlog 2.24): card and filter fields, never the plan itself. A test pins it. */
 export const TRIP_LIST_KEYS: readonly (keyof TripListRow)[] = [
   'id', 'slug', 'title', 'depth', 'nights', 'days', 'seasonNotSet', 'isDone', 'region', 'cover', 'seasonLabel', 'seasonMonths',
-  'country', 'countryName', 'lat', 'lon', 'approx', 'ageFit', 'effort', 'firstBase',
-  'countries', 'continents', 'length', 'lengthClass', 'hike', 'strollerDays', 'activities', 'highlights', 'around', 'perDay', 'perDayApprox', 'shape', 'fromHubMin', 'fromHubApprox',
+  'country', 'countryName', 'lat', 'lon', 'approx', 'ageFit', 'kidsBasis', 'effort', 'firstBase',
+  'countries', 'continents', 'length', 'lengthClass', 'hike', 'hikeBasis', 'strollerDays', 'activities', 'highlights', 'around', 'perDay', 'perDayApprox', 'shape', 'fromHubMin', 'fromHubApprox',
 ];

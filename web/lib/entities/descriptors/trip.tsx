@@ -6,7 +6,7 @@ import type { TripListRow } from '@/components/trips/types';
 import type { TripRow } from '@/lib/data/types';
 import { MONTH_NAMES } from '@/lib/format/season';
 import { TripTagChips } from '@/components/trips/tags/TripTagChips';
-import { AROUND_ORDER, HIKE_ORDER, HUB_BANDS, KID_AGES, LENGTH_LABELS, LENGTH_ORDER, PERDAY_ORDER, PHASE_FOR_LENGTH, hubBandOf, lengthLine } from '@/components/trips/tags/labels';
+import { AROUND_ORDER, HIKE_ORDER, HUB_BANDS, KID_AGES, LENGTH_LABELS, LENGTH_ORDER, PERDAY_ORDER, PHASE_FOR_LENGTH, hubBandOf, kidsLabel, lengthLine } from '@/components/trips/tags/labels';
 import { AROUND_LABEL } from '@/components/trips/tags/chips';
 import type { Badge, EntityDescriptor } from '../types';
 
@@ -46,7 +46,7 @@ const lengthRank = (t: TripListRow): number => {
   return i === -1 ? 99 : i;
 };
 const dash = <span className="dash">&ndash;</span>;
-const kidsText = (t: TripListRow) => (t.ageFit === null ? '' : t.ageFit === 0 ? 'All ages' : `Kids from ${t.ageFit}`);
+const kidsText = (t: TripListRow) => (t.ageFit === null ? '' : kidsLabel(t.ageFit, t.kidsBasis).text);
 const PER_DAY_LABEL: Record<string, string> = { u1: 'Under 1 h', '1-2': '1 to 2 h', '2-3': '2 to 3 h', '3+': '3 h and more' };
 
 export const tripDescriptor: EntityDescriptor<TripListRow> = {
