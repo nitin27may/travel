@@ -22,6 +22,31 @@ Both sweep lanes are merged (19 Oct). **Stage 3** is running. Run lanes in paral
 - **L4b**, trail tracks.
 - **Capture contract step 7**, gap-filling research: hours, prices, booking windows, toilets and parking. Work through `research/capture-research-backlog.md` first.
 
+## Stage 3 lanes (briefs written 19 Oct)
+
+| Lane | Brief | Agent | Owns (summary) | Starts |
+|---|---|---|---|---|
+| L3c | `L3c-trip-timeline.md` | travel-builder | `core/src/schedule/**`, `data/schedules/**`, the trip page and `components/trips/timeline/**`, `lib/public/timeline.ts` and `prose.ts`, the day code in `trips.ts`, copy and ICS (`draft.ts`, `ics.ts`, `build.server.ts`, `CopySheet.tsx`) | building now (`v2-L3c`, port 3423) |
+| L4b | `L4b-trail-tracks.md` | travel-builder | `data/tracks/**`, `web/scripts/tracks-osm.mjs`, `lib/public/tracks.ts`, the trail code in `places.ts`, `slugs.ts`, `honesty-overrides.ts`, `components/places/**` except `rows.ts`, `lib/export/gpx.ts`, `kml.ts`, `licence.ts`; one line in `build.server.ts` after L3c merges | now (`v2-L4b`, 3424) |
+| L3b | `L3b-trip-tags-filters.md` | travel-builder | `core/src/capture/bands.ts`, `core/src/derive/length.ts`, appended flat values in `core/src/suitability/derive.ts`, `lib/public/tags.ts`, `bands.ts`, `world.ts`, the calls in `index.ts`, `lib/entities/facets/**` and the facet edits in `lib/entities/*`, the trips list files, `data/vocab/tags.json`, the `facets` block of `descriptors/place.tsx`, `components/places/rows.ts`, the filter UI in `components/entity/`, `places-parity.spec.ts` | now (`v2-L3b`, 3421); its two scheduler tags after L3c merges |
+| L2b | `L2b-globe-experience.md` | travel-builder | `app/globe/**`, `app/globe-data/**`, `lib/globe/**`, `components/globe/**`, `styles/globe.css`, `public/globe/**`, `tools/globe_data.py`, `web/scripts/globe-*.mjs`, `data/reference/globe/**`, `lib/public/globe.ts`, an appended section of `lib/client/data.ts`, the ADM2 audit doc | now (`v2-L2b`, 3422) |
+| S1 | `S1-who-it-suits.md` | design reviewer (Opus), then travel-builder | Part 0 and A now, new files only: the place-page sections design, `lib/public/contract.ts`, `sections.ts`, `suitability.ts`, `relevance.ts`, `party.ts`, `components/suit/**`. Part B after L3c, L4b and L3b merge: the place join, `PlacePage.tsx`, `components/places/sections/**`, card chips, timeline entry chips | Parts 0 and A now (`v2-S1`, 3425) |
+| CS7 | `CS7-capture-gap-research.md` | travel-researcher (Opus) | `data/capture/**`, `data/suitability/<trip>/**`, `data/relevance/<trip>/**` and `inputs/points.json`, `data/sources/**`, CS7 lane notes, the research backlog, the operator questions | now (`v2-CS7`), three batches |
+
+**Merge order: L3c, L4b, L3b, L2b, S1; CS7 batches in between.**
+1. **L3c** first: L3b, L4b and S1 each depend on something it owns (the trips tests and `selectVariant`; `build.server.ts`; the timeline entries).
+2. **L4b** next: its one line in `build.server.ts` needs L3c, and it adds about 100 trail places, so the lanes that own the list rows and the place page (L3b, S1) rebase onto the final place set.
+3. **L3b**: owns `rows.ts`, the place descriptor's facets and `world.ts`, which S1 reuses. Either order with L4b is safe because no test pins a count of today's data; L4b first is preferred.
+4. **L2b**: shares no file with the others (only an appended section of `lib/client/data.ts`), so it can merge whenever it passes; this is its default slot.
+5. **S1** last: Part B edits files of L3c, L4b and L3b after they merge.
+6. **CS7** is data only. Batch 1 (research backlog, placement review, attraction flags, lakes) merges before S1 Part B's final shots; batch 3 follows L3b's hand-back (the facets its coverage rule hides).
+
+**Shared rules for the stage.**
+- `web/lib/public/types.ts` takes additive fields from L3c, L4b, L3b and S1, each in its own block; the later merger keeps both sides.
+- One runner per external service across every agent: Overpass under `flock /tmp/travel-overpass.lock` (L4b, L2b, CS7), Commons under `flock /tmp/travel-commons.lock` (L2b, CS7), Wikidata under `flock /tmp/travel-wikidata.lock`. User-Agent `travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)`, never an email.
+- Moved from the older rows: the Places filters Kids, Effort and Stroller and the trip tags go to L3b (not S1); the RV1 list lens waits for Q18 and a later brief; L3d and L3e briefs are written after L3c merges.
+- New owner questions: Q26 (trails of private trips), Q27 (six pills when Kind is narrowed), Q28 (no write-back to `locations.json`). Each has a recommendation; no lane blocks on them.
+
 Stage 4 is the design review by the Opus reviewer (never Fable), scored against P1-P9 and T1-T5. Stage 5 is the cross-model checks. Stage 6 is the owner's review. Stage 7 is go-live.
 
 ## Merged so far (all verified)
