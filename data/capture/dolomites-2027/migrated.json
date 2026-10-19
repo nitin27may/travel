@@ -65,6 +65,20 @@
       "reaches": [
         "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
         "part/place/tre-cime-di-lavaredo-loop#tre-cime"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1116663",
+          "state": "filled",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1067603",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -127,6 +141,14 @@
       "name": "Lago di Sorapis",
       "reaches": [
         "part/place/lago-di-sorapis#payoff"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/3985745",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -179,7 +201,27 @@
       "layer": "route",
       "name": "Cinque Torri",
       "route_is_attraction": true,
-      "attraction_reason": "A walk through restored WWI trenches among the five towers: the open-air museum circuit is the experience."
+      "attraction_reason": "A walk through restored WWI trenches among the five towers: the open-air museum circuit is the experience.",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/229103971",
+          "state": "filled",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/318733621",
+          "state": "filled",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/363006574",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
     },
     {
       "ref": "place/monte-piana",
@@ -187,7 +229,15 @@
       "layer": "route",
       "name": "Monte Piana",
       "route_is_attraction": true,
-      "attraction_reason": "A walk through WWI trenches and tunnels on the plateau: the circuit is the experience."
+      "attraction_reason": "A walk through WWI trenches and tunnels on the plateau: the circuit is the experience.",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1657839",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
     },
     {
       "ref": "place/croda-del-becco",
@@ -196,6 +246,14 @@
       "name": "Croda del Becco",
       "reaches": [
         "part/place/croda-del-becco#payoff"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1155861",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -248,7 +306,15 @@
       "layer": "route",
       "name": "Val Fiscalina",
       "route_is_attraction": true,
-      "attraction_reason": "A flat valley walk under the Croda dei Toni: the valley walk is the experience."
+      "attraction_reason": "A flat valley walk under the Croda dei Toni: the valley walk is the experience.",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1116674",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
     },
     {
       "ref": "part/place/lago-federa#walk",
@@ -257,6 +323,14 @@
       "name": "Lago Federa walk",
       "starts_at": [
         "place/lago-federa"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/3170182",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -266,6 +340,14 @@
       "name": "Cascate di Fanes",
       "reaches": [
         "part/place/cascate-di-fanes#payoff"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/1641053",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -327,7 +409,27 @@
       "layer": "route",
       "name": "Adolf Munkel Weg",
       "route_is_attraction": true,
-      "attraction_reason": "A balcony path under the Odle north faces: the traverse is the experience."
+      "attraction_reason": "A balcony path under the Odle north faces: the traverse is the experience.",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/6528382",
+          "state": "filled",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/2442695",
+          "state": "filled",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/2442693",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
     },
     {
       "ref": "place/alpe-di-siusi",
@@ -335,7 +437,15 @@
       "layer": "route",
       "name": "Alpe di Siusi",
       "route_is_attraction": true,
-      "attraction_reason": "A walk across the high pasture under the Sassolungo: the meadows walk is the experience."
+      "attraction_reason": "A walk across the high pasture under the Sassolungo: the meadows walk is the experience.",
+      "links": [
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "query": "Overpass 2026-10-19: hiking relations within 200 m of the Compatsch top station (paths 4, 10, 14, 14B, 30, Hans und Paula Steger Weg); the record does not name which plateau walk it is, and relation 9485181 (path 12 from Seis) does not reach Compatsch",
+          "on": "2026-10-19"
+        }
+      ]
     },
     {
       "ref": "place/bullaccia-and-the-witches-benches",
@@ -344,6 +454,14 @@
       "name": "Bullaccia and the Witches' Benches",
       "reaches": [
         "part/place/bullaccia-and-the-witches-benches#payoff"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/9483250",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -405,7 +523,15 @@
       "layer": "route",
       "name": "Vallunga",
       "route_is_attraction": true,
-      "attraction_reason": "A gentle valley walk under steep walls: the valley walk is the experience."
+      "attraction_reason": "A gentle valley walk under steep walls: the valley walk is the experience.",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/2465034",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
     },
     {
       "ref": "place/viel-dal-pan",
@@ -413,7 +539,15 @@
       "layer": "route",
       "name": "Viel dal Pan",
       "route_is_attraction": true,
-      "attraction_reason": "A balcony path with the Marmolada in view the whole way: the traverse is the experience."
+      "attraction_reason": "A balcony path with the Marmolada in view the whole way: the traverse is the experience.",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/7302436",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
@@ -422,6 +556,14 @@
       "name": "Sass Pordoi and Piz Boè",
       "reaches": [
         "part/place/sass-pordoi-and-piz-boe#payoff"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/7302480",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -455,6 +597,14 @@
       "name": "Lagazuoi tunnels",
       "starts_at": [
         "place/lagazuoi-cable-car-and-tunnels"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "query": "Overpass 2026-10-19: hiking relations within 250 m of the Lagazuoi top station and the tunnel line; only the Kaiserjäger Steig (relation 2282556, the way up, not the tunnels), paths 401, 402, 441, 20 and long-distance routes; no relation for the Galleria del Lagazuoi",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -511,6 +661,14 @@
       "name": "Lago di Braies walk",
       "starts_at": [
         "place/lago-di-braies"
+      ],
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/12043472",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
