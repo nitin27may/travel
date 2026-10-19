@@ -9,18 +9,18 @@ A computed value is published only when it rests on known data: a gap is never a
 | algonquin-muskoka-2026 | Kids from N | 4 | 10 | 10 | none | none |
 | algonquin-muskoka-2026 | Hike effort | easy | strenuous | strenuous | Track and Tower Trail (day 2, variant main, FE 4) | none |
 | canadian-rockies-2029 | Kids from N | 5 | none | 5 | none | 16 item(s) with no age or distance on record, e.g. Bear spray and groceries in Banff (day 1); Sunshine Village gondola and the meadow paths (day 2); Lake Minnewanka cruise (day 2); the scheduler's fit age 0 rests on them |
-| canadian-rockies-2029 | Hike effort | moderate | moderate | moderate | Johnston Canyon (day 3, variant B, FE 3) | 7 trail(s) in the family variants have no effort on record and are left out |
+| canadian-rockies-2029 | Hike effort | moderate | easy | easy | Lake Louise Lakeshore (day 10, variant B, FE 2) | 10 trail(s) in the family variants have no effort on record and are left out |
 | chamonix-mont-blanc-2028 | Kids from N | 10 | none | 10 | none | 3 item(s) with no age or distance on record, e.g. Montenvers train (day 4); Aiguille du Midi (day 5); Lac du Chatelard (day 6); the scheduler's fit age 6 rests on them |
 | chamonix-mont-blanc-2028 | Hike effort | moderate | moderate | moderate | Lac Blanc via Flegere (day 3, variant main, FE 3) | none |
 | dolomites-2027 | Kids from N | 8 | none | 8 | Lago di Sorapis | 2 item(s) with no age or distance on record, e.g. Rifugio Scotoni (day 7); Rifugio Nuvolau and Averau (day 8); the scheduler's fit age 10 rests on them |
 | dolomites-2027 | Hike effort | moderate | moderate | moderate | Tre Cime di Lavaredo loop (day 3, variant main, FE 3) | none |
 | iceland-ring-road-2027 | Kids from N | 8 | none | 8 | none | 6 item(s) with no age or distance on record, e.g. Keflavik airport, pick up the van (day 1); Blue Lagoon area lava fields (day 1); Eastfjords coast road (day 6); the scheduler's fit age 6 rests on them |
-| iceland-ring-road-2027 | Hike effort | moderate | moderate | moderate | Thingvellir (day 2, variant main, FE 3) | 1 trail(s) in the family variants have no effort on record and are left out |
+| iceland-ring-road-2027 | Hike effort | moderate | moderate | moderate | Skaftafell Svartifoss (day 4, variant main, FE 3) | 4 trail(s) in the family variants have no effort on record and are left out |
 | patagonia-2027 | Kids from N | 11 | none | 11 | none | 3 item(s) with no age or distance on record, e.g. Beagle Channel boat (day 4); Minitrekking on the glacier (day 12); Airport (day 14); the scheduler's fit age 10 rests on them |
 | patagonia-2027 | Hike effort | strenuous | moderate | moderate | Laguna Esmeralda (day 5, variant main, FE 3) | 2 trail(s) in the family variants have no effort on record and are left out |
 | utah-five-parks | Kids from N | 7 | none | 7 | none | 6 item(s) with no age or distance on record, e.g. Zion-Mt Carmel Highway (day 4); Scenic Byway 12 (day 5); Fruita orchards (day 6); the scheduler's fit age 10 rests on them |
-| utah-five-parks | Hike effort | moderate | strenuous | strenuous | Mesa Arch (day 9, variant main, FE 4) | none |
+| utah-five-parks | Hike effort | moderate | moderate | moderate | Angels Landing chains view or Scout Lookout (day 2, variant main, FE 3) | none |
 | vermont-fall-2026 | Kids from N | 4 | 0 | 0 | none | none |
-| vermont-fall-2026 | Hike effort | easy | easy | easy | Stowe Recreation Path (day 2, variant main, FE 1) | none |
+| vermont-fall-2026 | Hike effort | easy | none | easy | none | 1 trail(s) in the family variants have no effort on record and are left out |
 
 Differences (computed and typed both set, not equal): 5 of 16.
