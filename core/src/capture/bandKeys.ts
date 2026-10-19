@@ -11,6 +11,16 @@ export type PriceBand = (typeof PRICE_BANDS)[number];
 export const BOOKING_BANDS = ["none", "recommended", "required"] as const;
 export type BookingBand = (typeof BOOKING_BANDS)[number];
 
+/** Metres from the car or the stop to the place, in four steps. */
+export const WALK_BANDS = ["lt200", "200-600", "600-1500", "1500+"] as const;
+export type WalkBand = (typeof WALK_BANDS)[number];
+/** The shape of a trail. */
+export const SHAPES = ["loop", "out-and-back", "point-to-point", "network"] as const;
+export type Shape = (typeof SHAPES)[number];
+/** The best time of day (the first row of `best_time`). */
+export const BEST_TIMES = ["sunrise", "golden_am", "morning", "midday", "afternoon", "golden_pm", "sunset", "night"] as const;
+export type BestTime = (typeof BEST_TIMES)[number];
+
 /** The bool facets a record can answer. A leading "!" on a stored flag means "known not to": a gap stores neither. */
 export const FLAG_IDS = ["swim", "lifeguard", "indoor", "stroller", "stroller_part", "step_free", "dogs", "guided", "toilets", "change_rooms", "fenced"] as const;
 export type FlagId = (typeof FLAG_IDS)[number];
@@ -41,8 +51,11 @@ export interface ListBands {
   price_band: PriceBand | null;
   booking: BookingBand | null;
   flags: string[];
+  walk_band: WalkBand | null;
+  shape: Shape | null;
+  best_time: BestTime | null;
 }
 
-export const BAND_KEYS = ["effort", "kids_from", "kids_basis", "time_band", "price_band", "booking", "flags"] as const satisfies readonly (keyof ListBands)[];
+export const BAND_KEYS = ["effort", "kids_from", "kids_basis", "time_band", "price_band", "booking", "flags", "walk_band", "shape", "best_time"] as const satisfies readonly (keyof ListBands)[];
 
-export const NO_BANDS: ListBands = { effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null, booking: null, flags: [] };
+export const NO_BANDS: ListBands = { effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null, booking: null, flags: [], walk_band: null, shape: null, best_time: null };

@@ -6,7 +6,8 @@ import { valOf, familyEffortOf, kidsFromBasisOf, strollerOkOf } from "../suitabi
 import { incomingOf, primaryRef } from "./records.ts";
 import type { World } from "./records.ts";
 import { EFFORT_NAMES, MAX_FLAGS } from "./bandKeys.ts";
-import type { BookingBand, ListBands, PriceBand, TimeBand } from "./bandKeys.ts";
+import type { BookingBand, ListBands, PriceBand, TimeBand, WalkBand } from "./bandKeys.ts";
+import { BEST_TIMES, SHAPES } from "./bandKeys.ts";
 
 export * from "./bandKeys.ts";
 
@@ -38,6 +39,10 @@ export function priceBandOf(amount: number, currency: string): PriceBand | null 
   const lim = PRICE_LIMITS[currency];
   if (!lim) return null;
   return amount <= lim[0] ? "$" : amount <= lim[1] ? "$$" : "$$$";
+}
+
+export function walkBandOf(metres: number): WalkBand {
+  return metres < 200 ? "lt200" : metres < 600 ? "200-600" : metres < 1500 ? "600-1500" : "1500+";
 }
 
 const BOOKING_RANK: Record<BookingBand, number> = { none: 0, recommended: 1, required: 2 };
@@ -173,5 +178,18 @@ function finish(fe: number | null, kids: ReturnType<typeof kidsFromBasisOf>, tim
     price_band: best ? priceBandOf(best.amount, best.currency) : null,
     booking,
     flags: flagsOf(blocks),
+    ...extras(cap, own),
+  };
+}
+
+/** Walk from the car, the shape of a trail, and the best time of day: three labels read off the record's own values. */
+function extras(cap: CaptureRecord | null, own: SuitabilityRecord | null): Pick<ListBands, "walk_band" | "shape" | "best_time"> {
+  const walk = own ? valOf(own.suitability.walk_m) : null;
+  const shape = own?.ext?.kind === "trail" ? own.ext.shape ?? null : null;
+  const slot = valOf(cap?.best_time)?.[0]?.slot ?? null;
+  return {
+    walk_band: walk === null ? null : walkBandOf(walk),
+    shape: shape && (SHAPES as readonly string[]).includes(shape) ? (shape as ListBands["shape"]) : null,
+    best_time: slot && (BEST_TIMES as readonly string[]).includes(slot) ? (slot as ListBands["best_time"]) : null,
   };
 }

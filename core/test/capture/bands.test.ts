@@ -1,6 +1,6 @@
 // bandsOf (capture contract 7.3): a trail, a lift read through its ticket offer, a raft offer, a lake and a sight with no hours.
 import { describe, expect, it } from "vitest";
-import { bandsOf, bookingOf, priceBandOf, timeBandOf } from "../../src/capture/bands.ts";
+import { bandsOf, bookingOf, priceBandOf, timeBandOf, walkBandOf } from "../../src/capture/bands.ts";
 import { BAND_KEYS, MAX_FLAGS, NO_BANDS } from "../../src/capture/bandKeys.ts";
 import type { Incoming, World } from "../../src/capture/records.ts";
 import type { CaptureRecord } from "../../src/schema/capture/records.ts";
@@ -40,6 +40,22 @@ describe("band edges", () => {
     expect(bookingOf({ rule: "rolling", sellout: { kind: "weeks" } })).toBe("required");
     expect(bookingOf({ rule: "lottery" })).toBe("required");
     expect(bookingOf(null)).toBeNull();
+  });
+});
+
+describe("walk, shape and best time", () => {
+  it("walk bands", () => {
+    expect([0, 199, 200, 599, 600, 1499, 1500, 5000].map(walkBandOf)).toEqual(["lt200", "lt200", "200-600", "200-600", "600-1500", "600-1500", "1500+", "1500+"]);
+  });
+  it("read off the record's own values, null for a gap", () => {
+    const ref = "place/view";
+    const w = world(
+      [{ ref, type: "nature.viewpoint.viewpoint", layer: "place", name: "View", best_time: cv([{ slot: "sunrise" as const, why: "light" as const }]) }],
+      [{ ref, kind: "viewpoint", subkind: "viewpoint", suitability: { walk_m: v(450, "official_info") } }],
+    );
+    expect(bandsOf(w, ref)).toMatchObject({ walk_band: "200-600", best_time: "sunrise", shape: null });
+    const t = world([{ ref: "place/t", type: "nature.trail.hike", layer: "route", name: "T" }], [{ ref: "place/t", kind: "trail", subkind: "hike", suitability: {}, ext: { kind: "trail", shape: "loop" } }]);
+    expect(bandsOf(t, "place/t")).toMatchObject({ shape: "loop", walk_band: null, best_time: null });
   });
 });
 
