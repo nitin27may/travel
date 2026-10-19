@@ -24,19 +24,22 @@ const probe = (page: Page): Promise<Probe> =>
     const bar = document.querySelector('.tl-planbar')!.getBoundingClientRect().height;
     const days = [...document.querySelectorAll<HTMLElement>('li.tl-day')].map((e) => ({ n: Number(e.id.slice(4)), top: e.getBoundingClientRect().top }));
     const bottom = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
-    const hit = days.filter((d) => d.top <= head + bar + 24).at(-1);
+    const line = head + bar + 0.35 * (window.innerHeight - head - bar);
+    const hit = days.filter((d) => d.top <= line).at(-1);
     return { expected: bottom ? days.at(-1)!.n : (hit ?? days[0]!).n, bars: head + bar, last: days.at(-1)!.n, bottom };
   });
 
-const scrollDayTo = (page: Page, n: number, above: number) =>
+/** Puts day n's top at `at` px from the viewport top, or 12 px above the focus line. */
+const scrollDayTo = (page: Page, n: number, at: number | 'line') =>
   page.evaluate(
-    ([day, gap]) => {
+    ([day, where]) => {
       const head = document.querySelector('.site-header')!.getBoundingClientRect().bottom;
       const bar = document.querySelector('.tl-planbar')!.getBoundingClientRect().height;
+      const line = head + bar + 0.35 * (window.innerHeight - head - bar);
       const top = document.getElementById(`day-${day}`)!.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo(0, top - (head + bar + 24) + (gap as number));
+      window.scrollTo(0, top - (where === 'line' ? line - 12 : (where as number)));
     },
-    [n, above],
+    [n, at] as [number, number | 'line'],
   );
 
 /** Everything that shows the current day, read at once: the one rail cell, the strip's marker and the day card itself. */
@@ -69,16 +72,20 @@ for (const size of SIZES) {
       test(`${path}: scrolling day by day moves the one current day; rail, strip and day agree`, async ({ page, site }) => {
         await page.goto(`${site.url}${path}`);
         const days = await page.locator('li.tl-day').count();
-        for (let n = 1; n <= days; n++) {
-          await scrollDayTo(page, n, 12);
-          await settled(page);
-          const p = await probe(page);
-          await expect.poll(async () => (await shown(page)).rail, { timeout: 5000, message: `day ${n}` }).toEqual([p.expected]);
-          const now = await shown(page);
-          expect(now.strip, `strip at day ${n}`).toEqual([p.expected]);
-          expect(now.day, `day card at day ${n}`).toEqual([p.expected]);
-          await expect(page.locator(CELL)).toHaveCount(1);
-          if (!p.bottom) expect(p.expected).toBe(n);
+        for (const at of [150, 'line'] as const) {
+          for (let n = 1; n <= days; n++) {
+            await scrollDayTo(page, n, at);
+            await settled(page);
+            const p = await probe(page);
+            await expect.poll(async () => (await shown(page)).rail, { timeout: 5000, message: `day ${n} at ${at}` }).toEqual([p.expected]);
+            const now = await shown(page);
+            expect(now.strip, `strip at day ${n}, ${at}`).toEqual([p.expected]);
+            expect(now.day, `day card at day ${n}, ${at}`).toEqual([p.expected]);
+            await expect(page.locator(CELL)).toHaveCount(1);
+            await expect.poll(() => page.evaluate(() => location.hash), { message: `hash at day ${n}, ${at}` }).toBe(`#day-${p.expected}`);
+            // a day whose top sits at 150 px, or just above the line, is the one in focus (owner report 19 Oct)
+            if (!p.bottom) expect(p.expected, `focus at ${at}`).toBe(n);
+          }
         }
       });
 
@@ -102,7 +109,7 @@ for (const size of SIZES) {
       await settled(page);
       await expect(page.locator(CELL)).toHaveText('5');
       const len = await page.evaluate(() => history.length);
-      await scrollDayTo(page, 8, 12);
+      await scrollDayTo(page, 8, 150);
       await expect(page.locator(CELL)).toHaveText('8');
       await expect.poll(() => page.evaluate(() => location.hash)).toBe('#day-8');
       expect(await page.evaluate(() => history.length)).toBe(len);
@@ -161,9 +168,9 @@ for (const size of SIZES) {
 test('Back after scrolling leaves the page; the scroll never pushed history', async ({ page, site }) => {
   await page.goto(`${site.url}/trips/`);
   await page.goto(`${site.url}${TRIPS[0]}`);
-  await scrollDayTo(page, 4, 12);
+  await scrollDayTo(page, 4, 150);
   await expect.poll(() => page.evaluate(() => location.hash)).toBe('#day-4');
-  await scrollDayTo(page, 9, 12);
+  await scrollDayTo(page, 9, 'line');
   await expect.poll(() => page.evaluate(() => location.hash)).toBe('#day-9');
   await page.goBack();
   await expect(page).toHaveURL(/\/trips\/$/);
@@ -172,7 +179,7 @@ test('Back after scrolling leaves the page; the scroll never pushed history', as
 test('the phone rail keeps the current cell in view', async ({ page, site }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${site.url}${TRIPS[0]}`);
-  await scrollDayTo(page, 14, 12);
+  await scrollDayTo(page, 14, 150);
   await expect(page.locator(CELL)).toHaveText('14');
   await expect
     .poll(() =>
@@ -203,7 +210,7 @@ test('By category: the chip follows the section at the top, and Back is not walk
 test('axe after scrolling the trip page', async ({ page, site }, info) => {
   test.skip(info.project.name !== 'chromium', 'axe runs on Chromium, as in a11y.spec.ts; the gallery tile name mismatch on WebKit is not this change');
   await page.goto(`${site.url}${TRIPS[0]}`);
-  await scrollDayTo(page, 9, 12);
+  await scrollDayTo(page, 9, 'line');
   await expect(page.locator(CELL)).toHaveText('9');
   await page.waitForTimeout(400);
   const r = await new AxeBuilder({ page }).exclude('.maplibregl-canvas').analyze();

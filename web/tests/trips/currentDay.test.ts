@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dayOfHash, isAtBottom, pickCurrent } from '../../components/trips/timeline/currentDay';
+import { dayOfHash, focusLine, isAtBottom, pickCurrent } from '../../components/trips/timeline/currentDay';
 import { tripQuery } from '../../components/trips/useTripUrl';
 
 const spots = (tops: number[]) => tops.map((top, i) => ({ key: i + 1, top }));
@@ -48,5 +48,37 @@ describe('tripQuery keeps keys it does not own', () => {
     expect(tripQuery('day', 'p=adults', 'utm=mail')).toBe('?p=adults&utm=mail');
     expect(tripQuery('category', 'pace=relaxed', 'utm=mail')).toBe('?pace=relaxed&view=category&utm=mail');
     expect(tripQuery('day', '')).toBe('');
+  });
+});
+
+describe('focusLine', () => {
+  it('sits 35% down the area under the sticky bars', () => {
+    expect(focusLine(108, 900)).toBeCloseTo(108 + 0.35 * 792);
+    expect(focusLine(0, 800)).toBe(280);
+  });
+  it('never rises above the bars, even in a tiny viewport', () => {
+    expect(focusLine(108, 90)).toBe(108);
+  });
+});
+
+describe('the focus line decides what the visitor is looking at', () => {
+  const line = focusLine(108, 900); // 385
+  it('day 8 with its top at 150 px is current, not day 7 (owner report)', () => {
+    expect(pickCurrent(spots([-2000, -900, 150, 1200]), line, false)).toBe(3);
+  });
+  it('a day whose top is below the line is not yet current', () => {
+    expect(pickCurrent(spots([-2000, -900, 400, 1200]), line, false)).toBe(2);
+  });
+  it('a short last day above the line is current without needing the page bottom', () => {
+    expect(pickCurrent(spots([-2000, -500, 300]), line, false)).toBe(3);
+  });
+  it('a short last day below the line still wins at the page bottom', () => {
+    expect(pickCurrent(spots([-2000, -300, 700]), line, true)).toBe(3);
+  });
+  it('a very tall day stays current while its top is far above and the next is far below', () => {
+    expect(pickCurrent(spots([-9000, 3000]), line, false)).toBe(1);
+  });
+  it('a jump landing a day 16 px under the bars is current at once', () => {
+    expect(pickCurrent(spots([-800, 124, 1500]), line, false)).toBe(2);
   });
 });
