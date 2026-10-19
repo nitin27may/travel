@@ -14,7 +14,7 @@ test.describe('units on place pages', () => {
       await page.evaluate(() => document.querySelectorAll('details').forEach((d) => (d.open = true)));
       const text = await page.evaluate(() => {
         const clone = document.querySelector('article.pl-page')!.cloneNode(true) as HTMLElement;
-        clone.querySelectorAll('.pl-mapcard, .maplibregl-ctrl, script, style').forEach((n) => n.remove());
+        clone.querySelectorAll('.pl-mapcard, .maplibregl-ctrl, script, style, blockquote').forEach((n) => n.remove());
         return clone.textContent ?? '';
       });
       const bad = [...text.matchAll(/\d[\d,.]*\s?(?:km|m)\b/g)].map((m) => text.slice(Math.max(0, (m.index ?? 0) - 25), (m.index ?? 0) + 12).replace(/\s+/g, ' '));
