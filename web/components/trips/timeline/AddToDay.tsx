@@ -3,6 +3,8 @@
 import { useId, useMemo, useState } from 'react';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
+import { usePrefs } from '@/lib/format/prefs';
+import { formatDistance } from '@/lib/format/units';
 import type { AddCandidate } from './model';
 
 interface Props {
@@ -21,6 +23,7 @@ const GROUP_LABEL: Record<AddCandidate['group'], string> = { quick: 'Quick', var
  * base and places within 30 km that have a page. No free text, so a shared link always resolves.
  */
 export function AddToDay({ day, candidates, taken, onAdd }: Props) {
+  const [prefs] = usePrefs();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const id = useId();
@@ -62,6 +65,7 @@ export function AddToDay({ day, candidates, taken, onAdd }: Props) {
                     <button type="button" className="tl-add-item" onClick={() => onAdd(c.key)}>
                       <span className="tl-add-name">{c.name}</span>
                       <Chip kind="kind" icon={false}>{c.label}</Chip>
+                      {c.km !== null ? <span className="tl-add-km num">{formatDistance(c.km, prefs.distance)} away</span> : null}
                       <Icon name="plus" size={14} />
                     </button>
                   </li>

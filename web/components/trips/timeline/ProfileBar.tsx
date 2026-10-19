@@ -21,7 +21,7 @@ function versionCounts(model: TimelineModel, timelines: DayTimeline[]): string[]
   for (const d of model.days) for (const v of d.variants) if (!label.has(v.key)) label.set(v.key, v.label);
   const n = new Map<string, number>();
   for (const t of timelines) n.set(t.variant.key, (n.get(t.variant.key) ?? 0) + 1);
-  return [...n].filter(() => model.hasVariants).map(([k, c]) => `${label.get(k) ?? k} on ${c} ${c === 1 ? 'day' : 'days'}`);
+  return [...n].filter(() => model.hasVariants && n.size > 1).map(([k, c]) => `${label.get(k) ?? k} on ${c} ${c === 1 ? 'day' : 'days'}`);
 }
 
 /** The line under the controls. At the plan's own settings it says so; after a change it names the choice. */

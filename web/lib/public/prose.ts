@@ -157,6 +157,8 @@ export function prepareSentence(raw: string, o: PrepareOpts = {}): CleanProse | 
   if (o.names) {
     for (const [id, name] of [...o.names].sort((a, b) => b[0].length - a[0].length)) t = t.replace(new RegExp(`(?<![\\w-])${id}(?![\\w-])`, 'g'), name);
   }
+  t = dropResearch(t);
+  if (!t) return null;
   t = t.replace(KEBAB_PAREN, '').replace(KEBAB_LEAD, '(');
   // "Maligne Canyon (Maligne Canyon)" once the id became its name; and the plan's track letters in plain words
   t = t.replace(/(\b[A-Z][\w' -]{2,40}?) \(\1\)/g, '$1');
@@ -219,21 +221,32 @@ export function dayKnow(n: DayNotes, o: PrepareOpts = {}): KnowGroup[] {
   return groupBullets(items);
 }
 
+/** Words of our own research notes that a reader of the plan should never see: the dataset, a file name, a record id, an audience tag. */
+export const RESEARCH_WORDS = /\b(?:datasets?|trails?\.json|sights?\.json|adventures?\.json|trail ids?|adventure ids?|sight ids?|has no id)\b|audience '/i;
+export const leaksResearch = (t: string): boolean => RESEARCH_WORDS.test(t);
+
+/** The text without the parentheses and the sentences that talk about our research. */
+export function dropResearch(t: string): string {
+  if (!leaksResearch(t)) return t;
+  const noParens = t.replace(/\s*\(([^()]*)\)/g, (m, inner: string) => (leaksResearch(inner) ? '' : m));
+  return sentences(noParens).filter((x) => !leaksResearch(x)).join(' ');
+}
+
 /** A string that still carries a research marker. */
-export const hasMarker = (t: string): boolean => /\b(?:INFERENCE|CALC|GAP)\b|low confidence/.test(t);
+export const hasMarker = (t: string): boolean => /\b(?:INFERENCE|CALC|GAP)\b|low confidence/.test(t) || leaksResearch(t);
 
 /** Cleans every string in a built value in place (the dataset's last pass, like scrubOrigin): markers out, the rest untouched. */
 export function scrubMarkers<T>(value: T): T {
   if (Array.isArray(value)) {
     value.forEach((v, i) => {
-      value[i] = typeof v === 'string' ? (hasMarker(v) ? stripMarkers(v).text : v) : scrubMarkers(v);
+      value[i] = typeof v === 'string' ? (hasMarker(v) ? dropResearch(stripMarkers(v).text) : v) : scrubMarkers(v);
     });
   } else if (value && typeof value === 'object') {
     const o = value as Record<string, unknown>;
     for (const k of Object.keys(o)) {
       const v = o[k];
       if (typeof v === 'string') {
-        if (hasMarker(v)) o[k] = stripMarkers(v).text;
+        if (hasMarker(v)) o[k] = dropResearch(stripMarkers(v).text);
       } else if (v && typeof v === 'object') scrubMarkers(v);
     }
   }

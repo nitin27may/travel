@@ -31,7 +31,7 @@ export interface TimelineApi {
  * restores the previous profile.
  */
 export function useTimeline(model: TimelineModel, url: TripUrl): TimelineApi {
-  const defaults = model.defaultProfile;
+  const defaults = useMemo<Profile>(() => ({ ...model.defaultProfile, adults: 2 }), [model.defaultProfile]);
   const state = useMemo(() => parseTimelineUrl(url.timeline, defaults), [url.timeline, defaults]);
   const { added, droppedAdds } = useMemo(() => {
     const byDay: TimelineApi['added'] = {};

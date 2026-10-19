@@ -40,3 +40,8 @@ export function timeSpeech(e: TimelineEntry): string {
   if (e.kind === 'sun') return `${e.start}, tied to the sun`;
   return `${e.time.confidence === 'anchored' ? 'about ' : ''}${e.start}, ${CONF_LABEL[e.time.confidence]}`;
 }
+
+/** A chip the sentence already says in words ("... not known yet") is not drawn twice. */
+export function chipsFor(plain: string, chips: HonestyId[]): HonestyId[] {
+  return chips.filter((c) => !(c === 'not_known' && /not known yet/i.test(plain)) && !(c === 'estimate' && /an estimate/i.test(plain)));
+}

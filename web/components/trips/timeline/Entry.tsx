@@ -80,12 +80,13 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
   const slot = fixedLabel(e);
   const dur = e.durationMin > 0 && e.kind !== 'sun' ? fmtHM(e.durationMin) : null;
   const meta = [slot, ...stats(e, prefs), e.kind === 'meal' && e.style === 'on-trail' ? 'eaten on the trail' : null].filter(Boolean) as string[];
-  const hasMore = (!quiet || e.addedBy === 'visitor') && e.kind !== 'sun';
+  const hasMore = (!quiet || e.addedBy === 'visitor') && e.kind !== 'sun' && !e.block;
   const flagged = [...new Set(e.honesty)].filter((h) => h !== 'drive_estimated');
   const moveText = moved ? `moved ${Math.abs(moved)} min ${moved > 0 ? 'later' : 'earlier'}` : null;
-  const sr = `${timeSpeech(e)}, ${KIND_WORD[e.kind]}, ${e.title}${e.stats?.distanceKm != null ? `, ${formatDistance(e.stats.distanceKm, prefs.distance)}` : ''}${dur ? `, ${dur}` : ''}`;
+  const sr = `${e.block ? e.block.toLowerCase() : timeSpeech(e)}, ${KIND_WORD[e.kind]}, ${e.title}${e.stats?.distanceKm != null ? `, ${formatDistance(e.stats.distanceKm, prefs.distance)}` : ''}${dur ? `, ${dur}` : ''}`;
   return (
     <li
+      data-band={e.sub === 'together' || undefined}
       id={e.sourceItemId && !e.insideOf ? `entry-${e.day}-${e.sourceItemId}` : undefined}
       className="tl-entry"
       data-kind={e.kind}
@@ -97,8 +98,8 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
       data-lane-off={laneOff || undefined}
       data-inside={e.insideOf ? '' : undefined}
     >
-      <span className="tl-time num" data-conf={e.time.confidence}>
-        <span aria-hidden="true">{timeText(e)}</span>
+      <span className="tl-time num" data-conf={e.time.confidence} data-block={e.block ? '' : undefined}>
+        <span aria-hidden="true">{e.block ?? timeText(e)}</span>
         {e.kind === 'sun' ? <span className="tl-sun-glyph"><TlIcon name="sunset" size={13} /></span> : null}
       </span>
       <span className="tl-node" data-conf={e.time.confidence} aria-hidden="true" />

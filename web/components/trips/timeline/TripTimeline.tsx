@@ -28,9 +28,6 @@ export function TripTimeline({ model, timelines, changedDays, picked, onPick }: 
   return (
     <section className="tl-trip" aria-labelledby="trip-glance-h" id="trip-at-a-glance">
       <h2 id="trip-glance-h" className="trip-h">The trip at a glance</h2>
-      <p className="trip-sec-note num tl-scale" aria-hidden="true">
-        <span>05:00</span><span>11:00</span><span>17:00</span><span>23:00</span>
-      </p>
       <ol className="tl-trip-list">
         {model.days.map((d) => {
           const t = timelines.find((x) => x.day === d.n);
@@ -52,8 +49,8 @@ export function TripTimeline({ model, timelines, changedDays, picked, onPick }: 
                 }}
               >
                 <DaySign n={d.n} size="s" state={picked === d.n ? 'focused' : 'quiet'} />
-                <span className="tl-trip-title">{d.title}</span>
-                <span className="tl-bar" aria-hidden="true">
+                <span className="tl-trip-title">{model.days.find((x) => x.n === d.n)?.variants.find((v) => v.key === t.variant.key)?.title ?? d.title}</span>
+                <span className="tl-bar" aria-hidden="true" hidden={t.blocks || undefined}>
                   <span className="tl-bar-span" style={{ left: pct(s), width: `calc(${pct(e)} - ${pct(s)})` }}>
                     <span className="tl-bar-drive" style={{ width: `${Math.round(driveShare * 100)}%` }} />
                   </span>

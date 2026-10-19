@@ -12,7 +12,7 @@ import type {
 } from '@travel/core/schedule/types.ts';
 import { fmtMin } from '@travel/core/checks/time.ts';
 import { DropLog, undatedSentences } from './dateless';
-import { dayKnow, noteBlock, noteLine, parseHoursRange, type NoteBlock, type PrepareOpts } from './prose';
+import { dayKnow, noteBlock, noteLine, parseHoursRange, stripMarkers, type NoteBlock, type PrepareOpts } from './prose';
 import type { ProtoPlace, ProtoPubTrip, RockiesData, RockiesDay, Sources } from './sources';
 import type { DayItem, DayVariantInfo, PublicBase, PublicDay, TripSchedule } from './types';
 
@@ -320,8 +320,8 @@ interface ProtoDay {
 
 const writtenForAge = (ageFit: number | null): string => (ageFit && ageFit > 0 ? `adults and children from about ${ageFit}` : 'adults');
 
-function variantInfos(variants: DayVariant[], notes: Map<string, NoteBlock>): DayVariantInfo[] {
-  return variants.map((v) => ({ key: v.key, label: v.label, audience: v.audience, relation: v.relation, notes: notes.get(v.key) ?? { lead: null, know: [] } }));
+function variantInfos(variants: DayVariant[], notes: Map<string, NoteBlock>, titles: Map<string, string> = new Map()): DayVariantInfo[] {
+  return variants.map((v) => ({ key: v.key, label: v.label, title: titles.get(v.key) ?? null, audience: v.audience, relation: v.relation, notes: notes.get(v.key) ?? { lead: null, know: [] } }));
 }
 
 const baseOf = (file: ScheduleFile | null, id: string | null): BaseRef | null => {
@@ -378,7 +378,12 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
         homeBy: null, splitNote: null,
       };
       d.scheduleInput = input;
-      d.variants = variantInfos(variants, notes);
+      const titles = new Map<string, string>();
+      for (const [k, track] of [['A', rd.track_a], ['B', rd.track_b], ['C', rd.track_c]] as const) {
+        const ttl = track ? undatedSentences(stripMarkers(track.title).text, `${where} day ${rd.n} track ${k} title`, a.log) : '';
+        if (ttl) titles.set(k, ttl);
+      }
+      d.variants = variantInfos(variants, notes, titles);
       d.know = know;
       d.light = sun.text;
       inputs.push(input);
@@ -461,7 +466,7 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
         origin: first ? airport : null, homeBy: null, splitNote: null, checkin: first ? 'last' : 'first',
       };
       d.scheduleInput = input;
-      d.variants = variantInfos(variants, new Map());
+      d.variants = variantInfos(variants, new Map(), variants.length > 1 ? new Map(variants.map((v) => [v.key, v.label])) : new Map());
       d.light = sun.text;
       inputs.push(input);
       prevNight = night;
@@ -485,60 +490,57 @@ export function attachTimeline(a: TimelineArgs): TripSchedule | null {
   };
 }
 
-// ---- summary trips: one main variant from the stops, the day's drive split over its legs ----
+// ---- summary trips: a condensed plan, the plan's own stops in order with a part of the day, a flight or transfer where it names one ----
 
 const MEAL = /\b(lunch|dinner|supper|breakfast|parrilla|brunch)\b/i;
+const TRANSFER = /\b(?:to|from)\b|^drive|border|home\b/i;
 
 function summaryInputs(a: TimelineArgs, window: SunWindow | null, tz: string, out: ScheduleDayInput[]): void {
   const pub = a.pub!;
   let prevBase: string | null = null;
   a.days.forEach((d, idx) => {
     const pd = pub.days[idx]!;
-    const first = idx === 0;
-    const last = idx === a.days.length - 1;
-    const hasAirportFirst = d.items[0]?.kind === 'airport';
-    const hasAirportLast = d.items.length > 0 && d.items[d.items.length - 1]!.kind === 'airport';
     const baseName = d.base ?? prevBase;
-    const kind: DayKind = first && hasAirportFirst ? 'arrival' : last && hasAirportLast ? 'departure' : prevBase && baseName && prevBase !== baseName ? 'transfer' : 'normal';
-    const stops = d.items.filter((i) => i.kind !== 'airport' && i.kind !== 'parking');
-    const legCount = stops.length + 1;
-    const drive = d.driveMin ?? 0;
-    const per = drive > 0 ? Math.max(5, Math.round(drive / legCount / 5) * 5) : 0;
-    const items: ScheduleItem[] = stops.map((i) => {
-      const isMeal = i.kind === 'eatery' || MEAL.test(i.name);
-      const kindOf: ItemKind = isMeal ? 'meal' : i.kind === 'trail' ? 'trail' : i.kind === 'stay' ? 'checkin' : 'visit';
-      const it = blankItem(i.id, kindOf, i.name);
-      it.sub = isMeal ? (/dinner|supper|parrilla/i.test(i.name) ? 'dinner' : /breakfast/i.test(i.name) ? 'breakfast' : 'lunch') : kindOf === 'trail' ? 'hike' : i.kind === 'viewpoint' ? 'viewpoint' : i.kind === 'lake' ? 'lake' : i.kind === 'lift' ? 'lift-ride' : i.kind === 'town' ? 'town' : i.kind === 'activity' ? 'activity' : 'sight';
-      it.placeSlug = i.placeSlug;
-      if (i.durationMin !== null) {
-        it.durationMin = i.durationMin;
-        it.durationSource = 'data';
+    const kind: DayKind = prevBase && baseName && prevBase !== baseName ? 'transfer' : 'normal';
+    const items: ScheduleItem[] = [];
+    pd.stops.forEach((st, i) => {
+      const found = d.items.find((x) => x.name === st.name);
+      const id = found?.id ?? `${d.n}-t${i + 1}`;
+      const n = itemNote(found?.note ?? st.note ?? null, `trip ${a.slug} day ${d.n} stop`, a.log);
+      let it: ScheduleItem;
+      if (st.kind === 'airport' && /\b(?:fly|flight)\b/i.test(st.name)) {
+        it = blankItem(id, 'transfer', st.name);
+        it.sub = 'flight';
+      } else if (st.kind === 'drive' && TRANSFER.test(st.name)) {
+        it = blankItem(id, 'transfer', st.name);
+        it.sub = 'drive';
+      } else {
+        const isMeal = st.kind === 'food' || MEAL.test(st.name);
+        const kindOf: ItemKind = isMeal ? 'meal' : st.kind === 'hike' ? 'trail' : st.kind === 'stay' ? 'checkin' : 'visit';
+        it = blankItem(id, kindOf, st.name);
+        it.sub = isMeal
+          ? /dinner|supper|parrilla/i.test(st.name) ? 'dinner' : /breakfast/i.test(st.name) ? 'breakfast' : 'lunch'
+          : kindOf === 'trail' ? 'hike'
+          : st.kind === 'view' ? 'viewpoint' : st.kind === 'water' ? 'lake' : st.kind === 'lift' ? 'lift-ride' : st.kind === 'town' ? 'town' : st.kind === 'activity' ? 'activity'
+          : st.kind === 'drive' ? 'scenic-drive' : st.kind === 'airport' ? (/pick up/i.test(st.name) ? 'car-hire' : 'sight') : 'sight';
       }
-      const n = itemNote(i.note, `trip ${a.slug} day ${d.n} item ${i.id}`, a.log);
+      it.placeSlug = found?.placeSlug ?? null;
+      it.durationMin = st.durationMin;
+      it.durationSource = 'plan';
       it.note = n.text;
       it.honesty = n.honesty;
-      return it;
+      items.push(it);
     });
     const nameBase = baseName ? { name: baseName, placeSlug: null, point: null } : null;
     const base: BaseRef | null = kind === 'transfer' && prevBase ? { name: prevBase, placeSlug: null, point: null } : nameBase;
-    const next: BaseRef | null = kind === 'transfer' && baseName ? { name: baseName, placeSlug: null, point: null } : kind === 'departure' ? { name: 'the airport', placeSlug: null, point: null } : null;
-    const legs: StoredLeg[] = [];
-    if (per > 0) {
-      let prev = kind === 'arrival' ? 'origin' : 'base';
-      for (const it of items) {
-        legs.push({ from: prev, to: it.id, mode: 'drive', minutes: per, km: null, basis: 'plan', estimate: true, symmetric: true });
-        prev = it.id;
-      }
-      legs.push({ from: prev, to: next ? 'next-base' : 'base', mode: 'drive', minutes: per, km: null, basis: 'plan', estimate: true, symmetric: true });
-    }
+    const next: BaseRef | null = kind === 'transfer' && baseName ? { name: baseName, placeSlug: null, point: null } : null;
     const input: ScheduleDayInput = {
-      day: d.n, kind, tz, base, nextBase: next, sunPoint: null, sunWindow: window,
+      day: d.n, kind, tz, base, nextBase: next, sunPoint: null, sunWindow: window, blocks: true,
       variants: [{ key: 'main', label: "The plan's day", audience: 'any', relation: 'alternative', rank: 2, items }],
-      legs, start: null, origin: kind === 'arrival' ? { name: 'the airport', placeSlug: null, point: null } : null, homeBy: null, splitNote: null,
+      legs: [], start: null, origin: null, homeBy: null, splitNote: null,
     };
     d.scheduleInput = input;
     d.variants = variantInfos(input.variants, new Map());
-    if (pd.title) d.light = null;
     out.push(input);
     prevBase = baseName ?? prevBase;
   });

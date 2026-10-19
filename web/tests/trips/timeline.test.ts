@@ -99,7 +99,13 @@ describe('Rockies: the profile picks the version of each day (spec 3.3)', () => 
     expect(nofit.length).toBeGreaterThan(3);
     const tre = nofit.find((x) => x.day === 3)!;
     expect(tre.notes[0]!.kind).toBe('no-fit');
-    expect(tre.notes[0]!.text).toMatch(/Tre Cime di Lavaredo loop is 10 km; the limit at age 4 is 4 km/);
+    expect(tre.notes[0]!.text).toMatch(/Tre Cime di Lavaredo loop is 10 km; we plan walks up to 4 km at age 4/);
+    expect(tre.notes[0]!.text).not.toMatch(/limit/);
+    // the day shows one conflict line, not two overlapping times
+    expect(tre.warnings.filter((w) => w.code === 'W_OVERLAP')).toEqual([]);
+    const cadini = tre.entries.find((e) => e.sourceItemId === 'i6')!;
+    expect(cadini.time.pinned).toBe(false);
+    expect(tre.warnings.filter((w) => w.code === 'S_FIXED_MISSED')).toHaveLength(1);
     expect(tre.warnings.some((w) => w.code === 'S_NO_FIT')).toBe(true);
   });
   it('Day 5 by number: d=5C swaps to the easy version and says it was picked', () => {
@@ -162,6 +168,45 @@ describe('Dolomites: authored times stay, routed legs are not estimates (check 8
   it('Day 14 leaves in time for the airport and Day 1 lands first', () => {
     expect(tl.find((x) => x.day === 14)!.entries.at(-1)).toMatchObject({ kind: 'end', sub: 'at-airport', start: '12:00' });
     expect(tl.find((x) => x.day === 1)!.entries[0]).toMatchObject({ kind: 'start', sub: 'land', start: '11:30' });
+  });
+});
+
+describe('review round two', () => {
+  it('only the genuinely long Rockies days warn about the cap at the default profile', () => {
+    const capped = rockies.schedule!.timelines.filter((t) => t.warnings.some((w) => w.code === 'S_DAY_CAP')).map((t) => t.day);
+    // 4 and 7 are 10 h 15 away from base; 13 runs to 21:55 with the optional Rawson Lake. Everything else, Day 5 included, is under 10 h away.
+    expect(capped, capped.join()).toEqual([4, 7, 13]);
+    expect(scheduleDay(day(rockies, 5).scheduleInput!, P(), { variant: 'C' }).warnings.some((w) => w.code === 'S_DAY_CAP')).toBe(false);
+  });
+  it('the adults version of Day 5 takes its title from its own version and keeps the on-trail lunch before the drive back', () => {
+    const d5 = day(rockies, 5);
+    expect(d5.variants.find((v) => v.key === 'A')!.title).toBe('Bald Hills');
+    const t = scheduleDay(d5.scheduleInput!, adults());
+    const lunch = t.entries.findIndex((e) => e.style === 'on-trail');
+    const back = t.entries.findIndex((e) => e.kind === 'leg' && /^Back to/.test(e.title));
+    if (lunch >= 0) expect(lunch).toBeLessThan(back);
+  });
+  it('a summary trip is a condensed plan: parts of the day and its own flight, no invented drives (Patagonia Day 2)', () => {
+    const pat = data.getTrip('patagonia-2027')!;
+    const t = pat.schedule!.timelines.find((x) => x.day === 2)!;
+    expect(t.blocks).toBe(true);
+    expect(t.entries[0]).toMatchObject({ title: 'Flight to Ushuaia', kind: 'leg', block: 'Morning' });
+    expect(t.entries[0]!.leg!.mode).toBe('flight');
+    expect(t.entries.filter((e) => e.kind === 'leg' && e.leg!.mode === 'drive' && e.leg!.basis === 'estimate')).toEqual([]);
+    expect(t.entries.some((e) => e.kind === 'rest' || e.kind === 'break')).toBe(false);
+    for (const x of data.internals.trips.filter((y) => y.depth === 'summary')) expect(x.schedule!.timelines.every((tl) => tl.blocks), x.slug).toBe(true);
+  });
+  it('the page model ships no adults count, and offers only places within 30 km, each with its distance', async () => {
+    const { buildTripPageModel } = await import('@/components/trips/model');
+    const { listPlaces, getPlace } = await import('@/lib/public');
+    const m = buildTripPageModel(rockies, (s) => { const p = getPlace(s); return p ? { point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, photo: p.photo } : null; }, listPlaces());
+    expect(JSON.stringify(m.timeline)).not.toMatch(/"adults":/);
+    for (const c of Object.values(m.timeline!.addables)) if (c.group !== 'quick') expect(c.km!).toBeLessThanOrEqual(30);
+    const d5 = m.timeline!.addByDay[5]!.map((k) => m.timeline!.addables[k]!);
+    expect(d5.some((c) => /bow lake|peyto|mount robson/i.test(c.name))).toBe(false);
+  });
+  it('generated times are on 5 minute marks at the default profile', () => {
+    for (const t of rockies.schedule!.timelines) for (const e of t.entries) if (e.addedBy === 'scheduler' && e.kind !== 'leg' && e.kind !== 'sun') expect(Number(e.start.slice(3)) % 5, `${t.day} ${e.title} ${e.start}`).toBe(0);
   });
 });
 
