@@ -73,6 +73,7 @@ Stage 4 is the design review by the Opus reviewer (never Fable), scored against 
 | S1 Part 0 + A | 3c59c7d, c40c99a | place page sections design and mock; contract, suitability, relevance and sections modules; party scrub tightened (2.43). Part B (UI) waits for owner mock review and L3c, L4b, L3b |
 | CS7 batch 1 | b83b8ea | 53 capture records, 47 points, lake access, placement review, prices; ledger holds original leaves |
 | L4b | a974eef | OSM trail tracks (ODbL), profiles, GPX/KML from confirmed tracks, 100 trail pages for every trip |
+| L3c | b02f4a4 | trip timeline: profile chosen once, whole-trip and per-day timelines with fixed/anchored/suggested times, split lanes, add a place with re-flow and 1,337 invariant cases, copy and ICS carry the profile, ORS legs for the Dolomites |
 | CC | eaa5684 | capture contract foundation: 324-type tree, property registry, place/route/offer layers, 61 records split with a value ledger |
 
 The stage 2 sweep report is `verify-integration.md` (Lighthouse, privacy, P8, the 10,000-place test, the first-use walk).
