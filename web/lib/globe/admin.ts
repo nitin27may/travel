@@ -1,25 +1,12 @@
 import { globeAdmin, type GlobeAdminLevel } from '@/lib/client/data';
-import { bbox, centroid, inFeature, topoFeatures, type Feat, type FeatColl, type Pt, type Topology } from './geometry';
+import { adminInWorker } from './geoClient';
+import type { AdminResult, PlacePoint } from './geoWork';
+import { inFeature, type Feat, type FeatColl, type Pt, type Topology } from './geometry';
 
 export type AdminLevel = GlobeAdminLevel;
 
-export const slugify = (s: string): string =>
-  s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-
-/** Turns a decoded admin topology into sorted features with a bbox, centroid and URL slug each. */
-export function adminFeatures(topo: Topology): FeatColl {
-  const fc = topoFeatures(topo, topo.objects[Object.keys(topo.objects)[0]]);
-  fc.features = fc.features.filter((f) => f.geometry);
-  fc.features.forEach((f) => {
-    f.properties.name = (f.properties.name as string) || (f.properties.shapeName as string) || '?';
-    f._bbox = bbox(f);
-    f._c = centroid(f);
-    f.properties.slug = slugify(String(f.properties.name));
-  });
-  fc.features.sort((a, b) => String(a.properties.name).localeCompare(String(b.properties.name)));
-  fc.features.forEach((f, i) => { f.id = i; });
-  return fc;
-}
+export { adminFeatures, slugify } from './geoWork';
+import { slugify } from './geoWork';
 
 /**
  * Finds the admin shape a URL slug names. LD's slugs come from our own place data ("south-tyrol"), the shapes from
@@ -47,15 +34,20 @@ export function resolveFeature(fc: FeatColl, slug: string, points: Pt[] = []): n
   return loose[0] ? (loose[0].id as number) : null;
 }
 
-const cache = new Map<string, Promise<FeatColl | null>>();
+export interface LoadedAdmin extends AdminResult { fc: FeatColl }
 
-/** Lazy and cached. Resolves null when the country has no file for that level. */
-export function loadAdmin(a3: string, level: AdminLevel): Promise<FeatColl | null> {
-  const key = a3 + level;
+const cache = new Map<string, Promise<LoadedAdmin | null>>();
+
+/**
+ * Lazy and cached: the file (through the data module), then the shapes, the counts of our places and the drawn GeoJSON, in a worker.
+ * Resolves null when the country has no file for that level. `within` keeps the districts inside one state.
+ */
+export function loadAdmin(a3: string, level: AdminLevel, o: { part?: string; pins?: PlacePoint[]; within?: Feat | null } = {}): Promise<LoadedAdmin | null> {
+  const key = `${a3}${level}${o.part ?? ''}${o.within ? `#${String(o.within.properties.slug ?? o.within.id)}` : ''}`;
   const hit = cache.get(key);
   if (hit) return hit;
-  const p = globeAdmin(a3, level)
-    .then((topo) => (topo ? adminFeatures(topo as Topology) : null))
+  const p = globeAdmin(a3, level, o.part)
+    .then((topo) => (topo ? adminInWorker({ topo: topo as Topology, pins: o.pins ?? [], within: o.within ?? null }) : null))
     .catch(() => { cache.delete(key); return null; });
   cache.set(key, p);
   return p;

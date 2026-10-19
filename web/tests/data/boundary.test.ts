@@ -66,7 +66,7 @@ describe('the client data boundary (principle P9)', () => {
   it('the data module exposes the globe reference readers', () => {
     const text = all.find((s) => s.rel === THE_MODULE)!.text;
     expect(text).toContain('// ---------------------------------------------------------------- globe reference geo (2.49)');
-    for (const fn of ['globeCountries', 'globeCountryFacts', 'globeAdminManifest', 'globeAdmin', 'globeGazetteer', 'globeLakes']) expect(text, fn).toMatch(new RegExp(`export (async )?(function|const) ${fn}\\b`));
+    for (const fn of ['globeCountries', 'globeCountryFacts', 'globeAdminManifest', 'globeAdmin', 'globeGazetteer', 'globeLakes', 'globeCityAreas']) expect(text, fn).toMatch(new RegExp(`export (async )?(function|const) ${fn}\\b`));
   });
 
   it('the check can fail: a stray fetch of a search part would be caught', () => {

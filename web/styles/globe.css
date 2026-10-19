@@ -119,7 +119,7 @@ span.globe-pin { cursor: default; }
 .globe-result-kind b { color: var(--ink-2); font-weight: 600; }
 
 /* ---------- control card, zoom, hint, status ---------- */
-.globe-card-controls { position: absolute; z-index: 7; left: 12px; bottom: 36px; width: 316px; padding: 12px; border-radius: var(--r-4); background: color-mix(in srgb, var(--surface) 92%, transparent); box-shadow: var(--e-2); }
+.globe-card-controls { position: absolute; z-index: 7; left: 12px; bottom: 36px; width: 316px; padding: 12px; border-radius: var(--r-4); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--e-2); }
 .globe-controls { display: grid; gap: var(--s-2); }
 .globe-ctl-row { display: grid; gap: 6px; }
 .globe-controls .seg { width: 100%; }
@@ -129,15 +129,16 @@ span.globe-pin { cursor: default; }
 .globe-zoom { position: absolute; z-index: 7; right: 12px; bottom: 72px; display: grid; gap: 6px; transition: right var(--d-base) var(--e-out); }
 .globe-root[data-panel='open'] .globe-zoom { right: var(--globe-panel-gap); }
 .globe-hint { position: absolute; z-index: 6; left: 50%; bottom: 36px; transform: translateX(-50%); margin: 0; padding: 7px 14px; border-radius: var(--r-full); background: color-mix(in srgb, var(--toast-bg) 85%, transparent); color: var(--toast-ink); font: var(--t-meta); white-space: nowrap; pointer-events: none; }
-.globe-root[data-panel='open'] .globe-hint { left: calc(50% - var(--globe-panel-w) / 2); }
-.globe-status { position: absolute; z-index: 7; left: 50%; top: 64px; transform: translateX(-50%); margin: 0; padding: 6px 12px; border-radius: var(--r-full); background: var(--toast-bg); color: var(--toast-ink); font: var(--t-meta); }
-.globe-root[data-panel='open'] .globe-status { left: calc(50% - var(--globe-panel-w) / 2); }
+.globe-root[data-panel='open'] .globe-hint { left: calc((100% - var(--globe-panel-gap)) / 2); }
+.globe-status { position: absolute; z-index: 7; left: 50%; top: auto; bottom: 76px; transform: translateX(-50%); max-width: calc(100% - var(--globe-panel-gap, 0px) - 120px); text-align: center; margin: 0; padding: 6px 12px; border-radius: var(--r-full); background: var(--toast-bg); color: var(--toast-ink); font: var(--t-meta); }
+.globe-root[data-panel='open'] .globe-status { left: calc((100% - var(--globe-panel-gap)) / 2); }
 .globe-fail-note { background: var(--surface); color: var(--crit); border: 1px solid var(--crit); }
 
 /* ---------- side panel ---------- */
 .globe-panel { position: absolute; z-index: 7; top: 12px; right: 12px; bottom: 36px; width: var(--globe-panel-w); display: flex; flex-direction: column; border-radius: var(--r-4); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--e-2); overflow: hidden; animation: globe-fade var(--d-base) var(--e-out) both; }
 .globe-panel-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); padding: 10px 10px 10px 16px; border-bottom: 1px solid var(--line); }
-.globe-panel-head h2 { margin: 0; font: var(--t-card); text-transform: uppercase; letter-spacing: 0.02em; font-size: 22px; }
+.globe-panel-head h2 { display: flex; align-items: baseline; gap: 8px; margin: 0; font: var(--t-card); font-size: 20px; text-transform: none; letter-spacing: 0; }
+.globe-panel-count { font: var(--t-meta); color: var(--muted); }
 .globe-panel-body { overflow: auto; flex: 1; overscroll-behavior: contain; }
 .globe-panel-tab { position: absolute; z-index: 7; right: 0; top: 72px; width: 44px; height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--line-2); border-right: 0; border-radius: var(--r-4) 0 0 var(--r-4); background: var(--surface); color: var(--ink); cursor: pointer; box-shadow: var(--e-1); font: var(--t-cap); }
 @keyframes globe-fade { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
@@ -154,44 +155,77 @@ span.globe-pin { cursor: default; }
 .globe-row-name { font: 500 15.5px/1.3 var(--font-body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .globe-row-meta { font: var(--t-meta); color: var(--muted); }
 
-/* ---------- selection card ---------- */
+/* ---------- selection card (spec 4.3): image first, one close, a field with no value is left out ---------- */
 .globe-card-anchor { z-index: 20; }
-.globe-card { width: 320px; overflow: hidden; border-radius: var(--r-4); background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); box-shadow: var(--e-2); animation: globe-card-in var(--d-base) var(--e-out) both; text-align: left; }
+.globe-card { width: 320px; overflow: hidden; border-radius: var(--r-4); background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); box-shadow: var(--e-2); animation: globe-card-in 200ms var(--e-out) both; text-align: left; }
 @keyframes globe-card-in { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
 .globe-card-photo { position: relative; height: 150px; background: var(--well); }
 .globe-card-photo img, .globe-card-photo .img-fallback { width: 100%; height: 100%; object-fit: cover; display: block; }
-.globe-card-photo .globe-card-x { position: absolute; top: 8px; right: 8px; background: color-mix(in srgb, var(--surface) 92%, transparent); }
-.globe-card-credit { margin: 0; padding: 4px 12px; font: 400 11.5px/1.4 var(--font-mono); color: var(--muted); border-bottom: 1px solid var(--line); }
-.globe-card-credit a { color: inherit; text-decoration: underline; }
-.globe-card-body { display: grid; gap: var(--s-2); padding: 12px 14px 14px; }
-.globe-card-title { margin: 0; font: var(--t-card); text-transform: uppercase; letter-spacing: 0.01em; font-size: 22px; line-height: 1; }
-.globe-card-area { margin: 0; font: var(--t-meta); color: var(--muted); }
+.globe-card-photo::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 44px; background: linear-gradient(to top, color-mix(in srgb, var(--ink) 55%, transparent), transparent); pointer-events: none; }
+.globe-card-photo .globe-card-x { position: absolute; top: 8px; right: 8px; z-index: 1; background: color-mix(in srgb, var(--surface) 92%, transparent); }
+.globe-card-credit-on { position: absolute; left: 10px; bottom: 6px; z-index: 1; max-width: calc(100% - 20px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 11px/1.3 var(--font-mono); color: var(--kicker-on-photo); text-shadow: 0 1px 2px rgb(0 0 0 / 0.7); }
+.globe-card-credit-on a { color: inherit; text-decoration: underline; }
+/* a place with no photo: a 96 px compact header with the kind glyph and the area, never an empty well */
+.globe-card-head { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 8px 12px 14px; background: var(--surface-2); }
+.globe-card-glyph { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: var(--r-full); background: var(--surface); color: var(--ink-2); flex: none; }
+.globe-card-head-area { flex: 1; min-width: 0; font: var(--t-meta); color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.globe-card-body { display: grid; gap: 6px; padding: 12px 14px 14px; }
+.globe-card-kicker { margin: 0; font: var(--t-cap); letter-spacing: 0.06em; color: var(--muted); }
+.globe-card-kicker span { color: var(--ink-2); text-transform: uppercase; }
+.globe-card-title { margin: 0; font: var(--t-card); font-size: 20px; line-height: 1.15; letter-spacing: 0; }
+.globe-card-summary { margin: 0; font: var(--t-meta); color: var(--ink-2); }
+.globe-card-facts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 0; }
+.globe-card-facts div { min-width: 0; }
+.globe-card-facts dt { font: var(--t-cap); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.globe-card-facts dd { margin: 0; font: 500 14px/1.35 var(--font-body); color: var(--ink); }
+.globe-card-used { display: flex; align-items: center; gap: 6px; margin: 2px 0 0; font: var(--t-meta); color: var(--ink-2); }
+.globe-card-used a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.globe-card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin-top: 6px; }
+.globe-card-act { display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 0 10px; border: 0; border-radius: var(--r-3); background: none; color: var(--ink-2); font: 500 14px/1 var(--font-body); cursor: pointer; text-decoration: none; }
+.globe-card-act:hover { background: var(--surface-2); color: var(--ink); }
 .globe-card-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.globe-card-open { justify-self: start; margin-top: var(--s-1); }
+.globe-card-chips:empty { display: none; }
+.globe-feature-anchor { z-index: 20; }
+.globe-feature-anchor .globe-feature { position: relative; left: auto; top: auto; width: 300px; animation: globe-card-in 200ms var(--e-out) both; }
 .globe-feature { position: absolute; z-index: 7; left: 12px; top: 64px; width: 260px; padding: 10px 12px; border-radius: var(--r-4); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--e-2); }
 .globe-feature p { margin: 0; }
 .globe-feature-k { font: var(--t-cap); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); }
-.globe-feature-n { font: 600 17px/1.3 var(--font-body); }
+.globe-feature-n { margin: 0; font: 600 17px/1.3 var(--font-body); }
+.globe-feature-rows { margin: 6px 0 0; display: grid; gap: 2px; }
+.globe-feature-rows div { display: flex; justify-content: space-between; gap: 12px; }
+.globe-feature-rows dt { font: var(--t-meta); color: var(--muted); }
+.globe-feature-rows dd { margin: 0; font: 500 14px/1.35 var(--font-body); }
+.globe-feature-skel { display: grid; gap: 6px; margin-top: 8px; }
+.globe-feature-skel span { display: block; height: 14px; border-radius: 4px; background: var(--well); animation: globe-skel 1.2s ease-in-out infinite; }
+.globe-feature-skel span + span { width: 60%; }
+@keyframes globe-skel { 50% { opacity: 0.5; } }
+.globe-feature-foot { margin: 8px 0 0; font: 400 11.5px/1.3 var(--font-mono); color: var(--muted); }
+.globe-feature-copy { border: 0; background: none; padding: 0; color: var(--ink-2); font: inherit; text-decoration: underline; cursor: pointer; }
 .globe-feature-m { font: var(--t-meta); color: var(--muted); }
 .globe-feature-actions { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); font: var(--t-meta); }
 .globe-feature-x { position: absolute; top: 4px; right: 4px; }
 
 /* ---------- phone ---------- */
-.globe-options-btn, .globe-list-btn { position: absolute; z-index: 7; right: 12px; bottom: 188px; }
-.globe-list-btn { bottom: 44px; }
+.globe-options-btn, .globe-list-btn { position: absolute; z-index: 7; right: 12px; bottom: 188px; width: 44px; height: 44px; min-width: 44px; padding: 0; }
+.globe-list-btn { bottom: 56px; }
+.globe-card-sheet { position: absolute; z-index: 8; left: 0; right: 0; bottom: 0; max-height: 52%; overflow: auto; overscroll-behavior: contain; border-radius: 18px 18px 0 0; background: var(--surface); border-top: 1px solid var(--line-2); box-shadow: var(--e-2); animation: globe-sheet-in 220ms var(--e-out) both; }
+@keyframes globe-sheet-in { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
 .sheet-bottom-frame.globe-sheet { bottom: var(--phone-bottombar-h); z-index: var(--z-drawer); }
 @media (max-width: 639px) {
   .globe-top { display: block; top: 8px; left: 8px; right: 8px; }
   .globe-search { width: 100%; }
   .globe-crumbs { position: absolute; left: 8px; top: 48px; max-width: calc(100vw - 80px); z-index: 7; } /* top, so no sheet height can cover it */
   .globe-card-controls, .globe-hint { display: none; }
-  .globe-zoom { top: 56px; right: 8px; bottom: auto; }
-  .globe-zoom > :not(:first-child) { display: none; } /* phones pinch to zoom; the reset button stays */
-  .globe-status { top: 104px; }
+  .globe-zoom { top: auto; right: 12px; bottom: 244px; } /* above the options button: one icon rail above the sheet's peek */
+  .globe-zoom .btn { width: 44px; height: 44px; }
+  .globe-zoom [aria-label='Zoom in'], .globe-zoom [aria-label='Zoom out'] { display: none; } /* phones pinch to zoom; the reset buttons stay */
+  .globe-status { top: 104px; bottom: auto; }
   .globe-card { width: 100%; border: 0; box-shadow: none; border-radius: 0; animation: none; }
-  .globe-card-photo { height: 140px; }
+  .globe-card-photo { height: 132px; }
   .globe-feature { left: 8px; right: 8px; top: auto; bottom: calc(var(--phone-bottombar-h) + 246px); width: auto; }
   .globe-options-btn { bottom: 188px; }
+  .globe-root:has(.globe-card-sheet) .globe-options-btn { display: none; }
+  .globe-root:has(.globe-card-sheet) .globe-zoom { top: 96px; bottom: auto; } /* with a card sheet open the rail moves up, so Reset view is never under it */
 }
 
  /* ---------- landscape phone (844x390): a 300 px side peek, options behind a button, nothing stacked on the canvas ---------- */
@@ -212,12 +246,12 @@ span.globe-pin { cursor: default; }
   .globe-card { width: 280px; }
   .globe-card-photo { height: 96px; }
   .globe-feature { top: 56px; width: 240px; }
-  .globe-status { top: 104px; }
+  .globe-status { top: 104px; bottom: auto; }
 }
 
 /* ---------- reduced motion: fades only ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .globe-panel, .globe-card, .globe-marker-fan { animation: globe-fade-only 120ms linear both; }
+  .globe-panel, .globe-card, .globe-card-sheet, .globe-marker-fan, .globe-feature-anchor .globe-feature { animation: globe-fade-only 120ms linear both; }
   .globe-pin, .globe-pin-tag, .globe-root .maplibregl-ctrl-bottom-right, .globe-top, .globe-zoom { transition-duration: 120ms; }
   .globe-marker > .globe-pin { animation-duration: 120ms; animation-delay: 0ms; }
 }
@@ -254,9 +288,41 @@ span.globe-pin { cursor: default; }
 /* the hint would sit on top of the control card on narrow desktops */
 @media (max-width: 1199px) { .globe-hint { display: none; } }
 
-/* a card with no photo has a compact header, not an empty well */
-.globe-card-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 8px 0 14px; }
-.globe-card-glyph { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: var(--r-full); background: var(--surface-2); color: var(--ink-2); }
-
 /* shader warm-up: the borrowed zoomed-in frame is never seen */
 .globe-map[data-warming] .maplibregl-canvas, .globe-map[data-warming] .maplibregl-marker, .globe-map[data-warming] .globe-tip { visibility: hidden; }
+
+/* ---------- immersive mode (spec 3.4): every floating element fades out but the attribution ---------- */
+.globe-root[data-immersive='true'] .globe-top,
+.globe-root[data-immersive='true'] .globe-panel,
+.globe-root[data-immersive='true'] .globe-panel-tab,
+.globe-root[data-immersive='true'] .globe-card-controls,
+.globe-root[data-immersive='true'] .globe-card-pill,
+.globe-root[data-immersive='true'] .globe-zoom,
+.globe-root[data-immersive='true'] .globe-hint,
+.globe-root[data-immersive='true'] .globe-status,
+.globe-root[data-immersive='true'] .globe-options-btn,
+.globe-root[data-immersive='true'] .globe-list-btn,
+.globe-root[data-immersive='true'] .globe-sheet { opacity: 0; pointer-events: none; animation: none; transition: opacity 200ms var(--e-out); }
+.globe-show-controls { position: absolute; z-index: 9; left: 50%; bottom: 36px; transform: translateX(-50%); min-height: 32px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface); color: var(--ink); font: var(--t-meta); cursor: pointer; box-shadow: var(--e-1); animation: globe-show-fade 3s var(--e-std) both; }
+.globe-show-controls:hover, .globe-show-controls:focus-visible { animation: none; opacity: 1; }
+@keyframes globe-show-fade { 0%, 70% { opacity: 1; } 100% { opacity: 0.4; } }
+.globe-ctl-hide { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 4px; border: 0; background: none; color: var(--ink-2); font: var(--t-meta); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.globe-ctl-hide kbd { font: 500 11px/1 var(--font-mono); padding: 2px 5px; border: 1px solid var(--line-2); border-radius: 4px; background: var(--surface-2); }
+
+/* ---------- attribution: compact, one line, and clear of the rail and the panel ---------- */
+.globe-root .maplibregl-ctrl-attrib.maplibregl-compact { min-height: 24px; background: color-mix(in srgb, var(--surface) 92%, transparent); border-radius: var(--r-full); font: 400 11.5px/1.6 var(--font-mono); }
+.globe-root .maplibregl-ctrl-attrib.maplibregl-compact-show { max-width: min(520px, 60vw); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.globe-root .maplibregl-ctrl-bottom-right { z-index: 5; }
+.globe-root .maplibregl-ctrl-bottom-right .maplibregl-ctrl { margin: 0 8px 8px 0; }
+
+/* ---------- what is here (spec 4.1 rule 6): a popover at the point on a desktop, a sheet on a phone ---------- */
+.globe-here { --hx: 0; --hy: 0; position: absolute; z-index: 9; left: clamp(8px, calc(var(--hx) * 1px + 12px), calc(100% - 300px)); top: clamp(8px, calc(var(--hy) * 1px + 12px), calc(100% - 292px)); width: 288px; max-height: 280px; overflow: auto; padding: 4px; border-radius: var(--r-4); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--e-2); animation: globe-card-in 200ms var(--e-out) both; }
+.globe-here header { display: flex; align-items: center; justify-content: space-between; padding: 4px 4px 4px 12px; }
+.globe-here h2 { margin: 0; font: var(--t-cap); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.globe-here ul { margin: 0; padding: 0; list-style: none; }
+.globe-here-row { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; min-height: 44px; justify-content: center; padding: 4px 12px; margin: 0; border: 0; border-radius: var(--r-3); background: none; color: var(--ink); text-align: left; font: 500 15px/1.3 var(--font-body); cursor: pointer; }
+button.globe-here-row:hover { background: var(--surface-2); }
+.globe-here-row small { font: var(--t-meta); color: var(--muted); }
+@media (max-width: 639px), (max-height: 500px) and (orientation: landscape) {
+  .globe-here { left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: 52%; border-radius: 18px 18px 0 0; }
+}
