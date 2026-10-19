@@ -135,10 +135,10 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
       </header>
 
       <div className="tl-day-body">
-        {tl.variant.reason && day.variants.length > 1 ? <p className="tl-reason num" title={tl.variant.reason}>{tl.variant.reason}</p> : null}
+        {tl.variant.reason && day.variants.length > 1 ? <p className="tl-reason num" title={tl.variant.reason}><Prose text={tl.variant.reason} /></p> : null}
         {noFit ? (
           <p className="tl-nofit" role="note">
-            <Icon name="warn" size={15} /> <b>Not suited to every setting.</b> {noFit.text}.
+            <Icon name="warn" size={15} /> <b>Not suited to every setting.</b> <Prose text={noFit.text} />.
           </p>
         ) : null}
         {day.summary ? <p className="tl-summary"><Prose text={day.summary} /></p> : null}
@@ -151,14 +151,14 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
           <ul className="tl-day-warns">
             {dayWarnings.map((w) => (
               <li key={`${w.code}:${w.message}`} className="tl-warn" data-code={w.code}>
-                <Icon name="warn" size={14} /> <span>{w.message}</span>
+                <Icon name="warn" size={14} /> <Prose text={w.message} />
               </li>
             ))}
           </ul>
         ) : null}
         {splitOpt ? (
           <p className="tl-split" data-quiet={/^Optional/.test(splitOpt.text) || undefined}>
-            <Icon name="trail" size={15} /> <span>{splitOpt.text}</span>
+            <Icon name="trail" size={15} /> <Prose text={splitOpt.text} />
           </p>
         ) : null}
         {split ? (
@@ -196,7 +196,9 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
               <Icon name="chevronDown" size={14} /> Know before you go · {knowCount}
             </button>
           ) : null}
-          <CopyDayLink trip={trip} day={day.n} />
+          <span data-day-link={day.n}>
+            <CopyDayLink trip={trip} day={day.n} />
+          </span>
         </div>
         {knowCount > 0 ? (
           <div id={`know-${day.n}`} className="tl-know" hidden={!knowOpen}>
