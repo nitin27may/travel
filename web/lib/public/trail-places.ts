@@ -111,6 +111,19 @@ function wikidataPoint(root: string): Map<string, Point> {
 
 const norm = (s: string): string => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
+/** Research markers that are about how a value was found, not about the trail: a value with only these is "not known". */
+const MARKER = /\b(?:INFERENCE|CALC|GAP)\b|low confidence|in the dataset/;
+/** Drops the sentences and clauses that carry a research marker. Small and local: it moves to prose.ts when that lands (backlog 3.20). */
+export function cleanNote(text: string | null | undefined): string {
+  return (text ?? '')
+    .split(/(?<=\.)\s+/)
+    .map((x) => x.trim())
+    .filter((x) => x && !MARKER.test(x))
+    .join(' ')
+    .trim();
+}
+const clean = (text: string | null | undefined): string => publicSentences(cleanNote(text));
+
 const hostOf = (u: string) => {
   try {
     return new URL(u).hostname.replace(/^www\./, '');
@@ -172,12 +185,12 @@ export function trailSeeds(src: Sources): TrailSeed[] {
         if (rt) {
           add('Distance', rt.km ? `${rt.km} km` : null);
           add('Climb', rt.gain_m ? `${rt.gain_m} m` : null);
-          add('Time', rt.hours);
+          add('Time', clean(rt.hours));
           add('Difficulty', rt.difficulty ? rt.difficulty[0].toUpperCase() + rt.difficulty.slice(1) : null);
-          add('Trailhead', publicSentences(rt.trailhead));
-          add('Parking', publicSentences(rt.parking_or_shuttle));
-          add('Kids', publicSentences(rt.child_note));
-          hazards = publicSentences(rt.hazards) ? [publicSentences(rt.hazards)] : [];
+          add('Trailhead', clean(rt.trailhead));
+          add('Parking', clean(rt.parking_or_shuttle));
+          add('Kids', clean(rt.child_note));
+          hazards = clean(rt.hazards) ? [clean(rt.hazards)] : [];
           link('official', `Official page (${hostOf(rt.official_url ?? '')})`, rt.official_url);
           for (const u of rt.source_urls ?? []) link('official', `Source page (${hostOf(u)})`, u);
           link('map_sheet', 'Map search (Google Maps, link only)', rt.map_url, true);
@@ -197,9 +210,9 @@ export function trailSeeds(src: Sources): TrailSeed[] {
           hazards,
           links,
           none,
-          seasonNote: rt ? publicSentences(rt.sept_notes) || null : null,
+          seasonNote: rt ? clean(rt.sept_notes) || null : null,
           summary: '',
-          stats: { distanceKm: rt?.km ?? null, gainM: rt?.gain_m ?? null, hours: rt?.hours ?? null },
+          stats: { distanceKm: rt?.km ?? null, gainM: rt?.gain_m ?? null, hours: rt ? clean(rt.hours) || null : null },
           payoff: tripPayoff,
           datedSource: !!read,
           hasFacts: facts.length > 0 || links.length > 0,

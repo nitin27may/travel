@@ -98,7 +98,7 @@
 /* the route */
 .pl-route-line { font: var(--t-mono); color: var(--ink-2); margin: 0; }
 .pl-profile { display: grid; gap: var(--s-2); margin: 0; }
-.pl-profile svg { width: 100%; height: auto; max-height: 190px; touch-action: pan-y; cursor: crosshair; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-3); }
+.pl-profile > svg { width: 100%; height: auto; max-height: 190px; touch-action: pan-y; cursor: crosshair; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-3); }
 .pl-grid { stroke: var(--line); stroke-width: 1; }
 .pl-tick { font: 11.5px var(--font-mono); fill: var(--muted); }
 .pl-line { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
@@ -175,7 +175,7 @@
 
 /* trail map, profile and export (L4b) */
 .pl-map-credit { margin: var(--s-2) 0 0; }
-.pl-export-note { flex-basis: 100%; }
+.pl-export-note { flex-basis: 100%; color: var(--ink-2); }
 .pl-payoff { margin: 0; font: var(--t-small); color: var(--ink-2); }
 .pl-payoff a { font-weight: 600; }
 .pl-profile figcaption [class*='chip'] { white-space: normal; max-width: 100%; text-align: left; }
