@@ -1,7 +1,9 @@
 {
   "schema": "trail-track/1",
   "place": "cinque-torri",
-  "refs": [],
+  "refs": [
+    "place/cinque-torri"
+  ],
   "osm": [
     "way:229103971",
     "way:318733621",
@@ -15,9 +17,13 @@
   "confirmed": false,
   "held_back": [
     "the relation does not stitch into one line",
-    "starts 1411 m from our trailhead"
+    "our trailhead is 1292 m from the line",
+    "not cut: the record runs on both sides of the trailhead and no destination point is recorded"
   ],
-  "start_offset_m": 1411,
+  "start_offset_m": 1292,
+  "end_offset_m": null,
+  "cut": null,
+  "legs": [],
   "simplify_m": 5,
   "totals": {
     "km": 1.23,

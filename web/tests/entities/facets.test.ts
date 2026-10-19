@@ -225,3 +225,22 @@ describe('URL state (P9): k and f.<facet>', () => {
     expect(s.facets).toEqual({ 'f.dogs': ['yes'] });
   });
 });
+
+describe('real data: the Shape facet passes the 60% rule on Trails (backlog 3.25)', () => {
+  it('76 trails carry a shape from their trail record, and the facet shows with its values', () => {
+    const trails = real.filter((r) => typeInScope(r.type, ['nature.trail']));
+    const answered = trails.filter((r) => r.shape).length;
+    expect(answered).toBeGreaterThanOrEqual(76);
+    expect(answered / trails.length).toBeGreaterThanOrEqual(MIN_COVERAGE);
+    const st = scopeState(d, real, decodeState('k=nature.trail'));
+    expect(st.shown.has('f.shape')).toBe(true);
+    expect(new Set(trails.map((r) => r.shape).filter(Boolean)).size).toBeGreaterThanOrEqual(2);
+  });
+  it('a trail page made from its capture record joins that record by ref, not by a name another record shares', () => {
+    const kinney = real.find((r) => r.slug.startsWith('kinney-lake') && r.kind === 'trail');
+    if (kinney) expect(kinney.shape).toBe('out-and-back');
+    const braies = real.find((r) => r.name === 'Lago di Braies walk');
+    expect(braies?.shape).toBe('loop');
+  });
+});
+

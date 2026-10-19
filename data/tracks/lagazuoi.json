@@ -12,9 +12,13 @@
   "stitched": true,
   "confirmed": false,
   "held_back": [
-    "starts 509 m from our trailhead"
+    "the stored OSM relation is the wrong route: the stored relation is the Kaiserjäger Steig (the way up), not the tunnels; no OSM relation exists for the Galleria del Lagazuoi",
+    "not cut: the record runs on both sides of the trailhead and no destination point is recorded"
   ],
-  "start_offset_m": 509,
+  "start_offset_m": 212,
+  "end_offset_m": null,
+  "cut": null,
+  "legs": [],
   "simplify_m": 5,
   "totals": {
     "km": 2.57,

@@ -1,0 +1,124 @@
+{
+  "schema": "trip-base-points/1",
+  "note": "The pin of a trip that has no positioned base or stop in its days, for the trips map and the globe (web/lib/public/globe.ts tripPin). Keyed by ref trip/<legacy folder>. A trip's own first base wins when it has one. Coordinates come from OSM or Wikidata only, never Google; every point names its source row, which core/bin/sources.ts build registers. Why a separate file: data/capture/points.json holds points of capture records by record ref, and a trip is not a capture record.",
+  "researched": "2026-10-19",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.openstreetmap.org/node/1485292613",
+      "title": "Dwight (OSM place=locality, wikidata Q1521274)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.openstreetmap.org/way/272966214",
+      "title": "Niagara Glen Nature Centre (OSM way)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.openstreetmap.org/node/360010114",
+      "title": "Hotel Hacienda Guachipelin (OSM tourism=hotel)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.wikidata.org/wiki/Q145948",
+      "title": "Svolvaer (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.wikidata.org/wiki/Q4191",
+      "title": "Lucerne (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api"
+    }
+  ],
+  "records": [
+    {
+      "ref": "trip/algonquin-muskoka-oct-2026",
+      "name": "Dwight (base area, Lake of Bays)",
+      "why": "the trip's one base",
+      "point": {
+        "lat": 45.33099,
+        "lon": -79.0115,
+        "point_source": "osm_node 1485292613",
+        "point_checked": "agent checked 2026-10-19 (CS7b); needs a person's check",
+        "src": [
+          "src-0001"
+        ]
+      }
+    },
+    {
+      "ref": "trip/niagara-day-aug-2026",
+      "name": "Niagara Glen Nature Centre (first stop)",
+      "why": "the plan's base is the household's home town, never a pin; the Glen is the first stop and the subject of the day",
+      "point": {
+        "lat": 43.12922,
+        "lon": -79.06,
+        "point_source": "osm_way 272966214",
+        "point_checked": "agent checked 2026-10-19 (CS7b); needs a person's check",
+        "src": [
+          "src-0002"
+        ]
+      }
+    },
+    {
+      "ref": "trip/costa-rica-feb-2027",
+      "name": "Hotel Hacienda Guachipelin (first base, Rincon de la Vieja)",
+      "why": "the plan's pick for the first base",
+      "point": {
+        "lat": 10.75208,
+        "lon": -85.37965,
+        "point_source": "osm_node 360010114",
+        "point_checked": "agent checked 2026-10-19 (CS7b); needs a person's check",
+        "src": [
+          "src-0003"
+        ]
+      }
+    },
+    {
+      "ref": "trip/norway-summer",
+      "name": "Svolvaer (first base)",
+      "why": "first of the ten bases",
+      "point": {
+        "lat": 68.23333,
+        "lon": 14.56667,
+        "point_source": "wikidata Q145948",
+        "point_checked": "agent checked 2026-10-19 (CS7b); needs a person's check",
+        "src": [
+          "src-0004"
+        ]
+      }
+    },
+    {
+      "ref": "trip/switzerland-2027",
+      "name": "Lucerne (first base)",
+      "why": "first of the three bases",
+      "point": {
+        "lat": 47.0523,
+        "lon": 8.3059,
+        "point_source": "wikidata Q4191",
+        "point_checked": "agent checked 2026-10-19 (CS7b); needs a person's check",
+        "src": [
+          "src-0005"
+        ]
+      }
+    }
+  ]
+}

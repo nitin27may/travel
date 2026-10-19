@@ -110,3 +110,24 @@ describe("automated access (capture contract 9.2)", () => {
     expect(notesFor("docs/v2/research/suitability.md").automated).toBe("allowed");
   });
 });
+
+describe("trip base points (backlog 3.41) and the Drei Zinnen page (3.30)", () => {
+  const root = join(import.meta.dirname, "..", "..", "..");
+  const { registry } = buildRegistry(root);
+  it("registers the source of each of the five trip pins and ties it to its trip", () => {
+    const used = registry.entries.filter((e) => e.used_by.some((u) => u.file === "data/trips/base-points.json"));
+    expect(used.map((e) => e.url).sort()).toEqual([
+      "https://www.openstreetmap.org/node/1485292613",
+      "https://www.openstreetmap.org/node/360010114",
+      "https://www.openstreetmap.org/way/272966214",
+      "https://www.wikidata.org/wiki/Q145948",
+      "https://www.wikidata.org/wiki/Q4191",
+    ]);
+    for (const e of used) expect(e.used_by[0]!.ref).toMatch(/^trip\//);
+  });
+  it("registers the suedtirol.info Drei Zinnen page, used by the Tre Cime loop", () => {
+    const e = registry.entries.find((x) => x.url.includes("summer-walk-around-the-drei-zinnen"))!;
+    expect(e.kind).toBe("official");
+    expect(e.used_by.some((u) => u.ref === "place/tre-cime-di-lavaredo-loop")).toBe(true);
+  });
+});

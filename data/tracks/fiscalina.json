@@ -1,7 +1,9 @@
 {
   "schema": "trail-track/1",
   "place": "fiscalina",
-  "refs": [],
+  "refs": [
+    "place/val-fiscalina"
+  ],
   "osm": [
     "relation:1116674"
   ],
@@ -13,10 +15,13 @@
   "confirmed": false,
   "held_back": [
     "the relation does not stitch into one line",
-    "starts 1702 m from our trailhead",
+    "not cut: the record runs on both sides of the trailhead and no destination point is recorded",
     "20.9 km against 4.7 km researched"
   ],
-  "start_offset_m": 1702,
+  "start_offset_m": 47,
+  "end_offset_m": null,
+  "cut": null,
+  "legs": [],
   "simplify_m": 5,
   "totals": {
     "km": 20.9,

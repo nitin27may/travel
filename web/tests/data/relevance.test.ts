@@ -89,6 +89,19 @@ describe('publicRelevance: routes take the draw from their payoff (CC-adapter 3)
     expect(r.badge).not.toBeNull();
     expect(r.why).toBeTruthy();
   });
+  it('the Larch Valley route takes its badge from Sentinel Pass and names it (backlog 3.18, S6)', () => {
+    const route = [...ctx.derived.keys()].find((r) => r.endsWith('trails/larch-valley-sentinel-pass'))!;
+    const r = publicRelevance(ctx, route);
+    expect(r.fromPayoff).toBe(true);
+    expect(r.payoff!.ref).toMatch(/larch-valley-sentinel-pass#sentinel-pass$/);
+    expect(r.payoff!.name).toBe('Sentinel Pass');
+    expect(r.badge).toEqual({ kind: 'journey', label: 'Worth the journey' });
+    expect(r.payoffMissing).toBe(false);
+    // the pass carries the judgement itself, and the larch-colour peak with it
+    const pass = publicRelevance(ctx, r.payoff!.ref);
+    expect(pass.fromPayoff).toBe(false);
+    expect(pass.notJudged).toBe(false);
+  });
 });
 
 describe('publicRelevance: Nearby, worth adding', () => {
@@ -190,6 +203,11 @@ describe('publicRelevance: the pointer and Plan B', () => {
     }
   });
 
+  it('gives Moraine Lake, whose shuttle sits in the access season, a Plan B (backlog 3.17)', () => {
+    const p = publicRelevance(ctx, find('sights/moraine-lake')).planB;
+    expect(p).not.toBeNull();
+    expect(p!.name).toBeTruthy();
+  });
   it('gives an anchor with a fallible access cost its Plan B, with the risk in words', () => {
     let seen: ReturnType<typeof publicRelevance>['planB'] = null;
     for (const [ref, it] of ctx.derived) {

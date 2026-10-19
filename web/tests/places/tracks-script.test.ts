@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  checkTracks, collectInputs, decodeTerrarium, formatTrack, haversine, lengthConsistent, lengthM, osmRefsOf, resample, simplifyLine, stitchWays, totalsFromSamples, unconfirmedIds, waysFromOsmApi, waysFromOverpass,
+  checkTracks, collectInputs, decodeTerrarium, formatTrack, haversine, lengthConsistent, lengthM, offsetToWays, osmRefsFromCapture, osmRefsOf, resample, routeThrough, simplifyLine, stitchWays, totalsFromSamples, unconfirmedIds, waysFromOsmApi, waysFromOverpass,
   type TrackFile,
 } from '../../scripts/tracks-osm.mjs';
 
@@ -141,5 +141,94 @@ describe('--check', () => {
   it('formats a track as text that parses back', () => {
     const t = file('a', ['relation:111111'], { geometry: Array.from({ length: 20 }, (_, i) => [11 + i / 1000, 46] as [number, number]), elevation: [[0, 1500], [25, 1501.5]] });
     expect(JSON.parse(formatTrack(t))).toEqual({ ...t, held_back: undefined });
+  });
+});
+
+describe('matching a track to our trailhead (3.38)', () => {
+  // a straight east-west path, 0 to 0.04 degrees (about 3 km), with the trailhead part way along it
+  const path = way([0, 46], [0.01, 46], [0.02, 46], [0.03, 46], [0.04, 46]);
+  const th = { lat: 46.0004, lon: 0.015 };
+  it('measures the offset to the nearest point of the line, not to the nearer end', () => {
+    const toEnd = Math.min(haversine([0, 46], [th.lon, th.lat]), haversine([0.04, 46], [th.lon, th.lat]));
+    expect(toEnd).toBeGreaterThan(1000);
+    expect(offsetToWays([path], [th.lon, th.lat])).toBeLessThan(50);
+  });
+  it('cuts the line at the trailhead and at the destination', () => {
+    const r = routeThrough([[path]], { trailhead: th, destination: { lat: 46, lon: 0.03 } });
+    expect(r.problem).toBeUndefined();
+    expect(r.cut).toBe('destination');
+    expect(r.line[0][0]).toBeCloseTo(0.015, 4);
+    expect(r.line[r.line.length - 1][0]).toBeCloseTo(0.03, 4);
+    expect(r.startOffset).toBeLessThan(50);
+    expect(lengthM(r.line)).toBeCloseTo(haversine([0.015, 46], [0.03, 46]), -1);
+  });
+  it('walks the destination side first when the destination lies behind the trailhead', () => {
+    const r = routeThrough([[path]], { trailhead: th, destination: { lat: 46, lon: 0.005 } });
+    expect(r.line[r.line.length - 1][0]).toBeCloseTo(0.005, 4);
+  });
+  it('refuses to guess a direction when the trailhead is mid-line and there is no destination', () => {
+    expect(routeThrough([[path]], { trailhead: th }).problem).toMatch(/both sides/);
+  });
+  it('runs from a trailhead near one end to the far end when there is no destination', () => {
+    const r = routeThrough([[path]], { trailhead: { lat: 46, lon: 0.0005 } });
+    expect(r.cut).toBe('far end');
+    expect(r.line[r.line.length - 1][0]).toBeCloseTo(0.04, 4);
+  });
+  it('stitches two relations in order, each cut where the next one meets it', () => {
+    // relation 1 runs east to a fork; relation 2 starts 0.02 along it and runs north, so relation 1's last 0.02 is not walked
+    const one = way([0, 46], [0.01, 46], [0.02, 46], [0.03, 46], [0.04, 46]);
+    const two = way([0.02, 46], [0.02, 46.01], [0.02, 46.02]);
+    const r = routeThrough([[one], [two]], { trailhead: { lat: 46, lon: 0.0001 } });
+    expect(r.problem).toBeUndefined();
+    expect(r.legs).toHaveLength(2);
+    expect(r.line[r.line.length - 1]).toEqual([0.02, 46.02]);
+    expect(Math.max(...r.line.map((p) => p[0]))).toBeCloseTo(0.02, 5);
+  });
+  it('says so when two relations do not meet', () => {
+    const r = routeThrough([[path], [way([0.02, 46.5], [0.03, 46.5])]], { trailhead: { lat: 46, lon: 0.0001 } });
+    expect(r.problem).toMatch(/does not meet/);
+  });
+  it('walks a closed ring whole from the trailhead', () => {
+    const ring = way([0, 46], [0.01, 46], [0.01, 46.01], [0, 46.01], [0, 46]);
+    const r = routeThrough([[ring]], { trailhead: { lat: 46.01, lon: 0.0001 } });
+    expect(r.cut).toBe('ring');
+    expect(lengthM(r.line)).toBeCloseTo(lengthM(ring), -1);
+    expect(r.line[0]).toEqual(r.line[r.line.length - 1]);
+  });
+  it('rejects a destination that is far from the line instead of cutting at the nearest point', () => {
+    expect(routeThrough([[path]], { trailhead: th, destination: { lat: 46.05, lon: 0.03 } }).problem).toMatch(/destination is \d+ m from the line/);
+  });
+});
+
+describe('OSM ids in capture records (3.30)', () => {
+  it('reads links as a list, in order, ignoring nodes and searched_none entries', () => {
+    const rec = { links: [
+      { kind: 'osm', url: 'https://www.openstreetmap.org/relation/1116663', state: 'filled' },
+      { kind: 'osm', url: 'https://www.openstreetmap.org/relation/1067603', state: 'filled' },
+      { kind: 'osm', url: 'https://www.openstreetmap.org/node/12091634369', state: 'filled' },
+      { kind: 'official', url: 'https://example.org/relation/9' },
+      { kind: 'osm', state: 'searched_none', query: 'relation/77 was not it' },
+    ] };
+    expect(osmRefsFromCapture(rec)).toEqual(['relation:1116663', 'relation:1067603']);
+    expect(osmRefsFromCapture({ links: [{ kind: 'osm', state: 'searched_none' }] })).toEqual([]);
+    expect(osmRefsFromCapture({})).toEqual([]);
+  });
+  it('lets the capture record replace the relation written in the prototype fact, and gives the track its destination', () => {
+    const snapshot = {
+      places: [{ id: 'a', name: 'Lago A walk' }],
+      trails: { a: { facts: { geometry_source: { v: 'osm_relation' }, geometry_ids: { v: 'rel 111111 (the wrong one)' }, distance_km: { v: '8' } } } },
+      access: { a: { trailhead: { lat: 46, lon: 11 } } },
+    };
+    const rec = { ref: 'part/place/lago-a#walk', layer: 'route', type: 'nature.trail.hike', name: 'Lago A walk', reaches: ['part/place/lago-a#payoff'], links: [{ kind: 'osm', url: 'https://www.openstreetmap.org/relation/222222', state: 'filled' }] };
+    const [inp] = collectInputs(snapshot, [rec], { points: { 'part/place/lago-a#payoff': { lat: 46.01, lon: 11.01 } }, overrides: {} });
+    expect(inp.osm).toEqual(['relation:222222']);
+    expect(inp.refs).toEqual(['part/place/lago-a#walk']);
+    expect(inp.destination).toEqual({ lat: 46.01, lon: 11.01 });
+    expect(inp.researchedKm).toBe(8);
+  });
+  it('does not turn a parking way or a payoff node of another record into a track input', () => {
+    const snapshot = { places: [{ id: 'a', name: 'A' }], trails: {}, access: {} };
+    const recs = [{ ref: 'part/place/a#parking', layer: 'place', type: 'transport.parking', name: 'A', links: [{ kind: 'osm', url: 'https://www.openstreetmap.org/way/123456', state: 'filled' }] }];
+    expect(collectInputs(snapshot, recs, {})).toEqual([]);
   });
 });

@@ -54,7 +54,7 @@ test.describe('places screenshots', () => {
   test('trail with the profile scrubbed', async ({ browser, site }) => {
     await shoot(browser, site.url, LANE, 'trail-scrubbed', '/places/tre-cime-di-lavaredo-loop/', {
       prepare: async (page) => {
-        const svg = page.getByRole('img', { name: /Sketch of the elevation profile/ });
+        const svg = page.getByRole('img', { name: /(Sketch of the elevation profile|Elevation profile along the stored route)/ });
         await svg.scrollIntoViewIfNeeded();
         const box = await svg.boundingBox();
         await page.mouse.move((box?.x ?? 0) + (box?.width ?? 0) * 0.55, (box?.y ?? 0) + (box?.height ?? 0) * 0.5);

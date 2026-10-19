@@ -9,7 +9,8 @@ test.describe('trail screenshots (L4b)', () => {
 
   for (const [name, url] of [
     ['sorapis-confirmed', '/places/lago-di-sorapis/'],
-    ['tre-cime-segments', '/places/tre-cime-di-lavaredo-loop/'],
+    ['tre-cime-loop', '/places/tre-cime-di-lavaredo-loop/'],
+    ['fiscalina-segments', '/places/val-fiscalina/'],
     ['fanes-dashed', '/places/cascate-di-fanes/'],
     ['rockies-no-track', '/places/larch-valley-to-sentinel-pass/'],
     ['rockies-with-point', '/places/bourgeau-lake/'],

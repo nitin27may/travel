@@ -221,7 +221,8 @@ describe("no value lost, none changed", () => {
     const points = (read<{ points: Record<string, { lat: number; lon: number }> }>("data/relevance/inputs/points.json")).points;
     const payoff = new Map<string, string>();
     for (const s of splits().flatMap((f) => f.splits)) if (s.how === "trail_payoff" && (s.place as { mode: string }).mode === "new") payoff.set(s.ref, (s.place as { ref: string }).ref);
-    for (const m of read<{ draw_moves: { from: string; to: string }[] }>("data/capture/placement.json").draw_moves) payoff.set(m.from, m.to);
+    const plan = read<{ draw_moves: { from: string; to: string }[]; cs7_draw_moves?: { from: string; to: string }[] }>("data/capture/placement.json");
+    for (const m of [...plan.draw_moves, ...(plan.cs7_draw_moves ?? [])]) payoff.set(m.from, m.to);
     let kept = 0;
     for (const [ref, [lat, lon]] of Object.entries(ledger.points)) {
       const here = points[ref];
