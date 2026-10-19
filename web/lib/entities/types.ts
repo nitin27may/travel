@@ -181,6 +181,8 @@ export interface EntityDescriptor<Row> {
   search: (row: Row) => string;
   /** The ages for which a row is a stretch (space separated, e.g. "0 1 2 3"); cards, list rows and table rows carry it as `data-fade` and filters.css fades them while the Kids filter holds one of those ages. */
   fade?: (row: Row) => string | undefined;
+  /** The age the advice starts at for a faded row; carried as `data-from` so the chip can say "advice says 8+". */
+  fadeFrom?: (row: Row) => number | undefined;
   /** Rows hidden unless a facet selection names them (dropped places). */
   hiddenByDefault?: (row: Row, state: ListState, ignore?: FacetParam | 'q') => boolean;
   /** Where the row lives as a page, or null. */

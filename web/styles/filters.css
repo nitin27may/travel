@@ -15,28 +15,117 @@
 .age-chip[data-on] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-text); }
 .age-any { justify-self: center; min-height: var(--touch-min); }
 
-/* ---------- a stretch for the chosen age: the card fades to 60%, its text stays legible ---------- */
-html[data-kid-age='0'] :is(.card, .row, tr[data-row])[data-fade~='0'] { opacity: 0.6; }
-html[data-kid-age='1'] :is(.card, .row, tr[data-row])[data-fade~='1'] { opacity: 0.6; }
-html[data-kid-age='2'] :is(.card, .row, tr[data-row])[data-fade~='2'] { opacity: 0.6; }
-html[data-kid-age='3'] :is(.card, .row, tr[data-row])[data-fade~='3'] { opacity: 0.6; }
-html[data-kid-age='4'] :is(.card, .row, tr[data-row])[data-fade~='4'] { opacity: 0.6; }
-html[data-kid-age='5'] :is(.card, .row, tr[data-row])[data-fade~='5'] { opacity: 0.6; }
-html[data-kid-age='6'] :is(.card, .row, tr[data-row])[data-fade~='6'] { opacity: 0.6; }
-html[data-kid-age='7'] :is(.card, .row, tr[data-row])[data-fade~='7'] { opacity: 0.6; }
-html[data-kid-age='8'] :is(.card, .row, tr[data-row])[data-fade~='8'] { opacity: 0.6; }
-html[data-kid-age='9'] :is(.card, .row, tr[data-row])[data-fade~='9'] { opacity: 0.6; }
-html[data-kid-age='10'] :is(.card, .row, tr[data-row])[data-fade~='10'] { opacity: 0.6; }
-html[data-kid-age='11'] :is(.card, .row, tr[data-row])[data-fade~='11'] { opacity: 0.6; }
-html[data-kid-age='12'] :is(.card, .row, tr[data-row])[data-fade~='12'] { opacity: 0.6; }
-html[data-kid-age='13'] :is(.card, .row, tr[data-row])[data-fade~='13'] { opacity: 0.6; }
-html[data-kid-age='14'] :is(.card, .row, tr[data-row])[data-fade~='14'] { opacity: 0.6; }
-html[data-kid-age='15'] :is(.card, .row, tr[data-row])[data-fade~='15'] { opacity: 0.6; }
-html[data-kid-age='16'] :is(.card, .row, tr[data-row])[data-fade~='16'] { opacity: 0.6; }
-html[data-kid-age='17'] :is(.card, .row, tr[data-row])[data-fade~='17'] { opacity: 0.6; }
-html[data-kid-age] :is(.card, .row, tr[data-row])[data-fade] { transition: opacity var(--d-fast); }
-@media (prefers-reduced-motion: reduce) { html[data-kid-age] :is(.card, .row, tr[data-row])[data-fade] { transition: none; } }
+/* ---------- a stretch for the chosen age: the picture fades, the words do not, and a chip says why (suitability-display 5) ----------
+   Text keeps its full contrast token (AA); only the card photo and the list glyph fade to 60%. The chip is generated content: the age comes
+   from --kid-age-text (set by the filter bar), the advice age from data-from on the row. */
+html[data-kid-age='0'] :is(.card, .row)[data-fade~='0'] .card-media img, html[data-kid-age='0'] :is(.card, .row)[data-fade~='0'] .card-media .img-fallback svg, html[data-kid-age='0'] :is(.card, .row)[data-fade~='0'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='1'] :is(.card, .row)[data-fade~='1'] .card-media img, html[data-kid-age='1'] :is(.card, .row)[data-fade~='1'] .card-media .img-fallback svg, html[data-kid-age='1'] :is(.card, .row)[data-fade~='1'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='2'] :is(.card, .row)[data-fade~='2'] .card-media img, html[data-kid-age='2'] :is(.card, .row)[data-fade~='2'] .card-media .img-fallback svg, html[data-kid-age='2'] :is(.card, .row)[data-fade~='2'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='3'] :is(.card, .row)[data-fade~='3'] .card-media img, html[data-kid-age='3'] :is(.card, .row)[data-fade~='3'] .card-media .img-fallback svg, html[data-kid-age='3'] :is(.card, .row)[data-fade~='3'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='4'] :is(.card, .row)[data-fade~='4'] .card-media img, html[data-kid-age='4'] :is(.card, .row)[data-fade~='4'] .card-media .img-fallback svg, html[data-kid-age='4'] :is(.card, .row)[data-fade~='4'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='5'] :is(.card, .row)[data-fade~='5'] .card-media img, html[data-kid-age='5'] :is(.card, .row)[data-fade~='5'] .card-media .img-fallback svg, html[data-kid-age='5'] :is(.card, .row)[data-fade~='5'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='6'] :is(.card, .row)[data-fade~='6'] .card-media img, html[data-kid-age='6'] :is(.card, .row)[data-fade~='6'] .card-media .img-fallback svg, html[data-kid-age='6'] :is(.card, .row)[data-fade~='6'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='7'] :is(.card, .row)[data-fade~='7'] .card-media img, html[data-kid-age='7'] :is(.card, .row)[data-fade~='7'] .card-media .img-fallback svg, html[data-kid-age='7'] :is(.card, .row)[data-fade~='7'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='8'] :is(.card, .row)[data-fade~='8'] .card-media img, html[data-kid-age='8'] :is(.card, .row)[data-fade~='8'] .card-media .img-fallback svg, html[data-kid-age='8'] :is(.card, .row)[data-fade~='8'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='9'] :is(.card, .row)[data-fade~='9'] .card-media img, html[data-kid-age='9'] :is(.card, .row)[data-fade~='9'] .card-media .img-fallback svg, html[data-kid-age='9'] :is(.card, .row)[data-fade~='9'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='10'] :is(.card, .row)[data-fade~='10'] .card-media img, html[data-kid-age='10'] :is(.card, .row)[data-fade~='10'] .card-media .img-fallback svg, html[data-kid-age='10'] :is(.card, .row)[data-fade~='10'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='11'] :is(.card, .row)[data-fade~='11'] .card-media img, html[data-kid-age='11'] :is(.card, .row)[data-fade~='11'] .card-media .img-fallback svg, html[data-kid-age='11'] :is(.card, .row)[data-fade~='11'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='12'] :is(.card, .row)[data-fade~='12'] .card-media img, html[data-kid-age='12'] :is(.card, .row)[data-fade~='12'] .card-media .img-fallback svg, html[data-kid-age='12'] :is(.card, .row)[data-fade~='12'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='13'] :is(.card, .row)[data-fade~='13'] .card-media img, html[data-kid-age='13'] :is(.card, .row)[data-fade~='13'] .card-media .img-fallback svg, html[data-kid-age='13'] :is(.card, .row)[data-fade~='13'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='14'] :is(.card, .row)[data-fade~='14'] .card-media img, html[data-kid-age='14'] :is(.card, .row)[data-fade~='14'] .card-media .img-fallback svg, html[data-kid-age='14'] :is(.card, .row)[data-fade~='14'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='15'] :is(.card, .row)[data-fade~='15'] .card-media img, html[data-kid-age='15'] :is(.card, .row)[data-fade~='15'] .card-media .img-fallback svg, html[data-kid-age='15'] :is(.card, .row)[data-fade~='15'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='16'] :is(.card, .row)[data-fade~='16'] .card-media img, html[data-kid-age='16'] :is(.card, .row)[data-fade~='16'] .card-media .img-fallback svg, html[data-kid-age='16'] :is(.card, .row)[data-fade~='16'] > .kind-glyph { opacity: 0.6; }
+html[data-kid-age='17'] :is(.card, .row)[data-fade~='17'] .card-media img, html[data-kid-age='17'] :is(.card, .row)[data-fade~='17'] .card-media .img-fallback svg, html[data-kid-age='17'] :is(.card, .row)[data-fade~='17'] > .kind-glyph { opacity: 0.6; }
+:is(.card, .row)[data-fade] :is(.card-media img, .card-media .img-fallback svg, .kind-glyph) { transition: opacity var(--d-fast); }
+@media (prefers-reduced-motion: reduce) { :is(.card, .row)[data-fade] :is(.card-media img, .card-media .img-fallback svg, .kind-glyph) { transition: none; } }
+/* the chip: hidden until the age makes the place a stretch */
+:is(.card-title, .row-title)::after { display: none; }
+html[data-kid-age='0'] :is(.card, .row)[data-fade~='0'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='1'] :is(.card, .row)[data-fade~='1'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='2'] :is(.card, .row)[data-fade~='2'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='3'] :is(.card, .row)[data-fade~='3'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='4'] :is(.card, .row)[data-fade~='4'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='5'] :is(.card, .row)[data-fade~='5'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='6'] :is(.card, .row)[data-fade~='6'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='7'] :is(.card, .row)[data-fade~='7'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='8'] :is(.card, .row)[data-fade~='8'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='9'] :is(.card, .row)[data-fade~='9'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='10'] :is(.card, .row)[data-fade~='10'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='11'] :is(.card, .row)[data-fade~='11'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='12'] :is(.card, .row)[data-fade~='12'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='13'] :is(.card, .row)[data-fade~='13'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='14'] :is(.card, .row)[data-fade~='14'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='15'] :is(.card, .row)[data-fade~='15'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='16'] :is(.card, .row)[data-fade~='16'] :is(.card-title, .row-title)::after { display: flex; }
+html[data-kid-age='17'] :is(.card, .row)[data-fade~='17'] :is(.card-title, .row-title)::after { display: flex; }
+:is(.card, .row)[data-fade] :is(.card-title, .row-title)::after { align-items: center; height: 24px; margin-top: var(--s-2); padding: 0 9px; border: 1px solid var(--line-2); border-radius: var(--r-full); background: var(--surface-2); color: var(--ink-2); font: var(--t-chip); white-space: nowrap; width: fit-content; max-width: 100%; }
+:is(.card, .row)[data-from='1'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 1+'; }
+:is(.card, .row)[data-from='2'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 2+'; }
+:is(.card, .row)[data-from='3'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 3+'; }
+:is(.card, .row)[data-from='4'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 4+'; }
+:is(.card, .row)[data-from='5'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 5+'; }
+:is(.card, .row)[data-from='6'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 6+'; }
+:is(.card, .row)[data-from='7'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 7+'; }
+:is(.card, .row)[data-from='8'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 8+'; }
+:is(.card, .row)[data-from='9'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 9+'; }
+:is(.card, .row)[data-from='10'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 10+'; }
+:is(.card, .row)[data-from='11'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 11+'; }
+:is(.card, .row)[data-from='12'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 12+'; }
+:is(.card, .row)[data-from='13'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 13+'; }
+:is(.card, .row)[data-from='14'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 14+'; }
+:is(.card, .row)[data-from='15'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 15+'; }
+:is(.card, .row)[data-from='16'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 16+'; }
+:is(.card, .row)[data-from='17'] :is(.card-title, .row-title)::after { content: 'A stretch at ' var(--kid-age-text) ' · advice says 17+'; }
+/* table rows: no fade (text stays at full contrast); the same words for screen readers only */
+tr[data-row][data-fade] td:first-child::after { display: none; }
+html[data-kid-age='0'] tr[data-row][data-fade~='0'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='1'] tr[data-row][data-fade~='1'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='2'] tr[data-row][data-fade~='2'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='3'] tr[data-row][data-fade~='3'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='4'] tr[data-row][data-fade~='4'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='5'] tr[data-row][data-fade~='5'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='6'] tr[data-row][data-fade~='6'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='7'] tr[data-row][data-fade~='7'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='8'] tr[data-row][data-fade~='8'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='9'] tr[data-row][data-fade~='9'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='10'] tr[data-row][data-fade~='10'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='11'] tr[data-row][data-fade~='11'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='12'] tr[data-row][data-fade~='12'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='13'] tr[data-row][data-fade~='13'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='14'] tr[data-row][data-fade~='14'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='15'] tr[data-row][data-fade~='15'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='16'] tr[data-row][data-fade~='16'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-kid-age='17'] tr[data-row][data-fade~='17'] td:first-child::after { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+tr[data-row][data-from='1'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 1 and up'; }
+tr[data-row][data-from='2'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 2 and up'; }
+tr[data-row][data-from='3'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 3 and up'; }
+tr[data-row][data-from='4'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 4 and up'; }
+tr[data-row][data-from='5'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 5 and up'; }
+tr[data-row][data-from='6'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 6 and up'; }
+tr[data-row][data-from='7'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 7 and up'; }
+tr[data-row][data-from='8'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 8 and up'; }
+tr[data-row][data-from='9'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 9 and up'; }
+tr[data-row][data-from='10'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 10 and up'; }
+tr[data-row][data-from='11'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 11 and up'; }
+tr[data-row][data-from='12'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 12 and up'; }
+tr[data-row][data-from='13'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 13 and up'; }
+tr[data-row][data-from='14'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 14 and up'; }
+tr[data-row][data-from='15'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 15 and up'; }
+tr[data-row][data-from='16'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 16 and up'; }
+tr[data-row][data-from='17'] td:first-child::after { content: 'A stretch at ' var(--kid-age-text) ', advice says 17 and up'; }
 
 /* ---------- the count line may carry sentences (hidden facets, gaps): let it wrap instead of pushing the page sideways ---------- */
 .filter-bar .count { white-space: normal; flex-wrap: wrap; min-width: 0; max-width: 100%; }
 .filter-bar .count-note { overflow-wrap: anywhere; }
+
+/* ---------- phone: the view switcher keeps its own height; the notes take a line of their own without a leading dot ---------- */
+@media (max-width: 639px) {
+  .filter-bar .seg { align-self: start; height: 40px; }
+  .filter-bar .seg-btn { height: 100%; }
+  .filter-bar .count { grid-column: 1; }
+  .filter-bar .count-note { flex-basis: 100%; }
+  .filter-bar .count-sep { display: none; }
+}
+
+/* the age the filter bar sets while a Kids age is chosen (read by the stretch chip) */
+:root { --kid-age-text: ""; }

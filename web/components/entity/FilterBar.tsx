@@ -75,10 +75,16 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
   const hasAgeControl = d.facets.some((f) => f.control === 'age');
   useEffect(() => {
     const root = document.documentElement;
-    if (hasAgeControl && kidAge && /^\d{1,2}$/.test(kidAge)) root.dataset.kidAge = kidAge;
-    else delete root.dataset.kidAge;
+    if (hasAgeControl && kidAge && /^\d{1,2}$/.test(kidAge)) {
+      root.dataset.kidAge = kidAge;
+      root.style.setProperty('--kid-age-text', `"${kidAge}"`);
+    } else {
+      delete root.dataset.kidAge;
+      root.style.removeProperty('--kid-age-text');
+    }
     return () => {
       delete root.dataset.kidAge;
+      root.style.removeProperty('--kid-age-text');
     };
   }, [hasAgeControl, kidAge]);
   const chips = activeFilters(state, d, labelOf);
@@ -137,7 +143,12 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
         <p className="count" role="status" aria-live="polite">
           <strong className="num">{shown}</strong>
           {filtered ? <span className="of"> of {total}</span> : null} {total === 1 && !filtered ? d.noun.one : d.noun.many}
-          {notes.length ? <span className="count-note"> · {notes.join(' · ')}</span> : null}
+          {notes.length ? (
+            <span className="count-note">
+              <span className="count-sep"> · </span>
+              {notes.join(' · ')}
+            </span>
+          ) : null}
         </p>
         {chips.length ? (
           <ul className="chips" aria-label="Active filters">

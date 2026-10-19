@@ -35,9 +35,14 @@ export interface TripTags {
   /** 1 to 12 */
   when: number[];
   kidsFrom: number | null;
-  /** `computed` (the scheduler, on known data), `plan` (the plan's own number) or null. */
-  kidsBasis: 'computed' | 'plan' | null;
+  /**
+   * `computed`: the scheduler, every day on known data. `floor`: the plan's number raised to the scheduler's fit age with gaps counted as
+   * passes, which gaps can only push up, so it is a proven minimum. `plan`: the plan's own number. Null: no number.
+   */
+  kidsBasis: 'computed' | 'floor' | 'plan' | null;
   hike: HikeEffort | null;
+  /** `computed`: from trails with a known effort and no unknown ones below it; `plan`: the plan's own word. */
+  hikeBasis: 'computed' | 'plan' | null;
   stroller: StrollerDays | null;
   activities: TagRef[];
   /** Up to two anchors, by draw then by day. */
@@ -330,6 +335,8 @@ export interface TagConflict {
   decider: string | null;
   /** What was missing, or "none". */
   gap: string;
+  /** Trails in the family variants whose effort is not on record (Hike effort only). */
+  unknownEffort: number;
 }
 
 export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagConflict[] = []): TripTags {
@@ -341,6 +348,7 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
     kidsFrom: null,
     kidsBasis: null,
     hike: null,
+    hikeBasis: null,
     stroller: null,
     activities: [],
     highlights: [],
@@ -387,12 +395,21 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
     return s ? familyEffortOf(s) : null;
   };
   const kids = kidsFromTag(inputs, ageKnown, effortOf);
-  base.kidsFrom = kids.age ?? trip.ageFit;
-  base.kidsBasis = kids.age !== null ? 'computed' : trip.ageFit !== null ? 'plan' : null;
+  if (kids.age !== null) {
+    base.kidsFrom = kids.age;
+    base.kidsBasis = 'computed';
+  } else if (kids.fitAge !== null && kids.fitAge > (trip.ageFit ?? -1)) {
+    // the data already rules out every age below the fit age: never show less than that
+    base.kidsFrom = kids.fitAge;
+    base.kidsBasis = 'floor';
+  } else {
+    base.kidsFrom = trip.ageFit;
+    base.kidsBasis = trip.ageFit !== null ? 'plan' : null;
+  }
   if (inputs.length) {
     conflicts.push({
-      trip: trip.slug, field: 'kidsFrom', typed: trip.ageFit, computed: kids.age, shown: base.kidsFrom, decider: kids.decider,
-      gap: kids.unknown.length ? `${kids.unknown.length} item(s) with no age or distance on record, e.g. ${kids.unknown.slice(0, 3).map((u) => `${u.item} (day ${u.day})`).join('; ')}; the scheduler's fit age ${kids.fitAge} rests on them` : kids.fitAge === null ? 'no age fits every day' : 'none',
+      trip: trip.slug, field: 'kidsFrom', typed: trip.ageFit, computed: kids.age, shown: base.kidsFrom, decider: kids.decider, unknownEffort: 0,
+      gap: kids.unknown.length ? `${base.kidsBasis === 'floor' ? `shown as the proven floor ${kids.fitAge} (the plan says ${trip.ageFit}); ` : ''}${kids.unknown.length} item(s) with no age or distance on record, e.g. ${kids.unknown.slice(0, 3).map((u) => `${u.item} (day ${u.day})`).join('; ')}; the scheduler's fit age ${kids.fitAge} rests on them` : kids.fitAge === null ? 'no age fits every day' : 'none',
     });
   }
   const profile: Profile = trip.schedule?.defaultProfile.party === 'family' ? trip.schedule.defaultProfile : familyProfile(8);
@@ -401,9 +418,18 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
     const s = suitOf(item);
     return s ? tagEffortOf(s) : null;
   }, profile);
-  base.hike = hike.value ?? typedHike;
+  // The known maximum is only a lower bound while some trail has no effort on record: it may never undercut the plan's own word.
+  const RANK = { easy: 0, moderate: 1, strenuous: 2 } as const;
+  const understates = hike.value !== null && hike.unknown > 0 && typedHike !== null && RANK[hike.value] < RANK[typedHike];
+  if (hike.value !== null && !understates) {
+    base.hike = hike.value;
+    base.hikeBasis = 'computed';
+  } else {
+    base.hike = typedHike;
+    base.hikeBasis = typedHike !== null ? 'plan' : null;
+  }
   if (inputs.length) {
-    conflicts.push({ trip: trip.slug, field: 'hike', typed: typedHike, computed: hike.value, shown: base.hike, decider: hike.decider, gap: hike.unknown ? `${hike.unknown} trail(s) in the family variants have no effort on record and are left out` : 'none' });
+    conflicts.push({ trip: trip.slug, field: 'hike', typed: typedHike, computed: hike.value, shown: base.hike, decider: hike.decider, unknownEffort: hike.unknown, gap: hike.unknown ? `${understates ? `the known maximum (${hike.value}) is below the plan's word, so the plan's stands; ` : ''}${hike.unknown} trail(s) in the family variants have no effort on record and are left out` : 'none' });
   }
 
   const dayOfName = new Map<string, number>();

@@ -112,6 +112,23 @@ test.describe('trip cards', () => {
   });
 });
 
+test.describe('Kids from says what it rests on', () => {
+  test('every Kids chip ends with its basis, and the tooltip explains it', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/`);
+    const chips = page.locator('.trip-tag-row[aria-label="Who it suits"] a[href*="kid="]');
+    expect(await chips.count()).toBeGreaterThan(3);
+    for (const t of await chips.allInnerTexts()) expect(t.trim()).toMatch(/ · (our plan|checked)$/);
+    await expect(chips.first()).toHaveAttribute('title', /.{20,}/);
+  });
+});
+
+test.describe('trips map', () => {
+  test('approximate trips are hollow pins with their own legend row', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/?view=map`);
+    await expect(page.locator('[data-map-legend]')).toContainText('Area only');
+  });
+});
+
 test.describe('phone', () => {
   test.use({ viewport: { width: 390, height: 844 } });
   test('the filter sheet: each facet folds with a Done button of 44 px, and nothing scrolls sideways', async ({ page, site }) => {
@@ -128,5 +145,16 @@ test.describe('phone', () => {
     await done.click();
     await expect(sheet.locator('details.sheet-facet[open]')).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+
+  test('the view switcher keeps its own size, with or without notes in the count line', async ({ page, site }) => {
+    for (const url of ['/trips/', '/trips/?country=IT']) {
+      await page.goto(`${site.url}${url}`);
+      const seg = page.locator('.filter-bar .seg').first();
+      const box = (await seg.boundingBox())!;
+      expect(box.height, url).toBeLessThanOrEqual(48);
+      const active = (await page.locator('.filter-bar .seg-btn[aria-checked="true"]').boundingBox())!;
+      expect(active.width, url).toBeLessThanOrEqual(80);
+    }
   });
 });

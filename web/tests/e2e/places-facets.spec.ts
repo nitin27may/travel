@@ -64,14 +64,35 @@ test.describe('Places filters', () => {
     await page.goto(`${site.url}/places/?kid=1`);
     const faded = page.locator('article.card[data-fade~="1"]').first();
     await expect(faded).toBeVisible();
-    await expect(faded).toHaveCSS('opacity', '0.6');
+    await expect(page.locator('article.card[data-fade~="1"] .card-media :is(img, .img-fallback svg)').first()).toHaveCSS('opacity', '0.6');
     // the same in the list and the table
     await page.goto(`${site.url}/places/?kid=1&view=list`);
-    await expect(page.locator('li.row[data-fade~="1"]').first()).toHaveCSS('opacity', '0.6');
+    await expect(page.locator('li.row[data-fade~="1"] > .kind-glyph').first()).toHaveCSS('opacity', '0.6');
     await page.goto(`${site.url}/places/?kid=1&view=table`);
-    await expect(page.locator('tr[data-row][data-fade~="1"]').first()).toHaveCSS('opacity', '0.6');
+    // table rows keep every word at full contrast; the reason is for screen readers
+    const cell = page.locator('tr[data-row][data-fade~="1"] td:first-child').first();
+    await expect(cell).toBeAttached();
+    expect(await cell.evaluate((el) => getComputedStyle(el, '::after').content)).toMatch(/A stretch at 1, advice says \d+ and up/);
     await page.goto(`${site.url}/places/?kid=17`);
-    await expect(page.locator('article.card').first()).toHaveCSS('opacity', '1');
+    await expect(page.locator('article.card .card-media :is(img, .img-fallback svg)').first()).toHaveCSS('opacity', '1');
+  });
+
+  test('a stretch keeps its words at full contrast and says why (AA, light and dark)', async ({ page, site }) => {
+    for (const theme of ['light', 'dark']) {
+      await page.addInitScript((t) => localStorage.setItem('travel:v1:theme', t), theme);
+      await page.goto(`${site.url}/places/?kid=1`);
+      const card = page.locator('article.card[data-fade~="1"]').first();
+      await expect(card).toBeVisible();
+      // the picture fades, the words do not
+      // the picture fades (a card with no photo has nothing to fade: its label stays at full contrast)
+      await expect(page.locator('article.card[data-fade~="1"] .card-media :is(img, .img-fallback svg)').first()).toHaveCSS('opacity', '0.6');
+      await expect(card.locator('.card-title')).toHaveCSS('opacity', '1');
+      await expect(card).toHaveCSS('opacity', '1');
+      const chip = await card.locator('.card-title').evaluate((el) => getComputedStyle(el, '::after').content);
+      expect(chip).toMatch(/A stretch at 1 · advice says \d+\+/);
+      const r = await new AxeBuilder({ page }).exclude('.maplibregl-canvas').withRules(['color-contrast']).analyze();
+      expect(r.violations.map((v) => `${theme} ${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([]);
+    }
   });
 
   test('Effort and Stroller are under More filters with the plain names, never FE', async ({ page, site }) => {
@@ -109,5 +130,16 @@ test.describe('phone', () => {
     expect(clean(await axe(page))).toEqual([]);
     await sheet.getByRole('button', { name: 'Done' }).first().click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+
+  test('the view switcher keeps its own size, with notes in the count line too', async ({ page, site }) => {
+    for (const url of ['/places/', '/places/?k=nature.trail', '/places/?kid=6']) {
+      await page.goto(`${site.url}${url}`);
+      const box = (await page.locator('.filter-bar .seg').first().boundingBox())!;
+      expect(box.height, url).toBeLessThanOrEqual(48);
+      const active = (await page.locator('.filter-bar .seg-btn[aria-checked="true"]').boundingBox())!;
+      expect(active.width, url).toBeLessThanOrEqual(80);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), url).toBe(true);
+    }
   });
 });

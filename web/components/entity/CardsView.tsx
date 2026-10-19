@@ -26,6 +26,7 @@ export function CardsView<Row>({ d, groups, state, onOpen }: ViewProps<Row>) {
                     data-entity-id={id}
                     data-focused={state.focus === id || undefined}
                     data-fade={d.fade?.(row)}
+                    data-from={d.fadeFrom?.(row)}
                     photo={d.image?.(row) ?? null}
                     fallbackIcon={d.iconFor(row)}
                     fallbackLabel={d.fallbackLabel?.(row)}

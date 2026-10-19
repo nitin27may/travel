@@ -164,6 +164,7 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
         data-entity-id={id}
         data-focused={state.focus === id || undefined}
         data-fade={d.fade?.(item.row.original)}
+        data-from={d.fadeFrom?.(item.row.original)}
         tabIndex={(activeRow ?? firstRowId) === id ? 0 : -1}
         style={style}
         ref={measure}

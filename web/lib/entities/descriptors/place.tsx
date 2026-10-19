@@ -162,6 +162,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     </>
   ),
   cardFooter: (p) => <PlaceCardFooter p={p} />,
+  fadeFrom: (p) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? p.kids_from : undefined),
   fade: (p) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? Array.from({ length: Math.min(p.kids_from, 18) }, (_, i) => i).join(' ') : undefined),
   iconFor: (p) => kindIcon(p.kind),
   fallbackLabel: (p) => p.kindLabel,
