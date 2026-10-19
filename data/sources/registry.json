@@ -15237,6 +15237,33 @@
       }
     },
     {
+      "id": "s-99f3fda9b9",
+      "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
+      "title": "Lake of Two Rivers: activities (Algonquin)",
+      "publisher": "Ontario Parks",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/algonquin-muskoka-2026/R6.json",
+          "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+          "field": "suitability.effort.source_grade"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-352ba9c782",
       "url": "https://www.ontarioparks.ca/park/oxtongueriverraggedfalls",
       "title": "Oxtongue River-Ragged Falls Provincial Park",
