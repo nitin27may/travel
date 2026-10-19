@@ -13,6 +13,7 @@ const next = path.join(web, 'node_modules', 'next', 'dist', 'bin', 'next');
 export default function setup() {
   if (process.env.SKIP_WEB_BUILD !== '1') {
     execFileSync(process.execPath, [next, 'build'], { cwd: web, stdio: 'pipe', env: { ...process.env, NEXT_DIST_DIR: '' } });
+    execFileSync(process.execPath, [path.join(web, 'scripts', 'images.mjs')], { cwd: web, stdio: 'pipe', env: { ...process.env, NEXT_DIST_DIR: '' } });
     execFileSync(process.execPath, [path.join(web, 'scripts', 'og.mjs')], { cwd: web, stdio: 'pipe', env: { ...process.env, NEXT_DIST_DIR: '' } });
   }
   const fixture = path.join(web, 'scripts', 'build-fixture.mjs');

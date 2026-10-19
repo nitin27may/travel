@@ -1,6 +1,6 @@
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
-import { sizedImage } from '@/lib/format/image';
+import { imageSrcSet, sizedImage } from '@/lib/format/image';
 import type { PublicTrip } from '@/lib/public/types';
 import { driveLabel, lengthLabel } from './format';
 import { TripActions } from './TripActions';
@@ -21,7 +21,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
       <div className="trip-cover">
         {trip.cover ? (
           // eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs
-          <img className="trip-cover-img" src={sizedImage(trip.cover.url, 1600)} alt="" width={1600} height={900} fetchPriority="high" decoding="async" />
+          <img className="trip-cover-img" src={sizedImage(trip.cover.url, 960)} srcSet={imageSrcSet(trip.cover.url)} sizes="100vw" alt="" width={960} height={540} loading="eager" fetchPriority="high" decoding="async" />
         ) : (
           <div className="trip-cover-fallback" aria-hidden="true">
             <Icon name="mountain" size={48} />

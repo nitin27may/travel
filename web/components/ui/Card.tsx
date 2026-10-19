@@ -4,6 +4,9 @@ import type { IconName } from './Icon';
 import { cx } from './cx';
 import type { IdentityKey } from './Chip';
 
+/** The card grid is 4, 3, 2 and 1 columns wide (app.css), less the page margins. */
+const CARD_SIZES = '(max-width: 639px) 92vw, (max-width: 1023px) 46vw, (max-width: 1279px) 30vw, 22vw';
+
 export type CardVariant = 'trip' | 'publicTrip' | 'place' | 'trail';
 
 interface CardProps {
@@ -31,6 +34,10 @@ interface CardProps {
   /** Skeleton cards keep their shape. */
   busy?: boolean;
   className?: string;
+  /** The first card on a page: its photo is the largest image, so it loads now with high priority. */
+  priority?: boolean;
+  /** Cards in the first row: load now. */
+  eager?: boolean;
   /** Extra attributes for list state hooks. */
   'data-entity-id'?: string;
   'data-focused'?: true;
@@ -38,12 +45,12 @@ interface CardProps {
 }
 
 /** Trip, public trip, place and trail card (components 3.1). Photo 16:10, then title, meta, chips, summary and footer. */
-export function Card({ variant = 'place', title, meta, photo, focus, identity, fallbackIcon = 'pin', fallbackLabel, chips, summary, footer, selected, done, idea, className, ...data }: CardProps) {
+export function Card({ variant = 'place', title, meta, photo, focus, identity, fallbackIcon = 'pin', fallbackLabel, chips, summary, footer, selected, done, idea, className, priority, eager, ...data }: CardProps) {
   const bar = variant === 'trip' ? (identity ?? 'none') : 'none';
   return (
     <article className={cx('card', `card-${variant}`, className)} data-selected={selected || undefined} data-done={done || undefined} data-idea={idea || undefined} {...data}>
       <div className="card-media" style={{ ['--tc' as string]: `var(--id-${bar})` }}>
-        <EntityImage src={photo ?? null} width={560} fallbackIcon={fallbackIcon} fallbackLabel={fallbackLabel} focus={focus} />
+        <EntityImage src={photo ?? null} width={560} sizes={CARD_SIZES} priority={priority} eager={eager} fallbackIcon={fallbackIcon} fallbackLabel={fallbackLabel} focus={focus} />
       </div>
       <div className="card-body">
         <h3 className="card-title">{title}</h3>
