@@ -32,6 +32,96 @@
       "kind": "official",
       "read": "2026-10-18",
       "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.nps.gov/places/wolfe-ranch-trailhead.htm",
+      "title": "Delicate Arch Trail (U.S. National Park Service)",
+      "publisher": "NPS Arches National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.nps.gov/places/devils-garden-trailhead.htm",
+      "title": "Devils Garden Trail (U.S. National Park Service)",
+      "publisher": "NPS Arches National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.nps.gov/care/planyourvisit/trailguide.htm",
+      "title": "Trail Guide - Capitol Reef National Park (U.S. National Park Service)",
+      "publisher": "NPS Capitol Reef National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.nps.gov/places/mesa-arch.htm",
+      "title": "Mesa Arch Trail (U.S. National Park Service)",
+      "publisher": "NPS Canyonlands National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.nps.gov/brca/planyourvisit/qgnavajocombo.htm",
+      "title": "Queens Garden & Navajo Combination - Bryce Canyon National Park (U.S. National Park Service)",
+      "publisher": "NPS Bryce Canyon National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm",
+      "title": "Pa'rus Trail (U.S. National Park Service)",
+      "publisher": "NPS Zion National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.nps.gov/thingstodo/hike-riverside-walk.htm",
+      "title": "Riverside Walk (U.S. National Park Service)",
+      "publisher": "NPS Zion National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.nps.gov/thingstodo/hike-to-scout-lookout.htm",
+      "title": "West Rim to Scout Lookout (U.S. National Park Service)",
+      "publisher": "NPS Zion National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.nps.gov/places/upheaval-dome-overlook-trails.htm",
+      "title": "Upheaval Dome Overlooks Trail (U.S. National Park Service)",
+      "publisher": "NPS Canyonlands National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.nps.gov/places/the-windows-section-trailhead.htm",
+      "title": "The Windows Viewpoint and Trail (U.S. National Park Service)",
+      "publisher": "NPS Arches National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -42,6 +132,17 @@
       "name": "Narrows from the Temple of Sinawava",
       "reaches": [
         "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/zion/planyourvisit/thenarrows.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
       ]
     },
     {
@@ -77,7 +178,18 @@
       "layer": "route",
       "name": "Scout Lookout (Angels Landing chains view)",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is Scout Lookout, a named point. Create the place and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is Scout Lookout, a named point. Create the place and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/thingstodo/hike-to-scout-lookout.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0011"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
@@ -85,7 +197,18 @@
       "layer": "route",
       "name": "Pa'rus Trail",
       "route_is_attraction": true,
-      "attraction_reason": "A paved riverside path: the walk or ride is the experience."
+      "attraction_reason": "A paved riverside path: the walk or ride is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/thingstodo/hike-pa-rus-trail.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0009"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:riverside walk",
@@ -93,7 +216,18 @@
       "layer": "route",
       "name": "Riverside Walk",
       "route_is_attraction": true,
-      "attraction_reason": "A paved stroll to where the canyon closes in: the walk is the experience."
+      "attraction_reason": "A paved stroll to where the canyon closes in: the walk is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/thingstodo/hike-riverside-walk.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0010"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
@@ -110,6 +244,17 @@
       "name": "Navajo Loop and Queens Garden",
       "reaches": [
         "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/brca/planyourvisit/qgnavajocombo.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0008"
+          ]
+        }
       ]
     },
     {
@@ -158,6 +303,17 @@
       "name": "Lower Calf Creek Falls",
       "reaches": [
         "part/trip/utah-five-parks/trail:lower calf creek falls#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.blm.gov/visit/lower-calf-creek-falls-trail",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0003"
+          ]
+        }
       ]
     },
     {
@@ -213,7 +369,18 @@
       "layer": "route",
       "name": "Hickman Bridge",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is Hickman Bridge, a named natural bridge. Create the place and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is Hickman Bridge, a named natural bridge. Create the place and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/care/planyourvisit/trailguide.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
@@ -227,7 +394,18 @@
       "layer": "route",
       "name": "Delicate Arch trail",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is Delicate Arch, a named arch. Create the place and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is Delicate Arch, a named arch. Create the place and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/places/wolfe-ranch-trailhead.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
@@ -235,7 +413,18 @@
       "layer": "route",
       "name": "Devils Garden",
       "route_is_attraction": true,
-      "attraction_reason": "A string of arches along sandstone fins: the walk past them is the experience."
+      "attraction_reason": "A string of arches along sandstone fins: the walk past them is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/places/devils-garden-trailhead.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
@@ -243,7 +432,18 @@
       "layer": "route",
       "name": "Windows section",
       "route_is_attraction": true,
-      "attraction_reason": "A short loop under three arches: the loop is the experience."
+      "attraction_reason": "A short loop under three arches: the loop is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/places/the-windows-section-trailhead.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0013"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:mesa arch",
@@ -251,7 +451,18 @@
       "layer": "route",
       "name": "Mesa Arch",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is Mesa Arch, a named arch. Create the place and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is Mesa Arch, a named arch. Create the place and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/places/mesa-arch.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0007"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
@@ -259,7 +470,18 @@
       "layer": "route",
       "name": "Upheaval Dome",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is the Upheaval Dome overlook. Create the place and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is the Upheaval Dome overlook. Create the place and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.nps.gov/places/upheaval-dome-overlook-trails.htm",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0012"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",

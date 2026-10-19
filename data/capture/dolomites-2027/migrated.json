@@ -50,6 +50,294 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.odlesdolomites.com/en/activities/84A3EDE0EBE349019877D7C478965A60",
+      "title": "Adolf Munkel Trail",
+      "publisher": "Villnöss/Funes tourism (Odles Dolomites)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.seiser-alm.it/en/leisure-activities/mountains-and-hiking/hans-and-paula-steger-trail/",
+      "title": "Hiking tour on the Hans and Paula Steger Trail - Alpe di Siusi, Dolomites, Italy",
+      "publisher": "Seiser Alm Marketing",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches/",
+      "title": "Along the Bullaccia round trail to the Witches’ Benches - Alpe di Siusi, Dolomites, Italy",
+      "publisher": "Seiser Alm Marketing",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://5torri.it/",
+      "title": "Benvenuti alle 5 Torri",
+      "publisher": "5 Torri lifts and huts (5torri.it)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://cortina.dolomiti.org/en/pagina-altri-servizi/open-air-museum-of-the-great-war-at-cinque-torri/",
+      "title": "Open-air museum of the Great War (at Cinque Torri) - dolomiti",
+      "publisher": "Cortina d'Ampezzo tourist office (cortina.dolomiti.org)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://rifugiobiella.it/itinerari/croda-del-becco/",
+      "title": "Via normale alla Croda del Becco - Rifugio Biella - Seekofel Hütte",
+      "publisher": "Rifugio Biella / Seekofelhütte",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://www.dreizinnen.com/Kataloge/flyer-radweg-lienz.pdf",
+      "title": "Flyer Radweg Innichen/San Candido > Lienz (PDF)",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://www.comune.lavalle.bz.it/it",
+      "title": "Comune di La Valle - Home",
+      "publisher": "Comune di La Valle / Gemeinde Wengen / Comun de La Val",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://lagazuoi.it/EN/percorso6-The-Lagazuoi-Tunnels",
+      "title": "Mine Tunnel Lagazuoi",
+      "publisher": "Lagazuoi SpA (cable car operator)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://cortina.dolomiti.org/en/escursioni/ascent-to-the-summit-of-piccolo-lagazuoi-en/",
+      "title": "Ascent to the summit of Piccolo Lagazuoi - dolomiti",
+      "publisher": "Cortina d'Ampezzo tourist office (cortina.dolomiti.org)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://auronzo.info/en/lake-antorno/",
+      "title": "Lake Antorno, under the Tre Cime: what to see and how to get there",
+      "publisher": "Comune di Auronzo di Cadore (auronzo.info; footer: Via Roma 24, C.F. 83000710257, PEC auronzo.bl@cert.ip-veneto.net)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://nature-parks.province.bz.it/en/fanes-sennes-prags-fanes-senes-braies-nature-park",
+      "title": "Fanes-Sennes-Prags / Fanes-Senes-Braies Nature Park",
+      "publisher": "Autonomous Province of Bolzano - South Tyrol, Nature parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.dreizinnen.com/en/region/highlights/lake-prags",
+      "title": "Lake Prags: Getting there, parking, best time to visit & tips - Drei Zinnen",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.dreizinnen.com/en/info/lake-of-landro_6261",
+      "title": "Lake of Landro - Drei Zinnen",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://rifugiovandelli.it/",
+      "title": "Rifugio Vandelli | Homepage",
+      "publisher": "Rifugio Vandelli (P. IVA 00944990258)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en/",
+      "title": "To Lago Sorapis - dolomiti",
+      "publisher": "Cortina d'Ampezzo tourist office (cortina.dolomiti.org)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://www.montepiana.com/",
+      "title": "Monte Piana - Museo della Guerra - Servizio navetta",
+      "publisher": "Rifugio Angelo Bosi / Monte Piana shuttle (montepiana.com)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
+      "title": "Summer hiking tour: Lake Antorno (Misurina) - Monte Piano - Drei Zinnen",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://www.iceman.it/en/the-museum/opening-times-and-fees",
+      "title": "Opening times & fees | South Tyrol Museum of Archaeology",
+      "publisher": "South Tyrol Museum of Archaeology",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://www.suedtirol.info/de/de/information/mobilitaet/paesse-in-suedtirol/groednerjoch",
+      "title": "Anreise zum Grödner Joch",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.odlesdolomites.com/en/region/val-di-funes/",
+      "title": "Val di Funes – Odle & Puez-Odle Nature Park | Dolomites",
+      "publisher": "Villnöss/Funes tourism (Odles Dolomites)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.sasspordoi.it/en/info-times-and-prices/",
+      "title": "Info, timetables and prices for the Sass Pordoi cableway – Plan your visit",
+      "publisher": "S.I.T.C. S.p.A. (Sass Pordoi cable car)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://www.trentino.com/en/leisure-activities/mountains-and-hiking/alpine-tours/from-mount-sas-pordoi-to-mount-piz-boe/",
+      "title": "Alpine tour from Mt Sass Pordoi to Piz Boé - Trentino - Italy",
+      "publisher": "Trentino Marketing (trentino.com)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0029",
+      "url": "https://www.valgardena.it/en/summer-holidays-dolomites/trekking/seceda/ridge-line/",
+      "title": "Seceda Ridge Line",
+      "publisher": "Val Gardena tourism (valgardena.it)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0030",
+      "url": "https://auronzo.info/en/tre-cime-di-lavaredo-dolomites/",
+      "title": "Tre Cime di Lavaredo Dolomiti: tips to organize your visit",
+      "publisher": "Comune di Auronzo di Cadore (auronzo.info)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0031",
+      "url": "https://www.dreizinnen.com/en/region/highlights/three-peaks",
+      "title": "Three Peaks: hikes, getting there, parking & best time to visit - Drei Zinnen",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0032",
+      "url": "https://www.talschlusshuette.com/",
+      "title": "Talschlusshütte im Fischleintal: Urlaub in den Sextner Dolomiten",
+      "publisher": "Talschlusshütte (Fischleintalstr. 41, Sexten)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0033",
+      "url": "https://www.dreizinnen.com/en/region/highlights/fischleintal-valley",
+      "title": "Fischleintal valley in Sexten: Hikes, tips, and how to get there - Drei Zinnen",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0034",
+      "url": "https://www.rifugiovieldalpan.it/",
+      "title": "Rifugio viel dal pan",
+      "publisher": "Rifugio Viel dal Pan snc di Dantone A&G (Canazei)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0035",
+      "url": "https://www.fassa.com/it/itinerari/alba-col-dei-rossi-viel-dal-pan-fedaia-alba",
+      "title": "Alba - Col dei Rossi - Viel dal Pan - Fedaia - Alba",
+      "publisher": "Val di Fassa tourism (fassa.com)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0036",
+      "url": "https://www.iceman.it/en/reservations",
+      "title": "Reservations",
+      "publisher": "South Tyrol Museum of Archaeology",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0037",
+      "url": "https://www.prags.bz/en",
+      "title": "Pragser Wildsee: access regulation",
+      "publisher": "Prags/Braies tourist office",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -93,8 +381,38 @@
           "src": [
             "src-0005"
           ]
+        },
+        {
+          "kind": "official",
+          "url": "https://auronzo.info/en/tre-cime-di-lavaredo-dolomites/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0030"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/en/region/highlights/three-peaks",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0031"
+          ]
         }
-      ]
+      ],
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "https://auronzo.info/en/parking-tre-cime-di-lavaredo/ (booking mandatory; release lead time not published)",
+          "https://pass.auronzo.info"
+        ],
+        "note": "The toll road needs an online slot; when slots are released is an operator question."
+      }
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
@@ -103,6 +421,14 @@
       "name": "Cadini di Misurina viewpoint",
       "reaches": [
         "part/place/cadini-di-misurina-viewpoint#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "auronzo.info Cadini di Misurina belvedere sentiero 117",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -163,6 +489,24 @@
           "url": "https://www.openstreetmap.org/relation/3985745",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "url": "https://rifugiovandelli.it/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0020"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0021"
+          ]
         }
       ]
     },
@@ -235,6 +579,24 @@
           "url": "https://www.openstreetmap.org/way/363006574",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "url": "https://5torri.it/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0009"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://cortina.dolomiti.org/en/pagina-altri-servizi/open-air-museum-of-the-great-war-at-cinque-torri/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0010"
+          ]
         }
       ]
     },
@@ -251,6 +613,24 @@
           "url": "https://www.openstreetmap.org/relation/1657839",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "url": "https://www.montepiana.com/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0022"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0023"
+          ]
         }
       ]
     },
@@ -268,6 +648,24 @@
           "url": "https://www.openstreetmap.org/relation/1155861",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "url": "https://rifugiobiella.it/itinerari/croda-del-becco/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0011"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lago-di-braies-pragser-wildsee-mountain-croda-del-becco-seekofel-_544",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
         }
       ]
     },
@@ -328,6 +726,24 @@
           "url": "https://www.openstreetmap.org/relation/1116674",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "url": "https://www.talschlusshuette.com/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0032"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/en/region/highlights/fischleintal-valley",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0033"
+          ]
         }
       ]
     },
@@ -443,6 +859,21 @@
           "url": "https://www.openstreetmap.org/relation/2442693",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Adolf Munkel Weg Puez-Odle Naturpark Provinz",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.odlesdolomites.com/en/activities/84A3EDE0EBE349019877D7C478965A60",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
         }
       ]
     },
@@ -459,6 +890,21 @@
           "state": "searched_none",
           "query": "Overpass 2026-10-19: hiking relations within 200 m of the Compatsch top station (paths 4, 10, 14, 14B, 30, Hans und Paula Steger Weg); the record does not name which plateau walk it is, and relation 9485181 (path 12 from Seis) does not reach Compatsch",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Alpe di Siusi Seiser Alm land manager / comune Castelrotto page",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.seiser-alm.it/en/leisure-activities/mountains-and-hiking/hans-and-paula-steger-trail/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0007"
+          ]
         }
       ]
     },
@@ -476,6 +922,21 @@
           "url": "https://www.openstreetmap.org/relation/9483250",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Puflatsch Bullaccia cabinovia Compatsch sito ufficiale impianto orari",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0008"
+          ]
         }
       ]
     },
@@ -561,6 +1022,24 @@
           "url": "https://www.openstreetmap.org/relation/7302436",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "url": "https://www.rifugiovieldalpan.it/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0034"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.fassa.com/it/itinerari/alba-col-dei-rossi-viel-dal-pan-fedaia-alba",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0035"
+          ]
         }
       ]
     },
@@ -578,6 +1057,24 @@
           "url": "https://www.openstreetmap.org/relation/7302480",
           "state": "filled",
           "on": "2026-10-19"
+        },
+        {
+          "kind": "official",
+          "url": "https://www.sasspordoi.it/en/info-times-and-prices/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0027"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.trentino.com/en/leisure-activities/mountains-and-hiking/alpine-tours/from-mount-sas-pordoi-to-mount-piz-boe/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0028"
+          ]
         }
       ]
     },
@@ -629,6 +1126,26 @@
       "name": "Seceda ridge",
       "reaches": [
         "part/place/seceda-ridge#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.seceda.it/en/summer",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.valgardena.it/en/summer-holidays-dolomites/trekking/seceda/ridge-line/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0029"
+          ]
+        }
       ]
     },
     {
@@ -708,7 +1225,65 @@
       "ref": "place/lago-di-braies",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Lago di Braies"
+      "name": "Lago di Braies",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://nature-parks.province.bz.it/en/fanes-sennes-prags-fanes-senes-braies-nature-park",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0017"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/en/region/highlights/lake-prags",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0018"
+          ]
+        }
+      ],
+      "best_time": {
+        "v": [
+          {
+            "slot": "sunrise",
+            "why": "crowds"
+          },
+          {
+            "slot": "golden_pm",
+            "why": "crowds"
+          }
+        ],
+        "state": "value",
+        "basis": "our_inference",
+        "src": [
+          "src-0037"
+        ],
+        "read": "2026-10-19",
+        "quote": "If you're coming by car, we recommend avoiding travel between 9 a.m. and 12 p.m., as there may be a higher volume of visitors during that time.",
+        "note": "Method: the valley office advises against arriving 09:00-12:00 for crowds; early morning and late afternoon are the times outside that peak. The office states no positive best time."
+      },
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "sellout": {
+            "kind": "unknown"
+          },
+          "fallback": "In the summer regulation, cars may enter the valley 09:00-16:00 only with an online permit (the combined ticket includes guaranteed parking); online booking opens in early June on prags.bz. Before 09:00 entry is allowed but parking is not guaranteed. Buses 439 and 442 must be booked and paid online."
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0037"
+        ],
+        "read": "2026-10-19",
+        "quote": "access to the Pragser Tal valley between 9:00 a.m. and 4:00 p.m. is only permitted by public transportation, on foot, by bicycle or upon presentation of an online reservation",
+        "note": "Release date within June and the time of day are not published; the regulation is announced to return in summer 2027 with details in spring.",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "place/lago-di-carezza",
@@ -720,13 +1295,67 @@
       "ref": "place/lago-di-landro",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Lago di Landro"
+      "name": "Lago di Landro",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Dürrensee Lago di Landro dreizinnen.com",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/en/info/lake-of-landro_6261",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0019"
+          ]
+        }
+      ],
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "dreizinnen.com Dürrensee page",
+          "https://www.prags.bz/en"
+        ]
+      }
     },
     {
       "ref": "place/lago-dantorno",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Lago d'Antorno"
+      "name": "Lago d'Antorno",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://auronzo.info/en/lake-antorno/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0016"
+          ]
+        }
+      ],
+      "best_time": {
+        "v": [
+          {
+            "slot": "sunset",
+            "why": "light"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0016"
+        ],
+        "read": "2026-10-19",
+        "quote": "The lake's crystal waters reflect the Tre Cime and the surrounding forest, creating spectacular scenes at sunset or when blanketed in snow."
+      }
     },
     {
       "ref": "place/lago-di-dobbiaco",
@@ -744,7 +1373,25 @@
       "ref": "place/lago-di-limides",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Lago di Limides"
+      "name": "Lago di Limides",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Lago di Limides Passo Falzarego cortina.dolomiti.org",
+          "on": "2026-10-19"
+        }
+      ],
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "cortina.dolomiti.org Lago di Lìmedes page"
+        ]
+      }
     },
     {
       "ref": "place/lago-federa",
@@ -756,13 +1403,69 @@
       "ref": "place/passo-gardena",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
-      "name": "Passo Gardena"
+      "name": "Passo Gardena",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Passo Gardena Grödner Joch official page",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.suedtirol.info/de/de/information/mobilitaet/paesse-in-suedtirol/groednerjoch",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0025"
+          ]
+        }
+      ],
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "valgardena.it Passo Gardena",
+          "altabadia.org Passo Gardena"
+        ]
+      }
     },
     {
       "ref": "place/santa-maddalena-val-di-funes",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
-      "name": "Santa Maddalena, Val di Funes"
+      "name": "Santa Maddalena, Val di Funes",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "St. Magdalena Villnöss viewpoint official",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.odlesdolomites.com/en/region/val-di-funes/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0026"
+          ]
+        }
+      ],
+      "best_time": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "suedtirol.info Church of St. Magdalene",
+          "odlesdolomites.com"
+        ]
+      }
     },
     {
       "ref": "place/bolzano",
@@ -786,7 +1489,18 @@
       "ref": "place/la-val",
       "type": "settlement.town",
       "layer": "place",
-      "name": "La Val"
+      "name": "La Val",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.comune.lavalle.bz.it/it",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0013"
+          ]
+        }
+      ]
     },
     {
       "ref": "place/ortisei",
@@ -822,7 +1536,162 @@
       "ref": "place/otzi-south-tyrol-museum-of-archaeology",
       "type": "culture.museum.museum",
       "layer": "place",
-      "name": "Ötzi, South Tyrol Museum of Archaeology"
+      "name": "Ötzi, South Tyrol Museum of Archaeology",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.iceman.it/en/the-museum/opening-times-and-fees",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0024"
+          ]
+        }
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 13.0,
+            "currency": "EUR",
+            "per": "adult",
+            "applies_to": "2026",
+            "note": "single ticket"
+          },
+          {
+            "amount": 0,
+            "currency": "EUR",
+            "per": "child",
+            "age_to": 5,
+            "applies_to": "2026",
+            "note": "under 6 free"
+          },
+          {
+            "amount": 10.0,
+            "currency": "EUR",
+            "per": "person",
+            "applies_to": "2026",
+            "note": "reduced: under-27 students, over 65, people with disabilities, groups of 20 or more"
+          },
+          {
+            "amount": 26.0,
+            "currency": "EUR",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "2 adults with children under 16"
+          },
+          {
+            "amount": 13.0,
+            "currency": "EUR",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "family mini: 1 adult with children under 16"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-19",
+        "quote": "Single ticket 13,00 € ... Discounted ticket* 10,00 € ... Family ticket 26,00 € 2 adults with children under the age of 16",
+        "note": "The fee table states no year; read during the 2026 season. Audio guide 4 EUR.",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "Europe/Rome",
+          "periods": [
+            {
+              "days": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "18:00"
+            },
+            {
+              "days": [
+                1
+              ],
+              "open": "10:00",
+              "close": "18:00",
+              "from": "07-01",
+              "to": "08-31"
+            }
+          ],
+          "closed_days": [
+            1
+          ],
+          "closures": [
+            {
+              "from": "01-01",
+              "to": "01-01"
+            },
+            {
+              "from": "05-01",
+              "to": "05-01"
+            },
+            {
+              "from": "12-25",
+              "to": "12-25"
+            }
+          ],
+          "last_entry": "17:30"
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-19",
+        "quote": "Tuesday-Sunday 10am - 6pm Lat entry: 5.30pm Monday closed Except if Monday is a holiday IN JULY and AUGUST THE MUSEUM OPEN daily also ON MONDAYS.",
+        "note": "Mondays open when a public holiday. On the two Christmas and New Year eves the museum closes at 15:00 (last entry 14:30).",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": [
+          {
+            "from": "01-01",
+            "to": "12-31",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "all year on the days the calendar shows"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-19",
+        "quote": "The museum is open on the days indicated in the calendar and at the times specified.",
+        "note": "No seasonal closure is stated, only fixed closed days; all year is our reading of the page.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 6,
+          "sellout": {
+            "kind": "unknown"
+          },
+          "fallback": "Walk-up tickets at the desk; an optional skip-the-line booking covers today and the next six days, cannot be changed, and is paid at the desk."
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0036",
+          "src-0024"
+        ],
+        "read": "2026-10-19",
+        "quote": "You can book entry for today and the following six days. Once a reservation is made it cannot be changed.",
+        "note": "Booking is recommended, not required: 'Reservations are recommended in order to avoid long queues'.",
+        "applies_to": "2026"
+      }
     },
     {
       "ref": "place/dolomites",
@@ -878,7 +1747,24 @@
       "layer": "route",
       "name": "Drava cycle path to Lienz",
       "route_is_attraction": true,
-      "attraction_reason": "A downhill cycle path along the Drava: the ride is the experience."
+      "attraction_reason": "A downhill cycle path along the Drava: the ride is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Drauradweg Innichen Lienz offizielle Seite",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.dreizinnen.com/Kataloge/flyer-radweg-lienz.pdf",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0012"
+          ]
+        }
+      ]
     },
     {
       "ref": "place/lagazuoi-cable-car-and-tunnels",
@@ -887,6 +1773,26 @@
       "name": "Lagazuoi cable car and tunnels",
       "reaches": [
         "part/place/lagazuoi-cable-car-and-tunnels#top"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://lagazuoi.it/EN/percorso6-The-Lagazuoi-Tunnels",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0014"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://cortina.dolomiti.org/en/escursioni/ascent-to-the-summit-of-piccolo-lagazuoi-en/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0015"
+          ]
+        }
       ]
     },
     {

@@ -5,7 +5,26 @@
   "researched": "2026-10-18",
   "agent": "core/bin/capture.ts migrate",
   "model": "none",
-  "sources": [],
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://limberlostforest.com/activities/hiking-trails/",
+      "title": "Hiking Trails – Limberlost Forest and Wildlife Reserve",
+      "publisher": "Limberlost Forest and Wildlife Reserve",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
+      "title": "Algonquin Provincial Park - Lake of Two Rivers - Activities",
+      "publisher": "Ontario Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    }
+  ],
   "records": [
     {
       "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
@@ -25,7 +44,18 @@
       "layer": "route",
       "name": "Solitaire Lake Trail",
       "route_is_attraction": true,
-      "attraction_reason": "The loop round Solitaire Lake is the experience: a lake circuit with a lookout on the way, not a walk to one named payoff."
+      "attraction_reason": "The loop round Solitaire Lake is the experience: a lake circuit with a lookout on the way, not a walk to one named payoff.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://limberlostforest.com/activities/hiking-trails/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
@@ -33,7 +63,18 @@
       "layer": "route",
       "name": "Track and Tower Trail",
       "route_is_attraction": true,
-      "attraction_reason": "The draw is the open ledge over Cache Lake (the lookout; no tower exists). Create the lookout place and move the draw to it; until then the route carries it."
+      "attraction_reason": "The draw is the open ledge over Cache Lake (the lookout; no tower exists). Create the lookout place and move the draw to it; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
