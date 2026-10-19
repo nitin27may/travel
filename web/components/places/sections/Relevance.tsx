@@ -41,10 +41,10 @@ export function Badge({ rel }: { rel: PublicRelevance }) {
 }
 
 /** The cover's relevance lines: why, the payoff a route takes its draw from, "Part of", the far-visitor pointer (PS9). */
-export function CoverRelevance({ rel, slugs }: { rel: PublicRelevance; slugs: Record<string, string> }) {
+export function CoverRelevance({ rel, slugs, name }: { rel: PublicRelevance; slugs: Record<string, string>; name: string }) {
   return (
     <div className="rv-cover">
-      {rel.payoff ? (
+      {rel.payoff && rel.payoff.name.toLowerCase() !== name.toLowerCase() ? (
         <p className="rv-payoff">
           To <strong><RefLink r={rel.payoff} slugs={slugs} /></strong>
           <span className="ps-stub"> · photo and judgement from the place it reaches</span>

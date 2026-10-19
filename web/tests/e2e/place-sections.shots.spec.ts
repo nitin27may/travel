@@ -8,7 +8,12 @@ const PAGES: [string, string][] = [
   ['larch-valley', '/places/larch-valley-to-sentinel-pass/'],
   ['moraine-lakeshore', '/places/moraine-lakeshore/'],
   ['trail-bald-hills', '/places/bald-hills/'],
-  ['viewpoint-peyto', '/places/peyto-lake-viewpoint/'],
+  ['viewpoint-peyto', '/places/peyto-lake-lookout/'],
+  ['culture-otzi', '/places/otzi-south-tyrol-museum-of-archaeology/'],
+  ['waterfall-takakkaw', '/places/takakkaw-falls-walk/'],
+  ['town-bolzano', '/places/bolzano/'],
+  ['area-capri', '/places/capri/'],
+  ['lift-lagazuoi', '/places/lagazuoi-cable-car-and-tunnels/'],
   ['places-cards', '/places/?q=lake'],
 ];
 

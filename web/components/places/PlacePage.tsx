@@ -394,7 +394,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           </div>
         </header>
         <div className="pl-cover-body">
-          {rel ? <CoverRelevance rel={rel} slugs={slugs} /> : null}
+          {rel ? <CoverRelevance rel={rel} slugs={slugs} name={place.name} /> : null}
           <p className="pl-summary">{summaryOrKind(place.summary, place.kindLabel, place.areaLabel)}</p>
           {!rel?.payoff && trail && payoff ? (
             <p className="pl-payoff">
@@ -580,7 +580,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </ul>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> Kid fit has not been assessed yet.
+                  <span className="su-gapchip">Family checks not done yet</span>
                 </p>
               )}
               {factByLabel(place.facts, 'Kids') ? (

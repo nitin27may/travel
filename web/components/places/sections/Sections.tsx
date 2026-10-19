@@ -199,7 +199,7 @@ function Around({ sec, model, slugs }: { sec: SectionModel; model: PageModel; sl
           ) : null}
         </div>
       ))}
-      <Closing text={sec.closing} />
+      <Closing text={sec.closing ?? (model.around.length === 0 && model.partOf.length === 0 ? 'Not checked yet: what else you can do here' : null)} />
     </>
   );
 }
