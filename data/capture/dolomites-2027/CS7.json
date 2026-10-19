@@ -12,7 +12,7 @@
       "title": "Parcheggio Tre Cime di Lavaredo",
       "publisher": "Comune di Auronzo di Cadore",
       "kind": "official",
-      "read": "2026-10-18",
+      "read": "2026-10-19",
       "method": "read"
     },
     {
@@ -39,7 +39,7 @@
       "title": "Rifugio Lavaredo",
       "publisher": "Rifugio Lavaredo",
       "kind": "operator",
-      "read": "2026-10-18",
+      "read": "2026-10-19",
       "method": "read"
     },
     {
@@ -48,7 +48,7 @@
       "title": "Parking Lago di Braies P4",
       "publisher": "Parking Lago di Braies (Prags)",
       "kind": "operator",
-      "read": "2026-10-18",
+      "read": "2026-10-19",
       "method": "read"
     }
   ],
@@ -294,6 +294,18 @@
             "currency": "EUR",
             "per": "person",
             "note": "per night, half board, bed in a shared room for 4 to 6"
+          },
+          {
+            "amount": 260.0,
+            "currency": "EUR",
+            "per": "room",
+            "note": "per night, half board, private room with 2 beds, for 2 people"
+          },
+          {
+            "amount": 100.0,
+            "currency": "EUR",
+            "per": "person",
+            "note": "per night, half board, a child under 10"
           }
         ],
         "state": "value",
@@ -301,9 +313,9 @@
         "src": [
           "src-0004"
         ],
-        "read": "2026-10-18",
+        "read": "2026-10-19",
         "quote": "€ 120,00 a notte per persona, con trattamento mezza pensione",
-        "note": "No year on the rate; read during the 2026 season."
+        "note": "No year on the rates; re-read for backlog 3.36 and still undated, so read them as the 2026 season. Re-read at the 90-day cadence."
       },
       "links": [
         {
@@ -471,21 +483,35 @@
             "currency": "EUR",
             "per": "vehicle",
             "applies_to": "2026",
-            "note": "car"
+            "note": "car (\"Autovettura\")"
           },
           {
             "amount": 26.0,
             "currency": "EUR",
             "per": "vehicle",
             "applies_to": "2026",
-            "note": "motorcycle"
+            "note": "motorcycle (\"Motocicli\")"
           },
           {
             "amount": 60.0,
             "currency": "EUR",
             "per": "vehicle",
             "applies_to": "2026",
-            "note": "caravan or motorhome"
+            "note": "caravan or motorhome (\"Caravan ed Autocaravan\"); a fitted-out van carrying up to 9 people pays the car rate"
+          },
+          {
+            "amount": 80.0,
+            "currency": "EUR",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "bus up to 30 seats"
+          },
+          {
+            "amount": 160.0,
+            "currency": "EUR",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "bus over 30 seats"
           }
         ],
         "state": "value",
@@ -493,9 +519,9 @@
         "src": [
           "src-0001"
         ],
-        "read": "2026-10-18",
-        "quote": "Prezzi 2026 ... Autovettura € 40,00",
-        "note": "One ticket is valid 12 hours from the chosen entry time; a longer stay needs two slots.",
+        "read": "2026-10-19",
+        "quote": "Prezzi 2026 ... Autovettura € 40,00 ... Caravan ed Autocaravan € 60,00. FAQ: \"I furgoni attrezzati al trasporto fino ad un massimo di 9 persone sono assoggettati alla tariffa prevista per le autovetture.\"",
+        "note": "One ticket is valid 12 hours from the chosen entry time; a longer stay needs two slots. Re-read for backlog 3.36: the 60 EUR class is \"Caravan ed Autocaravan\"; a fitted-out van for up to 9 people pays the car rate. Resident, guide season and bus rates are on the page; the two bus rows are stored, the resident and guide rows are not relevant to a visitor.",
         "applies_to": "2026"
       },
       "window": {
@@ -732,8 +758,10 @@
         "src": [
           "src-0005"
         ],
-        "read": "2026-10-18",
-        "applies_to": "2026"
+        "read": "2026-10-19",
+        "applies_to": "2025",
+        "quote": "from 9:00 a.m. to 4:00 p.m.",
+        "note": "Re-read for backlog 3.36: the page gives the restricted period with the 2025 dates only, so the rule is the 2025 pattern. It also says no reservation is needed after mid-September 2026 and that booking reopens each May."
       },
       "links": [
         {

@@ -492,8 +492,8 @@
       "title": "Parcheggio Tre Cime di Lavaredo",
       "publisher": "Comune di Auronzo di Cadore",
       "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
@@ -16014,8 +16014,8 @@
       "title": "Parking Lago di Braies P4",
       "publisher": "Parking Lago di Braies (Prags)",
       "kind": "operator",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
@@ -16363,8 +16363,8 @@
       "title": "Rifugio Lavaredo",
       "publisher": "Rifugio Lavaredo",
       "kind": "operator",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
