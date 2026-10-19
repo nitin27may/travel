@@ -29,8 +29,10 @@ export function coverageOf<Row>(facet: FacetDef<Row>, scopeRows: readonly Row[])
 
 /** The count-line text for hidden facets: "Duration hidden: not known for most results". */
 export function hiddenNote(hidden: readonly Coverage[]): string | null {
-  if (!hidden.length) return null;
-  const names = hidden.map((h) => h.label);
+  // nothing in scope, nothing to say; a long list is shortened so the count line stays a line
+  const real = hidden.filter((h) => h.total > 0);
+  if (!real.length) return null;
+  const names = real.length > 3 ? [...real.slice(0, 2).map((h) => h.label), `${real.length - 2} more`] : real.map((h) => h.label);
   const list = names.length === 1 ? names[0]! : `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`;
   return `${list} hidden: not known for most results`;
 }

@@ -7,6 +7,16 @@
   color: var(--ink); font: var(--t-chip); background: var(--surface); text-decoration: none;
 }
 .trip-links a:hover { background: var(--surface-2); }
+/* tag chips on a card: each a link to the list filtered by it (backlog 3.2); above the card's stretched link */
+.trip-tags { position: relative; z-index: 2; display: grid; gap: var(--s-2); margin-bottom: var(--s-2); }
+.trip-tag-row { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); margin: 0; padding: 0; list-style: none; }
+.tag-link { position: relative; z-index: 2; height: 26px; color: var(--ink-2); text-decoration: none; background: var(--surface); }
+.tag-link:hover { border-color: var(--ink); color: var(--ink); }
+.tag-link:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+@media (pointer: coarse) {
+  /* a 44 px target without a taller chip */
+  .tag-link::before { content: ''; position: absolute; inset: -9px -3px; }
+}
 .card:has([data-trip-done]) .card-media img { filter: saturate(0.6) brightness(var(--img)); }
 .trips-credits { margin-top: var(--s-10); }
 
