@@ -77,3 +77,47 @@ Everything under "What works", plus: clustering in Italy (five discs for seven r
 | T3 trust | Pass | Credits, "Facts: OpenStreetMap" |
 | T4 families | n/a | Suitability is S1's work |
 | T5 honest maps | Partial | "Location approximate" is shown; M2, S1 |
+
+## Round 2 (19 Oct 2026)
+
+Branch `public/L2b` at c5e2862, `pnpm build`, served static, GPU Chromium (`--use-gl=angle --use-angle=gl`), dark set by the header theme button. The round-1 scenes at 1440, 1024, 390 x 844 and 844 x 390, light and dark. Shots are in `/tmp/l2b-review/r2/`.
+
+**Verdict: not yet, but close.** M1, M2 and M5 are fixed. Two small layout faults are left from M3 and M4. Both are CSS fixes.
+
+### Must-fix status
+
+| # | Status | Evidence |
+|---|---|---|
+| M1 long flights | **Fixed.** Every path flies. Reset and Home from South Tyrol take 1.65 to 1.68 s over 63 to 88 moving frames, the World crumb 1.5 to 1.65 s, a search pick from the world to Alpe di Siusi 2.25 s (zoom 2.44 to 12), and a panel row from Italy 1.6 to 1.7 s. The largest zoom step between frames is 0.2 to 0.5 in good runs. The frame sheets show a real flight. | `m1-*-sheet.jpg`, three runs of `bin/m1.mjs` |
+| M2 cities | **Fixed.** A Trento label click, on the text or the dot, from 3 cameras (Trentino default, one zoom in, and z 9.3 pitched and rotated), opens the Trento card every time. It never picks the Adige. Florence inside Tuscany opens its card at three zooms. Birmingham and Kitchener show "City, Boundary not loaded". A city search opens its card. | `m2b-trento-*.jpg`, `flo2-*.jpg`, `m2c-Birmingham-*.jpg`, `search-Kitchener-light-1440.jpg` |
+| M3 overlaps | **Partly fixed.** 1440 is clean, and on the phone the results now draw over the crumb. Still open: at 1024 the two-line crumb covers the top of the card dock by 10 px, light and dark. This is the same fault as round 1, because the dock top is still a fixed 110 px. Also, at 390 and 844 x 390 the map rail (Locate, Globe, Zoom, Map options) draws over the search results. | `card-photo-light-1024x768.jpg`, `search-open-light-390x844.jpg`, `search-open-dark-844x390.jpg` |
+| M4 landscape card | **Partly fixed.** Open place is now a sticky footer, and the three actions sit on one row (tops 303 to 304). The dock ends 4 px above the attribution, and the credit reads in both themes. But the dock is 180 px tall, and the photo (96) plus the kicker fill it, so the place name (top 299) sits under the footer (top 294). The card's name cannot be seen without scrolling (P3). | `land2x-light.jpg`, `land2x-dark.jpg` |
+| M5 green | **Fixed.** A hue scan (75 to 165 degrees, saturation over 12%) finds 0.00% green pixels at z 6, 12, 12.5, 13 and 14 (Siusi, Bolzano, a Val Gardena forest, Toronto parks), in light and dark. | `green-*.png` |
+
+### Remaining must-fixes
+
+1. **M3 at 1024:** set `--globe-dock-top` from the crumb's measured bottom plus 8 px, not a fixed 110 px. Give `.globe-search` (and its results) a z-index above the rail at every size.
+2. **M4:** in the landscape dock, put the kicker and the title in a row beside a 96 x 96 thumbnail instead of under a full-width photo. Or drop the photo to 64 px. Either way the title must sit above the footer without scrolling. Add an e2e that checks the title's bottom is above the actions' top at 844 x 390.
+
+### Q6 tokens
+
+Accepted. `--globe-land` and `--globe-wood` are tokens (`#263241` and `#2B3845` dark), and `mix()` is gone from `scheme()`. One correction: the darkened selection casing (`#030406`) is **1.17:1 on the dark ocean**, not 3:1. That does not matter, because the amber carries the edge on its own: amber is 6.98:1 on the dark ocean, 5.17:1 on dark land, and 8.15:1 against the casing. Approved: dark land on ocean 1.35:1 (borders carry the edge), `--ink-2` on dark land 8.49:1, light land on ocean 1.51:1, `--ink-2` on light land 7.95:1, ink casing on light ocean 8.81:1.
+
+### Ruling on the 60 ms long-task threshold
+
+**Accepted for the A9 scene only**, and the test message must say so. The 51 to 52 ms task at Reset view is real. I measured 52 ms in one of three runs.
+
+The threshold does not cover what M1 has exposed. Now that long flights really fly, they cross a lot of tiles. In my runs, the World crumb from South Tyrol produced 59 to 128 ms long tasks in all three runs, a search pick from the world 86 to 226 ms in all three, and Reset from South Tyrol 73 to 94 ms in one run. The worst frame was 200 ms, about one held frame in a 2.2 s flight. I rank this **important, not blocking**. Find out whether our own work causes it (the drill, the panel re-render, the "Loading states" fetch mid-flight), or defer it until `moveend`. Then add a long-flight long-task budget (100 ms) to the M1 e2e.
+
+### New findings
+
+| # | Rank | Finding | Fix |
+|---|---|---|---|
+| N1 | important | A selected city with no outline shows nothing on the map. Birmingham and Kitchener have the card but no ring, so the eye has to find the label. | Draw the 4.2 honest ring (casing plus amber) at the city point while its card is open. |
+| N2 | important | Long-flight long tasks, above. | As above. |
+| N3 | polish | Searching "Birmingham" lists the state-level area first. Enter goes to `/globe/gb/birmingham/` with no card, and that URL 404s on reload (S2). | Rank a city above an admin area with the same name. |
+| N4 | polish | On a search pick from the world, the card opens at the start of the 2.2 s flight and rides along with it. | Open it on `moveend`, the way a city result already does. |
+
+### Correction to round 1
+
+Two of my round-1 city probes clicked in canvas coordinates without the 58 px header offset. So the "Trento picks the Adige" evidence, and probably the Kitchener park pick, were clicks about 58 px above the label, not on it. That is why the builder could not reproduce them. The hit-order and city-card faults behind M2 were still real: a city search opened no card, and the state label showed "Boundary not loaded". Round 2 probes add the canvas offset.
