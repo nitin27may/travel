@@ -23,7 +23,9 @@ describe('place pages from the capture contract (S1)', () => {
     expect(text(louise)).not.toMatch(/\bWarnings\b/);
   });
   it('keeps empty sections as markers in the four forms, and none says "No data"', () => {
-    expect(louise).toContain('Not checked yet: price');
+    // a place that really lacks a price, found by query so new data never breaks the fixture
+    const noPrice = data.placeSlugs().find((slug) => html(slug).includes('Not checked yet: price'));
+    expect(noPrice, 'some place still lacks a price').toBeTruthy();
     expect(louise).toContain('gc');
     expect(text(louise)).not.toMatch(/No data|recorded (?:here )?yet\b/);
   });
@@ -58,7 +60,7 @@ describe('legacy facts and Directions (step 9, PS4)', () => {
         expect(html(slug).split(`<dt>${label}</dt>`).length - 1, `${slug} ${label}`).toBe(0);
       }
     }
-    expect(mapped).toBeGreaterThan(5);
+    expect(mapped).toBeGreaterThan(0); // shrinks as research moves legacy facts into capture records (CS7c moved some into capture records)
   });
   it('Directions go to a car park of the access place, never to a stop (M2, T5)', () => {
     const d = data.getPlace('lake-louise')!.sections!.directions;
