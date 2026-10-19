@@ -5,7 +5,7 @@ import { afterAll, describe, expect, it } from 'vitest';
 import { tagChips } from '@/components/trips/tags/chips';
 import { hikeLabel, hubBandOf, kidsLabel, lengthLine } from '@/components/trips/tags/labels';
 import { tripListRows } from '@/app/trips/rows';
-import { listTrips } from '@/lib/public';
+import { createPublicData, listTrips } from '@/lib/public';
 import { activitiesTag, activityIdsOf, aroundTag, highlightsTag, hikeEffortTag, hikeTag, kidsFromTag, lengthTag, perDayTag, shapeTag, strollerTag } from '@/lib/public/tags';
 import type { DayVariant, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
 import type { PickedItem } from '@/lib/public/tags';
@@ -240,5 +240,29 @@ describe('Hike effort says what it rests on, and never undercuts the plan', () =
   it('the chip carries the same two words as Kids', () => {
     expect(hikeLabel('moderate', 'plan').text).toBe('Hike effort: moderate · our plan');
     expect(hikeLabel('strenuous', 'computed').text).toBe('Hike effort: strenuous · checked');
+  });
+});
+
+describe('a renamed capture record keeps its trip stop and its trail effort (backlog 3.40)', () => {
+  const data = createPublicData();
+  const STOP = 'Angels Landing chains view or Scout Lookout';
+  const utah = data.getTrip('utah-five-parks')!;
+  const stop = utah.days.flatMap((d) => d.items).find((i) => i.name === STOP)!;
+  it('the stop still joins its place, now named for what the record covers, by capture ref', () => {
+    expect(stop).toBeTruthy();
+    expect(stop.placeSlug).not.toBeNull();
+    expect(data.getPlace(stop.placeSlug!)?.name).toBe('Scout Lookout (Angels Landing chains view)');
+  });
+  it('the trail effort survives: the list row keeps its effort and the Hike effort tag still rests on this stop', () => {
+    const card = data.listPlaces().find((p) => p.slug === stop.placeSlug)!;
+    expect(card.bands.effort).not.toBeNull();
+    const report = data.internals.tagReport.find((r) => r.trip === 'utah-five-parks' && r.field === 'hike')!;
+    expect(report.computed).toBe('moderate');
+    expect(report.decider).toContain(STOP);
+    expect(bySlug('utah-five-parks').tags.hikeBasis).toBe('computed');
+  });
+  it('a stop that is not listed in data/trips/stop-refs.json still joins by name', () => {
+    const named = utah.days.flatMap((d) => d.items).find((i) => i.name === 'Riverside Walk')!;
+    expect(named.placeSlug).not.toBeNull();
   });
 });
