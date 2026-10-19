@@ -144,8 +144,8 @@ export interface ScheduleItem {
   note: string | null;
   /** Suitability facts the profile uses. */
   minAge: number | null;
-  /** A hard age limit is an operator rule; advice is not an exclusion. */
-  minAgeRule: "hard" | "advice" | null;
+  /** A hard age limit is an operator rule; the plan's own audience ("an adults' walk") also excludes; advice does not. */
+  minAgeRule: "hard" | "plan" | "advice" | null;
   needsDaylight: boolean;
   /** Stays outside the walk ceiling (a ticketed ride, a cruise). */
   honesty: ScheduleHonesty[];
@@ -162,6 +162,8 @@ export interface DayVariant {
   rank: number;
   /** After this item the party rejoins (split days). */
   rejoin?: { time: string; place: string; afterItem: string | null } | null;
+  /** The split is a quiet option ("if Track A is taken") rather than the plan's own split day. */
+  optionalSplit?: boolean;
 }
 
 export interface StoredLeg {
@@ -210,6 +212,8 @@ export interface ScheduleDayInput {
   homeBy: string | null;
   /** The day is one of the trip's days with a parallel option. */
   splitNote: string | null;
+  /** Arrival days: check in before the first outing (default) or after the outings on the way. */
+  checkin?: "first" | "last";
 }
 
 // ---- overrides and additions (3.6, 3.7) ----

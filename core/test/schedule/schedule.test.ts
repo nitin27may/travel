@@ -121,7 +121,7 @@ describe("Dolomites Day 3: authored times stay, ORS legs are not estimates", () 
     expect(by(t, "tre-cime").time).toMatchObject({ pinned: true, confidence: "suggested", source: "plan" });
   });
   it("back-solves the start from the first pin and uses the routed minutes", () => {
-    expect(t.entries[0]!.start).toBe("10:35");
+    expect(t.entries[0]!.start).toBe("10:25");
     const legs = t.entries.filter((e) => e.kind === "leg");
     expect(legs[0]).toMatchObject({ durationMin: 55 });
     expect(legs[0]!.leg).toMatchObject({ basis: "routed" });

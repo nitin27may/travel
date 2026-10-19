@@ -163,7 +163,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     lastKind = "leg";
   };
 
-  const addMeal = (which: "lunch" | "dinner", style: "sit-down" | "picnic" | "at-base", at: PlaceRef | null, deadline: number | null): void => {
+  const addMeal = (which: "lunch" | "dinner", style: "sit-down" | "picnic" | "at-base", at: PlaceRef | null, deadline: number | null, maxMin: number | null = null): void => {
     let st = style;
     const id = which === "dinner" ? "meal.dinner" : st === "sit-down" ? "meal.lunch.sit-down" : "meal.lunch.picnic";
     let minutes = rule(id).minutes;
@@ -172,6 +172,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       minutes = Math.min(minutes, 30);
     }
     const w = wins[which];
+    if (maxMin !== null) minutes = Math.min(minutes, maxMin);
     const title = which === "dinner" ? (at ? `Dinner in ${at.name}` : "Dinner") : st === "picnic" ? "Picnic lunch" : "Lunch";
     push({
       kind: "meal", sub: which, style: st, title, start: clock(t), durationMin: minutes, at, from: null, to: null,
@@ -207,7 +208,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   };
 
   /** Back at the base (or on to the next one), a rest until dinner opens, dinner. */
-  const dinner = (deadline: number | null): void => {
+  const dinner = (deadline: number | null, maxMin: number | null = null): void => {
     if (dinnerDone) return;
     const toNext = input.kind === "transfer";
     const where = toNext ? ctx.nextBase : ctx.base;
@@ -216,14 +217,14 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       addLeg(ref, resolveLeg(loc, where, input.legs), toNext ? `Drive on to ${ref?.name ?? "the next base"}` : `Back to ${ref?.name ?? "base"}`);
       loc = where;
     }
-    if (t < dinnerStart && (deadline === null || deadline - dinnerStart >= rule("meal.dinner").minutes)) {
+    if (t < dinnerStart && (deadline === null || deadline - dinnerStart >= 45)) {
       const gap = dinnerStart - t;
       if (gap > REST_THRESHOLD_MIN) addRest(gap, "at-base", "Rest at the base", ref);
       else t = dinnerStart;
     }
     dinnerDone = true;
-    if (t > wins.dinner.to + 60) return;
-    addMeal("dinner", "at-base", ref, deadline);
+    if (t > wins.dinner.to + 120) return;
+    addMeal("dinner", "at-base", ref, deadline, maxMin);
   };
 
   // ---- the day start (2.9 step 4) ----
@@ -255,11 +256,15 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       for (let i = 0; i <= firstPin; i++) {
         const it = stops[i]!.item;
         const e = endOf(it);
-        if (at && !samePlace(at, e)) lead += resolveLeg(at, e, input.legs).minutes;
+        if (at && !samePlace(at, e)) {
+          const l = resolveLeg(at, e, input.legs);
+          lead += l.minutes;
+          if (i === firstPin && it.kind === "trail" && l.mode === "drive" && l.minutes >= 30) lead += rule("park.walk-in").minutes;
+        }
         if (i < firstPin) lead += resolveDuration(it, profile).minutes;
         at = e;
       }
-      startMin = pinOf(stops[firstPin]!.item)! - lead;
+      startMin = Math.floor((pinOf(stops[firstPin]!.item)! - lead) / ROUND_MIN) * ROUND_MIN;
       source = "plan";
       if (startMin < 360) {
         pinned = true;
@@ -306,7 +311,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     if (stop.isRejoin) current = "all";
 
     // arrival day: to the stay first, then out again
-    if (!checkedIn && o.resume === null) doCheckin(ctx.base, baseRef);
+    if (!checkedIn && o.resume === null && input.checkin !== "last") doCheckin(ctx.base, baseRef);
 
     // the pinned time of this stop
     let pinStart: number | null = null;
@@ -334,7 +339,9 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       const back = loc && !samePlace(loc, ctx.base) ? resolveLeg(loc, ctx.base, input.legs).minutes : 0;
       const out = resolveLeg(ctx.base, target, input.legs).minutes;
       const earliest = Math.max(t + back, dinnerStart);
-      if (gate - out - 5 >= earliest + rule("meal.dinner").minutes) dinner(gate - out);
+      const room = gate - out - 5 - earliest;
+      // dinner before the evening outing, shortened to what fits (45 min at least)
+      if (room >= 45) dinner(gate - out, room);
     }
 
     // lunch is due where we stand
@@ -591,7 +598,7 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
       const km = walk.stats?.distanceKm;
       notes.push({
         kind: "split-option",
-        text: `Split option: the stronger walkers can take ${walk.title}${km ? ` (${km} km, ${fmtHM(dur)})` : ` (${fmtHM(dur)})`}${rj ? ` and rejoin at ${rj.time}${rj.place ? ` at ${rj.place}` : ""}` : ""}.`,
+        text: `${pv.optionalSplit ? "Optional split: some of the group could take" : "Split option: the stronger walkers can take"} ${walk.title}${km ? ` (${km} km, ${fmtHM(dur)})` : ` (${fmtHM(dur)})`}${rj ? ` and rejoin at ${rj.time}${rj.place ? ` at ${rj.place}` : ""}` : ""}.`,
       });
     }
   }
