@@ -30,12 +30,13 @@ export interface PlaceFacets {
 }
 
 /**
- * For each place, the type id and the bands. The capture record is found by the prototype id (`place/<id>`), then by a name that
- * only one capture record carries. A place with no record has the type its kind implies and no bands: every band is a gap.
+ * For each place, the type id and the bands. The capture record is found by its own ref when the page was made from it (a trail
+ * route of a public trip), then by the prototype id (`place/<id>`), then by a name that only one capture record carries. A place with no record has the type its kind implies and no bands: every band is a gap.
  */
-export function placeFacets(world: World, root: string, places: readonly PublicPlace[], protoIdOf: ReadonlyMap<string, string>): Map<string, PlaceFacets> {
+export function placeFacets(world: World, root: string, places: readonly PublicPlace[], protoIdOf: ReadonlyMap<string, string>, captureRefOf: ReadonlyMap<string, string> = new Map()): Map<string, PlaceFacets> {
   const refBySlug = new Map<string, string>();
-  for (const [protoId, slug] of protoIdOf) if (world.cap.has(`place/${protoId}`)) refBySlug.set(slug, `place/${protoId}`);
+  for (const [ref, slug] of captureRefOf) if (world.cap.has(ref)) refBySlug.set(slug, ref);
+  for (const [protoId, slug] of protoIdOf) if (!refBySlug.has(slug) && world.cap.has(`place/${protoId}`)) refBySlug.set(slug, `place/${protoId}`);
   const byName = new Map<string, string[]>();
   for (const { rec } of world.cap.values()) {
     if (rec.layer === 'offer' || !rec.name || rec.ref.startsWith('part/')) continue;

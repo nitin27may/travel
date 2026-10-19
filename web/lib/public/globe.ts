@@ -57,10 +57,25 @@ export function readDrawTiers(root: string): Map<string, DrawTier> {
   return out;
 }
 
-/** The pin of a trip: its first base, from our own points, then a place of that name, then the globe's gazetteer. */
-function tripPin(trip: PublicTrip, folder: string, places: PublicPlace[], gaz: GazRow[]): { lat: number; lon: number; approx: boolean } | null {
+/** data/trips/base-points.json: the sourced pin of a trip with no positioned base in its days, by legacy folder (backlog 3.41). */
+export function readBasePoints(root: string): Map<string, { lat: number; lon: number }> {
+  const file = path.join(root, 'data', 'trips', 'base-points.json');
+  const out = new Map<string, { lat: number; lon: number }>();
+  if (!existsSync(file)) return out;
+  const doc = JSON.parse(readFileSync(file, 'utf8')) as { records?: { ref?: string; point?: { lat?: number; lon?: number } }[] };
+  for (const r of doc.records ?? []) {
+    const folder = /^trip\/(.+)$/.exec(r.ref ?? '')?.[1];
+    if (folder && Number.isFinite(r.point?.lat) && Number.isFinite(r.point?.lon)) out.set(folder, { lat: r.point!.lat!, lon: r.point!.lon! });
+  }
+  return out;
+}
+
+/** The pin of a trip: its first base, then our sourced base point, then a place of that name, then the globe's gazetteer. */
+function tripPin(trip: PublicTrip, folder: string, places: PublicPlace[], gaz: GazRow[], basePoints: ReadonlyMap<string, { lat: number; lon: number }> = new Map()): { lat: number; lon: number; approx: boolean } | null {
   const bp = trip.bases[0]?.point;
   if (bp) return { lat: bp.lat, lon: bp.lon, approx: false };
+  const own0 = basePoints.get(folder);
+  if (own0) return { lat: own0.lat, lon: own0.lon, approx: false };
   const a3 = TRIP_COUNTRY[folder]?.a3;
   const country = gaz.find((r) => r[0] === 'country' && r[4] === a3);
   const countryPin = country ? { lat: country[3], lon: country[2], approx: true } : null;
@@ -134,6 +149,7 @@ export function canonicalRegions(places: PublicPlace[]): { region: Map<string, {
 
 export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTrip[], listedFolders: Map<string, string>): GlobeIndex {
   const gaz = readGazetteer(root);
+  const basePoints = readBasePoints(root);
   const tiers = readDrawTiers(root);
   const folderOf = new Map([...listedFolders].map(([f, s]) => [s, f]));
   const pins: GlobePin[] = [];
@@ -150,7 +166,7 @@ export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTri
     const cc = TRIP_COUNTRY[folder]?.cc;
     if (!cc) continue;
     tripCountry.set(t.slug, cc);
-    const pin = tripPin(t, folder, places, gaz);
+    const pin = tripPin(t, folder, places, gaz, basePoints);
     if (pin) pins.push({ kind: 'trip', slug: t.slug, name: t.title, lat: pin.lat, lon: pin.lon, type: t.depth, path: [cc], approx: pin.approx, tier: 'world' });
   }
 

@@ -1,7 +1,9 @@
 {
   "schema": "trail-track/1",
   "place": "siusi",
-  "refs": [],
+  "refs": [
+    "place/alpe-di-siusi"
+  ],
   "osm": [
     "relation:9485181"
   ],
@@ -13,9 +15,18 @@
   "confirmed": false,
   "held_back": [
     "listed in UNCONFIRMED_TRAIL_DATA",
-    "starts 1074 m from our trailhead"
+    "the stored OSM relation is the wrong route: the stored relation is path 12 from Seis, which does not reach Compatsch; which plateau walk is meant is an owner question",
+    "our trailhead is 1074 m from the line"
   ],
   "start_offset_m": 1074,
+  "end_offset_m": null,
+  "cut": "far end",
+  "legs": [
+    {
+      "osm": "relation:9485181",
+      "km": 3.9
+    }
+  ],
   "simplify_m": 5,
   "totals": {
     "km": 3.82,
