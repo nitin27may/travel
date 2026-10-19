@@ -142,7 +142,8 @@ describe('KML', () => {
     const folders = kids(doc, 'Folder');
     expect(folders.length).toBeGreaterThan(5);
     expect(kids(folders[0], 'name')[0].text).toMatch(/^Day \d+$/);
-    const placemarks = folders.flatMap((f) => kids(f, 'Placemark'));
+    // a confirmed OSM track is one more placemark (a LineString), now that exports carry geometry (backlog 3.32)
+    const placemarks = folders.flatMap((f) => kids(f, 'Placemark')).filter((p) => kids(p, 'Point').length > 0);
     expect(placemarks).toHaveLength(r.points);
     expect(kids(doc, 'description')[0].text).toContain(OSM_ATTRIBUTION);
     const [lon, lat] = kids(kids(placemarks[0], 'Point')[0], 'coordinates')[0].text.split(',').map(Number);
