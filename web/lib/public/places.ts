@@ -52,7 +52,7 @@ export function parseSeasonMonths(text: string): number[] {
   return out;
 }
 
-interface Rec extends Omit<PublicPlace, 'slug' | 'completeness'> {
+interface Rec extends Omit<PublicPlace, 'slug' | 'completeness' | 'sections' | 'suitability' | 'relevance' | 'refSlugs'> {
   locationId: string | null;
   protoId: string | null;
   checklistComplete: boolean | null;
@@ -430,7 +430,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
     };
     const { locationId: _l, protoId: _p, checklistComplete: _c, hasDatedSource: _d, hasTrailheadPoint: _t, durationMin: _m, timeHours: _h, tripFolders: _f, captureRef: _r, ...pub } = r;
     void [_l, _p, _c, _d, _t, _m, _h, _f, _r];
-    return { ...pub, slug: slugs.get(key(r))!, trips: tripRefs, honesty: uniqueHonesty(r.honesty), completeness: computeCompleteness(input) };
+    return { ...pub, slug: slugs.get(key(r))!, trips: tripRefs, honesty: uniqueHonesty(r.honesty), completeness: computeCompleteness(input), sections: null, suitability: null, relevance: null, refSlugs: {} };
   });
   places.sort((a, b) => a.slug.localeCompare(b.slug));
 
