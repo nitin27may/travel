@@ -39,8 +39,8 @@ describe('trail page: tre-cime-di-lavaredo-loop', () => {
     expect(page).not.toContain('PLAN.md');
     expect(page.indexOf('Hazards')).toBeLessThan(page.indexOf('The route'));
   });
-  it('draws the elevation profile ink-only at rest, with a text summary', () => {
-    expect(page).toMatch(/role="img"[^>]*aria-label="Sketch of the elevation profile\. 10 km/);
+  it('draws the elevation profile of the cut Tre Cime loop (9 km, not the 22 km relation) ink-only at rest, with a text summary', () => {
+    expect(page).toMatch(/role="img"[^>]*aria-label="Elevation profile along the stored route\. 9 km/);
     expect(page).toContain('pl-line');
     expect(page).not.toContain('pl-cursor');
   });
@@ -141,7 +141,7 @@ describe('links tabs: searched and found nothing', () => {
 describe('route line and point source wording', () => {
   const page = html('tre-cime-di-lavaredo-loop').replace(/<!-- -->/g, '');
   it('names the route plainly and links the OpenStreetMap records', () => {
-    expect(page).toContain('Route from OpenStreetMap (2 records); not yet confirmed by a person.');
+    expect(page).toContain('Route from OpenStreetMap (2 records); it starts at our trailhead and matches the researched length.');
     expect(page).toContain('href="https://www.openstreetmap.org/relation/1116663"');
     expect(page).toContain('From OpenStreetMap');
     expect(page).toContain('not yet checked');

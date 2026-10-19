@@ -1,7 +1,9 @@
 {
   "schema": "trail-track/1",
   "place": "federa",
-  "refs": [],
+  "refs": [
+    "part/place/lago-federa#walk"
+  ],
   "osm": [
     "relation:3170182"
   ],
@@ -12,9 +14,12 @@
   "stitched": true,
   "confirmed": false,
   "held_back": [
-    "starts 1426 m from our trailhead"
+    "not cut: our destination is 1508 m from the line"
   ],
-  "start_offset_m": 1426,
+  "start_offset_m": 2,
+  "end_offset_m": null,
+  "cut": null,
+  "legs": [],
   "simplify_m": 5,
   "totals": {
     "km": 4.81,

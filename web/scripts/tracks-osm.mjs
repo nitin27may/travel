@@ -156,6 +156,182 @@ export function resample(line, step = SAMPLE_STEP_M) {
   return out;
 }
 
+/* ------------------------------------------------------------------ cutting and joining routes (pure) */
+
+/** Where an anchor (a trailhead, a destination, a junction) lands on a set of ways: nearest point on any segment, in metres. */
+export function nearestOnWays(ways, pt) {
+  const kx = Math.cos(pt[1] * rad) * R * rad;
+  const ky = R * rad;
+  let best = { dist: Infinity, way: -1, seg: -1, t: 0, point: null };
+  ways.forEach((w, wi) => {
+    for (let i = 0; i + 1 < w.length; i++) {
+      const ax = (w[i][0] - pt[0]) * kx;
+      const ay = (w[i][1] - pt[1]) * ky;
+      const dx = (w[i + 1][0] - w[i][0]) * kx;
+      const dy = (w[i + 1][1] - w[i][1]) * ky;
+      const l2 = dx * dx + dy * dy;
+      const t = l2 === 0 ? 0 : Math.max(0, Math.min(1, -(ax * dx + ay * dy) / l2));
+      const d = Math.hypot(ax + t * dx, ay + t * dy);
+      if (d < best.dist) best = { dist: d, way: wi, seg: i, t, point: [w[i][0] + (w[i + 1][0] - w[i][0]) * t, w[i][1] + (w[i + 1][1] - w[i][1]) * t] };
+    }
+  });
+  return best;
+}
+
+/** Distance in metres from `pt` to the nearest point of the ways, not to the nearer end. */
+export const offsetToWays = (ways, pt) => nearestOnWays(ways, pt).dist;
+
+/**
+ * Adds `pt` to the ways as a vertex on its nearest segment (so a cut can start exactly there) and returns the vertex key and
+ * the distance from `pt` to it. The ways are changed in place.
+ */
+export function splitAt(ways, pt) {
+  const n = nearestOnWays(ways, pt);
+  if (n.way < 0) return null;
+  const w = ways[n.way];
+  const segLen = haversine(w[n.seg], w[n.seg + 1]);
+  if (n.t * segLen < 0.5) return { key: key(w[n.seg]), dist: n.dist };
+  if ((1 - n.t) * segLen < 0.5) return { key: key(w[n.seg + 1]), dist: n.dist };
+  w.splice(n.seg + 1, 0, n.point);
+  return { key: key(n.point), dist: n.dist };
+}
+
+/** A walkable graph over ways that share end points or vertices: Map key -> {p, adj: Map key -> metres}. */
+export function graphOf(ways) {
+  const g = new Map();
+  const node = (p) => {
+    const k = key(p);
+    if (!g.has(k)) g.set(k, { p, adj: new Map() });
+    return g.get(k);
+  };
+  for (const w of ways) {
+    for (let i = 0; i + 1 < w.length; i++) {
+      const a = node(w[i]);
+      const b = node(w[i + 1]);
+      if (a === b) continue;
+      const d = haversine(w[i], w[i + 1]);
+      a.adj.set(key(w[i + 1]), Math.min(d, a.adj.get(key(w[i + 1])) ?? Infinity));
+      b.adj.set(key(w[i]), Math.min(d, b.adj.get(key(w[i])) ?? Infinity));
+    }
+  }
+  return g;
+}
+
+/** Dijkstra from `from`: {dist: Map, prev: Map}. */
+export function walkFrom(g, from) {
+  const dist = new Map([[from, 0]]);
+  const prev = new Map();
+  const done = new Set();
+  const open = [[0, from]];
+  while (open.length) {
+    let bi = 0;
+    for (let i = 1; i < open.length; i++) if (open[i][0] < open[bi][0]) bi = i;
+    const [d, k] = open.splice(bi, 1)[0];
+    if (done.has(k)) continue;
+    done.add(k);
+    for (const [nk, len] of g.get(k)?.adj ?? []) {
+      const nd = d + len;
+      if (nd < (dist.get(nk) ?? Infinity)) {
+        dist.set(nk, nd);
+        prev.set(nk, k);
+        open.push([nd, nk]);
+      }
+    }
+  }
+  return { dist, prev };
+}
+
+/** The points from `from` to `to` along the walk, or null when `to` is not reachable. */
+export function pathTo(g, walk, from, to) {
+  if (!walk.dist.has(to)) return null;
+  const keys = [to];
+  while (keys[keys.length - 1] !== from) keys.push(walk.prev.get(keys[keys.length - 1]));
+  return keys.reverse().map((k) => g.get(k).p);
+}
+
+/** Points within `eps` metres of the other graph's segments, from `a`'s nodes: [{key, touch}] (touch = the distance). */
+function touching(g, otherWays) {
+  const out = [];
+  for (const [k, v] of g) out.push({ key: k, touch: offsetToWays(otherWays, v.p) });
+  return out;
+}
+
+const JUNCTION_MIN_M = 300;
+const JUNCTION_EPS_M = 3;
+const JUNCTION_MAX_M = 150;
+
+/**
+ * Cuts and joins a route. `pieces` are the ways of each OSM record in walking order ([[line, ...], ...]); the route enters the
+ * first at the trailhead (nearest point of the line, not the nearer end), passes from each piece to the next where they touch
+ * (the first touching point at least 300 m on), and leaves the last at the destination. Without a destination the last piece
+ * runs to its far end; with `loop` it closes back to the trailhead. A relation that is itself a closed loop is walked whole
+ * from the trailhead. Returns {line, startOffset, endOffset, legs, cut} or {problem}.
+ */
+export function routeThrough(pieces, { trailhead, destination = null, loop = false }) {
+  if (!trailhead || !pieces.length) return { problem: 'no trailhead to cut at' };
+  const T = [trailhead.lon, trailhead.lat];
+  const D = destination ? [destination.lon, destination.lat] : null;
+  const ways = pieces.map((p) => p.map((w) => w.slice()));
+  const first = splitAt(ways[0], T);
+  if (!first) return { problem: 'no geometry' };
+  const startOffset = Math.round(first.dist);
+  if (pieces.length === 1) {
+    const ring = stitchWays(ways[0]);
+    const chain = ring.lines[0];
+    if (ring.stitched && chain.length > 3 && key(chain[0]) === key(chain[chain.length - 1])) {
+      // a closed ring is walked whole from the trailhead and back to it
+      const at = chain.findIndex((q) => key(q) === first.key);
+      const line = [...chain.slice(at), ...chain.slice(1, at + 1)];
+      return { line, startOffset, endOffset: D ? Math.round(offsetToWays(pieces[0], D)) : null, legs: [{ index: 0, km: Math.round((lengthM(line) / 1000) * 100) / 100 }], cut: 'ring' };
+    }
+  }
+  let entry = first.key;
+  const legs = [];
+  const out = [];
+  for (let i = 0; i < pieces.length; i++) {
+    const g = graphOf(ways[i]);
+    const walk = walkFrom(g, entry);
+    const last = i === pieces.length - 1;
+    let exit = null;
+    if (!last) {
+      const cand = touching(g, ways[i + 1]).filter((c) => (walk.dist.get(c.key) ?? -1) >= JUNCTION_MIN_M);
+      const tight = cand.filter((c) => c.touch <= JUNCTION_EPS_M).sort((a, b) => walk.dist.get(a.key) - walk.dist.get(b.key))[0];
+      const near = cand.filter((c) => c.touch <= JUNCTION_MAX_M).sort((a, b) => a.touch - b.touch || walk.dist.get(a.key) - walk.dist.get(b.key))[0];
+      exit = tight ?? near;
+      if (!exit) return { problem: `record ${i + 1} does not meet record ${i + 2} within ${JUNCTION_MAX_M} m past ${JUNCTION_MIN_M} m` };
+      exit = exit.key;
+    } else if (loop) {
+      const back = splitAt(ways[i], T);
+      exit = back.key;
+    } else if (D) {
+      const dest = splitAt(ways[i], D);
+      if (dest.dist > START_TOLERANCE_M) return { problem: `our destination is ${Math.round(dest.dist)} m from the line` };
+      exit = dest.key;
+    } else {
+      // far end: the reachable end (degree 1) with the longest walk
+      const ends = [...g.entries()].filter(([k, v]) => v.adj.size === 1 && walk.dist.has(k)).sort((a, b) => walk.dist.get(b[0]) - walk.dist.get(a[0]));
+      if (!ends.length) return { problem: 'the last record has no free end to run to' };
+      // alone, the record must start near one end: mid-line there is no telling which way the walk goes
+      if (i === 0 && walk.dist.get(ends[ends.length - 1][0]) > JUNCTION_MIN_M) return { problem: 'the record runs on both sides of the trailhead and no destination point is recorded' };
+      exit = ends[0][0];
+    }
+    // splitAt may have added vertices: walk again on the final graph
+    const g2 = graphOf(ways[i]);
+    const w2 = walkFrom(g2, entry);
+    const seg = pathTo(g2, w2, entry, exit);
+    if (!seg) return { problem: `no walkable path inside record ${i + 1}` };
+    legs.push({ index: i, km: Math.round((w2.dist.get(exit) / 1000) * 100) / 100 });
+    out.push(...(out.length ? seg.slice(1) : seg));
+    if (!last) {
+      const at = g2.get(exit).p;
+      const nxt = splitAt(ways[i + 1], at);
+      entry = nxt.key;
+    }
+  }
+  const endOffset = D ? Math.round(offsetToWays(pieces[pieces.length - 1], D)) : null;
+  return { line: out, startOffset, endOffset, legs, cut: loop ? 'loop' : D ? 'destination' : 'far end' };
+}
+
 /** Terrarium PNG pixel -> metres above sea level. */
 export const decodeTerrarium = (r, g, b) => r * 256 + g + b / 256 - 32768;
 
@@ -247,31 +423,64 @@ export function osmRefsOf(source, ids) {
   return [...new Set([...String(ids ?? '').matchAll(IDS)].map((m) => `${type}:${m[1]}`))];
 }
 
-/** Capture-record links that name an OSM relation or way (`links.osm`, `track_source`). */
+/**
+ * Capture-record links that name an OSM relation or way, in the order the record lists them (that order is the walking order
+ * of a route made of several relations). `links` is a list of {kind, url, state}; an older `track_source` string is also read.
+ * Nodes (parking, viewpoints) and `searched_none` entries are not tracks.
+ */
 export function osmRefsFromCapture(rec) {
-  const text = [rec?.links?.osm, rec?.track_source].filter((x) => typeof x === 'string').join(' ');
-  return [...new Set([...text.matchAll(/(relation|way)\/(\d+)/g)].map((m) => `${m[1]}:${m[2]}`))];
+  const urls = [];
+  if (Array.isArray(rec?.links)) for (const l of rec.links) if (l?.kind === 'osm' && l.state !== 'searched_none' && typeof l.url === 'string') urls.push(l.url);
+  if (typeof rec?.track_source === 'string') urls.push(rec.track_source);
+  return [...new Set(urls.flatMap((u) => [...u.matchAll(/(relation|way)\/(\d+)/g)].map((m) => `${m[1]}:${m[2]}`)))];
 }
+
+const normName = (s) => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+walk$/i, '').replace(/[^a-z0-9]+/g, ' ').trim();
 
 /** Prototype place ids in the "Trail data for a person to confirm" list, read from the adapter's own file. */
 export function unconfirmedIds(source) {
   return new Set([...source.matchAll(/^\s*'?([\w-]+)'?:\s*'/gm)].map((m) => m[1]));
 }
 
-/** Every trail with an OSM reference: [{place, name, osm: [...], trailhead: {lat, lon}|null}]. */
-export function collectInputs(snapshot, captureRecords = []) {
+/**
+ * Every trail with an OSM reference: [{place, name, osm: [...], refs, trailhead, destination, researchedKm, wrongRoute}].
+ * The capture record of the same trail (a route of type nature.trail.*, matched by name) names the intended relations in its
+ * `links`; they replace the ids written in the prototype fact. `ctx.points` is the relevance points file (the record's first
+ * `reaches` point is the destination the track is cut at); `ctx.overrides` is data/tracks/inputs.json.
+ */
+export function collectInputs(snapshot, captureRecords = [], ctx = {}) {
+  const routes = new Map();
+  for (const rec of captureRecords) {
+    if (rec?.layer !== 'route' || !/^nature\.trail\./.test(String(rec.type ?? ''))) continue;
+    const k = normName(rec.name);
+    const have = routes.get(k);
+    // a record that names relations wins over one that does not
+    if (!have || (osmRefsFromCapture(rec).length && !osmRefsFromCapture(have).length)) routes.set(k, rec);
+  }
   const out = [];
   for (const p of snapshot.places ?? []) {
     const t = snapshot.trails?.[p.id];
-    const refs = osmRefsOf(t?.facts?.geometry_source?.v, t?.facts?.geometry_ids?.v);
+    const over = ctx.overrides?.places?.[p.id] ?? {};
+    const rec = routes.get(normName(p.name));
+    let refs = osmRefsFromCapture(rec);
+    if (!refs.length) refs = over.osm ?? osmRefsOf(t?.facts?.geometry_source?.v, t?.facts?.geometry_ids?.v);
     if (!refs.length) continue;
     const th = snapshot.access?.[p.id]?.trailhead ?? t?.trailhead ?? null;
     const km = Number(String(t?.facts?.distance_km?.v ?? p.km ?? '').replace(/[^\d.]/g, ''));
-    out.push({ place: p.id, name: p.name, osm: refs, trailhead: th ? { lat: th.lat, lon: th.lon } : null, researchedKm: Number.isFinite(km) && km > 0 ? km : null });
-  }
-  for (const rec of captureRecords) {
-    const refs = osmRefsFromCapture(rec);
-    if (refs.length) out.push({ place: String(rec.ref), name: String(rec.name ?? rec.ref), osm: refs, trailhead: null });
+    const reach = rec?.reaches?.map((r) => ctx.points?.[r]).find((q) => q && Number.isFinite(q.lat) && Number.isFinite(q.lon));
+    const named = over.destination_ref ? ctx.points?.[over.destination_ref] : null;
+    const dest = over.destination ?? (named ? { lat: named.lat, lon: named.lon } : null) ?? (reach ? { lat: reach.lat, lon: reach.lon } : null);
+    out.push({
+      place: p.id,
+      name: p.name,
+      osm: refs,
+      refs: rec ? [String(rec.ref)] : [],
+      trailhead: th ? { lat: th.lat, lon: th.lon } : null,
+      destination: dest ? { lat: dest.lat, lon: dest.lon } : null,
+      researchedKm: Number.isFinite(km) && km > 0 ? km : null,
+      wrongRoute: over.wrong_route ?? null,
+      loop: !!over.loop,
+    });
   }
   return out;
 }
@@ -324,6 +533,9 @@ export function formatTrack(t) {
     confirmed: t.confirmed,
     held_back: t.held_back,
     start_offset_m: t.start_offset_m,
+    end_offset_m: t.end_offset_m,
+    cut: t.cut,
+    legs: t.legs,
     simplify_m: t.simplify_m,
     totals: t.totals,
     dem: t.dem,
@@ -347,7 +559,7 @@ const cacheDir = path.join(webDir, '.tile-cache');
 const readJson = (f) => JSON.parse(readFileSync(f, 'utf8'));
 const loadFiles = () => {
   const m = new Map();
-  if (existsSync(tracksDir)) for (const n of readdirSync(tracksDir).filter((x) => x.endsWith('.json'))) m.set(n.replace(/\.json$/, ''), readJson(path.join(tracksDir, n)));
+  if (existsSync(tracksDir)) for (const n of readdirSync(tracksDir).filter((x) => x.endsWith('.json') && x !== 'inputs.json')) m.set(n.replace(/\.json$/, ''), readJson(path.join(tracksDir, n)));
   return m;
 };
 const loadInputs = () => {
@@ -365,7 +577,11 @@ const loadInputs = () => {
       }
     }
   }
-  return collectInputs(snapshot, recs);
+  const pointsFile = path.join(repoRoot, 'data', 'relevance', 'inputs', 'points.json');
+  const overFile = path.join(tracksDir, 'inputs.json');
+  const points = existsSync(pointsFile) ? readJson(pointsFile).points : {};
+  const overrides = existsSync(overFile) ? readJson(overFile) : {};
+  return collectInputs(snapshot, recs, { points, overrides });
 };
 const loadUnconfirmed = () => unconfirmedIds(readFileSync(path.join(webDir, 'lib', 'public', 'honesty-overrides.ts'), 'utf8'));
 
@@ -477,6 +693,7 @@ const round6 = (p) => [Math.round(p[0] * 1e6) / 1e6, Math.round(p[1] * 1e6) / 1e
 
 async function buildTrack(inp, unconfirmed, source, refresh) {
   const ways = new Map();
+  const pieces = [];
   let read = null;
   let used = null;
   for (const ref of inp.osm) {
@@ -484,32 +701,59 @@ async function buildTrack(inp, unconfirmed, source, refresh) {
     read = !read || r.read > read ? r.read : read;
     used = used && used !== r.source ? 'overpass+osm-api' : r.source;
     for (const w of r.ways) ways.set(w.id, w.line);
+    // one piece per relation, in the order given; ways listed one by one are one piece together
+    if (ref.startsWith('way:') && pieces.length && pieces.at(-1).way) {
+      pieces.at(-1).lines.push(...r.ways.map((w) => w.line));
+      pieces.at(-1).label = 'the ways';
+    } else pieces.push({ way: ref.startsWith('way:'), lines: r.ways.map((w) => w.line), label: ref.replace(':', ' ') });
   }
-  const { lines, stitched } = stitchWays([...ways.values()]);
-  if (!lines.length) throw new Error('no geometry in the response');
   const thPoint = inp.trailhead ? [inp.trailhead.lon, inp.trailhead.lat] : null;
-  const endsOf = (ls) => ls.flatMap((l) => [l[0], l[l.length - 1]]);
-  const offset = thPoint ? Math.round(Math.min(...endsOf(lines).map((p) => haversine(p, thPoint)))) : null;
-  const total = lines.reduce((s, l) => s + lengthM(l), 0) / 1000;
   const heldBack = [];
   if (unconfirmed.has(inp.place)) heldBack.push('listed in UNCONFIRMED_TRAIL_DATA');
-  if (!stitched) heldBack.push('the relation does not stitch into one line');
-  if (offset !== null && offset > START_TOLERANCE_M) heldBack.push(`starts ${offset} m from our trailhead`);
+  if (inp.wrongRoute) heldBack.push(`the stored OSM relation is the wrong route: ${inp.wrongRoute}`);
+  const routed = routeThrough(pieces.map((x) => x.lines), { trailhead: inp.trailhead, destination: inp.destination, loop: !!inp.loop });
+  let base;
+  let line;
+  let offset;
+  let total;
+  let stitched;
+  let lines = [];
+  if (!routed.problem) {
+    line = routed.line;
+    stitched = true;
+    offset = routed.startOffset;
+    total = lengthM(line) / 1000;
+    if (offset > START_TOLERANCE_M) heldBack.push(`our trailhead is ${offset} m from the line`);
+    if (routed.endOffset !== null && routed.endOffset > START_TOLERANCE_M) heldBack.push(`our destination is ${routed.endOffset} m from the line`);
+    base = { cut: routed.cut, legs: routed.legs.map((l) => ({ osm: inp.osm.length === pieces.length ? inp.osm[l.index] : `${pieces[l.index].lines.length} ways`, km: l.km })), end_offset_m: routed.endOffset };
+  } else {
+    // nothing to cut at: keep the whole relation as one line (or as pieces), measured to the nearest point
+    const st = stitchWays([...ways.values()]);
+    lines = st.lines;
+    stitched = st.stitched;
+    if (!lines.length) throw new Error('no geometry in the response');
+    offset = thPoint ? Math.round(offsetToWays(lines, thPoint)) : null;
+    total = lines.reduce((s0, l) => s0 + lengthM(l), 0) / 1000;
+    if (!stitched) heldBack.push('the relation does not stitch into one line');
+    if (offset !== null && offset > START_TOLERANCE_M) heldBack.push(`our trailhead is ${offset} m from the line`);
+    heldBack.push(`not cut: ${routed.problem.replace(/record (\d+)/g, (_, n) => pieces[Number(n) - 1]?.label ?? `record ${n}`)}`);
+    base = { cut: null, legs: [], end_offset_m: null };
+    line = stitched ? lines[0] : null;
+  }
   if (!lengthConsistent(total, inp.researchedKm)) heldBack.push(`${Math.round(total * 10) / 10} km against ${inp.researchedKm} km researched`);
   const confirmed = heldBack.length === 0;
-  const base = { schema: SCHEMA, place: inp.place, refs: inp.refs ?? [], osm: inp.osm, fetched: read, source: used, licence: LICENCE, attribution: ATTRIBUTION, stitched, confirmed, held_back: heldBack, start_offset_m: offset, simplify_m: SIMPLIFY_M, step_m: SAMPLE_STEP_M };
+  const head = { schema: SCHEMA, place: inp.place, refs: inp.refs ?? [], osm: inp.osm, fetched: read, source: used, licence: LICENCE, attribution: ATTRIBUTION, stitched, confirmed, held_back: heldBack, start_offset_m: offset, ...base, simplify_m: SIMPLIFY_M, step_m: SAMPLE_STEP_M };
   if (!stitched) {
     const segments = lines.map((l) => simplifyToLimit(l, SIMPLIFY_M, Math.floor(MAX_POINTS / lines.length)).line.map(round6));
-    return { ...base, totals: { km: Math.round((lines.reduce((s, l) => s + lengthM(l), 0) / 1000) * 100) / 100, gain_m: null, loss_m: null, high_m: null, low_m: null }, dem: null, geometry: [], segments, elevation: [] };
+    return { ...head, totals: { km: Math.round(total * 100) / 100, gain_m: null, loss_m: null, high_m: null, low_m: null }, dem: null, geometry: [], segments, elevation: [] };
   }
-  let line = lines[0];
-  // oriented from the end nearest our trailhead
-  if (thPoint && haversine(line[line.length - 1], thPoint) < haversine(line[0], thPoint)) line = [...line].reverse();
+  // oriented from the end nearest our trailhead (a cut route already starts there)
+  if (routed.problem && thPoint && haversine(line[line.length - 1], thPoint) < haversine(line[0], thPoint)) line = [...line].reverse();
   const simple = simplifyToLimit(line).line.map(round6);
   const samples = resample(simple);
   const elevation = [];
   for (const s of samples) elevation.push([Math.round(s.d), Math.round((await elevationAt(s.at[0], s.at[1])) * 10) / 10]);
-  return { ...base, totals: totalsFromSamples(elevation), dem: DEM_NAME, geometry: simple, elevation };
+  return { ...head, totals: totalsFromSamples(elevation), dem: DEM_NAME, geometry: simple, elevation };
 }
 
 async function runFetch(argv) {

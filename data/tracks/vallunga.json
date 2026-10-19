@@ -1,7 +1,9 @@
 {
   "schema": "trail-track/1",
   "place": "vallunga",
-  "refs": [],
+  "refs": [
+    "place/vallunga"
+  ],
   "osm": [
     "relation:2465034"
   ],
@@ -12,10 +14,13 @@
   "stitched": true,
   "confirmed": false,
   "held_back": [
-    "starts 1614 m from our trailhead",
+    "not cut: the record runs on both sides of the trailhead and no destination point is recorded",
     "11.2 km against 7.5 km researched"
   ],
-  "start_offset_m": 1614,
+  "start_offset_m": 4,
+  "end_offset_m": null,
+  "cut": null,
+  "legs": [],
   "simplify_m": 5,
   "totals": {
     "km": 11.04,

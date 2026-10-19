@@ -1,12 +1,14 @@
 {
   "schema": "trail-track/1",
   "place": "monte-piana",
-  "refs": [],
+  "refs": [
+    "place/monte-piana"
+  ],
   "osm": [
     "relation:1657839"
   ],
   "fetched": "2026-10-19",
-  "source": "overpass",
+  "source": "osm-api",
   "licence": "ODbL-1.0",
   "attribution": "© OpenStreetMap contributors",
   "stitched": true,
@@ -15,6 +17,14 @@
     "listed in UNCONFIRMED_TRAIL_DATA"
   ],
   "start_offset_m": 0,
+  "end_offset_m": null,
+  "cut": "far end",
+  "legs": [
+    {
+      "osm": "relation:1657839",
+      "km": 4.86
+    }
+  ],
   "simplify_m": 5,
   "totals": {
     "km": 4.81,
