@@ -482,4 +482,21 @@ describe("3.17 Plan B reads the access season as well as access_cost", () => {
     });
     expect(d["place/moraine-lake"]!.plan_b?.ref).toBe("place/emerald-lake");
   });
+  it("a hand-picked Plan B wins over the derived one and carries its reason and source", () => {
+    const hand = { ...moraine, plan_b_pick: { ref: "place/other-lake", reason: "no shuttle and a short walk", src: "src-0001" } };
+    const other = rec({ ref: "place/other-lake", qid: null, draw: "local", standing: "ordinary", distinction: "common", class_key: "lake/forest", weather: "any_weather" });
+    const facts = { ...point, "place/moraine-lake": { ...point["place/moraine-lake"], accessSeasonVia: ["shuttle"] }, "place/other-lake": { point: pt(51.32, -116.19), onSiteMin: 45 } };
+    const d = run([hand, peyto, other], facts);
+    expect(d["place/moraine-lake"]!.plan_b).toMatchObject({ ref: "place/other-lake", hand_picked: true, reason: "no shuttle and a short walk", src: "src-0001" });
+    // without the pick the derived substitute stands
+    expect(run([moraine, peyto, other], facts)["place/moraine-lake"]!.plan_b?.ref).toBe("place/peyto-lake");
+  });
+  it("gives a Plan B to a place whose access cannot fail when a person picked one", () => {
+    const hand = { ...moraine, plan_b_pick: { ref: "place/peyto-lake", reason: "the same blue on a roadside stop" } };
+    expect(run([hand, peyto], point)["place/moraine-lake"]!.plan_b?.ref).toBe("place/peyto-lake");
+  });
+  it("ignores a pick that names no record", () => {
+    const hand = { ...moraine, plan_b_pick: { ref: "place/nowhere", reason: "gone" } };
+    expect(run([hand, peyto], point)["place/moraine-lake"]!.plan_b).toBeNull();
+  });
 });

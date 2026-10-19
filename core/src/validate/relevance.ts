@@ -245,6 +245,12 @@ export function validateRelevance(doc: unknown, ctx: Ctx, opts: RelOptions = {})
       if (w) E("E_REL_REF", `/records/${i}/pairs_with/${k}/ref`, M.ref(pw.ref, w));
       if (pw.src && !ids.has(pw.src)) E("E_REL_SRC", `/records/${i}/pairs_with/${k}/src`, M.srcUnknown(pw.src));
     });
+    if (r.plan_b_pick) {
+      const pb = r.plan_b_pick;
+      const w = pb.ref === r.ref ? "a place cannot be its own Plan B" : resolver.why(pb.ref);
+      if (w) E("E_REL_REF", `/records/${i}/plan_b_pick/ref`, M.ref(pb.ref, w));
+      if (pb.src && !ids.has(pb.src)) E("E_REL_SRC", `/records/${i}/plan_b_pick/src`, M.srcUnknown(pb.src));
+    }
     const first = seen.get(r.ref);
     if (first !== undefined) E("E_REL_DUP_REF", `/records/${i}/ref`, M.dupRef(r.ref, `records ${first} and ${i} of this file`));
     else seen.set(r.ref, i);

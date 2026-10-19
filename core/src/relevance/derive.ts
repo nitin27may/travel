@@ -65,7 +65,7 @@ export interface DeriveInput {
   driveMin?: Record<string, Record<string, number>>;
 }
 
-export interface Substitute { ref: string; km: number; draw: DrawTier; standing: string; access_cost: string[]; family_effort: number | null }
+export interface Substitute { ref: string; km: number; draw: DrawTier; standing: string; access_cost: string[]; family_effort: number | null; /** a person picked it (plan_b_pick); the reason and source travel with it */ hand_picked?: boolean; reason?: string; src?: string }
 export interface Pair {
   ref: string;
   /** straight-line km; null for a hand-picked pair when either record has no point (2.33): shown without a distance */
@@ -297,6 +297,14 @@ export function deriveAll(input: DeriveInput): Derived[] {
     const shuttleSeason = (facts.accessSeasonVia ?? []).includes("shuttle");
     if (role === "anchor" && (shuttleSeason || j.access.some((a) => FAILING_COSTS.includes(a.type)))) {
       planB = areaAll.find((s) => !s.access_cost.some((c) => FAILING_COSTS.includes(c as never))) ?? null;
+    }
+    // a hand-picked Plan B wins over the derived one, whatever its class (3.45)
+    const pick = r.plan_b_pick;
+    const pickRec = pick ? input.records.find((x) => x.ref === pick.ref && x.ref !== r.ref) : undefined;
+    if (pick && pickRec) {
+      const there = input.facts[pickRec.ref]?.point;
+      const km = others.find((o) => o.rec.ref === pickRec.ref)?.km ?? (facts.point && there ? haversineKm(facts.point, there) : 0);
+      planB = { ...subOf(r, pickRec, km), hand_picked: true, reason: pick.reason, ...(pick.src ? { src: pick.src } : {}) };
     }
 
     // distinction check

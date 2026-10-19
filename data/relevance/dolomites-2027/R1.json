@@ -285,6 +285,15 @@
       "publisher": "Wikidata (CC0)",
       "kind": "community",
       "read": "2026-10-18"
+    },
+    {
+      "id": "src-0064",
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
+      "title": "Summer hiking tour: Lake Antorno - Misurina - Monte Piana (tour 22272)",
+      "publisher": "3 Zinnen Dolomites (tourism board)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -395,7 +404,12 @@
           "reason": "The Cadini viewpoint path leaves from Rifugio Auronzo, the loop's start: a short add-on",
           "src": "src-0037"
         }
-      ]
+      ],
+      "plan_b_pick": {
+        "ref": "place/monte-piana",
+        "reason": "Starts at Lago d'Antorno, about 1 km before the toll booth, so it needs no toll slot; faces the Tre Cime across 4.6 km; 3.9 km and 368 m one way",
+        "src": "src-0064"
+      }
     },
     {
       "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
