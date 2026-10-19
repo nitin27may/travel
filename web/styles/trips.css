@@ -119,7 +119,7 @@
 .cat-chip[data-active] .cat-chip-n { color: inherit; }
 .anchor-top { display: block; height: 0; scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
 #in-this-trip, #route, .day-row, .cat-section { scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
-.cat-section { scroll-margin-top: calc(var(--header-h) + 72px); }
+.cat-section { scroll-margin-top: var(--spy-bar-h); }
 
 /* day rows */
 .day-list { display: grid; gap: var(--s-3); }
@@ -188,7 +188,7 @@
   .cat-chip::after { content: ''; position: absolute; inset: -6px 0; }
   .cat-strip::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 24px; background: linear-gradient(to right, transparent, var(--bg)); pointer-events: none; }
   .cat-strip[data-sticky] { position: sticky; top: var(--header-h); z-index: var(--z-sticky); background: var(--bg); padding: var(--s-2) 0; margin: 0 0 var(--s-3); border-bottom: 1px solid var(--line); }
-  .cat-section { scroll-margin-top: calc(var(--header-h) + 60px); }
+  .cat-section { scroll-margin-top: var(--spy-bar-h); }
   .day-head { grid-template-columns: 64px minmax(0, 1fr) 20px; gap: var(--s-3); }
   .day-thumb { width: 64px; height: 48px; }
   .day-panel { padding-left: var(--s-3); }
