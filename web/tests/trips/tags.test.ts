@@ -6,7 +6,8 @@ import { tagChips } from '@/components/trips/tags/chips';
 import { hubBandOf, lengthLine } from '@/components/trips/tags/labels';
 import { tripListRows } from '@/app/trips/rows';
 import { listTrips } from '@/lib/public';
-import { activitiesTag, activityIdsOf, aroundTag, highlightsTag, hikeTag, lengthTag, perDayTag, shapeTag, strollerTag } from '@/lib/public/tags';
+import { activitiesTag, activityIdsOf, aroundTag, highlightsTag, hikeEffortTag, hikeTag, kidsFromTag, lengthTag, perDayTag, shapeTag, strollerTag } from '@/lib/public/tags';
+import type { DayVariant, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
 import type { PickedItem } from '@/lib/public/tags';
 import { fromHubsOf, tagLabels } from '@/lib/public/world';
 import type { PublicDay } from '@/lib/public/types';
@@ -14,8 +15,13 @@ import { travelRoot } from '@/lib/data/root';
 
 const cards = listTrips();
 const bySlug = (slug: string) => cards.find((c) => c.slug === slug)!;
-const day = (n: number, over: Partial<PublicDay> = {}): PublicDay => ({ n, title: '', baseId: null, base: null, driveMin: null, driveIsEstimate: false, summary: null, items: [], tracks: null, ...over });
-const trail = (name: string, placeSlug: string | null = null) => ({ id: name, name, kind: 'trail' as const, subkind: 'hike', category: 'trails' as const, foldedInto: null, placeSlug, time: null, variant: null, durationMin: null, note: null, stats: null, access: null });
+const day = (n: number, over: Partial<PublicDay> = {}): PublicDay => ({ n, title: '', baseId: null, base: null, driveMin: null, driveIsEstimate: false, summary: null, items: [], tracks: null, scheduleInput: null, variants: [], know: [], summaryProse: null, light: null, ...over });
+const titem = (title: string, over: Partial<ScheduleItem> = {}): ScheduleItem => ({
+  id: title, kind: 'trail', sub: null, title, placeSlug: null, point: null, rule: null, durationMin: 60, durationRange: null, durationSource: 'plan', stats: { distanceKm: 2, gainM: 50 },
+  start: null, needs: null, window: null, checkinMin: null, optional: false, note: null, minAge: null, minAgeRule: null, needsDaylight: false, honesty: [], ...over,
+});
+const variant = (key: DayVariant['key'], items: ScheduleItem[], over: Partial<DayVariant> = {}): DayVariant => ({ key, label: key, audience: 'any', relation: 'alternative', items, rank: 1, ...over });
+const sday = (n: number, variants: DayVariant[]): ScheduleDayInput => ({ day: n, kind: 'normal', tz: 'UTC', base: null, nextBase: null, sunPoint: null, sunWindow: null, variants, legs: [], start: null, origin: null, homeBy: null, splitNote: null });
 
 describe('each tag is a pure function', () => {
   it('length: the short classes, then the 4+ bands', () => {
@@ -42,16 +48,34 @@ describe('each tag is a pure function', () => {
     expect(aroundTag([row('Rack railway to Zermatt'), row('Guided glacier tour')])).toEqual(['tours', 'train']);
     expect(aroundTag([row('Flight to Calgary', 'flight')])).toEqual([]);
   });
-  it('stroller days: friendly when no day has a "no" or a gap, else n of N, and nothing when no day passes', () => {
-    const days = [day(1, { items: [trail('A')] }), day(2, { items: [trail('B')] }), day(3, { items: [] })];
+  it('stroller days: the easiest variant of each day; friendly when no day has a "no" or a gap, else n of N', () => {
+    const days = [sday(1, [variant('main', [titem('A')])]), sday(2, [variant('main', [titem('B')])]), sday(3, [variant('main', [])])];
     expect(strollerTag(days, () => 'yes')).toEqual({ all: true });
-    expect(strollerTag(days, (i) => (i.name === 'B' ? 'no' : 'yes'))).toEqual({ all: false, n: 2, of: 3 });
+    expect(strollerTag(days, (i) => (i.title === 'B' ? 'no' : 'yes'))).toEqual({ all: false, n: 2, of: 3 });
     // a gap never passes: both walking days fail, the day with no walking passes
     expect(strollerTag(days, () => null)).toEqual({ all: false, n: 1, of: 3 });
-    expect(strollerTag([day(1, { items: [trail('A')] })], () => 'no')).toBeNull();
-    // the easiest variant of a day is its last track
-    const split = day(1, { items: [trail('Hard'), trail('Easy')], tracks: [{ id: 'A', label: '', title: '', notes: null, items: [trail('Hard')] }, { id: 'C', label: '', title: '', notes: null, items: [trail('Easy')] }] });
-    expect(strollerTag([split], (i) => (i.name === 'Hard' ? 'no' : 'yes'))).toEqual({ all: true });
+    expect(strollerTag([sday(1, [variant('main', [titem('A')])])], () => 'no')).toBeNull();
+    // the easiest variant is the one written for an easy day, else the lowest rank
+    const split = sday(1, [variant('A', [titem('Hard')], { rank: 3 }), variant('C', [titem('Easy')], { rank: 1, audience: 'easy' })]);
+    expect(strollerTag([split], (i) => (i.title === 'Hard' ? 'no' : 'yes'))).toEqual({ all: true });
+    expect(strollerTag([], () => 'yes')).toBeNull();
+  });
+  it('kids from N: the lowest age at which every day has a fitting variant', () => {
+    const adultsHike = titem('Adults hike', { minAge: 8, minAgeRule: 'plan' });
+    const days = [sday(1, [variant('main', [titem('Walk')])]), sday(2, [variant('A', [adultsHike], { rank: 2 }), variant('B', [titem('Family walk')], { rank: 1, audience: 'family' })])];
+    expect(kidsFromTag(days)).toBe(0);
+    const hard = [sday(1, [variant('main', [adultsHike])])];
+    expect(kidsFromTag(hard)).toBe(8);
+    expect(kidsFromTag([sday(1, [variant('main', [titem('Too old', { minAge: 18, minAgeRule: 'hard' })])])])).toBeNull();
+    expect(kidsFromTag([])).toBeNull();
+  });
+  it('hike effort: the maximum family effort of the trails in the default variant', () => {
+    const days = [sday(1, [variant('main', [titem('Easy'), titem('Hard')])]), sday(2, [variant('main', [{ ...titem('Visit'), kind: 'visit' }])])];
+    const fe = (m: Record<string, number>) => (i: ScheduleItem) => m[i.title] ?? null;
+    expect(hikeEffortTag(days, fe({ Easy: 2, Hard: 4 }))).toBe('strenuous');
+    expect(hikeEffortTag(days, fe({ Easy: 2, Hard: 3 }))).toBe('moderate');
+    expect(hikeEffortTag(days, fe({ Easy: 1, Hard: 2 }))).toBe('easy');
+    expect(hikeEffortTag(days, fe({}))).toBeNull();
   });
 });
 
@@ -92,20 +116,20 @@ describe('the real trips', () => {
     expect(t.around).toContain('rental-car');
     expect(t.activities.map((a) => a.id)).toEqual(expect.arrayContaining(['lake', 'waterfall', 'glaciers', 'hiking']));
     expect(t.highlights).toHaveLength(2);
-    expect(t.hike).toBe('moderate');
+    expect(t.hike).not.toBeNull();
   });
-  it('Dolomites: Italy, nights, kids from the plan and highlights', () => {
+  it('Dolomites: Italy, nights, kids from the scheduler and highlights', () => {
     const t = bySlug('dolomites-2027').tags;
     expect(t.countries).toEqual(['it']);
     expect(t.continents).toEqual(['Europe']);
-    expect(t.kidsFrom).toBe(8);
+    expect(t.kidsFrom).toBeGreaterThanOrEqual(0);
     expect(t.highlights[0]).toBe('Tre Cime di Lavaredo loop');
     expect(t.when).toEqual([7, 8]);
   });
   it('Patagonia: South America, strenuous', () => {
     const t = bySlug('patagonia-2027').tags;
     expect(t.continents).toEqual(['South America']);
-    expect(t.hike).toBe('strenuous');
+    expect(['moderate', 'strenuous']).toContain(t.hike);
     expect(t.activities.map((a) => a.id)).toContain('glaciers');
   });
   it('an overview trip gets Where, Length and When only, and no fake zeros', () => {

@@ -3,7 +3,10 @@
 // tag; `buildTripTags` calls them for a trip. An overview trip gets Where, Length and When only (no fake zeros).
 import { lengthFilter } from '@travel/core/derive/length.ts';
 import type { LengthFilter } from '@travel/core/derive/length.ts';
-import { strollerOkOf } from '@travel/core/suitability/derive.ts';
+import { selectVariant } from '@travel/core/schedule/select.ts';
+import { DEFAULT_PROFILE } from '@travel/core/schedule/types.ts';
+import type { DayVariant, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
+import { familyEffortOf, strollerOkOf } from '@travel/core/suitability/derive.ts';
 import type { World } from '@travel/core/capture/records.ts';
 import { derivedItems } from './world';
 import { normName } from './places';
@@ -87,26 +90,59 @@ export function hikeTag(effort: string | null): HikeEffort | null {
   }
 }
 
-// ------------------------------------------------------------------ stroller days
+// ------------------------------------------------------------------ the scheduler tags (suitability 6.3)
+
+const familyProfile = (youngest: number): Profile => ({ ...DEFAULT_PROFILE, party: 'family', youngest });
+
+/**
+ * Kids from N: the lowest youngest-age (0 to 17) for which the scheduler finds a fitting variant on every day. Null when the trip has
+ * no scheduled day or no age fits (the plan is for adults).
+ */
+export function kidsFromTag(days: readonly ScheduleDayInput[]): number | null {
+  if (!days.length) return null;
+  for (let age = 0; age <= 17; age += 1) {
+    const p = familyProfile(age);
+    if (days.every((d) => d.variants.length > 0 && selectVariant(d, p).fits)) return age;
+  }
+  return null;
+}
+
+/** Hike effort: the maximum family effort of the trails in the default variant of each day (FE 1-2 easy, 3 moderate, 4-5 strenuous). */
+export function hikeEffortTag(days: readonly ScheduleDayInput[], effortOf: (item: ScheduleItem) => number | null): HikeEffort | null {
+  let max: number | null = null;
+  for (const d of days) {
+    if (!d.variants.length) continue;
+    for (const it of selectVariant(d, DEFAULT_PROFILE).variant.items) {
+      if (it.kind !== 'trail') continue;
+      const fe = effortOf(it);
+      if (fe !== null && (max === null || fe > max)) max = fe;
+    }
+  }
+  return max === null ? null : max <= 2 ? 'easy' : max === 3 ? 'moderate' : 'strenuous';
+}
+
+/** The easiest variant of a day: the one written for an easy day, else the lowest rank. */
+export function easiestVariant(d: ScheduleDayInput): DayVariant | null {
+  if (!d.variants.length) return null;
+  return d.variants.find((v) => v.audience === 'easy') ?? [...d.variants].sort((a, b) => a.rank - b.rank)[0]!;
+}
 
 /**
  * "Stroller-friendly" when every day's easiest variant has no walking item with stroller `no`; else "Some stroller days (n of N)".
  * A gap never passes: a walking item with no stroller value fails its day. Null when no day passes (a count of zero says nothing).
  * `strollerOf` returns yes, partly, no, or null for a gap.
  */
-export function strollerTag(days: readonly PublicDay[], strollerOf: (item: CategoryItemLike) => 'yes' | 'partly' | 'no' | null): StrollerDays | null {
-  if (!days.length) return null;
+export function strollerTag(days: readonly ScheduleDayInput[], strollerOf: (item: ScheduleItem) => 'yes' | 'partly' | 'no' | null): StrollerDays | null {
+  const scheduled = days.filter((d) => d.variants.length > 0);
+  if (!scheduled.length) return null;
   let pass = 0;
-  for (const d of days) {
-    // the easiest variant of a day is its last track (A adults, B family, C easy); a day with no tracks has one variant
-    const items = d.tracks?.length ? d.tracks[d.tracks.length - 1]!.items : d.items;
-    const walking = items.filter((i) => i.category === 'trails' && i.foldedInto === null);
+  for (const d of scheduled) {
+    const walking = easiestVariant(d)!.items.filter((i) => i.kind === 'trail');
     if (walking.every((i) => strollerOf(i) !== null && strollerOf(i) !== 'no')) pass += 1;
   }
-  if (pass === days.length) return { all: true };
-  return pass > 0 ? { all: false, n: pass, of: days.length } : null;
+  if (pass === scheduled.length) return { all: true };
+  return pass > 0 ? { all: false, n: pass, of: scheduled.length } : null;
 }
-export type CategoryItemLike = { name: string; placeSlug: string | null };
 
 // ------------------------------------------------------------------ activities and highlights
 
@@ -230,7 +266,15 @@ export interface TagContext {
   tagLabel: (id: string) => string | null;
 }
 
-export function buildTripTags(trip: PublicTrip, ctx: TagContext): TripTags {
+/** Where a derived value replaced a hand-typed one and the two differ (the hand-back lists them). */
+export interface TagConflict {
+  trip: string;
+  field: 'kidsFrom' | 'hike';
+  typed: string | number | null;
+  computed: string | number | null;
+}
+
+export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagConflict[] = []): TripTags {
   const where = whereTag(trip, ctx.folder, ctx.placeBySlug);
   const base: TripTags = {
     ...where,
@@ -248,9 +292,27 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext): TripTags {
   };
   if (trip.depth === 'overview') return base;
 
-  // the hand-typed values stand until the scheduler derives them (L3c); see the hand-back
-  base.kidsFrom = trip.ageFit;
-  base.hike = hikeTag(trip.effort);
+  const inputs = trip.days.map((d) => d.scheduleInput).filter((x): x is ScheduleDayInput => x !== null);
+  const refByName = new Map<string, string[]>();
+  for (const { rec } of ctx.world.cap.values()) if (rec.name && rec.layer !== 'offer') refByName.set(normName(rec.name), [...(refByName.get(normName(rec.name)) ?? []), rec.ref]);
+  const suitOf = (item: ScheduleItem) => {
+    const bySlug = item.placeSlug ? ctx.refOfSlug.get(item.placeSlug) : null;
+    const byName = refByName.get(normName(item.title));
+    const ref = bySlug ?? (byName?.length === 1 ? byName[0] : null);
+    return ref ? ctx.world.suit.get(ref)?.rec : undefined;
+  };
+
+  // Kids from N and Hike effort come from the scheduler; the hand-typed values stand only where it cannot answer
+  const typedHike = hikeTag(trip.effort);
+  const kids = kidsFromTag(inputs);
+  base.kidsFrom = kids ?? trip.ageFit;
+  if (kids !== null && kids !== trip.ageFit) conflicts.push({ trip: trip.slug, field: 'kidsFrom', typed: trip.ageFit, computed: kids });
+  const hike = hikeEffortTag(inputs, (item) => {
+    const s = suitOf(item);
+    return s ? familyEffortOf(s) : null;
+  });
+  base.hike = hike ?? typedHike;
+  if (hike !== null && hike !== typedHike) conflicts.push({ trip: trip.slug, field: 'hike', typed: typedHike, computed: hike });
 
   const dayOfName = new Map<string, number>();
   for (const d of trip.days) for (const i of d.items) if (!dayOfName.has(normName(i.name))) dayOfName.set(normName(i.name), d.n);
@@ -258,14 +320,9 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext): TripTags {
   base.highlights = highlightsTag(picks);
   base.activities = activitiesTag(picks, ctx.tagLabel);
 
-  // stroller: the item's capture record by place, then by a name only one record carries
-  const refByName = new Map<string, string[]>();
-  for (const { rec } of ctx.world.cap.values()) if (rec.name && rec.layer !== 'offer') refByName.set(normName(rec.name), [...(refByName.get(normName(rec.name)) ?? []), rec.ref]);
-  base.stroller = strollerTag(trip.days, (item) => {
-    const bySlug = item.placeSlug ? ctx.refOfSlug.get(item.placeSlug) : null;
-    const byName = refByName.get(normName(item.name));
-    const ref = bySlug ?? (byName?.length === 1 ? byName[0] : null);
-    const suit = ref ? ctx.world.suit.get(ref)?.rec : undefined;
+  // stroller: the easiest variant of each day, the item's capture record by place, then by a name only one record carries
+  base.stroller = strollerTag(inputs, (item) => {
+    const suit = suitOf(item);
     return suit ? strollerOkOf(suit) : null;
   });
 
