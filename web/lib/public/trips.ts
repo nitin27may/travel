@@ -2,6 +2,8 @@ import { suitabilityFromTitle } from './party';
 import { undatedTitle, DropLog, relativeSun, sunRange, undated, undatedSentences } from './dateless';
 import { honesty, uniqueHonesty } from './honesty';
 import { fileFromUrl, makePhoto } from './photos';
+import { scrubMarkers, stripMarkers } from './prose';
+import { attachTimeline } from './timeline';
 import { normName, type PlaceBuild } from './places';
 import { PUBLIC_TRIP_FOLDER, TRIP_SLUGS, kebab } from './slugs';
 import { folderVisibility, type ProtoPubTrip, type ProtoStop, type RockiesDay, type RockiesTrack, type Sources } from './sources';
@@ -29,6 +31,9 @@ export interface TripBuild {
 
 const emptyCategories = (): Record<Category, CategoryItem[]> =>
   Object.fromEntries(CATEGORIES.map((c) => [c, [] as CategoryItem[]])) as unknown as Record<Category, CategoryItem[]>;
+
+/** The timeline fields of a day, filled in by attachTimeline once the bases are known. */
+const noTimeline = () => ({ scheduleInput: null, variants: [], know: [], summaryProse: null, light: null });
 
 function statsLine(s: { distanceKm: number | null; gainM: number | null; hours: string | null } | null): string | null {
   if (!s) return null;
@@ -202,7 +207,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
         const bt = town(d.baseTown);
         return {
           n: d.n, title: undated(d.title, `${where} day ${d.n} title`, log) ?? `Day ${d.n}`, baseId: d.baseTown, base: bt?.name ?? null,
-          driveMin: dolo.days[i]?.driveMin ?? null, driveIsEstimate: true, summary: null, items, tracks: null,
+          driveMin: dolo.days[i]?.driveMin ?? null, driveIsEstimate: true, summary: null, items, tracks: null, ...noTimeline(),
         };
       });
       bases = basesFromRuns(days.map((d) => ({ n: d.n, base: d.base })), nights);
@@ -276,7 +281,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
         for (const t of tracks) for (const it of t.items) if (!union.some((u) => u.name === it.name)) union.push(it);
         return {
           n: d.n, title: undated(d.track_b?.title ?? d.summary, `${where} day ${d.n} title`, log) ?? `Day ${d.n}`, baseId: d.base_id, base: baseName.get(d.base_id) ?? null,
-          driveMin: parseDriveMin(d.drive), driveIsEstimate: true, summary: undatedSentences(d.summary, `${where} day ${d.n} summary`, log) || null, items: union, tracks,
+          driveMin: parseDriveMin(d.drive), driveIsEstimate: true, summary: undatedSentences(stripMarkers(d.summary).text, `${where} day ${d.n} summary`, log) || null, items: union, tracks, ...noTimeline(),
         };
       });
       let cursor = 0;
@@ -311,7 +316,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
             variant: null, durationMin: s.durationMin, note: s.note ? undatedSentences(s.note, `${where} day ${d.n} stop`, log) || null : null, stats: null, access: null,
           });
         });
-        return { n: d.n, title: undated(d.title, `${where} day ${d.n} title`, log) ?? `Day ${d.n}`, baseId: kebab(d.base), base: d.base, driveMin: d.driveMin, driveIsEstimate: true, summary: null, items, tracks: null };
+        return { n: d.n, title: undated(d.title, `${where} day ${d.n} title`, log) ?? `Day ${d.n}`, baseId: kebab(d.base), base: d.base, driveMin: d.driveMin, driveIsEstimate: true, summary: null, items, tracks: null, ...noTimeline() };
       });
       bases = basesFromRuns(days.map((d) => ({ n: d.n, base: d.base })), nights);
       days.forEach((d) => { d.baseId = bases.find((b) => b.days.includes(d.n))?.id ?? null; });
@@ -319,6 +324,16 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     }
 
     const categories = depth === 'overview' ? emptyCategories() : collectCategories(days, extraCats);
+
+    // ---- the timeline: scheduler inputs per day and the default profile's schedule ----
+    const schedule =
+      depth === 'overview'
+        ? null
+        : attachTimeline({
+            kind: full ?? 'summary', slug, src, days, bases, seasonMonths: sunMonths, ageFit: pub?.ageFit ?? null, log,
+            ...(full === 'dolomites' ? { protoPlaces: protoPlace, protoDays: snap.trip.days } : {}),
+            ...(full === null && pub ? { pub } : {}),
+          });
 
     // ---- photos ----
     const gallery: Photo[] = [];
@@ -344,11 +359,14 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
 
     const region = pub?.region ?? hub?.region ?? '';
     const effort = pub?.effort ?? null;
-    trips.push({
+    const built1: PublicTrip = {
+      schedule,
       slug, title, subtitle, depth, visibility: vis, nights, daysCount: days.length || (nights !== null ? nights + 1 : null), seasonNotSet: !season, isDone, region, cover, season,
       firstBase: bases[0]?.name ?? (region.split(',')[0]?.trim() || null), legacyUrl: `/${folder}/`, honesty: uniqueHonesty(h),
       bases, days, categories, gallery, effort, ageFit: pub?.ageFit ?? null, driveAvgMin: pub?.driveAvgMin ?? null,
-    });
+    };
+    // no research marker reaches a public string (spec 5.1); the timeline's own strings were cleaned as they were made
+    trips.push(scrubMarkers(built1));
     built.set(folder, slug);
   }
   trips.sort((a, b) => a.slug.localeCompare(b.slug));

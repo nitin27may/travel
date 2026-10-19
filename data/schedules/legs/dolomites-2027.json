@@ -38,6 +38,14 @@
   },
   {
    "from": "cinque-torri",
+   "to": "cortina",
+   "profile": "driving-car",
+   "mode": "drive",
+   "km": 14.5,
+   "minutes": 19
+  },
+  {
+   "from": "cinque-torri",
    "to": "limides",
    "profile": "foot-hiking",
    "mode": "walk",

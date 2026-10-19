@@ -1,5 +1,7 @@
 // Public data model. Everything here is plain JSON (no Map, Date, class or undefined): the static pages
 // receive these values as props. Absent values are `null`.
+import type { DayTimeline, Profile, ScheduleDayInput } from '@travel/core/schedule/types.ts';
+import type { KnowGroup, NoteBlock, CleanProse } from './prose';
 
 /** The six trip categories, in the fixed order patterns 3.4 requires. */
 export const CATEGORIES = ['stays', 'trails', 'sights', 'activities', 'food', 'logistics'] as const;
@@ -23,6 +25,10 @@ export const PLACE_KINDS = ['trail', 'lake', 'viewpoint', 'waterfall', 'sight', 
 export type PlaceKind = (typeof PLACE_KINDS)[number];
 
 export type HonestyId =
+  | 'estimate'
+  | 'not_known'
+  | 'sources_disagree'
+  | 'low_confidence'
   | 'location_unconfirmed'
   | 'unverified'
   | 'no_source'
@@ -235,6 +241,16 @@ export interface Track {
   notes: string | null;
 }
 
+/** One version of a day (trip-timeline spec 3.2) as the page needs it to label a menu and show the track's notes. */
+export interface DayVariantInfo {
+  key: 'A' | 'B' | 'C' | 'main';
+  label: string;
+  audience: 'adults' | 'family' | 'easy' | 'any';
+  relation: 'alternative' | 'parallel';
+  /** The track's note: a lead line and "Know before you go" bullets, markers already turned into chips. */
+  notes: NoteBlock;
+}
+
 export interface PublicDay {
   n: number;
   title: string;
@@ -247,6 +263,15 @@ export interface PublicDay {
   summary: string | null;
   items: DayItem[];
   tracks: Track[] | null;
+  /** Timeline inputs. null on overview trips, which have no days. */
+  scheduleInput: ScheduleDayInput | null;
+  variants: DayVariantInfo[];
+  /** The day's own Know before you go: decision rule, wet-weather swap and status flags. */
+  know: KnowGroup[];
+  /** The day summary with research markers removed, when it differs from `summary`. */
+  summaryProse: CleanProse | null;
+  /** "Sunrise about 07:05 to 07:25, sunset about 19:45 to 20:16 in this window", computed with core/src/sun. */
+  light: string | null;
 }
 
 export interface PublicBase {
@@ -313,7 +338,23 @@ export interface PublicTripCard {
   honesty: Honesty[];
 }
 
+/** The timeline for the default profile, built at publish time (spec D2). The page re-runs the scheduler when the URL differs. */
+export interface TripSchedule {
+  defaultProfile: Profile;
+  /** "families with a child from about 6": who the plan suits, never who travelled. */
+  writtenFor: string;
+  timelines: DayTimeline[];
+  /** True when most times come from rules, not from the plan. */
+  condensed: boolean;
+  /** Some day has a parallel option (a split). */
+  hasSplit: boolean;
+  /** Some day has more than one version. */
+  hasVariants: boolean;
+}
+
 export interface PublicTrip extends PublicTripCard {
+  /** null on overview trips. */
+  schedule: TripSchedule | null;
   bases: PublicBase[];
   days: PublicDay[];
   /** All six categories, always present. Empty for overview trips. */
