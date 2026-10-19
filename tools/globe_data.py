@@ -5,6 +5,11 @@
     python3 tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
     python3 tools/globe_data.py admin2 [ISO3..] # G2: districts for the priority list (geoBoundaries), mapshaper-simplified
     python3 tools/globe_data.py gazetteer       # G3: search index (countries, admin-1, cities, physical names)
+    python3 tools/globe_data.py world           # L2b: 110m world, 1,000 largest lakes, mainland_bbox (writes web/public/globe/data)
+    python3 tools/globe_data.py canada          # L2b: the 293 Canadian census divisions (StatCan 2021), one file per province
+    python3 tools/globe_data.py split           # L2b: USA, India and Brazil districts, one file per state
+    python3 tools/globe_data.py audit           # L2b: audit every ADM2 file; a failing country falls back to ADM1 only
+    python3 tools/globe_data.py check           # L2b: rebuild the files above from the cached sources and fail on any difference
     python3 tools/globe_data.py places          # G5: saved-place pins (legacy/globe/assets/data/places.json), plus the list page and WISHLIST.md
     python3 tools/globe_data.py all
 
@@ -25,7 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "legacy" / "globe" / "assets"
 CACHE = ROOT / "tools" / ".cache"
-UA = {"User-Agent": "nks-travel-globe/0.1 (personal trip planner; nitin27may@gmail.com)"}
+UA = {"User-Agent": "travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)"}
 MAPLIBRE = "6.14.0"
 LIMIT = 20 * 1024 * 1024
 
@@ -49,7 +54,7 @@ def write_json(path: Path, data, compact: bool = True) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":") if compact else None), encoding="utf-8")
     size = path.stat().st_size
     assert size < LIMIT, f"{path} is {size} bytes, over the 20 MB ceiling"
-    print(f"  wrote {path.relative_to(ROOT)} ({size // 1024} KB)", file=sys.stderr)
+    print(f"  wrote {path.relative_to(ROOT) if path.is_relative_to(ROOT) else path} ({size // 1024} KB)", file=sys.stderr)
 
 
 # ----------------------------------------------------------------------------- G1
@@ -214,6 +219,456 @@ def cmd_gazetteer(args) -> int:
     print(f"  gazetteer: {len(rows)} rows", file=sys.stderr)
     return 0
 
+# ----------------------------------------------------------------------------- L2b: web/public/globe
+WEB = ROOT / "web" / "public" / "globe"
+
+# Countries whose largest polygon is the wrong frame for "the country" (spec 11): lon/lat boxes written by hand.
+MAINLAND_OVERRIDES = {
+    "USA": [-125.0, 24.5, -66.9, 49.4],   # the 48 states; Alaska and Hawaii are reached through their states
+    "FRA": [-5.2, 41.3, 9.7, 51.2],       # metropolitan France, not Guiana or Reunion
+    "NLD": [3.3, 50.7, 7.3, 53.6],        # the Netherlands in Europe, not Caribbean Netherlands
+    "NOR": [4.5, 57.9, 31.2, 71.3],       # without Svalbard
+    "RUS": [27.0, 41.2, 180.0, 77.7],     # west of the 180th meridian cut: Chukotka crosses it
+    "DNK": [8.0, 54.5, 15.3, 57.8],       # without Greenland and the Faroes
+    "ESP": [-9.5, 35.9, 4.4, 43.9],       # without the Canaries
+    "PRT": [-9.6, 36.9, -6.1, 42.2],      # without the islands
+    "NZL": [166.3, -47.4, 178.7, -34.3],  # without the Chathams and the Kermadecs
+    "CHL": [-75.8, -56.0, -66.4, -17.5],  # without Easter Island
+    "ECU": [-81.1, -5.1, -75.1, 1.5],     # without the Galapagos
+    "GBR": [-8.7, 49.8, 1.8, 60.9],
+}
+
+
+def _ring_area(ring) -> float:
+    """Shoelace area of a lon/lat ring in square degrees, scaled by cos(latitude) so a lake in Finland is not overrated."""
+    import math
+    lat0 = sum(p[1] for p in ring) / len(ring)
+    k = math.cos(math.radians(lat0))
+    s = 0.0
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:]):
+        s += x1 * y2 - x2 * y1
+    return abs(s) / 2 * k
+
+
+def _geom_area(g) -> float:
+    polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+    return sum(_ring_area(p[0]) - sum(_ring_area(h) for h in p[1:]) for p in polys)
+
+
+def _geom_bbox(g):
+    polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+    pts = [pt for p in polys for pt in p[0]]
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    return [min(xs), min(ys), max(xs), max(ys)]
+
+
+def cmd_world(args) -> int:
+    """L2b: the 110m world for first paint, the 1,000 largest lakes, and `mainland_bbox` for wide countries."""
+    out = WEB / "data"; out.mkdir(parents=True, exist_ok=True)
+    # 1. 110m countries: same ccn3 ids as the 50m file, about 40 KB gz
+    src = fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json", CACHE / "countries-110m.json")
+    (out / "countries-110m.json").write_bytes(src.read_bytes())
+    print(f"  wrote web/public/globe/data/countries-110m.json ({src.stat().st_size // 1024} KB)", file=sys.stderr)
+
+    # 2. lakes: NE 10m, the 1,000 largest by area, simplified
+    raw = fetch("https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_lakes.geojson", CACHE / "ne_10m_lakes.geojson")
+    feats = [f for f in json.loads(raw.read_text(encoding="utf-8"))["features"] if f.get("geometry")]
+    feats.sort(key=lambda f: -_geom_area(f["geometry"]))
+    keep = []
+    for f in feats[:1000]:
+        p = f["properties"]
+        keep.append({"type": "Feature", "geometry": f["geometry"], "properties": {"name": p.get("name_en") or p.get("name"), "wd": p.get("wikidataid") or p.get("wikidata")}})
+    tmp = CACHE / "lakes-1000.geojson"
+    tmp.write_text(json.dumps({"type": "FeatureCollection", "features": keep}), encoding="utf-8")
+    mapshaper(tmp, out / "lakes-10m.json", "20%")
+    print(f"  wrote web/public/globe/data/lakes-10m.json ({(out / 'lakes-10m.json').stat().st_size // 1024} KB, {len(keep)} lakes)", file=sys.stderr)
+
+    # 3. mainland_bbox in countries.json: the largest polygon's box for any country that spans more than 60 degrees of longitude
+    facts_path = out / "countries.json"
+    facts = json.loads(facts_path.read_text(encoding="utf-8"))
+    atlas = json.loads(fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json", CACHE / "countries-50m.json").read_text(encoding="utf-8"))
+    geoms = {str(g["id"]).zfill(3): g for g in atlas["objects"]["countries"]["geometries"] if "id" in g}
+    arcs = atlas["arcs"]
+    sc, tr = atlas["transform"]["scale"], atlas["transform"]["translate"]
+
+    def arc_points(i: int):
+        pts, x, y = [], 0, 0
+        for dx, dy in arcs[i if i >= 0 else ~i]:
+            x += dx; y += dy
+            pts.append((x * sc[0] + tr[0], y * sc[1] + tr[1]))
+        return pts if i >= 0 else pts[::-1]
+
+    def ring_points(ring):
+        out_pts = []
+        for i in ring:
+            out_pts += arc_points(i)
+        return out_pts
+
+    n = 0
+    for ccn3, c in facts.items():
+        g = geoms.get(ccn3)
+        c.pop("mainland_bbox", None)
+        if not g:
+            continue
+        polys = g["arcs"] if g["type"] == "MultiPolygon" else [g["arcs"]] if g["type"] == "Polygon" else []
+        boxes = []
+        for p in polys:
+            pts = ring_points(p[0])
+            if not pts:
+                continue
+            xs, ys = [q[0] for q in pts], [q[1] for q in pts]
+            boxes.append((_ring_area([(q[0], q[1]) for q in pts]), [min(xs), min(ys), max(xs), max(ys)]))
+        if not boxes:
+            continue
+        full = [min(b[1][0] for b in boxes), min(b[1][1] for b in boxes), max(b[1][2] for b in boxes), max(b[1][3] for b in boxes)]
+        if c["a3"] in MAINLAND_OVERRIDES:
+            c["mainland_bbox"] = MAINLAND_OVERRIDES[c["a3"]]
+            n += 1
+        elif full[2] - full[0] > 60 and full[3] > -60:
+            big = max(boxes, key=lambda b: b[0])[1]
+            if big[2] - big[0] > 180:   # a polygon cut at the antimeridian has no honest mainland box
+                continue
+            c["mainland_bbox"] = [round(v, 2) for v in big]
+            n += 1
+    write_json(facts_path, facts)
+    print(f"  mainland_bbox on {n} countries", file=sys.stderr)
+    return 0
+
+
+# ----------------------------------------------------------------------------- L2b: Canada census divisions, ADM2 splits, audit
+UA_SIGNALS = {"User-Agent": "travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)"}
+STATCAN_CD = "https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/4/query"
+# Statistics Canada PRUID to ISO 3166-2, the key the per-province files are filed under (Natural Earth admin-1 `iso`)
+PRUID_ISO = {"10": "CA-NL", "11": "CA-PE", "12": "CA-NS", "13": "CA-NB", "24": "CA-QC", "35": "CA-ON", "46": "CA-MB", "47": "CA-SK",
+             "48": "CA-AB", "59": "CA-BC", "60": "CA-YT", "61": "CA-NT", "62": "CA-NU"}
+CAN_SOURCE = "Statistics Canada 2021 census divisions, cartographic boundary file (Open Government Licence - Canada)"
+# countries whose ADM2 is split into one file per ADM1 so a visitor to Texas does not download Alaska (spec 8.2)
+SPLIT_ADM2 = ["USA", "IND", "BRA"]
+
+
+def _manifest() -> dict:
+    return json.loads((WEB / "admin" / "index.json").read_text(encoding="utf-8"))
+
+
+def _write_manifest(m: dict) -> None:
+    write_json(WEB / "admin" / "index.json", dict(sorted(m.items())))
+
+
+def _geojson_from_topo(topo_path: Path, out: Path) -> dict:
+    """The shipped TopoJSON as GeoJSON (through mapshaper, so the arcs are decoded the way every other tool decodes them)."""
+    subprocess.run(["npx", "-y", "mapshaper", str(topo_path), "-o", "format=geojson", str(out)], check=True, capture_output=True, text=True)
+    return json.loads(out.read_text(encoding="utf-8"))
+
+
+def _rep_points(geom) -> list[tuple[float, float]]:
+    """A few points that vote for the state a district sits in: the mean of the biggest outer ring (which can fall outside a
+    crescent-shaped county) and four vertices spread round it, nudged toward the mean so they are inside the district."""
+    polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+    ring = max((p[0] for p in polys), key=len)
+    mx, my = sum(p[0] for p in ring) / len(ring), sum(p[1] for p in ring) / len(ring)
+    pts = [(mx, my)]
+    for k in range(4):
+        x, y = ring[(k * len(ring)) // 4]
+        pts.append((mx + (x - mx) * 0.8, my + (y - my) * 0.8))
+    return pts
+
+
+def _state_of(geom, states: list) -> dict | None:
+    votes: dict[int, int] = {}
+    for x, y in _rep_points(geom):
+        for i, st in enumerate(states):
+            if _in_geom(st["geometry"], x, y):
+                votes[i] = votes.get(i, 0) + 1
+                break
+    return states[max(votes, key=lambda i: (votes[i], -i))] if votes else None
+
+
+def _in_ring(ring, x: float, y: float) -> bool:
+    inside = False
+    j = len(ring) - 1
+    for i in range(len(ring)):
+        xi, yi = ring[i]; xj, yj = ring[j]
+        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / (yj - yi) + xi:
+            inside = not inside
+        j = i
+    return inside
+
+
+def _in_geom(geom, x: float, y: float) -> bool:
+    polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+    return any(_in_ring(p[0], x, y) and not any(_in_ring(h, x, y) for h in p[1:]) for p in polys)
+
+
+def cmd_canada(args) -> int:
+    """F4: replace geoBoundaries' 76 economic regions with the 293 census divisions, one file per province (Whitby is in Durham)."""
+    import time
+    cache = CACHE / "statcan-cd"; cache.mkdir(parents=True, exist_ok=True)
+    listing = CACHE / "statcan-cd-list.json"
+    if not listing.exists():
+        url = STATCAN_CD + "?" + urllib.parse.urlencode({"where": "1=1", "outFields": "CDUID,CDNAME,PRUID", "returnGeometry": "false", "f": "json"})
+        with urllib.request.urlopen(urllib.request.Request(url, headers=UA_SIGNALS), timeout=120) as r:
+            listing.write_bytes(r.read())
+    rows = [f["attributes"] for f in json.loads(listing.read_text(encoding="utf-8"))["features"]]
+    assert len(rows) == 293, f"expected 293 census divisions, StatCan lists {len(rows)}"
+    for a in rows:
+        dest = cache / f"{a['CDUID']}.geojson"
+        if dest.exists() and dest.stat().st_size > 100:
+            continue
+        # The service fails on some divisions with a long coast (Division No. 1 is whole-island Newfoundland): ask for full detail
+        # first, then for coarser copies, and keep the first answer. The coarsest is 0.01 degrees, about 1 km, under our own simplification.
+        body = None
+        for offset, attempt in [(o, t) for o in (None, 0.002, 0.005, 0.01) for t in range(3)]:
+            q = {"where": f"CDUID='{a['CDUID']}'", "outFields": "CDUID", "outSR": "4326", "f": "geojson"}
+            if offset:
+                q["maxAllowableOffset"] = str(offset)
+            try:
+                with urllib.request.urlopen(urllib.request.Request(STATCAN_CD + "?" + urllib.parse.urlencode(q), headers=UA_SIGNALS), timeout=300) as r:
+                    body = r.read()
+                json.loads(body)
+                break
+            except Exception as ex:   # 500 or an HTML error page: the service is flaky, so retry, then try a coarser copy
+                body = None
+                print(f"  {a['CDUID']} offset {offset} try {attempt + 1}: {str(ex)[:60]}", file=sys.stderr)
+                time.sleep(2.0)
+        if body is None:
+            raise SystemExit(f"census division {a['CDUID']} could not be fetched at any detail")
+        dest.write_bytes(body)
+        time.sleep(1.0)
+    feats = []
+    for a in sorted(rows, key=lambda r: r["CDUID"]):
+        gj = json.loads((cache / f"{a['CDUID']}.geojson").read_text(encoding="utf-8"))
+        for f in gj["features"]:
+            name = " ".join(str(a["CDNAME"]).split())
+            feats.append({"type": "Feature", "geometry": f["geometry"], "properties": {"name": name, "id": a["CDUID"], "pr": PRUID_ISO[a["PRUID"]]}})
+    out_dir = WEB / "admin"
+    parts = {}
+    for iso in sorted(set(PRUID_ISO.values())):
+        sub = [f for f in feats if f["properties"]["pr"] == iso]
+        tmp = CACHE / "canada" / f"{iso}.geojson"; tmp.parent.mkdir(parents=True, exist_ok=True)
+        tmp.write_text(json.dumps({"type": "FeatureCollection", "features": sub}), encoding="utf-8")
+        out = out_dir / f"CAN-ADM2-{iso.split('-')[1]}.json"
+        mapshaper(tmp, out, "1.5%", ["-each", "delete pr"])
+        parts[iso] = out.name
+        print(f"  {iso}: {len(sub)} divisions -> {out.stat().st_size // 1024} KB", file=sys.stderr)
+    old = out_dir / "CAN-ADM2.json"
+    m = _manifest()
+    m["CAN"]["adm2"] = {"file": None, "parts": parts, "n": len(feats), "source": CAN_SOURCE}
+    _write_manifest(m)
+    print(f"  CAN: {len(feats)} census divisions in {len(parts)} province files; {old.name} is no longer referenced", file=sys.stderr)
+    return 0
+
+
+def cmd_split(args) -> int:
+    """Split the biggest ADM2 files by ADM1 (Natural Earth `iso`), so one state loads on its own. Reads the cached geoBoundaries
+    download and simplifies it exactly as `admin2` does, so the parts are what the whole file would have been."""
+    m = _manifest()
+    adm1_all = json.loads((CACHE / "ne_10m_admin_1.geojson").read_text(encoding="utf-8"))["features"]
+    (CACHE / "split").mkdir(parents=True, exist_ok=True)
+    for a3 in (args.iso3 or SPLIT_ADM2):
+        raw = CACHE / "adm2" / f"{a3}.geojson"
+        if not raw.exists():
+            print(f"  {a3}: no cached geoBoundaries download, skipped", file=sys.stderr); continue
+        states = [f for f in adm1_all if f["properties"].get("adm0_a3") == a3 and f.get("geometry")]
+        pct = "4%" if raw.stat().st_size > 20_000_000 else "8%"
+        whole = CACHE / "split" / f"{a3}-whole.json"
+        mapshaper(raw, whole, pct, ["-each", "name=shapeName,id=shapeID,delete shapeGroup,delete shapeType,delete shapeISO"])
+        gj = _geojson_from_topo(whole, CACHE / "split" / f"{a3}.geojson")
+        groups: dict[str, list] = {}
+        lost = 0
+        for f in gj["features"]:
+            hit = _state_of(f["geometry"], states)
+            if not hit or not hit["properties"].get("iso_3166_2"):
+                lost += 1; continue
+            groups.setdefault(hit["properties"]["iso_3166_2"], []).append(f)
+        parts = {}
+        for iso, fs in sorted(groups.items()):
+            tmp = CACHE / "split" / f"{a3}-{iso}.geojson"
+            tmp.write_text(json.dumps({"type": "FeatureCollection", "features": fs}), encoding="utf-8")
+            out = WEB / "admin" / f"{a3}-ADM2-{iso.split('-', 1)[1]}.json"
+            mapshaper(tmp, out, "100%")
+            parts[iso] = out.name
+        m[a3]["adm2"] = {"file": None, "parts": parts, "n": sum(len(v) for v in groups.values()), "source": "geoBoundaries gbOpen ADM2 (CC BY 4.0)"}
+        print(f"  {a3}: {m[a3]['adm2']['n']} districts in {len(parts)} state files ({lost} outside every state)", file=sys.stderr)
+    _write_manifest(m)
+    return 0
+
+
+# ---- the ADM2 audit (spec 11, F4) --------------------------------------------------------------------------------------
+COAST_TOL = 0.05        # degrees, about 5 km: a 50m coast vertex farther than this from every ADM2 edge has been simplified away
+COAST_FAIL_PCT = 25.0   # a country fails when more than this share of its sampled coast vertices are that far from the ADM2 outline
+MIN_DEEPER = 1.3        # districts must outnumber states by this ratio, or the file is the state level under another name
+
+
+def _topo_lines(topo: dict) -> list[list[tuple[float, float]]]:
+    """Every arc of a TopoJSON as absolute lon/lat points."""
+    tr = topo.get("transform", {"scale": [1, 1], "translate": [0, 0]})
+    sc, tl = tr["scale"], tr["translate"]
+    out = []
+    for arc in topo["arcs"]:
+        x = y = 0
+        pts = []
+        for dx, dy in arc:
+            x += dx; y += dy
+            pts.append((x * sc[0] + tl[0], y * sc[1] + tl[1]))
+        out.append(pts)
+    return out
+
+
+class _Grid:
+    """Segments in 0.25 degree cells; `near` asks whether any segment is within `tol` degrees of a point (longitude scaled by cos latitude)."""
+    CELL = 0.25
+
+    def __init__(self, lines):
+        import math
+        self.cells: dict[tuple[int, int], list] = {}
+        for pts in lines:
+            for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+                for cx in range(math.floor(min(x0, x1) / self.CELL), math.floor(max(x0, x1) / self.CELL) + 1):
+                    for cy in range(math.floor(min(y0, y1) / self.CELL), math.floor(max(y0, y1) / self.CELL) + 1):
+                        self.cells.setdefault((cx, cy), []).append((x0, y0, x1, y1))
+
+    def nearest(self, x: float, y: float, tol: float) -> float:
+        import math
+        k = math.cos(math.radians(y))
+        best = 9.0
+        r = int(tol / self.CELL) + 1
+        cx0, cy0 = math.floor(x / self.CELL), math.floor(y / self.CELL)
+        for cx in range(cx0 - r, cx0 + r + 1):
+            for cy in range(cy0 - r, cy0 + r + 1):
+                for x0, y0, x1, y1 in self.cells.get((cx, cy), ()):
+                    ax, ay, bx, by = (x0 - x) * k, y0 - y, (x1 - x) * k, y1 - y
+                    dx, dy = bx - ax, by - ay
+                    d2 = dx * dx + dy * dy
+                    t = 0.0 if d2 == 0 else max(0.0, min(1.0, -(ax * dx + ay * dy) / d2))
+                    d = math.hypot(ax + t * dx, ay + t * dy)
+                    if d < best:
+                        best = d
+        return best
+
+
+def cmd_audit(args) -> int:
+    """Audit every ADM2 file we ship: level meaning, truncated names, and shoreline fidelity against the 50m coast. A failing
+    country loses its ADM2 entry (its shapes fall back to ADM1 only); the files stay on disk until someone deletes them."""
+    atlas = json.loads((CACHE / "countries-50m.json").read_text(encoding="utf-8"))
+    facts = json.loads((WEB / "data" / "countries.json").read_text(encoding="utf-8"))
+    a3_of = {str(k).zfill(3): v["a3"] for k, v in facts.items()}
+    # the 50m boundary of each country as points to test
+    tr = atlas["transform"]
+    sc, tl = tr["scale"], tr["translate"]
+    arcs = []
+    for arc in atlas["arcs"]:
+        x = y = 0
+        pts = []
+        for dx, dy in arc:
+            x += dx; y += dy
+            pts.append((x * sc[0] + tl[0], y * sc[1] + tl[1]))
+        arcs.append(pts)
+    boundary: dict[str, list[tuple[float, float]]] = {}
+    for g in atlas["objects"]["countries"]["geometries"]:
+        a3 = a3_of.get(str(g.get("id", "")).zfill(3))
+        if not a3:
+            continue
+        rings = g["arcs"] if g["type"] == "Polygon" else [r for poly in g["arcs"] for r in poly] if g["type"] == "MultiPolygon" else []
+        pts = [pt for ring in rings for i in ring for pt in (arcs[i] if i >= 0 else arcs[~i])]
+        boundary.setdefault(a3, []).extend(pts)
+    m = _manifest()
+    rows = []
+    for a3, e in sorted(m.items()):
+        a2 = e.get("adm2")
+        if not a2 and (WEB / "admin" / f"{a3}-ADM2.json").exists():
+            # an entry an earlier audit dropped: look at the file again, so the audit gives the same answer every time it runs
+            t = json.loads((WEB / "admin" / f"{a3}-ADM2.json").read_text(encoding="utf-8"))
+            a2 = {"file": f"{a3}-ADM2.json", "n": len(next(iter(t["objects"].values()))["geometries"]), "source": "geoBoundaries gbOpen ADM2 (CC BY 4.0)"}
+            e["adm2"] = a2
+        if not a2:
+            continue
+        files = [a2["file"]] if a2.get("file") else list(a2.get("parts", {}).values())
+        names, n_trunc, lines = 0, [], []
+        for f in files:
+            topo = json.loads((WEB / "admin" / f).read_text(encoding="utf-8"))
+            obj = next(iter(topo["objects"].values()))
+            for g in obj["geometries"]:
+                names += 1
+                nm = str((g.get("properties") or {}).get("name", ""))
+                if "*" in nm:
+                    n_trunc.append(nm)
+            lines.extend(_topo_lines(topo))
+        grid = _Grid(lines)
+        # only the 50m coast inside the box the ADM2 file covers: overseas territories (French Guiana, Svalbard) are not its to match
+        xs = [p[0] for l in lines for p in l]; ys = [p[1] for l in lines for p in l]
+        box = (min(xs) - 0.5, min(ys) - 0.5, max(xs) + 0.5, max(ys) + 0.5)
+        pts = [p for p in boundary.get(a3, []) if box[0] <= p[0] <= box[2] and box[1] <= p[1] <= box[3]]
+        step = max(1, len(pts) // 1500)
+        sample = pts[::step]
+        far = [d for d in (grid.nearest(x, y, COAST_TOL * 2) for x, y in sample) if d > COAST_TOL]
+        pct = 100.0 * len(far) / max(1, len(sample))
+        n1 = e.get("adm1", {}).get("n", 0)
+        problems = []
+        if n_trunc:
+            problems.append(f"{len(n_trunc)} truncated names")
+        if n1 and a2["n"] < MIN_DEEPER * n1:
+            problems.append(f"level: {a2['n']} districts for {n1} states")
+        if pct > COAST_FAIL_PCT:
+            problems.append(f"coast: {pct:.0f}% of sampled coast vertices more than {COAST_TOL} degrees from the ADM2 outline")
+        rows.append({"a3": a3, "n2": a2["n"], "n1": n1, "files": len(files), "truncated": len(n_trunc), "example": n_trunc[0] if n_trunc else "",
+                     "coast_far_pct": round(pct, 1), "samples": len(sample), "source": a2.get("source", ""), "problems": problems})
+        print(f"  {a3}: {a2['n']} districts, {pct:.0f}% far, {len(n_trunc)} truncated {'FAIL ' + '; '.join(problems) if problems else 'ok'}", file=sys.stderr)
+    out = {"tolerance_deg": COAST_TOL, "coast_fail_pct": COAST_FAIL_PCT, "min_deeper": MIN_DEEPER, "countries": rows}
+    write_json(WEB / "admin" / "adm2-audit.json", out)
+    failing = [r for r in rows if r["problems"]]
+    for r in failing:
+        m[r["a3"]].pop("adm2", None)
+    _write_manifest(m)
+    print(f"  audit: {len(rows)} countries, {len(failing)} fall back to ADM1 only", file=sys.stderr)
+    return 0
+
+
+def cmd_check(args) -> int:
+    """Rebuild every file `world`, `canada`, `split` and `audit` write into a temp dir from the cached sources, and fail on any
+    difference from what is shipped. Without the cached downloads (tools/.cache is not in git) there is nothing to rebuild from:
+    it says so and passes."""
+    import filecmp
+    import shutil
+    import tempfile
+    needed = [CACHE / "countries-110m.json", CACHE / "ne_10m_lakes.geojson", CACHE / "statcan-cd-list.json", CACHE / "ne_10m_admin_1.geojson", CACHE / "countries-50m.json"]
+    missing = [p.name for p in needed if not p.exists()]
+    if missing:
+        print(f"globe_data check: skipped, no cached sources ({', '.join(missing)})", file=sys.stderr)
+        return 0
+    global WEB
+    shipped = WEB
+    tmp = Path(tempfile.mkdtemp(prefix="globe-check-"))
+    try:
+        (tmp / "data").mkdir(); (tmp / "admin").mkdir()
+        # the inputs these steps read from the shipped tree: the facts, the manifest and the admin-1 files
+        shutil.copy(shipped / "data" / "countries.json", tmp / "data" / "countries.json")
+        shutil.copy(shipped / "admin" / "index.json", tmp / "admin" / "index.json")
+        for f in (shipped / "admin").glob("*.json"):       # the whole-country files the audit reads; the per-state parts are rebuilt
+            if "-ADM2-" not in f.name and f.name != "index.json":
+                shutil.copy(f, tmp / "admin" / f.name)
+        WEB = tmp
+        ns = argparse.Namespace(iso3=None, force=False)
+        for fn in (cmd_world, cmd_canada, cmd_split, cmd_audit):
+            fn(ns)
+        WEB = shipped
+        bad = []
+        names = {"data/countries-110m.json", "data/lakes-10m.json", "data/countries.json", "admin/index.json", "admin/adm2-audit.json"}
+        names |= {f"admin/{p.name}" for p in (tmp / "admin").glob("*-ADM2-*.json")}
+        for rel in sorted(names):
+            a, b = tmp / rel, shipped / rel
+            if not b.exists() or not filecmp.cmp(a, b, shallow=False):
+                bad.append(rel)
+        extra = sorted(f"admin/{p.name}" for p in (shipped / "admin").glob("*-ADM2-*.json") if f"admin/{p.name}" not in names)
+        if bad or extra:
+            print("globe_data check: the shipped files differ from a rebuild of the cached sources:", *(bad + [f"{e} (no longer produced)" for e in extra]), sep="\n  ", file=sys.stderr)
+            return 1
+        print(f"globe_data check: {len(names)} files rebuilt identically", file=sys.stderr)
+        return 0
+    finally:
+        WEB = shipped
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 # ----------------------------------------------------------------------------- G5
 def cmd_places(args) -> int:
     """Regenerate every view of the locations store (same code path as `locations.py build`)."""
@@ -243,6 +698,11 @@ def main(argv=None) -> int:
     a2 = sub.add_parser("admin2"); a2.add_argument("iso3", nargs="*"); a2.add_argument("--force", action="store_true"); a2.set_defaults(fn=cmd_admin2)
     sub.add_parser("gazetteer").set_defaults(fn=cmd_gazetteer)
     sub.add_parser("places").set_defaults(fn=cmd_places)
+    sub.add_parser("world").set_defaults(fn=cmd_world)
+    sub.add_parser("canada").set_defaults(fn=cmd_canada)
+    sub.add_parser("audit").set_defaults(fn=cmd_audit)
+    sub.add_parser("check").set_defaults(fn=cmd_check)
+    sp = sub.add_parser("split"); sp.add_argument("iso3", nargs="*"); sp.set_defaults(fn=cmd_split)
     al = sub.add_parser("all"); al.add_argument("--force", action="store_true"); al.set_defaults(fn=cmd_all)
     args = ap.parse_args(argv)
     return args.fn(args)

@@ -42,7 +42,7 @@ import location_views as V  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 Paths = V.Paths
 PATHS = Paths(Path(os.environ.get("LOCATIONS_ROOT", ROOT)))   # tests: monkeypatch.setattr(D, "PATHS", D.Paths(tmp))
-UA = "nks-travel-locations/0.1 (personal trip planner; nitin27may@gmail.com)"
+UA = "travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)"
 WD = "https://www.wikidata.org/w/api.php"
 NOMINATIM = "https://nominatim.openstreetmap.org/search"
 

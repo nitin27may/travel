@@ -201,6 +201,7 @@ The earlier rule "hovered country fills `--accent-soft` at 35%" is withdrawn: bl
 | Token | Light | Dark | Use |
 |---|---|---|---|
 | `--globe-ocean` | `#A9C4D3` | `#0F1A26` | the style `background` and `water` fills on the globe; an unloaded globe reads as sea, never as land. Ink disc 8.81:1 on it; `--ink-2` label 6.63:1 (light); `--ink` disc 14.77:1, `--ink-2` label 11.48:1 (dark) |
+| `--globe-land`, `--globe-wood` | `#EEE9DF`, `#E4E0D4` | `#263241`, `#2B3845` | land and the warmer wood step on the globe (Q6: the dark land is lighter than `--globe-ocean`). The engine reads them as they are, so the owner's answer to Q6 is a change to these two values. Wood has no green in either mode. On the dark globe amber is 6.98:1 on `--globe-ocean` and 5.17:1 on the dark land, so it carries a selection edge by itself; the casing is about 1.2:1 there and is not relied on |
 | `--globe-halo` | `#CFE0EC` | `#2A4A66` | the CSS atmosphere behind the canvas: radial gradient from the disc radius to radius + 6% of the diameter, opacity 1 at zoom 0 to 0 at zoom 4. Also the first-paint placeholder disc |
 | `--globe-edge` | `--line-2` (3.18:1 on `--well`) | `rgba(255,255,255,.08)` | 1 px limb line drawn by the halo element |
 | `--globe-dim` | `#F3F1EC` at 70% | `#0B1119` at 60% | covers every sibling shape when one is open, drawn above the basemap labels so names dim with the land; our pins outside the open shape fade to 35%, our labels to 40% |
