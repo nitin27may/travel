@@ -1,0 +1,211 @@
+[
+ {
+  "id": 1,
+  "query": "easy hike with kids near Banff in September",
+  "target": "places",
+  "url": "country=CA&region=alberta&area=banff&k=nature.trail&season=9&kid=yes&effort=stroll,easy",
+  "dym": [
+   "Banff National Park"
+  ]
+ },
+ {
+  "id": 2,
+  "query": "waterfall I can reach with a stroller",
+  "target": "places",
+  "url": "k=water.falls&stroller=any",
+  "gap": [
+   "stroller"
+  ]
+ },
+ {
+  "id": 3,
+  "query": "lakes in Iceland",
+  "target": "places",
+  "url": "country=IS&k=water.body"
+ },
+ {
+  "id": 4,
+  "query": "hot springs in Iceland in winter",
+  "target": "places",
+  "url": "country=IS&k=water.thermal.hot_spring&season=12,1,2"
+ },
+ {
+  "id": 5,
+  "query": "via ferrata for a 12 year old in the Dolomites",
+  "target": "places",
+  "url": "country=IT&region=south-tyrol&area=dolomites&k=mountain.ferrata&kid=12"
+ },
+ {
+  "id": 6,
+  "query": "short walk under 3 km with a toddler",
+  "target": "places",
+  "url": "k=nature.trail&f.length=lt3&kid=2"
+ },
+ {
+  "id": 7,
+  "query": "trails under 5 km near Jasper",
+  "target": "places",
+  "url": "country=CA&region=alberta&area=jasper&k=nature.trail&f.length=lt3,3-6",
+  "chip": [
+   "Up to 6 km (nearest band)"
+  ]
+ },
+ {
+  "id": 8,
+  "query": "half day hike in Zion",
+  "target": "places",
+  "url": "country=US&region=utah&area=zion&k=nature.trail&f.time=half-day"
+ },
+ {
+  "id": 9,
+  "query": "wheelchair accessible sights in Vermont",
+  "target": "places",
+  "url": "country=US&region=vermont&k=culture&f.step-free=yes",
+  "gap": [
+   "f.step-free"
+  ]
+ },
+ {
+  "id": 10,
+  "query": "viewpoint for sunset in the Dolomites",
+  "target": "places",
+  "url": "country=IT&region=south-tyrol&area=dolomites&k=nature.viewpoint&f.best-time-of-day=sunset"
+ },
+ {
+  "id": 11,
+  "query": "hidden gems in Utah",
+  "target": "places",
+  "url": "country=US&region=utah",
+  "notYet": [
+   "hidden gem"
+  ]
+ },
+ {
+  "id": 12,
+  "query": "lake with toilets close to the parking",
+  "target": "places",
+  "url": "k=water.body&f.toilets=yes&f.walk-from-the-car=lt200"
+ },
+ {
+  "id": 13,
+  "query": "day trip from Toronto under 2 hours",
+  "target": "trips",
+  "url": "length=day&drive=toronto-1,toronto-2"
+ },
+ {
+  "id": 14,
+  "query": "weekend trip with kids in October",
+  "target": "trips",
+  "url": "length=weekend&season=10",
+  "ask": true
+ },
+ {
+  "id": 15,
+  "query": "road trip in Utah with a 6 year old",
+  "target": "trips",
+  "url": "country=US&shape=road-trip&kid=6&q=utah"
+ },
+ {
+  "id": 16,
+  "query": "camper van trip in Iceland",
+  "target": "trips",
+  "url": "country=IS&around=camper-van"
+ },
+ {
+  "id": 17,
+  "query": "two week trip in summer",
+  "target": "trips",
+  "url": "length=9-14&season=6,7,8"
+ },
+ {
+  "id": 18,
+  "query": "long weekend in Vermont for the fall colours",
+  "target": "trips",
+  "url": "length=long-weekend&country=US&season=9,10,11&q=vermont"
+ },
+ {
+  "id": 19,
+  "query": "swimming beach with a lifeguard in Ontario",
+  "target": "places",
+  "url": "country=CA&region=ontario&k=water.swim&f.lifeguard=yes"
+ },
+ {
+  "id": 20,
+  "query": "rainy day things to do with kids in Banff",
+  "target": "places",
+  "url": "country=CA&region=alberta&area=banff&k=intent:do&f.indoor-or-rainy-day=yes&kid=yes"
+ },
+ {
+  "id": 21,
+  "query": "free things to do near Lake Louise",
+  "target": "places",
+  "url": "country=CA&region=alberta&area=banff-national-park&k=intent:do&f.price-band=free"
+ },
+ {
+  "id": 22,
+  "query": "gondola rides in Switzerland in June",
+  "target": "places",
+  "url": "country=CH&k=ride.lift&season=6"
+ },
+ {
+  "id": 23,
+  "query": "moderate hike with 500 m climb",
+  "target": "places",
+  "url": "k=nature.trail&effort=moderate&f.climb=400-800"
+ },
+ {
+  "id": 24,
+  "query": "stroll near Lake Louise",
+  "target": "places",
+  "url": "country=CA&region=alberta&area=banff-national-park&k=nature.trail&effort=stroll"
+ },
+ {
+  "id": 25,
+  "query": "kid friendly waterfalls in Ontario",
+  "target": "places",
+  "url": "country=CA&region=ontario&k=water.falls&kid=yes"
+ },
+ {
+  "id": 26,
+  "query": "Niagara Falls",
+  "target": "search",
+  "url": ""
+ },
+ {
+  "id": 27,
+  "query": "hard hikes in Chamonix in July",
+  "target": "places",
+  "url": "country=FR&region=auvergne-rhone-alpes&area=chamonix-valley&k=nature.trail&effort=hard&season=7"
+ },
+ {
+  "id": 28,
+  "query": "dog friendly loop trail",
+  "target": "places",
+  "url": "k=nature.trail&f.dogs=yes&f.shape=loop",
+  "gap": [
+   "f.dogs",
+   "f.shape"
+  ]
+ },
+ {
+  "id": 29,
+  "query": "waterfalls worth the journey in Patagonia",
+  "target": "places",
+  "url": "k=water.falls",
+  "notYet": [
+   "worth the journey"
+  ],
+  "dym": [
+   "Argentine Patagonia"
+  ],
+  "unused": [
+   "patagonia"
+  ]
+ },
+ {
+  "id": 30,
+  "query": "kayaking in Norway in August",
+  "target": "places",
+  "url": "country=NO&k=water.paddle&season=8"
+ }
+]
