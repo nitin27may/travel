@@ -13,7 +13,7 @@ const lineOf = (l: PublicPlace['lines'][number]): ExportLine => ({
   label: l.label,
   exportable: lineExportable({ ref: l.ref, exportable: l.exportable, licence: l.ref.startsWith('osm_') ? 'ODbL' : 'unknown' }),
   licence: l.ref.startsWith('osm_') ? 'ODbL' : 'unknown',
-  geometry: [],
+  geometry: l.geometry ?? [],
 });
 
 const placeUrl = (slug: string) => absoluteUrl(`/places/${slug}/`);

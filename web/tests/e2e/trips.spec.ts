@@ -26,9 +26,9 @@ test.describe('trips list', () => {
 });
 
 test.describe('trip page', () => {
-  test('Dolomites: 14 day rows in order, six chips, By category regroups', async ({ page, site }) => {
+  test('Dolomites: 14 day timelines in order, six chips, By category regroups', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/dolomites-2027/`);
-    const rows = page.locator('.day-row');
+    const rows = page.locator('li.tl-day');
     await expect(rows).toHaveCount(14);
     expect(await rows.evaluateAll((els) => els.map((e) => e.id))).toEqual(Array.from({ length: 14 }, (_, i) => `day-${i + 1}`));
     const chips = page.locator('.cat-chip');
@@ -39,18 +39,20 @@ test.describe('trip page', () => {
     await expect(page).toHaveURL(/view=category#trails/);
     await expect(page.getByRole('heading', { name: /^Trails/ })).toBeVisible();
     await page.goBack();
-    await expect(page.locator('.day-row').first()).toBeVisible();
+    await expect(page.locator('li.tl-day').first()).toBeVisible();
   });
   test('anchors #day-3 and #stays work on load', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/dolomites-2027/#day-3`);
-    await expect(page.locator('#day-3 .day-head')).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.locator('#day-3')).toBeVisible();
+    await expect(page.locator('#day-3 .tl-rail')).toBeVisible();
     await page.goto(`${site.url}/trips/dolomites-2027/#stays`);
     await expect(page.getByRole('heading', { name: /^Stays/ })).toBeVisible();
   });
-  test('Rockies day 5 shows tracks A, B and C', async ({ page, site }) => {
+  test('Rockies day 5 has a version menu, not a Track A, B, C segment on the day', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/canadian-rockies-2029/#day-5`);
-    await expect(page.getByRole('radiogroup', { name: 'Day 5 options' })).toBeVisible();
-    await expect(page.getByRole('radio')).not.toHaveCount(0);
+    await expect(page.getByRole('radiogroup', { name: 'Day 5 options' })).toHaveCount(0);
+    await expect(page.locator('#day-5').getByRole('button', { name: /Version of Day 5/ })).toBeVisible();
+    await expect(page.getByRole('radiogroup', { name: 'Who is going' })).toBeVisible();
   });
   test('summary and overview trips are labelled', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/patagonia-2027/`);
@@ -77,20 +79,20 @@ test.describe('trip page', () => {
 });
 
 test.describe('trip page extras', () => {
-  test('a done trip is read-only and offers "Use as a template"', async ({ page, site }) => {
+  test('a done trip is a template and offers "Use as a template"', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/vermont-fall-2026/`);
     await expect(page.getByRole('button', { name: 'Use as a template' }).first()).toBeVisible();
     await expect(page.getByRole('button', { name: 'Copy to my trips' })).toHaveCount(0);
-    await expect(page.getByText('the plan is read-only')).toBeVisible();
+    await expect(page.getByText('A finished plan, kept as a template.')).toBeVisible();
   });
   test('an open day offers a link to itself and every row has its anchor', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/dolomites-2027/#day-3`);
     await expect(page.locator('#day-3')).toBeVisible();
     await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
-    const copy = page.locator('#day-3 [data-day-link="3"]').getByRole('button', { name: 'Copy link to day 3' });
+    const copy = page.locator('#day-3 [data-day-link="3"]').getByRole('button', { name: 'Copy link to this day' });
     await expect(copy).toBeVisible();
     await copy.click();
     expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(/\/trips\/dolomites-2027\/#day-3$/);
-    expect(await page.locator('.day-row[id^="day-"]').count()).toBeGreaterThan(10);
+    expect(await page.locator('li.tl-day[id^="day-"]').count()).toBeGreaterThan(10);
   });
 });

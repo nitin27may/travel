@@ -1,0 +1,136 @@
+{
+ "day": 3,
+ "kind": "normal",
+ "tz": "Europe/Rome",
+ "base": {
+  "name": "San Candido",
+  "placeSlug": null,
+  "point": {
+   "lat": 46.7327,
+   "lon": 12.2803
+  }
+ },
+ "nextBase": null,
+ "sunPoint": {
+  "lat": 46.7327,
+  "lon": 12.2803
+ },
+ "sunWindow": {
+  "from": [
+   7,
+   13
+  ],
+  "to": [
+   7,
+   26
+  ]
+ },
+ "start": null,
+ "origin": null,
+ "homeBy": null,
+ "splitNote": null,
+ "legs": [
+  {
+   "from": "base",
+   "to": "tre-cime",
+   "mode": "drive",
+   "minutes": 55,
+   "km": 32.4,
+   "basis": "routed",
+   "estimate": false
+  },
+  {
+   "from": "tre-cime",
+   "to": "cadini",
+   "mode": "drive",
+   "minutes": 18,
+   "km": 9.1,
+   "basis": "routed",
+   "estimate": false
+  },
+  {
+   "from": "cadini",
+   "to": "base",
+   "mode": "drive",
+   "minutes": 58,
+   "km": 36.0,
+   "basis": "routed",
+   "estimate": false
+  }
+ ],
+ "variants": [
+  {
+   "key": "main",
+   "label": "The plan's day",
+   "audience": "any",
+   "relation": "alternative",
+   "rank": 2,
+   "items": [
+    {
+     "id": "tre-cime",
+     "kind": "trail",
+     "sub": "hike",
+     "title": "Tre Cime di Lavaredo loop",
+     "placeSlug": null,
+     "point": {
+      "lat": 46.612,
+      "lon": 12.296
+     },
+     "rule": null,
+     "durationMin": 270,
+     "durationRange": null,
+     "durationSource": "data",
+     "stats": {
+      "distanceKm": 10,
+      "gainM": 450
+     },
+     "start": {
+      "time": "11:30",
+      "confidence": "suggested",
+      "source": "plan",
+      "note": "Midday slot, walk clockwise"
+     },
+     "needs": null,
+     "window": null,
+     "checkinMin": null,
+     "optional": false,
+     "note": null,
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    },
+    {
+     "id": "cadini",
+     "kind": "visit",
+     "sub": "viewpoint",
+     "title": "Cadini di Misurina viewpoint",
+     "placeSlug": null,
+     "point": {
+      "lat": 46.605,
+      "lon": 12.27
+     },
+     "rule": null,
+     "durationMin": 60,
+     "durationRange": null,
+     "durationSource": "data",
+     "stats": null,
+     "start": {
+      "time": "16:30",
+      "confidence": "suggested",
+      "source": "plan"
+     },
+     "needs": null,
+     "window": null,
+     "checkinMin": null,
+     "optional": false,
+     "note": null,
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    }
+   ]
+  }
+ ]
+}

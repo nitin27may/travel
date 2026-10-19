@@ -11,6 +11,7 @@ import { downloadGpx, downloadIcs, downloadTripCsv, loadExport } from '@/lib/exp
 import type { Generated } from '@/lib/export/client';
 import { addDays, checkWindow, formatDate, iso } from '@/lib/export/dates';
 import { removeDraft, saveDraft } from '@/lib/export/draft';
+import { getTimeline, setYoungest } from '@/lib/export/timelineState';
 import type { TripExport } from '@/lib/export/types';
 import { CalendarPicker } from './CalendarPicker';
 import './actions.css';
@@ -64,6 +65,23 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
     };
   }, [open, trip.slug]);
 
+  // the travellers start from the profile chosen on the page (trip-timeline spec 3.9); the visitor can still change them
+  const [prefilled, setPrefilled] = useState(false);
+  if (open && !prefilled) {
+    setPrefilled(true);
+    const tl = getTimeline(trip.slug);
+    if (tl) {
+      setAdults(tl.profile.adults >= 2 ? 2 : 1);
+      setChildren(tl.profile.party === 'family' && tl.profile.youngest !== null ? [tl.profile.youngest] : []);
+    }
+  }
+  // the youngest child in the sheet is the youngest in the page's profile
+  const follow = (ages: (number | null)[]) => {
+    const known = ages.filter((a): a is number => a !== null);
+    if (ages.length === 0) setYoungest(null);
+    else if (known.length === ages.length) setYoungest(Math.min(...known));
+  };
+
   // Only read once the sheet is open, which is always after hydration.
   const today = useMemo(() => (open ? localToday() : null), [open]);
   const length = trip.days;
@@ -94,7 +112,13 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
 
   const copy = () => {
     if (!start || adults === null || !children.every((a) => a !== null)) return;
-    setHeld(saveDraft({ slug: trip.slug, start, adults, children: children as number[] }));
+    const tl = getTimeline(trip.slug);
+    setHeld(
+      saveDraft({
+        slug: trip.slug, start, adults, children: children as number[],
+        ...(tl ? { profile: { party: tl.profile.party, youngest: tl.profile.youngest, pace: tl.profile.pace, adults: tl.profile.adults, walk: tl.profile.walkKm, split: tl.profile.split }, overrides: tl.overrides, added: tl.added } : {}),
+      }),
+    );
     setStep('done');
     toast({
       message: `Copied ${trip.title} · ${trip.days} days from ${formatDate(start, false)}`,
@@ -145,7 +169,7 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
           <div className="trav-row">
             <span className="trav-name" id="trav-kids">Children</span>
             <span className="trav-step" role="group" aria-labelledby="trav-kids">
-              <Button size="sm" icon aria-label="Fewer children" disabled={children.length === 0} onClick={() => setChildren(children.slice(0, -1))}>
+              <Button size="sm" icon aria-label="Fewer children" disabled={children.length === 0} onClick={() => { const next = children.slice(0, -1); setChildren(next); follow(next); }}>
                 <Icon name="minus" size={14} />
               </Button>
               <span className="trav-n" aria-live="polite">{children.length}</span>
@@ -157,7 +181,7 @@ export function CopySheet({ trip, open, onClose }: CopySheetProps) {
           {children.map((age, i) => (
             <div className="trav-child" key={i}>
               <label htmlFor={`child-age-${i}`}>Child {i + 1} age</label>
-              <select id={`child-age-${i}`} value={age ?? ''} onChange={(e) => setChildren(children.map((a, j) => (j === i ? (e.target.value === '' ? null : +e.target.value) : a)))}>
+              <select id={`child-age-${i}`} value={age ?? ''} onChange={(e) => { const next = children.map((a, j) => (j === i ? (e.target.value === '' ? null : +e.target.value) : a)); setChildren(next); follow(next); }}>
                 <option value="">Choose age</option>
                 {Array.from({ length: 18 }, (_, a) => (
                   <option key={a} value={a}>
@@ -235,6 +259,8 @@ function ExportList({
   hasCalendar: boolean;
   onRun: (make: () => Generated) => void;
 }) {
+  const [full, setFull] = useState(false);
+  const session = getTimeline(trip.slug);
   const need = <T,>(f: (d: TripExport) => T) => () => {
     if (!data) throw new Error('not loaded');
     return f(data);
@@ -244,10 +270,15 @@ function ExportList({
       <h3 id="copy-exports">Take it with you</h3>
       <div className="copy-exports">
         {hasCalendar ? (
-          <Button disabled={!start || !data} onClick={() => onRun(need((d) => downloadIcs(d, start!)))}>
+          <Button disabled={!start || !data} onClick={() => onRun(need((d) => downloadIcs(d, start!, session ? { timelines: session.timelines, sunPoints: session.sunPoints, full } : undefined)))}>
             <Icon name="calendar" size={15} />
             {start && data ? `Calendar (.ics): ${data.days.length} all-day events from ${formatDate(start, false)}` : 'Calendar (.ics): pick a start date first'}
           </Button>
+        ) : null}
+        {hasCalendar && session ? (
+          <label className="copy-full">
+            <input type="checkbox" checked={full} onChange={(e) => setFull(e.target.checked)} /> Full detail: add breaks, rest and sun times to the calendar
+          </label>
         ) : null}
         <Button disabled={!data} onClick={() => onRun(need(downloadGpx))}>
           <Icon name="download" size={15} /> GPX: stops, trailheads, parking

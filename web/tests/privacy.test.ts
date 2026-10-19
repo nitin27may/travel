@@ -5,6 +5,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { loadPlaces } from '@/lib/data/places';
 import { isDated } from '@/lib/public/dateless';
 import { nearHome } from '@/lib/public/origin';
+import { describesParty } from '@/lib/public/party';
 import { TRIP_SLUGS } from '@/lib/public/slugs';
 import { FIXTURE_ROOT, TEXT_FILE, WEB, allKeys, readText, walkFiles } from './helpers';
 
@@ -285,5 +286,49 @@ describe('no party description in any public file', () => {
     // legitimate text the scrub keeps (backlog 2.43)
     const fine = ['A 300-year-old church stands here.', 'Bring the child carrier.', 'Not suitable if the child is under 4.', 'The child fare applies from age 12.', 'A small group can share a room.'];
     for (const e of fine) expect(PARTY_PATTERNS.some(([, re]) => re.test(e)), e).toBe(false);
+  });
+});
+
+// The trip timeline (L3c) says who a plan suits, never who travelled. Its default values (family, a youngest of 6, two adults)
+// are URL-state defaults and must not read as a description of the party in any string the adapter or the scheduler produces.
+describe('no party description in the timeline strings', () => {
+  const walk = (v: unknown, out: string[] = []): string[] => {
+    if (typeof v === 'string') out.push(v);
+    else if (Array.isArray(v)) v.forEach((x) => walk(x, out));
+    else if (v && typeof v === 'object') Object.values(v).forEach((x) => walk(x, out));
+    return out;
+  };
+  it('scans the adapter output: writtenFor, notes, know-before-you-go, scheduler inputs and the default timelines', async () => {
+    const { createPublicData } = await import('@/lib/public');
+    const data = createPublicData();
+    const hits: string[] = [];
+    for (const t of data.internals.trips.filter((x) => x.schedule)) {
+      for (const s of walk([t.schedule, t.days.map((d) => [d.scheduleInput, d.variants, d.know, d.light, d.summaryProse])])) {
+        for (const [label, re] of PARTY_PATTERNS) if (re.test(s)) hits.push(`${t.slug}: ${label}: ${s.slice(0, 90)}`);
+        if (describesParty(s)) hits.push(`${t.slug}: party leak: ${s.slice(0, 90)}`);
+      }
+    }
+    expect(hits).toEqual([]);
+  });
+  it('scans what the browser computes: every warning, note and reason for family profiles of every age and pace', async () => {
+    const { createPublicData } = await import('@/lib/public');
+    const { scheduleDay } = await import('@travel/core/schedule/schedule.ts');
+    const data = createPublicData();
+    const hits: string[] = [];
+    for (const slug of ['canadian-rockies-2029', 'dolomites-2027', 'patagonia-2027']) {
+      const trip = data.getTrip(slug)!;
+      for (const youngest of [0, 3, 4, 6, 8, 11, 14, 17]) {
+        for (const pace of ['relaxed', 'standard', 'full'] as const) {
+          for (const d of trip.days) {
+            const t = scheduleDay(d.scheduleInput!, { party: 'family', youngest, pace, adults: 2, walkKm: null, split: true });
+            for (const s of walk([t.warnings, t.notes, t.variant, t.entries.map((e) => [e.title, e.time.note, e.duration.basis])])) {
+              for (const [label, re] of PARTY_PATTERNS) if (re.test(s)) hits.push(`${slug} d${d.n} age ${youngest}: ${label}: ${s.slice(0, 90)}`);
+              if (/\byear[- ]old\b|\bour (?:kids?|child)\b|\bthe youngest is\b/i.test(s)) hits.push(`${slug} d${d.n} age ${youngest}: ${s.slice(0, 90)}`);
+            }
+          }
+        }
+      }
+    }
+    expect([...new Set(hits)].slice(0, 10)).toEqual([]);
   });
 });

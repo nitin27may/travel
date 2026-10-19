@@ -54,7 +54,8 @@ describe('public trips are dateless templates', () => {
   it('has no date-valued keys', () => {
     const keys = new Set<string>();
     const walk = (v: unknown) => { if (Array.isArray(v)) v.forEach(walk); else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { keys.add(k); walk(x); } };
-    walk(d.internals.trips);
+    // the timeline's own `start` and `end` are clock times of a day ("07:30"), not trip dates; the string checks above cover their values
+    walk(d.internals.trips.map(({ schedule: _s, days, ...t }) => ({ ...t, days: days.map(({ scheduleInput: _i, ...x }) => x) })));
     for (const k of ['date', 'dates', 'start', 'end', 'startDate', 'endDate']) expect(keys.has(k), k).toBe(false);
   });
 

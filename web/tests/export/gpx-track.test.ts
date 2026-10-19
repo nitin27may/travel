@@ -38,3 +38,19 @@ describe('GPX with a stored OSM track', () => {
     expect(out.xml).toContain('<!-- 1 point left out: source not ours to give -->');
   });
 });
+
+describe('the Sorapis place export carries its confirmed track (backlog 3.32)', () => {
+  it('has geometry on the exported line and a track in the GPX', async () => {
+    const { buildPlaceExport } = await import('@/lib/export/build.server');
+    const { getPlace, placeSlugs } = await import('@/lib/public');
+    const slug = placeSlugs().find((s) => /sorapis/.test(s))!;
+    const place = getPlace(slug)!;
+    const ex = buildPlaceExport(place);
+    const confirmed = ex.lines.filter((l) => l.exportable);
+    expect(confirmed.length).toBeGreaterThan(0);
+    expect(confirmed.some((l) => l.geometry.length > 2)).toBe(true);
+    const gpx = buildGpx({ title: ex.title, url: ex.url, waypoints: ex.waypoints, lines: ex.lines, skipped: ex.skipped });
+    expect(gpx.tracks).toBeGreaterThan(0);
+    expect(gpx.xml).toContain('<trk>');
+  });
+});
