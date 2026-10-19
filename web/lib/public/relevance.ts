@@ -39,7 +39,7 @@ export interface DerivedItem {
   far_pointer: { ref: string; km: number; draw: string; same_class: boolean } | null;
   pair_with: PairRaw[];
   part_of: string[];
-  plan_b: { ref: string; km: number; draw: string; standing: string; access_cost: string[]; family_effort: number | null } | null;
+  plan_b: { ref: string; km: number; draw: string; standing: string; access_cost: string[]; family_effort: number | null; hand_picked?: boolean; reason?: string } | null;
   role: string;
   flags: { go_clear_day: boolean; rainy_day: boolean; en_route: boolean; hidden_gem: boolean };
   badge: string | null;
@@ -158,6 +158,8 @@ export interface PlanB extends RefLink {
   effortName: string | null;
   /** what can fail on this page's own access: "shuttle or bus only", "timed entry" */
   risk: string;
+  /** why a person picked it (plan_b_pick); null for a derived Plan B */
+  reason: string | null;
 }
 
 export interface PublicRelevance {
@@ -370,6 +372,7 @@ export function publicRelevance(ctx: RelevanceContext, rawRef: string, opts: Rel
       access: accessWords(item.plan_b.access_cost, ctx.derived.get(primaryRef(w, item.plan_b.ref))?.access_load),
       effortName: effortName(item.plan_b.family_effort),
       risk: own.map((t) => ACCESS_WORDS[t] ?? t).join(' · '),
+      reason: item.plan_b.hand_picked ? ctx.scrub.maybe(item.plan_b.reason, `plan b ${ref}`) : null,
     };
   }
 

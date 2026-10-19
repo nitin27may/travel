@@ -14,8 +14,10 @@
   "licence": "ODbL-1.0",
   "attribution": "© OpenStreetMap contributors",
   "stitched": true,
-  "confirmed": true,
-  "held_back": [],
+  "confirmed": false,
+  "held_back": [
+    "listed in UNCONFIRMED_TRAIL_DATA"
+  ],
   "start_override": true,
   "start_offset_m": 178,
   "end_offset_m": null,

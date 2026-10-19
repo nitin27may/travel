@@ -153,8 +153,16 @@ export function PlanBLine({ rel, slugs }: { rel: PublicRelevance; slugs: Record<
       <span className="rv-tag">Plan B</span>
       <p className="pt">
         {b.risk ? `${b.risk.charAt(0).toUpperCase()}${b.risk.slice(1)} can fall through. ` : ''}
-        <RefLink r={b} slugs={slugs} /> is the same kind of draw: {b.access}
-        {b.effortName ? ` · ${b.effortName.toLowerCase()}` : ''} · {km(b.km)}.
+        {b.reason ? (
+          <>
+            <RefLink r={b} slugs={slugs} />: {b.reason.replace(/[.]$/, '')}. Access: {b.access}{b.effortName ? ` · ${b.effortName.toLowerCase()}` : ''} · {km(b.km)}.
+          </>
+        ) : (
+          <>
+            <RefLink r={b} slugs={slugs} /> is the same kind of draw: {b.access}
+            {b.effortName ? ` · ${b.effortName.toLowerCase()}` : ''} · {km(b.km)}.
+          </>
+        )}
       </p>
     </li>
   );
