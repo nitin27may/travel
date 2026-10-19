@@ -13,7 +13,8 @@ export function convertNumber(value: string, unit: 'km' | 'm' | 'cm', prefs: Pre
   // a width or a height in centimetres follows the height unit: feet and inches go with inches
   if (unit === 'cm') return prefs.elevation === 'ft' ? String(Math.round(n / 2.54)) : String(n);
   const out = unit === 'km' ? formatDistance(n, prefs.distance) : formatElevation(n, prefs.elevation);
-  return out.replace(/ \w+$/, '');
+  // the page ships "10 km", not "10.0 km"
+  return out.replace(/ \w+$/, '').replace(/\.0$/, '');
 }
 
 /** The unit word a value carries under these prefs. */
