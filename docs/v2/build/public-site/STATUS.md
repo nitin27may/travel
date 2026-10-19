@@ -13,7 +13,6 @@ Updated 2026-10-18, night, before a context compaction. Read this first after an
 
 | Lane | Worktree | Work | Next step |
 |---|---|---|---|
-| SW-A | v2-SWA | sweep must-fixes 2.34 (privacy: no party, child ages or "with kids N+" in public text; remove the links to legacy plans), 2.35 (Vermont map frames Europe), 2.36 (/about/, the 404 page's links, favicon) and 2.37 (terms page) | verify, then merge |
 | SW-B | v2-SWB | sweep must-fixes 2.38 (self-hosted resized images, LCP and CLS), 2.39 (globe pin list into on-demand data files) and 2.40 (tables scroll with a sticky first column) | verify, then merge |
 
 After both merge, start **stage 3**. Run lanes in parallel with disjoint files:
@@ -45,6 +44,7 @@ Stage 4 is the design review by the Opus reviewer (never Fable), scored against 
 | INT-B | ed4f847 | no bulk files (P8), light list rows, split search, the P9 data boundary, four-filter Places |
 | RC | 327d8a7 | research correction pass (anchors cut from 57 to 43, links re-sourced, 20 hand pairs) |
 | INT-C | 431bd1a | place page JS cut from 197 to 147 KB, link-only facts dropped, build error gate |
+| SW-A | a413115 | sweep must-fixes 2.34-2.37: public text says who a plan suits, Vermont no-position map, /about/ index, 404 links, icons, /terms/. Follow-ups 2.42-2.45 |
 | CC | eaa5684 | capture contract foundation: 324-type tree, property registry, place/route/offer layers, 61 records split with a value ledger |
 
 The stage 2 sweep report is `verify-integration.md` (Lighthouse, privacy, P8, the 10,000-place test, the first-use walk).
