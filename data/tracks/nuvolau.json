@@ -9,7 +9,7 @@
     "relation:2261100"
   ],
   "fetched": "2026-10-19",
-  "source": "osm-api",
+  "source": "overpass",
   "licence": "ODbL-1.0",
   "attribution": "© OpenStreetMap contributors",
   "stitched": false,
