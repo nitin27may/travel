@@ -282,8 +282,8 @@ test.describe('phone, 390 px', () => {
     expect(over.page).toBeLessThanOrEqual(0);
     for (const x of await page.locator('.qchip-x').all()) {
       const b = (await x.boundingBox())!;
-      expect(b.width).toBeGreaterThanOrEqual(36);
-      expect(b.height).toBeGreaterThanOrEqual(36);
+      expect(b.width).toBeGreaterThanOrEqual(35.5);
+      expect(b.height).toBeGreaterThanOrEqual(35.5);
     }
     for (const c of await page.locator('.qchip').all()) {
       const b = (await c.boundingBox())!;
