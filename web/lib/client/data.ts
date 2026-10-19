@@ -357,7 +357,7 @@ export interface WikidataEntity {
  */
 export async function globeWikidata(qid: string, signal?: AbortSignal): Promise<WikidataEntity | null> {
   const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${encodeURIComponent(qid)}&props=claims|labels|sitelinks&languages=en&sitefilter=enwiki&format=json&origin=*`;
-  const r = await fetch(url, { signal, headers: { 'Api-User-Agent': 'travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)' } });
+  const r = await fetch(url, { signal, headers: { 'Api-User-Agent': `travel-globe/1.0 (+${typeof location === 'undefined' ? '' : location.origin}/about/)` } });
   if (!r.ok) throw new Error(`wikidata ${r.status}`);
   const body = (await r.json()) as { entities?: Record<string, WikidataEntity & { missing?: string }> };
   const e = body.entities?.[qid];
