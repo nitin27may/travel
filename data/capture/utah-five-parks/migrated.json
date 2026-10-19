@@ -75,7 +75,7 @@
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Angels Landing chains view or Scout Lookout",
+      "name": "Scout Lookout (Angels Landing chains view)",
       "route_is_attraction": true,
       "attraction_reason": "The payoff is Scout Lookout, a named point. Create the place and move the draw; until then the route carries it."
     },
