@@ -3063,6 +3063,27 @@
       }
     },
     {
+      "id": "s-af92053c73",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap data via the Overpass API (is_in admin areas, route relations, huts)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-25caec05c4",
       "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
       "title": "Canadian Rocky Mountain Parks (World Heritage)",
@@ -8381,6 +8402,38 @@
       }
     },
     {
+      "id": "s-12f5a88eab",
+      "url": "https://rifugionuvolau.it",
+      "title": "Rifugio Nuvolau",
+      "publisher": "Rifugio Nuvolau",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-59e4461f92",
       "url": "https://rifugiovandelli.it",
       "title": "Rifugio Vandelli | Homepage",
@@ -11000,6 +11053,33 @@
       }
     },
     {
+      "id": "s-a88ef96d93",
+      "url": "https://www.altabadia.org/it/info/ristoranti/dettaglio/gastronomy/rifugio-scotoni",
+      "title": "Rifugio Scotoni",
+      "publisher": "Alta Badia tourism board",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-scotoni",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-d68523d80f",
       "url": "https://www.argentina.gob.ar/parquesnacionales/losglaciares",
       "title": "Parque Nacional Los Glaciares",
@@ -13417,8 +13497,28 @@
       "publisher": "3 Zinnen Dolomites (lift operator)",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "season"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/funbob-monte-baranci",
@@ -13490,6 +13590,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-3712d80045",
+      "url": "https://www.dreizinnen.com/en/the-cable-cars/tickets-prices/tickets-prices",
+      "title": "Tickets and prices",
+      "publisher": "3 Zinnen AG (lift company of the Drei Zinnen Dolomites)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -17898,6 +18030,38 @@
       }
     },
     {
+      "id": "s-d7c15ee105",
+      "url": "https://www.rifugioaverau.it",
+      "title": "Rifugio Averau",
+      "publisher": "Rifugio Averau",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-a9d4c89f17",
       "url": "https://www.rifugiolavaredo.com",
       "title": "Rifugio Lavaredo",
@@ -18006,6 +18170,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-1005bcd8fb",
+      "url": "https://www.scotoni.it/it",
+      "title": "Rifugio Scotoni",
+      "publisher": "Rifugio Scotoni",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-scotoni",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {

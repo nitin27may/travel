@@ -338,6 +338,34 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0038",
+      "url": "https://www.dreizinnen.com/en/the-cable-cars/the-cable-cars/funbob",
+      "title": "Funbob",
+      "publisher": "3 Zinnen AG (lift company of the Drei Zinnen Dolomites)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0039",
+      "url": "https://www.dreizinnen.com/en/the-cable-cars/tickets-prices/tickets-prices",
+      "title": "Tickets and prices",
+      "publisher": "3 Zinnen AG (lift company of the Drei Zinnen Dolomites)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0040",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap data via the Overpass API (is_in admin areas, route relations, huts)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api",
+      "run": "api-2026-10-19-cs7c-overpass"
     }
   ],
   "records": [
@@ -412,7 +440,8 @@
           "https://pass.auronzo.info"
         ],
         "note": "The toll road needs an online slot; when slots are released is an operator question."
-      }
+      },
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
@@ -429,7 +458,8 @@
           "query": "auronzo.info Cadini di Misurina belvedere sentiero 117",
           "on": "2026-10-19"
         }
-      ]
+      ],
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
@@ -508,7 +538,8 @@
             "src-0021"
           ]
         }
-      ]
+      ],
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "part/place/lago-di-sorapis#payoff",
@@ -598,7 +629,8 @@
             "src-0010"
           ]
         }
-      ]
+      ],
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "place/monte-piana",
@@ -632,7 +664,8 @@
             "src-0023"
           ]
         }
-      ]
+      ],
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "place/croda-del-becco",
@@ -1047,7 +1080,8 @@
             "src-0035"
           ]
         }
-      ]
+      ],
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
@@ -1088,7 +1122,8 @@
           "state": "filled",
           "on": "2026-10-19"
         }
-      ]
+      ],
+      "area_id": "IT/trentino-alto-adige/provincia-di-trento"
     },
     {
       "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
@@ -1367,7 +1402,8 @@
         ],
         "read": "2026-10-19",
         "quote": "The lake's crystal waters reflect the Tre Cime and the surrounding forest, creating spectacular scenes at sunset or when blanketed in snow."
-      }
+      },
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "place/lago-di-dobbiaco",
@@ -1403,7 +1439,8 @@
         "tried": [
           "cortina.dolomiti.org Lago di Lìmedes page"
         ]
-      }
+      },
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "place/lago-federa",
@@ -1720,7 +1757,143 @@
       "at": [
         "part/place/funbob-monte-baranci#place"
       ],
-      "run_by": "operator/3-zinnen-dolomites-lift-operator"
+      "run_by": "operator/3-zinnen-dolomites-lift-operator",
+      "season": {
+        "v": [
+          {
+            "from": "05-23",
+            "to": "10-18",
+            "status": "open",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0038"
+        ],
+        "read": "2026-10-19",
+        "quote": "Opening times Date Opening hours Funbob 23.05.2026 - 18.10.2026",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "Europe/Rome",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:15",
+              "close": "17:30",
+              "from": "05-23",
+              "to": "06-20"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:00",
+              "close": "18:30",
+              "from": "06-21",
+              "to": "08-30"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:15",
+              "close": "17:30",
+              "from": "08-31",
+              "to": "10-18"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0038"
+        ],
+        "read": "2026-10-19",
+        "quote": "23.05.2026 - 20.06.2026 09:15 - 17:30 o'clock 21.06.2026 - 30.08.2026 09:00 - 18:30 o'clock 31.08.2026 - 18.10.2026 09:15 - 17:30 o'clock",
+        "note": "The run starts at the top of the four-seater chairlift from Innichen.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 21.5,
+            "currency": "EUR",
+            "per": "adult",
+            "applies_to": "2026",
+            "note": "one ride"
+          },
+          {
+            "amount": 15.0,
+            "currency": "EUR",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "junior, one ride"
+          },
+          {
+            "amount": 0,
+            "currency": "EUR",
+            "per": "child",
+            "age_to": 7,
+            "applies_to": "2026",
+            "note": "under 8 free (rides with an adult)"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0039",
+          "src-0038"
+        ],
+        "read": "2026-10-19",
+        "quote": "1 ride Adults 21,50 € Junior (<18) 15,00 € ... Kids under 8 years are free",
+        "note": "Also 3 rides 48.50/34.00, 5 rides 66.50/46.50, a morning unlimited ticket 60.00/43.50 EUR. Not included in the Mountain Card.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.dreizinnen.com/en/the-cable-cars/the-cable-cars/funbob",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0038"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://www.dreizinnen.com/en/the-cable-cars/tickets-prices/tickets-prices",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0039"
+          ]
+        }
+      ]
     },
     {
       "ref": "part/place/funbob-monte-baranci#place",
@@ -1730,7 +1903,16 @@
       "origin": {
         "from": "place/funbob-monte-baranci",
         "reason": "the place the offer runs at"
-      }
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/1825738077",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ],
+      "osm_ref": "node/1825738077"
     },
     {
       "ref": "place/rafting-on-the-rienza",
@@ -1805,7 +1987,8 @@
             "src-0015"
           ]
         }
-      ]
+      ],
+      "area_id": "IT/trentino-alto-adige/belluno"
     },
     {
       "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
