@@ -80,7 +80,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
   const slot = fixedLabel(e);
   const dur = e.durationMin > 0 && e.kind !== 'sun' ? fmtHM(e.durationMin) : null;
   const meta = [slot, ...stats(e, prefs), e.kind === 'meal' && e.style === 'on-trail' ? 'eaten on the trail' : null].filter(Boolean) as string[];
-  const hasMore = !quiet && e.kind !== 'sun';
+  const hasMore = (!quiet || e.addedBy === 'visitor') && e.kind !== 'sun';
   const flagged = [...new Set(e.honesty)].filter((h) => h !== 'drive_estimated');
   const moveText = moved ? `moved ${Math.abs(moved)} min ${moved > 0 ? 'later' : 'earlier'}` : null;
   const sr = `${timeSpeech(e)}, ${KIND_WORD[e.kind]}, ${e.title}${e.stats?.distanceKm != null ? `, ${formatDistance(e.stats.distanceKm, prefs.distance)}` : ''}${dur ? `, ${dur}` : ''}`;
@@ -121,7 +121,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
         {e.time.note && e.kind !== 'start' ? <p className="tl-note"><Prose text={e.time.note} /></p> : null}
         {warnings.map((w) => (
           <p key={`${w.code}:${w.message}`} className="tl-warn" data-code={w.code}>
-            <Icon name="warn" size={14} /> <span>{w.message}</span>
+            <Icon name="warn" size={14} /> <Prose text={w.message} />
           </p>
         ))}
         {hasMore ? (
