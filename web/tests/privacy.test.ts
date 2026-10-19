@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { loadPlaces } from '@/lib/data/places';
@@ -333,14 +333,30 @@ describe('no party description in the timeline strings', () => {
   });
 });
 
-// "Draft" is the workshop's word for a place with only the basics. A visitor never reads it on a list page, in a card footer or in
-// the rows the list ships (the place pages and the about page still name it: S1 and the about page own those).
-describe('internal words on the list pages', () => {
-  it('"Draft" appears nowhere in the Places or Trips list HTML, payload included', () => {
-    for (const page of ['places/index.html', 'trips/index.html']) {
+// "Draft" is the workshop's word for a place with only the basics. A visitor never reads it on any built page: the lists, every place
+// page, a card footer or the rows the list ships. The public levels are Basics only, Partly checked and Checked (3.42).
+function builtPages(): string[] {
+  const out = ['places/index.html', 'trips/index.html'];
+  const dir = path.join(REAL_OUT, 'places');
+  if (existsSync(dir)) for (const d of readdirSync(dir)) if (existsSync(path.join(dir, d, 'index.html'))) out.push(`places/${d}/index.html`);
+  return out;
+}
+describe('internal words on the built pages', () => {
+  it('"Draft" appears on no list page and no place page, payload included', () => {
+    for (const page of builtPages()) {
       const f = path.join(REAL_OUT, page);
       if (!existsSync(f)) continue;
       expect(readText(f).match(/\bDraft\b/g) ?? [], page).toEqual([]);
     }
+  });
+  it('no agent or process note, FE grade or research marker appears on any place page (3.27, 3.20)', () => {
+    const bad: string[] = [];
+    for (const page of builtPages()) {
+      const f = path.join(REAL_OUT, page);
+      if (!existsSync(f)) continue;
+      const m = /agent[- ]confirmed|by travel-(?:researcher|builder|planner|verifier)|needs? a person['\u2019]s (?:check|fix|review)|\bFE[1-5]\b|\b(?:INFERENCE|CALC)\b|suitability\.md|this repo/.exec(readText(f));
+      if (m) bad.push(`${page}: ${m[0]}`);
+    }
+    expect(bad).toEqual([]);
   });
 });

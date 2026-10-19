@@ -9,6 +9,7 @@ import { normName } from '@/lib/public/places';
 import { ogImageFor } from '@/lib/og';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
 import '@/styles/places.css';
+import '@/styles/suitability.css';
 
 export const dynamicParams = false;
 
