@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "utah-five-parks",
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -18,10 +18,10 @@
   "window": null,
   "items": [
     {
-      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
       "draw_suggested": "national",
       "effective_draw": "world",
-      "access_load": "plan",
+      "access_load": "easy",
       "detour_min": 34,
       "detour_basis": "town",
       "detour_town": "Springdale",
@@ -47,7 +47,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "needs a booking or permit"
+          "reason": "detour 34 min is over 30"
         }
       },
       "role": "anchor",
@@ -59,7 +59,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
@@ -108,7 +109,9 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
@@ -156,7 +159,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/trail:riverside walk",
@@ -172,7 +177,7 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+        "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
         "km": 1.6,
         "draw": "world",
         "same_class": false
@@ -180,7 +185,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "km": 1.6
         },
         {
@@ -214,7 +219,9 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
@@ -230,7 +237,7 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+        "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
         "km": 5.7,
         "draw": "world",
         "same_class": false
@@ -246,7 +253,7 @@
           "km": 4.1
         },
         {
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "km": 5.7
         }
       ],
@@ -276,10 +283,12 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
-      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
@@ -354,7 +363,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
@@ -368,7 +378,7 @@
       "substitutes": {
         "near": [
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.7,
             "draw": "national",
             "standing": "top",
@@ -386,7 +396,7 @@
         ],
         "area": [
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.7,
             "draw": "national",
             "standing": "top",
@@ -435,9 +445,10 @@
       "warnings": [
         {
           "code": "W_REL_DISTINCTION",
-          "message": "distinction is unique but trip/utah-five-parks/trail:navajo loop and queens garden has the same class within 100 km"
+          "message": "distinction is unique but part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff has the same class within 100 km"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:sunset point",
@@ -459,7 +470,7 @@
             "family_effort": null
           },
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.9,
             "draw": "national",
             "standing": "top",
@@ -477,7 +488,7 @@
             "family_effort": null
           },
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.9,
             "draw": "national",
             "standing": "top",
@@ -520,10 +531,11 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
-      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -564,7 +576,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/trail:hickman bridge",
@@ -622,7 +635,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
@@ -666,7 +681,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/trail:delicate arch trail",
@@ -749,7 +765,9 @@
           "code": "W_REL_DISTINCTION",
           "message": "distinction is unique but trip/utah-five-parks/trail:mesa arch has the same class within 100 km"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
@@ -832,7 +850,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
@@ -880,7 +900,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/trail:mesa arch",
@@ -963,7 +985,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
@@ -1046,7 +1070,9 @@
           "code": "W_REL_DISTINCTION",
           "message": "distinction is unique but trip/utah-five-parks/trail:delicate arch trail has the same class within 100 km"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",
@@ -1122,7 +1148,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:dead horse point",
@@ -1184,7 +1211,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/sight:goblin valley",
@@ -1228,7 +1256,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/town:main street moab",
@@ -1277,7 +1306,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/utah-five-parks/sight:temple square",
@@ -1321,7 +1351,258 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "draw_suggested": "national",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": 34,
+      "detour_basis": "town",
+      "detour_town": "Springdale",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 34 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 14,
+      "detour_basis": "town",
+      "detour_town": "Bryce Canyon",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+            "km": 0.7,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/viewpoint:sunset point",
+            "km": 0.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+            "km": 0.7,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/utah-five-parks/viewpoint:sunset point",
+            "km": 0.9,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 128,
+      "detour_basis": "town",
+      "detour_town": "Torrey",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 128 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff"
+    },
+    {
+      "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 92,
+      "detour_basis": "town",
+      "detour_town": "Moab",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+            "km": 22.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+            "km": 22.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/utah-five-parks/trail:mesa arch",
+          "km": 7.4,
+          "how": "drive",
+          "extra_min": 150,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "Mesa Arch is on the same Island in the Sky road, a short walk usually paired with the overlooks",
+          "src": "src-0039"
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 92 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "trip/utah-five-parks/viewpoint:grand view point"
     }
   ]
 }

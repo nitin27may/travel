@@ -4,6 +4,7 @@
 // the public adapter by tools/suitability-scope/dump-scope.test.ts, because core/ cannot import web/.
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { readJson, sidecarFiles } from "../capture/records.ts";
 
 export interface ScopeSource {
   protoId?: string;
@@ -119,11 +120,22 @@ export function tripFiles(root: string, trip: string): { path: string; doc: { re
     .map((n) => ({ path: join(dir, n), doc: JSON.parse(readFileSync(join(dir, n), "utf8")) as { records?: { ref: string }[] } }));
 }
 
-/** Scope refs of a trip that no file of the trip covers. */
+/**
+ * Scope refs of a trip that no file covers. A ref is covered by a suitability record, or by a capture record that has it as its
+ * ref or as an alias (a lift's suitability block moved to its ticket offer, and the line keeps the old ref).
+ */
 export function missingCoverage(root: string, trip: string): string[] {
   const scope = loadScope(root);
   if (!scope) return [];
   const have = new Set(tripFiles(root, trip).flatMap((f) => (f.doc.records ?? []).map((r) => r.ref)));
+  for (const f of sidecarFiles(root, "capture")) {
+    const doc = readJson<{ trip?: string; records?: { ref: string; aliases?: string[] }[] }>(f);
+    if (doc?.trip !== trip) continue;
+    for (const r of doc.records ?? []) {
+      have.add(r.ref);
+      for (const a of r.aliases ?? []) have.add(a);
+    }
+  }
   return scope.items.filter((i) => i.trip === trip && !have.has(i.ref)).map((i) => i.ref);
 }
 

@@ -168,6 +168,66 @@
     {
       "key": "activity/ropes-zip",
       "label": "A zipline or ropes course"
+    },
+    {
+      "key": "activity/climb",
+      "label": "Rock climbing, bouldering or an indoor wall"
+    },
+    {
+      "key": "activity/canyon",
+      "label": "A guided canyoning descent"
+    },
+    {
+      "key": "activity/air",
+      "label": "A balloon, helicopter or scenic flight"
+    },
+    {
+      "key": "activity/horse",
+      "label": "A guided horse or pony ride"
+    },
+    {
+      "key": "snow/ski",
+      "label": "A ski area or nordic centre"
+    },
+    {
+      "key": "snow/play",
+      "label": "A sledding hill, tube park or skating rink"
+    },
+    {
+      "key": "snow/tour",
+      "label": "A dog sled, snowmobile, sleigh or snowshoe tour"
+    },
+    {
+      "key": "water/motor",
+      "label": "Jet ski, water ski or a towed tube"
+    },
+    {
+      "key": "water/dive",
+      "label": "Snorkelling or scuba"
+    },
+    {
+      "key": "water/surf",
+      "label": "Surf, kite or wind sports"
+    },
+    {
+      "key": "water/fishing",
+      "label": "A fishing spot or lesson"
+    },
+    {
+      "key": "animals/zoo",
+      "label": "A zoo, aquarium or wildlife sanctuary"
+    },
+    {
+      "key": "play/farm",
+      "label": "Pick-your-own, a corn maze or a farm visit"
+    },
+    {
+      "key": "play/playground",
+      "label": "A playground, splash pad or indoor play centre"
+    },
+    {
+      "key": "play/theme-park",
+      "label": "A theme, amusement or water park"
     }
   ]
 }

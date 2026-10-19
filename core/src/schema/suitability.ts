@@ -95,10 +95,20 @@ const participation = z.strictObject({
   wear: val(z.array(z.enum(E.WEAR))).optional(),
   min_shoe_eu: val(z.number().min(15).max(50)).optional(),
   fitness: val(z.string().min(1)).optional(),
-  medical: val(z.strictObject({ excluded: z.array(z.enum(E.MEDICAL)), ask_doctor: z.array(z.enum(E.MEDICAL)) })).optional(),
-  pregnancy: val(z.enum(["allowed", "ask_doctor", "not_allowed"])).optional(),
+  medical: val(z.strictObject({ excluded: z.array(z.enum(E.MEDICAL)), ask_doctor: z.array(z.enum(E.MEDICAL)), not_recommended: z.array(z.enum(E.MEDICAL)).optional() })).optional(),
+  /** `not_recommended` (2.33): the operator advises against it but does not bar it; `not_allowed` is a rule */
+  pregnancy: val(z.enum(["allowed", "ask_doctor", "not_recommended", "not_allowed"])).optional(),
   waiver: val(z.strictObject({ required: z.boolean(), guardian_signs_under: int.min(0).nullable(), guardian_present: z.boolean().nullable() })).optional(),
   weigh_in: val(z.boolean()).optional(),
+  /**
+   * Who may drive (jet ski, go-kart, ATV, snowmobile): a limit (K3). Serves every vehicle the guest steers. It sits beside
+   * `ext.coaster.driver_rule`, which stays for the one record that uses it.
+   */
+  driver: val(z.strictObject({
+    min_age: int.min(0).optional(),
+    licence: z.enum(["none", "boat_card", "driving_licence"]).optional(),
+    passenger_min_age: int.min(0).optional(),
+  })).optional(),
   weather_cancel: val(z.strictObject({
     causes: z.array(z.enum(E.WEATHER_CAUSE)),
     policy: z.enum(["refund", "rebook", "credit", "none"]).nullable(),
@@ -156,6 +166,11 @@ export const suitabilityBlock = z.strictObject({
     z.array(z.strictObject({ name: z.string().min(1), at_km: z.number().min(0), note: z.string().optional() })),
   ])).optional(),
   signal: val(z.enum(["good", "patchy", "none"])).optional(),
+  // capture contract D12: facilities the owner asked for (swim, beach, thermal, pools, play)
+  change_rooms: val(z.boolean()).optional(),
+  showers: val(z.boolean()).optional(),
+  picnic: val(z.boolean()).optional(),
+  baby_change: val(z.boolean()).optional(),
   // hazards that decide age
   exposure: val(exposure).optional(),
   altitude_m: val(int).optional(),
@@ -374,6 +389,10 @@ export const sourceRow = z.strictObject({
   publisher: z.string(),
   kind: z.enum(E.SOURCE_KIND),
   read: isoDate,
+  /** how the page was taken (capture contract 9.4); absent on rows written before the contract */
+  method: z.enum(E.SOURCE_METHOD).optional(),
+  /** the crawl run id when `method` is crawl or api */
+  run: z.string().min(1).optional(),
 });
 
 export const SUITABILITY_SCHEMA_ID = "suitability/1";

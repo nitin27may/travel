@@ -1,0 +1,475 @@
+{
+  "schema": "capture-placement/1",
+  "reviewed": "2026-10-18",
+  "note": "Placement of facts and draw between layers (capture contract 2.7.2), reviewed after the first migration. Field moves go from a record to a record of the same lane file, so src ids keep their meaning. `review` lists facts that stay on the route because the source text does not say they belong to the endpoint. `removed_duplicates` keeps verbatim what was dropped as a duplicate.",
+  "applied": true,
+  "field_moves": [
+    {
+      "from": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "to": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "fields": [
+        "altitude_m"
+      ],
+      "reason": "Altitude of the lake, the payoff (spec 2.7.2: the view and facilities are the place's)."
+    },
+    {
+      "from": "place/lago-di-sorapis",
+      "to": "part/place/lago-di-sorapis#payoff",
+      "fields": [
+        "food",
+        "altitude_m"
+      ],
+      "reason": "Rifugio Vandelli is on the shore of the lake, and the note says the altitude is the lake's."
+    },
+    {
+      "from": "place/seceda-ridge",
+      "to": "part/place/seceda-ridge#payoff",
+      "fields": [
+        "altitude_m"
+      ],
+      "reason": "The source text puts the operator's panoramic point at 2500 m: the payoff."
+    },
+    {
+      "from": "place/sass-pordoi-and-piz-boe",
+      "to": "part/place/sass-pordoi-and-piz-boe#payoff",
+      "fields": [
+        "food"
+      ],
+      "reason": "The note puts the huts at the summit, the payoff."
+    },
+    {
+      "from": "trip/patagonia-2027/trail:laguna capri",
+      "to": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+      "fields": [
+        "toilets"
+      ],
+      "reason": "The value is \"payoff\": the outhouse is at the lake."
+    },
+    {
+      "from": "trip/utah-five-parks/trail:lower calf creek falls",
+      "to": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+      "fields": [
+        "shade"
+      ],
+      "reason": "The source says the falls themselves are shady."
+    },
+    {
+      "from": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+      "to": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "fields": [
+        "food",
+        "altitude_m"
+      ],
+      "reason": "Dining \"at the top\" and the Upper Terminal altitude are the top station's."
+    },
+    {
+      "from": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+      "to": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+      "fields": [
+        "altitude_m"
+      ],
+      "reason": "Upper Station altitude."
+    },
+    {
+      "from": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
+      "to": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+      "fields": [
+        "food",
+        "altitude_m"
+      ],
+      "reason": "Whitehorn Bistro is at the top; the searched-none altitude is the top station's."
+    },
+    {
+      "from": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
+      "to": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "fields": [
+        "altitude_m"
+      ],
+      "reason": "The altitude is the summit station's."
+    },
+    {
+      "from": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
+      "to": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+      "fields": [
+        "toilets",
+        "accessible_toilet",
+        "food",
+        "altitude_m"
+      ],
+      "reason": "The toilets are at the arrival of the train, the bar is at Montenvers, the altitude is the arrival station's."
+    },
+    {
+      "from": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
+      "to": "part/place/lagazuoi-cable-car-and-tunnels#top",
+      "fields": [
+        "accessible_toilet",
+        "food",
+        "altitude_m"
+      ],
+      "reason": "The refuge at the top has the services and the terrace bar; the altitude is the top station's."
+    }
+  ],
+  "draw_moves": [
+    {
+      "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "to": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "kind": "sight",
+      "reason": "The visitor comes to see the top (the view, the refuge, the summit); the ride is the way there."
+    },
+    {
+      "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "to": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+      "kind": "sight",
+      "reason": "The visitor comes to see the top (the view, the refuge, the summit); the ride is the way there."
+    },
+    {
+      "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "to": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+      "kind": "sight",
+      "reason": "The visitor comes to see the top (the view, the refuge, the summit); the ride is the way there."
+    },
+    {
+      "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "to": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "kind": "sight",
+      "reason": "The visitor comes to see the top (the view, the refuge, the summit); the ride is the way there."
+    },
+    {
+      "from": "place/lagazuoi-cable-car-and-tunnels",
+      "to": "part/place/lagazuoi-cable-car-and-tunnels#top",
+      "kind": "sight",
+      "reason": "The visitor comes to see the top (the view, the refuge, the summit); the ride is the way there."
+    }
+  ],
+  "route_is_attraction": [
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "reason": "The rack railway ride is itself the experience (a scenic train); the Mer de Glace has no place record yet."
+    },
+    {
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "reason": "The loop is the experience (spec 2.7.1 example 4): the world draw also sits on the mountain and the north-face viewpoint, whose places and the huts come from research later."
+    }
+  ],
+  "at": [
+    {
+      "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
+      "at": "trip/patagonia-2027/sight:perito moreno walkways",
+      "reason": "The relevance record says same_place_as this ref."
+    }
+  ],
+  "removed_duplicates": [
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "file": "data/suitability/dolomites-2027/R1.json",
+      "reason": "Duplicates the ticket offer of the same cable car (same altitude 2752, same season rows); the values are kept verbatim here.",
+      "fields": {
+        "access_season": {
+          "v": [
+            {
+              "from": "06-06",
+              "to": "10-18",
+              "status": "open",
+              "via": "lift",
+              "note": "Down from the Lagazuoi cable car top station; last cable car down 17:00 if you turn back"
+            }
+          ],
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0007"
+          ],
+          "applies_to": "2026",
+          "conflicts": [
+            {
+              "v": [
+                {
+                  "from": "05-30",
+                  "to": "10-18",
+                  "status": "open",
+                  "via": "lift"
+                }
+              ],
+              "basis": "operator_info",
+              "src": [
+                "src-0009"
+              ],
+              "note": "The operator's price PDF gives 30 May."
+            }
+          ]
+        },
+        "altitude_m": {
+          "v": 2752,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0008"
+          ],
+          "note": "Route high point."
+        }
+      }
+    }
+  ],
+  "review": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "field": "toilets",
+      "why": "\"start\": at the trailhead, so on the route; the existing payoff place has its own record."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "field": "toilets",
+      "why": "\"start\": at the trailhead, so on the route; the existing payoff place has its own record."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "field": "toilets",
+      "why": "\"start\": at the trailhead, so on the route; the existing payoff place has its own record."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "field": "toilets",
+      "why": "\"start\": at the trailhead, so on the route; the existing payoff place has its own record."
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "field": "food",
+      "why": "\"Rifugio Biella on the route\": on the way, not at the summit."
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "field": "food",
+      "why": "Three huts named, not said to be at the payoff."
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "field": "altitude_m",
+      "why": "No note: it is not said which point the altitude is of (route or payoff)."
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "field": "altitude_m",
+      "why": "No note: 3152 m is the Piz Boe summit, but the record covers Sass Pordoi too."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "field": "toilets",
+      "why": "\"route\": an outhouse on the route."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "field": "toilets",
+      "why": "\"start\"."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "field": "toilets",
+      "why": "\"start\": Sunset Point is the rim trailhead."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "field": "water",
+      "why": "Water fill at Sunset Point, the trailhead."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "field": "toilets",
+      "why": "\"start\", and the source says there are no facilities along the trail."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "field": "water",
+      "why": "The source says to bring water, for the whole trail."
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+      "field": "food",
+      "why": "\"cafe\" with no text saying where."
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+      "field": "accessible_toilet",
+      "why": "searched_none (\"the FAQ does not mention washrooms\"): about the attraction, not a station."
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
+      "field": "accessible_toilet",
+      "why": "The accessible washroom is at the base (Whisky Jack Lodge)."
+    },
+    {
+      "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
+      "field": "toilets",
+      "why": "\"Adapted toilet at the departure\": the valley station."
+    },
+    {
+      "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
+      "field": "accessible_toilet",
+      "why": "\"Adapted toilet at the departure\": the valley station."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "field": "exposure, hazards",
+      "why": "Met along the way: stays on the route (spec 2.7.2). Edge exposure at the payoff itself needs a source that says so: a research question."
+    }
+  ]
+}

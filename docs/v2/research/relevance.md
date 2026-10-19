@@ -243,6 +243,12 @@ Flags, which are independent of role: `go_clear_day` (role `anchor`, weather `cl
 
 Precedence: journey, then detour, then local favourite. Only one is ever shown. Each badge opens its provenance one step away (P6): the judgement note, its designations, its mentions and the fame signals. For example: "Our judgement: one of the most photographed lakes in the Rockies; Wikipedia in 37 languages; inside a UNESCO site (inherited)".
 
+### 3.7 Which layer carries the draw (capture contract 2.7.2, 18 Oct 2026)
+
+Draw, standing, class and the rest of the judgement belong to **the place a visitor comes to see**: the payoff place of a trail, the top station of a lift, the summit, the lake. A route carries them only when **the route is itself the experience**: a circuit (the Tre Cime loop), a scenic drive (the Icefields Parkway), a ride (a scenic train), a cycle path. That route says so with `route_is_attraction: true` and an `attraction_reason` in its capture record; a route with a relevance record and no flag is `E_CAP_DRAW_LAYER`. An offer keeps its own judgement only when it draws on its own (a cruise); a coaster or a canoe rental is judged with the place.
+
+Derive reads the layer: a record with a capture record gets `layer` (and `route_is_attraction`); a route with no judgement of its own gets an item whose role, badge, fits and effective draw are those of the first place it `reaches` (`draw_from` names it); a flagged route is derived like any place and can be an anchor. Until research adds the payoff place of a flagged trail (backlog: capture-research-backlog.md), the route carries the draw.
+
 ## 4. Storage
 
 ```text

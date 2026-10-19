@@ -28,10 +28,10 @@ interface LaneDoc { sources?: LaneSource[]; records?: { ref?: string }[] }
 export interface LinkRecord { url: string; status: LinkStatus; http: number | null; final: string | null; checked: string }
 export interface LinksFile { schema: "source-links/1"; links: Record<string, LinkRecord> }
 
-/** Lane files: every data/suitability/<trip>/*.json and data/relevance/<trip>/*.json (not derived, signals or inputs). */
+/** Lane files: every data/suitability/<trip>/*.json, data/relevance/<trip>/*.json and data/capture/<trip>/*.json (not derived, signals, inputs, splits or runs). */
 export function laneFiles(root: string): string[] {
   const out: string[] = [];
-  for (const [base, skip] of [["suitability", []], ["relevance", ["derived", "signals", "inputs"]]] as [string, string[]][]) {
+  for (const [base, skip] of [["suitability", []], ["relevance", ["derived", "signals", "inputs"]], ["capture", ["splits", "runs"]]] as [string, string[]][]) {
     const dir = join(root, "data", base);
     if (!existsSync(dir)) continue;
     for (const trip of readdirSync(dir).sort()) {
@@ -75,6 +75,14 @@ const mostCommon = (xs: string[]): string => {
   return [...n.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))[0]![0];
 };
 const cmp = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);
+
+/** Removes link results whose source id is not in `liveIds` (a source no lane file uses any more); returns the ids dropped. */
+export function pruneOrphanLinks(file: LinksFile, liveIds: Iterable<string>): string[] {
+  const live = new Set(liveIds);
+  const dropped = Object.keys(file.links).filter((id) => !live.has(id));
+  for (const id of dropped) delete file.links[id];
+  return dropped.sort();
+}
 
 export function readLinks(root: string): LinksFile {
   const p = join(root, LINKS_PATH);

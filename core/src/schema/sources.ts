@@ -3,6 +3,7 @@
 // refine, transform or lazy schemas. Cross-field rules (id is the hash of the url, entries sorted, no drift from the lane
 // files) live in core/src/validate/sources.ts and `sources.ts check`.
 import { z } from "zod";
+import { AUTOMATED } from "./enums.ts";
 import { json, pattern, table } from "./meta.ts";
 
 export const SOURCES_SCHEMA_ID = "sources/1";
@@ -32,6 +33,8 @@ export const sourceEntry = z.strictObject({
   used_by: z.array(usedBy),
   licence_note: z.string().min(1),
   terms_note: z.string().min(1),
+  /** capture contract 9.2: whether the host's terms allow an automated crawler; `unknown` counts as forbidden for crawling and allowed for a single-page read */
+  automated: z.enum(AUTOMATED),
   recheck: z.strictObject({ cadence_days: z.number().int().min(1), fact_type: z.enum(FACT_TYPE) }),
   link: z.strictObject({ status: z.enum(LINK_STATUS), checked: isoDate.nullable() }),
 });

@@ -295,9 +295,8 @@
   ],
   "records": [
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-      "kind": "lift",
-      "subkind": "gondola",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "kind": "sight",
       "wikidata": {
         "v": "Q125749525",
         "state": "value",
@@ -396,9 +395,8 @@
       ]
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
-      "kind": "lift",
-      "subkind": "gondola",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+      "kind": "sight",
       "wikidata": {
         "v": "Q6164065",
         "state": "value",
@@ -490,9 +488,8 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
-      "kind": "lift",
-      "subkind": "gondola",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+      "kind": "sight",
       "wikidata": {
         "v": "Q13231225",
         "state": "value",

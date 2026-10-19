@@ -1991,17 +1991,6 @@
           "quote": "En temporada invernal (de Mayo a Septiembre) es necesario registrarse en el Centro de Informes del Parque para recorrer los senderos",
           "note": "The page states only the winter rule; the October to April row is the rest of the year.",
           "applies_to": "2026"
-        },
-        "toilets": {
-          "v": [
-            "payoff"
-          ],
-          "state": "value",
-          "basis": "community",
-          "src": [
-            "src-0018"
-          ],
-          "quote": "outhouse"
         }
       },
       "ext": {
@@ -2040,6 +2029,38 @@
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "toilets": {
+          "v": [
+            "payoff"
+          ],
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0018"
+          ],
+          "quote": "outhouse"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {

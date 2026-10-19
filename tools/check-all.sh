@@ -23,6 +23,8 @@ step "ops CLI lists the catalogue"
 node "$ROOT/core/bin/ops.ts" --list | grep -q '^trip.create '
 step "generated schema is up to date"
 node "$ROOT/core/bin/schema.ts" generate --check --root "$ROOT"
+step "capture contract: generated files match data/vocab/types.json"
+node "$ROOT/core/bin/capture.ts" build --check --root "$ROOT"
 step "validate every data file"
 node "$ROOT/core/bin/validate.ts" --all --root "$ROOT"
 step "suitability scope manifest matches the public adapter"

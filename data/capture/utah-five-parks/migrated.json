@@ -1,0 +1,209 @@
+{
+  "schema": "capture/1",
+  "trip": "utah-five-parks",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "type": "nature.trail.river_hike",
+      "layer": "route",
+      "name": "Narrows from the Temple of Sinawava",
+      "reaches": [
+        "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+      "type": "nature.landform.canyon",
+      "layer": "place",
+      "name": "The Narrows",
+      "origin": {
+        "from": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Angels Landing chains view or Scout Lookout",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Pa'rus Trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:riverside walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Riverside Walk",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Zion Canyon Scenic Drive by shuttle",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Navajo Loop and Queens Garden",
+      "reaches": [
+        "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+      "type": "nature.landform.canyon",
+      "layer": "place",
+      "name": "Navajo Loop and Queens Garden",
+      "origin": {
+        "from": "trip/utah-five-parks/trail:navajo loop and queens garden",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:bryce amphitheatre rim",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Bryce amphitheatre rim"
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:sunset point",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Sunset Point"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Lower Calf Creek Falls",
+      "reaches": [
+        "part/trip/utah-five-parks/trail:lower calf creek falls#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Lower Calf Creek Falls",
+      "origin": {
+        "from": "trip/utah-five-parks/trail:lower calf creek falls",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:hickman bridge",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Hickman Bridge",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:fruita orchards",
+      "type": "culture.heritage.historic_site",
+      "layer": "place",
+      "name": "Fruita orchards"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:delicate arch trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Delicate Arch trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:devils garden",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Devils Garden",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Windows section",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:mesa arch",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Mesa Arch",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:upheaval dome",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Upheaval Dome",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Grand View Point"
+    },
+    {
+      "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Grand View Point walk",
+      "reaches": [
+        "trip/utah-five-parks/viewpoint:grand view point"
+      ],
+      "origin": {
+        "from": "trip/utah-five-parks/viewpoint:grand view point",
+        "reason": "the route to the place"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:dead horse point",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Dead Horse Point"
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:goblin valley",
+      "type": "nature.protected.state_provincial_park",
+      "layer": "place",
+      "name": "Goblin Valley"
+    },
+    {
+      "ref": "trip/utah-five-parks/town:main street moab",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Main Street Moab"
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:temple square",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Temple Square"
+    }
+  ]
+}
