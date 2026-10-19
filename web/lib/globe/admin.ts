@@ -1,20 +1,10 @@
+import { globeAdmin, type GlobeAdminLevel } from '@/lib/client/data';
 import { bbox, centroid, inFeature, topoFeatures, type Feat, type FeatColl, type Pt, type Topology } from './geometry';
 
-export type AdminLevel = 'adm1' | 'adm2';
-type Manifest = Record<string, Partial<Record<AdminLevel, { file: string; n: number; source: string }>>>;
-
-/** ISO 3 codes whose admin file is filed under the Natural Earth code (legacy NE_ALIAS). */
-export const NE_ALIAS: Record<string, string> = { PSE: 'PSX', SSD: 'SDS', XKX: 'KOS' };
-
-export const ADMIN_BASE = '/globe/admin/';
-export const DATA_BASE = '/globe/data/';
+export type AdminLevel = GlobeAdminLevel;
 
 export const slugify = (s: string): string =>
   s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-
-export function manifestEntry(manifest: Manifest, a3: string, level: AdminLevel) {
-  return manifest[a3]?.[level] ?? manifest[NE_ALIAS[a3]]?.[level] ?? null;
-}
 
 /** Turns a decoded admin topology into sorted features with a bbox, centroid and URL slug each. */
 export function adminFeatures(topo: Topology): FeatColl {
@@ -58,24 +48,15 @@ export function resolveFeature(fc: FeatColl, slug: string, points: Pt[] = []): n
 }
 
 const cache = new Map<string, Promise<FeatColl | null>>();
-let manifestPromise: Promise<Manifest> | null = null;
-
-export function loadManifest(): Promise<Manifest> {
-  return (manifestPromise ??= fetch(`${ADMIN_BASE}index.json`).then((r) => r.json() as Promise<Manifest>));
-}
 
 /** Lazy and cached. Resolves null when the country has no file for that level. */
 export function loadAdmin(a3: string, level: AdminLevel): Promise<FeatColl | null> {
   const key = a3 + level;
   const hit = cache.get(key);
   if (hit) return hit;
-  const p = (async () => {
-    const entry = manifestEntry(await loadManifest(), a3, level);
-    if (!entry) return null;
-    const res = await fetch(`${ADMIN_BASE}${entry.file}`);
-    if (!res.ok) return null;
-    return adminFeatures((await res.json()) as Topology);
-  })().catch(() => { cache.delete(key); return null; });
+  const p = globeAdmin(a3, level)
+    .then((topo) => (topo ? adminFeatures(topo as Topology) : null))
+    .catch(() => { cache.delete(key); return null; });
   cache.set(key, p);
   return p;
 }

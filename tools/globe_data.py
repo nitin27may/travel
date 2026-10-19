@@ -5,6 +5,7 @@
     python3 tools/globe_data.py admin1          # G2: states/provinces for every country (Natural Earth 10m)
     python3 tools/globe_data.py admin2 [ISO3..] # G2: districts for the priority list (geoBoundaries), mapshaper-simplified
     python3 tools/globe_data.py gazetteer       # G3: search index (countries, admin-1, cities, physical names)
+    python3 tools/globe_data.py world           # L2b: 110m world, 1,000 largest lakes, mainland_bbox (writes web/public/globe/data)
     python3 tools/globe_data.py places          # G5: saved-place pins (legacy/globe/assets/data/places.json), plus the list page and WISHLIST.md
     python3 tools/globe_data.py all
 
@@ -214,6 +215,122 @@ def cmd_gazetteer(args) -> int:
     print(f"  gazetteer: {len(rows)} rows", file=sys.stderr)
     return 0
 
+# ----------------------------------------------------------------------------- L2b: web/public/globe
+WEB = ROOT / "web" / "public" / "globe"
+
+# Countries whose largest polygon is the wrong frame for "the country" (spec 11): lon/lat boxes written by hand.
+MAINLAND_OVERRIDES = {
+    "USA": [-125.0, 24.5, -66.9, 49.4],   # the 48 states; Alaska and Hawaii are reached through their states
+    "FRA": [-5.2, 41.3, 9.7, 51.2],       # metropolitan France, not Guiana or Reunion
+    "NLD": [3.3, 50.7, 7.3, 53.6],        # the Netherlands in Europe, not Caribbean Netherlands
+    "NOR": [4.5, 57.9, 31.2, 71.3],       # without Svalbard
+    "RUS": [27.0, 41.2, 180.0, 77.7],     # west of the 180th meridian cut: Chukotka crosses it
+    "DNK": [8.0, 54.5, 15.3, 57.8],       # without Greenland and the Faroes
+    "ESP": [-9.5, 35.9, 4.4, 43.9],       # without the Canaries
+    "PRT": [-9.6, 36.9, -6.1, 42.2],      # without the islands
+    "NZL": [166.3, -47.4, 178.7, -34.3],  # without the Chathams and the Kermadecs
+    "CHL": [-75.8, -56.0, -66.4, -17.5],  # without Easter Island
+    "ECU": [-81.1, -5.1, -75.1, 1.5],     # without the Galapagos
+    "GBR": [-8.7, 49.8, 1.8, 60.9],
+}
+
+
+def _ring_area(ring) -> float:
+    """Shoelace area of a lon/lat ring in square degrees, scaled by cos(latitude) so a lake in Finland is not overrated."""
+    import math
+    lat0 = sum(p[1] for p in ring) / len(ring)
+    k = math.cos(math.radians(lat0))
+    s = 0.0
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:]):
+        s += x1 * y2 - x2 * y1
+    return abs(s) / 2 * k
+
+
+def _geom_area(g) -> float:
+    polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+    return sum(_ring_area(p[0]) - sum(_ring_area(h) for h in p[1:]) for p in polys)
+
+
+def _geom_bbox(g):
+    polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+    pts = [pt for p in polys for pt in p[0]]
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    return [min(xs), min(ys), max(xs), max(ys)]
+
+
+def cmd_world(args) -> int:
+    """L2b: the 110m world for first paint, the 1,000 largest lakes, and `mainland_bbox` for wide countries."""
+    out = WEB / "data"; out.mkdir(parents=True, exist_ok=True)
+    # 1. 110m countries: same ccn3 ids as the 50m file, about 40 KB gz
+    src = fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json", CACHE / "countries-110m.json")
+    (out / "countries-110m.json").write_bytes(src.read_bytes())
+    print(f"  wrote web/public/globe/data/countries-110m.json ({src.stat().st_size // 1024} KB)", file=sys.stderr)
+
+    # 2. lakes: NE 10m, the 1,000 largest by area, simplified
+    raw = fetch("https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_lakes.geojson", CACHE / "ne_10m_lakes.geojson")
+    feats = [f for f in json.loads(raw.read_text(encoding="utf-8"))["features"] if f.get("geometry")]
+    feats.sort(key=lambda f: -_geom_area(f["geometry"]))
+    keep = []
+    for f in feats[:1000]:
+        p = f["properties"]
+        keep.append({"type": "Feature", "geometry": f["geometry"], "properties": {"name": p.get("name_en") or p.get("name"), "wd": p.get("wikidataid") or p.get("wikidata")}})
+    tmp = CACHE / "lakes-1000.geojson"
+    tmp.write_text(json.dumps({"type": "FeatureCollection", "features": keep}), encoding="utf-8")
+    mapshaper(tmp, out / "lakes-10m.json", "20%")
+    print(f"  wrote web/public/globe/data/lakes-10m.json ({(out / 'lakes-10m.json').stat().st_size // 1024} KB, {len(keep)} lakes)", file=sys.stderr)
+
+    # 3. mainland_bbox in countries.json: the largest polygon's box for any country that spans more than 60 degrees of longitude
+    facts_path = out / "countries.json"
+    facts = json.loads(facts_path.read_text(encoding="utf-8"))
+    atlas = json.loads(fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json", CACHE / "countries-50m.json").read_text(encoding="utf-8"))
+    geoms = {str(g["id"]).zfill(3): g for g in atlas["objects"]["countries"]["geometries"] if "id" in g}
+    arcs = atlas["arcs"]
+    sc, tr = atlas["transform"]["scale"], atlas["transform"]["translate"]
+
+    def arc_points(i: int):
+        pts, x, y = [], 0, 0
+        for dx, dy in arcs[i if i >= 0 else ~i]:
+            x += dx; y += dy
+            pts.append((x * sc[0] + tr[0], y * sc[1] + tr[1]))
+        return pts if i >= 0 else pts[::-1]
+
+    def ring_points(ring):
+        out_pts = []
+        for i in ring:
+            out_pts += arc_points(i)
+        return out_pts
+
+    n = 0
+    for ccn3, c in facts.items():
+        g = geoms.get(ccn3)
+        c.pop("mainland_bbox", None)
+        if not g:
+            continue
+        polys = g["arcs"] if g["type"] == "MultiPolygon" else [g["arcs"]] if g["type"] == "Polygon" else []
+        boxes = []
+        for p in polys:
+            pts = ring_points(p[0])
+            if not pts:
+                continue
+            xs, ys = [q[0] for q in pts], [q[1] for q in pts]
+            boxes.append((_ring_area([(q[0], q[1]) for q in pts]), [min(xs), min(ys), max(xs), max(ys)]))
+        if not boxes:
+            continue
+        full = [min(b[1][0] for b in boxes), min(b[1][1] for b in boxes), max(b[1][2] for b in boxes), max(b[1][3] for b in boxes)]
+        if c["a3"] in MAINLAND_OVERRIDES:
+            c["mainland_bbox"] = MAINLAND_OVERRIDES[c["a3"]]
+            n += 1
+        elif full[2] - full[0] > 60 and full[3] > -60:
+            big = max(boxes, key=lambda b: b[0])[1]
+            if big[2] - big[0] > 180:   # a polygon cut at the antimeridian has no honest mainland box
+                continue
+            c["mainland_bbox"] = [round(v, 2) for v in big]
+            n += 1
+    write_json(facts_path, facts)
+    print(f"  mainland_bbox on {n} countries", file=sys.stderr)
+    return 0
+
+
 # ----------------------------------------------------------------------------- G5
 def cmd_places(args) -> int:
     """Regenerate every view of the locations store (same code path as `locations.py build`)."""
@@ -243,6 +360,7 @@ def main(argv=None) -> int:
     a2 = sub.add_parser("admin2"); a2.add_argument("iso3", nargs="*"); a2.add_argument("--force", action="store_true"); a2.set_defaults(fn=cmd_admin2)
     sub.add_parser("gazetteer").set_defaults(fn=cmd_gazetteer)
     sub.add_parser("places").set_defaults(fn=cmd_places)
+    sub.add_parser("world").set_defaults(fn=cmd_world)
     al = sub.add_parser("all"); al.add_argument("--force", action="store_true"); al.set_defaults(fn=cmd_all)
     args = ap.parse_args(argv)
     return args.fn(args)

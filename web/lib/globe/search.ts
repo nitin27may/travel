@@ -1,4 +1,4 @@
-import { DATA_BASE } from './admin';
+import { globeGazetteer } from '@/lib/client/data';
 import type { SearchRecord } from '@/lib/search/types';
 import type { CountryFacts } from './types';
 
@@ -23,7 +23,7 @@ const KIND_ORDER: Record<string, number> = { country: 0, admin1: 1, city: 2, mar
 
 let gazPromise: Promise<GazEntry[]> | null = null;
 export function loadGazetteer(): Promise<GazEntry[]> {
-  return (gazPromise ??= fetch(`${DATA_BASE}gazetteer.json`).then((r) => r.json() as Promise<GazRow[]>).then((rows) => rows.map((row) => ({ row, n: norm(row[1]) }))));
+  return (gazPromise ??= globeGazetteer().then((rows) => (rows as GazRow[]).map((row) => ({ row, n: norm(row[1]) }))));
 }
 
 export interface SearchSources {

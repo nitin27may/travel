@@ -1,4 +1,4 @@
-import { DATA_BASE } from './admin';
+import { globeCountries, globeCountryFacts } from '@/lib/client/data';
 import { bbox, centroid, topoFeatures, type FeatColl, type Topology } from './geometry';
 import type { CountryFacts } from './types';
 
@@ -31,9 +31,17 @@ export function buildCountryBook(world: Topology, facts: Record<string, CountryF
 }
 
 let book: Promise<CountryBook> | null = null;
+/** The country shapes at 110m (about 40 KB gz) with the facts: enough for the first paint and the world view. */
 export function loadCountries(): Promise<CountryBook> {
-  return (book ??= Promise.all([
-    fetch(`${DATA_BASE}countries-50m.json`).then((r) => r.json() as Promise<Topology>),
-    fetch(`${DATA_BASE}countries.json`).then((r) => r.json() as Promise<Record<string, CountryFacts>>),
-  ]).then(([world, facts]) => buildCountryBook(world, facts)).catch((e) => { book = null; throw e; }));
+  return (book ??= Promise.all([globeCountries('110m'), globeCountryFacts()])
+    .then(([world, facts]) => buildCountryBook(world, facts))
+    .catch((e) => { book = null; throw e; }));
+}
+
+let full: Promise<CountryBook> | null = null;
+/** The same book at 50m, for hover and drill-down accuracy. The ids are the same as the 110m shapes'. */
+export function loadCountries50(): Promise<CountryBook> {
+  return (full ??= Promise.all([globeCountries('50m'), globeCountryFacts()])
+    .then(([world, facts]) => buildCountryBook(world, facts))
+    .catch((e) => { full = null; throw e; }));
 }
