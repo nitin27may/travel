@@ -103,7 +103,7 @@ span.globe-pin { cursor: default; }
 .globe-back { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--surface-2); color: var(--ink); cursor: pointer; }
 .globe-back:hover { background: var(--well); }
 
-.globe-search { grid-column: 2; position: relative; }
+.globe-search { grid-column: 2; position: relative; z-index: 9; } /* its results list draws over the breadcrumb (review M3) */
 .globe-search-icon { position: absolute; left: 14px; top: 12px; color: var(--muted); pointer-events: none; }
 .globe-search-input {
   width: 100%; height: 40px; padding: 0 14px 0 38px; border-radius: var(--r-full); border: 1px solid var(--line-2);
@@ -234,8 +234,9 @@ span.globe-pin { cursor: default; }
   .globe-top { top: 8px; left: 8px; grid-template-columns: minmax(0, 1fr) minmax(0, 300px) minmax(0, 0px); }
   .globe-root[data-panel='open'] .globe-top { right: var(--globe-panel-gap); }
   .globe-root[data-panel='open'] { --globe-clip-right: 324px; }
-  .globe-card-dock { position: absolute; z-index: 7; left: 8px; top: 110px; width: 280px; max-height: calc(100% - 118px); overflow: auto; border-radius: var(--r-4); }
-  .globe-card-dock .globe-card { width: 100%; }
+  .globe-card-dock { --globe-dock-top: 110px; position: absolute; z-index: 7; left: 8px; top: var(--globe-dock-top); bottom: 40px; width: 280px; display: flex; border-radius: var(--r-4); }
+  .globe-card-dock .globe-card { width: 100%; max-height: 100%; overflow: auto; overscroll-behavior: contain; }
+  .globe-card-dock .globe-card-actions { position: sticky; bottom: 0; z-index: 2; margin: 0 -14px -14px; padding: 8px 14px; background: var(--surface); border-top: 1px solid var(--line); } /* Open place never scrolls away */
   .globe-panel { top: 8px; bottom: 8px; right: 8px; }
   .globe-panel-tab { top: 56px; height: 84px; }
   .globe-card-controls { display: none; }
@@ -330,3 +331,6 @@ button.globe-here-row:hover { background: var(--surface-2); }
 
 .globe-root .maplibregl-ctrl-attrib, .globe-root .maplibregl-ctrl-attrib.maplibregl-compact { color: var(--ink-2); }
 .globe-root .maplibregl-ctrl-attrib a { color: var(--ink-2); }
+
+.globe-credit { margin: 0; padding: 10px 16px 14px; font: var(--t-meta); color: var(--muted); }
+.globe-credit a { color: var(--ink-2); }

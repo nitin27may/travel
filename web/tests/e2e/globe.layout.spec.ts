@@ -153,7 +153,9 @@ test.describe('globe layout', () => {
     const rect = async (sel: string) => (await page.locator(sel).first().boundingBox())!;
     const hit = (a: { x: number; y: number; width: number; height: number }, b: typeof a) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
     const card = await rect('.globe-card-dock');
-    for (const sel of ['.globe-panel', '.globe-crumbs', '.globe-zoom']) expect(hit(card, await rect(sel)), `${sel} overlaps the card`).toBe(false);
+    // the panel drops to its tab while a card is open (review M4)
+    await expect(page.locator('.globe-panel')).toHaveCount(0);
+    for (const sel of ['.globe-panel-tab', '.globe-crumbs', '.globe-zoom']) expect(hit(card, await rect(sel)), `${sel} overlaps the card`).toBe(false);
     await ctx.close();
   });
 });

@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ROOT = path.resolve(WEB, '..');
 const OUT = path.join(WEB, 'data-snapshots', 'photo-credits.json');
-const UA = 'TravelPlannerCreditFetch/1.0 (https://nks-travel.pages.dev; nitin27may@gmail.com) one-off licence lookup';
+const UA = 'travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)';
 const BATCH = 50;
 const PAUSE_MS = 2000;
 

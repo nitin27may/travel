@@ -159,6 +159,8 @@
   --globe-pin-pick: #D9962B;
   --globe-pin-pick-ink: #241703;
   --globe-ocean: #A9C4D3;
+  --globe-land: #EEE9DF;
+  --globe-wood: #E4E0D4;
   --globe-halo: #CFE0EC;
   --globe-edge: var(--line-2);
   --globe-dim: rgba(243,241,236,0.7);
@@ -227,6 +229,8 @@
   --globe-pin-pick: #D9962B;
   --globe-pin-pick-ink: #241703;
   --globe-ocean: #0F1A26;
+  --globe-land: #263241;
+  --globe-wood: #2B3845;
   --globe-halo: #2A4A66;
   --globe-edge: rgba(255,255,255,0.08);
   --globe-dim: rgba(11,17,25,0.6);
@@ -295,6 +299,8 @@
   --globe-pin-pick: #D9962B;
   --globe-pin-pick-ink: #241703;
   --globe-ocean: #A9C4D3;
+  --globe-land: #EEE9DF;
+  --globe-wood: #E4E0D4;
   --globe-halo: #CFE0EC;
   --globe-edge: var(--line-2);
   --globe-dim: rgba(243,241,236,0.7);

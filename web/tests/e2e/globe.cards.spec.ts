@@ -95,4 +95,33 @@ test.describe('globe cards', () => {
     await page.keyboard.press('Escape');
     await expect(page.locator('.globe-panel')).toHaveCSS('opacity', '1');
   });
+
+  test('at 390 the search results draw over the breadcrumb (review M3)', async ({ browser, site }) => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true });
+    const page = await ctx.newPage();
+    await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
+    await page.goto(`${site.url}/globe/it/south-tyrol/`);
+    await page.getByRole('combobox', { name: 'Search the globe' }).fill('ital');
+    const first = page.getByRole('option').first();
+    await expect(first).toBeVisible();
+    const b = (await first.boundingBox())!;
+    const over = await page.evaluate(([x, y]) => document.elementFromPoint(x, y)?.closest('.globe-results') !== null, [b.x + b.width / 2, b.y + b.height / 2]);
+    expect(over, 'the first result is not under the breadcrumb').toBe(true);
+    await ctx.close();
+  });
+
+  test('landscape: Open place stays on the screen and the dock leaves the attribution clear (review M4)', async ({ browser, site }) => {
+    const ctx = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true });
+    const page = await ctx.newPage();
+    await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
+    await page.goto(`${site.url}/globe/place/lake-louise/`);
+    const open = page.locator('.globe-card-dock').getByRole('link', { name: /Open place/ });
+    await expect(open).toBeVisible();
+    const b = (await open.boundingBox())!;
+    expect(b.y + b.height, 'Open place is on the 390 px screen').toBeLessThanOrEqual(390);
+    const dock = (await page.locator('.globe-card-dock').boundingBox())!;
+    const attr = await page.locator('.maplibregl-ctrl-attrib').boundingBox();
+    if (attr) expect(dock.y + dock.height <= attr.y || dock.x + dock.width <= attr.x, 'the dock does not cover the attribution').toBe(true);
+    await ctx.close();
+  });
 });

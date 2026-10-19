@@ -153,7 +153,7 @@ export function hitRank(zoom: number, sourceLayer: string, props: { class?: unkn
   if (sourceLayer === 'place' && ['country', 'continent'].includes(String(props.class))) return null;
   if (sourceLayer === 'place' && zoom < 7 && Number(props.rank ?? 9) > 4 && !['country', 'state', 'city'].includes(String(props.class))) return null;
   const far: Record<string, number> = { mountain_peak: 0, place: 0, lakes: 1, water_name: 1, waterway: 2 };
-  const near: Record<string, number> = { mountain_peak: 0, place: 1, lakes: 2, water_name: 2, waterway: 3, park: 4 };
+  const near: Record<string, number> = { mountain_peak: 0, place: 0, lakes: 2, water_name: 2, waterway: 3, park: 4 };
   return (zoom < 5 ? far : near)[sourceLayer] ?? 9;
 }
 

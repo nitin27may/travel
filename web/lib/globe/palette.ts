@@ -39,8 +39,8 @@ export interface GlobePalette {
 }
 
 const FALLBACK: Record<'light' | 'dark', Record<string, string>> = {
-  light: { '--globe-ocean': 'rgb(169 196 211)', '--map-land': 'rgb(238 233 223)', '--map-wood': 'rgb(228 224 212)', '--map-water': 'rgb(127 166 185)', '--map-high': 'rgb(255 255 255)', '--map-shade': 'rgba(23,34,48,0.35)', '--map-border': 'rgb(142 153 166)', '--ink-2': 'rgb(58 70 84)', '--map-halo': 'rgba(255,255,255,0.9)', '--ink': 'rgb(23 34 48)', '--surface': 'rgb(255 255 255)', '--accent': 'rgb(217 150 43)', '--map-casing': 'rgb(23 34 48)', '--globe-dim': 'rgba(243,241,236,0.7)', '--globe-halo': 'rgb(207 224 236)' },
-  dark: { '--globe-ocean': 'rgb(15 26 38)', '--map-land': 'rgb(38 50 65)', '--map-wood': 'rgb(43 56 69)', '--map-water': 'rgb(46 90 107)', '--map-high': 'rgb(52 67 79)', '--map-shade': 'rgba(0,0,0,0.55)', '--map-border': 'rgb(150 160 172)', '--ink-2': 'rgb(200 210 220)', '--map-halo': 'rgba(11,17,25,0.9)', '--ink': 'rgb(231 236 241)', '--surface': 'rgb(20 28 40)', '--accent': 'rgb(217 150 43)', '--map-casing': 'rgb(11 17 25)', '--globe-dim': 'rgba(11,17,25,0.6)', '--globe-halo': 'rgb(42 74 102)' },
+  light: { '--globe-ocean': 'rgb(169 196 211)', '--globe-land': 'rgb(238 233 223)', '--globe-wood': 'rgb(228 224 212)', '--map-water': 'rgb(127 166 185)', '--map-high': 'rgb(255 255 255)', '--map-shade': 'rgba(23,34,48,0.35)', '--map-border': 'rgb(142 153 166)', '--ink-2': 'rgb(58 70 84)', '--map-halo': 'rgba(255,255,255,0.9)', '--ink': 'rgb(23 34 48)', '--surface': 'rgb(255 255 255)', '--accent': 'rgb(217 150 43)', '--map-casing': 'rgb(23 34 48)', '--globe-dim': 'rgba(243,241,236,0.7)', '--globe-halo': 'rgb(207 224 236)' },
+  dark: { '--globe-ocean': 'rgb(15 26 38)', '--globe-land': 'rgb(38 50 65)', '--globe-wood': 'rgb(43 56 69)', '--map-water': 'rgb(46 90 107)', '--map-high': 'rgb(52 67 79)', '--map-shade': 'rgba(0,0,0,0.55)', '--map-border': 'rgb(150 160 172)', '--ink-2': 'rgb(200 210 220)', '--map-halo': 'rgba(11,17,25,0.9)', '--ink': 'rgb(231 236 241)', '--surface': 'rgb(20 28 40)', '--accent': 'rgb(217 150 43)', '--map-casing': 'rgb(11 17 25)', '--globe-dim': 'rgba(11,17,25,0.6)', '--globe-halo': 'rgb(42 74 102)' },
 };
 
 /** Any CSS colour as [r, g, b, a]. Hex and rgb() are read here; anything else (color-mix, names) goes through the canvas parser in the browser. */
@@ -96,12 +96,12 @@ export function buildPalette(t: (name: string) => string, mode: 'light' | 'dark'
   const haloTok = t('--globe-halo');
   const white = 'rgb(255 255 255)';
   return {
-    mode, ocean, land: t('--map-land'), wood: t('--map-wood'), river: t('--map-water'), high: t('--map-high'), shade: t('--map-shade'),
+    mode, ocean, land: t('--globe-land'), wood: t('--globe-wood'), river: t('--map-water'), high: t('--map-high'), shade: t('--map-shade'),
     border: t('--map-border'), label: t('--ink-2'), halo: t('--map-halo'), ink: t('--ink'), surface: t('--surface'), accent,
     // The amber never touches the water: the 1 px casing does, so it is the casing that must reach 3:1 on water and land, and the amber against the casing.
     accentSel: accent,
     casing: t('--map-casing'),
-    casingSel: dark ? mix(t('--map-casing'), 'rgb(0 0 0)', 0.5) : t('--map-casing'),
+    casingSel: dark ? mix(t('--map-casing'), 'rgb(0 0 0)', 0.75) : t('--map-casing'),
     dim: toCss([dim[0], dim[1], dim[2], 1]), dimAlpha: dim[3],
     sky: dark ? mix(haloTok, ocean, 0.5) : haloTok,
     horizon: dark ? haloTok : mix(haloTok, white, 0.7),

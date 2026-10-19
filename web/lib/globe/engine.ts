@@ -1,7 +1,8 @@
 import type { ExpressionSpecification, GeoJSONSource, Map as MLMap, Marker, MapMouseEvent } from 'maplibre-gl';
+import { distanceKm } from '@/lib/map/geo';
 import { prefersReducedMotion } from '@/lib/map/reduced-motion';
 import { mix, readGlobePalette, type GlobePalette } from './palette';
-import { PITCH_MIN_ZOOM, WIDE_ZOOM, boxCentre, fitZoom, flightPlan, pitchAt, shiftPx, terrainRamp, wideZoom, type FlightPlan } from './flight';
+import { PITCH_MIN_ZOOM, WIDE_ZOOM, boxCentre, fitZoom, flightDuration, flightPlan, pitchAt, shiftPx, terrainRamp, wideZoom, type FlightPlan } from './flight';
 import { isNameLayer, planLabel, type LayerLike } from './labels';
 import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_URL, modeOf, type StyleKey } from '@/lib/map/maplibre/styles';
 import { forRender, hitRank, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
@@ -79,6 +80,8 @@ export interface GlobeEngine {
   setFocus(f: Focus): void;
   /** Draws one city's outline (OSM admin level 8), or none. */
   setCityArea(f: Feat | null): void;
+  /** Runs `cb` once the camera has come to rest (or after 3.5 s at most): a result opens its card when the flight lands, not during it. */
+  afterMove(cb: () => void): void;
   /** The Natural Earth lake polygons (zoom 3 to 8, where the tiles name no lake): `render` is the GeoJSON text a worker wrote. */
   setLakes(render: string): void;
   setFeature(f: BasemapFeature | null): void;
@@ -226,8 +229,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   function scheme(): { land: string; wood: string; water: string; hill: number } {
     if (styleKey === 'relief') return { land: pal.land, wood: pal.wood, water: pal.ocean, hill: 1.15 };
     if (styleKey === 'light') return { land: mix(pal.land, pal.surface, 0.6), wood: mix(pal.wood, pal.surface, 0.5), water: mix(pal.ocean, pal.surface, 0.25), hill: 0.35 };
-    // Dark: land lighter than the sea, the way Apple's dark map reads (spec 6.6, M4); a step toward the highlight token keeps it a token value.
-    return { land: mix(pal.land, pal.high, 0.6), wood: mix(pal.wood, pal.high, 0.4), water: pal.ocean, hill: 1 };
+    // Dark: land lighter than the sea (spec 6.6, M4); both are tokens, so the owner's answer to Q6 is a token change.
+    return { land: pal.land, wood: pal.wood, water: pal.ocean, hill: 1 };
   }
 
   function recolourBase(): void {
@@ -248,6 +251,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       else if (l.type === 'fill') {
         const wooded = sl === 'landcover' || sl === 'park' || sl === 'landuse';
         const fill = sl === 'water' ? sc.water : sl === 'building' ? pal.high : wooded ? sc.wood : sc.land;
+        // Liberty fills woods and parks with a sprite pattern (hue about 117, green) from zoom 12: the colour alone carries them here
+        set(l.id, 'paint', 'fill-pattern', undefined);
         set(l.id, 'paint', 'fill-color', fill);
         // The outline matches its own fill: a land-coloured outline on water drew a white ring at the 85 degree edge of the tiles.
         set(l.id, 'paint', 'fill-outline-color', fill);
@@ -257,6 +262,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
         if (sl === 'waterway') set(l.id, 'paint', 'line-color', pal.river);
         else if (sl === 'boundary') set(l.id, 'paint', 'line-color', pal.border);
         else if (sl === 'transportation') set(l.id, 'paint', 'line-color', road);
+        // Liberty outlines parks in green (park_outline): a quiet step of the wood colour instead
+        else if (sl === 'park' || sl === 'landcover' || sl === 'landuse') set(l.id, 'paint', 'line-color', mix(sc.wood, pal.ink, 0.15));
       } else if (l.type === 'symbol') {
         // Our own pins carry the world view; keep only large place names and water names from the base.
         if (HIDE_SOURCE_LAYERS.has(sl) || HIDE_LABEL_LAYER.test(l.id)) { set(l.id, 'layout', 'visibility', 'none'); continue; }
@@ -509,6 +516,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     fellBack = false;
     addRelief(firstWater?.id);
     addLayers(firstSymbol?.id, firstWater?.id, layers.find((l) => l.type !== 'background')?.id);
+    // Read the layers again now that the rank-band clones and ours exist: a stale list left cities out of every hit test (review M2).
+    hitLayers = [...map.getStyle().layers.filter((l) => HIT_SOURCE_LAYERS.has((l as { 'source-layer'?: string })['source-layer'] ?? '') && !l.id.startsWith('hl-')).map((l) => l.id), 'hit-peak', 'hit-water', 'lake-fill'].filter((id, i, a) => !!map.getLayer(id) && a.indexOf(id) === i);
     applyTerrain();
     applyFocus();
     applyFeatureHighlight();
@@ -688,7 +697,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       applyTerrain();
       return;
     }
-    map.flyTo({ center, zoom, pitch, padding: pad, offset: [0, -up], speed: plan.speed, curve: plan.curve, maxDuration: plan.maxDuration, essential: false });
+    const here = map.getCenter();
+    const km = distanceKm({ lng: here.lng, lat: here.lat }, { lng: center[0], lat: center[1] });
+    map.flyTo({ center, zoom, pitch, padding: pad, offset: [0, -up], speed: plan.speed, curve: plan.curve, duration: flightDuration(zoom - map.getZoom(), km, plan), essential: false });
   }
 
   /** Markers behind the globe or off the canvas are not drawn, not focusable and not in the way of a tap. */
@@ -813,6 +824,12 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       lakesData = dataOf('lakes', null, render);
       (map.getSource('lakes') as GeoJSONSource | undefined)?.setData(lakesData as never);
     },
+    afterMove(cb) {
+      let done = false;
+      const run = (): void => { if (done || destroyed) return; done = true; cb(); };
+      map.once('moveend', run);
+      window.setTimeout(run, 3500);
+    },
     setCityArea(f) {
       cityArea = f;
       (map.getSource('city') as GeoJSONSource | undefined)?.setData((f ? { type: 'FeatureCollection', features: [f] } : EMPTY) as never);
@@ -843,7 +860,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       const cam = { center: [c.lng, c.lat] as [number, number], zoom, pitch: 0, bearing: 0, padding: pad };
       // Reset view and stepping out to the world are one flight too (spec 5.3), at the same speed as every other.
       const plan = flightPlan('country', { terrain: false });
-      if (!animate || reduced()) map.jumpTo(cam); else map.flyTo({ ...cam, speed: plan.speed, curve: plan.curve, maxDuration: plan.maxDuration, essential: false });
+      const here = map.getCenter();
+      const km = distanceKm({ lng: here.lng, lat: here.lat }, { lng: cam.center[0], lat: cam.center[1] });
+      if (!animate || reduced()) map.jumpTo(cam); else map.flyTo({ ...cam, speed: plan.speed, curve: plan.curve, duration: flightDuration(zoom - map.getZoom(), km, plan), essential: false });
       return zoom;
     },
     flyToBox(b, o) {
