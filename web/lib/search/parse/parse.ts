@@ -190,6 +190,20 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
       raws.push({ param: 'kid', value: String(numAt(i + 1)), from: i, to: i + 2 });
       continue;
     }
+    // "climb under 300 m": the climb word first, then the figure (the other order is below)
+    if (CLIMB_WORDS.includes(toks[i]!) && toks[i] !== 'up') {
+      const cm = modAt(i + 1);
+      const cj = i + 1 + (cm?.len ?? 0);
+      const cv = numAt(cj);
+      if (cv !== null && unit(toks[cj + 1]) === 'm') {
+        const pick = pickBands(CLIMB_BANDS, cm?.mod ?? null, cv);
+        if (pick) {
+          claim(i, cj + 2);
+          raws.push({ param: 'f.climb', value: pick.ids.join(','), from: i, to: cj + 2, label: bandLabel(pick, cm?.mod ?? null, cv, 'm') });
+          continue;
+        }
+      }
+    }
     const m = modAt(i);
     const j = i + (m?.len ?? 0);
     const mod = m?.mod ?? null;
@@ -202,11 +216,12 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
       if (!pick) continue;
       claim(i, end);
       raws.push({ param: 'f.length', value: pick.ids.join(','), from: i, to: end, label: bandLabel(pick, mod, v, un) });
-    } else if (un === 'm' && CLIMB_WORDS.includes(toks[end] ?? '')) {
+    } else if (un === 'm' && CLIMB_WORDS.includes(toks[end] === 'of' ? (toks[end + 1] ?? '') : (toks[end] ?? ''))) {
+      const stop = end + (toks[end] === 'of' ? 2 : 1);
       const pick = pickBands(CLIMB_BANDS, mod, v);
       if (!pick) continue;
-      claim(i, end + 1);
-      raws.push({ param: 'f.climb', value: pick.ids.join(','), from: i, to: end + 1, label: bandLabel(pick, mod, v, 'm') });
+      claim(i, stop);
+      raws.push({ param: 'f.climb', value: pick.ids.join(','), from: i, to: stop, label: bandLabel(pick, mod, v, 'm') });
     } else if (un === 'h') {
       const pick = pickBands(TIME_BANDS, mod, v * 60);
       if (!pick) continue;
@@ -465,6 +480,9 @@ export function parse(query: string, vocab: VocabFile, records: readonly SearchR
   }
   if (offerTrips) dym.list.push({ label: 'Search trips instead', href: parse(query, vocab, records, { ...opts, target: 'trips' }, false).href });
   for (const c of conflicts) for (const e of c.entries.slice(0, 2)) dym.scope.push({ label: `${c.phrase}: ${lab(e.param, e.value)}`, href: hrefFor(target, { ...facets, [e.param]: [e.value] }, q.join(' ')) });
+
+  // "short" is a length with no number: no filter exists for it, and a word is never dropped silently (H3)
+  if (toks.includes('short') && !facets['f.length'] && !facets['f.time'] && !facets['f.duration'] && !notYet.includes('short')) notYet.push('short');
 
   const qText = q.join(' ');
   chips.sort((a, b) => a.words[0] - b.words[0]);

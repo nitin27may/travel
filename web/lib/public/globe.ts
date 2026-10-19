@@ -193,7 +193,14 @@ export function buildGlobe(root: string, places: PublicPlace[], trips: PublicTri
       if (d) bump(child(sn, d.slug, d.name), 'places');
     }
   }
-  const countryName = (cc: string) => [...places].flatMap((p) => p.areaChain).find((a) => a.level === 'country' && a.slug === cc)?.name ?? cc.toUpperCase();
+  // A country with trips and no places (Switzerland, Norway) has no area chain to read a name from: take it from the gazetteer, which
+  // names every country, and fall back to the code only when the gazetteer has no row (backlog 3.44).
+  const gazName = (cc: string): string | undefined => {
+    const a3 = Object.values(TRIP_COUNTRY).find((c) => c.cc === cc)?.a3;
+    const row = gaz.find((r) => r[0] === 'country' && r[4] === a3);
+    return row ? String(row[1]) : undefined;
+  };
+  const countryName = (cc: string) => [...places].flatMap((p) => p.areaChain).find((a) => a.level === 'country' && a.slug === cc)?.name ?? gazName(cc) ?? cc.toUpperCase();
   for (const t of trips) {
     const cc = tripCountry.get(t.slug);
     if (cc) bump(countryNode(cc, countryName(cc)), 'trips');

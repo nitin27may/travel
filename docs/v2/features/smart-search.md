@@ -236,6 +236,8 @@ The present `suggest()` fallback (the single word with the most matches) stays a
 | Phase 2 query embedding | warm p50 at most 250 ms and p95 at most 600 ms on a mid-range phone; cold start (model load) at most 5 s; at most 60 ms warm on desktop | |
 | Phase 2 memory | at most 200 MB extra heap on phone | |
 
+**Waiver (SQ1b, 19 Oct 2026, design review).** Phase 1 shipped +1.41 KB gzip on `/` and +1.25 KB on `/places/` and `/trips/` against the 1 KB first-load limit. The owner-side review accepted it as a one-time 0.5 KB waiver (the eager glue in `FilterBar`, `EntityPage` and `EmptyState`; the parser, chips, `SmartRow` and `UncheckedRows` are separate chunks). The 1 KB limit stays for later lanes.
+
 ## 9. P8 and P9 design
 
 ### 9.1 P9: everything behind `lib/client/data.ts`
