@@ -1417,14 +1417,6 @@
           "src": [],
           "note": "an enclosed tram; the optional summit trail is 1.4 km and 200 m of climbing"
         },
-        "food": {
-          "v": "cafe",
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0011"
-          ]
-        },
         "limited_capacity_note": "The ride and the Upper Station viewing area are step-free; the summit trail is not. Book the return flight 90 minutes after the flight up."
       },
       "ext": {
@@ -1512,6 +1504,14 @@
             "src-0011"
           ],
           "note": "Upper Station 2,263 m; the optional 1.4 km summit trail reaches 2,463 m"
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ]
         }
       },
       "flat": {
