@@ -1,0 +1,364 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-19-cs7b-overpass",
+  "started": "2026-10-19",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+      "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+      "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+      "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+      "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+      "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+      "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "part/place/lago-di-braies#walk",
+      "part/place/lago-federa#walk",
+      "place/adolf-munkel-weg",
+      "place/alpe-di-siusi",
+      "place/bullaccia-and-the-witches-benches",
+      "place/cascate-di-fanes",
+      "place/cinque-torri",
+      "place/croda-del-becco",
+      "place/lago-di-sorapis",
+      "place/monte-piana",
+      "place/sass-pordoi-and-piz-boe",
+      "place/tre-cime-di-lavaredo-loop",
+      "place/val-fiscalina",
+      "place/vallunga",
+      "place/viel-dal-pan"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 19,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "www.wikidata.org",
+      "requests": 12,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/4218161190"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/10809307066"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/285056656"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/223576165"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/764291447"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/234163234"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/436272890"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/282985047"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/21018594"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/4336196151"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/21018594"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/13970495503"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/14197983910"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/263473399"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/26751964"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/9902888899"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/1783220701"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/128099295"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/1263557754"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/2956259306"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/1208175233"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/29234142"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/269822212"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/269822212"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/269821248"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/262483241"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/184249543"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "an activity seen along the roads in both parks, no single place"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "field": "point",
+      "outcome": "gap",
+      "reason": "the record names no viewing site"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "field": "point",
+      "outcome": "gap",
+      "tried": [
+        "Overpass: parking within the Mount Robson visitor centre area"
+      ],
+      "reason": "no OSM lot is named for the Berg Lake trailhead; the unnamed lots were not tied to the trail start"
+    },
+    {
+      "ref": "part/place/lago-di-braies#walk",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/12043472"
+    },
+    {
+      "ref": "place/cinque-torri",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:way/229103971"
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1641053"
+    },
+    {
+      "ref": "part/place/lago-federa#walk",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/3170182"
+    },
+    {
+      "ref": "place/val-fiscalina",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1116674"
+    },
+    {
+      "ref": "place/monte-piana",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1657839"
+    },
+    {
+      "ref": "place/adolf-munkel-weg",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation/6528382",
+        "osm:relation/2442695",
+        "osm:relation/2442693"
+      ]
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/7302480"
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/9483250"
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/1155861"
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/3985745"
+    },
+    {
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": [
+        "osm:relation/1116663",
+        "osm:relation/1067603"
+      ]
+    },
+    {
+      "ref": "place/vallunga",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/2465034"
+    },
+    {
+      "ref": "place/viel-dal-pan",
+      "field": "osm_ref",
+      "outcome": "filled",
+      "src": "osm:relation/7302436"
+    },
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "field": "osm_ref",
+      "outcome": "searched_none",
+      "reason": "no OSM relation for the tunnel route",
+      "tried": [
+        "overpass-api.de: route=hiking relations within 250 m of the Lagazuoi top station"
+      ]
+    },
+    {
+      "ref": "place/alpe-di-siusi",
+      "field": "osm_ref",
+      "outcome": "gap",
+      "reason": "the record does not name which plateau walk it is"
+    }
+  ]
+}

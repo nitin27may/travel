@@ -61,6 +61,15 @@
       "publisher": "Ontario Trails Council",
       "kind": "community",
       "read": "2026-10-18"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
+      "title": "Lake of Two Rivers: activities (Algonquin)",
+      "publisher": "Ontario Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -506,7 +515,20 @@
               "src-0001"
             ],
             "quote": "Difficult",
-            "note": "The Ontario Parks activities index calls it Moderate (trip research, not re-read): a conflict to confirm."
+            "note": "The Ontario Parks activities index calls it Moderate (trip research, not re-read): a conflict to confirm.",
+            "conflicts": [
+              {
+                "v": {
+                  "system": "local",
+                  "value": "Moderate"
+                },
+                "basis": "official_grade",
+                "src": [
+                  "src-0008"
+                ],
+                "note": "Ontario Parks: \"7.5 km (4 hours) moderate\". Re-read for backlog 3.39. Ontario Parks, which runs the park, grades the loop moderate (7.5 km, 4 hours); the Friends of Algonquin Park page (the stored value, re-read the same day) still says \"Difficult\". The land manager's grade should win; the stored value is pre-migration, so it stays until the ledger allows a correction."
+              }
+            ]
           },
           "drivers": {
             "distance_km": {
@@ -526,7 +548,8 @@
               "on": "2026-10-18",
               "tried": [
                 "algonquinpark.on.ca Track and Tower page (no group rule, no gain)",
-                "algonquinpark.on.ca day-use fees page"
+                "algonquinpark.on.ca day-use fees page",
+                "ontarioparks.ca Lake of Two Rivers activities page (7.5 km, 4 hours, moderate; no gain), re-read for backlog 3.39"
               ],
               "note": "Not published; trip reports give about 240-280 m."
             }
