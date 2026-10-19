@@ -44,12 +44,6 @@ describe("round two: the review's must-fixes", () => {
     expect(into.leg!.km).not.toBeNull();
     expect(into.durationMin).not.toBe(10);
   });
-  it("puts an added coffee near its own time of day, not at the start of the day", () => {
-    const t = addItem(fixture("rockies-day5.json"), family(6), {}, item("add-coffee-break", "break", "Coffee and a snack", { sub: "coffee", durationMin: 20, durationSource: "data" })).timeline;
-    const e = t.entries.find((x) => x.id === "add-coffee-break")!;
-    expect(toMin(e.start)!).toBeGreaterThanOrEqual(8 * 60 + 30);
-    expect(e.addedBy).toBe("visitor");
-  });
   it("shows every generated start on a 5 minute mark and every generated duration in 5 minutes", () => {
     for (const p of [family(6), family(8, { pace: "relaxed" }), profile({ pace: "full" })]) {
       for (const split of [false, true]) {

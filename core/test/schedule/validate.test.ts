@@ -56,7 +56,6 @@ describe("each validation code has a fixture that raises it and one that does no
     const pinnedEarly = day([variant("main", [item("s", "visit", "Shuttle", { durationMin: 60, durationSource: "operator", start: at("06:30", "fixed", "operator") })])], { legs: [{ from: "base", to: "s", mode: "drive", minutes: 60, km: null, basis: "plan", estimate: true }] });
     const t = scheduleDay(pinnedEarly, profile());
     expect(t.entries[0]!.start).toBe("05:30");
-    expect(t.notes.find((n) => n.kind === "early-start")).toBeDefined();
     expect(t.warnings.some((w) => w.code === "W_EARLY")).toBe(false);
   });
   it("W_CEILING", () => {

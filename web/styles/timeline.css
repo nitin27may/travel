@@ -134,6 +134,7 @@
 .tl-entry[data-optional] .tl-title { color: var(--ink-2); }
 .tl-dur { font: var(--t-meta); color: var(--muted); }
 .tl-moved { font: var(--t-meta); color: var(--muted); animation: tl-fade var(--d-base) var(--e-out); }
+.tl-gone { font: var(--t-meta); color: var(--muted); margin: var(--s-2) 0; animation: tl-fade var(--d-base) var(--e-out); }
 .tl-meta { font: var(--t-meta); color: var(--muted); margin-left: calc(26px + var(--s-2)); }
 .tl-note { font: var(--t-note); color: var(--ink-2); margin-left: calc(26px + var(--s-2)); }
 .tl-warn { margin-left: calc(26px + var(--s-2)); }
@@ -220,7 +221,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tl-profile-more, .tl-add-panel, .tl-know, .tl-why, .tl-moved { animation: none; }
+  .tl-profile-more, .tl-add-panel, .tl-know, .tl-why, .tl-moved, .tl-gone { animation: none; }
   .tl-more svg, .tl-know-btn svg { transition: none; }
 }
 

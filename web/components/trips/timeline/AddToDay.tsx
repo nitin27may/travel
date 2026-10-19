@@ -9,17 +9,17 @@ import type { AddCandidate } from './model';
 
 interface Props {
   day: number;
-  /** Candidates offered on this day, quick adds first. */
+  /** Candidates offered on this day: places only. */
   candidates: AddCandidate[];
   /** Keys already added to this day. */
   taken: string[];
   onAdd: (key: string) => void;
 }
 
-const GROUP_LABEL: Record<AddCandidate['group'], string> = { quick: 'Quick', variant: 'From the other versions of this day', trip: 'Elsewhere on this trip, near here', nearby: 'Within 30 km, with a place page' };
+const GROUP_LABEL: Record<AddCandidate['group'], string> = { variant: 'From the other versions of this day', trip: 'Elsewhere on this trip, near here', nearby: 'Within 30 km, with a place page' };
 
 /**
- * "Add to this day" (spec 3.7): an inline panel, not a modal. Candidates only: the day's other versions, the trip's stops at this
+ * "Add to this day" (spec 3.7): an inline panel, not a modal. Places only, never meals or breaks (the scheduler places those): the day's other versions, the trip's stops at this
  * base and places within 30 km that have a page. No free text, so a shared link always resolves.
  */
 export function AddToDay({ day, candidates, taken, onAdd }: Props) {
@@ -31,13 +31,12 @@ export function AddToDay({ day, candidates, taken, onAdd }: Props) {
     const needle = q.trim().toLowerCase();
     return candidates.filter((c) => !taken.includes(c.key) && (!needle || c.name.toLowerCase().includes(needle) || c.label.toLowerCase().includes(needle)));
   }, [candidates, taken, q]);
-  const quick = shown.filter((c) => c.group === 'quick');
   const groups = (['variant', 'trip', 'nearby'] as const).map((g) => [g, shown.filter((c) => c.group === g)] as const).filter(([, l]) => l.length);
   return (
     <div className="tl-add" data-print="hide">
       {!open ? (
         <button type="button" className="tl-add-open" aria-expanded={false} aria-controls={id} onClick={() => setOpen(true)}>
-          <Icon name="plus" size={15} /> Add a stop, meal or break to Day {day}
+          <Icon name="plus" size={15} /> Add a place to Day {day}
         </button>
       ) : (
         <div id={id} className="tl-add-panel" role="group" aria-label={`Add to Day ${day}`}>
@@ -47,15 +46,6 @@ export function AddToDay({ day, candidates, taken, onAdd }: Props) {
               <Icon name="close" size={16} />
             </button>
           </div>
-          {quick.length ? (
-            <div className="tl-add-quick">
-              {quick.map((c) => (
-                <button key={c.key} type="button" className="chip chip-neutral tl-add-chip" onClick={() => onAdd(c.key)}>
-                  <Icon name="plus" size={12} /> {c.name}
-                </button>
-              ))}
-            </div>
-          ) : null}
           {groups.map(([g, list]) => (
             <section key={g} className="tl-add-group">
               <h4 className="tl-add-h">{GROUP_LABEL[g]}</h4>

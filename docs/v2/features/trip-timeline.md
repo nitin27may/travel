@@ -332,7 +332,7 @@ The function is deterministic. There is no randomness, no clock and no locale. E
 
 `addItem(dayTimeline, input, item)` (3.7) runs cheapest insertion:
 - it tries each boundary between unpinned entries;
-- it picks the slot with the least added leg time that keeps every pin;
+- it picks the slot that keeps every pin, then dinner on time, then the earliest end of the day, then the least added leg time;
 - it re-runs `scheduleDay` with the item inserted at that position.
 
 It is the only path that changes order, and only for visitor items.
@@ -500,12 +500,15 @@ The whole-trip timeline (Day 1 to N) re-renders with each day's span, drive shar
   - the trip's places that share the day's base;
   - catalog places within 30 km of the base that have a page (`listPlaces()` with a point).
 
-  Free text is not allowed on the public page.
+  Free text is not allowed on the public page, and **only places are offered**: never a meal, a break or a rest. The scheduler alone generates those, so an added lunch can never double the plan's lunch (round 4 decision).
 - The scheduler inserts the item (2.9 `addItem`), re-flows the day and shows the result in place.
 - **The diff** is highlighted:
   - the new entry, marked "You added this";
-  - the entries that moved, with a small "moved 40 min later" note;
+  - the entries that moved, with a small "moved 40 min later" note (the real difference between the two starts, rounded to 5 minutes, paired by a stable entry id; nothing is said about an entry that did not move);
+  - the generated entries the day no longer has room for ("Left out now there is less room: Rest at the base"), so nothing vanishes silently;
   - new warnings.
+- **Dinner holds.** An added or optional stop that would push dinner past its latest start (19:30 for a family) is placed after dinner instead, with a warning naming it. When dinner cannot hold (a transfer day), the warning names what was added. Lunch is likewise kept: a stop that would run across the whole lunch window is preceded by lunch.
+- **Generated ids** are named for the entry and the stop it precedes (meals: `<day>-<lane>-meal-lunch`, `-meal-dinner`), never for a running count, so adding a stop elsewhere does not rename them. `core/src/schedule/diff.ts` holds the comparison; `web/tests/trips/add-invariants.test.ts` checks every order of one to three added places on every Rockies and Dolomites day.
 - **Adding a third or fourth thing is allowed.** When the day goes over its cap, the message gives numbers and names the optional entries to drop ("Day 5 is now 11 h 20, 1 h 20 over a standard family day. Optional: Moose Lake Loop."). The visitor removes an entry with its own "Remove" action.
 - Added items live in the URL (`add=`), so a shared link reproduces the day.
 

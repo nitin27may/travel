@@ -16,13 +16,12 @@ export const PROFILE_KEYS = ["p", "pace", "a", "walk", "split", "d", "add"] as c
 const PACES: readonly Pace[] = ["relaxed", "standard", "full"];
 const WALKS = [5, 8, 12];
 
-const get = (q: URLSearchParams | string, key: string): string | null => (typeof q === "string" ? new URLSearchParams(q) : q).get(key);
-
 /** Parses `p=family-6&pace=relaxed&a=1&walk=8&split=1&d=5C,9A&add=5.moraine-lake`. */
 export function parseTimelineUrl(query: URLSearchParams | string, defaults: Profile = DEFAULT_PROFILE): TimelineUrlState {
   const q = typeof query === "string" ? new URLSearchParams(query) : query;
+  const get = (k: string): string | null => q.get(k);
   const profile: Profile = { ...defaults };
-  const p = get(q, "p");
+  const p = get("p");
   if (p === "adults") {
     profile.party = "adults";
     profile.youngest = null;
@@ -33,19 +32,19 @@ export function parseTimelineUrl(query: URLSearchParams | string, defaults: Prof
       profile.youngest = Number(mm[1]);
     }
   }
-  const pace = get(q, "pace");
-  if (pace && (PACES as readonly string[]).includes(pace)) profile.pace = pace as Pace;
-  if (get(q, "a") === "1") profile.adults = 1;
-  const walk = Number(get(q, "walk"));
+  const pace = get("pace");
+  if (pace && PACES.includes(pace as Pace)) profile.pace = pace as Pace;
+  if (get("a") === "1") profile.adults = 1;
+  const walk = Number(get("walk"));
   if (WALKS.includes(walk)) profile.walkKm = walk;
-  if (get(q, "split") === "1") profile.split = true;
+  if (get("split") === "1") profile.split = true;
   const overrides: Record<number, string> = {};
-  for (const part of (get(q, "d") ?? "").split(",")) {
+  for (const part of (get("d") ?? "").split(",")) {
     const mm = /^(\d{1,2})([ABC])$/.exec(part.trim());
     if (mm) overrides[Number(mm[1])] = mm[2]!;
   }
   const added: TimelineUrlState["added"] = [];
-  for (const part of (get(q, "add") ?? "").split(",")) {
+  for (const part of (get("add") ?? "").split(",")) {
     const mm = /^(\d{1,2})\.([a-z0-9][a-z0-9-]*)$/.exec(part.trim());
     if (mm) added.push({ day: Number(mm[1]), slug: mm[2]! });
   }
@@ -56,9 +55,8 @@ export function parseTimelineUrl(query: URLSearchParams | string, defaults: Prof
 export function serialiseTimelineUrl(state: TimelineUrlState, defaults: Profile = DEFAULT_PROFILE): string {
   const out: string[] = [];
   const { profile: p } = state;
-  const party = p.party === "adults" ? "adults" : `family-${p.youngest ?? 0}`;
-  const dparty = defaults.party === "adults" ? "adults" : `family-${defaults.youngest ?? 0}`;
-  if (party !== dparty) out.push(`p=${party}`);
+  const who = (x: Profile): string => (x.party === "adults" ? "adults" : `family-${x.youngest ?? 0}`);
+  if (who(p) !== who(defaults)) out.push(`p=${who(p)}`);
   if (p.pace !== defaults.pace) out.push(`pace=${p.pace}`);
   if (p.adults !== defaults.adults && p.adults === 1) out.push("a=1");
   if (p.walkKm !== defaults.walkKm && p.walkKm !== null) out.push(`walk=${p.walkKm}`);

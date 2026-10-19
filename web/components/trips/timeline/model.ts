@@ -20,9 +20,9 @@ export interface AddCandidate {
   stats: { distanceKm: number | null; gainM: number | null } | null;
   /** "Lake", "Trail": the word beside the name. */
   label: string;
-  /** Distance from the day's nearest placed stop or base, in km; null for a meal, a break or a rest. */
+  /** Distance from the day's nearest placed stop or base, in km. */
   km: number | null;
-  group: 'quick' | 'variant' | 'trip' | 'nearby';
+  group: 'variant' | 'trip' | 'nearby';
 }
 
 export interface TimelineDayModel {
@@ -52,12 +52,6 @@ export interface TimelineModel {
   addables: Record<string, AddCandidate>;
   addByDay: Record<number, string[]>;
 }
-
-const QUICK: AddCandidate[] = [
-  { key: 'coffee-break', name: 'Coffee and a snack', kind: 'break', sub: 'coffee', placeSlug: null, point: null, durationMin: 20, durationRange: null, stats: null, label: 'Break', km: null, group: 'quick' },
-  { key: 'lunch-stop', name: 'Lunch', kind: 'meal', sub: 'lunch', placeSlug: null, point: null, durationMin: 60, durationRange: null, stats: null, label: 'Meal', km: null, group: 'quick' },
-  { key: 'rest-stop', name: 'A rest', kind: 'rest', sub: 'free-time', placeSlug: null, point: null, durationMin: 45, durationRange: null, stats: null, label: 'Rest', km: null, group: 'quick' },
-];
 
 const KIND_LABEL: Record<string, string> = { trail: 'Trail', lake: 'Lake', viewpoint: 'Viewpoint', waterfall: 'Waterfall', sight: 'Sight', town: 'Town', activity: 'Activity', lift: 'Lift', area: 'Area', eatery: 'Eatery' };
 
@@ -102,14 +96,13 @@ const PER_DAY = { variant: 4, trip: 6, nearby: 8 } as const;
 /** The candidates for each day: the day's other versions, the trip's stops at this base, and places within 30 km that have a page. */
 function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables: Record<string, AddCandidate>; addByDay: Record<number, string[]> } {
   const addables: Record<string, AddCandidate> = {};
-  for (const q of QUICK) addables[q.key] = q;
   const addByDay: Record<number, string[]> = {};
   const baseDays = new Map<string, number[]>();
   for (const d of trip.days) if (d.baseId) baseDays.set(d.baseId, [...(baseDays.get(d.baseId) ?? []), d.n]);
   for (const d of trip.days) {
     const input = d.scheduleInput;
     if (!input) continue;
-    const keys: string[] = QUICK.map((q) => q.key);
+    const keys: string[] = [];
     const onDay = new Set(input.variants.flatMap((v) => v.items.map((i) => i.placeSlug ?? i.id)));
     const take = (c: AddCandidate | null, group: keyof typeof PER_DAY, seen: Set<string>) => {
       if (!c || seen.has(c.key) || keys.includes(c.key)) return;
@@ -200,21 +193,4 @@ export function timeOfRow(row: { name: string; placeSlug: string | null }, day: 
   const name = norm(row.name);
   const hit = t.entries.find((e) => e.kind !== 'leg' && e.kind !== 'sun' && ((row.placeSlug && e.at?.placeSlug === row.placeSlug) || norm(e.title) === name || (name.length > 5 && norm(e.title).includes(name))));
   return hit ? hit.start : null;
-}
-
-/**
- * How far each entry moved between two timelines of the same day, in minutes (later is positive), paired by the stable entry id and
- * rounded to 5 minutes; an entry that did not really move is left out. Legs and sun rows are not reported.
- */
-export function movedEntries(before: DayTimeline, after: DayTimeline): Map<string, number> {
-  const at = (s: string): number => Number(s.slice(0, 2)) * 60 + Number(s.slice(3, 5));
-  const was = new Map(before.entries.map((e) => [e.id, at(e.start)]));
-  const out = new Map<string, number>();
-  for (const e of after.entries) {
-    const w = was.get(e.id);
-    if (w === undefined || e.kind === 'sun' || e.kind === 'leg') continue;
-    const d = Math.round((at(e.start) - w) / 5) * 5;
-    if (d !== 0) out.set(e.id, d);
-  }
-  return out;
 }
