@@ -111,3 +111,34 @@ Fix in the same pass (important, small): round routed sums and legs to 5 minutes
 - Stage-4 items from round 1 are unchanged as expected: truncated "2 h 30 dri…" in the strip, the variant column still shows "Whole family" on every row.
 
 Contrast: dark-mode warning text on the warning panel and `--muted` on `--surface` render as in round 1 (`dolo-f4-d3-390-dark.png`, `rk-strip-1440-dark.png`); no new colour pairs.
+
+## Round 3 (19 Oct 2026)
+
+Re-check of `public/L3c` at c9f63e1. `pnpm build` exit 0 with no `.env.local`, served from `web/out`, Chromium 1248 on the Arc GPU (ANGLE/GL), 2x, 1440 light and 390 dark through the site's theme toggle. I read the builder's shots and texts in `/tmp/l3c-review/r3/` and re-shot Rockies Day 5 adding Athabasca Falls Walk, A rest, Coffee and a snack and Lunch one at a time through the add panel, in that order (`/tmp/l3c-r3-me/`, `texts.json`).
+
+**Verdict: not yet.** R2-2, the Day 7 cap, the golden, the wording and Interlakes are fixed. R2-1 and R2-3 are fixed in the builder's order of additions (coffee, lunch, rest). Add Athabasca first, as in round 2, and the day breaks.
+
+### Status
+
+| Item | Status | Evidence |
+|---|---|---|
+| R2-1 moved notes | **Fixed for most entries, still wrong for two** | The notes are now true differences from the step before, in house format ("moved 25 min later", "moved 3 h 20 later"). But after Athabasca, Dinner in Jasper goes from 17:45 to 20:30 with no note, Rest at the base disappears without a word, and a "Free time" that did not exist before says "moved 30 min earlier". The generated ids still change when what they come before changes |
+| R2-2 Day 7 | **Fixed** | No cap warning. Dark-sky is "After dark, about 21:09 to 21:46 in this window, if the sky is clear", with no clock time |
+| R2-3 leg out | **Fixed** | Athabasca to Moose Lake is now about 2 h through Jasper (1 h, a stretch break, 55 min), not a copy of the 55 min leg in |
+| Rounding | **Fixed for durations and totals, not for clock times** | Every duration and total is on 5 minutes ("1 h 35 driving", Dolomites legs 50, 10 and 40 min). New: "Stretch break on the way" starts at ~15:43, ~16:33, ~16:58 and ~16:18. Sun times like 07:13 stay exact, which is right |
+| Golden Days 4 and 13 | **Fixed** | |
+| Wording, Interlakes | **Fixed** | Interlakes is 4.0 km, 1 h 30 |
+
+### Must-fixes (merge blockers)
+
+- **R3-1. Lunch at 07:30 (critical, T3).** With Athabasca, the rest and the coffee already added, adding Lunch puts "Lunch 1 h, You added this" at ~07:30, before the drive. It also removes the picnic lunch and the 08:30 coffee. In the builder's order, Lunch lands at 12:40 straight after the 11:30 picnic lunch, so the family gets two lunches. An added lunch must replace the plan's lunch and sit between 11:30 and 13:30. If it cannot, it should say so and stay unplaced.
+- **R3-2. An added far place pushes dinner to 20:30 and the day to 21:45 (critical, T4).** Dinner moves after Pyramid Lake and sunset, and the rest at base disappears without a word. Keep dinner by 19:30 for a family, drop or flag the optionals (Moose Lake, Pyramid Lake) first, and give every moved or dropped entry a note.
+- **R3-3. Stretch break start times are not on 5 minutes (important).** Snap a generated entry's start to 5 minutes like every other suggested time.
+
+### Rulings on the deferred items
+
+| Item | Ruling | Why |
+|---|---|---|
+| (a) "Show both lanes" changes Day 5's times | **Stage 4** | The default view is honest, and the split view only adds the 14:00 rejoin wait, which is real. Changing views still should not change the plan (P4), so schedule the wait in both views in stage 4 |
+| (b) No rule for optional items near dinner | **Must-fix now, as part of R3-2** | It is the cause of the 20:30 dinner, which a family would not plan around. The minimum rule: an optional never pushes dinner past 19:30. It moves after dinner or is marked "skip if late" |
+| (c) Show the cost of an addition before it is added | **Stage 4** | The candidate already shows "26.8 km away", and the warnings after adding are honest. A line like "adds about 2 h of driving" is the right next step (P6), but it is not a blocker once R3-2 keeps the evening sane |
