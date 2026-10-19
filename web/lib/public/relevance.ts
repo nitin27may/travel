@@ -276,6 +276,9 @@ function relatedRefs(ctx: RelevanceContext, ref: string): Set<string> {
   add(cap?.passes?.map((p) => p.ref));
   add(inc.reached_by);
   add(inc.children);
+  // offers at or on this record are listed in "At this place you can also" (section 10), so they are not a pair (S1b, owner Q31 spirit: one home)
+  add(inc.at);
+  add(inc.on);
   return out;
 }
 
