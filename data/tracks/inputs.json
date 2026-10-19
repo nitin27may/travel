@@ -53,10 +53,18 @@
       "source": "Piz Boè summit, Rifugio Capanna Piz Fassa, OSM way 42223145 (tourism=alpine_hut, ele 3152); relation 7302480 (path 627) ends at Rifugio Boè and relation 9491502 (path 638) continues to the summit (8 m from the hut); both are now osm links on the capture record. Read 19 Oct 2026 (CS7c)"
     },
     "cinque-torri": {
-      "source": "CS7c, 19 Oct 2026: no destination needed; the loop is at the top of the chairlift (Rifugio Scoiattoli, OSM way 200335135, 101 m from relation 3170143 path 439, which also passes Rifugio Cinque Torri at 28 m). The held-back reason is the trailhead pin at the chairlift base, 1.3 km below the line: the fetcher needs a start point at the lift top (code change), not new data."
+      "source": "CS7c, 19 Oct 2026: no destination needed; the loop is at the top of the chairlift (Rifugio Scoiattoli, OSM way 200335135, 101 m from relation 3170143 path 439, which also passes Rifugio Cinque Torri at 28 m). The held-back reason is the trailhead pin at the chairlift base, 1.3 km below the line: the fetcher needs a start point at the lift top (code change), not new data. Start point (D2, 19 Oct 2026): Rifugio Scoiattoli, OSM way 200335135 (tourism=alpine_hut, ele 2255), centre of the building; the chairlift tops out here and the loop starts on foot.",
+      "start": {
+        "lat": 46.50809,
+        "lon": 12.04677
+      }
     },
     "fanes-falls": {
-      "source": "CS7c, 19 Oct 2026: no destination needed (end offset 125 m). The pin is the Sant'Uberto car park; the official walk starts at Pian de Loa past the closed road (CS7b 3.38), 325 m from relation 1641053. A start-point override (code change) would release it."
+      "source": "CS7c, 19 Oct 2026: no destination needed (end offset 125 m). The pin is the Sant'Uberto car park; the official walk starts at Pian de Loa past the closed road (CS7b 3.38), 325 m from relation 1641053. A start-point override (code change) would release it. Start point (D2, 19 Oct 2026): Pian de Loa, OSM node 1398755040 (place=locality), where cortina.dolomiti.org starts the walk, past the closed road from Sant'Uberto.",
+      "start": {
+        "lat": 46.60141,
+        "lon": 12.09661
+      }
     }
   }
 }
