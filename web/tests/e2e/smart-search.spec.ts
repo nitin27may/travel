@@ -294,6 +294,22 @@ test.describe('review SQ1b: must-fixes', () => {
     await expect(bar).not.toContainText(/Season: \d/);
   });
 
+  test('M2 round 3: the facet buttons of the desktop bar read as names, after a parse and from a direct link', async ({ page, site }) => {
+    test.skip((page.viewportSize()?.width ?? 0) < 900, 'the facet buttons are the desktop bar');
+    const box = await list(page, site, '/places/');
+    await box.fill('hot springs in Iceland in winter');
+    await expect(chips(page)).toBeVisible();
+    await box.press('Enter');
+    await expect(page).toHaveURL(/season=12/);
+    const buttons = page.getByRole('group', { name: 'Filters' });
+    await expect(buttons).toContainText('Hot spring');
+    await expect(buttons).not.toContainText('water.thermal');
+    await expect(buttons).not.toContainText(/Season\s*·\s*\d/);
+    await page.goto(`${site.url}/places/?k=water.thermal.hot_spring&season=12`, { waitUntil: 'networkidle' });
+    await expect(page.getByRole('group', { name: 'Filters' })).toContainText('Hot spring');
+    await expect(page.getByRole('group', { name: 'Filters' })).not.toContainText('water.thermal');
+  });
+
   test('M4: on Trips, "with kids" and Enter ask the age, and never fall back to a text search', async ({ page, site }) => {
     const box = await list(page, site, '/trips/');
     await box.fill('trip with kids');
