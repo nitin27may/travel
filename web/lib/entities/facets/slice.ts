@@ -15,6 +15,8 @@ export interface SliceFacet {
   label: string;
   /** The list-row band it reads; absent when it reads a flag. */
   band?: string;
+  /** scope -> 1 or 2: promoted into the bar when the Kind narrows to that scope (contract 7.2). */
+  promote?: Record<string, number>;
 }
 
 export interface SliceNode {
@@ -37,6 +39,7 @@ interface ContractFacet {
   control: 'range' | 'enum' | 'bool';
   label: string;
   band?: string;
+  promote?: Record<string, number>;
 }
 interface TypeNode {
   id: string;
@@ -55,7 +58,7 @@ export function sliceContract(contract: { facets: ContractFacet[] }, types: { no
     const key = slug(f.label);
     if (keys.has(key)) throw new Error(`two contract facets share the URL name f.${key}`);
     keys.add(key);
-    return { key, property: f.property, scopes: f.scopes, control: f.control, label: f.label, ...(f.band ? { band: f.band } : {}) };
+    return { key, property: f.property, scopes: f.scopes, control: f.control, label: f.label, ...(f.band ? { band: f.band } : {}), ...(f.promote ? { promote: f.promote } : {}) };
   });
   const byId = new Map(types.nodes.map((n) => [n.id, n]));
   const records = (n: TypeNode): string[] => n.records ?? (n.parent ? records(byId.get(n.parent)!) : []);

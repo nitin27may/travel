@@ -41,7 +41,10 @@
    ],
    "control": "range",
    "label": "Duration",
-   "band": "time_band"
+   "band": "time_band",
+   "promote": {
+    "intent:do": 2
+   }
   },
   {
    "key": "price-band",
@@ -54,7 +57,12 @@
    ],
    "control": "enum",
    "label": "Price band",
-   "band": "price_band"
+   "band": "price_band",
+   "promote": {
+    "culture": 2,
+    "animals.see": 2,
+    "play": 2
+   }
   },
   {
    "key": "booking-needed",
@@ -106,7 +114,12 @@
    ],
    "control": "range",
    "label": "Ages from",
-   "band": "kids_from"
+   "band": "kids_from",
+   "promote": {
+    "intent:do": 1,
+    "play": 1,
+    "snow": 2
+   }
   },
   {
    "key": "stroller",
@@ -141,7 +154,12 @@
    ],
    "control": "enum",
    "label": "Effort",
-   "band": "effort"
+   "band": "effort",
+   "promote": {
+    "nature.trail": 1,
+    "nature.trek": 1,
+    "snow": 1
+   }
   },
   {
    "key": "length",
@@ -152,7 +170,11 @@
    ],
    "control": "range",
    "label": "Length",
-   "band": "length_band"
+   "band": "length_band",
+   "promote": {
+    "nature.trail": 2,
+    "nature.trek": 2
+   }
   },
   {
    "key": "climb",
@@ -185,7 +207,11 @@
    ],
    "control": "range",
    "label": "Time on site",
-   "band": "time_band"
+   "band": "time_band",
+   "promote": {
+    "culture": 1,
+    "animals.see": 1
+   }
   },
   {
    "key": "toilets",
@@ -228,7 +254,14 @@
    ],
    "control": "range",
    "label": "Walk from the car",
-   "band": "walk_band"
+   "band": "walk_band",
+   "promote": {
+    "nature.viewpoint": 1,
+    "nature.summit": 1,
+    "water.body": 2,
+    "water.falls": 2,
+    "water.swim": 2
+   }
   },
   {
    "key": "lifeguard",
@@ -297,7 +330,12 @@
     "water.swim"
    ],
    "control": "enum",
-   "label": "Swimming"
+   "label": "Swimming",
+   "promote": {
+    "water.body": 1,
+    "water.falls": 1,
+    "water.swim": 1
+   }
   },
   {
    "key": "magic-carpet",

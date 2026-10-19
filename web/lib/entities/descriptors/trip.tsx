@@ -33,7 +33,7 @@ export function publicTripBadges(t: TripListRow): Badge[] {
 // the map view (MapLibre wrapper, camera and card) loads only when the Map view is chosen, so the list pages stay inside the JS budget
 const TripsMap = dynamic(() => import('@/components/trips/TripsMap').then((m) => m.TripsMap), { ssr: false });
 
-const PHASE_TITLE = { plan: 'Published plans', done: 'Done, use as a template' } as const;
+const PHASE_TITLE = { plan: 'Published plans', done: 'Finished plans, use as templates' } as const;
 const phase = (t: TripListRow) => (t.isDone ? 'done' : 'plan');
 const DEPTH_RANK = { full: 0, summary: 1, overview: 2 } as const;
 
@@ -161,13 +161,14 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
     },
     { param: 'kind', label: 'Source', type: 'multi', tier: 'more', order: ['full', 'summary', 'overview'], options: (t) => [{ value: t.depth, label: DEPTH_LABEL[t.depth] }] },
     {
-      // the hub matrix (backlog 3.12) is not built: with no value on the short trips the 60% rule hides this pill and the count line says so
+      // the hub matrix (backlog 3.12) is not built: with no value on the short trips the 60% rule hides this pill, silently
       param: 'drive',
       label: 'From Toronto',
       type: 'single',
       tier: 'more',
       order: HUB_BANDS.map((b) => `toronto-${b.n}`),
-      guard: { among: (t) => t.lengthClass !== null && t.lengthClass !== 'multi-day', what: 'not known for most short trips' },
+      // hidden without a count-line note: until the hub data exists there is nothing to say on every /trips/ view
+      guard: { among: (t) => t.lengthClass !== null && t.lengthClass !== 'multi-day' },
       options: (t) => {
         if (t.fromHubMin === null) return [];
         const b = hubBandOf(t.fromHubMin);
@@ -188,7 +189,7 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   ],
   defaultColumns: ['title', 'length', 'nights', 'season', 'countries', 'kids', 'depth'],
   groupBy: [
-    { id: 'phase', label: 'Plan', key: phase, title: (t) => PHASE_TITLE[phase(t)], subtitle: (t) => (t.isDone ? 'Trips already taken, kept as templates to copy' : '') },
+    { id: 'phase', label: 'Plan', key: phase, title: (t) => PHASE_TITLE[phase(t)], subtitle: (t) => (t.isDone ? 'Finished plans, kept as templates to copy' : '') },
     // Day trips first, then overnights, weekends, long weekends and the 4+ bands (short-trips 3.3)
     { id: 'length', label: 'Length', key: (t) => String(lengthRank(t)), order: (t) => lengthRank(t), title: (t) => (t.length ? PHASE_FOR_LENGTH[t.length] : 'Length not set') },
     { id: 'country', label: 'Country', key: (t) => t.country || '~', title: (t) => t.countryName || 'Country not set' },

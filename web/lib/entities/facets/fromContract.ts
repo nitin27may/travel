@@ -1,5 +1,6 @@
 // Contract facets as FacetDefs (contract 7): one per facet that is not already a base facet of the list, all under "More filters",
 // all `scoped`. A new facet is a registry change plus a regenerated slice; a new type is a types.json change.
+import { FLAG_OF_PROPERTY } from '@travel/core/capture/bandKeys.ts';
 import type { FacetDef, ScopedParam } from '../types';
 import { answersOf, orderOf } from './answers';
 import type { FacetRow } from './answers';
@@ -14,7 +15,7 @@ export function scopedFacets<Row extends FacetRow>(s: ContractSlice = SLICE): Fa
       param: `f.${f.key}` as ScopedParam,
       label: f.label,
       // a range or enum facet may take several values ("Under 1 hour or 1 to 2 hours"); a yes/no facet takes one
-      type: f.control === 'bool' ? 'single' : 'multi',
+      type: f.control === 'bool' || FLAG_OF_PROPERTY[f.property] ? 'single' : 'multi',
       tier: 'more',
       scoped: true,
       order: orderOf(f),
