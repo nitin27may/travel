@@ -23,6 +23,8 @@ export function tripListRows(cards: PublicTripCard[] = listTrips()): TripListRow
       const full = getTrip(c.slug);
       const pin = pins.get(c.slug);
       const cc = pin?.path[0] ?? '';
+      const tags = c.tags;
+      const toronto = c.fromHubs.find((h) => h.hub === 'toronto');
       return {
         id: c.slug,
         slug: c.slug,
@@ -41,9 +43,23 @@ export function tripListRows(cards: PublicTripCard[] = listTrips()): TripListRow
         lat: pin?.lat ?? null,
         lon: pin?.lon ?? null,
         approx: pin?.approx ?? false,
-        ageFit: full?.ageFit ?? null,
+        ageFit: tags.kidsFrom,
         effort: full?.effort ?? null,
         firstBase: c.firstBase,
+        countries: tags.countries.map((code) => ({ code: code.toUpperCase(), name: nameOf(code) })),
+        continents: tags.continents,
+        length: tags.length,
+        lengthClass: c.lengthClass,
+        hike: tags.hike,
+        strollerDays: tags.stroller === null ? null : tags.stroller.all ? 'friendly' : { n: tags.stroller.n, of: tags.stroller.of },
+        activities: tags.activities,
+        highlights: tags.highlights,
+        around: tags.around,
+        perDay: tags.perDay,
+        perDayApprox: tags.perDayApprox,
+        shape: tags.shape,
+        fromHubMin: toronto?.minutes ?? null,
+        fromHubApprox: toronto ? toronto.basis === 'estimate' : false,
       } satisfies TripListRow;
     })
     .sort((a, b) => Number(a.isDone) - Number(b.isDone) || DEPTH_RANK[a.depth] - DEPTH_RANK[b.depth] || a.title.localeCompare(b.title));
