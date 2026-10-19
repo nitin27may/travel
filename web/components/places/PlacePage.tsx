@@ -13,7 +13,7 @@ import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { Interactions } from '@/components/suit/Interactions';
-import { accessCard, factsDl } from './sections/legacyHtml';
+import { accessCard, factText, factsDl } from './sections/legacyHtml';
 import { CoverRelevance } from './sections/Relevance';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { GalleryLazy } from './GalleryLazy';
@@ -371,7 +371,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
     links: <LinksTabs tabs={tabs} checked={checked} />,
     facts: factsBlock,
     hazards: place.hazards.map((h) => observed(publicText(h) || h)),
-    booking: place.booking ? <FactText text={place.booking} /> : null,
+    booking: place.booking ? factText(place.booking) : null,
   };
 
   return (

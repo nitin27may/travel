@@ -127,7 +127,7 @@ export function Nearby({ rel, slugs, closing }: { rel: PublicRelevance; slugs: R
         </ul>
       ) : closing ? (
         <p className="su-closing">
-          <span aria-hidden="true" className="su-q">?</span> {closing}
+          {closing}
         </p>
       ) : null}
       {rel.similar.length ? (

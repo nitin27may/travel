@@ -36,7 +36,7 @@ p.ps-stub { margin: 0; }
 .su-warn svg { flex: none; margin-top: 3px; }
 .su-warn span { color: var(--ink); }
 .su-closing { display: flex; gap: 8px; align-items: baseline; margin: 0; font: var(--t-meta); color: var(--muted); }
-.su-q { display: inline-grid; place-items: center; width: 16px; height: 16px; border: 1px solid var(--line-2); border-radius: 50%; font: 600 10.5px/1 var(--font-mono); flex: none; }
+.su-closing::before { content: '?'; display: inline-grid; place-items: center; width: 16px; height: 16px; border: 1px solid var(--line-2); border-radius: 50%; font: 600 10.5px/1 var(--font-mono); flex: none; }
 
 /* ---------- groups ---------- */
 .su-group { border-top: 1px solid var(--line); }

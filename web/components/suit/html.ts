@@ -45,7 +45,7 @@ export function valueWords(v: unknown): string {
 export const stubOf = (val: PVal | null): string => (val ? [val.basisLabel, val.read ? `read ${longDate(val.read)}` : null].filter(Boolean).join(' · ') : '');
 
 export const gapChip = (text: string = GAP_WORDS): string => `<span class="su-gapchip">${esc(text)}</span>`;
-export const closing = (text: string | null): string => (text ? `<p class="su-closing"><span aria-hidden="true" class="su-q">?</span> ${esc(text)}</p>` : '');
+export const closing = (text: string | null): string => (text ? `<p class="su-closing">${esc(text)}</p>` : '');
 
 /** A source worth showing to a visitor: a public web page. Our own repo, a plan file or a relative path is the workshop, never a source. */
 export const publicSource = (s: PVal['sources'][number]): boolean => /^https?:\/\//.test(s.url) && !/this repo|^repo$/i.test(s.publisher) && !/^trip plan$/i.test(s.title);
@@ -59,8 +59,8 @@ function panel(val: PVal): string {
   let h = `<div class="su-pop">${val.appliesTo ? `<p class="su-pop-basis">Applies to ${esc(val.appliesTo.replace(/_/g, ' '))}</p>` : ''}`;
   if (val.quote) h += `<blockquote class="su-pop-quote">${esc(val.quote)}</blockquote>`;
   if (sources.length) {
-    h += '<ul class="su-pop-src">';
-    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(`${s.title} (opens in a new tab)`)}">${esc(s.title.replace(/\bOSM (node|way|relation)\b/gi, 'OpenStreetMap $1'))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
+    h += '<ul class="su-pop-src" aria-label="Sources, each opens in a new tab">';
+    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title.replace(/\bOSM (node|way|relation)\b/gi, 'OpenStreetMap $1'))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
     h += '</ul>';
   }
   if (val.conflicts.length) {
@@ -189,4 +189,52 @@ function groupHtml(g: SuitGroup, slugs: Slugs): string {
 /** The inside of the "Who it suits" section: head, chips, warning line and the groups. */
 export function suitsInner(suit: PublicSuitability, slugs: Slugs, title: string): string {
   return `<header class="ps-head"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml(suit.chips)}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${esc(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
+}
+
+// ---- glance and "Before you go" ---------------------------------------------------------------------------------------------
+
+import type { PublicRelevance } from '@/lib/public/relevance';
+import type { SectionModel } from '@/lib/public/sections';
+
+export interface GlanceSlotHtml {
+  row: ShowRow;
+  href: string;
+  /** the value as the strip shows it (a season line is one short sentence) */
+  value: string;
+}
+
+export function glanceHtml(slots: GlanceSlotHtml[], level: { level: string; label: string; tooltip: string }, checks: { done: number; total: number; read: string | null }): string {
+  const list = slots.length
+    ? `<ul>${slots
+        .map(({ row, href, value }) => `<li${row.gap ? ' data-empty' : ''}><a href="${esc(href)}" class="ps-glance-a"><span class="ps-glance-label">${esc(row.label)}</span>${row.gap ? gapChip() : `<strong class="ps-glance-value">${esc(value)}</strong>`}${row.val ? `<span class="ps-stub">${esc(stubOf(row.val))}</span>` : ''}${row.val && row.val.conflicts.length ? `<span class="su-honest">${row.val.conflicts.length + 1} values</span>` : ''}</a></li>`)
+        .join('')}</ul>`
+    : '';
+  return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="ps-stub">${checks.total ? `${checks.done} of ${checks.total} place checks done` : ''}${checks.read ? ` · read ${esc(longDate(checks.read))}` : ''}</span></p>`;
+}
+
+const li = (kind: string, glyphName: string, inner: string, cls = 'ps-line'): string => `<li class="${cls}" data-kind="${esc(kind)}">${glyph(glyphName, 16)}<div>${inner}</div></li>`;
+const cap1 = (t: string): string => (t ? `${t.charAt(0).toUpperCase()}${t.slice(1)}` : t);
+const kmText = (n: number): string => `${n < 10 ? Math.round(n * 10) / 10 : Math.round(n)} km`;
+
+/** Section 3: the Rest! lines, Plan B under the booking line (PS8), the older record's hazards and booking window, "none" lines and the closing line. */
+export function warningsHtml(sec: SectionModel, rel: PublicRelevance | null, slugs: Slugs, bookingHtml: string | null, hazards: string[], suitWarning: string | null): string {
+  const byKey = new Map(sec.rows.map((r) => [r.key, r]));
+  const noneRows = sec.rows.filter((r) => !r.gap && r.text === 'None');
+  const haz = hazards.filter((h) => h && h !== suitWarning);
+  const b = rel?.planB;
+  const planB = b
+    ? `<li class="ps-line rv-planb"><span class="rv-tag">Plan B</span><p class="ps-text">${b.risk ? `${esc(cap1(b.risk))} can fall through. ` : ''}${refLink(b, slugs)} is the same kind of draw: ${esc(b.access)}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.</p></li>`
+    : '';
+  const bookIdx = sec.lines.findIndex((l) => l.kind === 'Book');
+  let out = '';
+  sec.lines.forEach((l, i) => {
+    const row = byKey.get(l.home);
+    out += li(l.kind, 'triangle', `<p class="ps-text"><span class="ps-kind">${esc(l.kind)}</span> ${esc(l.text)}</p>${row?.val ? `<p class="ps-stub">${esc(stubOf(row.val))}</p>` : ''}`);
+    if (i === bookIdx) out += planB;
+  });
+  if (bookIdx < 0) out += planB;
+  if (bookingHtml) out += li('Book', 'triangle', `<div class="ps-text"><span class="ps-kind">Book</span> ${bookingHtml}</div>`);
+  for (const h of haz) out += li('Hazard', 'triangle', `<p class="ps-text"><span class="ps-kind">Hazard</span> ${esc(h)}</p>`);
+  for (const r of noneRows) out += li('', 'check', `<p class="ps-text">${r.key === 'access_cost' ? 'No booking or permit needed' : `${esc(r.label)}: none`}</p>${r.val ? `<p class="ps-stub">${esc(stubOf(r.val))}</p>` : ''}`, 'ps-line ps-line-none');
+  return `${out ? `<ul class="ps-lines">${out}</ul>` : ''}${closing(sec.closing)}`;
 }
