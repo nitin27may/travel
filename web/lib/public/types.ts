@@ -195,7 +195,7 @@ export interface PublicPlaceCard {
   /** distance_km, gain_m, hours for trails; null when not known. */
   stats: { distanceKm: number | null; gainM: number | null; hours: string | null };
   /** Where the facts came from: 'locations', 'prototype', 'trail'. */
-  sources: ('locations' | 'prototype' | 'trail')[];
+  sources: ('locations' | 'prototype' | 'trail' | 'capture')[];
   /** The capture type id (`nature.trail.hike`), or the category its kind implies. The Kind pill and the type-aware facets read it (L3b). */
   type: string | null;
   /** Labels and bands for the list filters (capture contract 7.3). Never a fact with a source (P8). Every band is null for a place with no capture record. */
