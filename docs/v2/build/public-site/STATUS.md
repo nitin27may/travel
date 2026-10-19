@@ -49,6 +49,23 @@ Both sweep lanes are merged (19 Oct). **Stage 3** is running. Run lanes in paral
 
 Stage 4 is the design review by the Opus reviewer (never Fable), scored against P1-P9 and T1-T5. Stage 5 is the cross-model checks. Stage 6 is the owner's review. Stage 7 is go-live.
 
+## Current state (19 Oct, after "go with all recommendations")
+
+Stages 1 and 2 are done. Stage 3 build lanes are merged: L3c, L4b, L3b, L2b, CS7 batches 1 and 2, S1 Part 0 and A, SQ1 part A. The owner approved every open recommendation (Q1-Q41 settled) and both mocks (place page, smart search).
+
+Running now (worktrees `travel-wt/v2-<lane>`, branch `public/<lane>`):
+
+| Lane | Work | Next step |
+|---|---|---|
+| D1 | code plumbing from CS7b: track matcher (cut, stitch, nearest-line offset), plan_b reads access_season, Sentinel Pass payoff, FacetRow.shape, trip base points (3.41), join by ref (3.40), Rockies note reword (3.22) | verify, merge |
+| S1b | S1 Part B: place page sections from the contract, Who it suits, card chips, timeline entry chips, relevance sections, 3.20, 3.21, 3.26, 3.27, 3.42 | verify, Opus design review, merge |
+| SQ1b | smart search part B: QueryChips, parser in header and list search boxes, "Not checked yet" group, 3.44 | verify, Opus design review, merge |
+| L2b-del | delete the 29 orphaned globe boundary files (Q33 approved) and make globe_data.py independent of them | verify, merge |
+
+After these merge: stage 4 (Opus design review of the whole site against P1-P9 and T1-T5, the polish rows 4.4-4.7 and 2.41), stage 5 (cross-model checks), stage 6 (owner preview from v2 HEAD with the tunnel rebuilt, Lighthouse on the real deploy, 2.47), stage 7 (go-live: redirects for retired legacy pages Q25, restore Google key restrictions, `_headers` caching 2.46, bot protection 7.6, publish).
+
+Open for the coordinator, not the owner: SQ1 phase 2 spike (Q38), CS7 batch 3 (remaining gaps), Rockies base points that differ from Wikidata (Kananaskis about 2 km, Lake Louise about 4 km; D1 reports them).
+
 ## Merged so far (all verified)
 
 | Lane | Merge | What |
