@@ -71,7 +71,11 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
     if (it && it.minAge !== null && profile.party === "family" && profile.youngest !== null && profile.youngest < it.minAge && (e.lane === "all" || e.lane === mainLabel)) {
       warn(
         "W_FIT",
-        it.minAgeRule === "advice" ? `${e.title} is advised for age ${it.minAge} and up.` : `${e.title} is for age ${it.minAge} and up; the limit here is age ${profile.youngest}.`,
+        it.minAgeRule === "advice"
+          ? `${e.title} is advised for age ${it.minAge} and up.`
+          : it.minAgeRule === "plan"
+            ? `${e.title} is planned as a walk for age ${it.minAge} and up; the limit here is age ${profile.youngest}.`
+            : `${e.title} is for age ${it.minAge} and up; the limit here is age ${profile.youngest}.`,
         e,
         e.lane,
       );
