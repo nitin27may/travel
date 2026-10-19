@@ -277,6 +277,7 @@ primary action. Green appears only on "fits". Coral appears only on a rule fail 
 | fits | "Fits a 6-year-old" | |
 | advice fail | "Not suited to a 3-year-old" | the timeline design's wording, unchanged |
 | rule fail | "Not for under 8 · operator rule" | the basis in two words |
+| stroller, three states | "No stroller access" (the record says there is none), "Not checked yet" (nobody has looked), "Stroller not stated" (looked, and the source never says) | S1c: "None" alone is ambiguous and is never used for a stroller. The same three words serve the chip, the row and any card |
 | gap | "Not checked yet" | identical on rows and lines; "Limits not checked yet · ask the operator" for a missing limit on an operated kind |
 
 A chip never wraps inside itself. A limits chip may hold up to three values and "+n"; if it would still

@@ -359,13 +359,18 @@ describe('internal words on the built pages', () => {
       ['link-only platform in text', /\b(?:AllTrails|Komoot|Tripadvisor)\b/i],
       ['workflow wording', /search result, not opened|written from memory|from memory\b/i],
       ['dangling comma', /Not checked yet: [^<\n]{0,200}(?:,\s*$|,…)/m],
-      ['workshop hint or raw token', /Add a point with|Record the months|Set osm_ref|wikidata_qid|\b[a-z]{3,}_[a-z]{3,}\b|see [a-z0-9-]+ sight|is a value\b/],
+      ['a dangling fragment', /\bsnowfields until\b/],
+      ['workshop hint or raw token', /needs a name|needs a type|pairs fill in|Add a point with|Record the months|Set osm_ref|wikidata_qid|\b[a-z]{3,}_[a-z]{3,}\b|see [a-z0-9-]+ sight|is a value\b/],
       ['child age', /\b(?:1[0-7]|[1-9])[- ](?:year|yr)[- ]old\b(?! (?:church|chapel|tree|building|house|hut|bridge|tradition))|\b\d{1,2}-?yo\b/i],
     ];
     for (const page of builtPages()) {
       const f = path.join(REAL_OUT, page);
       if (!existsSync(f) || !page.startsWith('places/')) continue;
       const t = visible(readText(f));
+      // each element on its own line, so a list that ends in a comma is seen where the element ends
+      const lines = readText(f).replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, '\n');
+      const comma = /^\s*Not checked yet: [^\n]*,\s*$/m.exec(lines);
+      if (comma) bad.push(`${page}: list ends in a comma: ${comma[0].trim().slice(-40)}`);
       for (const [name, re] of checks) {
         const m = re.exec(t);
         if (m) bad.push(`${page}: ${name}: ${m[0].slice(0, 60)}`);

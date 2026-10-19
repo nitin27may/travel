@@ -115,7 +115,7 @@ function valueHtml(row: ShowRow, slugs: Slugs): string {
 /** One row. A gap keeps its row and shows the dashed chip (D8); a searched-none value is a sentence (D3); a value with a source, quote or conflict is a disclosure. */
 export function rowLine(row: ShowRow, slugs: Slugs, id: string = `row-${row.key}`): string {
   const a = esc(id);
-  if (row.gap) return `<div class="sr" id="${a}" data-gap><span class="sl">${esc(row.label)}</span><span class="sv">${gapChip()}${row.gapWording ? ` <span class="su-gapnote">${esc(row.gapWording)}</span>` : ''}</span></div>`;
+  if (row.gap) return `<div class="sr" id="${a}" data-gap><span class="sl">${esc(row.label)}</span><span class="sv">${gapChip()}${row.gapWording && !row.gapWording.toLowerCase().includes(row.label.toLowerCase()) ? ` <span class="su-gapnote">${esc(row.gapWording)}</span>` : ''}</span></div>`;
   const sentence = row.look === 'sentence';
   const body = `<span class="sl">${esc(row.label)}</span><span class="sv">${valueHtml(row, slugs)}${row.honesty ? `<span class="su-honest">${esc(row.honesty)}</span>` : ''}${!sentence && row.val ? `<span class="ss">${esc(stubOf(row.val))}</span>` : ''}</span>`;
   const val = row.val;
