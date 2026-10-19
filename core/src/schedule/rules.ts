@@ -11,45 +11,44 @@ export interface DurationRule {
   label: string;
 }
 
-const R = (id: string, minutes: number, label: string): DurationRule => ({ id, minutes, label });
+const T: [string, number][] = [
+  ["viewpoint.roadside", 15],
+  ["viewpoint.short-walk", 30],
+  ["lake.viewpoint", 45],
+  ["lake.shore", 90],
+  ["waterfall.roadside", 20],
+  ["waterfall.walk", 15],
+  ["sight.landmark", 45],
+  ["sight.museum", 120],
+  ["town.stroll", 90],
+  ["town.errands", 45],
+  ["scenic-drive", 10],
+  ["lift.ride", 80],
+  ["lift.access", 20],
+  ["hot-spring", 120],
+  ["activity.default", 180],
+  ["boat.default", 90],
+  ["meal.breakfast", 45],
+  ["meal.lunch.sit-down", 60],
+  ["meal.lunch.picnic", 40],
+  ["meal.dinner", 75],
+  ["break.coffee", 20],
+  ["break.snack", 15],
+  ["break.fuel", 15],
+  ["break.leg-stretch", 15],
+  ["break.groceries", 45],
+  ["checkin", 30],
+  ["checkout", 20],
+  ["booking.checkin", 20],
+  ["arrival.car-hire", 60],
+  ["airport.before.international", 180],
+  ["airport.before.domestic", 120],
+  ["park.walk-in", 10],
+  ["trail.naismith", 0],
+];
 
-export const DURATION_RULES: Record<string, DurationRule> = Object.fromEntries(
-  [
-    R("viewpoint.roadside", 15, "roadside viewpoint"),
-    R("viewpoint.short-walk", 30, "viewpoint with a short walk"),
-    R("lake.viewpoint", 45, "lake viewpoint"),
-    R("lake.shore", 90, "lake with a shore walk"),
-    R("waterfall.roadside", 20, "roadside waterfall"),
-    R("waterfall.walk", 15, "waterfall with a walk"),
-    R("sight.landmark", 45, "landmark"),
-    R("sight.museum", 120, "museum"),
-    R("town.stroll", 90, "town stroll"),
-    R("town.errands", 45, "errands"),
-    R("scenic-drive", 10, "scenic drive"),
-    R("lift.ride", 80, "lift ride (20 min ride, 60 at the top)"),
-    R("lift.access", 20, "lift to a trailhead"),
-    R("hot-spring", 120, "hot spring"),
-    R("activity.default", 180, "activity"),
-    R("boat.default", 90, "cruise"),
-    R("meal.breakfast", 45, "breakfast out"),
-    R("meal.lunch.sit-down", 60, "sit-down lunch"),
-    R("meal.lunch.picnic", 40, "picnic lunch"),
-    R("meal.dinner", 75, "dinner"),
-    R("break.coffee", 20, "coffee stop"),
-    R("break.snack", 15, "snack"),
-    R("break.fuel", 15, "fuel stop"),
-    R("break.leg-stretch", 15, "leg stretch"),
-    R("break.groceries", 45, "groceries"),
-    R("checkin", 30, "check-in"),
-    R("checkout", 20, "check-out"),
-    R("booking.checkin", 20, "arrive ahead of the slot"),
-    R("arrival.car-hire", 60, "collect a hire car"),
-    R("airport.before.international", 180, "be at the airport"),
-    R("airport.before.domestic", 120, "be at the airport"),
-    R("park.walk-in", 10, "walk from the car park"),
-    R("trail.naismith", 0, "walk time (Naismith)"),
-  ].map((r) => [r.id, r]),
-);
+/** The rule's words in an entry's basis text: "lake.viewpoint" reads "lake viewpoint". */
+export const DURATION_RULES: Record<string, DurationRule> = Object.fromEntries(T.map(([id, minutes]) => [id, { id, minutes, label: id.replace(/[.-]/g, " ") }]));
 
 export const rule = (id: string): DurationRule => DURATION_RULES[id] ?? DURATION_RULES["activity.default"]!;
 
@@ -148,6 +147,9 @@ export interface ResolvedDuration {
   unknown: boolean;
 }
 
+/** Generated durations are shown to the nearest 5 minutes: a rule of thumb does not know the minute. */
+export const round5 = (min: number): number => Math.max(5, Math.round(min / 5) * 5);
+
 const fmt = (min: number): string => {
   const h = Math.floor(min / 60);
   const m = Math.round(min % 60);
@@ -216,7 +218,7 @@ export function resolveDuration(item: ScheduleItem, p: Profile): ResolvedDuratio
     }
     if (base !== null) {
       const mult = age.trailMultiplier;
-      const minutes = Math.max(5, Math.round(base * mult));
+      const minutes = round5(base * mult);
       return {
         minutes,
         source: item.durationRange || item.durationMin !== null ? (item.durationSource === "plan" ? "plan" : "data") : "rule",
@@ -231,12 +233,12 @@ export function resolveDuration(item: ScheduleItem, p: Profile): ResolvedDuratio
     const src = item.durationSource === "plan" ? "plan" : "data";
     // data durations of visits follow the pace multiplier; the plan's own, meals, breaks and check-ins do not
     const scale = item.kind === "visit" && src === "data" ? pr.visitMultiplier : 1;
-    const minutes = Math.max(5, Math.round(item.durationMin * scale));
+    const minutes = scale === 1 ? Math.max(5, Math.round(item.durationMin)) : round5(item.durationMin * scale);
     return { minutes, source: src, basis: scale !== 1 ? `${src === "plan" ? "plan" : "data"} ${fmt(item.durationMin)}, ${p.pace} x ${scale}` : `${src === "plan" ? "plan" : "data"}: ${fmt(item.durationMin)}`, ruleId: null, unknown: false };
   }
   const r = rule(ruleIdFor(item));
   const scale = item.kind === "visit" ? pr.visitMultiplier : 1;
-  const minutes = Math.max(5, Math.round(r.minutes * scale));
+  const minutes = scale === 1 ? r.minutes : round5(r.minutes * scale);
   const known = r.id !== "activity.default" || item.sub === "activity" || item.rule === "activity.default";
   return { minutes, source: "rule", basis: `rule: ${r.label} ${fmt(r.minutes)}${scale !== 1 ? ` x ${scale}` : ""}`, ruleId: r.id, unknown: !known };
 }

@@ -73,8 +73,7 @@ describe("Rockies Day 5, family with a youngest of 6, standard, both lanes (spec
   });
   it("raises S_DAY_CAP with numbers and names the optional entries", () => {
     const cap = t.warnings.find((w) => w.code === "S_DAY_CAP")!;
-    expect(cap.message).toMatch(/^Day 5 runs 1[23] h/);
-    expect(cap.message).toContain("over 10 h for a standard family day");
+    expect(cap.message).toMatch(/^Day 5 is 1\d h( \d\d)? away from base, over 10 h for a standard family day/);
     expect(cap.message).toContain("Optional: Moose Lake Loop, Pyramid Lake");
   });
   it("sorts by start, then lane, then kind, then id", () => {
@@ -304,9 +303,9 @@ describe("add to this day (spec 3.7)", () => {
   });
   it("re-flows later entries and puts the day over its cap with numbers", () => {
     const before = scheduleDay(base, family(6));
-    const { timeline } = addItem(base, family(6), {}, item("big", "visit", "Long visit", { durationMin: 120, durationSource: "plan", point: null }));
+    const { timeline } = addItem(base, family(6), {}, item("big", "visit", "Long visit", { durationMin: 360, durationSource: "plan", point: null }));
     expect(timeline.span.minutes).toBeGreaterThan(before.span.minutes - 1);
-    expect(timeline.warnings.find((w) => w.code === "S_DAY_CAP")!.message).toMatch(/^Day 5 runs /);
+    expect(timeline.warnings.find((w) => w.code === "S_DAY_CAP")!.message).toMatch(/^Day 5 is /);
   });
   it("adds more than one item, in insertion order", () => {
     const t = scheduleDay(base, family(6), { added: [stop, item("two", "visit", "Second", { durationMin: 30, durationSource: "plan" })] });

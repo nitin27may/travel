@@ -22,7 +22,8 @@ describe("duration rules (spec 2.3)", () => {
     const t = item("mary", "trail", "Mary Schaffer Loop", { stats: { distanceKm: 3.2, gainM: 84 } });
     expect(Math.round(naismithMin(3.2, 84))).toBe(51);
     const r = resolveDuration(t, family(6));
-    expect(r.minutes).toBe(Math.round(naismithMin(3.2, 84) * 1.6));
+    expect(r.minutes).toBe(Math.round((naismithMin(3.2, 84) * 1.6) / 5) * 5);
+    expect(r.minutes % 5).toBe(0);
     expect(r.ruleId).toBe("trail.naismith");
     expect(r.basis).toContain("x 1.6");
   });

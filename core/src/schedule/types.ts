@@ -57,6 +57,8 @@ export interface TimelineEntry {
   sourceItemId: string | null;
   bookingOf?: string;
   insideOf?: string;
+  /** Condensed plans only: the part of the day instead of a time ("Morning"). */
+  block?: "Morning" | "Afternoon" | "Evening";
   /** Meals only: how it is eaten (spec 1.1). */
   style?: "sit-down" | "picnic" | "on-trail" | "at-base";
   honesty: ScheduleHonesty[];
@@ -85,6 +87,8 @@ export interface DayTimeline {
   warnings: ScheduleWarning[];
   /** False when no variant fits the profile (3.5). */
   fits: boolean;
+  /** A condensed plan: entries carry a part of the day, not a time, and no legs or meals are invented. */
+  blocks: boolean;
   /** Shown first on a no-fit day (3.5) or for a split option (6). */
   notes: { kind: "no-fit" | "split-option" | "early-start" | "early-end"; text: string }[];
 }
@@ -110,7 +114,7 @@ export const DEFAULT_PROFILE: Profile = { party: "adults", youngest: null, pace:
 
 // ---- the scheduler input (2.1) ----
 
-export type ItemKind = "visit" | "trail" | "meal" | "break" | "rest" | "checkin" | "checkout";
+export type ItemKind = "visit" | "trail" | "meal" | "break" | "rest" | "checkin" | "checkout" | "transfer";
 
 /** What an item needs from the sun, relative to the day's sun reference. */
 export interface SunNeed {
@@ -212,6 +216,8 @@ export interface ScheduleDayInput {
   homeBy: string | null;
   /** The day is one of the trip's days with a parallel option. */
   splitNote: string | null;
+  /** A condensed plan (summary trip): parts of the day, no generated legs, meals or rests. */
+  blocks?: boolean;
   /** Arrival days: check in before the first outing (default) or after the outings on the way. */
   checkin?: "first" | "last";
 }

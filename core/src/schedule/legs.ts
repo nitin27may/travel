@@ -21,7 +21,7 @@ export function estimateLeg(a: Point, b: Point): ResolvedLeg {
   }
   const road = d * 1.42 + (d > 60 ? 0 : 1.5);
   const speed = d > 60 ? 72 : 46;
-  return { mode: "drive", minutes: Math.round((road / speed) * 60 + 3), km: Math.round(road), basis: "estimate", estimate: true };
+  return { mode: "drive", minutes: Math.max(5, Math.round(((road / speed) * 60 + 3) / 5) * 5), km: Math.round(road), basis: "estimate", estimate: true };
 }
 
 const find = (legs: StoredLeg[], from: string[], to: string[]): StoredLeg | null => {
@@ -31,10 +31,16 @@ const find = (legs: StoredLeg[], from: string[], to: string[]): StoredLeg | null
 };
 
 /** The ladder. A stored leg wins over everything; its `basis` says which rung it is. */
-export function resolveLeg(from: LegEnd, to: LegEnd, stored: StoredLeg[]): ResolvedLeg {
+export function resolveLeg(from: LegEnd, to: LegEnd, stored: StoredLeg[], hub: Point | null = null): ResolvedLeg {
   const hit = find(stored, from.ids, to.ids);
   if (hit) return { mode: hit.mode, minutes: hit.minutes, km: hit.km, basis: hit.basis, estimate: hit.basis !== "routed" && hit.estimate };
   if (from.point && to.point) return estimateLeg(from.point, to.point);
+  // one end has a coordinate and the other has none (a stop the plan never placed): the day's hub stands in for it, still marked ≈
+  if (hub && (from.point || to.point)) {
+    const a = from.point ?? hub;
+    const b = to.point ?? hub;
+    if (a !== b && (a.lat !== b.lat || a.lon !== b.lon)) return estimateLeg(a, b);
+  }
   return { mode: "drive", minutes: LOCAL_MOVE_MIN, km: null, basis: "estimate", estimate: true };
 }
 
