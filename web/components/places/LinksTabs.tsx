@@ -75,7 +75,7 @@ export function LinksTabs({ tabs, checked }: { tabs: LinkTab[]; checked: string 
         ) : null}
         {!active.links.length && !active.none.length ? <p className="muted small">Not checked yet.</p> : null}
       </div>
-      <p className="muted small pl-checked">{checked ? `Researched ${checked}; links are not re-checked automatically.` : 'The link check date is not recorded yet.'}</p>
+      <p className="muted small pl-checked">{checked ? `Researched ${checked}; links are not re-checked automatically.` : 'Link check date: not checked yet.'}</p>
     </div>
   );
 }

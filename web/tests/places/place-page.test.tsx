@@ -57,9 +57,10 @@ describe('trail page: tre-cime-di-lavaredo-loop', () => {
     expect(page).toContain('Researched 18 Oct 2026');
     expect(page).toContain('No licensed photo yet');
   });
-  it('shows the completeness badge with the tracked-check tooltip, and the Usable level', () => {
-    expect(page).toMatch(/Usable\s*·\s*13 of 15/);
-    expect(page).toContain('13 of 15 tracked checks pass; 23 checks are not tracked yet');
+  it('shows the research level in the public words, never "Draft"', () => {
+    expect(page).toMatch(/(Basics only|Partly checked\s*·\s*\d+ of \d+|Checked)/);
+    expect(page).not.toMatch(/\bDraft\b/);
+    expect(page).toMatch(/\d+ of \d+ place checks done/);
   });
   it('renders the L5 export menu and share button on the cover', () => {
     expect(page).toContain('Export');
@@ -100,7 +101,7 @@ describe('every kind has its own facts and an honest empty line, never a blank',
     });
   }
   it('a sight with no hours says so', () => {
-    expect(html('million-dollar-highway')).toContain('No hours recorded yet');
+    expect(html('million-dollar-highway')).toContain('Not checked yet: hours');
   });
   it('an area lists the places inside it as rows', () => {
     expect(html('capri')).toContain('Places in Capri');
@@ -149,7 +150,7 @@ describe('route line and point source wording', () => {
 });
 
 describe('no internal capture notes on public output', () => {
-  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|\bstops? \d+\b|\bplans?\b(?! de l)|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
+  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|(?<!shuttle )\bstops? \d+\b|\bplans?\b(?! de l)(?! b\b)(?! to\b)|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
   const text = (h: string) => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&');
   it('every place page, in its visible text', () => {
     const bad: string[] = [];

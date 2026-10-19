@@ -12,6 +12,9 @@ import { seasonLabel } from '@/lib/format/season';
 import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
+import { Interactions } from '@/components/suit/Interactions';
+import { CoverRelevance } from './sections/Relevance';
+import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { GalleryLazy } from './GalleryLazy';
 import { LinksTabs } from './LinksTabs';
 import { dedupeMapPoints } from './mapPoints';
@@ -272,42 +275,178 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   if (place.kidFit !== 'unknown') suits.push(KID_LABELS[place.kidFit] ?? place.kidFit);
   if (place.minAge) suits.push(`${place.minAge}+ years`);
 
+  const model = place.sections;
+  const suit = place.suitability;
+  const rel = place.relevance;
+  const slugs = place.refSlugs;
+  const hasTrack = place.lines.some((l) => (l.geometry?.length ?? 0) > 1 || (l.segments?.length ?? 0) > 0);
+  // the older record's blocks, drawn inside the contract's sections so no visible fact is lost (S5)
+  const activityBlock = showProfile ? (
+    <>
+      <p className="pl-route-line num">
+        {[km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, factByLabel(place.facts, 'Time') ? timeText(factByLabel(place.facts, 'Time')?.value ?? '') : null].filter(Boolean).join(' · ')}
+      </p>
+      <TrailProfile km={km} gainM={gain} startM={startM} loop={loop} highM={firstNumber(factByLabel(place.facts, 'High point')?.value)} guide={guide} lines={place.lines} />
+      {huts.length ? (
+        <ul className="pl-huts" aria-label="Huts and refuges">
+          {huts.map((h) => (
+            <li key={h.label}>
+              <strong>{h.label}</strong>
+              <span>
+                <FactText text={h.value} />
+              </span>
+              <span className="pl-prov">{provenanceText(h.provenance)}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <RouteLine lines={place.lines} confirmed={!unconfirmed && Boolean(place.access?.trailhead?.pointChecked)} />
+    </>
+  ) : null;
+  const accessBlock =
+    (place.access && (place.access.trailhead || place.access.parking.length)) || access.length ? (
+      <>
+        {place.access && (place.access.trailhead || place.access.parking.length) ? (
+          <div className="pl-access-list">
+            {place.access.trailhead ? <AccessCard p={place.access.trailhead} role="Trailhead" unconfirmed={unconfirmed} /> : null}
+            {place.access.parking.map((p, i) => (
+              <AccessCard key={`${p.name}-${i}`} p={p} role="Parking" unconfirmed={false} />
+            ))}
+          </div>
+        ) : null}
+        {access.length ? (
+          <dl className="pl-kv pl-kv-wide">
+            {access.map((f, i) => (
+              <div key={`${f.label}-${i}`}>
+                <dt>{f.label}</dt>
+                <dd>
+                  <FactText text={f.value} />
+                  <span className="pl-prov">{provenanceText(f.provenance)}</span>
+                  <Conflict fact={f} />
+                </dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
+      </>
+    ) : null;
+  const seasonBlock = place.season.length || publicText(place.seasonNote) ? (
+    <>
+      {place.season.length ? (
+        <>
+          <SeasonStrip months={seasonMonths(place.season)} />
+          <p className="pl-season num">{seasonLabel(place.season)}</p>
+        </>
+      ) : null}
+      {publicText(place.seasonNote) ? <p>{observed(publicText(place.seasonNote))}</p> : null}
+    </>
+  ) : null;
+  const photosBlock = photos.length ? (
+    <>
+      <GalleryLazy photos={photos.map((p) => ({ url: p.url, caption: p.caption, title: p.caption || p.file, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl }))} />
+      <Credits photos={credits} />
+    </>
+  ) : (
+    <p className="pl-gap pl-nophotos">
+      <Icon name="info" size={14} /> No licensed photo yet, so none is shown.
+    </p>
+  );
+  const modelFacts = place.facts.filter((f, i, all) => !accessLabels.has(f.label) && !(showProfile && huts.some((h) => h.label === f.label)) && all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
+  const factsBlock = (
+    <>
+      {modelFacts.length ? (
+        <dl className="pl-kv pl-kv-wide">
+          {modelFacts.map((f, i) => (
+            <div key={`${f.label}-${i}`}>
+              <dt>{f.label}</dt>
+              <dd>
+                <FactText text={f.value} />
+                <span className="pl-prov">{provenanceText(f.provenance)}</span>
+                <Conflict fact={f} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+      {publicText(place.notes) && publicText(place.notes) !== publicText(place.summary) ? <p className="pl-notes">{observed(publicText(place.notes))}</p> : null}
+      {place.honesty.length ? (
+        <ul className="pl-reasons">
+          {place.honesty.map((h) => (
+            <li key={h.id}>
+              <strong>{h.label}.</strong> {h.reason}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {place.completeness.failed.length ? (
+        <details className="pl-missing">
+          <summary>
+            {place.completeness.label} · {place.completeness.failed.length} checks still open
+          </summary>
+          <p className="muted small">{place.completeness.tooltip}.</p>
+          <ul>
+            {place.completeness.failed.map((c) => (
+              <li key={c.id}>
+                <strong>{c.label}.</strong> {c.hint}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
+    </>
+  );
+  const legacy: LegacySlots = {
+    activity: activityBlock,
+    access: accessBlock,
+    season: seasonBlock,
+    photos: photosBlock,
+    links: <LinksTabs tabs={tabs} checked={checked} />,
+    facts: factsBlock,
+    hazards: place.hazards.map((h) => observed(publicText(h) || h)),
+    booking: place.booking ? <FactText text={place.booking} /> : null,
+  };
+
   return (
     <PlaceShell>
       <article className="pl-page" data-kind={place.kind} data-slug={place.slug}>
         <Breadcrumbs items={crumbs} className="pl-crumbs" />
-        <header className="pl-cover" data-trail={trail || undefined}>
+        <header className="pl-cover" data-trail={trail || undefined} data-photo={photos[0] ? 'yes' : 'no'}>
           <div className="pl-cover-media">
             {photos[0] ? (
               <EntityImage src={photos[0].url} width={960} height={540} sizes="100vw" priority fallbackIcon={kindIcon(place.kind)} />
             ) : (
               <span className="pl-cover-glyph" aria-hidden="true">
-                <Icon name={kindIcon(place.kind)} size={120} />
+                <Icon name={kindIcon(place.kind)} size={96} />
               </span>
             )}
           </div>
-          <div className="pl-cover-body">
+          <div className="pl-cover-title">
             <p className="pl-kicker">{kicker}</p>
             <h1>{place.name}</h1>
-            <p className="pl-summary">{summaryOrKind(place.summary, place.kindLabel, place.areaLabel)}</p>
-            {trail && payoff ? (
-              <p className="pl-payoff">
-                To {payoff.slug ? <Link href={`/places/${payoff.slug}/`}>{payoff.name}</Link> : <strong>{payoff.name}</strong>}
-              </p>
-            ) : null}
-            <div className="pl-actions">
-              <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
-              <TrailExport slug={place.slug} lines={place.lines} />
-              <ShareButton url={url} title={place.name} />
-              {place.point ? (
-                <Link className="btn" href={`/globe/place/${place.slug}/`}>
-                  <Icon name="globe" size={15} /> Globe
-                </Link>
-              ) : null}
-            </div>
           </div>
         </header>
+        <div className="pl-cover-body">
+          {rel ? <CoverRelevance rel={rel} slugs={slugs} /> : null}
+          <p className="pl-summary">{summaryOrKind(place.summary, place.kindLabel, place.areaLabel)}</p>
+          {!rel?.payoff && trail && payoff ? (
+            <p className="pl-payoff">
+              To {payoff.slug ? <Link href={`/places/${payoff.slug}/`}>{payoff.name}</Link> : <strong>{payoff.name}</strong>}
+            </p>
+          ) : null}
+          <div className="pl-actions">
+            <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
+            <TrailExport slug={place.slug} lines={place.lines} />
+            <ShareButton url={url} title={place.name} />
+            {place.point ? (
+              <Link className="btn" href={`/globe/place/${place.slug}/`}>
+                <Icon name="globe" size={15} /> Globe
+              </Link>
+            ) : null}
+          </div>
+        </div>
 
+        {model ? <Glance model={model} suit={suit} level={place.completeness} /> : null}
+        {!model ? (
         <section className="pl-glance" aria-label="At a glance">
           <ul>
             {glance.map((g) => (
@@ -354,8 +493,9 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
             </p>
           )}
         </section>
+        ) : null}
 
-        {trail && place.hazards.length ? (
+        {!model && trail && place.hazards.length ? (
           <section className="pl-hazards pl-hazards-top" aria-labelledby="h-hazards-top">
             <h2 id="h-hazards-top">
               <Icon name="warn" size={16} /> Hazards
@@ -369,6 +509,12 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
         ) : null}
 
         <div className="pl-cols">
+          {model ? (
+            <div className="pl-main">
+              <Interactions />
+              <Sections model={model} suit={suit} rel={rel} slugs={slugs} legacy={legacy} hasRoute={showProfile || hasTrack} />
+            </div>
+          ) : (
           <div className="pl-main">
             {showProfile ? (
               <Section id="route" title="The route">
@@ -404,7 +550,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </div>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> No trailhead or parking recorded yet.
+                  <Icon name="info" size={14} /> Not checked yet: trailhead and parking
                 </p>
               )}
               {access.length ? (
@@ -440,7 +586,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> No season recorded yet.
+                  <Icon name="info" size={14} /> Not checked yet: season
                 </p>
               )}
               {publicText(place.seasonNote) ? <p>{observed(publicText(place.seasonNote))}</p> : null}
@@ -512,7 +658,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </dl>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> No further facts recorded yet.
+                  <Icon name="info" size={14} /> Not checked yet: further facts
                 </p>
               )}
               {publicText(place.notes) && publicText(place.notes) !== publicText(place.summary) ? <p className="pl-notes">{observed(publicText(place.notes))}</p> : null}
@@ -528,7 +674,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               {place.completeness.failed.length ? (
                 <details className="pl-missing">
                   <summary>
-                    {place.completeness.label}: {place.completeness.failed.length} checks missing
+                    {place.completeness.label} · {place.completeness.failed.length} checks still open
                   </summary>
                   <p className="muted small">{place.completeness.tooltip}.</p>
                   <ul>
@@ -553,6 +699,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               </p>
             )}
           </div>
+          )}
 
           <aside className="pl-side" aria-label="Map, directions and links">
             <section className="pl-card pl-mapcard" aria-labelledby="h-map">
@@ -599,7 +746,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               )}
             </section>
 
-            {!trail ? (
+            {!model && !trail ? (
               <section className={place.hazards.length ? 'pl-hazards' : 'pl-card'} aria-labelledby="h-hazards">
                 <h2 id="h-hazards">
                   {place.hazards.length ? <Icon name="warn" size={16} /> : null} Hazards
@@ -611,15 +758,17 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                     ))}
                   </ul>
                 ) : (
-                  <p className="muted small">No hazards recorded yet.</p>
+                  <p className="muted small">Not checked yet: hazards</p>
                 )}
               </section>
             ) : null}
 
-            <section className="pl-card" aria-labelledby="h-links">
-              <h2 id="h-links">Links</h2>
-              <LinksTabs tabs={tabs} checked={checked} />
-            </section>
+            {!model ? (
+              <section className="pl-card" aria-labelledby="h-links">
+                <h2 id="h-links">Links</h2>
+                <LinksTabs tabs={tabs} checked={checked} />
+              </section>
+            ) : null}
 
             {place.trips.length ? (
               <section className="pl-card" aria-labelledby="h-trips">
