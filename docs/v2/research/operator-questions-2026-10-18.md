@@ -265,3 +265,15 @@ Fields or kinds that look wrong for a record; the data was left as `kind-map.jso
 - **Smugglers' Notch** is mapped as a `viewpoint`, but it is a pass driven through. The `drive` profile (`vehicle_limits`, `road_surface`, `drive_min`) fits the published facts better; the vehicle ban had to go into `hazards`. Recommended: change it to `drive/scenic_drive` in kind-map.json after a review.
 - **Burke Mountain overlook** is reached by a toll road; as a viewpoint the road season sits in `access_season`, which is right, but the toll road's own facts (`vehicle_limits`, surface) have no home on the viewpoint profile.
 
+
+## CS7 gap research (batch 1, 18 Oct 2026)
+
+| To | Contact | Question |
+|---|---|---|
+| Comune di Auronzo di Cadore, Tre Cime car park | +39 345 1607 497, parktrecime@comune.auronzo.bl.it (from auronzo.info) | How many days ahead do the 12-hour toll and car-park slots go on sale, and at what time? What are the road's opening and closing dates this year? Fills `window` and `season` on the toll offer. |
+| Rifugio Auronzo | from rifugioauronzo.it | Opening dates of the summer season; half-board price per person; when do bookings open? Fills the hut's `season` and the lodging offer's `price` and `window`. |
+| Rifugio Lavaredo | from rifugiolavaredo.com | Opening dates of the summer season, and the year of the 120 euro half-board rate. |
+| Dreizinnenhütte / Rifugio Locatelli | from dreizinnenhuette.com (no WhatsApp bookings) | Half-board price per person, and the date bookings open for the coming summer. |
+| Vatnajökull National Park | from vatnajokulsthjodgardur.is | Is a camper van with 2 to 4 seats Category A or B for the Jökulsárlón regional fee, and from which date do the listed fees apply? |
+| Wild Water Adventures | from wildwater.com | Where are the put-ins and take-outs for the gentle trip and the Exciter (named landmarks or coordinates)? Fills the river sections' points. |
+| Parks Canada, Banff Field Unit | from parks.canada.ca | Which year do the shuttle fees on the fees page apply to? |
