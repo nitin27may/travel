@@ -1,4 +1,5 @@
 import { globeCountries, globeCountryFacts } from '@/lib/client/data';
+import { countriesInWorker } from './geoClient';
 import { bbox, centroid, topoFeatures, type FeatColl, type Topology } from './geometry';
 import type { CountryFacts } from './types';
 
@@ -19,6 +20,11 @@ export function buildCountryBook(world: Topology, facts: Record<string, CountryF
     f._bbox = bbox(f);
     f._c = centroid(f);
   });
+  return buildCountryBookFrom(fc, facts);
+}
+
+/** The lookups over shapes that already have their ids, codes and boxes (from `buildCountryBook`, or from a worker). */
+export function buildCountryBookFrom(fc: FeatColl, facts: Record<string, CountryFacts>): CountryBook {
   const byA3: CountryBook['byA3'] = {};
   const byA2: CountryBook['byA2'] = {};
   for (const [ccn3, c] of Object.entries(facts)) {
@@ -38,10 +44,17 @@ export function loadCountries(): Promise<CountryBook> {
     .catch((e) => { book = null; throw e; }));
 }
 
-let full: Promise<CountryBook> | null = null;
-/** The same book at 50m, for hover and drill-down accuracy. The ids are the same as the 110m shapes'. */
-export function loadCountries50(): Promise<CountryBook> {
+let full: Promise<{ book: CountryBook; render: string }> | null = null;
+/**
+ * The same book at 50m, for hover and drill-down accuracy, built in a worker: the main thread gets the boxes, centres and properties
+ * (the ids are the 110m shapes') and the GeoJSON text MapLibre draws, never the points. The 110m book keeps its geometry.
+ */
+export function loadCountries50(): Promise<{ book: CountryBook; render: string }> {
   return (full ??= Promise.all([globeCountries('50m'), globeCountryFacts()])
-    .then(([world, facts]) => buildCountryBook(world, facts))
+    .then(async ([world, facts]) => {
+      const { fc, render } = await countriesInWorker({ topo: world, facts });
+      const book = buildCountryBookFrom(fc, facts);
+      return { book, render };
+    })
     .catch((e) => { full = null; throw e; }));
 }

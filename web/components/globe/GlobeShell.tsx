@@ -25,9 +25,11 @@ import { GlobeSearch } from './GlobeSearch';
 import { HitMarker } from './HitMarker';
 import { PinLayer } from './PinLayer';
 import { FeatureCard, SelectionCard, type NearbyPlace } from './SelectionCard';
+import { featureClass, loadFeatureFacts, type FeatureFacts } from '@/lib/globe/wikidata';
 import { distanceKm } from '@/lib/map/geo';
+import { nodeAt } from '@/lib/globe/model';
 
-const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, pins: [], notice: null };
+const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, pins: [], notice: null };
 /** Height of the phone sheet at rest (components 5.5). */
 const PEEK = 176;
 /** The control card (316 wide at left 12) keeps the disc clear when it is open. */
@@ -63,13 +65,18 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [panelOpen, setPanelOpen] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(true);
   const [optionsOpen, setOptionsOpen] = useState(false);
-  const [cardOpen, setCardOpen] = useState(true);
-  const [hint, setHint] = useState(true);
+  const [cardOpen, setCardOpenState] = useState(false);
+  const [hint, setHint] = useState(false);
+  const [immersive, setImmersive] = useState(false);
+  const [tilted, setTilted] = useState(false);
   const [painted, setPainted] = useState(false);
   const [dark, setDark] = useState(false);
   const [cardEl, setCardEl] = useState<HTMLElement | null>(null);
+  const [featEl, setFeatEl] = useState<HTMLElement | null>(null);
+  const [featFacts, setFeatFacts] = useState<{ key: string; facts: FeatureFacts | null } | null>(null);
   const ctrl = useRef<GlobeController | null>(null);
   const terrainRef = useRef(true);
+  const engineRef = useRef<GlobeEngine | null>(null);
   const layoutRef = useRef<() => { width: number; height: number; cover: { top: number; right: number; bottom: number; left: number }; mode: 'desktop' | 'landscape' | 'phone' }>(() => ({ width: 1, height: 1, cover: { top: 0, right: 0, bottom: 0, left: 0 }, mode: 'desktop' }));
   const short = useMedia('(max-height: 500px) and (orientation: landscape)');
   const root = useRef<HTMLDivElement>(null);
@@ -96,7 +103,10 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     /* eslint-disable react-hooks/set-state-in-effect -- one-time read of browser-only state (localStorage, theme) after mount */
     setPrefs(loadPrefs());
     setPrefsReady(true);
-    if (window.innerWidth < 1280) setCardOpen(false);
+    // The control card is the Map options pill until opened; the open state lasts the session (spec 3.2).
+    try { setCardOpenState(sessionStorage.getItem('travel:v1:globe-card') === 'open'); } catch { /* storage unavailable */ }
+    // The hint shows once per session, for 4 s, and never after the first gesture.
+    try { if (!sessionStorage.getItem('travel:v1:globe-hint')) { sessionStorage.setItem('travel:v1:globe-hint', '1'); setHint(true); } } catch { setHint(true); }
     setDark(pageIsDark());
     const mo = new MutationObserver(() => setDark(pageIsDark()));
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme', 'style'] });
@@ -111,6 +121,15 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   }, []);
 
   const layout = useCallback(() => layoutRef.current(), []);
+  const setCardOpen = useCallback((open: boolean) => {
+    setCardOpenState(open);
+    try { sessionStorage.setItem('travel:v1:globe-card', open ? 'open' : 'closed'); } catch { /* storage unavailable */ }
+  }, []);
+  useEffect(() => {
+    if (!hint) return;
+    const t = window.setTimeout(() => setHint(false), 4000);
+    return () => window.clearTimeout(t);
+  }, [hint]);
   const controller = useMemo(() => {
     if (!book) return null;
     // The controller calls `layout` from event handlers only, never during render, so the ref is read after render.
@@ -130,6 +149,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       describe: controller.describe.bind(controller),
       onCamera: (cam: Camera, user: boolean) => controller.onCamera(cam, user),
       onInteract: () => setHint(false),
+      onWhatIsHere: (p: { x: number; y: number; lngLat: [number, number] }) => controller.whatIsHere(p),
       onWorldFramed: (z: number) => controller.worldFramed(z),
     };
   }, [controller]);
@@ -164,17 +184,18 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   // Esc steps back one level (components 7.2); Home resets the view.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.key !== 'Escape' && e.key !== 'Home') || e.defaultPrevented) return;
+      if ((e.key !== 'Escape' && e.key !== 'Home' && e.key !== 'n' && e.key !== 'N') || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
       const t = e.target as HTMLElement | null;
       if (t?.closest('[role="dialog"]') || t?.tagName === 'INPUT' || t?.tagName === 'TEXTAREA') return;
       // Esc closes the card first, then steps up a level; Home returns to the whole world.
-      if (e.key === 'Home') { e.preventDefault(); ctrl.current?.reset(); } else ctrl.current?.back();
+      if (e.key === 'Home') { e.preventDefault(); ctrl.current?.reset(); } else if (e.key === 'n' || e.key === 'N') engineRef.current?.map.easeTo({ bearing: 0, pitch: 0, duration: 400 }); else ctrl.current?.back();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   useEffect(() => { terrainRef.current = prefs.terrain; }, [prefs.terrain]);
+  useEffect(() => { engineRef.current = engine; }, [engine]);
   const styleKey = effectiveStyle(prefs.style, dark);
   const changePrefs = (next: Partial<GlobePrefs>) => {
     setPrefs((p) => {
@@ -183,6 +204,31 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       return merged;
     });
   };
+
+  // Reset north appears only when the view is rotated or tilted (spec 3.2).
+  useEffect(() => {
+    if (!engine) return;
+    const m = engine.map;
+    const read = () => setTilted(Math.abs(m.getBearing()) > 0.5 || m.getPitch() > 0.5);
+    m.on('moveend', read);
+    return () => { m.off('moveend', read); };
+  }, [engine]);
+
+  // Immersive: every floating element fades out but the attribution; Esc, a card or a search shortcut brings them back (spec 3.4).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t?.tagName === 'INPUT' || t?.tagName === 'TEXTAREA' || t?.closest('[role="dialog"]')) return;
+      if (e.key === '.' && !e.metaKey && !e.ctrlKey && !e.altKey) setImmersive((v) => !v);
+      else if (e.key === 'Escape' || e.key === '/') setImmersive(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+  // opening a card or a feature ends it (adjusted during render, not in an effect)
+  const [cardWasOpen, setCardWasOpen] = useState(false);
+  const cardNowOpen = !!(snap.selected || snap.feature);
+  if (cardNowOpen !== cardWasOpen) { setCardWasOpen(cardNowOpen); if (cardNowOpen) setImmersive(false); }
 
   // The pointer tooltip would sit on top of an open card (spec 4.1 rule 8).
   useEffect(() => { engine?.setTooltipEnabled(!snap.selected && !snap.feature); }, [engine, snap.selected, snap.feature]);
@@ -193,13 +239,56 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   // The selection card rides on its pin (desktop); on the phone it is a sheet.
   const card = snap.selected ? data.cards[snap.selected] : null;
   const pin = card ? data.index.pins.find((p) => `${p.kind}:${p.slug}` === snap.selected) : null;
+  // The card flips left or above when it would leave the free area or cover the panel (spec 3.2); the camera landing re-checks it.
+  const [camTick, setCamTick] = useState(0);
+  useEffect(() => {
+    if (!engine || !pin) return;
+    const bump = () => setCamTick((n) => n + 1);
+    engine.map.on('moveend', bump);
+    return () => { engine.map.off('moveend', bump); };
+  }, [engine, pin]);
   useLayoutEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- the marker element only exists after the engine syncs it */
     if (!engine || !pin || phone || short) { if (engine) engine.syncMarkers('card', []); setCardEl(null); return; }
-    const m = engine.syncMarkers('card', [{ key: 'card', lng: pin.lon, lat: pin.lat, anchor: 'left', offset: [26, 0], className: 'globe-card-anchor' }]);
+    const at = engine.project(pin.lon, pin.lat);
+    const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
+    const free = w - (panelOpen ? 384 : 0);
+    const left = !!at && at.x + 26 + 330 > free;   // not enough room on the right
+    const up = !!at && at.y + 230 > h - 40;        // the card is about 220 px tall
+    const down = !!at && at.y < 140;
+    const anchor = (up && !down ? (left ? 'bottom-right' : 'bottom-left') : down ? (left ? 'top-right' : 'top-left') : left ? 'right' : 'left') as 'left';
+    const m = engine.syncMarkers('card', [{ key: 'card', lng: pin.lon, lat: pin.lat, anchor, offset: [left ? -26 : 26, up && !down ? -8 : down ? 8 : 0], className: 'globe-card-anchor' }]);
     setCardEl(m.get('card') ?? null);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [engine, pin, phone, short]);
+  }, [engine, pin, phone, short, panelOpen, camTick]);
+
+  // The feature card sits at the click point on a desktop and flips to the side with room, so the highlighted river, sea or peak stays in view
+  // (spec 3.2). On a phone or a landscape phone it is a fixed card above the sheet's peek.
+  const feature = snap.feature;
+  useLayoutEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- the marker element only exists after the engine syncs it */
+    if (!engine || !feature || phone || short || (feature.lngLat[0] === 0 && feature.lngLat[1] === 0)) { if (engine) engine.syncMarkers('feature', []); setFeatEl(null); return; }
+    const at = engine.project(feature.lngLat[0], feature.lngLat[1]);
+    const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
+    const free = w - (panelOpen ? 384 : 0);
+    const right = !at || at.x < free / 2;
+    const below = !at || at.y < h * 0.55;
+    const m = engine.syncMarkers('feature', [{ key: 'feature', lng: feature.lngLat[0], lat: feature.lngLat[1], anchor: `${below ? 'top' : 'bottom'}-${right ? 'left' : 'right'}` as 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right', offset: [right ? 18 : -18, below ? 14 : -14], className: 'globe-feature-anchor' }]);
+    setFeatEl(m.get('feature') ?? null);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [engine, feature, phone, short, panelOpen]);
+
+  // Wikidata facts load after the card opens; a failed or slow call leaves no rows (spec 4.3).
+  const featureKey = feature ? `${feature.sourceLayer}:${feature.name}:${feature.wikidata ?? ''}` : null;
+  useEffect(() => {
+    if (!feature || !featureKey) return;
+    let live = true;
+    void loadFeatureFacts(feature.wikidata, featureClass(feature.sourceLayer, feature.kind)).then((facts) => { if (live) setFeatFacts({ key: featureKey, facts }); });
+    return () => { live = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on the feature's identity, not the object
+  }, [featureKey]);
+  const featureFacts = featFacts && featFacts.key === featureKey ? featFacts.facts : null;
+  const featureLoading = !!feature?.wikidata && !(featFacts && featFacts.key === featureKey);
 
   const openPin = useCallback((p: PinModel) => ctrl.current?.openPin(p), []);
   const onPick = useCallback((h: SearchHit) => { void ctrl.current?.goTo(h); }, []);
@@ -246,16 +335,19 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
   const canBack = snap.path.length > 0 || !!snap.selected || !!snap.feature;
   const level = snap.path.length;
+  const countNode = level === 0 ? null : nodeAt(data, snap.path);
+  const worldCount = data.index.continents.reduce((n, c) => n + c.places + c.trips, 0);
+  const panelCount = level === 0 ? worldCount : countNode ? countNode.places + countNode.trips : 0;
   const panelTitle = level === 0 ? 'Places and trips' : snap.crumbs[snap.crumbs.length - 1]?.label ?? '';
 
   const body = book ? (
     <GlobePanelBody data={data} book={book} path={snap.path} selected={snap.selected} onArea={(p) => { void controller?.goArea(p); }} onCard={(k) => { void controller?.selectCard(k); }} />
   ) : null;
 
-  const controls = <GlobeControls prefs={prefs} style={styleKey} reducedMotion={reduced} onChange={changePrefs} />;
+  const controls = <GlobeControls prefs={prefs} style={styleKey} reducedMotion={reduced} onChange={changePrefs} onHide={() => { setOptionsOpen(false); setImmersive(true); }} />;
 
   return (
-    <div ref={root} className="globe-root" data-level={level} data-panel={panelOpen && !phone ? 'open' : 'closed'} data-phone={phone ? 'true' : undefined}>
+    <div ref={root} className="globe-root" data-immersive={immersive ? 'true' : undefined} data-level={level} data-panel={panelOpen && !phone ? 'open' : 'closed'} data-phone={phone ? 'true' : undefined}>
       <div className="globe-halo" aria-hidden="true" />
       {book && prefsReady && handlers && initialCamera ? (
         <GlobeCanvas
@@ -277,25 +369,46 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       {engine && painted ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} onOpen={openPin} /> : null}
       {engine ? <HitMarker engine={engine} /> : null}
-      {cardEl && card ? createPortal(<SelectionCard card={card} onClose={() => controller?.closeCard()} />, cardEl) : null}
-      {short && card ? <div className="globe-card-dock"><SelectionCard card={card} onClose={() => controller?.closeCard()} /></div> : null}
+      {cardEl && card ? createPortal(<SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} />, cardEl) : null}
+      {short && card ? <div className="globe-card-dock"><SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} /></div> : null}
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />
         {book ? <GlobeSearch book={book} onPick={onPick} placeholder={short ? 'Search the globe' : undefined} /> : null}
       </div>
 
+      {snap.here ? (
+        <aside className="globe-here" aria-label="What is here" style={{ '--hx': snap.here.x, '--hy': snap.here.y } as React.CSSProperties}>
+          <header><h2>What is here</h2><Button size="sm" variant="ghost" icon aria-label="Close what is here" onClick={() => controller?.closeHere()}><Icon name="close" size={16} /></Button></header>
+          <ul>
+            {snap.here.rows.map((r) => (
+              <li key={r.key}>
+                {r.kind === 'elevation'
+                  ? <p className="globe-here-row"><span>{r.label}</span><small>{r.sub}</small></p>
+                  : <button type="button" className="globe-here-row" onClick={() => controller?.pickHere(r)}><span>{r.label}</span><small>{r.sub}</small></button>}
+              </li>
+            ))}
+          </ul>
+        </aside>
+      ) : null}
+
       {snap.loading ? <p className="globe-status" role="status">{snap.loading}</p> : null}
       {snap.notice ? <p className="globe-status globe-notice" role="status">{snap.notice}</p> : null}
-      {snap.feature ? (
-        <FeatureCard
-          feature={snap.feature}
-          nearby={nearby}
-          onPick={(k) => { void controller?.selectCard(k); }}
-          onClose={() => controller?.back()}
-          onFly={() => controller?.flyToFeature(snap.feature!)}
-        />
-      ) : null}
+      {snap.feature ? (() => {
+        const fc = (
+          <FeatureCard
+            feature={snap.feature}
+            facts={featureFacts}
+            loading={featureLoading}
+            nearby={nearby}
+            boundary={snap.boundary}
+            onPick={(k) => { void controller?.selectCard(k); }}
+            onClose={() => controller?.back()}
+            onFly={() => controller?.flyToFeature(snap.feature!)}
+          />
+        );
+        return featEl ? createPortal(fc, featEl) : fc;
+      })() : null}
 
       {!phone && !short ? (
         cardOpen ? (
@@ -309,24 +422,26 @@ export function GlobeShell({ data }: { data: GlobeData }) {
           </Button>
         )
       ) : (
-        <Button className="globe-options-btn" variant="secondary" onClick={() => setOptionsOpen(true)}>
-          <Icon name="layers" size={16} /> Map options
+        <Button className="globe-options-btn" variant="secondary" icon aria-label="Map options" title="Map options" onClick={() => setOptionsOpen(true)}>
+          <Icon name="layers" size={18} />
         </Button>
       )}
 
       <div className="globe-zoom">
-        <Button size="sm" variant="secondary" icon aria-label="Reset view" title="Reset view (Home)" onClick={() => controller?.reset()}><Icon name="globe" size={16} /></Button>
+        {tilted ? <Button size="sm" variant="secondary" icon aria-label="Reset north" title="Reset north (N)" onClick={() => engine?.map.easeTo({ bearing: 0, pitch: 0, duration: reduced ? 0 : 400 })}><Icon name="navigate" size={16} /></Button> : null}
+        <Button size="sm" variant="secondary" icon aria-label="Reset view" title="Reset view: back to the world (Home)" onClick={() => controller?.reset()}><Icon name="globe" size={16} /></Button>
         <Button size="sm" variant="secondary" icon aria-label="Zoom in" onClick={() => engine?.zoomBy(1)}><Icon name="plus" size={16} /></Button>
         <Button size="sm" variant="secondary" icon aria-label="Zoom out" onClick={() => engine?.zoomBy(-1)}><Icon name="minus" size={16} /></Button>
       </div>
+      {immersive ? <button type="button" className="globe-show-controls" onClick={() => setImmersive(false)}>Show controls</button> : null}
 
-      {hint && snap.ready && !phone ? <p className="globe-hint">drag to spin · scroll to zoom · click a pin to open</p> : null}
+      {hint && snap.ready && !phone && !short ? <p className="globe-hint" role="status">Drag to spin, scroll to zoom, click a pin to open it</p> : null}
 
       {!phone ? (
         panelOpen ? (
           <aside className="globe-panel" aria-label="Places and trips">
             <header className="globe-panel-head">
-              <h2>{panelTitle}</h2>
+              <h2>{panelTitle}{panelCount ? <span className="globe-panel-count">{panelCount}</span> : null}</h2>
               <Button size="sm" variant="ghost" icon aria-label="Collapse the panel" onClick={() => setPanelOpen(false)}><Icon name="chevronRight" size={16} /></Button>
             </header>
             <div className="globe-panel-body">{body}</div>
@@ -334,7 +449,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
         ) : (
           <button type="button" className="globe-panel-tab" aria-label="Open the places and trips panel" onClick={() => setPanelOpen(true)}>
             <Icon name="chevronLeft" size={16} />
-            <span>List</span>
+            <span>{panelCount || 'List'}</span>
           </button>
         )
       ) : (
@@ -351,10 +466,8 @@ export function GlobeShell({ data }: { data: GlobeData }) {
           >
             {body}
           </BottomSheet>
-          {!sheetOpen && !card ? <Button className="globe-list-btn" variant="secondary" onClick={() => setSheetOpen(true)}><Icon name="list" size={16} /> List</Button> : null}
-          <BottomSheet open={!!card} onOpenChange={(o) => { if (!o) controller?.closeCard(); }} title={card?.title ?? ''} snaps={['peek', 'half']} initial="half" modal={false} className="globe-sheet">
-            {card ? <SelectionCard card={card} onClose={() => controller?.closeCard()} /> : null}
-          </BottomSheet>
+          {!sheetOpen && !card ? <Button className="globe-list-btn" variant="secondary" icon aria-label="Show the list" title="Show the list" onClick={() => setSheetOpen(true)}><Icon name="list" size={18} /></Button> : null}
+          {card ? <aside className="globe-card-sheet" aria-label={card.title}><SelectionCard card={card} point={pin} onClose={() => controller?.closeCard()} /></aside> : null}
         </>
       )}
 

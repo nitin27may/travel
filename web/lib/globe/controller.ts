@@ -1,9 +1,12 @@
+import { globeCityAreas, globeLakes } from '@/lib/client/data';
+import { lakesInWorker } from './geoClient';
+import { distanceKm } from '@/lib/map/geo';
 import { factsLine, languagesLine } from './facts';
 import { loadAdmin, resolveFeature, slugify } from './admin';
 import { loadCountries50, type CountryBook } from './countries';
 import type { BasemapFeature, Focus, GlobeEngine, HitLayer, HoverInfo, Padding } from './engine';
 import { flightPlan, featureZoom, isWide, type FlightPlan } from './flight';
-import { inBox, inFeature, locate, spanLon, tally, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
+import { featuresWithBoxes, inBox, inFeature, locate, spanLon, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
 import { areaPathOfPin, boxOfArea, nodeAt, pinsFor, pinsUnder } from './model';
 import { zoomForRank, type SearchHit } from './search';
 import { ensureCard, ensureCountry } from './store';
@@ -12,6 +15,15 @@ import { cameraQuery, hitSuffix, viewPath } from './url';
 import { WORLD_LAT, WORLD_LNG, worldFrame, type Footprint } from './framing';
 
 export interface Crumb { label: string; path: string[] }
+
+/** One line of "what is here" (spec 4.1 rule 6): what is under a point, nearest first, each one something to open. */
+export interface HereRow {
+  key: string;
+  kind: 'country' | 'state' | 'district' | 'feature' | 'place' | 'elevation';
+  label: string;
+  sub?: string;
+}
+export interface HereModel { x: number; y: number; lngLat: Pt; rows: HereRow[] }
 
 /** Everything the React side draws, as one immutable snapshot. */
 export interface GlobeSnapshot {
@@ -22,6 +34,10 @@ export interface GlobeSnapshot {
   crumbs: Crumb[];
   selected: string | null;
   feature: BasemapFeature | null;
+  /** For a selected city or town: whether we hold its outline (spec 4.2). Null for any other feature. */
+  boundary: 'loaded' | 'none' | null;
+  /** The "what is here" popover or sheet, or null. */
+  here: HereModel | null;
   pins: PinModel[];
   notice: string | null;
 }
@@ -38,7 +54,7 @@ export interface ControllerOptions {
   layout(): { width: number; height: number; cover: Footprint; mode: 'desktop' | 'landscape' | 'phone' };
   onChange(s: GlobeSnapshot): void;
   /** Filled by the controller when the 50m outlines have loaded. */
-  book50?: CountryBook;
+  book50?: { book: CountryBook; render: string };
 }
 
 export const WORLD_CAMERA = { desktop: { lng: -35, lat: 22, zoom: 1.95 }, phone: { lng: -35, lat: 22, zoom: 1.0 } };
@@ -51,7 +67,7 @@ const titleCase = (slug: string): string => slug.split('-').map((w) => w.charAt(
  */
 export class GlobeController {
   private engine: GlobeEngine | null = null;
-  private snap: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, pins: [], notice: null };
+  private snap: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, pins: [], notice: null };
   private areaToken = 0;
   private adm1: FeatColl | null = null;
   private adm2: FeatColl | null = null;
@@ -140,8 +156,16 @@ export class GlobeController {
     const b = this.o.book50;
     if (!b || this.swapped || !this.engine) return;
     this.swapped = true;
-    Object.assign(this.o.book, b);
-    this.engine.setCountries(b.fc);
+    Object.assign(this.o.book, b.book);
+    this.engine.setCountries(b.book.fc, b.render);
+  }
+
+  private lakesLoaded = false;
+  /** The lake polygons, once, when the camera first comes in past zoom 3 (the tiles name no lake below zoom 8). */
+  private async loadLakes(): Promise<void> {
+    if (this.lakesLoaded || !this.engine) return;
+    this.lakesLoaded = true;
+    try { this.engine.setLakes(await lakesInWorker(await globeLakes())); } catch { this.lakesLoaded = false; }
   }
 
   // ---- engine events -------------------------------------------------------------------------------------
@@ -153,7 +177,7 @@ export class GlobeController {
   onCamera(c: Camera, user = false): void {
     this.lastCamera = c;
     if (user || c.zoom >= 2.5) this.deepLinkPending = false;
-    if (c.zoom > 3) void this.upgradeCountries();
+    if (c.zoom > 3) { void this.upgradeCountries(); void this.loadLakes(); }
     if (this.deepLinkPending) return;
     this.o.navigate(`${this.currentUrl || viewPath({ kind: 'area', path: this.snap.path })}${cameraQuery(c)}${typeof window === 'undefined' ? '' : hitSuffix(window.location.search)}`, 'replace');
   }
@@ -207,7 +231,22 @@ export class GlobeController {
   onBasemap(f: BasemapFeature | null): void {
     if (f && this.snap.selected) this.closeCard();
     this.engine?.setFeature(f);
-    this.emit({ feature: f });
+    this.engine?.setCityArea(null);
+    this.emit({ feature: f, boundary: null });
+    if (f && f.sourceLayer === 'place') void this.showCityArea(f);
+  }
+
+  /** A selected city or town: its OSM outline when a public place or trip base is in it, else the honest ring and "Boundary not loaded". */
+  private async showCityArea(f: BasemapFeature): Promise<void> {
+    let found: Feat | null = null;
+    try {
+      const fc = await globeCityAreas();
+      const areas: FeatColl = featuresWithBoxes(fc.features);
+      found = locate(areas, f.lngLat) ?? null;
+    } catch { /* no file: the ring and the note */ }
+    if (this.snap.feature !== f) return;
+    this.engine?.setCityArea(found);
+    this.emit({ boundary: found ? 'loaded' : 'none' });
   }
 
   /** Fly here on a feature card: the class decides the zoom and whether the camera tilts (spec 5.3 last column). */
@@ -217,8 +256,54 @@ export class GlobeController {
     this.engine?.flyToPoint(f.lngLat, featureZoom(cls, 3), { plan: this.plan('feature', { featureClass: cls }) });
   }
 
+  private hereFeatures: BasemapFeature[] = [];
+  /**
+   * A 500 ms press or a right-click: the country, state and district under the point, the named things within the hit box, the
+   * elevation (terrain on) and our saved places within 25 km. The URL does not change.
+   */
+  whatIsHere(p: { x: number; y: number; lngLat: Pt }): void {
+    const engine = this.engine;
+    if (!engine) return;
+    const rows: HereRow[] = [];
+    const { book } = this.o;
+    const c = book.fc.features.find((f) => f._bbox && inBox(f._bbox, p.lngLat) && f.geometry && inFeature(f, p.lngLat)) ?? book.fc.features.find((f) => f._bbox && inBox(f._bbox, p.lngLat) && !f.geometry);
+    const facts = c ? book.facts[String(c.properties.ccn3)] : undefined;
+    if (facts) rows.push({ key: `country:${facts.a2.toLowerCase()}`, kind: 'country', label: facts.name, sub: 'Country' });
+    const s = this.adm1 ? locate(this.adm1, p.lngLat) : undefined;
+    if (s) rows.push({ key: `adm1:${s.id}`, kind: 'state', label: String(s.properties.name), sub: String(s.properties.type || 'State or province') });
+    const d = this.adm2 ? locate(this.adm2, p.lngLat) : undefined;
+    if (d) rows.push({ key: `adm2:${d.id}`, kind: 'district', label: String(d.properties.name), sub: 'District' });
+    this.hereFeatures = engine.featuresAt({ x: p.x, y: p.y }, true).map((f) => ({ ...f, lngLat: p.lngLat }));
+    this.hereFeatures.forEach((f, i) => rows.push({ key: `feature:${i}`, kind: 'feature', label: f.name, sub: f.kind }));
+    const ele = engine.elevationAt(p.lngLat);
+    if (ele !== null) rows.push({ key: 'elevation', kind: 'elevation', label: `${ele.toLocaleString('en-US')} m`, sub: 'Elevation here' });
+    const near = this.o.data.index.pins
+      .filter((x) => x.kind === 'place' && !x.approx)
+      .map((x) => ({ x, km: distanceKm({ lng: p.lngLat[0], lat: p.lngLat[1] }, { lng: x.lon, lat: x.lat }) }))
+      .filter((x) => x.km <= 25).sort((a, b) => a.km - b.km).slice(0, 5);
+    for (const n of near) rows.push({ key: `place:${n.x.slug}`, kind: 'place', label: n.x.name, sub: `Saved place, ${n.km < 1 ? '<1' : Math.round(n.km)} km` });
+    this.emit({ here: { x: p.x, y: p.y, lngLat: p.lngLat, rows } });
+  }
+
+  closeHere(): boolean {
+    if (!this.snap.here) return false;
+    this.emit({ here: null });
+    return true;
+  }
+
+  /** A row of "what is here" does what clicking that thing would. */
+  pickHere(row: HereRow): void {
+    this.emit({ here: null });
+    if (row.kind === 'country') void this.goArea([row.key.slice(8)]);
+    else if (row.kind === 'state' && this.adm1) { const f = this.adm1.features.find((x) => x.id === Number(row.key.slice(5))); const cc = this.snap.path[0]; if (f && cc) void this.goArea([cc, this.slugFor(f, [cc])]); }
+    else if (row.kind === 'district' && this.adm2) { const f = this.adm2.features.find((x) => x.id === Number(row.key.slice(5))); const [cc, st] = this.snap.path; if (f && cc && st) void this.goArea([cc, st, this.slugFor(f, [cc, st])]); }
+    else if (row.kind === 'feature') { const f = this.hereFeatures[Number(row.key.slice(8))]; if (f) this.onBasemap(f); }
+    else if (row.kind === 'place') void this.selectCard(row.key);
+  }
+
   onBackground(): void {
-    if (this.snap.feature) { this.engine?.setFeature(null); this.emit({ feature: null }); }
+    if (this.snap.here) { this.emit({ here: null }); return; }
+    if (this.snap.feature) { this.engine?.setFeature(null); this.engine?.setCityArea(null); this.emit({ feature: null, boundary: null }); }
     else if (this.snap.selected) this.closeCard();
   }
 
@@ -233,6 +318,10 @@ export class GlobeController {
       if (n > 0 && (!best || n > best.n)) best = { slug: child.slug, n };
     }
     return best?.slug ?? slugify(String(f.properties.name));
+  }
+
+  private placePoints(path: string[]): { id: string; lon: number; lat: number }[] {
+    return pinsUnder(this.o.data, path, 'place').map((p) => ({ id: p.slug, lon: p.lon, lat: p.lat }));
   }
 
   private points(path: string[]): Pt[] {
@@ -292,11 +381,11 @@ export class GlobeController {
     const cb = this.countryBox(cc);
     if (o.fly && !o.camera && path.length === 1 && cb) engine.flyToBox(cb.box, { plan: this.plan('country'), maxZoom, wide: cb.wide });
 
-    const adm1 = await loadAdmin(a3, 'adm1');
+    const l1 = await loadAdmin(a3, 'adm1', { pins: this.placePoints([cc]) });
     if (token !== this.areaToken) return;
-    if (adm1) tally(adm1, pinsUnder(this.o.data, [cc], 'place').map((p) => ({ id: p.slug, lon: p.lon, lat: p.lat })));
+    const adm1 = l1?.fc ?? null;
     this.adm1 = adm1;
-    engine.setAdmin('adm1', adm1);
+    engine.setAdmin('adm1', adm1, l1?.render);
 
     let sFeat: Feat | null = null;
     let dFeat: Feat | null = null;
@@ -314,16 +403,12 @@ export class GlobeController {
       if (o.fly && !o.camera && target && path.length === 2) engine.flyToBox(target, { plan: this.plan('state'), maxZoom });
 
       if (sFeat) {
-        const all = await loadAdmin(a3, 'adm2');
+        // geoBoundaries districts do not always nest in Natural Earth states, so the worker keeps those whose centre falls inside this state
+        const part = typeof sFeat.properties.iso === 'string' ? sFeat.properties.iso : undefined;
+        const l2 = await loadAdmin(a3, 'adm2', { part, within: sFeat, pins: this.placePoints([cc, path[1]]) });
         if (token !== this.areaToken) return;
-        if (all) {
-          // geoBoundaries districts do not always nest in Natural Earth states, so keep those whose centre falls inside this state.
-          const sub: FeatColl = { type: 'FeatureCollection', features: all.features.filter((d) => d._c && inFeature(sFeat!, d._c)).map((d, k) => ({ ...d, id: k, properties: { ...d.properties } })) };
-          const pts = pinsUnder(this.o.data, [cc, path[1]], 'place').map((p) => ({ id: p.slug, lon: p.lon, lat: p.lat }));
-          tally(sub, pts);
-          this.adm2 = sub.features.length ? sub : null;
-          engine.setAdmin('adm2', this.adm2);
-        }
+        this.adm2 = l2 && l2.fc.features.length ? l2.fc : null;
+        engine.setAdmin('adm2', this.adm2, this.adm2 ? l2?.render : undefined);
       }
       if (path[2]) {
         resolved = [cc, path[1], path[2]];
@@ -344,7 +429,8 @@ export class GlobeController {
   /** A step the visitor takes: updates the area, the URL and clears the selection. */
   async goArea(path: string[], o: { push?: boolean; fly?: boolean } = {}): Promise<void> {
     this.engine?.setFeature(null);
-    this.emit({ selected: null, feature: null, notice: null });
+    this.engine?.setCityArea(null);
+    this.emit({ selected: null, feature: null, boundary: null, notice: null });
     const url = viewPath({ kind: 'area', path });
     if (o.push !== false) { this.currentUrl = url; this.o.navigate(url, 'push'); }
     await this.showArea(path, { fly: o.fly !== false });
@@ -354,7 +440,8 @@ export class GlobeController {
   reset(): void { void this.goArea([]); }
 
   back(): void {
-    if (this.snap.feature) { this.engine?.setFeature(null); this.emit({ feature: null }); return; }
+    if (this.closeHere()) return;
+    if (this.snap.feature) { this.engine?.setFeature(null); this.engine?.setCityArea(null); this.emit({ feature: null, boundary: null }); return; }
     if (this.snap.selected) { this.closeCard(); return; }
     if (this.snap.path.length) void this.goArea(this.snap.path.slice(0, -1));
   }
@@ -378,8 +465,10 @@ export class GlobeController {
     const chain = areaPathOfPin(this.o.data, key);
     const url = viewPath({ kind: card.kind, slug: card.slug });
     if (o.push !== false) { this.currentUrl = url; this.o.navigate(url, 'push'); }
-    this.emit({ selected: key, feature: null, notice: null });
-    const samePath = chain.join('/') === this.snap.path.join('/') || (this.snap.path.length > chain.length && chain.every((s, i) => this.snap.path[i] === s));
+    const prev = this.snap.path;
+    const samePath = chain.join('/') === prev.join('/') || (prev.length > chain.length && chain.every((s, i) => prev[i] === s));
+    // the area the card sits in is known now, so closing it before the shapes arrive still lands in the right place
+    this.emit({ selected: key, feature: null, notice: null, ...(samePath ? {} : { path: chain.slice(0, card.kind === 'trip' ? 1 : 3) }) });
     if (!samePath || !this.adm1) await this.showArea(chain.slice(0, card.kind === 'trip' ? 1 : 3), { fly: false });
     if (this.snap.selected !== key || !pin) return;
     if (o.camera) { engine.jumpTo(o.camera); return; }

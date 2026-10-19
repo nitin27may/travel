@@ -286,7 +286,8 @@ const ADMIN_BASE = '/globe/admin/';
 const NE_ALIAS: Record<string, string> = { PSE: 'PSX', SSD: 'SDS', XKX: 'KOS' };
 
 export type GlobeAdminLevel = 'adm1' | 'adm2';
-export interface GlobeAdminEntry { file: string; n: number; source: string }
+/** One admin file, or one file per state (`parts`, keyed by the state's ISO 3166-2 code) for the countries whose districts are many: Texas does not download Alaska. */
+export interface GlobeAdminEntry { file: string | null; n: number; source: string; parts?: Record<string, string> }
 export type GlobeAdminManifest = Record<string, Partial<Record<GlobeAdminLevel, GlobeAdminEntry>>>;
 
 const geoPromises = new Map<string, Promise<unknown>>();
@@ -317,14 +318,48 @@ export function globeGazetteer(part: 'all' = 'all'): Promise<(string | number | 
   return geoOnce<(string | number | null)[][]>(`${GEO_BASE}${part === 'all' ? 'gazetteer' : part}.json`);
 }
 
-/** The admin boundaries of one country at one level as TopoJSON, or null when we ship none. */
-export async function globeAdmin(a3: string, level: GlobeAdminLevel): Promise<Topology | null> {
+/**
+ * The admin boundaries of one country at one level as TopoJSON, or null when we ship none. Where the entry is split into
+ * `parts`, `part` names the state (ISO 3166-2, as Natural Earth writes it) and only that state's file is read.
+ */
+export async function globeAdmin(a3: string, level: GlobeAdminLevel, part?: string): Promise<Topology | null> {
   const manifest = await globeAdminManifest();
   const entry = manifest[a3]?.[level] ?? manifest[NE_ALIAS[a3]]?.[level];
   if (!entry) return null;
+  const file = entry.parts ? (part ? entry.parts[part] : undefined) : entry.file;
+  if (!file) return null;
   try {
-    return await geoOnce<Topology>(`${ADMIN_BASE}${entry.file}`);
+    return await geoOnce<Topology>(`${ADMIN_BASE}${file}`);
   } catch {
     return null;
   }
+}
+
+/** Whether a country's districts come as one file per state, so the caller knows to name the state. */
+export async function globeAdminIsSplit(a3: string, level: GlobeAdminLevel): Promise<boolean> {
+  const manifest = await globeAdminManifest();
+  return !!(manifest[a3]?.[level] ?? manifest[NE_ALIAS[a3]]?.[level])?.parts;
+}
+
+/** The OSM city areas (admin level 8) for the cities that hold one of our public places or are a trip base. Small, one file. */
+export const globeCityAreas = (): Promise<{ type: 'FeatureCollection'; credit: string; features: { type: 'Feature'; properties: { id: string; name: string; wd: string | null }; geometry: unknown }[] }> => geoOnce(`${GEO_BASE}cities-adm8.json`);
+
+/** The slice of a Wikidata entity the feature cards read. */
+export interface WikidataEntity {
+  claims?: Record<string, unknown>;
+  labels?: { en?: { value: string } };
+  sitelinks?: { enwiki?: { title: string } };
+}
+
+/**
+ * One Wikidata entity by QID, for a feature card after it opens: claims, the English label and the English Wikipedia link, in one
+ * `wbgetentities` call (CC0 data, read in the browser with the Wikimedia API user agent header). Null when the entity is missing.
+ */
+export async function globeWikidata(qid: string, signal?: AbortSignal): Promise<WikidataEntity | null> {
+  const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${encodeURIComponent(qid)}&props=claims|labels|sitelinks&languages=en&sitefilter=enwiki&format=json&origin=*`;
+  const r = await fetch(url, { signal, headers: { 'Api-User-Agent': 'travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)' } });
+  if (!r.ok) throw new Error(`wikidata ${r.status}`);
+  const body = (await r.json()) as { entities?: Record<string, WikidataEntity & { missing?: string }> };
+  const e = body.entities?.[qid];
+  return e && !e.missing ? e : null;
 }

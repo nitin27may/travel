@@ -149,13 +149,14 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
         const at = engine.project(p.lng, p.lat);
         if (at) items.push({ id: p.id, x: at.x, y: at.y, lng: p.lng, lat: p.lat, r: radiusOf(p), count: p.count, label: p.label, tier: p.tier, quiet: p.quiet });
       }
-      const next = clusterItems(items);
+      // the home cover is a still picture of country links: nothing merges there, so each link stays the same element
+      const next = hrefFor ? items.map((i): Cluster => ({ id: i.id, items: [i], lng: i.lng, lat: i.lat, x: i.x, y: i.y, count: i.count, label: i.label, tier: i.tier })).sort((a, b) => (a.id < b.id ? -1 : 1)) : clusterItems(items);
       const key = sig(next);
       if (key === last.current) return;
       last.current = key;
       setClusters(next);
     };
-  }, [engine, pins]);
+  }, [engine, pins, hrefFor]);
 
   useEffect(() => {
     const map = engine.map;

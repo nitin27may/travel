@@ -27,6 +27,24 @@ export interface GlobeCardFile {
   pin: LightPin;
 }
 
+/** A photo on a card with the credit the licence needs; a photo without an author and a licence is never shown. */
+export interface CardImage {
+  /** A Commons `Special:FilePath` URL at 320 or 640: the build turns it into our own WebP rendition. */
+  url: string;
+  width: number;
+  author: string;
+  licence: string;
+  sourceUrl: string;
+  /** Which step of the fallback chain supplied it (spec 4.3). */
+  from: 'place' | 'trip' | 'wikidata';
+}
+
+/** One of the three facts under a card's title. Numbers stay numbers so the page can show them in the visitor's units. */
+export type CardFact = { label: string } & ({ text: string } | { elevationM: number } | { distanceKm: number });
+
+/** A public trip that uses the place, and the day it is on. */
+export interface CardUsedIn { slug: string; title: string; day: number | null }
+
 /** What a pin's selection card shows. Built on the server from the data adapter, so the client holds no page data. */
 export interface GlobeCard {
   key: string; // 'place:<slug>' or 'trip:<slug>'
@@ -39,8 +57,15 @@ export interface GlobeCard {
   glyph: string;
   /** "Sesto Dolomites, Italy". */
   areaLabel: string;
-  photo: { url: string; width: number; author: string; licence: string; sourceUrl: string } | null;
-  /** "Usable · 7 of 11" for places; "Condensed from the full plan" and the like for trips. */
+  /** One line, up to 120 characters, never a description of who travelled. */
+  summary: string;
+  /** Up to three: best months, kids, elevation or length for a place; nights, season, bases for a trip. */
+  facts: CardFact[];
+  /** The first public trip that uses a place; null for a trip. */
+  usedIn: CardUsedIn | null;
+  /** After the fallback chain: the place's own credited photo, a gallery photo of a public trip, the Wikidata P18 image, or none. */
+  image: CardImage | null;
+  /** "Usable · 7 of 11" for a place at that level or above; null for a draft (a card never says "Draft"), and for a trip. */
   badge: string | null;
   /** True when the pin is a country centre, not the real spot. */
   approx: boolean;

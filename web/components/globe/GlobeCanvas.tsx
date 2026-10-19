@@ -90,6 +90,7 @@ export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false,
             describe: (...a) => live.current.handlers?.describe?.(...a) ?? null,
             onCamera: (c, u) => live.current.handlers?.onCamera?.(c, u),
             onInteract: () => live.current.handlers?.onInteract?.(),
+            onWhatIsHere: (p) => live.current.handlers?.onWhatIsHere?.(p),
             onWorldFramed: (z) => live.current.handlers?.onWorldFramed?.(z),
           },
         });
