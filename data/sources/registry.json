@@ -777,6 +777,38 @@
       }
     },
     {
+      "id": "s-9d53f59b1b",
+      "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en",
+      "title": "To Lago Sorapis",
+      "publisher": "Cortina d'Ampezzo tourist office (IAT)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/lago-di-sorapis",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/lago-di-sorapis",
+          "field": "suitability.effort.drivers.gain_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9c9b82d8cc",
       "url": "https://cortina.dolomiti.org/it/escursioni/botanical-path-to-the-cascate-di-fanes-en",
       "title": "Botanical path to the Cascate di Fanes",
@@ -11803,6 +11835,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-45ac7b0a8a",
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
+      "title": "Summer hiking tour: Lake Antorno (Misurina) - Monte Piano",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/monte-piana",
+          "field": "suitability.effort.drivers.gain_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
