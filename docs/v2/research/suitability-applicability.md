@@ -791,7 +791,7 @@ paddle:  craft enum: + "float_raft"; "boat_tour" REMOVED (boats move to ext boat
            trip_style: val(enum["family_float","whitewater","flatwater"])
 ferrata: guide REMOVED (participation.guide); + child_harness: val(strictObject({ type: enum["full_body","sit"], to_kg?: number })),
            approach_min: val(range), descent: val(enum["walk","lift","same_way"])
-water:   + swimming: val(enum["allowed","banned","unsafe","seasonal"]),
+water:   + swimming: val(enum["allowed","banned","unsafe","seasonal","discouraged"]),   // discouraged (19 Oct 2026): an official page asks visitors to avoid it without banning it; shown as "Swimming discouraged"
            clarity: val(enum["clear","cloudy"]),
            floats_required_under: val(int)                            // a limit (K3)
 cave:    + squeeze: val(enum["none","some","crawl"]), darkness: val(enum["lit","partly_lit","headlamp"]),

@@ -248,6 +248,8 @@ function describe(path: string, v: unknown, rec: { block: Obj; ext: Obj | undefi
       return bits.length ? bits.join(' · ') : null;
     }
     case 'participation.guide': return v === 'required' ? 'Required' : v === 'recommended' ? 'Recommended' : v === 'none' ? 'Not needed' : null;
+    // no official page states swimming and some ask visitors to avoid it (CS7c): the data says so honestly
+    case 'ext.water.swimming': return v === 'discouraged' ? 'Swimming discouraged' : null;
     case 'water_safety.swim_ability': return v === 'none_needed' ? 'No swimming needed' : v === 'comfortable' ? 'Must be comfortable in the water' : v === 'tested' ? 'Swim test' : null;
     case 'participation.waiver': {
       if (!isObj(v)) return null;
