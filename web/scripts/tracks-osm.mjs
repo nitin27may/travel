@@ -165,18 +165,42 @@ export const decodeTerrarium = (r, g, b) => r * 256 + g + b / 256 - 32768;
  */
 export function totalsFromSamples(samples, h = HYSTERESIS_M) {
   const e = samples.map((s) => s[1]);
-  let ref = e[0];
+  // peaks and valleys: a turn counts once the profile has moved `h` metres back from its extreme, and the extreme is what is credited
+  let base = e[0];
+  let lo = e[0];
+  let hi = e[0];
+  let dir = 0;
   let gain = 0;
   let loss = 0;
   for (const v of e) {
-    if (v - ref >= h) {
-      gain += v - ref;
-      ref = v;
-    } else if (ref - v >= h) {
-      loss += ref - v;
-      ref = v;
+    if (dir === 0) {
+      lo = Math.min(lo, v);
+      hi = Math.max(hi, v);
+      if (v - lo >= h) {
+        dir = 1;
+        hi = v;
+      } else if (hi - v >= h) {
+        dir = -1;
+        lo = v;
+      }
+    } else if (dir === 1) {
+      if (v > hi) hi = v;
+      else if (hi - v >= h) {
+        gain += hi - base;
+        base = hi;
+        dir = -1;
+        lo = v;
+      }
+    } else if (v < lo) lo = v;
+    else if (v - lo >= h) {
+      loss += base - lo;
+      base = lo;
+      dir = 1;
+      hi = v;
     }
   }
+  if (dir === 1) gain += hi - base;
+  else if (dir === -1) loss += base - lo;
   return {
     km: Math.round(((samples[samples.length - 1]?.[0] ?? 0) / 1000) * 100) / 100,
     gain_m: Math.round(gain),
