@@ -7,7 +7,7 @@ import { ageRules } from '@travel/core/schedule/rules.ts';
 import { selectVariant } from '@travel/core/schedule/select.ts';
 import { DEFAULT_PROFILE } from '@travel/core/schedule/types.ts';
 import type { DayVariant, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
-import { familyEffortOf, strollerOkOf } from '@travel/core/suitability/derive.ts';
+import { familyEffortOf, strollerOkOf, tagEffortOf } from '@travel/core/suitability/derive.ts';
 import type { World } from '@travel/core/capture/records.ts';
 import { derivedItems } from './world';
 import { normName } from './places';
@@ -396,7 +396,11 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
     });
   }
   const profile: Profile = trip.schedule?.defaultProfile.party === 'family' ? trip.schedule.defaultProfile : familyProfile(8);
-  const hike = hikeEffortTag(inputs, effortOf, profile);
+  // the trip tag rests on distance, gain and grades; exposure or surface alone is a hazard on the place, not effort
+  const hike = hikeEffortTag(inputs, (item) => {
+    const s = suitOf(item);
+    return s ? tagEffortOf(s) : null;
+  }, profile);
   base.hike = hike.value ?? typedHike;
   if (inputs.length) {
     conflicts.push({ trip: trip.slug, field: 'hike', typed: typedHike, computed: hike.value, shown: base.hike, decider: hike.decider, gap: hike.unknown ? `${hike.unknown} trail(s) in the family variants have no effort on record and are left out` : 'none' });

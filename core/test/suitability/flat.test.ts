@@ -56,3 +56,21 @@ describe("the three flat values, one fixture per profile family", () => {
     expect(strollerOkOf(boat({ stroller_on_board: v("yes", "operator_rule") }))).toBe("yes");
   });
 });
+
+describe("tagEffortOf: effort that rests on distance, gain or a grade, never on exposure alone", () => {
+  it("a short walk with a rock surface is easy, not hard", async () => {
+    const { tagEffortOf } = await import("../../src/suitability/derive.ts");
+    const mesa = rec({ effort: { drivers: { distance_km: v(1, "official_info"), gain_m: v(17, "official_info"), surface: v(["dirt", "rock"], "our_inference") } }, exposure: v({ level: "significant", fenced: "unfenced" }, "official_info") }, { kind: "trail", subkind: "walk" });
+    expect(familyEffortOf(mesa)).toBeGreaterThanOrEqual(3);
+    expect(tagEffortOf(mesa)).toBe(1);
+  });
+  it("an official grade still counts, a bare driver result is null, a lift has none", async () => {
+    const { tagEffortOf } = await import("../../src/suitability/derive.ts");
+    expect(tagEffortOf(hike({ effort: { source_grade: sg("sac", "T3") } }))).toBeGreaterThanOrEqual(3);
+    expect(tagEffortOf(hike({ effort: { drivers: { surface: v(["rock"], "our_inference") } } }))).toBeNull();
+    expect(tagEffortOf(lift({}))).toBeNull();
+    // a grade the difficulty map cannot translate is still an official grade: it keeps the family effort (Track and Tower, "Difficult")
+    const local = hike({ effort: { source_grade: sg("local", "Difficult"), drivers: { distance_km: v(7.5, "official_info"), surface: v(["rock"], "our_inference") } } });
+    expect(tagEffortOf(local)).toBe(familyEffortOf(local));
+  });
+});
