@@ -63,9 +63,9 @@ test.describe('trail whose route is not confirmed', () => {
       await expect(page.getByRole('menuitem', { name: /KML/ })).toHaveCount(0);
     });
   }
-  test('an unstitched relation keeps the honest sketch for the profile', async ({ page, site }) => {
+  test('an unstitched relation draws no elevation profile from the stored route', async ({ page, site }) => {
     await page.goto(`${site.url}${NUVOLAU}`);
-    await expect(page.getByText('Shape estimated from length and climb')).toBeVisible();
+    await expect(page.getByRole('img', { name: /Elevation profile along the stored route/ })).toHaveCount(0);
   });
 });
 
