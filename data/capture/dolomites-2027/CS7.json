@@ -1,0 +1,764 @@
+{
+  "schema": "capture/1",
+  "trip": "dolomites-2027",
+  "lane": "CS7",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/",
+      "title": "Parcheggio Tre Cime di Lavaredo",
+      "publisher": "Comune di Auronzo di Cadore",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.dreizinnenhuette.com/",
+      "title": "Dreizinnenhütte / Rifugio Locatelli",
+      "publisher": "Dreizinnenhütte",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://rifugioauronzo.it/",
+      "title": "Rifugio Auronzo",
+      "publisher": "Rifugio Auronzo",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.rifugiolavaredo.com/",
+      "title": "Rifugio Lavaredo",
+      "publisher": "Rifugio Lavaredo",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.pragsparking.com/en",
+      "title": "Parking Lago di Braies P4",
+      "publisher": "Parking Lago di Braies (Prags)",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#tre-cime",
+      "type": "nature.landform.mountain",
+      "layer": "place",
+      "name": "Tre Cime di Lavaredo",
+      "names": {
+        "it": "Tre Cime di Lavaredo",
+        "de": "Drei Zinnen"
+      },
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "Backlog row 2 (spec 2.7.1 example 4): the mountain the loop circles."
+      },
+      "links": [
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1257207",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "commons",
+          "url": "https://commons.wikimedia.org/wiki/Category:Tre_Cime_di_Lavaredo",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Tre Cime di Lavaredo official page (Comune di Auronzo / Tre Cime nature park)",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Tre Cime north-face viewpoint by Rifugio Locatelli",
+      "osm_ref": "node/12091634369",
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "Backlog row 2: the classic north-face view from the Locatelli saddle."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/12091634369",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Tre Cime north face viewpoint Locatelli",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "name": "Rifugio Auronzo",
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "Backlog row 2: a hut on the loop."
+      },
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "https://rifugioauronzo.it/"
+        ],
+        "note": "The page says the hut is reached by road 'da fine maggio a ottobre' and opens winter weekends for the bar only; no dated season rows."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://rifugioauronzo.it/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q681466",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "name": "Rifugio Lavaredo",
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "Backlog row 2: a hut on the loop."
+      },
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "https://www.rifugiolavaredo.com/"
+        ],
+        "note": "The home page states no opening season."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.rifugiolavaredo.com/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3935531",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "name": "Dreizinnenhütte / Rifugio Antonio Locatelli",
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "Backlog row 2: a hut on the loop."
+      },
+      "season": {
+        "v": [
+          {
+            "from": "06-28",
+            "to": "09-28",
+            "status": "open",
+            "applies_to": "2025"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-18",
+        "note": "The 2025 season, used as a pattern; summer only.",
+        "applies_to": "2025"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.dreizinnenhuette.com/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1258258",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "offer/place/tre-cime-di-lavaredo-loop#rifugio-auronzo-lodging",
+      "type": "stay.mountain.hut",
+      "layer": "offer",
+      "offer_class": "lodging",
+      "name": "Rifugio Auronzo: beds and meals",
+      "at": [
+        "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo"
+      ],
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "https://rifugioauronzo.it/"
+        ],
+        "note": "No half-board price on the home page; the booking page was not read."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://rifugioauronzo.it/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://rifugioauronzo.it/prenota/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    },
+    {
+      "ref": "offer/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo-lodging",
+      "type": "stay.mountain.hut",
+      "layer": "offer",
+      "offer_class": "lodging",
+      "name": "Rifugio Lavaredo: beds and meals",
+      "at": [
+        "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo"
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 120.0,
+            "currency": "EUR",
+            "per": "person",
+            "note": "per night, half board, bed in a shared room for 4 to 6"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-18",
+        "quote": "€ 120,00 a notte per persona, con trattamento mezza pensione",
+        "note": "No year on the rate; read during the 2026 season."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.rifugiolavaredo.com/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://rifugiolavaredo.bukly.com/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    },
+    {
+      "ref": "offer/place/tre-cime-di-lavaredo-loop#rifugio-locatelli-lodging",
+      "type": "stay.mountain.hut",
+      "layer": "offer",
+      "offer_class": "lodging",
+      "name": "Dreizinnenhütte: beds and meals",
+      "at": [
+        "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli"
+      ],
+      "window": {
+        "v": {
+          "rule": "fixed_date",
+          "fallback": "Online booking opens at the start of the year; requests are handled in order and replies can take up to three weeks."
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-18",
+        "quote": "wird ab Jahresbeginn frei geschaltet",
+        "applies_to": "2025"
+      },
+      "price": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "https://www.dreizinnenhuette.com/"
+        ],
+        "note": "No half-board price on the home page."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.dreizinnenhuette.com/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.dreizinnenhuette.com/booking/index_en.php",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#toll-road",
+      "type": "wheels.drive.mountain_pass",
+      "layer": "route",
+      "name": "Strada per il Rifugio Auronzo (Tre Cime toll road)",
+      "osm_ref": "way/25487506",
+      "reaches": [
+        "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo"
+      ],
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "Backlog row 2: the toll road from Lago d'Antorno to the Auronzo car park."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/25487506",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Parcheggio Rifugio Auronzo",
+      "osm_ref": "way/74709399",
+      "parks_for": [
+        "place/tre-cime-di-lavaredo-loop"
+      ],
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "The toll car park at the end of the road (OSM maps four lots, P1 to P4; P4 is used for the point)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/74709399",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "offer/place/tre-cime-di-lavaredo-loop#toll",
+      "type": "access.pass.timed_entry",
+      "layer": "offer",
+      "name": "Tre Cime toll and car park (12-hour slot)",
+      "on": [
+        {
+          "ref": "part/place/tre-cime-di-lavaredo-loop#toll-road"
+        }
+      ],
+      "at": [
+        "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park"
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 40.0,
+            "currency": "EUR",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "car"
+          },
+          {
+            "amount": 26.0,
+            "currency": "EUR",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "motorcycle"
+          },
+          {
+            "amount": 60.0,
+            "currency": "EUR",
+            "per": "vehicle",
+            "applies_to": "2026",
+            "note": "caravan or motorhome"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-18",
+        "quote": "Prezzi 2026 ... Autovettura € 40,00",
+        "note": "One ticket is valid 12 hours from the chosen entry time; a longer stay needs two slots.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/"
+        ],
+        "note": "Online booking is mandatory ('consentito solo previa prenotazione online') and there is no walk-up; how far ahead slots open is not published. Free cancellation until 23:59 five days before the visit. Question added to the operator list."
+      },
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-18",
+        "tried": [
+          "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/"
+        ],
+        "note": "The road is open 'generalmente da fine maggio a fine ottobre'; no dated rows."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "terms",
+          "url": "https://auronzo.info/parcheggio-tre-cime-di-lavaredo/termini-condizioni/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "place/tre-cime-di-lavaredo-loop",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    },
+    {
+      "ref": "part/place/lago-di-braies#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Lago di Braies P4 car park",
+      "osm_ref": "way/442280371",
+      "parks_for": [
+        "place/lago-di-braies"
+      ],
+      "origin": {
+        "from": "place/lago-di-braies",
+        "reason": "Lake access point (CS7 goal 5): OSM way 442280371, ref P4, the lot nearest the lake. OSM fee and charge tags are hints, not prices."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.pragsparking.com/en",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/442280371",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-carezza#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Karersee - Lago di Carezza car park",
+      "osm_ref": "relation/19117506",
+      "parks_for": [
+        "place/lago-di-carezza"
+      ],
+      "origin": {
+        "from": "place/lago-di-carezza",
+        "reason": "Lake access point (CS7 goal 5): OSM relation 19117506, visitor-centre lot, capacity 280. OSM fee and charge tags are hints, not prices."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/19117506",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-landro#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Lago di Landro car park",
+      "osm_ref": "way/437446697",
+      "parks_for": [
+        "place/lago-di-landro"
+      ],
+      "origin": {
+        "from": "place/lago-di-landro",
+        "reason": "Lake access point (CS7 goal 5): OSM way 437446697, fee=yes, the lot beside the lake. OSM fee and charge tags are hints, not prices."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/437446697",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lago-dantorno#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Lago d'Antorno car park",
+      "osm_ref": "way/234899048",
+      "parks_for": [
+        "place/lago-dantorno"
+      ],
+      "origin": {
+        "from": "place/lago-dantorno",
+        "reason": "Lake access point (CS7 goal 5): OSM way 234899048, fee=no, south of the lake on the toll-road approach. OSM fee and charge tags are hints, not prices."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/234899048",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-dobbiaco#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Toblacher See car park",
+      "osm_ref": "way/75384548",
+      "parks_for": [
+        "place/lago-di-dobbiaco"
+      ],
+      "origin": {
+        "from": "place/lago-di-dobbiaco",
+        "reason": "Lake access point (CS7 goal 5): OSM way 75384548, name 'Toblacher See', fee=yes. OSM fee and charge tags are hints, not prices."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/75384548",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-misurina#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Lago di Misurina car park",
+      "osm_ref": "way/178543599",
+      "parks_for": [
+        "place/lago-di-misurina"
+      ],
+      "origin": {
+        "from": "place/lago-di-misurina",
+        "reason": "Lake access point (CS7 goal 5): OSM way 178543599, fee=yes, at the south end of the lake. OSM fee and charge tags are hints, not prices."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/178543599",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "offer/place/lago-di-braies#parking-p4",
+      "type": "access.park.parking",
+      "layer": "offer",
+      "name": "Lago di Braies P4: reserved day parking",
+      "at": [
+        "part/place/lago-di-braies#parking"
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 40.0,
+            "currency": "EUR",
+            "per": "vehicle_day",
+            "applies_to": "2026",
+            "note": "includes a 16 euro meal voucher"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-18",
+        "quote": "A voucher of 40.00€ guarantees you a reserved parking space at Lago di Braies Parking P4.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "anytime",
+          "fallback": "Online booking is needed only in the peak-summer restricted hours (09:00 to 16:00, early July to mid-September in the 2025-26 pattern); outside them you drive in without one. The system reopens each May for the summer. Free cancellation up to 3 days before; no campers or vehicles over 2 m."
+        },
+        "state": "value",
+        "basis": "operator_rule",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-18",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.pragsparking.com/en",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "booking",
+          "url": "https://www.pragsparking.com/en",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "place/lago-di-braies",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    }
+  ]
+}

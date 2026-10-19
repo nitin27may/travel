@@ -5,7 +5,17 @@
   "researched": "2026-10-18",
   "agent": "core/bin/capture.ts migrate",
   "model": "none",
-  "sources": [],
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/destination-svartifoss",
+      "title": "Destination Svartifoss",
+      "publisher": "Vatnajokull National Park",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
   "records": [
     {
       "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
@@ -130,7 +140,7 @@
       "layer": "route",
       "name": "Arnarstapi to Hellnar",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A coastal path past sea arches and bird cliffs: the walk itself is the experience."
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
@@ -155,7 +165,50 @@
       "origin": {
         "from": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Fjadrargljufur land manager page (Environment Agency of Iceland)",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q956845",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Fjaðrárgljúfur.JPG",
+          "licence": "CC BY-SA 2.5 ca",
+          "author": "Óðinn",
+          "attribution": "Óðinn, CC BY-SA 2.5 ca, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fja%C3%B0r%C3%A1rglj%C3%BAfur.JPG",
+          "width": 3000,
+          "height": 2097
+        },
+        {
+          "file": "File:Fjaðrárgljúfur1.JPG",
+          "licence": "CC BY-SA 2.5 ca",
+          "author": "Óðinn",
+          "attribution": "Óðinn, CC BY-SA 2.5 ca, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fja%C3%B0r%C3%A1rglj%C3%BAfur1.JPG",
+          "width": 3000,
+          "height": 2250
+        },
+        {
+          "file": "File:Fjaðrárgljúfur (Unsplash).jpg",
+          "licence": "CC0",
+          "author": "Jon Flobrant jonflobrant",
+          "attribution": "Jon Flobrant jonflobrant, CC0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Fja%C3%B0r%C3%A1rglj%C3%BAfur_(Unsplash).jpg",
+          "width": 5472,
+          "height": 3648
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
@@ -174,7 +227,44 @@
       "origin": {
         "from": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/destination-svartifoss",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q1145786",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:2008-05-24 20 Svartifoss.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Hansueli Krapf",
+          "attribution": "Hansueli Krapf, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2008-05-24_20_Svartifoss.jpg",
+          "width": 4408,
+          "height": 1892
+        },
+        {
+          "file": "File:2008-05-24 23 Svartifoss.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Hansueli Krapf",
+          "attribution": "Hansueli Krapf, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:2008-05-24_23_Svartifoss.jpg",
+          "width": 5371,
+          "height": 1890
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
@@ -182,7 +272,7 @@
       "layer": "route",
       "name": "Thingvellir",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged this route as the thing visited (class sight/heritage-site); no place for it is recorded yet."
+      "attraction_reason": "The walk down the rift between two plates is the experience."
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",

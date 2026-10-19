@@ -1,0 +1,106 @@
+{
+  "schema": "capture/1",
+  "trip": "iceland-ring-road-2027",
+  "lane": "CS7",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/pricelist",
+      "title": "Price list",
+      "publisher": "Vatnajökull National Park",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Jökulsárlón parking",
+      "osm_ref": "way/298932452",
+      "parks_for": [
+        "trip/iceland-ring-road-2027/viewpoint:jokulsarlon"
+      ],
+      "origin": {
+        "from": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+        "reason": "Lake access point: OSM way 298932452, 'Jökulsárlón parking', fee=yes."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/pricelist",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/298932452",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "offer/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking-fee",
+      "type": "access.park.parking",
+      "layer": "offer",
+      "name": "Vatnajökull National Park regional (parking) fee at Jökulsárlón",
+      "at": [
+        "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking"
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 1110,
+            "currency": "ISK",
+            "per": "vehicle_day",
+            "note": "Category A, passenger car with 5 or fewer seats"
+          },
+          {
+            "amount": 1440,
+            "currency": "ISK",
+            "per": "vehicle_day",
+            "note": "Category B, passenger car with 6 to 9 seats"
+          },
+          {
+            "amount": 450,
+            "currency": "ISK",
+            "per": "vehicle_day",
+            "note": "motorcycle"
+          }
+        ],
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-18",
+        "quote": "Passenger car, 5 or fewer seats 1.110 ISK",
+        "note": "Valid until midnight on the day paid; the page gives no effective year, and whether a camper van is Category B is not stated (operator question)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/pricelist",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    }
+  ]
+}

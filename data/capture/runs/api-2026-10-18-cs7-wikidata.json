@@ -1,0 +1,64 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-18-cs7-wikidata",
+  "started": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
+      "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
+      "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "part/place/tre-cime-di-lavaredo-loop#tre-cime"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "www.wikidata.org",
+      "requests": 22,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
+      "field": "point",
+      "outcome": "filled",
+      "src": "wikidata:Q842987"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
+      "field": "point",
+      "outcome": "filled",
+      "src": "wikidata:Q22366287"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-auronzo",
+      "field": "point",
+      "outcome": "filled",
+      "src": "wikidata:Q681466"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-lavaredo",
+      "field": "point",
+      "outcome": "filled",
+      "src": "wikidata:Q3935531"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#rifugio-locatelli",
+      "field": "point",
+      "outcome": "filled",
+      "src": "wikidata:Q1258258"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#tre-cime",
+      "field": "point",
+      "outcome": "filled",
+      "src": "wikidata:Q1257207"
+    }
+  ]
+}

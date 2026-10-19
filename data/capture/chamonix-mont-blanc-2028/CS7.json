@@ -1,0 +1,138 @@
+{
+  "schema": "capture/1",
+  "trip": "chamonix-mont-blanc-2028",
+  "lane": "CS7",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://aiguilledumidi.montblancnaturalresort.com/en",
+      "title": "Aiguille du Midi",
+      "publisher": "Compagnie du Mont-Blanc (Mont-Blanc Natural Resort)",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "name": "Aiguille du Midi summit terraces",
+      "osm_ref": "node/167075493",
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+        "reason": "Backlog row 6: the operator lists the terraces, Step into the Void and the Pipe, 'all at 3842 m'."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://aiguilledumidi.montblancnaturalresort.com/en",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/167075493",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q404728",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Step into the Void (Le Pas dans le Vide)",
+      "names": {
+        "fr": "Le Pas dans le Vide"
+      },
+      "osm_ref": "node/5590167495",
+      "part_of": [
+        "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"
+      ],
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+        "reason": "Backlog row 6 (spec 2.7.1 example 2): the glass box on the summit terraces."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://aiguilledumidi.montblancnaturalresort.com/en",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/5590167495",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q123014768",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Lac des Gaillands car park",
+      "osm_ref": "way/232431306",
+      "parks_for": [
+        "trip/chamonix-mont-blanc-2028/lake:lac des gaillands"
+      ],
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+        "reason": "Lake access point: OSM way 232431306, fee=no; its name tag is 'Lac à l'Anglais', the pond beside the Gaillands lake."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/232431306",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop",
+      "type": "access.transit.transit_stop",
+      "layer": "place",
+      "name": "Les Gaillands bus stop",
+      "serves": [
+        "trip/chamonix-mont-blanc-2028/lake:lac des gaillands"
+      ],
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+        "reason": "Lake access point: the valley bus stop named for the lake."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/30983901",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    }
+  ]
+}
