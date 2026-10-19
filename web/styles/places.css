@@ -178,3 +178,4 @@
 .pl-export-note { flex-basis: 100%; }
 .pl-payoff { margin: 0; font: var(--t-small); color: var(--ink-2); }
 .pl-payoff a { font-weight: 600; }
+.pl-profile figcaption [class*='chip'] { white-space: normal; max-width: 100%; text-align: left; }

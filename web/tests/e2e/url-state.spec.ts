@@ -137,13 +137,13 @@ test.describe('keyboard and place links', () => {
     await page.keyboard.press('/');
     await expect(page.getByRole('searchbox', { name: 'Search places' })).toBeFocused();
     await page.keyboard.type('louise');
-    await expect(count(page)).toHaveText('1');
+    await expect(count(page)).toHaveText('2'); // Lake Louise and the Rockies trail Lake Louise Lakeshore
     await expect(page).toHaveURL(/q=louise/);
   });
 
   test('a card opens its place page (places are pages, not sheets)', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?q=louise`);
-    const open = page.locator('a.card-open', { hasText: 'Lake Louise' });
+    const open = page.locator('a.card-open', { hasText: /^Lake Louise$/ });
     await expect(open).toHaveAttribute('href', '/places/lake-louise/');
     await open.focus();
     await page.keyboard.press('Enter');

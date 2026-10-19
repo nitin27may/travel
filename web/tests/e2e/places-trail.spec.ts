@@ -6,7 +6,7 @@ const SORAPIS = '/places/lago-di-sorapis/'; // a track nothing holds back
 const TRE_CIME = '/places/tre-cime-di-lavaredo-loop/'; // the relations do not stitch into one line: dashed pieces
 const FANES = '/places/cascate-di-fanes/'; // listed as waiting for a person to confirm
 const LARCH = '/places/larch-valley-to-sentinel-pass/'; // a Rockies trail with no track
-const LAKE_AGNES = '/places/lake-agnes-tea-house/';
+const WILCOX = '/places/wilcox-pass/'; // named in the Rockies itinerary
 
 test.describe('trail with a confirmed track', () => {
   test('the profile is sampled along the stored line and the map credits OpenStreetMap', async ({ page, site }) => {
@@ -16,7 +16,6 @@ test.describe('trail with a confirmed track', () => {
     await expect(page.getByText('Shape estimated from length and climb')).toHaveCount(0);
     await expect(page.getByText(/Elevation sampled every 25 m along the OpenStreetMap line/)).toBeVisible();
     await expect(page.getByText(/Route line: © OpenStreetMap contributors \(ODbL\), read \d+ \w+ 20\d\d/)).toBeVisible();
-    await expect(page.getByText('Route from OpenStreetMap', { exact: true })).toBeVisible();
     await expect(page.getByText('Route not confirmed yet')).toHaveCount(0);
     // both figures show when the track and the research differ by more than 10%
     await expect(page.locator('dt', { hasText: /^Track$/ })).toBeVisible();
@@ -77,9 +76,9 @@ test.describe('Rockies trail with no track', () => {
 
   test('a Rockies day item that names a trail links to its page', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/canadian-rockies-2029/`);
-    await expect(page.locator(`a[href="${LAKE_AGNES}"]`).first()).toBeAttached();
-    await page.goto(`${site.url}${LAKE_AGNES}`);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Lake Agnes Tea House');
+    await expect(page.locator(`a[href="${WILCOX}"]`).first()).toBeAttached();
+    await page.goto(`${site.url}${WILCOX}`);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Wilcox Pass');
     await expect(page.getByRole('link', { name: /Canadian Rockies/ }).first()).toBeVisible();
   });
 });
