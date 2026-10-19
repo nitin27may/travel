@@ -86,3 +86,27 @@ describe("the committed registry", () => {
     expect(readFileSync(join(root, "data/sources/registry.json"), "utf8")).toBe(registryText(buildRegistry(root).registry));
   });
 });
+
+import { pruneOrphanLinks } from "../../src/sources/build.ts";
+describe("pruneOrphanLinks (2.33)", () => {
+  it("drops link results whose source no lane file uses and keeps the rest", () => {
+    const rec = (url: string) => ({ url, status: "ok" as const, http: 200, final: null, checked: "2026-10-18" });
+    const file = { schema: "source-links/1" as const, links: { "s-aaaaaaaaaa": rec("https://a.example/"), "s-bbbbbbbbbb": rec("https://b.example/") } };
+    expect(pruneOrphanLinks(file, ["s-aaaaaaaaaa"])).toEqual(["s-bbbbbbbbbb"]);
+    expect(Object.keys(file.links)).toEqual(["s-aaaaaaaaaa"]);
+    expect(pruneOrphanLinks(file, ["s-aaaaaaaaaa"])).toEqual([]);
+  });
+});
+
+import { notesFor } from "../../src/sources/notes.ts";
+describe("automated access (capture contract 9.2)", () => {
+  it("marks link-only platforms forbidden, open-data hosts allowed and the rest unknown", () => {
+    expect(notesFor("https://www.alltrails.com/trail/x").automated).toBe("forbidden");
+    expect(notesFor("https://www.wikiloc.com/x").automated).toBe("forbidden");
+    expect(notesFor("https://www.tripadvisor.ca/x").automated).toBe("forbidden");
+    expect(notesFor("https://www.wikidata.org/wiki/Q1").automated).toBe("allowed");
+    expect(notesFor("https://overpass-api.de/api").automated).toBe("allowed");
+    expect(notesFor("https://parks.canada.ca/x").automated).toBe("unknown");
+    expect(notesFor("docs/v2/research/suitability.md").automated).toBe("allowed");
+  });
+});

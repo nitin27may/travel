@@ -120,3 +120,33 @@ export type RelErrorCode = keyof typeof REL_ERROR_CODES;
 export type RelWarningCode = keyof typeof REL_WARNING_CODES;
 export const REL_ERROR_LIST = Object.keys(REL_ERROR_CODES) as RelErrorCode[];
 export const REL_WARNING_LIST = Object.keys(REL_WARNING_CODES) as RelWarningCode[];
+
+// capture/1 codes (docs/v2/research/capture-contract.md sections 3, 5 and 9; backlog 3a.12 step 3). A block of their own, with a
+// failing case each in core/test/capture/validate.test.ts. The suitability and relevance codes keep their own blocks.
+export const CAP_ERROR_CODES = {
+  E_CAP_SCHEMA: "a field is missing, unknown, of the wrong type or outside its enum, or a value state contradicts its v",
+  E_CAP_TREE: "data/vocab/types.json breaks a tree rule: an id appears twice, a parent is missing, a mark key is not in the registry, a profile or relevance class is unknown",
+  E_CAP_PROFILE: "a profile row of data/vocab/types.json breaks the applicability rules (a path is missing, an extension disagrees with the marks, a pair is claimed twice)",
+  E_CAP_REF: "a record ref does not resolve to a place, a legacy row, a trip item, or the part or offer of one",
+  E_CAP_DUP_REF: "a ref appears twice in a file, or in two files",
+  E_CAP_TYPE: "a record's type is not in the tree, or contradicts the kind and subkind of its suitability record",
+  E_CAP_LAYER: "a record's layer is not one the type allows (a summit is a place, a trail is a route, a rafting trip is an offer)",
+  E_CAP_REL_REF: "a relation points at a ref that no record, scope item or alias provides",
+  E_CAP_REL_KIND: "a relation is not allowed on the record's layer (reaches is a route's, at and on are an offer's)",
+  E_CAP_REL_DERIVED: "reached_by is typed in a file; it is the derived inverse of reaches and is never stored",
+  E_CAP_OPERATOR: "run_by names an operator that data/capture/operators.json does not have",
+  E_CAP_SRC: "a src id is not in the file's sources table, or a value has no source",
+  E_CAP_METHOD: "a source row says crawl or api without a run id, or names a run without saying how the page was taken",
+  E_CAP_LINK_ONLY: "a source or a stored URL is on a link-only platform; AllTrails, Komoot, Google and the booking sites are only ever links",
+  E_CAP_DRAW_LAYER: "a route has a relevance record (draw and class) without route_is_attraction and a reason, or the flag is on a record that is not a route; draw belongs to the place a visitor comes to see",
+  E_CAP_RUN: "a crawl run record is inconsistent: a result without a ref or field in scope, a blocked result without a reason, a searched_none without the pages tried",
+  E_CAP_OPERATORS: "an operators file has a duplicate ref or an operator without a name and a URL",
+} as const;
+export const CAP_WARNING_CODES = {
+  W_CAP_NA_FIELD: "a value is stored for a property that the type's contract marks N (never asked)",
+  W_CAP_BELOW_USABLE: "required properties of the type's contract are unanswered, so the record is below usable (the suitability slice has its own warning)",
+} as const;
+export type CapErrorCode = keyof typeof CAP_ERROR_CODES;
+export type CapWarningCode = keyof typeof CAP_WARNING_CODES;
+export const CAP_ERROR_LIST = Object.keys(CAP_ERROR_CODES) as CapErrorCode[];
+export const CAP_WARNING_LIST = Object.keys(CAP_WARNING_CODES) as CapWarningCode[];

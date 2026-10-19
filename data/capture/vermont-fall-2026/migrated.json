@@ -1,0 +1,51 @@
+{
+  "schema": "capture/1",
+  "trip": "vermont-fall-2026",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Covered bridge loop",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:hyde park village",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Hyde Park village"
+    },
+    {
+      "ref": "trip/vermont-fall-2026/town:peacham village",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Peacham village"
+    },
+    {
+      "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Stowe Recreation Path",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Burke Mountain overlook"
+    },
+    {
+      "ref": "trip/vermont-fall-2026/viewpoint:smugglers notch",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Smugglers' Notch"
+    }
+  ]
+}

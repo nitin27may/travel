@@ -66,10 +66,11 @@ export interface DeriveInput {
 export interface Substitute { ref: string; km: number; draw: DrawTier; standing: string; access_cost: string[]; family_effort: number | null }
 export interface Pair {
   ref: string;
-  km: number;
-  how: "walk" | "drive";
-  /** minutes the pair adds: travel there and back plus time on site */
-  extra_min: number;
+  /** straight-line km; null for a hand-picked pair when either record has no point (2.33): shown without a distance */
+  km: number | null;
+  how: "walk" | "drive" | null;
+  /** minutes the pair adds: travel there and back plus time on site; null when the distance is unknown */
+  extra_min: number | null;
   on_site_min: number;
   /** true when on_site_min comes from the class table, not a suitability time */
   on_site_estimated: boolean;
@@ -83,6 +84,12 @@ export interface FarPointer { ref: string; km: number; draw: DrawTier; same_clas
 export interface FitOut { fit: Fit; reason: string }
 export interface Derived {
   ref: string;
+  /** capture layer of the record, when it has a capture record (relevance 3.7) */
+  layer?: "place" | "route" | "offer" | "event";
+  /** a route that carries its own draw because the route is itself the experience */
+  route_is_attraction?: boolean;
+  /** a route with no judgement of its own reads draw, role and badge from the place it reaches */
+  draw_from?: string;
   draw_suggested: DrawTier;
   effective_draw: DrawTier;
   access_load: AccessLoad;
@@ -404,12 +411,13 @@ function assignPairs(input: DeriveInput, results: Derived[], J: Map<string, Retu
   for (const r of input.records) {
     const d = byRef.get(r.ref)!;
     const me = input.facts[r.ref] ?? {};
-    if (!me.point) continue;
     const mine = onSite(r.ref);
     const cands: { rec: RelevanceRecord; km: number }[] = [];
-    for (const o of input.records) {
-      const q = input.facts[o.ref]?.point;
-      if (o.ref !== r.ref && q) cands.push({ rec: o, km: dist(me.point, q) });
+    if (me.point) {
+      for (const o of input.records) {
+        const q = input.facts[o.ref]?.point;
+        if (o.ref !== r.ref && q) cands.push({ rec: o, km: dist(me.point, q) });
+      }
     }
     const partOf = (o: { rec: RelevanceRecord; km: number }): boolean =>
       o.km <= SAME_POINT_KM || me.aliasOf === o.rec.ref || input.facts[o.rec.ref]?.aliasOf === r.ref || (me.aliasOf !== undefined && me.aliasOf === input.facts[o.rec.ref]?.aliasOf);
@@ -423,11 +431,21 @@ function assignPairs(input: DeriveInput, results: Derived[], J: Map<string, Retu
     const pairs: Pair[] = [];
     const picked = new Set<string>();
     for (const pw of r.pairs_with ?? []) {
+      if (picked.has(pw.ref)) continue;
+      const hand = { reason: pw.reason, ...(pw.src ? { src: pw.src } : {}) };
       const o = cands.find((x) => x.rec.ref === pw.ref);
-      if (o && !picked.has(pw.ref)) {
+      if (o) {
         picked.add(pw.ref);
-        pairs.push(pairOf(o, o.km <= WALK_KM ? "walk" : "drive", { reason: pw.reason, ...(pw.src ? { src: pw.src } : {}) }));
+        pairs.push(pairOf(o, o.km <= WALK_KM ? "walk" : "drive", hand));
+        continue;
       }
+      // 2.33: a hand-picked pair whose record (or this one) has no point is kept and shown with no distance
+      const rec = recBy.get(pw.ref);
+      if (!rec || rec.ref === r.ref) continue;
+      picked.add(pw.ref);
+      const os = onSite(rec.ref);
+      const jo = J.get(rec.ref)!;
+      pairs.push({ ref: rec.ref, km: null, how: null, extra_min: null, on_site_min: os.min, on_site_estimated: os.est, draw: jo.draw, standing: jo.standing, hand_picked: true, ...hand });
     }
     const pending: Derived["pair_pending"] = [];
     const auto: Pair[] = [];
@@ -452,7 +470,7 @@ function assignPairs(input: DeriveInput, results: Derived[], J: Map<string, Retu
         pending.push({ ref: o.rec.ref, km: Math.round(o.km * 10) / 10 });
       }
     }
-    auto.sort((a, b) => a.extra_min - b.extra_min || rank(b.standing) - rank(a.standing) || a.km - b.km);
+    auto.sort((a, b) => (a.extra_min ?? 0) - (b.extra_min ?? 0) || rank(b.standing) - rank(a.standing) || (a.km ?? 0) - (b.km ?? 0));
     d.pair_with = [...pairs, ...auto].slice(0, PAIR_MAX);
     d.pair_pending = pending.sort((a, b) => a.km - b.km);
   }

@@ -1,0 +1,172 @@
+{
+  "schema": "capture/1",
+  "trip": "chamonix-mont-blanc-2028",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lac des Gaillands"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lac du Chatelard"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "type": "ride.lift.cable_car",
+      "layer": "route",
+      "name": "Aiguille du Midi",
+      "reaches": [
+        "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top"
+      ]
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "type": "access.transit.station",
+      "layer": "place",
+      "name": "Aiguille du Midi top station",
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+        "reason": "the top station of the lift"
+      }
+    },
+    {
+      "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
+      "type": "ride.lift.cable_car",
+      "layer": "offer",
+      "offer_class": "ticket",
+      "name": "Aiguille du Midi ticket",
+      "on": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi"
+        }
+      ],
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+        "reason": "the ticket offer on the lift line"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "type": "ride.lift.rack_railway",
+      "layer": "route",
+      "name": "Montenvers train",
+      "reaches": [
+        "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top"
+      ],
+      "route_is_attraction": true,
+      "attraction_reason": "The rack railway ride is itself the experience (a scenic train); the Mer de Glace has no place record yet."
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+      "type": "access.transit.station",
+      "layer": "place",
+      "name": "Montenvers train top station",
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+        "reason": "the top station of the lift"
+      }
+    },
+    {
+      "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
+      "type": "ride.lift.rack_railway",
+      "layer": "offer",
+      "offer_class": "ticket",
+      "name": "Montenvers train ticket",
+      "on": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train"
+        }
+      ],
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+        "reason": "the ticket offer on the lift line"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+      "type": "culture.heritage.dam",
+      "layer": "place",
+      "name": "Emosson dam and dinosaur tracks"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+      "type": "culture.under.show_cave",
+      "layer": "place",
+      "name": "Grotte de la Mer de Glace"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Chamonix old town"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Chamonix market"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Les Praz village"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Vallorcine"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Col des Montets",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Lac Blanc via Flegere",
+      "reaches": [
+        "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lac Blanc",
+      "origin": {
+        "from": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Plan de l'Aiguille",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Mont Blanc reflection"
+    }
+  ]
+}

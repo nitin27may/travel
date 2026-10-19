@@ -7,9 +7,10 @@ import { validateSuitability } from "./suitability.ts";
 import { validateApplicabilityRules } from "./applicability.ts";
 import { validateRelevance } from "./relevance.ts";
 import { validateSourcesRules } from "./sources.ts";
+import { validateCapture, validateCaptureOperators, validateCaptureRun, validateCaptureTypes } from "./capture.ts";
 import { validateDifficultyMapRules } from "../suitability/mapRules.ts";
 
-export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources";
+export type DocumentKind = "research-sidecar" | "route-geometry" | "policy" | "freshness" | "difficulty-map" | "suitability" | "suitability-applicability" | "relevance" | "sources" | "capture" | "capture-types" | "capture-operators" | "capture-run";
 
 const TABLE_OF: Record<DocumentKind, string> = {
   "research-sidecar": "research_sidecar",
@@ -21,6 +22,10 @@ const TABLE_OF: Record<DocumentKind, string> = {
   "suitability-applicability": "suitability_applicability",
   relevance: "relevance",
   sources: "sources",
+  capture: "capture",
+  "capture-types": "capture_types",
+  "capture-operators": "capture_operators",
+  "capture-run": "capture_run",
 };
 
 export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): void {
@@ -33,6 +38,23 @@ export function validateDocument(doc: unknown, kind: DocumentKind, ctx: Ctx): vo
   if (kind === "relevance") {
     // its own error codes (E_REL_*)
     validateRelevance(doc, ctx);
+    return;
+  }
+  if (kind === "capture") {
+    // its own error codes (E_CAP_*)
+    validateCapture(doc, ctx);
+    return;
+  }
+  if (kind === "capture-types") {
+    validateCaptureTypes(doc, ctx);
+    return;
+  }
+  if (kind === "capture-operators") {
+    validateCaptureOperators(doc, ctx);
+    return;
+  }
+  if (kind === "capture-run") {
+    validateCaptureRun(doc, ctx);
     return;
   }
   // a v1 difficulty map predates `modes`; fill the column it does not have so v1 files keep validating

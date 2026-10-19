@@ -7829,53 +7829,6 @@
           ],
           "note": "8 accessible stalls."
         },
-        "effort": {
-          "drivers": {
-            "distance_km": {
-              "v": 2.2,
-              "state": "value",
-              "basis": "official_info",
-              "src": [
-                "src-0001"
-              ],
-              "quote": "1.1 km one way",
-              "note": "To the Lower Falls; 1.1 km one way, so 2.2 km return"
-            },
-            "gain_m": {
-              "v": 85,
-              "state": "value",
-              "basis": "official_info",
-              "src": [
-                "src-0001"
-              ],
-              "quote": "gain 85 m, loss 55 m"
-            },
-            "surface": {
-              "v": [
-                "paved"
-              ],
-              "state": "value",
-              "basis": "official_info",
-              "src": [
-                "src-0001"
-              ],
-              "quote": "100% paved"
-            }
-          }
-        },
-        "adult_time_min": {
-          "v": [
-            60,
-            120
-          ],
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0001"
-          ],
-          "quote": "1 hour round trip",
-          "note": "1 h to the Lower Falls, 2 h to the Upper Falls."
-        },
         "on_site_min": {
           "v": [
             60,
@@ -7952,9 +7905,77 @@
         "house_grade": 3,
         "kid_fit": "yes",
         "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2.2,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "1.1 km one way",
+              "note": "To the Lower Falls; 1.1 km one way, so 2.2 km return"
+            },
+            "gain_m": {
+              "v": 85,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "gain 85 m, loss 55 m"
+            },
+            "surface": {
+              "v": [
+                "paved"
+              ],
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "quote": "100% paved"
+            }
+          }
+        },
+        "adult_time_min": {
+          "v": [
+            60,
+            120
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "1 hour round trip",
+          "note": "1 h to the Lower Falls, 2 h to the Upper Falls."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
         "walk_km": 2.2,
         "walk_gain_m": 85,
-        "suit_level": "usable"
+        "suit_level": "draft"
       }
     },
     {

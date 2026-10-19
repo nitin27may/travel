@@ -1762,9 +1762,8 @@
       }
     },
     {
-      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+      "kind": "waterfall",
       "wikidata": {
         "v": "Q956845",
         "state": "value",
@@ -1840,9 +1839,8 @@
       }
     },
     {
-      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+      "kind": "waterfall",
       "wikidata": {
         "v": "Q1145786",
         "state": "value",

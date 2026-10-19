@@ -7,6 +7,8 @@
 // Google is never a source. A point with no coordinate anywhere is left out and listed in the report.
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { sidecarFiles, readJson as readJsonFile } from "../capture/records.ts";
+import type { CaptureDoc } from "../schema/capture/records.ts";
 import { loadScope } from "../suitability/refs.ts";
 import type { ScopeItem } from "../suitability/refs.ts";
 import { loadRelevanceDocs } from "./inputs.ts";
@@ -212,6 +214,17 @@ export function loadSources(root: string): Sources {
   const refs: RefIn[] = docs.flatMap(({ doc }) =>
     doc.records.map((r) => ({ ref: r.ref, trip: doc.trip, class_key: r.class_key, qid: r.wikidata.state === "value" ? r.wikidata.v : null, name: names.get(r.ref) ?? null, trailhead: trailhead(r.ref) })),
   );
+  // A route whose relevance was judged on its payoff place (capture contract 2.7.5) has no relevance record any more, but its
+  // trailhead point is data: keep it, as a route (the order of trust for a trail applies).
+  const have = new Set(refs.map((r) => r.ref));
+  for (const f of sidecarFiles(root, "capture")) {
+    const cd = readJsonFile<CaptureDoc>(f);
+    for (const r of cd?.records ?? []) {
+      if (r.layer !== "route" || have.has(r.ref)) continue;
+      have.add(r.ref);
+      refs.push({ ref: r.ref, trip: cd!.trip, class_key: `route/${r.type}`, qid: null, name: names.get(r.ref) ?? r.name ?? null, trailhead: trailhead(r.ref) });
+    }
+  }
   const loc = readJson<{ places: { id: string; name: string; lat?: number; lon?: number; resolver?: string; location_status?: string }[] }>(join(root, "data", "locations", "locations.json"));
   const wd = readJson<{ items: Record<string, WdPoint> }>(join(root, "data", "relevance", "signals", "wikidata.json"));
   return {

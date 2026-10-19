@@ -534,14 +534,14 @@
             },
             "participation": {
               "pregnancy": {
-                "v": "ask_doctor",
+                "v": "not_recommended",
                 "state": "value",
                 "basis": "operator_info",
                 "src": [
                   "src-0002"
                 ],
                 "quote": "we recommend pregnant ladies remain on land and raft with us at a future time",
-                "note": "Advice, not a rule: the operator recommends staying on land but does not bar pregnant guests. The vocabulary has no not_recommended value; ask_doctor is the nearest non-rule value (RC, 18 Oct 2026). Read the quote."
+                "note": "Advice, not a rule: the operator recommends staying on land but does not bar pregnant guests, so the value is not_recommended (added to the vocabulary in 2.33; it was ask_doctor, the nearest value, at the RC pass)."
               },
               "waiver": {
                 "v": {
@@ -1103,7 +1103,7 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
       "kind": "lift",
       "subkind": "gondola",
       "suitability": {
@@ -1138,16 +1138,6 @@
             "src-0009"
           ],
           "note": "8-minute ride each way plus the summit building and boardwalk; the FAQ gives no visit length"
-        },
-        "altitude_m": {
-          "v": 2281,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0009"
-          ],
-          "quote": "the Upper Terminal is 2,281 metres (7,486 feet) above sea level",
-          "note": "the operator gives metres; 7,486 ft = 2,281.7 m"
         },
         "access_season": {
           "v": [
@@ -1223,15 +1213,6 @@
             "banffjaspercollection.com Banff Gondola FAQs"
           ],
           "note": "the FAQ does not mention washrooms"
-        },
-        "food": {
-          "v": "cafe",
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0009"
-          ],
-          "quote": "there are several incredible dining options at the top of the Banff Gondola"
         },
         "limited_capacity_note": "Cabins and the summit building have lifts on every level; skip the boardwalk stairs and stay on the terraces for the view."
       },
@@ -1318,7 +1299,47 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "kind": "access",
+      "subkind": "station",
+      "suitability": {
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "there are several incredible dining options at the top of the Banff Gondola"
+        },
+        "altitude_m": {
+          "v": 2281,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0009"
+          ],
+          "quote": "the Upper Terminal is 2,281 metres (7,486 feet) above sea level",
+          "note": "the operator gives metres; 7,486 ft = 2,281.7 m"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
       "kind": "lift",
       "subkind": "gondola",
       "suitability": {
@@ -1353,15 +1374,6 @@
           ],
           "quote": "We recommend booking 90 minutes between your Flight Up and Return Flight for most visits.",
           "note": "plus about 60 minutes when dining at the top"
-        },
-        "altitude_m": {
-          "v": 2263,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0011"
-          ],
-          "note": "Upper Station 2,263 m; the optional 1.4 km summit trail reaches 2,463 m"
         },
         "access_season": {
           "v": [
@@ -1488,7 +1500,37 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+      "kind": "access",
+      "subkind": "station",
+      "suitability": {
+        "altitude_m": {
+          "v": 2263,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "note": "Upper Station 2,263 m; the optional 1.4 km summit trail reaches 2,463 m"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
       "kind": "lift",
       "subkind": "gondola",
       "suitability": {
@@ -1525,19 +1567,6 @@
           ],
           "quote": "Quick visit: 1–1.5 hours",
           "note": "2-3 hours with a meal at the top"
-        },
-        "altitude_m": {
-          "v": null,
-          "state": "searched_none",
-          "basis": null,
-          "src": [],
-          "on": "2026-10-18",
-          "tried": [
-            "skilouise.com sightseeing gondola page",
-            "skilouise.com FAQ",
-            "skilouise.com wildlife viewing page"
-          ],
-          "note": "no top-station elevation is published by the operator"
         },
         "access_season": {
           "v": [
@@ -1622,15 +1651,6 @@
           ],
           "note": "lot 2, along the wooden fence"
         },
-        "food": {
-          "v": "cafe",
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0014"
-          ],
-          "note": "Whitehorn Bistro at the top"
-        },
         "limited_capacity_note": "Choose an enclosed cabin; staff can slow the lift to load. The paths at the top are gravel."
       },
       "ext": {
@@ -1696,6 +1716,49 @@
         "house_grade": null,
         "kid_fit": "yes",
         "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+      "kind": "access",
+      "subkind": "station",
+      "suitability": {
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0014"
+          ],
+          "note": "Whitehorn Bistro at the top"
+        },
+        "altitude_m": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "skilouise.com sightseeing gondola page",
+            "skilouise.com FAQ",
+            "skilouise.com wildlife viewing page"
+          ],
+          "note": "no top-station elevation is published by the operator"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"

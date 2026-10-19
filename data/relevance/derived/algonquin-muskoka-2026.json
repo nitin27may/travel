@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "algonquin-muskoka-2026",
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -61,7 +61,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/algonquin-muskoka-2026/town:huntsville",
@@ -104,7 +105,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
@@ -152,7 +154,9 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
@@ -209,7 +213,9 @@
           "fit": "plan_around",
           "reason": "draw national, standing top, distinction rare"
         }
-      }
+      },
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
@@ -257,7 +263,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
@@ -305,7 +312,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     }
   ]
 }

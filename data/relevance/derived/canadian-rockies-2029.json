@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "canadian-rockies-2029",
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -66,10 +66,12 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -79,7 +81,16 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+            "km": 27.7,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": {
         "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
@@ -115,7 +126,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
@@ -169,10 +181,6 @@
           "km": 7.4
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
-          "km": 7.4
-        },
-        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
           "km": 7.4
         }
@@ -205,7 +213,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
@@ -255,8 +265,7 @@
         }
       ],
       "part_of": [
-        "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
-        "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk"
+        "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
       ],
       "plan_b": null,
       "fits": {
@@ -283,7 +292,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
@@ -331,10 +342,12 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -349,7 +362,7 @@
       "far_pointer": null,
       "pair_with": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 1,
           "how": "walk",
           "extra_min": 91,
@@ -396,10 +409,11 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -409,7 +423,16 @@
       "from_hubs": {},
       "substitutes": {
         "near": [],
-        "area": []
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+            "km": 27.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [],
@@ -440,55 +463,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
-      "draw_suggested": "local",
-      "effective_draw": "regional",
-      "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "if_nearby",
-          "reason": "draw regional, standing good"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
-        }
-      },
-      "role": "filler",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
@@ -550,7 +526,7 @@
           "km": 3.7
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
           "km": 5.7
         },
         {
@@ -586,7 +562,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
@@ -639,7 +617,7 @@
           "km": 8.7
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
           "km": 12.7
         }
       ],
@@ -678,7 +656,9 @@
           "fit": "plan_around",
           "reason": "draw world, standing top"
         }
-      }
+      },
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
@@ -726,7 +706,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
@@ -793,7 +775,9 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
@@ -850,7 +834,7 @@
           "km": 3.7
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
           "km": 9.4
         },
         {
@@ -884,7 +868,9 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
@@ -949,10 +935,12 @@
           "fit": "plan_around",
           "reason": "draw national, standing top, distinction rare"
         }
-      }
+      },
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -997,16 +985,16 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": 86,
-      "detour_basis": "town",
-      "detour_town": "Jasper",
+      "detour_min": null,
+      "detour_basis": "none",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -1015,10 +1003,7 @@
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
-        "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail"
-      ],
+      "part_of": [],
       "plan_b": null,
       "fits": {
         "vacation": {
@@ -1032,7 +1017,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour 86 min is over 30"
+          "reason": "detour unknown"
         }
       },
       "role": "local_only",
@@ -1044,7 +1029,13 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
@@ -1092,7 +1083,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
@@ -1168,10 +1161,12 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
@@ -1184,7 +1179,7 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
         "km": 36.3,
         "draw": "national",
         "same_class": false
@@ -1194,10 +1189,6 @@
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
           "km": 3.5
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
-          "km": 8.4
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
@@ -1230,90 +1221,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-      "draw_suggested": "local",
-      "effective_draw": "regional",
-      "access_load": "easy",
-      "detour_min": 66,
-      "detour_basis": "town",
-      "detour_town": "Jasper",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
-            "km": 0,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
-            "km": 21.8,
-            "draw": "regional",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
-            "km": 0,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
-            "km": 21.8,
-            "draw": "regional",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
-        "km": 17.5,
-        "draw": "world",
-        "same_class": false
-      },
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw regional, standing top, distinction rare"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "detour 66 min is over 30"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": true,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
@@ -1361,7 +1270,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
@@ -1389,8 +1300,7 @@
       "pair_with": [],
       "pair_pending": [],
       "part_of": [
-        "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
-        "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline"
+        "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
       ],
       "plan_b": null,
       "fits": {
@@ -1417,7 +1327,9 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
@@ -1454,7 +1366,7 @@
           "km": 4
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
           "km": 7.5
         }
       ],
@@ -1484,90 +1396,9 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-      "draw_suggested": "local",
-      "effective_draw": "regional",
-      "access_load": "easy",
-      "detour_min": 64,
-      "detour_basis": "town",
-      "detour_town": "Lake Louise",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-            "km": 21.4,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-            "km": 21.4,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
-        "km": 15.7,
-        "draw": "world",
-        "same_class": false
-      },
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw regional, standing top, distinction rare"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "detour 64 min is over 30"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": true,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
@@ -1615,7 +1446,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
@@ -1701,55 +1534,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
-      "draw_suggested": "local",
-      "effective_draw": "local",
-      "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
-        }
-      },
-      "role": "local_only",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
@@ -1797,55 +1584,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-      "draw_suggested": "national",
-      "effective_draw": "regional",
-      "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw regional, standing top, distinction rare"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
@@ -1893,84 +1634,12 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
-      "draw_suggested": "local",
-      "effective_draw": "regional",
-      "access_load": "easy",
-      "detour_min": 48,
-      "detour_basis": "town",
-      "detour_town": "Lake Louise",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
-            "km": 0,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
-            "km": 0,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": {
-        "ref": "place/lake-louise",
-        "km": 19.6,
-        "draw": "world",
-        "same_class": false
-      },
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/iceline-trail"
       ],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw regional, standing top, distinction unique"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "detour 48 min is over 30"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": true,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_DISTINCTION",
-          "message": "distinction is unique but legacy/canadian-rockies-sept-2029/sights/takakkaw-falls has the same class within 100 km"
-        }
-      ]
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -2015,95 +1684,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
-      "draw_suggested": "local",
-      "effective_draw": "local",
-      "access_load": "easy",
-      "detour_min": 12,
-      "detour_basis": "town",
-      "detour_town": "Kananaskis Village",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
-            "km": 0,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
-            "km": 11.1,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
-            "km": 0,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
-            "km": 11.1,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-        "km": 41.8,
-        "draw": "national",
-        "same_class": false
-      },
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
-          "km": 8.4
-        }
       ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "skip",
-          "reason": "draw local, standing good; clear weather only drops it one step"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known; clear weather only drops it one step"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "too long a stop for the draw; clear weather only drops it one step"
-        }
-      },
-      "role": "local_only",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": []
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
@@ -2177,7 +1759,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -2227,14 +1810,23 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 30,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "good",
+          "hand_picked": true,
+          "reason": "The Natural Bridge is on the Emerald Lake road, a short stop on the way in"
+        }
+      ],
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-          "km": 7.4
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
           "km": 7.4
         },
         {
@@ -2270,7 +1862,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
@@ -2323,7 +1916,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
@@ -2367,7 +1961,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
@@ -2411,7 +2006,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
@@ -2510,7 +2106,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
@@ -2524,14 +2121,6 @@
       "substitutes": {
         "near": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
-            "km": 11.1,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": 1
-          },
-          {
             "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
             "km": 11.1,
             "draw": "local",
@@ -2541,14 +2130,6 @@
           }
         ],
         "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
-            "km": 11.1,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": 1
-          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
             "km": 11.1,
@@ -2560,7 +2141,7 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
         "km": 37.1,
         "draw": "national",
         "same_class": false
@@ -2568,7 +2149,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
           "km": 3.5
         }
       ],
@@ -2598,7 +2179,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
@@ -2620,7 +2202,12 @@
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+          "km": 8.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -2647,7 +2234,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
@@ -2661,14 +2249,6 @@
       "substitutes": {
         "near": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
-            "km": 0,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": 1
-          },
-          {
             "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
             "km": 11.1,
             "draw": "local",
@@ -2678,14 +2258,6 @@
           }
         ],
         "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
-            "km": 0,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": 1
-          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
             "km": 11.1,
@@ -2697,7 +2269,7 @@
         ]
       },
       "far_pointer": {
-        "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
         "km": 41.8,
         "draw": "national",
         "same_class": false
@@ -2705,7 +2277,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
           "km": 8.4
         }
       ],
@@ -2735,7 +2307,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lake-louise",
@@ -2793,22 +2366,12 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
-          "km": 5.7,
-          "how": "drive",
-          "extra_min": 90,
-          "on_site_min": 90,
-          "on_site_estimated": false,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": true,
-          "reason": "The summer gondola is across the valley from the lake, a classic half-day pairing with the lakeshore",
-          "src": "src-0017"
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+          "km": 5.7
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
           "km": 10.3
@@ -2842,7 +2405,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
@@ -2856,14 +2420,6 @@
       "substitutes": {
         "near": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          },
-          {
             "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
             "km": 21.8,
             "draw": "regional",
@@ -2873,14 +2429,6 @@
           }
         ],
         "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          },
           {
             "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
             "km": 21.8,
@@ -2920,7 +2468,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
@@ -2932,26 +2481,8 @@
       "detour_town": "Banff",
       "from_hubs": {},
       "substitutes": {
-        "near": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-            "km": 21.4,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-            "km": 21.4,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          }
-        ]
+        "near": [],
+        "area": []
       },
       "far_pointer": null,
       "pair_with": [],
@@ -2982,7 +2513,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
@@ -2994,26 +2526,8 @@
       "detour_town": "Lake Louise",
       "from_hubs": {},
       "substitutes": {
-        "near": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          }
-        ]
+        "near": [],
+        "area": []
       },
       "far_pointer": {
         "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
@@ -3021,7 +2535,20 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Paint Pots are the next stop on Highway 93 South, about 3 km away"
+        }
+      ],
       "pair_pending": [],
       "part_of": [],
       "plan_b": null,
@@ -3049,7 +2576,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
@@ -3097,7 +2625,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
@@ -3151,7 +2680,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
@@ -3171,14 +2701,6 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-            "km": 21.8,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
           }
         ],
         "area": [
@@ -3189,14 +2711,6 @@
             "standing": "top",
             "access_cost": [],
             "family_effort": null
-          },
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-            "km": 21.8,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
           }
         ]
       },
@@ -3234,7 +2748,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
@@ -3246,26 +2761,8 @@
       "detour_town": "Lake Louise",
       "from_hubs": {},
       "substitutes": {
-        "near": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
-            "km": 0,
-            "draw": "regional",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": 1
-          }
-        ]
+        "near": [],
+        "area": []
       },
       "far_pointer": null,
       "pair_with": [],
@@ -3298,12 +2795,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_DISTINCTION",
-          "message": "distinction is unique but legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk has the same class within 100 km"
-        }
-      ]
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
@@ -3352,7 +2845,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
@@ -3419,7 +2913,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
@@ -3468,7 +2963,9 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
@@ -3521,7 +3018,9 @@
           "fit": "plan_around",
           "reason": "draw national, standing top, distinction rare"
         }
-      }
+      },
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
@@ -3543,7 +3042,12 @@
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+          "km": 4.5
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -3570,7 +3074,9 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
@@ -3594,7 +3100,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
           "km": 3.7
         },
         {
@@ -3632,7 +3138,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
@@ -3672,7 +3179,7 @@
           "km": 3
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
           "km": 3.4
         }
       ],
@@ -3702,7 +3209,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
@@ -3768,7 +3276,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
@@ -3816,7 +3325,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
@@ -3869,7 +3379,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
@@ -3906,7 +3417,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 2.5
         }
       ],
@@ -3939,7 +3450,7 @@
       "warnings": []
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "plan",
@@ -3951,12 +3462,12 @@
         "near": [],
         "area": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+            "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
             "km": 53.3,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
-            "family_effort": 1
+            "family_effort": null
           }
         ]
       },
@@ -4008,10 +3519,11 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
@@ -4030,16 +3542,7 @@
         "same_class": false
       },
       "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
-          "km": 7.5
-        },
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
-          "km": 8.1
-        }
-      ],
+      "pair_pending": [],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -4066,13 +3569,14 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
       "draw_suggested": "national",
       "effective_draw": "regional",
-      "access_load": "plan",
+      "access_load": "easy",
       "detour_min": 14,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
@@ -4081,14 +3585,14 @@
         "near": [],
         "area": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+            "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
             "km": 53.3,
             "draw": "national",
             "standing": "top",
             "access_cost": [
               "timed_entry"
             ],
-            "family_effort": 1
+            "family_effort": null
           }
         ]
       },
@@ -4114,7 +3618,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "needs a booking or permit"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "filler",
@@ -4126,7 +3630,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
@@ -4174,7 +3679,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
@@ -4222,7 +3728,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
@@ -4270,7 +3777,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
@@ -4318,7 +3826,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
@@ -4366,7 +3875,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
@@ -4387,7 +3897,19 @@
         "draw": "world",
         "same_class": false
       },
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 104,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
@@ -4420,7 +3942,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
@@ -4439,8 +3962,7 @@
       "pair_with": [],
       "pair_pending": [],
       "part_of": [
-        "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
-        "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline"
+        "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail"
       ],
       "plan_b": null,
       "fits": {
@@ -4467,7 +3989,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
@@ -4515,7 +4038,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
@@ -4573,7 +4097,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
@@ -4630,7 +4155,8 @@
           "fit": "worth_it",
           "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
         }
-      }
+      },
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
@@ -4678,7 +4204,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
@@ -4715,7 +4242,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
           "km": 2.5
         }
       ],
@@ -4745,7 +4272,9 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
@@ -4793,7 +4322,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
@@ -4841,7 +4371,1063 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 38,
+      "detour_basis": "town",
+      "detour_town": "Banff",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+            "km": 27.7,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "km": 34.5,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 38 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 42,
+      "detour_basis": "town",
+      "detour_town": "Banff",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+          "km": 1,
+          "how": "walk",
+          "extra_min": 91,
+          "on_site_min": 60,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
+          "km": 3.2
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+          "km": 3.2
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing top; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 42 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 40,
+      "detour_basis": "town",
+      "detour_town": "Banff",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+            "km": 27.7,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 40 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "draw_suggested": "national",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 190,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+          "km": 3.9
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+          "km": 5.5
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 190 min is over 30"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing good; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing good; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+        "km": 36.3,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+          "km": 3.5
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+          "km": 8.4
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 66,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+            "km": 21.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+            "km": 21.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 66 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 64,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "km": 15.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Paint Pots are the next stop on Highway 93 South, about 3 km away"
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 64 min is over 30"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/marble-canyon"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "draw_suggested": "regional",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 188,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+        "km": 9.1,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+          "km": 9.1
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (188)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 188 min is over 30"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "draw_suggested": "world",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": 98,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+            "km": 78.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "km": 8.4,
+          "how": "drive",
+          "extra_min": 90,
+          "on_site_min": 90,
+          "on_site_estimated": false,
+          "draw": "national",
+          "standing": "good",
+          "hand_picked": true,
+          "reason": "Bow Lake is the next Parkway stop south, about 10 minutes by road",
+          "src": "src-0018"
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 98 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/peyto-lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 48,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/trails/iceline-trail"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction unique"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 48 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction unique"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 12,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+            "km": 11.1,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+            "km": 11.1,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+        "km": 41.8,
+        "draw": "national",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+          "km": 8.4
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw local, standing good; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw; clear weather only drops it one step"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/wedge-pond"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 48,
+      "detour_basis": "town",
+      "detour_town": "Banff",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour 48 min is over 30"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "draw_suggested": "local",
+      "effective_draw": "national",
+      "access_load": "plan",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Banff",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+            "km": 53.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 134,
+          "on_site_min": 120,
+          "on_site_estimated": false,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Upper Hot Springs are a few hundred metres down Mountain Avenue from the gondola base: ride up, then soak",
+          "src": "src-0010"
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+          "km": 4.5
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+        "km": 43.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "draw_suggested": "national",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 14,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+            "km": 53.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/lake-louise",
+        "km": 5.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top"
     }
   ]
 }

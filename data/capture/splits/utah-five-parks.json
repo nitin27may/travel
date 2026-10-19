@@ -1,0 +1,69 @@
+{
+  "schema": "capture-splits/1",
+  "trip": "utah-five-parks",
+  "reviewed": "2026-10-18",
+  "note": "Proposed by the builder (SP1) from the lane sidecars, to be confirmed by a researcher (SP2): payoff points, operators and the place each offer runs at. `core/bin/capture.ts migrate` applies it (SP3).",
+  "splits": [
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+        "type": "water.falls.waterfall",
+        "kind": "waterfall",
+        "name": "Lower Calf Creek Falls"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class canyon/slot-wade): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.river_hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+        "type": "nature.landform.canyon",
+        "kind": "waterfall",
+        "name": "The Narrows"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class canyon/desert-rim): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+        "type": "nature.landform.canyon",
+        "kind": "waterfall",
+        "name": "Navajo Loop and Queens Garden"
+      }
+    },
+    {
+      "ref": "trip/utah-five-parks/viewpoint:grand view point",
+      "how": "place_walk",
+      "reason": "A place carrying a walk of 2 km or more: the place plus the route to it. Effort drivers and walking time move to the route; walk_m, exposure, access and facilities stay (capture contract 2.7.2).",
+      "route": {
+        "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+        "type": "nature.trail.walk",
+        "name": "Grand View Point walk"
+      },
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "bail_out"
+      ]
+    }
+  ]
+}

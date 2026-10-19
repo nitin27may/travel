@@ -1,0 +1,224 @@
+{
+  "schema": "capture/1",
+  "trip": "patagonia-2027",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
+      "type": "mountain.alpine.glacier_walk",
+      "layer": "offer",
+      "name": "Minitrekking on the glacier",
+      "offer_class": "experience",
+      "run_by": "operator/hielo-y-aventura-s-a",
+      "at": [
+        "trip/patagonia-2027/sight:perito moreno walkways"
+      ]
+    },
+    {
+      "ref": "trip/patagonia-2027/lake:beagle channel boat",
+      "type": "water.boat.boat_tour",
+      "layer": "offer",
+      "name": "Beagle Channel boat",
+      "offer_class": "experience",
+      "at": [
+        "part/trip/patagonia-2027/lake:beagle channel boat#place"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/lake:beagle channel boat#place",
+      "type": "water.body.sea_bay_fjord",
+      "layer": "place",
+      "name": "Beagle Channel",
+      "origin": {
+        "from": "trip/patagonia-2027/lake:beagle channel boat",
+        "reason": "the place the offer runs at"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:penguin colony stop",
+      "type": "nature.wildlife.viewing_spot",
+      "layer": "place",
+      "name": "Penguin colony stop"
+    },
+    {
+      "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Perito Moreno walkways"
+    },
+    {
+      "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Palermo and Recoleta walk"
+    },
+    {
+      "ref": "trip/patagonia-2027/town:san telmo market",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "San Telmo market"
+    },
+    {
+      "ref": "trip/patagonia-2027/town:cafe and bookshops",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Cafe and bookshops"
+    },
+    {
+      "ref": "trip/patagonia-2027/town:harbour walk",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Harbour walk"
+    },
+    {
+      "ref": "trip/patagonia-2027/town:village and cafes",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Village and cafes"
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Lapataia Bay"
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Evening Fitz Roy glow"
+    },
+    {
+      "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Laguna Nimez birds"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Laguna de los Tres",
+      "reaches": [
+        "part/trip/patagonia-2027/trail:laguna de los tres#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Laguna de los Tres",
+      "origin": {
+        "from": "trip/patagonia-2027/trail:laguna de los tres",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Laguna Capri",
+      "reaches": [
+        "part/trip/patagonia-2027/trail:laguna capri#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Laguna Capri",
+      "origin": {
+        "from": "trip/patagonia-2027/trail:laguna capri",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Mirador de los Condores",
+      "reaches": [
+        "part/trip/patagonia-2027/trail:mirador de los condores#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Mirador de los Condores",
+      "origin": {
+        "from": "trip/patagonia-2027/trail:mirador de los condores",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Mirador de las Aguilas",
+      "reaches": [
+        "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Mirador de las Aguilas",
+      "origin": {
+        "from": "trip/patagonia-2027/trail:mirador de las aguilas",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Chorrillo del Salto",
+      "reaches": [
+        "part/trip/patagonia-2027/trail:chorrillo del salto#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Chorrillo del Salto",
+      "origin": {
+        "from": "trip/patagonia-2027/trail:chorrillo del salto",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:coastal path",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Coastal path",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Laguna Esmeralda",
+      "reaches": [
+        "part/trip/patagonia-2027/trail:laguna esmeralda#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Laguna Esmeralda",
+      "origin": {
+        "from": "trip/patagonia-2027/trail:laguna esmeralda",
+        "reason": "payoff of the trail"
+      }
+    }
+  ]
+}

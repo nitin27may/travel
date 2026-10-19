@@ -4601,6 +4601,3116 @@
       "x-private": [],
       "x-rules": []
     },
+    "sidecar.capture": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^capture\\/1$",
+          "x-type": "text"
+        },
+        "trip": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "x-type": "text"
+        },
+        "lane": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "researched": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "agent": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^src-\\d{4,}$"
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string"
+              },
+              "publisher": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "official",
+                  "operator",
+                  "reseller",
+                  "press",
+                  "blog",
+                  "community",
+                  "video",
+                  "computed"
+                ]
+              },
+              "read": {
+                "type": "string",
+                "format": "date"
+              },
+              "method": {
+                "type": "string",
+                "enum": [
+                  "read",
+                  "crawl",
+                  "api",
+                  "computed",
+                  "owner"
+                ]
+              },
+              "run": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "title",
+              "publisher",
+              "kind",
+              "read"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+){0,3}$"
+              },
+              "layer": {
+                "type": "string",
+                "enum": [
+                  "place",
+                  "route",
+                  "offer",
+                  "event"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "names": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "aliases": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "offer_class": {
+                "type": "string",
+                "enum": [
+                  "experience",
+                  "rental",
+                  "ticket",
+                  "access",
+                  "lodging"
+                ]
+              },
+              "origin": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "from",
+                  "reason"
+                ],
+                "additionalProperties": false
+              },
+              "route_is_attraction": {
+                "type": "boolean"
+              },
+              "attraction_reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "area_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "osm_ref": {
+                "type": "string",
+                "pattern": "^(node|way|relation)\\/\\d+$"
+              },
+              "reaches": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "passes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "at_km": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "ref"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "part_of": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "starts_at": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "ends_at": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "on": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "from_km": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "to_km": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "ref"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "at": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "run_by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "parks_for": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "serves": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "combo_with": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "alternative_to": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "variant_of": {
+                "type": "string",
+                "minLength": 1
+              },
+              "season": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "from": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "to": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "open",
+                                "limited",
+                                "closed"
+                              ]
+                            },
+                            "applies_to": {
+                              "type": "string",
+                              "pattern": "^\\d{4}$"
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "from",
+                            "to",
+                            "status"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "from": {
+                                "type": "string",
+                                "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                              },
+                              "to": {
+                                "type": "string",
+                                "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "open",
+                                  "limited",
+                                  "closed"
+                                ]
+                              },
+                              "applies_to": {
+                                "type": "string",
+                                "pattern": "^\\d{4}$"
+                              },
+                              "note": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "from",
+                              "to",
+                              "status"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "best_window": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "from": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "to": {
+                              "type": "string",
+                              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                            },
+                            "why": {
+                              "type": "string",
+                              "enum": [
+                                "foliage",
+                                "flow",
+                                "larch",
+                                "bloom",
+                                "wildlife",
+                                "snow",
+                                "water_temp"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "from",
+                            "to",
+                            "why"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "from": {
+                                "type": "string",
+                                "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                              },
+                              "to": {
+                                "type": "string",
+                                "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                              },
+                              "why": {
+                                "type": "string",
+                                "enum": [
+                                  "foliage",
+                                  "flow",
+                                  "larch",
+                                  "bloom",
+                                  "wildlife",
+                                  "snow",
+                                  "water_temp"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "from",
+                              "to",
+                              "why"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "best_time": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "slot": {
+                              "type": "string",
+                              "enum": [
+                                "sunrise",
+                                "golden_am",
+                                "morning",
+                                "midday",
+                                "afternoon",
+                                "golden_pm",
+                                "sunset",
+                                "night"
+                              ]
+                            },
+                            "why": {
+                              "type": "string",
+                              "enum": [
+                                "light",
+                                "crowds",
+                                "wildlife",
+                                "heat",
+                                "tide"
+                              ]
+                            },
+                            "months": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 12
+                              }
+                            }
+                          },
+                          "required": [
+                            "slot",
+                            "why"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "slot": {
+                                "type": "string",
+                                "enum": [
+                                  "sunrise",
+                                  "golden_am",
+                                  "morning",
+                                  "midday",
+                                  "afternoon",
+                                  "golden_pm",
+                                  "sunset",
+                                  "night"
+                                ]
+                              },
+                              "why": {
+                                "type": "string",
+                                "enum": [
+                                  "light",
+                                  "crowds",
+                                  "wildlife",
+                                  "heat",
+                                  "tide"
+                                ]
+                              },
+                              "months": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 12
+                                }
+                              }
+                            },
+                            "required": [
+                              "slot",
+                              "why"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "hours": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "tz": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "always_open": {
+                            "type": "boolean"
+                          },
+                          "periods": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "days": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 7
+                                  }
+                                },
+                                "open": {
+                                  "type": "string",
+                                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                },
+                                "close": {
+                                  "type": "string",
+                                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                },
+                                "from": {
+                                  "type": "string",
+                                  "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                                },
+                                "to": {
+                                  "type": "string",
+                                  "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                                }
+                              },
+                              "required": [
+                                "days",
+                                "open",
+                                "close"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "closed_days": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 7
+                            }
+                          },
+                          "breaks": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "days": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 7
+                                  }
+                                },
+                                "from": {
+                                  "type": "string",
+                                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                },
+                                "to": {
+                                  "type": "string",
+                                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                }
+                              },
+                              "required": [
+                                "days",
+                                "from",
+                                "to"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "closures": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "from": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "to": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "why": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "from",
+                                "to"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "last_entry": {
+                            "type": "string",
+                            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                          },
+                          "last_up": {
+                            "type": "string",
+                            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                          },
+                          "last_down": {
+                            "type": "string",
+                            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                          }
+                        },
+                        "required": [
+                          "tz"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "object",
+                          "properties": {
+                            "tz": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "always_open": {
+                              "type": "boolean"
+                            },
+                            "periods": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "days": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "integer",
+                                      "minimum": 1,
+                                      "maximum": 7
+                                    }
+                                  },
+                                  "open": {
+                                    "type": "string",
+                                    "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                  },
+                                  "close": {
+                                    "type": "string",
+                                    "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                  },
+                                  "from": {
+                                    "type": "string",
+                                    "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                                  },
+                                  "to": {
+                                    "type": "string",
+                                    "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+                                  }
+                                },
+                                "required": [
+                                  "days",
+                                  "open",
+                                  "close"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "closed_days": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 7
+                              }
+                            },
+                            "breaks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "days": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "integer",
+                                      "minimum": 1,
+                                      "maximum": 7
+                                    }
+                                  },
+                                  "from": {
+                                    "type": "string",
+                                    "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                  },
+                                  "to": {
+                                    "type": "string",
+                                    "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                                  }
+                                },
+                                "required": [
+                                  "days",
+                                  "from",
+                                  "to"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "closures": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "from": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "to": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "why": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "from",
+                                  "to"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "last_entry": {
+                              "type": "string",
+                              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                            },
+                            "last_up": {
+                              "type": "string",
+                              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                            },
+                            "last_down": {
+                              "type": "string",
+                              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                            }
+                          },
+                          "required": [
+                            "tz"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "duration_min": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          ],
+                          "items": false,
+                          "minItems": 2,
+                          "maxItems": 2
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "activity_min": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            {
+                              "type": "integer",
+                              "minimum": 0
+                            }
+                          ],
+                          "items": false,
+                          "minItems": 2,
+                          "maxItems": 2
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "price": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "type": "number",
+                              "minimum": 0
+                            },
+                            "currency": {
+                              "type": "string",
+                              "pattern": "^[A-Z]{3}$"
+                            },
+                            "per": {
+                              "type": "string",
+                              "enum": [
+                                "person",
+                                "adult",
+                                "child",
+                                "family",
+                                "group",
+                                "vehicle",
+                                "vehicle_day",
+                                "hour",
+                                "night",
+                                "room",
+                                "boat",
+                                "weight"
+                              ]
+                            },
+                            "age_from": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "age_to": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "applies_to": {
+                              "type": "string",
+                              "pattern": "^\\d{4}$"
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "amount",
+                            "currency",
+                            "per"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "amount": {
+                                "type": "number",
+                                "minimum": 0
+                              },
+                              "currency": {
+                                "type": "string",
+                                "pattern": "^[A-Z]{3}$"
+                              },
+                              "per": {
+                                "type": "string",
+                                "enum": [
+                                  "person",
+                                  "adult",
+                                  "child",
+                                  "family",
+                                  "group",
+                                  "vehicle",
+                                  "vehicle_day",
+                                  "hour",
+                                  "night",
+                                  "room",
+                                  "boat",
+                                  "weight"
+                                ]
+                              },
+                              "age_from": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "age_to": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "applies_to": {
+                                "type": "string",
+                                "pattern": "^\\d{4}$"
+                              },
+                              "note": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "amount",
+                              "currency",
+                              "per"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "window": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "rule": {
+                            "type": "string",
+                            "enum": [
+                              "fixed_date",
+                              "rolling",
+                              "monthly_release",
+                              "lottery",
+                              "same_day",
+                              "anytime",
+                              "on_arrival"
+                            ]
+                          },
+                          "days_before": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "opens_time": {
+                            "type": "string",
+                            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                          },
+                          "tz": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sellout": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "enum": [
+                                  "never",
+                                  "minutes",
+                                  "days",
+                                  "weeks",
+                                  "months",
+                                  "unknown"
+                                ]
+                              },
+                              "lead": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "fallback": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "rule"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "object",
+                          "properties": {
+                            "rule": {
+                              "type": "string",
+                              "enum": [
+                                "fixed_date",
+                                "rolling",
+                                "monthly_release",
+                                "lottery",
+                                "same_day",
+                                "anytime",
+                                "on_arrival"
+                              ]
+                            },
+                            "days_before": {
+                              "type": "integer",
+                              "minimum": 0
+                            },
+                            "opens_time": {
+                              "type": "string",
+                              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                            },
+                            "tz": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sellout": {
+                              "type": "object",
+                              "properties": {
+                                "kind": {
+                                  "type": "string",
+                                  "enum": [
+                                    "never",
+                                    "minutes",
+                                    "days",
+                                    "weeks",
+                                    "months",
+                                    "unknown"
+                                  ]
+                                },
+                                "lead": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                }
+                              },
+                              "required": [
+                                "kind"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "fallback": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "rule"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "book_url": {
+                "type": "object",
+                "properties": {
+                  "v": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "value",
+                      "none_stated",
+                      "searched_none",
+                      "not_applicable",
+                      "gap",
+                      "no_limit"
+                    ]
+                  },
+                  "basis": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "operator_rule",
+                          "official_rule",
+                          "official_grade",
+                          "official_info",
+                          "community",
+                          "our_inference",
+                          "operator_info"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "src": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "read": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "note": {
+                    "type": "string"
+                  },
+                  "tried": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "on": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "applies_to": {
+                    "type": "string",
+                    "pattern": "^\\d{4}$"
+                  },
+                  "conflicts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "v": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "basis": {
+                          "type": "string",
+                          "enum": [
+                            "operator_rule",
+                            "official_rule",
+                            "official_grade",
+                            "official_info",
+                            "community",
+                            "our_inference",
+                            "operator_info"
+                          ]
+                        },
+                        "src": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "v",
+                        "basis",
+                        "src"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "v",
+                  "state",
+                  "basis",
+                  "src"
+                ],
+                "additionalProperties": false
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "official",
+                        "hours_rates",
+                        "booking",
+                        "conditions",
+                        "status",
+                        "timetable",
+                        "terms",
+                        "waiver",
+                        "safety",
+                        "accessibility",
+                        "menu",
+                        "tourism_board",
+                        "osm",
+                        "wikidata",
+                        "wikipedia",
+                        "wikivoyage",
+                        "commons",
+                        "webcam",
+                        "map_sheet",
+                        "gpx_download",
+                        "track_source",
+                        "trip_report",
+                        "video",
+                        "alltrails",
+                        "komoot",
+                        "gaia",
+                        "outdooractive",
+                        "wikiloc",
+                        "trailforks",
+                        "reseller"
+                      ]
+                    },
+                    "url": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "state": {
+                      "type": "string",
+                      "enum": [
+                        "filled",
+                        "searched_none",
+                        "found_in_search"
+                      ]
+                    },
+                    "query": {
+                      "type": "string"
+                    },
+                    "on": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "src": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "state"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "photos": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "licence": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "author": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "attribution": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "source_url": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "width": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "height": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  },
+                  "required": [
+                    "file",
+                    "licence",
+                    "author",
+                    "attribution",
+                    "source_url",
+                    "width",
+                    "height"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "ref",
+              "type",
+              "layer"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "trip",
+        "lane",
+        "researched",
+        "agent",
+        "model",
+        "sources",
+        "records"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "capture",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Capture"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
+    "sidecar.capture_operators": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^capture-operators\\/1$",
+          "x-type": "text"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "pattern": "^operator\\/[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "terms_url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "waiver_url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "phone": {
+                "type": "string",
+                "minLength": 1
+              },
+              "licence": {
+                "type": "string",
+                "minLength": 1
+              },
+              "derived_from": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "src": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "publisher": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "file",
+                    "src",
+                    "publisher",
+                    "url"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "ref",
+              "name",
+              "url"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "updated",
+        "operators"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "capture_operators",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Capture operators"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
+    "sidecar.capture_run": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^capture-run\\/1$",
+          "x-type": "text"
+        },
+        "run": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "x-type": "text"
+        },
+        "started": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "agent": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+){0,3}$"
+              }
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false,
+          "x-type": "json"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "host": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requests": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "robots": {
+                "type": "string",
+                "enum": [
+                  "allowed",
+                  "forbidden",
+                  "unknown",
+                  "none"
+                ]
+              },
+              "terms": {
+                "type": "string",
+                "enum": [
+                  "allowed",
+                  "forbidden",
+                  "unknown"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "ok",
+                  "partial",
+                  "blocked"
+                ]
+              }
+            },
+            "required": [
+              "host",
+              "requests",
+              "robots",
+              "terms",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "field": {
+                "type": "string",
+                "minLength": 1
+              },
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "filled",
+                  "searched_none",
+                  "gap",
+                  "blocked",
+                  "conflict"
+                ]
+              },
+              "src": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "tried": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "host": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ref",
+              "field",
+              "outcome"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "run",
+        "started",
+        "agent",
+        "model",
+        "scope",
+        "hosts",
+        "results"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "capture_run",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Capture run"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
+    "sidecar.capture_types": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "pattern": "^capture-types\\/1$",
+          "x-type": "text"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "x-type": "text"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "x-type": "date"
+        },
+        "profiles": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "operated": {
+                "type": "string",
+                "enum": [
+                  "always",
+                  "never",
+                  "flag"
+                ]
+              },
+              "ext": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "note": {
+                "type": "string"
+              },
+              "review": {
+                "type": "string",
+                "const": "design"
+              },
+              "fields": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": "string",
+                  "enum": [
+                    "R",
+                    "A",
+                    "op"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "operated",
+              "ext",
+              "fields"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        },
+        "layers": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "R": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "A": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "N": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+){0,3}$"
+              },
+              "parent": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-z0-9_]+(\\.[a-z0-9_]+){0,3}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "level": {
+                "type": "string",
+                "enum": [
+                  "domain",
+                  "category",
+                  "type",
+                  "subtype"
+                ]
+              },
+              "category": {
+                "type": "boolean"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "aliases": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "legacy": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "subkind": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "subkind"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "place",
+                    "route",
+                    "offer",
+                    "event"
+                  ]
+                }
+              },
+              "offer_class": {
+                "type": "string",
+                "enum": [
+                  "experience",
+                  "rental",
+                  "ticket",
+                  "access",
+                  "lodging"
+                ]
+              },
+              "profile": {
+                "type": "string",
+                "minLength": 1
+              },
+              "operated_default": {
+                "type": "boolean"
+              },
+              "ext": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "suitability_on": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "place",
+                    "route",
+                    "offer",
+                    "event"
+                  ]
+                }
+              },
+              "effort": {
+                "type": "object",
+                "properties": {
+                  "scales": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "sac",
+                        "parks-canada",
+                        "sepaq",
+                        "nps",
+                        "yds",
+                        "uk",
+                        "apn",
+                        "dnt",
+                        "other",
+                        "cai",
+                        "schall",
+                        "huesler",
+                        "cai-ferrata",
+                        "osm-ferrata",
+                        "imba",
+                        "sts",
+                        "trailforks",
+                        "whistler",
+                        "bike-path",
+                        "whitewater",
+                        "flatwater",
+                        "piste-eu",
+                        "piste-at-ch",
+                        "piste-na",
+                        "piste-jp",
+                        "local",
+                        "operator",
+                        "yds-rock",
+                        "french",
+                        "uiaa",
+                        "font",
+                        "v-scale",
+                        "ifas",
+                        "canyon-fr",
+                        "sac-wt"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "scales"
+                ],
+                "additionalProperties": false
+              },
+              "relevance_class": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "marks": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": "string",
+                  "enum": [
+                    "R",
+                    "R?",
+                    "A",
+                    "N"
+                  ]
+                }
+              },
+              "links": {
+                "type": "object",
+                "properties": {
+                  "R": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "official",
+                        "hours_rates",
+                        "booking",
+                        "conditions",
+                        "status",
+                        "timetable",
+                        "terms",
+                        "waiver",
+                        "safety",
+                        "accessibility",
+                        "menu",
+                        "tourism_board",
+                        "osm",
+                        "wikidata",
+                        "wikipedia",
+                        "wikivoyage",
+                        "commons",
+                        "webcam",
+                        "map_sheet",
+                        "gpx_download",
+                        "track_source",
+                        "trip_report",
+                        "video",
+                        "alltrails",
+                        "komoot",
+                        "gaia",
+                        "outdooractive",
+                        "wikiloc",
+                        "trailforks",
+                        "reseller"
+                      ]
+                    }
+                  },
+                  "R?": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "official",
+                        "hours_rates",
+                        "booking",
+                        "conditions",
+                        "status",
+                        "timetable",
+                        "terms",
+                        "waiver",
+                        "safety",
+                        "accessibility",
+                        "menu",
+                        "tourism_board",
+                        "osm",
+                        "wikidata",
+                        "wikipedia",
+                        "wikivoyage",
+                        "commons",
+                        "webcam",
+                        "map_sheet",
+                        "gpx_download",
+                        "track_source",
+                        "trip_report",
+                        "video",
+                        "alltrails",
+                        "komoot",
+                        "gaia",
+                        "outdooractive",
+                        "wikiloc",
+                        "trailforks",
+                        "reseller"
+                      ]
+                    }
+                  },
+                  "A": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "official",
+                        "hours_rates",
+                        "booking",
+                        "conditions",
+                        "status",
+                        "timetable",
+                        "terms",
+                        "waiver",
+                        "safety",
+                        "accessibility",
+                        "menu",
+                        "tourism_board",
+                        "osm",
+                        "wikidata",
+                        "wikipedia",
+                        "wikivoyage",
+                        "commons",
+                        "webcam",
+                        "map_sheet",
+                        "gpx_download",
+                        "track_source",
+                        "trip_report",
+                        "video",
+                        "alltrails",
+                        "komoot",
+                        "gaia",
+                        "outdooractive",
+                        "wikiloc",
+                        "trailforks",
+                        "reseller"
+                      ]
+                    }
+                  },
+                  "add": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "official",
+                        "hours_rates",
+                        "booking",
+                        "conditions",
+                        "status",
+                        "timetable",
+                        "terms",
+                        "waiver",
+                        "safety",
+                        "accessibility",
+                        "menu",
+                        "tourism_board",
+                        "osm",
+                        "wikidata",
+                        "wikipedia",
+                        "wikivoyage",
+                        "commons",
+                        "webcam",
+                        "map_sheet",
+                        "gpx_download",
+                        "track_source",
+                        "trip_report",
+                        "video",
+                        "alltrails",
+                        "komoot",
+                        "gaia",
+                        "outdooractive",
+                        "wikiloc",
+                        "trailforks",
+                        "reseller"
+                      ]
+                    }
+                  },
+                  "remove": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "official",
+                        "hours_rates",
+                        "booking",
+                        "conditions",
+                        "status",
+                        "timetable",
+                        "terms",
+                        "waiver",
+                        "safety",
+                        "accessibility",
+                        "menu",
+                        "tourism_board",
+                        "osm",
+                        "wikidata",
+                        "wikipedia",
+                        "wikivoyage",
+                        "commons",
+                        "webcam",
+                        "map_sheet",
+                        "gpx_download",
+                        "track_source",
+                        "trip_report",
+                        "video",
+                        "alltrails",
+                        "komoot",
+                        "gaia",
+                        "outdooractive",
+                        "wikiloc",
+                        "trailforks",
+                        "reseller"
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "O",
+                    "F",
+                    "T",
+                    "D",
+                    "C",
+                    "X"
+                  ]
+                }
+              },
+              "display": {
+                "type": "object",
+                "properties": {
+                  "slot3": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "glance": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "parent",
+              "level",
+              "label"
+            ],
+            "additionalProperties": false
+          },
+          "x-type": "json"
+        }
+      },
+      "required": [
+        "schema",
+        "note",
+        "updated",
+        "profiles",
+        "layers",
+        "nodes"
+      ],
+      "additionalProperties": false,
+      "x-family": "sidecar",
+      "x-table": "capture_types",
+      "x-single": true,
+      "x-pk": [],
+      "x-sql": {},
+      "x-ui": {
+        "label": "Capture types"
+      },
+      "x-private": [],
+      "x-rules": []
+    },
     "sidecar.difficulty_map": {
       "type": "object",
       "properties": {
@@ -4675,7 +7785,15 @@
                   "piste-na",
                   "piste-jp",
                   "local",
-                  "operator"
+                  "operator",
+                  "yds-rock",
+                  "french",
+                  "uiaa",
+                  "font",
+                  "v-scale",
+                  "ifas",
+                  "canyon-fr",
+                  "sac-wt"
                 ]
               },
               "label": {
@@ -5190,6 +8308,20 @@
               "read": {
                 "type": "string",
                 "format": "date"
+              },
+              "method": {
+                "type": "string",
+                "enum": [
+                  "read",
+                  "crawl",
+                  "api",
+                  "computed",
+                  "owner"
+                ]
+              },
+              "run": {
+                "type": "string",
+                "minLength": 1
               }
             },
             "required": [
@@ -7891,6 +11023,14 @@
                 "type": "string",
                 "minLength": 1
               },
+              "automated": {
+                "type": "string",
+                "enum": [
+                  "allowed",
+                  "forbidden",
+                  "unknown"
+                ]
+              },
               "recheck": {
                 "type": "object",
                 "properties": {
@@ -7960,6 +11100,7 @@
               "used_by",
               "licence_note",
               "terms_note",
+              "automated",
               "recheck",
               "link"
             ],
@@ -8052,6 +11193,20 @@
               "read": {
                 "type": "string",
                 "format": "date"
+              },
+              "method": {
+                "type": "string",
+                "enum": [
+                  "read",
+                  "crawl",
+                  "api",
+                  "computed",
+                  "owner"
+                ]
+              },
+              "run": {
+                "type": "string",
+                "minLength": 1
               }
             },
             "required": [
@@ -8089,7 +11244,8 @@
                   "swim_spot",
                   "stay",
                   "eatery",
-                  "drive"
+                  "drive",
+                  "access"
                 ]
               },
               "subkind": {
@@ -10933,7 +14089,15 @@
                                       "piste-na",
                                       "piste-jp",
                                       "local",
-                                      "operator"
+                                      "operator",
+                                      "yds-rock",
+                                      "french",
+                                      "uiaa",
+                                      "font",
+                                      "v-scale",
+                                      "ifas",
+                                      "canyon-fr",
+                                      "sac-wt"
                                     ]
                                   },
                                   "value": {
@@ -11050,7 +14214,15 @@
                                         "piste-na",
                                         "piste-jp",
                                         "local",
-                                        "operator"
+                                        "operator",
+                                        "yds-rock",
+                                        "french",
+                                        "uiaa",
+                                        "font",
+                                        "v-scale",
+                                        "ifas",
+                                        "canyon-fr",
+                                        "sac-wt"
                                       ]
                                     },
                                     "value": {
@@ -13359,6 +16531,474 @@
                                 "patchy",
                                 "none"
                               ]
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "operator_rule",
+                                "official_rule",
+                                "official_grade",
+                                "official_info",
+                                "community",
+                                "our_inference",
+                                "operator_info"
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "v",
+                      "state",
+                      "basis",
+                      "src"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "change_rooms": {
+                    "type": "object",
+                    "properties": {
+                      "v": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "value",
+                          "none_stated",
+                          "searched_none",
+                          "not_applicable",
+                          "gap",
+                          "no_limit"
+                        ]
+                      },
+                      "basis": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "operator_rule",
+                              "official_rule",
+                              "official_grade",
+                              "official_info",
+                              "community",
+                              "our_inference",
+                              "operator_info"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "src": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "read": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "tried": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "on": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "applies_to": {
+                        "type": "string",
+                        "pattern": "^\\d{4}$"
+                      },
+                      "conflicts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": "boolean"
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "operator_rule",
+                                "official_rule",
+                                "official_grade",
+                                "official_info",
+                                "community",
+                                "our_inference",
+                                "operator_info"
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "v",
+                      "state",
+                      "basis",
+                      "src"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "showers": {
+                    "type": "object",
+                    "properties": {
+                      "v": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "value",
+                          "none_stated",
+                          "searched_none",
+                          "not_applicable",
+                          "gap",
+                          "no_limit"
+                        ]
+                      },
+                      "basis": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "operator_rule",
+                              "official_rule",
+                              "official_grade",
+                              "official_info",
+                              "community",
+                              "our_inference",
+                              "operator_info"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "src": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "read": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "tried": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "on": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "applies_to": {
+                        "type": "string",
+                        "pattern": "^\\d{4}$"
+                      },
+                      "conflicts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": "boolean"
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "operator_rule",
+                                "official_rule",
+                                "official_grade",
+                                "official_info",
+                                "community",
+                                "our_inference",
+                                "operator_info"
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "v",
+                      "state",
+                      "basis",
+                      "src"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "picnic": {
+                    "type": "object",
+                    "properties": {
+                      "v": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "value",
+                          "none_stated",
+                          "searched_none",
+                          "not_applicable",
+                          "gap",
+                          "no_limit"
+                        ]
+                      },
+                      "basis": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "operator_rule",
+                              "official_rule",
+                              "official_grade",
+                              "official_info",
+                              "community",
+                              "our_inference",
+                              "operator_info"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "src": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "read": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "tried": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "on": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "applies_to": {
+                        "type": "string",
+                        "pattern": "^\\d{4}$"
+                      },
+                      "conflicts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": "boolean"
+                            },
+                            "basis": {
+                              "type": "string",
+                              "enum": [
+                                "operator_rule",
+                                "official_rule",
+                                "official_grade",
+                                "official_info",
+                                "community",
+                                "our_inference",
+                                "operator_info"
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "v",
+                      "state",
+                      "basis",
+                      "src"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "baby_change": {
+                    "type": "object",
+                    "properties": {
+                      "v": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "value",
+                          "none_stated",
+                          "searched_none",
+                          "not_applicable",
+                          "gap",
+                          "no_limit"
+                        ]
+                      },
+                      "basis": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "operator_rule",
+                              "official_rule",
+                              "official_grade",
+                              "official_info",
+                              "community",
+                              "our_inference",
+                              "operator_info"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "src": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "read": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "quote": {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "tried": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "on": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "applies_to": {
+                        "type": "string",
+                        "pattern": "^\\d{4}$"
+                      },
+                      "conflicts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": "boolean"
                             },
                             "basis": {
                               "type": "string",
@@ -15838,6 +19478,26 @@
                                         "lung"
                                       ]
                                     }
+                                  },
+                                  "not_recommended": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "enum": [
+                                        "heart",
+                                        "high_blood_pressure",
+                                        "epilepsy",
+                                        "neurological",
+                                        "back_neck",
+                                        "recent_surgery",
+                                        "dislocation",
+                                        "asthma",
+                                        "diabetes",
+                                        "mobility",
+                                        "balance",
+                                        "lung"
+                                      ]
+                                    }
                                   }
                                 },
                                 "required": [
@@ -15959,6 +19619,26 @@
                                           "lung"
                                         ]
                                       }
+                                    },
+                                    "not_recommended": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "enum": [
+                                          "heart",
+                                          "high_blood_pressure",
+                                          "epilepsy",
+                                          "neurological",
+                                          "back_neck",
+                                          "recent_surgery",
+                                          "dislocation",
+                                          "asthma",
+                                          "diabetes",
+                                          "mobility",
+                                          "balance",
+                                          "lung"
+                                        ]
+                                      }
                                     }
                                   },
                                   "required": [
@@ -16016,6 +19696,7 @@
                                 "enum": [
                                   "allowed",
                                   "ask_doctor",
+                                  "not_recommended",
                                   "not_allowed"
                                 ]
                               },
@@ -16095,6 +19776,7 @@
                                   "enum": [
                                     "allowed",
                                     "ask_doctor",
+                                    "not_recommended",
                                     "not_allowed"
                                   ]
                                 },
@@ -16391,6 +20073,165 @@
                               "properties": {
                                 "v": {
                                   "type": "boolean"
+                                },
+                                "basis": {
+                                  "type": "string",
+                                  "enum": [
+                                    "operator_rule",
+                                    "official_rule",
+                                    "official_grade",
+                                    "official_info",
+                                    "community",
+                                    "our_inference",
+                                    "operator_info"
+                                  ]
+                                },
+                                "src": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "note": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "v",
+                                "basis",
+                                "src"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "v",
+                          "state",
+                          "basis",
+                          "src"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "driver": {
+                        "type": "object",
+                        "properties": {
+                          "v": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "min_age": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  },
+                                  "licence": {
+                                    "type": "string",
+                                    "enum": [
+                                      "none",
+                                      "boat_card",
+                                      "driving_licence"
+                                    ]
+                                  },
+                                  "passenger_min_age": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  }
+                                },
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "state": {
+                            "type": "string",
+                            "enum": [
+                              "value",
+                              "none_stated",
+                              "searched_none",
+                              "not_applicable",
+                              "gap",
+                              "no_limit"
+                            ]
+                          },
+                          "basis": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "operator_rule",
+                                  "official_rule",
+                                  "official_grade",
+                                  "official_info",
+                                  "community",
+                                  "our_inference",
+                                  "operator_info"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "src": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "read": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "quote": {
+                            "type": "string",
+                            "maxLength": 300
+                          },
+                          "note": {
+                            "type": "string"
+                          },
+                          "tried": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "on": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "applies_to": {
+                            "type": "string",
+                            "pattern": "^\\d{4}$"
+                          },
+                          "conflicts": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "v": {
+                                  "type": "object",
+                                  "properties": {
+                                    "min_age": {
+                                      "type": "integer",
+                                      "minimum": 0
+                                    },
+                                    "licence": {
+                                      "type": "string",
+                                      "enum": [
+                                        "none",
+                                        "boat_card",
+                                        "driving_licence"
+                                      ]
+                                    },
+                                    "passenger_min_age": {
+                                      "type": "integer",
+                                      "minimum": 0
+                                    }
+                                  },
+                                  "additionalProperties": false
                                 },
                                 "basis": {
                                   "type": "string",
@@ -31548,7 +35389,15 @@
                                             "piste-na",
                                             "piste-jp",
                                             "local",
-                                            "operator"
+                                            "operator",
+                                            "yds-rock",
+                                            "french",
+                                            "uiaa",
+                                            "font",
+                                            "v-scale",
+                                            "ifas",
+                                            "canyon-fr",
+                                            "sac-wt"
                                           ]
                                         },
                                         "value": {
@@ -31665,7 +35514,15 @@
                                               "piste-na",
                                               "piste-jp",
                                               "local",
-                                              "operator"
+                                              "operator",
+                                              "yds-rock",
+                                              "french",
+                                              "uiaa",
+                                              "font",
+                                              "v-scale",
+                                              "ifas",
+                                              "canyon-fr",
+                                              "sac-wt"
                                             ]
                                           },
                                           "value": {
@@ -33974,6 +37831,474 @@
                                       "patchy",
                                       "none"
                                     ]
+                                  },
+                                  "basis": {
+                                    "type": "string",
+                                    "enum": [
+                                      "operator_rule",
+                                      "official_rule",
+                                      "official_grade",
+                                      "official_info",
+                                      "community",
+                                      "our_inference",
+                                      "operator_info"
+                                    ]
+                                  },
+                                  "src": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "note": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "v",
+                                  "basis",
+                                  "src"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "state",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "change_rooms": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ]
+                            },
+                            "state": {
+                              "type": "string",
+                              "enum": [
+                                "value",
+                                "none_stated",
+                                "searched_none",
+                                "not_applicable",
+                                "gap",
+                                "no_limit"
+                              ]
+                            },
+                            "basis": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "operator_rule",
+                                    "official_rule",
+                                    "official_grade",
+                                    "official_info",
+                                    "community",
+                                    "our_inference",
+                                    "operator_info"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "read": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "quote": {
+                              "type": "string",
+                              "maxLength": 300
+                            },
+                            "note": {
+                              "type": "string"
+                            },
+                            "tried": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "on": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "applies_to": {
+                              "type": "string",
+                              "pattern": "^\\d{4}$"
+                            },
+                            "conflicts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "v": {
+                                    "type": "boolean"
+                                  },
+                                  "basis": {
+                                    "type": "string",
+                                    "enum": [
+                                      "operator_rule",
+                                      "official_rule",
+                                      "official_grade",
+                                      "official_info",
+                                      "community",
+                                      "our_inference",
+                                      "operator_info"
+                                    ]
+                                  },
+                                  "src": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "note": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "v",
+                                  "basis",
+                                  "src"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "state",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "showers": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ]
+                            },
+                            "state": {
+                              "type": "string",
+                              "enum": [
+                                "value",
+                                "none_stated",
+                                "searched_none",
+                                "not_applicable",
+                                "gap",
+                                "no_limit"
+                              ]
+                            },
+                            "basis": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "operator_rule",
+                                    "official_rule",
+                                    "official_grade",
+                                    "official_info",
+                                    "community",
+                                    "our_inference",
+                                    "operator_info"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "read": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "quote": {
+                              "type": "string",
+                              "maxLength": 300
+                            },
+                            "note": {
+                              "type": "string"
+                            },
+                            "tried": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "on": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "applies_to": {
+                              "type": "string",
+                              "pattern": "^\\d{4}$"
+                            },
+                            "conflicts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "v": {
+                                    "type": "boolean"
+                                  },
+                                  "basis": {
+                                    "type": "string",
+                                    "enum": [
+                                      "operator_rule",
+                                      "official_rule",
+                                      "official_grade",
+                                      "official_info",
+                                      "community",
+                                      "our_inference",
+                                      "operator_info"
+                                    ]
+                                  },
+                                  "src": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "note": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "v",
+                                  "basis",
+                                  "src"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "state",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "picnic": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ]
+                            },
+                            "state": {
+                              "type": "string",
+                              "enum": [
+                                "value",
+                                "none_stated",
+                                "searched_none",
+                                "not_applicable",
+                                "gap",
+                                "no_limit"
+                              ]
+                            },
+                            "basis": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "operator_rule",
+                                    "official_rule",
+                                    "official_grade",
+                                    "official_info",
+                                    "community",
+                                    "our_inference",
+                                    "operator_info"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "read": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "quote": {
+                              "type": "string",
+                              "maxLength": 300
+                            },
+                            "note": {
+                              "type": "string"
+                            },
+                            "tried": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "on": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "applies_to": {
+                              "type": "string",
+                              "pattern": "^\\d{4}$"
+                            },
+                            "conflicts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "v": {
+                                    "type": "boolean"
+                                  },
+                                  "basis": {
+                                    "type": "string",
+                                    "enum": [
+                                      "operator_rule",
+                                      "official_rule",
+                                      "official_grade",
+                                      "official_info",
+                                      "community",
+                                      "our_inference",
+                                      "operator_info"
+                                    ]
+                                  },
+                                  "src": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "note": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "v",
+                                  "basis",
+                                  "src"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "v",
+                            "state",
+                            "basis",
+                            "src"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "baby_change": {
+                          "type": "object",
+                          "properties": {
+                            "v": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ]
+                            },
+                            "state": {
+                              "type": "string",
+                              "enum": [
+                                "value",
+                                "none_stated",
+                                "searched_none",
+                                "not_applicable",
+                                "gap",
+                                "no_limit"
+                              ]
+                            },
+                            "basis": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "operator_rule",
+                                    "official_rule",
+                                    "official_grade",
+                                    "official_info",
+                                    "community",
+                                    "our_inference",
+                                    "operator_info"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "src": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "read": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "quote": {
+                              "type": "string",
+                              "maxLength": 300
+                            },
+                            "note": {
+                              "type": "string"
+                            },
+                            "tried": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "on": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "applies_to": {
+                              "type": "string",
+                              "pattern": "^\\d{4}$"
+                            },
+                            "conflicts": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "v": {
+                                    "type": "boolean"
                                   },
                                   "basis": {
                                     "type": "string",
@@ -36453,6 +40778,26 @@
                                               "lung"
                                             ]
                                           }
+                                        },
+                                        "not_recommended": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "enum": [
+                                              "heart",
+                                              "high_blood_pressure",
+                                              "epilepsy",
+                                              "neurological",
+                                              "back_neck",
+                                              "recent_surgery",
+                                              "dislocation",
+                                              "asthma",
+                                              "diabetes",
+                                              "mobility",
+                                              "balance",
+                                              "lung"
+                                            ]
+                                          }
                                         }
                                       },
                                       "required": [
@@ -36574,6 +40919,26 @@
                                                 "lung"
                                               ]
                                             }
+                                          },
+                                          "not_recommended": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "enum": [
+                                                "heart",
+                                                "high_blood_pressure",
+                                                "epilepsy",
+                                                "neurological",
+                                                "back_neck",
+                                                "recent_surgery",
+                                                "dislocation",
+                                                "asthma",
+                                                "diabetes",
+                                                "mobility",
+                                                "balance",
+                                                "lung"
+                                              ]
+                                            }
                                           }
                                         },
                                         "required": [
@@ -36631,6 +40996,7 @@
                                       "enum": [
                                         "allowed",
                                         "ask_doctor",
+                                        "not_recommended",
                                         "not_allowed"
                                       ]
                                     },
@@ -36710,6 +41076,7 @@
                                         "enum": [
                                           "allowed",
                                           "ask_doctor",
+                                          "not_recommended",
                                           "not_allowed"
                                         ]
                                       },
@@ -37006,6 +41373,165 @@
                                     "properties": {
                                       "v": {
                                         "type": "boolean"
+                                      },
+                                      "basis": {
+                                        "type": "string",
+                                        "enum": [
+                                          "operator_rule",
+                                          "official_rule",
+                                          "official_grade",
+                                          "official_info",
+                                          "community",
+                                          "our_inference",
+                                          "operator_info"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "note": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "v",
+                                      "basis",
+                                      "src"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                }
+                              },
+                              "required": [
+                                "v",
+                                "state",
+                                "basis",
+                                "src"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "driver": {
+                              "type": "object",
+                              "properties": {
+                                "v": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "min_age": {
+                                          "type": "integer",
+                                          "minimum": 0
+                                        },
+                                        "licence": {
+                                          "type": "string",
+                                          "enum": [
+                                            "none",
+                                            "boat_card",
+                                            "driving_licence"
+                                          ]
+                                        },
+                                        "passenger_min_age": {
+                                          "type": "integer",
+                                          "minimum": 0
+                                        }
+                                      },
+                                      "additionalProperties": false
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "state": {
+                                  "type": "string",
+                                  "enum": [
+                                    "value",
+                                    "none_stated",
+                                    "searched_none",
+                                    "not_applicable",
+                                    "gap",
+                                    "no_limit"
+                                  ]
+                                },
+                                "basis": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "enum": [
+                                        "operator_rule",
+                                        "official_rule",
+                                        "official_grade",
+                                        "official_info",
+                                        "community",
+                                        "our_inference",
+                                        "operator_info"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "src": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "read": {
+                                  "type": "string",
+                                  "format": "date"
+                                },
+                                "quote": {
+                                  "type": "string",
+                                  "maxLength": 300
+                                },
+                                "note": {
+                                  "type": "string"
+                                },
+                                "tried": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "on": {
+                                  "type": "string",
+                                  "format": "date"
+                                },
+                                "applies_to": {
+                                  "type": "string",
+                                  "pattern": "^\\d{4}$"
+                                },
+                                "conflicts": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "v": {
+                                        "type": "object",
+                                        "properties": {
+                                          "min_age": {
+                                            "type": "integer",
+                                            "minimum": 0
+                                          },
+                                          "licence": {
+                                            "type": "string",
+                                            "enum": [
+                                              "none",
+                                              "boat_card",
+                                              "driving_licence"
+                                            ]
+                                          },
+                                          "passenger_min_age": {
+                                            "type": "integer",
+                                            "minimum": 0
+                                          }
+                                        },
+                                        "additionalProperties": false
                                       },
                                       "basis": {
                                         "type": "string",
@@ -49552,7 +54078,8 @@
                         "swim_spot",
                         "stay",
                         "eatery",
-                        "drive"
+                        "drive",
+                        "access"
                       ]
                     },
                     "subkind": {
@@ -49627,6 +54154,7 @@
                         "heli",
                         "scenic-flight",
                         "vehicle-tour",
+                        "station",
                         "hotel",
                         "lodge",
                         "cabin",

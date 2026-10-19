@@ -257,9 +257,8 @@
       }
     },
     {
-      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-      "kind": "lift",
-      "subkind": "cable_car",
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "kind": "sight",
       "wikidata": {
         "v": "Q3088020",
         "state": "value",
@@ -1005,9 +1004,8 @@
       }
     },
     {
-      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "kind": "lake",
       "wikidata": {
         "v": "Q3214753",
         "state": "value",
