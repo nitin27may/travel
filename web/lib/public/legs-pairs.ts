@@ -11,7 +11,7 @@ export interface PairPlace {
 export interface PairDay {
   n: number;
   baseTown: string | null;
-  items: { id: string; placeId: string; variant?: string }[];
+  items: { id: string; placeId: string; variant?: string; time?: string }[];
 }
 
 /** Ordered [from, to] place ids for every leg of every day and variant, deduplicated by unordered pair. */
@@ -40,6 +40,8 @@ export function dolomitesLegPairs(days: PairDay[], places: PairPlace[]): [string
     for (const v of keys.length ? keys : ['']) {
       let prev = from;
       for (const it of seq.filter((i) => !i.variant || i.variant === v)) {
+        // an evening outing after dinner at the base: the way back to the base before it is a leg too
+        if (prev !== from && (it.time ?? '') >= '17:00') add(prev, night);
         add(prev, it.placeId);
         prev = it.placeId;
       }
