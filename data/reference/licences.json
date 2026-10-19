@@ -1,6 +1,6 @@
 {
   "schema": "licences/1",
-  "updated": "2026-10-17",
+  "updated": "2026-10-19",
   "sources": [
     {
       "id": "osm",
@@ -97,6 +97,14 @@
       "licence": "Written for this site; not licensed for reuse",
       "attribution": "Notes, summaries and plans on this site are our own writing.",
       "covers": "Place notes, trip plans and research summaries."
+    },
+    {
+      "id": "statcan",
+      "name": "Statistics Canada",
+      "url": "https://www.statcan.gc.ca/en/reference/licence",
+      "licence": "Open Government Licence – Canada",
+      "attribution": "Contains information licensed under the Open Government Licence – Canada (Statistics Canada, 2021 Census boundary files).",
+      "covers": "The census division boundaries for Canada on the globe."
     }
   ],
   "privacy": "Never published: traveller ages, heights, weights and citizenship; booking confirmations and contacts; prices paid; inbox captures; the research tree."
