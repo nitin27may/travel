@@ -162,7 +162,9 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
         {tl.variant.reason && day.variants.length > 1 ? <p className="tl-reason num" title={tl.variant.reason}><Prose text={tl.variant.reason} /></p> : null}
         {noFit ? (
           <p className="tl-nofit" role="note">
-            <Icon name="warn" size={15} /> <b>{age !== null ? `Not suited to age ${age}.` : 'Not suited to this setting.'}</b> <Prose text={noFit.text} />{'.'}
+            <Icon name="warn" size={15} /> <span>
+              <b>{age !== null ? `Not suited to age ${age}.` : 'Not suited to this setting.'}</b> <Prose text={noFit.text} />.
+            </span>
           </p>
         ) : null}
         {day.summary && showSummary ? <p className="tl-summary"><Prose text={day.summary} /></p> : null}
@@ -224,7 +226,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
             ),
           )}
         </ol>
-        {tl.entries.length <= 2 ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
+        {(tl.blocks ? tl.entries.length === 0 : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
         <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={onAdd} />
         <div className="tl-day-foot" data-print="hide">
           {knowCount > 0 ? (
