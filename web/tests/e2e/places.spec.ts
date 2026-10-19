@@ -108,7 +108,7 @@ test.describe('place page', () => {
 
   test('profile is ink at rest; scrubbing shows the one amber cursor and a readout; Escape clears it', async ({ page, site }) => {
     await page.goto(`${site.url}${TRAIL}`);
-    const svg = page.getByRole('img', { name: /Sketch of the elevation profile/ });
+    const svg = page.getByRole('img', { name: /(Sketch of the elevation profile|Elevation profile along the stored route)/ });
     await expect(page.locator('.pl-cursor')).toHaveCount(0);
     const line = await page.locator('.pl-line').evaluate((el) => getComputedStyle(el).stroke);
     const ink = await page.evaluate(() => getComputedStyle(document.body).color);
