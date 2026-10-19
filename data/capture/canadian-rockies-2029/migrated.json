@@ -204,6 +204,60 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/heures-hours",
+      "title": "Hours of Operation - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/tarifs-fees",
+      "title": "Fees - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit",
+      "title": "Plan your visit - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield-skywalk/",
+      "title": "Columbia Icefield Skywalk | Walk Above the Rockies on a Glass-Floor Cliff Edge",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/location-hours/",
+      "title": "Columbia Icefield | Tour Location & Hours",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
+      "title": "Travelling the Icefields Parkway - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -1149,7 +1203,27 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Bow Lake"
+      "name": "Bow Lake",
+      "best_time": {
+        "v": [
+          {
+            "slot": "golden_am",
+            "why": "crowds"
+          },
+          {
+            "slot": "golden_pm",
+            "why": "crowds"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0028"
+        ],
+        "read": "2026-10-19",
+        "quote": "Both the parking area by the highway and the lot close to the lodge get extremely busy in the summer months - come early or late in the day to avoid the crowds.",
+        "note": "Parks Canada: both lots get extremely busy in summer; come early or late."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -1249,6 +1323,22 @@
         "quote": "Lake Louise Lakeshore - General Parking, per vehicle $ 42.00 ... ADMISSION Daily * Adult $ 12.25 * Senior $ 10.75 Youth free * Family/Group $ 24.50",
         "note": "The FAQ: all visitors must pay for parking at Lake Louise Lakeshore; the cost is not included in park admission or the Discovery Pass. Paid-parking season in 2026 ran from mid-May to the Thanksgiving weekend.",
         "applies_to": "2026"
+      },
+      "best_time": {
+        "v": [
+          {
+            "slot": "sunrise",
+            "why": "crowds"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-19",
+        "quote": "Parking lots fill up before sunrise and remain full until sunset.",
+        "note": "Parks Canada: the lots fill before sunrise and stay full until sunset; the shuttle is the alternative."
       }
     },
     {
@@ -1362,7 +1452,126 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
       "type": "culture.heritage.historic_site",
       "layer": "place",
-      "name": "Cave and Basin National Historic Site"
+      "name": "Cave and Basin National Historic Site",
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:30",
+              "close": "17:00",
+              "from": "05-15",
+              "to": "10-15"
+            },
+            {
+              "days": [
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "17:00",
+              "from": "10-16",
+              "to": "05-14"
+            }
+          ],
+          "closures": [
+            {
+              "from": "12-25",
+              "to": "12-25"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0023"
+        ],
+        "read": "2026-10-19",
+        "quote": "May 15 to October 15* Open daily: 9:30 a.m. to 5 p.m. October 16 to May 14* Thursday to Monday: 11 a.m. to 5 p.m.",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": [
+          {
+            "from": "05-15",
+            "to": "10-15",
+            "status": "open"
+          },
+          {
+            "from": "10-16",
+            "to": "05-14",
+            "status": "limited",
+            "note": "Thursday to Monday only"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0023"
+        ],
+        "read": "2026-10-19",
+        "quote": "October 16 to May 14* Thursday to Monday: 11 a.m. to 5 p.m.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 10.0,
+            "currency": "CAD",
+            "per": "adult",
+            "applies_to": "2026"
+          },
+          {
+            "amount": 8.5,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult $ 10.00 ... Senior $ 8.50 Youth free",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          120,
+          180
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0025"
+        ],
+        "read": "2026-10-19",
+        "quote": "To fully experience the Cave and Basin, gift shop and the surrounding boardwalks, plan at least 2-3 hours."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
@@ -1678,13 +1887,215 @@
       "offer_class": "experience",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
-      ]
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "weather dependent"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-19",
+        "quote": "We look forward to welcoming guests back from May 1 to October 11, 2027.",
+        "note": "The operator lists a season of the same shape for 2027.",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "17:00",
+              "from": "05-01",
+              "to": "06-14"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:00",
+              "close": "17:00",
+              "from": "06-15",
+              "to": "09-30"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "16:00",
+              "from": "10-01",
+              "to": "10-12"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Columbia Icefield Adventure 2–3 hour experience. Tours depart throughout the day. May 1* – June 14 10 a.m. – 5 p.m. June 15 – September 6 9 a.m. – 5 p.m.",
+        "note": "Tour departure hours at the Glacier Discovery Centre.",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          120,
+          180
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Columbia Icefield Adventure 2–3 hour experience."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
       "type": "culture.heritage.landmark",
       "layer": "place",
-      "name": "Columbia Icefield Skywalk (Glacier Skywalk)"
+      "name": "Columbia Icefield Skywalk (Glacier Skywalk)",
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "weather dependent"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-19",
+        "quote": "Columbia Icefield experiences are closed for the 2026 season. We look forward to welcoming guests back from May 1 to October 11, 2027.",
+        "note": "The operator lists a season of the same shape for 2027.",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "17:00",
+              "from": "05-01",
+              "to": "06-14"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "18:00",
+              "from": "06-15",
+              "to": "09-06"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:30",
+              "close": "17:00",
+              "from": "09-07",
+              "to": "09-30"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "17:00",
+              "from": "10-01",
+              "to": "10-12"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Skywalk 1–2 hour experience. Tours depart throughout the day. May 1* – June 14 11 a.m. – 5 p.m. June 15 – September 6 10 a.m. – 6 p.m.",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          60,
+          120
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Skywalk 1–2 hour experience."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
