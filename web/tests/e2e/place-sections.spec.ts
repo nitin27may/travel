@@ -10,7 +10,7 @@ test.describe('place page sections (S1b)', () => {
     const order = ['warnings', 'suits', 'options', 'access', 'when', 'facilities', 'around', 'pairs', 'photos', 'links', 'sources'];
     expect(ids).toEqual(order);
     await expect(page.locator('#warnings h2')).toHaveText('Before you go');
-    await expect(page.locator('#when .gc').first()).toBeVisible();
+    await expect(page.locator('#when')).toBeVisible(); // markers for gaps are pinned in tests/places/place-sections.test.tsx, where the fixture is found by query
     // the "Not checked yet: price" line is pinned by a query in tests/places/place-sections.test.tsx, so new data never breaks it here
   });
 
