@@ -15,9 +15,9 @@ export default defineConfig({
   use: { ...base },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], ...base, viewport: { width: 1280, height: 900 } } },
-    { name: 'webkit-iphone', testMatch: /(cross-browser|smart-search)\.spec\.ts/, use: { ...devices['iPhone 14'], ...base } },
-    { name: 'webkit-desktop', testMatch: /(cross-browser|smart-search)\.spec\.ts/, use: { ...devices['Desktop Safari'], ...base, viewport: { width: 1280, height: 900 } } },
-    { name: 'firefox', testMatch: /(cross-browser|smart-search)\.spec\.ts/, use: { ...devices['Desktop Firefox'], ...base, viewport: { width: 1280, height: 900 } } },
+    { name: 'webkit-iphone', testMatch: /(cross-browser|smart-search|trip-day-spy)\.spec\.ts/, use: { ...devices['iPhone 14'], ...base } },
+    { name: 'webkit-desktop', testMatch: /(cross-browser|smart-search|trip-day-spy)\.spec\.ts/, use: { ...devices['Desktop Safari'], ...base, viewport: { width: 1280, height: 900 } } },
+    { name: 'firefox', testMatch: /(cross-browser|smart-search|trip-day-spy)\.spec\.ts/, use: { ...devices['Desktop Firefox'], ...base, viewport: { width: 1280, height: 900 } } },
   ],
   outputDir: 'test-results',
 });
