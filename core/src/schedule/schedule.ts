@@ -6,13 +6,15 @@ import {
   breakEveryMin, COFFEE_GAP_MIN, DINNER_SETTLE_MIN, fmtHM, mealWindows, PACE_RULES, REST_THRESHOLD_MIN, resolveDuration, ROUND_MIN, rule,
 } from "./rules.ts";
 import { selectVariant } from "./select.ts";
-import { anchorTime, sunReference, type SunRef } from "./sun.ts";
+import { anchorTime, sunReference, type SunRange, type SunRef } from "./sun.ts";
 import type {
   Confidence, DayTimeline, EntryKind, Lane, PlaceRef, Profile, ResolvedLeg, ScheduleDayInput, ScheduleItem, ScheduleOptions,
   ScheduleWarning, TimeSource, TimelineEntry,
 } from "./types.ts";
 import { validateDay } from "./validate.ts";
 
+/** The latest a dinner may start: 30 minutes after its window closes (19:30 for a family). */
+const dinnerLatest = (p: Profile): number => mealWindows(p).dinner.to + 30;
 const ceil5 = (m: number): number => Math.ceil(m / ROUND_MIN) * ROUND_MIN;
 const MAX_SQUEEZE = 2;
 const MINUTES_PER_DAY = 24 * 60;
@@ -73,7 +75,7 @@ function makeCtx(input: ScheduleDayInput, profile: Profile): Ctx {
 }
 
 const legText = (r: ResolvedLeg): string =>
-  r.basis === "routed" ? "Routed road time, stored" : r.basis === "plan" ? "From the plan" : r.basis === "matrix" ? "From the plan's drive table" : r.km === null ? "Time between stops not known; a local move" : "A straight line scaled to a road time";
+  r.basis === "routed" ? "Routed road time" : r.basis === "plan" ? "From the plan" : r.basis === "matrix" ? "The plan's drive table" : r.km === null ? "Not known; a local move" : "A straight line scaled to a road time";
 
 type PushIn = Omit<TimelineEntry, "id" | "day" | "tz" | "lane" | "optional" | "addedBy" | "honesty" | "sourceItemId" | "end"> &
   Partial<Pick<TimelineEntry, "id" | "lane" | "optional" | "addedBy" | "honesty" | "sourceItemId">>;
@@ -93,7 +95,8 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   // so a before/after comparison pairs the same entries.
   let before = "start";
   const nextId = (kind: EntryKind, sub: string | null): string => {
-    const key = `${input.day}-${lane}-${kind}${sub ? `-${sub}` : ""}-${before}`;
+    // a meal is one per day whatever surrounds it; anything else is named for the stop it comes before
+    const key = `${input.day}-${lane}-${kind}${sub ? `-${sub}` : ""}${kind === "meal" ? "" : `-${before}`}`;
     const n = (counters.get(key) ?? 0) + 1;
     counters.set(key, n);
     return n > 1 ? `${key}.${n}` : key;
@@ -114,6 +117,8 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   let t = 0;
   let loc: LegEnd | null = null;
   let lunchDone = false;
+  const later: string[] = [];
+  let pushedBy = "";
   let dinnerDone = input.kind === "departure";
   let lastKind = null as EntryKind | null;
   let checkedIn = input.kind !== "arrival";
@@ -166,9 +171,10 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       t += minutes;
     };
     if (r.mode === "drive" && r.minutes > breakEveryMin(profile) && o.squeeze < 2) {
-      const first = Math.round(r.minutes / 2);
+      const first = Math.max(5, Math.round(r.minutes / 10) * 5);
       part(first, 1);
-      push({ kind: "break", sub: "leg-stretch", title: "Stretch break on the way", start: clock(t), durationMin: 15, at: null, from: null, to: null, time: ruleTime(), duration: ruleDur("break.leg-stretch", 15) });
+      align();
+      push({ kind: "break", sub: "leg-stretch", title: "Stretch break", start: clock(t), durationMin: 15, at: null, from: null, to: null, time: ruleTime(), duration: ruleDur("break.leg-stretch", 15) });
       t += 15;
       part(r.minutes - first, 1);
     } else part(r.minutes, 0);
@@ -214,7 +220,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     else t = start;
     push({
       kind: "checkin", sub: "stay", title: early ? `Drop bags, ${ref?.name ?? "your stay"}` : `Check in, ${ref?.name ?? "your stay"}`, start: clock(t), durationMin: minutes, at: ref, from: null, to: null,
-      time: ruleTime("Check-in from 15:00 unless your stay says otherwise"), duration: ruleDur(early ? "checkin" : "checkin", minutes),
+      time: ruleTime("From 15:00 unless your stay says otherwise"), duration: ruleDur("checkin", minutes),
     });
     t += minutes;
     checkedIn = true;
@@ -224,6 +230,8 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   /** Back at the base (or on to the next one), a rest until dinner opens, dinner. */
   const dinner = (deadline: number | null, maxMin: number | null = null): void => {
     if (dinnerDone) return;
+    const was = before;
+    before = "dinner";
     const toNext = input.kind === "transfer";
     const where = toNext ? ctx.nextBase : ctx.base;
     const ref = toNext ? nextRef : baseRef;
@@ -237,8 +245,12 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       else t = dinnerStart;
     }
     dinnerDone = true;
-    if (t > wins.dinner.to + 120) return;
-    addMeal("dinner", "at-base", ref, deadline, maxMin);
+    if (t <= wins.dinner.to + 120) addMeal("dinner", "at-base", ref, deadline, maxMin);
+    before = was;
+    // what the visitor added or an optional stop moved after dinner, or a dinner that cannot hold, is said so, naming the cause
+    const named = stops.filter((x) => x.addedBy === "visitor").map((x) => x.item.title).join(", ");
+    const meal = entries.find((e) => e.id === `${input.day}-${lane}-meal-dinner`);
+    if (named && (!meal || m(meal.start) > dinnerLatest(profile))) pushedBy = named;
   };
 
   // ---- the day start (2.9 step 4) ----
@@ -360,6 +372,16 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       if (room >= 45) dinner(gate - out, room);
     }
 
+    // an added or optional stop never pushes dinner past its latest time: dinner is eaten first and the stop follows it
+    if (o.resume === null && !dinnerDone && !stop.isRejoin && pinStart === null && ctx.base && (input.kind === "normal" || input.kind === "arrival") && (stop.addedBy === "visitor" || it.optional)) {
+      const out = loc && !samePlace(loc, target) ? RL(loc, target).minutes : 0;
+      const back = samePlace(target, ctx.base) ? 0 : RL(target, ctx.base).minutes;
+      if (t + out + duration + back > dinnerLatest(profile)) {
+        dinner(null);
+        later.push(it.title);
+      }
+    }
+
     // lunch is due where we stand
     const L = wins.lunch;
     if (!lunchDone && t >= L.from && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - t >= 75)) {
@@ -388,9 +410,13 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const walkIn = it.kind === "trail" && byCar && !stop.isRejoin ? rule("park.walk-in").minutes : 0;
 
     // lunch at the destination, when we arrive after the window opens
-    if (!lunchDone && arrive >= L.from && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - arrive >= 40)) {
+    // (also when the stop would run across the whole window: lunch comes first, after a short wait for it to open)
+    if (!lunchDone && it.kind !== "meal" && !stop.isRejoin && (gate === null || gate - arrive >= 40) && (arrive >= L.from || (arrive >= L.from - 30 && arrive + duration > L.to && duration < 150))) {
       lunchDone = true;
-      if (arrive <= L.to + 30) addMeal("lunch", it.sub === "town" ? "sit-down" : "picnic", placeOf(it), gate);
+      if (arrive <= L.to + 30) {
+        if (t < L.from) t = L.from;
+        addMeal("lunch", it.sub === "town" ? "sit-down" : "picnic", placeOf(it), gate);
+      }
       arrive = t;
     }
 
@@ -502,6 +528,10 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       duration: { source: "rule", basis: "a moment, not a duration" },
     });
   }
+  if (later.length || pushedBy) {
+    const meal = entries.find((e) => e.id === `${input.day}-${lane}-meal-dinner`);
+    warnings.push({ code: "S_DINNER_LATE", entryId: null, lane: current, message: later.length ? `${later.join(", ")} comes after dinner so dinner holds.` : `With ${pushedBy}, ${meal ? `dinner is at ${meal.start}` : "no time for dinner"}.` });
+  }
   return { entries, warnings, afterFirstLeg, end: t };
 }
 
@@ -531,18 +561,16 @@ function runSqueezed(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: O
 /** Cheapest insertion (2.9): the position with no new missed pin, then the least added leg time. */
 function insertAdded(ctx: Ctx, stops: Stop[], item: ScheduleItem, profile: Profile): Stop[] {
   const add: Stop = { item, addedBy: "visitor" };
-  // a coffee, lunch or rest has a natural time of day; among equal positions the one nearest it wins
-  const want = item.kind === "meal" ? 12 * 60 + 30 : item.sub === "coffee" ? 10 * 60 + 30 : item.kind === "break" || item.kind === "rest" ? 15 * 60 : null;
-  let best: { pos: number; score: number[] } | null = null;
+  let best = { pos: stops.length, score: Infinity };
   for (let pos = 0; pos <= stops.length; pos++) {
     const trial = [...stops.slice(0, pos), add, ...stops.slice(pos)];
     const r = runSqueezed(ctx, trial, "all", profile, { label: "all", resume: null, isMain: true });
-    const at = r.entries.find((e) => e.id === item.id);
-    const score = [missedCount(r), legsMin(r.entries), want !== null && at ? Math.abs(m(at.start) - want) : 0, r.end];
-    if (!best || score.some((v, i) => (score.slice(0, i).every((x, j) => x === best!.score[j]) && v < best!.score[i]!))) best = { pos, score };
+    const dinner = r.entries.find((e) => e.kind === "meal" && e.sub === "dinner");
+    // lexicographic: a missed pin, a late dinner, the day's end, the driving added
+    const score = missedCount(r) * 1e8 + (dinner && m(dinner.start) > dinnerLatest(profile) ? 1e7 : 0) + r.end * 1e3 + legsMin(r.entries);
+    if (score < best.score) best = { pos, score };
   }
-  const pos = best?.pos ?? stops.length;
-  return [...stops.slice(0, pos), add, ...stops.slice(pos)];
+  return [...stops.slice(0, best.pos), add, ...stops.slice(best.pos)];
 }
 
 const rejoinItem = (day: number, place: string, time: string): ScheduleItem => ({
@@ -570,13 +598,13 @@ function sunRows(ctx: Ctx, entries: TimelineEntry[]): TimelineEntry[] {
   const spanStart = Math.min(...real.map((e) => m(e.start)));
   const spanEnd = Math.max(...real.map((e) => m(e.start) + e.durationMin));
   const anchored = new Set(real.map((e) => e.time.anchor?.to));
-  const rng = (r: { lo: number; hi: number }): [string, string] => [fmtMin(r.lo), fmtMin(r.hi)];
-  if ((sun.sunrise.mid >= spanStart && sun.sunrise.mid <= spanEnd) || anchored.has("sunrise")) {
-    out.push(row("sunrise", sun.sunrise.mid, rng(sun.sunrise), `Sunrise, about ${fmtMin(sun.sunrise.lo)} to ${fmtMin(sun.sunrise.hi)} in this window`, 1));
-  }
-  if ((sun.sunset.mid >= spanStart && sun.sunset.mid <= spanEnd) || anchored.has("sunset") || anchored.has("golden-pm")) {
-    out.push(row("sunset", sun.sunset.mid, rng(sun.sunset), `Sunset, about ${fmtMin(sun.sunset.lo)} to ${fmtMin(sun.sunset.hi)} in this window`, 2));
-  }
+  const rng = (r: SunRange): [string, string] => [fmtMin(r.lo), fmtMin(r.hi)];
+  const ev = (to: "sunrise" | "sunset", r: SunRange, keep: boolean, n: number): void => {
+    if (keep) out.push(row(to, r.mid, rng(r), `${to === "sunrise" ? "Sunrise" : "Sunset"}, about ${fmtMin(r.lo)} to ${fmtMin(r.hi)} in this window`, n));
+  };
+  const within = (r: SunRange): boolean => r.mid >= spanStart && r.mid <= spanEnd;
+  ev("sunrise", sun.sunrise, within(sun.sunrise) || anchored.has("sunrise"), 1);
+  ev("sunset", sun.sunset, within(sun.sunset) || anchored.has("sunset") || anchored.has("golden-pm"), 2);
   return out;
 }
 
@@ -586,11 +614,19 @@ const afterDark = (it: ScheduleItem): boolean => it.needs?.sun === "nautical-dus
 /** The after-dark stop: after the day's last entry, outside the span, the day cap and the totals. */
 function darkEntry(ctx: Ctx, it: ScheduleItem, at: string, profile: Profile): TimelineEntry {
   const a = ctx.sun ? anchorTime(ctx.sun, "nautical-dusk", 0) : null;
-  const D = resolveDuration(it, profile);
-  return {
-    id: it.id, day: ctx.input.day, lane: "all", kind: it.kind as EntryKind, sub: it.sub, title: it.title, start: at, durationMin: D.minutes, end: at, tz: ctx.input.tz, at: null, from: null, to: null,
+  return plain(ctx.input, it, resolveDuration(it, profile), m(at), {
+    at: null, optional: true, block: "After dark",
     time: { confidence: "anchored", source: "sun", pinned: false, note: `After dark${a ? `, about ${a.range[0]} to ${a.range[1]} in this window,` : ""} if the sky is clear.`, ...(a ? { anchor: { to: "nautical-dusk" as const, offsetMin: 0, range: a.range } } : {}) },
-    duration: { source: D.source, basis: D.basis }, optional: true, addedBy: "author", sourceItemId: it.id, honesty: [...it.honesty], block: "After dark",
+  });
+}
+
+/** An entry for a stop the scheduler does not time itself (a condensed day's block, the after-dark stop). */
+function plain(input: ScheduleDayInput, it: ScheduleItem, D: ReturnType<typeof resolveDuration>, t: number, over: Partial<TimelineEntry>): TimelineEntry {
+  return {
+    id: it.id, day: input.day, lane: "all", kind: it.kind as EntryKind, sub: it.sub, title: it.title, start: clock(t), durationMin: D.minutes, end: clock(t + D.minutes), tz: input.tz, at: placeOf(it), from: null, to: null,
+    time: { confidence: "suggested", source: "plan", pinned: false, note: it.note }, duration: { source: D.source, basis: D.basis },
+    ...(it.stats ? { stats: { distanceKm: it.stats.distanceKm, gainM: it.stats.gainM } } : {}),
+    optional: it.optional, addedBy: "author", sourceItemId: it.id, honesty: [...it.honesty], ...over,
   };
 }
 
@@ -613,15 +649,12 @@ function blocksDay(input: ScheduleDayInput, profile: Profile, opts: ScheduleOpti
   items.forEach((it, i) => {
     const D = resolveDuration(it, profile);
     const isLeg = it.kind === "transfer";
-    entries.push({
-      id: it.id, day: input.day, lane: "all", kind: isLeg ? "leg" : (it.kind as EntryKind), sub: it.sub, title: it.title, start: clock(t), durationMin: D.minutes, end: clock(t + D.minutes), tz: input.tz,
-      at: isLeg ? null : placeOf(it), from: null, to: null,
-      time: { confidence: "suggested", source: i >= sel.variant.items.length ? "visitor" : "plan", pinned: false, note: it.note },
-      duration: { source: D.source, basis: D.basis },
+    const own = i >= sel.variant.items.length;
+    entries.push(plain(input, it, D, t, {
+      kind: isLeg ? "leg" : (it.kind as EntryKind), at: isLeg ? null : placeOf(it),
+      time: { confidence: "suggested", source: own ? "visitor" : "plan", pinned: false, note: it.note }, addedBy: own ? "visitor" : "author", block: partOfDay(t),
       ...(isLeg ? { leg: { mode: (it.sub ?? "drive") as "drive", km: null, basis: "plan" as const, breaks: 0 } } : {}),
-      ...(it.stats ? { stats: { distanceKm: it.stats.distanceKm, gainM: it.stats.gainM } } : {}),
-      optional: it.optional, addedBy: i >= sel.variant.items.length ? "visitor" : "author", sourceItemId: it.id, honesty: [...it.honesty], block: partOfDay(t),
-    });
+    }));
     t += D.minutes;
   });
   const sum = (f: (e: TimelineEntry) => boolean) => entries.filter(f).reduce((n, e) => n + e.durationMin, 0);
@@ -676,7 +709,7 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
       const km = walk.stats?.distanceKm;
       notes.push({
         kind: "split-option",
-        text: `${pv.optionalSplit ? "Optional split: some of the group could take" : "Split option: the stronger walkers can take"} ${walk.title}${km ? ` (${km} km, ${fmtHM(dur)})` : ` (${fmtHM(dur)})`}${rj ? ` and rejoin at ${rj.time}${rj.place ? ` at ${rj.place}` : ""}` : ""}.`,
+        text: `${pv.optionalSplit ? "Optional split" : "Split option"}: the stronger walkers can take ${walk.title}${km ? ` (${km} km, ${fmtHM(dur)})` : ` (${fmtHM(dur)})`}${rj ? ` and rejoin at ${rj.time}${rj.place ? ` at ${rj.place}` : ""}` : ""}.`,
       });
     }
   }
@@ -695,8 +728,6 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
     gainM: real.filter((e) => partyLane(e) && e.kind === "trail").reduce((s, e) => s + (e.stats?.gainM ?? 0), 0),
   };
   if (!sel.fits) notes.unshift({ kind: "no-fit", text: sel.reason });
-  const early = real.find((e) => e.kind === "start" && e.time.note === "Early start");
-  if (early) notes.push({ kind: "early-start", text: `Early start, ${early.start}.` });
 
   const timeline: DayTimeline = {
     day: input.day, variant: { key: sel.variant.key, label: sel.variant.label, chosenBy: sel.chosenBy, reason: sel.reason },

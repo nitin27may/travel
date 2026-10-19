@@ -124,11 +124,11 @@ test.describe('trip timeline (L3c)', () => {
   test('add and remove a place on a day: re-flows, marks it, survives reload (check 6)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}#day-5`);
     const day = page.locator('#day-5');
-    await day.getByRole('button', { name: /Add a stop, meal or break to Day 5/ }).click();
-    await day.getByRole('button', { name: 'Coffee and a snack' }).first().click();
-    await expect(page).toHaveURL(/add=5\.coffee-break/);
+    await day.getByRole('button', { name: /Add a place to Day 5/ }).click();
+    await day.getByRole('button', { name: /Athabasca Falls Walk/ }).first().click();
+    await expect(page).toHaveURL(/add=5\.athabasca-falls-walk/);
     await expect(day.getByText('You added this')).toBeVisible();
-    await expect(day.locator('#entry-5-add-coffee-break, .tl-entry[data-added]').first()).toBeVisible();
+    await expect(day.locator('#entry-5-add-athabasca-falls-walk, .tl-entry[data-added]').first()).toBeVisible();
     // the fixed slot stays
     await expect(day.locator('#entry-5-maligne-lake-cruise .tl-time')).toHaveText('10:00');
     await page.reload();

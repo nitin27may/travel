@@ -175,33 +175,37 @@ describe('Dolomites: authored times stay, routed legs are not estimates (check 8
 describe('review round three', () => {
   const model = async () => {
     const { buildTripPageModel } = await import('@/components/trips/model');
-    const { candidateToItem, movedEntries } = await import('@/components/trips/timeline/model');
+    const { candidateToItem } = await import('@/components/trips/timeline/model');
     const { listPlaces, getPlace } = await import('@/lib/public');
     const m = buildTripPageModel(rockies, (s) => { const p = getPlace(s); return p ? { point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, photo: p.photo } : null; }, listPlaces());
-    return { m, candidateToItem, movedEntries };
+    return { m, candidateToItem };
   };
   const clockMin = (s: string) => Number(s.slice(0, 2)) * 60 + Number(s.slice(3, 5));
   it('the moved notes are the difference between each entry\'s old and new start, on 5 minutes, and absent when it did not move (R2-1)', async () => {
-    const { m, candidateToItem, movedEntries } = await model();
+    const { m, candidateToItem } = await model();
+    const { diffTimelines } = await import('@travel/core/schedule/diff.ts');
     const d5 = day(rockies, 5).scheduleInput!;
-    const quick = ['rest-stop', 'coffee-break', 'lunch-stop'].map((k) => m.timeline!.addables[k]!);
     const before = scheduleDay(d5, P());
-    const after = scheduleDay(d5, P(), { added: quick.map(candidateToItem) });
-    const moved = movedEntries(before, after);
-    const dinnerBefore = before.entries.find((e) => e.title.startsWith('Dinner'))!;
-    const dinnerAfter = after.entries.find((e) => e.id === dinnerBefore.id);
-    expect(dinnerAfter, 'dinner keeps its id when stops are added elsewhere').toBeDefined();
+    const places = m.timeline!.addByDay[5]!.slice(0, 2).map((k) => m.timeline!.addables[k]!);
+    const after = scheduleDay(d5, P(), { added: places.map(candidateToItem) });
+    const { moved } = diffTimelines(before, after);
+    const dinner = before.entries.find((e) => e.id === '5-all-meal-dinner')!;
+    expect(after.entries.find((e) => e.id === dinner.id), 'dinner keeps its id when stops are added elsewhere').toBeDefined();
     for (const [id, d] of moved) {
       const was = before.entries.find((e) => e.id === id)!;
       const now = after.entries.find((e) => e.id === id)!;
       expect(d % 5, id).toBe(0);
       expect(Math.abs(d - (clockMin(now.start) - clockMin(was.start))), id).toBeLessThanOrEqual(2);
     }
-    if (dinnerAfter!.start === dinnerBefore.start) expect(moved.has(dinnerBefore.id)).toBe(false);
     for (const e of after.entries) {
       const was = before.entries.find((x) => x.id === e.id);
       if (was && e.kind !== 'leg' && e.kind !== 'sun' && Math.abs(clockMin(e.start) - clockMin(was.start)) < 3) expect(moved.has(e.id), e.id).toBe(false);
     }
+  });
+  it('the add panel offers places only: no meals, breaks or rests (decision, round 4)', async () => {
+    const { m } = await model();
+    for (const c of Object.values(m.timeline!.addables)) expect(['trail', 'visit']).toContain(c.kind);
+    expect(Object.keys(m.timeline!.addables).filter((k) => /coffee|lunch|rest-stop/.test(k))).toEqual([]);
   });
   it('Day 7 is not a day-cap warning, and the dark-sky stop follows the day after dark instead of sitting in daylight (R2-2)', () => {
     const t = scheduleDay(day(rockies, 7).scheduleInput!, P());
@@ -269,7 +273,7 @@ describe('review round two', () => {
     const { listPlaces, getPlace } = await import('@/lib/public');
     const m = buildTripPageModel(rockies, (s) => { const p = getPlace(s); return p ? { point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, photo: p.photo } : null; }, listPlaces());
     expect(JSON.stringify(m.timeline)).not.toMatch(/"adults":/);
-    for (const c of Object.values(m.timeline!.addables)) if (c.group !== 'quick') expect(c.km!).toBeLessThanOrEqual(30);
+    for (const c of Object.values(m.timeline!.addables)) expect(c.km!).toBeLessThanOrEqual(30);
     const d5 = m.timeline!.addByDay[5]!.map((k) => m.timeline!.addables[k]!);
     expect(d5.some((c) => /bow lake|peyto|mount robson/i.test(c.name))).toBe(false);
   });

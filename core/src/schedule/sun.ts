@@ -57,7 +57,7 @@ export function sunReference(point: Point, tz: string, window: SunWindow): SunRe
     sets.push(e.set);
     if (d.civil.kind === "normal") dusks.push(d.civil.set);
     else dusks.push(e.set + 60);
-    darks.push(d.nautical.kind === "normal" ? Math.max(d.nautical.set, e.set + 60) : e.set + 120);
+    darks.push(d.nautical.kind === "normal" ? d.nautical.set : e.set + 120);
   }
   if (!rises.length) {
     const zero: SunRange = { lo: 0, hi: 0, mid: 0 };

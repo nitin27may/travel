@@ -16,7 +16,8 @@ import { formatDistance } from '@/lib/format/units';
 import { AddToDay } from './AddToDay';
 import { Entry, LegRow } from './Entry';
 import { chipsFor, honestyLabel } from './labels';
-import { movedEntries as moves, type AddCandidate, type TimelineDayModel } from './model';
+import { diffTimelines } from '@travel/core/schedule/diff.ts';
+import type { AddCandidate, TimelineDayModel } from './model';
 import { Prose } from './Prose';
 
 interface Props {
@@ -65,19 +66,22 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
   const [knowOpen, setKnowOpen] = useState(false);
   const [lane, setLane] = useState<string | null>(null);
   // "moved 40 min later" after an addition, for one viewing: state adjusted while rendering, cleared by a timer
-  const [snap, setSnap] = useState<{ tl: DayTimelineData; added: number; moved: Map<string, number> }>({ tl, added: taken.length, moved: new Map() });
+  const [snap, setSnap] = useState<{ tl: DayTimelineData; added: number; moved: Map<string, number>; gone: string[] }>({ tl, added: taken.length, moved: new Map(), gone: [] });
   // a link that arrives with additions in it is not an addition made now: the first moments after load show no "moved" notes
   const [ready, setReady] = useState(false);
   useEffect(() => {
     const id = window.setTimeout(() => setReady(true), 1500);
     return () => window.clearTimeout(id);
   }, []);
-  if (tl !== snap.tl) setSnap({ tl, added: taken.length, moved: ready && taken.length > snap.added ? moves(snap.tl, tl) : snap.moved });
+  if (tl !== snap.tl) {
+    const d = ready && taken.length > snap.added ? diffTimelines(snap.tl, tl) : null;
+    setSnap({ tl, added: taken.length, moved: d ? d.moved : snap.moved, gone: d ? d.gone.map((e) => e.title) : snap.gone });
+  }
   useEffect(() => {
-    if (!snap.moved.size) return;
-    const t = window.setTimeout(() => setSnap((s) => ({ ...s, moved: new Map() })), 6000);
+    if (!snap.moved.size && !snap.gone.length) return;
+    const t = window.setTimeout(() => setSnap((s) => ({ ...s, moved: new Map(), gone: [] })), 6000);
     return () => window.clearTimeout(t);
-  }, [snap.moved]);
+  }, [snap.moved, snap.gone]);
 
   const sel = day.variants.find((v) => v.key === tl.variant.key);
   const title = sel?.title ?? day.title;
@@ -221,6 +225,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
           )}
         </ol>
         {(tl.blocks ? tl.entries.length === 0 : tl.entries.length <= 2) ? <p className="tl-empty">No stops are planned for this day yet.</p> : null}
+        {snap.gone.length ? <p className="tl-gone num" role="status">Left out now there is less room: {snap.gone.join(', ')}.</p> : null}
         <AddToDay day={day.n} candidates={candidates} taken={taken} onAdd={onAdd} />
         <div className="tl-day-foot" data-print="hide">
           {knowCount > 0 ? (

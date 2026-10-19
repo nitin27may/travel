@@ -10,7 +10,6 @@ export interface LegEnd {
   point: Point | null;
 }
 
-const ROUND = 5;
 const round1 = (x: number): number => Math.round(x * 10) / 10;
 
 /** Straight-line estimate. Under 1.2 km it is a walk at 4.5 km/h over 1.3 x the distance; over that a winding road. */
@@ -32,23 +31,17 @@ const find = (legs: StoredLeg[], from: string[], to: string[]): StoredLeg | null
 };
 
 /** The ladder. A stored leg wins over everything; its `basis` says which rung it is. */
-export function resolveLeg(from: LegEnd, to: LegEnd, stored: StoredLeg[], hub: Point | null = null, hubIds: string[] = ["base"]): ResolvedLeg {
+export function resolveLeg(from: LegEnd, to: LegEnd, stored: StoredLeg[], hub: Point | null = null): ResolvedLeg {
   const hit = find(stored, from.ids, to.ids);
   if (hit) return { mode: hit.mode, minutes: hit.minutes, km: hit.km, basis: hit.basis, estimate: hit.basis !== "routed" && hit.estimate };
   if (from.point && to.point) return estimateLeg(from.point, to.point);
   // one end has a coordinate and the other has none (a stop the plan never placed): the day's hub stands in for it, still marked ≈
-  if (hub && (from.point || to.point)) {
-    // the pointless end is reached from the base by a stored leg: from a pointed stop the way there is back through the base, not a copy of the way in
-    const open = from.point ? to : from;
-    const known = (from.point ? from.point : to.point) as Point;
-    const toHub = find(stored, hubIds, open.ids);
-    if (toHub && toHub.minutes > 0 && (known.lat !== hub.lat || known.lon !== hub.lon)) {
-      const via = estimateLeg(known, hub);
-      return { mode: "drive", minutes: Math.round((via.minutes + toHub.minutes) / ROUND) * ROUND, km: null, basis: "estimate", estimate: true };
-    }
-    const a = from.point ?? hub;
-    const b = to.point ?? hub;
-    if (a !== b && (a.lat !== b.lat || a.lon !== b.lon)) return estimateLeg(a, b);
+  const known = from.point ?? to.point;
+  if (hub && known && (known.lat !== hub.lat || known.lon !== hub.lon)) {
+    // the other end is reached from the base by a stored leg: from a placed stop the way there is back through the base, not a copy of the way in
+    const e = estimateLeg(known, hub);
+    const toHub = find(stored, ["base"], (from.point ? to : from).ids);
+    return toHub?.minutes ? { ...e, mode: "drive", minutes: Math.round((e.minutes + toHub.minutes) / 5) * 5, km: null } : e;
   }
   return { mode: "drive", minutes: LOCAL_MOVE_MIN, km: null, basis: "estimate", estimate: true };
 }

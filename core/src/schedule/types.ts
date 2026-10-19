@@ -67,7 +67,7 @@ export interface TimelineEntry {
 
 export type WarnCode =
   | "W_OVERLAP" | "W_HOURS" | "W_DAYLIGHT" | "W_PACE" | "W_DRIVE_LIMIT" | "W_EARLY" | "W_CEILING" | "W_FIT"
-  | "S_LAST_RIDE" | "S_DAY_CAP" | "S_FIXED_MISSED" | "S_MIDNIGHT" | "S_NO_FIT" | "S_HOME_BY";
+  | "S_LAST_RIDE" | "S_DAY_CAP" | "S_FIXED_MISSED" | "S_MIDNIGHT" | "S_NO_FIT" | "S_HOME_BY" | "S_DINNER_LATE";
 
 export interface ScheduleWarning {
   code: WarnCode;
@@ -90,7 +90,7 @@ export interface DayTimeline {
   /** A condensed plan: entries carry a part of the day, not a time, and no legs or meals are invented. */
   blocks: boolean;
   /** Shown first on a no-fit day (3.5) or for a split option (6). */
-  notes: { kind: "no-fit" | "split-option" | "early-start" | "early-end"; text: string }[];
+  notes: { kind: "no-fit" | "split-option"; text: string }[];
 }
 
 // ---- the profile (3.1, 3.8) ----
