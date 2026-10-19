@@ -77,6 +77,9 @@ test.describe('globe deep links frame the area (GPU, real tiles)', () => {
     const { page } = await open(`${site.url}/`);
     const pin = page.getByRole('link', { name: /^Italy, \d+ items/ });
     await pin.waitFor({ state: 'visible', timeout: 45_000 });
+    // the cover pauses its spin while the pointer is over it: a link that keeps moving cannot be clicked
+    await page.locator('.globe-cover').hover({ position: { x: 4, y: 4 } });
+    await page.waitForTimeout(1200);
     await pin.click();
     await expect(page).toHaveURL(/\/globe\/it\//);
     const c = await framed(page, 4);
