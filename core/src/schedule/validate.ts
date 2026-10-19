@@ -20,10 +20,11 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
     out.push({ code, message, entryId: entry?.id ?? null, lane });
   };
   const lanes: Lane[] = t.lanes.length > 1 ? t.lanes : ["all"];
+  const timed = !t.blocks;
   const pr = PACE_RULES[profile.pace];
   const ceiling = walkCeiling(profile);
 
-  for (const lane of lanes) {
+  for (const lane of timed ? lanes : []) {
     const es = laneEntries(t, lane);
     const timed = es.filter((e) => e.kind !== "leg" || true);
     // W_OVERLAP: a non-leg entry that starts before the previous one (plus the leg) is over
@@ -42,30 +43,32 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
     const w = e.time.window;
     const it = e.sourceItemId ? items.get(e.sourceItemId) : undefined;
     // W_HOURS and S_LAST_RIDE
-    if (w && (e.kind === "visit" || e.kind === "trail")) {
+    if (timed && w && (e.kind === "visit" || e.kind === "trail")) {
       if (w.from && m(e.start) < m(w.from) && !it?.window?.lastUp) warn("W_HOURS", `Starts ${e.start}; ${e.title} opens at ${w.from}.`, e, e.lane);
       if (w.to && endM(e) > m(w.to) && !it?.window?.lastDown) warn("W_HOURS", `Ends ${fmtMin(endM(e))}; ${e.title} closes at ${w.to}.`, e, e.lane);
     }
-    if (it?.window?.lastUp && m(e.start) > m(it.window.lastUp)) {
+    if (!timed) {
+      /* a condensed plan has no clock times to check */
+    } else if (it?.window?.lastUp && m(e.start) > m(it.window.lastUp)) {
       warn("S_LAST_RIDE", `Last ride up is ${it.window.lastUp}; this starts at ${e.start}.`, e, e.lane);
     } else if (it?.window?.lastDown && endM(e) > m(it.window.lastDown)) {
       warn("S_LAST_RIDE", `Last ride down is ${it.window.lastDown}; this ends at ${fmtMin(endM(e))}.`, e, e.lane);
     }
     // W_DAYLIGHT: a trail or needs_daylight entry ends after the earliest sunset of the window
-    if (sun && sun.state === "normal" && (e.kind === "trail" || it?.needsDaylight)) {
+    if (timed && sun && sun.state === "normal" && (e.kind === "trail" || it?.needsDaylight)) {
       const limit = e.kind === "trail" ? sun.civilDusk.lo - 30 : sun.sunset.lo;
       if (endM(e) > limit && !e.optional) warn("W_DAYLIGHT", `Ends about ${fmtMin(endM(e))}; sunset can be ${fmtMin(sun.sunset.lo)} in this window.`, e, e.lane);
     }
     // W_EARLY
-    if (e.kind === "start" && m(e.start) < 360 && !e.time.pinned) warn("W_EARLY", `Starts ${e.start}, before 06:00.`, e, e.lane);
+    if (timed && e.kind === "start" && m(e.start) < 360 && !e.time.pinned) warn("W_EARLY", `Starts ${e.start}, before 06:00.`, e, e.lane);
     // S_MIDNIGHT
-    if (m(e.start) + e.durationMin > 24 * 60 - 1 && e.kind !== "end") warn("S_MIDNIGHT", `${e.title} runs past midnight.`, e, e.lane);
+    if (timed && m(e.start) + e.durationMin > 24 * 60 - 1 && e.kind !== "end") warn("S_MIDNIGHT", `${e.title} runs past midnight.`, e, e.lane);
     // W_CEILING: a trail in the party's lane over the walk ceiling
     if (e.kind === "trail" && (e.lane === "all" || e.lane === mainLabel) && !e.optional) {
       const km = e.stats?.distanceKm ?? null;
       const gain = e.stats?.gainM ?? null;
-      if (ceiling.km !== null && km !== null && km > ceiling.km) warn("W_CEILING", `${e.title} is ${km} km; the ceiling at age ${profile.youngest ?? "this setting"} is ${ceiling.km} km.`, e, e.lane);
-      else if (ceiling.gainM !== null && gain !== null && gain > ceiling.gainM) warn("W_CEILING", `${e.title} climbs ${gain} m; the ceiling at age ${profile.youngest ?? "this setting"} is ${ceiling.gainM} m.`, e, e.lane);
+      if (ceiling.km !== null && km !== null && km > ceiling.km) warn("W_CEILING", `${e.title} is ${km} km; we plan walks up to ${ceiling.km} km at age ${profile.youngest ?? "this setting"}.`, e, e.lane);
+      else if (ceiling.gainM !== null && gain !== null && gain > ceiling.gainM) warn("W_CEILING", `${e.title} climbs ${gain} m; we plan climbs up to ${ceiling.gainM} m at age ${profile.youngest ?? "this setting"}.`, e, e.lane);
     }
     // W_FIT
     if (it && it.minAge !== null && profile.party === "family" && profile.youngest !== null && profile.youngest < it.minAge && (e.lane === "all" || e.lane === mainLabel)) {
@@ -74,33 +77,32 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
         it.minAgeRule === "advice"
           ? `${e.title} is advised for age ${it.minAge} and up.`
           : it.minAgeRule === "plan"
-            ? `${e.title} is planned as a walk for age ${it.minAge} and up; the limit here is age ${profile.youngest}.`
-            : `${e.title} is for age ${it.minAge} and up; the limit here is age ${profile.youngest}.`,
+            ? `${e.title} is an adults' hike in this plan; we offer it from age ${it.minAge}.`
+            : `${e.title} has a minimum age of ${it.minAge}.`,
         e,
         e.lane,
       );
     }
   }
 
-  // S_DAY_CAP
-  const cap = dayCapMin(profile);
-  if (t.span.minutes > cap) {
-    const optional = main.filter((e) => e.optional && (e.kind === "visit" || e.kind === "trail")).map((e) => e.title);
-    const opt = [...new Set(optional)];
-    warn(
-      "S_DAY_CAP",
-      `Day ${t.day} runs ${fmtHM(t.span.minutes)}, over ${fmtHM(cap)} for a ${profile.pace} ${profile.party === "family" ? "family " : ""}day.${opt.length ? ` Optional: ${opt.join(", ")}.` : ""}`,
-      null,
-      "all",
-    );
+  // S_DAY_CAP: the time away from base. A long rest at the base (45 min or more) and dinner there are not part of the outing.
+  if (timed) {
+    const cap = dayCapMin(profile);
+    const home = main.filter((e) => e.sub === "at-base" && e.durationMin >= 45 && e.kind === "rest").reduce((n, e) => n + e.durationMin, 0)
+      + main.filter((e) => e.kind === "meal" && e.style === "at-base").reduce((n, e) => n + e.durationMin, 0);
+    const away = t.span.minutes - home;
+    if (away > cap) {
+      const opt = [...new Set(main.filter((e) => e.optional && (e.kind === "visit" || e.kind === "trail")).map((e) => e.title))];
+      warn("S_DAY_CAP", `Day ${t.day} is ${fmtHM(away)} away from base, over ${fmtHM(cap)} for a ${profile.pace} ${profile.party === "family" ? "family " : ""}day.${opt.length ? ` Optional: ${opt.join(", ")}.` : ""}`, null, "all");
+    }
   }
   // W_PACE: active time on the party lane over the budget
   const budget = ACTIVE_BUDGET_MIN[profile.pace];
-  if (t.totals.activeMin > budget) {
+  if (timed && t.totals.activeMin > budget) {
     warn("W_PACE", `Day ${t.day} has ${fmtHM(t.totals.activeMin)} of active time, over the ${profile.pace} budget of ${fmtHM(budget)}.`, null, "all");
   }
   // W_DRIVE_LIMIT
-  if (t.totals.driveMin > pr.driveLimitMin) {
+  if (timed && t.totals.driveMin > pr.driveLimitMin) {
     warn("W_DRIVE_LIMIT", `Day ${t.day} drives ${fmtHM(t.totals.driveMin)}, over the ${fmtHM(pr.driveLimitMin)} limit for a ${profile.pace} day.`, null, "all");
   }
   // S_HOME_BY
@@ -109,7 +111,7 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
     warn("S_HOME_BY", `Home ${end.start}, ${m(end.start) - m(end.time.window.to)} min after your home-by of ${end.time.window.to}.`, end, "all");
   }
   // S_NO_FIT
-  if (!t.fits) warn("S_NO_FIT", `No version of Day ${t.day} fits age ${profile.youngest ?? "this setting"}.`, null, "all");
+  if (!t.fits) warn("S_NO_FIT", `No version of Day ${t.day} suits age ${profile.youngest ?? "this setting"}.`, null, "all");
   void input;
   return out;
 }

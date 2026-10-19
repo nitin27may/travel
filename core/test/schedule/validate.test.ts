@@ -62,12 +62,12 @@ describe("each validation code has a fixture that raises it and one that does no
   it("W_CEILING", () => {
     const d = one(item("b", "trail", "Bald Hills", { durationMin: 270, durationSource: "data", stats: { distanceKm: 10.4, gainM: 500 } }));
     const w = scheduleDay(d, family(6)).warnings.find((x) => x.code === "W_CEILING")!;
-    expect(w.message).toBe("Bald Hills is 10.4 km; the ceiling at age 6 is 6 km.");
+    expect(w.message).toBe("Bald Hills is 10.4 km; we plan walks up to 6 km at age 6.");
     expect(codes(d, profile())).not.toContain("W_CEILING");
   });
   it("W_FIT", () => {
     const d = one(item("c", "visit", "Canyoning", { durationMin: 120, durationSource: "operator", minAge: 5, minAgeRule: "hard" }));
-    expect(scheduleDay(d, family(4), { variant: "main" }).warnings.find((x) => x.code === "W_FIT")!.message).toBe("Canyoning is for age 5 and up; the limit here is age 4.");
+    expect(scheduleDay(d, family(4), { variant: "main" }).warnings.find((x) => x.code === "W_FIT")!.message).toBe("Canyoning has a minimum age of 5.");
     expect(codes(d, family(6))).not.toContain("W_FIT");
   });
   it("S_FIXED_MISSED", () => {
@@ -85,7 +85,7 @@ describe("each validation code has a fixture that raises it and one that does no
   it("S_NO_FIT", () => {
     const d = day([variant("main", [item("t", "trail", "Long", { durationMin: 300, durationSource: "data", stats: { distanceKm: 12, gainM: 600 } })])]);
     const w = scheduleDay(d, family(3)).warnings.find((x) => x.code === "S_NO_FIT")!;
-    expect(w.message).toBe("No version of Day 1 fits age 3.");
+    expect(w.message).toBe("No version of Day 1 suits age 3.");
     expect(codes(d, profile())).not.toContain("S_NO_FIT");
   });
   it("S_HOME_BY", () => {

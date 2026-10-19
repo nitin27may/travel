@@ -4,6 +4,8 @@ import type { DayVariant, Profile, ScheduleDayInput } from "./types.ts";
 
 export interface VariantNeeds {
   minAge: number | null;
+  /** Whose rule the minimum age is: an operator's, or the plan's own audience. */
+  minAgeRule: "hard" | "plan" | null;
   maxWalkKm: number;
   maxGainM: number;
   activeMin: number;
@@ -14,12 +16,16 @@ export interface VariantNeeds {
 /** What a variant asks of a party (3.2): derived from its items, never typed. */
 export function variantNeeds(v: DayVariant, p: Profile): VariantNeeds {
   let minAge: number | null = null;
+  let minAgeRule: VariantNeeds["minAgeRule"] = null;
   let maxWalkKm = 0;
   let maxGainM = 0;
   let activeMin = 0;
   let longest: VariantNeeds["longest"] = null;
   for (const it of v.items) {
-    if (it.minAge !== null && it.minAgeRule !== "advice") minAge = Math.max(minAge ?? 0, it.minAge);
+    if (it.minAge !== null && it.minAgeRule !== "advice" && it.minAge >= (minAge ?? 0)) {
+      minAge = it.minAge;
+      minAgeRule = it.minAgeRule === "plan" ? "plan" : "hard";
+    }
     if (it.optional) continue;
     if (it.kind === "trail" && it.stats?.distanceKm != null) {
       const km = it.stats.distanceKm;
@@ -32,7 +38,7 @@ export function variantNeeds(v: DayVariant, p: Profile): VariantNeeds {
     }
     if (it.kind === "visit" || it.kind === "trail") activeMin += resolveDuration(it, p).minutes;
   }
-  return { minAge, maxWalkKm, maxGainM, activeMin, longest };
+  return { minAge, minAgeRule, maxWalkKm, maxGainM, activeMin, longest };
 }
 
 export interface FitCheck {
@@ -46,15 +52,15 @@ export function variantFits(v: DayVariant, p: Profile): FitCheck {
   const needs = variantNeeds(v, p);
   const youngest = p.party === "family" ? p.youngest : null;
   if (youngest !== null && needs.minAge !== null && needs.minAge > youngest) {
-    return { fits: false, reason: `${v.label} includes something for age ${needs.minAge} and up; the limit here is age ${youngest}` };
+    return { fits: false, reason: needs.minAgeRule === "plan" ? `An adults' hike in this plan; we offer it from age ${needs.minAge}` : `Includes something with a minimum age of ${needs.minAge}` };
   }
   const ceil = walkCeiling(p);
   if (ceil.km !== null && needs.maxWalkKm > ceil.km) {
     const l = needs.longest;
-    return { fits: false, reason: `${l?.name ?? "A walk"} is ${l?.km} km; the limit at age ${youngest ?? "this setting"} is ${ceil.km} km` };
+    return { fits: false, reason: `${l?.name ?? "A walk"} is ${l?.km} km; we plan walks up to ${ceil.km} km at age ${youngest ?? "this setting"}` };
   }
   if (ceil.gainM !== null && needs.maxGainM > ceil.gainM) {
-    return { fits: false, reason: `A climb of ${needs.maxGainM} m is over the ${ceil.gainM} m limit at age ${youngest}` };
+    return { fits: false, reason: `A climb of ${needs.maxGainM} m is above the ${ceil.gainM} m we plan at age ${youngest}` };
   }
   const budget = ACTIVE_BUDGET_MIN[p.pace] * 1.1;
   if (needs.activeMin > budget) {
@@ -85,7 +91,7 @@ export function selectVariant(day: ScheduleDayInput, p: Profile, forced?: string
   const forcedV = forced ? vs.find((v) => v.key === forced) : null;
   if (forcedV) {
     const f = variantFits(forcedV, p);
-    return { variant: forcedV, parallel: parallelOf(forcedV), fits: f.fits, reason: f.fits ? `${forcedV.label}: picked for this day` : `${forcedV.label}: picked for this day, ${f.reason}`, chosenBy: "override" };
+    return { variant: forcedV, parallel: parallelOf(forcedV), fits: f.fits, reason: f.fits ? `${forcedV.label}: picked for this day` : `${forcedV.label}: picked for this day. ${f.reason}`, chosenBy: "override" };
   }
   const ranked = [...vs].sort((a, b) => b.rank - a.rank);
   const youngest = p.party === "family" ? p.youngest : null;
@@ -109,7 +115,7 @@ export function selectVariant(day: ScheduleDayInput, p: Profile, forced?: string
   // nothing fits: the lowest rank, flagged
   const low = [...vs].sort((a, b) => a.rank - b.rank)[0]!;
   const f = variantFits(low, p);
-  return { variant: low, parallel: null, fits: false, reason: `${low.label}: ${f.reason ?? "does not fit this setting"}`, chosenBy: "profile" };
+  return { variant: low, parallel: null, fits: false, reason: f.reason ?? "Does not suit this setting", chosenBy: "profile" };
 }
 
 export { ageRules };

@@ -37,7 +37,7 @@ describe("selectVariant (spec 3.3)", () => {
     const s = selectVariant(d, family(6));
     expect(s.variant.key).toBe("C");
     expect(s.reason).toContain("medium is 9 km");
-    expect(s.reason).toContain("limit at age 6 is 6 km");
+    expect(s.reason).toContain("we plan walks up to 6 km at age 6");
   });
   it("relaxed falls to the easy version when the family version is over the relaxed budget", () => {
     const d = day([
@@ -56,12 +56,12 @@ describe("selectVariant (spec 3.3)", () => {
     expect(s.fits).toBe(false);
     expect(s.variant.key).toBe("C");
     expect(s.reason).toContain("Berg Lake viewpoint is 9 km");
-    expect(s.reason).toContain("limit at age 3 is 8 km");
+    expect(s.reason).toContain("we plan walks up to 8 km at age 3");
   });
   it("rejects a variant whose hard minimum age is over the youngest", () => {
     const v = variant("main", [item("canyon", "visit", "Canyoning", { minAge: 5, minAgeRule: "hard", durationMin: 120, durationSource: "operator" })]);
     expect(variantFits(v, family(4)).fits).toBe(false);
-    expect(variantFits(v, family(4)).reason).toContain("age 5 and up");
+    expect(variantFits(v, family(4)).reason).toContain("minimum age of 5");
     expect(variantFits(v, family(6)).fits).toBe(true);
     expect(variantFits(v, profile()).fits).toBe(true);
   });
