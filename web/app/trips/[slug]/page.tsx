@@ -52,12 +52,10 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       ) : null}
       {trip.depth === 'overview' ? (
         <section className="trip-sec" aria-label="About this plan">
-          <Banner kind="notice" action={<a className="btn btn-sm" href={trip.legacyUrl}>Read the full plan</a>}>
-            This plan has not been converted to days yet. Read the full plan.
-          </Banner>
+          <Banner kind="notice">This plan has not been converted to days yet. Only the overview is here so far.</Banner>
         </section>
       ) : (
-        <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} legacyUrl={trip.legacyUrl} />
+        <TripPlan slug={slug} model={model} title={trip.title} depth={trip.depth} />
       )}
       <TripEnd trip={trip} model={model} url={url} />
       <ExportData data={tripExportFor(slug)} />

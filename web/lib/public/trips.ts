@@ -1,3 +1,4 @@
+import { suitabilityFromTitle } from './party';
 import { undatedTitle, DropLog, relativeSun, sunRange, undated, undatedSentences } from './dateless';
 import { honesty, uniqueHonesty } from './honesty';
 import { fileFromUrl, makePhoto } from './photos';
@@ -136,9 +137,10 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
     const depth = full ? 'full' : pub ? 'summary' : 'overview';
 
     // ---- title, season, length ----
+    const rawTitle = pub?.title ?? '';
     let title = undatedTitle(pub?.title ?? (hub?.title ?? folder.replace(/-/g, ' ')).split(' — ')[0]);
     if (!pub) title = undated(title, `${where} title`, log) ?? kebab(folder.replace(/-?(19|20)\d\d$/, '')).replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
-    const subtitle = undatedSentences(pub?.summary ?? hub?.subtitle ?? '', `${where} subtitle`, log);
+    const subtitle = [undatedSentences(pub?.summary ?? hub?.subtitle ?? '', `${where} subtitle`, log), suitabilityFromTitle(rawTitle)].filter(Boolean).join(' ');
     const season: Season | null = pub
       ? {
           months: pub.season.months,
@@ -332,8 +334,8 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
 
     // ---- honesty and status ----
     const h: Honesty[] = [];
-    if (depth === 'overview') h.push(honesty('overview_only', 'This plan has not been converted to days yet. Read the full plan.'));
-    if (depth === 'summary') h.push(honesty('condensed', 'Condensed from the full plan; the original page has the detail.'));
+    if (depth === 'overview') h.push(honesty('overview_only', 'This plan has not been converted to days yet.'));
+    if (depth === 'summary') h.push(honesty('condensed', 'A shorter day list with the main stops, not the whole plan.'));
     if (days.some((d) => d.driveIsEstimate)) h.push(honesty('drive_estimated', 'Drive times are estimates, not routed.'));
     const startYear = hub?.date ? Number(hub.date.slice(0, 4)) : 0;
     if (depth !== 'overview' && startYear >= 2027) h.push(honesty('pattern_2026', 'Opening times and prices were read in 2026 and are used as a pattern.'));
