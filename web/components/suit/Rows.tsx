@@ -79,9 +79,8 @@ export function ProvPanel({ val }: { val: PVal }) {
         <ul className="su-pop-src">
           {sources.map((s) => (
             <li key={s.id}>
-              <a href={s.url} target="_blank" rel="noopener noreferrer">
+              <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`${s.title} (opens in a new tab)`}>
                 {s.title.replace(/\bOSM (node|way|relation)\b/gi, 'OpenStreetMap $1')}
-                <span className="sr-only"> (opens in a new tab)</span>
               </a>
               <span>
                 {' '}
@@ -170,7 +169,9 @@ export function RowLine({ row, slugs, id }: { row: ShowRow; slugs: Record<string
     </>
   );
   const hasLinks = !!row.links && row.links.length > 0;
-  if (!row.val || hasLinks) {
+  // a panel that would only repeat the stub (basis and read date) is not drawn: the page stays light (P8)
+  const adds = !!row.val && (!!row.val.quote || row.val.conflicts.length > 0 || row.val.sources.some(publicSource));
+  if (!row.val || hasLinks || !adds) {
     return (
       <div className="su-row" id={anchor} data-look={row.look}>
         {body}
@@ -179,7 +180,7 @@ export function RowLine({ row, slugs, id }: { row: ShowRow; slugs: Record<string
   }
   return (
     <details className="su-row su-prov" id={anchor} data-look={row.look}>
-      <summary>{body}<span className="su-chev" aria-hidden="true" /></summary>
+      <summary>{body}</summary>
       <ProvPanel val={row.val} />
     </details>
   );

@@ -156,7 +156,12 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
 /** The chips of every stop of the trip that is a place with a record, once per place. */
 function suitByPlace(trip: PublicTrip): Record<string, ItemSuit> {
   const out: Record<string, ItemSuit> = {};
-  for (const d of trip.days) for (const it of [...d.items, ...(d.tracks ?? []).flatMap((t) => t.items)]) if (it.placeSlug && it.suit && !out[it.placeSlug]) out[it.placeSlug] = it.suit;
+  for (const d of trip.days) for (const it of [...d.items, ...(d.tracks ?? []).flatMap((t) => t.items)]) {
+    if (!it.suit) continue;
+    // the scheduler resolves a stop's page by name and sometimes misses it, so a stop is also found by its normalised name
+    if (it.placeSlug && !out[it.placeSlug]) out[it.placeSlug] = it.suit;
+    out[`n:${norm(it.name)}`] ??= it.suit;
+  }
   return out;
 }
 

@@ -32,17 +32,19 @@ interface Fit {
 export function fitFor(s: ItemSuit, youngest: number | null): Fit | null {
   if (youngest === null || s.kidsFrom === null) return null;
   if (s.kidsBasis === 'rule' && s.kidsFrom > youngest) return { kind: 'rule_fail', text: `Not for under ${s.kidsFrom} · operator rule`, label: `Operator rule: not for under ${s.kidsFrom}` };
-  if (s.kidsBasis === 'advice' && s.kidsFrom > youngest) return { kind: 'advice_fail', text: `Not suited to a ${youngest}-year-old`, label: `Our judgement: not suited to a ${youngest}-year-old` };
-  return { kind: 'fits', text: `Fits a ${youngest}-year-old`, label: `Fits a ${youngest}-year-old` };
+  if (s.kidsBasis === 'advice' && s.kidsFrom > youngest) return { kind: 'advice_fail', text: `Not suited to age ${youngest}`, label: `Our judgement: not suited to age ${youngest}` };
+  return { kind: 'fits', text: `Fits age ${youngest}`, label: `Fits age ${youngest}` };
 }
 
 /**
  * The three chips of an entry, limits chip first; with a family profile slot 1 becomes the fit chip. They sit inline in the entry's
  * title row, so they wrap to a second line on a phone (display 3.3). A rule chip stays first when it fits.
  */
-export function EntrySuit({ slug }: { slug: string | null | undefined }) {
+const norm = (t: string): string => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+export function EntrySuit({ slug, title }: { slug: string | null | undefined; title: string }) {
   const { byPlace, youngest } = useTripSuit();
-  const s = slug ? byPlace[slug] : undefined;
+  const s = (slug ? byPlace[slug] : undefined) ?? byPlace[`n:${norm(title)}`];
   if (!s || (s.chips.length === 0 && !s.badge)) return null;
   const fit = fitFor(s, youngest);
   const chips = s.chips.map((c, i) => (i === 0 && fit ? null : c));

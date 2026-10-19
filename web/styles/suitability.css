@@ -43,14 +43,14 @@ p.ps-stub { margin: 0; }
 .su-group > summary { display: grid; grid-template-columns: 16px auto minmax(0, 1fr); align-items: baseline; gap: 4px 12px; min-height: 44px; padding: 10px 0; cursor: pointer; list-style: none; }
 .su-group > summary::-webkit-details-marker { display: none; }
 .su-gtitle { font: var(--t-row); font-size: 17px; text-transform: uppercase; white-space: nowrap; }
-.su-gsum { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0; font: var(--t-meta); color: var(--ink-2); min-width: 0; max-height: 3.2em; overflow: hidden; }
+.su-gsum { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0; font: var(--t-meta); color: var(--ink-2); min-width: 0; max-height: 4.8em; overflow: hidden; }
 .su-gitem { display: inline; }
 .su-dot { margin: 0 8px; color: var(--line-2); }
-.su-gsum .su-gapchip { margin-left: 8px; }
+.su-gsum .su-gapchip { margin-left: 8px; white-space: normal; border-radius: var(--r-3); }
 .su-group[open] > summary .su-gsum { display: none; }
 .su-gbody { display: grid; gap: 0; padding-bottom: var(--s-2); }
-.su-chev { width: 16px; height: 16px; align-self: center; background: currentColor; color: var(--ink-2); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat; transition: transform var(--d-base) var(--e-out); }
-.su-group[open] > summary .su-chev { transform: rotate(90deg); }
+.su-group > summary::before, details.su-row > summary::after { content: ''; width: 16px; height: 16px; align-self: center; background: currentColor; color: var(--ink-2); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat; transition: transform var(--d-base) var(--e-out); }
+.su-group[open] > summary::before { transform: rotate(90deg); }
 /* a group opens in 200 ms: the block size animates where the browser can (Chromium), and opens at once where it cannot */
 @supports (interpolate-size: allow-keywords) {
   .su-group, .ps-more { interpolate-size: allow-keywords; }
@@ -70,8 +70,8 @@ p.ps-stub { margin: 0; }
 details.su-row { display: block; padding: 0; }
 details.su-row > summary { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr) 16px; gap: 4px var(--s-4); align-items: baseline; padding: 10px 0; min-height: 44px; cursor: pointer; list-style: none; }
 details.su-row > summary::-webkit-details-marker { display: none; }
-details.su-row > summary .su-chev { align-self: center; opacity: 0.7; }
-details.su-row[open] > summary .su-chev { transform: rotate(90deg); }
+details.su-row > summary::after { align-self: center; opacity: 0.7; }
+details.su-row[open] > summary::after { transform: rotate(90deg); }
 details.su-row > summary:hover .su-val { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
 .su-prices { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; max-width: 28rem; }
 .su-prices li { display: flex; justify-content: space-between; gap: var(--s-4); }
@@ -172,7 +172,7 @@ details.su-prov[open] > .su-pop { animation: su-rise var(--d-base) var(--e-out);
   .su-chip-in { white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .su-chev, .ps-glance-a { transition: none; }
+  .su-group > summary::before, details.su-row > summary::after, .ps-glance-a { transition: none; }
   .su-group::details-content, .ps-more::details-content { transition: none !important; }
   details.su-prov[open] > .su-pop { animation: none; }
   .su-row:target, details.su-row:target > summary, .ps-line:target { animation: none; box-shadow: 0 0 0 3px var(--ink); }

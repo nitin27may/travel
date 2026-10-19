@@ -173,7 +173,8 @@ function householdLeaks(root: string): string[] {
     if (/planned as/i.test(text)) add('"Planned as"');
     if (/hotel idea/i.test(text)) add('"Hotel idea"');
     if (/"(?:summary|note|subtitle|standfirst)":"[^"]*https?:\/\//.test(text)) add('a URL inside a summary');
-    if (/(?:summary|standfirst)[^>]*>[^<]*https?:\/\//.test(text)) add('a URL inside summary text');
+    // `"summary",null` is the <summary> element in the flight payload, not a prose field
+    if (/(?:summary|standfirst)(?!",null)[^>]{0,80}>[^<]{0,400}https?:\/\//.test(text)) add('a URL inside summary text');
     // titles and descriptions in pages carry no calendar date
     for (const m of text.matchAll(/<title>([^<]*)<\/title>|<meta[^>]+(?:name|property)="(?:description|og:title|og:description|twitter:title|twitter:description)"[^>]+content="([^"]*)"/g)) {
       const t = m[1] ?? m[2] ?? '';

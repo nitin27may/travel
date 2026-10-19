@@ -46,7 +46,8 @@
 .pl-cover-body { display: grid; gap: var(--s-3); padding: var(--s-4) var(--s-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); }
 .pl-cover-body .pl-summary { color: var(--ink); max-width: 68ch; font: var(--t-body-l); }
 .pl-kicker { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: uppercase; color: var(--kicker-on-photo); margin: 0; }
-.pl-cover h1 { font: var(--t-cover); text-transform: uppercase; max-width: 16ch; }
+.pl-cover h1 { font: var(--t-cover); text-transform: uppercase; max-width: 16ch; padding-top: 0.1em; }
+.pl-cover .pl-kicker { margin-bottom: var(--s-1); }
 .pl-summary { font: var(--t-body-l); max-width: 54ch; color: var(--header-ink); }
 .pl-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--s-2); margin-top: var(--s-2); }
 .pl-cover .btn:not(.btn-primary) { background: color-mix(in srgb, var(--header) 70%, transparent); border-color: var(--header-line); color: var(--header-ink); }
