@@ -181,15 +181,46 @@ export function leavesOf(rec: Any): string[] {
   }
   return out;
 }
-export interface LedgerPart { records: number; leaves: number; sha1: string }
+/**
+ * `held` is the multiset of the leaves as short hashes ("h" once, "h*n" n times), written when the ledger was taken. After the
+ * migration the guarantee is containment, not equality: every ledger leaf still exists with the same value in its record, and
+ * new records and new leaves (gap-filling research) are allowed.
+ */
+export interface LedgerPart { records: number; leaves: number; sha1: string; held?: string[] }
 export interface Ledger { schema: "capture-migration-ledger/1"; note: string; computed: string; suitability: LedgerPart; relevance: LedgerPart; /** the point of every ref in data/relevance/inputs/points.json before the migration: lat, lon */ points: Record<string, [number, number]> }
 const sha1 = (xs: string[]): string => createHash("sha1").update([...xs].sort().join("\n")).digest("hex");
+const leafHash = (leaf: string): string => createHash("sha1").update(leaf).digest("hex").slice(0, 12);
+const heldOf = (leaves: string[]): string[] => {
+  const n = new Map<string, number>();
+  for (const l of leaves) n.set(leafHash(l), (n.get(leafHash(l)) ?? 0) + 1);
+  return [...n.entries()].sort(([a], [b]) => (a < b ? -1 : 1)).map(([h, c]) => (c === 1 ? h : `${h}*${c}`));
+};
+/** How many ledger leaves are lost or changed in `leaves` (the current leaves of the same lane files). 0 means the ledger still holds. */
+export function lostLeaves(part: LedgerPart, leaves: string[]): number {
+  const have = new Map<string, number>();
+  for (const l of leaves) have.set(leafHash(l), (have.get(leafHash(l)) ?? 0) + 1);
+  let lost = 0;
+  for (const e of part.held ?? []) {
+    const [h, c] = e.split("*") as [string, string | undefined];
+    const want = c ? Number(c) : 1;
+    lost += Math.max(0, want - (have.get(h) ?? 0));
+  }
+  return lost;
+}
+/** Every leaf of the suitability and relevance lane files on disk, plus the judgements kept outside them. */
+export function laneLeaves(root: string, extraRelevance: Any[] = [], extraSuitability: Any[] = []): { suitability: string[]; relevance: string[] } {
+  const suitRecs: Any[] = [...extraSuitability];
+  for (const f of sidecarFiles(root, "suitability")) suitRecs.push(...(JSON.parse(readFileSync(f, "utf8")) as Any).records);
+  const relRecs: Any[] = [...extraRelevance];
+  for (const f of sidecarFiles(root, "relevance")) relRecs.push(...(JSON.parse(readFileSync(f, "utf8")) as Any).records);
+  return { suitability: suitRecs.flatMap(leavesOf), relevance: relRecs.flatMap(leavesOf) };
+}
 
 /** The ledger of the lane files now on disk. `extraRelevance` adds the judgements kept outside them (the displaced ones in the splits files). */
 export function ledgerOf(root: string, extraRelevance: Any[] = [], extraSuitability: Any[] = []): Ledger {
   const part = (recs: Any[]): LedgerPart => {
     const leaves = recs.flatMap(leavesOf);
-    return { records: recs.length, leaves: leaves.length, sha1: sha1(leaves) };
+    return { records: recs.length, leaves: leaves.length, sha1: sha1(leaves), held: heldOf(leaves) };
   };
   const suitRecs: Any[] = [...extraSuitability];
   for (const f of sidecarFiles(root, "suitability")) suitRecs.push(...(JSON.parse(readFileSync(f, "utf8")) as Any).records);

@@ -5,7 +5,27 @@
   "researched": "2026-10-18",
   "agent": "core/bin/capture.ts migrate",
   "model": "none",
-  "sources": [],
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
+      "title": "Hike to the Lac Blanc from La Flegere",
+      "publisher": "Chamonix-Mont-Blanc tourist office",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.openstreetmap.org/node/435438563",
+      "title": "Aiguille du Midi 2, top station (OSM aerialway=station)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api",
+      "run": "api-2026-10-19-cs7-upper-stations"
+    }
+  ],
   "records": [
     {
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
@@ -36,7 +56,22 @@
       "origin": {
         "from": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
         "reason": "the top station of the lift"
-      }
+      },
+      "part_of": [
+        "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"
+      ],
+      "osm_ref": "node/435438563",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/435438563",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ]
     },
     {
       "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
@@ -133,7 +168,7 @@
       "layer": "route",
       "name": "Col des Montets",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A ridge walk whose view of Mont Blanc and the Glacier du Tour is the whole way, not one point."
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
@@ -152,7 +187,41 @@
       "origin": {
         "from": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
         "reason": "payoff of the trail"
-      }
+      },
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Lac Blanc reserve manager page",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://en.chamonix.com/randonnees-en-famille/hike-to-the-lac-blanc-from-la-flegere",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q3214753",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Lac Blanc and Aiguille Verte (12834063835).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Björn S...",
+          "attribution": "Björn S..., CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lac_Blanc_and_Aiguille_Verte_(12834063835).jpg",
+          "width": 5184,
+          "height": 3456
+        }
+      ]
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
@@ -160,7 +229,7 @@
       "layer": "route",
       "name": "Plan de l'Aiguille",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A balcony path under the Aiguilles: the traverse itself is the experience."
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",

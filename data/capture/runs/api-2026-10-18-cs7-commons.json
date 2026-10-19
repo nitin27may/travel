@@ -1,0 +1,221 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-18-cs7-commons",
+  "started": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+      "part/place/bullaccia-and-the-witches-benches#payoff",
+      "part/place/cadini-di-misurina-viewpoint#payoff",
+      "part/place/cascate-di-fanes#payoff",
+      "part/place/croda-del-becco#payoff",
+      "part/place/lago-di-sorapis#payoff",
+      "part/place/sass-pordoi-and-piz-boe#payoff",
+      "part/place/seceda-ridge#payoff",
+      "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+      "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+      "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+      "part/trip/patagonia-2027/trail:laguna capri#payoff",
+      "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+      "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+      "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+      "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+      "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+      "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+      "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "commons.wikimedia.org",
+      "requests": 27,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    },
+    {
+      "host": "upload.wikimedia.org",
+      "requests": 83,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Bourgeau Lake 02.jpg; File:Bourgeau Lake 01.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Canmore & Fairholme Range seen from Ha Ling Peak.jpg; File:Ha Ling Peak and Mount Lawrence Grassi 01.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Grassi Lake - panoramio.jpg; File:Grassi Lakes road trip Canmore Alberta Canada (10277672766).jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:.Upper Kananaskis Lake & Mount Indefatigable 01.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Utopia Mountain from Sulphur Skyline.jpg"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+      "field": "photos",
+      "outcome": "searched_none",
+      "tried": [
+        "commons geosearch around the payoff point (only winter (ice) photos within 300 m; the plan's season is September)"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Athabasca Glacier (14942484663).jpg; File:Athabasca Glacier-Moraine.jpg"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Lac Blanc and Aiguille Verte (12834063835).jpg"
+    },
+    {
+      "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Cadini di Misurina – field of pinnacles and scree gullies.jpg; File:Cadini di Misurina – scree slopes and rock towers in summer.jpg"
+    },
+    {
+      "ref": "part/place/lago-di-sorapis#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Sorapiss e lago.JPG; File:Lago di Sorapis 1.jpg"
+    },
+    {
+      "ref": "part/place/croda-del-becco#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Dalla cima della Croda del Becco in fondo si vedono le 3 Cime - panoramio.jpg"
+    },
+    {
+      "ref": "part/place/cascate-di-fanes#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Cascate del Fanes -Cortina d'Ampezzo - panoramio.jpg; File:Cascate del Fanes -Cortina d'Ampezzo - panoramio (1).jpg"
+    },
+    {
+      "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Puflatscher Schwaige.jpg; File:Urtijëi from Bulacia.JPG"
+    },
+    {
+      "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+      "field": "photos",
+      "outcome": "searched_none",
+      "tried": [
+        "commons geosearch around the payoff point (only winter photos within 400 m; the plan's season is July)"
+      ]
+    },
+    {
+      "ref": "part/place/seceda-ridge#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Odles as seen from Seceda.JPG"
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Fjaðrárgljúfur.JPG; File:Fjaðrárgljúfur1.JPG; File:Fjaðrárgljúfur (Unsplash).jpg"
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:2008-05-24 20 Svartifoss.jpg; File:2008-05-24 23 Svartifoss.jpg"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:View from Laguna de los Tres.JPG; File:View from Laguna de los Tres (6952701450).jpg"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Monte Fitz Roy - Laguna Capri - Parque Nacional Los Glaciares - panoramio.jpg"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:El Chalten 2015 2.JPG"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Lago Viedma - Mirador de Las Aguilas - panoramio (1).jpg"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+      "field": "photos",
+      "outcome": "searched_none",
+      "tried": [
+        "commons geosearch around the payoff point (no file within 300 m)"
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Laguna Esmeralda (136247461).jpeg"
+    },
+    {
+      "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+      "field": "photos",
+      "outcome": "searched_none",
+      "tried": [
+        "commons geosearch around the payoff point (no reusable landscape file of 1,600 px within 600 m)"
+      ]
+    },
+    {
+      "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+      "field": "photos",
+      "outcome": "searched_none",
+      "tried": [
+        "commons geosearch around the payoff point (one winter file only)"
+      ]
+    },
+    {
+      "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+      "field": "photos",
+      "outcome": "filled",
+      "src": "File:Lower Calf Creek Falls (4080891798).jpg; File:Waterfall on Calf Creek - panoramio.jpg"
+    }
+  ]
+}

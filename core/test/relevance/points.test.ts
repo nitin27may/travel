@@ -14,6 +14,20 @@ const src = (over: Partial<Sources> = {}): Sources => ({
 });
 
 describe("buildPoints", () => {
+  it("keeps the points research lanes read for capture records, including refs with no relevance record, and lets a correction beat the generic pick", () => {
+    const { file, report } = buildPoints(src({
+      refs: [ref("place/top", "lift/x", { qid: "Q1" })],
+      wikidata: { Q1: { label: "Top", p625: { lat: 1, lon: 2 } } },
+      captured: {
+        "place/top": { lat: 1.5, lon: 2.5, coord_src: "osm", point_source: "OSM node 9 (upper station)" },
+        "part/place/lot#parking": { lat: 3.123456, lon: 4, coord_src: "osm", point_source: "OSM node 10" },
+      },
+    }));
+    expect(file.points["place/top"]).toMatchObject({ lat: 1.5, lon: 2.5, coord_src: "osm", point_source: "OSM node 9 (upper station)" });
+    expect(file.points["part/place/lot#parking"]).toMatchObject({ lat: 3.12346, lon: 4, coord_src: "osm" });
+    expect(report.by_src).toEqual({ osm: 2, wikidata: 0 });
+  });
+
   it("takes a location row resolved by wikidata or nominatim and ignores manual and unresolved rows", () => {
     const { file, report } = buildPoints(src({
       refs: [ref("place/a", "lake/x"), ref("place/b", "lake/x"), ref("place/c", "lake/x")],

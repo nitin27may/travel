@@ -10,7 +10,7 @@ The capture contract's data (docs/v2/research/capture-contract.md, backlog 3a.12
 | `operators.json` | one record per operator (name, URL, terms and waiver URLs). `run_by` points here. The 9 from the migration were taken from the publisher of an operator's own page behind an offer's operator-stated values, and keep where (`derived_from`). | research |
 | `type-map.json` | the reviewed type for every record that does not take the type its kind and subkind give it (the legacy pairs in types.json) | review |
 | `splits/<trip>.json` | the reviewed splits of the 61 records that mixed layers (SP1 to SP3) and the seven relevance judgements the splits displaced, verbatim | review |
-| `migration-ledger.json` | the multiset of every value leaf of the suitability and relevance lane files before the migration, and the points; a test pins that it is unchanged | the migration, once |
+| `migration-ledger.json` | the multiset of every value leaf of the suitability and relevance lane files before the migration, and the points; a test pins that every ledger leaf still exists with the same value (new records and leaves are allowed) | the migration, once |
 | `runs/<run>.json` | one `capture-run/1` record per crawl or API run (`capture.ts run --check`) | a crawler |
 
 A record's `type` must exist in types.json, its `layer` must be one the type allows, and the suitability profile of its type must
