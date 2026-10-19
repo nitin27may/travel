@@ -60,6 +60,8 @@
 .tl-flag-warn { color: var(--warn); }
 
 /* ---------- sticky plan bar ---------- */
+/* Height of the sticky bar under the header, measured by useScrollSpy; this is the no-JS value (a day anchor clears the plan bar). */
+:root { --spy-bar-h: 52px; }
 .tl-planbar { position: sticky; top: var(--header-h); z-index: var(--z-sticky); display: flex; align-items: center; gap: var(--s-4); min-height: 52px; margin: 0 calc(var(--s-1) * -1) var(--s-4); padding: var(--s-2) var(--s-1); background: var(--bg); border-bottom: 1px solid var(--line); }
 .tl-planbar-line { flex: none; font: var(--t-meta); color: var(--ink-2); max-width: 16rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tl-rail-days { display: flex; gap: var(--s-1); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; min-width: 0; padding: 2px 0; }
@@ -70,7 +72,7 @@
 
 /* ---------- days ---------- */
 .tl-days { display: grid; gap: var(--s-4); }
-.tl-day { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); scroll-margin-top: calc(var(--header-h) + 52px + var(--s-3)); transition: border-color var(--d-base); }
+.tl-day { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); scroll-margin-top: var(--spy-bar-h); transition: border-color var(--d-base); }
 .tl-day[data-picked] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .tl-day-head { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: var(--s-4); align-items: start; padding: var(--s-4); }
 .tl-thumb { display: grid; place-items: center; width: 96px; height: 68px; border-radius: var(--r-3); overflow: hidden; background: var(--well); color: var(--muted); }
