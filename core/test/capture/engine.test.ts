@@ -13,7 +13,7 @@ describe("one completeness engine (step 3)", () => {
   const tree = treeOf(DEFAULT_TYPES);
   const app = loadApplicability(REPO);
 
-  it("the contract's marks give every suitability record the level the suitability validator gives it (all 289 refs, in every file that holds them)", () => {
+  it("the contract's marks give every suitability record the level the suitability validator gives it (all 292 refs, in every file that holds them)", () => {
     const refs = new Set<string>();
     for (const f of sidecarFiles(REPO, "suitability")) {
       const doc = JSON.parse(readFileSync(f, "utf8")) as SuitabilityDoc;
@@ -29,7 +29,7 @@ describe("one completeness engine (step 3)", () => {
         refs.add(r.ref);
       }
     }
-    expect(refs.size).toBe(289);
+    expect(refs.size).toBe(292); // 289 + the three routes cut out of places with a long walk
   });
 
   it("the profile of a type equals the profile of its legacy (kind, subkind) for every legacy pair", () => {

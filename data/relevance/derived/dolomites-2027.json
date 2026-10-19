@@ -55,25 +55,15 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "km": 3.7,
-          "how": "drive",
-          "extra_min": 20,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "top",
-          "hand_picked": true,
-          "reason": "The Cadini viewpoint path leaves from Rifugio Auronzo, the loop's start: a short add-on",
-          "src": "src-0037"
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
         {
           "ref": "place/lago-dantorno",
           "km": 3
+        },
+        {
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+          "km": 3.7
         },
         {
           "ref": "place/monte-piana",
@@ -130,7 +120,7 @@
       ]
     },
     {
-      "ref": "place/cadini-di-misurina-viewpoint",
+      "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
@@ -142,10 +132,20 @@
         "near": [],
         "area": [
           {
-            "ref": "place/seceda-ridge",
+            "ref": "part/place/seceda-ridge#payoff",
             "km": 43,
             "draw": "national",
             "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+            "km": 51.3,
+            "draw": "regional",
+            "standing": "good",
             "access_cost": [
               "lift_only"
             ],
@@ -178,7 +178,7 @@
           "km": 7
         },
         {
-          "ref": "place/lago-di-sorapis",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "km": 8.2
         }
       ],
@@ -211,7 +211,7 @@
       "warnings": []
     },
     {
-      "ref": "place/lago-di-sorapis",
+      "ref": "part/place/lago-di-sorapis#payoff",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
@@ -249,7 +249,7 @@
           "km": 7.2
         },
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 8.2
         },
         {
@@ -337,11 +337,15 @@
           "km": 2.4
         },
         {
+          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "km": 3.7
+        },
+        {
           "ref": "place/lago-federa",
           "km": 4.5
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 9.8
         }
       ],
@@ -425,15 +429,15 @@
           "km": 3.9
         },
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 5.4
         },
         {
-          "ref": "place/lago-di-sorapis",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "km": 10.6
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 12.1
         }
       ],
@@ -466,7 +470,7 @@
       "warnings": []
     },
     {
-      "ref": "place/croda-del-becco",
+      "ref": "part/place/croda-del-becco#payoff",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
@@ -495,14 +499,14 @@
             "family_effort": null
           },
           {
-            "ref": "place/sass-pordoi-and-piz-boe",
+            "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
             "km": 26.2,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
               "lift_only"
             ],
-            "family_effort": 3
+            "family_effort": null
           }
         ]
       },
@@ -519,7 +523,7 @@
           "km": 2.2
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 9
         }
       ],
@@ -593,7 +597,7 @@
           "km": 10.5
         },
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 11
         },
         {
@@ -641,22 +645,22 @@
       "substitutes": {
         "near": [
           {
-            "ref": "place/lago-di-sorapis",
+            "ref": "part/place/lago-di-sorapis#payoff",
             "km": 9.8,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
-            "family_effort": 3
+            "family_effort": null
           }
         ],
         "area": [
           {
-            "ref": "place/lago-di-sorapis",
+            "ref": "part/place/lago-di-sorapis#payoff",
             "km": 9.8,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
-            "family_effort": 3
+            "family_effort": null
           }
         ]
       },
@@ -677,7 +681,11 @@
           "km": 6.8
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "km": 8.1
+        },
+        {
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 11.9
         }
       ],
@@ -710,7 +718,7 @@
       "warnings": []
     },
     {
-      "ref": "place/cascate-di-fanes",
+      "ref": "part/place/cascate-di-fanes#payoff",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -733,6 +741,10 @@
         {
           "ref": "place/cinque-torri",
           "km": 9.8
+        },
+        {
+          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "km": 10.2
         },
         {
           "ref": "place/lago-di-limides",
@@ -837,7 +849,7 @@
           "km": 3.6
         },
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 5
         },
         {
@@ -923,24 +935,14 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "place/bullaccia-and-the-witches-benches",
-          "km": 2.4,
-          "how": "drive",
-          "extra_min": 20,
-          "on_site_min": 20,
-          "on_site_estimated": true,
-          "draw": "regional",
-          "standing": "good",
-          "hand_picked": true,
-          "reason": "The Bullaccia round and the Witches' Benches are on the same high plateau",
-          "src": "src-0023"
-        }
-      ],
+      "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+          "km": 2.4
+        },
+        {
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 10.5
         },
         {
@@ -982,7 +984,7 @@
       ]
     },
     {
-      "ref": "place/bullaccia-and-the-witches-benches",
+      "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
@@ -993,7 +995,7 @@
       "substitutes": {
         "near": [
           {
-            "ref": "place/seceda-ridge",
+            "ref": "part/place/seceda-ridge#payoff",
             "km": 9.3,
             "draw": "national",
             "standing": "top",
@@ -1005,12 +1007,22 @@
         ],
         "area": [
           {
-            "ref": "place/seceda-ridge",
+            "ref": "part/place/seceda-ridge#payoff",
             "km": 9.3,
             "draw": "national",
             "standing": "top",
             "access_cost": [
               "lift_only"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+            "km": 51.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
             ],
             "family_effort": null
           }
@@ -1066,7 +1078,7 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "place/seceda-ridge",
+        "ref": "part/place/seceda-ridge#payoff",
         "km": 5.5,
         "draw": "national",
         "same_class": false
@@ -1078,7 +1090,7 @@
           "km": 3.1
         },
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 5.5
         },
         {
@@ -1094,7 +1106,7 @@
           "km": 9.3
         },
         {
-          "ref": "place/bullaccia-and-the-witches-benches",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
           "km": 12.1
         },
         {
@@ -1189,7 +1201,7 @@
       "warnings": []
     },
     {
-      "ref": "place/sass-pordoi-and-piz-boe",
+      "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
       "draw_suggested": "national",
       "effective_draw": "regional",
       "access_load": "plan",
@@ -1209,14 +1221,14 @@
             "family_effort": null
           },
           {
-            "ref": "place/croda-del-becco",
+            "ref": "part/place/croda-del-becco#payoff",
             "km": 26.2,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
               "toll_reservation"
             ],
-            "family_effort": 4
+            "family_effort": null
           }
         ]
       },
@@ -1320,7 +1332,7 @@
           "km": 8.1
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 10.2
         }
       ],
@@ -1353,7 +1365,7 @@
       "warnings": []
     },
     {
-      "ref": "place/seceda-ridge",
+      "ref": "part/place/seceda-ridge#payoff",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "plan",
@@ -1364,36 +1376,36 @@
       "substitutes": {
         "near": [
           {
-            "ref": "place/bullaccia-and-the-witches-benches",
+            "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
             "km": 9.3,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
               "lift_only"
             ],
-            "family_effort": 3
+            "family_effort": null
           }
         ],
         "area": [
           {
-            "ref": "place/cadini-di-misurina-viewpoint",
+            "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
             "km": 43,
             "draw": "regional",
             "standing": "top",
             "access_cost": [
               "toll_reservation"
             ],
-            "family_effort": 1
+            "family_effort": null
           },
           {
-            "ref": "place/bullaccia-and-the-witches-benches",
+            "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
             "km": 9.3,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
               "lift_only"
             ],
-            "family_effort": 3
+            "family_effort": null
           }
         ]
       },
@@ -1450,7 +1462,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 11
         }
       ],
@@ -1667,15 +1679,15 @@
           "km": 1.7
         },
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 7
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 12
         },
         {
-          "ref": "place/lago-di-sorapis",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "km": 12.2
         }
       ],
@@ -1803,7 +1815,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 2.4
         },
         {
@@ -1811,7 +1823,7 @@
           "km": 3
         },
         {
-          "ref": "place/lago-di-sorapis",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "km": 8.9
         }
       ],
@@ -2059,7 +2071,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 2.6
         },
         {
@@ -2067,7 +2079,7 @@
           "km": 3.9
         },
         {
-          "ref": "place/lago-di-sorapis",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "km": 7.2
         }
       ],
@@ -2184,7 +2196,19 @@
         "draw": "national",
         "same_class": true
       },
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "km": 1.4,
+          "how": "walk",
+          "extra_min": 131,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [
         {
           "ref": "place/cinque-torri",
@@ -2195,7 +2219,7 @@
           "km": 6.8
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 10.3
         }
       ],
@@ -2249,7 +2273,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 8.5
         }
       ],
@@ -2312,11 +2336,11 @@
       ],
       "pair_pending": [
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 4.2
         },
         {
-          "ref": "place/bullaccia-and-the-witches-benches",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
           "km": 11.4
         },
         {
@@ -2415,7 +2439,7 @@
           "km": 6.1
         },
         {
-          "ref": "place/lago-di-sorapis",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "km": 6.9
         },
         {
@@ -2423,12 +2447,16 @@
           "km": 7.2
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 7.5
         },
         {
           "ref": "place/lago-di-limides",
           "km": 9.2
+        },
+        {
+          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "km": 10.1
         },
         {
           "ref": "place/lago-di-misurina",
@@ -2443,7 +2471,7 @@
           "km": 11.6
         },
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 12.3
         },
         {
@@ -2551,11 +2579,11 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/bullaccia-and-the-witches-benches",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
           "km": 4.5
         },
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 5
         },
         {
@@ -2667,11 +2695,11 @@
           "km": 3.8
         },
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 5.7
         },
         {
-          "ref": "place/bullaccia-and-the-witches-benches",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
           "km": 11.1
         }
       ],
@@ -2775,7 +2803,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "km": 4.7
         },
         {
@@ -2783,7 +2811,7 @@
           "km": 7.3
         },
         {
-          "ref": "place/bullaccia-and-the-witches-benches",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
           "km": 7.6
         }
       ],
@@ -3063,7 +3091,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "place/lago-di-sorapis",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "km": 7
         },
         {
@@ -3307,36 +3335,36 @@
       "substitutes": {
         "near": [
           {
-            "ref": "place/croda-del-becco",
+            "ref": "part/place/croda-del-becco#payoff",
             "km": 9.8,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
               "toll_reservation"
             ],
-            "family_effort": 4
+            "family_effort": null
           }
         ],
         "area": [
           {
-            "ref": "place/croda-del-becco",
+            "ref": "part/place/croda-del-becco#payoff",
             "km": 9.8,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
               "toll_reservation"
             ],
-            "family_effort": 4
+            "family_effort": null
           },
           {
-            "ref": "place/sass-pordoi-and-piz-boe",
+            "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
             "km": 28.1,
             "draw": "regional",
             "standing": "good",
             "access_cost": [
               "lift_only"
             ],
-            "family_effort": 3
+            "family_effort": null
           }
         ]
       },
@@ -3352,7 +3380,7 @@
           "km": 5.8
         },
         {
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "km": 6.4
         },
         {
@@ -3364,7 +3392,7 @@
           "km": 8.1
         },
         {
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "km": 10.2
         }
       ],
@@ -3397,7 +3425,7 @@
       "warnings": [
         {
           "code": "W_REL_DISTINCTION",
-          "message": "distinction is unique but place/croda-del-becco has the same class within 100 km"
+          "message": "distinction is unique but part/place/croda-del-becco#payoff has the same class within 100 km"
         }
       ]
     },

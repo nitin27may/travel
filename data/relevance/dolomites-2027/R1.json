@@ -396,9 +396,8 @@
       ]
     },
     {
-      "ref": "place/cadini-di-misurina-viewpoint",
+      "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
       "kind": "viewpoint",
-      "subkind": "walk",
       "wikidata": {
         "v": "Q476378",
         "state": "value",
@@ -487,9 +486,8 @@
       }
     },
     {
-      "ref": "place/lago-di-sorapis",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/place/lago-di-sorapis#payoff",
+      "kind": "lake",
       "wikidata": {
         "v": "Q15410555",
         "state": "value",
@@ -747,9 +745,8 @@
       }
     },
     {
-      "ref": "place/croda-del-becco",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/place/croda-del-becco#payoff",
+      "kind": "viewpoint",
       "wikidata": {
         "v": "Q446041",
         "state": "value",
@@ -1005,9 +1002,8 @@
       "easy_way": "part/place/lago-federa#walk"
     },
     {
-      "ref": "place/cascate-di-fanes",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/place/cascate-di-fanes#payoff",
+      "kind": "waterfall",
       "wikidata": {
         "v": "Q67370898",
         "state": "value",
@@ -1289,9 +1285,8 @@
       ]
     },
     {
-      "ref": "place/bullaccia-and-the-witches-benches",
+      "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
       "kind": "viewpoint",
-      "subkind": "hike",
       "wikidata": {
         "v": "Q2117539",
         "state": "value",
@@ -1549,9 +1544,8 @@
       }
     },
     {
-      "ref": "place/sass-pordoi-and-piz-boe",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+      "kind": "viewpoint",
       "wikidata": {
         "v": "Q1478439",
         "state": "value",
@@ -1732,9 +1726,8 @@
       ]
     },
     {
-      "ref": "place/seceda-ridge",
+      "ref": "part/place/seceda-ridge#payoff",
       "kind": "viewpoint",
-      "subkind": "walk",
       "wikidata": {
         "v": "Q2263528",
         "state": "value",

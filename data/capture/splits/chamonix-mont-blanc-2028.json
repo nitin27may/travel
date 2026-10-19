@@ -1,0 +1,59 @@
+{
+  "schema": "capture-splits/1",
+  "trip": "chamonix-mont-blanc-2028",
+  "reviewed": "2026-10-18",
+  "note": "Proposed by the builder (SP1) from the lane sidecars, to be confirmed by a researcher (SP2): payoff points, operators and the place each offer runs at. `core/bin/capture.ts migrate` applies it (SP3).",
+  "splits": [
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "how": "lift",
+      "reason": "A lift stored as one record: the line is a route, the ticket an offer that carries the suitability block, and the top station a place (capture contract 2.7, rule 4).",
+      "line": {
+        "type": "ride.lift.cable_car"
+      },
+      "ticket": {
+        "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
+        "type": "ride.lift.cable_car",
+        "class": "ticket"
+      },
+      "top": {
+        "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+        "type": "access.transit.station",
+        "name": "Aiguille du Midi top station"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "how": "lift",
+      "reason": "A lift stored as one record: the line is a route, the ticket an offer that carries the suitability block, and the top station a place (capture contract 2.7, rule 4).",
+      "line": {
+        "type": "ride.lift.rack_railway"
+      },
+      "ticket": {
+        "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
+        "type": "ride.lift.rack_railway",
+        "class": "ticket"
+      },
+      "top": {
+        "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+        "type": "access.transit.station",
+        "name": "Montenvers train top station"
+      }
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/alpine-hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+        "type": "water.body.lake",
+        "kind": "lake",
+        "name": "Lac Blanc"
+      }
+    }
+  ]
+}

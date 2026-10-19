@@ -1,0 +1,447 @@
+{
+  "schema": "capture/1",
+  "trip": "dolomites-2027",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Tre Cime di Lavaredo loop"
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Cadini di Misurina viewpoint",
+      "reaches": [
+        "part/place/cadini-di-misurina-viewpoint#payoff"
+      ]
+    },
+    {
+      "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Cadini di Misurina viewpoint",
+      "origin": {
+        "from": "place/cadini-di-misurina-viewpoint",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Lago di Sorapis",
+      "reaches": [
+        "part/place/lago-di-sorapis#payoff"
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-sorapis#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago di Sorapis",
+      "origin": {
+        "from": "place/lago-di-sorapis",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "place/cinque-torri",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Cinque Torri"
+    },
+    {
+      "ref": "place/monte-piana",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Monte Piana"
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Croda del Becco",
+      "reaches": [
+        "part/place/croda-del-becco#payoff"
+      ]
+    },
+    {
+      "ref": "part/place/croda-del-becco#payoff",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "name": "Croda del Becco",
+      "origin": {
+        "from": "place/croda-del-becco",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "place/val-fiscalina",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Val Fiscalina"
+    },
+    {
+      "ref": "part/place/lago-federa#walk",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Lago Federa walk",
+      "starts_at": [
+        "place/lago-federa"
+      ]
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Cascate di Fanes",
+      "reaches": [
+        "part/place/cascate-di-fanes#payoff"
+      ]
+    },
+    {
+      "ref": "part/place/cascate-di-fanes#payoff",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Cascate di Fanes",
+      "origin": {
+        "from": "place/cascate-di-fanes",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "place/adolf-munkel-weg",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Adolf Munkel Weg"
+    },
+    {
+      "ref": "place/alpe-di-siusi",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Alpe di Siusi"
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Bullaccia and the Witches' Benches",
+      "reaches": [
+        "part/place/bullaccia-and-the-witches-benches#payoff"
+      ]
+    },
+    {
+      "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Bullaccia and the Witches' Benches",
+      "origin": {
+        "from": "place/bullaccia-and-the-witches-benches",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "place/vallunga",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Vallunga"
+    },
+    {
+      "ref": "place/viel-dal-pan",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Viel dal Pan"
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Sass Pordoi and Piz Boè",
+      "reaches": [
+        "part/place/sass-pordoi-and-piz-boe#payoff"
+      ]
+    },
+    {
+      "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "name": "Sass Pordoi and Piz Boè",
+      "origin": {
+        "from": "place/sass-pordoi-and-piz-boe",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Lagazuoi tunnels",
+      "starts_at": [
+        "place/lagazuoi-cable-car-and-tunnels"
+      ]
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Seceda ridge",
+      "reaches": [
+        "part/place/seceda-ridge#payoff"
+      ]
+    },
+    {
+      "ref": "part/place/seceda-ridge#payoff",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Seceda ridge",
+      "origin": {
+        "from": "place/seceda-ridge",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-braies#walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Lago di Braies walk",
+      "starts_at": [
+        "place/lago-di-braies"
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-dobbiaco#walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Lago di Dobbiaco walk",
+      "starts_at": [
+        "place/lago-di-dobbiaco"
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-limides#walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Lago di Limides walk",
+      "starts_at": [
+        "place/lago-di-limides"
+      ]
+    },
+    {
+      "ref": "place/lago-di-braies",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago di Braies"
+    },
+    {
+      "ref": "place/lago-di-carezza",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago di Carezza"
+    },
+    {
+      "ref": "place/lago-di-landro",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago di Landro"
+    },
+    {
+      "ref": "place/lago-dantorno",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago d'Antorno"
+    },
+    {
+      "ref": "place/lago-di-dobbiaco",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago di Dobbiaco"
+    },
+    {
+      "ref": "place/lago-di-misurina",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago di Misurina"
+    },
+    {
+      "ref": "place/lago-di-limides",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago di Limides"
+    },
+    {
+      "ref": "place/lago-federa",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lago Federa"
+    },
+    {
+      "ref": "place/passo-gardena",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Passo Gardena"
+    },
+    {
+      "ref": "place/santa-maddalena-val-di-funes",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Santa Maddalena, Val di Funes"
+    },
+    {
+      "ref": "place/bolzano",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Bolzano"
+    },
+    {
+      "ref": "place/cortina-dampezzo",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Cortina d'Ampezzo"
+    },
+    {
+      "ref": "place/dobbiaco",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Dobbiaco"
+    },
+    {
+      "ref": "place/la-val",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "La Val"
+    },
+    {
+      "ref": "place/ortisei",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Ortisei"
+    },
+    {
+      "ref": "place/san-candido",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "San Candido"
+    },
+    {
+      "ref": "place/san-vito-di-cadore",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "San Vito di Cadore"
+    },
+    {
+      "ref": "place/santa-cristina",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Santa Cristina"
+    },
+    {
+      "ref": "place/selva-di-val-gardena",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Selva di Val Gardena"
+    },
+    {
+      "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+      "type": "culture.museum.museum",
+      "layer": "place",
+      "name": "Ötzi, South Tyrol Museum of Archaeology"
+    },
+    {
+      "ref": "place/dolomites",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Dolomites"
+    },
+    {
+      "ref": "place/funbob-monte-baranci",
+      "type": "play.amusement.alpine_coaster",
+      "layer": "offer",
+      "name": "Funbob, Monte Baranci",
+      "offer_class": "ticket",
+      "at": [
+        "part/place/funbob-monte-baranci#place"
+      ],
+      "run_by": "operator/3-zinnen-dolomites-lift-operator"
+    },
+    {
+      "ref": "part/place/funbob-monte-baranci#place",
+      "type": "play.amusement.alpine_coaster",
+      "layer": "place",
+      "name": "Monte Baranci",
+      "origin": {
+        "from": "place/funbob-monte-baranci",
+        "reason": "the place the offer runs at"
+      }
+    },
+    {
+      "ref": "place/rafting-on-the-rienza",
+      "type": "water.river.rafting",
+      "layer": "offer",
+      "name": "Rafting on the Rienza",
+      "offer_class": "experience",
+      "at": [
+        "part/place/rafting-on-the-rienza#place"
+      ],
+      "run_by": "operator/rafting-club-activ"
+    },
+    {
+      "ref": "part/place/rafting-on-the-rienza#place",
+      "type": "water.body.river",
+      "layer": "place",
+      "name": "Rienza",
+      "origin": {
+        "from": "place/rafting-on-the-rienza",
+        "reason": "the place the offer runs at"
+      }
+    },
+    {
+      "ref": "place/drava-cycle-path-to-lienz",
+      "type": "wheels.bike.cycle_path",
+      "layer": "route",
+      "name": "Drava cycle path to Lienz"
+    },
+    {
+      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "type": "ride.lift.cable_car",
+      "layer": "route",
+      "name": "Lagazuoi cable car and tunnels",
+      "reaches": [
+        "part/place/lagazuoi-cable-car-and-tunnels#top"
+      ]
+    },
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+      "type": "access.transit.station",
+      "layer": "place",
+      "name": "Lagazuoi cable car and tunnels top station",
+      "origin": {
+        "from": "place/lagazuoi-cable-car-and-tunnels",
+        "reason": "the top station of the lift"
+      }
+    },
+    {
+      "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
+      "type": "ride.lift.cable_car",
+      "layer": "offer",
+      "offer_class": "ticket",
+      "name": "Lagazuoi cable car and tunnels ticket",
+      "on": [
+        {
+          "ref": "place/lagazuoi-cable-car-and-tunnels"
+        }
+      ],
+      "origin": {
+        "from": "place/lagazuoi-cable-car-and-tunnels",
+        "reason": "the ticket offer on the lift line"
+      },
+      "run_by": "operator/lagazuoi-s-p-a"
+    }
+  ]
+}

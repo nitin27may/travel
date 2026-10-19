@@ -12,6 +12,7 @@ import type { KindMap } from "../../src/suitability/kindMap.ts";
 import { MIGRATION_DATE, migrate } from "../../src/suitability/migrate.ts";
 import type { Migration } from "../../src/suitability/migrate.ts";
 import { RefResolver, loadScope, missingCoverage } from "../../src/suitability/refs.ts";
+import { captureRenames } from "../../src/capture/migrate.ts";
 import { validateDoc } from "../../src/validate/index.ts";
 
 const REPO = fileURLToPath(new URL("../../../", import.meta.url));
@@ -19,8 +20,10 @@ const ROCK = "legacy/canadian-rockies-sept-2029/";
 let map: KindMap;
 let m: Migration;
 const all = (): SuitabilityRecord[] => [...m.docs.values()].flatMap((d) => d.records);
+/** The capture migration moved a lift's block to its ticket offer; the S0b tests name the record by its old ref. */
+const RENAMED = captureRenames(REPO);
 const find = (ref: string): SuitabilityRecord => {
-  const r = all().find((x) => x.ref === ref);
+  const r = all().find((x) => x.ref === (RENAMED.get(ref) ?? ref));
   if (!r) throw new Error(`no record ${ref}`);
   return r;
 };
@@ -62,15 +65,16 @@ describe("kind-map.json", () => {
 });
 
 describe("counts are preserved", () => {
-  it("284 records become 289: the five extras are the Lagazuoi tunnels and the four lake walks", () => {
+  it("284 records become 289: the five extras are the Lagazuoi tunnels and the four lake walks (the six lifts' ticket offers are the lifts renamed)", () => {
     expect(all()).toHaveLength(289);
-    const before = new Set(map.entries.map((e) => e.ref));
+    const before = new Set(map.entries.map((e) => RENAMED.get(e.ref) ?? e.ref));
     const extra = all().filter((r) => !before.has(r.ref));
     expect(extra.map((r) => r.ref).sort()).toEqual([
       "part/place/lago-di-braies#walk", "part/place/lago-di-dobbiaco#walk", "part/place/lago-di-limides#walk", "part/place/lago-federa#walk",
       "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
     ].sort());
     for (const ref of before) expect(all().some((r) => r.ref === ref), ref).toBe(true);
+    expect(RENAMED.size).toBe(6);
   });
   it("the 207 in-scope refs, their per-trip counts and the 77 off-plan rows are unchanged", () => {
     expect(m.reports.reduce((s, r) => s + r.inScope, 0)).toBe(207);

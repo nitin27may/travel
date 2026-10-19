@@ -14,6 +14,8 @@ export interface Ctx {
   warnings: Issue[];
   /** set once any E_SCHEMA problem is found; semantic rules are skipped because they would cascade */
   schemaBroken: boolean;
+  /** the file being validated, when it has a path (the capture validator leaves it out of its cross-file checks) */
+  file?: string;
 }
 
 export function err(ctx: Ctx, code: string, path: string, message: string): void {

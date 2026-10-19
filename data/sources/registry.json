@@ -413,12 +413,12 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "field": "access_cost"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
           "field": "draw"
         },
         {
@@ -491,26 +491,6 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
           "field": "signals.designations"
         },
         {
@@ -733,17 +713,17 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "field": "easy_payoff"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cascate-di-fanes",
+          "ref": "part/place/cascate-di-fanes#payoff",
           "field": "signals.designations"
         },
         {
@@ -1085,17 +1065,17 @@
       "used_by": [
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+          "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+          "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "field": "easy_payoff"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+          "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "field": "signals.editorial"
         },
         {
@@ -1184,17 +1164,17 @@
       "used_by": [
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
           "field": "signals.editorial"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
           "field": "standing"
         },
         {
@@ -1231,27 +1211,27 @@
       "used_by": [
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+          "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+          "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
           "field": "signals.editorial"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de los condores",
+          "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de los condores",
+          "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
           "field": "signals.editorial"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de los condores",
+          "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
           "field": "standing"
         },
         {
@@ -1313,42 +1293,42 @@
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.accessible_toilet"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.food"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.min_age"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.on_site_min"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.participation.weather_cancel"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.toilets"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.wheelchair"
         },
         {
@@ -1405,47 +1385,47 @@
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "ext.ride_min"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.accessible_toilet"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.age_band"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.altitude_m"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.min_age"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.participation.weather_cancel"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.toilets"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.wheelchair"
         }
       ],
@@ -1593,17 +1573,17 @@
       "used_by": [
         {
           "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "field": "access_cost"
         },
         {
           "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "field": "signals.designations"
         },
         {
@@ -1745,7 +1725,7 @@
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.altitude_m"
         },
         {
@@ -2220,27 +2200,27 @@
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "ext.ride_min"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.accessible_toilet"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.age_band"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.altitude_m"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.wheelchair"
         }
       ],
@@ -2267,33 +2247,33 @@
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "ext.cabin"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "ext.last_up"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.food"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -2401,12 +2381,12 @@
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.adult_required"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.participation.weather_cancel"
         }
       ],
@@ -2824,32 +2804,12 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
           "field": "draw"
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
           "field": "signals.designations"
         },
         {
@@ -2894,16 +2854,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
           "field": "draw"
         },
@@ -2930,16 +2880,6 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
           "field": "signals.designations"
         },
         {
@@ -2974,16 +2914,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
           "field": "draw"
         },
@@ -3004,32 +2934,12 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
           "field": "draw"
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
           "field": "signals.designations"
         },
         {
@@ -3044,32 +2954,42 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
           "field": "draw"
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
           "field": "signals.designations"
         },
         {
@@ -3411,16 +3331,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
           "field": "draw"
         },
@@ -3471,16 +3381,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
           "field": "draw"
         },
@@ -3497,6 +3397,16 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
           "field": "signals.designations"
         },
         {
@@ -3522,32 +3432,12 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-          "field": "suitability.adult_time_min"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
           "field": "suitability.age_band"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
           "field": "suitability.carrier_ok"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-          "field": "suitability.effort.drivers.distance_km"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-          "field": "suitability.effort.drivers.gain_m"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
-          "field": "suitability.effort.drivers.surface"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -4048,6 +3938,26 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
           "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+          "field": "suitability.effort.drivers.surface"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -4563,16 +4473,6 @@
           "field": "signals.designations"
         },
         {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
-          "field": "signals.designations"
-        },
-        {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
           "field": "suitability.age_band"
@@ -4758,16 +4658,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
           "field": "draw"
         },
@@ -4818,32 +4708,32 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
           "field": "draw"
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
           "field": "signals.designations"
         },
         {
@@ -6443,16 +6333,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
           "field": "draw"
         },
@@ -6793,16 +6673,6 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
           "field": "signals.designations"
         },
         {
@@ -7461,7 +7331,7 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/bullaccia-and-the-witches-benches",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
           "field": "draw"
         },
         {
@@ -8229,22 +8099,22 @@
       "used_by": [
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+          "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+          "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
           "field": "signals.designations"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+          "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
           "field": "signals.editorial"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+          "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
           "field": "standing"
         },
         {
@@ -9494,12 +9364,12 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
           "field": "signals.designations"
         },
         {
@@ -9537,16 +9407,6 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
           "field": "signals.designations"
         },
         {
@@ -9774,6 +9634,56 @@
       "used_by": [
         {
           "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
           "field": "draw"
         },
@@ -9800,56 +9710,6 @@
         {
           "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/town:village and cafes",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:chorrillo del salto",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:chorrillo del salto",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna capri",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna capri",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de los condores",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:mirador de los condores",
           "field": "signals.designations"
         },
         {
@@ -10030,38 +9890,38 @@
       "used_by": [
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
           "field": "signals.editorial"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna capri",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna capri",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
           "field": "signals.editorial"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
-          "field": "signals.editorial"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
           "field": "standing"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "trip/patagonia-2027/sight:perito moreno walkways",
+          "field": "signals.editorial"
         },
         {
           "file": "data/relevance/patagonia-2027/R3.json",
@@ -10322,47 +10182,47 @@
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "ext.cabin"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "ext.ride_min"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.altitude_m"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.carrier_ok"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.food"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.on_site_min"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.stroller_on_board"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.wheelchair"
         }
       ],
@@ -10394,12 +10254,12 @@
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "ext.last_up"
         }
       ],
@@ -10525,37 +10385,37 @@
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "ext.cabin"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "ext.last_up"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.altitude_m"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.food"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.on_site_min"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.wheelchair"
         }
       ],
@@ -10582,17 +10442,17 @@
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "ext.last_up"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.access_season"
         }
       ],
@@ -10624,7 +10484,7 @@
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.stroller_on_board"
         }
       ],
@@ -10846,12 +10706,12 @@
       "used_by": [
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+          "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+          "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
           "field": "signals.designations"
         },
         {
@@ -10923,7 +10783,7 @@
       "used_by": [
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+          "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
           "field": "access_cost"
         },
         {
@@ -10980,32 +10840,32 @@
       "used_by": [
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "ext.last_up"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "ext.last_up"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.access_season"
         },
         {
@@ -11475,7 +11335,7 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/croda-del-becco",
+          "ref": "part/place/croda-del-becco#payoff",
           "field": "draw"
         },
         {
@@ -12440,28 +12300,28 @@
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
-          "field": "suitability.access_season"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "ext.last_up"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -12969,12 +12829,12 @@
       "used_by": [
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+          "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+          "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
           "field": "signals.designations"
         },
         {
@@ -13041,7 +12901,7 @@
       "used_by": [
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+          "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
           "field": "access_cost"
         },
         {
@@ -13707,12 +13567,12 @@
         },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/viewpoint:grand view point",
+          "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
           "field": "suitability.effort.drivers.distance_km"
         },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/viewpoint:grand view point",
+          "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
           "field": "suitability.effort.drivers.gain_m"
         },
         {
@@ -14174,7 +14034,7 @@
       "used_by": [
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "field": "easy_payoff"
         },
         {
@@ -14516,17 +14376,17 @@
       "used_by": [
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "field": "access_cost"
         },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "field": "signals.designations"
         },
         {
@@ -14701,6 +14561,11 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/seceda-ridge#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/adolf-munkel-weg",
           "field": "access_cost"
         },
@@ -14712,11 +14577,6 @@
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/adolf-munkel-weg",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/seceda-ridge",
           "field": "signals.designations"
         },
         {
@@ -15436,7 +15296,7 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/croda-del-becco",
+          "ref": "part/place/croda-del-becco#payoff",
           "field": "access_cost"
         },
         {
@@ -15870,17 +15730,17 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/sass-pordoi-and-piz-boe",
+          "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
           "field": "access_cost"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/sass-pordoi-and-piz-boe",
+          "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/sass-pordoi-and-piz-boe",
+          "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
           "field": "easy_payoff"
         },
         {
@@ -15912,17 +15772,17 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "field": "access_cost"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/seceda-ridge",
+          "ref": "part/place/seceda-ridge#payoff",
           "field": "easy_payoff"
         },
         {
@@ -16046,6 +15906,11 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+          "field": "easy_payoff"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/alpe-di-siusi",
           "field": "distinction"
         },
@@ -16053,11 +15918,6 @@
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/alpe-di-siusi",
           "field": "draw"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/bullaccia-and-the-witches-benches",
-          "field": "easy_payoff"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -16140,22 +16000,22 @@
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "ext.cabin"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.accessible_parking"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.accessible_toilet"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.wheelchair"
         }
       ],
@@ -16182,22 +16042,22 @@
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.adult_required"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.food"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.solo"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.wheelchair"
         }
       ],
@@ -16245,32 +16105,32 @@
       "used_by": [
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "ext.last_down"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "ext.ride_min"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.on_site_min"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.participation.weather_cancel"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.stroller_on_board"
         }
       ],
@@ -17145,13 +17005,13 @@
         },
         {
           "file": "data/suitability/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
-          "field": "suitability.access_season"
+          "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+          "field": "suitability.effort.drivers.distance_km"
         },
         {
           "file": "data/suitability/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
-          "field": "suitability.effort.drivers.distance_km"
+          "field": "suitability.access_season"
         },
         {
           "file": "data/suitability/iceland-ring-road-2027/R4.json",
@@ -17239,12 +17099,12 @@
       "used_by": [
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+          "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
           "field": "draw"
         },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+          "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
           "field": "signals.designations"
         },
         {
@@ -17313,7 +17173,7 @@
       "used_by": [
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+          "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
           "field": "easy_payoff"
         },
         {
@@ -17518,6 +17378,41 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/cascate-di-fanes#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/croda-del-becco#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-sorapis#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/seceda-ridge#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/alpe-di-siusi",
           "field": "wikidata"
         },
@@ -17528,32 +17423,12 @@
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/bullaccia-and-the-witches-benches",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cadini-di-misurina-viewpoint",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cascate-di-fanes",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/cinque-torri",
           "field": "wikidata"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/cortina-dampezzo",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/croda-del-becco",
           "field": "wikidata"
         },
         {
@@ -17618,11 +17493,6 @@
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/lago-federa",
           "field": "wikidata"
         },
@@ -17664,16 +17534,6 @@
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/santa-maddalena-val-di-funes",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/sass-pordoi-and-piz-boe",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/seceda-ridge",
           "field": "wikidata"
         },
         {
@@ -17720,6 +17580,16 @@
       "used_by": [
         {
           "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/sight:penguin colony stop",
           "field": "wikidata"
         },
@@ -17741,16 +17611,6 @@
         {
           "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/town:village and cafes",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna capri",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna de los tres",
           "field": "wikidata"
         },
         {
@@ -17817,6 +17677,16 @@
       "first_read": "2026-10-18",
       "last_read": "2026-10-18",
       "used_by": [
+        {
+          "file": "data/relevance/iceland-ring-road-2027/R4.json",
+          "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/iceland-ring-road-2027/R4.json",
+          "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+          "field": "wikidata"
+        },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
@@ -17890,16 +17760,6 @@
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
           "field": "wikidata"
         },
         {
@@ -18203,11 +18063,6 @@
         },
         {
           "file": "data/suitability/canadian-rockies-2029/migrated.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-          "field": "hints"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
           "field": "hints"
         },
@@ -18243,17 +18098,7 @@
         },
         {
           "file": "data/suitability/canadian-rockies-2029/migrated.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
-          "field": "hints"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-          "field": "hints"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/migrated.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
           "field": "hints"
         },
         {
@@ -18274,6 +18119,21 @@
         {
           "file": "data/suitability/canadian-rockies-2029/migrated.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "field": "hints"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/migrated.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+          "field": "hints"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/migrated.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+          "field": "hints"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/migrated.json",
+          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "hints"
         }
       ],
@@ -19859,22 +19719,27 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/cascate-di-fanes#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-sorapis#payoff",
+          "field": "access_cost"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/alpe-di-siusi",
           "field": "access_cost"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/bolzano",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/bullaccia-and-the-witches-benches",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cascate-di-fanes",
           "field": "access_cost"
         },
         {
@@ -19954,11 +19819,6 @@
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
-          "field": "access_cost"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/lago-federa",
           "field": "access_cost"
         },
@@ -20016,6 +19876,11 @@
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/viel-dal-pan",
           "field": "access_cost"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
+          "field": "suitability.on_site_min"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -20181,11 +20046,6 @@
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/la-val",
           "field": "suitability.wheelchair"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
-          "field": "suitability.on_site_min"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -20476,12 +20336,12 @@
       "used_by": [
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+          "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
           "field": "easy_payoff"
         },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+          "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
           "field": "easy_payoff"
         },
         {
@@ -20734,28 +20594,28 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/cadini-di-misurina-viewpoint",
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-sorapis#payoff",
+          "field": "distinction"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-sorapis#payoff",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-sorapis#payoff",
           "field": "signals.designations"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/lago-di-misurina",
           "field": "draw"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
-          "field": "distinction"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
-          "field": "signals.designations"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
@@ -21001,7 +20861,7 @@
       "used_by": [
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
-          "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+          "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
           "field": "draw"
         },
         {

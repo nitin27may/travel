@@ -7,6 +7,7 @@
 //   enrichment lane R2b/R1 can confirm it;
 // - trail minimum ages marked "operator" but sourced from PLAN.md are not operator rules: they become age_band.from;
 // - "easy / moderate / hard" is our word, not a published grade: it becomes a hint, and source_grade stays a gap.
+import { captureRenames } from "../capture/migrate.ts";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { SuitabilityBlock, SuitabilityDoc, SuitabilityRecord, SuitabilitySource, SuitVal } from "../schema/suitability.ts";
@@ -453,6 +454,9 @@ export function migrate(root: string): Migration {
     });
     offPlan.push(rep);
   }
+  // the capture migration (backlog 3a.12 step 4) moved a lift's block to its ticket offer; regenerating must give the same refs
+  const renames = captureRenames(root);
+  if (renames.size > 0) for (const d of docs.values()) for (const r of d.records) r.ref = renames.get(r.ref) ?? r.ref;
   return { docs, reports, offPlan };
 }
 

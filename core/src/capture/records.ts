@@ -1,7 +1,7 @@
 // The world of capture records: the capture, suitability and relevance sidecars joined by ref, the points file, the operators,
 // the relation graph (with the derived inverses) and the aliases. Offline; reads only files under `root`.
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import type { CaptureDoc, CaptureOperator, CaptureRecord, OperatorsFile } from "../schema/capture/records.ts";
 import type { RelevanceDoc, RelevanceRecord } from "../schema/relevance.ts";
 import type { SuitabilityDoc, SuitabilityRecord } from "../schema/suitability.ts";
@@ -73,14 +73,23 @@ export interface World {
 
 const emptyIncoming = (): Incoming => ({ at: [], on: [], parks_for: [], serves: [], children: [], reached_by: [], starts_here: [] });
 
-export function loadWorld(root: string): World {
+/** `exclude` leaves one capture file out, so the validator can compare it with the others. */
+export function loadWorld(root: string, exclude?: string, extra: CaptureDoc[] = []): World {
   const cap = new Map<string, Located<CaptureRecord>>();
   const trips = new Map<string, string[]>();
   for (const f of sidecarFiles(root, "capture")) {
+    if (exclude && resolve(f) === resolve(exclude)) continue;
     const doc = readJson<CaptureDoc>(f);
     if (!doc || !Array.isArray(doc.records)) continue;
     for (const rec of doc.records) {
       if (!cap.has(rec.ref)) cap.set(rec.ref, { rec, trip: doc.trip, file: f });
+      trips.set(doc.trip, [...(trips.get(doc.trip) ?? []), rec.ref]);
+    }
+  }
+  // documents not (or not yet) on disk, such as the one being validated
+  for (const doc of extra) {
+    for (const rec of doc.records) {
+      cap.set(rec.ref, { rec, trip: doc.trip, file: exclude ?? "" });
       trips.set(doc.trip, [...(trips.get(doc.trip) ?? []), rec.ref]);
     }
   }

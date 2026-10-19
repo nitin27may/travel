@@ -1005,9 +1005,8 @@
       }
     },
     {
-      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "kind": "lake",
       "wikidata": {
         "v": "Q3214753",
         "state": "value",

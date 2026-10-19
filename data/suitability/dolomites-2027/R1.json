@@ -6732,7 +6732,7 @@
       }
     },
     {
-      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
       "kind": "lift",
       "subkind": "cable_car",
       "suitability": {

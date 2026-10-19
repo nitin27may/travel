@@ -18,10 +18,10 @@
   "window": null,
   "items": [
     {
-      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
       "draw_suggested": "national",
       "effective_draw": "world",
-      "access_load": "plan",
+      "access_load": "easy",
       "detour_min": 34,
       "detour_basis": "town",
       "detour_town": "Springdale",
@@ -47,7 +47,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "needs a booking or permit"
+          "reason": "detour 34 min is over 30"
         }
       },
       "role": "anchor",
@@ -172,7 +172,7 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+        "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
         "km": 1.6,
         "draw": "world",
         "same_class": false
@@ -180,7 +180,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "km": 1.6
         },
         {
@@ -230,7 +230,7 @@
         "area": []
       },
       "far_pointer": {
-        "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+        "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
         "km": 5.7,
         "draw": "world",
         "same_class": false
@@ -246,7 +246,7 @@
           "km": 4.1
         },
         {
-          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "km": 5.7
         }
       ],
@@ -279,7 +279,7 @@
       "warnings": []
     },
     {
-      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
@@ -368,7 +368,7 @@
       "substitutes": {
         "near": [
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.7,
             "draw": "national",
             "standing": "top",
@@ -386,7 +386,7 @@
         ],
         "area": [
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.7,
             "draw": "national",
             "standing": "top",
@@ -435,7 +435,7 @@
       "warnings": [
         {
           "code": "W_REL_DISTINCTION",
-          "message": "distinction is unique but trip/utah-five-parks/trail:navajo loop and queens garden has the same class within 100 km"
+          "message": "distinction is unique but part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff has the same class within 100 km"
         }
       ]
     },
@@ -459,7 +459,7 @@
             "family_effort": null
           },
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.9,
             "draw": "national",
             "standing": "top",
@@ -477,7 +477,7 @@
             "family_effort": null
           },
           {
-            "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+            "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
             "km": 0.9,
             "draw": "national",
             "standing": "top",
@@ -523,7 +523,7 @@
       "warnings": []
     },
     {
-      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "easy",

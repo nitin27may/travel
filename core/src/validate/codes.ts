@@ -138,14 +138,12 @@ export const CAP_ERROR_CODES = {
   E_CAP_SRC: "a src id is not in the file's sources table, or a value has no source",
   E_CAP_METHOD: "a source row says crawl or api without a run id, or names a run without saying how the page was taken",
   E_CAP_LINK_ONLY: "a source or a stored URL is on a link-only platform; AllTrails, Komoot, Google and the booking sites are only ever links",
-  E_CAP_NA_VALUE: "reserved: a value that the type's contract never asks for",
   E_CAP_RUN: "a crawl run record is inconsistent: a result without a ref or field in scope, a blocked result without a reason, a searched_none without the pages tried",
   E_CAP_OPERATORS: "an operators file has a duplicate ref or an operator without a name and a URL",
 } as const;
 export const CAP_WARNING_CODES = {
   W_CAP_NA_FIELD: "a value is stored for a property that the type's contract marks N (never asked)",
-  W_CAP_BELOW_USABLE: "required properties of the type's contract are unanswered, so the record is draft",
-  W_CAP_UNTYPED: "a suitability or relevance record has no capture record, so it has no type, layer or relations yet",
+  W_CAP_BELOW_USABLE: "required properties of the type's contract are unanswered, so the record is below usable (the suitability slice has its own warning)",
 } as const;
 export type CapErrorCode = keyof typeof CAP_ERROR_CODES;
 export type CapWarningCode = keyof typeof CAP_WARNING_CODES;

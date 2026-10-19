@@ -48,7 +48,7 @@
       }
     },
     {
-      "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+      "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
       "kind": "lift",
       "subkind": "cable_car",
       "suitability": {},
@@ -68,7 +68,7 @@
       }
     },
     {
-      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
       "kind": "lift",
       "subkind": "rack_railway",
       "suitability": {},

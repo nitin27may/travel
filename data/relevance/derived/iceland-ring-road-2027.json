@@ -875,7 +875,7 @@
       "warnings": []
     },
     {
-      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
@@ -919,7 +919,7 @@
       "warnings": []
     },
     {
-      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
       "draw_suggested": "world",
       "effective_draw": "national",
       "access_load": "easy",

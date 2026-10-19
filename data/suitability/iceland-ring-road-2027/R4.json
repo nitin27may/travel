@@ -764,20 +764,6 @@
             "vatnajokulsthjodgardur.is Jokulsargljufur page"
           ]
         },
-        "effort": {
-          "drivers": {
-            "distance_km": {
-              "v": 2,
-              "state": "value",
-              "basis": "official_info",
-              "src": [
-                "src-0004"
-              ],
-              "quote": "From the parking lot to the viewpoint at Dettifoss, it is a 1 km walk (one way).",
-              "note": "Return the same way: 2 km."
-            }
-          }
-        },
         "walk_m": {
           "v": 1000,
           "state": "value",
@@ -866,9 +852,44 @@
         "house_grade": 3,
         "kid_fit": "yes",
         "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
+      }
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
+        "effort": {
+          "drivers": {
+            "distance_km": {
+              "v": 2,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0004"
+              ],
+              "quote": "From the parking lot to the viewpoint at Dettifoss, it is a 1 km walk (one way).",
+              "note": "Return the same way: 2 km."
+            }
+          }
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
         "walk_km": 2,
         "walk_gain_m": null,
-        "suit_level": "usable"
+        "suit_level": "draft"
       }
     },
     {

@@ -1103,7 +1103,7 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
       "kind": "lift",
       "subkind": "gondola",
       "suitability": {
@@ -1318,7 +1318,7 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
       "kind": "lift",
       "subkind": "gondola",
       "suitability": {
@@ -1488,7 +1488,7 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
       "kind": "lift",
       "subkind": "gondola",
       "suitability": {

@@ -3456,6 +3456,38 @@
           ],
           "note": "a 'short paved sidewalk' with no length given"
         },
+        "toilets": {
+          "v": [
+            "start"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0037"
+          ],
+          "quote": "Restroom, Toilet - Vault/Composting"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "yes",
+        "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "part/trip/utah-five-parks/viewpoint:grand view point#walk",
+      "kind": "trail",
+      "subkind": "walk",
+      "suitability": {
         "effort": {
           "drivers": {
             "distance_km": {
@@ -3479,17 +3511,6 @@
               "note": "units as published; the source gives the metric figure (22 m)"
             }
           }
-        },
-        "toilets": {
-          "v": [
-            "start"
-          ],
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0037"
-          ],
-          "quote": "Restroom, Toilet - Vault/Composting"
         }
       },
       "flat": {
@@ -3499,12 +3520,12 @@
         "max_height_cm": null,
         "min_weight_kg": null,
         "max_weight_kg": null,
-        "house_grade": null,
-        "kid_fit": "yes",
-        "accessibility": "step-free",
+        "house_grade": 1,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
         "walk_km": 2.9,
         "walk_gain_m": 22,
-        "suit_level": "usable"
+        "suit_level": "draft"
       }
     },
     {
