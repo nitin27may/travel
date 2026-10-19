@@ -141,7 +141,7 @@ export function trailSeeds(src: Sources): TrailSeed[] {
       const doc = readJson<{ records?: CaptureRec[] }>(path.join(tdir, file));
       const byRef = new Map((doc?.records ?? []).map((r) => [r.ref, r]));
       const names = others.get(trip) ?? new Set<string>();
-      for (const r of doc?.records ?? []) if (r.layer !== 'route') names.add(norm(r.name));
+      for (const r of doc?.records ?? []) if (r.layer !== 'route' && !r.ref.startsWith('part/')) names.add(norm(r.name)); // a payoff cut out of a trail is that trail's own
       others.set(trip, names);
       for (const r of doc?.records ?? []) {
         if (r.layer !== 'route' || !/^nature\.trail\./.test(r.type)) continue;
@@ -180,7 +180,7 @@ export function trailSeeds(src: Sources): TrailSeed[] {
           hazards = publicSentences(rt.hazards) ? [publicSentences(rt.hazards)] : [];
           link('official', `Official page (${hostOf(rt.official_url ?? '')})`, rt.official_url);
           for (const u of rt.source_urls ?? []) link('official', `Source page (${hostOf(u)})`, u);
-          link('other', 'Map search (Google Maps, link only)', rt.map_url, true);
+          link('map_sheet', 'Map search (Google Maps, link only)', rt.map_url, true);
           link('alltrails', 'AllTrails', rt.alltrails_url, true);
           if (!rt.alltrails_url && rt.alltrails_checked && rt.checked) none.push({ group: 'Maps and tracks', kind: 'alltrails', label: 'AllTrails', date: rt.checked });
         }

@@ -13,7 +13,7 @@ test.describe('trail screenshots (L4b)', () => {
     ['fanes-dashed', '/places/cascate-di-fanes/'],
     ['rockies-no-track', '/places/larch-valley-to-sentinel-pass/'],
     ['rockies-with-point', '/places/bourgeau-lake/'],
-    ['lake-agnes', '/places/lake-agnes-tea-house/'],
+    ['wilcox-pass', '/places/wilcox-pass/'],
   ] as const) {
     test(name, async ({ browser, site }) => {
       await shoot(browser, site.url, LANE, name, url, { fullPage: true, tile: true });
