@@ -70,6 +70,7 @@ Stage 4 is the design review by the Opus reviewer (never Fable), scored against 
 | INT-C | 431bd1a | place page JS cut from 197 to 147 KB, link-only facts dropped, build error gate |
 | SW-A | a413115 | sweep must-fixes 2.34-2.37: public text says who a plan suits, Vermont no-position map, /about/ index, 404 links, icons, /terms/. Follow-ups 2.42-2.45 |
 | SW-B | 1b5f42d | sweep must-fixes 2.38-2.40: self-hosted WebP renditions, globe data per country (globe HTML 15 KB), scrollable tables. Follow-ups 2.46-2.49, Q25 |
+| S1 Part 0 + A | 3c59c7d, c40c99a | place page sections design and mock; contract, suitability, relevance and sections modules; party scrub tightened (2.43). Part B (UI) waits for owner mock review and L3c, L4b, L3b |
 | CC | eaa5684 | capture contract foundation: 324-type tree, property registry, place/route/offer layers, 61 records split with a value ledger |
 
 The stage 2 sweep report is `verify-integration.md` (Lighthouse, privacy, P8, the 10,000-place test, the first-use walk).
