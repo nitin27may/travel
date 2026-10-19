@@ -1272,6 +1272,7 @@
       "ref": "place/lago-di-braies",
       "type": "water.body.lake",
       "layer": "place",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Lago di Braies",
       "links": [
         {
@@ -1342,6 +1343,7 @@
       "ref": "place/lago-di-landro",
       "type": "water.body.lake",
       "layer": "place",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Lago di Landro",
       "links": [
         {
@@ -1452,6 +1454,7 @@
       "ref": "place/passo-gardena",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Passo Gardena",
       "links": [
         {
@@ -1486,6 +1489,7 @@
       "ref": "place/santa-maddalena-val-di-funes",
       "type": "nature.viewpoint.viewpoint",
       "layer": "place",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Santa Maddalena, Val di Funes",
       "links": [
         {
@@ -1538,6 +1542,7 @@
       "ref": "place/la-val",
       "type": "settlement.town",
       "layer": "place",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "La Val",
       "links": [
         {
@@ -1585,6 +1590,7 @@
       "ref": "place/otzi-south-tyrol-museum-of-archaeology",
       "type": "culture.museum.museum",
       "layer": "place",
+      "area_id": "IT/trentino-alto-adige/bolzano",
       "name": "Ötzi, South Tyrol Museum of Archaeology",
       "links": [
         {

@@ -62,6 +62,7 @@
 {"id":"IT/lombardy/como","region_id":"IT/lombardy","slug":"como","name":"Como"},
 {"id":"IT/lombardy/milano","region_id":"IT/lombardy","slug":"milano","name":"Milano"},
 {"id":"IT/trentino-alto-adige/belluno","region_id":"IT/trentino-alto-adige","slug":"belluno","name":"Belluno"},
+{"id":"IT/trentino-alto-adige/bolzano","region_id":"IT/trentino-alto-adige","slug":"bolzano","name":"Bolzano"},
 {"id":"IT/trentino-alto-adige/provincia-di-trento","region_id":"IT/trentino-alto-adige","slug":"provincia-di-trento","name":"Provincia di Trento"},
 {"id":"IT/tuscany/firenze","region_id":"IT/tuscany","slug":"firenze","name":"Firenze"},
 {"id":"IT/veneto/venetian-province","region_id":"IT/veneto","slug":"venetian-province","name":"Venetian Province"},
