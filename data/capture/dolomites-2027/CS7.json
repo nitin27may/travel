@@ -50,6 +50,52 @@
       "kind": "operator",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://rifugionuvolau.it/",
+      "title": "Rifugio Nuvolau",
+      "publisher": "Rifugio Nuvolau",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.rifugioaverau.it/",
+      "title": "Rifugio Averau",
+      "publisher": "Rifugio Averau",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://www.scotoni.it/it/",
+      "title": "Rifugio Scotoni",
+      "publisher": "Rifugio Scotoni",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.altabadia.org/it/info/ristoranti/dettaglio/gastronomy/rifugio-scotoni",
+      "title": "Rifugio Scotoni",
+      "publisher": "Alta Badia tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap data via the Overpass API (is_in admin areas, route relations, huts)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api",
+      "run": "api-2026-10-19-cs7c-overpass"
     }
   ],
   "records": [
@@ -787,6 +833,112 @@
         "from": "place/lago-di-braies",
         "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
       }
+    },
+    {
+      "ref": "place/rifugio-nuvolau-and-averau",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "name": "Rifugio Nuvolau and Averau",
+      "osm_ref": "way/200226208",
+      "origin": {
+        "from": "place/rifugio-nuvolau-and-averau",
+        "reason": "CS7c research (3.53): the trip stop had no capture record; the record is Rifugio Nuvolau, with Averau below it on the same outing."
+      },
+      "season": {
+        "v": [
+          {
+            "from": "06-20",
+            "to": "09-20",
+            "status": "open",
+            "applies_to": "2027",
+            "note": "planned summer opening of Rifugio Nuvolau; Rifugio Averau below opens earlier (summer 2026 from early June)"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0006",
+          "src-0007"
+        ],
+        "read": "2026-10-19",
+        "quote": "Apertura stagionale solo estiva. Apertura prevista dal 20 giugno al 20 settembre 2027",
+        "applies_to": "2027"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://rifugionuvolau.it/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "official",
+          "url": "https://www.rifugioaverau.it/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0007"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/200226208",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "ref": "place/rifugio-scotoni",
+      "type": "stay.mountain.hut",
+      "layer": "place",
+      "name": "Rifugio Scotoni",
+      "osm_ref": "way/229003439",
+      "origin": {
+        "from": "place/rifugio-scotoni",
+        "reason": "CS7c research (3.53): the trip stop had no capture record."
+      },
+      "season": {
+        "v": null,
+        "state": "searched_none",
+        "basis": null,
+        "src": [],
+        "on": "2026-10-19",
+        "tried": [
+          "https://www.scotoni.it/it/ (closed now; reopens for winter in late December)",
+          "https://www.altabadia.org/it/info/ristoranti/dettaglio/gastronomy/rifugio-scotoni (lists only the winter period)"
+        ],
+        "note": "No summer dates are published yet; the winter season is listed (daily 09:00-17:00, hot kitchen 11:00-16:00). The hut says the 50-minute walk from Capanna Alpina on trail 20 (about 2 km, 250 m up) suits families with children."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.scotoni.it/it/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0008"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://www.altabadia.org/it/info/ristoranti/dettaglio/gastronomy/rifugio-scotoni",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0010"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/229003439",
+          "state": "filled",
+          "on": "2026-10-19"
+        }
+      ]
     }
   ]
 }

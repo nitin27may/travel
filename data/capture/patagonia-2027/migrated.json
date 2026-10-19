@@ -50,6 +50,24 @@
       "kind": "official",
       "read": "2026-10-18",
       "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/folleto_senderos_zona_norte_pnlg_espanol_2024.pdf",
+      "title": "Folleto Senderos Zona Norte, Parque Nacional Los Glaciares (2024), linked from 'Planeá tu visita'",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego",
+      "title": "Senderos del Parque Nacional Tierra del Fuego | Argentina.gob.ar",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -151,6 +169,26 @@
       "name": "Laguna de los Tres",
       "reaches": [
         "part/trip/patagonia-2027/trail:laguna de los tres#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/folleto_senderos_zona_norte_pnlg_espanol_2024.pdf",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/laguna-de-los-tres/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
       ]
     },
     {
@@ -220,6 +258,26 @@
       "name": "Laguna Capri",
       "reaches": [
         "part/trip/patagonia-2027/trail:laguna capri#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/folleto_senderos_zona_norte_pnlg_espanol_2024.pdf",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/laguna-capri/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0002"
+          ]
+        }
       ]
     },
     {
@@ -277,6 +335,26 @@
       ],
       "starts_at": [
         "part/trip/patagonia-2027/trail:mirador de los condores#trailhead"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/folleto_senderos_zona_norte_pnlg_espanol_2024.pdf",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0003"
+          ]
+        }
       ]
     },
     {
@@ -334,6 +412,26 @@
       ],
       "starts_at": [
         "part/trip/patagonia-2027/trail:mirador de los condores#trailhead"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/folleto_senderos_zona_norte_pnlg_espanol_2024.pdf",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0003"
+          ]
+        }
       ]
     },
     {
@@ -391,6 +489,26 @@
       ],
       "starts_at": [
         "part/trip/patagonia-2027/trail:chorrillo del salto#parking"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/folleto_senderos_zona_norte_pnlg_espanol_2024.pdf",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/el-chorrillo-del-salto/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0004"
+          ]
+        }
       ]
     },
     {
@@ -433,7 +551,18 @@
       "layer": "route",
       "name": "Coastal path",
       "route_is_attraction": true,
-      "attraction_reason": "A forest and shore path along the Beagle Channel: the walk is the experience."
+      "attraction_reason": "A forest and shore path along the Beagle Channel: the walk is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0007"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna esmeralda",
@@ -442,6 +571,23 @@
       "name": "Laguna Esmeralda",
       "reaches": [
         "part/trip/patagonia-2027/trail:laguna esmeralda#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Laguna Esmeralda trail page by the land manager (outside Parque Nacional Tierra del Fuego; provincial land)",
+          "on": "2026-10-19"
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://turismoushuaia.com/actividad/laguna-esmeralda/?lang=es_AR",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0005"
+          ]
+        }
       ]
     },
     {

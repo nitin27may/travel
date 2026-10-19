@@ -23,6 +23,33 @@
       }
     },
     {
+      "id": "s-7f716c7628",
+      "url": "https://5torri.it",
+      "title": "Benvenuti alle 5 Torri",
+      "publisher": "5 Torri lifts and huts (5torri.it)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/cinque-torri",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-db48196ae2",
       "url": "https://aiguilledumidi.montblancnaturalresort.com/en",
       "title": "Aiguille du Midi",
@@ -181,6 +208,33 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-74b0402fab",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/ptarmigan-cirque-interpretive",
+      "title": "Ptarmigan Cirque Interpretive | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -435,6 +489,38 @@
       }
     },
     {
+      "id": "s-41a104e991",
+      "url": "https://auronzo.info/en/lake-antorno",
+      "title": "Lake Antorno, under the Tre Cime: what to see and how to get there",
+      "publisher": "Comune di Auronzo di Cadore (auronzo.info; footer: Via Roma 24, C.F. 83000710257, PEC auronzo.bl@cert.ip-veneto.net)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-dantorno",
+          "field": "best_time"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-dantorno",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 180,
+        "fact_type": "seasons_closures"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-be80227080",
       "url": "https://auronzo.info/en/parking-tre-cime-di-lavaredo",
       "title": "Parking Tre Cime di Lavaredo",
@@ -484,6 +570,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-8ed92ffe6f",
+      "url": "https://auronzo.info/en/tre-cime-di-lavaredo-dolomites",
+      "title": "Tre Cime di Lavaredo Dolomiti: tips to organize your visit",
+      "publisher": "Comune di Auronzo di Cadore (auronzo.info)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/tre-cime-di-lavaredo-loop",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -580,6 +693,11 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
           "field": "suitability.exposure"
         }
       ],
@@ -587,8 +705,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 365,
+        "fact_type": "rules"
       },
       "link": {
         "status": "ok",
@@ -623,6 +741,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+          "field": "ext.dogs"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -777,6 +900,70 @@
       }
     },
     {
+      "id": "s-ad7d16bbfe",
+      "url": "https://cortina.dolomiti.org/en/escursioni/ascent-to-the-summit-of-piccolo-lagazuoi-en",
+      "title": "Ascent to the summit of Piccolo Lagazuoi - dolomiti",
+      "publisher": "Cortina d'Ampezzo tourist office (cortina.dolomiti.org)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-e3ad5c8eac",
+      "url": "https://cortina.dolomiti.org/en/escursioni/lago-di-limedes-en",
+      "title": "Lago di Lìmedes",
+      "publisher": "Cortina d'Ampezzo tourism (Cortina Marketing)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-limides#walk",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-limides#walk",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/lago-di-limides",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9d53f59b1b",
       "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en",
       "title": "To Lago Sorapis",
@@ -786,6 +973,11 @@
       "last_read": "2026-10-19",
       "used_by": [
         {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-di-sorapis",
+          "field": "links"
+        },
+        {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/lago-di-sorapis",
           "field": "suitability.effort.drivers.distance_km"
@@ -794,6 +986,33 @@
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/lago-di-sorapis",
           "field": "suitability.effort.drivers.gain_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-76a49fab89",
+      "url": "https://cortina.dolomiti.org/en/pagina-altri-servizi/open-air-museum-of-the-great-war-at-cinque-torri",
+      "title": "Open-air museum of the Great War (at Cinque Torri) - dolomiti",
+      "publisher": "Cortina d'Ampezzo tourist office (cortina.dolomiti.org)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/cinque-torri",
+          "field": "links"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -1180,6 +1399,11 @@
           "field": "links"
         },
         {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+          "field": "links"
+        },
+        {
           "file": "data/relevance/patagonia-2027/R3.json",
           "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
           "field": "draw"
@@ -1252,6 +1476,11 @@
           "field": "links"
         },
         {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:laguna capri",
+          "field": "links"
+        },
+        {
           "file": "data/suitability/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/trail:laguna capri",
           "field": "suitability.adult_time_min"
@@ -1286,6 +1515,11 @@
         {
           "file": "data/capture/patagonia-2027/migrated.json",
           "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:laguna de los tres",
           "field": "links"
         },
         {
@@ -1343,6 +1577,16 @@
         {
           "file": "data/capture/patagonia-2027/migrated.json",
           "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:mirador de los condores",
           "field": "links"
         },
         {
@@ -1713,6 +1957,11 @@
           "field": "links"
         },
         {
+          "file": "data/capture/chamonix-mont-blanc-2028/migrated.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "field": "links"
+        },
+        {
           "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
           "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "field": "access_cost"
@@ -1852,8 +2101,13 @@
       "publisher": "Chamonix-Mont-Blanc tourist office",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/chamonix-mont-blanc-2028/migrated.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "field": "links"
+        },
         {
           "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
           "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
@@ -1999,12 +2253,17 @@
     {
       "id": "s-a1b2c510ff",
       "url": "https://engage.gov.bc.ca/bcparksblog/2022/03/02/awesome-camping-and-hiking-opportunities-in-the-robson-valley",
-      "title": "Camping and hiking in the Robson Valley (BC Parks blog)",
+      "title": "Awesome Camping and Hiking Opportunities in the Robson Valley – BC Parks Blog",
       "publisher": "BC Parks",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+          "field": "links"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
@@ -2144,8 +2403,13 @@
       "publisher": "Go Stowe (Stowe Area Association)",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/vermont-fall-2026/migrated.json",
+          "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+          "field": "links"
+        },
         {
           "file": "data/relevance/vermont-fall-2026/R6.json",
           "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
@@ -2211,8 +2475,13 @@
       "publisher": "Haute-Savoie Mont-Blanc Tourisme",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/chamonix-mont-blanc-2028/migrated.json",
+          "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+          "field": "links"
+        },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
           "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
@@ -2427,12 +2696,17 @@
     {
       "id": "s-5783b546a1",
       "url": "https://lagazuoi.it/EN/percorso6-The-Lagazuoi-Tunnels",
-      "title": "The Lagazuoi Tunnels",
+      "title": "Mine Tunnel Lagazuoi",
       "publisher": "Lagazuoi S.p.A.",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "field": "links"
+        },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
@@ -2540,8 +2814,13 @@
       "publisher": "Limberlost Forest and Wildlife Reserve",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/algonquin-muskoka-2026/migrated.json",
+          "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+          "field": "links"
+        },
         {
           "file": "data/relevance/algonquin-muskoka-2026/R6.json",
           "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
@@ -2663,6 +2942,85 @@
       }
     },
     {
+      "id": "s-683757d5eb",
+      "url": "https://nature-parks.province.bz.it/en/code-of-conduct-for-the-nature-parks",
+      "title": "Code of Conduct for the Nature Parks",
+      "publisher": "Autonome Provinz Bozen - Südtirol (Naturparks)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-braies#walk",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/adolf-munkel-weg",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/croda-del-becco",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/seceda-ridge",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/val-fiscalina",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/vallunga",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-ae3555c315",
+      "url": "https://nature-parks.province.bz.it/en/fanes-sennes-prags-fanes-senes-braies-nature-park",
+      "title": "Fanes-Sennes-Prags / Fanes-Senes-Braies Nature Park",
+      "publisher": "Autonomous Province of Bolzano - South Tyrol, Nature parks",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-di-braies",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-fdaea7f4af",
       "url": "https://open-meteo.com/en/docs/elevation-api",
       "title": "Open-Meteo Elevation API (Copernicus DEM GLO-90, 90 m), documentation. Queried with latitude and longitude arrays sampled every 30 m along the OSM geometry of relation 7302436 (Passo Pordoi to Fedaia); the coordinates come from that OSM relation",
@@ -2702,6 +3060,27 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-af92053c73",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap data via the Overpass API (is_in admin areas, route relations, huts)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "general"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -3292,8 +3671,13 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "duration_min"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
@@ -3315,6 +3699,65 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-b0741945fa",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/heures-hours",
+      "title": "Hours of Operation - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0d19dfb346",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/tarifs-fees",
+      "title": "Fees - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -3418,6 +3861,46 @@
         {
           "file": "data/capture/canadian-rockies-2029/CS7.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
           "field": "links"
         },
         {
@@ -3659,6 +4142,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
           "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+          "field": "suitability.toilets"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -4159,6 +4647,78 @@
       }
     },
     {
+      "id": "s-8eff6d2771",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/etat-sentiers-trail-conditions",
+      "title": "Trail conditions - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-5a94aedc1d",
       "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
       "title": "Area Closure: Johnston Canyon Trail and Day Use Area (bulletin)",
@@ -4350,8 +4910,18 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "place/lake-louise",
+          "field": "best_time"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "place/lake-louise",
+          "field": "links"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
@@ -4477,7 +5047,7 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/canadian-rockies-2029/CS7.json",
@@ -4548,6 +5118,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "place/lake-louise",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R8.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -4565,12 +5140,17 @@
     {
       "id": "s-538d3f04a2",
       "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise/faq",
-      "title": "Lake Louise and Moraine Lake shuttle FAQ",
+      "title": "Frequently asked questions - Banff National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "place/lake-louise",
+          "field": "price"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
@@ -4616,8 +5196,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -4631,8 +5211,13 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "field": "best_time"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
@@ -4744,11 +5329,11 @@
     {
       "id": "s-3f4d276a8b",
       "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
-      "title": "Fees, Banff National Park",
+      "title": "Fees - Banff National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/canadian-rockies-2029/CS7.json",
@@ -4779,6 +5364,11 @@
           "file": "data/capture/canadian-rockies-2029/CS7.json",
           "ref": "part/place/lake-louise#parking",
           "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "place/lake-louise",
+          "field": "price"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -5072,6 +5662,11 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
           "field": "suitability.effort.drivers.distance_km"
         },
         {
@@ -5092,6 +5687,11 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
           "field": "suitability.effort.drivers.gain_m"
         },
         {
@@ -5106,6 +5706,11 @@
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
           "field": "suitability.effort.drivers.distance_km"
         },
@@ -5113,6 +5718,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
           "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+          "field": "ext.dogs"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -5132,7 +5742,17 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
           "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+          "field": "ext.dogs"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -5203,6 +5823,21 @@
       "first_read": "2026-10-18",
       "last_read": "2026-10-18",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
@@ -5394,12 +6029,27 @@
     {
       "id": "s-9bd5e753d2",
       "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
-      "title": "Maligne Valley day hikes",
+      "title": "Maligne Lake area - Jasper National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+          "field": "links"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
@@ -5536,12 +6186,22 @@
     {
       "id": "s-b2f71420af",
       "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
-      "title": "Miette Hot Springs area hikes",
+      "title": "Miette Hot Springs area - Jasper National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+          "field": "links"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
@@ -5633,12 +6293,17 @@
     {
       "id": "s-4fc2f2e430",
       "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/riviere-river",
-      "title": "Athabasca River area hikes (Lake Annette loop)",
+      "title": "Across the river - Jasper National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+          "field": "links"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
@@ -6603,14 +7268,56 @@
       }
     },
     {
+      "id": "s-e59e777507",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike",
+      "title": "Hiking - Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-3aea7fa6f8",
       "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
       "title": "Day hikes in Kootenay National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+          "field": "links"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
@@ -6917,14 +7624,66 @@
       }
     },
     {
+      "id": "s-dca0ee21e5",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike",
+      "title": "Hiking - Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-cac180a6c4",
       "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
       "title": "Day hikes in Yoho National Park",
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+          "field": "links"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -7616,6 +8375,92 @@
       }
     },
     {
+      "id": "s-74eb8a3573",
+      "url": "https://rifugiobiella.it/itinerari/croda-del-becco",
+      "title": "Via normale alla Croda del Becco - Rifugio Biella - Seekofel Hütte",
+      "publisher": "Rifugio Biella / Seekofelhütte",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/croda-del-becco",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-12f5a88eab",
+      "url": "https://rifugionuvolau.it",
+      "title": "Rifugio Nuvolau",
+      "publisher": "Rifugio Nuvolau",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-59e4461f92",
+      "url": "https://rifugiovandelli.it",
+      "title": "Rifugio Vandelli | Homepage",
+      "publisher": "Rifugio Vandelli (P. IVA 00944990258)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-di-sorapis",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-a37ab6d6e9",
       "url": "https://safetravel.is",
       "title": "Safetravel: eruptions and earthquakes in Reykjanes peninsula",
@@ -7871,8 +8716,13 @@
       "publisher": "Snaefellsjokull National Park",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/iceland-ring-road-2027/migrated.json",
+          "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+          "field": "links"
+        },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
@@ -8287,11 +9137,11 @@
     {
       "id": "s-37c6bd336e",
       "url": "https://swissfamilyfun.com/dolomites-vallunga",
-      "title": "Dolomites: Vallunga (search result, not opened)",
+      "title": "Dolomites hike • Vallunga / Langental",
       "publisher": "Swiss Family Fun (family travel blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -8437,6 +9287,11 @@
         {
           "file": "data/capture/patagonia-2027/migrated.json",
           "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:laguna esmeralda",
           "field": "links"
         },
         {
@@ -9130,6 +9985,68 @@
       }
     },
     {
+      "id": "s-5ca08c0f33",
+      "url": "https://www.albertaparks.ca/albertaparks-ca/visit-our-parks/regulations/pets-in-parks",
+      "title": "Pets in Parks | Alberta Parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-0bbad52b55",
       "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/mt-lorette-ponds",
       "title": "Mt. Lorette Ponds day use",
@@ -9492,6 +10409,33 @@
       }
     },
     {
+      "id": "s-74423eb48c",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper",
+      "title": "Grassi Lakes Upper | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9ffb91c939",
       "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling",
       "title": "Ha Ling trail report",
@@ -9500,6 +10444,11 @@
       "first_read": "2026-10-18",
       "last_read": "2026-10-18",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+          "field": "links"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
@@ -9574,14 +10523,46 @@
       }
     },
     {
+      "id": "s-b1dec78235",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/troll-falls",
+      "title": "Troll Falls | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-71d0b182c5",
       "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/wedge-pond",
       "title": "Wedge Pond trail report",
       "publisher": "Alberta Parks",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+          "field": "links"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
@@ -9695,6 +10676,60 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-6612a05922",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rockwall-interpretive",
+      "title": "Rockwall Interpretive | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b58b7b46f9",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake",
+      "title": "Upper Lake | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -10018,6 +11053,33 @@
       }
     },
     {
+      "id": "s-a88ef96d93",
+      "url": "https://www.altabadia.org/it/info/ristoranti/dettaglio/gastronomy/rifugio-scotoni",
+      "title": "Rifugio Scotoni",
+      "publisher": "Alta Badia tourism board",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-scotoni",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-d68523d80f",
       "url": "https://www.argentina.gob.ar/parquesnacionales/losglaciares",
       "title": "Parque Nacional Los Glaciares",
@@ -10122,6 +11184,33 @@
       "link": {
         "status": "redirect",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-5b91debb2b",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/patagonia-austral/senderos-del-parque-nacional-tierra-del-fuego",
+      "title": "Senderos del Parque Nacional Tierra del Fuego | Argentina.gob.ar",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:coastal path",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -10274,6 +11363,53 @@
       }
     },
     {
+      "id": "s-79df99c0b4",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2019/06/folleto_senderos_zona_norte_pnlg_espanol_2024.pdf",
+      "title": "Folleto Senderos Zona Norte, Parque Nacional Los Glaciares (2024), linked from 'Planeá tu visita'",
+      "publisher": "Administración de Parques Nacionales (APN)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:laguna capri",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:laguna de los tres",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/patagonia-2027/migrated.json",
+          "ref": "trip/patagonia-2027/trail:mirador de los condores",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-6544551643",
       "url": "https://www.argentina.travel/planea-tu-viaje/parque-nacional-los-glaciares-el-chalten-y-el-calafate-santa-cruz",
       "title": "Parque Nacional Los Glaciares: El Chaltén y El Calafate, Santa Cruz",
@@ -10338,11 +11474,11 @@
     {
       "id": "s-aa8fdb8e0e",
       "url": "https://www.babytrekking.it/lago-di-misurina-passeggino",
-      "title": "Lago di Misurina col passeggino (search result, not opened)",
+      "title": "Lago di Misurina, la perla del Cadore - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -10380,11 +11516,11 @@
     {
       "id": "s-2cd31e5208",
       "url": "https://www.babytrekking.it/lago-sorapis-rifugio-vandelli-bambini-cortina",
-      "title": "Lago Sorapis e Rifugio Vandelli coi bambini (search result, not opened)",
+      "title": "Lago Sorapis e Rifugio Vandelli, coi bambini nella valle incantata - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -10407,11 +11543,11 @@
     {
       "id": "s-abf52b3568",
       "url": "https://www.babytrekking.it/rifugio-croda-da-lago-ru-curto-coi-bambini",
-      "title": "Rifugio Croda da Lago da Ru Curto coi bambini (search result, not opened)",
+      "title": "Rifugio Croda da Lago: da Ru Curto al lago Federa coi bambini - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -10734,6 +11870,38 @@
       }
     },
     {
+      "id": "s-23b5363d57",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield-skywalk",
+      "title": "Columbia Icefield Skywalk | Walk Above the Rockies on a Glass-Floor Cliff Edge",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-16135f7e8d",
       "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs",
       "title": "Columbia Icefield FAQs",
@@ -10807,8 +11975,28 @@
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "field": "hours"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
@@ -10824,8 +12012,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -11245,6 +12433,11 @@
           "field": "links"
         },
         {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+          "field": "links"
+        },
+        {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
           "field": "access_cost"
@@ -11553,13 +12746,40 @@
       }
     },
     {
+      "id": "s-b2bbe1df64",
+      "url": "https://www.comune.lavalle.bz.it/it",
+      "title": "Comune di La Valle - Home",
+      "publisher": "Comune di La Valle / Gemeinde Wengen / Comun de La Val",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/la-val",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-28c67b8388",
       "url": "https://www.disabili.com/viaggi/speciali-viaggi-a-tempo-libero/speciale-vacanze-estate/-sp-17235",
-      "title": "Aree turistiche montane: Dolomiti (search result, not opened)",
+      "title": "DOLOMITI - Passeggiate accessibili | Disabili.com",
       "publisher": "disabili.com",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -11632,6 +12852,33 @@
       }
     },
     {
+      "id": "s-3b87d87727",
+      "url": "https://www.dolomitiparco.com/Ita/Misc/regolamenti.php",
+      "title": "Regolamenti",
+      "publisher": "Parco Naturale delle Dolomiti d'Ampezzo (Regole d'Ampezzo)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/cascate-di-fanes",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-09362c319d",
       "url": "https://www.dolomitiunesco.info/en/the-dolomites-unesco-world-heritage-site/outstanding-universal-value",
       "title": "The Dolomites UNESCO World Heritage Site: outstanding universal value (search result)",
@@ -11675,8 +12922,13 @@
       "publisher": "Tourist Info Innichen/San Candido",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/drava-cycle-path-to-lienz",
+          "field": "links"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/drava-cycle-path-to-lienz",
@@ -11802,6 +13054,11 @@
           "field": "links"
         },
         {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/croda-del-becco",
+          "field": "links"
+        },
+        {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "part/place/croda-del-becco#payoff",
           "field": "draw"
@@ -11883,6 +13140,11 @@
       "first_read": "2026-10-19",
       "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/monte-piana",
+          "field": "links"
+        },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/monte-piana",
@@ -12046,14 +13308,46 @@
       }
     },
     {
+      "id": "s-26aa82537a",
+      "url": "https://www.dreizinnen.com/en/info/lake-of-landro_6261",
+      "title": "Lake of Landro - Drei Zinnen",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-di-landro",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-aef802eca4",
       "url": "https://www.dreizinnen.com/en/region/highlights/fischleintal-valley",
       "title": "Fischleintal valley in Sexten",
       "publisher": "3 Zinnen Dolomites tourism board",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/val-fiscalina",
+          "field": "links"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/val-fiscalina",
@@ -12120,12 +13414,17 @@
     {
       "id": "s-c6592a4fe1",
       "url": "https://www.dreizinnen.com/en/region/highlights/lake-prags",
-      "title": "Lake Prags: getting there, parking, best time",
+      "title": "Lake Prags: Getting there, parking, best time to visit & tips - Drei Zinnen",
       "publisher": "3 Zinnen Dolomites tourism board",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-di-braies",
+          "field": "links"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/lago-di-braies",
@@ -12156,8 +13455,13 @@
       "publisher": "3 Zinnen Dolomites tourism board",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/tre-cime-di-lavaredo-loop",
+          "field": "links"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/tre-cime-di-lavaredo-loop",
@@ -12193,8 +13497,28 @@
       "publisher": "3 Zinnen Dolomites (lift operator)",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "season"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/funbob-monte-baranci",
@@ -12266,6 +13590,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-3712d80045",
+      "url": "https://www.dreizinnen.com/en/the-cable-cars/tickets-prices/tickets-prices",
+      "title": "Tickets and prices",
+      "publisher": "3 Zinnen AG (lift company of the Drei Zinnen Dolomites)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/funbob-monte-baranci",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -12441,11 +13797,11 @@
     {
       "id": "s-ecbd93eb8a",
       "url": "https://www.ecnews.it/fiscale/viaggi-e-tempo-libero/escursione-del-lago-federa",
-      "title": "Escursione del Lago Federa (search result, not opened)",
+      "title": "Escursione del Lago Federa - EC News - Area fiscale",
       "publisher": "ecnews.it",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -12590,6 +13946,33 @@
       }
     },
     {
+      "id": "s-6dd04dae3e",
+      "url": "https://www.fassa.com/it/itinerari/alba-col-dei-rossi-viel-dal-pan-fedaia-alba",
+      "title": "Alba - Col dei Rossi - Viel dal Pan - Fedaia - Alba",
+      "publisher": "Val di Fassa tourism (fassa.com)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/viel-dal-pan",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-2d14122ec6",
       "url": "https://www.ferdamalastofa.is/en/news/increased-safety-and-better-information-with-new-signs-in-reynisfjara-black-sand-beach",
       "title": "Increased safety and better information with new signs in Reynisfjara black sand beach",
@@ -12721,14 +14104,66 @@
       }
     },
     {
+      "id": "s-05e6bb08da",
+      "url": "https://www.iceman.it/en/reservations",
+      "title": "Reservations",
+      "publisher": "South Tyrol Museum of Archaeology",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+          "field": "window"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-3656501e79",
       "url": "https://www.iceman.it/en/the-museum/opening-times-and-fees",
-      "title": "Opening times and fees",
+      "title": "Opening times & fees | South Tyrol Museum of Archaeology",
       "publisher": "South Tyrol Museum of Archaeology",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+          "field": "price"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+          "field": "window"
+        },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/otzi-south-tyrol-museum-of-archaeology",
@@ -12744,8 +14179,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -12787,11 +14222,11 @@
     {
       "id": "s-b785efea32",
       "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
-      "title": "Stop al traffico Passo Gardena, verso la ZTL (search result, not opened)",
+      "title": "Stop al traffico, passo Gardena verso la «Ztl Unesco» (newspaper report of a planned trial)",
       "publisher": "l'Adige (newspaper)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
@@ -12871,11 +14306,11 @@
     {
       "id": "s-0aca4c0334",
       "url": "https://www.linexo.de/magazin/radrouten-touren/drauradweg-die-schoenste-fahrradroute-durch-oesterreich",
-      "title": "Drauradweg (search result, not opened)",
+      "title": "Alles über den Drauradweg auf linexo.de (confirms the asphalt surface only)",
       "publisher": "linexo (cycling magazine)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -13024,6 +14459,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-5fcd73c161",
+      "url": "https://www.montepiana.com",
+      "title": "Monte Piana - Museo della Guerra - Servizio navetta",
+      "publisher": "Rifugio Angelo Bosi / Monte Piana shuttle (montepiana.com)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/monte-piana",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -13434,8 +14896,13 @@
       "publisher": "NPS Bryce Canyon",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
@@ -13852,8 +15319,13 @@
       "publisher": "NPS Capitol Reef",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:hickman bridge",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:hickman bridge",
@@ -13956,8 +15428,13 @@
       "publisher": "NPS Arches",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:devils garden",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:devils garden",
@@ -14142,8 +15619,13 @@
       "publisher": "NPS Canyonlands",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:mesa arch",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:mesa arch",
@@ -14219,8 +15701,13 @@
       "publisher": "NPS Arches",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:windows section",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:windows section",
@@ -14296,8 +15783,13 @@
       "publisher": "NPS Canyonlands",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:upheaval dome",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:upheaval dome",
@@ -14398,8 +15890,13 @@
       "publisher": "NPS Arches",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:delicate arch trail",
+          "field": "links"
+        },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:delicate arch trail",
@@ -14465,8 +15962,13 @@
       "publisher": "NPS Zion",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:pa rus trail",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:pa rus trail",
@@ -14567,8 +16069,13 @@
       "publisher": "NPS Zion",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:riverside walk",
+          "field": "links"
+        },
         {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
@@ -14674,8 +16181,13 @@
       "publisher": "NPS Zion",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+          "field": "links"
+        },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
@@ -14917,6 +16429,11 @@
           "field": "links"
         },
         {
+          "file": "data/capture/utah-five-parks/migrated.json",
+          "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+          "field": "links"
+        },
+        {
           "file": "data/relevance/utah-five-parks/R5.json",
           "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
           "field": "access_cost"
@@ -15099,8 +16616,13 @@
       "publisher": "Villnöss/Funes tourism board (Odles Dolomites)",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/adolf-munkel-weg",
+          "field": "links"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "part/place/seceda-ridge#payoff",
@@ -15205,6 +16727,33 @@
       }
     },
     {
+      "id": "s-416506655e",
+      "url": "https://www.odlesdolomites.com/en/region/val-di-funes",
+      "title": "Val di Funes – Odle & Puez-Odle Nature Park | Dolomites",
+      "publisher": "Villnöss/Funes tourism (Odles Dolomites)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/santa-maddalena-val-di-funes",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-41a645d02e",
       "url": "https://www.oeamtc.at/laenderinfo/italien/news/suedtirol-groedner-joch-pragser-wildsee-und-seceda-26299020",
       "title": "Südtirol: Grödner Joch, Pragser Wildsee und Seceda (31 Aug 2026; opened, the URL slug changed)",
@@ -15239,12 +16788,17 @@
     {
       "id": "s-99f3fda9b9",
       "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
-      "title": "Lake of Two Rivers: activities (Algonquin)",
+      "title": "Algonquin Provincial Park - Lake of Two Rivers - Activities",
       "publisher": "Ontario Parks",
       "kind": "official",
       "first_read": "2026-10-19",
       "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/algonquin-muskoka-2026/migrated.json",
+          "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+          "field": "links"
+        },
         {
           "file": "data/suitability/algonquin-muskoka-2026/R6.json",
           "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
@@ -15945,11 +17499,11 @@
     {
       "id": "s-0ee9c85282",
       "url": "https://www.planetmountain.com/it/itinerari/lago-di-limides.html",
-      "title": "Lago di Limides (search result, not opened)",
+      "title": "Lago di Limides, Croda da Lago - Nuvolau, Dolomiti (a winter snowshoe route, not the summer walk)",
       "publisher": "planetmountain.com (mountain magazine)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
@@ -15996,8 +17550,18 @@
       "publisher": "Prags/Braies valley (municipality and tourism)",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-di-braies",
+          "field": "best_time"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/lago-di-braies",
+          "field": "window"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "part/place/croda-del-becco#payoff",
@@ -16466,6 +18030,38 @@
       }
     },
     {
+      "id": "s-d7c15ee105",
+      "url": "https://www.rifugioaverau.it",
+      "title": "Rifugio Averau",
+      "publisher": "Rifugio Averau",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-nuvolau-and-averau",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-a9d4c89f17",
       "url": "https://www.rifugiolavaredo.com",
       "title": "Rifugio Lavaredo",
@@ -16503,14 +18099,46 @@
       }
     },
     {
+      "id": "s-2c74bbbcc2",
+      "url": "https://www.rifugiovieldalpan.it",
+      "title": "Rifugio viel dal pan",
+      "publisher": "Rifugio Viel dal Pan snc di Dantone A&G (Canazei)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/viel-dal-pan",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-923c299c26",
       "url": "https://www.sasspordoi.it/en/info-times-and-prices",
       "title": "Sass Pordoi cable car: info, times and prices",
       "publisher": "Sass Pordoi cable car (operator)",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/sass-pordoi-and-piz-boe",
+          "field": "links"
+        },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
@@ -16545,6 +18173,33 @@
       }
     },
     {
+      "id": "s-1005bcd8fb",
+      "url": "https://www.scotoni.it/it",
+      "title": "Rifugio Scotoni",
+      "publisher": "Rifugio Scotoni",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/CS7.json",
+          "ref": "place/rifugio-scotoni",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-bf8047e15f",
       "url": "https://www.seceda.it/en/summer",
       "title": "Seceda summer: hours and prices",
@@ -16556,6 +18211,11 @@
         {
           "file": "data/capture/dolomites-2027/migrated.json",
           "ref": "part/place/seceda-ridge#payoff",
+          "field": "links"
+        },
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/seceda-ridge",
           "field": "links"
         },
         {
@@ -16681,6 +18341,60 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-f9f6727162",
+      "url": "https://www.seiser-alm.it/en/leisure-activities/mountains-and-hiking/bullaccia-round-trail-and-witches-benches",
+      "title": "Along the Bullaccia round trail to the Witches’ Benches - Alpe di Siusi, Dolomites, Italy",
+      "publisher": "Seiser Alm Marketing",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/bullaccia-and-the-witches-benches",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-aac6d6a73d",
+      "url": "https://www.seiser-alm.it/en/leisure-activities/mountains-and-hiking/hans-and-paula-steger-trail",
+      "title": "Hiking tour on the Hans and Paula Steger Trail - Alpe di Siusi, Dolomites, Italy",
+      "publisher": "Seiser Alm Marketing",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/alpe-di-siusi",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -16967,6 +18681,60 @@
       }
     },
     {
+      "id": "s-fc797da9c9",
+      "url": "https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path",
+      "title": "Stowe Recreation Path | Town of Stowe",
+      "publisher": "Town of Stowe Parks & Recreation Department",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/vermont-fall-2026/migrated.json",
+          "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-503022b44c",
+      "url": "https://www.suedtirol.info/de/de/information/mobilitaet/paesse-in-suedtirol/groednerjoch",
+      "title": "Anreise zum Grödner Joch",
+      "publisher": "IDM Südtirol (suedtirol.info)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/passo-gardena",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-139f2f930a",
       "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoi5391b0a9a1cc94a9d93265d3619bb4c8.theme-path-monte-piano---museum-of-the-1st-world-war.sesto-sexten",
       "title": "Theme path Monte Piano, museum of the First World War",
@@ -17115,6 +18883,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-cb864b8300",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoifbee71b14b22c6bbad7d3fcc0919c8c4.drava-cycle-path-drau-radweg-innichen-san-candido---lienz-aut.s--candido-innichen",
+      "title": "Drava Cycle Path (Drau-Radweg) Innichen/San Candido - Lienz (A)",
+      "publisher": "IDM Südtirol (provincial tourism board)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/drava-cycle-path-to-lienz",
+          "field": "suitability.effort.drivers.surface"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/drava-cycle-path-to-lienz",
+          "field": "suitability.effort.source_grade"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -17387,6 +19187,33 @@
       }
     },
     {
+      "id": "s-25996218c7",
+      "url": "https://www.talschlusshuette.com",
+      "title": "Talschlusshütte im Fischleintal: Urlaub in den Sextner Dolomiten",
+      "publisher": "Talschlusshütte (Fischleintalstr. 41, Sexten)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/val-fiscalina",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-29f4cd1166",
       "url": "https://www.templesquare.org",
       "title": "Temple Square",
@@ -17499,8 +19326,13 @@
       "publisher": "Thingvellir National Park",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/iceland-ring-road-2027/migrated.json",
+          "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+          "field": "links"
+        },
         {
           "file": "data/suitability/iceland-ring-road-2027/R4.json",
           "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
@@ -17554,6 +19386,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-f3be04644c",
+      "url": "https://www.trentino.com/en/leisure-activities/mountains-and-hiking/alpine-tours/from-mount-sas-pordoi-to-mount-piz-boe",
+      "title": "Alpine tour from Mt Sass Pordoi to Piz Boé - Trentino - Italy",
+      "publisher": "Trentino Marketing (trentino.com)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/sass-pordoi-and-piz-boe",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -17755,6 +19614,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-f075c9a071",
+      "url": "https://www.valgardena.it/en/summer-holidays-dolomites/trekking/seceda/ridge-line",
+      "title": "Seceda Ridge Line",
+      "publisher": "Val Gardena tourism (valgardena.it)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/seceda-ridge",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -17989,8 +19875,13 @@
       "publisher": "Vatnajokull National Park",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/iceland-ring-road-2027/migrated.json",
+          "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+          "field": "links"
+        },
         {
           "file": "data/relevance/iceland-ring-road-2027/R4.json",
           "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",

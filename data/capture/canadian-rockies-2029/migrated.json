@@ -69,6 +69,195 @@
       "read": "2026-10-19",
       "method": "api",
       "run": "api-2026-10-19-cs7-upper-stations"
+    },
+    {
+      "id": "src-0008",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+      "title": "Maligne Lake area - Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0009",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+      "title": "Hikes and walks - Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0010",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper/",
+      "title": "Grassi Lakes Upper | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0011",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake/",
+      "title": "Upper Lake | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0012",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/riviere-river",
+      "title": "Across the river - Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0013",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/louise",
+      "title": "Lake Louise and Moraine Lake - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+      "title": "Hikes and walks - Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0015",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
+      "title": "Miette Hot Springs area - Jasper National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0016",
+      "url": "https://engage.gov.bc.ca/bcparksblog/2022/03/02/awesome-camping-and-hiking-opportunities-in-the-robson-valley/",
+      "title": "Awesome Camping and Hiking Opportunities in the Robson Valley – BC Parks Blog",
+      "publisher": "BC Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0017",
+      "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/ptarmigan-cirque-interpretive/",
+      "title": "Ptarmigan Cirque Interpretive | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0018",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rockwall-interpretive/",
+      "title": "Rockwall Interpretive | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0019",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/troll-falls/",
+      "title": "Troll Falls | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0020",
+      "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/wedge-pond/",
+      "title": "Wedge Pond | Trail | Kananaskis Country | Alberta Parks",
+      "publisher": "Alberta Parks (Government of Alberta)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0021",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "title": "Fees - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0022",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise/faq",
+      "title": "Frequently asked questions - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0023",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/heures-hours",
+      "title": "Hours of Operation - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0024",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/tarifs-fees",
+      "title": "Fees - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0025",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit",
+      "title": "Plan your visit - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0026",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield-skywalk/",
+      "title": "Columbia Icefield Skywalk | Walk Above the Rockies on a Glass-Floor Cliff Edge",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0027",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/location-hours/",
+      "title": "Columbia Icefield | Tour Location & Hours",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0028",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
+      "title": "Travelling the Icefields Parkway - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -78,7 +267,18 @@
       "layer": "route",
       "name": "Bald Hills",
       "route_is_attraction": true,
-      "attraction_reason": "The draw is the open summit ridges of the Bald Hills over Maligne Lake, a named payoff. Create the place and move the draw; until then the route carries it."
+      "attraction_reason": "The draw is the open summit ridges of the Bald Hills over Maligne Lake, a named payoff. Create the place and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
@@ -87,7 +287,19 @@
       "name": "Bourgeau Lake",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff"
-      ]
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
@@ -143,7 +355,18 @@
       "layer": "route",
       "name": "Emerald Lakeshore",
       "route_is_attraction": true,
-      "attraction_reason": "The lakeshore circuit is the experience: a loop round Emerald Lake whose payoff is the whole shore, not one point."
+      "attraction_reason": "The lakeshore circuit is the experience: a loop round Emerald Lake whose payoff is the whole shore, not one point.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0009"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
@@ -151,7 +374,18 @@
       "layer": "route",
       "name": "Iceline Trail",
       "route_is_attraction": true,
-      "attraction_reason": "A high circuit past glaciers and moraine lakes: the walk itself is what people come for, with no single payoff place."
+      "attraction_reason": "A high circuit past glaciers and moraine lakes: the walk itself is what people come for, with no single payoff place.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0009"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
@@ -159,7 +393,18 @@
       "layer": "route",
       "name": "Interlakes Trail (Upper and Lower Lake)",
       "route_is_attraction": true,
-      "attraction_reason": "A level walk between the two Kananaskis Lakes: the shoreline route is the experience."
+      "attraction_reason": "A level walk between the two Kananaskis Lakes: the shoreline route is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/upper-lake/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0011"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
@@ -168,6 +413,17 @@
       "name": "Ha Ling Peak",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/ha-ling/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0002"
+          ]
+        }
       ]
     },
     {
@@ -224,6 +480,17 @@
       "name": "Grassi Lakes (easy route)",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/canmore-and-area/grassi-lakes-upper/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0010"
+          ]
+        }
       ]
     },
     {
@@ -288,7 +555,19 @@
       "layer": "route",
       "name": "Lake Louise Lakeshore",
       "route_is_attraction": true,
-      "attraction_reason": "The level shore walk along Lake Louise is the experience; the lake has its own place record and the walk ends at no named point."
+      "attraction_reason": "The level shore walk along Lake Louise is the experience; the lake has its own place record and the walk ends at no named point.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
@@ -305,7 +584,19 @@
       ],
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass"
-      ]
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
@@ -313,7 +604,18 @@
       "layer": "route",
       "name": "Mary Schaffer Loop",
       "route_is_attraction": true,
-      "attraction_reason": "A short shore loop at Maligne Lake: the loop is the experience."
+      "attraction_reason": "A short shore loop at Maligne Lake: the loop is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
@@ -321,7 +623,18 @@
       "layer": "route",
       "name": "Parker Ridge",
       "route_is_attraction": true,
-      "attraction_reason": "The draw is the ridge-top view over the Saskatchewan Glacier, a named payoff. Create the viewpoint and move the draw; until then the route carries it."
+      "attraction_reason": "The draw is the ridge-top view over the Saskatchewan Glacier, a named payoff. Create the viewpoint and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
@@ -329,7 +642,19 @@
       "layer": "route",
       "name": "Plain of Six Glaciers (to teahouse and Abbot Pass viewpoint)",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is the Plain of Six Glaciers teahouse and the viewpoint beyond it. Create the places and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is the Plain of Six Glaciers teahouse and the viewpoint beyond it. Create the places and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
@@ -337,7 +662,18 @@
       "layer": "route",
       "name": "Ptarmigan Cirque",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is Ptarmigan Cirque itself, a named landform. Create the place and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is Ptarmigan Cirque itself, a named landform. Create the place and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/ptarmigan-cirque-interpretive/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0017"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
@@ -346,6 +682,14 @@
       "name": "Sarrail Ridge",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Sarrail Ridge Alberta Parks",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -397,6 +741,17 @@
       "name": "Sulphur Skyline",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0015"
+          ]
+        }
       ]
     },
     {
@@ -450,7 +805,19 @@
       "layer": "route",
       "name": "Sunshine Meadows to Citadel Pass",
       "route_is_attraction": true,
-      "attraction_reason": "A walk across the Sunshine Meadows on the Divide: the meadows walk is the experience; Citadel Pass is an optional end."
+      "attraction_reason": "A walk across the Sunshine Meadows on the Divide: the meadows walk is the experience; Citadel Pass is an optional end.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
@@ -458,7 +825,18 @@
       "layer": "route",
       "name": "Wilcox Pass",
       "route_is_attraction": true,
-      "attraction_reason": "The draw is the view of the Athabasca Glacier from Wilcox Pass, a named payoff. Create the pass viewpoint and move the draw; until then the route carries it."
+      "attraction_reason": "The draw is the view of the Athabasca Glacier from Wilcox Pass, a named payoff. Create the pass viewpoint and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
@@ -467,6 +845,17 @@
       "name": "Troll Falls",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/troll-falls/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0019"
+          ]
+        }
       ]
     },
     {
@@ -503,6 +892,17 @@
       "name": "Athabasca Falls Walk",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/athabasca-falls"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        }
       ]
     },
     {
@@ -511,7 +911,19 @@
       "layer": "route",
       "name": "Fenland Loop",
       "route_is_attraction": true,
-      "attraction_reason": "A forest loop with no destination (contract T4): the route is its own payoff."
+      "attraction_reason": "A forest loop with no destination (contract T4): the route is its own payoff.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
@@ -519,7 +931,18 @@
       "layer": "route",
       "name": "Miette Mine Trail",
       "route_is_attraction": true,
-      "attraction_reason": "A short loop round the old mine site: the loop is the experience."
+      "attraction_reason": "A short loop round the old mine site: the loop is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/miette",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0015"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
@@ -527,7 +950,18 @@
       "layer": "route",
       "name": "Lake Annette Loop",
       "route_is_attraction": true,
-      "attraction_reason": "The step-free loop round Lake Annette is the experience."
+      "attraction_reason": "The step-free loop round Lake Annette is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/riviere-river",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0012"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
@@ -536,6 +970,17 @@
       "name": "Marble Canyon Walk",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/marble-canyon"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0014"
+          ]
+        }
       ]
     },
     {
@@ -544,7 +989,18 @@
       "layer": "route",
       "name": "Moose Lake Loop",
       "route_is_attraction": true,
-      "attraction_reason": "A forest loop to a small lake and back: the loop is the experience."
+      "attraction_reason": "A forest loop to a small lake and back: the loop is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/maligne",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0008"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
@@ -555,7 +1011,19 @@
       "attraction_reason": "The shore walk under the Ten Peaks is the experience; Moraine Lake has its own place record.",
       "starts_at": [
         "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
-      ]
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
@@ -564,6 +1032,17 @@
       "name": "Overlander Falls trail",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://engage.gov.bc.ca/bcparksblog/2022/03/02/awesome-camping-and-hiking-opportunities-in-the-robson-valley/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0016"
+          ]
+        }
       ]
     },
     {
@@ -572,7 +1051,18 @@
       "layer": "route",
       "name": "Paint Pots Walk",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is the Paint Pots, which already has a place record (sights/paint-pots); the draw moves to it when the ledger allows a relevance edit."
+      "attraction_reason": "The payoff is the Paint Pots, which already has a place record (sights/paint-pots); the draw moves to it when the ledger allows a relevance edit.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0014"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
@@ -589,7 +1079,18 @@
       "layer": "route",
       "name": "Rockwall Lookout (Rockwall fen)",
       "route_is_attraction": true,
-      "attraction_reason": "The payoff is the fen lookout behind the visitor centre. Create the lookout and move the draw; until then the route carries it."
+      "attraction_reason": "The payoff is the fen lookout behind the visitor centre. Create the lookout and move the draw; until then the route carries it.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/peter-lougheed/rockwall-interpretive/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0018"
+          ]
+        }
+      ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
@@ -598,6 +1099,17 @@
       "name": "Takakkaw Falls Walk",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0009"
+          ]
+        }
       ]
     },
     {
@@ -607,6 +1119,17 @@
       "name": "Toe of Athabasca Glacier",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0006"
+          ]
+        }
       ]
     },
     {
@@ -670,13 +1193,44 @@
       "name": "Wedge Pond loop",
       "reaches": [
         "legacy/canadian-rockies-sept-2029/sights/wedge-pond"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/kananaskis-country/advisories-public-safety/trail-reports/kananaskis-valley/wedge-pond/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0020"
+          ]
+        }
       ]
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Bow Lake"
+      "name": "Bow Lake",
+      "best_time": {
+        "v": [
+          {
+            "slot": "golden_am",
+            "why": "crowds"
+          },
+          {
+            "slot": "golden_pm",
+            "why": "crowds"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0028"
+        ],
+        "read": "2026-10-19",
+        "quote": "Both the parking area by the highway and the lot close to the lodge get extremely busy in the summer months - come early or late in the day to avoid the crowds.",
+        "note": "Parks Canada: both lots get extremely busy in summer; come early or late."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
@@ -730,7 +1284,70 @@
       "ref": "place/lake-louise",
       "type": "water.body.lake",
       "layer": "place",
-      "name": "Lake Louise"
+      "name": "Lake Louise",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/louise",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0013"
+          ]
+        }
+      ],
+      "price": {
+        "v": [
+          {
+            "amount": 42.0,
+            "currency": "CAD",
+            "per": "vehicle_day",
+            "applies_to": "2026",
+            "note": "Lake Louise Lakeshore parking, paid 03:00-19:00 in the shuttle season; not covered by park admission"
+          },
+          {
+            "amount": 12.25,
+            "currency": "CAD",
+            "per": "adult",
+            "applies_to": "2026",
+            "note": "Banff National Park daily admission; youth free"
+          },
+          {
+            "amount": 24.5,
+            "currency": "CAD",
+            "per": "family",
+            "applies_to": "2026",
+            "note": "park daily admission, family or group"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0021",
+          "src-0022"
+        ],
+        "read": "2026-10-19",
+        "quote": "Lake Louise Lakeshore - General Parking, per vehicle $ 42.00 ... ADMISSION Daily * Adult $ 12.25 * Senior $ 10.75 Youth free * Family/Group $ 24.50",
+        "note": "The FAQ: all visitors must pay for parking at Lake Louise Lakeshore; the cost is not included in park admission or the Discovery Pass. Paid-parking season in 2026 ran from mid-May to the Thanksgiving weekend.",
+        "applies_to": "2026"
+      },
+      "best_time": {
+        "v": [
+          {
+            "slot": "sunrise",
+            "why": "crowds"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0013"
+        ],
+        "read": "2026-10-19",
+        "quote": "Parking lots fill up before sunrise and remain full until sunset.",
+        "note": "Parks Canada: the lots fill before sunrise and stay full until sunset; the shuttle is the alternative."
+      },
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
@@ -843,7 +1460,126 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
       "type": "culture.heritage.historic_site",
       "layer": "place",
-      "name": "Cave and Basin National Historic Site"
+      "name": "Cave and Basin National Historic Site",
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:30",
+              "close": "17:00",
+              "from": "05-15",
+              "to": "10-15"
+            },
+            {
+              "days": [
+                1,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "17:00",
+              "from": "10-16",
+              "to": "05-14"
+            }
+          ],
+          "closures": [
+            {
+              "from": "12-25",
+              "to": "12-25"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0023"
+        ],
+        "read": "2026-10-19",
+        "quote": "May 15 to October 15* Open daily: 9:30 a.m. to 5 p.m. October 16 to May 14* Thursday to Monday: 11 a.m. to 5 p.m.",
+        "applies_to": "2026"
+      },
+      "season": {
+        "v": [
+          {
+            "from": "05-15",
+            "to": "10-15",
+            "status": "open"
+          },
+          {
+            "from": "10-16",
+            "to": "05-14",
+            "status": "limited",
+            "note": "Thursday to Monday only"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0023"
+        ],
+        "read": "2026-10-19",
+        "quote": "October 16 to May 14* Thursday to Monday: 11 a.m. to 5 p.m.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 10.0,
+            "currency": "CAD",
+            "per": "adult",
+            "applies_to": "2026"
+          },
+          {
+            "amount": 8.5,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth free"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0024"
+        ],
+        "read": "2026-10-19",
+        "quote": "Adult $ 10.00 ... Senior $ 8.50 Youth free",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          120,
+          180
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0025"
+        ],
+        "read": "2026-10-19",
+        "quote": "To fully experience the Cave and Basin, gift shop and the surrounding boardwalks, plan at least 2-3 hours."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
@@ -1159,13 +1895,215 @@
       "offer_class": "experience",
       "at": [
         "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
-      ]
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "weather dependent"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-19",
+        "quote": "We look forward to welcoming guests back from May 1 to October 11, 2027.",
+        "note": "The operator lists a season of the same shape for 2027.",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "17:00",
+              "from": "05-01",
+              "to": "06-14"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "09:00",
+              "close": "17:00",
+              "from": "06-15",
+              "to": "09-30"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "16:00",
+              "from": "10-01",
+              "to": "10-12"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Columbia Icefield Adventure 2–3 hour experience. Tours depart throughout the day. May 1* – June 14 10 a.m. – 5 p.m. June 15 – September 6 9 a.m. – 5 p.m.",
+        "note": "Tour departure hours at the Glacier Discovery Centre.",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          120,
+          180
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Columbia Icefield Adventure 2–3 hour experience."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
       "type": "culture.heritage.landmark",
       "layer": "place",
-      "name": "Columbia Icefield Skywalk (Glacier Skywalk)"
+      "name": "Columbia Icefield Skywalk (Glacier Skywalk)",
+      "season": {
+        "v": [
+          {
+            "from": "05-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "weather dependent"
+          }
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0026"
+        ],
+        "read": "2026-10-19",
+        "quote": "Columbia Icefield experiences are closed for the 2026 season. We look forward to welcoming guests back from May 1 to October 11, 2027.",
+        "note": "The operator lists a season of the same shape for 2027.",
+        "applies_to": "2026"
+      },
+      "hours": {
+        "v": {
+          "tz": "America/Edmonton",
+          "periods": [
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "17:00",
+              "from": "05-01",
+              "to": "06-14"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:00",
+              "close": "18:00",
+              "from": "06-15",
+              "to": "09-06"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "10:30",
+              "close": "17:00",
+              "from": "09-07",
+              "to": "09-30"
+            },
+            {
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "open": "11:00",
+              "close": "17:00",
+              "from": "10-01",
+              "to": "10-12"
+            }
+          ]
+        },
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Skywalk 1–2 hour experience. Tours depart throughout the day. May 1* – June 14 11 a.m. – 5 p.m. June 15 – September 6 10 a.m. – 6 p.m.",
+        "applies_to": "2026"
+      },
+      "duration_min": {
+        "v": [
+          60,
+          120
+        ],
+        "state": "value",
+        "basis": "operator_info",
+        "src": [
+          "src-0027"
+        ],
+        "read": "2026-10-19",
+        "quote": "Skywalk 1–2 hour experience."
+      }
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
