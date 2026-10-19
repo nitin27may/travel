@@ -15215,6 +15215,60 @@
       }
     },
     {
+      "id": "s-8a5c7bb7ca",
+      "url": "https://www.openstreetmap.org/node/10809307025",
+      "title": "Banff Gondola Upper Terminal (OSM aerialway=station)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-b9292adbe0",
+      "url": "https://www.openstreetmap.org/node/435438563",
+      "title": "Aiguille du Midi 2, top station (OSM aerialway=station)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/chamonix-mont-blanc-2028/migrated.json",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "field": "links"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-542f250946",
       "url": "https://www.openstreetmap.org/relation/1067616",
       "title": "CAI path 117 Sentiero Bonacossa (cai_scale EEA)",

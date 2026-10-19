@@ -20,6 +20,12 @@
       "coord_src": "wikidata",
       "point_source": "Q842987 P625 (the mountain's high point, about 2.5 km south of the gondola top and Sanson's Peak); agent checked, needs a person's check"
     },
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top": {
+      "lat": 51.14448,
+      "lon": -115.57502,
+      "coord_src": "osm",
+      "point_source": "OSM node 10809307025 (aerialway=station, Banff Gondola Upper Terminal), read 2026-10-19; replaces the Q125749525 P625 point, which is the lower terminal; agent checked, needs a person's check"
+    },
     "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking": {
       "lat": 51.66986,
       "lon": -116.44804,
@@ -235,6 +241,12 @@
       "lon": 6.88735,
       "coord_src": "osm",
       "point_source": "OSM node 167075493 (natural=peak, ele 3842, wikidata Q404728); agent checked, needs a person's check"
+    },
+    "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top": {
+      "lat": 45.87929,
+      "lon": 6.887,
+      "coord_src": "osm",
+      "point_source": "OSM node 435438563 (aerialway=station, aerialway:station=top, Aiguille du Midi 2, ele 3777), read 2026-10-19; replaces the Q3088020 P625 point, which is the valley station in Chamonix; agent checked, needs a person's check"
     },
     "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking": {
       "lat": 64.04801,

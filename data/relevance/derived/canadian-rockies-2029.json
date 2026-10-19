@@ -1190,7 +1190,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 36.3,
+        "km": 37.2,
         "draw": "national",
         "same_class": false
       },
@@ -2186,7 +2186,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 37.1,
+        "km": 38,
         "draw": "national",
         "same_class": false
       },
@@ -2314,7 +2314,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 41.8,
+        "km": 42.4,
         "draw": "national",
         "same_class": false
       },
@@ -3094,7 +3094,7 @@
       "pair_pending": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-          "km": 4.5
+          "km": 4.1
         }
       ],
       "part_of": [],
@@ -3224,12 +3224,12 @@
       ],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
           "km": 3
         },
         {
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-          "km": 3.4
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "km": 3
         }
       ],
       "part_of": [],
@@ -3530,7 +3530,7 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": 8,
+      "detour_min": 10,
       "detour_basis": "town",
       "detour_town": "Banff",
       "from_hubs": {},
@@ -3539,7 +3539,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -3551,9 +3551,9 @@
       "pair_with": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
-          "km": 0.5,
+          "km": 1.2,
           "how": "walk",
-          "extra_min": 134,
+          "extra_min": 156,
           "on_site_min": 120,
           "on_site_estimated": false,
           "draw": "regional",
@@ -3566,7 +3566,7 @@
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
-          "km": 4.5
+          "km": 4.1
         }
       ],
       "part_of": [],
@@ -3662,7 +3662,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -3976,9 +3976,9 @@
       "pair_with": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-          "km": 0.5,
+          "km": 1.2,
           "how": "walk",
-          "extra_min": 104,
+          "extra_min": 126,
           "on_site_min": 90,
           "on_site_estimated": true,
           "draw": "national",
@@ -4804,7 +4804,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 36.3,
+        "km": 37.2,
         "draw": "national",
         "same_class": false
       },
@@ -5262,7 +5262,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 41.8,
+        "km": 42.4,
         "draw": "national",
         "same_class": false
       },
@@ -5354,7 +5354,7 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": 8,
+      "detour_min": 10,
       "detour_basis": "town",
       "detour_town": "Banff",
       "from_hubs": {},
@@ -5363,7 +5363,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -5375,9 +5375,9 @@
       "pair_with": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
-          "km": 0.5,
+          "km": 1.2,
           "how": "walk",
-          "extra_min": 134,
+          "extra_min": 156,
           "on_site_min": 120,
           "on_site_estimated": false,
           "draw": "regional",
@@ -5390,7 +5390,7 @@
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
-          "km": 4.5
+          "km": 4.1
         }
       ],
       "part_of": [],
@@ -5488,7 +5488,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "national",
             "standing": "top",
             "access_cost": [

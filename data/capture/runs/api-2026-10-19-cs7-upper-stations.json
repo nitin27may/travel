@@ -1,0 +1,36 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-19-cs7-upper-stations",
+  "started": "2026-10-19",
+  "agent": "travel-builder",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 4,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/10809307025"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/435438563"
+    }
+  ]
+}

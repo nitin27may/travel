@@ -14,6 +14,16 @@
       "kind": "official",
       "read": "2026-10-18",
       "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.openstreetmap.org/node/435438563",
+      "title": "Aiguille du Midi 2, top station (OSM aerialway=station)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api",
+      "run": "api-2026-10-19-cs7-upper-stations"
     }
   ],
   "records": [
@@ -49,6 +59,18 @@
       },
       "part_of": [
         "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit"
+      ],
+      "osm_ref": "node/435438563",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/435438563",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0002"
+          ]
+        }
       ]
     },
     {
