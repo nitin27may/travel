@@ -1,0 +1,9 @@
+{
+  "schema": "trip-stop-refs/1",
+  "note": "Which capture record a stop of a public trip is, by ref, where the stop's name (it comes from the prototype data) no longer equals the record's name. The public adapter joins a stop to its place by this ref first and by name only when the stop is not listed. Keyed by legacy trip folder, then by the stop name as the trip writes it.",
+  "trips": {
+    "usa-southwest-rockies": {
+      "Angels Landing chains view or Scout Lookout": "trip/utah-five-parks/trail:angels landing chains view or scout lookout"
+    }
+  }
+}

@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
 import { suitabilityFromTitle } from './party';
 import { undatedTitle, DropLog, relativeSun, sunRange, undated, undatedSentences } from './dateless';
 import { honesty, uniqueHonesty } from './honesty';
@@ -119,6 +121,14 @@ export function monthsLabel(months: number[]): string {
   return runs.map((r) => (r.length === 1 ? MONTH_NAMES[r[0]] : `${MONTH_NAMES[r[0]]} to ${MONTH_NAMES[r[r.length - 1]]}`)).join(' and ');
 }
 
+/** data/trips/stop-refs.json as folder -> normalised stop name -> capture ref. */
+function readStopRefs(root: string): Record<string, Record<string, string>> {
+  const file = path.join(root, 'data', 'trips', 'stop-refs.json');
+  if (!existsSync(file)) return {};
+  const doc = JSON.parse(readFileSync(file, 'utf8')) as { trips?: Record<string, Record<string, string>> };
+  return Object.fromEntries(Object.entries(doc.trips ?? {}).map(([folder, stops]) => [folder, Object.fromEntries(Object.entries(stops).map(([n, ref]) => [normName(n), ref]))]));
+}
+
 export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuild {
   const snap = src.snapshot;
   const protoPlace = new Map(snap.places.map((p) => [p.id, p]));
@@ -126,7 +136,12 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
   const built = new Map<string, string>();
   const trips: PublicTrip[] = [];
 
-  const slugForName = (name: string): string | null => {
+  // a stop joins its place by capture ref first (data/trips/stop-refs.json), by name only when the stop is not listed there (backlog 3.40)
+  const stopRefs = readStopRefs(src.root);
+  const slugForName = (name: string, folder = ''): string | null => {
+    const ref = stopRefs[folder]?.[normName(name)];
+    const byRef = ref ? pb.byCaptureRef.get(ref) : undefined;
+    if (byRef) return byRef;
     const hit = pb.byName.get(normName(name));
     return hit && hit.length === 1 ? hit[0] : null;
   };
@@ -245,7 +260,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
           const name = String(rec.name);
           const stats = kind === 'trail' ? { distanceKm: typeof rec.km === 'number' ? rec.km : null, gainM: typeof rec.gain_m === 'number' ? rec.gain_m : null, hours: rec.hours ? String(rec.hours) : null } : null;
           return {
-            id: `${day.n}-${id}-${n}`, name, kind, subkind, category: categoryOf(kind), foldedInto: null, placeSlug: slugForName(name), time: null, variant: id, durationMin: null,
+            id: `${day.n}-${id}-${n}`, name, kind, subkind, category: categoryOf(kind), foldedInto: null, placeSlug: slugForName(name, folder), time: null, variant: id, durationMin: null,
             note: null, stats, access: null,
           };
         };
@@ -312,7 +327,7 @@ export function buildTrips(src: Sources, pb: PlaceBuild, log: DropLog): TripBuil
           const sk = STOP_KINDS[s.kind];
           if (!sk) return; // a drive stop is the day's drive, not an item
           items.push({
-            id: `${d.n}-${i + 1}`, name: s.name, kind: sk.kind, subkind: sk.subkind, category: categoryOf(sk.kind), foldedInto: null, placeSlug: slugForName(s.name), time: null,
+            id: `${d.n}-${i + 1}`, name: s.name, kind: sk.kind, subkind: sk.subkind, category: categoryOf(sk.kind), foldedInto: null, placeSlug: slugForName(s.name, folder), time: null,
             variant: null, durationMin: s.durationMin, note: s.note ? undatedSentences(s.note, `${where} day ${d.n} stop`, log) || null : null, stats: null, access: null,
           });
         });
