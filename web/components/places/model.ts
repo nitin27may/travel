@@ -1,4 +1,5 @@
-import type { AccessPoint, Fact, LinkGroup, LinkNone, PublicPlace } from '@/lib/public/types';
+import type { AccessPoint, Fact, LinkGroup, LinkNone, PlaceLine, PlaceProfile, PublicPlace } from '@/lib/public/types';
+import { distanceKm } from '@/lib/map/geo';
 import type { LngLat } from '@/lib/map/types';
 
 /* ---------- text helpers ---------- */
@@ -154,6 +155,42 @@ export function elevationAt(pts: readonly ProfilePoint[], km: number): number {
   const a = pts[i - 1];
   const b = pts[i];
   return a.m + ((b.m - a.m) * (km - a.km)) / (b.km - a.km || 1);
+}
+
+/** The stored track of a place's lines: pieces to draw, whether it is dashed, and the credit line under the map. Null with no stored line. */
+export function trackOfLines(lines: readonly PlaceLine[]): { lines: LngLat[][]; dashed: boolean; credit: string; profile: PlaceProfile | null; exportable: boolean } | null {
+  const l = lines.find((x) => (x.geometry?.length ?? 0) >= 2 || (x.segments?.length ?? 0) > 0);
+  if (!l) return null;
+  const pieces = l.geometry && l.geometry.length >= 2 ? [l.geometry] : (l.segments ?? []);
+  return {
+    lines: pieces.map(lineCoords),
+    dashed: l.dashed ?? !l.exportable,
+    credit: `Route line: ${l.credit ?? '© OpenStreetMap contributors (ODbL)'}`,
+    profile: l.profile ?? null,
+    exportable: l.exportable,
+  };
+}
+
+/** The profile points of a stored track: kilometres along the line and metres. */
+export const profilePoints = (p: PlaceProfile): ProfilePoint[] => p.samples.map(([km, m]) => ({ km, m }));
+
+/** A stored [lon, lat] line as map coordinates. */
+export const lineCoords = (geometry: readonly (readonly [number, number])[]): LngLat[] => geometry.map(([lng, lat]) => ({ lng, lat }));
+
+/**
+ * The position `km` kilometres along a stored line, by walking its segments. Clamped to the ends. The profile's distance runs
+ * along the same line, so the marker stays on it (a straight guide would cut across the corners).
+ */
+export function pointAlong(line: readonly LngLat[], km: number): LngLat | null {
+  if (line.length === 0) return null;
+  if (km <= 0 || line.length === 1) return line[0];
+  let walked = 0;
+  for (let i = 1; i < line.length; i++) {
+    const seg = distanceKm(line[i - 1], line[i]);
+    if (walked + seg >= km && seg > 0) return lerpPoint(line[i - 1], line[i], (km - walked) / seg);
+    walked += seg;
+  }
+  return line[line.length - 1];
 }
 
 /** The straight-line position at a fraction of the way from one point to another. Used only as a guide marker. */

@@ -5,6 +5,8 @@ import { honesty, uniqueHonesty } from './honesty';
 import { fileFromUrl, makePhoto } from './photos';
 import { CATEGORY_OF_KIND, PROTOTYPE_AREAS, kindLabel, mapLocationKind, mapPrototypeKind } from './taxonomy';
 import { undatedTitle } from './dateless';
+import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
+import { loadTracks, readDate, totalsDiffer, withTrack } from './tracks';
 import { folderVisibility, type ProtoFact, type ProtoPlace, type ProtoTrail, type Sources } from './sources';
 import type { AccessPoint, AreaRef, Fact, Honesty, LinkGroup, LinkNone, Photo, Point, PlaceKind, PlaceLine, PublicPlace, TripRef } from './types';
 
@@ -16,6 +18,8 @@ export interface PlaceBuild {
   /** prototype place id -> slug (merged places included) */
   byProtoId: Map<string, string>;
   byLocationId: Map<string, string>;
+  /** capture route ref -> slug, for the trail pages built from capture records (they have no prototype or location id) */
+  byCaptureRef: Map<string, string>;
   /** normalised name -> slugs, for resolving trip stops by name */
   byName: Map<string, string[]>;
   /** old /places/<cc>/<region>/<area>/<place>/ path -> slug */
@@ -57,6 +61,8 @@ interface Rec extends Omit<PublicPlace, 'slug' | 'completeness'> {
   durationMin: number | null;
   timeHours: string | null;
   tripFolders: Set<string>;
+  /** Capture ref of a trail page built from a capture route record. */
+  captureRef?: string | null;
 }
 
 function provenance(f: { src?: string; read?: string; conf?: string }): string {
@@ -174,6 +180,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
     if (!folderIsPrivate(folder)) folderTrips.set(folder, { slug: TRIP_SLUGS[folder], title: publicTripTitle(folder) ?? undatedTitle(src.hub.get(folder)?.title ?? folder) });
   }
   const recs: Rec[] = [];
+  const tracks = loadTracks(src.root);
 
   // ---- locations.json ----
   for (const row of src.locationRows) {
@@ -291,6 +298,14 @@ export function buildPlaces(src: Sources): PlaceBuild {
       const v = trail?.facts[key];
       return v && publicSource(v.src, v.v) !== null ? v.v : undefined;
     };
+    const track = tracks.get(p.id);
+    if (track && track.stitched && track.totals.gain_m !== null) {
+      const km0 = numOrNull(tf('distance_km')) ?? p.km ?? null;
+      const gain0 = numOrNull(tf('elevation_gain_m')) ?? (p.gain !== undefined && p.gain > 0 ? p.gain : null);
+      if (totalsDiffer(track.totals.km, track.totals.gain_m, km0, gain0)) {
+        facts.push({ label: 'Track', value: `${track.totals.km} km, ${track.totals.gain_m} m up`, provenance: `OpenStreetMap line and AWS Terrain Tiles elevation, read ${readDate(track.fetched)}`, conflicts: [] });
+      }
+    }
     const seasonFact = tf('season') ?? '';
     const months = parseSeasonMonths(seasonFact);
     const h: Honesty[] = [];
@@ -327,7 +342,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
       sources: trail ? ['prototype', 'trail'] : ['prototype'],
       elevationM: th?.elevationM ?? null,
       access: acc ? { trailhead: th, parking: accessParking } : null,
-      lines: buildLines(trail, p.id),
+      lines: withTrack(buildLines(trail, p.id), tracks.get(p.id), p.id in UNCONFIRMED_TRAIL_DATA),
       facts,
       hazards: (trail?.hazards ?? []).map((x) => x.v),
       links: buildLinks(src, trail, p),
@@ -379,8 +394,18 @@ export function buildPlaces(src: Sources): PlaceBuild {
     for (const f of pr.tripFolders) twin.tripFolders.add(f);
   }
 
+  // ---- trail routes of public trips that have no page yet (capture records, backlog 3.8) ----
+  const taken = new Set(recs.map((r) => normName(r.name)));
+  const notByName = new Set<string>();
+  for (const seed of trailSeeds(src)) {
+    if (taken.has(normName(seed.name)) || !folderTrips.has(seed.tripFolder)) continue;
+    taken.add(normName(seed.name));
+    recs.push(recFromSeed(seed, src, folderTrips.get(seed.tripFolder)!));
+    if (seed.ambiguous) notByName.add(seed.ref);
+  }
+
   // ---- slugs ----
-  const key = (r: Rec) => (r.locationId ? `loc:${r.locationId}` : `proto:${r.protoId}`);
+  const key = (r: Rec) => (r.captureRef ? `trail:${r.captureRef}` : r.locationId ? `loc:${r.locationId}` : `proto:${r.protoId}`);
   const slugs = assignPlaceSlugs(recs.map((r) => ({ key: key(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })));
 
   const places: PublicPlace[] = recs.map((r) => {
@@ -403,8 +428,8 @@ export function buildPlaces(src: Sources): PlaceBuild {
       hasAccess: !!r.access,
       durationMin: r.durationMin,
     };
-    const { locationId: _l, protoId: _p, checklistComplete: _c, hasDatedSource: _d, hasTrailheadPoint: _t, durationMin: _m, timeHours: _h, tripFolders: _f, ...pub } = r;
-    void [_l, _p, _c, _d, _t, _m, _h, _f];
+    const { locationId: _l, protoId: _p, checklistComplete: _c, hasDatedSource: _d, hasTrailheadPoint: _t, durationMin: _m, timeHours: _h, tripFolders: _f, captureRef: _r, ...pub } = r;
+    void [_l, _p, _c, _d, _t, _m, _h, _f, _r];
     return { ...pub, slug: slugs.get(key(r))!, trips: tripRefs, honesty: uniqueHonesty(r.honesty), completeness: computeCompleteness(input) };
   });
   places.sort((a, b) => a.slug.localeCompare(b.slug));
@@ -412,18 +437,69 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const bySlug = new Map(places.map((p) => [p.slug, p]));
   const byProtoId = new Map<string, string>();
   const byLocationId = new Map<string, string>();
+  const byCaptureRef = new Map<string, string>();
   const legacyPaths = new Map<string, string>();
   for (const r of recs) {
     const slug = slugs.get(key(r))!;
     if (r.protoId) byProtoId.set(r.protoId, slug);
+    if (r.captureRef) byCaptureRef.set(r.captureRef, slug);
     if (r.locationId) {
       byLocationId.set(r.locationId, slug);
       legacyPaths.set(`/places/${r.locationId.split('/').map(encodeURIComponent).join('/')}/`, slug);
     }
   }
   const byName = new Map<string, string[]>();
-  for (const p of places) byName.set(normName(p.name), [...(byName.get(normName(p.name)) ?? []), p.slug]);
-  return { places, bySlug, byProtoId, byLocationId, byName, legacyPaths };
+  const skipName = new Set([...notByName].map((ref) => byCaptureRef.get(ref)));
+  for (const p of places) if (!skipName.has(p.slug)) byName.set(normName(p.name), [...(byName.get(normName(p.name)) ?? []), p.slug]);
+  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths };
+}
+
+function recFromSeed(seed: TrailSeed, src: Sources, trip: TripRef): Rec {
+  const h: Honesty[] = [];
+  if (!seed.hasFacts) h.push(honesty('no_source', 'No fact or link is recorded for this trail yet.'));
+  if (seed.datedSource) h.push(honesty('pattern_2026', 'Figures were read in 2026 and are used as a pattern for the trip.'));
+  const facts = [...seed.facts, ...(seed.payoff ? [{ label: 'Payoff', value: seed.payoff, provenance: 'Our research', conflicts: [] }] : [])];
+  return {
+    locationId: null,
+    protoId: null,
+    captureRef: seed.ref,
+    name: seed.name,
+    kind: 'trail',
+    kindLabel: kindLabel('trail', seed.subkind),
+    subkind: seed.subkind,
+    category: CATEGORY_OF_KIND.trail,
+    areaChain: seed.areaChain,
+    areaLabel: seed.areaLabel,
+    point: seed.point,
+    season: [],
+    kidFit: 'unknown',
+    summary: '',
+    photo: null,
+    trips: [trip],
+    tags: [],
+    honesty: h,
+    stats: seed.stats,
+    sources: ['trail'],
+    elevationM: null,
+    access: null,
+    lines: [],
+    facts,
+    hazards: seed.hazards,
+    links: groupLinks(src, seed.links),
+    linksNone: seed.none,
+    seasonNote: seed.seasonNote,
+    photos: [],
+    wikidata: null,
+    notes: '',
+    minAge: null,
+    booking: null,
+    checklistComplete: null,
+    hasDatedSource: seed.datedSource,
+    hasTrailheadPoint: false,
+    durationMin: null,
+    timeHours: seed.stats.hours,
+    tripFolders: new Set([seed.tripFolder]),
+  };
 }
 
 function numOrNull(v: unknown): number | null {

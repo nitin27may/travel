@@ -4,7 +4,9 @@ import { useId, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent
 import { usePrefs } from '@/lib/format/prefs';
 import { formatElevation } from '@/lib/format/units';
 import type { LngLat } from '@/lib/map/types';
-import { elevationAt, lerpPoint, profileSummary, profileTicks, sampleProfile, type ProfileInput } from './model';
+import { Chip } from '@/components/ui/Chip';
+import type { PlaceProfile } from '@/lib/public/types';
+import { elevationAt, lerpPoint, pointAlong, profilePoints, profileSummary, profileTicks, sampleProfile, type ProfileInput } from './model';
 import { usePlaceShell } from './PlaceShell';
 
 const W = 640;
@@ -17,14 +19,19 @@ const B = 28;
 interface Props extends ProfileInput {
   /** Straight-line guide for the map marker: trailhead to destination. Null for loops and when only one point is stored. */
   guide: { from: LngLat; to: LngLat } | null;
+  /** Elevation sampled along a stored OSM line. With it the profile is the real one and the marker follows `track`. */
+  profile?: PlaceProfile | null;
+  /** The stored line the profile was sampled along. */
+  track?: LngLat[] | null;
 }
 
 /**
  * Elevation profile (components 4.4): `--ink` line with a 10% area, nothing amber at rest. Scrubbing (pointer or arrow
  * keys) shows the one amber element, a vertical cursor with a dot and a readout, and moves the map marker.
  */
-export function ElevationProfile({ guide, ...input }: Props) {
-  const pts = useMemo(() => sampleProfile(input), [input.km, input.gainM, input.startM, input.loop, input.highM]); // eslint-disable-line react-hooks/exhaustive-deps
+export function ElevationProfile({ guide, profile = null, track = null, ...input }: Props) {
+  const real = profile !== null;
+  const pts = useMemo(() => (profile ? profilePoints(profile) : sampleProfile(input)), [profile, input.km, input.gainM, input.startM, input.loop, input.highM]); // eslint-disable-line react-hooks/exhaustive-deps
   const { setCursor } = usePlaceShell();
   const [prefs] = usePrefs();
   const [at, setAt] = useState<number | null>(null);
@@ -35,17 +42,19 @@ export function ElevationProfile({ guide, ...input }: Props) {
   const lo = Math.floor(Math.min(...ys) / 100) * 100;
   const hiRaw = Math.ceil(Math.max(...ys) / 100) * 100;
   const hi = hiRaw > lo ? hiRaw : lo + 100;
-  const maxX = input.km;
+  const maxX = real ? pts[pts.length - 1].km : input.km;
   const X = (x: number) => L + (x / maxX) * (W - L - R);
   const Y = (y: number) => T + (1 - (y - lo) / (hi - lo)) * (H - T - B);
   const line = pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.km).toFixed(1)},${Y(p.m).toFixed(1)}`).join('');
   const ticks = profileTicks(lo, hi, maxX, prefs.distance, prefs.elevation);
-  const label = `Sketch of the elevation profile. ${profileSummary(pts)}.`;
+  const label = `${real ? 'Elevation profile along the stored route' : 'Sketch of the elevation profile'}. ${profileSummary(pts)}.`;
 
   const move = (km: number | null) => {
     setAt(km);
-    if (km === null || !guide) setCursor(null);
-    else setCursor(lerpPoint(guide.from, guide.to, Math.min(1, km / maxX)));
+    if (km === null) setCursor(null);
+    else if (real && track && track.length > 1) setCursor(pointAlong(track, km));
+    else if (guide) setCursor(lerpPoint(guide.from, guide.to, Math.min(1, km / maxX)));
+    else setCursor(null);
   };
   const onPointer = (e: PointerEvent<SVGSVGElement>) => {
     const box = svg.current?.getBoundingClientRect();
@@ -105,8 +114,19 @@ export function ElevationProfile({ guide, ...input }: Props) {
           {at !== null && cursorM !== null ? `${(prefs.distance === 'mi' ? at / 1.609344 : at).toFixed(1)} ${prefs.distance} · ${formatElevation(Math.round(cursorM), prefs.elevation)}` : ' '}
         </span>
         <span id={`${id}-hint`} className="muted small">
-          A sketch from the published distance and climb, not a surveyed track.
-          {guide ? ' The map marker follows a straight line from the trailhead.' : ' Hover or use the arrow keys to read it.'}
+          {real ? (
+            <>
+              Elevation sampled every 25 m along the OpenStreetMap line, from Terrain Tiles; climb and loss are computed from it. Drag or use the arrow keys; the map marker stays on the line.
+            </>
+          ) : (
+            <>
+              <Chip kind="honest" icon="warn">
+                Shape estimated from length and climb
+              </Chip>{' '}
+              A sketch from the published distance and climb, not a surveyed track.
+              {guide ? ' The map marker follows a straight line from the trailhead.' : ' Hover or use the arrow keys to read it.'}
+            </>
+          )}
         </span>
       </figcaption>
     </figure>

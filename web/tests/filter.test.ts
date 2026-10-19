@@ -58,7 +58,8 @@ describe('places filter', () => {
   });
 
   it('matches every search word, case-insensitively', () => {
-    expect(count('q=LAKE louise')).toBe(1);
+    expect(count('q=LAKE louise')).toBeGreaterThanOrEqual(1); // Lake Louise, and the Rockies trail Lake Louise Lakeshore
+    expect(count('q=LAKE louise lakeshore')).toBe(1);
     expect(count('q=Lavaredo')).toBeGreaterThan(0);
     expect(count('q=zzzzzz')).toBe(0);
   });

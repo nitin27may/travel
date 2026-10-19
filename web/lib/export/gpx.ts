@@ -1,4 +1,4 @@
-import { approxNote, attributionFor, checkPoint, lineExportable, sourceLine } from './licence';
+import { approxNote, attributionFor, checkPoint, lineExportable, sourceLine, trackNotice } from './licence';
 import type { ExportLine, ExportWaypoint } from './types';
 import { coord, x } from './xml';
 
@@ -21,7 +21,7 @@ export function buildGpx(src: GpxSource): { xml: string; points: number; skipped
   const skipped = (src.skipped ?? 0) + (src.waypoints.length - okWpts.length);
   const tracks = src.lines.filter((l) => lineExportable(l) && l.geometry.length >= 2);
   const attribution = attributionFor(okWpts.map((w) => w.point), tracks);
-  const desc = [`${src.title}: waypoints for stops, trailheads and parking.`, sourceLine(src.url), ...attribution].join(' ');
+  const desc = [`${src.title}: ${tracks.length ? 'route line, ' : ''}waypoints for stops, trailheads and parking.`, sourceLine(src.url), ...attribution, ...trackNotice(tracks)].join(' ');
   const out: string[] = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     `<gpx version="1.1" creator="Trip Plans" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">`,
@@ -48,7 +48,7 @@ export function buildGpx(src: GpxSource): { xml: string; points: number; skipped
     );
   }
   for (const t of tracks) {
-    out.push('<trk>', `<name>${x(t.label)}</name>`, `<src>${x(t.ref)}</src>`, '<trkseg>');
+    out.push('<trk>', `<name>${x(t.label)}</name>`, `<cmt>${x(trackNotice([t])[0])}</cmt>`, `<src>${x(t.ref)}</src>`, '<trkseg>');
     for (const [lon, lat] of t.geometry) out.push(`<trkpt lat="${coord(lat)}" lon="${coord(lon)}"/>`);
     out.push('</trkseg>', '</trk>');
   }

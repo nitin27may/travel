@@ -7,7 +7,7 @@ import { writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { it } from 'vitest';
-import { buildPlaces } from '@/lib/public/places';
+import { buildPlaces, normName } from '@/lib/public/places';
 import { buildTrips } from '@/lib/public/trips';
 import { DropLog } from '@/lib/public/dateless';
 import { loadSources } from '@/lib/public/sources';
@@ -32,16 +32,21 @@ it('dumps the suitability scope', () => {
   const rockies = rk ? { trails: idByName(rk.trails), sights: idByName(rk.sights), adventures: idByName(rk.adventures) } : null;
   const items: Item[] = [];
   const places = new Set(pb.places.map((p) => p.slug));
+  // trail pages built from capture route records keep the ref their sidecars already use (the capture ref or the legacy dataset ref)
+  const captureBorn = new Set(pb.byCaptureRef.values());
 
   for (const trip of tb.trips) {
     if (trip.slug === 'dolomites-2027') {
-      for (const p of pb.places.filter((x) => x.trips.some((t) => t.slug === trip.slug) && !SKIP_PLACE_KINDS.has(x.kind))) {
+      for (const p of pb.places.filter((x) => x.trips.some((t) => t.slug === trip.slug) && !SKIP_PLACE_KINDS.has(x.kind) && !captureBorn.has(x.slug))) {
         items.push({ ref: `place/${p.slug}`, key: p.slug, trip: trip.slug, kind: p.kind, name: p.name, days: [], source: placeSource(p.slug) });
       }
       continue;
     }
     for (const c of IN_SCOPE_CATEGORIES) {
-      for (const it of trip.categories[c]) {
+      for (const raw of trip.categories[c]) {
+        // a trail page built from a capture record is not a place of the scope: its item keeps the key and ref it had before the page
+        const born = !!raw.placeSlug && captureBorn.has(raw.placeSlug);
+        const it = born ? { ...raw, placeSlug: null, key: `${raw.kind}:${normName(raw.name)}` } : raw;
         const source: Source = it.placeSlug ? placeSource(it.placeSlug) : {};
         if (trip.slug === 'canadian-rockies-2029' && rockies) {
           const dataset = it.kind === 'trail' ? 'trails' : it.kind === 'sight' ? 'sights' : 'adventures';

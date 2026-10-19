@@ -7,6 +7,8 @@ import { OpenLink } from './OpenLink';
 import type { ViewProps } from './viewTypes';
 
 export function CardsView<Row>({ d, groups, state, onOpen }: ViewProps<Row>) {
+  // the high-priority image is the first card that has a photo (a leading group of photoless trail pages must not leave the list with none)
+  const lead = groups.flatMap((g, gi) => g.rows.map((row, ri) => ({ gi, ri, has: !!d.image?.(row) }))).find((x) => x.has) ?? { gi: 0, ri: 0 };
   return (
     <div className="cards-view">
       {groups.map((g, gi) => (
@@ -19,8 +21,8 @@ export function CardsView<Row>({ d, groups, state, onOpen }: ViewProps<Row>) {
                 <li key={id}>
                   <Card
                     variant={d.type === 'trip' ? 'publicTrip' : d.type === 'trail' ? 'trail' : 'place'}
-                    priority={gi === 0 && ri === 0}
-                    eager={gi === 0 && ri > 0 && ri < 4}
+                    priority={gi === lead.gi && ri === lead.ri}
+                    eager={gi === lead.gi && ri > lead.ri && ri < lead.ri + 4}
                     data-entity-id={id}
                     data-focused={state.focus === id || undefined}
                     photo={d.image?.(row) ?? null}
