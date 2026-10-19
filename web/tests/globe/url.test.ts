@@ -26,6 +26,12 @@ describe('globe URLs (patterns 1.2)', () => {
     expect(cameraQuery({ lng: 11.5, lat: 46.5, zoom: 8.2 })).toBe('?c=11.500,46.500,8.20');
     expect(cameraQuery(null)).toBe('');
   });
+  it('camera: carries pitch and bearing when the fly-in tilted the view (check 10)', () => {
+    expect(parseCamera('?c=11.5,46.6,8,45,20')).toEqual({ lng: 11.5, lat: 46.6, zoom: 8, pitch: 45, bearing: 20 });
+    expect(parseCamera('?c=11.5,46.6,8,99,-200')).toEqual({ lng: 11.5, lat: 46.6, zoom: 8, pitch: 70, bearing: 160 });
+    expect(cameraQuery({ lng: 11.5, lat: 46.6, zoom: 8, pitch: 45.4, bearing: 20 })).toBe('?c=11.500,46.600,8.00,45,20');
+    expect(cameraQuery({ lng: 11.5, lat: 46.6, zoom: 8, pitch: 0 })).toBe('?c=11.500,46.600,8.00');
+  });
 });
 
 describe('prefs', () => {

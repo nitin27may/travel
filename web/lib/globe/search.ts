@@ -1,4 +1,4 @@
-import { DATA_BASE } from './admin';
+import { globeGazetteer } from '@/lib/client/data';
 import type { SearchRecord } from '@/lib/search/types';
 import type { CountryFacts } from './types';
 
@@ -23,7 +23,7 @@ const KIND_ORDER: Record<string, number> = { country: 0, admin1: 1, city: 2, mar
 
 let gazPromise: Promise<GazEntry[]> | null = null;
 export function loadGazetteer(): Promise<GazEntry[]> {
-  return (gazPromise ??= fetch(`${DATA_BASE}gazetteer.json`).then((r) => r.json() as Promise<GazRow[]>).then((rows) => rows.map((row) => ({ row, n: norm(row[1]) }))));
+  return (gazPromise ??= globeGazetteer().then((rows) => (rows as GazRow[]).map((row) => ({ row, n: norm(row[1]) }))));
 }
 
 export interface SearchSources {
@@ -56,7 +56,9 @@ export function search(q: string, src: SearchSources, limit = 12): SearchHit[] {
     else if (nq.length >= 3 && e.n.includes(nq)) contains.push(e);
     if (starts.length > 400) break;
   }
-  const byScore = (a: GazEntry, b: GazEntry) => score(a.row) - score(b.row) || a.row[1].length - b.row[1].length;
+  // a city beats an admin area of the same name: the admin result has no level page of its own to land on (review round 3)
+  const sameNameCityFirst = (a: GazEntry, b: GazEntry): number => (a.n === b.n && a.row[0] !== b.row[0] && (a.row[0] === 'city' || b.row[0] === 'city') && (a.row[0] === 'admin1' || b.row[0] === 'admin1') ? (a.row[0] === 'city' ? -1 : 1) : 0);
+  const byScore = (a: GazEntry, b: GazEntry) => sameNameCityFirst(a, b) || score(a.row) - score(b.row) || a.row[1].length - b.row[1].length;
   const gaz = [...starts.sort(byScore), ...contains.sort(byScore)].map((e) => toHit(e.row, src.countriesByA3));
   return [...src.own.slice(0, 5), ...gaz].slice(0, limit);
 }

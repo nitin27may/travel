@@ -21,9 +21,12 @@ export function viewPath(v: View): string {
 export function parseCamera(search: string): Camera | null {
   const raw = new URLSearchParams(search).get('c');
   if (!raw) return null;
-  const [lng, lat, zoom] = raw.split(',').map(Number);
+  const [lng, lat, zoom, pitch, bearing] = raw.split(',').map(Number);
   if (![lng, lat, zoom].every(Number.isFinite) || Math.abs(lat) > 90 || Math.abs(lng) > 360 || zoom < 0 || zoom > 22) return null;
-  return { lng, lat, zoom };
+  // `?c=lng,lat,zoom[,pitch,bearing]`: the fly-in tilts, so a shared link carries the tilt (spec 2)
+  const p = Number.isFinite(pitch) ? Math.max(0, Math.min(70, pitch)) : 0;
+  const b = Number.isFinite(bearing) ? ((((bearing + 180) % 360) + 360) % 360) - 180 : 0;
+  return { lng, lat, zoom, ...(p ? { pitch: p } : {}), ...(b ? { bearing: b } : {}) };
 }
 
 /** `?m=<name>`: the name of a search hit the globe was sent to, which gets a marker at the `?c=` camera. Null when absent or blank. */
@@ -32,10 +35,11 @@ export function parseHit(search: string): string | null {
   return m ? m.slice(0, 80) : null;
 }
 
-/** `?c=lng,lat,zoom`: optional, never required to resolve a link (patterns 1.2). */
+/** `?c=lng,lat,zoom[,pitch,bearing]`: optional, never required to resolve a link (patterns 1.2). Pitch and bearing are written only when not zero. */
 export function cameraQuery(c: Camera | null): string {
   if (!c) return '';
-  return `?c=${c.lng.toFixed(3)},${c.lat.toFixed(3)},${c.zoom.toFixed(2)}`;
+  const tilt = c.pitch || c.bearing ? `,${Math.round(c.pitch ?? 0)},${Math.round(c.bearing ?? 0)}` : '';
+  return `?c=${c.lng.toFixed(3)},${c.lat.toFixed(3)},${c.zoom.toFixed(2)}${tilt}`;
 }
 
 /** `&m=<name>` to carry on a camera query when the visit began at a search hit, so the camera writes keep the marker's name. */

@@ -39,7 +39,7 @@ MAP_DERIVED = {
 
 # Which map keys become --map-* and which become --globe-pin*.
 MAP_KEYS = ("land", "high", "wood", "shade", "contour", "water", "casing", "halo", "route", "route-pick", "pin", "pin-ink")
-GLOBE_KEYS = ("globe-pin", "globe-pin-ink", "globe-pin-pick", "globe-pin-pick-ink", "globe-ocean", "globe-halo", "globe-edge", "globe-dim")
+GLOBE_KEYS = ("globe-pin", "globe-pin-ink", "globe-pin-pick", "globe-pin-pick-ink", "globe-ocean", "globe-land", "globe-wood", "globe-halo", "globe-edge", "globe-dim")
 
 # Type tokens whose phone size differs (tokens.json "phone"); emitted again under the phone breakpoint.
 PHONE_MAX = 639

@@ -76,8 +76,17 @@ test.describe('globe deep links frame the area (GPU, real tiles)', () => {
   test('a country pin on the home cover opens that country framed', async ({ site }) => {
     const { page } = await open(`${site.url}/`);
     const pin = page.getByRole('link', { name: /^Italy, \d+ items/ });
-    await pin.waitFor({ state: 'visible', timeout: 45_000 });
-    await pin.click();
+    await pin.waitFor({ state: 'visible', timeout: 15_000 });
+    // the cover pauses its spin while the pointer is over it: a link that keeps moving cannot be clicked
+    await page.locator('.globe-cover').hover({ position: { x: 4, y: 4 } });
+    // wait for the spin to settle: the pin's box must not move between two reads 400 ms apart
+    await expect.poll(async () => {
+      const a = (await pin.boundingBox())!;
+      await page.waitForTimeout(400);
+      const b = (await pin.boundingBox())!;
+      return Math.hypot(a.x - b.x, a.y - b.y) < 0.5;
+    }, { timeout: 15_000, intervals: [200] }).toBe(true);
+    await pin.click({ timeout: 10_000 });
     await expect(page).toHaveURL(/\/globe\/it\//);
     const c = await framed(page, 4);
     expect(inBox(c, ITALY), JSON.stringify(c)).toBe(true);

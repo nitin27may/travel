@@ -52,7 +52,7 @@ describe('globe pages carry no pin list (backlog 2.39)', () => {
       expect(existsSync(file), cc).toBe(true);
       const pins = JSON.parse(readText(file)) as Record<string, unknown>[];
       expect(statSync(file).size / pins.length, `${cc}: bytes per pin`).toBeLessThan(400);
-      for (const p of pins) expect(Object.keys(p).sort()).toEqual(['approx', 'kind', 'kindLabel', 'lat', 'lon', 'name', 'path', 'slug', 'type']);
+      for (const p of pins) expect(Object.keys(p).sort()).toEqual(['approx', 'kind', 'kindLabel', 'lat', 'lon', 'name', 'path', 'slug', 'tier', 'type']);
     }
   });
 });

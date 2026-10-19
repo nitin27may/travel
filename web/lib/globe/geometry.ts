@@ -152,8 +152,8 @@ export function hitRank(zoom: number, sourceLayer: string, props: { class?: unkn
   // A country or continent label must not replace the country shape, whose tooltip carries the facts.
   if (sourceLayer === 'place' && ['country', 'continent'].includes(String(props.class))) return null;
   if (sourceLayer === 'place' && zoom < 7 && Number(props.rank ?? 9) > 4 && !['country', 'state', 'city'].includes(String(props.class))) return null;
-  const far: Record<string, number> = { mountain_peak: 0, place: 0, water_name: 1, waterway: 2 };
-  const near: Record<string, number> = { mountain_peak: 0, place: 1, water_name: 2, waterway: 3, park: 4 };
+  const far: Record<string, number> = { mountain_peak: 0, place: 0, lakes: 1, water_name: 1, waterway: 2 };
+  const near: Record<string, number> = { mountain_peak: 0, place: 0, lakes: 2, water_name: 2, waterway: 3, park: 4 };
   return (zoom < 5 ? far : near)[sourceLayer] ?? 9;
 }
 
@@ -225,4 +225,12 @@ export function forRender<P>(fc: FeatColl<P>): FeatColl<P> {
     return g;
   };
   return { ...fc, features: fc.features.map((f) => { polarSeen = false; const geometry = convert(f.geometry); return { ...f, geometry, properties: polarSeen ? { ...f.properties, polar: true } : f.properties }; }) };
+}
+
+/** A set of GeoJSON features (the city areas) ready for `locate`: each with its bounding box. */
+export function featuresWithBoxes(features: { type: 'Feature'; properties: Record<string, unknown>; geometry: unknown }[]): FeatColl {
+  const fc: FeatColl = { type: 'FeatureCollection', features: features.map((f, i) => ({ type: 'Feature', id: i, properties: f.properties, geometry: f.geometry as Geom | null })) };
+  fc.features.forEach((f) => { if (f.geometry) f._bbox = bbox(f); });
+  fc.features = fc.features.filter((f) => f._bbox);
+  return fc;
 }

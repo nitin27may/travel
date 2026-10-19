@@ -21,6 +21,8 @@ export interface GlobeCanvasProps {
   camera?: Camera;
   handlers?: GlobeHandlers;
   onEngine?: (e: GlobeEngine | null) => void;
+  /** The world has painted (the first idle after the warm-up) or the globe failed: the canvas is fading in and pins may mount. */
+  onPainted?: () => void;
   className?: string;
   label?: string;
 }
@@ -50,14 +52,17 @@ const regionName = (() => { try { return new Intl.DisplayNames(['en'], { type: '
  * The MapLibre globe. Owns the engine's life: loads the library and the country shapes in the browser, creates
  * the map, tears it down. Everything the visitor can do on it is passed in as handlers by the page that mounts it.
  */
-export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false, exaggeration = 1, camera, handlers, onEngine, className = '', label = 'Globe' }: GlobeCanvasProps) {
+export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false, exaggeration = 1, camera, handlers, onEngine, onPainted, className = '', label = 'Globe' }: GlobeCanvasProps) {
   const box = useRef<HTMLDivElement>(null);
   const [engine, setEngine] = useState<GlobeEngine | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
+  const [painted, setPainted] = useState(false);
   const dark = usePageDark();
   const styleKey = effectiveStyle(style, dark);
-  const live = useRef({ styleKey, terrain, exaggeration, handlers, camera, onEngine, book });
-  useEffect(() => { live.current = { styleKey, terrain, exaggeration, handlers, camera, onEngine, book }; });
+  const live = useRef({ styleKey, terrain, exaggeration, handlers, camera, onEngine, book, onPainted });
+  useEffect(() => { live.current = { styleKey, terrain, exaggeration, handlers, camera, onEngine, book, onPainted }; });
+  const markPainted = useRef(() => {});
+  useEffect(() => { markPainted.current = () => { setPainted(true); live.current.onPainted?.(); }; }, []);
 
   useEffect(() => {
     let dead = false;
@@ -77,19 +82,23 @@ export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false,
           interactive: mode === 'full',
           handlers: {
             onReady: () => { cur.handlers?.onReady?.(); },
-            onFail: (r) => { setFailure(r); live.current.handlers?.onFail?.(r); },
+            onFirstIdle: () => markPainted.current(),
+            onFail: (r) => { setFailure(r); markPainted.current(); live.current.handlers?.onFail?.(r); },
             onShape: (...a) => live.current.handlers?.onShape?.(...a),
             onBasemap: (f) => live.current.handlers?.onBasemap?.(f),
             onBackground: () => live.current.handlers?.onBackground?.(),
             describe: (...a) => live.current.handlers?.describe?.(...a) ?? null,
             onCamera: (c, u) => live.current.handlers?.onCamera?.(c, u),
             onInteract: () => live.current.handlers?.onInteract?.(),
+            onWhatIsHere: (p) => live.current.handlers?.onWhatIsHere?.(p),
             onWorldFramed: (z) => live.current.handlers?.onWorldFramed?.(z),
           },
         });
         if (mode === 'cover') made.setSpin(true, true);
         setEngine(made);
         live.current.onEngine?.(made);
+        // A style or tile host that never settles must not leave the page on the placeholder disc for good.
+        window.setTimeout(() => markPainted.current(), 4500);
       } catch (e) {
         if (!dead) setFailure(e instanceof Error ? e.message : 'The globe could not start.');
       }
@@ -108,9 +117,9 @@ export function GlobeCanvas({ mode, data, book, style = 'auto', terrain = false,
   const coverPins = useMemo(() => (mode === 'cover' ? pinsFor(data, [], COVER_BOOK.facts).map((p) => (p.label.length <= 3 ? { ...p, label: regionName?.of(p.label.toUpperCase()) ?? p.label } : p)) : null), [mode, data]);
 
   return (
-    <div className={`globe-canvas ${className}`} data-globe-mode={mode} data-globe-style={styleKey} data-ready={engine ? 'true' : 'false'} role="application" aria-roledescription="map" aria-label={label}>
+    <div className={`globe-canvas ${className}`} data-globe-mode={mode} data-globe-style={styleKey} data-ready={engine ? 'true' : 'false'} data-painted={painted ? 'true' : 'false'} role="application" aria-roledescription="map" aria-label={label}>
       <div ref={box} className="globe-map" />
-      {coverPins && engine ? <PinLayer engine={engine} pins={coverPins} interactive={false} hrefFor={(p) => (p.path?.[0] ? `/globe/${p.path[0]}/` : null)} selectedKey={null} onOpen={() => undefined} /> : null}
+      {coverPins && engine && painted ? <PinLayer engine={engine} pins={coverPins} interactive={false} hrefFor={(p) => (p.path?.[0] ? `/globe/${p.path[0]}/` : null)} selectedKey={null} onOpen={() => undefined} /> : null}
       {!engine && !failure ? <div className="globe-loading" aria-live="polite">Loading globe</div> : null}
       {failure ? <div className="globe-fail" role="alert">The globe tiles are not available right now. The list of places still works.</div> : null}
     </div>

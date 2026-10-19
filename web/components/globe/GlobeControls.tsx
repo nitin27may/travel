@@ -12,6 +12,8 @@ interface Props {
   style: StyleKey;
   reducedMotion: boolean;
   onChange(next: Partial<GlobePrefs>): void;
+  /** Immersive mode: hide every control but the attribution (spec 3.4). */
+  onHide?(): void;
 }
 
 const SEGMENTS = [
@@ -21,7 +23,7 @@ const SEGMENTS = [
 ] as const;
 
 /** The control card body (components 7.2): style, 3D terrain with the relief slider, auto-spin. Used on the card and in the phone sheet. */
-export function GlobeControls({ prefs, style, reducedMotion, onChange }: Props) {
+export function GlobeControls({ prefs, style, reducedMotion, onChange, onHide }: Props) {
   return (
     <div className="globe-controls">
       <div className="globe-ctl-row">
@@ -33,6 +35,7 @@ export function GlobeControls({ prefs, style, reducedMotion, onChange }: Props) 
         <Slider label="Relief" value={prefs.exaggeration} min={0.5} max={2} step={0.1} format={(v) => `${v.toFixed(1)}×`} onValueChange={(exaggeration) => onChange({ exaggeration })} />
       ) : null}
       <Switch checked={prefs.spin && !reducedMotion} disabled={reducedMotion} note={reducedMotion ? 'Off: reduced motion' : undefined} onCheckedChange={(spin) => onChange({ spin })}>Auto-spin</Switch>
+      {onHide ? <button type="button" className="globe-ctl-hide" onClick={onHide}>Hide controls <kbd>.</kbd></button> : null}
     </div>
   );
 }
