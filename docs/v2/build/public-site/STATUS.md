@@ -75,6 +75,7 @@ Stage 4 is the design review by the Opus reviewer (never Fable), scored against 
 | L4b | a974eef | OSM trail tracks (ODbL), profiles, GPX/KML from confirmed tracks, 100 trail pages for every trip |
 | L3c | b02f4a4 | trip timeline: profile chosen once, whole-trip and per-day timelines with fixed/anchored/suggested times, split lanes, add a place with re-flow and 1,337 invariant cases, copy and ICS carry the profile, ORS legs for the Dolomites |
 | L2b | ea97741 | globe experience: no green, smooth long flights, selectable cities with outlines, Canada census divisions (StatCan OGL), importance tiers, image-first cards, Q6 dark land as tokens; every script UA without an email |
+| L3b | 235058c | trip tags and type-aware filters: Kids from and Hike effort with their basis (never below what data proves, never above it from gaps), six pills when scoped, fades with reasons, trips map pins at real stops, clusters that split |
 | CC | eaa5684 | capture contract foundation: 324-type tree, property registry, place/route/offer layers, 61 records split with a value ledger |
 
 The stage 2 sweep report is `verify-integration.md` (Lighthouse, privacy, P8, the 10,000-place test, the first-use walk).
