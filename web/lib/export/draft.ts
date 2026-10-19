@@ -11,6 +11,10 @@ export interface CopyDraft {
   /** Ages of the children going. */
   children: number[];
   savedAt: string;
+  /** The timeline the visitor chose on the page (trip-timeline spec 3.9). Old drafts have none. */
+  profile?: { party: 'adults' | 'family'; youngest: number | null; pace: 'relaxed' | 'standard' | 'full'; adults: number; walk: number | null; split: boolean };
+  overrides?: Record<number, string>;
+  added?: { day: number; placeSlug: string }[];
 }
 
 function read(): CopyDraft[] {
