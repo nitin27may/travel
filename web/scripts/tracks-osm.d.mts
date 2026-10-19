@@ -1,8 +1,8 @@
 export type LonLat = [number, number];
-export interface TrackInput { place: string; name: string; osm: string[]; trailhead: { lat: number; lon: number } | null; refs?: string[]; researchedKm?: number | null }
+export interface TrackInput { place: string; name: string; osm: string[]; trailhead: { lat: number; lon: number } | null; refs?: string[]; researchedKm?: number | null; destination?: { lat: number; lon: number } | null; wrongRoute?: string | null; loop?: boolean }
 export interface TrackFile {
   schema: string; place: string; refs: string[]; osm: string[]; fetched: string; source: string; licence: string; attribution: string;
-  stitched: boolean; confirmed: boolean; held_back?: string[]; start_offset_m: number | null; simplify_m: number; step_m: number;
+  stitched: boolean; confirmed: boolean; held_back?: string[]; start_offset_m: number | null; end_offset_m?: number | null; cut?: string | null; legs?: { osm: string; km: number }[]; simplify_m: number; step_m: number;
   totals: { km: number; gain_m: number | null; loss_m: number | null; high_m: number | null; low_m: number | null };
   dem: string | null; geometry: LonLat[]; segments?: LonLat[][]; elevation: [number, number][];
 }
@@ -26,7 +26,11 @@ export function waysFromOsmApi(json: unknown): { id: number; line: LonLat[] }[];
 export function osmRefsOf(source: string | undefined, ids: string | undefined): string[];
 export function osmRefsFromCapture(rec: unknown): string[];
 export function unconfirmedIds(source: string): Set<string>;
-export function collectInputs(snapshot: unknown, captureRecords?: unknown[]): TrackInput[];
+export function collectInputs(snapshot: unknown, captureRecords?: unknown[], ctx?: { points?: Record<string, { lat: number; lon: number }>; overrides?: unknown }): TrackInput[];
 export function checkTracks(inputs: TrackInput[], files: Map<string, unknown>, unconfirmed?: Set<string>): { place: string; problem: string }[];
 export function formatTrack(t: TrackFile): string;
 export function lengthConsistent(trackKm: number, researchedKm: number | null | undefined, tol?: number): boolean;
+export function offsetToWays(ways: LonLat[][], pt: LonLat): number;
+export function routeThrough(pieces: LonLat[][][], opts: { trailhead: { lat: number; lon: number } | null; destination?: { lat: number; lon: number } | null; loop?: boolean }): {
+  problem?: string; line: LonLat[]; startOffset: number; endOffset: number | null; legs: { index: number; km: number }[]; cut: string;
+};

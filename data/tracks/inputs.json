@@ -1,0 +1,31 @@
+{
+  "schema": "trail-track-inputs/1",
+  "note": "Authored inputs the track fetcher cannot take from a capture record: the intended OSM relations of a trail that has no capture record, a destination point where the capture record names none, and a trail whose stored relation is the wrong route. Read by web/scripts/tracks-osm.mjs only. Every entry carries its source; the points are agent checked and need a person's check.",
+  "places": {
+    "nuvolau": {
+      "osm": [
+        "relation:3197403",
+        "relation:3170143",
+        "relation:15791397",
+        "relation:2261100"
+      ],
+      "source": "docs/v2/research/lanes/CS7b-dolomites-tracks.md, 3.28: paths 443, 439, 464 and 452 from cortina.dolomiti.org 'To Rifugio Nuvolau' (9.8 km, 612 m, from and back to Passo Giau); Rifugio Nuvolau has no capture record"
+    },
+    "lagazuoi": {
+      "wrong_route": "the stored relation is the Kaiserjäger Steig (the way up), not the tunnels; no OSM relation exists for the Galleria del Lagazuoi",
+      "source": "docs/v2/research/lanes/CS7b-dolomites-tracks.md, 3.28 (searched_none on the capture record)"
+    },
+    "siusi": {
+      "wrong_route": "the stored relation is path 12 from Seis, which does not reach Compatsch; which plateau walk is meant is an owner question",
+      "source": "docs/v2/research/lanes/CS7b-dolomites-tracks.md, 3.28 (searched_none on the capture record)"
+    },
+    "tre-cime": {
+      "loop": true,
+      "source": "suedtirol.info 'Summer walk around the Drei Zinnen': a loop, trail no. 101 then no. 105 back to the start (docs/v2/research/lanes/CS7b-dolomites-tracks.md, 3.28)"
+    },
+    "federa": {
+      "destination_ref": "place/lago-federa",
+      "source": "Wikidata Q3825692 P625 (Lago Federa), the point of capture ref place/lago-federa in data/relevance/inputs/points.json"
+    }
+  }
+}

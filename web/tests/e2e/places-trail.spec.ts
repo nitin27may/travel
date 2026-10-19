@@ -3,7 +3,8 @@ import { expect, test } from './fixtures';
 
 // L4b: stored OSM tracks and trail pages for every public trip.
 const SORAPIS = '/places/lago-di-sorapis/'; // a track nothing holds back
-const TRE_CIME = '/places/tre-cime-di-lavaredo-loop/'; // the relations do not stitch into one line: dashed pieces
+const TRE_CIME = '/places/tre-cime-di-lavaredo-loop/'; // two relations cut and joined into one 9 km loop (3.28)
+const FISCALINA = '/places/val-fiscalina/'; // the relation does not stitch into one line: dashed pieces
 const FANES = '/places/cascate-di-fanes/'; // listed as waiting for a person to confirm
 const LARCH = '/places/larch-valley-to-sentinel-pass/'; // a Rockies trail with no track
 const WILCOX = '/places/wilcox-pass/'; // named in the Rockies itinerary
@@ -42,8 +43,17 @@ test.describe('trail with a confirmed track', () => {
   });
 });
 
+test.describe('trail made of two relations', () => {
+  test('Tre Cime is cut and joined into one confirmed loop with a real profile', async ({ page, site }) => {
+    await page.goto(`${site.url}${TRE_CIME}`);
+    await expect(page.getByRole('img', { name: /Elevation profile along the stored route\. 9 km/ })).toBeVisible();
+    await expect(page.getByText('Route not confirmed yet')).toHaveCount(0);
+    await expect(page.getByText('Shape estimated from length and climb')).toHaveCount(0);
+  });
+});
+
 test.describe('trail whose route is not confirmed', () => {
-  for (const url of [FANES, TRE_CIME]) {
+  for (const url of [FANES, FISCALINA]) {
     test(`${url}: dashed line label, no route in the export, and the reason`, async ({ page, site }) => {
       await page.goto(`${site.url}${url}`);
       await expect(page.getByText('Route not confirmed yet', { exact: true }).first()).toBeVisible();
@@ -54,7 +64,7 @@ test.describe('trail whose route is not confirmed', () => {
     });
   }
   test('an unstitched relation keeps the honest sketch for the profile', async ({ page, site }) => {
-    await page.goto(`${site.url}${TRE_CIME}`);
+    await page.goto(`${site.url}${FISCALINA}`);
     await expect(page.getByText('Shape estimated from length and climb')).toBeVisible();
   });
 });
