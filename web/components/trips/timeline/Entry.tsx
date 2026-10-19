@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import '@/styles/suitability.css';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { PlaceRef, ScheduleWarning, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { Chip } from '@/components/ui/Chip';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance, formatElevation } from '@/lib/format/units';
+import { EntrySuit } from '@/components/suit/TripSuit';
 import { TlIcon, type TlIconName } from './icons';
 import { CONF_LABEL, fixedLabel, honestyLabel, KIND_WORD, MODE_WORD, SOURCE_LABEL, timeSpeech, timeText } from './labels';
 import { Prose } from './Prose';
@@ -111,6 +113,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
             {href && !quiet ? <a href={href}>{e.title}</a> : e.title}
           </span>
           {dur ? <span className="tl-dur num" aria-hidden="true">{dur}</span> : null}
+          {!quiet && e.kind !== 'leg' ? <EntrySuit slug={e.at?.placeSlug} /> : null}
           {e.addedBy === 'visitor' ? <Chip kind="idea" icon={false}>You added this</Chip> : null}
           {e.optional ? <Chip kind="neutral" icon={false}>Optional</Chip> : null}
           {flagged.map((h) => (
