@@ -24687,7 +24687,8 @@
                                   "allowed",
                                   "banned",
                                   "unsafe",
-                                  "seasonal"
+                                  "seasonal",
+                                  "discouraged"
                                 ]
                               },
                               {
@@ -24767,7 +24768,8 @@
                                     "allowed",
                                     "banned",
                                     "unsafe",
-                                    "seasonal"
+                                    "seasonal",
+                                    "discouraged"
                                   ]
                                 },
                                 "basis": {
@@ -45987,7 +45989,8 @@
                                         "allowed",
                                         "banned",
                                         "unsafe",
-                                        "seasonal"
+                                        "seasonal",
+                                        "discouraged"
                                       ]
                                     },
                                     {
@@ -46067,7 +46070,8 @@
                                           "allowed",
                                           "banned",
                                           "unsafe",
-                                          "seasonal"
+                                          "seasonal",
+                                          "discouraged"
                                         ]
                                       },
                                       "basis": {
