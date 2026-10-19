@@ -9,11 +9,11 @@ import { SuitGlyph } from './SuitGlyph';
 export function SuitChip({ chip, short = false }: { chip: Chip; short?: boolean }) {
   const text = short && chip.textNoTime ? chip.textNoTime : chip.text;
   return (
-    <li className="su-chip" data-kind={chip.kind}>
+    <li className="ch" data-kind={chip.kind}>
       <span className="ci" aria-label={chip.label}>
         <SuitGlyph name={chip.glyph} />
         <span>{text}</span>
-        {chip.extra > 0 ? <span className="su-chip-more">+{chip.extra}</span> : null}
+        {chip.extra > 0 ? <span className="ch-more">+{chip.extra}</span> : null}
       </span>
     </li>
   );
@@ -24,7 +24,7 @@ export function SuitChips({ chips, short = false, className }: { chips: readonly
   const shown = chips.filter((c): c is Chip => c !== null);
   if (shown.length === 0) return null;
   return (
-    <ul className={`su-chips ${className ?? ''}`} aria-label="Who it suits">
+    <ul className={`chs ${className ?? ''}`} aria-label="Who it suits">
       {shown.map((c, i) => (
         <SuitChip key={`${c.field ?? c.kind}-${i}`} chip={c} short={short} />
       ))}
@@ -35,7 +35,7 @@ export function SuitChips({ chips, short = false, className }: { chips: readonly
 /** The two card chips (kids, effort), built from the list row's own fields so the card ships no new data (P8). */
 export function CardChip({ kind, text, glyph }: { kind: Chip['kind']; text: string; glyph: Chip['glyph'] }) {
   return (
-    <span className="su-chip su-chip-card" data-kind={kind}>
+    <span className="ch ch-card" data-kind={kind}>
       <span className="ci">
         <SuitGlyph name={glyph} />
         <span>{text}</span>

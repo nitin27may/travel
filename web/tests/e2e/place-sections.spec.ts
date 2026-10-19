@@ -6,7 +6,7 @@ const LOUISE = '/places/lake-louise/';
 test.describe('place page sections (S1b)', () => {
   test('draws the contract sections in order, with "Before you go" third and markers for what is not checked', async ({ page, site }) => {
     await page.goto(`${site.url}${LOUISE}`);
-    const ids = await page.locator('article.pl-page section.ps-sec').evaluateAll((els) => els.map((e) => e.id));
+    const ids = await page.locator('article.pl-page section.ps').evaluateAll((els) => els.map((e) => e.id));
     const order = ['warnings', 'suits', 'options', 'access', 'when', 'facilities', 'around', 'pairs', 'photos', 'links', 'sources'];
     expect(ids).toEqual(order);
     await expect(page.locator('#warnings h2')).toHaveText('Before you go');
@@ -18,10 +18,10 @@ test.describe('place page sections (S1b)', () => {
     await page.goto(`${site.url}${LOUISE}`);
     const badge = page.locator('.rv-badge > summary');
     await badge.click();
-    await expect(page.locator('.rv-badge .su-pop')).toBeVisible();
-    await expect(page.locator('.rv-badge .su-pop')).toContainText('No ratings or review counts are used');
+    await expect(page.locator('.rv-badge .sp')).toBeVisible();
+    await expect(page.locator('.rv-badge .sp')).toContainText('No ratings or review counts are used');
     await page.keyboard.press('Escape');
-    await expect(page.locator('.rv-badge .su-pop')).toBeHidden();
+    await expect(page.locator('.rv-badge .sp')).toBeHidden();
     await expect(badge).toBeFocused();
   });
 

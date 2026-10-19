@@ -136,7 +136,7 @@ export class TextScrub {
     }
     // a parenthesis that points at our own plan or research files ("(plan, not re-read)") goes whole
     const joined = kept.join('').replace(/\s*\((?:[^()]*\b(?:plan|trip research|our research)\b[^()]*)\)/gi, (m) => (/\bplan to\b/i.test(m) ? m : ''));
-    const out = publicOrigin(joined.trim(), where, this.log);
+    const out = publicOrigin(joined.replace(/[;,]?\s*see [a-z0-9]+(?:-[a-z0-9]+)+ (?:sight|trail|adventure)/gi, '').replace(/\(\s*\)/g, '').trim(), where, this.log);
     // research markers (INFERENCE, GAP, a dataset or file name) never reach a page (3.20)
     return hasMarker(out) ? dropResearch(stripMarkers(out).text).trim() : out;
   }

@@ -32,27 +32,7 @@ import { accessFacts, directionsTarget, publicProvenance, publicText, summaryOrK
 
 /** Fact text: operator dates read "observed 2026", public business phone numbers are tel: links, a bare URL is a link. */
 export function FactText({ text }: { text: string }) {
-  if (isUrl(text)) {
-    return (
-      <a href={text} target="_blank" rel="noopener noreferrer">
-        {text.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-        <span className="sr-only"> (opens in a new tab)</span>
-      </a>
-    );
-  }
-  return (
-    <>
-      {phoneParts(observed(publicProvenance(text))).map((p, i) =>
-        p.tel ? (
-          <a key={i} href={`tel:${p.tel}`} className="num">
-            {p.text}
-          </a>
-        ) : (
-          <span key={i}>{p.text}</span>
-        ),
-      )}
-    </>
-  );
+  return <span dangerouslySetInnerHTML={{ __html: factText(text) }} />;
 }
 
 /** "Operator" provenance as text, never a coloured dot: "PLAN.md, read Aug 2026, (operator)". */
@@ -171,7 +151,7 @@ function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead
         {p.elevationM !== null ? (
           <div>
             <dt>Elevation</dt>
-            <dd className="num">{p.elevationM.toLocaleString('en-CA')} m</dd>
+            <dd className="num"><data className="um" value={String(p.elevationM)}>{p.elevationM.toLocaleString('en-CA')} m</data></dd>
           </div>
         ) : null}
         {p.fee && !LINK_ONLY_TEXT.test(p.fee) ? (
@@ -363,7 +343,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
           <ul>
             {place.completeness.failed.map((c) => (
               <li key={c.id}>
-                <strong>{c.label}.</strong> {c.hint}
+                <strong>{c.label}:</strong> not checked yet
               </li>
             ))}
           </ul>
@@ -661,7 +641,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                   <ul>
                     {place.completeness.failed.map((c) => (
                       <li key={c.id}>
-                        <strong>{c.label}.</strong> {c.hint}
+                        <strong>{c.label}:</strong> not checked yet
                       </li>
                     ))}
                   </ul>

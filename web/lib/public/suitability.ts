@@ -287,7 +287,7 @@ function describe(path: string, v: unknown, rec: { block: Obj; ext: Obj | undefi
     case 'effort.source_grade': {
       if (!isObj(v) || typeof v.value !== 'string') return null;
       const sys = systemName(String(v.system));
-      return `${sys} ${v.value}`;
+      return `${sys} ${humanise(v.value)}`;
     }
     case 'effort.drivers.distance_km': return typeof v === 'number' ? `${num(v)} km` : null;
     case 'effort.drivers.gain_m': case 'effort.drivers.loss_m': return typeof v === 'number' ? `${Math.round(v)} m` : null;
@@ -607,7 +607,7 @@ function effortParts(c: Ctx, loc: Located | null): { grade: 1 | 2 | 3 | 4 | 5 | 
   const e = deriveEffort({ kind: c.rec.kind, subkind: c.rec.subkind, operated: c.rec.operated, block: c.block as never, ext: c.ext as never }, DEFAULT_MAP);
   const asked = loc ? markOf(loc.profile, 'effort.source_grade', c.operated) !== 'N' || markOf(loc.profile, 'water_safety.class', c.operated) === 'R' : e.family_effort !== null;
   if (!asked) return { grade: null, source: null };
-  const src = e.source_grade ? `${SYSTEM_LABEL(e.source_grade.system)} ${e.source_grade.value}` : null;
+  const src = e.source_grade ? `${SYSTEM_LABEL(e.source_grade.system)} ${humanise(String(e.source_grade.value))}` : null;
   return { grade: e.family_effort, source: src };
 }
 

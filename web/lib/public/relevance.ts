@@ -351,9 +351,9 @@ export function publicRelevance(ctx: RelevanceContext, rawRef: string, opts: Rel
   // the pointer: a local or regional place only, and never to a parent, a payoff or a part of itself (PS9, F1)
   let pointer: Pointer | null = null;
   const fp = item?.far_pointer;
-  // a pointer names a place a visitor can go to: never a region, a protected area, a town or a village, or a stop and station (M3)
-  const pointerType = fp ? (w.cap.get(primaryRef(w, fp.ref))?.rec.type ?? '') : '';
-  const visitable = !!pointerType && !/^(nature\.protected|settlement|access)\b/.test(pointerType);
+    const pointerType = fp ? (w.cap.get(primaryRef(w, fp.ref))?.rec.type ?? '') : '';
+  // the whitelist: a viewpoint, a trail, a summit, a landform, a lake or other water body, a waterfall, a heritage or culture site. Never a cruise, a drive, a ride, a town, a region or a stop.
+  const visitable = /^(nature\.(viewpoint|trail|summit|landform|geo)|water\.(body|falls|river)|culture)\b/.test(pointerType);
   if (fp && visitable && (item?.effective_draw === 'local' || item?.effective_draw === 'regional') && !skip.has(primaryRef(w, fp.ref)) && !(item?.part_of ?? []).some((r) => primaryRef(w, r) === primaryRef(w, fp.ref))) {
     const name = nameOfRef(w, fp.ref);
     pointer = { ref: fp.ref, name, km: fp.km, draw: fp.draw, sameClass: fp.same_class, text: `Coming from far? Nearby, ${name} is the one people travel for.` };

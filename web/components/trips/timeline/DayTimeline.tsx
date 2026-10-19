@@ -85,6 +85,8 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
     return () => window.clearTimeout(t);
   }, [snap.moved, snap.gone]);
 
+  // one value for the visible line, its title and the version button's name: a day never says "fits" in one place and "not suited" in another
+  const reasonText = tl.variant.reason ? dayReason(tl.variant.reason, tl.variant.label, tl.entries, suitCtx) : '';
   const sel = day.variants.find((v) => v.key === tl.variant.key);
   const title = sel?.title ?? day.title;
   const showSummary = !sel || sel.key === 'B' || sel.key === 'main';
@@ -146,7 +148,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
           {day.variants.length > 1 ? (
             <VariantMenu
               label={tl.variant.label}
-              ariaLabel={`Version of Day ${day.n}: ${tl.variant.label}. ${tl.variant.reason}`}
+              ariaLabel={`Version of Day ${day.n}: ${tl.variant.label}. ${reasonText}`}
               entries={menu}
             />
           ) : null}
@@ -159,7 +161,7 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
       </header>
 
       <div className="tl-day-body">
-        {tl.variant.reason && day.variants.length > 1 ? <p className="tl-reason num" title={tl.variant.reason}><Prose text={dayReason(tl.variant.reason, tl.variant.label, tl.entries, suitCtx)} /></p> : null}
+        {reasonText && day.variants.length > 1 ? <p className="tl-reason num" title={reasonText}><Prose text={reasonText} /></p> : null}
         {noFit ? (
           <p className="tl-nofit" role="note">
             <Icon name="warn" size={15} /> <span>

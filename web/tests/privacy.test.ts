@@ -359,6 +359,7 @@ describe('internal words on the built pages', () => {
       ['link-only platform in text', /\b(?:AllTrails|Komoot|Tripadvisor)\b/i],
       ['workflow wording', /search result, not opened|written from memory|from memory\b/i],
       ['dangling comma', /Not checked yet: [^<\n]{0,200}(?:,\s*$|,…)/m],
+      ['workshop hint or raw token', /Add a point with|Record the months|Set osm_ref|wikidata_qid|\b[a-z]{3,}_[a-z]{3,}\b|see [a-z0-9-]+ sight|is a value\b/],
       ['child age', /\b(?:1[0-7]|[1-9])[- ](?:year|yr)[- ]old\b(?! (?:church|chapel|tree|building|house|hut|bridge|tradition))|\b\d{1,2}-?yo\b/i],
     ];
     for (const page of builtPages()) {

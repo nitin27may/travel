@@ -47,7 +47,7 @@ function Head({ sec, meta }: { sec: SectionModel; meta?: string | null }) {
 function Closing({ text }: { text: string | null }) {
   if (!text) return null;
   return (
-    <p className="su-closing">
+    <p className="sc">
       {text}
     </p>
   );
@@ -236,7 +236,7 @@ export function Sections({ model, suit, rel, slugs, legacy, hasRoute }: Sections
           if (sec.id === 'suits') return suit ? <WhoItSuits key={sec.id} suit={suit} slugs={slugs} title={sec.title} /> : <WhoItSuitsEmpty key={sec.id} title={sec.title} />;
           const meta = sec.id === 'options' ? '2026 prices used as a pattern' : null;
           return (
-            <section key={sec.id} className="ps-sec" id={sec.id} aria-labelledby={`h-${sec.id}`}>
+            <section key={sec.id} className="ps" id={sec.id} aria-labelledby={`h-${sec.id}`}>
               <Head sec={sec} meta={meta} />
               {sec.id === 'warnings' ? <Warnings sec={sec} rel={rel} legacy={legacy} slugs={slugs} suitWarning={suit?.warning ?? null} /> : null}
               {sec.id === 'activity' ? (

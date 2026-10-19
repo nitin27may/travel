@@ -3,7 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { PlacePage } from '@/components/places/PlacePage';
 import { fitFor } from '@/components/suit/TripSuit';
 import { SECTION_IDS } from '@/lib/public/contract';
+import { primaryRef } from '@travel/core/capture/records.ts';
 import { createPublicData } from '@/lib/public';
+import { publicWorld } from '@/lib/public/world';
+import { REPO } from '../data/support';
 import type { ItemSuit } from '@/lib/public/types';
 
 const data = createPublicData();
@@ -117,10 +120,25 @@ describe('the pointer names a place worth a trip (M3)', () => {
       const r = data.getPlace(slug)!.relevance;
       if (!r?.pointer) continue;
       seen += 1;
-      expect(r.pointer.name, slug).not.toMatch(/^(Dolomites|Village and cafes)$/);
+      expect(r.pointer.name, slug).not.toMatch(/^(Dolomites|Village and cafes)$|Cruise|scenic drive|Parkway/);
       expect(text(html(slug)).split(r.pointer.name).length - 1, slug).toBeLessThanOrEqual(2);
     }
     expect(seen).toBeGreaterThan(0);
+  });
+});
+
+describe('every pointer target is a place worth a trip (verifier 4)', () => {
+  it('has a whitelisted type, and none is a cruise, a drive, a town or a stop', () => {
+    const w = publicWorld(REPO);
+    let n = 0;
+    for (const slug of data.placeSlugs()) {
+      const r = data.getPlace(slug)!.relevance;
+      if (!r?.pointer) continue;
+      n += 1;
+      const type = w.cap.get(primaryRef(w, r.pointer.ref))?.rec.type ?? '';
+      expect(type, `${slug} -> ${r.pointer.name}`).toMatch(/^(nature\.(viewpoint|trail|summit|landform|geo)|water\.(body|falls|river)|culture)\b/);
+    }
+    expect(n).toBeGreaterThan(0);
   });
 });
 
@@ -128,7 +146,7 @@ describe('research levels (M6) and units (M9)', () => {
   it('uses Basics only, Early research, Partly checked and Checked, and a place with no point never reads above Early research', () => {
     for (const slug of data.placeSlugs()) {
       const p = data.getPlace(slug)!;
-      expect(p.completeness.label, slug).toMatch(/^(Basics only|Early research · \d+ of \d+|Partly checked · \d+ of \d+|Checked)$/);
+      expect(p.completeness.label, slug).toMatch(/^(Basics only|Early research · \d+ of \d+(?:, no map point yet)?|Partly checked · \d+ of \d+(?:, no map point yet)?|Checked)$/);
       if (p.point === null) expect(p.completeness.label, slug).toMatch(/^(Basics only|Early research)/);
     }
   });

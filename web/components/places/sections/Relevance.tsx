@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Icon } from '@/components/ui/Icon';
 import { GapChip, RefLink } from '@/components/suit/Rows';
+import { withUnits } from '@/components/suit/html';
 import { provenanceLines, type PairPlace, type PublicRelevance, type SimilarPlace } from '@/lib/public/relevance';
 
 // The relevance blocks of a page (relevance 3.2, 3.6, 6.2; place-page-sections PS5, PS8 to PS10). The badge is one label in an
@@ -29,9 +30,9 @@ export function Badge({ rel }: { rel: PublicRelevance }) {
         </span>
         <span className="sr-only"> (why)</span>
       </summary>
-      <div className="su-pop rv-pop" role="group" aria-label="Why this badge">
+      <div className="sp rv-pop" role="group" aria-label="Why this badge">
         {lines.map((l, i) => (
-          <p key={i} className={i === lines.length - 1 ? 'su-pop-note' : undefined}>
+          <p key={i} className={i === lines.length - 1 ? 'sp-note' : undefined}>
             {l}
           </p>
         ))}
@@ -74,7 +75,7 @@ export function CoverRelevance({ rel, slugs, name }: { rel: PublicRelevance; slu
             <RefLink r={rel.pointer} slugs={slugs} />
           </strong>
           {rel.pointer.text.split(rel.pointer.name)[1]}
-          <span className="pb"> · {Math.round(rel.pointer.km)} km</span>
+          <span className="pb"> · <data className="ukm" value={String(Math.round(rel.pointer.km))}>{Math.round(rel.pointer.km)} km</data></span>
         </p>
       ) : null}
     </div>
@@ -93,7 +94,7 @@ function Pair({ p, slugs }: { p: PairPlace; slugs: Record<string, string> }) {
           {p.badge ? <span className="rv-chip rv-chip-sm"><Signpost />{p.badge.label}</span> : null}
         </p>
         {p.reason ? <p className="rv-reason">{p.reason}</p> : null}
-        <p className="pb">{[p.handPicked ? 'our pick' : null, p.how, km(p.km) || null, extra || null].filter(Boolean).join(' · ')}</p>
+        <p className="pb" dangerouslySetInnerHTML={{ __html: withUnits([p.handPicked ? 'our pick' : null, p.how, km(p.km) || null, extra || null].filter(Boolean).join(' · ')) }} />
       </div>
     </li>
   );
@@ -108,7 +109,7 @@ function Similar({ s, slugs }: { s: SimilarPlace; slugs: Record<string, string> 
           {s.planB ? <span className="rv-tag">Plan B</span> : null}
           {s.badge ? <span className="rv-chip rv-chip-sm"><Signpost />{s.badge.label}</span> : null}
         </p>
-        <p className="pb">{[s.access, s.effortName, km(s.km)].filter(Boolean).join(' · ')}</p>
+        <p className="pb" dangerouslySetInnerHTML={{ __html: withUnits([s.access, s.effortName, km(s.km)].filter(Boolean).join(' · ')) }} />
       </div>
     </li>
   );
@@ -125,7 +126,7 @@ export function Nearby({ rel, slugs, closing }: { rel: PublicRelevance; slugs: R
           ))}
         </ul>
       ) : closing ? (
-        <p className="su-closing">
+        <p className="sc">
           {closing}
         </p>
       ) : null}
