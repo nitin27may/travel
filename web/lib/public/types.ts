@@ -5,6 +5,9 @@ import type { KnowGroup, NoteBlock, CleanProse } from './prose';
 import type { ListBands } from '@travel/core/capture/bandKeys.ts';
 import type { LengthClass } from '@travel/core/derive/length.ts';
 import type { TripTags } from './tags';
+import type { PageModel } from './sections';
+import type { Chip, PublicSuitability } from './suitability';
+import type { PublicRelevance } from './relevance';
 
 /** The six trip categories, in the fixed order patterns 3.4 requires. */
 export const CATEGORIES = ['stays', 'trails', 'sights', 'activities', 'food', 'logistics'] as const;
@@ -197,10 +200,12 @@ export interface PublicPlaceCard {
   type: string | null;
   /** Labels and bands for the list filters (capture contract 7.3). Never a fact with a source (P8). Every band is null for a place with no capture record. */
   bands: ListBands;
+  /** The one relevance badge of the card (relevance 6.2): "Worth the journey", "Worth a detour" or "Local favourite". Null when nobody has judged it that way. */
+  badge: string | null;
 }
 
 /** The list-only fields of a place card (L3b) are added when the card is made, so the place builder and the place page never carry them. */
-export interface PublicPlace extends Omit<PublicPlaceCard, 'type' | 'bands'> {
+export interface PublicPlace extends Omit<PublicPlaceCard, 'type' | 'bands' | 'badge'> {
   elevationM: number | null;
   access: { trailhead: AccessPoint | null; parking: AccessPoint[] } | null;
   lines: PlaceLine[];
@@ -216,6 +221,14 @@ export interface PublicPlace extends Omit<PublicPlaceCard, 'type' | 'bands'> {
   notes: string;
   minAge: number | null;
   booking: string | null;
+  /** The 14 sections of the capture contract for this place (S1). Null for a place with no capture record, which keeps the older page. */
+  sections: PageModel | null;
+  /** "Who it suits": the chips, the warning line, the research line and the six groups. Null when the record has no suitability block. */
+  suitability: PublicSuitability | null;
+  /** The relevance badge with its why line and provenance, Similar nearby, Nearby worth adding, the pointer and Plan B. */
+  relevance: PublicRelevance | null;
+  /** Page slug of every ref the blocks above link to; a ref with no page is plain text. */
+  refSlugs: Record<string, string>;
 }
 
 export interface DayItem {
@@ -238,6 +251,18 @@ export interface DayItem {
   stats: { distanceKm: number | null; gainM: number | null; hours: string | null } | null;
   /** "starts at Passo Tre Croci" or "by Seceda gondola". */
   access: string | null;
+  /** The three suitability chips of the place this stop is, and its relevance badge (S1; suitability-display 3.3, relevance 6.2). Absent when the stop has no page or no record. */
+  suit?: ItemSuit | null;
+}
+
+/** What a timeline entry draws about the place it visits. Plain JSON: the page works the fit chip out from `kidsFrom` for the party in the URL. */
+export interface ItemSuit {
+  /** slot 1 (limits), slot 2 (effort or time, without the time: the entry carries the duration), slot 3 */
+  chips: Chip[];
+  kidsFrom: number | null;
+  kidsBasis: 'rule' | 'advice' | null;
+  /** "Worth the journey" on an anchor of a trip of 4 or more nights, "Local favourite" on the top stop of a short one; otherwise null */
+  badge: string | null;
 }
 
 export interface Track {

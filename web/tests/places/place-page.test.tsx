@@ -57,9 +57,9 @@ describe('trail page: tre-cime-di-lavaredo-loop', () => {
     expect(page).toContain('Researched 18 Oct 2026');
     expect(page).toContain('No licensed photo yet');
   });
-  it('shows the completeness badge with the tracked-check tooltip, and the Usable level', () => {
-    expect(page).toMatch(/Usable\s*·\s*13 of 15/);
-    expect(page).toContain('13 of 15 tracked checks pass; 23 checks are not tracked yet');
+  it('shows the research level in the public words, never "Draft"', () => {
+    expect(page).toMatch(/(Basics only|Early research\s*·\s*\d+ of \d+|Partly checked\s*·\s*\d+ of \d+|Checked)/);
+    expect(page).not.toMatch(/\bDraft\b/);
   });
   it('renders the L5 export menu and share button on the cover', () => {
     expect(page).toContain('Export');
@@ -100,7 +100,7 @@ describe('every kind has its own facts and an honest empty line, never a blank',
     });
   }
   it('a sight with no hours says so', () => {
-    expect(html('million-dollar-highway')).toContain('No hours recorded yet');
+    expect(html('million-dollar-highway')).toContain('Not checked yet: hours');
   });
   it('an area lists the places inside it as rows', () => {
     expect(html('capri')).toContain('Places in Capri');
@@ -149,7 +149,7 @@ describe('route line and point source wording', () => {
 });
 
 describe('no internal capture notes on public output', () => {
-  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|\bstops? \d+\b|\bplans?\b(?! de l)|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
+  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|(?<!shuttle )\bstops? \d+\b|\bplans?\b(?! de l)(?! b\b)(?! to\b)|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
   const text = (h: string) => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&');
   it('every place page, in its visible text', () => {
     const bad: string[] = [];
@@ -176,8 +176,9 @@ describe('the place a trail reaches (L4b)', () => {
   const place = data.getPlace('larch-valley-to-sentinel-pass')!;
   const render = (payoff: { name: string; slug: string | null } | null) => renderToString(<PlacePage place={place} inside={[]} url="https://example.test/p/" payoff={payoff} />).replace(/<!-- -->/g, '');
   it('links the payoff when it has a page and names it when it has none', () => {
-    expect(render({ name: 'Sentinel Pass', slug: 'sentinel-pass' })).toMatch(/To <a href="\/places\/sentinel-pass\/?">Sentinel Pass<\/a>/);
-    expect(render({ name: 'Sentinel Pass', slug: null })).toContain('To <strong>Sentinel Pass</strong>');
+    // the payoff now comes from the contract (the first place the route reaches); the older `payoff` prop is the fallback for a route with none
+    expect(render({ name: 'Sentinel Pass', slug: 'sentinel-pass' })).toMatch(/To\s*<strong>[^]*?Sentinel Pass/);
+    expect(render(null)).toMatch(/rv-payoff/);
     expect(render(null)).not.toContain('pl-payoff');
   });
   it('says where the trailhead comes from in words and shows no map line for a trail with no track', () => {

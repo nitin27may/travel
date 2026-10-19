@@ -32,7 +32,7 @@ function keysDeep(v: unknown, out = new Set<string>()): Set<string> {
  * these tests until it is added below, with a reason (principle P8). Nested objects are listed the same way.
  * km, gain_m and elevation_m are a recorded waiver: numeric glance facts (P3) that are widely published.
  */
-const PLACE_ROW_KEYS = ['id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name', 'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added', 'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags', 'walk_band', 'shape', 'best_time'];
+const PLACE_ROW_KEYS = ['id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name', 'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added', 'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags', 'walk_band', 'shape', 'best_time', 'badge'];
 /** The one content-looking key a place row may carry: the `booking` band (none, recommended, required), a label and not a fact (contract 7.3). */
 const BAND_NAMED_LIKE_CONTENT = ['booking'];
 const NESTED_KEYS: Record<string, string[]> = { tags: ['id', 'kind', 'label'], trips: ['slug', 'title'], honesty: ['id', 'label'], completeness: ['label', 'level'] };

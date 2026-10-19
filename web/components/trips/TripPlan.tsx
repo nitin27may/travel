@@ -19,6 +19,7 @@ import { DayTimeline } from './timeline/DayTimeline';
 import { orderRoute, timeOfRow } from './timeline/model';
 import { PlanBar } from './timeline/PlanBar';
 import { ProfileBar } from './timeline/ProfileBar';
+import { TripSuitProvider } from '@/components/suit/TripSuit';
 import { TripTimeline } from './timeline/TripTimeline';
 import { useScrollSpy } from './timeline/useScrollSpy';
 import { useTimeline } from './timeline/useTimeline';
@@ -185,6 +186,7 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
   const planLabel = !api.changed ? 'Plan as written' : `${p.party === 'adults' ? 'Adults' : `Family, youngest ${p.youngest}`} · ${p.pace[0]!.toUpperCase()}${p.pace.slice(1)}`;
 
   return (
+    <TripSuitProvider value={{ byPlace: tlModel.suit, youngest: p.party === 'family' ? p.youngest : null }}>
     <div className="tl-wrap">
       <TimesBanner condensed={tlModel.condensed} />
       <ProfileBar model={tlModel} api={api} />
@@ -265,6 +267,7 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
         )}
       </section>
     </div>
+    </TripSuitProvider>
   );
 }
 

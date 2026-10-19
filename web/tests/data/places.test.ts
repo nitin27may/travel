@@ -77,30 +77,36 @@ const base: CompletenessInput = {
 };
 
 describe('completeness', () => {
-  it('a researched trail is Usable and the tooltip counts what is not tracked', () => {
+  it('a researched trail is Partly checked and the tooltip counts what is not tracked', () => {
     const c = computeCompleteness(base);
     expect(c.level).toBe('usable');
     expect(c.total).toBe(15);
     expect(c.passed).toBe(12);
     expect(c.notTracked).toBe(PROFILE_TOTAL.trail - 15);
     expect(c.failed.map((f) => f.id).sort()).toEqual(['C1', 'C3', 'C4']);
-    expect(c.label).toBe('Usable · 12 of 15');
+    expect(c.label).toBe('Partly checked · 12 of 15');
     expect(c.tooltip).toBe('12 of 15 tracked checks pass; 23 checks are not tracked yet');
   });
 
-  it('the real tre-cime trail is reproducible from the data', () => {
+  it('a place with a capture record takes its level from the contract engine, in the public words', () => {
     const p = d.getPlace('tre-cime-di-lavaredo-loop')!;
-    expect(p.completeness).toEqual(computeCompleteness({ ...base, point: p.point, checklistComplete: p.completeness.failed.some((f) => f.id === 'C3') ? false : true, hasCreditedPhoto: false, hasSeason: true, hasOsmOrWikidata: true }));
-    expect(p.completeness.level).toBe('usable');
+    expect(p.sections).not.toBeNull();
+    expect(p.completeness.passed).toBe(p.sections!.checks.done + (p.suitability?.research.done ?? 0));
+    expect(p.completeness.total).toBe(p.sections!.checks.total + (p.suitability?.research.total ?? 0));
+    expect(p.completeness.label).toMatch(/^(Basics only|Early research · \d+ of \d+(?:, no map point yet)?|Partly checked · \d+ of \d+(?:, no map point yet)?|Checked)$/);
+    expect(p.completeness.failed.every((f) => f.id.startsWith('check:'))).toBe(true);
+  });
+  it('"Draft" is nobody\'s label: no place says it', () => {
+    for (const slug of d.placeSlugs()) expect(d.getPlace(slug)!.completeness.label, slug).not.toMatch(/draft|usable|complete\b/i);
   });
 
-  it('a locations.json lake without access is Draft until access is recorded', () => {
-    const lake = d.getPlace('lake-louise')!;
-    expect(lake.kind).toBe('lake');
-    expect(lake.completeness.total).toBeGreaterThan(8);
-    expect(lake.completeness.failed.map((f) => f.id)).toContain('U3');
-    expect(lake.completeness.level).toBe('draft');
-    expect(lake.completeness.notTracked).toBe(PROFILE_TOTAL.lake - lake.completeness.total);
+  it('a lake without access is Early research until access is recorded', () => {
+    const lake = computeCompleteness({ ...base, kind: 'lake', hasAccess: false, checklistComplete: null });
+    expect(lake.total).toBeGreaterThan(8);
+    expect(lake.failed.map((f) => f.id)).toContain('U3');
+    expect(lake.level).toBe('draft');
+    expect(lake.label).toMatch(/^Early research · \d+ of \d+$/);
+    expect(lake.notTracked).toBe(PROFILE_TOTAL.lake - lake.total);
   });
 
   it('a place with no source, no point and no summary is a Draft that lists D checks first', () => {

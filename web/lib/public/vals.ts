@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import type { Located } from '@travel/core/capture/records.ts';
 import { HOUSEHOLD_TEXT, type DropLog } from './dateless';
 import { publicOrigin } from './origin';
+import { dropResearch, hasMarker, stripMarkers } from './prose';
 
 // Shared by the S1 adapter modules (contract, sections, suitability, relevance): the public shape of a sourced value, the
 // source table lookup, the wording of a basis, and the text scrub every free-text field of a sidecar goes through.
@@ -98,6 +99,11 @@ export function sourceTable(file: string): Map<string, SourceRow> {
 
 /** A bare URL, and a sentence that names a link-only platform: its figures and links are never published. */
 const URL_TEXT = /\s*\bhttps?:\/\/[^\s)]*[^\s).,;]/gi;
+/**
+ * Process notes of the agents and the review queue: who confirmed a value, and that a person still has to check it. They are
+ * how the work is tracked, never copy for a visitor, so the sentence is dropped whole (3.27).
+ */
+export const PROCESS_NOTE = /\bagent[- ]confirmed\b|\bby travel-(?:researcher|builder|planner|verifier|design-reviewer)\b|\bneeds? a person'?s (?:check|fix|review|confirmation)\b|\bheld for a person\b|\b(?:not yet )?confirmed by a person\b|\bsubagent\b|\b[\w-]+\.(?:md|json)\b/i;
 const PLATFORM_NAME = /\b(?:alltrails|komoot|gaia ?gps|outdooractive|wikiloc|trailforks|strava|fatmap|tripadvisor|yelp)\b/i;
 
 /** Resolves source ids against the table of the file the value came from. */
@@ -121,13 +127,18 @@ export class TextScrub {
     const kept: string[] = [];
     for (const p of parts) {
       if (HOUSEHOLD_TEXT.test(p)) this.log?.add(where, p.trim(), 'household capture note (plan link, stay idea or address); never published');
+      else if (PROCESS_NOTE.test(p)) this.log?.add(where, p.trim(), 'agent or review-queue process note; never published');
       else if (PLATFORM_NAME.test(p)) this.log?.add(where, p.trim(), 'names a link-only platform; its figures and links are never published');
       else {
         const noUrl = p.replace(URL_TEXT, '').trim();
         if (noUrl) kept.push(`${noUrl} `);
       }
     }
-    return publicOrigin(kept.join('').trim(), where, this.log);
+    // a parenthesis that points at our own plan or research files ("(plan, not re-read)") goes whole
+    const joined = kept.join('').replace(/\s*\((?:[^()]*\b(?:plan|trip research|our research)\b[^()]*)\)/gi, (m) => (/\bplan to\b/i.test(m) ? m : ''));
+    const out = publicOrigin(joined.replace(/[;,]?\s*see [a-z0-9]+(?:-[a-z0-9]+)+ (?:sight|trail|adventure)/gi, '').replace(/\(\s*\)/g, '').trim(), where, this.log);
+    // research markers (INFERENCE, GAP, a dataset or file name) never reach a page (3.20)
+    return hasMarker(out) ? dropResearch(stripMarkers(out).text).trim() : out;
   }
 
   maybe(raw: string | null | undefined, where: string): string | null {

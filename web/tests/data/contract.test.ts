@@ -161,3 +161,10 @@ describe('a new type is data (contract 8.2; acceptance check S2)', () => {
     expect(c.slot3For('air.zip.zipline')).not.toBe('adult_required');
   });
 });
+
+describe('gap wording reads as a gap (verifier 1)', () => {
+  it('no property gap string is a statement: no "No ...", "needed", "is a value", "free", "none"', () => {
+    const bad = Object.entries(defaultContract(REPO).properties).filter(([, d]) => /^no\b|^none\b|\bneeded\b|is a value|\bfree\b/i.test(d.gap)).map(([k, d]) => `${k}: ${d.gap}`);
+    expect(bad).toEqual([]);
+  });
+});

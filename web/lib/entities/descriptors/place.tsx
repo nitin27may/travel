@@ -1,3 +1,4 @@
+import '@/styles/suitability.css';
 import type { ColumnDef } from '@tanstack/react-table';
 import dynamic from 'next/dynamic';
 import { PlaceCardFooter } from '@/components/places/PlaceCardFooter';
@@ -24,12 +25,32 @@ const CARD_HONESTY: Record<string, string> = {
   no_source: 'No source is recorded yet.',
 };
 
+/**
+ * The suitability chips of a card (suitability-display D5): the kids chip and the effort name, built from the row's own
+ * `kids_from`, `kids_basis` and `effort`, so the list ships nothing new (P8). A rule is the filled chip with a lock, our advice is
+ * the outlined chip with a person, and a place nobody has checked shows the dashed "Not checked yet". The look comes from
+ * `data-value` in styles/suitability.css.
+ */
+export function suitChips(p: PlaceListRow): Badge[] {
+  const out: Badge[] = [];
+  if (p.kids_from !== null && p.kids_basis === 'rule') out.push({ text: p.kids_from === 0 ? 'No minimum age' : `Age ${p.kids_from}+`, tone: 'kid', value: 'rule', title: 'Operator or official rule' });
+  else if (p.kids_from !== null) out.push({ text: p.kids_from === 0 ? 'Any age' : `From about ${p.kids_from}`, tone: 'kid', value: 'advice', icon: 'user', title: 'Our judgement' });
+  else if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: KID_HINTS[p.kid_fit] });
+  else out.push({ text: 'Not checked yet', tone: 'muted', value: 'gap', title: 'Kids: not checked yet' });
+  if (p.effort) out.push({ text: p.effort, tone: 'neutral', value: 'effort', icon: 'trail', title: 'How hard, in family terms' });
+  // a trail or trek nobody has rated shows the gap on the card, as it does on the page (verifier 9)
+  else if (typeInScope(p.type, ['nature.trail', 'nature.trek'])) out.push({ text: 'Effort: not checked yet', tone: 'muted', value: 'gap', title: 'Effort: not checked yet' });
+  return out;
+}
+
 export function placeBadges(p: PlaceListRow): Badge[] {
   const out: Badge[] = [
     { text: p.kindLabel, tone: 'kind', icon: kindIcon(p.kind) },
   ];
+  // at most one relevance chip, right after the kind (relevance 6.2); outlined, never filled, amber or green
+  if (p.badge) out.push({ text: p.badge, tone: 'neutral', value: 'relevance', icon: 'route', title: 'Why people travel for it' });
+  out.push(...suitChips(p));
   if (p.season.length) out.push({ text: seasonLabel(p.season), tone: 'season', icon: 'calendar', title: 'Best months' });
-  if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: KID_HINTS[p.kid_fit] });
   for (const h of p.honesty) if (h.id in CARD_HONESTY) out.push({ text: h.label, tone: 'warn', icon: 'info', title: CARD_HONESTY[h.id] });
   return out;
 }

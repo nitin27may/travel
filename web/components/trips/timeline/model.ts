@@ -5,7 +5,7 @@ import { haversineM } from '@travel/core/checks/time.ts';
 import type { DayTimeline, ItemKind, Point, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
 import { parseHoursRange } from '@/lib/public/quantities';
 import type { KnowGroup } from '@/lib/public/prose';
-import type { DayVariantInfo, PublicDay, PublicPlaceCard, PublicTrip } from '@/lib/public/types';
+import type { DayVariantInfo, ItemSuit, PublicDay, PublicPlaceCard, PublicTrip } from '@/lib/public/types';
 
 /** A place a visitor can add to a day. `key` is what the URL carries: add=5.<key>. */
 export interface AddCandidate {
@@ -51,6 +51,8 @@ export interface TimelineModel {
   /** Every candidate by key, once; `addByDay` lists the keys offered on each day. */
   addables: Record<string, AddCandidate>;
   addByDay: Record<number, string[]>;
+  /** The three suitability chips and the badge of each stop that is a place, by place slug (S1). */
+  suit: Record<string, ItemSuit>;
 }
 
 const KIND_LABEL: Record<string, string> = { trail: 'Trail', lake: 'Lake', viewpoint: 'Viewpoint', waterfall: 'Waterfall', sight: 'Sight', town: 'Town', activity: 'Activity', lift: 'Lift', area: 'Area', eatery: 'Eatery' };
@@ -151,6 +153,18 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
   return { addables, addByDay };
 }
 
+/** The chips of every stop of the trip that is a place with a record, once per place. */
+function suitByPlace(trip: PublicTrip): Record<string, ItemSuit> {
+  const out: Record<string, ItemSuit> = {};
+  for (const d of trip.days) for (const it of [...d.items, ...(d.tracks ?? []).flatMap((t) => t.items)]) {
+    if (!it.suit) continue;
+    // the scheduler resolves a stop's page by name and sometimes misses it, so a stop is also found by its normalised name
+    if (it.placeSlug && !out[it.placeSlug]) out[it.placeSlug] = it.suit;
+    out[`n:${norm(it.name)}`] ??= it.suit;
+  }
+  return out;
+}
+
 /** The whole timeline model, or null for a trip with no days. */
 export function buildTimelineModel(trip: PublicTrip, thumbs: Map<number, { url: string } | null>, nearby: PublicPlaceCard[] = []): TimelineModel | null {
   if (!trip.schedule || trip.depth === 'overview') return null;
@@ -164,7 +178,7 @@ export function buildTimelineModel(trip: PublicTrip, thumbs: Map<number, { url: 
   const { addables, addByDay } = candidatesFor(trip, nearby);
   return {
     slug: trip.slug, defaultProfile: (({ adults: _a, ...rest }) => (void _a, rest))(trip.schedule.defaultProfile), writtenFor: trip.schedule.writtenFor, condensed: trip.schedule.condensed, hasSplit: trip.schedule.hasSplit,
-    hasVariants: trip.schedule.hasVariants, days, defaultTimelines: trip.schedule.timelines, addables, addByDay,
+    hasVariants: trip.schedule.hasVariants, days, defaultTimelines: trip.schedule.timelines, addables, addByDay, suit: suitByPlace(trip),
   };
 }
 

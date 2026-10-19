@@ -97,7 +97,9 @@ export function computeCompleteness(i: CompletenessInput): Completeness {
   // Complete needs every check including the untracked ones, so it can only be reached when none are untracked.
   let level: CompletenessLevel = 'draft';
   if (!levelFail('D') && !levelFail('U')) level = failed.length === 0 && notTracked === 0 ? 'complete' : 'usable';
-  const label = level === 'draft' ? 'Draft' : level === 'complete' ? 'Complete' : `Usable · ${passed} of ${total}`;
+  // "Draft" is the workshop's word and never reaches a visitor (3.42): Basics only (a basic check fails), Early research, Partly checked, Checked
+  const basicFail = checks.some((c) => c.level === 'D' && !c.pass);
+  const label = level === 'complete' ? 'Checked' : level === 'usable' ? `Partly checked · ${passed} of ${total}` : basicFail ? 'Basics only' : `Early research · ${passed} of ${total}`;
   const tooltip = `${passed} of ${total} tracked checks pass; ${notTracked} check${notTracked === 1 ? ' is' : 's are'} not tracked yet`;
   return { level, passed, total, notTracked, failed, label, tooltip };
 }
