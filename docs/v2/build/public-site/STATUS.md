@@ -13,9 +13,8 @@ Updated 2026-10-18, night, before a context compaction. Read this first after an
 
 | Lane | Worktree | Work | Next step |
 |---|---|---|---|
-| SW-B | v2-SWB | sweep must-fixes 2.38 (self-hosted resized images, LCP and CLS), 2.39 (globe pin list into on-demand data files) and 2.40 (tables scroll with a sticky first column) | verify, then merge |
 
-After both merge, start **stage 3**. Run lanes in parallel with disjoint files:
+Both sweep lanes are merged (19 Oct). **Stage 3** is running. Run lanes in parallel with disjoint files:
 - **L3c**, the trip timeline. It goes first; its brief is `L3c-trip-timeline.md`.
 - **S1**, the "Who it suits" display and capture-contract step 5 (UI sections from the contract). Read `CC-adapter-requests.md`.
 - **L3b**, trip tags and filters (step 6, type-aware filters).
@@ -45,6 +44,7 @@ Stage 4 is the design review by the Opus reviewer (never Fable), scored against 
 | RC | 327d8a7 | research correction pass (anchors cut from 57 to 43, links re-sourced, 20 hand pairs) |
 | INT-C | 431bd1a | place page JS cut from 197 to 147 KB, link-only facts dropped, build error gate |
 | SW-A | a413115 | sweep must-fixes 2.34-2.37: public text says who a plan suits, Vermont no-position map, /about/ index, 404 links, icons, /terms/. Follow-ups 2.42-2.45 |
+| SW-B | 1b5f42d | sweep must-fixes 2.38-2.40: self-hosted WebP renditions, globe data per country (globe HTML 15 KB), scrollable tables. Follow-ups 2.46-2.49, Q25 |
 | CC | eaa5684 | capture contract foundation: 324-type tree, property registry, place/route/offer layers, 61 records split with a value ledger |
 
 The stage 2 sweep report is `verify-integration.md` (Lighthouse, privacy, P8, the 10,000-place test, the first-use walk).
