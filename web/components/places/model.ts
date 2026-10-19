@@ -1,5 +1,6 @@
 import type { AccessPoint, Fact, LinkGroup, LinkNone, PlaceLine, PlaceProfile, PublicPlace } from '@/lib/public/types';
 import { distanceKm } from '@/lib/map/geo';
+import { seasonLabel } from '@/lib/format/season';
 import type { LngLat } from '@/lib/map/types';
 
 /* ---------- text helpers ---------- */
@@ -74,22 +75,33 @@ const E = (label: string, from: string[], empty: string): Expect => ({ label, fr
 
 /** Which facts each kind leads with (patterns 3.6). A missing fact shows the honest empty line, never a blank. */
 const EXPECT: Record<string, Expect[]> = {
-  trail: [E('Distance', ['Distance'], 'No distance recorded yet'), E('Climb', ['Climb', 'Descent'], 'No climb recorded yet'), E('Time', ['Time'], 'No time recorded yet'), E('Difficulty', ['Difficulty'], 'No difficulty recorded yet'), E('Shape', ['Shape'], 'No route shape recorded yet'), E('Minimum age', ['Minimum age', 'Kids'], 'No minimum age recorded yet')],
-  lake: [E('Swimming', ['Swim', 'Swimming'], 'No swim information recorded yet'), E('Boats', ['Boat rental', 'Boats'], 'No boat rental recorded yet'), E('Parking', ['Parking', 'Lot'], 'No parking recorded yet'), E('Fee', ['Fee'], 'No fee recorded yet'), E('Lake loop', ['Lake loop', 'Distance'], 'No loop recorded yet'), E('Best time of day', ['Best time of day'], 'No best time of day recorded yet')],
-  viewpoint: [E('Light', ['Best time of day', 'Light'], 'No best light recorded yet'), E('Walk from the car', ['Walk from the car', 'Time', 'Distance'], 'No walk from the car recorded yet'), E('Parking', ['Lot', 'Parking'], 'No parking recorded yet'), E('Fee', ['Fee'], 'No fee recorded yet'), E('Lift', ['Lift'], 'No lift recorded yet'), E('Exposure', ['Exposure'], 'No exposure recorded yet')],
-  waterfall: [E('Walk', ['Time', 'Distance'], 'No walk recorded yet'), E('Parking', ['Lot', 'Parking'], 'No parking recorded yet'), E('Fee', ['Fee'], 'No fee recorded yet'), E('Season', ['Season'], 'No season recorded yet'), E('Difficulty', ['Difficulty'], 'No difficulty recorded yet'), E('Minimum age', ['Minimum age'], 'No minimum age recorded yet')],
-  sight: [E('Hours', ['Hours', 'Opening hours'], 'No hours recorded yet'), E('Last entry', ['Last entry'], 'No last entry recorded yet'), E('Ticket', ['Ticket', 'Price', 'Fee'], 'No ticket price recorded yet'), E('Parking', ['Lot', 'Parking'], 'No parking recorded yet'), E('Season', ['Season'], 'No season recorded yet'), E('Minimum age', ['Minimum age'], 'No minimum age recorded yet')],
-  stay: [E('Check-in', ['Check-in'], 'No check-in time recorded yet'), E('Cancellation', ['Cancellation'], 'No cancellation rule recorded yet'), E('Price', ['Price', 'Fee'], 'No price recorded yet'), E('Parking', ['Parking', 'Lot'], 'No parking recorded yet'), E('Season', ['Season'], 'No season recorded yet'), E('Booking', ['Booking page', 'Opens'], 'No booking window recorded yet')],
-  activity: [E('Ages', ['Minimum age', 'Ages'], 'No age limit recorded yet'), E('Duration', ['Duration', 'Time'], 'No duration recorded yet'), E('Price', ['Price', 'Fee'], 'No price recorded yet'), E('Booking window', ['Opens', 'Booking page', 'Booking window'], 'No booking window recorded yet'), E('Season', ['Season'], 'No season recorded yet'), E('Parking', ['Lot', 'Parking'], 'No parking recorded yet')],
-  lift: [E('Season', ['Season'], 'No season recorded yet'), E('Ticket', ['Fee', 'Price'], 'No ticket price recorded yet'), E('Time', ['Time'], 'No ride time recorded yet'), E('Parking', ['Lot', 'Parking'], 'No parking recorded yet'), E('Minimum age', ['Minimum age'], 'No minimum age recorded yet'), E('Difficulty', ['Difficulty'], 'No difficulty recorded yet')],
-  eatery: [E('Hours', ['Hours', 'Opening hours'], 'No hours recorded yet'), E('What', ['What'], 'No menu recorded yet'), E('Season', ['Season'], 'No season recorded yet'), E('Time', ['Time'], 'No walking time recorded yet'), E('Booking', ['Booking page', 'Opens'], 'No booking recorded yet'), E('Phone', ['Phone'], 'No phone recorded yet')],
-  town: [E('Parking', ['Parking', 'Lot'], 'No parking recorded yet'), E('Season', ['Season'], 'No season recorded yet'), E('Getting there', ['Shuttle'], 'No transport recorded yet'), E('Fee', ['Fee'], 'No fee recorded yet')],
-  area: [E('Season', ['Season'], 'No season recorded yet'), E('Parking', ['Parking', 'Lot'], 'No parking recorded yet'), E('Fee', ['Fee', 'Price'], 'No entry fee recorded yet')],
+  trail: [E('Distance', ['Distance'], 'Not checked yet: distance'), E('Climb', ['Climb', 'Descent'], 'Not checked yet: climb'), E('Time', ['Time'], 'Not checked yet: time'), E('Difficulty', ['Difficulty'], 'Not checked yet: difficulty'), E('Shape', ['Shape'], 'Not checked yet: route shape'), E('Minimum age', ['Minimum age', 'Kids'], 'Not checked yet: minimum age')],
+  lake: [E('Swimming', ['Swim', 'Swimming'], 'Not checked yet: swim information'), E('Boats', ['Boat rental', 'Boats'], 'Not checked yet: boat rental'), E('Parking', ['Parking', 'Lot'], 'Not checked yet: parking'), E('Fee', ['Fee'], 'Not checked yet: fee'), E('Lake loop', ['Lake loop', 'Distance'], 'Not checked yet: loop'), E('Best time of day', ['Best time of day'], 'Not checked yet: best time of day')],
+  viewpoint: [E('Light', ['Best time of day', 'Light'], 'Not checked yet: best light'), E('Walk from the car', ['Walk from the car', 'Time', 'Distance'], 'Not checked yet: walk from the car'), E('Parking', ['Lot', 'Parking'], 'Not checked yet: parking'), E('Fee', ['Fee'], 'Not checked yet: fee'), E('Lift', ['Lift'], 'Not checked yet: lift'), E('Exposure', ['Exposure'], 'Not checked yet: exposure')],
+  waterfall: [E('Walk', ['Time', 'Distance'], 'Not checked yet: walk'), E('Parking', ['Lot', 'Parking'], 'Not checked yet: parking'), E('Fee', ['Fee'], 'Not checked yet: fee'), E('Season', ['Season'], 'Not checked yet: season'), E('Difficulty', ['Difficulty'], 'Not checked yet: difficulty'), E('Minimum age', ['Minimum age'], 'Not checked yet: minimum age')],
+  sight: [E('Hours', ['Hours', 'Opening hours'], 'Not checked yet: hours'), E('Last entry', ['Last entry'], 'Not checked yet: last entry'), E('Ticket', ['Ticket', 'Price', 'Fee'], 'Not checked yet: ticket price'), E('Parking', ['Lot', 'Parking'], 'Not checked yet: parking'), E('Season', ['Season'], 'Not checked yet: season'), E('Minimum age', ['Minimum age'], 'Not checked yet: minimum age')],
+  stay: [E('Check-in', ['Check-in'], 'No check-in time recorded yet'), E('Cancellation', ['Cancellation'], 'Not checked yet: cancellation rule'), E('Price', ['Price', 'Fee'], 'Not checked yet: price'), E('Parking', ['Parking', 'Lot'], 'Not checked yet: parking'), E('Season', ['Season'], 'Not checked yet: season'), E('Booking', ['Booking page', 'Opens'], 'Not checked yet: booking window')],
+  activity: [E('Ages', ['Minimum age', 'Ages'], 'Not checked yet: age limit'), E('Duration', ['Duration', 'Time'], 'Not checked yet: duration'), E('Price', ['Price', 'Fee'], 'Not checked yet: price'), E('Booking window', ['Opens', 'Booking page', 'Booking window'], 'Not checked yet: booking window'), E('Season', ['Season'], 'Not checked yet: season'), E('Parking', ['Lot', 'Parking'], 'Not checked yet: parking')],
+  lift: [E('Season', ['Season'], 'Not checked yet: season'), E('Ticket', ['Fee', 'Price'], 'Not checked yet: ticket price'), E('Time', ['Time'], 'Not checked yet: ride time'), E('Parking', ['Lot', 'Parking'], 'Not checked yet: parking'), E('Minimum age', ['Minimum age'], 'Not checked yet: minimum age'), E('Difficulty', ['Difficulty'], 'Not checked yet: difficulty')],
+  eatery: [E('Hours', ['Hours', 'Opening hours'], 'Not checked yet: hours'), E('What', ['What'], 'Not checked yet: menu'), E('Season', ['Season'], 'Not checked yet: season'), E('Time', ['Time'], 'Not checked yet: walking time'), E('Booking', ['Booking page', 'Opens'], 'Not checked yet: booking'), E('Phone', ['Phone'], 'Not checked yet: phone')],
+  town: [E('Parking', ['Parking', 'Lot'], 'Not checked yet: parking'), E('Season', ['Season'], 'Not checked yet: season'), E('Getting there', ['Shuttle'], 'Not checked yet: transport'), E('Fee', ['Fee'], 'Not checked yet: fee')],
+  area: [E('Season', ['Season'], 'Not checked yet: season'), E('Parking', ['Parking', 'Lot'], 'Not checked yet: parking'), E('Fee', ['Fee', 'Price'], 'Not checked yet: entry fee')],
 };
 
-export function glanceFor(place: Pick<PublicPlace, 'kind' | 'facts'>): GlanceSlot[] {
+/** A value the page already knows from its own fields (season months, distance, climb, hours, car park), as a fact with no source line of its own (M7). */
+function knownElsewhere(place: Partial<Pick<PublicPlace, 'season' | 'stats' | 'access'>>, label: string): Fact | null {
+  const f = (value: string): Fact => ({ label, value, provenance: '', conflicts: [] });
+  if (label === 'Season' && place.season?.length) return f(seasonLabel(place.season));
+  if ((label === 'Distance' || label === 'Lake loop') && place.stats?.distanceKm != null) return f(`${place.stats.distanceKm} km`);
+  if (label === 'Climb' && place.stats?.gainM != null) return f(`${place.stats.gainM} m`);
+  if ((label === 'Time' || label === 'Duration') && place.stats?.hours) return f(/\b(h|min)/.test(place.stats.hours) ? place.stats.hours : `${place.stats.hours} h`);
+  if ((label === 'Parking' || label === 'Lot') && place.access?.parking[0]) return f(place.access.parking[0].name);
+  return null;
+}
+
+export function glanceFor(place: Pick<PublicPlace, 'kind' | 'facts'> & Partial<Pick<PublicPlace, 'season' | 'stats' | 'access'>>): GlanceSlot[] {
   const plan = EXPECT[place.kind] ?? EXPECT.area;
-  const slots = plan.map((e) => ({ label: e.label, fact: factByLabel(place.facts, ...e.from) ?? null, empty: e.empty }));
+  const slots = plan.map((e) => ({ label: e.label, fact: factByLabel(place.facts, ...e.from) ?? knownElsewhere(place, e.label), empty: e.empty }));
   // the six that carry a fact come first, in the kind's order; a kind with fewer than six facts keeps its honest empty lines
   const found = slots.filter((s) => s.fact);
   const missing = slots.filter((s) => !s.fact);
@@ -304,7 +316,7 @@ export function seasonMonths(months: readonly number[]): ('open' | 'closed')[] {
 
 // Sentences that describe how a place was captured, not the place: file names, "stop 8 of the road trip post",
 // "already in the Utah parks plan". They are dropped at render time (the adapter still carries them).
-const INTERNAL = /\.\s?(?:md|json|txt|csv)\b|\bloose line\b|\broad ?trip\b|\bstops? \d+\b|\bposts?\b|\bplans?\b|\bfrom memory\b|\bfolders?\b|\blegacy\b|\bno details\b|\bsaved\b|\binstagram\b|\bosm[ _](?:node|way|relation)\b|\bconfirm this\b|\bprototype\b|\bcatalogue\b|\bresearch notes\b/i;
+const INTERNAL = /\b(?:alltrails|komoot|tripadvisor)\b|\bsearch result\b|\bnot opened\b|\.\s?(?:md|json|txt|csv)\b|\bloose line\b|\broad ?trip\b|\bstops? \d+\b|\bposts?\b|\bplans?\b|\bfrom memory\b|\bfolders?\b|\blegacy\b|\bno details\b|\bsaved\b|\binstagram\b|\bosm[ _](?:node|way|relation)\b|\bconfirm this\b|\bprototype\b|\bcatalogue\b|\bresearch notes\b/i;
 const INTERNAL_PAREN = /\s*\((?:from memory|unverified)[^)]*\)/gi;
 
 /** Keeps the sentences that are about the place. Returns '' when nothing public is left. */

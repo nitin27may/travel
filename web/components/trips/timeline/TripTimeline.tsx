@@ -4,8 +4,10 @@ import { fmtHM } from '@travel/core/schedule/browser.ts';
 import type { DayTimeline } from '@travel/core/schedule/types.ts';
 import { DaySign } from '@/components/ui/DaySign';
 import { Icon } from '@/components/ui/Icon';
+import { anchorBadge, useTripSuit } from '@/components/suit/TripSuit';
 import type { TimelineModel } from './model';
 
+const nameKey = (t: string): string => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const START = 5 * 60;
 const END = 23 * 60;
 const min = (s: string) => Number(s.slice(0, 2)) * 60 + Number(s.slice(3, 5));
@@ -24,6 +26,9 @@ interface Props {
  * A tap scrolls to the day. Base names mark where the nights change.
  */
 export function TripTimeline({ model, timelines, changedDays, picked, onPick }: Props) {
+  const { byPlace } = useTripSuit();
+  // a day that holds an anchor stop is marked with its badge (relevance 6.2)
+  const anchorDays = new Set(model.days.filter((d) => d.input.variants.some((v) => v.items.some((i) => anchorBadge((i.placeSlug ? byPlace[i.placeSlug] : undefined) ?? byPlace[`n:${nameKey(i.title)}`])))).map((d) => d.n));
   const baseChange = new Set(model.days.filter((d, i) => i === 0 || d.base !== model.days[i - 1]!.base).map((d) => d.n));
   return (
     <section className="tl-trip" aria-labelledby="trip-glance-h" id="trip-at-a-glance">
@@ -58,6 +63,7 @@ export function TripTimeline({ model, timelines, changedDays, picked, onPick }: 
                 <span className="tl-trip-v num">{model.hasVariants ? t.variant.label : ''}</span>
                 <span className="tl-trip-drive num">{t.totals.driveMin > 0 ? `${fmtHM(t.totals.driveMin)} drive` : ''}</span>
                 <span className="tl-trip-flags" aria-hidden="true">
+                  {anchorDays.has(d.n) ? <span className="tl-flag tl-flag-anchor" title="A stop worth the journey"><Icon name="route" size={13} /> Worth the journey</span> : null}
                   {warn ? <span className="tl-flag tl-flag-warn" title={`${warn} ${warn === 1 ? 'warning' : 'warnings'}`}><Icon name="warn" size={13} /> {warn}</span> : null}
                   {changedDays.has(d.n) ? <span className="tl-flag">changed</span> : null}
                 </span>

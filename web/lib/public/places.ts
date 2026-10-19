@@ -52,7 +52,7 @@ export function parseSeasonMonths(text: string): number[] {
   return out;
 }
 
-interface Rec extends Omit<PublicPlace, 'slug' | 'completeness'> {
+interface Rec extends Omit<PublicPlace, 'slug' | 'completeness' | 'sections' | 'suitability' | 'relevance' | 'refSlugs'> {
   locationId: string | null;
   protoId: string | null;
   checklistComplete: boolean | null;
@@ -205,7 +205,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
     const unverifiedNote = /unverified|from memory/i.test(row.note);
     const h: Honesty[] = [];
     if (row.location_status !== 'resolved') h.push(honesty('location_unconfirmed', 'The place name matches several features and the pin is not settled.'));
-    if (unverifiedNote || (Object.keys(row.stats).length > 0 && !row.stats_verified)) h.push(honesty('unverified', 'The facts were written from memory and no source has confirmed them.'));
+    if (unverifiedNote || (Object.keys(row.stats).length > 0 && !row.stats_verified)) h.push(honesty('unverified', 'No source has confirmed these facts yet.'));
     if (row.sources.length === 0 && !row.wikidata) h.push(honesty('no_source', 'No source is recorded for this place.'));
     const season = row.season;
     recs.push({
@@ -430,7 +430,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
     };
     const { locationId: _l, protoId: _p, checklistComplete: _c, hasDatedSource: _d, hasTrailheadPoint: _t, durationMin: _m, timeHours: _h, tripFolders: _f, captureRef: _r, ...pub } = r;
     void [_l, _p, _c, _d, _t, _m, _h, _f, _r];
-    return { ...pub, slug: slugs.get(key(r))!, trips: tripRefs, honesty: uniqueHonesty(r.honesty), completeness: computeCompleteness(input) };
+    return { ...pub, slug: slugs.get(key(r))!, trips: tripRefs, honesty: uniqueHonesty(r.honesty), completeness: computeCompleteness(input), sections: null, suitability: null, relevance: null, refSlugs: {} };
   });
   places.sort((a, b) => a.slug.localeCompare(b.slug));
 

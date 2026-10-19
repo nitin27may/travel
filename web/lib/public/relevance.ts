@@ -276,6 +276,9 @@ function relatedRefs(ctx: RelevanceContext, ref: string): Set<string> {
   add(cap?.passes?.map((p) => p.ref));
   add(inc.reached_by);
   add(inc.children);
+  // offers at or on this record are listed in "At this place you can also" (section 10), so they are not a pair (S1b, owner Q31 spirit: one home)
+  add(inc.at);
+  add(inc.on);
   return out;
 }
 
@@ -348,7 +351,10 @@ export function publicRelevance(ctx: RelevanceContext, rawRef: string, opts: Rel
   // the pointer: a local or regional place only, and never to a parent, a payoff or a part of itself (PS9, F1)
   let pointer: Pointer | null = null;
   const fp = item?.far_pointer;
-  if (fp && (item?.effective_draw === 'local' || item?.effective_draw === 'regional') && !skip.has(primaryRef(w, fp.ref)) && !(item?.part_of ?? []).some((r) => primaryRef(w, r) === primaryRef(w, fp.ref))) {
+    const pointerType = fp ? (w.cap.get(primaryRef(w, fp.ref))?.rec.type ?? '') : '';
+  // the whitelist: a viewpoint, a trail, a summit, a landform, a lake or other water body, a waterfall, a heritage or culture site. Never a cruise, a drive, a ride, a town, a region or a stop.
+  const visitable = /^(nature\.(viewpoint|trail|summit|landform|geo)|water\.(body|falls|river)|culture)\b/.test(pointerType);
+  if (fp && visitable && (item?.effective_draw === 'local' || item?.effective_draw === 'regional') && !skip.has(primaryRef(w, fp.ref)) && !(item?.part_of ?? []).some((r) => primaryRef(w, r) === primaryRef(w, fp.ref))) {
     const name = nameOfRef(w, fp.ref);
     pointer = { ref: fp.ref, name, km: fp.km, draw: fp.draw, sameClass: fp.same_class, text: `Coming from far? Nearby, ${name} is the one people travel for.` };
   }

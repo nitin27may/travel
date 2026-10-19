@@ -34,7 +34,7 @@ export function Gallery({ photos, className }: { photos: GalleryPhoto[]; classNa
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs */}
               <img src={sizedImage(p.url, 560)} srcSet={imageSrcSet(p.url)} sizes="(max-width: 639px) 46vw, 24vw" alt="" width={640} height={400} loading="lazy" decoding="async" />
-              <span className="gal-credit">{creditLine(p)}</span>
+              <span className="gal-credit" aria-hidden="true">{creditLine(p)}</span>
             </button>
           </li>
         ))}

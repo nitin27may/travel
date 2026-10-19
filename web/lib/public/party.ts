@@ -12,6 +12,8 @@ type Rule = [RegExp, string | ((...m: string[]) => string)];
 
 /** A child's age in "N-year-old": 1 to 17, so "300-year-old" and "40-year-old" never match. */
 const KID_AGE = String.raw`(?:1[0-7]|[1-9])`;
+/** The age word after a number: "-year-old", " year old", " yr old", "yo" (the unhyphenated forms slipped through until the verifier found 11 pages). */
+const YEARS_OLD = String.raw`(?:[- ]year[- ]old\b|[- ]yr[- ]old\b|-?yo\b)`;
 /** Things that are N years old and are not a person ("a 12-year-old tradition"). */
 const THING = String.raw`(?:church|chapel|cathedral|tree|building|house|hut|bridge|town|village|tradition|wine|cheese|rule|record|school|hotel|lodge|inn|castle|fort|mill|barn|cabin|trail|road|route|mine|dam|tunnel|forest|glacier|ruin|ruins|monastery|temple|shrine|festival|company|business|brand|boat|ship|vessel)`;
 /** What follows "the child" when it is a fare, a carrier or an age condition: a rule, not a traveller. */
@@ -39,9 +41,9 @@ const REWRITES: Rule[] = [
   [/\bif the child's ceiling\b/gi, "if the youngest walker's ceiling"],
   [/\bsized for the child\b/g, 'sized for young walkers'],
   // a fare rule keeps the source's own age
-  [new RegExp(String.raw`\bA (\d+)-year-old pays the child fare\b`, 'g'), (_m, n) => `The child fare applies from age ${n}`],
-  [new RegExp(String.raw`\b[Ww]hether a ${KID_AGE}-year-old counts( toward four)?\b`, 'g'), (_m, t) => `Whether a young child counts${t ? ' toward the four' : ''}`],
-  [new RegExp(String.raw`\ba ${KID_AGE}-year-old\b(?! ${THING}\b)`, 'gi'), 'a young child'],
+  [new RegExp(String.raw`\bA (\d+)${YEARS_OLD} pays the child fare\b`, 'g'), (_m, n) => `The child fare applies from age ${n}`],
+  [new RegExp(String.raw`\b[Ww]hether a ${KID_AGE}${YEARS_OLD} counts( toward four)?\b`, 'g'), (_m, t) => `Whether a young child counts${t ? ' toward the four' : ''}`],
+  [new RegExp(String.raw`\ba ${KID_AGE}${YEARS_OLD}(?! ${THING}\b)`, 'gi'), 'a young child'],
   [/\bthe family's (?=\d)/g, 'the '],
   [/\bThe whole family's alpine larch walk\b/g, 'A family-friendly alpine larch walk'],
   [/\ba family of \d+\b/gi, 'a small group'],
@@ -56,9 +58,14 @@ export const PARTY_LEAK = new RegExp(
   [
     String.raw`\b(?:a|the) child around \d`,
     String.raw`\bthe child(?:'s)?\b(?!${CHILD_RULE_AFTER})`,
-    String.raw`\b${KID_AGE}-year-old\b(?! ${THING}\b)`,
+    String.raw`\b${KID_AGE}${YEARS_OLD}(?! ${THING}\b)`,
     String.raw`\bfamily of \d`,
-    String.raw`\b(?:\d+|two|three|four) adults? (?:plus|and) (?:\d+|two|three|four) (?:children|kids)`,
+    String.raw`\b(?:\d+|two|three|four) adults? (?:plus|and) (?:\d+|two|three|four|a|one) (?:children|kids|child|kid)\b`,
+    // first-person household: "my wife", "with my kids" (3.26)
+    String.raw`\bmy (?:wife|husband|partner|spouse|son|daughter|kids?|child(?:ren)?|family|girlfriend|boyfriend|toddler|baby)\b`,
+    // a bare age after the youngest, or the youngest in the past tense: "The youngest, 7, was tired"
+    String.raw`\b(?:the )?(?:youngest|eldest|little one)\b,?\s*(?:aged |is |was |\()?\d{1,2}\b(?!\s*(?:km|m\b|min|h\b|kg|cm))`,
+    String.raw`\bthe (?:youngest|eldest|little one) (?:was|were|got|had|liked|loved|fell|needed|wanted|slept)\b`,
     String.raw`\bwith (?:kids|children) \d+\+?`,
     String.raw`\bthe other adult\b`,
     String.raw`\bboth adults\b`,

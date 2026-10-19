@@ -14,7 +14,22 @@ const HOME_POINT = { lat: 43.88, lon: -78.94, radiusKm: 2 } as const;
  * ("Whitby" or "whitby"). With a `log`, every sentence the party scrub drops is reported under `where`.
  */
 export function publicOrigin(text: string, where?: string, log?: DropLog): string {
-  return publicParty(text, where, log).replace(HOME, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
+  const replaced = publicParty(text, where, log).replace(HOME, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
+  return dropSelfLegs(replaced, where, log);
+}
+
+/** "Whitby to Toronto" reads "Toronto to Toronto" once the home town is replaced. The leg says nothing, so the whole sentence goes (3.26). */
+const SELF_LEG = new RegExp(String.raw`\b${PUBLIC_START_CITY.name}\s*(?:to|-|–|→|->|and back to|and back)\s*${PUBLIC_START_CITY.name}\b`, 'i');
+const SENTENCES = /(?:[^.!?]|[.!?](?!\s|$))+[.!?]*\s*/g;
+
+function dropSelfLegs(text: string, where?: string, log?: DropLog): string {
+  if (!SELF_LEG.test(text)) return text;
+  const kept: string[] = [];
+  for (const s of text.match(SENTENCES) ?? [text]) {
+    if (SELF_LEG.test(s)) log?.add(where ?? 'public text', s.trim(), 'a leg from the home town to the public start city reads as a trip from a city to itself; the sentence is dropped');
+    else kept.push(s);
+  }
+  return kept.join('').trim();
 }
 
 export function nearHome(lat: number, lon: number): boolean {

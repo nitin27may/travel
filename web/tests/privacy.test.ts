@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { loadPlaces } from '@/lib/data/places';
@@ -173,7 +173,8 @@ function householdLeaks(root: string): string[] {
     if (/planned as/i.test(text)) add('"Planned as"');
     if (/hotel idea/i.test(text)) add('"Hotel idea"');
     if (/"(?:summary|note|subtitle|standfirst)":"[^"]*https?:\/\//.test(text)) add('a URL inside a summary');
-    if (/(?:summary|standfirst)[^>]*>[^<]*https?:\/\//.test(text)) add('a URL inside summary text');
+    // `"summary",null` is the <summary> element in the flight payload, not a prose field
+    if (/(?:summary|standfirst)(?!",null)[^>]{0,80}>[^<]{0,400}https?:\/\//.test(text)) add('a URL inside summary text');
     // titles and descriptions in pages carry no calendar date
     for (const m of text.matchAll(/<title>([^<]*)<\/title>|<meta[^>]+(?:name|property)="(?:description|og:title|og:description|twitter:title|twitter:description)"[^>]+content="([^"]*)"/g)) {
       const t = m[1] ?? m[2] ?? '';
@@ -333,14 +334,53 @@ describe('no party description in the timeline strings', () => {
   });
 });
 
-// "Draft" is the workshop's word for a place with only the basics. A visitor never reads it on a list page, in a card footer or in
-// the rows the list ships (the place pages and the about page still name it: S1 and the about page own those).
-describe('internal words on the list pages', () => {
-  it('"Draft" appears nowhere in the Places or Trips list HTML, payload included', () => {
-    for (const page of ['places/index.html', 'trips/index.html']) {
+// "Draft" is the workshop's word for a place with only the basics. A visitor never reads it on any built page: the lists, every place
+// page, a card footer or the rows the list ships. The public levels are Basics only, Partly checked and Checked (3.42).
+function builtPages(): string[] {
+  const out = ['places/index.html', 'trips/index.html'];
+  const dir = path.join(REAL_OUT, 'places');
+  if (existsSync(dir)) for (const d of readdirSync(dir)) if (existsSync(path.join(dir, d, 'index.html'))) out.push(`places/${d}/index.html`);
+  return out;
+}
+describe('internal words on the built pages', () => {
+  it('"Draft" appears on no list page and no place page, payload included', () => {
+    for (const page of builtPages()) {
       const f = path.join(REAL_OUT, page);
       if (!existsSync(f)) continue;
       expect(readText(f).match(/\bDraft\b/g) ?? [], page).toEqual([]);
     }
+  });
+  it('no glossary text, record ref, link-only platform, workflow wording or dangling comma in the visible text of any place page (verifier)', () => {
+    const bad: string[] = [];
+    const visible = (h: string): string => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&#x27;/g, "'");
+    const checks: [string, RegExp][] = [
+      ['glossary text', /A local word on|An operator's own levels|Other or unknown system/],
+      ['record ref', /(?:^|[\s(])(?:Place|Part|Offer|Route|Trip|Legacy)\/[a-z0-9]|[a-z]#[a-z-]+(?:\s|$)/i],
+      ['link-only platform in text', /\b(?:AllTrails|Komoot|Tripadvisor)\b/i],
+      ['workflow wording', /search result, not opened|written from memory|from memory\b/i],
+      ['dangling comma', /Not checked yet: [^<\n]{0,200}(?:,\s*$|,…)/m],
+      ['workshop hint or raw token', /Add a point with|Record the months|Set osm_ref|wikidata_qid|\b[a-z]{3,}_[a-z]{3,}\b|see [a-z0-9-]+ sight|is a value\b/],
+      ['child age', /\b(?:1[0-7]|[1-9])[- ](?:year|yr)[- ]old\b(?! (?:church|chapel|tree|building|house|hut|bridge|tradition))|\b\d{1,2}-?yo\b/i],
+    ];
+    for (const page of builtPages()) {
+      const f = path.join(REAL_OUT, page);
+      if (!existsSync(f) || !page.startsWith('places/')) continue;
+      const t = visible(readText(f));
+      for (const [name, re] of checks) {
+        const m = re.exec(t);
+        if (m) bad.push(`${page}: ${name}: ${m[0].slice(0, 60)}`);
+      }
+    }
+    expect(bad.slice(0, 12)).toEqual([]);
+  });
+  it('no agent or process note, FE grade or research marker appears on any place page (3.27, 3.20)', () => {
+    const bad: string[] = [];
+    for (const page of builtPages()) {
+      const f = path.join(REAL_OUT, page);
+      if (!existsSync(f)) continue;
+      const m = /agent[- ]confirmed|by travel-(?:researcher|builder|planner|verifier)|needs? a person['\u2019]s (?:check|fix|review)|\bFE[1-5]\b|\b(?:INFERENCE|CALC)\b|suitability\.md|this repo/.exec(readText(f));
+      if (m) bad.push(`${page}: ${m[0]}`);
+    }
+    expect(bad).toEqual([]);
   });
 });

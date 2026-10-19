@@ -137,6 +137,10 @@ export interface PageModel {
   /** experience and rental offers at or on the subject, grouped by domain (section 10) */
   around: AroundGroup[];
   links: LinkTab[];
+  /** PS4: the access place (parking, else a stop) with a stored point, when the record has no car park of its own; Directions go there */
+  directions?: { mode: 'drive'; ref: string; name: string; lat: number; lon: number; pointSource: string; role: 'parks_for' | 'serves' | 'starts_at' } | { mode: 'transit'; stops: { ref: string; name: string }[] } | null;
+  /** labels of the older record's facts that filled a row of this page (step 9); section 14 leaves them out */
+  legacyMapped?: string[];
   /** the place checks: base R properties answered out of asked, with the engine's level */
   checks: { done: number; total: number; read: string | null; level: string };
 }
@@ -200,7 +204,11 @@ export function formatValue(def: Pick<PropertyDef, 'key' | 'value' | 'unit'>, v:
   if (v === null || v === undefined) return '';
   switch (def.value) {
     case 'text': return typeof v === 'string' ? v : String(v);
-    case 'number': return typeof v === 'number' ? `${num(v)}${unit}` : String(v);
+    case 'number': {
+      // a registry key that names its unit ("walk_m", "on_site_min") shows it when the registry has none
+      const implied = unit || (/_m$/.test(def.key) ? ' m' : /_km$/.test(def.key) ? ' km' : /_min$/.test(def.key) ? ' min' : /_kg$/.test(def.key) ? ' kg' : /_cm$/.test(def.key) ? ' cm' : '');
+      return typeof v === 'number' ? `${num(v)}${implied}` : String(v);
+    }
     case 'bool': return v === true ? 'Yes' : v === false ? 'No' : String(v);
     case 'enum': return typeof v === 'string' ? cap1(humanise(v)) : String(v);
     case 'enum_list': return Array.isArray(v) ? v.map((x) => humanise(String(x))).join(', ') : String(v);
@@ -319,7 +327,9 @@ function baseRow(r: Rec, def: PropertyDef, mark: Mark, home: SectionId, echo: bo
   const links = RELATION_KEYS.has(key) || key === 'access_points' || key === 'transit' ? ((Array.isArray(v) ? v : []) as RefLink[]).filter((x) => x && typeof x === 'object' && 'ref' in x) : [];
   const value = wrapped ? wrapped.value : v;
   const base = { key, label: def.label, valueType: def.value, mark, home, echo, unit: def.unit ?? null, gapWording: def.gap, links };
-  const missing = state0 === 'gap' || value === undefined || value === null;
+  // a sourced list with nothing in it is not an answer: "no closures" and "no booking" must be said by the source (state no_limit or searched_none), never read from an empty list (M1)
+  const emptySourced = !!wrapped && wrapped.state === 'value' && Array.isArray(value) && value.length === 0;
+  const missing = state0 === 'gap' || value === undefined || value === null || emptySourced;
   if (missing && !(wrapped && SOFT_STATES.has(wrapped.state))) {
     return { ...base, text: null, value: null, val: wrapped, state: 'gap', gap: true, look: 'gap' };
   }
@@ -328,7 +338,9 @@ function baseRow(r: Rec, def: PropertyDef, mark: Mark, home: SectionId, echo: bo
     return { ...base, text: `${def.label}: not stated${when}`, value: null, val: wrapped, state: wrapped.state, gap: false, look: 'sentence' };
   }
   const empty = Array.isArray(value) && value.length === 0;
-  const text = empty ? 'None' : links.length > 0 ? links.map((l) => l.name).join(', ') : typeof value === 'string' && def.value === 'text' ? r.scrub.text(value, where) : formatValue(def, value) || 'Recorded';
+  const formatted = typeof value === 'string' && def.value === 'text' ? value : formatValue(def, value);
+  // every row text, structured or free, goes through the one scrub: process notes, file names and our own plan references never reach a page
+  const text = empty ? 'None' : links.length > 0 ? links.map((l) => l.name).join(', ') : r.scrub.text(formatted, where) || 'Recorded';
   const look = wrapped?.look === 'rule' ? 'rule' : wrapped?.look === 'advice' ? 'advice' : 'info';
   return { ...base, text, value, val: wrapped, state: wrapped?.state ?? 'value', gap: false, look };
 }
@@ -551,12 +563,34 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
   const missing = (comp?.missingBase.length ?? 0) + (comp?.conditionalMissing.length ?? 0);
   const reads = [...rowsByKey.values()].map((x) => x.val?.read).filter((d): d is string => !!d).sort();
 
-  if (warnings) warnings.lines = warningLines(warnings.rows);
+  if (warnings) warnings.lines = warningLines(warnings.rows).map((l) => ({ ...l, text: scrub.text(l.text, `${ref} warning ${l.home}`) })).filter((l) => l.text);
   // a lift line has no price of its own: its ticket offer is the content of section 6
   const options = sections.find((x) => x.id === 'options');
   if (options && !options.drawn && offers.length > 0) options.drawn = true;
 
+  // PS4, T5: Directions go to where a car can go: a car park or a start (never a stop or a station). A place reached only by a shuttle stop,
+  // with no car park stored, gets no driving Directions and says why.
+  let directions: PageModel['directions'] = null;
+  const driveable = (t: string): boolean => /^access\.(park|start)\./.test(t);
+  for (const role of ['parks_for', 'serves', 'starts_at'] as const) {
+    const hit = accessPoints.find((a) => a.role === role && driveable(a.type) && isPoint(world.points[a.ref]));
+    if (hit) {
+      const pt = world.points[hit.ref] as { lat: number; lon: number; point_source?: string; coord_src?: string };
+      const src = pt.point_source ?? '';
+      const osm = /OSM (node|way|relation) (\d+)/i.exec(src);
+      const wd = /(Q\d+) P625/.exec(src);
+      directions = { mode: 'drive', ref: hit.ref, name: hit.name, lat: pt.lat, lon: pt.lon, pointSource: osm ? `osm_${osm[1]!.toLowerCase()}:${osm[2]}` : wd ? `wikidata:${wd[1]}` : 'manual_pin', role };
+      break;
+    }
+  }
+  if (!directions) {
+    const stops = accessPoints.filter((a) => /^access\.transit\./.test(a.type));
+    const parking = accessPoints.some((a) => /^access\.park\./.test(a.type));
+    if (stops.length > 0 && !parking) directions = { mode: 'transit', stops: stops.map((a) => ({ ref: a.ref, name: a.name })) };
+  }
+
   return {
+    directions,
     ref,
     type: cap.type,
     layer,
@@ -578,6 +612,8 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
     checks: { done: Math.max(0, baseR - missing), total: baseR, read: reads.length ? reads[reads.length - 1]! : null, level: comp?.level ?? 'stub' },
   };
 }
+
+const isPoint = (p: unknown): boolean => typeof p === 'object' && p !== null && typeof (p as { lat?: unknown }).lat === 'number' && typeof (p as { lon?: unknown }).lon === 'number';
 
 function offerCard(r: Rec, contract: Contract, ref: string, scrub: TextScrub, words: Words): OfferCard {
   const world = r.world;

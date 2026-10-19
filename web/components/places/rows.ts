@@ -80,13 +80,15 @@ export interface PlaceListRow {
   shape: string | null;
   /** Best time of day: sunrise, golden_am, morning ... */
   best_time: string | null;
+  /** The one relevance badge of the card: "Worth the journey", "Worth a detour" or "Local favourite" (relevance 6.2). A label, never a rating or a rank. */
+  badge: string | null;
 }
 
 /** Every key a list row may carry. A test compares this with the keys the builder writes. */
 export const PLACE_LIST_KEYS: readonly (keyof PlaceListRow)[] = [
   'id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name',
   'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added',
-  'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags', 'walk_band', 'shape', 'best_time',
+  'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags', 'walk_band', 'shape', 'best_time', 'badge',
 ];
 
 /** Joins the adapter cards with the legacy rows through the old place URLs that LD already maps to slugs. */
@@ -133,8 +135,8 @@ export function buildPlaceRows(
       image: c.photo?.url ?? null,
       trips: c.trips.map((t) => ({ slug: t.slug, title: t.title })),
       honesty: c.honesty.map((h) => ({ id: h.id, label: h.label })),
-      // the list never carries the workshop's word "Draft": a place with only the basics reads "Basics only"
-      completeness: { level: c.completeness.level, label: c.completeness.level === 'draft' ? 'Basics only' : c.completeness.label },
+      // the list never carries the workshop's word "Draft": the label is Basics only, Early research, Partly checked or Checked
+      completeness: { level: c.completeness.level, label: c.completeness.label },
       sourceTypes: old ? old.sources.map((s) => s.type) : [],
       statsState: hasStats ? (old?.stats_verified ? 'verified' : 'unverified') : null,
       researched: c.sources.some((o) => o !== 'locations'),
@@ -150,6 +152,7 @@ export function buildPlaceRows(
       walk_band: c.bands.walk_band,
       shape: c.bands.shape,
       best_time: c.bands.best_time,
+      badge: c.badge,
     };
   });
 }

@@ -128,6 +128,34 @@ describe('the party scrubber: public text says who a plan suits, never who trave
     publicParty('A 300-year-old church. Bring the child carrier.', 'x', log);
     expect(log.items).toEqual([]);
   });
+  it('catches first-person household wording, a bare age and a home-town leg (3.26)', () => {
+    expect(publicParty('2 adults and a child can share the cabin.')).not.toMatch(/adults and a child/);
+    for (const t of ['My wife loved the lake.', 'We went with my kids in July.', 'My husband carried the pack.', 'The youngest, 7, was tired by the second bend.', 'The youngest was tired.']) {
+      expect(describesParty(t), t).toBe(true);
+      expect(publicParty(`Lovely lake. ${t}`)).toBe('Lovely lake.');
+    }
+    // a rule about the youngest member of a group is not the household
+    expect(describesParty('The youngest rider must be 6 or older.')).toBe(false);
+    expect(describesParty('The youngest walker must be at least 4.')).toBe(false);
+    expect(publicParty('The walk is 7 km and my map says so.')).toBe('The walk is 7 km and my map says so.');
+  });
+  it('drops a sentence whose leg would read Toronto to Toronto, and logs it (3.26)', () => {
+    const log = new DropLog();
+    expect(publicOrigin('Lovely drive. Whitby to Toronto takes an hour. Park at the lot.', 'trip x note', log)).toBe('Lovely drive. Park at the lot.');
+    expect(log.items.map((i) => i.text)).toEqual(['Toronto to Toronto takes an hour.']);
+    expect(publicOrigin('Whitby to Banff is 3,400 km.')).toBe('Toronto to Banff is 3,400 km.');
+    expect(publicOrigin('Whitby - Toronto - Whitby')).not.toMatch(/Toronto\s*[-–]\s*Toronto/);
+  });
+  it('catches the unhyphenated and abbreviated ages, and keeps an object age (verifier 3)', () => {
+    for (const t of ['Not for a 6 year old.', 'Not for a 6 yr old.', 'Pack snacks for the 7yo.', 'Pack snacks for the 7-yo.']) {
+      expect(describesParty(t), t).toBe(true);
+      expect(publicParty(`Lovely lake. ${t}`), t).not.toMatch(/\b[67]\b|year old|yr old|\byo\b/);
+    }
+    for (const t of ['The 5,300-year-old Iceman is on show.', 'A 300 year old church stands here.', 'A 12 year old tradition: the fair.']) {
+      expect(describesParty(t), t).toBe(false);
+      expect(publicParty(t)).toBe(t);
+    }
+  });
   it('runs on every string through publicOrigin', () => {
     expect(publicOrigin('Patagonia with kids 11+')).toBe('Argentine Patagonia');
   });

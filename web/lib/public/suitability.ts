@@ -126,6 +126,8 @@ const isObj = (x: unknown): x is Obj => typeof x === 'object' && x !== null && !
 
 function dur(min: number): string {
   if (min < 60) return `${min} min`;
+  // a visit longer than a day is counted in days (an area), never "336 h"
+  if (min >= 1440 && min % 1440 === 0) return `${min / 1440} ${min === 1440 ? 'day' : 'days'}`;
   const h = Math.floor(min / 60);
   const m = min % 60;
   return m ? `${h} h ${m}` : `${h} h`;
@@ -134,7 +136,8 @@ function dur(min: number): string {
 function durRange(r: [number, number]): string {
   const [a, b] = r;
   if (a === b) return dur(a);
-  if (a >= 60 && b >= 60 && a % 60 === 0) return `${a / 60}–${dur(b)}`;
+  if (b >= 1440 && a >= 1440 && a % 1440 === 0 && b % 1440 === 0) return `${a / 1440}–${dur(b)}`;
+  if (a >= 60 && b >= 60 && a % 60 === 0 && b < 1440) return `${a / 60}–${dur(b)}`;
   return `${a >= 60 ? dur(a) : a}–${dur(b)}`;
 }
 const num = (n: number): string => (Number.isInteger(n) ? String(n) : String(Math.round(n * 10) / 10));
@@ -283,8 +286,8 @@ function describe(path: string, v: unknown, rec: { block: Obj; ext: Obj | undefi
     case 'accessible_parking': return v === true ? 'Yes' : v === false ? 'None' : null;
     case 'effort.source_grade': {
       if (!isObj(v) || typeof v.value !== 'string') return null;
-      const sys = DEFAULT_MAP.systems.find((s) => s.id === v.system)?.label ?? String(v.system);
-      return `${sys} ${v.value}`;
+      const sys = systemName(String(v.system));
+      return `${sys} ${humanise(v.value)}`;
     }
     case 'effort.drivers.distance_km': return typeof v === 'number' ? `${num(v)} km` : null;
     case 'effort.drivers.gain_m': case 'effort.drivers.loss_m': return typeof v === 'number' ? `${Math.round(v)} m` : null;
@@ -327,6 +330,7 @@ function describe(path: string, v: unknown, rec: { block: Obj; ext: Obj | undefi
       return `${lvl}${fence}${typeof v.where === 'string' ? ` (${v.where})` : ''}`;
     }
     case 'altitude_m': return typeof v === 'number' ? `${Math.round(v)} m` : null;
+    case 'walk_m': return typeof v === 'number' ? `${Math.round(v)} m` : null;
     case 'participation.kit_provided': return Array.isArray(v) ? `${v.map((k) => KIT_LABEL[String(k)] ?? humanise(String(k))).join(', ')} provided` : null;
     case 'participation.wear': return Array.isArray(v) ? v.map((k) => humanise(String(k))).join(', ') : null;
     case 'water_safety.class': return isObj(v) ? `Class ${v.value}` : null;
@@ -594,13 +598,16 @@ function adviceChip(c: Ctx, long: boolean): Chip | null {
   return { kind: 'advice', text, glyph: 'person', label: chipLabel('advice', word, null, 'age_band'), field: 'age_band', extra: 0 };
 }
 
-const SYSTEM_LABEL = (system: string): string => DEFAULT_MAP.systems.find((s) => s.id === system)?.label ?? system;
+/** The grade system as a short name beside the grade: the registry label is a description ("A local word on a valley or park page"), which is a glossary entry, not a name. */
+const SHORT_SYSTEM: Record<string, string> = { local: 'Local grade', operator: "Operator's grade", other: 'Other grade', 'bike-path': 'Cycle path', flatwater: 'Flatwater' };
+export const systemName = (system: string): string => SHORT_SYSTEM[system] ?? (DEFAULT_MAP.systems.find((s) => s.id === system)?.label ?? system).replace(/\s*\([^)]*\)/g, '').replace(/,.*$/, '').trim();
+const SYSTEM_LABEL = systemName;
 
 function effortParts(c: Ctx, loc: Located | null): { grade: 1 | 2 | 3 | 4 | 5 | null; source: string | null } {
   const e = deriveEffort({ kind: c.rec.kind, subkind: c.rec.subkind, operated: c.rec.operated, block: c.block as never, ext: c.ext as never }, DEFAULT_MAP);
   const asked = loc ? markOf(loc.profile, 'effort.source_grade', c.operated) !== 'N' || markOf(loc.profile, 'water_safety.class', c.operated) === 'R' : e.family_effort !== null;
   if (!asked) return { grade: null, source: null };
-  const src = e.source_grade ? `${SYSTEM_LABEL(e.source_grade.system)} ${e.source_grade.value}` : null;
+  const src = e.source_grade ? `${SYSTEM_LABEL(e.source_grade.system)} ${humanise(String(e.source_grade.value))}` : null;
   return { grade: e.family_effort, source: src };
 }
 
@@ -879,7 +886,7 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
     if (i >= 0) {
       if (!effortGroup.rows[i]!.gap) effortGroup.rows[i] = { ...effortGroup.rows[i]!, text, short: text, label: 'Effort' };
     } else effortGroup.rows.unshift({ key: 'effort', label: 'Effort', text, look: 'advice', val: null, gap: false, honesty: null, short: text });
-    effortGroup.closing = effortGroup.closing?.replace(/(: )effort, /, '$1').replace(/: effort$/, '') ?? null;
+    effortGroup.closing = effortGroup.closing?.replace(/(: )effort, /, '$1').replace(/, effort$/, '').replace(/: effort$/, '') ?? null;
     if (effortGroup.closing === `${words.closingPrefix.trim()}`) effortGroup.closing = null;
   }
   push(effortGroup);

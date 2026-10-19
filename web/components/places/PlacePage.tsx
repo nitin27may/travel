@@ -12,6 +12,11 @@ import { seasonLabel } from '@/lib/format/season';
 import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
+import { Interactions } from '@/components/suit/Interactions';
+import { accessCard, factText, factsDl } from './sections/legacyHtml';
+import { withUnits } from '@/components/suit/html';
+import { CoverRelevance } from './sections/Relevance';
+import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { GalleryLazy } from './GalleryLazy';
 import { LinksTabs } from './LinksTabs';
 import { dedupeMapPoints } from './mapPoints';
@@ -27,27 +32,7 @@ import { accessFacts, directionsTarget, publicProvenance, publicText, summaryOrK
 
 /** Fact text: operator dates read "observed 2026", public business phone numbers are tel: links, a bare URL is a link. */
 export function FactText({ text }: { text: string }) {
-  if (isUrl(text)) {
-    return (
-      <a href={text} target="_blank" rel="noopener noreferrer">
-        {text.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-        <span className="sr-only"> (opens in a new tab)</span>
-      </a>
-    );
-  }
-  return (
-    <>
-      {phoneParts(observed(publicProvenance(text))).map((p, i) =>
-        p.tel ? (
-          <a key={i} href={`tel:${p.tel}`} className="num">
-            {p.text}
-          </a>
-        ) : (
-          <span key={i}>{p.text}</span>
-        ),
-      )}
-    </>
-  );
+  return <span dangerouslySetInnerHTML={{ __html: factText(text) }} />;
 }
 
 /** "Operator" provenance as text, never a coloured dot: "PLAN.md, read Aug 2026, (operator)". */
@@ -144,6 +129,8 @@ function RouteLine({ lines, confirmed }: { lines: PlaceLineT[]; confirmed: boole
   );
 }
 
+const LINK_ONLY_TEXT = /\b(?:alltrails|komoot|tripadvisor)\b/i;
+
 function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead' | 'Parking'; unconfirmed: boolean }) {
   return (
     <article className="pl-access" data-role={role.toLowerCase()}>
@@ -164,10 +151,10 @@ function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead
         {p.elevationM !== null ? (
           <div>
             <dt>Elevation</dt>
-            <dd className="num">{p.elevationM.toLocaleString('en-CA')} m</dd>
+            <dd className="num"><data className="um" value={String(p.elevationM)}>{p.elevationM.toLocaleString('en-CA')} m</data></dd>
           </div>
         ) : null}
-        {p.fee ? (
+        {p.fee && !LINK_ONLY_TEXT.test(p.fee) ? (
           <div>
             <dt>Fee</dt>
             <dd>
@@ -175,7 +162,7 @@ function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead
             </dd>
           </div>
         ) : null}
-        {p.capacity ? (
+        {p.capacity && !LINK_ONLY_TEXT.test(p.capacity) ? (
           <div>
             <dt>Capacity</dt>
             <dd>
@@ -236,8 +223,15 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   const showProfile = trail && ((km !== null && km > 0 && gain !== null) || storedProfile);
   const guide = thAt && dest && !loop && Math.hypot(thAt.lat - dest.lat, thAt.lng - dest.lng) > 0.001 ? { from: thAt, to: dest } : null;
 
-  const target = directionsTarget(place);
-  const targetPoint = target ? (target.source === 'parking' ? place.access?.parking[0] : target.source === 'trailhead' ? th : place.point) : null;
+  // PS4, T5: with no car park of our own, Directions go to the access place the contract found, and only a car park or a start counts. A place
+  // reached by a shuttle stop alone gets no driving Directions: a car sent to a stop ends on a road closed to private cars.
+  const dirs = place.sections?.directions ?? null;
+  const hasCarPark = !!place.access?.parking.length;
+  const via = dirs?.mode === 'drive' && !hasCarPark ? dirs : null;
+  const shuttleOnly = dirs?.mode === 'transit' && !hasCarPark ? dirs : null;
+  const viaPoint: AccessPoint | null = via ? { lat: via.lat, lon: via.lon, pointSource: via.pointSource, pointChecked: null, sourceLicence: via.pointSource.startsWith('osm_') ? 'ODbL' : 'unknown', name: via.name, note: null, elevationM: null } : null;
+  const target = shuttleOnly ? null : via ? { at: { lat: via.lat, lng: via.lon }, label: via.name, source: 'access' as const } : directionsTarget(place);
+  const targetPoint = viaPoint ?? (target ? (target.source === 'parking' ? place.access?.parking[0] : target.source === 'trailhead' ? th : place.point) : null);
   const unconfirmed = place.honesty.some((h) => h.id === 'location_unconfirmed');
   const points: PlaceMapPoint[] = [
     ...(th ? [{ id: 'trailhead', at: pointAt(th), style: 'trailhead' as const, label: th.name }] : []),
@@ -272,42 +266,149 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   if (place.kidFit !== 'unknown') suits.push(KID_LABELS[place.kidFit] ?? place.kidFit);
   if (place.minAge) suits.push(`${place.minAge}+ years`);
 
+  const model = place.sections;
+  const suit = place.suitability;
+  const rel = place.relevance;
+  const slugs = place.refSlugs;
+  const hasTrack = place.lines.some((l) => (l.geometry?.length ?? 0) > 1 || (l.segments?.length ?? 0) > 0);
+  // the older record's blocks, drawn inside the contract's sections so no visible fact is lost (S5)
+  const activityBlock = showProfile ? (
+    <>
+      <p
+        className="pl-route-line num"
+        dangerouslySetInnerHTML={{ __html: withUnits([km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, factByLabel(place.facts, 'Time') ? timeText(factByLabel(place.facts, 'Time')?.value ?? '') : null].filter(Boolean).join(' · ')) }}
+      />
+      <TrailProfile km={km} gainM={gain} startM={startM} loop={loop} highM={firstNumber(factByLabel(place.facts, 'High point')?.value)} guide={guide} lines={place.lines} />
+      {huts.length ? (
+        <ul className="pl-huts" aria-label="Huts and refuges">
+          {huts.map((h) => (
+            <li key={h.label}>
+              <strong>{h.label}</strong>
+              <span>
+                <FactText text={h.value} />
+              </span>
+              <span className="pl-prov">{provenanceText(h.provenance)}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <RouteLine lines={place.lines} confirmed={!unconfirmed && Boolean(place.access?.trailhead?.pointChecked)} />
+    </>
+  ) : null;
+  const mapped = new Set(place.sections?.legacyMapped ?? []);
+  const accessHtml =
+    (place.access?.trailhead ? `<div class="pl-access-list">${accessCard(place.access.trailhead, 'Trailhead', unconfirmed)}${(place.access.parking ?? []).map((p) => accessCard(p, 'Parking', false)).join('')}</div>` : place.access?.parking.length ? `<div class="pl-access-list">${place.access.parking.map((p) => accessCard(p, 'Parking', false)).join('')}</div>` : '') + factsDl(access.filter((f) => !mapped.has(f.label)));
+  const accessBlock = accessHtml ? <div className="su-c" dangerouslySetInnerHTML={{ __html: accessHtml }} /> : null;
+  const seasonBlock = place.season.length || publicText(place.seasonNote) ? (
+    <>
+      {place.season.length ? (
+        <>
+          <SeasonStrip months={seasonMonths(place.season)} />
+          <p className="pl-season num">{seasonLabel(place.season)}</p>
+        </>
+      ) : null}
+      {publicText(place.seasonNote) ? <p>{observed(publicText(place.seasonNote))}</p> : null}
+    </>
+  ) : null;
+  const photosBlock = photos.length ? (
+    <>
+      <GalleryLazy photos={photos.map((p) => ({ url: p.url, caption: p.caption, title: p.caption || p.file, author: p.author, licence: p.licence, licenceUrl: p.licenceUrl ?? undefined, sourceUrl: p.sourceUrl }))} />
+      <Credits photos={credits} />
+    </>
+  ) : (
+    <p className="pl-gap pl-nophotos">
+      <Icon name="info" size={14} /> No licensed photo yet, so none is shown.
+    </p>
+  );
+  const modelFacts = place.facts.filter((f, i, all) => !mapped.has(f.label) && !accessLabels.has(f.label) && !(showProfile && huts.some((h) => h.label === f.label)) && all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
+  const factsBlock = (
+    <>
+      {modelFacts.length ? <div className="su-c" dangerouslySetInnerHTML={{ __html: factsDl(modelFacts) }} /> : null}
+      {publicText(place.notes) && publicText(place.notes) !== publicText(place.summary) ? <p className="pl-notes">{observed(publicText(place.notes))}</p> : null}
+      {place.honesty.length ? (
+        <ul className="pl-reasons">
+          {place.honesty.map((h) => (
+            <li key={h.id}>
+              <strong>{h.label}.</strong> {h.reason}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {place.completeness.failed.length ? (
+        <details className="pl-missing">
+          <summary>
+            {place.completeness.label} · {place.completeness.failed.length} checks still open
+          </summary>
+          <p className="muted small">{place.completeness.tooltip}.</p>
+          <ul>
+            {place.completeness.failed.map((c) => (
+              <li key={c.id}>
+                <strong>{c.label}:</strong> not checked yet
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
+    </>
+  );
+  const legacy: LegacySlots = {
+    activity: activityBlock,
+    access: accessBlock,
+    season: seasonBlock,
+    photos: photosBlock,
+    links: <LinksTabs tabs={tabs} checked={checked} />,
+    facts: factsBlock,
+    hazards: place.hazards.map((h) => observed(publicText(h))).filter(Boolean),
+    booking: place.booking ? factText(place.booking) : null,
+  };
+
   return (
     <PlaceShell>
       <article className="pl-page" data-kind={place.kind} data-slug={place.slug}>
+        <Interactions />
         <Breadcrumbs items={crumbs} className="pl-crumbs" />
-        <header className="pl-cover" data-trail={trail || undefined}>
+        <header className="pl-cover" data-trail={trail || undefined} data-photo={photos[0] ? 'yes' : 'no'}>
           <div className="pl-cover-media">
             {photos[0] ? (
               <EntityImage src={photos[0].url} width={960} height={540} sizes="100vw" priority fallbackIcon={kindIcon(place.kind)} />
             ) : (
               <span className="pl-cover-glyph" aria-hidden="true">
-                <Icon name={kindIcon(place.kind)} size={120} />
+                <Icon name={kindIcon(place.kind)} size={96} />
               </span>
             )}
           </div>
-          <div className="pl-cover-body">
+          <div className="pl-cover-title">
             <p className="pl-kicker">{kicker}</p>
             <h1>{place.name}</h1>
-            <p className="pl-summary">{summaryOrKind(place.summary, place.kindLabel, place.areaLabel)}</p>
-            {trail && payoff ? (
-              <p className="pl-payoff">
-                To {payoff.slug ? <Link href={`/places/${payoff.slug}/`}>{payoff.name}</Link> : <strong>{payoff.name}</strong>}
-              </p>
-            ) : null}
-            <div className="pl-actions">
-              <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
-              <TrailExport slug={place.slug} lines={place.lines} />
-              <ShareButton url={url} title={place.name} />
-              {place.point ? (
-                <Link className="btn" href={`/globe/place/${place.slug}/`}>
-                  <Icon name="globe" size={15} /> Globe
-                </Link>
-              ) : null}
-            </div>
           </div>
         </header>
+        <div className="pl-cover-body">
+          {rel ? <CoverRelevance rel={rel} slugs={slugs} name={place.name} /> : null}
+          <p className="pl-summary">{summaryOrKind(place.summary, place.kindLabel, place.areaLabel)}</p>
+          {!rel?.payoff && trail && payoff ? (
+            <p className="pl-payoff">
+              To {payoff.slug ? <Link href={`/places/${payoff.slug}/`}>{payoff.name}</Link> : <strong>{payoff.name}</strong>}
+            </p>
+          ) : null}
+          <div className="pl-actions">
+            {target ? (
+              <a className="btn btn-primary pl-dir" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
+                <Icon name="navigate" size={14} /> Directions<span className="sr-only"> to {target.label} (opens in a new tab)</span>
+              </a>
+            ) : null}
+            <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
+            <TrailExport slug={place.slug} lines={place.lines} />
+            <ShareButton url={url} title={place.name} />
+            {place.point ? (
+              <Link className="btn" href={`/globe/place/${place.slug}/`}>
+                <Icon name="globe" size={15} /> Globe
+              </Link>
+            ) : null}
+          </div>
+        </div>
 
+        {model ? <Glance model={model} suit={suit} level={place.completeness} /> : null}
+        {!model ? (
         <section className="pl-glance" aria-label="At a glance">
           <ul>
             {glance.map((g) => (
@@ -354,21 +455,27 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
             </p>
           )}
         </section>
+        ) : null}
 
-        {trail && place.hazards.length ? (
+        {!model && trail && place.hazards.length ? (
           <section className="pl-hazards pl-hazards-top" aria-labelledby="h-hazards-top">
             <h2 id="h-hazards-top">
               <Icon name="warn" size={16} /> Hazards
             </h2>
             <ul>
               {place.hazards.map((h) => (
-                <li key={h}>{observed(publicText(h) || h)}</li>
+                <li key={h}>{observed(publicText(h))}</li>
               ))}
             </ul>
           </section>
         ) : null}
 
         <div className="pl-cols">
+          {model ? (
+            <div className="pl-main">
+              <Sections model={model} suit={suit} rel={rel} slugs={slugs} legacy={legacy} hasRoute={showProfile || hasTrack} />
+            </div>
+          ) : (
           <div className="pl-main">
             {showProfile ? (
               <Section id="route" title="The route">
@@ -404,7 +511,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </div>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> No trailhead or parking recorded yet.
+                  <Icon name="info" size={14} /> Not checked yet: trailhead and parking
                 </p>
               )}
               {access.length ? (
@@ -440,7 +547,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> No season recorded yet.
+                  <Icon name="info" size={14} /> Not checked yet: season
                 </p>
               )}
               {publicText(place.seasonNote) ? <p>{observed(publicText(place.seasonNote))}</p> : null}
@@ -466,7 +573,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </ul>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> Kid fit has not been assessed yet.
+                  <span className="gc">Family checks not done yet</span>
                 </p>
               )}
               {factByLabel(place.facts, 'Kids') ? (
@@ -490,7 +597,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                   </ul>
                 ) : (
                   <p className="pl-gap">
-                    <Icon name="info" size={14} /> No other places are recorded here yet.
+                    <Icon name="info" size={14} /> Not checked yet: other places here
                   </p>
                 )}
               </Section>
@@ -512,7 +619,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </dl>
               ) : (
                 <p className="pl-gap">
-                  <Icon name="info" size={14} /> No further facts recorded yet.
+                  <Icon name="info" size={14} /> Not checked yet: further facts
                 </p>
               )}
               {publicText(place.notes) && publicText(place.notes) !== publicText(place.summary) ? <p className="pl-notes">{observed(publicText(place.notes))}</p> : null}
@@ -528,13 +635,13 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               {place.completeness.failed.length ? (
                 <details className="pl-missing">
                   <summary>
-                    {place.completeness.label}: {place.completeness.failed.length} checks missing
+                    {place.completeness.label} · {place.completeness.failed.length} checks still open
                   </summary>
                   <p className="muted small">{place.completeness.tooltip}.</p>
                   <ul>
                     {place.completeness.failed.map((c) => (
                       <li key={c.id}>
-                        <strong>{c.label}.</strong> {c.hint}
+                        <strong>{c.label}:</strong> not checked yet
                       </li>
                     ))}
                   </ul>
@@ -553,6 +660,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               </p>
             )}
           </div>
+          )}
 
           <aside className="pl-side" aria-label="Map, directions and links">
             <section className="pl-card pl-mapcard" aria-labelledby="h-map">
@@ -583,15 +691,20 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                     </p>
                   ) : null}
                   <p className="pl-dir-links">
-                    <a className="btn btn-primary" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
+                    <a className="btn" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
                       <Icon name="navigate" size={14} /> Google Maps directions<span className="sr-only"> (opens in a new tab)</span>
                     </a>
                     <a className="btn" href={appleMapsUrl(target.at, target.label)} target="_blank" rel="noopener noreferrer">
                       Apple Maps<span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   </p>
+                  {via ? <p className="muted small">{place.name} has no car park of its own stored here, so directions go to {via.name}, where you {via.role === 'parks_for' ? 'park' : via.role === 'serves' ? 'catch the shuttle or bus' : 'start'}.</p> : null}
                   {target.source === 'parking' && th ? <p className="muted small">The trail starts at {th.name}, on foot from the car park.</p> : null}
                 </>
+              ) : shuttleOnly ? (
+                <p className="small">
+                  No private cars on this road: take the shuttle or bus from {shuttleOnly.stops.map((x) => x.name).join(' or ')}. The access section has the seat, the times and where the shuttle starts. We have no car park stored for it yet, so there is no driving button.
+                </p>
               ) : (
                 <p className="pl-gap">
                   <Icon name="info" size={14} /> No point is stored yet, so there are no directions.
@@ -599,7 +712,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
               )}
             </section>
 
-            {!trail ? (
+            {!model && !trail ? (
               <section className={place.hazards.length ? 'pl-hazards' : 'pl-card'} aria-labelledby="h-hazards">
                 <h2 id="h-hazards">
                   {place.hazards.length ? <Icon name="warn" size={16} /> : null} Hazards
@@ -607,19 +720,21 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 {place.hazards.length ? (
                   <ul>
                     {place.hazards.map((h) => (
-                      <li key={h}>{observed(h)}</li>
+                      <li key={h}>{observed(publicText(h))}</li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="muted small">No hazards recorded yet.</p>
+                  <p className="muted small">Not checked yet: hazards</p>
                 )}
               </section>
             ) : null}
 
-            <section className="pl-card" aria-labelledby="h-links">
-              <h2 id="h-links">Links</h2>
-              <LinksTabs tabs={tabs} checked={checked} />
-            </section>
+            {!model ? (
+              <section className="pl-card" aria-labelledby="h-links">
+                <h2 id="h-links">Links</h2>
+                <LinksTabs tabs={tabs} checked={checked} />
+              </section>
+            ) : null}
 
             {place.trips.length ? (
               <section className="pl-card" aria-labelledby="h-trips">

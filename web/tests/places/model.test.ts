@@ -66,11 +66,11 @@ describe('glance strip', () => {
     expect(g.filter((s) => s.fact).every((s) => s.fact?.provenance)).toBe(true);
     const difficulty = g.find((s) => s.label === 'Difficulty');
     expect(difficulty?.fact).toBeNull();
-    expect(difficulty?.empty).toBe('No difficulty recorded yet');
+    expect(difficulty?.empty).toBe('Not checked yet: difficulty');
   });
   it('says what is missing instead of leaving a blank (a sight has no hours yet)', () => {
     const g = glanceFor({ kind: 'sight', facts: [] });
-    expect(g.map((s) => s.empty)).toContain('No hours recorded yet');
+    expect(g.map((s) => s.empty)).toContain('Not checked yet: hours');
     expect(g.every((s) => s.fact === null && s.empty.length > 0)).toBe(true);
     expect(g).toHaveLength(6);
   });
