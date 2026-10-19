@@ -232,3 +232,53 @@ describe('no household notes, home town or dates in any public file', () => {
     }
   });
 });
+
+// Public output says who a plan suits ("Suits ages 11 and up"), never who travelled (backlog 2.34).
+const PARTY_PATTERNS: [string, RegExp][] = [
+  ['a child around N', /\b(?:a|the) child around \d/i],
+  ['"the child" as a traveller', /\bthe child(?:'s)?\b(?! (?:fare|rate|price|ticket))/i],
+  ['an N-year-old', /\b\d+-year-old/i],
+  ['a family of N', /\bfamily of \d/i],
+  ['N adults plus N children', /\b(?:\d+|two|three|four) adults? (?:plus|and) (?:\d+|two|three|four) (?:children|kids)/i],
+  ['"with kids N+" in a title', /\bwith (?:kids|children) \d+\+?/i],
+  ['"the other adult"', /\bthe other adult\b/i],
+  ['"both adults"', /\bboth adults\b/i],
+  ['our kids / our child', /\bour (?:kids?|child(?:ren)?|daughter|son)\b/i],
+];
+
+export function partyLeaks(root: string): string[] {
+  const hits: string[] = [];
+  const all = walkFiles(root);
+  const r = (f: string) => path.relative(root, f).split(path.sep).join('/');
+  for (const f of all.filter((x) => TEXTY.test(r(x)) || !path.extname(x))) {
+    if (r(f).startsWith('_next/static/')) continue; // framework chunks and our UI strings are code, not trip prose
+    const text = readText(f);
+    for (const [label, re] of PARTY_PATTERNS) if (re.test(text)) hits.push(`${r(f)}: ${label}`);
+  }
+  return hits;
+}
+
+describe('no party description in any public file', () => {
+  it('scans every file of the fixture build', () => {
+    expect(partyLeaks(OUT)).toEqual([]);
+  });
+  it('scans every file of the real build in web/out', () => {
+    if (!existsSync(path.join(REAL_OUT, 'index.html'))) return;
+    expect(partyLeaks(REAL_OUT)).toEqual([]);
+  });
+  it('can fail: every pattern matches its own example', () => {
+    const examples = [
+      'a shorter option for a child around 6',
+      'the other adult and the child ride',
+      'Whether a 6-year-old counts',
+      'a family of 3 cannot hike',
+      '2 adults plus 2 children under 30 kg',
+      'Patagonia with kids 11+',
+      'only if both adults want',
+      'the other adult walks',
+      'our kids love it',
+    ];
+    for (const e of examples) expect(PARTY_PATTERNS.some(([, re]) => re.test(e)), e).toBe(true);
+    expect(PARTY_PATTERNS.some(([, re]) => re.test('The family version suits children from about 6. Suits ages 11 and up. The child fare is 16.'))).toBe(false);
+  });
+});

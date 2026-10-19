@@ -56,11 +56,11 @@ test.describe('shell', () => {
     for (const name of ['Trips', 'Places', 'Globe']) await expect(page.locator('main').getByRole('link', { name, exact: true })).toBeVisible();
   });
 
-  test('the 404 page says "Not here" and offers search and the three lists', async ({ page, site }) => {
+  test('the 404 page says "Not here" and offers search and links to Home, Trips, Places, Globe and About', async ({ page, site }) => {
     await page.goto(`${site.url}/404/`);
     await expect(page.getByRole('heading', { name: 'Not here' })).toBeVisible();
     await expect(page.getByRole('searchbox')).toBeVisible();
-    for (const name of ['Trips', 'Places', 'Globe']) await expect(page.locator('main').getByRole('link', { name, exact: true })).toBeVisible();
+    for (const name of ['Home', 'Trips', 'Places', 'Globe', 'About']) await expect(page.locator('main').getByRole('link', { name, exact: true })).toBeVisible();
   });
 
   test('card grid is 4, 3, 2, 1 columns by width', async ({ browser, site }) => {

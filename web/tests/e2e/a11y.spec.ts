@@ -11,7 +11,9 @@ const PAGES: [string, string][] = [
   ['place', '/places/lago-di-braies/'],
   ['trail', '/places/tre-cime-di-lavaredo-loop/'],
   ['globe', '/globe/'],
-  ['about', '/about/data/'],
+  ['about', '/about/'],
+  ['about data', '/about/data/'],
+  ['terms', '/terms/'],
 ];
 
 test.describe('axe, every page type', () => {

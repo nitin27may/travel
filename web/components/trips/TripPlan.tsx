@@ -10,7 +10,7 @@ import { CategoryStrip } from './CategoryStrip';
 import { CategoryView } from './CategoryView';
 import { DayRow } from './DayRow';
 import { DEPTH_NOTICE } from './format';
-import type { TripPageModel } from './model';
+import { routeHasPositions, type TripPageModel } from './model';
 import { dayFitIds, RouteKey, TripRouteMap } from './TripRouteMap';
 import { useTripUrl } from './useTripUrl';
 
@@ -19,7 +19,6 @@ interface Props {
   model: TripPageModel;
   title: string;
   depth: 'full' | 'summary';
-  legacyUrl: string;
 }
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -28,7 +27,7 @@ const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefe
  * The route map and "In this trip": the category strip, the By day / By category segment, the uniform day rows.
  * A picked day highlights on the map; By category regroups the same items and never changes the order inside a day.
  */
-export function TripPlan({ slug, model, title, depth, legacyUrl }: Props) {
+export function TripPlan({ slug, model, title, depth }: Props) {
   const url = useTripUrl();
   const showCategory = url.view === 'category';
   const [open, setOpen] = useState<ReadonlySet<number>>(new Set());
@@ -113,6 +112,12 @@ export function TripPlan({ slug, model, title, depth, legacyUrl }: Props) {
     <>
       <section className="trip-sec" aria-labelledby="route-h" id="route" data-print="hide">
         <h2 id="route-h" className="trip-h">The route</h2>
+        {!routeHasPositions(model.route) ? (
+          <p className="trip-sec-note" data-testid="route-unplaced">
+            Stop positions are not researched yet, so there is no route map for this plan. The days below list every stop.
+          </p>
+        ) : (
+        <>
         <p className="trip-sec-note">
           Every day&apos;s stops as dots, the bases as signposts. Lines are straight estimates between stops; road routes come later.
           {model.route.unplaced ? ` ${model.route.unplaced} stops have no map position yet.` : ''} Pick a day below to follow it.
@@ -121,6 +126,8 @@ export function TripPlan({ slug, model, title, depth, legacyUrl }: Props) {
           <TripRouteMap ref={map} route={model.route} picked={picked} title={title} />
         </MapFamilyProvider>
         <RouteKey />
+        </>
+        )}
       </section>
 
       <section className="trip-sec" aria-labelledby="in-trip-h" id="in-this-trip" ref={top}>
@@ -128,7 +135,6 @@ export function TripPlan({ slug, model, title, depth, legacyUrl }: Props) {
         {depth === 'summary' ? (
           <p className="trip-depth">
             <Chip kind="honest">{DEPTH_NOTICE.summary}</Chip>
-            <a href={legacyUrl}>Read the original plan</a>
           </p>
         ) : null}
         <div data-print="hide">

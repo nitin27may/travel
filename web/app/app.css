@@ -169,6 +169,7 @@ html.theme-fade img { transition: none !important; }
 @media (min-width: 980px) { .hero[data-featured] { grid-template-columns: minmax(0, 1fr) minmax(0, 25rem); align-items: center; gap: var(--s-12); } }
 .hero-links { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 .prose { max-width: 46rem; display: grid; gap: var(--s-4); padding-top: var(--s-4); }
+.prose ul:not(.licence-list) { list-style: disc; padding-left: 1.25rem; display: grid; gap: var(--s-2); }
 .prose h1 { font: var(--t-page); text-transform: uppercase; }
 .prose h2 { font: var(--t-section); margin-top: var(--s-4); }
 .licence-list { display: grid; gap: var(--s-3); }

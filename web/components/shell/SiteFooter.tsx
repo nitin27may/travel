@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer-inner">
         <p>
-          <Link href="/about/data/">About the data</Link>. Maps and photographs are credited where they appear: OpenStreetMap contributors, OpenFreeMap, Mapterhorn and Wikimedia Commons authors.
+          <Link href="/about/data/">About the data</Link> · <Link href="/terms/">Terms and copyright</Link>. Maps and photographs are credited where they appear: OpenStreetMap contributors, OpenFreeMap, Mapterhorn and Wikimedia Commons authors.
         </p>
         <UnitSwitch />
       </div>

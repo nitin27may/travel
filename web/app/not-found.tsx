@@ -4,7 +4,7 @@ import { pageMetadata } from '@/lib/site';
 
 export const metadata = pageMetadata({ title: 'Not here', description: 'That page does not exist on this site.', path: '/404/', noindex: true });
 
-/** 404 (components 6.3): "Not here", a search field and links to Trips, Places and Globe. */
+/** 404 (components 6.3): "Not here", a search field and links to Home, Trips, Places, Globe and About. */
 export default function NotFound() {
   return (
     <div className="prose not-found">
@@ -23,9 +23,11 @@ export default function NotFound() {
         </button>
       </form>
       <div className="hero-links">
+        <ButtonLink href="/">Home</ButtonLink>
         <ButtonLink href="/trips/">Trips</ButtonLink>
         <ButtonLink href="/places/">Places</ButtonLink>
         <ButtonLink href="/globe/">Globe</ButtonLink>
+        <ButtonLink href="/about/">About</ButtonLink>
       </div>
     </div>
   );
