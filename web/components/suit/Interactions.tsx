@@ -37,8 +37,8 @@ export function Interactions() {
     // distances and heights follow the visitor's units (km or mi, m or ft)
     const applyUnits = (): void => {
       const prefs = parsePrefs(window.localStorage.getItem(PREFS_KEY), navigator.language);
-      for (const el of document.querySelectorAll<HTMLElement>('data.ukm, data.um')) {
-        const u = el.classList.contains('ukm') ? 'km' : 'm';
+      for (const el of document.querySelectorAll<HTMLElement>('data.ukm, data.um, data.ucm')) {
+        const u = el.classList.contains('ukm') ? 'km' : el.classList.contains('ucm') ? 'cm' : 'm';
         el.textContent = `${(el.getAttribute('value') ?? '').split('–').map((v) => convertNumber(v, u, prefs)).join('–')} ${unitWord(u, prefs)}`;
       }
     };

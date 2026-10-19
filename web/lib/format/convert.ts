@@ -5,19 +5,22 @@ import type { Prefs } from './units';
 // timeline entry all follow the visitor's units (km or mi, m or ft). Pure: no I/O, no DOM.
 
 /** A number or range followed by km or m. The number may carry thousands commas. */
-export const UNIT_PATTERN = /(\d[\d,]*(?:\.\d+)?)(?:–(\d[\d,]*(?:\.\d+)?))?\s?(km|m)\b/g;
+export const UNIT_PATTERN = /(\d[\d,]*(?:\.\d+)?)(?:–(\d[\d,]*(?:\.\d+)?))?\s?(km|cm|m)\b/g;
 
 /** One number in the chosen unit, without the unit word. */
-export function convertNumber(value: string, unit: 'km' | 'm', prefs: Prefs): string {
+export function convertNumber(value: string, unit: 'km' | 'm' | 'cm', prefs: Prefs): string {
   const n = Number(value.replace(/,/g, ''));
+  // a width or a height in centimetres follows the height unit: feet and inches go with inches
+  if (unit === 'cm') return prefs.elevation === 'ft' ? String(Math.round(n / 2.54)) : String(n);
   const out = unit === 'km' ? formatDistance(n, prefs.distance) : formatElevation(n, prefs.elevation);
-  return out.replace(/ \w+$/, '');
+  // the page ships "10 km", not "10.0 km"
+  return out.replace(/ \w+$/, '').replace(/\.0$/, '');
 }
 
 /** The unit word a value carries under these prefs. */
-export const unitWord = (unit: 'km' | 'm', prefs: Prefs): string => (unit === 'km' ? prefs.distance : prefs.elevation);
+export const unitWord = (unit: 'km' | 'm' | 'cm', prefs: Prefs): string => (unit === 'km' ? prefs.distance : unit === 'cm' ? (prefs.elevation === 'ft' ? 'in' : 'cm') : prefs.elevation);
 
 /** Text with every distance and height rewritten to the visitor's units. */
 export function convertText(text: string, prefs: Prefs): string {
-  return text.replace(UNIT_PATTERN, (_m, a: string, b: string | undefined, u: 'km' | 'm') => `${convertNumber(a, u, prefs)}${b ? `–${convertNumber(b, u, prefs)}` : ''} ${unitWord(u, prefs)}`);
+  return text.replace(UNIT_PATTERN, (_m, a: string, b: string | undefined, u: 'km' | 'm' | 'cm') => `${convertNumber(a, u, prefs)}${b ? `–${convertNumber(b, u, prefs)}` : ''} ${unitWord(u, prefs)}`);
 }
