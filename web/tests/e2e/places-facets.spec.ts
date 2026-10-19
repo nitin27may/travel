@@ -52,7 +52,7 @@ test.describe('Places filters', () => {
     expect(clean(await axe(page))).toEqual([]);
     await menu.getByRole('button', { name: '6', exact: true }).click();
     await expect(page).toHaveURL(/kid=6/);
-    await expect(page.locator('.count')).toContainText('for a 6-year-old');
+    await expect(page.locator('.count')).toContainText('for age 6');
     await menu.getByRole('button', { name: 'One year older' }).click();
     await expect(page).toHaveURL(/kid=7/);
     await menu.getByRole('button', { name: 'Any age' }).click();

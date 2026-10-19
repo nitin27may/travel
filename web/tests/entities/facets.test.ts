@@ -155,7 +155,7 @@ describe('a gap never passes a positive filter', () => {
     expect(filterRows(rows, st, d).map((r) => r.id)).toEqual(['advice', 'fits']);
     expect(filterRows(rows, decodeState('kid=8'), d).map((r) => r.id)).toEqual(['rule', 'advice', 'fits']);
     expect(filterRows(rows, decodeState('kid=3'), d).map((r) => r.id)).toEqual(['advice']);
-    expect(gapNotes(rows, st, d)).toEqual(expect.arrayContaining(['1 not checked yet', 'for a 6-year-old · 1 is a stretch, shown faded']));
+    expect(gapNotes(rows, st, d)).toEqual(expect.arrayContaining(['1 not checked yet', 'for age 6 · 1 is a stretch, shown faded']));
     // the older kid-fit values keep working
     expect(filterRows([blank({ kid_fit: 'yes' }), blank({ kid_fit: 'no' })], decodeState('kid=yes'), d)).toHaveLength(1);
   });
