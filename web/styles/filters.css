@@ -129,3 +129,6 @@ tr[data-row][data-from='17'] td:first-child::after { content: 'A stretch at ' va
 
 /* the age the filter bar sets while a Kids age is chosen (read by the stretch chip) */
 :root { --kid-age-text: ""; }
+
+/* card footers: a place with a source line, a check state and a badge reads as one line of separated items */
+.src .foot-sep { color: var(--muted); }

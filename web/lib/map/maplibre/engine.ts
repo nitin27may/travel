@@ -306,7 +306,7 @@ export async function createMapLibre(ml: ML, opts: EngineOptions): Promise<MapLi
   });
   map.on('movestart', () => collapseFan());
   map.on('moveend', (e) => {
-    if (!(e as { originalEvent?: unknown }).originalEvent) return;
+    if (!(e as { originalEvent?: unknown }).originalEvent && !spec.reportAllMoves) return;
     const c = map.getCenter();
     opts.onCamera?.({ lng: c.lng, lat: c.lat, zoom: map.getZoom() });
   });
