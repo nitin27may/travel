@@ -1,6 +1,7 @@
 import { CATEGORIES, CATEGORY_LABEL } from '@/lib/public/types';
-import type { Category, CategoryItem, DayItem, Photo, PublicDay, PublicTrip } from '@/lib/public/types';
+import type { Category, CategoryItem, DayItem, Photo, PublicDay, PublicPlaceCard, PublicTrip } from '@/lib/public/types';
 import { driveLabel } from './format';
+import { buildTimelineModel, type TimelineModel } from './timeline/model';
 
 /** What the trip page needs from a place: a map point and a thumbnail. Supplied by the page from the places adapter. */
 export interface PlaceFacts {
@@ -94,6 +95,8 @@ export interface CreditModel {
 }
 
 export interface TripPageModel {
+  /** The trip as a timeline for the visitor's profile; null for an overview trip, or when a build has no schedule files. */
+  timeline: TimelineModel | null;
   days: DayRowModel[];
   sections: CategorySectionModel[];
   route: RouteModel;
@@ -244,7 +247,7 @@ export function tripGallery(trip: PublicTrip): Photo[] {
 }
 
 /** Everything the trip page renders, from the adapter's trip. Pure: the places lookup is injected. */
-export function buildTripPageModel(trip: PublicTrip, lookup: PlaceLookup): TripPageModel {
+export function buildTripPageModel(trip: PublicTrip, lookup: PlaceLookup, nearby: PublicPlaceCard[] = []): TripPageModel {
   const used: Photo[] = [];
   const gallery = tripGallery(trip);
   const taken = new Set<string>();
@@ -255,7 +258,9 @@ export function buildTripPageModel(trip: PublicTrip, lookup: PlaceLookup): TripP
     const k = `${c.title}|${c.author}|${c.licence}`;
     return seen.has(k) ? false : (seen.add(k), true);
   });
+  const timeline = buildTimelineModel(trip, new Map(days.map((d) => [d.n, d.thumb ? { url: d.thumb.url } : null])), nearby);
   return {
+    timeline,
     days,
     sections: trip.depth === 'overview' ? [] : sectionsOf(trip),
     route: routeOf(trip, lookup),

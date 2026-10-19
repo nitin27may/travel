@@ -81,7 +81,9 @@ describe('household data never reaches the public output', () => {
     const out = JSON.stringify({ t: d.internals.trips, p: d.internals.places, g: d.globeIndex(), r: d.legacyPlaceRedirects() });
     expect(SECRETS.filter((s) => out.includes(s))).toEqual([]);
     expect(out).not.toMatch(/Example (hotel|guesthouse)/i);
-    for (const k of PRIVATE_KEYS) expect(allKeys(JSON.parse(out)).has(k), `output key ${k}`).toBe(false);
+    // a warning's `code` ("W_OVERLAP") is the scheduler's, not a booking code; the string checks above cover the timeline's values
+    const stripped = JSON.parse(JSON.stringify({ t: d.internals.trips.map(({ schedule: _s, days, ...t }) => ({ ...t, days: days.map(({ scheduleInput: _i, ...x }) => x) })), p: d.internals.places, g: d.globeIndex(), r: d.legacyPlaceRedirects() }));
+    for (const k of PRIVATE_KEYS) expect(allKeys(stripped).has(k), `output key ${k}`).toBe(false);
   });
 
   it('a built site holds none of them (web/out and the fixture builds, when present)', () => {

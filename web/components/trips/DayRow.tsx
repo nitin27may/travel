@@ -1,12 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { CopyDayLink } from '@/components/actions/ShareButton';
 import { DaySign } from '@/components/ui/DaySign';
 import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
 import { KindGlyph } from '@/components/ui/KindGlyph';
-import { Segmented } from '@/components/ui/Segmented';
 import { imageSrcSet, sizedImage } from '@/lib/format/image';
 import type { DayRowModel, StopModel } from './model';
 import { StopStats } from './StopStats';
@@ -46,9 +44,10 @@ function StopList({ stops }: { stops: StopModel[] }) {
 
 /** One uniform day row (patterns 3.4): quiet DAY sign, thumbnail, title, base and drive, the stop list; opens to the stops. */
 export function DayRow({ trip, day, open, picked, onToggle }: Props) {
-  const [track, setTrack] = useState<'A' | 'B' | 'C' | null>(day.defaultTrack);
+  // no per-day Track A, B, C choice: the profile chooses a version for the whole trip (trip-timeline spec 3). This plain row only
+  // appears for a build with no schedule data, and shows the family version.
   const tracks = day.tracks;
-  const shown = tracks ? (tracks.find((t) => t.id === track) ?? tracks[0]) : null;
+  const shown = tracks ? (tracks.find((t) => t.id === day.defaultTrack) ?? tracks[0]) : null;
   const names = (shown ? shown.stops : day.stops).map((s) => s.name);
   const meta = [day.base, day.drive ? `${day.drive} drive` : null].filter(Boolean).join(' · ');
   const panel = `day-${day.n}-panel`;
@@ -75,7 +74,6 @@ export function DayRow({ trip, day, open, picked, onToggle }: Props) {
             </span>
             <span className="day-title">{day.title}</span>
             <span className="day-stops">{names.length ? names.join(' · ') : 'No stops planned yet'}</span>
-            {tracks && !open ? <span className="day-options num">{tracks.length} options</span> : null}
           </span>
           <Icon name="chevronDown" size={18} className="day-chevron" />
         </button>
@@ -92,14 +90,6 @@ export function DayRow({ trip, day, open, picked, onToggle }: Props) {
             ) : null}
             {tracks && shown ? (
               <>
-                <Segmented
-                  label={`Day ${day.n} options`}
-                  size="s"
-                  value={shown.id}
-                  onChange={setTrack}
-                  segments={tracks.map((t) => ({ value: t.id, label: `${t.id} · ${t.label}` }))}
-                  className="day-tracks"
-                />
                 {shown.notes ? <p className="day-summary">{shown.notes}</p> : null}
                 <StopList stops={shown.stops} />
               </>

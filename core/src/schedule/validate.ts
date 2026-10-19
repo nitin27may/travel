@@ -16,7 +16,7 @@ function laneEntries(t: DayTimeline, lane: Lane): TimelineEntry[] {
 export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Profile, sun: SunRef | null, items: Map<string, ScheduleItem>, mainLabel: Lane): ScheduleWarning[] {
   const out: ScheduleWarning[] = [];
   const warn = (code: ScheduleWarning["code"], message: string, entry: TimelineEntry | null, lane: Lane): void => {
-    if (out.some((w) => w.code === code && w.entryId === (entry?.id ?? null) && w.lane === lane && w.message === message)) return;
+    if (out.some((w) => w.code === code && w.entryId === (entry?.id ?? null) && w.message === message)) return;
     out.push({ code, message, entryId: entry?.id ?? null, lane });
   };
   const lanes: Lane[] = t.lanes.length > 1 ? t.lanes : ["all"];
