@@ -1,0 +1,950 @@
+{
+  "schema": "capture/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "CS7",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+      "title": "Day hikes in Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+      "title": "Banff Gondola",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/dining/sky-bistro/",
+      "title": "Sky Bistro",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "title": "Parks Canada shuttle to Lake Louise and Moraine Lake",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "title": "Fees, Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0006",
+      "url": "https://wildwater.com/kicking-horse-rafting-trips/",
+      "title": "Kicking Horse rafting trips",
+      "publisher": "Wild Water Adventures",
+      "kind": "operator",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "name": "Sulphur Mountain",
+      "area_id": "CA/AB/banff-national-park",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "reason": "Capture backlog row 1 (Sulphur Mountain): the summit the gondola top station and the trail belong to."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q842987",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "commons",
+          "url": "https://commons.wikimedia.org/wiki/Category:Sulphur_Mountain",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Sanson's Peak",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/12244949797",
+      "part_of": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "reason": "Backlog row 1: the boardwalk's payoff; Pursuit names it with the Cosmic Ray Station as the boardwalk's end."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/12244949797",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Sanson's Peak",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#summit-boardwalk",
+      "type": "nature.trail.nature_walk.boardwalk",
+      "layer": "route",
+      "name": "Sulphur Mountain summit boardwalk",
+      "area_id": "CA/AB/banff-national-park",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top"
+      ],
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "reason": "Backlog row 1: Pursuit, 'a casual 2 km stroll to Sanson's Peak and the Sulphur Mountain Cosmic Ray Station'."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
+      "type": "food.eat.restaurant",
+      "layer": "place",
+      "name": "Sky Bistro",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/678977497",
+      "part_of": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "reason": "Backlog row 1: the summit restaurant; Pursuit: 'perched on the summit of Sulphur Mountain'."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.banffjaspercollection.com/attractions/banff-gondola/dining/sky-bistro/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/678977497",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop",
+      "type": "access.transit.shuttle_stop",
+      "layer": "place",
+      "name": "Moraine Lake shuttle stop",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/13240062778",
+      "serves": [
+        "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "Backlog row 3: the road is closed to personal vehicles, so the Parks Canada shuttle stop is the access point."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/13240062778",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Moraine Lake Rockpile",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/348002838",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "Backlog row 3: the Rockpile viewpoint above the lake's outlet."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/348002838",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Moraine Lake Rockpile",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Moraine Lake Rockpile loop",
+      "area_id": "CA/AB/banff-national-park",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
+      ],
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "Backlog row 3. Parks Canada: '0.7 km loop', 35 m gain, 30 minutes (the backlog said 0.8 km)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-seat",
+      "type": "access.pass.shuttle_seat",
+      "layer": "offer",
+      "name": "Parks Canada shuttle seat to Moraine Lake",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "06-01",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "weather permitting"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-18",
+        "quote": "weather permitting",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 12.75,
+            "currency": "CAD",
+            "per": "adult",
+            "age_from": 18,
+            "age_to": 64,
+            "applies_to": "2026"
+          },
+          {
+            "amount": 6.0,
+            "currency": "CAD",
+            "per": "person",
+            "age_from": 65,
+            "applies_to": "2026",
+            "note": "senior"
+          },
+          {
+            "amount": 4.0,
+            "currency": "CAD",
+            "per": "child",
+            "age_to": 17,
+            "applies_to": "2026",
+            "note": "youth 17 and under"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-18",
+        "quote": "Adult (18 – 64 years) $ 12.75; Senior (65+ years) $ 6.00; Youth (17 and under) $ 4.00",
+        "note": "Plus a non-refundable reservation fee of $3.50 online or $5.50 by telephone. The fees page gives no year; read during the 2026 season.",
+        "applies_to": "2026"
+      },
+      "window": {
+        "v": {
+          "rule": "rolling",
+          "days_before": 2,
+          "opens_time": "08:00",
+          "tz": "America/Edmonton",
+          "sellout": {
+            "kind": "unknown"
+          },
+          "fallback": "40% of seats go on sale on a spring launch day; the other 60% open at 08:00 Mountain time two days before each departure."
+        },
+        "state": "value",
+        "basis": "official_rule",
+        "src": [
+          "src-0004"
+        ],
+        "read": "2026-10-18",
+        "quote": "The remaining 60% of seats are released at 8 am MDT, two days before each departure day.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "hours_rates",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Sentinel Pass",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/2706106443",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+        "reason": "Backlog rows 3 and 4: the payoff of the Larch Valley route; Parks Canada lists 'Sentinel Pass via Larch Valley Trail', 5.6 km one way, 750 m gain."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/2706106443",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22562892",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#larch-valley",
+      "type": "nature.landform.valley",
+      "layer": "place",
+      "name": "Larch Valley",
+      "area_id": "CA/AB/banff-national-park",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+        "reason": "Backlog rows 3 and 4: the larch meadows the route passes."
+      },
+      "links": [
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22366287",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Johnston Canyon Lower Falls",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/3005639506",
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+        "reason": "Capture backlog row 6 (spec 2.7.1, the canyon example)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/3005639506",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Johnston Canyon Upper Falls",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/3005649801",
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+        "reason": "Capture backlog row 6 (spec 2.7.1, the canyon example)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/3005649801",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots",
+      "type": "water.body.pond_reservoir",
+      "layer": "place",
+      "name": "Ink Pots",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/1366399455",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+        "reason": "Backlog row 6: the mineral springs beyond the Upper Falls (Wikidata: spring)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/1366399455",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q22438559",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Ink Pots trail",
+      "area_id": "CA/AB/banff-national-park",
+      "passes": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
+          "at_km": 1.1
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
+          "at_km": 2.4
+        }
+      ],
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+        "reason": "Backlog row 6. Parks Canada: 5.5 km one way, 425 m gain, from the Johnston Canyon day-use area or the Moose Meadows lot."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+      "type": "water.body.river",
+      "layer": "route",
+      "name": "Kicking Horse River, upper section",
+      "origin": {
+        "from": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+        "reason": "Backlog row 5: Wild Water: the gentle trip runs the 'upper section of the Kicking Horse River' (Alarm Clock, the Braids, Hopi's Hole)."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://wildwater.com/kicking-horse-rafting-trips/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0006"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+      "type": "water.body.river",
+      "layer": "route",
+      "name": "Kicking Horse River, lower canyon",
+      "origin": {
+        "from": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+        "reason": "Backlog row 5: Wild Water: the Whitewater Exciter runs Roller Coaster, Portage and Shotgun (IV+) and Park Bridge 'with views towards the lower canyon'."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://wildwater.com/kicking-horse-rafting-trips/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0006"
+          ]
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+      "type": "access.start.meeting_point",
+      "layer": "place",
+      "name": "Wild Water Adventures River Base",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+        "reason": "Backlog row 5: Wild Water, 'All trips depart from the River Base at 2750 Beaverfoot Road, Golden, BC'. Put-ins and take-outs are not published; no OSM point found."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://wildwater.com/kicking-horse-rafting-trips/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0006"
+          ]
+        },
+        {
+          "kind": "osm",
+          "state": "searched_none",
+          "query": "Wild Water / River Base within 5 km of 51.25,-116.75",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Bow Lake day-use parking",
+      "osm_ref": "relation/18335545",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/sights/bow-lake"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+        "reason": "Lake access point (CS7 goal 5): OSM relation 18335545, fee=no."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/18335545",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Emerald Lake parking",
+      "osm_ref": "way/230454536",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+        "reason": "Lake access point (CS7 goal 5): OSM way 230454536, name 'Emerald Lake Parking', fee=no."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/230454536",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Maligne Lake parking",
+      "osm_ref": "relation/21018594",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+        "reason": "Lake access point (CS7 goal 5): OSM relation 21018594, name 'Maligne Lake Parking', fee=no; at the north end, the cruise dock for Spirit Island."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/21018594",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Mount Lorette Ponds parking",
+      "osm_ref": "way/261038378",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+        "reason": "Lake access point (CS7 goal 5): OSM way 261038378, amenity=parking beside the toilets."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/261038378",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Pyramid Lake parking",
+      "osm_ref": "way/1282422641",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/sights/pyramid-lake"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+        "reason": "Lake access point (CS7 goal 5): OSM way 1282422641, fee=no, by the accessible toilets."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/1282422641",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Wedge Pond parking",
+      "osm_ref": "way/262156429",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/sights/wedge-pond"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+        "reason": "Lake access point (CS7 goal 5): OSM way 262156429, name 'Wedge Pond Parking Lot'."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/262156429",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Lake Minnewanka parking",
+      "osm_ref": "way/48295612",
+      "parks_for": [
+        "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+        "reason": "Lake access point (CS7 goal 5): OSM way 48295612, name 'Minnewanka Lake', at the west end by the cruise dock."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/48295612",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
+    },
+    {
+      "ref": "part/place/lake-louise#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Lake Louise Lakeshore parking",
+      "osm_ref": "way/26752321",
+      "parks_for": [
+        "place/lake-louise"
+      ],
+      "origin": {
+        "from": "place/lake-louise",
+        "reason": "Lake access point (CS7 goal 5): OSM way 26752321, fee=yes."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/26752321",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "area_id": "CA/AB/banff-national-park"
+    },
+    {
+      "ref": "offer/place/lake-louise#parking",
+      "type": "access.park.parking",
+      "layer": "offer",
+      "name": "Lake Louise Lakeshore parking, day fee",
+      "at": [
+        "part/place/lake-louise#parking"
+      ],
+      "season": {
+        "v": [
+          {
+            "from": "05-15",
+            "to": "10-12",
+            "status": "open",
+            "applies_to": "2026",
+            "note": "paid-parking season on the fees page"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-18",
+        "note": "The fees page gives the season under the parking section without tying it to this row.",
+        "applies_to": "2026"
+      },
+      "price": {
+        "v": [
+          {
+            "amount": 42.0,
+            "currency": "CAD",
+            "per": "vehicle_day",
+            "applies_to": "2026"
+          }
+        ],
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0005"
+        ],
+        "read": "2026-10-18",
+        "quote": "Lake Louise Lakeshore - General Parking, per vehicle $ 42.00",
+        "note": "Daily rate. OSM's charge tag says 36.75 CAD (an older rate); the fees page wins.",
+        "applies_to": "2026"
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        }
+      ],
+      "origin": {
+        "from": "place/lake-louise",
+        "reason": "CS7 research: the product sold at this place (capture contract 2.4)."
+      }
+    },
+    {
+      "ref": "part/place/lake-louise#shuttle-stop",
+      "type": "access.transit.shuttle_stop",
+      "layer": "place",
+      "name": "Lake Louise Lakeshore shuttle stop",
+      "area_id": "CA/AB/banff-national-park",
+      "osm_ref": "node/12164756005",
+      "serves": [
+        "place/lake-louise"
+      ],
+      "origin": {
+        "from": "place/lake-louise",
+        "reason": "Lake access point: the Parks Canada shuttle from the Park and Ride stops at the lakeshore."
+      },
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/12164756005",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    }
+  ]
+}

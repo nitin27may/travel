@@ -745,6 +745,10 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+          "km": 10.1
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
           "km": 11.2
         }
@@ -899,7 +903,12 @@
           "hand_picked": false
         }
       ],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+          "km": 12.6
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -944,8 +953,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 86,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -953,7 +963,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+          "km": 12.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -968,7 +983,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 86 min is over 30"
         }
       },
       "role": "local_only",
@@ -980,12 +995,7 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "place"
     },
     {
@@ -993,8 +1003,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 86,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -1017,7 +1028,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 86 min is over 30"
         }
       },
       "role": "local_only",
@@ -1029,12 +1040,7 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "place"
     },
     {
@@ -1131,6 +1137,10 @@
           "km": 3.1
         },
         {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+          "km": 4.7
+        },
+        {
           "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
           "km": 6.7
         }
@@ -1180,7 +1190,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 36.3,
+        "km": 37.2,
         "draw": "national",
         "same_class": false
       },
@@ -1298,7 +1308,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+          "km": 2.4
+        }
+      ],
       "part_of": [
         "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
       ],
@@ -1643,16 +1658,45 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 228,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+        "km": 49.9,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "km": 6.5
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -1667,7 +1711,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 228 min is over 30"
         }
       },
       "role": "highlight",
@@ -1681,8 +1725,8 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier has the same class within 100 km"
         }
       ],
       "layer": "place"
@@ -2142,7 +2186,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 37.1,
+        "km": 38,
         "draw": "national",
         "same_class": false
       },
@@ -2270,7 +2314,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 41.8,
+        "km": 42.4,
         "draw": "national",
         "same_class": false
       },
@@ -2982,7 +3026,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+          "km": 12.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -3045,7 +3094,7 @@
       "pair_pending": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-          "km": 4.5
+          "km": 4.1
         }
       ],
       "part_of": [],
@@ -3175,12 +3224,12 @@
       ],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
           "km": 3
         },
         {
-          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-          "km": 3.4
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+          "km": 3
         }
       ],
       "part_of": [],
@@ -3222,8 +3271,26 @@
       "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+            "km": 2.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+            "km": 2.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
       "far_pointer": null,
       "pair_with": [
@@ -3276,7 +3343,12 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff has the same class within 100 km"
+        }
+      ],
       "layer": "place"
     },
     {
@@ -3344,6 +3416,10 @@
       "far_pointer": null,
       "pair_with": [],
       "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+          "km": 2.1
+        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
           "km": 11.9
@@ -3454,7 +3530,7 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": 8,
+      "detour_min": 10,
       "detour_basis": "town",
       "detour_town": "Banff",
       "from_hubs": {},
@@ -3463,7 +3539,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -3475,9 +3551,9 @@
       "pair_with": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
-          "km": 0.5,
+          "km": 1.2,
           "how": "walk",
-          "extra_min": 134,
+          "extra_min": 156,
           "on_site_min": 120,
           "on_site_estimated": false,
           "draw": "regional",
@@ -3490,7 +3566,7 @@
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
-          "km": 4.5
+          "km": 4.1
         }
       ],
       "part_of": [],
@@ -3586,7 +3662,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -3900,9 +3976,9 @@
       "pair_with": [
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-          "km": 0.5,
+          "km": 1.2,
           "how": "walk",
-          "extra_min": 104,
+          "extra_min": 126,
           "on_site_min": 90,
           "on_site_estimated": true,
           "draw": "national",
@@ -3960,7 +4036,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+          "km": 2.4
+        }
+      ],
       "part_of": [
         "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail"
       ],
@@ -4616,8 +4697,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 86,
+      "detour_basis": "town",
+      "detour_town": "Kananaskis Village",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -4625,7 +4707,12 @@
       },
       "far_pointer": null,
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+          "km": 12.1
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -4640,7 +4727,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 86 min is over 30"
         }
       },
       "role": "local_only",
@@ -4652,12 +4739,7 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "route",
       "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff"
     },
@@ -4666,8 +4748,9 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 86,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
         "near": [],
@@ -4690,7 +4773,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 86 min is over 30"
         }
       },
       "role": "local_only",
@@ -4702,12 +4785,7 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ],
+      "warnings": [],
       "layer": "route",
       "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff"
     },
@@ -4726,7 +4804,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 36.3,
+        "km": 37.2,
         "draw": "national",
         "same_class": false
       },
@@ -5077,16 +5155,45 @@
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
+      "detour_min": 228,
+      "detour_basis": "town",
+      "detour_town": "Jasper",
       "from_hubs": {},
       "substitutes": {
-        "near": [],
-        "area": []
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
       },
-      "far_pointer": null,
+      "far_pointer": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+        "km": 49.9,
+        "draw": "world",
+        "same_class": false
+      },
       "pair_with": [],
-      "pair_pending": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "km": 6.5
+        }
+      ],
       "part_of": [],
       "plan_b": null,
       "fits": {
@@ -5101,7 +5208,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "detour unknown"
+          "reason": "detour 228 min is over 30"
         }
       },
       "role": "highlight",
@@ -5115,8 +5222,8 @@
       "stale": [],
       "warnings": [
         {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+          "code": "W_REL_DISTINCTION",
+          "message": "distinction is unique but legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier has the same class within 100 km"
         }
       ],
       "layer": "route",
@@ -5155,7 +5262,7 @@
       },
       "far_pointer": {
         "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-        "km": 41.8,
+        "km": 42.4,
         "draw": "national",
         "same_class": false
       },
@@ -5247,7 +5354,7 @@
       "draw_suggested": "local",
       "effective_draw": "national",
       "access_load": "plan",
-      "detour_min": 8,
+      "detour_min": 10,
       "detour_basis": "town",
       "detour_town": "Banff",
       "from_hubs": {},
@@ -5256,7 +5363,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "regional",
             "standing": "good",
             "access_cost": [],
@@ -5268,9 +5375,9 @@
       "pair_with": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
-          "km": 0.5,
+          "km": 1.2,
           "how": "walk",
-          "extra_min": 134,
+          "extra_min": 156,
           "on_site_min": 120,
           "on_site_estimated": false,
           "draw": "regional",
@@ -5283,7 +5390,7 @@
       "pair_pending": [
         {
           "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
-          "km": 4.5
+          "km": 4.1
         }
       ],
       "part_of": [],
@@ -5381,7 +5488,7 @@
         "area": [
           {
             "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
-            "km": 53.3,
+            "km": 52.5,
             "draw": "national",
             "standing": "top",
             "access_cost": [

@@ -1,0 +1,339 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-18-cs7-overpass",
+  "started": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak",
+      "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+      "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+      "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking",
+      "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
+      "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots",
+      "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
+      "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
+      "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
+      "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+      "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile",
+      "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop",
+      "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
+      "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
+      "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+      "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+      "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+      "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+      "part/place/lago-dantorno#parking",
+      "part/place/lago-di-braies#parking",
+      "part/place/lago-di-carezza#parking",
+      "part/place/lago-di-dobbiaco#parking",
+      "part/place/lago-di-landro#parking",
+      "part/place/lago-di-misurina#parking",
+      "part/place/lake-louise#parking",
+      "part/place/lake-louise#shuttle-stop",
+      "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park",
+      "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
+      "part/place/tre-cime-di-lavaredo-loop#toll-road",
+      "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop",
+      "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking",
+      "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void",
+      "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit",
+      "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking",
+      "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
+      "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+      "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+      "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+      "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+      "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+      "part/trip/patagonia-2027/trail:mirador de los condores#trailhead"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 36,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sansons-peak",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/12244949797"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sky-bistro",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/678977497"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/bow-lake#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/18335545"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/emerald-lake#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/230454536"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#ink-pots",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/1366399455"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#lower-falls",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/3005639506"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#upper-falls",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/3005649801"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/lake-minnewanka#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/48295612"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/21018594"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#rockpile",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/348002838"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/13240062778"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/261038378"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/pyramid-lake#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/1282422641"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/wedge-pond#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/262156429"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/2706106443"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/7042108468"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/6548652085"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/4546035994"
+    },
+    {
+      "ref": "part/place/lago-dantorno#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/234899048"
+    },
+    {
+      "ref": "part/place/lago-di-braies#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/442280371"
+    },
+    {
+      "ref": "part/place/lago-di-carezza#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:relation/19117506"
+    },
+    {
+      "ref": "part/place/lago-di-dobbiaco#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/75384548"
+    },
+    {
+      "ref": "part/place/lago-di-landro#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/437446697"
+    },
+    {
+      "ref": "part/place/lago-di-misurina#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/178543599"
+    },
+    {
+      "ref": "part/place/lake-louise#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/26752321"
+    },
+    {
+      "ref": "part/place/lake-louise#shuttle-stop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/12164756005"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#auronzo-car-park",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/74709399"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#north-face-viewpoint",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/12091634369"
+    },
+    {
+      "ref": "part/place/tre-cime-di-lavaredo-loop#toll-road",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/277726434"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#bus-stop",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/30983901"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lake:lac des gaillands#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/232431306"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#step-into-the-void",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/5590167495"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#summit",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/167075493"
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/viewpoint:jokulsarlon#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/298932452"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/747061337"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/1237892708"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/1362578795"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:way/290281459"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/568391373"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/4722282707"
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+      "field": "point",
+      "outcome": "filled",
+      "src": "osm:node/660024150"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#river-base",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "overpass: name~'Wild Water|River Base' within 5 km of 51.25,-116.75",
+        "overpass: leisure=slipway within 5 km"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-upper-section",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "overpass: leisure=slipway within 5 km of 51.25,-116.75",
+        "https://wildwater.com/kicking-horse-rafting-trips/ (no put-in named)"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place-lower-canyon",
+      "field": "point",
+      "outcome": "searched_none",
+      "tried": [
+        "overpass: leisure=slipway within 5 km of 51.25,-116.75",
+        "https://wildwater.com/kicking-horse-rafting-trips/ (no take-out named)"
+      ]
+    }
+  ]
+}

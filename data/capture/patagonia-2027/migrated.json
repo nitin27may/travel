@@ -5,7 +5,53 @@
   "researched": "2026-10-18",
   "agent": "core/bin/capture.ts migrate",
   "model": "none",
-  "sources": [],
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://elchalten.tur.ar/laguna-de-los-tres/",
+      "title": "Laguna de Los Tres",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://elchalten.tur.ar/laguna-capri/",
+      "title": "Laguna Capri",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+      "title": "Mirador de los Cóndores y Águilas",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://elchalten.tur.ar/el-chorrillo-del-salto/",
+      "title": "El Chorrillo del Salto",
+      "publisher": "Secretaría de Turismo El Chaltén",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://turismoushuaia.com/actividad/laguna-esmeralda/?lang=es_AR",
+      "title": "Laguna Esmeralda",
+      "publisher": "Secretaría de Turismo, Municipalidad de Ushuaia",
+      "kind": "official",
+      "read": "2026-10-18",
+      "method": "read"
+    }
+  ],
   "records": [
     {
       "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
@@ -115,7 +161,57 @@
       "origin": {
         "from": "trip/patagonia-2027/trail:laguna de los tres",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "way/1362578795",
+      "links": [
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/laguna-de-los-tres/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/1362578795",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Laguna de los Tres, Parque Nacional Los Glaciares (APN)",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Laguna de los Tres",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:View from Laguna de los Tres.JPG",
+          "licence": "CC BY-SA 4.0",
+          "author": "Fredlyfish4",
+          "attribution": "Fredlyfish4, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:View_from_Laguna_de_los_Tres.JPG",
+          "width": 7846,
+          "height": 2512
+        },
+        {
+          "file": "File:View from Laguna de los Tres (6952701450).jpg",
+          "licence": "CC BY-SA 2.0",
+          "author": "Christoph Strässler from Oberdorf BL, Schweiz",
+          "attribution": "Christoph Strässler from Oberdorf BL, Schweiz, CC BY-SA 2.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:View_from_Laguna_de_los_Tres_(6952701450).jpg",
+          "width": 1920,
+          "height": 1080
+        }
+      ]
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna capri",
@@ -134,7 +230,42 @@
       "origin": {
         "from": "trip/patagonia-2027/trail:laguna capri",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "relation/2760678",
+      "links": [
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/laguna-capri/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0002"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/relation/2760678",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "url": "https://www.wikidata.org/wiki/Q124360343",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Monte Fitz Roy - Laguna Capri - Parque Nacional Los Glaciares - panoramio.jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "littletroll",
+          "attribution": "littletroll, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Monte_Fitz_Roy_-_Laguna_Capri_-_Parque_Nacional_Los_Glaciares_-_panoramio.jpg",
+          "width": 4160,
+          "height": 2083
+        }
+      ]
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de los condores",
@@ -143,6 +274,9 @@
       "name": "Mirador de los Condores",
       "reaches": [
         "part/trip/patagonia-2027/trail:mirador de los condores#payoff"
+      ],
+      "starts_at": [
+        "part/trip/patagonia-2027/trail:mirador de los condores#trailhead"
       ]
     },
     {
@@ -153,7 +287,42 @@
       "origin": {
         "from": "trip/patagonia-2027/trail:mirador de los condores",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "node/4722282707",
+      "links": [
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/4722282707",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Mirador de los Cóndores",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:El Chalten 2015 2.JPG",
+          "licence": "CC BY-SA 4.0",
+          "author": "Fredlyfish4",
+          "attribution": "Fredlyfish4, CC BY-SA 4.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:El_Chalten_2015_2.JPG",
+          "width": 8290,
+          "height": 2545
+        }
+      ]
     },
     {
       "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
@@ -162,6 +331,9 @@
       "name": "Mirador de las Aguilas",
       "reaches": [
         "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff"
+      ],
+      "starts_at": [
+        "part/trip/patagonia-2027/trail:mirador de los condores#trailhead"
       ]
     },
     {
@@ -172,7 +344,42 @@
       "origin": {
         "from": "trip/patagonia-2027/trail:mirador de las aguilas",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "node/568391373",
+      "links": [
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/mirador-de-los-condores-y-aguilas/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0003"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/568391373",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Mirador de las Águilas",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Lago Viedma - Mirador de Las Aguilas - panoramio (1).jpg",
+          "licence": "CC BY-SA 3.0",
+          "author": "littletroll",
+          "attribution": "littletroll, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Lago_Viedma_-_Mirador_de_Las_Aguilas_-_panoramio_(1).jpg",
+          "width": 5247,
+          "height": 1965
+        }
+      ]
     },
     {
       "ref": "trip/patagonia-2027/trail:chorrillo del salto",
@@ -181,6 +388,9 @@
       "name": "Chorrillo del Salto",
       "reaches": [
         "part/trip/patagonia-2027/trail:chorrillo del salto#payoff"
+      ],
+      "starts_at": [
+        "part/trip/patagonia-2027/trail:chorrillo del salto#parking"
       ]
     },
     {
@@ -191,7 +401,31 @@
       "origin": {
         "from": "trip/patagonia-2027/trail:chorrillo del salto",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "node/1237892708",
+      "links": [
+        {
+          "kind": "tourism_board",
+          "url": "https://elchalten.tur.ar/el-chorrillo-del-salto/",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0004"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/1237892708",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Chorrillo del Salto",
+          "on": "2026-10-18"
+        }
+      ]
     },
     {
       "ref": "trip/patagonia-2027/trail:coastal path",
@@ -199,7 +433,7 @@
       "layer": "route",
       "name": "Coastal path",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A forest and shore path along the Beagle Channel: the walk is the experience."
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna esmeralda",
@@ -218,7 +452,42 @@
       "origin": {
         "from": "trip/patagonia-2027/trail:laguna esmeralda",
         "reason": "payoff of the trail"
-      }
+      },
+      "osm_ref": "way/290281459",
+      "links": [
+        {
+          "kind": "tourism_board",
+          "url": "https://turismoushuaia.com/actividad/laguna-esmeralda/?lang=es_AR",
+          "state": "filled",
+          "on": "2026-10-18",
+          "src": [
+            "src-0005"
+          ]
+        },
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/290281459",
+          "state": "filled",
+          "on": "2026-10-18"
+        },
+        {
+          "kind": "wikidata",
+          "state": "searched_none",
+          "query": "Laguna Esmeralda Ushuaia",
+          "on": "2026-10-18"
+        }
+      ],
+      "photos": [
+        {
+          "file": "File:Laguna Esmeralda (136247461).jpeg",
+          "licence": "CC BY-SA 3.0",
+          "author": "Estefania Flores",
+          "attribution": "Estefania Flores, CC BY-SA 3.0, via Wikimedia Commons",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Laguna_Esmeralda_(136247461).jpeg",
+          "width": 2048,
+          "height": 1536
+        }
+      ]
     }
   ]
 }

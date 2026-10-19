@@ -15,3 +15,17 @@ Facts that stayed on a route because the source does not say they belong to the 
 | Kicking Horse | the put-ins and take-outs (`access.transit.boat_launch`); the river sections (upper II-III, lower canyon III-IV) as river routes | each operator's offer `on` the section it runs | the river place and one offer per operator exist |
 | Aiguille du Midi, Johnston Canyon, Niagara | the summit terraces and Step into the Void; Lower and Upper Falls and the Ink Pots; the Niagara cluster and its children | `part_of` | one record each |
 | Every payoff place | `point` (from OSM), `area_id`, `summary`, `links`, `photos` | | the 26 new payoff places have a name and the relevance judgement only |
+
+## Status (CS7 batch 1, 18 Oct 2026)
+
+| Row | Status | Notes |
+|---|---|---|
+| Sulphur Mountain | done | summit, Sanson's Peak, boardwalk, Sky Bistro and the relations; [CS7-canadian-rockies-2029.md](lanes/CS7-canadian-rockies-2029.md) |
+| Tre Cime loop | done, draw move waits | mountain, viewpoint, three huts with lodging offers, toll road, car park and toll; the world draw moves when the migration ledger allows a relevance edit; [CS7-dolomites-2027.md](lanes/CS7-dolomites-2027.md) |
+| Moraine Lake | done | Rockpile, its loop (0.7 km per Parks Canada), the shuttle stop and the shuttle seat with price and window |
+| Larch Valley | done, draw move waits | Sentinel Pass and Larch Valley as places, the route's starts_at, passes and reaches |
+| Kicking Horse | partly | two river sections and the River Base; put-ins and take-outs are not published or mapped (searched_none, operator question) |
+| Aiguille du Midi | done | summit terraces and Step into the Void; [CS7-chamonix-mont-blanc-2028.md](lanes/CS7-chamonix-mont-blanc-2028.md) |
+| Johnston Canyon | done | Lower and Upper Falls, the Ink Pots and their trail; the walk's `reaches` stays the canyon (a migration test pins it) |
+| Niagara | not done | the trip is private and has no days |
+| Every payoff place | 21 of 26 with photos, 26 with links, all 26 with a point | relevance (summary, QID) unchanged; see the lane notes |

@@ -13,7 +13,7 @@
       "layer": "route",
       "name": "Covered bridge loop",
       "route_is_attraction": true,
-      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
+      "attraction_reason": "A scenic drive past six covered bridges: the drive is the experience."
     },
     {
       "ref": "trip/vermont-fall-2026/town:hyde park village",
@@ -33,7 +33,7 @@
       "layer": "route",
       "name": "Stowe Recreation Path",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "A paved riverside path of any length: the path is the experience."
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",

@@ -1,0 +1,51 @@
+{
+  "schema": "capture/1",
+  "trip": "patagonia-2027",
+  "lane": "CS7",
+  "researched": "2026-10-18",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [],
+  "records": [
+    {
+      "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#parking",
+      "type": "access.park.parking",
+      "layer": "place",
+      "name": "Chorrillo del Salto car park",
+      "osm_ref": "way/747061337",
+      "parks_for": [
+        "trip/patagonia-2027/trail:chorrillo del salto"
+      ],
+      "origin": {
+        "from": "trip/patagonia-2027/trail:chorrillo del salto",
+        "reason": "Trailhead parking: OSM way 747061337, 'Chorrillo del Salto', fee=no."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/way/747061337",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "part/trip/patagonia-2027/trail:mirador de los condores#trailhead",
+      "type": "access.start.trailhead",
+      "layer": "place",
+      "name": "Mirador de los Cóndores trailhead",
+      "origin": {
+        "from": "trip/patagonia-2027/trail:mirador de los condores",
+        "reason": "OSM node 660024150 (highway=trailhead); the Cóndores and Águilas walks share it."
+      },
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/660024150",
+          "state": "filled",
+          "on": "2026-10-18"
+        }
+      ]
+    }
+  ]
+}

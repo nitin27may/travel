@@ -64,12 +64,12 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 1.8
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
           "km": 2.4
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 4.9
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
@@ -163,7 +163,7 @@
       "draw_suggested": "regional",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": 6,
+      "detour_min": 16,
       "detour_basis": "town",
       "detour_town": "Les Praz",
       "from_hubs": {},
@@ -171,7 +171,7 @@
         "near": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-            "km": 0.6,
+            "km": 4.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -183,7 +183,7 @@
         "area": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-            "km": 0.6,
+            "km": 4.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -212,25 +212,25 @@
       "pair_pending": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 1.8
+          "km": 4.9
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 4.1
+          "km": 6
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 7.3
+          "km": 11.4
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 7.3
+          "km": 11.4
         }
       ],
       "part_of": [],
       "plan_b": {
         "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-        "km": 0.6,
+        "km": 4.9,
         "draw": "national",
         "standing": "top",
         "access_cost": [
@@ -278,7 +278,7 @@
         "near": [
           {
             "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-            "km": 0.6,
+            "km": 4.9,
             "draw": "world",
             "standing": "top",
             "access_cost": [
@@ -291,7 +291,7 @@
         "area": [
           {
             "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-            "km": 0.6,
+            "km": 4.9,
             "draw": "world",
             "standing": "top",
             "access_cost": [
@@ -367,7 +367,7 @@
       },
       "far_pointer": {
         "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-        "km": 17.3,
+        "km": 21.2,
         "draw": "world",
         "same_class": false
       },
@@ -430,7 +430,7 @@
       },
       "far_pointer": {
         "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-        "km": 4.1,
+        "km": 6,
         "draw": "world",
         "same_class": false
       },
@@ -441,11 +441,11 @@
           "km": 3.7
         },
         {
-          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 4.1
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 6
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
           "km": 6
         },
         {
@@ -536,17 +536,6 @@
       "far_pointer": null,
       "pair_with": [
         {
-          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 0.5,
-          "how": "walk",
-          "extra_min": 104,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "world",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
           "km": 0.5,
           "how": "walk",
@@ -566,6 +555,10 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 4.2
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 5
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
@@ -714,10 +707,6 @@
           "km": 2
         },
         {
-          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 2.6
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 3.2
         },
@@ -732,6 +721,10 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
           "km": 4.8
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 6.7
         }
       ],
       "part_of": [],
@@ -875,7 +868,7 @@
       },
       "far_pointer": {
         "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-        "km": 12.4,
+        "km": 16,
         "draw": "world",
         "same_class": false
       },
@@ -896,10 +889,6 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
           "km": 11.7
-        },
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 12.4
         }
       ],
       "part_of": [],
@@ -957,12 +946,12 @@
           "km": 6.7
         },
         {
-          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 7.3
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
           "km": 8.3
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 11.4
         }
       ],
       "part_of": [
@@ -1104,7 +1093,7 @@
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 7.3
+          "km": 11.4
         }
       ],
       "part_of": [
@@ -1143,7 +1132,7 @@
       "draw_suggested": "regional",
       "effective_draw": "world",
       "access_load": "plan",
-      "detour_min": 6,
+      "detour_min": 16,
       "detour_basis": "town",
       "detour_town": "Les Praz",
       "from_hubs": {},
@@ -1151,7 +1140,7 @@
         "near": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-            "km": 0.6,
+            "km": 4.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -1163,7 +1152,7 @@
         "area": [
           {
             "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-            "km": 0.6,
+            "km": 4.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -1192,25 +1181,25 @@
       "pair_pending": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 1.8
+          "km": 4.9
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 4.1
+          "km": 6
         },
         {
           "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 7.3
+          "km": 11.4
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 7.3
+          "km": 11.4
         }
       ],
       "part_of": [],
       "plan_b": {
         "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-        "km": 0.6,
+        "km": 4.9,
         "draw": "national",
         "standing": "top",
         "access_cost": [
@@ -1271,12 +1260,12 @@
           "km": 6.7
         },
         {
-          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
-          "km": 7.3
-        },
-        {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
           "km": 8.3
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 11.4
         }
       ],
       "part_of": [

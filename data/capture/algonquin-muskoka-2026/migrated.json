@@ -25,7 +25,7 @@
       "layer": "route",
       "name": "Solitaire Lake Trail",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The loop round Solitaire Lake is the experience: a lake circuit with a lookout on the way, not a walk to one named payoff."
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
@@ -33,7 +33,7 @@
       "layer": "route",
       "name": "Track and Tower Trail",
       "route_is_attraction": true,
-      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
+      "attraction_reason": "The draw is the open ledge over Cache Lake (the lookout; no tower exists). Create the lookout place and move the draw to it; until then the route carries it."
     },
     {
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",

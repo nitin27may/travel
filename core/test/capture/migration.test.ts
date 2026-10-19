@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { LEDGER_PATH, displacedRelevance, ledgerOf, leavesOf, planMigration, removedSuitability, serializeLike } from "../../src/capture/migrate.ts";
+import { LEDGER_PATH, displacedRelevance, laneLeaves, ledgerOf, leavesOf, lostLeaves, planMigration, removedSuitability, serializeLike } from "../../src/capture/migrate.ts";
 import type { Ledger, SplitsFile } from "../../src/capture/migrate.ts";
 import { loadWorld, sidecarFiles } from "../../src/capture/records.ts";
 import { resolveNode } from "../../src/capture/resolve.ts";
@@ -24,7 +24,8 @@ const splits = (): SplitsFile[] => ["algonquin-muskoka-2026", "canadian-rockies-
 });
 
 describe("the committed migration (counts)", () => {
-  const docs = sidecarFiles(REPO, "capture").map((f) => JSON.parse(readFileSync(f, "utf8")) as CaptureDoc);
+  // the counts describe what the migration left: migrated.json only. Research lanes (CS7.json and later) add records beside them.
+  const docs = sidecarFiles(REPO, "capture").filter((f) => f.endsWith("/migrated.json")).map((f) => JSON.parse(readFileSync(f, "utf8")) as CaptureDoc);
   const records = docs.flatMap((d) => d.records);
 
   it("one capture sidecar per trip, 8 trips, 339 records: 287 refs retyped (2 stubs are aliases of their real records) and 52 cut out", () => {
@@ -191,20 +192,30 @@ describe("the committed migration (each kind of split)", () => {
   });
 });
 
-describe("no value lost, none invented", () => {
+describe("no value lost, none changed", () => {
   const ledger = read<Ledger>(LEDGER_PATH);
   const now = ledgerOf(REPO, displacedRelevance(REPO), removedSuitability(REPO));
+  const leaves = laneLeaves(REPO, displacedRelevance(REPO), removedSuitability(REPO));
 
-  it("the leaves of the suitability lane files are the leaves they had before the migration", () => {
-    expect(now.suitability.leaves).toBe(ledger.suitability.leaves);
-    expect(now.suitability.sha1).toBe(ledger.suitability.sha1);
-    expect(now.suitability.records).toBe(ledger.suitability.records + 3 + 12 + 1); // 3 routes cut from long walks, 12 places given the facts placement moved, and the one record of dropped duplicates
+  it("every leaf of the suitability lane files before the migration still exists with the same value (new records and leaves are allowed)", () => {
+    expect(ledger.suitability.held!.length).toBeGreaterThan(1000);
+    expect(lostLeaves(ledger.suitability, leaves.suitability)).toBe(0);
+    expect(now.suitability.leaves).toBeGreaterThanOrEqual(ledger.suitability.leaves);
+    expect(now.suitability.records).toBeGreaterThanOrEqual(ledger.suitability.records + 3 + 12 + 1); // 3 routes cut from long walks, 12 places given the facts placement moved, and the one record of dropped duplicates
   });
-  it("the leaves of the relevance lane files, with the seven displaced judgements kept in the splits files, are the leaves they had", () => {
+  it("every leaf of the relevance lane files, with the seven displaced judgements kept in the splits files, still exists with the same value", () => {
     expect(displacedRelevance(REPO)).toHaveLength(7);
-    expect(now.relevance.records).toBe(ledger.relevance.records);
-    expect(now.relevance.leaves).toBe(ledger.relevance.leaves);
-    expect(now.relevance.sha1).toBe(ledger.relevance.sha1);
+    expect(lostLeaves(ledger.relevance, leaves.relevance)).toBe(0);
+    expect(now.relevance.records).toBeGreaterThanOrEqual(ledger.relevance.records);
+    expect(now.relevance.leaves).toBeGreaterThanOrEqual(ledger.relevance.leaves);
+  });
+  it("the check is strict: a changed or removed ledger leaf fails, an added leaf passes", () => {
+    const mutated = leaves.suitability.map((l, i) => (i === 10 ? l + "-changed" : l));
+    expect(lostLeaves(ledger.suitability, mutated)).toBe(1);
+    expect(lostLeaves(ledger.suitability, leaves.suitability.slice(1))).toBe(1);
+    expect(lostLeaves(ledger.relevance, leaves.relevance.filter((_, i) => i !== 5))).toBe(1);
+    expect(lostLeaves(ledger.suitability, [...leaves.suitability, "hours.v=\"new\""])).toBe(0);
+    expect(lostLeaves(ledger.relevance, [...leaves.relevance, "class_key=\"new\""])).toBe(0);
   });
   it("every point the relevance inputs held is still held, on the ref or on the payoff place that took the judgement", () => {
     const points = (read<{ points: Record<string, { lat: number; lon: number }> }>("data/relevance/inputs/points.json")).points;

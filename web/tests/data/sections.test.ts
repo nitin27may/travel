@@ -69,7 +69,9 @@ describe('buildSections: the owner rule for empty sections (Lake Louise)', () =>
   });
 
   it('shows a gap row for a missing R property and folds a section with no value into one closing line', () => {
-    expect(rowOf(m, 'access_points')).toMatchObject({ gap: true, text: null, mark: 'R' });
+    // CS7 filled Lake Louise's access points (parking and shuttle stop); a missing R property still draws a gap row
+    expect(rowOf(m, 'access_points')).toMatchObject({ gap: false, mark: 'R', text: 'Lake Louise Lakeshore parking, Lake Louise Lakeshore shuttle stop' });
+    expect(rowOf(m, 'price')).toMatchObject({ gap: true, text: null });
     const options = sec(m, 'options');
     expect(options.empty).toBe(true); // the page draws the closing line, not a gap chip
     expect(options.rows.every((r) => r.gap)).toBe(true);
