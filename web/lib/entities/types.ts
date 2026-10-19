@@ -6,9 +6,19 @@ export type EntityType = 'place' | 'trip' | 'trail' | 'activity' | 'stay' | 'eat
 export type ViewName = 'cards' | 'list' | 'table' | 'map';
 export const VIEW_NAMES: readonly ViewName[] = ['cards', 'list', 'table', 'map'];
 
-/** URL parameters that carry a facet selection (plan 4.2). */
-export const FACET_PARAMS = ['country', 'region', 'area', 'kind', 'style', 'grade', 'kid', 'season', 'tag', 'trip', 'due', 'effort', 'stroller'] as const;
-export type FacetParam = (typeof FACET_PARAMS)[number];
+/**
+ * URL parameters that carry a facet selection (plan 4.2). `k` is the type scope of the Kind pill (`?k=nature.trail`); `kind` stays
+ * for old links (`kind=trail`). The contract's own facets travel as `f.<facet>` and are not listed here (see `isScopedParam`).
+ */
+export const FACET_PARAMS = [
+  'country', 'region', 'area', 'kind', 'k', 'style', 'grade', 'kid', 'season', 'tag', 'trip', 'due', 'effort', 'stroller',
+  'length', 'around', 'perday', 'shape', 'drive',
+] as const;
+export type ScopedParam = `f.${string}`;
+export type FacetParam = (typeof FACET_PARAMS)[number] | ScopedParam;
+
+/** True for `f.<facet>`: a facet read from the capture contract for the Kind the list is narrowed to (contract 7.1). */
+export const isScopedParam = (p: string): p is ScopedParam => p.length > 2 && p.startsWith('f.');
 
 /** All list state; everything here is in the URL. */
 export interface ListState {
@@ -78,19 +88,53 @@ export interface FacetDef<Row> {
    * Four primary filters a list; the rest are one tap further.
    */
   tier?: 'primary' | 'more';
-  /** A slot for a filter whose data has not landed (effort and stroller wait for S1): never shown, never filters. */
+  /** A slot for a filter whose data has not landed: never shown, never filters. */
   hidden?: boolean;
+  /**
+   * A facet that belongs to a Kind scope (capture contract 7.1): it appears only while the list is narrowed to a Kind whose scope
+   * names it and enough of the results answer it. Selections are dropped when the Kind is cleared.
+   */
+  scoped?: boolean;
+  /**
+   * The 60% rule for a facet that is not tied to a Kind: it shows only while enough of the rows `among` answer it, otherwise the
+   * count line says why ("From Toronto hidden: not known for most short trips"). `what` completes that sentence.
+   */
+  guard?: { among: (row: Row) => boolean; what: string };
+  /** Hide the facet when no row has a value for it (the data has not landed). */
+  hideIfEmpty?: boolean;
+  /** An old URL parameter that still filters and shows as a chip, but has no pill of its own (`kind=trail`, now `k=nature.trail`). */
+  legacy?: boolean;
   /**
    * The value that means "not checked yet". A row with it never passes a selection that leaves it out, so the count line says
    * how many such rows were left out ("12 not checked yet"). suitability-display.md section 5.
    */
-  gap?: { value: string; note: string };
+  gap?: {
+    value: string;
+    note: string;
+    /** A row is a gap when this says so (default: its options include `value`). The selection is passed, so one facet can mean two things. */
+    isGap?: (row: Row, selected: string[]) => boolean;
+  };
+  /** A sentence for the count line while this facet has a selection, from the rows that match every filter ("4 more are a stretch, shown faded"). */
+  note?: (matched: readonly Row[], selected: string[]) => string | null;
+  /** An input other than the option list. `age` is the Kids stepper with quick chips (suitability-display 5). */
+  control?: 'age';
+}
+
+export interface ScopeConfig<Row> {
+  /** The row's type id (`nature.trail.hike`), or null when it has none. */
+  typeOf: (row: Row) => string | null;
+  /** The scope tokens (type ids or `intent:do`) an old `kind=` value stands for. */
+  legacyKind: (value: string) => string[];
+  /** The scoped facet ids this descriptor can show, in the order the contract lists them. */
+  scoped: FacetParam[];
 }
 
 export interface GroupDef<Row> {
   id: string;
   label: string;
   key: (row: Row) => string;
+  /** Orders the groups when set (Length: day trips first). Without it groups keep the order their first row appears in. */
+  order?: (row: Row) => number;
   title: (row: Row) => string;
   subtitle?: (row: Row) => string;
 }
@@ -123,6 +167,8 @@ export interface EntityDescriptor<Row> {
   primary: 'sheet' | 'link';
   geo: (row: Row) => { lat: number; lon: number } | null;
   facets: FacetDef<Row>[];
+  /** Type-aware facets (contract 7): how a row maps to a Kind and which scoped facets the Kind brings. Absent on lists with no Kind. */
+  scope?: ScopeConfig<Row>;
   columns: ColumnDef<Row, unknown>[];
   defaultColumns: string[];
   groupBy: GroupDef<Row>[];

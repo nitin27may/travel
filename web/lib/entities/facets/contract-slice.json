@@ -1,0 +1,837 @@
+{
+ "schema": "facet-slice/1",
+ "facets": [
+  {
+   "key": "season",
+   "property": "season",
+   "scopes": [
+    "play",
+    "snow",
+    "intent:do"
+   ],
+   "control": "enum",
+   "label": "Season",
+   "band": "season_band"
+  },
+  {
+   "key": "best-time-of-day",
+   "property": "best_time",
+   "scopes": [
+    "nature.viewpoint",
+    "nature.summit"
+   ],
+   "control": "enum",
+   "label": "Best time of day"
+  },
+  {
+   "key": "open-on",
+   "property": "hours",
+   "scopes": [
+    "culture",
+    "animals.see"
+   ],
+   "control": "enum",
+   "label": "Open on"
+  },
+  {
+   "key": "duration",
+   "property": "duration_min",
+   "scopes": [
+    "intent:do"
+   ],
+   "control": "range",
+   "label": "Duration",
+   "band": "time_band"
+  },
+  {
+   "key": "price-band",
+   "property": "price",
+   "scopes": [
+    "intent:do",
+    "culture",
+    "play",
+    "snow"
+   ],
+   "control": "enum",
+   "label": "Price band",
+   "band": "price_band"
+  },
+  {
+   "key": "booking-needed",
+   "property": "window",
+   "scopes": [
+    "intent:do",
+    "culture"
+   ],
+   "control": "enum",
+   "label": "Booking needed",
+   "band": "booking"
+  },
+  {
+   "key": "indoor-or-rainy-day",
+   "property": "indoor",
+   "scopes": [
+    "culture",
+    "play",
+    "intent:do"
+   ],
+   "control": "bool",
+   "label": "Indoor or rainy-day"
+  },
+  {
+   "key": "kids-menu",
+   "property": "kids_menu",
+   "scopes": [
+    "food"
+   ],
+   "control": "bool",
+   "label": "Kids menu"
+  },
+  {
+   "key": "family-rooms",
+   "property": "family_rooms",
+   "scopes": [
+    "stay"
+   ],
+   "control": "bool",
+   "label": "Family rooms"
+  },
+  {
+   "key": "ages-from",
+   "property": "age_band",
+   "scopes": [
+    "intent:do",
+    "play",
+    "snow"
+   ],
+   "control": "range",
+   "label": "Ages from",
+   "band": "kids_from"
+  },
+  {
+   "key": "stroller",
+   "property": "stroller",
+   "scopes": [
+    "nature.trail",
+    "nature.viewpoint",
+    "nature.summit",
+    "culture"
+   ],
+   "control": "bool",
+   "label": "Stroller"
+  },
+  {
+   "key": "step-free",
+   "property": "wheelchair",
+   "scopes": [
+    "culture",
+    "stay"
+   ],
+   "control": "bool",
+   "label": "Step-free"
+  },
+  {
+   "key": "effort",
+   "property": "effort.source_grade",
+   "scopes": [
+    "nature.trail",
+    "nature.trek",
+    "snow.ski",
+    "intent:do"
+   ],
+   "control": "enum",
+   "label": "Effort",
+   "band": "effort"
+  },
+  {
+   "key": "length",
+   "property": "effort.drivers.distance_km",
+   "scopes": [
+    "nature.trail",
+    "nature.trek"
+   ],
+   "control": "range",
+   "label": "Length",
+   "band": "length_band"
+  },
+  {
+   "key": "climb",
+   "property": "effort.drivers.gain_m",
+   "scopes": [
+    "nature.trail",
+    "nature.trek"
+   ],
+   "control": "range",
+   "label": "Climb",
+   "band": "climb_band"
+  },
+  {
+   "key": "time",
+   "property": "adult_time_min",
+   "scopes": [
+    "nature.trail",
+    "nature.trek"
+   ],
+   "control": "range",
+   "label": "Time",
+   "band": "time_band"
+  },
+  {
+   "key": "time-on-site",
+   "property": "on_site_min",
+   "scopes": [
+    "culture",
+    "animals.see"
+   ],
+   "control": "range",
+   "label": "Time on site",
+   "band": "time_band"
+  },
+  {
+   "key": "toilets",
+   "property": "toilets",
+   "scopes": [
+    "water",
+    "play"
+   ],
+   "control": "bool",
+   "label": "Toilets"
+  },
+  {
+   "key": "change-rooms",
+   "property": "change_rooms",
+   "scopes": [
+    "water.swim",
+    "water.thermal"
+   ],
+   "control": "bool",
+   "label": "Change rooms"
+  },
+  {
+   "key": "fenced",
+   "property": "exposure",
+   "scopes": [
+    "nature.viewpoint",
+    "nature.summit",
+    "play"
+   ],
+   "control": "bool",
+   "label": "Fenced"
+  },
+  {
+   "key": "walk-from-the-car",
+   "property": "walk_m",
+   "scopes": [
+    "nature.viewpoint",
+    "nature.summit",
+    "water"
+   ],
+   "control": "range",
+   "label": "Walk from the car",
+   "band": "walk_band"
+  },
+  {
+   "key": "lifeguard",
+   "property": "water_safety.lifeguard",
+   "scopes": [
+    "water.swim",
+    "water.thermal"
+   ],
+   "control": "bool",
+   "label": "Lifeguard"
+  },
+  {
+   "key": "water-temperature",
+   "property": "water_safety.water_temp_c",
+   "scopes": [
+    "water.swim"
+   ],
+   "control": "enum",
+   "label": "Water temperature"
+  },
+  {
+   "key": "guided-or-self-guided",
+   "property": "participation.guide",
+   "scopes": [
+    "mountain",
+    "intent:do"
+   ],
+   "control": "enum",
+   "label": "Guided or self-guided"
+  },
+  {
+   "key": "weather-dependent",
+   "property": "participation.weather_cancel",
+   "scopes": [
+    "intent:do"
+   ],
+   "control": "bool",
+   "label": "Weather dependent"
+  },
+  {
+   "key": "shape",
+   "property": "ext.trail.shape",
+   "scopes": [
+    "nature.trail",
+    "nature.trek"
+   ],
+   "control": "enum",
+   "label": "Shape"
+  },
+  {
+   "key": "dogs",
+   "property": "ext.trail.dogs",
+   "scopes": [
+    "nature.trail",
+    "nature.trek"
+   ],
+   "control": "bool",
+   "label": "Dogs"
+  },
+  {
+   "key": "swimming",
+   "property": "ext.water.swimming",
+   "scopes": [
+    "water.body",
+    "water.falls",
+    "water.swim"
+   ],
+   "control": "enum",
+   "label": "Swimming"
+  },
+  {
+   "key": "magic-carpet",
+   "property": "ext.snow.magic_carpet",
+   "scopes": [
+    "snow"
+   ],
+   "control": "bool",
+   "label": "Magic carpet"
+  }
+ ],
+ "domains": [
+  {
+   "id": "nature",
+   "label": "Nature",
+   "records": []
+  },
+  {
+   "id": "water",
+   "label": "Water",
+   "records": []
+  },
+  {
+   "id": "air",
+   "label": "Air",
+   "records": []
+  },
+  {
+   "id": "mountain",
+   "label": "Mountain adventure",
+   "records": []
+  },
+  {
+   "id": "snow",
+   "label": "Snow",
+   "records": []
+  },
+  {
+   "id": "wheels",
+   "label": "Wheels",
+   "records": []
+  },
+  {
+   "id": "ride",
+   "label": "Scenic rides",
+   "records": []
+  },
+  {
+   "id": "animals",
+   "label": "Animals",
+   "records": []
+  },
+  {
+   "id": "culture",
+   "label": "Culture",
+   "records": []
+  },
+  {
+   "id": "play",
+   "label": "Family play",
+   "records": []
+  },
+  {
+   "id": "food",
+   "label": "Food and drink",
+   "records": []
+  },
+  {
+   "id": "stay",
+   "label": "Stays",
+   "records": []
+  },
+  {
+   "id": "settlement",
+   "label": "Towns and cities",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "access",
+   "label": "Access and amenities",
+   "records": []
+  },
+  {
+   "id": "event",
+   "label": "Events",
+   "records": [
+    "event"
+   ]
+  }
+ ],
+ "categories": [
+  {
+   "id": "nature.trail",
+   "label": "Trails and walks",
+   "records": [
+    "route"
+   ]
+  },
+  {
+   "id": "nature.trek",
+   "label": "Multi-day treks",
+   "records": [
+    "route"
+   ]
+  },
+  {
+   "id": "nature.summit",
+   "label": "Summits",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "nature.viewpoint",
+   "label": "Viewpoints",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "nature.landform",
+   "label": "Landforms",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "nature.protected",
+   "label": "Parks and protected areas",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "nature.garden",
+   "label": "Gardens and urban parks",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "nature.wildlife",
+   "label": "Wildlife",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "water.body",
+   "label": "Lakes, rivers and coast",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "water.falls",
+   "label": "Waterfalls and rapids",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "water.swim",
+   "label": "Beaches, swimming and pools",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "water.thermal",
+   "label": "Hot springs and spas",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "water.paddle",
+   "label": "Canoe, kayak and paddleboard",
+   "records": [
+    "offer",
+    "route"
+   ]
+  },
+  {
+   "id": "water.river",
+   "label": "Rafting, floating and tubing",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "water.boat",
+   "label": "Boats and cruises",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "water.motor",
+   "label": "Motorised water sports",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "water.under",
+   "label": "Snorkel and scuba",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "water.surf",
+   "label": "Surf, kite and wind",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "water.fishing",
+   "label": "Fishing",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "air.zip",
+   "label": "Zip lines",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "air.jump",
+   "label": "Jumps and swings",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "air.flight",
+   "label": "Flights and balloons",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "mountain.ferrata",
+   "label": "Via ferrata",
+   "records": [
+    "route",
+    "offer"
+   ]
+  },
+  {
+   "id": "mountain.climb",
+   "label": "Climbing",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "mountain.alpine",
+   "label": "Glacier and alpine",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "mountain.canyon",
+   "label": "Canyoning",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "mountain.cave",
+   "label": "Caving",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "snow.ski",
+   "label": "Skiing",
+   "records": [
+    "place",
+    "route",
+    "offer"
+   ]
+  },
+  {
+   "id": "snow.play",
+   "label": "Snow play",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "snow.tour",
+   "label": "Snow tours",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "wheels.bike",
+   "label": "Cycling",
+   "records": [
+    "route",
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "wheels.drive",
+   "label": "Driving and vehicles",
+   "records": [
+    "route",
+    "offer"
+   ]
+  },
+  {
+   "id": "ride.lift",
+   "label": "Lifts and cable cars",
+   "records": [
+    "route",
+    "offer"
+   ]
+  },
+  {
+   "id": "ride.rail",
+   "label": "Scenic rail",
+   "records": [
+    "route",
+    "offer"
+   ]
+  },
+  {
+   "id": "ride.wheel",
+   "label": "Observation wheels",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "animals.ride",
+   "label": "Riding",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "animals.see",
+   "label": "Zoos and aquariums",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "animals.farm",
+   "label": "Farm animals",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "culture.museum",
+   "label": "Museums",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "culture.heritage",
+   "label": "Heritage sites",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "culture.under",
+   "label": "Show caves and mines",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "culture.tour",
+   "label": "Tours and classes",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "culture.show",
+   "label": "Shows and games",
+   "records": [
+    "offer"
+   ]
+  },
+  {
+   "id": "play.playground",
+   "label": "Playgrounds",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "play.amusement",
+   "label": "Amusement",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "play.adventure",
+   "label": "Adventure parks",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "play.farm",
+   "label": "Pick your own and farm fun",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "food.eat",
+   "label": "Places to eat",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "food.drink",
+   "label": "Breweries and wineries",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "food.market",
+   "label": "Markets",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "stay.room",
+   "label": "Rooms",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "stay.self",
+   "label": "Self-catering",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "stay.mountain",
+   "label": "Mountain huts",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "stay.camp",
+   "label": "Camping",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "access.start",
+   "label": "Starting points",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "access.park",
+   "label": "Parking",
+   "records": [
+    "place",
+    "offer"
+   ]
+  },
+  {
+   "id": "access.transit",
+   "label": "Stops and docks",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "access.amenity",
+   "label": "Amenities",
+   "records": [
+    "place"
+   ]
+  },
+  {
+   "id": "access.pass",
+   "label": "Passes and permits",
+   "records": [
+    "offer"
+   ]
+  }
+ ]
+}
