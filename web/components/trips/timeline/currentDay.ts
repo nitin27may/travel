@@ -27,3 +27,11 @@ export function dayOfHash(hash: string): number | null {
   const m = /^#?day-(\d+)$/.exec(hash);
   return m ? Number(m[1]) : null;
 }
+
+/** Where in the visible area (below the sticky bars) the eye rests: the current day is the one that has reached this line. */
+export const FOCUS_FRACTION = 0.35;
+
+/** The focus line in viewport pixels: `fraction` of the way down the area under the sticky bars. Never above the bars. */
+export function focusLine(stickyBottom: number, viewportH: number, fraction = FOCUS_FRACTION): number {
+  return stickyBottom + Math.max(0, viewportH - stickyBottom) * fraction;
+}

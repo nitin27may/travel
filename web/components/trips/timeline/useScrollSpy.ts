@@ -1,10 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { isAtBottom, pickCurrent, type Spot } from './currentDay';
+import { focusLine, isAtBottom, pickCurrent, type Spot } from './currentDay';
 
-/** Gap between the bottom of the sticky bars and the reference line. A jump lands a day 16 px under the bars, so it counts as reached. */
-const LINE_OFFSET = 24;
 const SETTLE_MS = 140;
 const SETTLE_NO_SCROLL_MS = 300;
 const SETTLE_CAP_MS = 3000;
@@ -64,7 +62,7 @@ export function useScrollSpy<K extends string | number>(opts: Options<K>): Spy<K
       if (key !== null) spots.push({ key, top: el.getBoundingClientRect().top });
     }
     const root = document.documentElement;
-    const key = pickCurrent(spots, headerH + barH + LINE_OFFSET, isAtBottom(window.scrollY, window.innerHeight, root.scrollHeight));
+    const key = pickCurrent(spots, focusLine(headerH + barH, window.innerHeight), isAtBottom(window.scrollY, window.innerHeight, root.scrollHeight));
     return { key, first: spots[0]?.key ?? null };
   }, []);
 
