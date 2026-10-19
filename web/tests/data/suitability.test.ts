@@ -288,3 +288,20 @@ describe('publicSuitability: the real data', () => {
     }
   });
 });
+
+describe('process notes never reach a visitor (3.27)', () => {
+  it('TextScrub drops agent and review-queue notes, whole sentences, and logs them', () => {
+    const log = new DropLog();
+    const scrub = new TextScrub(log);
+    const note = "agent-confirmed 2026-10-18 by travel-researcher: Wikidata description 'lake in Alberta, Canada' and P625 coordinates at the place; needs a person's check";
+    expect(scrub.text(note, 'point')).toBe('');
+    expect(scrub.text(`Open all year. ${note}.`, 'point')).toBe('Open all year.');
+    expect(scrub.text('Held for a person to review.', 'x')).toBe('');
+    expect(scrub.text('The route needs a person\'s fix.', 'x')).toBe('');
+    expect(scrub.maybe(note, 'x')).toBeNull();
+    expect(log.items.length).toBeGreaterThanOrEqual(4);
+    expect(log.items.every((i) => /process note/.test(i.why))).toBe(true);
+    // ordinary text stays
+    expect(scrub.text('Parks Canada confirmed the closure by phone.', 'x')).toBe('Parks Canada confirmed the closure by phone.');
+  });
+});
