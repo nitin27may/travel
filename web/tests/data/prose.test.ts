@@ -14,6 +14,7 @@ describe('markers become chips (spec 5.1)', () => {
     ['Vermilion Lakes Drive for the last hour before sunset (20:16 CALC).', 'Vermilion Lakes Drive for the last hour before sunset (about 19:55 to 20:30).', []],
     ['Rental about C$10-12 a day at Banff shops (2025-26 blogs, low confidence).', 'Rental about C$10-12 a day at Banff shops.', ['low_confidence']],
     ['Cave and Basin (hours and admission GAP)', 'Cave and Basin (hours and admission not known yet)', ['not_known']],
+    ['rated Poor in 2026 (2029 GAP).', 'rated Poor in 2026; not known yet for 2029.', ['not_known']],
     ['Whether a young child counts toward four is a GAP.', 'Whether a young child counts toward four is not known yet.', ['not_known']],
     ['Parks Canada 28 Aug-2 Oct; a blog says 1 Sep-6 Oct (2026, conflict)', 'Parks Canada 28 Aug-2 Oct; a blog says 1 Sep-6 Oct', ['sources_disagree']],
   ])('%s', (input, out, chips) => {

@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { scheduleDay, scheduleTrip } from '@travel/core/schedule/schedule.ts';
+import { fmtHM } from '@travel/core/schedule/rules.ts';
 import { DEFAULT_PROFILE, type DayTimeline, type Profile } from '@travel/core/schedule/types.ts';
 import { travelRoot } from '@/lib/data/root';
 import { createPublicData } from '@/lib/public';
@@ -171,11 +172,78 @@ describe('Dolomites: authored times stay, routed legs are not estimates (check 8
   });
 });
 
+describe('review round three', () => {
+  const model = async () => {
+    const { buildTripPageModel } = await import('@/components/trips/model');
+    const { candidateToItem, movedEntries } = await import('@/components/trips/timeline/model');
+    const { listPlaces, getPlace } = await import('@/lib/public');
+    const m = buildTripPageModel(rockies, (s) => { const p = getPlace(s); return p ? { point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, photo: p.photo } : null; }, listPlaces());
+    return { m, candidateToItem, movedEntries };
+  };
+  const clockMin = (s: string) => Number(s.slice(0, 2)) * 60 + Number(s.slice(3, 5));
+  it('the moved notes are the difference between each entry\'s old and new start, on 5 minutes, and absent when it did not move (R2-1)', async () => {
+    const { m, candidateToItem, movedEntries } = await model();
+    const d5 = day(rockies, 5).scheduleInput!;
+    const quick = ['rest-stop', 'coffee-break', 'lunch-stop'].map((k) => m.timeline!.addables[k]!);
+    const before = scheduleDay(d5, P());
+    const after = scheduleDay(d5, P(), { added: quick.map(candidateToItem) });
+    const moved = movedEntries(before, after);
+    const dinnerBefore = before.entries.find((e) => e.title.startsWith('Dinner'))!;
+    const dinnerAfter = after.entries.find((e) => e.id === dinnerBefore.id);
+    expect(dinnerAfter, 'dinner keeps its id when stops are added elsewhere').toBeDefined();
+    for (const [id, d] of moved) {
+      const was = before.entries.find((e) => e.id === id)!;
+      const now = after.entries.find((e) => e.id === id)!;
+      expect(d % 5, id).toBe(0);
+      expect(Math.abs(d - (clockMin(now.start) - clockMin(was.start))), id).toBeLessThanOrEqual(2);
+    }
+    if (dinnerAfter!.start === dinnerBefore.start) expect(moved.has(dinnerBefore.id)).toBe(false);
+    for (const e of after.entries) {
+      const was = before.entries.find((x) => x.id === e.id);
+      if (was && e.kind !== 'leg' && e.kind !== 'sun' && Math.abs(clockMin(e.start) - clockMin(was.start)) < 3) expect(moved.has(e.id), e.id).toBe(false);
+    }
+  });
+  it('Day 7 is not a day-cap warning, and the dark-sky stop follows the day after dark instead of sitting in daylight (R2-2)', () => {
+    const t = scheduleDay(day(rockies, 7).scheduleInput!, P());
+    expect(t.warnings.some((w) => w.code === 'S_DAY_CAP')).toBe(false);
+    const dark = t.entries.find((e) => e.id === 'jasper-dark-sky')!;
+    expect(dark.block).toBe('After dark');
+    expect(dark.time.note).toMatch(/^After dark, about \d\d:\d\d to \d\d:\d\d/);
+    expect(dark.time.anchor!.to).toBe('nautical-dusk');
+    const end = t.entries.find((e) => e.kind === 'end')!;
+    expect(t.entries.indexOf(dark)).toBeGreaterThan(t.entries.indexOf(end));
+    expect(t.span.end).toBe(end.start);
+  });
+  it('the leg out of an added place is its own leg, not a copy of the leg in (R2-3)', async () => {
+    const { m, candidateToItem } = await model();
+    const athabasca = Object.values(m.timeline!.addables).find((c) => /athabasca falls/i.test(c.name))!;
+    const t = scheduleDay(day(rockies, 5).scheduleInput!, P(), { added: [candidateToItem(athabasca)] });
+    const i = t.entries.findIndex((e) => e.id === 'add-' + athabasca.key);
+    const into = t.entries.slice(0, i).reverse().find((e) => e.kind === 'leg')!;
+    const out = t.entries.slice(i + 1).find((e) => e.kind === 'leg')!;
+    expect(out.from?.name ?? '').not.toBe('');
+    expect(`${out.durationMin}/${out.leg!.km}`).not.toBe(`${into.durationMin}/${into.leg!.km}`);
+    expect(t.warnings.filter((w) => w.code === 'W_OVERLAP' && /runs \d+ min into/.test(w.message) && /Check in/.test(w.message))).toEqual([]);
+  });
+  it('every displayed duration and total is on 5 minutes while stored minutes stay exact', () => {
+    expect(fmtHM(97)).toBe('1 h 35');
+    expect(fmtHM(48)).toBe('50 min');
+    expect(fmtHM(642)).toBe('10 h 40');
+    expect(fmtHM(60)).toBe('1 h');
+    for (const t of rockies.schedule!.timelines) for (const w of t.warnings) for (const mm of w.message.matchAll(/(\d+) h (\d\d)\b|\b(\d+) min\b/g)) expect(Number(mm[2] ?? mm[3] ?? 0) % 5, w.message).toBe(0);
+  });
+  it('Interlakes is timed by the 4 km the plan walks, not the whole 8.6 km trail\'s hours', () => {
+    const t = scheduleDay(day(rockies, 13).scheduleInput!, P());
+    const inter = t.entries.find((e) => e.id === 'interlakes-trail')!;
+    expect(inter.durationMin).toBeLessThanOrEqual(120);
+  });
+});
+
 describe('review round two', () => {
   it('only the genuinely long Rockies days warn about the cap at the default profile', () => {
     const capped = rockies.schedule!.timelines.filter((t) => t.warnings.some((w) => w.code === 'S_DAY_CAP')).map((t) => t.day);
-    // 4 and 7 are 10 h 15 away from base; 13 runs to 21:55 with the optional Rawson Lake. Everything else, Day 5 included, is under 10 h away.
-    expect(capped, capped.join()).toEqual([4, 7, 13]);
+    // 4 is the Icefields Parkway move day; 13 carries the optional Rawson Lake. Everything else is under 10 h away, Days 5 and 7 included.
+    expect(capped, capped.join()).toEqual([4, 13]);
     expect(scheduleDay(day(rockies, 5).scheduleInput!, P(), { variant: 'C' }).warnings.some((w) => w.code === 'S_DAY_CAP')).toBe(false);
   });
   it('the adults version of Day 5 takes its title from its own version and keeps the on-trail lunch before the drive back', () => {

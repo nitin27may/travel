@@ -16,7 +16,7 @@ import { formatDistance } from '@/lib/format/units';
 import { AddToDay } from './AddToDay';
 import { Entry, LegRow } from './Entry';
 import { chipsFor, honestyLabel } from './labels';
-import type { AddCandidate, TimelineDayModel } from './model';
+import { movedEntries as moves, type AddCandidate, type TimelineDayModel } from './model';
 import { Prose } from './Prose';
 
 interface Props {
@@ -34,18 +34,6 @@ interface Props {
   onRemove: (key: string) => void;
   /** key of an added place for an added entry id */
   addedKeys: Map<string, string>;
-}
-
-/** How far each entry moved between two timelines of the same day (minutes, later is positive). */
-function moves(before: DayTimelineData, after: DayTimelineData): Map<string, number> {
-  const t = (s: string) => Number(s.slice(0, 2)) * 60 + Number(s.slice(3, 5));
-  const was = new Map(before.entries.map((e) => [e.id, t(e.start)]));
-  const out = new Map<string, number>();
-  for (const e of after.entries) {
-    const w = was.get(e.id);
-    if (w !== undefined && e.kind !== 'sun' && e.kind !== 'leg' && Math.abs(t(e.start) - w) >= 5) out.set(e.id, t(e.start) - w);
-  }
-  return out;
 }
 
 const KNOW_VISIBLE = 3;

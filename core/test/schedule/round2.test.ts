@@ -22,6 +22,16 @@ describe("round two: the review's must-fixes", () => {
     expect(resolveLeg({ ids: ["x"], point: null }, { ids: ["y"], point: null }, [], hub).minutes).toBe(10);
     expect(resolveLeg({ ids: ["base"], point: hub }, { ids: ["y"], point: null }, [], hub).minutes).toBe(10);
   });
+  it("the leg out of a placed stop to a place with no coordinate runs back through the base, not a copy of the leg in", () => {
+    const hub = { lat: 52.87, lon: -118.08 };
+    const added = { ids: ["add-falls"], point: { lat: 52.66, lon: -117.88 } };
+    const stored = [{ from: "base", to: "cruise", mode: "drive" as const, minutes: 60, km: null, basis: "plan" as const, estimate: true, symmetric: true }];
+    const into = resolveLeg({ ids: ["base"], point: hub }, added, stored, hub);
+    const out = resolveLeg(added, { ids: ["cruise"], point: null }, stored, hub);
+    expect(out.minutes).toBe(Math.round((resolveLeg(added, { ids: ["base"], point: hub }, [], hub).minutes + 60) / 5) * 5);
+    expect(out.minutes).toBeGreaterThan(into.minutes + 50);
+    expect(out.basis).toBe("estimate");
+  });
   it("adding a coffee or a rest draws no drive; a placed stop is reached by a straight-line estimate", () => {
     const base = fixture("rockies-day5.json");
     const before = scheduleDay(base, family(6));

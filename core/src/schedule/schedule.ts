@@ -89,14 +89,18 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   let afterFirstLeg: number | null = null;
   let current: Lane = o.label;
 
-  const nextId = (kind: EntryKind): string => {
-    const n = (counters.get(kind) ?? 0) + 1;
-    counters.set(kind, n);
-    return `${input.day}-${lane}-${kind}-${n}`;
+  // A generated entry is named for what it is and what it precedes, not for its count: adding a stop elsewhere keeps the others' ids,
+  // so a before/after comparison pairs the same entries.
+  let before = "start";
+  const nextId = (kind: EntryKind, sub: string | null): string => {
+    const key = `${input.day}-${lane}-${kind}${sub ? `-${sub}` : ""}-${before}`;
+    const n = (counters.get(key) ?? 0) + 1;
+    counters.set(key, n);
+    return n > 1 ? `${key}.${n}` : key;
   };
   const push = (e: PushIn): TimelineEntry => {
     const entry: TimelineEntry = {
-      day: input.day, lane: current, tz: input.tz, optional: false, addedBy: "scheduler", honesty: [], sourceItemId: null, ...e, id: e.id ?? nextId(e.kind), end: "",
+      day: input.day, lane: current, tz: input.tz, optional: false, addedBy: "scheduler", honesty: [], sourceItemId: null, ...e, id: e.id ?? nextId(e.kind, e.sub), end: "",
     };
     entry.end = clock(m(entry.start) + entry.durationMin);
     entries.push(entry);
@@ -113,7 +117,6 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   let dinnerDone = input.kind === "departure";
   let lastKind = null as EntryKind | null;
   let checkedIn = input.kind !== "arrival";
-  let genCount = 0;
   const startsAtOrigin = !!ctx.origin && !ctx.base;
 
   const lastPlace = (): PlaceRef | null => {
@@ -141,7 +144,6 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
 
   /** A generated break the next squeeze level drops. Returns false when it was not placed. */
   const addBreak = (sub: string, minutes: number, title: string, at: PlaceRef | null, deadline: number | null): boolean => {
-    genCount += 1;
     if (o.squeeze >= 2) return false;
     align();
     if (deadline !== null && t + minutes > deadline) return false;
@@ -164,7 +166,6 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       t += minutes;
     };
     if (r.mode === "drive" && r.minutes > breakEveryMin(profile) && o.squeeze < 2) {
-      genCount += 1;
       const first = Math.round(r.minutes / 2);
       part(first, 1);
       push({ kind: "break", sub: "leg-stretch", title: "Stretch break on the way", start: clock(t), durationMin: 15, at: null, from: null, to: null, time: ruleTime(), duration: ruleDur("break.leg-stretch", 15) });
@@ -317,6 +318,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
     const stop = stops[si]!;
     const it = stop.item;
     ctx.items.set(it.id, it);
+    before = it.id;
     // the rejoin pin is a moment in the place the party already is: no leg
     const stayHere = !it.point && !it.placeSlug && (it.kind === "break" || it.kind === "rest" || it.kind === "meal") && !input.legs.some((l) => l.from === it.id || l.to === it.id);
     const target = (stop.isRejoin || stayHere) && loc ? loc : endOf(it);
@@ -394,20 +396,17 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
 
     // ---- place the stop ----
     let s0: number;
-    let missed = false;
     if (pinStart !== null) {
       const arrival = arrive + walkIn;
       const gateT = gate ?? pinStart;
       const gap = gateT - arrival;
       if (gap > REST_THRESHOLD_MIN && !(stop.isRejoin && !o.isMain)) {
         const place = leg ? placeOf(it) : lastPlace();
-        const coffee = gap >= COFFEE_GAP_MIN && addBreak("coffee", 20, "Coffee and a snack", place, gateT);
+        if (gap >= COFFEE_GAP_MIN) addBreak("coffee", 20, "Coffee and a snack", place, gateT);
         const left = gateT - t;
         if (left > REST_THRESHOLD_MIN) addRest(left, "free-time", "Free time", place);
-        void coffee;
       }
       if (arrival > pinStart) {
-        missed = true;
         warnings.push({ code: "S_FIXED_MISSED", entryId: it.id, lane: current, message: `Arrives ${fmtMin(arrival)} for the ${fmtMin(pinStart)} ${it.sub === "together" ? "regroup" : it.title}.` });
       }
       if (checkin) {
@@ -430,7 +429,6 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
         s0 = open;
       }
     }
-    void missed;
 
     // a long outing that spans the lunch window carries lunch with it (on-trail, no extra time)
     let onTrailAt: number | null = null;
@@ -448,12 +446,11 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       ...(it.window ? { window: { from: it.window.from ?? it.window.lastUp, to: it.window.to ?? it.window.lastDown, why: it.window.why } } : {}),
     };
     t = s0;
-    const entry = push({
+    push({
       id: it.id, kind: it.kind as EntryKind, sub: it.sub, title: it.title, start: clock(s0), durationMin: duration, at: placeOf(it), from: null, to: null, time,
       duration: { source: D.source, basis: D.basis }, ...(it.kind === "trail" || it.stats ? { stats: { distanceKm: it.stats?.distanceKm ?? null, gainM: it.stats?.gainM ?? null } } : {}),
       optional: it.optional, addedBy: stop.addedBy, sourceItemId: it.id, honesty: [...it.honesty, ...(D.unknown ? (["not_known"] as const) : [])],
     });
-    void entry;
     t = s0 + duration;
     if (onTrailAt !== null) {
       push({
@@ -469,6 +466,7 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
   }
 
   // ---- close the day (2.9 step 8) ----
+  before = "close";
   if (o.resume === null) {
     if (!checkedIn) doCheckin(ctx.base, baseRef);
     if (!lunchDone && input.kind !== "departure") {
@@ -504,7 +502,6 @@ function runLane(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: LaneO
       duration: { source: "rule", basis: "a moment, not a duration" },
     });
   }
-  void genCount;
   return { entries, warnings, afterFirstLeg, end: t };
 }
 
@@ -583,10 +580,24 @@ function sunRows(ctx: Ctx, entries: TimelineEntry[]): TimelineEntry[] {
   return out;
 }
 
+/** A stop that needs a dark sky (nautical dusk) follows the day: it is never given a clock time that could fall in daylight. */
+const afterDark = (it: ScheduleItem): boolean => it.needs?.sun === "nautical-dusk";
+
+/** The after-dark stop: after the day's last entry, outside the span, the day cap and the totals. */
+function darkEntry(ctx: Ctx, it: ScheduleItem, at: string, profile: Profile): TimelineEntry {
+  const a = ctx.sun ? anchorTime(ctx.sun, "nautical-dusk", 0) : null;
+  const D = resolveDuration(it, profile);
+  return {
+    id: it.id, day: ctx.input.day, lane: "all", kind: it.kind as EntryKind, sub: it.sub, title: it.title, start: at, durationMin: D.minutes, end: at, tz: ctx.input.tz, at: null, from: null, to: null,
+    time: { confidence: "anchored", source: "sun", pinned: false, note: `After dark${a ? `, about ${a.range[0]} to ${a.range[1]} in this window,` : ""} if the sky is clear.`, ...(a ? { anchor: { to: "nautical-dusk" as const, offsetMin: 0, range: a.range } } : {}) },
+    duration: { source: D.source, basis: D.basis }, optional: true, addedBy: "author", sourceItemId: it.id, honesty: [...it.honesty], block: "After dark",
+  };
+}
+
 const KIND_ORDER: Record<EntryKind, number> = { start: 0, checkout: 1, sun: 2, leg: 3, booking: 4, visit: 5, trail: 5, meal: 6, break: 6, rest: 7, checkin: 7, end: 9 };
 const LANE_ORDER: Record<Lane, number> = { all: 0, B: 1, C: 1, A: 2 };
 /** The regroup pin of a split day comes before whatever starts at the same minute. */
-const kindOrder = (e: TimelineEntry): number => (e.kind === "rest" && e.sub === "together" ? -1 : e.insideOf ? 2.5 : KIND_ORDER[e.kind]);
+const kindOrder = (e: TimelineEntry): number => (e.block ? 10 : e.kind === "rest" && e.sub === "together" ? -1 : e.insideOf ? 2.5 : KIND_ORDER[e.kind]);
 const sortEntries = (es: TimelineEntry[]): TimelineEntry[] =>
   [...es].sort((a, b) => m(a.start) - m(b.start) || LANE_ORDER[a.lane] - LANE_ORDER[b.lane] || kindOrder(a) - kindOrder(b) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
@@ -630,6 +641,9 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
   if (input.blocks) return blocksDay(input, profile, opts, sel);
   const ctx = makeCtx(input, profile);
   let stops: Stop[] = sel.variant.items.map((item) => ({ item, addedBy: "author" as const }));
+  // dark-sky watching waits for a dark sky: when that is past the evening it follows the day instead of being scheduled in it
+  const dark = stops.filter((s) => afterDark(s.item)).map((s) => s.item);
+  stops = stops.filter((s) => !dark.includes(s.item));
   for (const add of opts.added ?? []) stops = insertAdded(ctx, stops, add, profile);
 
   const rejoin = sel.parallel?.rejoin ?? sel.variant.rejoin ?? null;
@@ -667,8 +681,9 @@ export function scheduleDay(input: ScheduleDayInput, profile: Profile, opts: Sch
     }
   }
 
-  entries = sortEntries([...entries, ...sunRows(ctx, entries)]);
-  const real = entries.filter((e) => e.kind !== "sun");
+  const dayEnd = entries.filter((e) => e.kind === "end" && (e.lane === "all" || e.lane === mainLabel)).map((e) => e.start)[0] ?? clock(Math.max(...entries.map((e) => m(e.start))));
+  entries = sortEntries([...entries, ...sunRows(ctx, entries), ...dark.map((it) => darkEntry(ctx, it, dayEnd, profile))]);
+  const real = entries.filter((e) => e.kind !== "sun" && !e.block);
   const partyLane = (e: TimelineEntry): boolean => e.lane === "all" || e.lane === mainLabel;
   const startM = Math.min(...real.map((e) => m(e.start)));
   const endM = Math.max(...real.filter(partyLane).map((e) => m(e.start) + e.durationMin));

@@ -201,3 +201,20 @@ export function timeOfRow(row: { name: string; placeSlug: string | null }, day: 
   const hit = t.entries.find((e) => e.kind !== 'leg' && e.kind !== 'sun' && ((row.placeSlug && e.at?.placeSlug === row.placeSlug) || norm(e.title) === name || (name.length > 5 && norm(e.title).includes(name))));
   return hit ? hit.start : null;
 }
+
+/**
+ * How far each entry moved between two timelines of the same day, in minutes (later is positive), paired by the stable entry id and
+ * rounded to 5 minutes; an entry that did not really move is left out. Legs and sun rows are not reported.
+ */
+export function movedEntries(before: DayTimeline, after: DayTimeline): Map<string, number> {
+  const at = (s: string): number => Number(s.slice(0, 2)) * 60 + Number(s.slice(3, 5));
+  const was = new Map(before.entries.map((e) => [e.id, at(e.start)]));
+  const out = new Map<string, number>();
+  for (const e of after.entries) {
+    const w = was.get(e.id);
+    if (w === undefined || e.kind === 'sun' || e.kind === 'leg') continue;
+    const d = Math.round((at(e.start) - w) / 5) * 5;
+    if (d !== 0) out.set(e.id, d);
+  }
+  return out;
+}

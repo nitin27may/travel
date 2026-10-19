@@ -150,7 +150,9 @@ export interface ResolvedDuration {
 /** Generated durations are shown to the nearest 5 minutes: a rule of thumb does not know the minute. */
 export const round5 = (min: number): number => Math.max(5, Math.round(min / 5) * 5);
 
-const fmt = (min: number): string => {
+/** Every duration and total is shown to the nearest 5 minutes; stored minutes (a routed leg's) stay exact in the data. */
+const fmt = (exact: number): string => {
+  const min = exact > 0 ? round5(exact) : 0;
   const h = Math.floor(min / 60);
   const m = Math.round(min % 60);
   return h > 0 ? (m > 0 ? `${h} h ${String(m).padStart(2, "0")}` : `${h} h`) : `${m} min`;

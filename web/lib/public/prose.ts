@@ -65,6 +65,10 @@ export function stripMarkers(input: string, sun?: { sunset: [string, string]; su
   t = t.replace(/^\s*INFERENCE:\s*(.+?)\.?\s*$/s, (_m, x: string) => { add('estimate'); return `${x.charAt(0).toUpperCase()}${x.slice(1)}: an estimate.`; });
   t = t.replace(/^\s*(?:CALC|VERIFIED):\s*/s, '');
 
+  // "rated Poor on 8 Oct 2026 (2029 GAP)": a known fact, then what is not known; never "Poor in 2026 (not known yet)"
+  t = t.replace(/(?<=[.!?])\s*\((20\d\d) GAP\)/g, (_m, y: string) => { add('not_known'); return ` Not known yet for ${y}.`; });
+  t = t.replace(/\s*\((20\d\d) GAP\)/g, (_m, y: string) => { add('not_known'); return `; not known yet for ${y}`; });
+
   // inside a sentence
   t = t.replace(/\b(?:is|are) (?:a |an )?GAP\b/g, () => { add('not_known'); return 'is not known yet'; });
   t = t.replace(/\b(?:2029|2027|2028|2026) GAP\b/g, () => { add('not_known'); return 'not known yet'; });

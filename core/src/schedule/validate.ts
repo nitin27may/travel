@@ -10,7 +10,7 @@ const endM = (e: TimelineEntry): number => m(e.start) + e.durationMin;
 
 /** The entries of one lane as the visitor reads them: that lane plus the shared ones, in order. */
 function laneEntries(t: DayTimeline, lane: Lane): TimelineEntry[] {
-  return t.entries.filter((e) => e.kind !== "sun" && (e.lane === "all" || e.lane === lane));
+  return t.entries.filter((e) => e.kind !== "sun" && e.block !== "After dark" && (e.lane === "all" || e.lane === lane));
 }
 
 export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Profile, sun: SunRef | null, items: Map<string, ScheduleItem>, mainLabel: Lane): ScheduleWarning[] {
@@ -26,9 +26,8 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
 
   for (const lane of timed ? lanes : []) {
     const es = laneEntries(t, lane);
-    const timed = es.filter((e) => e.kind !== "leg" || true);
     // W_OVERLAP: a non-leg entry that starts before the previous one (plus the leg) is over
-    const body = timed.filter((e) => e.kind !== "end" && e.kind !== "start" && e.durationMin > 0 && !(e.kind === "meal" && e.style === "on-trail"));
+    const body = es.filter((e) => e.kind !== "end" && e.kind !== "start" && e.durationMin > 0 && !(e.kind === "meal" && e.style === "on-trail"));
     for (let i = 1; i < body.length; i++) {
       const a = body[i - 1]!;
       const b = body[i]!;
@@ -37,9 +36,9 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
     }
   }
 
-  const main = t.entries.filter((e) => e.kind !== "sun" && (e.lane === "all" || e.lane === mainLabel));
+  const main = t.entries.filter((e) => e.kind !== "sun" && e.block !== "After dark" && (e.lane === "all" || e.lane === mainLabel));
   for (const e of t.entries) {
-    if (e.kind === "sun") continue;
+    if (e.kind === "sun" || e.block === "After dark") continue;
     const w = e.time.window;
     const it = e.sourceItemId ? items.get(e.sourceItemId) : undefined;
     // W_HOURS and S_LAST_RIDE
@@ -88,7 +87,9 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
   // S_DAY_CAP: the time away from base. A long rest at the base (45 min or more) and dinner there are not part of the outing.
   if (timed) {
     const cap = dayCapMin(profile);
-    const home = main.filter((e) => e.sub === "at-base" && e.durationMin >= 45 && e.kind === "rest").reduce((n, e) => n + e.durationMin, 0)
+    // a stored zero-minute leg to or from the base marks an item done at the base itself (laundry, errands)
+    const atBase = new Set(input.legs.filter((l) => l.minutes === 0 && (l.from === "base" || l.to === "base")).map((l) => (l.from === "base" ? l.to : l.from)));
+    const home = main.filter((e) => e.durationMin >= 45 && (e.sub === "at-base" && e.kind === "rest" || (e.kind === "visit" && e.sourceItemId !== null && atBase.has(e.sourceItemId)))).reduce((n, e) => n + e.durationMin, 0)
       + main.filter((e) => e.kind === "meal" && e.style === "at-base").reduce((n, e) => n + e.durationMin, 0);
     const away = t.span.minutes - home;
     if (away > cap) {
@@ -112,6 +113,5 @@ export function validateDay(t: DayTimeline, input: ScheduleDayInput, profile: Pr
   }
   // S_NO_FIT
   if (!t.fits) warn("S_NO_FIT", `No version of Day ${t.day} suits age ${profile.youngest ?? "this setting"}.`, null, "all");
-  void input;
   return out;
 }

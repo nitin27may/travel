@@ -878,6 +878,10 @@
      {
       "id": "jasper-dark-sky",
       "optional": true,
+      "needs": {
+       "sun": "nautical-dusk",
+       "offsetMin": 0
+      },
       "durationMin": 90,
       "durationSource": "plan",
       "note": "Dark-sky watching if it is clear."
