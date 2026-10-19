@@ -34,14 +34,14 @@ export const provenanceText = (s: string): string => publicProvenance(s).replace
 
 function conflict(f: Fact): string {
   if (!f.conflicts.length) return '';
-  const li = (v: string, p: string): string => `<li>${factText(v)}<span class="pl-prov">${esc(provenanceText(p))}</span></li>`;
+  const li = (v: string, p: string): string => `<li>${factText(v)}<span class="pl-prov">${withUnits(provenanceText(p))}</span></li>`;
   return `<div class="pl-conflict"><span class="chip chip-caution" data-kind="caution">${svg('warn', 13)}Sources disagree</span><ul>${li(f.value, f.provenance)}${f.conflicts.map((c) => li(c.value, c.provenance)).join('')}</ul></div>`;
 }
 
 /** A list of facts, each with its text, provenance and any conflict. */
 export function factsDl(facts: readonly Fact[]): string {
   if (!facts.length) return '';
-  return `<dl class="pl-kv pl-kv-wide">${facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${factText(f.value)}<span class="pl-prov">${esc(provenanceText(f.provenance))}</span>${conflict(f)}</dd></div>`).join('')}</dl>`;
+  return `<dl class="pl-kv pl-kv-wide">${facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${factText(f.value)}<span class="pl-prov">${withUnits(provenanceText(f.provenance))}</span>${conflict(f)}</dd></div>`).join('')}</dl>`;
 }
 
 function mapLinks(at: { lat: number; lng: number }, label: string): string {

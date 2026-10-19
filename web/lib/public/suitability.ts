@@ -132,13 +132,15 @@ function dur(min: number): string {
   const m = min % 60;
   return m ? `${h} h ${m}` : `${h} h`;
 }
-/** "1–1 h 30", "90 min" */
+/** "45 min–1 h 30", "30–45 min", "1–3 h", "2–14 days", "90 min": the unit shows on both ends when they differ, once when they match. */
 function durRange(r: [number, number]): string {
   const [a, b] = r;
   if (a === b) return dur(a);
   if (b >= 1440 && a >= 1440 && a % 1440 === 0 && b % 1440 === 0) return `${a / 1440}–${dur(b)}`;
-  if (a >= 60 && b >= 60 && a % 60 === 0 && b < 1440) return `${a / 60}–${dur(b)}`;
-  return `${a >= 60 ? dur(a) : a}–${dur(b)}`;
+  if (b < 60) return `${a}–${b} min`;
+  // both in hours: the unit shows once, at the end ("1–3 h", "1–1 h 30")
+  if (a >= 60 && a % 60 === 0 && b < 1440) return `${a / 60}–${dur(b)}`;
+  return `${dur(a)}–${dur(b)}`;
 }
 const num = (n: number): string => (Number.isInteger(n) ? String(n) : String(Math.round(n * 10) / 10));
 const humanise = (s: string): string => s.replace(/_/g, ' ');
@@ -200,7 +202,8 @@ const LABEL: Record<string, string> = {
   wheelchair: 'Wheelchair', access_detail: 'Access detail', accessible_toilet: 'Accessible toilet', accessible_parking: 'Accessible parking', limited_capacity_note: 'Capacity',
   'effort.source_grade': 'Effort', 'effort.drivers.distance_km': 'Distance', 'effort.drivers.gain_m': 'Climb', 'effort.drivers.loss_m': 'Descent',
   'effort.drivers.surface': 'Surface', 'effort.drivers.scrambling': 'Scrambling', 'effort.drivers.fixed_aids': 'Fixed aids', 'effort.drivers.max_grade_pct': 'Steepest',
-  adult_time_min: 'Adult time', child_time_min: 'With children', on_site_min: 'Time on site',
+  'ext.trail.snowfields_until': 'Snow on the trail until',
+  adult_time_min: 'Adult time', child_time_min: 'Child time', on_site_min: 'Time on site',
   toilets: 'Toilets', water: 'Drinking water', food: 'Food', shade: 'Shade', bail_out: 'Bail-out', signal: 'Phone signal', change_rooms: 'Changing rooms',
   showers: 'Showers', picnic: 'Picnic', baby_change: 'Baby change', access_season: 'Access', 'participation.weather_cancel': 'Cancelled for', hazards: 'Hazards',
   exposure: 'Exposure', altitude_m: 'Altitude', 'participation.kit_provided': 'Kit provided', 'participation.wear': 'Wear', 'water_safety.class': 'Water class',
@@ -214,7 +217,7 @@ function extLabel(path: string): string {
 }
 export const labelOf = (path: string): string => LABEL[path] ?? extLabel(path);
 
-const STROLLER_WORD: Record<string, string> = { smooth: 'Any stroller', all_terrain: 'All-terrain stroller only', none: 'None' };
+const STROLLER_WORD: Record<string, string> = { smooth: 'Any stroller', all_terrain: 'All-terrain stroller only', none: 'No stroller access' };
 
 /** The value in words, by property. null: no formatter knows the shape, the caller falls back to a generic read. */
 function describe(path: string, v: unknown, rec: { block: Obj; ext: Obj | undefined }): string | null {
@@ -676,7 +679,7 @@ function slot3(c: Ctx, key: string | null): Chip | null {
   switch (key) {
     case 'stroller': {
       const s = describe('stroller', v, c);
-      text = v === 'none' ? 'No stroller' : v === 'smooth' ? 'Stroller OK' : s;
+      text = v === 'none' ? 'No stroller access' : v === 'smooth' ? 'Stroller OK' : s;
       if (isObj(c.block.stroller_extent) && c.block.stroller_extent.scope === 'part' && v !== 'none') {
         const e = c.block.stroller_extent;
         const note = typeof e.part_km === 'number' ? `first ${num(e.part_km)} km` : typeof e.part_note === 'string' && e.part_note.length <= 24 ? e.part_note : 'part of the way';

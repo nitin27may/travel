@@ -47,6 +47,8 @@ export function placeFacets(world: World, root: string, places: readonly PublicP
   const out = new Map<string, PlaceFacets>();
   for (const p of places) {
     let ref = refBySlug.get(p.slug);
+    // a capture record named for the page's own slug (`place/funbob-monte-baranci` for the page whose prototype id is `funbob`)
+    if (!ref && world.cap.has(`place/${p.slug}`)) ref = `place/${p.slug}`;
     if (!ref) {
       const hit = byName.get(normName(p.name));
       if (hit?.length === 1) ref = hit[0];
