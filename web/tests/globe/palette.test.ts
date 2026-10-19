@@ -59,3 +59,20 @@ describe('engine.ts', () => {
     expect(text).not.toMatch(/\brgba?\(\s*\d/);
   });
 });
+
+describe('Q6: the dark land is a token', () => {
+  it('reads the dark land and wood from --globe-land and --globe-wood, lighter than the sea, with no blend in the engine', () => {
+    const d = buildPalette((n) => FALLBACK_TOKENS.dark[n], 'dark');
+    expect(d.land).toBe(FALLBACK_TOKENS.dark['--globe-land']);
+    expect(d.wood).toBe(FALLBACK_TOKENS.dark['--globe-wood']);
+    expect(contrast(d.land, d.ocean)).toBeGreaterThan(1.15);
+    const text = readFileSync(path.join(WEB, 'lib/globe/engine.ts'), 'utf8');
+    expect(text).not.toMatch(/mix\(pal\.land, pal\.high/);
+    expect(readFileSync(path.join(WEB, 'app/themes.css'), 'utf8')).toMatch(/--globe-land: #263241/);
+  });
+  it('the casing reaches 3:1 on the dark water of both the shipped token and the globe', () => {
+    const d = buildPalette((n) => FALLBACK_TOKENS.dark[n], 'dark');
+    expect(contrast(d.casingSel, 'rgb(63 124 143)')).toBeGreaterThanOrEqual(3);
+    expect(contrast(d.accentSel, d.casingSel)).toBeGreaterThanOrEqual(3);
+  });
+});

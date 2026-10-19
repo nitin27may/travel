@@ -91,3 +91,17 @@ export function boxCentre(box: [[number, number], [number, number]]): [number, n
   const y = (mercY(s) + mercY(n)) / 2;
   return [(w + e) / 2, (Math.atan(Math.sinh(y)) * 180) / Math.PI];
 }
+
+/** The longest a flight may take: a hop across the world to a place, or out to the world, still reads as a flight, not a cut. */
+export const LONG_FLIGHT_CAP_MS = 2400;
+
+/**
+ * An explicit duration for a flight (spec 5.3). MapLibre jumps to the end whenever its own model asks for more than `maxDuration`,
+ * which every long hop did (Reset view, a search from world to a place, a panel row from a country to a place): so the duration is
+ * ours, from the zoom change and the distance, never more than the cap. A hop of one level lands near 1.1 s.
+ */
+export function flightDuration(zoomChange: number, km: number, plan: { maxDuration: number }): number {
+  const model = 700 + 140 * Math.abs(zoomChange) + 40 * Math.sqrt(Math.max(0, km) / 100);
+  const cap = Math.max(plan.maxDuration, plan.maxDuration >= 1600 ? LONG_FLIGHT_CAP_MS : 1200);
+  return Math.round(Math.min(cap, Math.max(500, model)));
+}

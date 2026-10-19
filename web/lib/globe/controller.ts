@@ -233,7 +233,7 @@ export class GlobeController {
     this.engine?.setFeature(f);
     this.engine?.setCityArea(null);
     this.emit({ feature: f, boundary: null });
-    if (f && f.sourceLayer === 'place') void this.showCityArea(f);
+    if (f && f.sourceLayer === 'place' && /^(city|town|village)$/.test(f.kind)) void this.showCityArea(f);
   }
 
   /** A selected city or town: its OSM outline when a public place or trip base is in it, else the honest ring and "Boundary not loaded". */
@@ -541,6 +541,9 @@ export class GlobeController {
       if (c) await this.drillToPoint(c.a2.toLowerCase(), [a.lng, a.lat]);
       engine.setPadding(this.padding());
       engine.flyToPoint([a.lng, a.lat], a.rank <= 2 ? 9.5 : featureZoom('city'), { plan: this.plan('feature', { featureClass: 'city' }) });
+      // the city's card opens when the camera lands: its outline where we hold one, else the honest ring and "Boundary not loaded"
+      const city: BasemapFeature = { sourceLayer: 'place', kind: 'city', name: a.name, extra: '', lngLat: [a.lng, a.lat], wikidata: null };
+      engine.afterMove(() => this.onBasemap(city));
       return;
     }
     // A sea, range or other landform: fly there at a scale that fits its rank and stay on the world level.

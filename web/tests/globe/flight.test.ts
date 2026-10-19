@@ -49,3 +49,16 @@ describe('the fly-in table (spec 5.3, check 21)', () => {
     expect(terrainRamp(5, 1.2)).toBe(1.2);
   });
 });
+
+describe('explicit flight durations (spec 5.3, review M1)', () => {
+  const country = { maxDuration: 1800 };
+  it('never asks MapLibre to cut: every hop gets a duration, long ones capped at 2.4 s', async () => {
+    const { flightDuration, LONG_FLIGHT_CAP_MS } = await import('@/lib/globe/flight');
+    expect(flightDuration(3, 300, country)).toBeLessThan(1600);
+    expect(flightDuration(3, 300, country)).toBeGreaterThan(900);
+    expect(flightDuration(10, 6000, { maxDuration: 1600 })).toBe(LONG_FLIGHT_CAP_MS);
+    expect(flightDuration(-6, 4000, country)).toBeGreaterThan(1500);
+    expect(flightDuration(0, 0, country)).toBeGreaterThanOrEqual(500);
+    expect(flightDuration(6, 900, { maxDuration: 900 })).toBeLessThanOrEqual(1200);
+  });
+});

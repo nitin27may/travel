@@ -28,8 +28,21 @@ import { FeatureCard, SelectionCard, type NearbyPlace } from './SelectionCard';
 import { featureClass, loadFeatureFacts, type FeatureFacts } from '@/lib/globe/wikidata';
 import { distanceKm } from '@/lib/map/geo';
 import { nodeAt } from '@/lib/globe/model';
+import { placeCard, type Rect } from '@/lib/globe/anchor';
 
 const EMPTY: GlobeSnapshot = { ready: false, failed: null, loading: '', path: [], crumbs: [], selected: null, feature: null, boundary: null, here: null, pins: [], notice: null };
+/** The floating elements a card must not sit on, as rectangles in the globe root's own coordinates (spec 3.2). */
+function occupiedRects(root: HTMLElement | null): Rect[] {
+  if (!root) return [];
+  const r0 = root.getBoundingClientRect();
+  return ['.globe-search', '.globe-crumbs', '.globe-zoom', '.globe-card-pill', '.globe-card-controls', '.globe-status', '.globe-panel-tab'].flatMap((sel) => {
+    const el = root.querySelector(sel);
+    if (!el) return [];
+    const b = el.getBoundingClientRect();
+    return b.width ? [{ left: b.left - r0.left - 12, top: b.top - r0.top - 12, right: b.right - r0.left + 12, bottom: b.bottom - r0.top + 12 }] : [];
+  });
+}
+
 /** Height of the phone sheet at rest (components 5.5). */
 const PEEK = 176;
 /** The control card (316 wide at left 12) keeps the disc clear when it is open. */
@@ -62,7 +75,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [prefsReady, setPrefsReady] = useState(false);
   const [snap, setSnap] = useState<GlobeSnapshot>(EMPTY);
   const [engine, setEngine] = useState<GlobeEngine | null>(null);
-  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelWanted, setPanelOpen] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(true);
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [cardOpen, setCardOpenState] = useState(false);
@@ -79,6 +92,8 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const engineRef = useRef<GlobeEngine | null>(null);
   const layoutRef = useRef<() => { width: number; height: number; cover: { top: number; right: number; bottom: number; left: number }; mode: 'desktop' | 'landscape' | 'phone' }>(() => ({ width: 1, height: 1, cover: { top: 0, right: 0, bottom: 0, left: 0 }, mode: 'desktop' }));
   const short = useMedia('(max-height: 500px) and (orientation: landscape)');
+  // On a landscape phone the panel drops to its tab while a card is open, so the card and the pin have the screen (review M4).
+  const panelOpen = panelWanted && !(short && !!snap.selected);
   const root = useRef<HTMLDivElement>(null);
   // The first frame is computed from the window, before the canvas exists; the controller re-frames from the real canvas once it does.
   const [initialCamera] = useState<Camera | null>(() => {
@@ -252,15 +267,13 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     if (!engine || !pin || phone || short) { if (engine) engine.syncMarkers('card', []); setCardEl(null); return; }
     const at = engine.project(pin.lon, pin.lat);
     const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
-    const free = w - (panelOpen ? 384 : 0);
-    const left = !!at && at.x + 26 + 330 > free;   // not enough room on the right
-    const up = !!at && at.y + 230 > h - 40;        // the card is about 220 px tall
-    const down = !!at && at.y < 140;
-    const anchor = (up && !down ? (left ? 'bottom-right' : 'bottom-left') : down ? (left ? 'top-right' : 'top-left') : left ? 'right' : 'left') as 'left';
-    const m = engine.syncMarkers('card', [{ key: 'card', lng: pin.lon, lat: pin.lat, anchor, offset: [left ? -26 : 26, up && !down ? -8 : down ? 8 : 0], className: 'globe-card-anchor' }]);
+    const free: Rect = { left: 0, top: 0, right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
+    const pl = at ? placeCard(at, { w: 320, h: card?.image ? 390 : 330 }, free, occupiedRects(root.current)) : null;
+    const m = engine.syncMarkers('card', [{ key: 'card', lng: pin.lon, lat: pin.lat, anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 26, pl?.offset[1] ?? 8], className: 'globe-card-anchor' }]);
     setCardEl(m.get('card') ?? null);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [engine, pin, phone, short, panelOpen, camTick]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `card` only sizes the estimate
+  }, [engine, pin, phone, short, panelOpen, camTick, snap.crumbs.length]);
 
   // The feature card sits at the click point on a desktop and flips to the side with room, so the highlighted river, sea or peak stays in view
   // (spec 3.2). On a phone or a landscape phone it is a fixed card above the sheet's peek.
@@ -270,13 +283,12 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     if (!engine || !feature || phone || short || (feature.lngLat[0] === 0 && feature.lngLat[1] === 0)) { if (engine) engine.syncMarkers('feature', []); setFeatEl(null); return; }
     const at = engine.project(feature.lngLat[0], feature.lngLat[1]);
     const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
-    const free = w - (panelOpen ? 384 : 0);
-    const right = !at || at.x < free / 2;
-    const below = !at || at.y < h * 0.55;
-    const m = engine.syncMarkers('feature', [{ key: 'feature', lng: feature.lngLat[0], lat: feature.lngLat[1], anchor: `${below ? 'top' : 'bottom'}-${right ? 'left' : 'right'}` as 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right', offset: [right ? 18 : -18, below ? 14 : -14], className: 'globe-feature-anchor' }]);
+    const free: Rect = { left: 0, top: 0, right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
+    const pl = at ? placeCard(at, { w: 300, h: 250 }, free, occupiedRects(root.current)) : null;
+    const m = engine.syncMarkers('feature', [{ key: 'feature', lng: feature.lngLat[0], lat: feature.lngLat[1], anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 18, pl?.offset[1] ?? 8], className: 'globe-feature-anchor' }]);
     setFeatEl(m.get('feature') ?? null);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [engine, feature, phone, short, panelOpen]);
+  }, [engine, feature, phone, short, panelOpen, snap.crumbs.length]);
 
   // Wikidata facts load after the card opens; a failed or slow call leaves no rows (spec 4.3).
   const featureKey = feature ? `${feature.sourceLayer}:${feature.name}:${feature.wikidata ?? ''}` : null;
@@ -303,6 +315,13 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       .sort((a, b) => a.km - b.km)
       .slice(0, 4);
   }, [snap.feature, data]);
+
+  // The landscape card dock starts under the breadcrumb, wherever that wraps to (review M3).
+  useLayoutEffect(() => {
+    const el = root.current, c = el?.querySelector('.globe-crumbs');
+    if (!el || !c) return;
+    el.style.setProperty('--globe-dock-top', `${Math.round(c.getBoundingClientRect().bottom - el.getBoundingClientRect().top + 8)}px`);
+  }, [short, snap.crumbs.length, snap.selected]);
 
   // Free canvas for the world frame: the canvas minus whatever the open panel or the resting sheet covers (spec 3.1).
   const panelFoot = (short ? 300 : 360) + 24;
@@ -340,9 +359,12 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const panelCount = level === 0 ? worldCount : countNode ? countNode.places + countNode.trips : 0;
   const panelTitle = level === 0 ? 'Places and trips' : snap.crumbs[snap.crumbs.length - 1]?.label ?? '';
 
-  const body = book ? (
+  const censusCredit = snap.path[0] === 'ca' && snap.path.length >= 2;
+  const bodyList = book ? (
     <GlobePanelBody data={data} book={book} path={snap.path} selected={snap.selected} onArea={(p) => { void controller?.goArea(p); }} onCard={(k) => { void controller?.selectCard(k); }} />
   ) : null;
+  // Where Canada's census divisions are drawn they carry their source and licence (F4).
+  const body = bodyList ? (<>{bodyList}{censusCredit ? <p className="globe-credit">Districts: Statistics Canada, 2021 census divisions, <a href="https://www.statcan.gc.ca/en/reference/licence" target="_blank" rel="noopener noreferrer">Open Government Licence – Canada</a>.</p> : null}</>) : null;
 
   const controls = <GlobeControls prefs={prefs} style={styleKey} reducedMotion={reduced} onChange={changePrefs} onHide={() => { setOptionsOpen(false); setImmersive(true); }} />;
 

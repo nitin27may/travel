@@ -30,7 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "legacy" / "globe" / "assets"
 CACHE = ROOT / "tools" / ".cache"
-UA = {"User-Agent": "nks-travel-globe/0.1 (personal trip planner; nitin27may@gmail.com)"}
+UA = {"User-Agent": "travel-relevance-signals/1.0 (+https://nks-travel.pages.dev/about/)"}
 MAPLIBRE = "6.14.0"
 LIMIT = 20 * 1024 * 1024
 
