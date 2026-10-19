@@ -139,7 +139,7 @@ export function SmartRow<Row>({ d, state, onState, searchRef, applied, onApplied
             {phone ? (
               <>
                 <span>Read as {n} {n === 1 ? 'filter' : 'filters'}</span>
-                <button type="button" onClick={undo} aria-label={`Search the words instead: ${live.text}`}>Undo</button>
+                <button type="button" onClick={undo} aria-label={`Undo: search the words instead (${live.text})`}>Undo</button>
               </>
             ) : (
               <>

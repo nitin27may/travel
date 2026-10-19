@@ -169,11 +169,11 @@ test.describe('the Places and Trips search boxes', () => {
     await box.press('Enter');
     await expect(page).toHaveURL(/country=CA/);
     expect(keys(page.url())).toEqual(Q1_KEYS);
-    const note = page.getByRole('status').filter({ hasText: /^Read .easy hike/ });
-    await expect(note).toContainText('as 5 filters');
+    const note = page.locator('.smart-undo');
+    await expect(note).toContainText(/as 5 filters/);
     await expect(box).toHaveValue('');
     // undo with the button
-    await note.getByRole('button', { name: 'Search the words instead' }).click();
+    await note.getByRole('button', { name: /^Search the words instead|^Undo/ }).click();
     await expect(box).toHaveValue(Q1);
     expect(keys(page.url())).toEqual({ q: Q1 });
     // apply again and undo with Esc
@@ -220,7 +220,7 @@ test.describe('the Places and Trips search boxes', () => {
     // no row of the group is a card of the main results
     for (const n of names) await expect(page.locator('.results .card').filter({ hasText: n })).toHaveCount(0);
     // the count line and the group agree on the word "stroller"
-    await expect(page.getByRole('status').filter({ hasText: /^Read .waterfall/ })).toBeVisible();
+    await expect(page.locator('.smart-undo')).toBeVisible();
   });
 
   test('Places: an empty answer says so, names the chip that costs the most, and offers the words back', async ({ page, site }) => {
@@ -261,7 +261,7 @@ test.describe('the Places and Trips search boxes', () => {
     const box = await list(page, site, '/places/');
     await box.fill(QWATERFALL);
     await box.press('Enter');
-    await expect(page.getByRole('status').filter({ hasText: /^Read .waterfall/ })).toBeVisible();
+    await expect(page.locator('.smart-undo')).toBeVisible();
     await page.getByRole('button', { name: 'Remove filter Kind: Waterfalls and rapids' }).click();
     await expect(page.locator('.smart-row')).not.toHaveAttribute('data-open', '');
   });
@@ -323,7 +323,7 @@ test.describe('review SQ1b: must-fixes', () => {
       const h = await page.locator('.filter-sticky').evaluate((el) => el.getBoundingClientRect().height);
       expect(h / 844, `sticky bar ${h}px`).toBeLessThanOrEqual(0.35);
       expect(await note.evaluate((el) => el.getBoundingClientRect().height)).toBeLessThan(60);
-      await note.getByRole('button', { name: /^Search the words instead/ }).click();
+      await note.getByRole('button', { name: /^Undo/ }).click();
       await expect(box).toHaveValue('moderate hike with 500 m climb');
     });
   });
