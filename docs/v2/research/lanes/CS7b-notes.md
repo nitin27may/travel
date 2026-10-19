@@ -69,5 +69,7 @@ not reached.
 
 ## 3.39, 3.40 and 3.36
 
-See the commits: the Track and Tower grade conflict (Ontario Parks says moderate), the Scout Lookout name on the capture record
-(the public item name comes from the prototype snapshot), and the Tre Cime toll, Braies P4 and Lavaredo re-reads.
+See the commits for the Track and Tower grade conflict (Ontario Parks says moderate) and the Tre Cime toll, Braies P4 and Lavaredo
+re-reads. 3.40 was tried and reverted: renaming the capture record to "Scout Lookout (Angels Landing chains view)" dropped the trail's
+effort and age from the Utah tags, because the public adapter joins them by the capture name. The public item name comes from the
+prototype snapshot. The rename needs the join to use the ref first (hand-back).
