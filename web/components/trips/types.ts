@@ -23,10 +23,33 @@ export interface TripListRow {
   ageFit: number | null;
   effort: string | null;
   firstBase: string | null;
+  // ---- derived tags (L3b): ids and labels only, never the plan (principle P8) ----
+  /** Every country the plan visits, for the Where filter. */
+  countries: { code: string; name: string }[];
+  continents: string[];
+  /** The Length filter value: day, overnight, weekend, long-weekend, 4-8, 9-14 or 15+. */
+  length: string | null;
+  /** Day, overnight, weekend, long-weekend or multi-day. */
+  lengthClass: string | null;
+  /** The Kids filter reads `ageFit` ("Kids from N"). */
+  hike: 'easy' | 'moderate' | 'strenuous' | null;
+  strollerDays: 'friendly' | { n: number; of: number } | null;
+  activities: { id: string; label: string }[];
+  /** Up to two anchors, by draw then by day. */
+  highlights: string[];
+  around: string[];
+  perDay: string | null;
+  perDayApprox: boolean;
+  shape: string | null;
+  /** One-way minutes from Toronto (the first public hub) to the first stop, or null while the hub matrix has no value. */
+  fromHubMin: number | null;
+  /** True when that figure is an estimate, not a routed time. */
+  fromHubApprox: boolean;
 }
 
 /** Every key a trip list row may carry (principle P8, backlog 2.24): card and filter fields, never the plan itself. A test pins it. */
 export const TRIP_LIST_KEYS: readonly (keyof TripListRow)[] = [
   'id', 'slug', 'title', 'depth', 'nights', 'days', 'seasonNotSet', 'isDone', 'region', 'cover', 'seasonLabel', 'seasonMonths',
   'country', 'countryName', 'lat', 'lon', 'approx', 'ageFit', 'effort', 'firstBase',
+  'countries', 'continents', 'length', 'lengthClass', 'hike', 'strollerDays', 'activities', 'highlights', 'around', 'perDay', 'perDayApprox', 'shape', 'fromHubMin', 'fromHubApprox',
 ];

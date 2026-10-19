@@ -2,6 +2,9 @@
 // receive these values as props. Absent values are `null`.
 import type { DayTimeline, Profile, ScheduleDayInput } from '@travel/core/schedule/types.ts';
 import type { KnowGroup, NoteBlock, CleanProse } from './prose';
+import type { ListBands } from '@travel/core/capture/bandKeys.ts';
+import type { LengthClass } from '@travel/core/derive/length.ts';
+import type { TripTags } from './tags';
 
 /** The six trip categories, in the fixed order patterns 3.4 requires. */
 export const CATEGORIES = ['stays', 'trails', 'sights', 'activities', 'food', 'logistics'] as const;
@@ -190,9 +193,14 @@ export interface PublicPlaceCard {
   stats: { distanceKm: number | null; gainM: number | null; hours: string | null };
   /** Where the facts came from: 'locations', 'prototype', 'trail'. */
   sources: ('locations' | 'prototype' | 'trail')[];
+  /** The capture type id (`nature.trail.hike`), or the category its kind implies. The Kind pill and the type-aware facets read it (L3b). */
+  type: string | null;
+  /** Labels and bands for the list filters (capture contract 7.3). Never a fact with a source (P8). Every band is null for a place with no capture record. */
+  bands: ListBands;
 }
 
-export interface PublicPlace extends PublicPlaceCard {
+/** The list-only fields of a place card (L3b) are added when the card is made, so the place builder and the place page never carry them. */
+export interface PublicPlace extends Omit<PublicPlaceCard, 'type' | 'bands'> {
   elevationM: number | null;
   access: { trailhead: AccessPoint | null; parking: AccessPoint[] } | null;
   lines: PlaceLine[];
@@ -338,6 +346,12 @@ export interface PublicTripCard {
   firstBase: string | null;
   legacyUrl: string;
   honesty: Honesty[];
+  /** Derived tags for the card and the Trips filters (L3b). Overview trips carry Where, Length and When only. */
+  tags: TripTags;
+  /** Day, overnight, weekend, long weekend or multi-day; null when the plan has no night count. */
+  lengthClass: LengthClass | null;
+  /** Drive from each public hub, when the hub matrix has it (short-trips 4.1). Empty until then. */
+  fromHubs: FromHub[];
 }
 
 /** The timeline for the default profile, built at publish time (spec D2). The page re-runs the scheduler when the URL differs. */
@@ -354,7 +368,17 @@ export interface TripSchedule {
   hasVariants: boolean;
 }
 
-export interface PublicTrip extends PublicTripCard {
+export type HubId = 'toronto' | 'hamilton' | 'ottawa' | 'montreal';
+export interface FromHub {
+  hub: HubId;
+  minutes: number;
+  km: number;
+  basis: 'routed' | 'estimate';
+  fetched: string;
+}
+
+/** Likewise the trip card's derived fields (L3b) are added when the card is made. */
+export interface PublicTrip extends Omit<PublicTripCard, 'tags' | 'lengthClass' | 'fromHubs'> {
   /** null on overview trips. */
   schedule: TripSchedule | null;
   bases: PublicBase[];
