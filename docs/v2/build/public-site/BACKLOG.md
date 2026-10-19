@@ -219,7 +219,7 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | 4.13 | **Globe items left from the L2b review (not in 4.5).** S7 local names ("Firenze" finds nothing); S9 phone attribution "i" over its text, landscape Map options and Show controls over the scale bar; S10 cards show 0-1 facts and 960 px photos where the spec says 320/640; S11 two long tasks before idle (move the 50m world parse into the worker, if not done); N1 a selected city with no outline shows nothing on the map (draw the honest ring); N3 a city should rank above an admin area of the same name; N4 a search pick opens its card at the start of the flight, not on `moveend` | review-L2b (planner, 19 Oct) | queued (stage 4, GLB) |
 | 4.14 | Smart search (SQ1b S6): "Niagara Falls" in the Places box gives 0 rows because it is an area; the list empty state should offer the name hit | review-SQ1b (planner, 19 Oct) | queued (stage 4, LST) |
 | 4.15 | Sweep items never given a row (verify-integration 5): the phone bottom bar spends a slot on Sign in (replace with Search until the planner); home at 390 puts the globe above the search card and has no heading; ragged card row heights on Trips and Places; the Kids pill has nothing to offer for most lakes (content: stroller, walk from the car, toilets, ages for the 12 lakes on public trips) | verify-integration (planner, 19 Oct) | queued (stage 4: shell SHL, cards LST, lake content CS7d) |
-| 4.16 | The profile "fits" chip is `--ok` green (`#1D6B3A`), documented in tokens.md as the only green, while the owner's rule is "no green". Recommended: keep it as the single status colour unless the owner says otherwise (Q47) | planner, 19 Oct | owner (Q47, at stage 6) |
+| 4.16 | The profile "fits" chip is `--ok` green (`#1D6B3A`), documented in tokens.md as the only green, while the owner's rule is "no green". Recommended: keep it as the single status colour unless the owner says otherwise (Q47) | planner, 19 Oct | doing in SHL (replace with a non-green status colour, Q47 decided) |
 
 ## Stage 5: sanity checks across models
 
@@ -305,7 +305,7 @@ Plan, lanes and merge order: [STAGE4-plan.md](STAGE4-plan.md) (19 Oct). Lanes SH
 | Q44 | Attach a custom domain on Cloudflare so Bot Fight Mode, Block AI Bots and one rate-limit rule (about 100 requests per 10 s per IP on `/places/*` and `/trips/*`) can apply; they do not reach `*.pages.dev`. Recommended: yes, keeping `nks-travel.pages.dev` working (7.6, 7.7) | 19 Oct |
 | Q45 | Legacy redirects: 302 for the first week, then 301 (recommended), or 301 from day one (7.1, 7.10) | 19 Oct |
 | Q46 | Exports at go-live: per item and public with a source line until sign-in exists (7.6), and amend P8's "require sign-in" wording? Recommended: yes (7.9) | 19 Oct |
-| Q47 | The green "fits" chip (`--ok`): keep it as the single status colour, or replace it? Recommended: keep (4.16) | 19 Oct |
+| Q47 | The green "fits" chip (`--ok`): keep it as the single status colour, or replace it? Recommended: keep (4.16). **Decided 19 Oct (coordinator, on the owner's standing "no green" rule): replace it. The `--ok` status colour becomes a non-green (a deep slate-blue pair with a check icon so colour is never the only signal); no green anywhere in the product, status colours included. Done in lane SHL.** | 19 Oct |
 | Q48 | Turn off Google POIs in the Map ID style? Recommended: yes (7.3) | 19 Oct |
 | Q49 | Remove the merged lane worktrees and stale preview tunnels after go-live, as one listed batch? Recommended: yes | 19 Oct |
 

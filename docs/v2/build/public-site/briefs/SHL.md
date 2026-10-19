@@ -72,3 +72,12 @@ Keep it short:
 - the commits and the test counts;
 - the specs whose result changed on the GPU;
 - any `components/ui` request you received from another lane, and what you did with it.
+
+
+## Added 19 Oct: replace the green status colour (row 4.16, Q47 decided)
+
+The owner's rule is no green anywhere, and the coordinator decided the one documented green (`--ok`, `#1D6B3A` light and `#8FD0A0` dark, with `--ok-soft`) goes too.
+1. In the token source, replace `--ok`, `--ok-soft` and any green hex with a non-green status pair: a deep slate-blue family that meets AA text contrast (4.5:1) on its soft background in light and dark, and is distinct from the amber accent and the navy header. Regenerate with `python3 tools/theme_tokens.py`. Update `docs/v2/design/foundation/tokens.md` (remove "the only green").
+2. The "fits" chip, the rule chip and every `--ok` use keep a check or lock glyph and its text, so colour is never the only signal. Check every place `--ok` is used (`grep -rn "\-\-ok" web`), including suitability chips, the day-fit line and the legend.
+3. A test: no theme token resolves to a green hue (hue 80-170 degrees in HSL with saturation above 15%), for light and dark, outside the map's own style file. If the map style has greens (land, wood, water), report them; the globe and map were already made green-free in L2b, so any remaining green is a bug.
+4. Shoot the chips in light and dark at 1440 and 390, read them, and run axe on the pages that show them.
