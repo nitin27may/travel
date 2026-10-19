@@ -304,3 +304,27 @@ describe('robustness', () => {
     }
   });
 });
+
+describe('spec checks added in SQ1b round 3 (Q36 bands, H3)', () => {
+  it('"climb under 300 m" maps to the nearest climb bands and the chip names them', () => {
+    const got = p('climb under 300 m');
+    expect(got.facets['f.climb']).toEqual(['lt150', '150-400']);
+    expect(got.facets.k).toEqual(['nature.trail']);
+    expect(labels(got).join(' | ')).toContain('nearest band');
+    expect(got.q).toBe('');
+  });
+  it('"hike with less than 300 m of climb" reads the same band', () => {
+    expect(p('hike with less than 300 m of climb').facets['f.climb']).toEqual(['lt150', '150-400']);
+  });
+  it('"short walk in Utah" says that "short" has no filter, and is not dropped silently', () => {
+    const got = p('short walk in Utah');
+    expect(got.facets.k).toEqual(['nature.trail']);
+    expect(got.facets['f.length']).toBeUndefined();
+    expect(got.notYet).toContain('short');
+  });
+  it('"short walk under 3 km" keeps its Length chip and no note', () => {
+    const got = p('short walk under 3 km with a toddler');
+    expect(got.facets['f.length']).toEqual(['lt3']);
+    expect(got.notYet).not.toContain('short');
+  });
+});
