@@ -236,7 +236,9 @@ span.globe-pin { cursor: default; }
   .globe-root[data-panel='open'] { --globe-clip-right: 324px; }
   .globe-card-dock { --globe-dock-top: 110px; position: absolute; z-index: 7; left: 8px; top: var(--globe-dock-top); bottom: 40px; width: 280px; display: flex; border-radius: var(--r-4); }
   .globe-card-dock .globe-card { width: 100%; max-height: 100%; overflow: auto; overscroll-behavior: contain; }
-  .globe-card-dock .globe-card-actions { position: sticky; bottom: 0; z-index: 2; margin: 0 -14px -14px; padding: 8px 14px; background: var(--surface); border-top: 1px solid var(--line); } /* Open place never scrolls away */
+  .globe-card-dock .globe-card-actions { flex-wrap: nowrap; gap: 2px; position: sticky; bottom: 0; z-index: 2; margin: 0 -14px -14px; padding: 8px 14px; background: var(--surface); border-top: 1px solid var(--line); } /* Open place never scrolls away */
+  .globe-card-dock .globe-card-act { padding: 0 6px; }
+  .globe-card-dock .globe-card-open { padding-left: 12px; padding-right: 12px; }
   .globe-panel { top: 8px; bottom: 8px; right: 8px; }
   .globe-panel-tab { top: 56px; height: 84px; }
   .globe-card-controls { display: none; }
