@@ -21,7 +21,16 @@ export interface PlaceMapPoint {
  * Under `google-js` the same pins and the guide line sit behind the click-to-load facade; under `google-embed` the
  * points are listed under the embed. Directions links are built from OUR stored points only.
  */
-export function PlaceMap({ name, points, guide, selectedId }: { name: string; points: PlaceMapPoint[]; guide: { from: LngLat; to: LngLat } | null; selectedId?: string }) {
+export interface PlaceMapTrack {
+  /** The stored line, or the pieces of a relation that did not stitch. */
+  lines: LngLat[][];
+  /** Drawn dashed and labelled: held back until a person confirms it. */
+  dashed: boolean;
+  /** "© OpenStreetMap contributors (ODbL) · elevation ..." */
+  credit: string;
+}
+
+export function PlaceMap({ name, points, guide, selectedId, track = null }: { name: string; points: PlaceMapPoint[]; guide: { from: LngLat; to: LngLat } | null; selectedId?: string; track?: PlaceMapTrack | null }) {
   const family = placePageFamily();
   const handle = useRef<MapHandle>(null);
   const { setHandle } = usePlaceShell();
@@ -38,21 +47,32 @@ export function PlaceMap({ name, points, guide, selectedId }: { name: string; po
     const legend: LegendItem[] = [
       ...(points.some((p) => p.style === 'trailhead') ? [{ id: 'l-th', label: 'Trailhead', style: 'trailhead' as const }] : []),
       ...(points.some((p) => p.style === 'parking') ? [{ id: 'l-pk', label: 'Parking', style: 'parking' as const }] : []),
-      ...(guide ? [{ id: 'l-guide', label: 'Straight line, not the path', style: 'straight-estimate' as const }] : []),
+      ...(track
+        ? [track.dashed ? { id: 'l-track', label: 'Route not confirmed yet', style: 'straight-estimate' as const } : { id: 'l-track', label: 'Route from OpenStreetMap', style: 'trail' as const }]
+        : guide
+          ? [{ id: 'l-guide', label: 'Straight line, not the path', style: 'straight-estimate' as const }]
+          : []),
     ];
+    // a stored line replaces the straight guide: we draw the path we hold, or an honest straight line, never both
+    const lines = track
+      ? track.lines.map((coords, i) => ({ id: `track-${i}`, coords, style: track.dashed ? ('straight-estimate' as const) : ('trail' as const) }))
+      : guide
+        ? [{ id: 'guide', coords: [guide.from, guide.to], style: 'straight-estimate' as const }]
+        : [];
     return {
       pins,
-      lines: guide ? [{ id: 'guide', coords: [guide.from, guide.to], style: 'straight-estimate' as const }] : [],
+      lines,
       fit: 'all',
       selectedId,
       style: 'auto',
       legend,
     };
-  }, [points, guide, selectedId, family]);
+  }, [points, guide, selectedId, family, track]);
 
   return (
     <MapFamilyProvider family={family}>
       <MapSurface ref={handle} spec={spec} family={family} label={`Map of ${name}`} className="pl-map-surface" />
+      {track ? <p className="muted small pl-map-credit">{track.credit}</p> : null}
     </MapFamilyProvider>
   );
 }

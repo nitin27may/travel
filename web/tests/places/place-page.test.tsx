@@ -149,7 +149,7 @@ describe('route line and point source wording', () => {
 });
 
 describe('no internal capture notes on public output', () => {
-  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|\bstops? \d+\b|\bplans?\b|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
+  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|\bstops? \d+\b|\bplans?\b(?! de l)|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
   const text = (h: string) => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&');
   it('every place page, in its visible text', () => {
     const bad: string[] = [];
@@ -169,5 +169,21 @@ describe('no internal capture notes on public output', () => {
     const p = data.getPlace('breckenridge');
     expect(summaryOrKind(p?.summary ?? '', p?.kindLabel ?? '', p?.areaLabel ?? '')).toMatch(/^Town in /);
     expect(html('breckenridge')).toMatch(/Town in /);
+  });
+});
+
+describe('the place a trail reaches (L4b)', () => {
+  const place = data.getPlace('larch-valley-to-sentinel-pass')!;
+  const render = (payoff: { name: string; slug: string | null } | null) => renderToString(<PlacePage place={place} inside={[]} url="https://example.test/p/" payoff={payoff} />).replace(/<!-- -->/g, '');
+  it('links the payoff when it has a page and names it when it has none', () => {
+    expect(render({ name: 'Sentinel Pass', slug: 'sentinel-pass' })).toContain('To <a href="/places/sentinel-pass/">Sentinel Pass</a>');
+    expect(render({ name: 'Sentinel Pass', slug: null })).toContain('To <strong>Sentinel Pass</strong>');
+    expect(render(null)).not.toContain('pl-payoff');
+  });
+  it('says where the trailhead comes from in words and shows no map line for a trail with no track', () => {
+    const html = render(null);
+    expect(html).toContain('Our research');
+    expect(html).not.toContain('Route not confirmed yet');
+    expect(html).not.toContain('the pin we stored');
   });
 });

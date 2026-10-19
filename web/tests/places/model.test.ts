@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { accessFacts, directionsTarget, elevationAt, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, lerpPoint, linkTabs, observed, phoneParts, profileSummary, profileTicks, pointSourceInfo, routeLineInfo, publicProvenance, publicText, shortDate, sampleProfile, seasonMonths } from '@/components/places/model';
+import { lineCoords, pointAlong, profilePoints, trackOfLines, accessFacts, directionsTarget, elevationAt, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, lerpPoint, linkTabs, observed, phoneParts, profileSummary, profileTicks, pointSourceInfo, routeLineInfo, publicProvenance, publicText, shortDate, sampleProfile, seasonMonths } from '@/components/places/model';
 import { createPublicData } from '@/lib/public';
 import type { Fact, PublicPlace } from '@/lib/public/types';
 
@@ -183,5 +183,40 @@ describe('profile axes follow the units preference', () => {
     expect(t.y[0].label).toBe('8000');
     expect(Number(t.y[0].label) / 3.280839895).toBeCloseTo(t.y[0].at, 5);
     expect(t.y.some((v) => v.label.includes('m'))).toBe(false);
+  });
+});
+
+describe('a stored track on the place page (L4b)', () => {
+  const geometry: [number, number][] = [[11, 46], [11.01, 46], [11.01, 46.01]];
+  const line = { ref: 'osm_relation:1', label: 'x', source: 's', exportable: true, geometry, dashed: false, credit: '© OpenStreetMap contributors (ODbL), read 19 Oct 2026', profile: { samples: [[0, 1500], [1, 1600]] as [number, number][], km: 1, gainM: 100, lossM: 0, highM: 1600, lowM: 1500, dem: 'd' } };
+  it('puts the marker on the line, not on the straight guide', () => {
+    const coords = lineCoords(geometry);
+    const total = pointAlong(coords, 1000);
+    expect(total).toEqual(coords[2]);
+    const km = 0.7; // before the corner at about 0.77 km
+    const p = pointAlong(coords, km)!;
+    expect(p.lat).toBe(46);
+    expect(p.lng).toBeGreaterThan(11);
+    expect(p.lng).toBeLessThan(11.01);
+    // a straight line from start to end would put the same distance off the track
+    const straight = lerpPoint(coords[0], coords[2], 0.5);
+    expect(straight.lat).not.toBe(46);
+    expect(pointAlong(coords, 0)).toEqual(coords[0]);
+    expect(pointAlong([], 1)).toBeNull();
+  });
+  it('turns the lines of a place into pieces to draw, a credit and the profile', () => {
+    const t = trackOfLines([line])!;
+    expect(t.lines).toHaveLength(1);
+    expect(t.dashed).toBe(false);
+    expect(t.exportable).toBe(true);
+    expect(t.credit).toContain('OpenStreetMap');
+    expect(profilePoints(t.profile!)).toEqual([{ km: 0, m: 1500 }, { km: 1, m: 1600 }]);
+    expect(trackOfLines([{ ref: 'osm_relation:2', label: 'y', source: 's', exportable: false }])).toBeNull();
+  });
+  it('draws a held-back track dashed', () => {
+    expect(trackOfLines([{ ...line, dashed: true, exportable: false }])!.dashed).toBe(true);
+  });
+  it('words a point as ours, with its source', () => {
+    expect(pointSourceInfo({ pointSource: 'osm_node:123', pointChecked: null }).text).toBe('From OpenStreetMap · not yet checked');
   });
 });

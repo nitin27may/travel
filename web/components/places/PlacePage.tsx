@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import type { ExportFormat } from '@/components/actions/ExportMenu';
-import { ExportMenuLazy as ExportMenu } from './ExportMenuLazy';
 import { ShareButton } from '@/components/actions/ShareButton';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Chip } from '@/components/ui/Chip';
@@ -15,13 +13,14 @@ import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { GalleryLazy } from './GalleryLazy';
-import { ElevationProfile } from './ElevationProfile';
 import { LinksTabs } from './LinksTabs';
 import { dedupeMapPoints } from './mapPoints';
 import type { PlaceMapPoint } from './PlaceMap';
-import { PlaceMapLazy } from './PlaceMapLazy';
 import { PlaceShell } from './PlaceShell';
 import { SaveToTrip } from './SaveToTrip';
+import { TrailExport } from './TrailExport';
+import { TrailMap } from './TrailMap';
+import { TrailProfile } from './TrailProfile';
 import { accessFacts, directionsTarget, publicProvenance, publicText, summaryOrKind, factByLabel, firstNumber, glanceFor, hutFacts, isUrl, lastRead, linkTabs, observed, phoneParts, pointAt, pointSourceInfo, routeLineInfo, seasonMonths } from './model';
 
 /* ---------- small pieces ---------- */
@@ -106,7 +105,7 @@ function MapLinks({ at, label }: { at: LngLat; label: string }) {
   );
 }
 
-function PointSource({ p }: { p: AccessPoint }) {
+function PointSource({ p }: { p: Pick<AccessPoint, 'pointSource' | 'pointChecked'> }) {
   const info = pointSourceInfo(p);
   const [head, ...rest] = info.text.split(' · ');
   return (
@@ -203,13 +202,15 @@ export interface PlacePageProps {
   inside: PublicPlaceCard[];
   /** The absolute address, for Share. */
   url: string;
+  /** The place a trail reaches, when it has a page of its own ("To Sentinel Pass"). */
+  payoff?: { name: string; slug: string | null } | null;
 }
 
 const timeText = (v: string): string => (/\b(h|hours?|min|minutes?)\b/i.test(v) ? v : `${v} h`);
 
 const COUNTRY_PATH = (p: PublicPlace) => p.areaChain.find((a) => a.level === 'country');
 
-export function PlacePage({ place, inside, url }: PlacePageProps) {
+export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps) {
   const trail = place.kind === 'trail';
   const country = COUNTRY_PATH(place);
   const state = place.areaChain.find((a) => a.level === 'state');
@@ -230,10 +231,12 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
   const thAt = th ? pointAt(th) : null;
   const loop = /loop|lake/.test(shape) || place.kind === 'lake';
   const startM = th?.elevationM ?? place.elevationM ?? 1500;
-  const showProfile = trail && km !== null && km > 0 && gain !== null;
+  const storedProfile = place.lines.some((l) => l.profile);
+  const showProfile = trail && ((km !== null && km > 0 && gain !== null) || storedProfile);
   const guide = thAt && dest && !loop && Math.hypot(thAt.lat - dest.lat, thAt.lng - dest.lng) > 0.001 ? { from: thAt, to: dest } : null;
 
   const target = directionsTarget(place);
+  const targetPoint = target ? (target.source === 'parking' ? place.access?.parking[0] : target.source === 'trailhead' ? th : place.point) : null;
   const unconfirmed = place.honesty.some((h) => h.id === 'location_unconfirmed');
   const points: PlaceMapPoint[] = [
     ...(th ? [{ id: 'trailhead', at: pointAt(th), style: 'trailhead' as const, label: th.name }] : []),
@@ -260,7 +263,6 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
     const key = `${f.label}|${f.value}`;
     return seenFacts.has(key) ? false : (seenFacts.add(key), true);
   });
-  const formats: ExportFormat[] = place.lines.length ? (place.lines.every((l) => l.exportable) ? ['gpx', 'kml'] : ['gpx']) : ['gpx'];
   const checked = lastRead(place.facts);
   const tabs = linkTabs(place.links, place.linksNone);
   const photos = place.photos.length ? place.photos : place.photo ? [place.photo] : [];
@@ -287,9 +289,14 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
             <p className="pl-kicker">{kicker}</p>
             <h1>{place.name}</h1>
             <p className="pl-summary">{summaryOrKind(place.summary, place.kindLabel, place.areaLabel)}</p>
+            {trail && payoff ? (
+              <p className="pl-payoff">
+                To {payoff.slug ? <Link href={`/places/${payoff.slug}/`}>{payoff.name}</Link> : <strong>{payoff.name}</strong>}
+              </p>
+            ) : null}
             <div className="pl-actions">
               <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
-              <ExportMenu target={{ type: 'place', slug: place.slug }} formats={formats} />
+              <TrailExport slug={place.slug} lines={place.lines} />
               <ShareButton url={url} title={place.name} />
               {place.point ? (
                 <Link className="btn" href={`/globe/place/${place.slug}/`}>
@@ -367,7 +374,7 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
                 <p className="pl-route-line num">
                   {[km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, factByLabel(place.facts, 'Time') ? timeText(factByLabel(place.facts, 'Time')?.value ?? '') : null].filter(Boolean).join(' · ')}
                 </p>
-                <ElevationProfile km={km as number} gainM={gain as number} startM={startM} loop={loop} highM={firstNumber(factByLabel(place.facts, 'High point')?.value)} guide={guide} />
+                <TrailProfile km={km} gainM={gain} startM={startM} loop={loop} highM={firstNumber(factByLabel(place.facts, 'High point')?.value)} guide={guide} lines={place.lines} />
                 {huts.length ? (
                   <ul className="pl-huts" aria-label="Huts and refuges">
                     {huts.map((h) => (
@@ -552,7 +559,7 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
                 Map
               </h2>
               {unique.length ? (
-                <PlaceMapLazy name={place.name} points={unique} guide={guide} selectedId={target ? selectedPoint(target.source === 'parking' ? 'parking-0' : target.source === 'trailhead' ? 'trailhead' : 'place') : undefined} />
+                <TrailMap name={place.name} points={unique} guide={guide} lines={place.lines} selectedId={target ? selectedPoint(target.source === 'parking' ? 'parking-0' : target.source === 'trailhead' ? 'trailhead' : 'place') : undefined} />
               ) : (
                 <p className="pl-gap">
                   <Icon name="info" size={14} /> No point is stored for this place yet, so there is no map.
@@ -565,8 +572,7 @@ export function PlacePage({ place, inside, url }: PlacePageProps) {
               {target ? (
                 <>
                   <p className="small">
-                    To <strong>{target.label}</strong>
-                    {target.source === 'parking' ? ', the car park we stored' : target.source === 'trailhead' ? ', the trailhead we stored' : ', the pin we stored'}. <span className="num">{formatPoint(target.at)}</span>
+                    To <strong>{target.label}</strong>. Our point · {targetPoint ? <PointSource p={targetPoint} /> : null} <span className="num">{formatPoint(target.at)}</span>
                   </p>
                   {unconfirmed ? (
                     <p>
