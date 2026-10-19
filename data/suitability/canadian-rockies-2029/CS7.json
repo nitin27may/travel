@@ -1,0 +1,48 @@
+{
+  "schema": "suitability/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "CS7",
+  "researched": "2026-10-19",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/parkbus/louise",
+      "title": "Visiting Lake Louise and Moraine Lake - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "access_season": {
+          "v": [
+            {
+              "from": "06-01",
+              "to": "10-12",
+              "status": "open",
+              "via": "shuttle",
+              "note": "Reached only on foot by the Larch Valley trail from Moraine Lake; Moraine Lake Road is closed to personal vehicles year-round, so the start is reached by the Parks Canada shuttle or a licensed operator."
+            }
+          ],
+          "state": "value",
+          "basis": "official_rule",
+          "src": [
+            "src-0001"
+          ],
+          "read": "2026-10-19",
+          "quote": "Moraine Lake Road is closed to personal vehicles year-round.",
+          "note": "The same access rule as Moraine Lake (the trail starts at its shore); copied to the pass so Plan B sees it (backlog 3.45).",
+          "applies_to": "2026"
+        }
+      }
+    }
+  ]
+}
