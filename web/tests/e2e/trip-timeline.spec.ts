@@ -67,6 +67,15 @@ test.describe('trip timeline (L3c)', () => {
     await expect(page.locator('#day-5').getByText('Changed for this day')).toHaveCount(0);
   });
 
+  test('the version chip is a menu that picks a version for one day (check 5)', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}#day-2`);
+    await page.locator('#day-2').getByRole('button', { name: /Version of Day 2/ }).click();
+    await page.getByRole('menuitem', { name: /Easy day/ }).click();
+    await expect(page).toHaveURL(/d=2C/);
+    await expect(page.locator('#day-2').getByText('Changed for this day')).toBeVisible();
+    await expect(page.locator('#day-5').getByText('Changed for this day')).toHaveCount(0);
+  });
+
   test('Back and Forward restore the profile; the keys follow the codec order (check 12)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}`);
     await page.getByRole('radio', { name: 'Relaxed' }).click();

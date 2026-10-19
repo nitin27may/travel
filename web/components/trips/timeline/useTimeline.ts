@@ -1,8 +1,7 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
-import { scheduleTrip } from '@travel/core/schedule/browser.ts';
-import { isChanged, parseTimelineUrl, serialiseTimelineUrl, type TimelineUrlState } from '@travel/core/schedule/browser.ts';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { isChanged, parseTimelineUrl, serialiseTimelineUrl, type TimelineUrlState } from '@travel/core/schedule/profileCodec.ts';
 import type { DayTimeline, Profile, ScheduleItem } from '@travel/core/schedule/types.ts';
 import type { TripUrl } from '../useTripUrl';
 import { candidateToItem, type TimelineModel } from './model';
@@ -49,16 +48,26 @@ export function useTimeline(model: TimelineModel, url: TripUrl): TimelineApi {
     return { added: byDay, droppedAdds: dropped };
   }, [state.added, model]);
 
+  // the scheduler (about 12 kB gzipped) loads only when the URL asks for something other than the plan's own settings
   const plain = url.timeline === '';
+  const [engine, setEngine] = useState<typeof import('@travel/core/schedule/schedule.ts') | null>(null);
+  useEffect(() => {
+    if (plain || engine) return;
+    let live = true;
+    import('@travel/core/schedule/schedule.ts').then((m) => live && setEngine(m));
+    return () => {
+      live = false;
+    };
+  }, [plain, engine]);
   const timelines = useMemo(() => {
-    if (plain) return model.defaultTimelines;
-    return scheduleTrip(
+    if (plain || !engine) return model.defaultTimelines;
+    return engine.scheduleTrip(
       model.days.map((d) => d.input),
       state.profile,
       state.overrides,
       Object.fromEntries(Object.entries(added).map(([n, list]) => [Number(n), list.map((x) => x.item)])),
     );
-  }, [plain, model, state.profile, state.overrides, added]);
+  }, [plain, engine, model, state.profile, state.overrides, added]);
 
   const write = useCallback(
     (next: TimelineUrlState) => url.go({ view: url.view, hash: url.hash || undefined, timeline: serialiseTimelineUrl(next, defaults) }, 'push'),

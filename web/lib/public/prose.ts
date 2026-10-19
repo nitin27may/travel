@@ -160,7 +160,7 @@ export function prepareSentence(raw: string, o: PrepareOpts = {}): CleanProse | 
   t = t.replace(KEBAB_PAREN, '').replace(KEBAB_LEAD, '(');
   // "Maligne Canyon (Maligne Canyon)" once the id became its name; and the plan's track letters in plain words
   t = t.replace(/(\b[A-Z][\w' -]{2,40}?) \(\1\)/g, '$1');
-  t = t.replace(/\bTrack A\b/g, "the adults' hike").replace(/\bTrack B\b/g, 'the family version').replace(/\bTrack C\b/g, 'the easy version');
+  t = t.replace(/\bTrack A\b/g, "adults' hike").replace(/\bTrack B\b/g, 'family version').replace(/\bTrack C\b/g, 'easy version');
   t = datesToYear(t);
   const { text: stripped, chips } = stripMarkers(t, o.sun);
   const { text: undatedParens, dropped } = dropDatedParens(stripped);
