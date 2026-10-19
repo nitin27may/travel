@@ -184,6 +184,11 @@ function dayRow(d: PublicDay, lookup: PlaceLookup, used: Photo[], gallery: Photo
   };
 }
 
+/** True when at least one base or stop has a map position. Without one the map has nothing to frame (backlog 2.35). */
+export function routeHasPositions(route: RouteModel): boolean {
+  return route.bases.length > 0 || route.days.some((d) => d.points.length > 0);
+}
+
 function routeOf(trip: PublicTrip, lookup: PlaceLookup): RouteModel {
   let unplaced = 0;
   const bases = trip.bases.flatMap((b) => (b.point ? [{ id: b.id, name: b.name, lng: b.point.lon, lat: b.point.lat, days: b.days }] : []));
