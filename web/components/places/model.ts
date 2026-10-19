@@ -1,5 +1,6 @@
 import type { AccessPoint, Fact, LinkGroup, LinkNone, PlaceLine, PlaceProfile, PublicPlace } from '@/lib/public/types';
 import { distanceKm } from '@/lib/map/geo';
+import { seasonLabel } from '@/lib/format/season';
 import type { LngLat } from '@/lib/map/types';
 
 /* ---------- text helpers ---------- */
@@ -87,9 +88,20 @@ const EXPECT: Record<string, Expect[]> = {
   area: [E('Season', ['Season'], 'Not checked yet: season'), E('Parking', ['Parking', 'Lot'], 'Not checked yet: parking'), E('Fee', ['Fee', 'Price'], 'Not checked yet: entry fee')],
 };
 
-export function glanceFor(place: Pick<PublicPlace, 'kind' | 'facts'>): GlanceSlot[] {
+/** A value the page already knows from its own fields (season months, distance, climb, hours, car park), as a fact with no source line of its own (M7). */
+function knownElsewhere(place: Partial<Pick<PublicPlace, 'season' | 'stats' | 'access'>>, label: string): Fact | null {
+  const f = (value: string): Fact => ({ label, value, provenance: '', conflicts: [] });
+  if (label === 'Season' && place.season?.length) return f(seasonLabel(place.season));
+  if ((label === 'Distance' || label === 'Lake loop') && place.stats?.distanceKm != null) return f(`${place.stats.distanceKm} km`);
+  if (label === 'Climb' && place.stats?.gainM != null) return f(`${place.stats.gainM} m`);
+  if ((label === 'Time' || label === 'Duration') && place.stats?.hours) return f(/\b(h|min)/.test(place.stats.hours) ? place.stats.hours : `${place.stats.hours} h`);
+  if ((label === 'Parking' || label === 'Lot') && place.access?.parking[0]) return f(place.access.parking[0].name);
+  return null;
+}
+
+export function glanceFor(place: Pick<PublicPlace, 'kind' | 'facts'> & Partial<Pick<PublicPlace, 'season' | 'stats' | 'access'>>): GlanceSlot[] {
   const plan = EXPECT[place.kind] ?? EXPECT.area;
-  const slots = plan.map((e) => ({ label: e.label, fact: factByLabel(place.facts, ...e.from) ?? null, empty: e.empty }));
+  const slots = plan.map((e) => ({ label: e.label, fact: factByLabel(place.facts, ...e.from) ?? knownElsewhere(place, e.label), empty: e.empty }));
   // the six that carry a fact come first, in the kind's order; a kind with fewer than six facts keeps its honest empty lines
   const found = slots.filter((s) => s.fact);
   const missing = slots.filter((s) => !s.fact);
@@ -304,7 +316,7 @@ export function seasonMonths(months: readonly number[]): ('open' | 'closed')[] {
 
 // Sentences that describe how a place was captured, not the place: file names, "stop 8 of the road trip post",
 // "already in the Utah parks plan". They are dropped at render time (the adapter still carries them).
-const INTERNAL = /\.\s?(?:md|json|txt|csv)\b|\bloose line\b|\broad ?trip\b|\bstops? \d+\b|\bposts?\b|\bplans?\b|\bfrom memory\b|\bfolders?\b|\blegacy\b|\bno details\b|\bsaved\b|\binstagram\b|\bosm[ _](?:node|way|relation)\b|\bconfirm this\b|\bprototype\b|\bcatalogue\b|\bresearch notes\b/i;
+const INTERNAL = /\b(?:alltrails|komoot|tripadvisor)\b|\bsearch result\b|\bnot opened\b|\.\s?(?:md|json|txt|csv)\b|\bloose line\b|\broad ?trip\b|\bstops? \d+\b|\bposts?\b|\bplans?\b|\bfrom memory\b|\bfolders?\b|\blegacy\b|\bno details\b|\bsaved\b|\binstagram\b|\bosm[ _](?:node|way|relation)\b|\bconfirm this\b|\bprototype\b|\bcatalogue\b|\bresearch notes\b/i;
 const INTERNAL_PAREN = /\s*\((?:from memory|unverified)[^)]*\)/gi;
 
 /** Keeps the sentences that are about the place. Returns '' when nothing public is left. */

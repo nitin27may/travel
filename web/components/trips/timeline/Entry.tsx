@@ -113,7 +113,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
             {href && !quiet ? <a href={href}>{e.title}</a> : e.title}
           </span>
           {dur ? <span className="tl-dur num" aria-hidden="true">{dur}</span> : null}
-          {!quiet && e.kind !== 'leg' ? <EntrySuit slug={e.at?.placeSlug} title={e.title} /> : null}
+          {!quiet && e.kind !== 'leg' ? <EntrySuit slug={e.at?.placeSlug} title={e.title} kind={e.kind} /> : null}
           {e.addedBy === 'visitor' ? <Chip kind="idea" icon={false}>You added this</Chip> : null}
           {e.optional ? <Chip kind="neutral" icon={false}>Optional</Chip> : null}
           {flagged.map((h) => (

@@ -14,6 +14,7 @@ import { publicSuitability, suitMarksFor, type PublicSuitability } from './suita
 import type { Completeness, CompletenessLevel, ItemSuit, PublicPlace, PublicTrip } from './types';
 import { TextScrub, type PVal } from './vals';
 import { publicProvenance, publicText, observed } from '@/components/places/model';
+import { seasonLabel } from '@/lib/format/season';
 
 /** What the contract adds to one place. */
 export interface PageExtras {
@@ -26,24 +27,26 @@ export interface PageExtras {
 }
 
 /** The public words for a research level. "Draft" is the workshop's word and never reaches a visitor (3.42). */
-export const LEVEL_WORDS = { draft: 'Basics only', usable: 'Partly checked', complete: 'Checked' } as const satisfies Record<CompletenessLevel, string>;
+export const LEVEL_WORDS = { basics: 'Basics only', early: 'Early research', usable: 'Partly checked', complete: 'Checked' } as const;
 
 /**
- * "Basics only", "Partly checked · 7 of 11" or "Checked". The engine's level orders and filters; the words also say how far a
- * page has got: a record short of its required checks but with half or more answered reads "Partly checked", not "Basics only".
+ * "Basics only", "Early research · n of m", "Partly checked · n of m" or "Checked". Draft is by definition missing a required check, so it never
+ * reads above Early research; a place with no point stored (a basic check) never reads above Early research either, and a page with under a
+ * quarter of its checks reads "Basics only" (S1b review, research levels).
  */
-export function levelLabel(level: CompletenessLevel, passed: number, total: number): string {
-  if (level === 'complete') return LEVEL_WORDS.complete;
-  if (level === 'usable' || (total > 0 && passed * 2 >= total)) return `${LEVEL_WORDS.usable} · ${passed} of ${total}`;
-  return LEVEL_WORDS.draft;
+export function levelLabel(level: CompletenessLevel, passed: number, total: number, noPoint = false): string {
+  const effective: CompletenessLevel = noPoint ? 'draft' : level;
+  if (effective === 'complete') return LEVEL_WORDS.complete;
+  if (effective === 'usable') return `${LEVEL_WORDS.usable} · ${passed} of ${total}`;
+  return total > 0 && passed * 4 < total ? LEVEL_WORDS.basics : `${LEVEL_WORDS.early} · ${passed} of ${total}`;
 }
 
 const engineLevel = (l: string | undefined): CompletenessLevel => (l === 'complete' ? 'complete' : l === 'usable' || l === 'usable_partial' ? 'usable' : 'draft');
 
 /** The page's research level from the core engine: the place checks done out of asked, and what is missing. */
-function completenessOf(world: World, ref: string, model: PageModel, contract: Contract): Completeness {
+function completenessOf(world: World, ref: string, model: PageModel, contract: Contract, noPoint: boolean): Completeness {
   const comp = engineCompleteness(world, ref);
-  const level = engineLevel(comp?.level);
+  const level = noPoint ? 'draft' : engineLevel(comp?.level);
   const { done, total } = model.checks;
   const keys = comp ? [...comp.missingBase, ...comp.missingSuitability, ...comp.conditionalMissing] : [];
   const failed = keys.map((k) => ({ id: `check:${k}`, label: contract.properties[k]?.label ?? k.replace(/[._]/g, ' '), hint: contract.properties[k]?.gap ?? 'Not checked yet.' }));
@@ -53,15 +56,32 @@ function completenessOf(world: World, ref: string, model: PageModel, contract: C
     total,
     notTracked: 0,
     failed,
-    label: levelLabel(level, done, total),
+    label: levelLabel(level, done, total, noPoint),
     tooltip: `${done} of ${total} place checks done`,
   };
 }
 
 /** Runs every string of a built block through the text scrub, in place: whatever path a sentence took, no process note or file name survives (3.27). */
-function deepScrub<T>(value: T, scrub: TextScrub, where: string): T {
+const REF_TEXT = /(?<![\w/.:#-])(?:place|part|offer|route|trip|legacy)\/[^\s,;)"]+/gi;
+
+/** A record ref that reached free text is replaced by the record's name, or dropped: a ref is never printed (verifier 2). */
+function nameRefs(text: string, world: World): string {
+  if (!REF_TEXT.test(text)) return text;
+  REF_TEXT.lastIndex = 0;
+  const names = new Set<string>();
+  const out = text.replace(REF_TEXT, (m) => {
+    const ref = m.replace(/^./, (c) => c.toLowerCase());
+    const name = world.cap.get(primaryRef(world, ref))?.rec.name ?? null;
+    if (!name || names.has(name)) return '';
+    names.add(name);
+    return name;
+  });
+  return out.replace(/(?:,\s*)+(?=,|$)/g, '').replace(/\s{2,}/g, ' ').replace(/,\s*([,.;])/g, '$1').replace(/:\s*$/, '').trim();
+}
+
+function deepScrub<T>(value: T, scrub: TextScrub, where: string, world: World): T {
   const walk = (v: unknown): unknown => {
-    if (typeof v === 'string') return v.length > 24 ? scrub.text(v, where) : v;
+    if (typeof v === 'string') return v.length > 8 ? nameRefs(v.length > 24 ? scrub.text(v, where) : v, world) : v;
     if (Array.isArray(v)) {
       v.forEach((x, i) => (v[i] = walk(x)));
     } else if (v && typeof v === 'object') {
@@ -92,7 +112,7 @@ export interface PageBuild {
  * The extras of every place that has a capture record. `refOfSlug` is the join of the adapter (bands.ts); a place without a
  * record gets nothing here and keeps the older page. Each sentence the text scrub drops goes to `log`, so the build report lists it.
  */
-export function buildPageExtras(root: string, world: World, places: readonly Pick<PublicPlace, 'slug'>[], refOfSlug: ReadonlyMap<string, string | null>, log: DropLog): PageBuild {
+export function buildPageExtras(root: string, world: World, places: readonly Pick<PublicPlace, 'slug' | 'point'>[], refOfSlug: ReadonlyMap<string, string | null>, log: DropLog): PageBuild {
   const extras = new Map<string, PageExtras>();
   if (!existsSync(path.join(root, 'data', 'schema', 'capture', 'contract.json'))) return { extras };
   const contract = defaultContract(root);
@@ -127,7 +147,7 @@ export function buildPageExtras(root: string, world: World, places: readonly Pic
       if (s && s !== p.slug) refSlugs[r] = s;
     }
     // the last pass over every string of the blocks: a research marker or a dataset word never reaches a page (3.20)
-    extras.set(p.slug, scrubMarkers(deepScrub({ sections: model, suitability, relevance, refSlugs, completeness: completenessOf(world, primaryRef(world, ref), model, contract) }, scrub, `page ${p.slug}`)));
+    extras.set(p.slug, scrubMarkers(deepScrub({ sections: model, suitability, relevance, refSlugs, completeness: completenessOf(world, primaryRef(world, ref), model, contract, p.point === null) }, scrub, `page ${p.slug}`, world)));
   }
   return { extras };
 }
@@ -185,11 +205,30 @@ export const LEGACY_FACT_PROPERTY: Record<string, string> = {
   Season: 'season',
 };
 
-export function mapLegacyFacts(place: Pick<PublicPlace, 'facts'>, model: PageModel): string[] {
+export function mapLegacyFacts(place: Pick<PublicPlace, 'facts' | 'season' | 'access'>, model: PageModel): string[] {
   const used: string[] = [];
+  // the older record's season months feed the season row when the contract has none (M7)
+  if (place.season.length > 0) {
+    const sec0 = model.sections.find((x) => x.rows.some((r) => r.key === 'season' && r.gap));
+    const row = sec0?.rows.find((r) => r.key === 'season' && r.gap);
+    if (sec0 && row) {
+      const text = seasonLabel(place.season);
+      const val: PVal = { value: text, state: 'value', basis: null, basisLabel: '', look: 'info', sources: [], read: null, quote: null, note: null, tried: [], searched: null, appliesTo: null, conflicts: [] };
+      Object.assign(row, { text, value: text, val, gap: false, state: 'value', look: 'info', valueType: 'text', links: [] });
+      sec0.empty = sec0.rows.every((r) => r.gap);
+      if (sec0.closing) {
+        const rest = sec0.closing.replace(/^[^:]*: /, '').split(', ').filter((l) => l !== row.label.toLowerCase());
+        sec0.closing = rest.length ? `${sec0.closing.split(': ')[0]}: ${rest.join(', ')}` : null;
+      }
+    }
+  }
   for (const f of place.facts) {
     const key = LEGACY_FACT_PROPERTY[f.label];
     if (!key || f.conflicts.length > 0) continue;
+    // a fee or capacity an access card already shows is shown once, there
+    const points = [place.access?.trailhead, ...(place.access?.parking ?? [])];
+    if (key === 'price' && f.label === 'Fee' && points.some((a) => a?.fee)) continue;
+    if (key === 'capacity' && points.some((a) => a?.capacity)) continue;
     const text = observed(publicText(publicProvenance(f.value)));
     if (!text) continue;
     for (const sec of model.sections) {

@@ -14,6 +14,7 @@ import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { Interactions } from '@/components/suit/Interactions';
 import { accessCard, factText, factsDl } from './sections/legacyHtml';
+import { withUnits } from '@/components/suit/html';
 import { CoverRelevance } from './sections/Relevance';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { GalleryLazy } from './GalleryLazy';
@@ -148,6 +149,8 @@ function RouteLine({ lines, confirmed }: { lines: PlaceLineT[]; confirmed: boole
   );
 }
 
+const LINK_ONLY_TEXT = /\b(?:alltrails|komoot|tripadvisor)\b/i;
+
 function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead' | 'Parking'; unconfirmed: boolean }) {
   return (
     <article className="pl-access" data-role={role.toLowerCase()}>
@@ -171,7 +174,7 @@ function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead
             <dd className="num">{p.elevationM.toLocaleString('en-CA')} m</dd>
           </div>
         ) : null}
-        {p.fee ? (
+        {p.fee && !LINK_ONLY_TEXT.test(p.fee) ? (
           <div>
             <dt>Fee</dt>
             <dd>
@@ -179,7 +182,7 @@ function AccessCard({ p, role, unconfirmed }: { p: AccessPoint; role: 'Trailhead
             </dd>
           </div>
         ) : null}
-        {p.capacity ? (
+        {p.capacity && !LINK_ONLY_TEXT.test(p.capacity) ? (
           <div>
             <dt>Capacity</dt>
             <dd>
@@ -240,10 +243,14 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   const showProfile = trail && ((km !== null && km > 0 && gain !== null) || storedProfile);
   const guide = thAt && dest && !loop && Math.hypot(thAt.lat - dest.lat, thAt.lng - dest.lng) > 0.001 ? { from: thAt, to: dest } : null;
 
-  // PS4: with no car park of our own, Directions go to the access place the contract found (a car park or a stop with a stored point)
-  const via = place.sections?.directions && !place.access?.parking.length ? place.sections.directions : null;
+  // PS4, T5: with no car park of our own, Directions go to the access place the contract found, and only a car park or a start counts. A place
+  // reached by a shuttle stop alone gets no driving Directions: a car sent to a stop ends on a road closed to private cars.
+  const dirs = place.sections?.directions ?? null;
+  const hasCarPark = !!place.access?.parking.length;
+  const via = dirs?.mode === 'drive' && !hasCarPark ? dirs : null;
+  const shuttleOnly = dirs?.mode === 'transit' && !hasCarPark ? dirs : null;
   const viaPoint: AccessPoint | null = via ? { lat: via.lat, lon: via.lon, pointSource: via.pointSource, pointChecked: null, sourceLicence: via.pointSource.startsWith('osm_') ? 'ODbL' : 'unknown', name: via.name, note: null, elevationM: null } : null;
-  const target = via ? { at: { lat: via.lat, lng: via.lon }, label: via.name, source: 'access' as const } : directionsTarget(place);
+  const target = shuttleOnly ? null : via ? { at: { lat: via.lat, lng: via.lon }, label: via.name, source: 'access' as const } : directionsTarget(place);
   const targetPoint = viaPoint ?? (target ? (target.source === 'parking' ? place.access?.parking[0] : target.source === 'trailhead' ? th : place.point) : null);
   const unconfirmed = place.honesty.some((h) => h.id === 'location_unconfirmed');
   const points: PlaceMapPoint[] = [
@@ -287,9 +294,10 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   // the older record's blocks, drawn inside the contract's sections so no visible fact is lost (S5)
   const activityBlock = showProfile ? (
     <>
-      <p className="pl-route-line num">
-        {[km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, factByLabel(place.facts, 'Time') ? timeText(factByLabel(place.facts, 'Time')?.value ?? '') : null].filter(Boolean).join(' · ')}
-      </p>
+      <p
+        className="pl-route-line num"
+        dangerouslySetInnerHTML={{ __html: withUnits([km !== null ? `${km} km` : null, gain !== null ? `${gain} m ${factByLabel(place.facts, 'Climb') ? 'climb' : 'change'}` : null, factByLabel(place.facts, 'Time') ? timeText(factByLabel(place.facts, 'Time')?.value ?? '') : null].filter(Boolean).join(' · ')) }}
+      />
       <TrailProfile km={km} gainM={gain} startM={startM} loop={loop} highM={firstNumber(factByLabel(place.facts, 'High point')?.value)} guide={guide} lines={place.lines} />
       {huts.length ? (
         <ul className="pl-huts" aria-label="Huts and refuges">
@@ -370,13 +378,14 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
     photos: photosBlock,
     links: <LinksTabs tabs={tabs} checked={checked} />,
     facts: factsBlock,
-    hazards: place.hazards.map((h) => observed(publicText(h) || h)),
+    hazards: place.hazards.map((h) => observed(publicText(h))).filter(Boolean),
     booking: place.booking ? factText(place.booking) : null,
   };
 
   return (
     <PlaceShell>
       <article className="pl-page" data-kind={place.kind} data-slug={place.slug}>
+        <Interactions />
         <Breadcrumbs items={crumbs} className="pl-crumbs" />
         <header className="pl-cover" data-trail={trail || undefined} data-photo={photos[0] ? 'yes' : 'no'}>
           <div className="pl-cover-media">
@@ -402,6 +411,11 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
             </p>
           ) : null}
           <div className="pl-actions">
+            {target ? (
+              <a className="btn btn-primary pl-dir" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
+                <Icon name="navigate" size={14} /> Directions<span className="sr-only"> to {target.label} (opens in a new tab)</span>
+              </a>
+            ) : null}
             <SaveToTrip url={url} slug={place.slug} formats={['gpx']} />
             <TrailExport slug={place.slug} lines={place.lines} />
             <ShareButton url={url} title={place.name} />
@@ -470,7 +484,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
             </h2>
             <ul>
               {place.hazards.map((h) => (
-                <li key={h}>{observed(publicText(h) || h)}</li>
+                <li key={h}>{observed(publicText(h))}</li>
               ))}
             </ul>
           </section>
@@ -479,7 +493,6 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
         <div className="pl-cols">
           {model ? (
             <div className="pl-main">
-              <Interactions />
               <Sections model={model} suit={suit} rel={rel} slugs={slugs} legacy={legacy} hasRoute={showProfile || hasTrack} />
             </div>
           ) : (
@@ -580,7 +593,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 </ul>
               ) : (
                 <p className="pl-gap">
-                  <span className="su-gapchip">Family checks not done yet</span>
+                  <span className="gc">Family checks not done yet</span>
                 </p>
               )}
               {factByLabel(place.facts, 'Kids') ? (
@@ -604,7 +617,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                   </ul>
                 ) : (
                   <p className="pl-gap">
-                    <Icon name="info" size={14} /> No other places are recorded here yet.
+                    <Icon name="info" size={14} /> Not checked yet: other places here
                   </p>
                 )}
               </Section>
@@ -698,7 +711,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                     </p>
                   ) : null}
                   <p className="pl-dir-links">
-                    <a className="btn btn-primary" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
+                    <a className="btn" href={directionsUrl(target.at)} target="_blank" rel="noopener noreferrer">
                       <Icon name="navigate" size={14} /> Google Maps directions<span className="sr-only"> (opens in a new tab)</span>
                     </a>
                     <a className="btn" href={appleMapsUrl(target.at, target.label)} target="_blank" rel="noopener noreferrer">
@@ -708,6 +721,10 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                   {via ? <p className="muted small">{place.name} has no car park of its own stored here, so directions go to {via.name}, where you {via.role === 'parks_for' ? 'park' : via.role === 'serves' ? 'catch the shuttle or bus' : 'start'}.</p> : null}
                   {target.source === 'parking' && th ? <p className="muted small">The trail starts at {th.name}, on foot from the car park.</p> : null}
                 </>
+              ) : shuttleOnly ? (
+                <p className="small">
+                  No private cars on this road: take the shuttle or bus from {shuttleOnly.stops.map((x) => x.name).join(' or ')}. The access section has the seat, the times and where the shuttle starts. We have no car park stored for it yet, so there is no driving button.
+                </p>
               ) : (
                 <p className="pl-gap">
                   <Icon name="info" size={14} /> No point is stored yet, so there are no directions.
@@ -723,7 +740,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                 {place.hazards.length ? (
                   <ul>
                     {place.hazards.map((h) => (
-                      <li key={h}>{observed(h)}</li>
+                      <li key={h}>{observed(publicText(h))}</li>
                     ))}
                   </ul>
                 ) : (

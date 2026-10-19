@@ -138,7 +138,7 @@ export interface PageModel {
   around: AroundGroup[];
   links: LinkTab[];
   /** PS4: the access place (parking, else a stop) with a stored point, when the record has no car park of its own; Directions go there */
-  directions?: { ref: string; name: string; lat: number; lon: number; pointSource: string; role: 'parks_for' | 'serves' | 'starts_at' } | null;
+  directions?: { mode: 'drive'; ref: string; name: string; lat: number; lon: number; pointSource: string; role: 'parks_for' | 'serves' | 'starts_at' } | { mode: 'transit'; stops: { ref: string; name: string }[] } | null;
   /** labels of the older record's facts that filled a row of this page (step 9); section 14 leaves them out */
   legacyMapped?: string[];
   /** the place checks: base R properties answered out of asked, with the engine's level */
@@ -327,7 +327,9 @@ function baseRow(r: Rec, def: PropertyDef, mark: Mark, home: SectionId, echo: bo
   const links = RELATION_KEYS.has(key) || key === 'access_points' || key === 'transit' ? ((Array.isArray(v) ? v : []) as RefLink[]).filter((x) => x && typeof x === 'object' && 'ref' in x) : [];
   const value = wrapped ? wrapped.value : v;
   const base = { key, label: def.label, valueType: def.value, mark, home, echo, unit: def.unit ?? null, gapWording: def.gap, links };
-  const missing = state0 === 'gap' || value === undefined || value === null;
+  // a sourced list with nothing in it is not an answer: "no closures" and "no booking" must be said by the source (state no_limit or searched_none), never read from an empty list (M1)
+  const emptySourced = !!wrapped && wrapped.state === 'value' && Array.isArray(value) && value.length === 0;
+  const missing = state0 === 'gap' || value === undefined || value === null || emptySourced;
   if (missing && !(wrapped && SOFT_STATES.has(wrapped.state))) {
     return { ...base, text: null, value: null, val: wrapped, state: 'gap', gap: true, look: 'gap' };
   }
@@ -566,18 +568,25 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
   const options = sections.find((x) => x.id === 'options');
   if (options && !options.drawn && offers.length > 0) options.drawn = true;
 
-  // PS4: Directions go to where you can drive; the first access place with a stored point (parking first, then a stop, then a start)
+  // PS4, T5: Directions go to where a car can go: a car park or a start (never a stop or a station). A place reached only by a shuttle stop,
+  // with no car park stored, gets no driving Directions and says why.
   let directions: PageModel['directions'] = null;
+  const driveable = (t: string): boolean => /^access\.(park|start)\./.test(t);
   for (const role of ['parks_for', 'serves', 'starts_at'] as const) {
-    const hit = accessPoints.find((a) => a.role === role && isPoint(world.points[a.ref]));
+    const hit = accessPoints.find((a) => a.role === role && driveable(a.type) && isPoint(world.points[a.ref]));
     if (hit) {
       const pt = world.points[hit.ref] as { lat: number; lon: number; point_source?: string; coord_src?: string };
       const src = pt.point_source ?? '';
       const osm = /OSM (node|way|relation) (\d+)/i.exec(src);
       const wd = /(Q\d+) P625/.exec(src);
-      directions = { ref: hit.ref, name: hit.name, lat: pt.lat, lon: pt.lon, pointSource: osm ? `osm_${osm[1]!.toLowerCase()}:${osm[2]}` : wd ? `wikidata:${wd[1]}` : 'manual_pin', role };
+      directions = { mode: 'drive', ref: hit.ref, name: hit.name, lat: pt.lat, lon: pt.lon, pointSource: osm ? `osm_${osm[1]!.toLowerCase()}:${osm[2]}` : wd ? `wikidata:${wd[1]}` : 'manual_pin', role };
       break;
     }
+  }
+  if (!directions) {
+    const stops = accessPoints.filter((a) => /^access\.transit\./.test(a.type));
+    const parking = accessPoints.some((a) => /^access\.park\./.test(a.type));
+    if (stops.length > 0 && !parking) directions = { mode: 'transit', stops: stops.map((a) => ({ ref: a.ref, name: a.name })) };
   }
 
   return {

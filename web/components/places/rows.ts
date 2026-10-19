@@ -135,8 +135,8 @@ export function buildPlaceRows(
       image: c.photo?.url ?? null,
       trips: c.trips.map((t) => ({ slug: t.slug, title: t.title })),
       honesty: c.honesty.map((h) => ({ id: h.id, label: h.label })),
-      // the list never carries the workshop's word "Draft": a place with only the basics reads "Basics only"
-      completeness: { level: c.completeness.level, label: c.completeness.level === 'draft' ? 'Basics only' : c.completeness.label },
+      // the list never carries the workshop's word "Draft": the label is Basics only, Early research, Partly checked or Checked
+      completeness: { level: c.completeness.level, label: c.completeness.label },
       sourceTypes: old ? old.sources.map((s) => s.type) : [],
       statsState: hasStats ? (old?.stats_verified ? 'verified' : 'unverified') : null,
       researched: c.sources.some((o) => o !== 'locations'),

@@ -350,6 +350,28 @@ describe('internal words on the built pages', () => {
       expect(readText(f).match(/\bDraft\b/g) ?? [], page).toEqual([]);
     }
   });
+  it('no glossary text, record ref, link-only platform, workflow wording or dangling comma in the visible text of any place page (verifier)', () => {
+    const bad: string[] = [];
+    const visible = (h: string): string => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&#x27;/g, "'");
+    const checks: [string, RegExp][] = [
+      ['glossary text', /A local word on|An operator's own levels|Other or unknown system/],
+      ['record ref', /(?:^|[\s(])(?:Place|Part|Offer|Route|Trip|Legacy)\/[a-z0-9]|[a-z]#[a-z-]+(?:\s|$)/i],
+      ['link-only platform in text', /\b(?:AllTrails|Komoot|Tripadvisor)\b/i],
+      ['workflow wording', /search result, not opened|written from memory|from memory\b/i],
+      ['dangling comma', /Not checked yet: [^<\n]{0,200}(?:,\s*$|,…)/m],
+      ['child age', /\b(?:1[0-7]|[1-9])[- ](?:year|yr)[- ]old\b(?! (?:church|chapel|tree|building|house|hut|bridge|tradition))|\b\d{1,2}-?yo\b/i],
+    ];
+    for (const page of builtPages()) {
+      const f = path.join(REAL_OUT, page);
+      if (!existsSync(f) || !page.startsWith('places/')) continue;
+      const t = visible(readText(f));
+      for (const [name, re] of checks) {
+        const m = re.exec(t);
+        if (m) bad.push(`${page}: ${name}: ${m[0].slice(0, 60)}`);
+      }
+    }
+    expect(bad.slice(0, 12)).toEqual([]);
+  });
   it('no agent or process note, FE grade or research marker appears on any place page (3.27, 3.20)', () => {
     const bad: string[] = [];
     for (const page of builtPages()) {

@@ -58,9 +58,8 @@ describe('trail page: tre-cime-di-lavaredo-loop', () => {
     expect(page).toContain('No licensed photo yet');
   });
   it('shows the research level in the public words, never "Draft"', () => {
-    expect(page).toMatch(/(Basics only|Partly checked\s*·\s*\d+ of \d+|Checked)/);
+    expect(page).toMatch(/(Basics only|Early research\s*·\s*\d+ of \d+|Partly checked\s*·\s*\d+ of \d+|Checked)/);
     expect(page).not.toMatch(/\bDraft\b/);
-    expect(page).toMatch(/\d+ of \d+ place checks done/);
   });
   it('renders the L5 export menu and share button on the cover', () => {
     expect(page).toContain('Export');

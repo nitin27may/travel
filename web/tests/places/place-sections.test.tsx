@@ -21,7 +21,7 @@ describe('place pages from the capture contract (S1)', () => {
   });
   it('keeps empty sections as markers in the four forms, and none says "No data"', () => {
     expect(louise).toContain('Not checked yet: price');
-    expect(louise).toContain('su-gapchip');
+    expect(louise).toContain('gc');
     expect(text(louise)).not.toMatch(/No data|recorded (?:here )?yet\b/);
   });
   it('shows the three chips, the research line and no effort grade code', () => {
@@ -57,11 +57,84 @@ describe('legacy facts and Directions (step 9, PS4)', () => {
     }
     expect(mapped).toBeGreaterThan(5);
   });
-  it('Directions go to the access place when the record has no car park of its own', () => {
+  it('Directions go to a car park of the access place, never to a stop (M2, T5)', () => {
     const d = data.getPlace('lake-louise')!.sections!.directions;
-    expect(d).not.toBeNull();
-    expect(d!.name).toMatch(/parking|stop/i);
-    expect(html('lake-louise')).toContain(`directions go to ${d!.name}`);
+    expect(d?.mode).toBe('drive');
+    if (d?.mode === 'drive') expect(d.name).toMatch(/parking|car park/i);
+    expect(html('lake-louise')).toContain('directions go to');
+    // a place reached only by a shuttle stop sends no car anywhere
+    const larch = data.getPlace('larch-valley-to-sentinel-pass')!;
+    expect(larch.sections!.directions?.mode).toBe('transit');
+    const page = html('larch-valley-to-sentinel-pass');
+    expect(page).toContain('No private cars on this road');
+    expect(page).not.toContain('Google Maps directions');
+    expect(page).not.toMatch(/class="btn btn-primary pl-dir"/);
+    for (const slug of data.placeSlugs()) {
+      const x = data.getPlace(slug)!.sections?.directions;
+      if (x?.mode === 'drive') expect(x.ref, slug).not.toMatch(/shuttle|stop|station/i);
+    }
+  });
+  it('the cover carries the one amber Directions action when a car can go (M5)', () => {
+    expect(html('lake-louise')).toMatch(/class="btn btn-primary pl-dir"/);
+  });
+});
+
+describe('a gap is never a yes (M1)', () => {
+  it('"No booking or permit needed" appears only where the data says none is needed', () => {
+    let said = 0;
+    for (const slug of data.placeSlugs()) {
+      const p = data.getPlace(slug)!;
+      const row = p.sections?.sections.flatMap((s) => s.rows).find((r) => r.key === 'access_cost');
+      const says = !!row?.val && (row.val.state === 'no_limit' || (row.val.state === 'searched_none' && /^(operator|official)/.test(row.val.basis ?? '')));
+      const has = text(html(slug)).includes('No booking or permit needed');
+      if (has) said += 1;
+      expect(has, slug).toBe(says);
+    }
+    expect(said).toBeGreaterThanOrEqual(0);
+    expect(text(html('lake-louise'))).toContain('Not checked yet: bookings and permits');
+  });
+  it('an empty sourced list is a gap row, not "None"', () => {
+    for (const slug of data.placeSlugs()) {
+      for (const r of data.getPlace(slug)!.sections?.sections.flatMap((s) => s.rows) ?? []) {
+        if (r.val?.state === 'value' && Array.isArray(r.value)) expect(r.value.length, `${slug} ${r.key}`).toBeGreaterThan(0);
+      }
+    }
+  });
+  it('Plan B is drawn in Before you go only under a booking or access line (M4)', () => {
+    for (const slug of data.placeSlugs()) {
+      const p = data.getPlace(slug)!;
+      const warn = p.sections?.sections.find((s) => s.id === 'warnings');
+      const drawn = html(slug).includes('rv-planb');
+      if (drawn) expect(warn?.lines.some((l) => l.kind === 'Book' || l.kind === 'Access'), slug).toBe(true);
+    }
+  });
+});
+
+describe('the pointer names a place worth a trip (M3)', () => {
+  it('never a region, a protected area, a town or a stop', () => {
+    let seen = 0;
+    for (const slug of data.placeSlugs()) {
+      const r = data.getPlace(slug)!.relevance;
+      if (!r?.pointer) continue;
+      seen += 1;
+      expect(r.pointer.name, slug).not.toMatch(/^(Dolomites|Village and cafes)$/);
+      expect(text(html(slug)).split(r.pointer.name).length - 1, slug).toBeLessThanOrEqual(2);
+    }
+    expect(seen).toBeGreaterThan(0);
+  });
+});
+
+describe('research levels (M6) and units (M9)', () => {
+  it('uses Basics only, Early research, Partly checked and Checked, and a place with no point never reads above Early research', () => {
+    for (const slug of data.placeSlugs()) {
+      const p = data.getPlace(slug)!;
+      expect(p.completeness.label, slug).toMatch(/^(Basics only|Early research · \d+ of \d+|Partly checked · \d+ of \d+|Checked)$/);
+      if (p.point === null) expect(p.completeness.label, slug).toMatch(/^(Basics only|Early research)/);
+    }
+  });
+  it('distances and heights are spans the units toggle can rewrite', () => {
+    const page = html('lake-louise');
+    expect(page).toMatch(/<data class="um" value="200">200 m<\/data>/);
   });
 });
 

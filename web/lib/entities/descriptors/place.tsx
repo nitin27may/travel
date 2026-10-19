@@ -38,6 +38,8 @@ export function suitChips(p: PlaceListRow): Badge[] {
   else if (p.kid_fit !== 'unknown') out.push({ text: KID_LABELS[p.kid_fit] ?? p.kid_fit, tone: 'kid', icon: KID_ICONS[p.kid_fit] ?? 'user', title: KID_HINTS[p.kid_fit] });
   else out.push({ text: 'Not checked yet', tone: 'muted', value: 'gap', title: 'Kids: not checked yet' });
   if (p.effort) out.push({ text: p.effort, tone: 'neutral', value: 'effort', icon: 'trail', title: 'How hard, in family terms' });
+  // a trail or trek nobody has rated shows the gap on the card, as it does on the page (verifier 9)
+  else if (typeInScope(p.type, ['nature.trail', 'nature.trek'])) out.push({ text: 'Effort: not checked yet', tone: 'muted', value: 'gap', title: 'Effort: not checked yet' });
   return out;
 }
 

@@ -44,11 +44,33 @@ export function valueWords(v: unknown): string {
 
 export const stubOf = (val: PVal | null): string => (val ? [val.basisLabel, val.read ? `read ${longDate(val.read)}` : null].filter(Boolean).join(' · ') : '');
 
-export const gapChip = (text: string = GAP_WORDS): string => `<span class="su-gapchip">${esc(text)}</span>`;
+/**
+ * Text with its distances and heights as spans the units toggle can rewrite (km or mi, m or ft): "2.3 km" becomes
+ * <data class="ukm" value="2.3">2.3 km</data> (a range keeps both ends in value). The page ships metric; `Interactions` applies the visitor's choice (M9).
+ */
+const UNIT = /(\d[\d,]*(?:\.\d+)?)(?:–(\d[\d,]*(?:\.\d+)?))?\s?(km|m)\b/g;
+export function withUnits(text: string | null | undefined): string {
+  const t = String(text ?? '');
+  let out = '';
+  let last = 0;
+  for (const m of t.matchAll(UNIT)) {
+    const at = m.index ?? 0;
+    out += esc(t.slice(last, at));
+    out += `<data class="u${m[3]}" value="${esc(m[1])}${m[2] ? `–${esc(m[2])}` : ''}">${esc(m[0])}</data>`;
+    last = at + m[0].length;
+  }
+  return out + esc(t.slice(last));
+}
+
+export const gapChip = (text: string = GAP_WORDS): string => `<span class="gc">${esc(text)}</span>`;
 export const closing = (text: string | null): string => (text ? `<p class="su-closing">${esc(text)}</p>` : '');
 
 /** A source worth showing to a visitor: a public web page. Our own repo, a plan file or a relative path is the workshop, never a source. */
 export const publicSource = (s: PVal['sources'][number]): boolean => /^https?:\/\//.test(s.url) && !/this repo|^repo$/i.test(s.publisher) && !/^trip plan$/i.test(s.title);
+
+/** A source title as a visitor reads it: our workflow notes ("search result, not opened") never print, and OSM ids read as OpenStreetMap. */
+export const sourceTitle = (t: string): string =>
+  t.replace(/\s*\((?:[^()]*\b(?:search result|not opened|from memory)\b[^()]*)\)/gi, '').replace(/\bOSM (node|way|relation)\b/gi, 'OpenStreetMap $1').trim();
 
 export type Slugs = Record<string, string>;
 export const refLink = (r: { ref: string; name: string }, slugs: Slugs): string => (slugs[r.ref] ? `<a href="/places/${esc(slugs[r.ref])}/">${esc(r.name)}</a>` : esc(r.name));
@@ -60,7 +82,7 @@ function panel(val: PVal): string {
   if (val.quote) h += `<blockquote class="su-pop-quote">${esc(val.quote)}</blockquote>`;
   if (sources.length) {
     h += '<ul class="su-pop-src" aria-label="Sources, each opens in a new tab">';
-    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title.replace(/\bOSM (node|way|relation)\b/gi, 'OpenStreetMap $1'))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
+    for (const s of sources) h += `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(sourceTitle(s.title))}</a> · ${esc(s.publisher)}${s.read ? ` · read ${esc(longDate(s.read))}` : ''}</li>`;
     h += '</ul>';
   }
   if (val.conflicts.length) {
@@ -84,20 +106,20 @@ function valueHtml(row: ShowRow, slugs: Slugs): string {
     }
     return `${h}</ul>`;
   }
-  return esc(row.text);
+  return withUnits(row.text);
 }
 
 /** One row. A gap keeps its row and shows the dashed chip (D8); a searched-none value is a sentence (D3); a value with a source, quote or conflict is a disclosure. */
 export function rowLine(row: ShowRow, slugs: Slugs, id: string = `row-${row.key}`): string {
   const a = esc(id);
-  if (row.gap) return `<div class="su-row" id="${a}" data-gap><span class="su-lab">${esc(row.label)}</span><span class="su-val">${gapChip()}${row.gapWording ? ` <span class="su-gapnote">${esc(row.gapWording)}</span>` : ''}</span></div>`;
+  if (row.gap) return `<div class="sr" id="${a}" data-gap><span class="sl">${esc(row.label)}</span><span class="sv">${gapChip()}${row.gapWording ? ` <span class="su-gapnote">${esc(row.gapWording)}</span>` : ''}</span></div>`;
   const sentence = row.look === 'sentence';
-  const body = `<span class="su-lab">${esc(row.label)}</span><span class="su-val">${valueHtml(row, slugs)}${row.honesty ? `<span class="su-honest">${esc(row.honesty)}</span>` : ''}${!sentence && row.val ? `<span class="su-stub">${esc(stubOf(row.val))}</span>` : ''}</span>`;
+  const body = `<span class="sl">${esc(row.label)}</span><span class="sv">${valueHtml(row, slugs)}${row.honesty ? `<span class="su-honest">${esc(row.honesty)}</span>` : ''}${!sentence && row.val ? `<span class="ss">${esc(stubOf(row.val))}</span>` : ''}</span>`;
   const val = row.val;
   const adds = !!val && (!!val.quote || val.conflicts.length > 0 || val.sources.some(publicSource));
   const look = row.look === 'sentence' ? ' data-look="sentence"' : '';
-  if (!val || !adds || (row.links && row.links.length > 0)) return `<div class="su-row" id="${a}"${look}>${body}</div>`;
-  return `<details class="su-row su-prov" id="${a}"${look}><summary>${body}</summary>${panel(val)}</details>`;
+  if (!val || !adds || (row.links && row.links.length > 0)) return `<div class="sr" id="${a}"${look}>${body}</div>`;
+  return `<details class="sr su-prov" id="${a}"${look}><summary>${body}</summary>${panel(val)}</details>`;
 }
 
 export const rowsHtml = (rows: ShowRow[], slugs: Slugs, idOf?: (r: ShowRow) => string): string => rows.map((r) => (r.valueType === 'season_rows' && !r.gap ? seasonGrid(r) : rowLine(r, slugs, idOf?.(r)))).join('');
@@ -132,7 +154,7 @@ const words = (l: SeasonLine): string => [l.via, l.status ?? 'open'].filter(Bool
 export function seasonGrid(row: ShowRow): string {
   const lines = Array.isArray(row.value) ? row.value.filter(isLine) : [];
   if (lines.length === 0) return '';
-  let h = `<div class="ps-seasons" id="row-${esc(row.key)}"><p class="ps-grid-title">${esc(row.label)}${row.val ? `<span class="ps-stub"> · ${esc(stubOf(row.val))}</span>` : ''}</p>`;
+  let h = `<div class="ps-seasons" id="row-${esc(row.key)}"><p class="ps-grid-title">${esc(row.label)}${row.val ? `<span class="pb"> · ${esc(stubOf(row.val))}</span>` : ''}</p>`;
   for (const l of lines) {
     const cover = monthCover(l.from, l.to);
     const open = (l.status ?? 'open') === 'open';
@@ -167,28 +189,28 @@ export const glyph = (name: string, size = 13): string => (GLYPH[name] ? `<svg w
 export function chipsHtml(chips: readonly (Chip | null)[]): string {
   const shown = chips.filter((c): c is Chip => c !== null);
   if (!shown.length) return '';
-  return `<ul class="su-chips" aria-label="Who it suits">${shown.map((c) => `<li class="su-chip" data-kind="${c.kind}"><span class="su-chip-in" aria-label="${esc(c.label)}">${glyph(c.glyph)}<span>${esc(c.text)}</span>${c.extra > 0 ? `<span class="su-chip-more">+${c.extra}</span>` : ''}</span></li>`).join('')}</ul>`;
+  return `<ul class="su-chips" aria-label="Who it suits">${shown.map((c) => `<li class="su-chip" data-kind="${c.kind}"><span class="ci" aria-label="${esc(c.label)}">${glyph(c.glyph)}<span>${esc(c.text)}</span>${c.extra > 0 ? `<span class="su-chip-more">+${c.extra}</span>` : ''}</span></li>`).join('')}</ul>`;
 }
 
 const ECHO = new Set<string>(['facilities', 'when']);
-const clip = (t: string, n = 64): string => (t.length > n ? `${t.slice(0, n - 1).trimEnd()}…` : t);
+const clip = (t: string, n = 64): string => (t.length > n ? `${t.slice(0, n - 1).replace(/[\s,;:·-]+$/, '')}…` : t);
 
 function groupHtml(g: SuitGroup, slugs: Slugs): string {
   const values = g.rows.filter((r) => !r.gap);
   if (ECHO.has(g.id)) {
     // Facilities and When you can go are sections of their own (9 and 8): here only their values, with a link, so nothing is said twice (PS1, Q31)
     if (values.length === 0) return '';
-    return `<p class="su-echo" data-group="${g.id}"><span class="su-gtitle">${esc(g.title)}</span><span class="su-gsum">${values.map((r) => esc(clip(r.short))).join(' · ')}</span><a href="#${g.id}">See section</a></p>`;
+    return `<p class="su-echo" data-group="${g.id}"><span class="gt">${esc(g.title)}</span><span class="gs">${values.map((r) => esc(clip(r.short))).join(' · ')}</span><a href="#${g.id}">See section</a></p>`;
   }
   const gaps = g.rows.filter((r) => r.gap);
-  const sum = g.open ? '' : `<span class="su-gsum">${values.map((r) => esc(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;
+  const sum = g.open ? '' : `<span class="gs">${values.map((r) => esc(clip(r.short))).join(' · ')}${gaps.length || g.closing ? gapChip(clip(g.closing ?? `Not checked yet: ${gaps.map((r) => r.label.toLowerCase()).join(', ')}`, 90)) : ''}</span>`;
   const rows = g.rows.map((r) => rowLine({ ...r, text: r.gap ? null : r.text, gapWording: r.gap && r.text !== GAP_WORDS ? r.text : undefined }, slugs, `su-${r.key}`)).join('');
-  return `<details class="su-group" data-group="${g.id}"${g.open ? ' open' : ''}><summary><span class="su-gtitle">${esc(g.title)}</span>${sum}</summary><div class="su-gbody">${rows}${closing(g.closing)}</div></details>`;
+  return `<details class="su-group" data-group="${g.id}"${g.open ? ' open' : ''}><summary><span class="gt">${esc(g.title)}</span>${sum}</summary><div class="su-gbody">${rows}${closing(g.closing)}</div></details>`;
 }
 
 /** The inside of the "Who it suits" section: head, chips, warning line and the groups. */
 export function suitsInner(suit: PublicSuitability, slugs: Slugs, title: string): string {
-  return `<header class="ps-head"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml(suit.chips)}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${esc(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
+  return `<header class="ph"><h2 id="h-suits">${esc(title)}</h2>${suit.research.text ? `<p class="ps-meta">${esc(suit.research.text)}</p>` : ''}</header>${chipsHtml(suit.chips)}${suit.warning ? `<p class="su-warn">${glyph('triangle', 16)}<span>${esc(suit.warning)}</span></p>` : ''}${suit.groups.map((g) => groupHtml(g, slugs)).join('')}`;
 }
 
 // ---- glance and "Before you go" ---------------------------------------------------------------------------------------------
@@ -206,10 +228,10 @@ export interface GlanceSlotHtml {
 export function glanceHtml(slots: GlanceSlotHtml[], level: { level: string; label: string; tooltip: string }, checks: { done: number; total: number; read: string | null }): string {
   const list = slots.length
     ? `<ul>${slots
-        .map(({ row, href, value }) => `<li${row.gap ? ' data-empty' : ''}><a href="${esc(href)}" class="ps-glance-a"><span class="ps-glance-label">${esc(row.label)}</span>${row.gap ? gapChip() : `<strong class="ps-glance-value">${esc(value)}</strong>`}${row.val ? `<span class="ps-stub">${esc(stubOf(row.val))}</span>` : ''}${row.val && row.val.conflicts.length ? `<span class="su-honest">${row.val.conflicts.length + 1} values</span>` : ''}</a></li>`)
+        .map(({ row, href, value }) => `<li${row.gap ? ' data-empty' : ''}><a href="${esc(href)}" class="ga"><span class="gl">${esc(row.label)}</span>${row.gap ? gapChip() : `<strong class="gv">${withUnits(value)}</strong>`}${row.val ? `<span class="pb">${esc(stubOf(row.val))}</span>` : ''}${row.val && row.val.conflicts.length ? `<span class="su-honest">${row.val.conflicts.length + 1} values</span>` : ''}</a></li>`)
         .join('')}</ul>`
     : '';
-  return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="ps-stub">${checks.total ? `${checks.done} of ${checks.total} place checks done` : ''}${checks.read ? ` · read ${esc(longDate(checks.read))}` : ''}</span></p>`;
+  return `${list}<p class="ps-level"><span class="ps-complete" data-level="${esc(level.level)}" title="${esc(level.tooltip)}">${esc(level.label)}</span><span class="pb">${checks.total && !/ of \d+$/.test(level.label) ? `${checks.done} of ${checks.total} place checks done` : ''}${checks.read ? `${checks.total && !/ of \d+$/.test(level.label) ? ' · ' : ''}read ${esc(longDate(checks.read))}` : ''}</span></p>`;
 }
 
 const li = (kind: string, glyphName: string, inner: string, cls = 'ps-line'): string => `<li class="${cls}" data-kind="${esc(kind)}">${glyph(glyphName, 16)}<div>${inner}</div></li>`;
@@ -219,22 +241,34 @@ const kmText = (n: number): string => `${n < 10 ? Math.round(n * 10) / 10 : Math
 /** Section 3: the Rest! lines, Plan B under the booking line (PS8), the older record's hazards and booking window, "none" lines and the closing line. */
 export function warningsHtml(sec: SectionModel, rel: PublicRelevance | null, slugs: Slugs, bookingHtml: string | null, hazards: string[], suitWarning: string | null): string {
   const byKey = new Map(sec.rows.map((r) => [r.key, r]));
-  const noneRows = sec.rows.filter((r) => !r.gap && r.text === 'None');
+  // "No booking needed" is said only when the data says so (state no_limit, or searched and found none by an operator or an official source).
+  // An empty list, a missing field or a deferred note is a gap, never a yes (M1).
+  const says = (r: SectionModel['rows'][number]): boolean => !!r.val && (r.val.state === 'no_limit' || (r.val.state === 'searched_none' && /^(operator|official)/.test(r.val.basis ?? '')));
+  const noneRows = sec.rows.filter((r) => !r.gap && says(r) && (r.key === 'access_cost' || r.key === 'closures'));
+  const unknownBooking = !sec.rows.some((r) => r.key === 'access_cost' && says(r)) && sec.rows.some((r) => r.key === 'access_cost') && !sec.lines.some((l) => l.kind === 'Book' || l.kind === 'Access') && !bookingHtml;
   const haz = hazards.filter((h) => h && h !== suitWarning);
   const b = rel?.planB;
   const planB = b
-    ? `<li class="ps-line rv-planb"><span class="rv-tag">Plan B</span><p class="ps-text">${b.risk ? `${esc(cap1(b.risk))} can fall through. ` : ''}${refLink(b, slugs)} is the same kind of draw: ${esc(b.access)}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.</p></li>`
+    ? `<li class="ps-line rv-planb"><span class="rv-tag">Plan B</span><p class="pt">${b.risk ? `${esc(cap1(b.risk))} can fall through. ` : ''}${refLink(b, slugs)} is the same kind of view: ${esc(b.access)}${b.effortName ? ` · ${esc(b.effortName.toLowerCase())}` : ''} · ${kmText(b.km)}.</p></li>`
     : '';
+  // Plan B sits under the risk it answers: a booking or an access line (PS8, Q32). With no such line it is not drawn here; Similar nearby still tags it.
   const bookIdx = sec.lines.findIndex((l) => l.kind === 'Book');
+  const accessIdx = sec.lines.findIndex((l) => l.kind === 'Access');
+  const riskIdx = bookIdx >= 0 ? bookIdx : accessIdx;
   let out = '';
   sec.lines.forEach((l, i) => {
     const row = byKey.get(l.home);
-    out += li(l.kind, 'triangle', `<p class="ps-text"><span class="ps-kind">${esc(l.kind)}</span> ${esc(l.text)}</p>${row?.val ? `<p class="ps-stub">${esc(stubOf(row.val))}</p>` : ''}`);
-    if (i === bookIdx) out += planB;
+    out += li(l.kind, 'triangle', `<p class="pt"><span class="pk">${esc(l.kind)}</span> ${esc(l.text)}</p>${row?.val ? `<p class="pb">${esc(stubOf(row.val))}</p>` : ''}`);
+    if (i === riskIdx) out += planB;
   });
-  if (bookIdx < 0) out += planB;
-  if (bookingHtml) out += li('Book', 'triangle', `<div class="ps-text"><span class="ps-kind">Book</span> ${bookingHtml}</div>`);
-  for (const h of haz) out += li('Hazard', 'triangle', `<p class="ps-text"><span class="ps-kind">Hazard</span> ${esc(h)}</p>`);
-  for (const r of noneRows) out += li('', 'check', `<p class="ps-text">${r.key === 'access_cost' ? 'No booking or permit needed' : `${esc(r.label)}: none`}</p>${r.val ? `<p class="ps-stub">${esc(stubOf(r.val))}</p>` : ''}`, 'ps-line ps-line-none');
-  return `${out ? `<ul class="ps-lines">${out}</ul>` : ''}${closing(sec.closing)}`;
+  if (bookingHtml) out += li('Book', 'triangle', `<div class="pt"><span class="pk">Book</span> ${bookingHtml}</div>`);
+  for (const h of haz) out += li('Hazard', 'triangle', `<p class="pt"><span class="pk">Hazard</span> ${esc(h)}</p>`);
+  for (const r of noneRows) out += li('', 'check', `<p class="pt">${r.key === 'access_cost' ? 'No booking or permit needed' : `${esc(r.label)}: none`}</p>${r.val ? `<p class="pb">${esc(stubOf(r.val))}</p>` : ''}`, 'ps-line ps-line-none');
+  let closingText = sec.closing;
+  if (unknownBooking) {
+    const label = sec.rows.find((r) => r.key === 'access_cost')!.label.toLowerCase();
+    const rest = (sec.closing ?? '').replace(/^Not checked yet: /, '').split(', ').filter((x) => x && x !== label);
+    closingText = `Not checked yet: ${['bookings and permits', ...rest].join(', ')}`;
+  }
+  return `${out ? `<ul class="ps-lines">${out}</ul>` : ''}${closing(closingText)}`;
 }

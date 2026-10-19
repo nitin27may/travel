@@ -8,6 +8,14 @@ import { WEB_DIR } from './support';
 const baseline = JSON.parse(readFileSync(path.join(WEB_DIR, 'tests', 'data', 'place-html-baseline.json'), 'utf8')) as { pages: Record<string, number> };
 const OUT = path.join(WEB_DIR, 'out', 'places');
 const BUDGET = 1.25;
+/**
+ * No single page grows by more than 50%, except these. They are small pages (about 45 kB before) of fully researched records: every
+ * suitability group, provenance row and section now has content, and the page carries it once in the payload. They stay under +100%.
+ * A page leaves this list when it passes 50%; a new one must be argued in review, not added here.
+ */
+const OVER_50 = new Set(["chorrillo-del-salto", "coastal-path", "delicate-arch-trail", "devils-garden", "emerald-lakeshore", "grassi-lakes-easy-route", "ha-ling-peak", "hickman-bridge", "iceline-trail", "lac-blanc-via-flegere", "lago-di-braies-walk", "lago-di-carezza", "lago-federa-walk", "laguna-capri", "laguna-de-los-tres", "laguna-esmeralda", "lake-louise", "lower-calf-creek-falls", "marble-canyon-walk", "mirador-de-las-aguilas", "mirador-de-los-condores", "narrows-from-the-temple-of-sinawava", "navajo-loop-and-queens-garden", "parus-trail", "plan-de-laiguille", "riverside-walk", "scout-lookout-angels-landing-chains-view", "skaftafell-svartifoss", "solitaire-lake-trail", "stowe-recreation-path", "takakkaw-falls-walk", "track-and-tower-trail", "troll-falls", "upheaval-dome", "wedge-pond-loop", "windows-section"]);
+const PAGE_CAP = 1.5;
+const EXCEPTION_CAP = 2;
 
 describe('place page size (S13)', () => {
   const sizes = Object.entries(baseline.pages).flatMap(([slug, was]) => {
@@ -22,5 +30,9 @@ describe('place page size (S13)', () => {
     const largestWas = Math.max(...sizes.map((s) => s.was));
     const largestNow = Math.max(...sizes.map((s) => s.now));
     expect(largestNow / largestWas, `${largestNow} against ${largestWas}`).toBeLessThanOrEqual(BUDGET);
+  });
+  it.skipIf(sizes.length === 0)('no page grows by more than 50%, and the listed exceptions stay under 100%', () => {
+    const bad = sizes.filter((s) => s.now / s.was > (OVER_50.has(s.slug) ? EXCEPTION_CAP : PAGE_CAP)).map((s) => `${s.slug} ${s.was} to ${s.now}`);
+    expect(bad).toEqual([]);
   });
 });
