@@ -4767,6 +4767,13 @@
                 ],
                 "additionalProperties": false
               },
+              "route_is_attraction": {
+                "type": "boolean"
+              },
+              "attraction_reason": {
+                "type": "string",
+                "minLength": 1
+              },
               "area_id": {
                 "type": "string",
                 "minLength": 1
@@ -7195,6 +7202,10 @@
               },
               "note": {
                 "type": "string"
+              },
+              "review": {
+                "type": "string",
+                "const": "design"
               },
               "fields": {
                 "type": "object",
@@ -11233,7 +11244,8 @@
                   "swim_spot",
                   "stay",
                   "eatery",
-                  "drive"
+                  "drive",
+                  "access"
                 ]
               },
               "subkind": {
@@ -54066,7 +54078,8 @@
                         "swim_spot",
                         "stay",
                         "eatery",
-                        "drive"
+                        "drive",
+                        "access"
                       ]
                     },
                     "subkind": {
@@ -54141,6 +54154,7 @@
                         "heli",
                         "scenic-flight",
                         "vehicle-tour",
+                        "station",
                         "hotel",
                         "lodge",
                         "cabin",

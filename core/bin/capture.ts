@@ -27,6 +27,7 @@ Commands:
                           --check exits 1 on drift. Runs in tools/check-all.sh.
   gaps --trip <trip> [--level usable|complete] [--json]
                           per record, the missing required properties; the brief of a research pass
+  place [--write]         apply data/capture/placement.json (facts and draw to the layer that causes them); runs once
   run --check <file>      validate a crawl run record (capture-run/1)
   codes                   list the E_CAP_* and W_CAP_* codes
 
@@ -192,6 +193,10 @@ async function main(argv: string[]): Promise<number> {
     case "migrate": {
       const { migrateCommand } = await import("../src/capture/migrateCli.ts");
       return migrateCommand(argv, root, out, err);
+    }
+    case "place": {
+      const { placeCommand } = await import("../src/capture/placementCli.ts");
+      return placeCommand(argv, root, out, err);
     }
     case "run": return runCheck(argv, root);
     case "codes": {

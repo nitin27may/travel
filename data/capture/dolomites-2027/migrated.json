@@ -11,7 +11,9 @@
       "ref": "place/tre-cime-di-lavaredo-loop",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Tre Cime di Lavaredo loop"
+      "name": "Tre Cime di Lavaredo loop",
+      "route_is_attraction": true,
+      "attraction_reason": "The loop is the experience (spec 2.7.1 example 4): the world draw also sits on the mountain and the north-face viewpoint, whose places and the huts come from research later."
     },
     {
       "ref": "place/cadini-di-misurina-viewpoint",
@@ -55,13 +57,17 @@
       "ref": "place/cinque-torri",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Cinque Torri"
+      "name": "Cinque Torri",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged this route as the thing visited (class sight/heritage-site); no place for it is recorded yet."
     },
     {
       "ref": "place/monte-piana",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Monte Piana"
+      "name": "Monte Piana",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged this route as the thing visited (class sight/heritage-site); no place for it is recorded yet."
     },
     {
       "ref": "place/croda-del-becco",
@@ -86,7 +92,9 @@
       "ref": "place/val-fiscalina",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Val Fiscalina"
+      "name": "Val Fiscalina",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "part/place/lago-federa#walk",
@@ -120,13 +128,17 @@
       "ref": "place/adolf-munkel-weg",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Adolf Munkel Weg"
+      "name": "Adolf Munkel Weg",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "place/alpe-di-siusi",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Alpe di Siusi"
+      "name": "Alpe di Siusi",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "place/bullaccia-and-the-witches-benches",
@@ -151,13 +163,17 @@
       "ref": "place/vallunga",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Vallunga"
+      "name": "Vallunga",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "place/viel-dal-pan",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Viel dal Pan"
+      "name": "Viel dal Pan",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "place/sass-pordoi-and-piz-boe",
@@ -405,7 +421,9 @@
       "ref": "place/drava-cycle-path-to-lienz",
       "type": "wheels.bike.cycle_path",
       "layer": "route",
-      "name": "Drava cycle path to Lienz"
+      "name": "Drava cycle path to Lienz",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "place/lagazuoi-cable-car-and-tunnels",

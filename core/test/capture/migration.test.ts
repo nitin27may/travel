@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { LEDGER_PATH, displacedRelevance, ledgerOf, leavesOf, planMigration, serializeLike } from "../../src/capture/migrate.ts";
+import { LEDGER_PATH, displacedRelevance, ledgerOf, leavesOf, planMigration, removedSuitability, serializeLike } from "../../src/capture/migrate.ts";
 import type { Ledger, SplitsFile } from "../../src/capture/migrate.ts";
 import { loadWorld, sidecarFiles } from "../../src/capture/records.ts";
 import { resolveNode } from "../../src/capture/resolve.ts";
@@ -27,21 +27,22 @@ describe("the committed migration (counts)", () => {
   const docs = sidecarFiles(REPO, "capture").map((f) => JSON.parse(readFileSync(f, "utf8")) as CaptureDoc);
   const records = docs.flatMap((d) => d.records);
 
-  it("one capture sidecar per trip, 8 trips, 339 records: 289 refs retyped and 50 cut out", () => {
+  it("one capture sidecar per trip, 8 trips, 339 records: 287 refs retyped (2 stubs are aliases of their real records) and 52 cut out", () => {
     expect(docs.map((d) => d.trip).sort()).toEqual(["algonquin-muskoka-2026", "canadian-rockies-2029", "chamonix-mont-blanc-2028", "dolomites-2027", "iceland-ring-road-2027", "patagonia-2027", "utah-five-parks", "vermont-fall-2026"]);
     expect(records).toHaveLength(339);
-    expect(records.filter((r) => !r.origin)).toHaveLength(289);
-    expect(records.filter((r) => r.origin)).toHaveLength(50);
+    expect(records.filter((r) => !r.origin)).toHaveLength(287);
+    expect(records.filter((r) => r.origin)).toHaveLength(52);
+    expect(world.alias.size).toBe(2);
     expect(new Set(records.map((r) => r.ref)).size).toBe(339);
   });
-  it("by layer: 160 places, 139 routes, 39 offers, 1 event", () => {
+  it("by layer: 160 places, 137 routes, 41 offers, 1 event", () => {
     const by = (l: string) => records.filter((r) => r.layer === l).length;
-    expect([by("place"), by("route"), by("offer"), by("event")]).toEqual([160, 139, 39, 1]);
+    expect([by("place"), by("route"), by("offer"), by("event")]).toEqual([160, 137, 41, 1]);
   });
-  it("the 50 records cut out: 40 places, 6 offers, 3 routes, 1 event", () => {
+  it("the 52 records cut out: 40 places, 8 offers (6 tickets, 2 operator offers), 3 routes, 1 event", () => {
     const cut = records.filter((r) => r.origin);
     const by = (l: string) => cut.filter((r) => r.layer === l).length;
-    expect([by("place"), by("offer"), by("route"), by("event")]).toEqual([40, 6, 3, 1]);
+    expect([by("place"), by("offer"), by("route"), by("event")]).toEqual([40, 8, 3, 1]);
     for (const r of cut) expect(r.origin!.reason.length, r.ref).toBeGreaterThan(8);
   });
   it("61 records split: 33 trail payoffs, 15 activities as offers, 6 lifts, 3 places with a long walk, 3 routes, 1 viewing place and event", () => {
@@ -86,13 +87,13 @@ describe("the committed migration (counts)", () => {
   });
   it("every operator names the publisher of an operator page behind a value, and keeps where it was taken from", () => {
     const ops = [...world.operators.values()];
-    expect(ops).toHaveLength(9);
+    expect(ops).toHaveLength(10);
     for (const o of ops) {
       expect(o.derived_from!.length, o.ref).toBeGreaterThan(0);
       expect(o.derived_from!.every((d) => d.publisher === o.name), o.ref).toBe(true);
     }
     const withOp = records.filter((r) => r.run_by);
-    expect(withOp).toHaveLength(11);
+    expect(withOp).toHaveLength(12);
     for (const r of withOp) expect(r.layer, r.ref).toBe("offer");
   });
 });
@@ -134,9 +135,9 @@ describe("the committed migration (each kind of split)", () => {
       expect(world.suit.has(s.ref), s.ref).toBe(true);
       expect(world.rel.has(s.ref), s.ref).toBe(true);
       if (s.at) expect(o.at, s.ref).toHaveLength(1);
-      else expect(o.at, s.ref).toBeUndefined(); // the lane does not name the place: a gap for the research pass
+      else expect(o.at, s.ref).toEqual(["trip/patagonia-2027/sight:perito moreno walkways"]); // placement: its same_place_as
     }
-    expect(list.filter((s) => !s.at)).toHaveLength(1);
+    expect(list.filter((s) => !s.at)).toHaveLength(1); // the minitrekking: placement.json sets it from same_place_as
   });
   it("a lift becomes a line, a ticket offer that carries the suitability block, and its top station", () => {
     const list = all.filter((s) => s.how === "lift");
@@ -151,7 +152,11 @@ describe("the committed migration (each kind of split)", () => {
       expect(ticket.offer_class).toBe("ticket");
       expect(world.suit.has(s.ticket!.ref), s.ref).toBe(true);
       expect(world.suit.has(s.ref), `${s.ref} has no suitability record of its own`).toBe(false);
-      expect(world.rel.has(s.ref), `${s.ref} keeps its relevance record on the line`).toBe(true);
+      // placement: draw and class go to the top station, unless the ride is the attraction (the Montenvers train)
+      const stays = s.ref.endsWith("montenvers train");
+      expect(world.rel.has(s.ref), s.ref).toBe(stays);
+      expect(world.rel.has(top.ref), top.ref).toBe(!stays);
+      expect(line.route_is_attraction === true, s.ref).toBe(stays);
     }
   });
   it("a place with a walk of 2 km or more keeps its facilities and exposure; the walk's effort and time move to a route", () => {
@@ -169,7 +174,9 @@ describe("the committed migration (each kind of split)", () => {
   it("the Drava cycle path and the two Canmore Nordic Centre records are routes; the elk rut is a viewing place with a new event", () => {
     expect(cap("place/drava-cycle-path-to-lienz")!.layer).toBe("route");
     expect(cap("legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre")!.layer).toBe("route");
-    expect(cap("legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre")!.starts_at).toEqual(cap("legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre")!.starts_at);
+    // the stub sights/canmore-nordic-centre is an alias of the real record
+    expect(world.alias.get("legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre")).toBe("legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre");
+    expect(world.alias.get("legacy/canadian-rockies-sept-2029/sights/banff-gondola")).toBe("legacy/canadian-rockies-sept-2029/adventures/banff-gondola");
     const elk = cap("legacy/canadian-rockies-sept-2029/adventures/elk-rut")!;
     expect(elk.layer).toBe("place");
     const ev = cap("part/legacy/canadian-rockies-sept-2029/adventures/elk-rut#rut")!;
@@ -186,12 +193,12 @@ describe("the committed migration (each kind of split)", () => {
 
 describe("no value lost, none invented", () => {
   const ledger = read<Ledger>(LEDGER_PATH);
-  const now = ledgerOf(REPO, displacedRelevance(REPO));
+  const now = ledgerOf(REPO, displacedRelevance(REPO), removedSuitability(REPO));
 
   it("the leaves of the suitability lane files are the leaves they had before the migration", () => {
     expect(now.suitability.leaves).toBe(ledger.suitability.leaves);
     expect(now.suitability.sha1).toBe(ledger.suitability.sha1);
-    expect(now.suitability.records).toBe(ledger.suitability.records + 3); // the three routes cut out of places with a long walk
+    expect(now.suitability.records).toBe(ledger.suitability.records + 3 + 12 + 1); // 3 routes cut from long walks, 12 places given the facts placement moved, and the one record of dropped duplicates
   });
   it("the leaves of the relevance lane files, with the seven displaced judgements kept in the splits files, are the leaves they had", () => {
     expect(displacedRelevance(REPO)).toHaveLength(7);
@@ -203,6 +210,7 @@ describe("no value lost, none invented", () => {
     const points = (read<{ points: Record<string, { lat: number; lon: number }> }>("data/relevance/inputs/points.json")).points;
     const payoff = new Map<string, string>();
     for (const s of splits().flatMap((f) => f.splits)) if (s.how === "trail_payoff" && (s.place as { mode: string }).mode === "new") payoff.set(s.ref, (s.place as { ref: string }).ref);
+    for (const m of read<{ draw_moves: { from: string; to: string }[] }>("data/capture/placement.json").draw_moves) payoff.set(m.from, m.to);
     let kept = 0;
     for (const [ref, [lat, lon]] of Object.entries(ledger.points)) {
       const here = points[ref];

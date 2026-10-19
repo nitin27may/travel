@@ -10,7 +10,7 @@ Records: place. Suitability profile `access` (never). Effort: none, time is show
 
 **place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, transit, pairs_with, part_of, serves.
 
-Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season.
+Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season, wheelchair, toilets, accessible_toilet, food, water, shade, altitude_m.
 
 Links: official; R? booking; A status, webcam.
 
@@ -22,7 +22,7 @@ Records: place, offer. Suitability profile `access` (never). Effort: none, time 
 
 **offer (access)**: R name, type, summary, access_cost, price, window, links, at; R? season (operates), hours (operates), closures (status_page); A names, transit, part_of, on, run_by, cancellation.
 
-Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season.
+Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season, wheelchair, toilets, accessible_toilet, food, water, shade, altitude_m.
 
 Links: official; R? booking; A status, webcam.
 
@@ -32,7 +32,7 @@ Records: place. Suitability profile `access` (never). Effort: none, time is show
 
 **place**: R name, type, point, area_id, summary, access_cost, links, parks_for; R? season (operates), hours (operates), price (sells), window (bookable), closures (status_page); A names, osm_ref, transit, pairs_with, part_of, serves.
 
-Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season.
+Suitability: R none; R when operated none; A accessible_parking, walk_m, limited_capacity_note, access_season, wheelchair, toilets, accessible_toilet, food, water, shade, altitude_m.
 
 Links: official; R? booking; A status, webcam.
 

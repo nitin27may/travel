@@ -186,12 +186,12 @@ export interface Ledger { schema: "capture-migration-ledger/1"; note: string; co
 const sha1 = (xs: string[]): string => createHash("sha1").update([...xs].sort().join("\n")).digest("hex");
 
 /** The ledger of the lane files now on disk. `extraRelevance` adds the judgements kept outside them (the displaced ones in the splits files). */
-export function ledgerOf(root: string, extraRelevance: Any[] = []): Ledger {
+export function ledgerOf(root: string, extraRelevance: Any[] = [], extraSuitability: Any[] = []): Ledger {
   const part = (recs: Any[]): LedgerPart => {
     const leaves = recs.flatMap(leavesOf);
     return { records: recs.length, leaves: leaves.length, sha1: sha1(leaves) };
   };
-  const suitRecs: Any[] = [];
+  const suitRecs: Any[] = [...extraSuitability];
   for (const f of sidecarFiles(root, "suitability")) suitRecs.push(...(JSON.parse(readFileSync(f, "utf8")) as Any).records);
   const relRecs: Any[] = [...extraRelevance];
   for (const f of sidecarFiles(root, "relevance")) relRecs.push(...(JSON.parse(readFileSync(f, "utf8")) as Any).records);
@@ -504,4 +504,10 @@ export function captureRenames(root: string): Map<string, string> {
   const out = new Map<string, string>();
   for (const f of loadSplits(root).values()) for (const s of f.splits) if (s.how === "lift" && s.ticket) out.set(s.ref, s.ticket.ref);
   return out;
+}
+
+/** The values placement dropped as duplicates, kept verbatim in data/capture/placement.json, as records the ledger can count. */
+export function removedSuitability(root: string): Any[] {
+  const p = readJson<{ removed_duplicates?: { fields: Any }[] }>(join(root, "data", "capture", "placement.json"));
+  return (p?.removed_duplicates ?? []).map((d) => ({ suitability: d.fields }));
 }

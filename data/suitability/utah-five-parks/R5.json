@@ -2061,16 +2061,6 @@
           ],
           "quote": "Bring water with you. Do not drink creek water.",
           "note": "potable water in the campground April-October"
-        },
-        "shade": {
-          "v": "partial",
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0019"
-          ],
-          "quote": "the falls provide a delightfully cool, shady haven",
-          "note": "shade at the falls; the sandy trail is largely open (our reading)"
         }
       },
       "ext": {
@@ -2108,6 +2098,37 @@
         "walk_km": 9.7,
         "walk_gain_m": null,
         "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+      "kind": "waterfall",
+      "subkind": "waterfall",
+      "suitability": {
+        "shade": {
+          "v": "partial",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0019"
+          ],
+          "quote": "the falls provide a delightfully cool, shady haven",
+          "note": "shade at the falls; the sandy trail is largely open (our reading)"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {

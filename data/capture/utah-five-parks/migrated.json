@@ -30,25 +30,33 @@
       "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Angels Landing chains view or Scout Lookout"
+      "name": "Angels Landing chains view or Scout Lookout",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Pa'rus Trail"
+      "name": "Pa'rus Trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/trail:riverside walk",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Riverside Walk"
+      "name": "Riverside Walk",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
-      "name": "Zion Canyon Scenic Drive by shuttle"
+      "name": "Zion Canyon Scenic Drive by shuttle",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
     },
     {
       "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
@@ -104,7 +112,9 @@
       "ref": "trip/utah-five-parks/trail:hickman bridge",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Hickman Bridge"
+      "name": "Hickman Bridge",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/sight:fruita orchards",
@@ -116,31 +126,41 @@
       "ref": "trip/utah-five-parks/trail:delicate arch trail",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Delicate Arch trail"
+      "name": "Delicate Arch trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Devils Garden"
+      "name": "Devils Garden",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Windows section"
+      "name": "Windows section",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/trail:mesa arch",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Mesa Arch"
+      "name": "Mesa Arch",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Upheaval Dome"
+      "name": "Upheaval Dome",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",

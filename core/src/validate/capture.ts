@@ -250,6 +250,10 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       const lp = legacy ? resolveNode(legacy, loadTypes(root))?.profile : null;
       if (lp && node.profile && lp !== node.profile) E_("E_CAP_TYPE", `${base}/type`, `type ${r.type} has the suitability profile "${node.profile}" but the suitability record of ${r.ref} is ${sr.kind}/${sr.subkind}, which has "${lp}". Make the kind and subkind of that record match the type, or correct the type.`);
     }
+    // where draw lives (relevance rules 3.7): the place a visitor comes to see, unless the route is itself the experience
+    if (r.route_is_attraction && r.layer !== "route") E_("E_CAP_DRAW_LAYER", `${base}/route_is_attraction`, `route_is_attraction is for routes; ${r.ref} is a ${r.layer}.`);
+    if (r.route_is_attraction && !r.attraction_reason) E_("E_CAP_DRAW_LAYER", `${base}/attraction_reason`, `route_is_attraction needs attraction_reason: say why the route itself is the thing visited (a circuit, a scenic drive, a ride).`);
+    if (r.layer === "route" && !r.route_is_attraction && full.rel.has(r.ref)) E_("E_CAP_DRAW_LAYER", `${base}/route_is_attraction`, `${r.ref} is a route with a relevance record (draw, class). Draw belongs to the place the route reaches: move the record to it, or set route_is_attraction: true with attraction_reason when the route is itself the experience.`);
     // relations
     for (const f of RELATION_FIELDS) {
       const targets = targetsOf(row, f);

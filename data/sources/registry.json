@@ -810,17 +810,17 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/cinque-torri",
           "field": "distinction"
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/cinque-torri",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
           "field": "draw"
         },
         {
@@ -1299,16 +1299,6 @@
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
           "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
-          "field": "suitability.accessible_toilet"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
-          "field": "suitability.food"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
           "field": "suitability.min_age"
         },
         {
@@ -1324,12 +1314,22 @@
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
           "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
-          "field": "suitability.toilets"
+          "field": "suitability.wheelchair"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
-          "field": "suitability.wheelchair"
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+          "field": "suitability.accessible_toilet"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+          "field": "suitability.food"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+          "field": "suitability.toilets"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
@@ -1365,12 +1365,12 @@
       "used_by": [
         {
           "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
           "field": "access_cost"
         },
         {
           "file": "data/relevance/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
           "field": "draw"
         },
         {
@@ -1406,11 +1406,6 @@
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
           "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.min_age"
         },
         {
@@ -1427,6 +1422,11 @@
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
           "ref": "offer/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#ticket",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -1603,6 +1603,11 @@
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
           "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
           "field": "ext.dogs"
         },
@@ -1620,11 +1625,6 @@
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
           "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
           "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
-          "field": "suitability.altitude_m"
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
@@ -1725,7 +1725,7 @@
         },
         {
           "file": "data/suitability/chamonix-mont-blanc-2028/R6.json",
-          "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
           "field": "suitability.altitude_m"
         },
         {
@@ -2195,7 +2195,7 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "field": "easy_payoff"
         },
         {
@@ -2206,22 +2206,22 @@
         {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
-          "field": "suitability.accessible_toilet"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
           "field": "suitability.age_band"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
-          "field": "suitability.altitude_m"
+          "field": "suitability.wheelchair"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
-          "field": "suitability.wheelchair"
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+          "field": "suitability.accessible_toilet"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -2267,13 +2267,8 @@
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "field": "suitability.food"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
-          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -2306,11 +2301,6 @@
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
           "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
-          "field": "suitability.altitude_m"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -3004,11 +2994,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
           "field": "signals.designations"
         },
@@ -3044,17 +3029,7 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
           "field": "signals.designations"
         },
         {
@@ -3075,6 +3050,21 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2b.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2b.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2b.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
           "field": "signals.designations"
         }
       ],
@@ -10198,17 +10188,7 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.carrier_ok"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
-          "field": "suitability.food"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
@@ -10224,6 +10204,16 @@
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+          "field": "suitability.food"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -10249,7 +10239,7 @@
       "used_by": [
         {
           "file": "data/relevance/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
           "field": "access_cost"
         },
         {
@@ -10401,11 +10391,6 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.food"
         },
         {
@@ -10417,6 +10402,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -10479,7 +10469,7 @@
       "used_by": [
         {
           "file": "data/relevance/canadian-rockies-2029/R2b.json",
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
           "field": "access_cost"
         },
         {
@@ -10716,6 +10706,11 @@
         },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
+          "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+          "field": "suitability.shade"
+        },
+        {
+          "file": "data/suitability/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:lower calf creek falls",
           "field": "ext.dogs"
         },
@@ -10743,11 +10738,6 @@
           "file": "data/suitability/utah-five-parks/R5.json",
           "ref": "trip/utah-five-parks/trail:lower calf creek falls",
           "field": "suitability.hazards"
-        },
-        {
-          "file": "data/suitability/utah-five-parks/R5.json",
-          "ref": "trip/utah-five-parks/trail:lower calf creek falls",
-          "field": "suitability.shade"
         },
         {
           "file": "data/suitability/utah-five-parks/R5.json",
@@ -12295,7 +12285,7 @@
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "field": "access_cost"
         },
         {
@@ -12315,13 +12305,8 @@
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
-          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -15787,6 +15772,11 @@
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/seceda-ridge#payoff",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/seceda-ridge",
           "field": "suitability.access_season"
         },
@@ -15794,11 +15784,6 @@
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/seceda-ridge",
           "field": "suitability.age_band"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/seceda-ridge",
-          "field": "suitability.altitude_m"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -16048,17 +16033,17 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
-          "field": "suitability.food"
-        },
-        {
-          "file": "data/suitability/canadian-rockies-2029/R2b.json",
-          "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.solo"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+          "field": "suitability.food"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
@@ -16365,6 +16350,11 @@
       "used_by": [
         {
           "file": "data/suitability/patagonia-2027/R3.json",
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+          "field": "suitability.toilets"
+        },
+        {
+          "file": "data/suitability/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/trail:chorrillo del salto",
           "field": "ext.navigation"
         },
@@ -16432,11 +16422,6 @@
           "file": "data/suitability/patagonia-2027/R3.json",
           "ref": "trip/patagonia-2027/trail:laguna capri",
           "field": "suitability.stroller"
-        },
-        {
-          "file": "data/suitability/patagonia-2027/R3.json",
-          "ref": "trip/patagonia-2027/trail:laguna capri",
-          "field": "suitability.toilets"
         },
         {
           "file": "data/suitability/patagonia-2027/R3.json",
@@ -16752,6 +16737,11 @@
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+          "field": "suitability.food"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/sass-pordoi-and-piz-boe",
           "field": "suitability.adult_time_min"
         },
@@ -16789,11 +16779,6 @@
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/sass-pordoi-and-piz-boe",
           "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/sass-pordoi-and-piz-boe",
-          "field": "suitability.food"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -17398,6 +17383,11 @@
         },
         {
           "file": "data/relevance/dolomites-2027/R1.json",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+          "field": "wikidata"
+        },
+        {
+          "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "part/place/lago-di-sorapis#payoff",
           "field": "wikidata"
         },
@@ -17449,11 +17439,6 @@
         {
           "file": "data/relevance/dolomites-2027/R1.json",
           "ref": "place/la-val",
-          "field": "wikidata"
-        },
-        {
-          "file": "data/relevance/dolomites-2027/R1.json",
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
           "field": "wikidata"
         },
         {
@@ -20644,6 +20629,16 @@
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-sorapis#payoff",
+          "field": "suitability.altitude_m"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-sorapis#payoff",
+          "field": "suitability.food"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "part/place/lago-federa#walk",
           "field": "suitability.access_season"
         },
@@ -20755,11 +20750,6 @@
         {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/lago-di-sorapis",
-          "field": "suitability.altitude_m"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
           "field": "suitability.carrier_ok"
         },
         {
@@ -20786,11 +20776,6 @@
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/lago-di-sorapis",
           "field": "suitability.exposure"
-        },
-        {
-          "file": "data/suitability/dolomites-2027/R1.json",
-          "ref": "place/lago-di-sorapis",
-          "field": "suitability.food"
         },
         {
           "file": "data/suitability/dolomites-2027/R1.json",

@@ -188,3 +188,22 @@ describe("operators and run records", () => {
     expect(bad.stdout).toContain("E_CAP_RUN");
   });
 });
+
+describe("where draw lives (relevance 3.7)", () => {
+  const rel = (ref: string) => ({
+    schema: "relevance/1", trip: "fixture-trip", lane: "R1", researched: "2026-10-18", sources: [],
+    records: [{ ref, kind: "trail", wikidata: { v: null, state: "gap", basis: null, src: [] }, class_key: "trail/alpine-loop", draw: { v: "regional", state: "value", basis: "our_inference", src: [], note: "x" }, why: "A loop.", standing_scope: "x", standing: { v: "top", state: "value", basis: "our_inference", src: [], note: "x" }, distinction: { v: "rare", state: "value", basis: "our_inference", src: [], note: "x" }, easy_payoff: { v: "part", state: "value", basis: "our_inference", src: [], note: "x" }, weather: { v: "any_weather", state: "value", basis: "our_inference", src: [], note: "x" }, access_cost: { v: [], state: "value", basis: "our_inference", src: [], note: "x" }, signals: { designations: { v: null, state: "gap", basis: null, src: [] }, editorial: { v: null, state: "gap", basis: null, src: [] } } }],
+  });
+  const walk = (over: Record<string, unknown> = {}) => ({ ref: "place/moraine-lake", type: "nature.trail.hike", layer: "route", name: "Loop", ...over });
+  it("E_CAP_DRAW_LAYER: a route with draw needs route_is_attraction and a reason; the flag is only for routes", () => {
+    const r = root({ "data/relevance/fixture-trip/R1.json": rel("place/moraine-lake") });
+    expect(codes(run(r, capDoc([walk()])))).toEqual(["E_CAP_DRAW_LAYER"]);
+    expect(codes(run(r, capDoc([walk({ route_is_attraction: true })])))).toEqual(["E_CAP_DRAW_LAYER"]);
+    expect(codes(run(r, capDoc([walk({ route_is_attraction: true, attraction_reason: "The loop is the experience." })])))).toEqual([]);
+    expect(codes(run(r, capDoc([lake({ route_is_attraction: true, attraction_reason: "x" })])))).toEqual(["E_CAP_DRAW_LAYER"]);
+  });
+  it("a route whose judgement sits on the place it reaches needs no flag", () => {
+    const r = root();
+    expect(codes(run(r, capDoc([walk({ reaches: ["place/lago-di-braies"] })])))).toEqual([]);
+  });
+});

@@ -56,6 +56,8 @@ export const typeProfile = z.strictObject({
   operated: z.enum(["always", "never", "flag"]),
   ext: z.string().min(1).nullable(),
   note: z.string().optional(),
+  /** `design` until the design reviewer has signed the row off (capture contract 2.3) */
+  review: z.literal("design").optional(),
   /** only R, A and op cells; every other path is N */
   fields: z.record(z.string(), z.enum(["R", "A", "op"])),
 });

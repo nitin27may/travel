@@ -11,7 +11,9 @@
       "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
-      "name": "Covered bridge loop"
+      "name": "Covered bridge loop",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
     },
     {
       "ref": "trip/vermont-fall-2026/town:hyde park village",
@@ -29,7 +31,9 @@
       "ref": "trip/vermont-fall-2026/trail:stowe recreation path",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Stowe Recreation Path"
+      "name": "Stowe Recreation Path",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",

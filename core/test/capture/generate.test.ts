@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { applicabilityFile, checkDrift, generate, writeAll } from "../../src/capture/generate.ts";
-import { DEFAULT_TYPES } from "../../src/capture/tree.ts";
+import { DEFAULT_TYPES, countsOf } from "../../src/capture/tree.ts";
 import { APPLICABILITY_PATHS } from "../../src/suitability/paths.ts";
 import { REPO, scratchRoot } from "./helpers.ts";
 
@@ -19,14 +19,15 @@ describe("the generator (step 2)", () => {
   });
   it("writes one contract file per domain, the UI contract, the applicability file and one checklist per domain", () => {
     const paths = generate(DEFAULT_TYPES).map((o) => o.path);
-    expect(paths.filter((p) => p.startsWith("data/schema/capture/")).length).toBe(16);
+    const domains = DEFAULT_TYPES.nodes.filter((n) => n.level === "domain").length;
+    expect(paths.filter((p) => p.startsWith("data/schema/capture/")).length).toBe(domains + 1);
     expect(paths).toContain("data/schema/capture/contract.json");
     expect(paths).toContain("data/schema/suitability-applicability.json");
-    expect(paths.filter((p) => p.startsWith("docs/v2/research/capture/")).length).toBe(15);
+    expect(paths.filter((p) => p.startsWith("docs/v2/research/capture/")).length).toBe(domains);
   });
   it("generates the applicability file in the shape suitability.ts reads: every profile states every path", () => {
     const app = JSON.parse(applicabilityFile(DEFAULT_TYPES).text) as { profiles: Record<string, { fields: Record<string, string>; match: { kind: string; subkind: string }[] }> };
-    expect(Object.keys(app.profiles)).toHaveLength(47);
+    expect(Object.keys(app.profiles)).toHaveLength(Object.keys(DEFAULT_TYPES.profiles).length);
     for (const [name, p] of Object.entries(app.profiles)) expect(Object.keys(p.fields).sort(), name).toEqual([...APPLICABILITY_PATHS].sort());
     expect(app.profiles.ferrata).toMatchObject({ operated: "flag" });
     expect(app.profiles.rafting!.match).toContainEqual({ kind: "activity", subkind: "rafting" });
@@ -61,7 +62,8 @@ describe("the generator (step 2)", () => {
 
 describe("capture.ts (step 2)", () => {
   it("types prints the counts", () => {
-    expect(cli(REPO, "types").stdout).toContain("15 domains, 61 categories, 324 type ids (277 types and 47 subtypes)");
+    const c = countsOf(DEFAULT_TYPES);
+    expect(cli(REPO, "types").stdout).toContain(`${c.domains} domains, ${c.categories} categories, ${c.ids} type ids (${c.types} types and ${c.subtypes} subtypes)`);
   });
   it("fields --type prints the checklist: R, R? with its condition, A", () => {
     const r = cli(REPO, "fields", "--type", "water.river.tubing");

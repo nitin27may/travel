@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "patagonia-2027",
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -66,7 +66,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
@@ -110,7 +111,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
@@ -158,7 +160,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
@@ -206,7 +209,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
@@ -254,7 +258,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:evening fitz roy glow",
@@ -302,7 +307,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:laguna nimez birds",
@@ -351,7 +357,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/viewpoint:lapataia bay",
@@ -395,7 +402,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/trail:coastal path",
@@ -443,7 +451,9 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
@@ -491,7 +501,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/lake:beagle channel boat",
@@ -539,7 +550,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "trip/patagonia-2027/sight:penguin colony stop",
@@ -583,7 +595,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/sight:perito moreno walkways",
@@ -627,7 +640,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
@@ -675,7 +689,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "offer"
     },
     {
       "ref": "trip/patagonia-2027/town:palermo and recoleta walk",
@@ -737,7 +752,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/town:san telmo market",
@@ -799,7 +815,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/town:cafe and bookshops",
@@ -847,7 +864,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/town:harbour walk",
@@ -895,7 +913,8 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "trip/patagonia-2027/town:village and cafes",
@@ -944,7 +963,304 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "draw_suggested": "national",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top; clear weather only: a world top draw keeps its step and gains go_clear_day"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": true,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/trip/patagonia-2027/trail:laguna de los tres#payoff"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 12,
+      "detour_basis": "town",
+      "detour_town": "El Chalten",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing good, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/trip/patagonia-2027/trail:laguna capri#payoff"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/trip/patagonia-2027/trail:mirador de los condores#payoff"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff"
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "draw_from": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff"
     }
   ]
 }
