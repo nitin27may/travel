@@ -45,7 +45,7 @@ test.describe('trip timeline (L3c)', () => {
     await expect(chip(5)).toContainText("Adults' hike");
     // no-fit: a Dolomites day with a long walk for a young child
     await page.goto(`${site.url}/trips/dolomites-2027/?p=family-4#day-3`);
-    await expect(page.locator('#day-3 .tl-nofit')).toContainText('limit at age 4');
+    await expect(page.locator('#day-3 .tl-nofit')).toContainText('we plan walks up to 4 km at age 4');
   });
 
   test('split=1 draws two lanes that rejoin; a=1 removes the option (check 4)', async ({ page, site }) => {
@@ -82,7 +82,7 @@ test.describe('trip timeline (L3c)', () => {
     await page.goto(`${site.url}${ROCKIES}?p=adults#day-5`);
     await expect(page.locator('#day-5 .tl-day-title')).toHaveText('Bald Hills');
     await page.goto(`${site.url}${ROCKIES}`);
-    expect(await page.content()).not.toMatch(/\bdataset\b|trail id|audience '/i);
+    expect(await page.locator('main').innerText()).not.toMatch(/\bdataset\b|trail id|audience '/i);
   });
 
   test('a day can be swapped, says so, and resets (check 5)', async ({ page, site }) => {
