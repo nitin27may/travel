@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react';
-import { GapChip, RefLink, RowsHtml, fromRow, fromSuit, longDate, stubOf, type ShowRow } from '@/components/suit/Rows';
-import { SuitGlyph } from '@/components/suit/SuitGlyph';
+import { GapChip, RefLink, RowsHtml, fromRow, fromSuit, type ShowRow } from '@/components/suit/Rows';
+import { glanceHtml, warningsHtml } from '@/components/suit/html';
 import { WhoItSuits, WhoItSuitsEmpty } from '@/components/suit/WhoItSuits';
 import { CHIP_ROW_PROPERTIES } from '@/lib/public/contract';
 import type { PublicRelevance } from '@/lib/public/relevance';
 import type { OfferCard, PageModel, Row, SectionModel } from '@/lib/public/sections';
 import type { PublicSuitability } from '@/lib/public/suitability';
 import type { Completeness } from '@/lib/public/types';
-import { Nearby, PlanBLine } from './Relevance';
+import { Nearby } from './Relevance';
 import { seasonShort } from './SeasonGrid';
 
 // The 14 sections of the capture contract in order (place-page-sections section 2). Each section reads its rows, its structures
@@ -32,7 +32,7 @@ export interface LegacySlots {
   /** hazards of the older record, as lines of "Before you go" */
   hazards: string[];
   /** the booking window of the older record */
-  booking: ReactNode;
+  booking: string | null;
 }
 
 function Head({ sec, meta }: { sec: SectionModel; meta?: string | null }) {
@@ -48,7 +48,7 @@ function Closing({ text }: { text: string | null }) {
   if (!text) return null;
   return (
     <p className="su-closing">
-      <span aria-hidden="true" className="su-q">?</span> {text}
+      {text}
     </p>
   );
 }
@@ -80,98 +80,15 @@ export function Glance({ model, suit, level }: { model: PageModel; suit: PublicS
     .filter((k) => !CHIP_ROW_PROPERTIES.includes(k))
     .map((k) => findRow(model, suit, k))
     .filter((x): x is { row: ShowRow; href: string } => x !== null)
-    .slice(0, 6);
-  return (
-    <section className="ps-glance" id="glance" aria-label="At a glance">
-      {slots.length ? (
-        <ul>
-          {slots.map(({ row, href }) => (
-            <li key={row.key} data-empty={row.gap || undefined}>
-              <a href={href} className="ps-glance-a">
-                <span className="ps-glance-label">{row.label}</span>
-                {row.gap ? <GapChip /> : <strong className="ps-glance-value">{row.valueType === 'season_rows' ? seasonShort(row.value) || row.text : row.text}</strong>}
-                {row.val ? <span className="ps-stub">{stubOf(row.val)}</span> : null}
-                {row.val && row.val.conflicts.length ? <span className="su-honest">{row.val.conflicts.length + 1} values</span> : null}
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      <p className="ps-level">
-        <span className="ps-complete" data-level={level.level} title={level.tooltip}>{level.label}</span>
-        <span className="ps-stub">
-          {model.checks.total ? `${model.checks.done} of ${model.checks.total} place checks done` : ''}
-          {model.checks.read ? ` · read ${longDate(model.checks.read)}` : ''}
-        </span>
-      </p>
-    </section>
-  );
+    .slice(0, 6)
+    .map(({ row, href }) => ({ row, href, value: (row.valueType === 'season_rows' ? seasonShort(row.value) : '') || row.text || '' }));
+  return <section className="ps-glance" id="glance" aria-label="At a glance" dangerouslySetInnerHTML={{ __html: glanceHtml(slots, level, model.checks) }} />;
 }
 
 /* ---------- section bodies ---------- */
 
 function Warnings({ sec, rel, legacy, slugs, suitWarning }: { sec: SectionModel; rel: PublicRelevance | null; legacy: LegacySlots; slugs: Record<string, string>; suitWarning: string | null }) {
-  const byKey = new Map(sec.rows.map((r) => [r.key, r]));
-  const noneRows = sec.rows.filter((r) => !r.gap && r.text === 'None');
-  const hazards = legacy.hazards.filter((h) => h && h !== suitWarning);
-  const bookIdx = sec.lines.findIndex((l) => l.kind === 'Book');
-  const planB = rel?.planB ? <PlanBLine key="planb" rel={rel} slugs={slugs} /> : null;
-  const lines = sec.lines.map((l, i) => {
-    const row = byKey.get(l.home);
-    return (
-      <li key={`${l.home}-${i}`} className="ps-line" data-kind={l.kind}>
-        <SuitGlyph name="triangle" size={16} />
-        <div>
-          <p className="ps-text">
-            <span className="ps-kind">{l.kind}</span> {l.text}
-          </p>
-          {row?.val ? <p className="ps-stub">{stubOf(row.val)}</p> : null}
-        </div>
-      </li>
-    );
-  });
-  const out: ReactNode[] = [];
-  lines.forEach((li, i) => {
-    out.push(li);
-    if (i === bookIdx && planB) out.push(planB);
-  });
-  if (bookIdx < 0 && planB) out.push(planB);
-  const hasAny = out.length > 0 || noneRows.length > 0 || hazards.length > 0 || legacy.booking;
-  return (
-    <>
-      {hasAny ? (
-        <ul className="ps-lines">
-          {out}
-          {legacy.booking ? (
-            <li className="ps-line" data-kind="Book">
-              <SuitGlyph name="triangle" size={16} />
-              <div className="ps-text">
-                <span className="ps-kind">Book</span> {legacy.booking}
-              </div>
-            </li>
-          ) : null}
-          {hazards.map((h) => (
-            <li key={h} className="ps-line" data-kind="Hazard">
-              <SuitGlyph name="triangle" size={16} />
-              <p className="ps-text">
-                <span className="ps-kind">Hazard</span> {h}
-              </p>
-            </li>
-          ))}
-          {noneRows.map((r) => (
-            <li key={r.key} className="ps-line ps-line-none">
-              <SuitGlyph name="check" size={16} />
-              <div>
-                <p className="ps-text">{r.key === 'access_cost' ? 'No booking or permit needed' : `${r.label}: none`}</p>
-                {r.val ? <p className="ps-stub">{stubOf(r.val)}</p> : null}
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      <Closing text={sec.closing} />
-    </>
-  );
+  return <div className="su-c" dangerouslySetInnerHTML={{ __html: warningsHtml(sec, rel, slugs, legacy.booking, legacy.hazards, suitWarning) }} />;
 }
 
 function OfferCardView({ o, slugs }: { o: OfferCard; slugs: Record<string, string> }) {

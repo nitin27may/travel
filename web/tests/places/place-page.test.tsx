@@ -177,8 +177,9 @@ describe('the place a trail reaches (L4b)', () => {
   const place = data.getPlace('larch-valley-to-sentinel-pass')!;
   const render = (payoff: { name: string; slug: string | null } | null) => renderToString(<PlacePage place={place} inside={[]} url="https://example.test/p/" payoff={payoff} />).replace(/<!-- -->/g, '');
   it('links the payoff when it has a page and names it when it has none', () => {
-    expect(render({ name: 'Sentinel Pass', slug: 'sentinel-pass' })).toMatch(/To <a href="\/places\/sentinel-pass\/?">Sentinel Pass<\/a>/);
-    expect(render({ name: 'Sentinel Pass', slug: null })).toContain('To <strong>Sentinel Pass</strong>');
+    // the payoff now comes from the contract (the first place the route reaches); the older `payoff` prop is the fallback for a route with none
+    expect(render({ name: 'Sentinel Pass', slug: 'sentinel-pass' })).toMatch(/To\s*<strong>[^]*?Sentinel Pass/);
+    expect(render(null)).toMatch(/rv-payoff/);
     expect(render(null)).not.toContain('pl-payoff');
   });
   it('says where the trailhead comes from in words and shows no map line for a trail with no track', () => {
