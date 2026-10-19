@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Place page sections mock · S1 Part 0</title>
+<style>
+@font-face{font-family:'Big Shoulders Display';src:url('../../redesign/fonts/big-shoulders-display-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url('../../redesign/fonts/source-serif-4-latin-wght-normal.woff2') format('woff2');font-weight:200 900;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url('../../redesign/fonts/source-serif-4-latin-wght-italic.woff2') format('woff2');font-weight:200 900;font-style:italic;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('../../redesign/fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');font-weight:600;font-display:swap}
+
+/* ---- Trailhead tokens (docs/v2/design/foundation/tokens.json) ---- */
+:root{
+  --bg:#F5F6F8;--well:#ECEFF3;--surface:#FFFFFF;--surface-2:#E9EDF2;--ink:#172230;--ink-2:#2B3746;--muted:#4D5B6B;
+  --line:#D8DEE5;--line-2:#7A8794;--header:#172230;--header-2:#1F2D3D;--header-ink:#F4F6F8;--header-mute:#B8C3CF;--header-line:#3A4A5D;
+  --scrim:rgba(11,17,25,.45);--toast-bg:#172230;--toast-ink:#F5F6F8;
+  --accent:#D9962B;--accent-hover:#C98A22;--accent-ink:#241703;--accent-text:#8A5300;--accent-soft:#FBEFD9;
+  --crit:#A8341F;--crit-soft:#F9E5E0;--warn:#7A5200;--warn-soft:#FBF0D6;--ok:#1D6B3A;--ok-soft:#E0F0E6;--info:#3D5A78;--info-soft:#E3EAF2;
+  --focus:#172230;
+  --e2:0 0 0 1px var(--line),0 20px 50px rgba(23,34,48,.16);
+  --f-display:'Big Shoulders Display','Arial Narrow',sans-serif;--f-serif:'Source Serif 4',Georgia,serif;--f-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --d-fast:120ms;--d-base:200ms;--e-out:cubic-bezier(.2,.8,.2,1);--e-std:cubic-bezier(.2,0,0,1);
+  /* map palette stand-ins (tokens 5) */
+  --m-land:#E6EAE4;--m-water:#B9CEDD;--m-road:#FFFFFF;--m-line:#172230;
+}
+[data-theme="dark"]{
+  --bg:#0F1620;--well:#0B1119;--surface:#16202C;--surface-2:#1E2A38;--ink:#E7ECF1;--ink-2:#C9D2DC;--muted:#A3B0BE;
+  --line:#2A3A4C;--line-2:#5E748E;--header:#0B1119;--header-2:#16202C;--scrim:rgba(0,0,0,.6);--toast-bg:#E7ECF1;--toast-ink:#0F1620;
+  --accent-text:#E8A94A;--accent-soft:#2E2617;--crit:#F28E80;--crit-soft:#3A2020;--warn:#E0B15C;--warn-soft:#2B2314;--ok:#8FD0A0;--ok-soft:#173025;--info:#9DBBDA;--info-soft:#182738;
+  --focus:#E7ECF1;--e2:0 0 0 1px var(--line-2),0 20px 50px rgba(0,0,0,.5);
+  --m-land:#1B2530;--m-water:#2A4157;--m-road:#3A4A5D;--m-line:#E7ECF1;
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{transition-duration:0ms!important;animation:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-serif);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-underline-offset:3px;text-decoration-color:var(--line-2)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.mono{font-family:var(--f-mono)}
+.wrap{max-width:1376px;margin:0 auto;padding:0 32px}
+@media (max-width:639px){.wrap{padding:0 14px}}
+svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.12em;flex:none}
+[hidden]{display:none!important}
+
+/* ---- header ---- */
+.hdr{height:60px;background:var(--header);color:var(--header-ink);border-bottom:2px solid var(--accent);position:sticky;top:0;z-index:20}
+.hdr .wrap{display:flex;align-items:center;height:100%;gap:18px}
+.brand{font:800 24px/1 var(--f-display);letter-spacing:.01em;text-transform:uppercase}
+.tabs{display:flex;gap:4px;height:100%}
+.tabs a{display:flex;align-items:center;padding:0 12px;font:500 13.5px/1 var(--f-mono);color:var(--header-mute);text-decoration:none;position:relative}
+.tabs a[aria-current]{color:var(--header-ink);font-weight:600}
+.tabs a[aria-current]::after{content:"";position:absolute;left:12px;right:12px;bottom:-2px;height:2px;background:var(--header-ink)}
+@media (max-width:639px){.hdr{height:56px}.tabs{display:none}}
+
+/* mock page switcher (not product UI) */
+.switch{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0;font:500 12.5px/1 var(--f-mono)}
+.switch a{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:999px;border:1px dashed var(--line-2);color:var(--ink-2);text-decoration:none;background:var(--surface)}
+.switch a[aria-current]{border-style:solid;border-color:var(--ink);color:var(--ink);font-weight:600}
+.switch .lab{align-self:center;color:var(--muted);margin-right:4px}
+
+/* spec annotations (not product UI): dashed info box */
+.note{margin:10px 0 0;padding:8px 12px;border:1px dashed var(--info);border-radius:8px;color:var(--info);font:400 12.5px/1.45 var(--f-mono);background:transparent}
+.note b{font-weight:600}
+body.clean .note{display:none}
+
+/* ---- chips ---- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;border:1px solid var(--line-2);font:500 11.5px/1 var(--f-mono);color:var(--ink-2);background:var(--surface);white-space:nowrap;max-width:100%}
+.chip .i{width:13px;height:13px}
+.chip.rule{background:var(--surface-2);border-color:transparent;color:var(--ink);font-weight:600}
+.chip.gap{border-style:dashed;color:var(--muted)}
+.chip.honest{border:1px dashed var(--crit);color:var(--crit)}
+.chip.badge{border-color:var(--ink);color:var(--ink);font-weight:600}
+.chip.badge.gap{border-color:var(--line-2);color:var(--muted);font-weight:500}
+.chip .more{margin-left:2px;padding-left:6px;border-left:1px solid var(--line-2);font-weight:600}
+button.chip{cursor:pointer;min-height:24px}
+button.chip:hover{background:var(--surface-2)}
+
+/* ---- buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:500 13.5px/1 var(--f-mono);text-decoration:none;white-space:nowrap}
+.btn .i{width:15px;height:15px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.sm{height:32px;padding:0 12px;font-size:12.5px}
+.btn.ghost{border-color:transparent}
+@media (min-width:1024px){.btn.primary.pp{background:var(--surface);border-color:var(--line-2);color:var(--ink);font-weight:500}}
+
+/* ---- page layout ---- */
+.crumbs{margin:18px 0 12px;font:400 12.5px/1.4 var(--f-mono);color:var(--muted)}
+.crumbs a{color:var(--ink-2)}
+.crumbs span{margin:0 6px;color:var(--line-2)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start}
+.rail{position:sticky;top:76px;display:flex;flex-direction:column;gap:16px}
+@media (max-width:1023px){.cols{grid-template-columns:minmax(0,1fr)}.rail{display:none}}
+.inline-map{display:none}
+@media (max-width:1023px){.inline-map{display:block;margin-top:12px}}
+
+/* ---- section frame ---- */
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 22px 16px;margin-top:16px;min-width:0;scroll-margin-top:76px}
+.sec>header{display:flex;align-items:baseline;justify-content:space-between;gap:6px 14px;flex-wrap:wrap}
+.sec h2{font:800 26px/1 var(--f-display);text-transform:uppercase;margin:0;letter-spacing:.005em}
+.sec h2 .n{font:500 12px/1 var(--f-mono);color:var(--muted);margin-left:10px;letter-spacing:0;vertical-align:4px}
+.sec .meta{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.sec .meta b{color:var(--ink-2);font-weight:600;white-space:nowrap}
+.sec h3{font:800 15px/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;margin:16px 0 8px;color:var(--ink)}
+.sec h3:first-of-type{margin-top:12px}
+@media (max-width:639px){.sec{padding:14px 14px 12px}.sec h2{font-size:23px}}
+.stub{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.gapline{display:flex;gap:8px;align-items:center;margin:10px 0 0;font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.gapline .i{width:14px;height:14px;flex:none}
+.flash{animation:flash 1.2s var(--e-out)}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--ink)}100%{box-shadow:0 0 0 0 transparent}}
+
+/* ---- 1 cover ---- */
+.cover{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cover .ph{height:420px;position:relative;background:linear-gradient(160deg,#5F7A92 0%,#2F4A63 45%,#1E3346 100%);display:flex;align-items:flex-end}
+.cover .ph.none{height:180px;background:var(--well);align-items:center;justify-content:center;color:var(--muted)}
+.cover .ph.none .i{width:56px;height:56px;stroke-width:1.25}
+.cover .ph .scene{position:absolute;inset:0;width:100%;height:100%}
+.cover .ph .ov{position:relative;width:100%;padding:24px 28px;background:linear-gradient(180deg,rgba(11,17,25,0) 0%,rgba(11,17,25,.85) 100%)}
+.cover .kick{font:500 12.5px/1.3 var(--f-mono);color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px}
+.cover h1{font:800 72px/.88 var(--f-display);text-transform:uppercase;margin:0;color:#fff}
+.cover .ph.none + .body .kick-alt{display:block}
+.cover .body{padding:18px 28px 22px}
+.cover .kick-alt{display:none;font:500 12.5px/1.3 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px}
+.cover .h1-alt{font:800 60px/.9 var(--f-display);text-transform:uppercase;margin:0 0 14px;color:var(--ink)}
+.badgeline{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.why{font:italic 400 19px/1.4 var(--f-serif);color:var(--ink-2);margin:0}
+.payoff{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 10px;font:500 13.5px/1.3 var(--f-mono);color:var(--ink-2)}
+.payoff a{color:var(--ink);font-weight:600}
+.summary{margin:12px 0 0;font-size:17px;line-height:1.5;color:var(--ink);max-width:68ch}
+.pointer{margin:12px 0 0;display:flex;gap:8px;align-items:flex-start;font-size:16px;line-height:1.45;color:var(--ink-2)}
+.pointer .i{width:16px;height:16px;margin-top:4px;color:var(--muted)}
+.pointer a{color:var(--ink);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+@media (max-width:639px){.cover .ph{height:300px}.cover .ph .ov{padding:16px}.cover h1{font-size:46px}.cover .body{padding:14px 16px 16px}.cover .h1-alt{font-size:42px}.why{font-size:17px}.actions .btn{flex:1 1 auto;justify-content:center}}
+.pop{margin-top:10px;width:min(420px,100%);background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--e2);padding:14px 16px;position:relative}
+.pop .lab{font:500 12px/1.3 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.pop p{margin:0 0 8px;font-size:15.5px;line-height:1.45}
+.pop ul{margin:0 0 8px;padding-left:18px;font-size:15.5px;line-height:1.45}
+.pop .src{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.pop .close{position:absolute;right:8px;top:8px;width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted)}
+
+/* ---- 2 glance ---- */
+.glance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:16px 0 0;padding:0;list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.glance li{border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.glance li:nth-child(3n){border-right:0}
+.glance li:nth-last-child(-n+3){border-bottom:0}
+.glance a{display:block;padding:14px 18px 14px;min-height:96px;text-decoration:none}
+.glance a:hover{background:color-mix(in srgb,var(--surface-2) 55%,transparent)}
+.glance .l{font:500 12px/1.3 var(--f-mono);color:var(--muted);display:flex;align-items:center;gap:6px}
+.glance .l .i{width:14px;height:14px}
+.glance .v{display:block;font:600 18px/1.25 var(--f-serif);color:var(--ink);margin-top:6px}
+.glance .p{display:block;font:400 12px/1.4 var(--f-mono);color:var(--muted);margin-top:4px}
+.glance .chip{margin-top:8px}
+.complete{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:10px 2px 0;font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.complete .lvl{display:inline-flex;align-items:center;height:24px;padding:0 9px;border:1px solid var(--line-2);border-radius:999px;color:var(--ink-2);font-weight:500}
+@media (max-width:639px){.glance{grid-template-columns:repeat(2,minmax(0,1fr))}.glance li:nth-child(3n){border-right:1px solid var(--line)}.glance li:nth-child(2n){border-right:0}.glance li:nth-last-child(-n+3){border-bottom:1px solid var(--line)}.glance li:nth-last-child(-n+2){border-bottom:0}.glance a{padding:12px 12px;min-height:88px}.glance .v{font-size:16px}}
+
+/* ---- 3 warnings ---- */
+.warns{list-style:none;margin:12px 0 0;padding:0}
+.warns>li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:2px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.warns>li:first-child{border-top:0;padding-top:4px}
+.warns .i.g{width:17px;height:17px;margin-top:3px;color:var(--warn)}
+.warns li.crit .i.g{color:var(--crit)}
+.warns .t{font-size:16.5px;line-height:1.4;color:var(--ink)}
+.warns .t b{font-weight:600}
+.warns .k{font:500 11.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--warn);margin-right:8px}
+.warns li.crit .k{color:var(--crit)}
+.warns .s{grid-column:2;font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.warns .s a{color:var(--ink-2)}
+.planb{grid-column:2;margin-top:6px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:15.5px;line-height:1.4;color:var(--ink-2)}
+.planb .tag{font:600 11.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink);border:1px solid var(--line-2);border-radius:4px;padding:3px 6px}
+.planb a{color:var(--ink);font-weight:600}
+.okline{display:flex;gap:8px;align-items:center;margin:12px 0 0;font-size:16px;color:var(--ink-2)}
+.okline .i{width:16px;height:16px;color:var(--muted)}
+
+/* ---- 4 who it suits (reused from suitability-display, compact) ---- */
+.research{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.research b{font-weight:600;color:var(--ink-2);white-space:nowrap}
+.suits .chips{margin-top:12px}
+.warnline{margin:12px 0 0;display:flex;gap:8px;align-items:flex-start;color:var(--warn);font-size:15.5px;line-height:1.4}
+.warnline .i{width:16px;height:16px;margin-top:3px}
+.groups{margin-top:12px;border-top:1px solid var(--line)}
+.g{border-bottom:1px solid var(--line)}
+.g:last-child{border-bottom:0}
+.g-h{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:8px 0}
+.g-h .chev{width:16px;height:16px;color:var(--muted);transition:transform var(--d-base) var(--e-out)}
+.g-h[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.g-h .t{font:800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;color:var(--ink);flex:none}
+.g-h .sum{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;min-width:0}
+.g-h .sum>span+span::before{content:"·";color:var(--line-2);margin-right:10px}
+.g-h .sum .chip{height:22px}
+.g-h .sum>span.chip::before{content:none;margin:0}
+.g-h[aria-expanded="true"] .sum{display:none}
+.rows{margin:0 0 6px;padding:0}
+.row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:4px 16px;padding:9px 0 9px 26px;min-height:44px;align-items:baseline;border-top:1px solid var(--line);position:relative}
+.row:first-child{border-top:0}
+.row dt{font:500 12px/1.3 var(--f-mono);color:var(--muted);padding-top:3px}
+.row dd{margin:0;font-size:15.5px;line-height:1.4;color:var(--ink);min-width:0}
+.row dd .stub{display:block;margin-top:2px}
+.row dd .k{display:inline-flex;align-items:center;gap:6px}
+.row dd .k .i{width:14px;height:14px;color:var(--muted)}
+.row .chevr{position:absolute;right:0;top:13px;width:16px;height:16px;color:var(--muted)}
+.row.ns dd{color:var(--ink-2)}
+@media (max-width:639px){.g-h{flex-wrap:wrap;gap:6px 10px}.g-h .sum{flex-basis:100%;padding-left:26px}.row{grid-template-columns:1fr;padding-left:22px;gap:2px}.row dt{padding-top:0}.row .chevr{top:10px}}
+.gwrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows var(--d-base) var(--e-out)}
+.gwrap.shut{grid-template-rows:0fr}
+.gwrap>div{overflow:hidden}
+
+/* ---- 5 route / activity ---- */
+.statline{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0;font:500 14px/1.3 var(--f-mono);color:var(--ink)}
+.statline span{white-space:nowrap}
+.statline em{font-style:normal;color:var(--muted);font-weight:400}
+.mapbox{margin-top:14px;border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;background:var(--m-land)}
+.mapbox svg{display:block;width:100%;height:auto}
+.mapbox .cred{position:absolute;right:8px;bottom:6px;font:400 11px/1 var(--f-mono);color:var(--ink-2);background:color-mix(in srgb,var(--surface) 80%,transparent);padding:3px 6px;border-radius:4px}
+.mapbox .tag{position:absolute;left:10px;top:10px;font:500 11.5px/1 var(--f-mono);color:var(--info);border:1px dashed var(--info);background:var(--surface);padding:5px 8px;border-radius:6px}
+body.clean .mapbox .tag{display:none}
+.profile{margin-top:12px;border:1px solid var(--line);border-radius:10px;padding:10px 12px 6px;position:relative}
+.profile svg{display:block;width:100%;height:160px}
+.profile .cap{font:400 12px/1.4 var(--f-mono);color:var(--muted);margin-top:4px}
+.markers{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px 18px}
+.markers li{display:flex;flex-direction:column;gap:0;font-size:15px}
+.markers li .stub{white-space:nowrap}
+.exportrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+
+/* ---- 6 options ---- */
+.offers{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.offer{border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:start}
+.offer .nm{font:600 17px/1.3 var(--f-serif);color:var(--ink)}
+.offer .by{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.offer .price{font:600 17px/1.2 var(--f-serif);color:var(--ink);text-align:right;white-space:nowrap}
+.offer .price small{display:block;font:400 12px/1.4 var(--f-mono);color:var(--muted);margin-top:3px}
+.offer .chips{grid-column:1/-1;margin-top:4px}
+.offer .act{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.offer table{grid-column:1/-1;border-collapse:collapse;width:100%;margin-top:6px;font:400 13px/1.4 var(--f-mono)}
+.offer th,.offer td{padding:6px 8px 6px 0;border-top:1px solid var(--line);text-align:left;color:var(--ink-2);font-weight:400}
+.offer th{color:var(--muted);font-weight:500}
+.offer td.num,.offer th.num{text-align:right;padding-right:24px}
+.offer td.num{color:var(--ink);font-weight:500}
+.offer table{max-width:520px}
+@media (max-width:639px){.offer{grid-template-columns:1fr}.offer .price{text-align:left}.offer table{font-size:12px}.offer td,.offer th{white-space:nowrap;padding-right:6px}.offer td.num,.offer th.num{padding-right:12px}}
+
+/* ---- 7 access ---- */
+.ways{list-style:none;margin:10px 0 0;padding:0}
+.way{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.way:first-child{border-top:0}
+.way .gly{width:34px;height:34px;border-radius:8px;background:var(--well);display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+.way .gly .i{width:17px;height:17px}
+.way .nm{font:600 16.5px/1.3 var(--f-serif)}
+.way .nm a{color:var(--ink)}
+.way .d{font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+.way .chips{grid-column:2/-1}
+.way .go{color:var(--muted)}
+.way .go .i{width:16px;height:16px}
+.apts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:6px}
+.apt{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.apt .hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.apt .hd .i{width:16px;height:16px;color:var(--muted)}
+.apt .hd b{font:600 16px/1.3 var(--f-serif)}
+.apt dl{margin:8px 0 0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 12px;font-size:15px;line-height:1.4}
+.apt dt{font:500 12px/1.5 var(--f-mono);color:var(--muted)}
+.apt dd{margin:0}
+.apt dd .stub{display:block}
+@media (max-width:639px){.apts{grid-template-columns:1fr}.apt dl{grid-template-columns:1fr;gap:0}.apt dd{margin-bottom:6px}}
+.dirrow{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.dirrow .stub{flex-basis:100%}
+
+/* rail */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h2{font:800 18px/1 var(--f-display);text-transform:uppercase;margin:0 0 8px;letter-spacing:.03em}
+.card .mapbox{margin-top:0}
+.card p{margin:8px 0 0;font-size:15px;line-height:1.45}
+.card .btn{width:100%;justify-content:center;margin-top:10px}
+
+/* ---- 8 when ---- */
+.months{display:grid;grid-template-columns:120px repeat(12,minmax(0,1fr));gap:4px 3px;margin-top:12px;align-items:center}
+.months .h{font:500 11.5px/1 var(--f-mono);color:var(--muted);text-align:center}
+.months .rl{font:500 12px/1.3 var(--f-mono);color:var(--ink-2);padding-right:6px}
+.months .c{height:22px;border-radius:4px;background:var(--well)}
+.months .c.on{background:var(--ink)}
+.months .c.lim{background:repeating-linear-gradient(135deg,var(--line-2) 0 3px,transparent 3px 7px);border:1px solid var(--line-2)}
+.months .c.best{background:var(--ink-2);opacity:.55}
+.months .c.best-r{background:linear-gradient(90deg,var(--well) 50%,color-mix(in srgb,var(--ink-2) 55%,var(--surface)) 50%)}
+.months .c.best-l{background:linear-gradient(90deg,color-mix(in srgb,var(--ink-2) 55%,var(--surface)) 33%,var(--well) 33%)}
+.months .c.gapc{background:transparent;border:1px dashed var(--line-2)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font:400 12px/1.4 var(--f-mono);color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;background:var(--ink)}
+.legend i.lim{background:repeating-linear-gradient(135deg,var(--line-2) 0 3px,transparent 3px 6px);border:1px solid var(--line-2)}
+.legend i.best{background:var(--ink-2);opacity:.55}
+.legend i.gapc{background:transparent;border:1px dashed var(--line-2)}
+@media (max-width:639px){.months{grid-template-columns:76px repeat(12,minmax(0,1fr));gap:3px 2px}.months .h{font-size:10px}.months .rl{font-size:11px}}
+.today{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:15.5px}
+.today b{font-weight:600}
+.hours{border-collapse:collapse;width:100%;margin-top:8px;font:400 13px/1.4 var(--f-mono)}
+.hours th,.hours td{text-align:left;padding:7px 8px 7px 0;border-top:1px solid var(--line);color:var(--ink-2);font-weight:400}
+.hours th{color:var(--muted);font-weight:500}
+.hours td.em{color:var(--ink);font-weight:600}
+.pattern{display:inline-flex;align-items:center;gap:6px}
+
+/* ---- 9 facilities uses .g ---- */
+
+/* ---- 10 around / 11 pairs ---- */
+.list{list-style:none;margin:8px 0 0;padding:0}
+.item{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:4px 12px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .gly{width:34px;height:34px;border-radius:8px;background:var(--well);display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+.item .gly .i{width:17px;height:17px}
+.item .nm{font:600 16.5px/1.3 var(--f-serif);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.item .nm a{color:var(--ink)}
+.item .d{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);margin-top:2px}
+.item .why2{font:italic 400 15.5px/1.4 var(--f-serif);color:var(--ink-2);margin:4px 0 0}
+.item .chips{margin-top:8px}
+.item .x{font:400 12.5px/1.45 var(--f-mono);color:var(--muted);text-align:right;white-space:nowrap;padding-top:3px}
+.item.pb .nm::after{content:"Plan B";font:600 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line-2);border-radius:4px;padding:3px 6px;color:var(--ink)}
+@media (max-width:639px){.item{grid-template-columns:34px minmax(0,1fr)}.item .x{grid-column:2;text-align:left;padding-top:0}}
+.grp{font:500 12px/1.3 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 0}
+.partof{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 0;font:500 13px/1.4 var(--f-mono);color:var(--ink-2)}
+.partof a{color:var(--ink);font-weight:600}
+.showall{display:inline-flex;align-items:center;gap:6px;min-height:44px;font:500 13px/1 var(--f-mono);color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-2)}
+.sub{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.sub h3{margin-top:0!important}
+
+/* ---- 12-14 ---- */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.tiles div{aspect-ratio:16/10;border-radius:8px;background:linear-gradient(160deg,#5F7A92,#22384c)}
+.tiles div:nth-child(2){background:linear-gradient(160deg,#7d8f9e,#3b5266)}
+.tiles div:nth-child(3){background:linear-gradient(160deg,#4f6a80,#1d2f40)}
+.ltabs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ltabs span{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);font:500 12.5px/1 var(--f-mono);color:var(--ink-2)}
+.ltabs span[aria-selected="true"]{background:var(--surface-2);border-color:transparent;color:var(--ink);font-weight:600}
+.ltabs span.none{border-style:dashed;color:var(--muted)}
+.links{list-style:none;margin:10px 0 0;padding:0}
+.links li{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:7px 0;border-top:1px solid var(--line);font-size:15.5px}
+.links li:first-child{border-top:0}
+.links li a{color:var(--ink)}
+
+/* states catalogue */
+.cat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.cat .sec{margin-top:0}
+@media (max-width:1023px){.cat{grid-template-columns:1fr}}
+.st{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.st:first-of-type{border-top:0;padding-top:0}
+.st .lab{font:500 11.5px/1.3 var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+
+.intro{margin:22px 0 0}
+.intro h1{font:800 56px/.9 var(--f-display);text-transform:uppercase;margin:0 0 8px}
+.intro p{margin:0;color:var(--muted);font-size:17px;max-width:80ch}
+@media (max-width:639px){.intro h1{font-size:38px}}
+
+.dev{position:fixed;right:16px;bottom:16px;z-index:40;background:var(--toast-bg);color:var(--toast-ink);border-radius:999px;padding:0 6px 0 14px;height:40px;display:flex;align-items:center;gap:8px;font:500 12.5px/1 var(--f-mono)}
+.dev button{height:28px;padding:0 10px;border-radius:999px;color:inherit;border:1px solid currentColor}
+.foot{margin:40px 0 40px;font:400 12.5px/1.45 var(--f-mono);color:var(--muted)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="1.5"/><path d="M10 21l2-7 3 3v4M7 13l3-5 3 1 3 4M9 14l-2 7"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="stroller" viewBox="0 0 24 24"><path d="M4 5h2l2 8h10l2-6H8"/><circle cx="9" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+  <symbol id="boat" viewBox="0 0 24 24"><path d="M3 17l2 3h14l2-3M4 15l8-3 8 3M12 4v8M8 8h8"/></symbol>
+  <symbol id="tri" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17.5h.01"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.7M12 17h.01"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="sign" viewBox="0 0 24 24"><path d="M12 3v18M5 6h11l3 3-3 3H5zM8 21h8"/></symbol>
+  <symbol id="ticket" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 0 0-4V5H3z"/><path d="M14 5v13"/></symbol>
+  <symbol id="bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3M8 15h.01M16 15h.01"/></symbol>
+  <symbol id="car" viewBox="0 0 24 24"><path d="M5 16l1.5-6h11L19 16M4 16h16v3H4zM7 19v2M17 19v2"/></symbol>
+  <symbol id="gondola" viewBox="0 0 24 24"><path d="M3 4l18 4M12 6v4"/><rect x="7" y="10" width="10" height="9" rx="2"/><path d="M7 14h10"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="park" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/></symbol>
+  <symbol id="nav" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></symbol>
+  <symbol id="paw" viewBox="0 0 24 24"><circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5-2 3-4 3-4 0-4-3z"/></symbol>
+  <symbol id="closed" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></symbol>
+  <symbol id="lake" viewBox="0 0 24 24"><path d="M3 15c3 0 3-2 6-2s3 2 6 2 3-2 6-2M3 19c3 0 3-2 6-2s3 2 6 2 3-2 6-2M8 10l4-6 4 6"/></symbol>
+  <symbol id="mtn" viewBox="0 0 24 24"><path d="M3 20l6-11 4 6 3-4 5 9z"/></symbol>
+  <symbol id="share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 11l7.6-3.8M8.2 13l7.6 3.8"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="down" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></symbol>
+  <symbol id="compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+  <symbol id="cup" viewBox="0 0 24 24"><path d="M5 8h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5zM17 10h2a2 2 0 0 1 0 4h-2M8 3v2M12 3v2"/></symbol>
+</svg>
+
+<header class="hdr"><div class="wrap">
+  <div class="brand">Trip plans</div>
+  <nav class="tabs"><a href="#">Trips</a><a href="#" aria-current="page">Places</a><a href="#">Globe</a></nav>
+</div></header>
+
+<main class="wrap">
+  <nav class="switch" aria-label="Mock pages">
+    <span class="lab">mock page</span>
+    <a href="?page=moraine" data-p="moraine">Moraine Lake · place</a>
+    <a href="?page=larch" data-p="larch">Larch Valley · route</a>
+    <a href="?page=gondola" data-p="gondola">Banff Gondola · lift and ticket</a>
+    <a href="?page=louise" data-p="louise">Lake Louise · near-empty</a>
+    <a href="?page=states" data-p="states">Empty and gap states</a>
+  </nav>
+
+<!-- =====================================================================
+     PAGE 1: MORAINE LAKE (a place with rich data)
+     ===================================================================== -->
+<div data-page="moraine">
+  <p class="crumbs"><a href="#">Places</a><span>/</span><a href="#">Canada</a><span>/</span><a href="#">Alberta</a><span>/</span>Moraine Lake</p>
+  <div class="cols">
+  <div class="main">
+
+    <!-- 1 COVER -->
+    <header class="cover" id="m-cover">
+      <div class="ph">
+        <svg class="scene" viewBox="0 0 960 420" preserveAspectRatio="none" aria-hidden="true"><path d="M0 250 L90 120 L160 210 L240 70 L320 190 L400 90 L480 200 L560 60 L640 180 L720 100 L800 210 L880 130 L960 220 L960 420 L0 420Z" fill="#30475d"/><path d="M0 300 C200 280 760 280 960 300 L960 420 L0 420Z" fill="#3E7C8C" opacity=".85"/></svg>
+        <div class="ov"><p class="kick">Lake · Banff National Park · Alberta</p><h1>Moraine Lake</h1></div>
+      </div>
+      <div class="body">
+        <div class="badgeline">
+          <button class="chip badge" aria-expanded="false" data-pop="m-badge-pop"><svg class="i"><use href="#sign"/></svg>Worth the journey</button>
+          <p class="why">The Valley of the Ten Peaks over a turquoise lake; the Rockpile view is a short walk.</p>
+        </div>
+        <div class="pop" id="m-badge-pop" role="dialog" aria-label="Why we say worth the journey" hidden>
+          <button class="close" aria-label="Close"><svg class="i"><use href="#x"/></svg></button>
+          <div class="lab">Our judgement · read 18 Oct 2026</div>
+          <p>People plan a trip to the Rockies around it.</p>
+          <ul><li>Wikipedia in 37 languages (signal, read 18 Oct 2026)</li><li>Inside the Canadian Rocky Mountain Parks World Heritage Site (inherited from the park)</li><li>Inside Banff National Park (inherited)</li></ul>
+          <p class="src">No ratings or review counts are used. <a href="#">How we judge this</a></p>
+        </div>
+        <p class="summary">A glacier-fed lake under ten peaks, reached only by shuttle or bus since the road closed to private cars. The classic view is from the Rockpile, a short climb from the shuttle stop.</p>
+        <div class="actions">
+          <a class="btn primary pp" href="#m-access"><svg class="i"><use href="#nav"/></svg>Directions</a>
+          <button class="btn"><svg class="i"><use href="#plus"/></svg>Save to a trip</button>
+          <button class="btn"><svg class="i"><use href="#share"/></svg>Share</button>
+          <button class="btn"><svg class="i"><use href="#globe"/></svg>Globe</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2 GLANCE -->
+    <ul class="glance" aria-label="At a glance" id="m-glance">
+      <li><a href="#m-options"><span class="l"><svg class="i"><use href="#ticket"/></svg>Booking</span><span class="v">Seat needed · 48 h release</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li>
+      <li><a href="#m-access"><span class="l"><svg class="i"><use href="#bus"/></svg>Getting there</span><span class="v">Shuttle or bus only</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li>
+      <li><a href="#m-access"><span class="l"><svg class="i"><use href="#walk"/></svg>Walk from the stop</span><span class="v">350 m to the Rockpile</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li>
+      <li><a href="#m-when"><span class="l"><svg class="i"><use href="#sun"/></svg>Best time of day</span><span class="v">Sunrise · the peaks light first</span><span class="p">computed from the sun · our rule</span></a></li>
+      <li><a href="#m-when"><span class="l"><svg class="i"><use href="#lake"/></svg>Open</span><span class="v">June to mid-October</span><span class="p">road and shuttle season · 2026 dates</span></a></li>
+      <li><a href="#m-suits"><span class="l"><svg class="i"><use href="#person"/></svg>Wheelchair</span><span class="v">Partly · shore path to the dock</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li>
+    </ul>
+    <p class="complete"><span class="lvl">Usable</span><span>21 of 26 place checks done · read 12 Oct 2026</span></p>
+    <p class="note"><b>§2 glance</b> · lake has no <code>display.glance</code>, so the first six R properties with a short renderer, skipping what the Who it suits chips already show (time on site, stroller), ordered by home section with Who it suits properties last. Each slot links to its home row: the click scrolls there and the row flashes for 1.2 s.</p>
+
+    <!-- 3 WARNINGS -->
+    <section class="sec" id="m-warn" aria-labelledby="m-warn-h">
+      <header><h2 id="m-warn-h">Before you go</h2><span class="meta">read 12 Oct 2026</span></header>
+      <ul class="warns">
+        <li><svg class="i g"><use href="#bus"/></svg><span class="t"><span class="k">Access</span>No private cars on Moraine Lake Road. Arrive by Parks Canada shuttle, Roam bus or a licensed tour.</span><span class="s">Parks Canada · official rule · <a href="#m-access">How to get there</a></span></li>
+        <li><svg class="i g"><use href="#ticket"/></svg><span class="t"><span class="k">Book</span>Shuttle seats sell out. Most open in spring; the rest are released <b>48 h before, at 08:00 Mountain time</b>.</span><span class="s">Parks Canada · read 12 Oct 2026 · 2026 rule used as a pattern · <a href="#m-options">Options and prices</a></span>
+          <p class="planb"><span class="tag">Plan B</span>No seat? <a href="#m-similar">Peyto Lake</a> is the same kind of view, roadside, with no booking. 50 km.</p></li>
+      </ul>
+      <p class="note"><b>§3 warnings</b> · Rest! items only (contract 3.2): access rule, required booking, closures, wildlife rules. The main hazard is not repeated here: it is the warning line in Who it suits, the next section. Each line names its basis and links to its home row. Plan B sits under the risk it answers (relevance 6.2).</p>
+    </section>
+
+    <!-- 4 WHO IT SUITS (suitability-display, unchanged) -->
+    <section class="sec suits" id="m-suits" aria-labelledby="m-suits-h">
+      <header><h2 id="m-suits-h">Who it suits</h2><span class="research"><b>8 of 9</b> family checks done · read 12 Oct 2026</span></header>
+      <ul class="chips" aria-label="Who it suits">
+        <li><span class="chip"><svg class="i"><use href="#person"/></svg>Any age · our judgement</span></li>
+        <li><span class="chip"><svg class="i"><use href="#clock"/></svg>1 h 30 – 3 h on site</span></li>
+        <li><span class="chip"><svg class="i"><use href="#stroller"/></svg>Stroller to the shore · not the Rockpile</span></li>
+      </ul>
+      <p class="warnline"><svg class="i"><use href="#tri"/></svg>The Rockpile is uneven boulders and steps; the shore drops straight into cold water</p>
+      <div class="groups">
+        <div class="g"><button class="g-h" aria-expanded="true"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span><span class="sum"><span>Any age · our judgement</span></span></button>
+          <div class="gwrap"><div><dl class="rows">
+            <div class="row"><dt>Recommended</dt><dd><span class="k"><svg class="i"><use href="#person"/></svg>Any age</span><span class="stub">our judgement · level shore by the stop; the Rockpile needs a hand to hold</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            <div class="row"><dt>Stroller</dt><dd>Shore path to the dock; not the Rockpile<span class="stub">Parks Canada · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+            <div class="row"><dt>Wheelchair</dt><dd>Partly · shore path to the dock<span class="stub">Parks Canada · read 12 Oct 2026</span><svg class="i chevr"><use href="#chev"/></svg></dd></div>
+          </dl><p class="gapline" style="padding-left:26px;margin:0 0 10px"><svg class="i"><use href="#help"/></svg>Not checked yet: carrier</p></div></div></div>
+        <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span>1 h 30 – 3 h on site</span><span>Rockpile 350 m · 30 m up</span></span></button></div>
+        <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">The water</span><span class="sum"><span>no swimming advised · glacial</span><span class="chip gap">Not checked yet · water temperature</span></span></button></div>
+        <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Facilities</span><span class="sum"><span>toilets at the shuttle stop</span><span>cafe at the lodge</span><span>no shade on the Rockpile</span></span></button></div>
+        <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>June to mid-October by shuttle</span></span></button></div>
+      </div>
+      <p class="note"><b>§4</b> · suitability-display.md drawn as it is. Its Facilities and When you can go groups echo sections 9 and 8 (same values, same provenance popover); gap markers and counts belong to the home section only.</p>
+    </section>
+
+    <p class="note"><b>§5 The route or the activity: not drawn.</b> Every section-5 property is N for a lake or already homed in Who it suits. Nothing is missing, so there is no marker (D9).</p>
+
+    <!-- 6 OPTIONS -->
+    <section class="sec" id="m-options" aria-labelledby="m-opt-h">
+      <header><h2 id="m-opt-h">Options and prices</h2><span class="meta">2026 prices used as a pattern</span></header>
+      <ul class="offers">
+        <li class="offer">
+          <div><div class="nm">Parks Canada shuttle seat</div><div class="by">from the Lake Louise Park and Ride · Parks Canada · access</div></div>
+          <div class="price">CAD 8<small>adult · return · 2026 price</small></div>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#ticket"/></svg>Book ahead · 48 h release at 08:00 MT</li><li class="chip"><svg class="i"><use href="#clock"/></svg>every 20 min · first 06:30</li></ul>
+          <table><tr><th>Who</th><th class="num">Price</th><th>Read</th></tr><tr><td>Adult</td><td class="num">CAD 8</td><td>12 Oct 2026</td></tr><tr><td>Senior 65+</td><td class="num">CAD 4</td><td>12 Oct 2026</td></tr><tr><td>Youth under 18</td><td class="num">free</td><td>12 Oct 2026</td></tr></table>
+          <div class="act"><a class="btn sm" href="#">Book on Parks Canada</a><span class="stub">official · opens in a new tab</span></div>
+        </li>
+        <li class="offer">
+          <div><div class="nm">Banff National Park day pass</div><div class="by">Parks Canada · access · needed for any stop in the park</div></div>
+          <div class="price">CAD 11<small>adult · per day · 2026 price</small></div>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#ticket"/></svg>Buy online or at the gate</li><li class="chip">Youth under 18 free</li></ul>
+        </li>
+      </ul>
+      <p class="note"><b>§6</b> · ticket and access offers of the subject (the things you buy to get in or on). Experience and rental offers at the place go to section 10. Prices always carry their year (T3).</p>
+    </section>
+
+    <!-- 7 HOW TO GET THERE -->
+    <section class="sec" id="m-access" aria-labelledby="m-acc-h">
+      <header><h2 id="m-acc-h">How to get there <span class="n">3 ways</span></h2><span class="meta">no parking at the lake</span></header>
+      <div class="inline-map"><div class="mapbox"><svg viewBox="0 0 600 300" aria-hidden="true"><rect width="600" height="300" fill="var(--m-land)"/><path d="M380 170 C430 150 520 150 560 190 C530 240 430 250 380 220Z" fill="var(--m-water)"/><path d="M60 40 C140 90 240 110 300 150 S 370 185 390 190" stroke="var(--m-line)" stroke-width="3" fill="none" stroke-dasharray="8 6"/><circle cx="60" cy="40" r="7" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2.5"/><circle cx="390" cy="190" r="7" fill="var(--m-line)"/></svg><span class="cred">© OpenStreetMap contributors</span></div></div>
+      <ul class="ways">
+        <li class="way"><span class="gly"><svg class="i"><use href="#bus"/></svg></span><div><div class="nm"><a href="#">Parks Canada shuttle</a></div><div class="d">Lake Louise Park and Ride → Moraine Lake · about 25 min · every 20 min</div></div><span class="go"><svg class="i"><use href="#chev"/></svg></span>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#ticket"/></svg>Seat needed · CAD 8</li><li class="chip">June to mid-October</li></ul></li>
+        <li class="way"><span class="gly"><svg class="i"><use href="#bus"/></svg></span><div><div class="nm"><a href="#">Roam public bus from Banff</a></div><div class="d">Banff town → Moraine Lake · about 1 h · seasonal</div></div><span class="go"><svg class="i"><use href="#chev"/></svg></span>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#ticket"/></svg>Reserve a seat</li></ul></li>
+        <li class="way"><span class="gly"><svg class="i"><use href="#bus"/></svg></span><div><div class="nm"><a href="#">Lake Connector shuttle</a></div><div class="d">Lake Louise lakeshore ↔ Moraine Lake · about 20 min</div></div><span class="go"><svg class="i"><use href="#chev"/></svg></span>
+          <ul class="chips"><li class="chip">Included with a Lake Louise seat</li></ul></li>
+      </ul>
+      <h3>Where you arrive</h3>
+      <div class="apts">
+        <article class="apt"><div class="hd"><svg class="i"><use href="#bus"/></svg><b>Moraine Lake shuttle stop</b><span class="chip">Stop</span></div>
+          <dl><dt>Walk to</dt><dd>Rockpile 350 m · 30 m up<span class="stub">Parks Canada · read 12 Oct 2026</span></dd><dt>Lakeshore</dt><dd>80 m, level</dd></dl></article>
+        <article class="apt"><div class="hd"><svg class="i"><use href="#park"/></svg><b>Lake Louise Park and Ride</b><span class="chip">Parking</span></div>
+          <dl><dt>Fee</dt><dd>Free with a shuttle seat<span class="stub">Parks Canada · read 12 Oct 2026</span></dd><dt>Fills by</dt><dd>Rarely full<span class="stub">2 dated reports · Aug 2025, Sep 2025</span></dd></dl></article>
+      </div>
+      <div class="dirrow">
+        <a class="btn primary pp" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the Park and Ride</a>
+        <a class="btn" href="#">Apple Maps</a>
+        <span class="stub">You cannot drive to the lake, so directions go to where you can park. Our point · OpenStreetMap way 4123987 · 51.4269, -116.1774</span>
+      </div>
+    </section>
+
+    <!-- 8 WHEN TO GO -->
+    <section class="sec" id="m-when" aria-labelledby="m-when-h">
+      <header><h2 id="m-when-h">When to go</h2><span class="meta pattern">2026 dates used as a pattern</span></header>
+      <div class="months" role="img" aria-label="Shuttle and road June to mid-October; best weeks mid-September to early October; closed November to May">
+        <span></span><span class="h">J</span><span class="h">F</span><span class="h">M</span><span class="h">A</span><span class="h">M</span><span class="h">J</span><span class="h">J</span><span class="h">A</span><span class="h">S</span><span class="h">O</span><span class="h">N</span><span class="h">D</span>
+        <span class="rl">Getting there</span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c on"></span><span class="c on"></span><span class="c on"></span><span class="c on"></span><span class="c lim"></span><span class="c"></span><span class="c"></span>
+        <span class="rl">Best weeks</span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c best-r"></span><span class="c best-l"></span><span class="c"></span><span class="c"></span>
+      </div>
+      <div class="legend"><span><i></i>open</span><span><i class="lim"></i>part of the month</span><span><i class="best"></i>best weeks: larches, mid-Sep to early Oct</span></div>
+      <div class="today"><span><b>Best time of day:</b> sunrise · the Ten Peaks light first</span><span><b>Busiest:</b> 09:00 to 15:00 · 2 dated reports</span></div>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Hours do not apply: the lake is open land. Closures are posted on the Parks Canada status page (Links).</p>
+    </section>
+
+    <!-- 9 FACILITIES -->
+    <section class="sec" id="m-fac" aria-labelledby="m-fac-h">
+      <header><h2 id="m-fac-h">Facilities</h2><span class="meta"><b>4 of 7</b> recorded</span></header>
+      <div class="groups" style="border-top:0;margin-top:4px">
+        <div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">On site</span><span class="sum"><span>toilets at the shuttle stop</span><span>cafe at the lodge</span><span>shade: none on the Rockpile</span><span>picnic tables by the shore</span><span>Not checked yet: drinking water, phone signal, baby change</span></span></button>
+          <div class="gwrap shut"><div><dl class="rows">
+            <div class="row"><dt>Toilets</dt><dd>At the shuttle stop<span class="stub">Parks Canada · read 12 Oct 2026</span></dd></div>
+            <div class="row"><dt>Food</dt><dd>Cafe at Moraine Lake Lodge, seasonal<span class="stub">operator · read 12 Oct 2026</span></dd></div>
+            <div class="row"><dt>Drinking water</dt><dd><span class="chip gap">Not checked yet</span></dd></div>
+          </dl></div></div></div>
+      </div>
+      <p class="note"><b>§9</b> · collapsed with its values inline, like the Who it suits groups. Opening it is 200 ms and keeps the scroll position.</p>
+    </section>
+
+    <!-- 10 AROUND -->
+    <section class="sec" id="m-around" aria-labelledby="m-ar-h">
+      <header><h2 id="m-ar-h">At this place you can also</h2><span class="meta">3 things</span></header>
+      <p class="partof">Part of <a href="#">Banff National Park</a></p>
+      <p class="grp">On the water</p>
+      <ul class="list">
+        <li class="item"><span class="gly"><svg class="i"><use href="#boat"/></svg></span><div><div class="nm"><a href="#">Moraine Lake canoe rental</a><span class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth a detour</span></div><div class="d">Rental · at the lodge dock · June to September</div>
+          <ul class="chips"><li class="chip gap">Not checked yet · ages</li><li class="chip"><svg class="i"><use href="#clock"/></svg>1 h rental</li></ul></div><span class="x">at the dock</span></li>
+      </ul>
+      <p class="grp">Viewpoints here</p>
+      <ul class="list">
+        <li class="item"><span class="gly"><svg class="i"><use href="#eye"/></svg></span><div><div class="nm"><a href="#">The Rockpile</a></div><div class="d">Viewpoint · the classic Ten Peaks view</div>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#person"/></svg>From about 3</li><li class="chip"><svg class="i"><use href="#walk"/></svg>Stroll · 350 m · 30 m up</li></ul></div><span class="x">350 m</span></li>
+        <li class="item"><span class="gly"><svg class="i"><use href="#walk"/></svg></span><div><div class="nm"><a href="#">Moraine Lakeshore</a></div><div class="d">Walk · 3 km return along the north shore</div>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#person"/></svg>Any age</li><li class="chip"><svg class="i"><use href="#walk"/></svg>Stroll · Parks Canada Easy</li></ul></div><span class="x">from the stop</span></li>
+      </ul>
+      <p class="note"><b>§10</b> · offers <code>at</code> the place grouped by domain, then its <code>part_of</code> children. Ways to the place are never here (they are section 7). At most 6 rows; more shows "Show all n" and expands in place.</p>
+    </section>
+
+    <!-- 11 NEARBY -->
+    <section class="sec" id="m-pairs" aria-labelledby="m-pr-h">
+      <header><h2 id="m-pr-h">Nearby, worth adding</h2><span class="meta">as well as Moraine Lake</span></header>
+      <ul class="list">
+        <li class="item"><span class="gly"><svg class="i"><use href="#mtn"/></svg></span><div><div class="nm"><a href="#">Larch Valley to Sentinel Pass</a><span class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth the journey</span></div>
+          <p class="why2">The trail starts at the lakeshore; in larch season people walk up from the lake.</p>
+          <div class="d">our pick · Parks Canada larch page</div>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#person"/></svg>From about 10</li><li class="chip"><svg class="i"><use href="#walk"/></svg>Hard · Parks Canada Difficult</li></ul></div><span class="x">starts here<br>about 4–6 h</span></li>
+        <li class="item"><span class="gly"><svg class="i"><use href="#lake"/></svg></span><div><div class="nm"><a href="#">Consolation Lakes</a></div><div class="d">Walk · rock-glacier lakes below Mt Babel</div>
+          <ul class="chips"><li class="chip"><svg class="i"><use href="#person"/></svg>From about 6</li><li class="chip"><svg class="i"><use href="#walk"/></svg>Easy · Parks Canada Easy</li></ul></div><span class="x">from the stop<br>about 2 h</span></li>
+      </ul>
+      <div class="sub" id="m-similar">
+        <h3>Similar nearby</h3>
+        <p class="stub" style="margin:0 0 4px">instead of Moraine Lake, the same kind of view</p>
+        <ul class="list">
+          <li class="item"><span class="gly"><svg class="i"><use href="#lake"/></svg></span><div><div class="nm"><a href="#">Lake Louise</a><span class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth the journey</span></div><div class="d">shuttle or paid parking · plan ahead</div></div><span class="x">10 km</span></li>
+          <li class="item"><span class="gly"><svg class="i"><use href="#lake"/></svg></span><div><div class="nm"><a href="#">Emerald Lake</a></div><div class="d">road and parking · no booking</div></div><span class="x">27 km</span></li>
+          <li class="item pb"><span class="gly"><svg class="i"><use href="#lake"/></svg></span><div><div class="nm"><a href="#">Peyto Lake</a></div><div class="d">roadside on the Icefields Parkway · no booking</div></div><span class="x">50 km</span></li>
+        </ul>
+      </div>
+      <p class="note"><b>§11</b> · two questions in one section: "as well as" (pairs, hand-picked first with their reason) and "instead of" (similar nearby, attribute-aware, up to 3). Distances are straight lines on our points; a pair with no point shows no distance.</p>
+    </section>
+
+    <!-- 12-14 -->
+    <section class="sec" aria-labelledby="m-ph-h"><header><h2 id="m-ph-h">Photos</h2><span class="meta">12 photos · Wikimedia Commons</span></header><div class="tiles"><div></div><div></div><div></div></div></section>
+    <section class="sec" aria-labelledby="m-lk-h"><header><h2 id="m-lk-h">Links</h2><span class="meta">every link checked 12 Oct 2026</span></header>
+      <div class="ltabs"><span aria-selected="true">Official 2</span><span>Booking 1</span><span>Conditions 1</span><span>Webcam 1</span><span class="none">Trip report · none found</span></div>
+      <ul class="links"><li><a href="#">Moraine Lake</a><span class="stub">Parks Canada · official</span></li><li><a href="#">Lake Louise and Moraine Lake shuttles</a><span class="stub">Parks Canada · official</span></li></ul></section>
+    <section class="sec" aria-labelledby="m-fs-h"><header><h2 id="m-fs-h">Facts and sources</h2><span class="meta">14 sources · newest 18 Oct 2026</span></header>
+      <div class="groups" style="border-top:0;margin-top:4px"><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">All sources</span><span class="sum"><span>Parks Canada 9</span><span>operator 2</span><span>Wikidata 1</span><span>2 dated reports</span></span></button></div></div></section>
+  </div>
+
+  <!-- RAIL -->
+  <aside class="rail" aria-label="Map and directions">
+    <section class="card"><h2 class="sr-only" style="position:absolute;left:-9999px">Map</h2>
+      <div class="mapbox"><svg viewBox="0 0 380 300" aria-hidden="true"><rect width="380" height="300" fill="var(--m-land)"/><path d="M230 170 C270 150 340 150 370 190 C350 240 270 250 230 220Z" fill="var(--m-water)"/><path d="M30 40 C100 90 170 110 200 150 S 230 185 240 190" stroke="var(--m-line)" stroke-width="3" fill="none" stroke-dasharray="8 6"/><circle cx="30" cy="40" r="7" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2.5"/><circle cx="240" cy="190" r="7" fill="var(--m-line)"/><circle cx="262" cy="176" r="5" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2"/></svg><span class="cred">© OpenStreetMap contributors</span></div>
+      <p class="stub">Moraine Lake Road, shuttle only · shuttle stop · Rockpile</p>
+      <a class="btn primary" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the Park and Ride</a>
+    </section>
+    <section class="card"><h2>In public trips</h2><p><a href="#">Canadian Rockies, 14 nights</a></p><p class="stub">day 5 · as a morning stop</p></section>
+  </aside>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 2: LARCH VALLEY (a route; payoff place carries the draw)
+     ===================================================================== -->
+<div data-page="larch" hidden>
+  <p class="crumbs"><a href="#">Places</a><span>/</span><a href="#">Canada</a><span>/</span><a href="#">Alberta</a><span>/</span>Larch Valley to Sentinel Pass</p>
+  <div class="cols"><div class="main">
+    <header class="cover">
+      <div class="ph"><svg class="scene" viewBox="0 0 960 420" preserveAspectRatio="none" aria-hidden="true"><path d="M0 230 L120 90 L220 200 L330 60 L430 170 L540 80 L640 190 L760 70 L860 180 L960 120 L960 420 L0 420Z" fill="#3a4f63"/><path d="M0 320 C240 290 700 300 960 330 L960 420 L0 420Z" fill="#8a7a3c" opacity=".7"/></svg>
+        <div class="ov"><p class="kick">Hike · Banff National Park · Alberta</p><h1>Larch Valley to Sentinel Pass</h1></div></div>
+      <div class="body">
+        <p class="payoff"><svg class="i"><use href="#mtn"/></svg>To <a href="#">Sentinel Pass</a> · 2,611 m · photo and judgement from the pass</p>
+        <div class="badgeline"><button class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth the journey</button><p class="why">Larches turn gold under the Ten Peaks for three weeks; the pass looks down on both valleys.</p></div>
+        <p class="summary">From the Moraine Lake shore, switchbacks climb through forest to the larch meadows, then on to the pass. Turn at the meadows for a shorter day.</p>
+        <div class="actions"><a class="btn primary pp" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the start</a><button class="btn"><svg class="i"><use href="#plus"/></svg>Save to a trip</button><button class="btn"><svg class="i"><use href="#down"/></svg>GPX</button><button class="btn"><svg class="i"><use href="#share"/></svg>Share</button></div>
+      </div>
+    </header>
+    <ul class="glance" aria-label="At a glance">
+      <li><a href="#l-route"><span class="l"><svg class="i"><use href="#walk"/></svg>Distance</span><span class="v">11.6 km return</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li>
+      <li><a href="#l-route"><span class="l"><svg class="i"><use href="#mtn"/></svg>Climb</span><span class="v">725 m up</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li>
+      <li><a href="#l-route"><span class="l"><svg class="i"><use href="#clock"/></svg>Adult time</span><span class="v">4 – 6 h</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li>
+      <li><a href="#l-route"><span class="l">Shape</span><span class="v">Out and back</span><span class="p">Parks Canada</span></a></li>
+      <li><a href="#l-route"><span class="l">High point</span><span class="v">2,611 m at the pass</span><span class="p">OpenStreetMap and Terrain Tiles</span></a></li>
+      <li><a href="#l-access"><span class="l"><svg class="i"><use href="#bus"/></svg>Starts at</span><span class="v">Moraine Lake shuttle stop</span><span class="p">Parks Canada</span></a></li>
+    </ul>
+    <p class="complete"><span class="lvl">Usable</span><span>19 of 24 route checks done · read 12 Oct 2026</span></p>
+
+    <section class="sec" aria-labelledby="l-w-h"><header><h2 id="l-w-h">Before you go</h2><span class="meta">read 12 Oct 2026</span></header>
+      <ul class="warns">
+        <li><svg class="i g"><use href="#paw"/></svg><span class="t"><span class="k">Wildlife</span>Hike in a <b>tight group of four or more</b> when the restriction is posted, usually in larch season. Carry bear spray.</span><span class="s">Parks Canada · official rule · read 12 Oct 2026</span></li>
+        <li><svg class="i g"><use href="#ticket"/></svg><span class="t"><span class="k">Book</span>The start is reached by shuttle only. A seat to Moraine Lake is needed.</span><span class="s">from the start place · <a href="#">Moraine Lake: Options and prices</a></span></li>
+      </ul></section>
+
+    <section class="sec suits" aria-labelledby="l-s-h"><header><h2 id="l-s-h">Who it suits</h2><span class="research"><b>11 of 12</b> family checks done · read 12 Oct 2026</span></header>
+      <ul class="chips" aria-label="Who it suits"><li><span class="chip"><svg class="i"><use href="#person"/></svg>From about 10 · our judgement</span></li><li><span class="chip"><svg class="i"><use href="#walk"/></svg>Hard · Parks Canada Difficult · 4–6 h</span></li><li><span class="chip"><svg class="i"><use href="#stroller"/></svg>No stroller · carrier to the meadows</span></li></ul>
+      <p class="warnline"><svg class="i"><use href="#tri"/></svg>Steep switchbacks; snow on the pass into July</p>
+      <div class="groups"><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span><span class="sum"><span>groups of 4 when posted · official rule</span></span></button></div><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Effort and time</span><span class="sum"><span>Hard · Parks Canada Difficult</span><span>with a 10-year-old about 6 h · our rule</span></span></button></div><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">On the trail</span><span class="sum"><span>waymarked</span><span>no water crossings</span><span class="chip gap">Not checked yet · bail-out</span></span></button></div></div>
+    </section>
+
+    <!-- 5 THE ROUTE -->
+    <section class="sec" id="l-route" aria-labelledby="l-r-h"><header><h2 id="l-r-h">The route</h2><span class="meta">track from OpenStreetMap relation 9876543 · read 14 Oct 2026</span></header>
+      <p class="statline"><span>11.6 km <em>return</em></span><span>725 m <em>up</em></span><span>725 m <em>down</em></span><span>high 2,611 m</span><span>4–6 h <em>adults</em></span></p>
+      <div class="mapbox"><span class="tag">TrailMap (L4b), unchanged</span><svg viewBox="0 0 720 320" aria-hidden="true"><rect width="720" height="320" fill="var(--m-land)"/><path d="M40 250 C120 270 200 280 260 260 C200 240 160 230 120 230" fill="var(--m-water)"/><path d="M110 250 L150 210 L135 180 L180 160 L165 130 L230 120 L330 110 L420 100 L520 70 L610 40" stroke="var(--m-line)" stroke-width="3" fill="none"/><circle cx="110" cy="250" r="7" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2.5"/><circle cx="420" cy="100" r="6" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2"/><circle cx="610" cy="40" r="7" fill="var(--m-line)"/></svg><span class="cred">© OpenStreetMap contributors (ODbL) · DEM Terrain Tiles</span></div>
+      <div class="profile"><span class="tag" style="position:absolute;right:10px;top:10px;font:500 11.5px/1 var(--f-mono);color:var(--info);border:1px dashed var(--info);padding:5px 8px;border-radius:6px">TrailProfile (L4b)</span><svg viewBox="0 0 700 160" preserveAspectRatio="none" aria-label="11.6 km return, 725 m climb, high point 2,611 m at 5.8 km" role="img"><path d="M0 150 L60 140 L140 110 L230 85 L300 60 L350 20 L400 60 L470 85 L560 110 L640 140 L700 150 L700 160 L0 160Z" fill="var(--ink)" opacity=".1"/><path d="M0 150 L60 140 L140 110 L230 85 L300 60 L350 20 L400 60 L470 85 L560 110 L640 140 L700 150" stroke="var(--ink)" stroke-width="2" fill="none"/><line x1="0" y1="80" x2="700" y2="80" stroke="var(--line)"/></svg><div class="cap">km below, m right · scrub to move the marker on the map</div></div>
+      <ul class="markers"><li><b>Larch Valley meadows</b><span class="stub">4.3 km · 2,440 m</span></li><li><b>Minnestimma Lakes</b><span class="stub">5.0 km · 2,500 m</span></li><li><b>Sentinel Pass</b><span class="stub">5.8 km · 2,611 m</span></li></ul>
+      <div class="exportrow"><button class="btn sm"><svg class="i"><use href="#down"/></svg>GPX track</button><button class="btn sm">KML</button><span class="stub">exports carry the ODbL notice and the read date</span></div>
+    </section>
+
+    <p class="note"><b>§6 Options and prices: not drawn.</b> Nothing is sold on this route (no offer <code>on</code> it, no permit), so <code>price</code> and <code>window</code> resolve to N for this record. The shuttle seat belongs to the start place and is linked from Before you go.</p>
+
+    <section class="sec" id="l-access" aria-labelledby="l-a-h"><header><h2 id="l-a-h">How to get there</h2><span class="meta">start, payoff and on the way</span></header>
+      <ul class="ways">
+        <li class="way"><span class="gly"><svg class="i"><use href="#bus"/></svg></span><div><div class="nm">Start · <a href="#">Moraine Lake shuttle stop</a></div><div class="d">by shuttle or bus only · seat needed</div></div><span class="go"><svg class="i"><use href="#chev"/></svg></span></li>
+        <li class="way"><span class="gly"><svg class="i"><use href="#eye"/></svg></span><div><div class="nm">On the way · <a href="#">Larch Valley meadows</a></div><div class="d">at 4.3 km · a good turnaround for younger legs</div></div><span class="go"><svg class="i"><use href="#chev"/></svg></span></li>
+        <li class="way"><span class="gly"><svg class="i"><use href="#mtn"/></svg></span><div><div class="nm">Payoff · <a href="#">Sentinel Pass</a></div><div class="d">at 5.8 km · 2,611 m</div></div><span class="go"><svg class="i"><use href="#chev"/></svg></span></li>
+      </ul>
+      <div class="dirrow"><a class="btn primary pp" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the Park and Ride</a><span class="stub">The start has no parking; directions go to where you can park.</span></div>
+    </section>
+
+    <section class="sec" aria-labelledby="l-wh-h"><header><h2 id="l-wh-h">When to go</h2><span class="meta">2026 dates used as a pattern</span></header>
+      <div class="months" role="img" aria-label="Snow-free July to September; best weeks mid-September to early October">
+        <span></span><span class="h">J</span><span class="h">F</span><span class="h">M</span><span class="h">A</span><span class="h">M</span><span class="h">J</span><span class="h">J</span><span class="h">A</span><span class="h">S</span><span class="h">O</span><span class="h">N</span><span class="h">D</span>
+        <span class="rl">Snow-free</span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c lim"></span><span class="c on"></span><span class="c on"></span><span class="c lim"></span><span class="c"></span><span class="c"></span>
+        <span class="rl">Best weeks</span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c best-r"></span><span class="c best-l"></span><span class="c"></span><span class="c"></span>
+      </div>
+      <div class="legend"><span><i></i>snow-free</span><span><i class="lim"></i>part of the month</span><span><i class="best"></i>best weeks: larches gold</span></div>
+      <div class="today"><span><b>Best time of day:</b> start by 08:00 · crowds and the group rule</span></div>
+    </section>
+
+    <section class="sec" aria-labelledby="l-f-h"><header><h2 id="l-f-h">Facilities</h2><span class="meta"><b>3 of 5</b> recorded</span></header>
+      <div class="groups" style="border-top:0;margin-top:4px"><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Along the way</span><span class="sum"><span>toilets at the start</span><span>no water on the trail</span><span>no shade above the meadows</span><span>Not checked yet: phone signal, dogs</span></span></button></div></div></section>
+
+    <section class="sec" aria-labelledby="l-ar-h"><header><h2 id="l-ar-h">On this route you can also</h2></header>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: guided walks and offers on this route</p>
+      <p class="note"><b>§10 for a route</b> · the heading follows the record: "On this route" for a route, "At this place" for a place, "With this" for an offer. Stops on the way stay in section 7.</p></section>
+
+    <section class="sec" aria-labelledby="l-p-h"><header><h2 id="l-p-h">Nearby, worth adding</h2></header>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: walks and stops to add to this one</p>
+      <div class="sub"><h3>Similar nearby</h3><p class="stub" style="margin:0 0 4px">instead of this route · within one effort level</p>
+        <ul class="list">
+          <li class="item"><span class="gly"><svg class="i"><use href="#mtn"/></svg></span><div><div class="nm"><a href="#">Plain of Six Glaciers</a><span class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth a detour</span></div><div class="d">Moderate · Parks Canada Moderate · no booking</div></div><span class="x">8 km</span></li>
+          <li class="item"><span class="gly"><svg class="i"><use href="#mtn"/></svg></span><div><div class="nm"><a href="#">Iceline Trail</a></div><div class="d">Hard · Parks Canada Difficult · no booking</div></div><span class="x">26 km</span></li>
+        </ul></div></section>
+    <section class="sec" aria-labelledby="l-ph-h"><header><h2 id="l-ph-h">Photos</h2><span class="meta">from Sentinel Pass · 8 photos</span></header><div class="tiles"><div></div><div></div><div></div></div></section>
+    <section class="sec" aria-labelledby="l-lk-h"><header><h2 id="l-lk-h">Links</h2><span class="meta">every link checked 12 Oct 2026</span></header><div class="ltabs"><span aria-selected="true">Official 1</span><span>Conditions 1</span><span>Route 3</span><span>Report 2</span></div></section>
+    <section class="sec" aria-labelledby="l-fs-h"><header><h2 id="l-fs-h">Facts and sources</h2><span class="meta">11 sources</span></header></section>
+  </div>
+  <aside class="rail"><section class="card"><div class="mapbox"><svg viewBox="0 0 380 300" aria-hidden="true"><rect width="380" height="300" fill="var(--m-land)"/><path d="M20 240 C70 260 120 265 150 250 C120 230 100 225 70 225" fill="var(--m-water)"/><path d="M60 240 L90 200 L80 170 L110 150 L100 120 L150 110 L210 100 L260 90 L320 50 L360 30" stroke="var(--m-line)" stroke-width="3" fill="none"/><circle cx="60" cy="240" r="7" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2.5"/><circle cx="360" cy="30" r="7" fill="var(--m-line)"/></svg><span class="cred">© OpenStreetMap contributors</span></div><a class="btn primary" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the Park and Ride</a></section></aside>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 3: BANFF GONDOLA (a lift line with its ticket offer)
+     ===================================================================== -->
+<div data-page="gondola" hidden>
+  <p class="crumbs"><a href="#">Places</a><span>/</span><a href="#">Canada</a><span>/</span><a href="#">Alberta</a><span>/</span>Banff Gondola</p>
+  <div class="cols"><div class="main">
+    <header class="cover">
+      <div class="ph"><svg class="scene" viewBox="0 0 960 420" preserveAspectRatio="none" aria-hidden="true"><path d="M0 260 L200 80 L380 220 L560 100 L760 240 L960 140 L960 420 L0 420Z" fill="#33495e"/><path d="M80 380 L700 120" stroke="#fff" stroke-width="2" opacity=".5"/></svg>
+        <div class="ov"><p class="kick">Gondola · Banff · Alberta</p><h1>Banff Gondola</h1></div></div>
+      <div class="body">
+        <p class="payoff"><svg class="i"><use href="#mtn"/></svg>To <a href="#">Sulphur Mountain summit</a> · 2,281 m · judgement from the summit</p>
+        <div class="badgeline"><button class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth a detour</button><p class="why">Eight minutes to a ridge walk above Banff and the Bow Valley.</p></div>
+        <p class="summary">An enclosed four-seat gondola from the valley station to the summit station, with a boardwalk on to Sanson's Peak.</p>
+        <div class="actions"><a class="btn primary pp" href="#g-opt"><svg class="i"><use href="#ticket"/></svg>Tickets and times</a><a class="btn" href="#"><svg class="i"><use href="#nav"/></svg>Directions</a><button class="btn"><svg class="i"><use href="#plus"/></svg>Save to a trip</button><button class="btn"><svg class="i"><use href="#share"/></svg>Share</button></div>
+      </div>
+    </header>
+    <ul class="glance" aria-label="At a glance">
+      <li><a href="#g-route"><span class="l"><svg class="i"><use href="#gondola"/></svg>Ride</span><span class="v">8 min each way</span><span class="p">operator · read 12 Oct 2026</span></a></li>
+      <li><a href="#g-when"><span class="l"><svg class="i"><use href="#clock"/></svg>Last down</span><span class="v">21:00 in September</span><span class="p">operator · read 12 Oct 2026</span></a></li>
+      <li><a href="#g-when"><span class="l"><svg class="i"><use href="#sun"/></svg>Open</span><span class="v">All year · hours by season</span><span class="p">operator · 2026 timetable</span></a></li>
+      <li><a href="#g-opt"><span class="l"><svg class="i"><use href="#ticket"/></svg>From</span><span class="v">CAD 70 adult</span><span class="p">operator · 2026 price · varies by date</span></a></li>
+      <li><a href="#g-opt"><span class="l">Booking</span><span class="v">Timed tickets online</span><span class="p">operator · read 12 Oct 2026</span></a></li>
+      <li><a href="#g-around"><span class="l"><svg class="i"><use href="#clock"/></svg>At the top</span><span class="v">About 1 h 30</span><span class="p">our judgement</span></a></li>
+    </ul>
+    <section class="sec" aria-labelledby="g-w-h"><header><h2 id="g-w-h">Before you go</h2><span class="meta">read 12 Oct 2026</span></header>
+      <ul class="warns">
+        <li><svg class="i g"><use href="#clock"/></svg><span class="t"><span class="k">Last down</span>The last gondola down leaves at <b>21:00 in September</b>. Walking down is 5.5 km and 655 m of descent.</span><span class="s">operator · 2026 timetable · <a href="#g-when">When to go</a></span></li>
+        <li><svg class="i g"><use href="#ticket"/></svg><span class="t"><span class="k">Book</span>Timed tickets; summer days sell out online.</span><span class="s">operator · <a href="#g-opt">Options and prices</a></span></li>
+      </ul></section>
+    <section class="sec suits" aria-labelledby="g-s-h"><header><h2 id="g-s-h">Who it suits</h2><span class="research"><b>9 of 10</b> family checks done · read 12 Oct 2026 · from the ticket</span></header>
+      <ul class="chips" aria-label="Who it suits"><li><span class="chip rule"><svg class="i"><use href="#lock"/></svg>No minimum age</span></li><li><span class="chip"><svg class="i"><use href="#clock"/></svg>8 min ride · about 1 h 30 at the top</span></li><li><span class="chip"><svg class="i"><use href="#stroller"/></svg>Strollers ride folded</span></li></ul>
+      <p class="warnline"><svg class="i"><use href="#tri"/></svg>High wind or lightning stops the gondola; you may wait at the top</p>
+      <div class="groups"><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Limits and rules</span><span class="sum"><span>No minimum age · operator states none</span><span>under 6 ride free with an adult</span></span></button></div><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">The cabin</span><span class="sum"><span>enclosed · 4 seats</span><span>step-free boarding</span></span></button></div></div>
+      <p class="note"><b>§4 from the ticket</b> · a lift line has no suitability record; its chips come from <code>offer/…#ticket</code> (CC-adapter 4). The research line says so.</p></section>
+
+    <section class="sec" id="g-route" aria-labelledby="g-r-h"><header><h2 id="g-r-h">The ride</h2><span class="meta">operator · read 12 Oct 2026</span></header>
+      <p class="statline"><span>8 min <em>each way</em></span><span>698 m <em>up</em></span><span>1.6 km <em>line</em></span><span>4-seat cabins</span></p>
+      <div class="mapbox"><svg viewBox="0 0 720 220" aria-hidden="true"><rect width="720" height="220" fill="var(--m-land)"/><path d="M80 180 L620 50" stroke="var(--m-line)" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/><circle cx="80" cy="180" r="8" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2.5"/><circle cx="620" cy="50" r="8" fill="var(--m-line)"/></svg><span class="cred">© OpenStreetMap contributors</span></div>
+      <ul class="markers"><li><b>Valley station</b><span class="stub">1,583 m</span></li><li><b>Summit station</b><span class="stub">2,281 m</span></li></ul></section>
+
+    <section class="sec" id="g-opt" aria-labelledby="g-o-h"><header><h2 id="g-o-h">Options and prices</h2><span class="meta">2026 prices used as a pattern</span></header>
+      <ul class="offers"><li class="offer"><div><div class="nm">Gondola ticket, return</div><div class="by">Pursuit · ticket · timed entry</div></div><div class="price">from CAD 70<small>adult · varies by date · 2026 price</small></div>
+        <ul class="chips"><li class="chip rule"><svg class="i"><use href="#lock"/></svg>No minimum age</li><li class="chip"><svg class="i"><use href="#ticket"/></svg>Book a time slot online</li><li class="chip">Refund to 24 h before</li></ul>
+        <table><tr><th>Who</th><th class="num">Price</th><th>Read</th></tr><tr><td>Adult 16+</td><td class="num">from CAD 70</td><td>12 Oct 2026</td></tr><tr><td>Child 6 – 15</td><td class="num">from CAD 45</td><td>12 Oct 2026</td></tr><tr><td>Under 6</td><td class="num">free</td><td>12 Oct 2026</td></tr></table>
+        <div class="act"><a class="btn sm" href="#">Book with the operator</a><span class="stub">operator · opens in a new tab</span></div></li>
+        <li class="offer"><div><div class="nm">Ride up, walk down</div><div class="by">variant · one way up</div></div><div class="price"><span class="chip gap">Price not checked yet</span></div></li></ul></section>
+
+    <section class="sec" aria-labelledby="g-a-h"><header><h2 id="g-a-h">How to get there</h2><span class="meta">to the valley station</span></header>
+      <div class="apts"><article class="apt"><div class="hd"><svg class="i"><use href="#park"/></svg><b>Valley station lot</b><span class="chip">Parking</span></div><dl><dt>Fee</dt><dd>Free</dd><dt>Fills by</dt><dd>About 10:00 in July<span class="stub">2 dated reports · Jul 2025, Aug 2025</span></dd></dl></article>
+      <article class="apt"><div class="hd"><svg class="i"><use href="#bus"/></svg><b>Roam bus to the gondola</b><span class="chip">Bus</span></div><dl><dt>From</dt><dd>Banff town · about 15 min</dd><dt>Timetable</dt><dd><a href="#">Roam Transit</a></dd></dl></article></div>
+      <div class="dirrow"><a class="btn primary pp" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the valley station</a><span class="stub">Our point · OpenStreetMap node 2219876 · 51.1442, -115.5734</span></div></section>
+
+    <section class="sec" id="g-when" aria-labelledby="g-wh-h"><header><h2 id="g-wh-h">When to go</h2><span class="meta">2026 timetable used as a pattern</span></header>
+      <div class="today"><span><b>Today:</b> 08:00 – 21:00 · last up 20:30 · last down 21:00</span></div>
+      <table class="hours"><tr><th>Season</th><th>First up</th><th>Last up</th><th>Last down</th></tr><tr><td>Jun – Aug</td><td>08:00</td><td>21:30</td><td class="em">22:00</td></tr><tr><td>Sep</td><td>08:00</td><td>20:30</td><td class="em">21:00</td></tr><tr><td>Oct – May</td><td>10:00</td><td>16:30</td><td class="em">17:00</td></tr></table>
+      <div class="today"><span><b>Best time of day:</b> late afternoon · light on the Bow Valley</span></div></section>
+
+    <section class="sec" aria-labelledby="g-f-h"><header><h2 id="g-f-h">Facilities</h2><span class="meta"><b>5 of 6</b> recorded</span></header><div class="groups" style="border-top:0;margin-top:4px"><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">At both stations</span><span class="sum"><span>toilets at both</span><span>restaurant at the top</span><span>accessible toilet at the top</span><span>Not checked yet: baby change</span></span></button></div></div></section>
+    <section class="sec" id="g-around" aria-labelledby="g-ar-h"><header><h2 id="g-ar-h">On this route you can also</h2><span class="meta">2 things</span></header>
+      <p class="grp">At the payoff: Sulphur Mountain summit</p>
+      <ul class="list"><li class="item"><span class="gly"><svg class="i"><use href="#walk"/></svg></span><div><div class="nm"><a href="#">Sanson's Peak boardwalk</a></div><div class="d">Walk · 1 km return on stairs and boardwalk</div><ul class="chips"><li class="chip"><svg class="i"><use href="#person"/></svg>Any age</li><li class="chip"><svg class="i"><use href="#walk"/></svg>Easy · our grade</li></ul></div><span class="x">at the top</span></li>
+      <li class="item"><span class="gly"><svg class="i"><use href="#cup"/></svg></span><div><div class="nm"><a href="#">Summit restaurant</a></div><div class="d">Food · in the summit station</div></div><span class="x">at the top</span></li></ul></section>
+    <section class="sec" aria-labelledby="g-p-h"><header><h2 id="g-p-h">Nearby, worth adding</h2></header><ul class="list"><li class="item"><span class="gly"><svg class="i"><use href="#walk"/></svg></span><div><div class="nm"><a href="#">Sulphur Mountain trail</a></div><p class="why2">Walk up and ride down, or the reverse if knees prefer.</p><div class="d">our pick · no point stored yet</div><ul class="chips"><li class="chip"><svg class="i"><use href="#walk"/></svg>Moderate · Parks Canada Moderate</li></ul></div><span class="x">same start</span></li></ul>
+      <p class="note">A hand-picked pair with no point (<code>km: null</code>) shows its reason and no distance (CC-adapter 10).</p>
+      <div class="sub"><h3>Similar nearby</h3><ul class="list"><li class="item"><span class="gly"><svg class="i"><use href="#gondola"/></svg></span><div><div class="nm"><a href="#">Lake Louise Summer Gondola</a></div><div class="d">no booking · open-chair option</div></div><span class="x">53 km</span></li></ul></div></section>
+    <section class="sec" aria-labelledby="g-lk-h"><header><h2 id="g-lk-h">Links</h2></header><div class="ltabs"><span aria-selected="true">Official 1</span><span>Hours and rates 1</span><span>Booking 1</span><span>Status 1</span><span>Webcam 1</span></div></section>
+  </div>
+  <aside class="rail"><section class="card"><div class="mapbox"><svg viewBox="0 0 380 260" aria-hidden="true"><rect width="380" height="260" fill="var(--m-land)"/><path d="M50 210 L330 50" stroke="var(--m-line)" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/><circle cx="50" cy="210" r="8" fill="var(--surface)" stroke="var(--m-line)" stroke-width="2.5"/><circle cx="330" cy="50" r="8" fill="var(--m-line)"/></svg><span class="cred">© OpenStreetMap contributors</span></div><a class="btn primary" href="#g-opt"><svg class="i"><use href="#ticket"/></svg>Tickets and times</a><a class="btn" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the valley station</a></section></aside>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 4: LAKE LOUISE (near-empty: the owner's marker rule)
+     ===================================================================== -->
+<div data-page="louise" hidden>
+  <p class="crumbs"><a href="#">Places</a><span>/</span><a href="#">Canada</a><span>/</span><a href="#">Alberta</a><span>/</span>Lake Louise</p>
+  <div class="cols"><div class="main">
+    <header class="cover">
+      <div class="ph none"><svg class="i"><use href="#lake"/></svg></div>
+      <div class="body">
+        <p class="kick-alt">Lake · Banff National Park · Alberta</p>
+        <h1 class="h1-alt">Lake Louise</h1>
+        <div class="badgeline"><button class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth the journey</button><p class="why">A turquoise lake under Victoria Glacier, the image of the Canadian Rockies.</p></div>
+        <p class="summary">The lakefront is a short walk from the lots and the shuttle stop, and the level lakeshore trail runs on for 2.3 km.</p>
+        <p class="gapline"><svg class="i"><use href="#help"/></svg>No licensed photo yet</p>
+        <div class="actions"><a class="btn primary pp" href="#"><svg class="i"><use href="#nav"/></svg>Directions</a><button class="btn"><svg class="i"><use href="#plus"/></svg>Save to a trip</button><button class="btn"><svg class="i"><use href="#share"/></svg>Share</button></div>
+      </div>
+    </header>
+    <ul class="glance" aria-label="At a glance">
+      <li><a href="#"><span class="l"><svg class="i"><use href="#ticket"/></svg>Booking</span><span class="chip gap">Not checked yet</span></a></li>
+      <li><a href="#"><span class="l"><svg class="i"><use href="#bus"/></svg>Getting there</span><span class="v">Shuttle 15 May – 12 Oct · paid parking</span><span class="p">Parks Canada · 2026 dates</span></a></li>
+      <li><a href="#"><span class="l"><svg class="i"><use href="#park"/></svg>Access points</span><span class="chip gap">Not checked yet</span></a></li>
+      <li><a href="#"><span class="l"><svg class="i"><use href="#walk"/></svg>Walk from the lot</span><span class="v">200 m to the shore</span><span class="p">our judgement · distance not stated</span></a></li>
+      <li><a href="#"><span class="l"><svg class="i"><use href="#sun"/></svg>Best time of day</span><span class="chip gap">Not checked yet</span></a></li>
+      <li><a href="#"><span class="l"><svg class="i"><use href="#person"/></svg>Wheelchair</span><span class="v">Partly · 20 accessible stalls</span><span class="p">Parks Canada · read Oct 2026</span></a></li>
+    </ul>
+    <p class="complete"><span class="lvl">Draft</span><span>family checks done · 11 of 20 place checks not done yet · research in progress</span></p>
+
+    <section class="sec" aria-labelledby="lo-w-h"><header><h2 id="lo-w-h">Before you go</h2></header>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: bookings, permits and closures · ask Parks Canada before you go</p>
+      <p class="note">R properties (<code>access_cost</code>, <code>closures</code>) with no value: the section stays and says what is missing, in one line.</p></section>
+
+    <section class="sec suits" aria-labelledby="lo-s-h"><header><h2 id="lo-s-h">Who it suits</h2><span class="research"><b>7 of 7</b> family checks done · read Oct 2026</span></header>
+      <ul class="chips" aria-label="Who it suits"><li><span class="chip"><svg class="i"><use href="#person"/></svg>Any age · our judgement</span></li><li><span class="chip"><svg class="i"><use href="#clock"/></svg>1 h 30 – 3 h on site</span></li><li><span class="chip"><svg class="i"><use href="#stroller"/></svg>All-terrain stroller</span></li></ul>
+      <div class="groups"><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">Who it suits</span><span class="sum"><span>Any age</span><span>wheelchair: partly · 20 accessible stalls</span><span>Not checked yet: carrier, accessible toilet</span></span></button></div><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">The water</span><span class="sum"><span>Not checked yet: swimming, entry, water temperature</span></span></button></div><div class="g"><button class="g-h" aria-expanded="false"><svg class="i chev"><use href="#chev"/></svg><span class="t">When you can go</span><span class="sum"><span>shuttle 15 May – 12 Oct</span><span>road all year · parking fills before sunrise</span></span></button></div></div>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: hazards</p></section>
+
+    <section class="sec" aria-labelledby="lo-o-h"><header><h2 id="lo-o-h">Options and prices</h2></header>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: shuttle seat, park pass and parking prices</p>
+      <p class="note"><code>price</code> is R? ("when anything is sold"). The shuttle is known to need a reservation, so the trigger holds and the gap shows.</p></section>
+
+    <section class="sec" aria-labelledby="lo-a-h"><header><h2 id="lo-a-h">How to get there</h2></header>
+      <p class="gapline" style="margin-top:6px"><svg class="i"><use href="#help"/></svg>Not checked yet: the shuttle, roads and trails that reach the lake</p>
+      <div class="apts" style="margin-top:12px"><article class="apt"><div class="hd"><svg class="i"><use href="#park"/></svg><b>Lower lot</b><span class="chip">Parking</span></div><dl><dt>Walk to</dt><dd>200 m to the shore<span class="stub">our judgement · distance not stated</span></dd><dt>Accessible</dt><dd>20 stalls<span class="stub">Parks Canada</span></dd><dt>Fee</dt><dd><span class="chip gap">Not checked yet</span></dd><dt>Point</dt><dd><span class="chip gap">Not checked yet</span></dd></dl></article></div>
+      <div class="dirrow"><a class="btn primary pp" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the lake</a><span class="stub">Our point · Wikidata Q1367398 · the lake, not a car park; no parking point is stored yet</span></div></section>
+
+    <section class="sec" aria-labelledby="lo-wh-h"><header><h2 id="lo-wh-h">When to go</h2><span class="meta">2026 dates used as a pattern</span></header>
+      <div class="months" role="img" aria-label="Shuttle 15 May to 12 October; road all year with limited parking; best weeks not checked">
+        <span></span><span class="h">J</span><span class="h">F</span><span class="h">M</span><span class="h">A</span><span class="h">M</span><span class="h">J</span><span class="h">J</span><span class="h">A</span><span class="h">S</span><span class="h">O</span><span class="h">N</span><span class="h">D</span>
+        <span class="rl">Shuttle</span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c lim"></span><span class="c on"></span><span class="c on"></span><span class="c on"></span><span class="c on"></span><span class="c lim"></span><span class="c"></span><span class="c"></span>
+        <span class="rl">Road</span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span><span class="c lim"></span>
+        <span class="rl">Best weeks</span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span><span class="c gapc"></span>
+      </div>
+      <div class="legend"><span><i></i>open</span><span><i class="lim"></i>limited: parking fills before sunrise</span><span><i class="gapc"></i>not checked yet</span></div>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: best time of day, best weeks</p></section>
+
+    <section class="sec" aria-labelledby="lo-f-h"><header><h2 id="lo-f-h">Facilities</h2><span class="meta"><b>1 of 8</b> recorded</span></header>
+      <p class="gapline" style="margin-top:6px"><svg class="i"><use href="#help"/></svg>Not checked yet: toilets, drinking water, food, shade, phone signal, picnic, baby change</p>
+      <p class="stub" style="margin-top:6px">Accessible parking: 20 stalls in the lower lot · Parks Canada</p></section>
+
+    <section class="sec" aria-labelledby="lo-ar-h"><header><h2 id="lo-ar-h">At this place you can also</h2><span class="meta">1 thing</span></header>
+      <ul class="list"><li class="item"><span class="gly"><svg class="i"><use href="#boat"/></svg></span><div><div class="nm"><a href="#">Lake Louise canoe rental</a><span class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth a detour</span></div><div class="d">Rental · Fairmont Chateau Lake Louise</div><ul class="chips"><li class="chip gap">Not checked yet · ages</li></ul></div><span class="x">at the boathouse</span></li></ul></section>
+
+    <section class="sec" aria-labelledby="lo-p-h"><header><h2 id="lo-p-h">Nearby, worth adding</h2></header>
+      <p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: walks and stops to add to this one</p>
+      <div class="sub"><h3>Similar nearby</h3><ul class="list"><li class="item"><span class="gly"><svg class="i"><use href="#lake"/></svg></span><div><div class="nm"><a href="#">Moraine Lake</a><span class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth the journey</span></div><div class="d">shuttle or bus only · seat needed</div></div><span class="x">10 km</span></li><li class="item"><span class="gly"><svg class="i"><use href="#lake"/></svg></span><div><div class="nm"><a href="#">Emerald Lake</a></div><div class="d">road and parking · no booking</div></div><span class="x">21 km</span></li></ul></div></section>
+
+    <section class="sec" aria-labelledby="lo-ph-h"><header><h2 id="lo-ph-h">Photos</h2></header><p class="gapline"><svg class="i"><use href="#help"/></svg>No licensed photo yet, so none is shown</p></section>
+    <section class="sec" aria-labelledby="lo-lk-h"><header><h2 id="lo-lk-h">Links</h2></header><div class="ltabs"><span class="none">Official · not checked yet</span><span class="none">Conditions · not checked yet</span><span class="none">Booking · not checked yet</span></div></section>
+    <section class="sec" aria-labelledby="lo-fs-h"><header><h2 id="lo-fs-h">Facts and sources</h2><span class="meta">4 sources</span></header></section>
+    <p class="note"><b>Lake Louise after S1.</b> The family checks are done (the R2a sidecar has age band, stroller, wheelchair, time on site, walk, access season), but almost nothing else in the contract is: 11 place gaps, each at its own slot, each in the words "Not checked yet". Section 5 is absent because it is all N for a lake. No section is hidden for being empty.</p>
+  </div>
+  <aside class="rail"><section class="card"><div class="mapbox"><svg viewBox="0 0 380 240" aria-hidden="true"><rect width="380" height="240" fill="var(--m-land)"/><path d="M120 120 C170 90 300 90 340 130 C310 180 170 190 120 160Z" fill="var(--m-water)"/><circle cx="130" cy="140" r="7" fill="var(--m-line)"/></svg><span class="cred">© OpenStreetMap contributors</span></div><p class="stub">One point: the lake (Wikidata). No access points stored yet.</p><a class="btn primary" href="#"><svg class="i"><use href="#nav"/></svg>Directions to the lake</a></section></aside>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 5: EMPTY, GAP AND EDGE STATES, PER SECTION
+     ===================================================================== -->
+<div data-page="states" hidden>
+  <div class="intro"><h1>States per section</h1><p>For each section: the value look, the "searched, none" answer, the R gap (stays at its slot), the A closing line, and when the section is not drawn at all. Wording is the contract's honest-gap wording; "Not checked yet" is the only phrase for a gap.</p></div>
+  <div class="cat">
+    <section class="sec"><header><h2>1 · Cover</h2></header>
+      <div class="st"><div class="lab">badge, three kinds (one at most)</div><ul class="chips"><li class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth the journey</li><li class="chip badge"><svg class="i"><use href="#sign"/></svg>Worth a detour</li><li class="chip badge"><svg class="i"><use href="#sign"/></svg>Local favourite</li></ul></div>
+      <div class="st"><div class="lab">judged, no badge (a filler or local place)</div><p class="stub" style="margin:0">nothing drawn: the badge is never negative</p></div>
+      <div class="st"><div class="lab">not judged yet (draw is R and missing)</div><ul class="chips"><li class="chip badge gap">Worth the trip? Not checked yet</li></ul></div>
+      <div class="st"><div class="lab">the pointer (local or regional draw, a far_pointer exists)</div><p class="pointer" style="margin:0"><svg class="i"><use href="#compass"/></svg><span>Coming from far? Nearby, <a href="#">Lake Louise</a> is the one people travel for. 6 km</span></p></div>
+      <div class="st"><div class="lab">the pointer under the day lens</div><p class="pointer" style="margin:0"><svg class="i"><use href="#car"/></svg><span>1 h 50 from Calgary City Hall</span></p></div>
+      <div class="st"><div class="lab">route: the payoff carries the draw</div><p class="payoff" style="margin:0"><svg class="i"><use href="#mtn"/></svg>To <a href="#">Sentinel Pass</a> · photo and judgement from the pass</p></div>
+      <div class="st"><div class="lab">route: no payoff place recorded yet</div><p class="payoff" style="margin:0"><svg class="i"><use href="#mtn"/></svg><span class="chip gap">Payoff place not checked yet</span> the route carries the judgement until it is</p></div>
+    </section>
+    <section class="sec"><header><h2>2 · At a glance</h2></header>
+      <div class="st"><div class="lab">value, R gap, conflict</div><ul class="glance" style="margin:0"><li><a href="#"><span class="l">Walk from the car</span><span class="v">350 m</span><span class="p">Parks Canada · read 12 Oct 2026</span></a></li><li><a href="#"><span class="l">Best time of day</span><span class="chip gap">Not checked yet</span></a></li><li><a href="#"><span class="l">Fee</span><span class="v">CAD 11</span><span class="chip honest"><svg class="i"><use href="#tri"/></svg>2 values</span></a></li></ul></div>
+      <div class="st"><div class="lab">fewer than six properties for the type</div><p class="stub" style="margin:0">the strip draws only the slots the type has (four slots: two rows of two on phone, one row of four at 1440); it never pads with empty boxes</p></div>
+    </section>
+    <section class="sec"><header><h2>3 · Before you go</h2></header>
+      <div class="st"><div class="lab">closed now (in force today, or in the trip window)</div><ul class="warns"><li class="crit"><svg class="i g"><use href="#closed"/></svg><span class="t"><span class="k">Closed</span>Moraine Lake Road is closed from 14 October until June.</span><span class="s">Parks Canada status page · read 15 Oct 2026</span></li></ul></div>
+      <div class="st"><div class="lab">checked, nothing to warn about (a value)</div><p class="okline"><svg class="i"><use href="#ticket"/></svg>No booking or permit needed · Parks Canada · read 12 Oct 2026</p></div>
+      <div class="st"><div class="lab">R gap</div><p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: bookings, permits and closures · ask before you go</p></div>
+    </section>
+    <section class="sec"><header><h2>5 · The route or the activity</h2></header>
+      <div class="st"><div class="lab">route with no track yet</div><p class="statline" style="margin:0"><span>5.2 km <em>return</em></span><span>310 m <em>up</em></span></p><p style="margin:8px 0 0"><span class="chip honest"><svg class="i"><use href="#tri"/></svg>Shape estimated from length and climb</span></p></div>
+      <div class="st"><div class="lab">unconfirmed line (L4b)</div><p style="margin:0"><span class="chip honest"><svg class="i"><use href="#tri"/></svg>Route not confirmed yet</span> <span class="stub" style="margin-left:8px">dashed on the map · no GPX or KML</span></p></div>
+      <div class="st"><div class="lab">R gap: distance and climb missing</div><p class="statline" style="margin:0"><span class="chip gap">Not checked yet · distance</span><span class="chip gap">Not checked yet · climb</span></p></div>
+      <div class="st"><div class="lab">not drawn</div><p class="stub" style="margin:0">a place whose section-5 properties are all N or homed in Who it suits (lake, viewpoint, museum)</p></div>
+    </section>
+    <section class="sec"><header><h2>6 · Options and prices</h2></header>
+      <div class="st"><div class="lab">price published, window not</div><ul class="offers" style="margin:0"><li class="offer"><div><div class="nm">Minitrekking</div><div class="by">Hielo y Aventura · experience</div></div><div class="price">ARS 310,000<small>adult · 2026 price</small></div><ul class="chips"><li class="chip rule"><svg class="i"><use href="#lock"/></svg>Age 8 – 65</li><li class="chip gap">Booking window not checked yet</li></ul><div class="act"><span class="stub">Where: <span class="chip gap">Not checked yet</span> · no meeting place recorded</span></div></li></ul></div>
+      <div class="st"><div class="lab">searched, not published (a value)</div><p class="okline" style="margin:0"><svg class="i"><use href="#ticket"/></svg>Price not published · searched 12 Oct 2026 · ask the operator</p></div>
+      <div class="st"><div class="lab">not drawn</div><p class="stub" style="margin:0">nothing is sold on or at the record: R? triggers false, every property N</p></div>
+    </section>
+    <section class="sec"><header><h2>7 · How to get there</h2></header>
+      <div class="st"><div class="lab">ways known, access point missing</div><ul class="ways"><li class="way"><span class="gly"><svg class="i"><use href="#walk"/></svg></span><div><div class="nm"><a href="#">Fairview Lookout trail</a></div><div class="d">1.2 km one way · 100 m up · Easy · Parks Canada Easy</div></div><span class="go"><svg class="i"><use href="#chev"/></svg></span></li></ul><p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: parking or stop</p></div>
+      <div class="st"><div class="lab">searched, none (a value)</div><p class="okline" style="margin:0"><svg class="i"><use href="#bus"/></svg>No public transport found · searched 12 Oct 2026</p></div>
+      <div class="st"><div class="lab">fill time with one report only</div><p class="stub" style="margin:0">Fills by: <span class="chip gap">Not checked yet</span> · one dated report (Aug 2025); two are needed for a pattern</p></div>
+    </section>
+    <section class="sec"><header><h2>8 · When to go</h2></header>
+      <div class="st"><div class="lab">hours not published (a value with the search date)</div><p class="okline" style="margin:0"><svg class="i"><use href="#clock"/></svg>Hours not published · check before you go · searched 12 Oct 2026</p></div>
+      <div class="st"><div class="lab">always open (a value)</div><p class="okline" style="margin:0"><svg class="i"><use href="#clock"/></svg>Open at all hours · Parks Canada</p></div>
+      <div class="st"><div class="lab">R gap: season of an operated place</div><p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: season and hours · ask the operator</p></div>
+    </section>
+    <section class="sec"><header><h2>10 and 11 · Around and nearby</h2></header>
+      <div class="st"><div class="lab">more than six things</div><ul class="list"><li class="item"><span class="gly"><svg class="i"><use href="#boat"/></svg></span><div><div class="nm"><a href="#">Niagara City Cruises</a></div><div class="d">Boat tour · at the cruise dock</div></div><span class="x">at the dock</span></li></ul><button class="showall"><svg class="i"><use href="#chev"/></svg>Show all 9</button></div>
+      <div class="st"><div class="lab">checked, nothing short enough to add (a value)</div><p class="okline" style="margin:0"><svg class="i"><use href="#eye"/></svg>Nothing nearby is short enough to add · checked 18 Oct 2026</p></div>
+      <div class="st"><div class="lab">A gap: pairs not researched</div><p class="gapline"><svg class="i"><use href="#help"/></svg>Not checked yet: walks and stops to add to this one</p></div>
+      <div class="st"><div class="lab">similar nearby: none within 100 km</div><p class="stub" style="margin:0">the "Similar nearby" block is not drawn (derived, not researched: no marker)</p></div>
+    </section>
+  </div>
+</div>
+
+  <p class="foot">Place page sections mock · S1 Part 0 · 18 Oct 2026 · tokens from docs/v2/design/foundation · values illustrative, prices and times are 2026 patterns · ?page=, ?theme=dark, ?clean hides the spec notes</p>
+</main>
+
+<div class="dev" aria-label="Mock switcher"><span>theme</span><button id="th">dark</button></div>
+<script>
+const q=new URLSearchParams(location.search);
+if(q.get('theme')==='dark')document.documentElement.dataset.theme='dark';
+if(q.has('clean'))document.body.classList.add('clean');
+const page=q.get('page')||'moraine';
+document.querySelectorAll('[data-page]').forEach(d=>d.hidden=d.dataset.page!==page);
+document.querySelectorAll('.switch a').forEach(a=>{const u=new URLSearchParams(q);u.set('page',a.dataset.p);a.href='?'+u;if(a.dataset.p===page)a.setAttribute('aria-current','page')});
+const th=document.getElementById('th');
+const sync=()=>th.textContent=document.documentElement.dataset.theme==='dark'?'light':'dark';
+th.onclick=()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';sync()};sync();
+if(q.has('nodev'))document.querySelector('.dev').remove();
+// group headers: expand in place, smooth, keep scroll
+document.querySelectorAll('.g-h').forEach(b=>b.onclick=()=>{const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',open);const w=b.nextElementSibling;if(w&&w.classList.contains('gwrap'))w.classList.toggle('shut',!open)});
+// badge provenance: non-modal, in flow, Esc closes and returns focus
+document.querySelectorAll('[data-pop]').forEach(b=>{const p=document.getElementById(b.dataset.pop);b.onclick=()=>{const o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',o)};p.querySelector('.close').onclick=()=>{p.hidden=true;b.setAttribute('aria-expanded','false');b.focus()};p.addEventListener('keydown',e=>{if(e.key==='Escape'){p.hidden=true;b.focus()}})});
+if(q.has('pop'))document.querySelectorAll('[data-pop]').forEach(b=>b.click());
+// glance slot: scroll to the home section and flash it
+document.querySelectorAll('.glance a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});t.classList.remove('flash');void t.offsetWidth;t.classList.add('flash')}));
+</script>
+</body>
+</html>
