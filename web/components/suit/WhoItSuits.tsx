@@ -15,7 +15,6 @@ function Group({ g, slugs }: { g: SuitGroup; slugs: Record<string, string> }) {
   return (
     <details className="su-group" data-group={g.id} open={g.open && !echo}>
       <summary>
-        <span className="su-chev" aria-hidden="true" />
         <span className="su-gtitle">{g.title}</span>
         <span className="su-gsum">
           {rows.filter((r) => !r.gap).map((r, i) => (
@@ -30,7 +29,7 @@ function Group({ g, slugs }: { g: SuitGroup; slugs: Record<string, string> }) {
       </summary>
       <div className="su-gbody">
         {rows.map((r) => (
-          <RowLine key={r.key} row={fromSuit(r)} slugs={slugs} />
+          <RowLine key={r.key} row={fromSuit(r)} slugs={slugs} id={`su-${r.key}`} />
         ))}
         {closing ? (
           <p className="su-closing">

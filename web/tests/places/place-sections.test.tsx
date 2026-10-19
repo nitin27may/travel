@@ -46,7 +46,7 @@ describe('timeline fit chip (D6)', () => {
   const suit = (kidsFrom: number | null, kidsBasis: ItemSuit['kidsBasis']): ItemSuit => ({ chips: [], kidsFrom, kidsBasis, badge: null });
   it('fits, advice fail and rule fail, by the youngest in the party', () => {
     expect(fitFor(suit(6, 'advice'), 8)?.kind).toBe('fits');
-    expect(fitFor(suit(6, 'advice'), 3)).toMatchObject({ kind: 'advice_fail', text: 'Not suited to a 3-year-old' });
+    expect(fitFor(suit(6, 'advice'), 3)).toMatchObject({ kind: 'advice_fail', text: 'Not suited to age 3' });
     expect(fitFor(suit(8, 'rule'), 6)).toMatchObject({ kind: 'rule_fail', text: 'Not for under 8 · operator rule' });
     expect(fitFor(suit(null, null), 6)).toBeNull();
     expect(fitFor(suit(8, 'rule'), null)).toBeNull();

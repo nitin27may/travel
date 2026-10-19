@@ -23,7 +23,8 @@ Nothing else from the model renders. This page replaces that section.
 | D6 | **Fit against a party profile has three colours**: fits = `--ok` chip; our advice says no = `--warn` chip ("Not suited to a 3-year-old"); an operator rule says no = `--crit` chip ("Not for under 8 · operator rule"). | tokens.md 3: `--warn` is possible-but-check, `--crit` is "breaks the day". The timeline design's `--warn` example is an advice fail and stays as written. |
 | D7 | **The place page section = chip row, one warning line, a research line, then six groups.** Limits and Who it suits are open; Effort and time, the kind block, Facilities and When you can go are collapsed to a header with their values inline. One click opens a group; one click on any value opens its provenance. | P2 and P3: the chip row answers "can we go"; the groups answer the next questions one click each; provenance is one more. |
 | D8 | **A missing R field keeps its row and shows the gap chip; missing A fields collapse into one closing line per group.** The section head carries "9 of 12 family checks done · read 12 Oct 2026". | The owner's rule that empty markers stay. The research line frames every gap as in progress, so the section reads as unfinished research, not as a broken page. |
-| D9 | **A group that is N for the whole profile is not drawn.** A bungee page has no Facilities or Effort group and no marker for them. | Applicability 5.2. This is not a missing-data case: nothing is missing. The owner's marker rule applies to sections with R or A fields only. |
+| D9 | **A group that is N for the whole profile is not drawn.** A bungee page has no Facilities group; its Effort and time group is one row, time on site (D11). | Applicability 5.2. This is not a missing-data case: nothing is missing. The owner's marker rule applies to sections with R or A fields only. |
+| D11 | **A group draws when any of its properties is R or A for the type, even one row.** A bungee page keeps "Effort and time" with its one row, time on site (`on_site_min` is R for bungee; its family-effort grade is N). Section 2.2's statement that a bungee page has no Effort group is withdrawn; what a bungee page does not show is an effort *name*. | Applicability 5.2 and D9 agree: only an all-N group is absent. Dropping a group that holds an R property would hide a missing R check (owner marker rule). Decided in S1 Part B, 3.21. |
 | D10 | **Filters: "Kids" primary; "Effort" and "Stroller" under More filters.** Exact labels and options in section 5. | P4 decision (four primary filters) and T4. |
 
 ## 2. The place page section, per kind
@@ -434,6 +435,7 @@ listed in its change log under 18 Oct 2026 (display rules).
 | Date | Change |
 |---|---|
 | 2026-10-18 | First design: six kinds, chip vocabulary (rule, advice, gap, fits, two fails), card and day-row merging, three filter labels, 13 acceptance checks, 10 conflicts with resolutions; mock rendered at 1440 and 390 in light and dark |
+| 2026-10-19 | S1 Part B: D11 settles 3.21 (a bungee page keeps its one-row "Effort and time" group); the built page implements sections 1 to 4 and the three chip looks, with native disclosures for groups and provenance |
 | 2026-10-18 | CF: "No minimum age" moves from `none_stated` to the new `no_limit` state; section 9 records the pending `usable_partial` label "usable, partly unverified" |
 
 ## Rendering check (18 Oct 2026)

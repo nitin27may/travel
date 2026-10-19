@@ -55,10 +55,12 @@ test.describe('places list', () => {
     await expect(page.locator('article.card .src', { hasText: 'Instagram post' }).first()).toContainText('+1');
   });
 
-  test('every researched trail is listed with its completeness badge', async ({ page, site }) => {
+  test('every researched trail is listed, with no workshop word on its card', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?kind=trail&q=tre cime`);
     const card = page.locator('article.card', { hasText: 'Tre Cime di Lavaredo loop' });
-    await expect(card.locator('.pc-complete')).toHaveText(/Usable · 13 of 15/);
+    // the engine puts it below Usable, and a place with only the basics has no badge: "Draft" is the workshop's word
+    await expect(card.locator('.pc-complete')).toHaveCount(0);
+    await expect(card).not.toContainText('Draft');
     await expect(card.getByRole('link', { name: /^Place page/ })).toHaveAttribute('href', TRAIL);
   });
 
@@ -93,9 +95,9 @@ test.describe('place page', () => {
     await page.goto(`${site.url}${TRAIL}`);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tre Cime di Lavaredo loop');
     await expect(page.locator('.pl-kicker')).toHaveText(/Trail · Auronzo · Veneto/);
-    await expect(page.locator('.pl-glance li').first()).toContainText('read 18 Oct 2026');
-    const hazards = await page.locator('.pl-hazards-top').boundingBox();
-    const route = await page.locator('#route').boundingBox();
+    await expect(page.locator('#glance')).toContainText('read 18 Oct 2026');
+    const hazards = await page.locator('#warnings').boundingBox();
+    const route = await page.locator('#activity').boundingBox();
     expect((hazards?.y ?? 0) < (route?.y ?? 0)).toBe(true);
     const dir = page.getByRole('link', { name: /Google Maps directions/ });
     await expect(dir).toHaveAttribute('href', /destination=46\.61285,12\.29267/);
@@ -153,10 +155,10 @@ test.describe('place page', () => {
   });
 
   test('other kinds open with their own facts: a town, an area and a viewpoint', async ({ page, site }) => {
-    for (const [slug, text] of [['bolzano', 'Bolzano'], ['capri', 'Places in Capri'], ['cadini-di-misurina-viewpoint', 'Light']] as const) {
+    for (const [slug, text] of [['bolzano', 'Bolzano'], ['capri', 'Places in Capri'], ['cadini-di-misurina-viewpoint', 'Cadini']] as const) {
       await page.goto(`${site.url}/places/${slug}/`);
       await expect(page.getByText(text).first()).toBeVisible();
-      await expect(page.locator('.pl-glance')).toBeVisible();
+      await expect(page.locator('.pl-glance, #glance')).toBeVisible();
     }
   });
 
