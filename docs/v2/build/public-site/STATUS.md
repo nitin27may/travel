@@ -150,6 +150,7 @@ Q1-Q24 are in `BACKLOG.md`, each with a recommendation. "Go with your recommenda
 
 | Service | Port | What |
 |---|---|---|
+| http.server (pid in /tmp/v2preview-server.pid) | 3440 | `/tmp/v2preview`, a copy of `web/out` built from v2 HEAD 1cf82d5 (19 Oct), behind https://bbs-increases-festival-ccd.trycloudflare.com (pid in /tmp/v2preview-tunnel.pid). Built with `web/.env.local` present (public maps key only; the ORS key was checked absent from the output). Rebuild and recopy after each merge |
 | http.server | 5197 | `docs/v2/design`, behind https://accountability-workshops-refused-rural.trycloudflare.com (mocks: `/trip-page/mock/`, `/globe/mock/`, `/suitability-display/mock/`) |
 | http.server | 3430 | `/tmp/l2preview/web/out`, an older build of the site, behind https://storage-repeat-reflects-growing.trycloudflare.com. Rebuild it from v2 HEAD before showing it again |
 
