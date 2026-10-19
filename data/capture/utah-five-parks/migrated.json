@@ -169,7 +169,7 @@
     },
     {
       "ref": "trip/utah-five-parks/sight:goblin valley",
-      "type": "nature.protected.national_park",
+      "type": "nature.protected.state_provincial_park",
       "layer": "place",
       "name": "Goblin Valley"
     },

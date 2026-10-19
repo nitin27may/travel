@@ -4,6 +4,26 @@
   "note": "The reviewed assignment of a type to every record (M1). Each record takes the type that data/vocab/types.json gives its kind and subkind (the legacy pairs) unless it has an entry here. The record keeps the suitability profile it had: the migration test pins that.",
   "overrides": [
     {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "type": "nature.protected.state_provincial_park",
+      "reason": "a provincial park by name; the profile stays area, as for sight/park."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "type": "nature.protected.state_provincial_park",
+      "reason": "a provincial park by name; the profile stays area, as for sight/park."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "type": "nature.protected.state_provincial_park",
+      "reason": "a provincial park by name (Elk Lakes Provincial Park); the profile stays area, as for sight/park."
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "type": "nature.protected.state_provincial_park",
+      "reason": "a provincial park by name (Top of the World Provincial Park); the profile stays area, as for sight/park."
+    },
+    {
       "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
       "name": "Lagazuoi tunnels",
       "reason": "A walk cut out of a place (S0b); named from its parent. It starts at the parent.",
@@ -47,6 +67,11 @@
       "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
       "type": "culture.heritage.dam",
       "reason": "A dam; the profile stays sight, as for sight/attraction."
+    },
+    {
+      "ref": "trip/utah-five-parks/sight:goblin valley",
+      "type": "nature.protected.state_provincial_park",
+      "reason": "a Utah state park, not a national park; the profile stays area, as for sight/park."
     }
   ]
 }
