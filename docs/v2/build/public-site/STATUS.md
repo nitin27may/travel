@@ -70,6 +70,30 @@ Open for the coordinator, not the owner: SQ1 phase 2 spike (Q38), CS7 batch 3 (r
 
 **Owner instruction (19 Oct): he reviews at stage 6 only. Do not ask for review or approvals before then; finish the remaining stage 3 work (S1b round 4, L4c page seeds for capture-only places, CS7 batch 3, SQ1 phase 2 spike), stage 4 (Opus design review and polish rows 4.4-4.9, 2.41), stage 5 (cross-model checks), then rebuild the preview from v2 HEAD, run Lighthouse on it (2.47) and hand him the link. Stage 7 only after his approval.**
 
+## Stage 4 plan (19 Oct)
+
+[STAGE4-plan.md](STAGE4-plan.md) holds stages 4 to 7, with briefs in [briefs/](briefs/). The lanes start when D2 (with CS7c inside it) merges.
+
+| Lane | Brief | Work | Merge |
+|---|---|---|---|
+| SHL | [briefs/SHL.md](briefs/SHL.md) | e2e on the GPU (3.34), phone bar Search slot, home order at 390 | 1 |
+| PLC | [briefs/PLC.md](briefs/PLC.md) | place pages (4.9, 4.12), map adapter (3.31, 4.2), seed rules and duplicates (3.58, 3.55) | 2 |
+| TRP | [briefs/TRP.md](briefs/TRP.md) | trip page polish (4.4, 4.10), the map follows the day, kind-aware stop links (3.54, 3.57) | 3 |
+| GLB | [briefs/GLB.md](briefs/GLB.md) | globe stage-4 fixes (4.5, 4.7, 4.13, 3.46) | 4 (any time) |
+| LST | [briefs/LST.md](briefs/LST.md) | list shards (3.59), filters (4.6, 4.11), search (4.8, 4.14) | 5 |
+| CS7d | [briefs/CS7d.md](briefs/CS7d.md) | data: duplicates, shells, stop points, seasons, dated texts, held-back tracks | batch A before PLC's final shots, batch B before LST's |
+| SQ2s | smart-search.md section 10 | phase 2 spike, measure only; ship after go-live | any |
+
+Then:
+- REVIEW4, the whole-site Opus review (4.1, 4.2);
+- FIX4 (4.3);
+- the stage 5 cross-model checks (5.1-5.6);
+- the stage 6 preview on a Pages preview branch with Lighthouse (6.3, 2.47).
+
+Stage 7 waits for the owner. Owner decisions Q42-Q49 go to him with the preview, except Q42, which is needed only if the wrangler login has expired.
+
+Conflicts found: C1-C11 in the plan, section 8. TS1 and TS1b are merged (2.50 is done). D2 edits six BACKLOG rows, which this plan left alone.
+
 ## Merged so far (all verified)
 
 | Lane | Merge | What |
