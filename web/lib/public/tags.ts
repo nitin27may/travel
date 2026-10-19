@@ -3,6 +3,7 @@
 // tag; `buildTripTags` calls them for a trip. An overview trip gets Where, Length and When only (no fake zeros).
 import { lengthFilter } from '@travel/core/derive/length.ts';
 import type { LengthFilter } from '@travel/core/derive/length.ts';
+import { ageRules } from '@travel/core/schedule/rules.ts';
 import { selectVariant } from '@travel/core/schedule/select.ts';
 import { DEFAULT_PROFILE } from '@travel/core/schedule/types.ts';
 import type { DayVariant, Profile, ScheduleDayInput, ScheduleItem } from '@travel/core/schedule/types.ts';
@@ -34,6 +35,8 @@ export interface TripTags {
   /** 1 to 12 */
   when: number[];
   kidsFrom: number | null;
+  /** `computed` (the scheduler, on known data), `plan` (the plan's own number) or null. */
+  kidsBasis: 'computed' | 'plan' | null;
   hike: HikeEffort | null;
   stroller: StrollerDays | null;
   activities: TagRef[];
@@ -94,31 +97,79 @@ export function hikeTag(effort: string | null): HikeEffort | null {
 
 const familyProfile = (youngest: number): Profile => ({ ...DEFAULT_PROFILE, party: 'family', youngest });
 
-/**
- * Kids from N: the lowest youngest-age (0 to 17) for which the scheduler finds a fitting variant on every day. Null when the trip has
- * no scheduled day or no age fits (the plan is for adults).
- */
-export function kidsFromTag(days: readonly ScheduleDayInput[]): number | null {
-  if (!days.length) return null;
-  for (let age = 0; age <= 17; age += 1) {
-    const p = familyProfile(age);
-    if (days.every((d) => d.variants.length > 0 && selectVariant(d, p).fits)) return age;
-  }
-  return null;
+export interface KidsResult {
+  /** The published number: the lowest age that fits every day on known data. 0 means every age. Null when it cannot be said. */
+  age: number | null;
+  /** The lowest age at which the scheduler says every day fits, known or not (null: no age fits). */
+  fitAge: number | null;
+  /** Items the fit rests on but nothing is known about (a gap is never a fit). Empty when `age` is set. */
+  unknown: { day: number; item: string }[];
+  /** The item that sets the number: the one with the highest minimum age in the chosen variants. */
+  decider: string | null;
 }
 
-/** Hike effort: the maximum family effort of the trails in the default variant of each day (FE 1-2 easy, 3 moderate, 4-5 strenuous). */
-export function hikeEffortTag(days: readonly ScheduleDayInput[], effortOf: (item: ScheduleItem) => number | null): HikeEffort | null {
+/**
+ * Kids from N: the lowest youngest-age (0 to 17) for which the scheduler finds a fitting variant on every day, counted only when the fit
+ * rests on known data. A day whose chosen variant holds an item with no age and no distance on record is UNKNOWN for that age, not a fit:
+ * the answer is then null (the card keeps the plan's own number), never a small number from missing data. `known` says whether an item
+ * has the data a fit needs. A variant with a trail whose known family effort is above what the age can do (`ageRules(age).maxEffort`) is not
+ * a fit at that age, so a strenuous hike cannot sit under "Kids from 0".
+ */
+export function kidsFromTag(days: readonly ScheduleDayInput[], known: (item: ScheduleItem) => boolean, effortOf: (item: ScheduleItem) => number | null = () => null): KidsResult {
+  const none: KidsResult = { age: null, fitAge: null, unknown: [], decider: null };
+  if (!days.length || days.some((d) => !d.variants.length)) return none;
+  for (let age = 0; age <= 17; age += 1) {
+    const p = familyProfile(age);
+    const cap = ageRules(age).maxEffort;
+    const picks = days.map((d) => {
+      const doable = d.variants.filter((v) => v.items.every((i) => i.kind !== 'trail' || (effortOf(i) ?? 0) <= cap));
+      return { d, sel: doable.length ? selectVariant({ ...d, variants: doable }, p) : null };
+    });
+    if (!picks.every((x) => x.sel?.fits)) continue;
+    const unknown = picks.flatMap(({ d, sel }) => sel!.variant.items.filter((i) => !i.optional && !known(i)).map((i) => ({ day: d.day, item: i.title })));
+    let decider: string | null = null;
+    let top = -1;
+    for (const { sel } of picks) for (const i of sel!.variant.items) if ((i.minAge ?? -1) > top) { top = i.minAge ?? -1; decider = i.title; }
+    return unknown.length ? { age: null, fitAge: age, unknown, decider } : { age, fitAge: age, unknown: [], decider };
+  }
+  return none;
+}
+
+export interface HikeResult {
+  value: HikeEffort | null;
+  /** The trail that sets it, with the day and the variant it is in. */
+  decider: string | null;
+  /** Trails in the chosen variants whose effort is not on record (they are left out, never counted as easy). */
+  unknown: number;
+}
+
+/**
+ * Hike effort: the maximum family effort of the trails with a known effort in the variant the default FAMILY profile picks on each day
+ * (FE 1-2 easy, 3 moderate, 4-5 strenuous). An adults-only variant is never the family's, so it cannot set the tag.
+ */
+export function hikeEffortTag(days: readonly ScheduleDayInput[], effortOf: (item: ScheduleItem) => number | null, profile: Profile = familyProfile(8)): HikeResult {
   let max: number | null = null;
+  let decider: string | null = null;
+  let unknown = 0;
   for (const d of days) {
-    if (!d.variants.length) continue;
-    for (const it of selectVariant(d, DEFAULT_PROFILE).variant.items) {
+    // a variant written for adults is never the family's, even when the scheduler would let it fit
+    const family = d.variants.filter((v) => v.audience !== 'adults');
+    if (!family.length) continue;
+    const sel = selectVariant({ ...d, variants: family }, profile);
+    for (const it of sel.variant.items) {
       if (it.kind !== 'trail') continue;
       const fe = effortOf(it);
-      if (fe !== null && (max === null || fe > max)) max = fe;
+      if (fe === null) {
+        unknown += 1;
+        continue;
+      }
+      if (max === null || fe > max) {
+        max = fe;
+        decider = `${it.title} (day ${d.day}, variant ${sel.variant.key}, FE ${fe})`;
+      }
     }
   }
-  return max === null ? null : max <= 2 ? 'easy' : max === 3 ? 'moderate' : 'strenuous';
+  return { value: max === null ? null : max <= 2 ? 'easy' : max === 3 ? 'moderate' : 'strenuous', decider, unknown };
 }
 
 /** The easiest variant of a day: the one written for an easy day, else the lowest rank. */
@@ -266,12 +317,19 @@ export interface TagContext {
   tagLabel: (id: string) => string | null;
 }
 
-/** Where a derived value replaced a hand-typed one and the two differ (the hand-back lists them). */
+/** One derived tag of one trip against its hand-typed value, for docs/v2/research/trip-tag-conflicts.md. */
 export interface TagConflict {
   trip: string;
   field: 'kidsFrom' | 'hike';
   typed: string | number | null;
+  /** The scheduler's answer, or null when it could not give one on known data. */
   computed: string | number | null;
+  /** What the card shows. */
+  shown: string | number | null;
+  /** The item that decides the computed value. */
+  decider: string | null;
+  /** What was missing, or "none". */
+  gap: string;
 }
 
 export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagConflict[] = []): TripTags {
@@ -281,6 +339,7 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
     length: lengthTag(trip.nights),
     when: trip.season?.months ?? [],
     kidsFrom: null,
+    kidsBasis: null,
     hike: null,
     stroller: null,
     activities: [],
@@ -295,24 +354,53 @@ export function buildTripTags(trip: PublicTrip, ctx: TagContext, conflicts: TagC
   const inputs = trip.days.map((d) => d.scheduleInput).filter((x): x is ScheduleDayInput => x !== null);
   const refByName = new Map<string, string[]>();
   for (const { rec } of ctx.world.cap.values()) if (rec.name && rec.layer !== 'offer') refByName.set(normName(rec.name), [...(refByName.get(normName(rec.name)) ?? []), rec.ref]);
-  const suitOf = (item: ScheduleItem) => {
+  const refOf = (item: ScheduleItem): string | null => {
     const bySlug = item.placeSlug ? ctx.refOfSlug.get(item.placeSlug) : null;
     const byName = refByName.get(normName(item.title));
-    const ref = bySlug ?? (byName?.length === 1 ? byName[0] : null);
+    return bySlug ?? (byName?.length === 1 ? byName[0]! : null);
+  };
+  const suitOf = (item: ScheduleItem) => {
+    const ref = refOf(item);
     return ref ? ctx.world.suit.get(ref)?.rec : undefined;
   };
 
-  // Kids from N and Hike effort come from the scheduler; the hand-typed values stand only where it cannot answer
+  // Kids from N and Hike effort come from the scheduler on known data; the plan's own typed value stands where it cannot answer
   const typedHike = hikeTag(trip.effort);
-  const kids = kidsFromTag(inputs);
-  base.kidsFrom = kids ?? trip.ageFit;
-  if (kids !== null && kids !== trip.ageFit) conflicts.push({ trip: trip.slug, field: 'kidsFrom', typed: trip.ageFit, computed: kids });
-  const hike = hikeEffortTag(inputs, (item) => {
+  const isNeutral = (item: ScheduleItem): boolean => {
+    if (['meal', 'break', 'rest', 'checkin', 'checkout', 'transfer'].includes(item.kind)) return true;
+    const ref = refOf(item);
+    const type = ref ? ctx.world.cap.get(ref)?.rec.type ?? '' : '';
+    return /^(settlement|access|wheels\.drive)/.test(type);
+  };
+  const ageKnown = (item: ScheduleItem): boolean => {
+    if (isNeutral(item)) return true;
+    // a trail is tested on its walk (distance), anything else needs an age on record
+    if (item.kind === 'trail' && item.stats?.distanceKm != null) return true;
+    if (item.minAge !== null) return true;
+    const s = suitOf(item)?.suitability;
+    if (!s) return false;
+    const known = (v: { state: string } | undefined) => v !== undefined && (v.state === 'value' || v.state === 'no_limit');
+    return known(s.age_band) || known(s.min_age);
+  };
+  const effortOf = (item: ScheduleItem): number | null => {
     const s = suitOf(item);
     return s ? familyEffortOf(s) : null;
-  });
-  base.hike = hike ?? typedHike;
-  if (hike !== null && hike !== typedHike) conflicts.push({ trip: trip.slug, field: 'hike', typed: typedHike, computed: hike });
+  };
+  const kids = kidsFromTag(inputs, ageKnown, effortOf);
+  base.kidsFrom = kids.age ?? trip.ageFit;
+  base.kidsBasis = kids.age !== null ? 'computed' : trip.ageFit !== null ? 'plan' : null;
+  if (inputs.length) {
+    conflicts.push({
+      trip: trip.slug, field: 'kidsFrom', typed: trip.ageFit, computed: kids.age, shown: base.kidsFrom, decider: kids.decider,
+      gap: kids.unknown.length ? `${kids.unknown.length} item(s) with no age or distance on record, e.g. ${kids.unknown.slice(0, 3).map((u) => `${u.item} (day ${u.day})`).join('; ')}; the scheduler's fit age ${kids.fitAge} rests on them` : kids.fitAge === null ? 'no age fits every day' : 'none',
+    });
+  }
+  const profile: Profile = trip.schedule?.defaultProfile.party === 'family' ? trip.schedule.defaultProfile : familyProfile(8);
+  const hike = hikeEffortTag(inputs, effortOf, profile);
+  base.hike = hike.value ?? typedHike;
+  if (inputs.length) {
+    conflicts.push({ trip: trip.slug, field: 'hike', typed: typedHike, computed: hike.value, shown: base.hike, decider: hike.decider, gap: hike.unknown ? `${hike.unknown} trail(s) in the family variants have no effort on record and are left out` : 'none' });
+  }
 
   const dayOfName = new Map<string, number>();
   for (const d of trip.days) for (const i of d.items) if (!dayOfName.has(normName(i.name))) dayOfName.set(normName(i.name), d.n);

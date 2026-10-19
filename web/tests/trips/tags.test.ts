@@ -60,22 +60,37 @@ describe('each tag is a pure function', () => {
     expect(strollerTag([split], (i) => (i.title === 'Hard' ? 'no' : 'yes'))).toEqual({ all: true });
     expect(strollerTag([], () => 'yes')).toBeNull();
   });
-  it('kids from N: the lowest age at which every day has a fitting variant', () => {
+  it('kids from N: the lowest age that fits every day on known data; a gap is never a fit', () => {
     const adultsHike = titem('Adults hike', { minAge: 8, minAgeRule: 'plan' });
+    const known = () => true;
     const days = [sday(1, [variant('main', [titem('Walk')])]), sday(2, [variant('A', [adultsHike], { rank: 2 }), variant('B', [titem('Family walk')], { rank: 1, audience: 'family' })])];
-    expect(kidsFromTag(days)).toBe(0);
-    const hard = [sday(1, [variant('main', [adultsHike])])];
-    expect(kidsFromTag(hard)).toBe(8);
-    expect(kidsFromTag([sday(1, [variant('main', [titem('Too old', { minAge: 18, minAgeRule: 'hard' })])])])).toBeNull();
-    expect(kidsFromTag([])).toBeNull();
+    expect(kidsFromTag(days, known)).toMatchObject({ age: 0, fitAge: 0 });
+    expect(kidsFromTag([sday(1, [variant('main', [adultsHike])])], known)).toMatchObject({ age: 8, decider: 'Adults hike' });
+    expect(kidsFromTag([sday(1, [variant('main', [titem('Too old', { minAge: 18, minAgeRule: 'hard' })])])], known).age).toBeNull();
+    expect(kidsFromTag([], known).age).toBeNull();
+    // a trail whose known effort is above what the age can do is not a fit at that age (FE 4 needs age 10 or more)
+    const strenuous = [sday(1, [variant('main', [titem('Steep')])])];
+    expect(kidsFromTag(strenuous, known, () => 4).age).toBe(10);
+    expect(kidsFromTag(strenuous, known, () => 2).age).toBe(0);
+    // the scheduler says age 0 fits, but nothing is known about the second item: no number at all, never 0
+    const gap = kidsFromTag(days, (i) => i.title !== 'Family walk' && i.title !== 'Walk');
+    expect(gap.age).toBeNull();
+    expect(gap.fitAge).toBe(0);
+    expect(gap.unknown.map((u) => u.item).sort()).toEqual(['Family walk', 'Walk']);
   });
-  it('hike effort: the maximum family effort of the trails in the default variant', () => {
-    const days = [sday(1, [variant('main', [titem('Easy'), titem('Hard')])]), sday(2, [variant('main', [{ ...titem('Visit'), kind: 'visit' }])])];
+  it('hike effort: the maximum known family effort in the family variant; an adults-only variant never sets it', () => {
+    const days = [
+      sday(1, [variant('main', [titem('Easy'), titem('Hard')])]),
+      sday(2, [variant('A', [titem('Scramble')], { rank: 3, audience: 'adults' }), variant('B', [titem('Stroll')], { rank: 2, audience: 'family' })]),
+      sday(3, [variant('main', [{ ...titem('Visit'), kind: 'visit' }])]),
+    ];
     const fe = (m: Record<string, number>) => (i: ScheduleItem) => m[i.title] ?? null;
-    expect(hikeEffortTag(days, fe({ Easy: 2, Hard: 4 }))).toBe('strenuous');
-    expect(hikeEffortTag(days, fe({ Easy: 2, Hard: 3 }))).toBe('moderate');
-    expect(hikeEffortTag(days, fe({ Easy: 1, Hard: 2 }))).toBe('easy');
-    expect(hikeEffortTag(days, fe({}))).toBeNull();
+    expect(hikeEffortTag(days, fe({ Easy: 2, Hard: 4, Scramble: 5, Stroll: 1 }))).toMatchObject({ value: 'strenuous', decider: 'Hard (day 1, variant main, FE 4)' });
+    expect(hikeEffortTag(days, fe({ Easy: 2, Hard: 3, Scramble: 5, Stroll: 1 })).value).toBe('moderate');
+    expect(hikeEffortTag(days, fe({ Easy: 1, Hard: 2, Scramble: 5 })).value).toBe('easy');
+    // a trail with no effort on record is left out and counted, not taken as easy
+    expect(hikeEffortTag(days, fe({ Easy: 2 }))).toMatchObject({ value: 'easy', unknown: 2 });
+    expect(hikeEffortTag(days, fe({})).value).toBeNull();
   });
 });
 

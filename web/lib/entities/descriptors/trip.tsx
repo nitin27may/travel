@@ -46,7 +46,7 @@ const lengthRank = (t: TripListRow): number => {
   return i === -1 ? 99 : i;
 };
 const dash = <span className="dash">&ndash;</span>;
-const kidsText = (t: TripListRow) => (t.ageFit === null ? '' : `Kids from ${t.ageFit}`);
+const kidsText = (t: TripListRow) => (t.ageFit === null ? '' : t.ageFit === 0 ? 'All ages' : `Kids from ${t.ageFit}`);
 const PER_DAY_LABEL: Record<string, string> = { u1: 'Under 1 h', '1-2': '1 to 2 h', '2-3': '2 to 3 h', '3+': '3 h and more' };
 
 export const tripDescriptor: EntityDescriptor<TripListRow> = {

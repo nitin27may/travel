@@ -19,7 +19,7 @@ export function tagChips(row: TripListRow): { suit: TagChip[]; tags: TagChip[] }
   if (row.ageFit !== null) {
     // the Kids filter offers standard ages; "Kids from 7" opens the list for the nearest age at or above it (8), which includes this plan
     const age = KID_AGES.find((a) => a >= (row.ageFit as number)) ?? KID_AGES[KID_AGES.length - 1];
-    suit.push({ key: 'kids', label: `Kids from ${row.ageFit}`, href: tagHref('kid', String(age)), aria: `Show trips that suit a child of ${age}`, icon: 'user' });
+    suit.push({ key: 'kids', label: row.ageFit === 0 ? 'All ages' : `Kids from ${row.ageFit}`, href: tagHref('kid', String(age)), aria: `Show trips that suit a child of ${age}`, icon: 'user' });
   }
   if (row.hike) suit.push({ key: 'hike', label: `Hike effort: ${HIKE_LABEL[row.hike]}`, href: tagHref('effort', row.hike), aria: `Show trips with ${HIKE_LABEL[row.hike]} hiking`, icon: 'mountain' });
   const tags: TagChip[] = [];

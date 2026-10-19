@@ -212,7 +212,7 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
         if (!isAge(sel[0] ?? '')) return null;
         const age = Number(sel[0]);
         const stretch = matched.filter((p) => p.kids_from !== null && p.kids_from > age).length;
-        return stretch ? `for a ${age}-year-old · ${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'}, shown faded` : `for a ${age}-year-old`;
+        return stretch ? `for age ${age} · ${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'}, shown faded` : `for age ${age}`;
       },
     },
     {

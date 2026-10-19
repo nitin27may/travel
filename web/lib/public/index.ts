@@ -31,7 +31,7 @@ export interface PublicDataInternals {
   places: PublicPlace[];
   trips: PublicTrip[];
   /** Hand-typed Kids from and Hike effort that the scheduler's value replaced, where they differ. */
-  tagConflicts: TagConflict[];
+  tagReport: TagConflict[];
 }
 
 /**
@@ -56,11 +56,11 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
   const folderOfSlug = new Map([...tb.built].map(([folder, slug]) => [slug, folder]));
   const labels = tagLabels(src.root);
   const refOfSlug = new Map([...facets].map(([slug, f]) => [slug, f.ref]));
-  const tagConflicts: TagConflict[] = [];
+  const tagReport: TagConflict[] = [];
   const publicTrips = tb.trips.filter((t) => t.visibility === 'public');
   const tripCards = publicTrips.map((t): PublicTripCard => ({
     ...tripCard(t),
-    tags: buildTripTags(t, { root: src.root, world, folder: folderOfSlug.get(t.slug) ?? '', placeBySlug: pb.bySlug, refOfSlug, tagLabel: (id) => labels.get(id) ?? null }, tagConflicts),
+    tags: buildTripTags(t, { root: src.root, world, folder: folderOfSlug.get(t.slug) ?? '', placeBySlug: pb.bySlug, refOfSlug, tagLabel: (id) => labels.get(id) ?? null }, tagReport),
     lengthClass: t.nights === null ? null : lengthClass(t.nights),
     fromHubs: fromHubsOf(src.root, t.slug),
   }));
@@ -74,7 +74,7 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
     globeIndex: () => globe,
     globePaths: () => globePathsOf(globe),
     legacyPlaceRedirects: () => [...pb.legacyPaths].map(([from, slug]) => ({ from, to: `/places/${slug}/` })).sort((a, b) => a.from.localeCompare(b.from)),
-    internals: { dropped: log.items, places: pb.places, trips: tb.trips, tagConflicts },
+    internals: { dropped: log.items, places: pb.places, trips: tb.trips, tagReport },
   };
 }
 
