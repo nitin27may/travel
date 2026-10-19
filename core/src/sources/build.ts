@@ -23,7 +23,7 @@ export const KIND_MAP: Record<string, SourceEntry["kind"]> = {
 };
 
 interface LaneSource { id: string; url: string; title: string; publisher: string; kind: string; read: string }
-interface LaneDoc { sources?: LaneSource[]; records?: { ref?: string }[] }
+interface LaneDoc { sources?: LaneSource[]; records?: { ref?: string }[]; entries?: { ref?: string }[] }
 
 export interface LinkRecord { url: string; status: LinkStatus; http: number | null; final: string | null; checked: string }
 export interface LinksFile { schema: "source-links/1"; links: Record<string, LinkRecord> }
@@ -43,6 +43,9 @@ export function laneFiles(root: string): string[] {
   // the trips' base points: one file, with its own sources array and a record per trip (data/trips/base-points.json)
   const bp = join(root, "data", "trips", "base-points.json");
   if (existsSync(bp)) out.push(bp);
+  // the supersede overrides (capture contract 9.7): a sources array and entries that carry refs and src ids
+  const sup = join(root, "data", "capture", "supersedes.json");
+  if (existsSync(sup)) out.push(sup);
   return out;
 }
 
@@ -121,7 +124,7 @@ export function buildRegistry(root: string, links: LinksFile = readLinks(root)):
       a.rows.push(s);
       acc.set(id, a);
     }
-    for (const r of doc.records ?? []) {
+    for (const r of doc.records ?? doc.entries ?? []) {
       for (const { field, ids } of srcUses(r)) {
         for (const lid of ids) {
           const rid = byLocal.get(lid);

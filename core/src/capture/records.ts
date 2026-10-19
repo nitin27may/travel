@@ -6,6 +6,8 @@ import type { CaptureDoc, CaptureOperator, CaptureRecord, OperatorsFile } from "
 import type { RelevanceDoc, RelevanceRecord } from "../schema/relevance.ts";
 import type { SuitabilityDoc, SuitabilityRecord } from "../schema/suitability.ts";
 import type { PointsFile } from "../relevance/inputs.ts";
+import type { SupersedeEntry } from "../schema/capture/records.ts";
+import { applySupersedes, loadSupersedes } from "./supersede.ts";
 
 export const CAPTURE_DIR = "data/capture";
 /** Folders of data/capture that hold something other than a trip's capture sidecars. */
@@ -69,12 +71,14 @@ export interface World {
   incoming: Map<string, Incoming>;
   /** trip -> primary refs of its capture records */
   trips: Map<string, string[]>;
+  /** the supersede entries (9.7) that were applied to this world, by layer|ref|path */
+  supersedes?: Map<string, SupersedeEntry>;
 }
 
 const emptyIncoming = (): Incoming => ({ at: [], on: [], parks_for: [], serves: [], children: [], reached_by: [], starts_here: [] });
 
-/** `exclude` leaves one capture file out, so the validator can compare it with the others. */
-export function loadWorld(root: string, exclude?: string, extra: CaptureDoc[] = []): World {
+/** `exclude` leaves one capture file out, so the validator can compare it with the others. `opts.supersede: false` gives the raw lane values. */
+export function loadWorld(root: string, exclude?: string, extra: CaptureDoc[] = [], opts: { supersede?: boolean } = {}): World {
   const cap = new Map<string, Located<CaptureRecord>>();
   const trips = new Map<string, string[]>();
   for (const f of sidecarFiles(root, "capture")) {
@@ -135,7 +139,10 @@ export function loadWorld(root: string, exclude?: string, extra: CaptureDoc[] = 
     for (const t of rec.reaches ?? []) get(primary(t)).reached_by.push(rec.ref);
     for (const t of rec.starts_at ?? []) get(primary(t)).starts_here.push(rec.ref);
   }
-  return { root, cap, suit, rel, points: pts?.points ?? {}, operators, alias, incoming, trips };
+  const world: World = { root, cap, suit, rel, points: pts?.points ?? {}, operators, alias, incoming, trips, supersedes: new Map() };
+  // 9.7: an official re-read may replace a pre-migration value as the shown value; the files on disk are not touched
+  if (opts.supersede !== false) applySupersedes(world, loadSupersedes(root));
+  return world;
 }
 
 export const primaryRef = (w: World, ref: string): string => w.alias.get(ref) ?? ref;

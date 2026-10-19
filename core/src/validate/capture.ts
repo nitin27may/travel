@@ -11,6 +11,8 @@ import { tableOf } from "../schema/index.ts";
 import { applicabilityFile } from "../capture/generate.ts";
 import { completeness } from "../capture/engine.ts";
 import { loadWorld } from "../capture/records.ts";
+import { checkSupersedes } from "../capture/supersedeCheck.ts";
+import type { SupersedesFile } from "../schema/capture/records.ts";
 import type { World } from "../capture/records.ts";
 import { resolveNode } from "../capture/resolve.ts";
 import { checkTree, loadTypes, treeOf } from "../capture/tree.ts";
@@ -132,6 +134,20 @@ export function validateCaptureOperators(doc: unknown, ctx: Ctx): void {
       if (u && linkOnly(u)) err(ctx, "E_CAP_LINK_ONLY", `/operators/${i}/${k}`, `operator ${o.ref} points at ${linkOnly(u)}, a link-only platform. Use the operator's own page.`);
     }
   });
+}
+
+// ---------------------------------------------------------------------------------------------------- supersedes (9.7)
+export function validateCaptureSupersedes(doc: unknown, ctx: Ctx): void {
+  if (!isObj(doc)) {
+    err(ctx, "E_CAP_SCHEMA", "", "the file must be one JSON object with schema, sources and entries.");
+    ctx.schemaBroken = true;
+    return;
+  }
+  if (!structural(doc, "capture_supersedes", ctx)) return;
+  for (const i of checkSupersedes(ctx.refs.root, doc as unknown as SupersedesFile)) {
+    if (i.warning) ctx.warnings.push({ code: i.code, path: i.path, message: i.message });
+    else err(ctx, i.code, i.path, i.message);
+  }
 }
 
 // ---------------------------------------------------------------------------------------------------- run record

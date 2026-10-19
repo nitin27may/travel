@@ -978,6 +978,11 @@
           "field": "links"
         },
         {
+          "file": "data/capture/supersedes.json",
+          "ref": "place/lago-di-sorapis",
+          "field": "value"
+        },
+        {
           "file": "data/suitability/dolomites-2027/R1.json",
           "ref": "place/lago-di-sorapis",
           "field": "suitability.effort.drivers.distance_km"
@@ -16788,7 +16793,7 @@
     {
       "id": "s-99f3fda9b9",
       "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
-      "title": "Algonquin Provincial Park - Lake of Two Rivers - Activities",
+      "title": "Lake of Two Rivers: activities (Algonquin)",
       "publisher": "Ontario Parks",
       "kind": "official",
       "first_read": "2026-10-19",
@@ -16798,6 +16803,11 @@
           "file": "data/capture/algonquin-muskoka-2026/migrated.json",
           "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
           "field": "links"
+        },
+        {
+          "file": "data/capture/supersedes.json",
+          "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+          "field": "value"
         },
         {
           "file": "data/suitability/algonquin-muskoka-2026/R6.json",

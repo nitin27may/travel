@@ -13,7 +13,7 @@ import { offer_prices, offers } from "./catalog/offers.ts";
 import { stays } from "./catalog/stays.ts";
 import { trails } from "./catalog/trails.ts";
 import { difficulty_map } from "./difficultyMap.ts";
-import { capture, capture_operators, capture_run } from "./capture/records.ts";
+import { capture, capture_operators, capture_run, capture_supersedes } from "./capture/records.ts";
 import { capture_types } from "./capture/typesFile.ts";
 import { freshness } from "./freshness.ts";
 import { policy } from "./policy.ts";
@@ -33,7 +33,7 @@ export const CATALOG_TABLES: Table[] = [
   trails, activities, stays, eateries, offers, offer_prices, legs, area_guides, catalog_changes, backlog, catalogSources,
 ];
 
-export const DOCUMENT_TABLES: Table[] = [research_sidecar, route_geometry, policy, freshness, difficulty_map, suitability, suitability_applicability, relevance, sources, capture, capture_types, capture_operators, capture_run];
+export const DOCUMENT_TABLES: Table[] = [research_sidecar, route_geometry, policy, freshness, difficulty_map, suitability, suitability_applicability, relevance, sources, capture, capture_types, capture_operators, capture_run, capture_supersedes];
 
 const FAMILY_ORDER: Family[] = ["catalog", "locations", "sidecar", "trip"];
 
