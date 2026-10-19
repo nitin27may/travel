@@ -1,4 +1,5 @@
 import { publicParty } from './party';
+import type { DropLog } from './dateless';
 
 // The household's home town is household data. Public output names the trip's public starting city instead.
 
@@ -8,9 +9,12 @@ export const PUBLIC_START_CITY = { name: 'Toronto', lat: 43.6532, lon: -79.3832 
 const HOME = /whitby/gi;
 const HOME_POINT = { lat: 43.88, lon: -78.94, radiusKm: 2 } as const;
 
-/** The text with the home town replaced by the public starting city, keeping the case ("Whitby" or "whitby"). */
-export function publicOrigin(text: string): string {
-  return publicParty(text).replace(HOME, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
+/**
+ * The text with the household party rewritten and the home town replaced by the public starting city, keeping the case
+ * ("Whitby" or "whitby"). With a `log`, every sentence the party scrub drops is reported under `where`.
+ */
+export function publicOrigin(text: string, where?: string, log?: DropLog): string {
+  return publicParty(text, where, log).replace(HOME, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
 }
 
 export function nearHome(lat: number, lon: number): boolean {
