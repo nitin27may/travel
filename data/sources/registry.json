@@ -693,6 +693,11 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
           "field": "suitability.exposure"
         }
       ],
@@ -700,8 +705,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 730,
-        "fact_type": "grades_geography"
+        "cadence_days": 365,
+        "fact_type": "rules"
       },
       "link": {
         "status": "ok",
@@ -736,6 +741,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+          "field": "ext.dogs"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -2895,6 +2905,58 @@
       }
     },
     {
+      "id": "s-683757d5eb",
+      "url": "https://nature-parks.province.bz.it/en/code-of-conduct-for-the-nature-parks",
+      "title": "Code of Conduct for the Nature Parks",
+      "publisher": "Autonome Provinz Bozen - Südtirol (Naturparks)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-braies#walk",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/adolf-munkel-weg",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/croda-del-becco",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/seceda-ridge",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/val-fiscalina",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/vallunga",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-ae3555c315",
       "url": "https://nature-parks.province.bz.it/en/fanes-sennes-prags-fanes-senes-braies-nature-park",
       "title": "Fanes-Sennes-Prags / Fanes-Senes-Braies Nature Park",
@@ -3551,8 +3613,13 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "duration_min"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
@@ -3574,6 +3641,65 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-b0741945fa",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/heures-hours",
+      "title": "Hours of Operation - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-0d19dfb346",
+      "url": "https://parks.canada.ca/lhn-nhs/ab/caveandbasin/visit/tarifs-fees",
+      "title": "Fees - Cave and Basin National Historic Site",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+          "field": "price"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -3958,6 +4084,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
           "field": "suitability.stroller"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+          "field": "suitability.toilets"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -4458,6 +4589,78 @@
       }
     },
     {
+      "id": "s-8eff6d2771",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking/etat-sentiers-trail-conditions",
+      "title": "Trail conditions - Banff National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-5a94aedc1d",
       "url": "https://parks.canada.ca/pn-np/ab/banff/bulletins/06d4ef61-a3c9-4b65-8dfc-66d056252d6c",
       "title": "Area Closure: Johnston Canyon Trail and Day Use Area (bulletin)",
@@ -4651,6 +4854,11 @@
       "first_read": "2026-10-18",
       "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "place/lake-louise",
+          "field": "best_time"
+        },
         {
           "file": "data/capture/canadian-rockies-2029/migrated.json",
           "ref": "place/lake-louise",
@@ -4945,8 +5153,13 @@
       "publisher": "Parks Canada",
       "kind": "official",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+          "field": "best_time"
+        },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
@@ -5391,6 +5604,11 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
           "field": "suitability.effort.drivers.distance_km"
         },
         {
@@ -5411,6 +5629,11 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
           "field": "suitability.effort.drivers.gain_m"
         },
         {
@@ -5425,6 +5648,11 @@
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
           "field": "suitability.effort.drivers.distance_km"
         },
@@ -5432,6 +5660,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
           "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+          "field": "ext.dogs"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -5451,7 +5684,17 @@
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
           "field": "suitability.effort.source_grade"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+          "field": "ext.dogs"
         },
         {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
@@ -6967,6 +7210,38 @@
       }
     },
     {
+      "id": "s-e59e777507",
+      "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike",
+      "title": "Hiking - Kootenay National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-3aea7fa6f8",
       "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
       "title": "Day hikes in Kootenay National Park",
@@ -7288,6 +7563,43 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-dca0ee21e5",
+      "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike",
+      "title": "Hiking - Yoho National Park",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -9583,6 +9895,68 @@
       }
     },
     {
+      "id": "s-5ca08c0f33",
+      "url": "https://www.albertaparks.ca/albertaparks-ca/visit-our-parks/regulations/pets-in-parks",
+      "title": "Pets in Parks | Alberta Parks",
+      "publisher": "Alberta Parks",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+          "field": "ext.dogs"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2a.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-0bbad52b55",
       "url": "https://www.albertaparks.ca/parks/kananaskis/bow-valley-pp/information-facilities/day-use/mt-lorette-ponds",
       "title": "Mt. Lorette Ponds day use",
@@ -11379,6 +11753,38 @@
       }
     },
     {
+      "id": "s-23b5363d57",
+      "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield-skywalk",
+      "title": "Columbia Icefield Skywalk | Walk Above the Rockies on a Glass-Floor Cliff Edge",
+      "publisher": "Pursuit (Banff Jasper Collection)",
+      "kind": "operator",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "season"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "field": "season"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-16135f7e8d",
       "url": "https://www.banffjaspercollection.com/attractions/columbia-icefield/faqs",
       "title": "Columbia Icefield FAQs",
@@ -11452,8 +11858,28 @@
       "publisher": "Pursuit (Banff Jasper Collection)",
       "kind": "operator",
       "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "last_read": "2026-10-19",
       "used_by": [
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+          "field": "hours"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "field": "duration_min"
+        },
+        {
+          "file": "data/capture/canadian-rockies-2029/migrated.json",
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+          "field": "hours"
+        },
         {
           "file": "data/suitability/canadian-rockies-2029/R2b.json",
           "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
@@ -11469,8 +11895,8 @@
       "terms_note": "No terms review recorded yet.",
       "automated": "unknown",
       "recheck": {
-        "cadence_days": 180,
-        "fact_type": "seasons_closures"
+        "cadence_days": 90,
+        "fact_type": "prices_hours"
       },
       "link": {
         "status": "ok",
@@ -12306,6 +12732,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-3b87d87727",
+      "url": "https://www.dolomitiparco.com/Ita/Misc/regolamenti.php",
+      "title": "Regolamenti",
+      "publisher": "Parco Naturale delle Dolomiti d'Ampezzo (Regole d'Ampezzo)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/cascate-di-fanes",
+          "field": "ext.dogs"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
