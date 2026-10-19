@@ -1,0 +1,112 @@
+{
+ "schema": "trip-schedule/1",
+ "trip": "dolomites-2027",
+ "defaultProfile": {
+  "party": "adults",
+  "pace": "standard",
+  "adults": 2
+ },
+ "writtenFor": "adults and children from about 8",
+ "tz": "Europe/Rome",
+ "season": {
+  "from": [
+   7,
+   13
+  ],
+  "to": [
+   7,
+   26
+  ]
+ },
+ "variants": {
+  "A": {
+   "label": "The longer day",
+   "audience": "adults"
+  },
+  "B": {
+   "label": "The easier day",
+   "audience": "any"
+  }
+ },
+ "days": {
+  "1": {
+   "kind": "arrival"
+  },
+  "2": {
+   "items": {
+    "i3": {
+     "time": null,
+     "needs": {
+      "sun": "sunrise",
+      "offsetMin": -25
+     },
+     "note": "First light on the lake: alpenglow on the Seekofel arrives before the sun. The car park is a booked slot; book it online before the day."
+    }
+   }
+  },
+  "3": {
+   "items": {
+    "i5": {
+     "confidence": "fixed",
+     "source": "operator",
+     "note": "The toll road slot sets the start. Walk the loop clockwise."
+    }
+   }
+  },
+  "4": {
+   "variants": {
+    "A": {
+     "label": "Croda del Becco",
+     "audience": "adults"
+    },
+    "B": {
+     "label": "The Drava cycle path",
+     "audience": "any"
+    }
+   }
+  },
+  "6": {
+   "start": {
+    "time": "05:30",
+    "source": "plan",
+    "label": "Leave Cortina"
+   }
+  },
+  "8": {
+   "items": {
+    "i18": {
+     "time": null,
+     "needs": {
+      "sun": "sunset",
+      "offsetMin": -45
+     },
+     "note": "Needs dead calm for the reflection. Stay for the light after the walk."
+    }
+   }
+  },
+  "10": {
+   "variants": {
+    "A": {
+     "label": "Sass Pordoi and Piz Boe",
+     "audience": "adults"
+    },
+    "B": {
+     "label": "Viel dal Pan",
+     "audience": "any"
+    }
+   }
+  },
+  "12": {
+   "items": {
+    "i25": {
+     "confidence": "fixed",
+     "source": "operator",
+     "note": "Pre-booked lift slot, non-refundable."
+    }
+   }
+  },
+  "14": {
+   "kind": "departure"
+  }
+ }
+}

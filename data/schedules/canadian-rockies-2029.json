@@ -1,0 +1,2011 @@
+{
+ "schema": "trip-schedule/1",
+ "trip": "canadian-rockies-2029",
+ "defaultProfile": {
+  "party": "family",
+  "youngest": 6,
+  "pace": "standard",
+  "adults": 2
+ },
+ "writtenFor": "families with a child from about 6",
+ "tz": "America/Edmonton",
+ "season": {
+  "from": [
+   9,
+   8
+  ],
+  "to": [
+   9,
+   22
+  ]
+ },
+ "variants": {
+  "A": {
+   "label": "Adults' hike",
+   "audience": "adults"
+  },
+  "B": {
+   "label": "Whole family",
+   "audience": "family"
+  },
+  "C": {
+   "label": "Easy day",
+   "audience": "easy"
+  }
+ },
+ "bases": {
+  "calgary-airport": {
+   "name": "Calgary airport",
+   "lat": 51.1139,
+   "lon": -114.0203
+  },
+  "banff": {
+   "name": "Banff",
+   "lat": 51.1784,
+   "lon": -115.5708
+  },
+  "lake-louise": {
+   "name": "Lake Louise",
+   "lat": 51.4254,
+   "lon": -116.1773
+  },
+  "jasper": {
+   "name": "Jasper",
+   "lat": 52.8737,
+   "lon": -118.0814
+  },
+  "kananaskis-village": {
+   "name": "Kananaskis Village",
+   "lat": 50.936,
+   "lon": -115.145
+  }
+ },
+ "titles": {
+  "emerald-lake-canoe": "Emerald Lake canoe",
+  "lake-minnewanka-cruise": "Lake Minnewanka cruise",
+  "moraine-lake-canoe": "Moraine Lake canoe",
+  "lake-louise-canoe": "Lake Louise canoe",
+  "lake-louise-gondola": "Lake Louise Gondola",
+  "jasper-skytram": "Jasper SkyTram",
+  "banff-gondola": "Banff Gondola",
+  "miette-hot-springs": "Miette Hot Springs",
+  "banff-upper-hot-springs": "Banff Upper Hot Springs",
+  "jasper-dark-sky": "Dark-sky watching",
+  "columbia-icefield-athabasca-glacier": "Athabasca Glacier",
+  "takakkaw-falls-walk": "Takakkaw Falls",
+  "plain-of-six-glaciers": "Plain of Six Glaciers",
+  "larch-valley-sentinel-pass": "Larch Valley to Sentinel Pass"
+ },
+ "days": {
+  "1": {
+   "kind": "arrival",
+   "order": {
+    "B": [
+     {
+      "id": "bear-spray-groceries",
+      "kind": "visit",
+      "sub": "errands",
+      "title": "Bear spray and groceries in Banff",
+      "durationMin": 45,
+      "durationSource": "plan",
+      "note": "Bear spray is not allowed on a flight, even checked. Buy or rent it today in Calgary, Canmore or Banff."
+     },
+     "fenland-loop",
+     {
+      "id": "vermilion-lakes",
+      "needs": {
+       "sun": "sunset",
+       "offsetMin": -60
+      },
+      "durationMin": 60,
+      "durationSource": "plan",
+      "note": "Vermilion Lakes Drive for the last hour before sunset."
+     },
+     {
+      "id": "elk-rut",
+      "title": "Elk rut viewing",
+      "optional": true,
+      "durationMin": 30,
+      "durationSource": "plan"
+     }
+    ],
+    "C": [
+     "banff-gondola"
+    ]
+   },
+   "items": {
+    "fenland-loop": {
+     "stats": {
+      "distanceKm": 1.9,
+      "gainM": 20
+     },
+     "durationMin": 45,
+     "durationSource": "plan"
+    },
+    "banff-gondola": {
+     "window": {
+      "from": "09:00",
+      "to": "21:00",
+      "lastUp": "19:30",
+      "lastDown": null,
+      "why": "2026 hours, 8 Sep to 12 Oct"
+     },
+     "sub": "lift-ride",
+     "durationMin": 90,
+     "durationSource": "plan"
+    }
+   },
+   "legs": [
+    {
+     "from": "origin",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 90,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "2": {
+   "order": {
+    "A": [
+     {
+      "id": "sunshine-meadows-citadel-pass"
+     }
+    ],
+    "B": [
+     {
+      "id": "sunshine-gondola",
+      "kind": "visit",
+      "sub": "lift-ride",
+      "title": "Sunshine Village gondola and the meadow paths",
+      "durationMin": 210,
+      "durationSource": "plan",
+      "time": "08:00",
+      "confidence": "suggested",
+      "source": "plan",
+      "note": "Ride up together at 08:00 and walk the short meadow paths for 1 to 2 hours. Down by about 11:30.",
+      "window": {
+       "from": "08:00",
+       "to": "18:00",
+       "lastUp": null,
+       "lastDown": null,
+       "why": "2026 summer hours"
+      }
+     },
+     "lake-minnewanka-cruise",
+     {
+      "id": "banff-upper-hot-springs",
+      "durationMin": 120,
+      "durationSource": "plan",
+      "window": {
+       "from": "13:00",
+       "to": "22:00",
+       "lastUp": null,
+       "lastDown": null,
+       "why": "2026 hours, last entry 21:30"
+      }
+     }
+    ],
+    "C": [
+     "banff-gondola",
+     "cave-and-basin",
+     "banff-upper-hot-springs"
+    ]
+   },
+   "items": {
+    "sunshine-meadows-citadel-pass": {
+     "time": "08:00",
+     "confidence": "suggested",
+     "source": "plan",
+     "note": "Gondola up with the family at 08:00. Turn around by 13:30 to be back at the gondola by about 15:30."
+    },
+    "lake-minnewanka-cruise": {
+     "durationMin": 60,
+     "durationSource": "operator",
+     "sub": "boat",
+     "window": {
+      "from": "10:00",
+      "to": "18:00",
+      "lastUp": null,
+      "lastDown": null,
+      "why": "2026 sailings"
+     }
+    },
+    "cave-and-basin": {
+     "durationMin": 90,
+     "durationSource": "plan"
+    },
+    "banff-gondola": {
+     "sub": "lift-ride",
+     "durationMin": 90,
+     "durationSource": "plan"
+    }
+   },
+   "split": {
+    "rejoin": {
+     "time": "15:30",
+     "place": "Sunshine Village gondola base car park",
+     "afterItem": "lake-minnewanka-cruise"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "sunshine-gondola",
+     "mode": "drive",
+     "minutes": 20,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "sunshine-gondola",
+     "to": "lake-minnewanka-cruise",
+     "mode": "drive",
+     "minutes": 35,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "lake-minnewanka-cruise",
+     "to": "banff-upper-hot-springs",
+     "mode": "drive",
+     "minutes": 25,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "banff-upper-hot-springs",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "3": {
+   "kind": "transfer",
+   "order": {
+    "A": [
+     "bourgeau-lake"
+    ],
+    "B": [
+     {
+      "id": "johnston-canyon",
+      "kind": "trail",
+      "sub": "hike",
+      "stats": {
+       "distanceKm": 2.2,
+       "gainM": 85
+      },
+      "durationMin": 75,
+      "durationSource": "plan",
+      "time": "08:00",
+      "confidence": "suggested",
+      "source": "plan",
+      "note": "On the trail by 08:00 on a weekday. Lower Falls is 1.1 km one way with exposed catwalks."
+     },
+     "marble-canyon-walk",
+     "paint-pots-walk"
+    ],
+    "C": [
+     "marble-canyon"
+    ]
+   },
+   "items": {
+    "bourgeau-lake": {
+     "time": "07:00",
+     "confidence": "suggested",
+     "source": "plan",
+     "note": "Drop at 07:00 and collect about 13:30 on the way back from Kootenay."
+    },
+    "marble-canyon-walk": {
+     "stats": {
+      "distanceKm": 1.8,
+      "gainM": 65
+     }
+    },
+    "paint-pots-walk": {
+     "stats": {
+      "distanceKm": 2.0,
+      "gainM": 35
+     }
+    },
+    "marble-canyon": {
+     "durationMin": 45,
+     "durationSource": "plan",
+     "sub": "waterfall"
+    }
+   },
+   "split": {
+    "optional": true,
+    "rejoin": {
+     "time": "13:30",
+     "place": "the Bourgeau Lake trailhead lot on Highway 1",
+     "afterItem": "paint-pots-walk"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "johnston-canyon",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "johnston-canyon",
+     "to": "marble-canyon-walk",
+     "mode": "drive",
+     "minutes": 30,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "marble-canyon-walk",
+     "to": "paint-pots-walk",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "paint-pots-walk",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "bourgeau-lake",
+     "mode": "drive",
+     "minutes": 25,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "marble-canyon",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "marble-canyon",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "4": {
+   "kind": "transfer",
+   "start": {
+    "time": "07:30",
+    "confidence": "suggested",
+    "source": "plan",
+    "label": "Leave Lake Louise"
+   },
+   "order": {
+    "A": [
+     "wilcox-pass"
+    ],
+    "B": [
+     {
+      "id": "bow-lake",
+      "sub": "lake",
+      "time": "08:15",
+      "confidence": "suggested",
+      "source": "plan",
+      "durationMin": 45,
+      "durationSource": "plan",
+      "note": "Still water, lakeside only. Bow Glacier Falls is too long."
+     },
+     {
+      "id": "peyto-lake-lookout",
+      "sub": "walk",
+      "stats": {
+       "distanceKm": 1.2,
+       "gainM": 30
+      },
+      "time": "09:30",
+      "confidence": "suggested",
+      "source": "plan",
+      "note": "Parking eases before 10:00 and the light is best before noon."
+     },
+     {
+      "id": "saskatchewan-crossing",
+      "kind": "meal",
+      "sub": "lunch",
+      "title": "Early lunch and fuel at Saskatchewan River Crossing",
+      "durationMin": 45,
+      "durationSource": "plan",
+      "time": "11:00",
+      "confidence": "suggested",
+      "source": "plan",
+      "note": "The only fuel on the Parkway. Full toilets."
+     },
+     {
+      "id": "columbia-icefield-ice-explorer",
+      "title": "Ice Explorer on the Athabasca Glacier",
+      "durationMin": 120,
+      "durationSource": "operator",
+      "time": "12:30",
+      "confidence": "suggested",
+      "source": "plan",
+      "sub": "activity",
+      "note": "Book the Ice Explorer and Skywalk together; allow about 3 hours."
+     },
+     {
+      "id": "glacier-skywalk",
+      "title": "Glacier Skywalk",
+      "durationMin": 60,
+      "durationSource": "plan",
+      "sub": "activity"
+     }
+    ],
+    "C": [
+     "bow-lake",
+     "peyto-lake",
+     "glacier-skywalk"
+    ]
+   },
+   "items": {
+    "wilcox-pass": {
+     "time": "12:30",
+     "confidence": "suggested",
+     "source": "plan",
+     "note": "Fits inside the 3 hour Ice Explorer and Skywalk block."
+    },
+    "peyto-lake": {
+     "sub": "viewpoint",
+     "durationMin": 30,
+     "durationSource": "plan"
+    },
+    "bow-lake": {
+     "sub": "lake"
+    },
+    "glacier-skywalk": {
+     "sub": "activity",
+     "durationMin": 60,
+     "durationSource": "plan"
+    }
+   },
+   "split": {
+    "optional": true,
+    "rejoin": {
+     "time": "16:00",
+     "place": "the Icefield Centre",
+     "afterItem": "glacier-skywalk"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "bow-lake",
+     "mode": "drive",
+     "minutes": 30,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "bow-lake",
+     "to": "peyto-lake-lookout",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "peyto-lake-lookout",
+     "to": "saskatchewan-crossing",
+     "mode": "drive",
+     "minutes": 35,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "saskatchewan-crossing",
+     "to": "columbia-icefield-ice-explorer",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "columbia-icefield-ice-explorer",
+     "to": "glacier-skywalk",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "glacier-skywalk",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "wilcox-pass",
+     "mode": "drive",
+     "minutes": 70,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "peyto-lake",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "peyto-lake",
+     "to": "glacier-skywalk",
+     "mode": "drive",
+     "minutes": 75,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "bow-lake",
+     "to": "peyto-lake",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "5": {
+   "start": {
+    "time": "07:30",
+    "confidence": "suggested",
+    "source": "plan",
+    "label": "Leave Jasper"
+   },
+   "order": {
+    "A": [
+     "bald-hills"
+    ],
+    "B": [
+     "maligne-lake-cruise",
+     "mary-schaffer-loop",
+     {
+      "id": "moose-lake-loop",
+      "optional": true,
+      "note": "On the drive back, if there is energy left."
+     },
+     {
+      "id": "pyramid-lake",
+      "optional": true,
+      "needs": {
+       "sun": "sunset",
+       "offsetMin": -40
+      },
+      "sub": "lake",
+      "durationMin": 45,
+      "durationSource": "plan",
+      "note": "Calm water before sunset."
+     }
+    ],
+    "C": [
+     "maligne-lake-cruise"
+    ]
+   },
+   "items": {
+    "maligne-lake-cruise": {
+     "title": "Spirit Island cruise",
+     "time": "10:00",
+     "confidence": "fixed",
+     "source": "operator",
+     "durationMin": 90,
+     "durationSource": "operator",
+     "checkinMin": 20,
+     "note": "Book the 10:00 sailing. The boat stops at an overlook; nobody walks on Spirit Island.",
+     "sub": "boat"
+    },
+    "mary-schaffer-loop": {
+     "stats": {
+      "distanceKm": 3.2,
+      "gainM": 84
+     }
+    },
+    "moose-lake-loop": {
+     "stats": {
+      "distanceKm": 2.7,
+      "gainM": 59
+     }
+    },
+    "bald-hills": {
+     "stats": {
+      "distanceKm": 10.4,
+      "gainM": 500
+     }
+    }
+   },
+   "split": {
+    "rejoin": {
+     "time": "14:00",
+     "place": "the Maligne Lake boathouse car park",
+     "afterItem": "mary-schaffer-loop"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "maligne-lake-cruise",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "bald-hills",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "maligne-lake-cruise",
+     "to": "mary-schaffer-loop",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "moose-lake-loop",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "pyramid-lake",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "pyramid-lake",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "6": {
+   "start": {
+    "time": "07:30",
+    "confidence": "suggested",
+    "source": "plan",
+    "label": "Leave Jasper"
+   },
+   "order": {
+    "A": [
+     "kinney-lake"
+    ],
+    "B": [
+     {
+      "id": "mount-robson-viewpoint",
+      "sub": "viewpoint",
+      "durationMin": 30,
+      "durationSource": "plan",
+      "note": "Visitor centre viewpoint, no walking. Cloud often hides the summit."
+     },
+     "overlander-falls-trail",
+     {
+      "id": "jasper-skytram",
+      "sub": "lift-ride",
+      "time": "14:00",
+      "confidence": "suggested",
+      "source": "plan",
+      "durationMin": 90,
+      "durationSource": "plan",
+      "window": {
+       "from": "10:00",
+       "to": "17:00",
+       "lastUp": "16:30",
+       "lastDown": null,
+       "why": "2026 fall hours, two listings disagree"
+      }
+     }
+    ],
+    "C": [
+     "mount-robson-viewpoint",
+     "jasper-skytram"
+    ]
+   },
+   "items": {
+    "kinney-lake": {
+     "stats": {
+      "distanceKm": 10,
+      "gainM": 131
+     }
+    },
+    "overlander-falls-trail": {
+     "stats": {
+      "distanceKm": 2.3,
+      "gainM": 90
+     }
+    },
+    "jasper-skytram": {
+     "sub": "lift-ride"
+    }
+   },
+   "split": {
+    "optional": true,
+    "rejoin": {
+     "time": "11:30",
+     "place": "the Berg Lake trailhead lot",
+     "afterItem": "overlander-falls-trail"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "mount-robson-viewpoint",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "mount-robson-viewpoint",
+     "to": "overlander-falls-trail",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "overlander-falls-trail",
+     "to": "jasper-skytram",
+     "mode": "drive",
+     "minutes": 55,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "jasper-skytram",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 15,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "kinney-lake",
+     "mode": "drive",
+     "minutes": 65,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "mount-robson-viewpoint",
+     "to": "jasper-skytram",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "7": {
+   "order": {
+    "A": [
+     "sulphur-skyline"
+    ],
+    "B": [
+     {
+      "id": "jasper-errands",
+      "kind": "visit",
+      "sub": "errands",
+      "title": "Laundry, groceries and rest in Jasper",
+      "durationMin": 120,
+      "durationSource": "plan",
+      "note": "Groceries for the Lake Louise block."
+     },
+     "jasper-miette-mine-trail",
+     {
+      "id": "miette-hot-springs",
+      "durationMin": 120,
+      "durationSource": "plan",
+      "window": {
+       "from": "11:00",
+       "to": "21:00",
+       "lastUp": null,
+       "lastDown": null,
+       "why": "2026 hours, last entry 20:30"
+      }
+     },
+     "lake-annette-loop",
+     {
+      "id": "jasper-dark-sky",
+      "optional": true,
+      "durationMin": 90,
+      "durationSource": "plan",
+      "note": "Dark-sky watching if it is clear."
+     }
+    ],
+    "C": [
+     "miette-hot-springs"
+    ]
+   },
+   "items": {
+    "sulphur-skyline": {
+     "time": "11:30",
+     "confidence": "suggested",
+     "source": "plan",
+     "note": "Start about 11:30 after the drive. Exposed ridge."
+    },
+    "jasper-miette-mine-trail": {
+     "stats": {
+      "distanceKm": 0.8,
+      "gainM": 20
+     }
+    },
+    "lake-annette-loop": {
+     "stats": {
+      "distanceKm": 2.4,
+      "gainM": 90
+     }
+    }
+   },
+   "split": {
+    "rejoin": {
+     "time": "15:30",
+     "place": "the Miette Hot Springs pools car park",
+     "afterItem": "miette-hot-springs"
+    }
+   },
+   "legs": [
+    {
+     "from": "jasper-errands",
+     "to": "jasper-miette-mine-trail",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "jasper-miette-mine-trail",
+     "to": "miette-hot-springs",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "miette-hot-springs",
+     "to": "lake-annette-loop",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "lake-annette-loop",
+     "to": "jasper-dark-sky",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "jasper-dark-sky",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "sulphur-skyline",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "jasper-errands",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "miette-hot-springs",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "8": {
+   "kind": "transfer",
+   "start": {
+    "time": "08:00",
+    "confidence": "suggested",
+    "source": "plan",
+    "label": "Leave Jasper"
+   },
+   "order": {
+    "A": [
+     "parker-ridge"
+    ],
+    "B": [
+     {
+      "id": "athabasca-falls",
+      "sub": "waterfall",
+      "time": "08:45",
+      "confidence": "suggested",
+      "source": "plan",
+      "durationMin": 25,
+      "durationSource": "plan",
+      "note": "0.2 km, fenced. Hold hands at the canyon edge."
+     },
+     {
+      "id": "sunwapta-falls",
+      "sub": "waterfall",
+      "durationMin": 40,
+      "durationSource": "plan"
+     },
+     {
+      "id": "toe-glacier-walk",
+      "time": "11:30",
+      "confidence": "suggested",
+      "source": "plan",
+      "stats": {
+       "distanceKm": 1.8,
+       "gainM": 60
+      },
+      "note": "Stay behind the signs and ropes."
+     },
+     {
+      "id": "icefield-lunch",
+      "kind": "meal",
+      "sub": "lunch",
+      "title": "Lunch at the Icefield Centre",
+      "durationMin": 45,
+      "durationSource": "plan",
+      "note": "Full toilets and plumbing at the Centre."
+     },
+     {
+      "id": "saskatchewan-crossing",
+      "kind": "break",
+      "sub": "fuel",
+      "title": "Fuel and toilets at Saskatchewan River Crossing",
+      "durationMin": 30,
+      "durationSource": "plan",
+      "time": "14:30",
+      "confidence": "suggested",
+      "source": "plan"
+     }
+    ],
+    "C": [
+     "athabasca-falls",
+     "sunwapta-falls",
+     "columbia-icefield-athabasca-glacier"
+    ]
+   },
+   "items": {
+    "parker-ridge": {
+     "note": "Only if the car reaches the Icefield by 12:00."
+    },
+    "athabasca-falls": {
+     "sub": "waterfall",
+     "durationMin": 25,
+     "durationSource": "plan"
+    },
+    "columbia-icefield-athabasca-glacier": {
+     "sub": "viewpoint",
+     "durationMin": 45,
+     "durationSource": "plan"
+    }
+   },
+   "split": {
+    "optional": true,
+    "rejoin": {
+     "time": "14:00",
+     "place": "the Parker Ridge trailhead lot",
+     "afterItem": "icefield-lunch"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "athabasca-falls",
+     "mode": "drive",
+     "minutes": 30,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "athabasca-falls",
+     "to": "sunwapta-falls",
+     "mode": "drive",
+     "minutes": 25,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "sunwapta-falls",
+     "to": "toe-glacier-walk",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "toe-glacier-walk",
+     "to": "icefield-lunch",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "icefield-lunch",
+     "to": "saskatchewan-crossing",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "saskatchewan-crossing",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 80,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "sunwapta-falls",
+     "to": "columbia-icefield-athabasca-glacier",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "columbia-icefield-athabasca-glacier",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 125,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "parker-ridge",
+     "mode": "drive",
+     "minutes": 110,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "icefield-lunch",
+     "to": "parker-ridge",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "9": {
+   "order": {
+    "A": [
+     "iceline-trail"
+    ],
+    "B": [
+     "takakkaw-falls-walk",
+     {
+      "id": "emerald-lake-canoe",
+      "time": "10:00",
+      "confidence": "suggested",
+      "source": "plan",
+      "durationMin": 60,
+      "durationSource": "plan",
+      "sub": "boat",
+      "window": {
+       "from": "10:00",
+       "to": "16:45",
+       "lastUp": null,
+       "lastDown": null,
+       "why": "2026 hours; the page also says last rental 14:00"
+      }
+     },
+     {
+      "id": "emerald-lakeshore",
+      "stats": {
+       "distanceKm": 5.2,
+       "gainM": 20
+      },
+      "note": "Walk the west side out and back; the east side is muddy and rooty."
+     },
+     {
+      "id": "natural-bridge",
+      "sub": "viewpoint",
+      "durationMin": 20,
+      "durationSource": "plan"
+     }
+    ],
+    "C": [
+     "takakkaw-falls",
+     "natural-bridge",
+     "emerald-lake-canoe"
+    ]
+   },
+   "items": {
+    "iceline-trail": {
+     "time": "07:30",
+     "confidence": "suggested",
+     "source": "plan",
+     "stats": {
+      "distanceKm": 20.3,
+      "gainM": 1090
+     },
+     "note": "Drop at the Takakkaw lot at 07:30, back by 15:30."
+    },
+    "takakkaw-falls-walk": {
+     "time": "08:15",
+     "confidence": "suggested",
+     "source": "plan",
+     "stats": {
+      "distanceKm": 1.8,
+      "gainM": 10
+     },
+     "note": "Go while it is quiet; late-day cloud is typical."
+    },
+    "takakkaw-falls": {
+     "sub": "viewpoint",
+     "durationMin": 45,
+     "durationSource": "plan"
+    },
+    "emerald-lake-canoe": {
+     "sub": "boat",
+     "durationMin": 60,
+     "durationSource": "plan"
+    }
+   },
+   "split": {
+    "rejoin": {
+     "time": "15:30",
+     "place": "the Takakkaw Falls car park",
+     "afterItem": "natural-bridge"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "takakkaw-falls-walk",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "takakkaw-falls-walk",
+     "to": "emerald-lake-canoe",
+     "mode": "drive",
+     "minutes": 35,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "emerald-lake-canoe",
+     "to": "emerald-lakeshore",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "emerald-lakeshore",
+     "to": "natural-bridge",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "natural-bridge",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "iceline-trail",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "takakkaw-falls",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "takakkaw-falls",
+     "to": "natural-bridge",
+     "mode": "drive",
+     "minutes": 35,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "natural-bridge",
+     "to": "emerald-lake-canoe",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "10": {
+   "order": {
+    "A": [
+     "plain-of-six-glaciers"
+    ],
+    "B": [
+     {
+      "id": "lake-louise-lakeshore",
+      "stats": {
+       "distanceKm": 4.6,
+       "gainM": 175
+      },
+      "note": "First lakeshore shuttle from the Park and Ride. Reservation holders park free."
+     },
+     {
+      "id": "lake-louise-canoe",
+      "durationMin": 60,
+      "durationSource": "plan",
+      "sub": "boat"
+     },
+     {
+      "id": "lake-louise-gondola",
+      "sub": "lift-ride",
+      "durationMin": 90,
+      "durationSource": "plan",
+      "window": {
+       "from": "09:00",
+       "to": "16:30",
+       "lastUp": "16:30",
+       "lastDown": null,
+       "why": "2026 hours"
+      }
+     }
+    ],
+    "C": [
+     "lake-louise",
+     "lake-louise-gondola"
+    ]
+   },
+   "items": {
+    "plain-of-six-glaciers": {
+     "stats": {
+      "distanceKm": 11.8,
+      "gainM": 595
+     }
+    },
+    "lake-louise": {
+     "sub": "lake",
+     "durationMin": 45,
+     "durationSource": "plan"
+    },
+    "lake-louise-gondola": {
+     "sub": "lift-ride",
+     "durationMin": 90,
+     "durationSource": "plan"
+    }
+   },
+   "split": {
+    "rejoin": {
+     "time": "13:30",
+     "place": "the Chateau end of the lakeshore",
+     "afterItem": "lake-louise-canoe"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "lake-louise-lakeshore",
+     "mode": "shuttle",
+     "minutes": 25,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "lake-louise-lakeshore",
+     "to": "lake-louise-canoe",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "lake-louise-canoe",
+     "to": "lake-louise-gondola",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "lake-louise-gondola",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "plain-of-six-glaciers",
+     "mode": "shuttle",
+     "minutes": 25,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "lake-louise",
+     "mode": "shuttle",
+     "minutes": 25,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "lake-louise",
+     "to": "lake-louise-gondola",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "11": {
+   "start": {
+    "time": "06:30",
+    "confidence": "suggested",
+    "source": "operator",
+    "label": "Take the Moraine shuttle from the Park and Ride"
+   },
+   "order": {
+    "A": [
+     "larch-valley-sentinel-pass"
+    ],
+    "B": [
+     {
+      "id": "moraine-lake",
+      "title": "Rockpile at first light",
+      "sub": "viewpoint",
+      "time": "07:00",
+      "confidence": "suggested",
+      "source": "plan",
+      "durationMin": 30,
+      "durationSource": "plan",
+      "note": "0.7 km loop with stairs. Sunrise is later behind the Ten Peaks."
+     },
+     {
+      "id": "moraine-lakeshore",
+      "stats": {
+       "distanceKm": 2.6,
+       "gainM": 30
+      }
+     },
+     {
+      "id": "moraine-lake-canoe",
+      "optional": true,
+      "durationMin": 60,
+      "durationSource": "plan",
+      "sub": "boat",
+      "note": "First come, first served; may be closed by then."
+     }
+    ],
+    "C": [
+     "moraine-lake"
+    ]
+   },
+   "items": {
+    "larch-valley-sentinel-pass": {
+     "stats": {
+      "distanceKm": 11.2,
+      "gainM": 750
+     }
+    }
+   },
+   "split": {
+    "rejoin": {
+     "time": "13:00",
+     "place": "the Moraine Lake shuttle stop",
+     "afterItem": "moraine-lake-canoe"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "moraine-lake",
+     "mode": "shuttle",
+     "minutes": 30,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "moraine-lake",
+     "to": "moraine-lakeshore",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "moraine-lakeshore",
+     "to": "moraine-lake-canoe",
+     "mode": "walk",
+     "minutes": 0,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "moraine-lake-canoe",
+     "to": "base",
+     "mode": "shuttle",
+     "minutes": 30,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "larch-valley-sentinel-pass",
+     "mode": "shuttle",
+     "minutes": 30,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "12": {
+   "kind": "transfer",
+   "order": {
+    "A": [
+     "ha-ling-peak"
+    ],
+    "B": [
+     {
+      "id": "canmore-groceries",
+      "kind": "visit",
+      "sub": "errands",
+      "title": "Groceries in Canmore",
+      "durationMin": 45,
+      "durationSource": "plan",
+      "note": "Kananaskis Village has almost none."
+     },
+     {
+      "id": "grassi-lakes-upper",
+      "title": "Grassi Lakes",
+      "stats": {
+       "distanceKm": 3.8,
+       "gainM": 125
+      },
+      "note": "A Kananaskis Conservation Pass is needed to park. Stay on the trail: wildlife corridor."
+     },
+     {
+      "id": "canmore-nordic-centre",
+      "title": "Canmore Nordic Centre",
+      "optional": true,
+      "sub": "activity",
+      "durationMin": 60,
+      "durationSource": "plan",
+      "note": "The skills park is free."
+     }
+    ],
+    "C": [
+     "mount-lorette-ponds",
+     "canmore-nordic-centre"
+    ]
+   },
+   "items": {
+    "ha-ling-peak": {
+     "stats": {
+      "distanceKm": 7,
+      "gainM": 780
+     }
+    },
+    "mount-lorette-ponds": {
+     "sub": "lake",
+     "durationMin": 30,
+     "durationSource": "plan"
+    }
+   },
+   "split": {
+    "optional": true,
+    "rejoin": {
+     "time": "14:00",
+     "place": "the Grassi Lakes and Ha Ling trailhead area",
+     "afterItem": "grassi-lakes-upper"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "canmore-groceries",
+     "mode": "drive",
+     "minutes": 60,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "canmore-groceries",
+     "to": "grassi-lakes-upper",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "grassi-lakes-upper",
+     "to": "canmore-nordic-centre",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "canmore-nordic-centre",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "canmore-groceries",
+     "to": "ha-ling-peak",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "mount-lorette-ponds",
+     "mode": "drive",
+     "minutes": 75,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "mount-lorette-ponds",
+     "to": "canmore-nordic-centre",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "canmore-nordic-centre",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 45,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "13": {
+   "order": {
+    "A": [
+     "sarrail-ridge"
+    ],
+    "B": [
+     {
+      "id": "interlakes-trail",
+      "stats": {
+       "distanceKm": 4,
+       "gainM": 30
+      },
+      "note": "Flat. Walk part of it out and back, about 4 km."
+     },
+     {
+      "id": "rockwall-lookout",
+      "stats": {
+       "distanceKm": 0.5,
+       "gainM": 10
+      },
+      "note": "At the Peter Lougheed Discovery Centre."
+     },
+     {
+      "id": "kananaskis-lakes-day-use",
+      "sub": "lake",
+      "durationMin": 60,
+      "durationSource": "plan",
+      "note": "Picnic and a lakeside stroll at the Lower Lake day use."
+     },
+     {
+      "id": "rawson-lake",
+      "optional": true,
+      "note": "The stretch goal if the youngest walker is up to it."
+     }
+    ],
+    "C": [
+     "kananaskis-lakes-day-use"
+    ]
+   },
+   "items": {
+    "sarrail-ridge": {
+     "stats": {
+      "distanceKm": 11.3,
+      "gainM": 675
+     }
+    },
+    "rawson-lake": {
+     "stats": {
+      "distanceKm": 7.8,
+      "gainM": 300
+     }
+    }
+   },
+   "split": {
+    "rejoin": {
+     "time": "14:30",
+     "place": "the Rawson Lake and Upper Lake trailhead lot",
+     "afterItem": "kananaskis-lakes-day-use"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "interlakes-trail",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "interlakes-trail",
+     "to": "rockwall-lookout",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "rockwall-lookout",
+     "to": "kananaskis-lakes-day-use",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "kananaskis-lakes-day-use",
+     "to": "rawson-lake",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "rawson-lake",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "kananaskis-lakes-day-use",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "sarrail-ridge",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "kananaskis-lakes-day-use",
+     "mode": "drive",
+     "minutes": 40,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "14": {
+   "order": {
+    "B": [
+     {
+      "id": "ptarmigan-cirque",
+      "time": "09:00",
+      "confidence": "suggested",
+      "source": "plan",
+      "stats": {
+       "distanceKm": 4.5,
+       "gainM": 210
+      },
+      "note": "Arrive by 09:00: the Highwood lot is busy. Closed in snow or wet."
+     },
+     {
+      "id": "wedge-pond-loop",
+      "stats": {
+       "distanceKm": 1,
+       "gainM": 5
+      },
+      "note": "On the way back; flat."
+     }
+    ],
+    "C": [
+     "highwood-pass-summit",
+     "wedge-pond"
+    ]
+   },
+   "items": {
+    "highwood-pass-summit": {
+     "sub": "viewpoint",
+     "durationMin": 20,
+     "durationSource": "plan"
+    },
+    "wedge-pond": {
+     "sub": "lake",
+     "durationMin": 30,
+     "durationSource": "plan"
+    }
+   },
+   "legs": [
+    {
+     "from": "base",
+     "to": "ptarmigan-cirque",
+     "mode": "drive",
+     "minutes": 50,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "ptarmigan-cirque",
+     "to": "wedge-pond-loop",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "wedge-pond-loop",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 50,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "highwood-pass-summit",
+     "mode": "drive",
+     "minutes": 50,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "highwood-pass-summit",
+     "to": "wedge-pond",
+     "mode": "drive",
+     "minutes": 10,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "wedge-pond",
+     "to": "base",
+     "mode": "drive",
+     "minutes": 50,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  },
+  "15": {
+   "kind": "departure",
+   "order": {
+    "B": [
+     {
+      "id": "troll-falls",
+      "optional": true,
+      "stats": {
+       "distanceKm": 3.4,
+       "gainM": 155
+      },
+      "note": "Only if the flight leaves after about 15:00. Slippery near the upper falls."
+     }
+    ],
+    "C": [
+     {
+      "id": "wedge-pond",
+      "sub": "lake",
+      "durationMin": 30,
+      "durationSource": "plan",
+      "optional": true
+     }
+    ]
+   },
+   "items": {},
+   "legs": [
+    {
+     "from": "base",
+     "to": "troll-falls",
+     "mode": "drive",
+     "minutes": 5,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "troll-falls",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 70,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "wedge-pond",
+     "to": "next-base",
+     "mode": "drive",
+     "minutes": 65,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    },
+    {
+     "from": "base",
+     "to": "wedge-pond",
+     "mode": "drive",
+     "minutes": 15,
+     "basis": "plan",
+     "estimate": true,
+     "km": null
+    }
+   ]
+  }
+ }
+}
