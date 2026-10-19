@@ -41,6 +41,18 @@ describe('link-only platforms never source a public fact', () => {
     expect(facts).toBeGreaterThan(50);
   });
 
+  it('keeps a trail built from the Rockies research clean: AllTrails is a link, never a fact, a track value or a point', () => {
+    const data = createPublicData();
+    const trail = data.getPlace('larch-valley-to-sentinel-pass')!;
+    expect(trail.links.flatMap((g) => g.links).some((l) => l.kind === 'alltrails' && l.linkOnly)).toBe(true);
+    for (const f of trail.facts) expect(`${f.value} ${f.provenance}`, f.label).not.toMatch(PLATFORM);
+    // every stored line and point is OpenStreetMap, Wikidata or our own: never a link-only platform
+    for (const p of data.internals.places) {
+      for (const l of p.lines) expect(`${l.ref} ${l.source} ${l.credit ?? ''} ${l.label}`, p.slug).not.toMatch(PLATFORM);
+      if (p.point) expect(p.point.pointSource, p.slug).not.toMatch(PLATFORM);
+    }
+  });
+
   it('keeps the Tre Cime difficulty out of the facts', () => {
     const place = createPublicData().getPlace('tre-cime-di-lavaredo-loop')!;
     expect(place.facts.some((f) => /AllTrails listing/i.test(f.provenance) || /moderately challenging/i.test(f.value))).toBe(false);

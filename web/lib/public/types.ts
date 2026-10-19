@@ -81,6 +81,27 @@ export interface PlaceLine {
   source: string;
   /** True only for OSM-derived lines with an osm_ref, or official sources whose licence allows reuse. */
   exportable: boolean;
+  /** [lon, lat] of the stored OSM track (data/tracks), simplified to about 5 m. Absent when no track is stored. Page-only: never in a list or search file (P8). */
+  geometry?: [number, number][];
+  /** A relation that did not stitch into one line, drawn as pieces. */
+  segments?: [number, number][][];
+  /** Drawn dashed and labelled "Route not confirmed yet": held back for a person to confirm, or not one line. */
+  dashed?: boolean;
+  /** Elevation along the stored line; null when only a sketch can be drawn. */
+  profile?: PlaceProfile | null;
+  /** "OpenStreetMap, read 2026-10-19; elevation AWS Terrain Tiles" */
+  credit?: string;
+}
+
+/** Elevation sampled along a stored track: `samples` are [km along the line, metres]. Totals are computed from them (5 m hysteresis). */
+export interface PlaceProfile {
+  samples: [number, number][];
+  km: number;
+  gainM: number;
+  lossM: number;
+  highM: number;
+  lowM: number;
+  dem: string;
 }
 
 export interface Fact {
