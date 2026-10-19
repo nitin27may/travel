@@ -43,7 +43,7 @@ p.pb { margin: 0; }
 .su-group > summary { display: grid; grid-template-columns: 16px auto minmax(0, 1fr); align-items: baseline; gap: 4px 12px; min-height: 44px; padding: 10px 0; cursor: pointer; list-style: none; }
 .su-group > summary::-webkit-details-marker { display: none; }
 .gt { font: var(--t-row); font-size: 17px; text-transform: uppercase; white-space: nowrap; }
-.gs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0; font: var(--t-meta); color: var(--ink-2); min-width: 0; }
+.gs { display: block; font: var(--t-meta); color: var(--ink-2); min-width: 0; }
 .su-gitem { display: inline; }
 .su-dot { margin: 0 8px; color: var(--line-2); }
 .gs .gc { margin-left: 8px; white-space: normal; border-radius: var(--r-3); }
