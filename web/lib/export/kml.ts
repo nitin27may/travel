@@ -1,5 +1,5 @@
 import type { GpxSource } from './gpx';
-import { approxNote, attributionFor, checkPoint, lineExportable, sourceLine } from './licence';
+import { approxNote, attributionFor, checkPoint, lineExportable, sourceLine, trackNotice } from './licence';
 import { coord, x } from './xml';
 
 // KML 2.2 for Google Earth and My Maps: one folder per day, then one for places without a day. Same guard as GPX.
@@ -15,7 +15,7 @@ export function buildKml(src: GpxSource): { xml: string; points: number; skipped
     '<kml xmlns="http://www.opengis.net/kml/2.2">',
     '<Document>',
     `<name>${x(src.title)}</name>`,
-    `<description>${x([`${src.title}: ${src.url}`, sourceLine(src.url), ...attribution].join('\n'))}</description>`,
+    `<description>${x([`${src.title}: ${src.url}`, sourceLine(src.url), ...attribution, ...trackNotice(tracks)].join('\n'))}</description>`,
     `<!-- ${skipped} point${skipped === 1 ? '' : 's'} left out: source not ours to give -->`,
   ];
   for (const d of days) {
@@ -34,7 +34,7 @@ export function buildKml(src: GpxSource): { xml: string; points: number; skipped
   if (tracks.length) {
     out.push('<Folder>', '<name>Routes</name>');
     for (const t of tracks) {
-      out.push('<Placemark>', `<name>${x(t.label)}</name>`, `<LineString><coordinates>${t.geometry.map(([lo, la]) => `${coord(lo)},${coord(la)},0`).join(' ')}</coordinates></LineString>`, '</Placemark>');
+      out.push('<Placemark>', `<name>${x(t.label)}</name>`, `<description>${x(trackNotice([t])[0])}</description>`, `<LineString><coordinates>${t.geometry.map(([lo, la]) => `${coord(lo)},${coord(la)},0`).join(' ')}</coordinates></LineString>`, '</Placemark>');
     }
     out.push('</Folder>');
   }

@@ -79,3 +79,11 @@ export function approxNote(p: Pick<Point, 'pointSource' | 'sourceLicence'>): str
   const v = checkPoint(p);
   return v.ok && v.approximate ? 'Approximate position, not surveyed' : null;
 }
+
+/**
+ * The notice a file carries for each route line it holds: the licence, where the line came from (the OSM records) and when it was
+ * read. `label` is "OpenStreetMap relation 3985745, read 2026-10-19".
+ */
+export function trackNotice(lines: (LineLike & { label: string })[]): string[] {
+  return lines.filter(lineExportable).map((l) => `Route line: ${l.label}. ${OSM.test(l.ref) ? 'Data © OpenStreetMap contributors, ODbL 1.0, https://www.openstreetmap.org/copyright' : l.licence}.`);
+}
