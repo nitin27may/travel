@@ -7,7 +7,7 @@ import { Chip } from '@/components/ui/Chip';
 import { Icon } from '@/components/ui/Icon';
 import { KindGlyph } from '@/components/ui/KindGlyph';
 import { Segmented } from '@/components/ui/Segmented';
-import { sizedImage } from '@/lib/format/image';
+import { imageSrcSet, sizedImage } from '@/lib/format/image';
 import type { DayRowModel, StopModel } from './model';
 import { StopStats } from './StopStats';
 
@@ -59,7 +59,7 @@ export function DayRow({ trip, day, open, picked, onToggle }: Props) {
           <span className="day-thumb" aria-hidden="true">
             {day.thumb ? (
               // eslint-disable-next-line @next/next/no-img-element -- static export, remote Commons URLs
-              <img src={sizedImage(day.thumb.url, 192)} alt="" width={192} height={136} loading="lazy" decoding="async" />
+              <img src={sizedImage(day.thumb.url, 192)} srcSet={imageSrcSet(day.thumb.url)} sizes="96px" alt="" width={192} height={136} loading="lazy" decoding="async" />
             ) : (
               <Icon name="mountain" size={22} />
             )}

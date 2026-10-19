@@ -10,7 +10,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import type { KeyboardEvent } from 'react';
-import { DataTableShell } from '@/components/ui/DataTable';
+import { DataTableShell, useScrollCue } from '@/components/ui/DataTable';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Icon } from '@/components/ui/Icon';
 import { Popover } from '@/components/ui/Popover';
@@ -39,6 +39,7 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
   const [sizing, setSizing] = useState<ColumnSizingState>({});
   const [activeRow, setActiveRow] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const cue = useScrollCue(scrollRef);
 
   const visibleIds = state.cols ?? d.defaultColumns;
   const visibility: VisibilityState = useMemo(() => Object.fromEntries(d.columns.map((c) => [c.id as string, visibleIds.includes(c.id as string)])), [d.columns, visibleIds]);
@@ -267,7 +268,7 @@ export function TableView<Row>({ d, groups, state, onState, onOpen }: ViewProps<
   );
 
   return (
-    <DataTableShell tools={tools} density={prefs.density} scrollRef={scrollRef}>
+    <DataTableShell tools={tools} density={prefs.density} scrollRef={scrollRef} cue={cue}>
         <table className="data-table" style={{ width: Math.max(totalWidth, 0), minWidth: '100%' }} aria-rowcount={data.length}>
           <caption className="sr-only">
             {d.noun.many}, {data.length} rows. Use the arrow keys to move between rows and Enter to open one.

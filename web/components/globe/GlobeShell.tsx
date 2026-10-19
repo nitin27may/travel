@@ -197,7 +197,6 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
   const openPin = useCallback((p: PinModel) => ctrl.current?.openPin(p), []);
   const onPick = useCallback((h: SearchHit) => { void ctrl.current?.goTo(h); }, []);
-  const cardList = useMemo(() => Object.values(data.cards), [data]);
 
   const nearby = useMemo<NearbyPlace[]>(() => {
     const f = snap.feature;
@@ -264,7 +263,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       <div className="globe-top">
         <GlobeCrumbs crumbs={snap.crumbs} canBack={canBack} onBack={() => controller?.back()} onCrumb={(p) => controller?.crumbTo(p)} />
-        {book ? <GlobeSearch cards={cardList} book={book} onPick={onPick} placeholder={short ? 'Search the globe' : undefined} /> : null}
+        {book ? <GlobeSearch book={book} onPick={onPick} placeholder={short ? 'Search the globe' : undefined} /> : null}
       </div>
 
       {snap.loading ? <p className="globe-status" role="status">{snap.loading}</p> : null}
@@ -348,7 +347,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
       {snap.failed ? <p className="globe-status globe-fail-note" role="alert">{snap.failed}</p> : null}
       <ul className="sr-only" aria-label="Places and trips on the globe">
-        {cardList.map((c) => (<li key={c.key}><a href={c.href}>{c.title}</a></li>))}
+        {snap.pins.filter((p) => p.cardKey).map((p) => (<li key={p.id}><a href={p.cardKey!.startsWith('trip:') ? `/trips/${p.cardKey!.slice(5)}/` : `/places/${p.cardKey!.slice(6)}/`}>{p.label}</a></li>))}
       </ul>
       <p className="sr-only" aria-live="polite">{reduced || prefersReducedMotion() ? 'Motion is reduced: the globe jumps instead of flying.' : ''}</p>
     </div>

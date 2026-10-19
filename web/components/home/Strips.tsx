@@ -16,11 +16,12 @@ export function publicSummary(p: Pick<PublicPlaceCard, 'summary' | 'kindLabel' |
   return s && !INTERNAL.test(s) ? s : [p.kindLabel, p.areaLabel].filter(Boolean).join(' in ');
 }
 
-export function HomeTripCard({ trip }: { trip: PublicTripCard }) {
+export function HomeTripCard({ trip, priority }: { trip: PublicTripCard; priority?: boolean }) {
   const meta = [trip.daysCount ? `${trip.daysCount} days` : null, trip.region].filter(Boolean).join(' · ');
   return (
     <Card
       variant="publicTrip"
+      priority={priority}
       photo={trip.cover?.url ?? null}
       fallbackIcon="route"
       fallbackLabel={trip.region}

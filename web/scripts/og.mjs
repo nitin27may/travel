@@ -7,10 +7,10 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSyn
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { cleanAuthor } from './og-text.mjs';
+import { CACHE, thumb } from './commons-cache.mjs';
 
 const WEB = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(WEB, process.env.NEXT_DIST_DIR || 'out');
-const CACHE = path.join(WEB, '.og-cache');
 const manifestFile = path.join(OUT, 'og-manifest.json');
 // `node scripts/og.mjs --default-only --write-public` redraws just public/og-default.png (no export needed).
 const defaultOnly = process.argv.includes('--default-only');
@@ -25,22 +25,6 @@ const font = (f) => readFileSync(path.join(WEB, 'public', 'fonts', f)).toString(
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 mkdirSync(CACHE, { recursive: true });
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-/** One Commons thumbnail, cached on disk, fetched one at a time with a pause and a backoff on 429 (Commons rate-limits parallel fetches). */
-async function thumb(url) {
-  const src = url.replace(/([?&])width=\d+/, '$1width=960');
-  const file = path.join(CACHE, Buffer.from(src).toString('base64url').slice(-80) + '.jpg');
-  if (existsSync(file)) return file;
-  for (let i = 0; i < 4; i++) {
-    try {
-      const r = await fetch(src, { headers: { 'user-agent': 'trip-plans-og/1.0 (nks-travel.pages.dev)' } });
-      if (r.ok) { writeFileSync(file, Buffer.from(await r.arrayBuffer())); await sleep(250); return file; }
-      if (r.status !== 429 && r.status < 500) return null;
-    } catch { /* retry */ }
-    await sleep(1500 * (i + 1));
-  }
-  return null;
-}
 
 const page = (it, photo) => `<!doctype html><meta charset="utf-8"><style>
 @font-face{font-family:'Big Shoulders Display';font-weight:100 900;src:url(data:font/woff2;base64,${font('big-shoulders-display-latin-wght-normal.woff2')})}

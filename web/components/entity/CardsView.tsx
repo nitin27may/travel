@@ -13,12 +13,14 @@ export function CardsView<Row>({ d, groups, state, onOpen }: ViewProps<Row>) {
         <section key={g.key || gi} aria-labelledby={g.key ? `grp-${gi}` : undefined}>
           <GroupHeading group={g} id={`grp-${gi}`} />
           <ul className="card-grid">
-            {g.rows.map((row) => {
+            {g.rows.map((row, ri) => {
               const id = d.id(row);
               return (
                 <li key={id}>
                   <Card
                     variant={d.type === 'trip' ? 'publicTrip' : d.type === 'trail' ? 'trail' : 'place'}
+                    priority={gi === 0 && ri === 0}
+                    eager={gi === 0 && ri > 0 && ri < 4}
                     data-entity-id={id}
                     data-focused={state.focus === id || undefined}
                     photo={d.image?.(row) ?? null}

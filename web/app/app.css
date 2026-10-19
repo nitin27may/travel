@@ -110,6 +110,7 @@ html.theme-fade img { transition: none !important; }
 .sheet-more[open] > summary svg { transform: rotate(180deg); }
 .sheet-more > .sheet-facet { margin-left: var(--s-3); }
 .filters-btn { height: 36px; }
+.filter-bar .filters-btn { display: none; }
 .count { font: var(--t-meta); color: var(--muted); display: inline-flex; align-items: baseline; gap: 6px; }
 .count strong { font: var(--t-section); color: var(--accent-text); }
 .count .of { color: var(--muted); }
@@ -128,7 +129,8 @@ html.theme-fade img { transition: none !important; }
   .filter-bar { grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-2); padding: var(--s-2) 0; }
   .filter-row { display: contents; }
   .filter-bar .search { grid-column: 1; grid-row: 1; width: auto; }
-  .filters-btn { grid-column: 2; grid-row: 1; }
+  .filter-bar .filters-btn { display: inline-flex; grid-column: 2; grid-row: 1; }
+  .filter-bar .facet-group, .filter-bar .row-end { display: none; }
   .count { grid-column: 1; grid-row: 2; align-self: center; }
   .filter-bar .seg { grid-column: 2; grid-row: 2; }
   .filter-bar .chips { grid-column: 1 / -1; grid-row: 3; flex-wrap: nowrap; overflow-x: auto; padding-bottom: var(--s-1); }

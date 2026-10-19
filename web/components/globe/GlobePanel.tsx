@@ -104,7 +104,7 @@ export function GlobePanelBody({ data, book, path, selected, onArea, onCard }: P
                 <li key={key}>
                   <button type="button" className="globe-row" aria-current={selected === key ? 'true' : undefined} onClick={() => onCard(key)}>
                     <span className="globe-glyph"><Icon name="route" size={16} /></span>
-                    <span className="globe-row-main"><span className="globe-row-name">{data.cards[key]?.title ?? t.name}</span></span>
+                    <span className="globe-row-main"><span className="globe-row-name">{t.name}</span></span>
                   </button>
                 </li>
               );
@@ -118,12 +118,11 @@ export function GlobePanelBody({ data, book, path, selected, onArea, onCard }: P
           <ul>
             {places.map((p) => {
               const key = `place:${p.slug}`;
-              const card = data.cards[key];
               return (
                 <li key={key}>
                   <button type="button" className="globe-row" aria-current={selected === key ? 'true' : undefined} onClick={() => onCard(key)}>
                     <span className="globe-glyph"><Icon name={kindIcon(p.type)} size={16} /></span>
-                    <span className="globe-row-main"><span className="globe-row-name">{p.name}</span><span className="globe-row-meta">{card?.kindLabel}</span></span>
+                    <span className="globe-row-main"><span className="globe-row-name">{p.name}</span><span className="globe-row-meta">{p.kindLabel}</span></span>
                   </button>
                 </li>
               );

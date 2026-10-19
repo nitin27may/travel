@@ -9,6 +9,7 @@ import { suggest as suggestFrom } from '@/lib/search/suggest';
 import type { Suggestion } from '@/lib/search/suggest';
 import type { SearchManifest, SearchPartRef, SearchRecord, SearchResult } from '@/lib/search/types';
 import type { FacetCount } from '@/lib/entities/filter';
+import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
 import type { PlaceListRow } from '@/components/places/rows';
 import type { TripListRow } from '@/components/trips/types';
 
@@ -214,4 +215,61 @@ export function loadExport(type: 'trip' | 'place', slug: string): Promise<TripEx
   } catch (e) {
     return Promise.reject(e instanceof Error ? e : new Error(String(e)));
   }
+}
+
+// ---------------------------------------------------------------- globe
+
+// The globe's data, split so a page never carries it (backlog 2.39): the area tree first (counts and a centre per country),
+// then the light pins of one country when it opens, then one card when a pin is selected. Files today; a server later.
+
+let treePromise: Promise<GlobeTree> | null = null;
+const pinPromises = new Map<string, Promise<LightPin[]>>();
+const cardPromises = new Map<string, Promise<GlobeCardFile | null>>();
+
+/** The area tree with counts. No pins. Retries on the next call after a failure. */
+export function globeTree(): Promise<GlobeTree> {
+  treePromise ??= getJson<GlobeTree>('/globe-data/index.json').catch((e) => {
+    treePromise = null;
+    throw e;
+  });
+  return treePromise;
+}
+
+export interface GlobeScope {
+  /** Lower-case ISO alpha-2. Without it, every country (the whole list; ask for one country when you can). */
+  country?: string;
+}
+
+/** The light pins of a scope: name, kind, slug, position and area path. Cached per page view; retries after a failure. */
+export async function globePins(scope: GlobeScope = {}): Promise<LightPin[]> {
+  const ccs = scope.country ? [scope.country.toLowerCase()] : (await globeTree()).continents.flatMap((c) => c.countries.map((n) => n.slug));
+  const parts = await Promise.all(
+    ccs.map((cc) => {
+      let p = pinPromises.get(cc);
+      if (!p) {
+        p = getJson<LightPin[]>(`/globe-data/pins/${encodeURIComponent(cc)}/data.json`).catch((e) => {
+          pinPromises.delete(cc);
+          throw e;
+        });
+        pinPromises.set(cc, p);
+      }
+      return p;
+    }),
+  );
+  return parts.flat();
+}
+
+/** The card and pin behind one `kind:slug` key, or null when it is not on the globe. Cached per page view. */
+export function globeCard(key: string): Promise<GlobeCardFile | null> {
+  const [kind, slug] = key.split(':');
+  if ((kind !== 'place' && kind !== 'trip') || !slug) return Promise.resolve(null);
+  let p = cardPromises.get(key);
+  if (!p) {
+    p = getJson<GlobeCardFile | null>(`/globe-data/card/${kind}/${encodeURIComponent(slug)}/data.json`).catch(() => {
+      cardPromises.delete(key);
+      return null;
+    });
+    cardPromises.set(key, p);
+  }
+  return p;
 }

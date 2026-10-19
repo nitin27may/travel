@@ -24,7 +24,7 @@ const NOT_CATALOGUE: Record<string, string> = {
 };
 
 /** A URL of catalogue data: search parts, exports, the old whole-list files. */
-const CATALOGUE_URL = /['"`]\/(?:search\/|search-index|export-data|data\/(?:places|trips))|\/export-data\/|search-index\.json|data\/(?:places|trips)\.json/;
+const CATALOGUE_URL = /['"`]\/(?:search\/|globe-data\/|search-index|export-data|data\/(?:places|trips))|\/export-data\/|search-index\.json|data\/(?:places|trips)\.json/;
 
 function sources(): { rel: string; text: string }[] {
   const out: { rel: string; text: string }[] = [];
@@ -52,8 +52,8 @@ describe('the client data boundary (principle P9)', () => {
 
   it('no module but the data module names a catalogue data URL', () => {
     const hits = all.filter((s) => s.rel !== THE_MODULE && CATALOGUE_URL.test(s.text)).map((s) => s.rel);
-    // the server routes that write the files live under app/search
-    expect(hits.filter((h) => !h.startsWith('app/search/'))).toEqual([]);
+    // the server routes that write the files live under app/search and app/globe-data
+    expect(hits.filter((h) => !h.startsWith('app/search/') && !h.startsWith('app/globe-data/'))).toEqual([]);
   });
 
   it('the data module exposes the functions a future API keeps', () => {
