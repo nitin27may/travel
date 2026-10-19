@@ -43,9 +43,9 @@ export function parseTripUrl(search: string, hash: string): Pick<TripUrl, 'view'
   return { view, hash: h, day: m ? Number(m[1]) : null, category, timeline };
 }
 
-/** The query string for a view and the timeline keys: the timeline keys first, then `view`. */
-export function tripQuery(view: TripView, timeline: string): string {
-  const parts = [timeline, view === 'category' ? 'view=category' : ''].filter(Boolean);
+/** The query string for a view and the timeline keys: the timeline keys first, then `view`, then any other key the link carried (`extra`, e.g. a campaign tag). */
+export function tripQuery(view: TripView, timeline: string, extra = ''): string {
+  const parts = [timeline, view === 'category' ? 'view=category' : '', extra].filter(Boolean);
   return parts.length ? `?${parts.join('&')}` : '';
 }
 
@@ -62,7 +62,10 @@ export function useTripUrl(): TripUrl {
   }, [raw]);
   const go = useCallback<TripUrl['go']>((next, mode = 'push') => {
     const timeline = next.timeline ?? parseTripUrl(window.location.search, '').timeline;
-    const url = `${window.location.pathname}${tripQuery(next.view, timeline)}${next.hash ? `#${next.hash}` : ''}`;
+    // keys that are not the trip's own (a campaign tag, a share id) survive a hash or view change
+    const own = new Set<string>([...PROFILE_KEYS, 'view']);
+    const extra = [...new URLSearchParams(window.location.search)].filter(([k]) => !own.has(k)).map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
+    const url = `${window.location.pathname}${tripQuery(next.view, timeline, extra)}${next.hash ? `#${next.hash}` : ''}`;
     if (url === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
     if (mode === 'push') window.history.pushState(null, '', url);
     else window.history.replaceState(null, '', url);
