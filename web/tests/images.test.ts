@@ -55,7 +55,10 @@ describe('images (backlog 2.14)', () => {
 
   it('gives the first card on the home page, the lists and the hero of a trip or place high priority', () => {
     for (const rel of ['index.html', 'trips/index.html', 'places/index.html', 'trips/dolomites-2027/index.html', 'places/arches-national-park/index.html']) {
-      expect(readText(path.join(OUT, rel)), rel).toMatch(/<img\b[^>]*fetchPriority="high"/i);
+      const html = readText(path.join(OUT, rel));
+      // the first page of the places list can hold only photoless cards (the capture-seeded pages have no photo yet): then there is no image to prioritise
+      if (rel === 'places/index.html' && !/<img\b/i.test(html)) continue;
+      expect(html, rel).toMatch(/<img\b[^>]*fetchPriority="high"/i);
     }
   });
 });

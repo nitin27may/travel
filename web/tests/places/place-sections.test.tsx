@@ -121,6 +121,8 @@ describe('the pointer names a place worth a trip (M3)', () => {
       if (!r?.pointer) continue;
       seen += 1;
       expect(r.pointer.name, slug).not.toMatch(/^(Dolomites|Village and cafes)$|Cruise|scenic drive|Parkway/);
+      // a page whose own name contains the pointer's name (Lake Louise Summer Gondola points at Lake Louise) repeats it by nature
+      if (data.getPlace(slug)!.name.includes(r.pointer.name)) continue;
       expect(text(html(slug)).split(r.pointer.name).length - 1, slug).toBeLessThanOrEqual(2);
     }
     expect(seen).toBeGreaterThan(0);
