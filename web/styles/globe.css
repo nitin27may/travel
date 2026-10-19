@@ -208,7 +208,7 @@ span.globe-pin { cursor: default; }
 /* ---------- phone ---------- */
 .globe-options-btn, .globe-list-btn { position: absolute; z-index: 7; right: 12px; bottom: 188px; width: 44px; height: 44px; min-width: 44px; padding: 0; }
 .globe-list-btn { bottom: 56px; }
-.globe-card-sheet { position: absolute; z-index: 8; left: 0; right: 0; bottom: 0; max-height: 52%; overflow: auto; overscroll-behavior: contain; border-radius: 18px 18px 0 0; background: var(--surface); border-top: 1px solid var(--line-2); box-shadow: var(--e-2); animation: globe-sheet-in 220ms var(--e-out) both; }
+.globe-card-sheet { position: absolute; z-index: 8; left: 0; right: 0; bottom: 0; max-height: 60%; overflow: auto; overscroll-behavior: contain; border-radius: 18px 18px 0 0; background: var(--surface); border-top: 1px solid var(--line-2); box-shadow: var(--e-2); animation: globe-sheet-in 220ms var(--e-out) both; }
 @keyframes globe-sheet-in { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
 .sheet-bottom-frame.globe-sheet { bottom: var(--phone-bottombar-h); z-index: var(--z-drawer); }
 @media (max-width: 639px) {
@@ -327,3 +327,6 @@ button.globe-here-row:hover { background: var(--surface-2); }
 @media (max-width: 639px), (max-height: 500px) and (orientation: landscape) {
   .globe-here { left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: 52%; border-radius: 18px 18px 0 0; }
 }
+
+.globe-root .maplibregl-ctrl-attrib, .globe-root .maplibregl-ctrl-attrib.maplibregl-compact { color: var(--ink-2); }
+.globe-root .maplibregl-ctrl-attrib a { color: var(--ink-2); }
