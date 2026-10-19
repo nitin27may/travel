@@ -204,7 +204,7 @@ export function Specimen() {
           <Field label="Departs, Toronto time" help="Arrives Sat 27 Feb 11:05 Buenos Aires · +1">{(p) => <Input {...p} mono defaultValue="Fri 26 Feb 2027 23:50" />}</Field>
           <Field label="Total" error="Use digits only: 5,400">{(p) => <Input {...p} mono error defaultValue="CAD 5,4OO" />}</Field>
           <Field label="Confirmation code">{(p) => <Input {...p} mono readOnly defaultValue="•••• ••••" suffix="Reveal" />}</Field>
-          <Field label="Travellers">{(p) => <Input {...p} disabled defaultValue="Nitin, Partner, Kai" />}</Field>
+          <Field label="Travellers">{(p) => <Input {...p} disabled defaultValue="2 adults, 1 child" />}</Field>
           <Field label="Distance">{(p) => <Input {...p} mono defaultValue="12.5" suffix="km" />}</Field>
           <Field label="Checking the code">{(p) => <Input {...p} mono loading defaultValue="HB-5521" />}</Field>
           <Field label="Group by">{(p) => (<Select {...p} defaultValue="when"><option value="when">When</option><option value="country">Country</option></Select>)}</Field>
@@ -245,7 +245,7 @@ export function Specimen() {
             <Tag>neutral, phase with identity, kind, active filter</Tag>
           </div>
           <div className="row-flex">
-            <Chip kind="toBook">To book</Chip><Chip kind="caution">Window open</Chip><Chip kind="urgent">Opens Mon 19 Oct</Chip><Chip kind="caution" icon="clock">Due Sat 31 Oct</Chip><Chip kind="held">Held</Chip><Chip kind="ok">Booked</Chip><Chip kind="ok">Kai, 8 fits</Chip><Chip kind="idea">Idea</Chip>
+            <Chip kind="toBook">To book</Chip><Chip kind="caution">Window open</Chip><Chip kind="urgent">Opens Mon 19 Oct</Chip><Chip kind="caution" icon="clock">Due Sat 31 Oct</Chip><Chip kind="held">Held</Chip><Chip kind="ok">Booked</Chip><Chip kind="ok">Ages 10+ fits</Chip><Chip kind="idea">Idea</Chip>
             <Chip kind="honest">Unverified</Chip><Chip kind="honest">No source yet</Chip><Chip kind="honest">Location unconfirmed</Chip><Chip kind="honest">Dates open</Chip><Chip kind="notice" icon="wifiOff">Offline</Chip><Chip kind="notice">Read-only</Chip><Chip kind="trip" identity="blue" photo={P1}>Dolomites</Chip>
           </div>
           <div className="row-flex">
@@ -320,7 +320,7 @@ export function Specimen() {
         </div>
         <Tag>trip card (identity bar) · place card without photo · selected (map sync) · skeleton</Tag>
         <div className="cards4">
-          <Card variant="trail" photo={P3} focus={{ x: 50, y: 70 }} title="Tre Cime di Lavaredo loop" meta="Auronzo, Belluno · 10 km · 450 m" chips={<div className="chips"><Chip kind="kind" icon="trail">Trail</Chip><Chip kind="ok">Fits Kai</Chip></div>} />
+          <Card variant="trail" photo={P3} focus={{ x: 50, y: 70 }} title="Tre Cime di Lavaredo loop" meta="Auronzo, Belluno · 10 km · 450 m" chips={<div className="chips"><Chip kind="kind" icon="trail">Trail</Chip><Chip kind="ok">Fits ages 6+</Chip></div>} />
           <Card variant="trip" done photo={P3} identity="none" title="Quebec" meta="Sept 2026 · 2 nights" chips={<div className="chips"><Chip kind="notice">Past trip</Chip></div>} />
         </div>
         <Tag>trail card with a photo focus point · done trip, photo desaturated</Tag>
