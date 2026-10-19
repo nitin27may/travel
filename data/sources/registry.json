@@ -5158,6 +5158,43 @@
       }
     },
     {
+      "id": "s-2443fe23a5",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell",
+      "title": "Mount Edith Cavell area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/CS7b.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/CS7b.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/CS7b.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+          "field": "suitability.effort.source_grade"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-3909c043f3",
       "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/glaciers-icefields",
       "title": "Icefields Parkway day hikes (Jasper)",
