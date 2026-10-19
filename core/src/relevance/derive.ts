@@ -31,6 +31,8 @@ export interface PlaceFacts {
   base?: Point;
   /** worst access load already held as a booking or a suitability access_season.via */
   externalAccess?: AccessLoad;
+  /** the suitability access_season `via` values (shuttle, lift, boat, ...). A shuttle-only season is the same failing cost as an access_cost of shuttle_only for Plan B (3.17) */
+  accessSeasonVia?: string[];
   /** the hidden-gems lane's access_legal === 'public' */
   accessLegalPublic?: boolean;
   /** computed family effort of the same ref, for the substitutes list */
@@ -160,6 +162,10 @@ export function deriveAll(input: DeriveInput): Derived[] {
   const farKm = input.farPointerKm ?? 50;
   const matrix = input.matrix ?? null;
 
+  /** access_cost types plus the shuttle-only cost a suitability access season by shuttle stands for (3.17) */
+  const accessTypes = (ref: string, types: string[]): string[] =>
+    (input.facts[ref]?.accessSeasonVia ?? []).includes("shuttle") && !types.includes("shuttle_only") ? [...types, "shuttle_only"] : types;
+
   const subOf = (r: RelevanceRecord, o: RelevanceRecord, km: number): Substitute => {
     const jo = J.get(o.ref)!;
     return {
@@ -167,7 +173,7 @@ export function deriveAll(input: DeriveInput): Derived[] {
       km: Math.round(km * 10) / 10,
       draw: jo.draw,
       standing: jo.standing,
-      access_cost: jo.access.map((a) => a.type),
+      access_cost: accessTypes(o.ref, jo.access.map((a) => a.type)),
       family_effort: input.facts[o.ref]?.familyEffort ?? null,
     };
   };
@@ -288,7 +294,8 @@ export function deriveAll(input: DeriveInput): Derived[] {
 
     // plan b: an anchor whose access can fail gets the best same-class substitute without such a cost
     let planB: Substitute | null = null;
-    if (role === "anchor" && j.access.some((a) => FAILING_COSTS.includes(a.type))) {
+    const shuttleSeason = (facts.accessSeasonVia ?? []).includes("shuttle");
+    if (role === "anchor" && (shuttleSeason || j.access.some((a) => FAILING_COSTS.includes(a.type)))) {
       planB = areaAll.find((s) => !s.access_cost.some((c) => FAILING_COSTS.includes(c as never))) ?? null;
     }
 

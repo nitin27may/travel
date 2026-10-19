@@ -52,8 +52,8 @@ export function loadRelevanceDocs(root: string, trip?: string | null): { file: s
 }
 
 /** On-site upper bound, family effort and a coarse access load from the suitability record of each ref. */
-function suitabilityFacts(root: string): Record<string, { onSiteMin?: number; familyEffort?: number | null; externalAccess?: AccessLoad }> {
-  const out: Record<string, { onSiteMin?: number; familyEffort?: number | null; externalAccess?: AccessLoad }> = {};
+function suitabilityFacts(root: string): Record<string, { onSiteMin?: number; familyEffort?: number | null; externalAccess?: AccessLoad; accessSeasonVia?: string[] }> {
+  const out: Record<string, { onSiteMin?: number; familyEffort?: number | null; externalAccess?: AccessLoad; accessSeasonVia?: string[] }> = {};
   const base = join(root, "data", "suitability");
   if (!existsSync(base)) return out;
   const map = loadMap(root);
@@ -82,6 +82,7 @@ function suitabilityFacts(root: string): Record<string, { onSiteMin?: number; fa
         if (b.on_site_min?.state === "value" && b.on_site_min.v) e.onSiteMin = b.on_site_min.v[1];
         const via = b.access_season?.state === "value" ? (b.access_season.v ?? []).map((a) => a.via) : [];
         if (via.some((x) => x === "shuttle" || x === "lift" || x === "boat")) e.externalAccess = "plan";
+        if (via.length) e.accessSeasonVia = [...new Set([...(e.accessSeasonVia ?? []), ...via])];
         out[r.ref] = e;
       }
     }
@@ -122,6 +123,7 @@ export function loadDeriveInput(root: string, window?: { from: string; to: strin
         externalAccess: p?.external_access ?? s?.externalAccess ?? "easy",
         accessLegalPublic: p?.access_legal_public === true,
         familyEffort: s?.familyEffort ?? null,
+        ...(s?.accessSeasonVia?.length ? { accessSeasonVia: s.accessSeasonVia } : {}),
       };
     }
   }
