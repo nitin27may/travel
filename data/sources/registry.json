@@ -927,6 +927,43 @@
       }
     },
     {
+      "id": "s-e3ad5c8eac",
+      "url": "https://cortina.dolomiti.org/en/escursioni/lago-di-limedes-en",
+      "title": "Lago di Lìmedes",
+      "publisher": "Cortina d'Ampezzo tourism (Cortina Marketing)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-limides#walk",
+          "field": "suitability.adult_time_min"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "part/place/lago-di-limides#walk",
+          "field": "suitability.age_band"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/lago-di-limides",
+          "field": "suitability.walk_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 365,
+        "fact_type": "rules"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-9d53f59b1b",
       "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en",
       "title": "To Lago Sorapis",
@@ -9047,11 +9084,11 @@
     {
       "id": "s-37c6bd336e",
       "url": "https://swissfamilyfun.com/dolomites-vallunga",
-      "title": "Dolomites: Vallunga (search result, not opened)",
+      "title": "Dolomites hike • Vallunga / Langental",
       "publisher": "Swiss Family Fun (family travel blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -11357,11 +11394,11 @@
     {
       "id": "s-aa8fdb8e0e",
       "url": "https://www.babytrekking.it/lago-di-misurina-passeggino",
-      "title": "Lago di Misurina col passeggino (search result, not opened)",
+      "title": "Lago di Misurina, la perla del Cadore - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -11399,11 +11436,11 @@
     {
       "id": "s-2cd31e5208",
       "url": "https://www.babytrekking.it/lago-sorapis-rifugio-vandelli-bambini-cortina",
-      "title": "Lago Sorapis e Rifugio Vandelli coi bambini (search result, not opened)",
+      "title": "Lago Sorapis e Rifugio Vandelli, coi bambini nella valle incantata - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -11426,11 +11463,11 @@
     {
       "id": "s-abf52b3568",
       "url": "https://www.babytrekking.it/rifugio-croda-da-lago-ru-curto-coi-bambini",
-      "title": "Rifugio Croda da Lago da Ru Curto coi bambini (search result, not opened)",
+      "title": "Rifugio Croda da Lago: da Ru Curto al lago Federa coi bambini - BabyTrekking",
       "publisher": "babytrekking.it (family hiking blog)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -12658,11 +12695,11 @@
     {
       "id": "s-28c67b8388",
       "url": "https://www.disabili.com/viaggi/speciali-viaggi-a-tempo-libero/speciale-vacanze-estate/-sp-17235",
-      "title": "Aree turistiche montane: Dolomiti (search result, not opened)",
+      "title": "DOLOMITI - Passeggiate accessibili | Disabili.com",
       "publisher": "disabili.com",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -13628,11 +13665,11 @@
     {
       "id": "s-ecbd93eb8a",
       "url": "https://www.ecnews.it/fiscale/viaggi-e-tempo-libero/escursione-del-lago-federa",
-      "title": "Escursione del Lago Federa (search result, not opened)",
+      "title": "Escursione del Lago Federa - EC News - Area fiscale",
       "publisher": "ecnews.it",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -14053,11 +14090,11 @@
     {
       "id": "s-b785efea32",
       "url": "https://www.ladige.it/territori/dolomiti/stop-al-traffico-passo-gardena-verso-la-ztl-unesco-fb9o1kzt",
-      "title": "Stop al traffico Passo Gardena, verso la ZTL (search result, not opened)",
+      "title": "Stop al traffico, passo Gardena verso la «Ztl Unesco» (newspaper report of a planned trial)",
       "publisher": "l'Adige (newspaper)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
@@ -14137,11 +14174,11 @@
     {
       "id": "s-0aca4c0334",
       "url": "https://www.linexo.de/magazin/radrouten-touren/drauradweg-die-schoenste-fahrradroute-durch-oesterreich",
-      "title": "Drauradweg (search result, not opened)",
+      "title": "Alles über den Drauradweg auf linexo.de (confirms the asphalt surface only)",
       "publisher": "linexo (cycling magazine)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/suitability/dolomites-2027/R1.json",
@@ -17330,11 +17367,11 @@
     {
       "id": "s-0ee9c85282",
       "url": "https://www.planetmountain.com/it/itinerari/lago-di-limides.html",
-      "title": "Lago di Limides (search result, not opened)",
+      "title": "Lago di Limides, Croda da Lago - Nuvolau, Dolomiti (a winter snowshoe route, not the summer walk)",
       "publisher": "planetmountain.com (mountain magazine)",
       "kind": "editorial",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/relevance/dolomites-2027/R1.json",
@@ -18655,6 +18692,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-cb864b8300",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoifbee71b14b22c6bbad7d3fcc0919c8c4.drava-cycle-path-drau-radweg-innichen-san-candido---lienz-aut.s--candido-innichen",
+      "title": "Drava Cycle Path (Drau-Radweg) Innichen/San Candido - Lienz (A)",
+      "publisher": "IDM Südtirol (provincial tourism board)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/drava-cycle-path-to-lienz",
+          "field": "suitability.effort.drivers.surface"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/drava-cycle-path-to-lienz",
+          "field": "suitability.effort.source_grade"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
