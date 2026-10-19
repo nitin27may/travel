@@ -20,6 +20,8 @@ export interface AddCandidate {
   stats: { distanceKm: number | null; gainM: number | null } | null;
   /** "Lake", "Trail": the word beside the name. */
   label: string;
+  /** Distance from the day's nearest placed stop or base, in km; null for a meal, a break or a rest. */
+  km: number | null;
   group: 'quick' | 'variant' | 'trip' | 'nearby';
 }
 
@@ -37,7 +39,8 @@ export interface TimelineDayModel {
 
 export interface TimelineModel {
   slug: string;
-  defaultProfile: Profile;
+  /** The plan's own settings without the adults count: that is state the visitor sets, not something the page ships. */
+  defaultProfile: Omit<Profile, 'adults'>;
   /** "families with a child from about 6": who the plan suits. */
   writtenFor: string;
   condensed: boolean;
@@ -51,9 +54,9 @@ export interface TimelineModel {
 }
 
 const QUICK: AddCandidate[] = [
-  { key: 'coffee-break', name: 'Coffee and a snack', kind: 'break', sub: 'coffee', placeSlug: null, point: null, durationMin: 20, durationRange: null, stats: null, label: 'Break', group: 'quick' },
-  { key: 'lunch-stop', name: 'Lunch', kind: 'meal', sub: 'lunch', placeSlug: null, point: null, durationMin: 60, durationRange: null, stats: null, label: 'Meal', group: 'quick' },
-  { key: 'rest-stop', name: 'A rest', kind: 'rest', sub: 'free-time', placeSlug: null, point: null, durationMin: 45, durationRange: null, stats: null, label: 'Rest', group: 'quick' },
+  { key: 'coffee-break', name: 'Coffee and a snack', kind: 'break', sub: 'coffee', placeSlug: null, point: null, durationMin: 20, durationRange: null, stats: null, label: 'Break', km: null, group: 'quick' },
+  { key: 'lunch-stop', name: 'Lunch', kind: 'meal', sub: 'lunch', placeSlug: null, point: null, durationMin: 60, durationRange: null, stats: null, label: 'Meal', km: null, group: 'quick' },
+  { key: 'rest-stop', name: 'A rest', kind: 'rest', sub: 'free-time', placeSlug: null, point: null, durationMin: 45, durationRange: null, stats: null, label: 'Rest', km: null, group: 'quick' },
 ];
 
 const KIND_LABEL: Record<string, string> = { trail: 'Trail', lake: 'Lake', viewpoint: 'Viewpoint', waterfall: 'Waterfall', sight: 'Sight', town: 'Town', activity: 'Activity', lift: 'Lift', area: 'Area', eatery: 'Eatery' };
@@ -76,20 +79,20 @@ const kindOf = (k: string): { kind: ItemKind; sub: string | null } => {
   return { kind: 'visit', sub: 'sight' };
 };
 
-function fromItem(it: ScheduleItem, group: AddCandidate['group']): AddCandidate | null {
+function fromItem(it: ScheduleItem, group: AddCandidate['group'], km: number | null): AddCandidate | null {
   if (it.kind === 'meal' || it.kind === 'break' || it.kind === 'rest' || it.kind === 'checkin' || it.kind === 'checkout') return null;
   return {
     key: it.placeSlug ?? it.id, name: it.title, kind: it.kind, sub: it.sub, placeSlug: it.placeSlug, point: it.point, durationMin: it.durationMin, durationRange: it.durationRange,
-    stats: it.stats, label: it.kind === 'trail' ? 'Trail' : KIND_LABEL[it.sub ?? ''] ?? 'Stop', group,
+    stats: it.stats, label: it.kind === 'trail' ? 'Trail' : KIND_LABEL[it.sub ?? ''] ?? 'Stop', km, group,
   };
 }
 
-function fromPlace(p: PublicPlaceCard): AddCandidate {
+function fromPlace(p: PublicPlaceCard, km: number): AddCandidate {
   const k = kindOf(p.kind);
   const hasStats = p.stats.distanceKm !== null || p.stats.gainM !== null;
   return {
     key: p.slug, name: p.name, kind: k.kind, sub: k.sub, placeSlug: p.slug, point: p.point ? { lat: p.point.lat, lon: p.point.lon } : null, durationMin: null,
-    durationRange: parseHoursRange(p.stats.hours), stats: hasStats ? { distanceKm: p.stats.distanceKm, gainM: p.stats.gainM } : null, label: p.kindLabel, group: 'nearby',
+    durationRange: parseHoursRange(p.stats.hours), stats: hasStats ? { distanceKm: p.stats.distanceKm, gainM: p.stats.gainM } : null, label: p.kindLabel, km, group: 'nearby',
   };
 }
 
@@ -114,11 +117,21 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
       addables[c.key] ??= c;
       keys.push(c.key);
     };
+    // every candidate must be within 30 km of something the day places: its base or a stop with a coordinate
+    const anchors: Point[] = [...(input.base?.point ? [input.base.point] : []), ...input.variants.flatMap((v) => v.items.flatMap((i) => (i.point ? [i.point] : [])))];
+    const nearest = (p: Point | null): number | null => (p && anchors.length ? Math.min(...anchors.map((a) => haversineM(a, p) / 1000)) : null);
+    const within = (km: number | null): km is number => km !== null && km <= NEARBY_KM;
     // 1. other versions of this day
     const chosen = input.variants.find((v) => v.key === 'B') ?? input.variants[0]!;
     const inChosen = new Set(chosen.items.map((i) => i.id));
     const seenA = new Set<string>();
-    for (const v of input.variants) if (v !== chosen) for (const it of v.items) if (!inChosen.has(it.id) && seenA.size < PER_DAY.variant) take(fromItem(it, 'variant'), 'variant', seenA);
+    for (const v of input.variants) {
+      if (v === chosen) continue;
+      for (const it of v.items) {
+        const km = nearest(it.point);
+        if (!inChosen.has(it.id) && within(km) && seenA.size < PER_DAY.variant) take(fromItem(it, 'variant', Math.round(km * 10) / 10), 'variant', seenA);
+      }
+    }
     // 2. the trip's stops on other days at this base
     const seenB = new Set<string>();
     for (const n of baseDays.get(d.baseId ?? '') ?? []) {
@@ -126,22 +139,20 @@ function candidatesFor(trip: PublicTrip, nearby: PublicPlaceCard[]): { addables:
       const other = trip.days.find((x) => x.n === n)?.scheduleInput;
       if (!other) continue;
       for (const it of other.variants.find((v) => v.key === 'B' || v.key === 'main')?.items ?? []) {
-        if (onDay.has(it.placeSlug ?? it.id) || seenB.size >= PER_DAY.trip) continue;
-        take(fromItem(it, 'trip'), 'trip', seenB);
+        const km = nearest(it.point);
+        if (onDay.has(it.placeSlug ?? it.id) || seenB.size >= PER_DAY.trip || !within(km)) continue;
+        take(fromItem(it, 'trip', Math.round(km * 10) / 10), 'trip', seenB);
       }
     }
-    // 3. catalogue places with a page within 30 km of the base
-    const base = input.base?.point ?? null;
-    if (base) {
-      const near = nearby
-        .filter((p) => p.point && p.kind !== 'stay' && !onDay.has(p.slug))
-        .map((p) => ({ p, km: haversineM(base, { lat: p.point!.lat, lon: p.point!.lon }) / 1000 }))
-        .filter((x) => x.km <= NEARBY_KM)
-        .sort((a, b) => a.km - b.km || a.p.slug.localeCompare(b.p.slug))
-        .slice(0, PER_DAY.nearby);
-      const seenC = new Set<string>();
-      for (const { p } of near) take(fromPlace(p), 'nearby', seenC);
-    }
+    // 3. catalogue places with a page within 30 km
+    const near = nearby
+      .filter((p) => p.point && p.kind !== 'stay' && !onDay.has(p.slug))
+      .map((p) => ({ p, km: nearest({ lat: p.point!.lat, lon: p.point!.lon }) }))
+      .filter((x): x is { p: PublicPlaceCard; km: number } => within(x.km))
+      .sort((a, b) => a.km - b.km || a.p.slug.localeCompare(b.p.slug))
+      .slice(0, PER_DAY.nearby);
+    const seenC = new Set<string>();
+    for (const { p, km } of near) take(fromPlace(p, Math.round(km * 10) / 10), 'nearby', seenC);
     addByDay[d.n] = keys;
   }
   return { addables, addByDay };
@@ -159,7 +170,7 @@ export function buildTimelineModel(trip: PublicTrip, thumbs: Map<number, { url: 
   }
   const { addables, addByDay } = candidatesFor(trip, nearby);
   return {
-    slug: trip.slug, defaultProfile: trip.schedule.defaultProfile, writtenFor: trip.schedule.writtenFor, condensed: trip.schedule.condensed, hasSplit: trip.schedule.hasSplit,
+    slug: trip.slug, defaultProfile: (({ adults: _a, ...rest }) => (void _a, rest))(trip.schedule.defaultProfile), writtenFor: trip.schedule.writtenFor, condensed: trip.schedule.condensed, hasSplit: trip.schedule.hasSplit,
     hasVariants: trip.schedule.hasVariants, days, defaultTimelines: trip.schedule.timelines, addables, addByDay,
   };
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createPublicData } from '@/lib/public';
 import {
-  KNOW_GROUPS, dayKnow, datesToYear, dropDatedParens, hasMarker, noteBlock, noteLine, plainOf, prepareSentence, quantityRuns, scrubMarkers, stripMarkers,
+  KNOW_GROUPS, dayKnow, datesToYear, dropDatedParens, dropResearch, hasMarker, leaksResearch, noteBlock, noteLine, plainOf, prepareSentence, quantityRuns, scrubMarkers, stripMarkers,
 } from '@/lib/public/prose';
 import { formatDistance, formatElevation } from '@/lib/format/units';
 
@@ -153,13 +153,22 @@ describe('Rockies Day 5 as built', () => {
   });
 });
 
+describe('research wording', () => {
+  it('drops the clauses that talk about our dataset, a file or a record id', () => {
+    expect(dropResearch('Walk the meadow (no family trail id or distance for Sunshine Meadows in the dataset). Down by 11:30.')).toBe('Walk the meadow. Down by 11:30.'.replace('meadow.', 'meadow.'));
+    expect(dropResearch("Kinney Lake, 10 km, audience 'both' in the dataset. Nearly flat.")).toBe('Nearly flat.');
+    expect(leaksResearch('see trails.json')).toBe(true);
+    expect(leaksResearch('A trail with a view')).toBe(false);
+  });
+});
+
 describe('the marker sweep', () => {
   it('no adapter string for any trip carries a research marker', () => {
     const data = createPublicData();
     const hits: string[] = [];
     const walk = (v: unknown, where: string): void => {
       if (typeof v === 'string') {
-        if (hasMarker(v) || MARKERS.test(v)) hits.push(`${where}: ${v.slice(0, 80)}`);
+        if (hasMarker(v) || MARKERS.test(v) || leaksResearch(v)) hits.push(`${where}: ${v.slice(0, 80)}`);
       } else if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${where}[${i}]`));
       else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) walk(x, `${where}.${k}`);
     };

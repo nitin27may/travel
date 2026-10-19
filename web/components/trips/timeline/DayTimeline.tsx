@@ -15,18 +15,20 @@ import { usePrefs } from '@/lib/format/prefs';
 import { formatDistance } from '@/lib/format/units';
 import { AddToDay } from './AddToDay';
 import { Entry, LegRow } from './Entry';
-import { honestyLabel } from './labels';
+import { chipsFor, honestyLabel } from './labels';
 import type { AddCandidate, TimelineDayModel } from './model';
 import { Prose } from './Prose';
 
 interface Props {
-  trip: { slug: string; title: string };
   day: TimelineDayModel;
   tl: DayTimelineData;
   picked: boolean;
   changed: boolean;
   candidates: AddCandidate[];
   taken: string[];
+  /** The youngest's age when the profile is a family, for the no-fit line. */
+  age: number | null;
+  onSplit: (on: boolean) => void;
   onVariant: (key: string | null) => void;
   onAdd: (key: string) => void;
   onRemove: (key: string) => void;
@@ -70,7 +72,7 @@ function DayLink({ day }: { day: number }) {
 }
 
 /** One day as a timeline (design 4): header, totals and warnings, the entries on a time rail, add to this day, Know before you go. */
-export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken, onVariant, onAdd, onRemove, addedKeys }: Props) {
+export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, onSplit, onVariant, onAdd, onRemove, addedKeys }: Props) {
   const [prefs] = usePrefs();
   const [knowOpen, setKnowOpen] = useState(false);
   const [lane, setLane] = useState<string | null>(null);
@@ -84,6 +86,8 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
   }, [snap.moved]);
 
   const sel = day.variants.find((v) => v.key === tl.variant.key);
+  const title = sel?.title ?? day.title;
+  const showSummary = !sel || sel.key === 'B' || sel.key === 'main';
   const warnByEntry = useMemo(() => {
     const m = new Map<string, DayTimelineData['warnings']>();
     for (const w of tl.warnings) if (w.entryId) m.set(w.entryId, [...(m.get(w.entryId) ?? []), w]);
@@ -123,9 +127,9 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
           <div className="tl-day-top">
             <DaySign n={day.n} state={picked ? 'focused' : 'quiet'} size="s" />
             {day.base ? <span className="tl-day-base num">{day.base}</span> : null}
-            {tl.span.minutes > 0 ? <span className="tl-day-span num">{tl.span.start} to {tl.span.end}</span> : null}
+            {tl.span.minutes > 0 && !tl.blocks ? <span className="tl-day-span num">{tl.span.start} to {tl.span.end}</span> : null}
           </div>
-          <h3 className="tl-day-title">{day.title}</h3>
+          <h3 className="tl-day-title">{title}</h3>
           <p className="tl-day-totals num">
             {tl.totals.driveMin > 0 ? (
               <span title={est ? 'Includes estimated drive times' : undefined} data-est={est || undefined}>
@@ -158,13 +162,13 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
         {tl.variant.reason && day.variants.length > 1 ? <p className="tl-reason num" title={tl.variant.reason}><Prose text={tl.variant.reason} /></p> : null}
         {noFit ? (
           <p className="tl-nofit" role="note">
-            <Icon name="warn" size={15} /> <b>Not suited to every setting.</b> <Prose text={noFit.text} />{'.'}
+            <Icon name="warn" size={15} /> <b>{age !== null ? `Not suited to age ${age}.` : 'Not suited to this setting.'}</b> <Prose text={noFit.text} />{'.'}
           </p>
         ) : null}
-        {day.summary ? <p className="tl-summary"><Prose text={day.summary} /></p> : null}
+        {day.summary && showSummary ? <p className="tl-summary"><Prose text={day.summary} /></p> : null}
         {lead ? (
           <p className="tl-lead">
-            <Prose text={lead.plain} /> {lead.chips.map((c) => <Chip key={c} kind="honest" icon={false}>{honestyLabel(c)}</Chip>)}
+            <Prose text={lead.plain} /> {chipsFor(lead.plain, lead.chips).map((c) => <Chip key={c} kind="honest" icon={false}>{honestyLabel(c)}</Chip>)}
           </p>
         ) : null}
         {dayWarnings.length ? (
@@ -179,7 +183,13 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
         {splitOpt ? (
           <p className="tl-split" data-quiet={/^Optional/.test(splitOpt.text) || undefined}>
             <Icon name="trail" size={15} /> <Prose text={splitOpt.text} />
+            <button type="button" className="btn btn-sm tl-split-btn" data-print="hide" onClick={() => onSplit(true)}>Show both lanes</button>
           </p>
+        ) : null}
+        {split ? (
+          <div className="tl-lane-bar" data-print="hide">
+            <button type="button" className="btn btn-sm tl-split-btn" onClick={() => onSplit(false)}>Show one lane</button>
+          </div>
         ) : null}
         {split ? (
           <div className="tl-lane-toggle" data-print="hide">
@@ -193,8 +203,14 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
           </div>
         ) : null}
         <ol className="tl-rail" data-lanes={split ? tl.lanes.length : 1} aria-label={`Day ${day.n} in time order`}>
+          {split ? (
+            <li className="tl-lane-head" aria-hidden="true">
+              <span className="tl-lane-name" data-lane={partyLane}>{tl.variant.label}</span>
+              <span className="tl-lane-name" data-lane={tl.lanes[1]}>{`The stronger walkers: ${entries.find((e) => e.lane === tl.lanes[1] && e.kind === 'trail')?.title ?? 'a longer walk'}`}</span>
+            </li>
+          ) : null}
           {entries.map((e: TimelineEntry) =>
-            e.kind === 'leg' ? (
+            e.kind === 'leg' && !tl.blocks ? (
               <LegRow key={e.id} e={e} />
             ) : (
               <Entry
@@ -248,7 +264,7 @@ function KnowList({ groups }: { groups: TimelineDayModel['know'] }) {
           <ul>
             {r.items.map(({ b }, i) => (
               <li key={i}>
-                <Prose text={b.plain} /> {b.chips.map((c) => <Chip key={c} kind="honest" icon={false}>{honestyLabel(c)}</Chip>)}
+                <Prose text={b.plain} /> {chipsFor(b.plain, b.chips).map((c) => <Chip key={c} kind="honest" icon={false}>{honestyLabel(c)}</Chip>)}
               </li>
             ))}
           </ul>

@@ -245,6 +245,8 @@ export interface Track {
 export interface DayVariantInfo {
   key: 'A' | 'B' | 'C' | 'main';
   label: string;
+  /** The day's title for this version, when it differs from the day's own. */
+  title: string | null;
   audience: 'adults' | 'family' | 'easy' | 'any';
   relation: 'alternative' | 'parallel';
   /** The track's note: a lead line and "Know before you go" bullets, markers already turned into chips. */

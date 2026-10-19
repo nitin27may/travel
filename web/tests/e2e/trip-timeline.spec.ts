@@ -58,6 +58,33 @@ test.describe('trip timeline (L3c)', () => {
     await expect(page.locator('#day-5 .tl-split')).toHaveCount(0);
   });
 
+  test('Show both lanes draws two headed lanes and a Together again band (round two)', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}#day-5`);
+    await page.locator('#day-5').getByRole('button', { name: 'Show both lanes' }).click();
+    await expect(page).toHaveURL(/split=1/);
+    await expect(page.locator('#day-5 .tl-lane-name')).toHaveCount(2);
+    await expect(page.locator('#day-5 .tl-lane-name').last()).toContainText('The stronger walkers: Bald Hills');
+    await expect(page.locator('#day-5 .tl-entry[data-band]')).toContainText('Together again');
+    await page.locator('#day-5').getByRole('button', { name: 'Show one lane' }).click();
+    await expect(page).not.toHaveURL(/split=1/);
+  });
+
+  test('a condensed plan shows parts of the day and its flight, with no invented drives (round two)', async ({ page, site }) => {
+    await page.goto(`${site.url}/trips/patagonia-2027/#day-2`);
+    const d2 = page.locator('#day-2');
+    await expect(d2.locator('.tl-time').first()).toHaveText('Morning');
+    await expect(d2).toContainText('Flight to Ushuaia');
+    await expect(d2.locator('.tl-leg')).toHaveCount(0);
+    await expect(page.getByText('Parts of the day.')).toHaveCount(1);
+  });
+
+  test('the adults version of Day 5 is titled for itself; the research words are gone (round two)', async ({ page, site }) => {
+    await page.goto(`${site.url}${ROCKIES}?p=adults#day-5`);
+    await expect(page.locator('#day-5 .tl-day-title')).toHaveText('Bald Hills');
+    await page.goto(`${site.url}${ROCKIES}`);
+    expect(await page.content()).not.toMatch(/\bdataset\b|trail id|audience '/i);
+  });
+
   test('a day can be swapped, says so, and resets (check 5)', async ({ page, site }) => {
     await page.goto(`${site.url}${ROCKIES}?d=5C#day-5`);
     await expect(page.locator('#day-5').getByText('Changed for this day')).toBeVisible();

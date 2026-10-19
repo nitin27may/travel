@@ -36,8 +36,15 @@ const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefe
 function TimesBanner({ condensed }: { condensed: boolean }) {
   return (
     <Banner kind="notice" className="tl-banner" icon="clock">
-      <b>Suggested times.</b> Built from the plan and our rules for your party. Times marked Slot are fixed by the operator; sun times are a range for the season. Check opening hours before you go.
-      {condensed ? ' This plan was condensed, so most times are suggested by our rules.' : ''}
+      {condensed ? (
+        <>
+          <b>Parts of the day.</b> This plan was condensed, so each day lists its stops in order with a part of the day, not clock times. Flights and transfers are the plan&apos;s own.
+        </>
+      ) : (
+        <>
+          <b>Suggested times.</b> Built from the plan and our rules for your party. Times marked Slot are fixed by the operator; sun times are a range for the season. Check opening hours before you go.
+        </>
+      )}
     </Banner>
   );
 }
@@ -126,7 +133,7 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
   // the copy sheet and the calendar file read the timeline the visitor is looking at
   useEffect(() => {
     publishTimeline({
-      slug, profile: api.state.profile, defaults: tlModel.defaultProfile, overrides: api.state.overrides, added: api.state.added.map((a) => ({ day: a.day, placeSlug: a.slug })),
+      slug, profile: api.state.profile, defaults: { ...tlModel.defaultProfile, adults: 2 }, overrides: api.state.overrides, added: api.state.added.map((a) => ({ day: a.day, placeSlug: a.slug })),
       timelines: api.timelines, sunPoints: Object.fromEntries(tlModel.days.map((d) => [d.n, d.input.sunPoint])),
     });
     return () => publishTimeline(null);
@@ -145,7 +152,6 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
   );
   const p = api.state.profile;
   const planLabel = !api.changed ? 'Plan as written' : `${p.party === 'adults' ? 'Adults' : `Family, youngest ${p.youngest}`} · ${p.pace[0]!.toUpperCase()}${p.pace.slice(1)}`;
-  const trip = { slug, title };
 
   return (
     <div className="tl-wrap">
@@ -209,7 +215,6 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
               return (
                 <DayTimeline
                   key={d.n}
-                  trip={trip}
                   day={d}
                   tl={tl}
                   picked={picked === d.n}
@@ -217,6 +222,8 @@ function TimelinePlan({ slug, model, title, depth, tlModel, url }: Props & { tlM
                   candidates={(tlModel.addByDay[d.n] ?? []).map((k) => tlModel.addables[k]!).filter(Boolean)}
                   taken={mine.map((x) => x.key)}
                   addedKeys={new Map(mine.map((x) => [x.item.id, x.key]))}
+                  age={p.party === 'family' ? p.youngest : null}
+                  onSplit={(on) => api.setProfile({ split: on })}
                   onVariant={(k) => api.setVariant(d.n, k)}
                   onAdd={(k) => api.addPlace(d.n, k)}
                   onRemove={(k) => api.removePlace(d.n, k)}
