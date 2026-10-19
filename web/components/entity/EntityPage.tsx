@@ -7,10 +7,12 @@ import { EmptyState as MapPlaceholder } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
 import { PAGE_SIZE, Pager } from '@/components/ui/Pager';
 import type { Applied } from '@/lib/search/applied';
+import type { ParsedQuery } from '@/lib/search/parse/types';
 import type { UncheckedRowsProps } from '@/components/search/UncheckedRows';
 import { listPlacesChecked, listTrips, registerList } from '@/lib/client/data';
 import type { UncheckedGroup } from '@/lib/entities/gaps';
 import { registry } from '@/lib/entities/registry';
+import { fallbackLabel } from '@/lib/entities/valueLabels';
 import { activeGroup, groupRows } from '@/lib/entities/sort';
 import type { EntityDescriptor, EntityType, FacetParam, ViewName } from '@/lib/entities/types';
 import { CardsView } from './CardsView';
@@ -49,10 +51,17 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const [sheetEver, setSheetEver] = useState(false);
   // a reading the search box applied, until the visitor undoes it or changes those filters by hand (backlog 3.43)
   const [applied, setApplied] = useState<Applied | null>(null);
+  // the reading the box shows before Enter: the list is held, not filtered by the sentence (backlog 3.43 review M1)
+  const [reading, setReading] = useState<ParsedQuery | null>(null);
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
 
   // the list answers come from the data module, in the shape a server will answer (principle P9)
   const version = registerList(d, rows);
-  const answer = useMemo(() => (void version, d.type === 'trip' ? { ...listTrips(state), unchecked: [] } : listPlacesChecked(state)) as unknown as ReturnType<typeof listPlacesChecked> & { rows: Row[] }, [version, state, d]);
+  const answer = useMemo(() => {
+    void version;
+    const asked = reading ? { ...state, q: '' } : state;
+    return (d.type === 'trip' ? { ...listTrips(asked), unchecked: [] } : listPlacesChecked(asked)) as unknown as ReturnType<typeof listPlacesChecked> & { rows: Row[] };
+  }, [version, state, reading, d]);
   const unchecked = answer.unchecked as unknown as UncheckedGroup<Row>[];
   const sorted = answer.rows as Row[];
   const filtered = sorted;
@@ -78,7 +87,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
     }
     return map;
   }, [rows, d]);
-  const labelOf = (param: FacetParam, value: string) => labels[param]?.get(value) ?? value;
+  const labelOf = (param: FacetParam, value: string) => labels[param]?.get(value) ?? fallbackLabel(param, value);
   const focusRow = state.focus && d.primary === 'sheet' ? (rows.find((r) => d.id(r) === state.focus) ?? null) : null;
   if (focusRow && !sheetEver) setSheetEver(true); // load the sheet code the first time a row is focused
 
@@ -131,8 +140,10 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
       </header>
 
       <div className="filter-sticky" ref={barRef}>
-        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} notes={notes} smart={{ applied, onApplied: setApplied }} onState={setState} />
+        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} notes={notes} smart={{ applied, onApplied: setApplied, onReading: setReading, slot, holding: reading !== null }} onState={setState} />
       </div>
+
+      <div className="smart-slot" ref={setSlot} />
 
       <section className="results" aria-labelledby="results-heading" data-view={view}>
         <h2 id="results-heading" className="sr-only">

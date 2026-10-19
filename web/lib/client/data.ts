@@ -165,10 +165,13 @@ export async function suggest(q: string, scope: SearchScope = {}): Promise<Sugge
  */
 export function countParsed(parsed: ParsedQuery): { n: number; unchecked: number } | null {
   if (parsed.target === 'search') return null;
-  const type: EntityType = parsed.target === 'trips' ? 'trip' : 'place';
+  return countList(parsed.target === 'trips' ? 'trip' : 'place', { ...emptyState(), q: parsed.q, facets: parsed.facets });
+}
+
+/** The same count for any list state of a registered list: the list box asks it with the reading merged into the filters already set. */
+export function countList(type: EntityType, query: ListState): { n: number; unchecked: number } | null {
   const hit = registered.get(type);
   if (!hit) return null;
-  const query = { ...emptyState(), q: parsed.q, facets: parsed.facets };
   if (type === 'place') {
     const got = listPlacesChecked(query);
     return { n: got.rows.length, unchecked: got.unchecked.reduce((a, g) => a + g.rows.length, 0) };
