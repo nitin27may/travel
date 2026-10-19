@@ -1,4 +1,5 @@
 import { FACET_PARAMS, isScopedParam } from './types';
+import { fallbackLabel } from './valueLabels';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState } from './types';
 import { facetShows, scopeOf } from './facets';
 
@@ -74,7 +75,8 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
     }
     for (const v of state.facets[facet.param] ?? []) {
       if (counts.has(v)) continue;
-      let label = v;
+      // a value no row carries is named from the facets' own tables, never shown as its code
+      let label = fallbackLabel(facet.param, v);
       for (const row of rows) {
         const hit = facet.options(row).find((o) => o.value === v);
         if (hit) {

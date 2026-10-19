@@ -47,3 +47,22 @@ describe('every value the parser can write has a name', () => {
     expect(bad).toEqual([]);
   });
 });
+
+describe('the facet buttons of the desktop bar name a parsed value that no row carries', () => {
+  it('facetCounts labels a selected value from the same tables, so "Kind" and "Season" never show a code', async () => {
+    const { facetCounts } = await import('@/lib/entities/filter');
+    const { placeDescriptor } = await import('@/lib/entities/descriptors/place');
+    const { placeRows } = await import('../places/support');
+    const { decodeState } = await import('@/lib/entities/url');
+    const state = decodeState('k=water.thermal.hot_spring&season=12&f.length=lt3&f.climb=150-400&drive=toronto-2&effort=technical');
+    const counts = facetCounts(placeRows(), state, placeDescriptor);
+    const label = (param: string, v: string) => counts[param]?.find((o) => o.value === v)?.label;
+    expect(label('k', 'water.thermal.hot_spring')).toBe('Hot spring');
+    expect(label('season', '12')).toBe('Dec');
+    for (const [param, v] of [['k', 'water.thermal.hot_spring'], ['season', '12'], ['effort', 'technical']] as const) {
+      const l = label(param, v);
+      expect(l, `${param}=${v}`).toBeDefined();
+      expect(l, `${param}=${v}`).not.toMatch(/[._]|^\d+$/);
+    }
+  });
+});
