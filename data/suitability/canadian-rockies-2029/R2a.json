@@ -2596,7 +2596,7 @@
           "note": "Numbered Parks Canada trail (Trail 21)."
         },
         "dogs": {
-          "v": "leash",
+          "v": "allowed",
           "state": "value",
           "basis": "official_rule",
           "src": [
@@ -2604,7 +2604,7 @@
           ],
           "read": "2026-10-19",
           "quote": "Mary Schäffer Loop 3.2 km 1-2 hours 0 m 21 Easy No Yes No",
-          "note": "Jasper's trail table lists dogs as a permitted use on this trail; the national-park rule is a leash of 3 m or less at all times."
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -3602,7 +3602,7 @@
           "note": "Numbered Parks Canada trail (Trail 30)."
         },
         "dogs": {
-          "v": "leash",
+          "v": "allowed",
           "state": "value",
           "basis": "official_rule",
           "src": [
@@ -3610,7 +3610,7 @@
           ],
           "read": "2026-10-19",
           "quote": "Sulphur Skyline 8 km 4-6 hours 700 m 30 Difficult No Yes No",
-          "note": "Jasper's trail table lists dogs as a permitted use on this trail; the national-park rule is a leash of 3 m or less at all times."
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -4000,7 +4000,7 @@
           "note": "Numbered Parks Canada trail (Trail 50)."
         },
         "dogs": {
-          "v": "leash",
+          "v": "allowed",
           "state": "value",
           "basis": "official_rule",
           "src": [
@@ -4008,7 +4008,7 @@
           ],
           "read": "2026-10-19",
           "quote": "Wilcox Pass 2.4 km return to first viewpoint; 8 km return to pass ... 50 Moderate No Yes No",
-          "note": "Jasper's trail table lists dogs as a permitted use on this trail; the national-park rule is a leash of 3 m or less at all times."
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -4786,7 +4786,7 @@
         "kind": "trail",
         "shape": "loop",
         "dogs": {
-          "v": "leash",
+          "v": "allowed",
           "state": "value",
           "basis": "official_rule",
           "src": [
@@ -4794,7 +4794,7 @@
           ],
           "read": "2026-10-19",
           "quote": "Mine Trail 800 m lower loop, 1.7 km upper loop ... 31/32 Easy No Yes No",
-          "note": "Jasper's trail table lists dogs as a permitted use on this trail; the national-park rule is a leash of 3 m or less at all times."
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -5386,7 +5386,7 @@
         "kind": "trail",
         "shape": "loop",
         "dogs": {
-          "v": "leash",
+          "v": "allowed",
           "state": "value",
           "basis": "official_rule",
           "src": [
@@ -5394,7 +5394,7 @@
           ],
           "read": "2026-10-19",
           "quote": "Moose Lake Loop 2.7 km 1-2 hours 59 m 20 Easy No Yes No",
-          "note": "Jasper's trail table lists dogs as a permitted use on this trail; the national-park rule is a leash of 3 m or less at all times."
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
@@ -6619,7 +6619,7 @@
         "kind": "trail",
         "shape": "out-and-back",
         "dogs": {
-          "v": "leash",
+          "v": "allowed",
           "state": "value",
           "basis": "official_rule",
           "src": [
@@ -6627,7 +6627,7 @@
           ],
           "read": "2026-10-19",
           "quote": "Toe of the Athabasca Glacier 1.8 km 1 hour 60 m 52 Moderate No Yes No",
-          "note": "Jasper's trail table lists dogs as a permitted use on this trail; the national-park rule is a leash of 3 m or less at all times."
+          "note": "Jasper's trail table lists dogs as a permitted use on this trail. The table does not state the leash rule, so none is stored here."
         }
       },
       "flat": {
