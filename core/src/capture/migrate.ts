@@ -189,7 +189,7 @@ export function leavesOf(rec: Any): string[] {
 export interface LedgerPart { records: number; leaves: number; sha1: string; held?: string[] }
 export interface Ledger { schema: "capture-migration-ledger/1"; note: string; computed: string; suitability: LedgerPart; relevance: LedgerPart; /** the point of every ref in data/relevance/inputs/points.json before the migration: lat, lon */ points: Record<string, [number, number]> }
 const sha1 = (xs: string[]): string => createHash("sha1").update([...xs].sort().join("\n")).digest("hex");
-const leafHash = (leaf: string): string => createHash("sha1").update(leaf).digest("hex").slice(0, 12);
+export const leafHash = (leaf: string): string => createHash("sha1").update(leaf).digest("hex").slice(0, 12);
 const heldOf = (leaves: string[]): string[] => {
   const n = new Map<string, number>();
   for (const l of leaves) n.set(leafHash(l), (n.get(leafHash(l)) ?? 0) + 1);

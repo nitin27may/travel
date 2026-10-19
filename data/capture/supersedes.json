@@ -1,0 +1,97 @@
+{
+  "schema": "capture-supersedes/1",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en/",
+      "title": "To Lago Sorapis",
+      "publisher": "Cortina d'Ampezzo tourist office (IAT)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
+      "title": "Lake of Two Rivers: activities (Algonquin)",
+      "publisher": "Ontario Parks",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    }
+  ],
+  "entries": [
+    {
+      "id": "sup-0001",
+      "layer": "suitability",
+      "ref": "place/lago-di-sorapis",
+      "path": "suitability.effort.drivers.gain_m",
+      "was": 550,
+      "value": {
+        "v": 434,
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-19",
+        "quote": "434 m",
+        "note": "The tourist office route sheet for path 215 from Passo Tre Croci, out and back: 10.5 km, 434 m up, 437 m down, 4 h. The OSM track (1,388 m up) runs on past the lake, so it is not this walk.",
+        "applies_to": "2026"
+      },
+      "reason": "The tourist office route sheet is the official figure for the out and back; the stored 550 m was the midpoint of trail reports (backlog 3.29, Q41).",
+      "by": "travel-builder (lane D2)",
+      "on": "2026-10-19"
+    },
+    {
+      "id": "sup-0002",
+      "layer": "suitability",
+      "ref": "place/lago-di-sorapis",
+      "path": "suitability.effort.drivers.distance_km",
+      "was": 12.6,
+      "value": {
+        "v": 10.5,
+        "state": "value",
+        "basis": "official_info",
+        "src": [
+          "src-0001"
+        ],
+        "read": "2026-10-19",
+        "quote": "10,5 km",
+        "note": "The tourist office gives 10.5 km for the out and back on path 215 from Passo Tre Croci.",
+        "applies_to": "2026"
+      },
+      "reason": "The stored 12.6 km was our doubling of an OSM path (backlog 3.29, Q41).",
+      "by": "travel-builder (lane D2)",
+      "on": "2026-10-19"
+    },
+    {
+      "id": "sup-0003",
+      "layer": "suitability",
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "path": "suitability.effort.source_grade",
+      "was": {
+        "system": "local",
+        "value": "Difficult"
+      },
+      "value": {
+        "v": {
+          "system": "local",
+          "value": "Moderate"
+        },
+        "state": "value",
+        "basis": "official_grade",
+        "src": [
+          "src-0002"
+        ],
+        "read": "2026-10-19",
+        "quote": "7.5 km (4 hours) moderate",
+        "note": "Ontario Parks runs the park and grades the loop moderate; the Friends of Algonquin Park page still says Difficult.",
+        "applies_to": "2026"
+      },
+      "reason": "The land manager's grade wins over the park friends' page (backlog 3.39, Q41).",
+      "by": "travel-builder (lane D2)",
+      "on": "2026-10-19"
+    }
+  ]
+}
