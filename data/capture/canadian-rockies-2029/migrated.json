@@ -298,7 +298,8 @@
             "src-0001"
           ]
         }
-      ]
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
@@ -565,7 +566,8 @@
             "src-0001"
           ]
         }
-      ]
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
@@ -593,7 +595,8 @@
             "src-0001"
           ]
         }
-      ]
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
@@ -650,7 +653,8 @@
             "src-0001"
           ]
         }
-      ]
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
@@ -812,7 +816,8 @@
             "src-0001"
           ]
         }
-      ]
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
@@ -917,7 +922,8 @@
             "src-0001"
           ]
         }
-      ]
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
@@ -1016,7 +1022,8 @@
             "src-0001"
           ]
         }
-      ]
+      ],
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
@@ -1339,7 +1346,8 @@
         "read": "2026-10-19",
         "quote": "Parking lots fill up before sunrise and remain full until sunset.",
         "note": "Parks Canada: the lots fill before sunrise and stay full until sunset; the shuttle is the alternative."
-      }
+      },
+      "area_id": "CA/AB/banff-national-park"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",

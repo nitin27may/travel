@@ -122,6 +122,16 @@
       "kind": "official",
       "read": "2026-10-19",
       "method": "read"
+    },
+    {
+      "id": "src-0014",
+      "url": "https://overpass-api.de/api/interpreter",
+      "title": "OpenStreetMap data via the Overpass API (is_in admin areas, route relations, huts)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api",
+      "run": "api-2026-10-19-cs7c-overpass"
     }
   ],
   "records": [
@@ -189,7 +199,8 @@
             "src-0011"
           ]
         }
-      ]
+      ],
+      "area_id": "US/UT/washington-county"
     },
     {
       "ref": "trip/utah-five-parks/trail:pa rus trail",
@@ -227,7 +238,8 @@
             "src-0010"
           ]
         }
-      ]
+      ],
+      "area_id": "US/UT/washington-county"
     },
     {
       "ref": "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle",
@@ -405,7 +417,8 @@
             "src-0004"
           ]
         }
-      ]
+      ],
+      "area_id": "US/UT/grand-county"
     },
     {
       "ref": "trip/utah-five-parks/trail:devils garden",
@@ -424,7 +437,8 @@
             "src-0005"
           ]
         }
-      ]
+      ],
+      "area_id": "US/UT/grand-county"
     },
     {
       "ref": "trip/utah-five-parks/trail:windows section",
@@ -462,7 +476,8 @@
             "src-0007"
           ]
         }
-      ]
+      ],
+      "area_id": "US/UT/san-juan-county"
     },
     {
       "ref": "trip/utah-five-parks/trail:upheaval dome",
@@ -481,7 +496,8 @@
             "src-0012"
           ]
         }
-      ]
+      ],
+      "area_id": "US/UT/san-juan-county"
     },
     {
       "ref": "trip/utah-five-parks/viewpoint:grand view point",

@@ -1,0 +1,315 @@
+{
+  "schema": "capture-run/1",
+  "run": "api-2026-10-19-cs7c-overpass",
+  "started": "2026-10-19",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "scope": {
+    "refs": [
+      "part/place/funbob-monte-baranci#place",
+      "part/place/lago-federa#walk",
+      "place/adolf-munkel-weg",
+      "place/alpe-di-siusi",
+      "place/bullaccia-and-the-witches-benches",
+      "place/cadini-di-misurina-viewpoint",
+      "place/cinque-torri",
+      "place/croda-del-becco",
+      "place/drava-cycle-path-to-lienz",
+      "place/lagazuoi-cable-car-and-tunnels",
+      "place/lago-dantorno",
+      "place/lago-di-braies",
+      "place/lago-di-landro",
+      "place/lago-di-limides",
+      "place/lago-di-sorapis",
+      "place/monte-piana",
+      "place/otzi-south-tyrol-museum-of-archaeology",
+      "place/passo-gardena",
+      "place/rifugio-nuvolau-and-averau",
+      "place/rifugio-scotoni",
+      "place/santa-maddalena-val-di-funes",
+      "place/sass-pordoi-and-piz-boe",
+      "place/seceda-ridge",
+      "place/tre-cime-di-lavaredo-loop",
+      "place/val-fiscalina",
+      "place/viel-dal-pan",
+      "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "trip/utah-five-parks/trail:delicate arch trail",
+      "trip/utah-five-parks/trail:devils garden",
+      "trip/utah-five-parks/trail:hickman bridge",
+      "trip/utah-five-parks/trail:lower calf creek falls",
+      "trip/utah-five-parks/trail:mesa arch",
+      "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "trip/utah-five-parks/trail:pa rus trail",
+      "trip/utah-five-parks/trail:riverside walk",
+      "trip/utah-five-parks/trail:upheaval dome",
+      "trip/utah-five-parks/trail:windows section"
+    ]
+  },
+  "hosts": [
+    {
+      "host": "overpass-api.de",
+      "requests": 94,
+      "robots": "allowed",
+      "terms": "allowed",
+      "status": "ok"
+    }
+  ],
+  "results": [
+    {
+      "ref": "place/adolf-munkel-weg",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Villnöß - Funes"
+    },
+    {
+      "ref": "place/alpe-di-siusi",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Kastelruth - Castelrotto"
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Kastelruth - Castelrotto"
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Auronzo di Cadore",
+      "src": "src-0040"
+    },
+    {
+      "ref": "place/cinque-torri",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Cortina d'Ampezzo",
+      "src": "src-0040"
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Prags - Braies"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:delicate arch trail",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Utah, Grand County",
+      "src": "src-0014"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:devils garden",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Utah, Grand County",
+      "src": "src-0014"
+    },
+    {
+      "ref": "place/drava-cycle-path-to-lienz",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Kärnten, Bezirk Villach-Land, Weißenstein"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:hickman bridge",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Utah, Wayne County"
+    },
+    {
+      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Cortina d'Ampezzo",
+      "src": "src-0040"
+    },
+    {
+      "ref": "place/lago-dantorno",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Auronzo di Cadore",
+      "src": "src-0040"
+    },
+    {
+      "ref": "place/lago-di-braies",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Prags - Braies"
+    },
+    {
+      "ref": "place/lago-di-landro",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Toblach - Dobbiaco"
+    },
+    {
+      "ref": "place/lago-di-limides",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Cortina d'Ampezzo",
+      "src": "src-0040"
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Cortina d'Ampezzo",
+      "src": "src-0040"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "no point stored"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:mesa arch",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Utah, San Juan County",
+      "src": "src-0014"
+    },
+    {
+      "ref": "place/monte-piana",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Auronzo di Cadore",
+      "src": "src-0040"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "no point stored"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "no point stored"
+    },
+    {
+      "ref": "place/otzi-south-tyrol-museum-of-archaeology",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Bolzano - Bozen"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:pa rus trail",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "no point stored"
+    },
+    {
+      "ref": "place/passo-gardena",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Corvara in Badia - Corvara"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:riverside walk",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Utah, Washington County",
+      "src": "src-0014"
+    },
+    {
+      "ref": "place/santa-maddalena-val-di-funes",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Villnöß - Funes"
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Provincia di Trento, Canazei",
+      "src": "src-0040"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:angels landing chains view or scout lookout",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Utah, Washington County",
+      "src": "src-0014"
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Santa Cristina Gherdëina - St. Christina in Gröden - Santa Cristina Valgardena"
+    },
+    {
+      "ref": "place/tre-cime-di-lavaredo-loop",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Auronzo di Cadore",
+      "src": "src-0040"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:upheaval dome",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Utah, San Juan County",
+      "src": "src-0014"
+    },
+    {
+      "ref": "place/val-fiscalina",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "admin areas: Trentino-Alto Adige/Südtirol, Bolzano - Bozen, Sexten - Sesto"
+    },
+    {
+      "ref": "place/viel-dal-pan",
+      "field": "area_id",
+      "outcome": "filled",
+      "reason": "admin areas: Veneto, Belluno, Livinallongo del Col di Lana",
+      "src": "src-0040"
+    },
+    {
+      "ref": "trip/utah-five-parks/trail:windows section",
+      "field": "area_id",
+      "outcome": "gap",
+      "reason": "no point stored"
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "field": "links",
+      "outcome": "filled",
+      "reason": "relation 9491502 (path 638)",
+      "src": "src-0040"
+    },
+    {
+      "ref": "part/place/lago-federa#walk",
+      "field": "links",
+      "outcome": "filled",
+      "reason": "relation 3170181 (path 434)",
+      "src": "src-0040"
+    },
+    {
+      "ref": "place/rifugio-nuvolau-and-averau",
+      "field": "point",
+      "outcome": "filled",
+      "reason": "way 200226208",
+      "src": "src-0011"
+    },
+    {
+      "ref": "place/rifugio-scotoni",
+      "field": "point",
+      "outcome": "filled",
+      "reason": "way 229003439",
+      "src": "src-0011"
+    },
+    {
+      "ref": "part/place/funbob-monte-baranci#place",
+      "field": "point",
+      "outcome": "filled",
+      "reason": "node 1825738077",
+      "src": "src-0040"
+    }
+  ]
+}
