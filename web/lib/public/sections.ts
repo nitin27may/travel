@@ -137,6 +137,10 @@ export interface PageModel {
   /** experience and rental offers at or on the subject, grouped by domain (section 10) */
   around: AroundGroup[];
   links: LinkTab[];
+  /** PS4: the access place (parking, else a stop) with a stored point, when the record has no car park of its own; Directions go there */
+  directions?: { ref: string; name: string; lat: number; lon: number; pointSource: string; role: 'parks_for' | 'serves' | 'starts_at' } | null;
+  /** labels of the older record's facts that filled a row of this page (step 9); section 14 leaves them out */
+  legacyMapped?: string[];
   /** the place checks: base R properties answered out of asked, with the engine's level */
   checks: { done: number; total: number; read: string | null; level: string };
 }
@@ -562,7 +566,22 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
   const options = sections.find((x) => x.id === 'options');
   if (options && !options.drawn && offers.length > 0) options.drawn = true;
 
+  // PS4: Directions go to where you can drive; the first access place with a stored point (parking first, then a stop, then a start)
+  let directions: PageModel['directions'] = null;
+  for (const role of ['parks_for', 'serves', 'starts_at'] as const) {
+    const hit = accessPoints.find((a) => a.role === role && isPoint(world.points[a.ref]));
+    if (hit) {
+      const pt = world.points[hit.ref] as { lat: number; lon: number; point_source?: string; coord_src?: string };
+      const src = pt.point_source ?? '';
+      const osm = /OSM (node|way|relation) (\d+)/i.exec(src);
+      const wd = /(Q\d+) P625/.exec(src);
+      directions = { ref: hit.ref, name: hit.name, lat: pt.lat, lon: pt.lon, pointSource: osm ? `osm_${osm[1]!.toLowerCase()}:${osm[2]}` : wd ? `wikidata:${wd[1]}` : 'manual_pin', role };
+      break;
+    }
+  }
+
   return {
+    directions,
     ref,
     type: cap.type,
     layer,
@@ -584,6 +603,8 @@ export function buildSections(world: World, rawRef: string, contract: Contract, 
     checks: { done: Math.max(0, baseR - missing), total: baseR, read: reads.length ? reads[reads.length - 1]! : null, level: comp?.level ?? 'stub' },
   };
 }
+
+const isPoint = (p: unknown): boolean => typeof p === 'object' && p !== null && typeof (p as { lat?: unknown }).lat === 'number' && typeof (p as { lon?: unknown }).lon === 'number';
 
 function offerCard(r: Rec, contract: Contract, ref: string, scrub: TextScrub, words: Words): OfferCard {
   const world = r.world;

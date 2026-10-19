@@ -12,7 +12,8 @@ import { scrubMarkers } from './prose';
 import { buildSections, type PageModel } from './sections';
 import { publicSuitability, suitMarksFor, type PublicSuitability } from './suitability';
 import type { Completeness, CompletenessLevel, ItemSuit, PublicPlace, PublicTrip } from './types';
-import { TextScrub } from './vals';
+import { TextScrub, type PVal } from './vals';
+import { publicProvenance, publicText, observed } from '@/components/places/model';
 
 /** What the contract adds to one place. */
 export interface PageExtras {
@@ -159,4 +160,53 @@ export function attachItemSuit(trips: readonly PublicTrip[], placeBySlug: Readon
       it.suit = suit;
     }
   }
+}
+
+/**
+ * Step 9 (contract 6.2, M3): facts of the older record that match a contract property fill that property's row when the row is a gap,
+ * so a value the page already knows never shows as "Not checked yet". The value keeps the fact's own source line and read date as its
+ * basis label; no basis is invented, and nothing is promoted to a rule. A fact that matches no gap row stays in "Facts and sources".
+ * Returns the labels of the facts it used, which section 14 then leaves out.
+ */
+export const LEGACY_FACT_PROPERTY: Record<string, string> = {
+  Fee: 'price',
+  Price: 'price',
+  Lift: 'price',
+  'Toll road': 'price',
+  Lot: 'access_points',
+  Shuttle: 'transit',
+  Hours: 'hours',
+  'Opening hours': 'hours',
+  'Best time of day': 'best_time',
+  'Fills by': 'fills_by',
+  Capacity: 'capacity',
+  'Booking page': 'book_url',
+  Opens: 'window',
+  Season: 'season',
+};
+
+export function mapLegacyFacts(place: Pick<PublicPlace, 'facts'>, model: PageModel): string[] {
+  const used: string[] = [];
+  for (const f of place.facts) {
+    const key = LEGACY_FACT_PROPERTY[f.label];
+    if (!key || f.conflicts.length > 0) continue;
+    const text = observed(publicText(publicProvenance(f.value)));
+    if (!text) continue;
+    for (const sec of model.sections) {
+      const row = sec.rows.find((r) => r.key === key && r.gap);
+      if (!row) continue;
+      const prov = publicProvenance(f.provenance).replace(/,\s*\((official|operator|community)\)\s*$/i, ' · $1');
+      const val: PVal = { value: text, state: 'value', basis: null, basisLabel: prov, look: 'info', sources: [], read: null, quote: null, note: null, tried: [], searched: null, appliesTo: null, conflicts: [] };
+      Object.assign(row, { text, value: text, val, gap: false, state: 'value', look: 'info', valueType: 'text', links: [] });
+      sec.empty = sec.rows.every((r) => r.gap);
+      if (sec.closing) {
+        const rest = sec.closing.replace(/^[^:]*: /, '').split(', ').filter((l) => l !== row.label.toLowerCase());
+        sec.closing = rest.length ? `${sec.closing.split(': ')[0]}: ${rest.join(', ')}` : null;
+      }
+      used.push(f.label);
+      break;
+    }
+  }
+  model.legacyMapped = used;
+  return used;
 }

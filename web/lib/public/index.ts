@@ -8,7 +8,7 @@ import { placeFacets } from './bands';
 import { buildTripTags } from './tags';
 import type { TagConflict } from './tags';
 import { fromHubsOf, publicWorld, tagLabels } from './world';
-import { attachItemSuit, buildPageExtras } from './pages';
+import { attachItemSuit, buildPageExtras, mapLegacyFacts } from './pages';
 import { lengthClass } from '@travel/core/derive/length.ts';
 import type { PublicData, PublicPlace, PublicPlaceCard, PublicTrip, PublicTripCard } from './types';
 
@@ -58,6 +58,7 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
   for (const p of pb.places) {
     const x = extras.get(p.slug);
     if (!x) continue;
+    mapLegacyFacts(p, x.sections);
     p.sections = x.sections;
     p.suitability = x.suitability;
     p.relevance = x.relevance;
