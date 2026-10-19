@@ -59,6 +59,16 @@
       "kind": "official",
       "read": "2026-10-18",
       "method": "read"
+    },
+    {
+      "id": "src-0007",
+      "url": "https://www.openstreetmap.org/node/10809307025",
+      "title": "Banff Gondola Upper Terminal (OSM aerialway=station)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "read": "2026-10-19",
+      "method": "api",
+      "run": "api-2026-10-19-cs7-upper-stations"
     }
   ],
   "records": [
@@ -958,6 +968,18 @@
       },
       "part_of": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#sulphur-mountain"
+      ],
+      "osm_ref": "node/10809307025",
+      "links": [
+        {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/10809307025",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0007"
+          ]
+        }
       ]
     },
     {
