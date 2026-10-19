@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { createPublicData } from '@/lib/public';
 import { publicSentences, undatedTitle } from '@/lib/public/dateless';
+import { describesParty, publicParty, suitabilityFromTitle } from '@/lib/public/party';
+import { publicOrigin } from '@/lib/public/origin';
 
 describe('the shared public-text scrubber', () => {
   it('drops "Planned as" and stay ideas, whole, and never cuts inside a URL', () => {
@@ -41,5 +43,57 @@ describe('the shared public-text scrubber', () => {
       expect(Object.keys(t)).not.toContain('dates');
       expect(t.title, t.slug).toBe(undatedTitle(t.title));
     }
+  });
+});
+
+describe('the party scrubber: public text says who a plan suits, never who travelled', () => {
+  it('turns the Rockies standfirst into a suitability statement', () => {
+    expect(publicParty("Five bases. Every day has an adults' hike, a family hike and a shorter option for a child around 6.")).toBe(
+      'Five bases. Every day has a longer hike, a family hike and a shorter option. The family version suits children from about 6.',
+    );
+  });
+  it('makes the Patagonia title neutral and keeps the age as a suitability line', () => {
+    expect(undatedTitle('Patagonia with kids 11+')).toBe('Argentine Patagonia');
+    expect(undatedTitle('Iceland with kids 8+')).toBe('Iceland');
+    expect(suitabilityFromTitle('Patagonia with kids 11+')).toBe('Suits ages 11 and up.');
+    expect(suitabilityFromTitle('Dolomites, 13 nights')).toBe('');
+  });
+  it('rewrites split days as two groups', () => {
+    expect(publicParty('Split day at Maligne Lake: one adult on the Bald Hills, the other adult and the child on the cruise.')).toBe(
+      'Split day at Maligne Lake: the stronger walkers on the Bald Hills, the others on the cruise.',
+    );
+    expect(publicParty('one adult walks to Citadel Pass while the other adult and the child ride the gondola')).toBe('the stronger walkers walk to Citadel Pass while the others ride the gondola');
+    expect(publicParty('Only if both adults want a fourth split.')).toBe('Only if the group wants a fourth split.');
+  });
+  it('removes party sizes and ages', () => {
+    expect(publicParty('INFERENCE: a family of 3 cannot hike when the rule is mandatory')).not.toMatch(/family of 3/);
+    expect(publicParty('Whether a 6-year-old counts toward four is a GAP.')).toBe('Whether a young child counts toward the four is a GAP.');
+    expect(publicParty('one adult 19+ per canoe; 2 adults plus 2 children under 30 kg allowed')).toBe('one adult 19+ per canoe; children under 30 kg allowed');
+  });
+  it('keeps real fare and operator rules', () => {
+    expect(publicParty('A 6-15 child pays youth fare (2026 blog: 50).')).toContain('child pays youth fare');
+    expect(publicParty('Under 12 or under 106 cm must ride with an adult; the child fare is 16.')).toContain('the child fare is 16');
+  });
+  it('drops a sentence it has no rule for rather than publish it, and flags it', () => {
+    expect(publicParty("Lovely lake. The child's body clock is 2 h ahead, so expect a crash around 19:00.")).toBe('Lovely lake.');
+    expect(describesParty("The child's body clock is ahead")).toBe(true);
+    expect(describesParty('Easy walk, suits children from about 6')).toBe(false);
+  });
+  it('runs on every string through publicOrigin', () => {
+    expect(publicOrigin('Patagonia with kids 11+')).toBe('Argentine Patagonia');
+  });
+  it('leaves no party wording on any public trip, place or title', () => {
+    const data = createPublicData();
+    const texts: string[] = [];
+    const walk = (v: unknown) => {
+      if (typeof v === 'string') texts.push(v);
+      else if (Array.isArray(v)) v.forEach(walk);
+      else if (v && typeof v === 'object') Object.values(v).forEach(walk);
+    };
+    walk(data.internals.trips);
+    walk(data.internals.places);
+    expect(texts.length).toBeGreaterThan(1000);
+    expect(texts.filter(describesParty)).toEqual([]);
+    expect(data.listTrips().map((t) => t.title).join('|')).not.toMatch(/kids|children|child/i);
   });
 });

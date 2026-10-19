@@ -132,3 +132,20 @@ describe('route map and thumbnails', () => {
     for (const r of tripListRows()) expect(r.countryName, r.slug).not.toMatch(/^[A-Z]{2}$/);
   });
 });
+
+describe('route map with no positions (backlog 2.35)', () => {
+  it('knows when nothing is positioned, so the page hides the map instead of framing Europe', async () => {
+    const { routeHasPositions } = await import('@/components/trips/model');
+    expect(routeHasPositions({ bases: [], days: [{ n: 1, title: 'a', base: null, points: [] }], unplaced: 3 })).toBe(false);
+    expect(routeHasPositions({ bases: [{ id: 'b', name: 'B', lng: -72.5, lat: 44.5, days: [1] }], days: [], unplaced: 0 })).toBe(true);
+    expect(routeHasPositions({ bases: [], days: [{ n: 1, title: 'a', base: null, points: [{ key: 'x', name: 'X', lng: 1, lat: 2, placeSlug: 'x' }] }], unplaced: 0 })).toBe(true);
+  });
+  it('vermont, whose stops are not positioned, has no route to draw', async () => {
+    const { routeHasPositions } = await import('@/components/trips/model');
+    const v = getTrip('vermont-fall-2026');
+    if (!v) return;
+    const m = buildTripPageModel(v, lookup);
+    const placed = m.route.days.some((d) => d.points.length) || m.route.bases.length > 0;
+    expect(routeHasPositions(m.route)).toBe(placed);
+  });
+});
