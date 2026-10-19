@@ -19,7 +19,7 @@ Wave 3, stage 3. It runs in parallel with L3c (timeline), L3b (tags and filters)
 4. **A trail page for every trail on a public trip**: the Rockies (64 trail routes in `data/capture/canadian-rockies-2029`), Patagonia (7), Iceland (5), Chamonix (3) and the Dolomites (20), each with the full link checklist ("none found (checked ...)" for gaps). Day items on the trip pages link to them through the existing name lookup.
 5. **Honest maps** (T5): every line says where it came from; a trail with no track shows its trailhead and the honest straight-line guide, labelled.
 
-Trails of private trips (Vermont, Norway, Utah, Algonquin) are not built: visibility fails closed. They appear when their trip becomes public (Q26).
+**Changed 19 Oct (Q26, owner): nothing is private, so the trails of every trip are built, Vermont, Norway, Utah and Algonquin included.** Visibility still fails closed for any future private trip.
 
 ## Read first
 

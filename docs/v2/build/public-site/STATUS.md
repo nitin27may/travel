@@ -94,7 +94,7 @@ The stage 2 sweep report is `verify-integration.md` (Lighthouse, privacy, P8, th
   - The public read-only site comes first; the planner second.
   - Under 100 users in year one, so free tiers.
   - No green. Trailhead design.
-  - All 14 trips are public and dateless.
+  - All 14 trips are public and dateless. **Nothing is private for now (owner, 19 Oct)**: every trip and all its places and trails are published; the fail-closed visibility code stays for later. Old legacy pages are retired with redirects at go-live (Q25).
 - **Maps:**
   - MapLibre on the globe and trips; Google Maps JS on place pages.
   - Never two map families on one page.
