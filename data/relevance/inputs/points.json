@@ -320,10 +320,10 @@
       "point_source": "trailhead \"Lake Louise Lakeshore\" at place/lake-louise"
     },
     "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass": {
-      "lat": 51.33329,
-      "lon": -116.21888,
+      "lat": 51.3225,
+      "lon": -116.18556,
       "coord_src": "wikidata",
-      "point_source": "Q22366287 P625"
+      "point_source": "trailhead \"Moraine Lake\" at legacy/canadian-rockies-sept-2029/sights/moraine-lake"
     },
     "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk": {
       "lat": 51.18667,

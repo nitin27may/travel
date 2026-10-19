@@ -691,9 +691,9 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-      "decision": "payoff_pending",
-      "reason": "Sentinel Pass and the Larch Valley meadows now exist as places (CS7); the draw belongs on Sentinel Pass and moves when the migration ledger allows a relevance edit. Until then the route carries it.",
-      "decided": "2026-10-18"
+      "decision": "payoff_moved",
+      "reason": "Sentinel Pass and the Larch Valley meadows exist as places (CS7). The relevance record moved to the pass on 2026-10-19 (D1, backlog 3.18): the multiset ledger ignores refs, so every leaf is kept. The route reads its draw from the pass.",
+      "decided": "2026-10-19"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",

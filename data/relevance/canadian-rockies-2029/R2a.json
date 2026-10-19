@@ -846,9 +846,8 @@
       }
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+      "kind": "viewpoint",
       "wikidata": {
         "v": "Q22366287",
         "state": "value",
