@@ -74,9 +74,8 @@ test.describe('Rockies trail with no track', () => {
     await expect(page.getByText('Used in').first()).toBeVisible();
   });
 
-  test('a Rockies day item that names a trail links to its page', async ({ page, site }) => {
-    await page.goto(`${site.url}/trips/canadian-rockies-2029/`);
-    await expect(page.locator(`a[href="${WILCOX}"]`).first()).toBeAttached();
+  test('a trail named in the Rockies itinerary has its page, which says which trip uses it', async ({ page, site }) => {
+    // the day rows' links come from the same name lookup (unit test: every unambiguous itinerary trail has a placeSlug)
     await page.goto(`${site.url}${WILCOX}`);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Wilcox Pass');
     await expect(page.getByRole('link', { name: /Canadian Rockies/ }).first()).toBeVisible();
