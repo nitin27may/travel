@@ -534,12 +534,15 @@ function runSqueezed(ctx: Ctx, stops: Stop[], lane: Lane, profile: Profile, o: O
 /** Cheapest insertion (2.9): the position with no new missed pin, then the least added leg time. */
 function insertAdded(ctx: Ctx, stops: Stop[], item: ScheduleItem, profile: Profile): Stop[] {
   const add: Stop = { item, addedBy: "visitor" };
-  let best: { pos: number; score: [number, number, number] } | null = null;
+  // a coffee, lunch or rest has a natural time of day; among equal positions the one nearest it wins
+  const want = item.kind === "meal" ? 12 * 60 + 30 : item.sub === "coffee" ? 10 * 60 + 30 : item.kind === "break" || item.kind === "rest" ? 15 * 60 : null;
+  let best: { pos: number; score: number[] } | null = null;
   for (let pos = 0; pos <= stops.length; pos++) {
     const trial = [...stops.slice(0, pos), add, ...stops.slice(pos)];
     const r = runSqueezed(ctx, trial, "all", profile, { label: "all", resume: null, isMain: true });
-    const score: [number, number, number] = [missedCount(r), legsMin(r.entries), r.end];
-    if (!best || score[0] < best.score[0] || (score[0] === best.score[0] && (score[1] < best.score[1] || (score[1] === best.score[1] && score[2] < best.score[2])))) best = { pos, score };
+    const at = r.entries.find((e) => e.id === item.id);
+    const score = [missedCount(r), legsMin(r.entries), want !== null && at ? Math.abs(m(at.start) - want) : 0, r.end];
+    if (!best || score.some((v, i) => (score.slice(0, i).every((x, j) => x === best!.score[j]) && v < best!.score[i]!))) best = { pos, score };
   }
   const pos = best?.pos ?? stops.length;
   return [...stops.slice(0, pos), add, ...stops.slice(pos)];
