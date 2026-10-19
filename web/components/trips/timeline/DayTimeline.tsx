@@ -78,7 +78,13 @@ export function DayTimeline({ day, tl, picked, changed, candidates, taken, age, 
   const [lane, setLane] = useState<string | null>(null);
   // "moved 40 min later" after an addition, for one viewing: state adjusted while rendering, cleared by a timer
   const [snap, setSnap] = useState<{ tl: DayTimelineData; added: number; moved: Map<string, number> }>({ tl, added: taken.length, moved: new Map() });
-  if (tl !== snap.tl) setSnap({ tl, added: taken.length, moved: taken.length > snap.added ? moves(snap.tl, tl) : snap.moved });
+  // a link that arrives with additions in it is not an addition made now: the first moments after load show no "moved" notes
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const id = window.setTimeout(() => setReady(true), 1500);
+    return () => window.clearTimeout(id);
+  }, []);
+  if (tl !== snap.tl) setSnap({ tl, added: taken.length, moved: ready && taken.length > snap.added ? moves(snap.tl, tl) : snap.moved });
   useEffect(() => {
     if (!snap.moved.size) return;
     const t = window.setTimeout(() => setSnap((s) => ({ ...s, moved: new Map() })), 6000);
