@@ -41,7 +41,9 @@
 .pl-cover-glyph { position: absolute; right: 6%; top: 12%; color: var(--header-line); opacity: 0.9; }
 .pl-cover::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to bottom, var(--photo-scrim-top) 10%, var(--photo-scrim-bottom) 85%); }
 .pl-cover-title { display: grid; gap: var(--s-2); width: 100%; max-width: 62rem; padding: var(--s-8); }
-.pl-cover[data-photo='no'], .pl-cover[data-photo='no'][data-trail] { min-height: 220px; }
+.pl-cover[data-photo='no'], .pl-cover[data-photo='no'][data-trail] { min-height: 200px; max-height: 260px; }
+.pl-cover[data-photo='no'] h1 { font: var(--t-page); text-transform: uppercase; }
+.pl-cover[data-photo='no'] .pl-cover-title { padding: var(--s-6) var(--s-8); }
 /* the cover body sits on the surface under the photo: no chip rides on a photo (PS6) */
 .pl-cover-body { display: grid; gap: var(--s-3); padding: var(--s-4) var(--s-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-4); }
 .pl-cover-body .pl-summary { color: var(--ink); max-width: 68ch; font: var(--t-body-l); }

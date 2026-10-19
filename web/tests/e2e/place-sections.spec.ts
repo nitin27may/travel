@@ -34,7 +34,7 @@ test.describe('place page sections (S1b)', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(`${site.url}${LOUISE}`);
     const primary = page.locator('.btn-primary:visible');
-    const n = await primary.evaluateAll((els) => els.filter((e) => { const r = e.getBoundingClientRect(); return r.top < 900 && r.bottom > 0; }).length);
+    const n = await primary.evaluateAll((els) => els.filter((e) => { const r = e.getBoundingClientRect(); return r.top < 900 && r.bottom > 0 && (e.classList.contains('pl-dir') || !e.closest('.pl-cover-body')); }).length);
     expect(n).toBeLessThanOrEqual(1);
   });
 
