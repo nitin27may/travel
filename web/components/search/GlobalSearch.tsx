@@ -4,10 +4,12 @@ import { Dialog } from '@base-ui/react/dialog';
 import { useRouter } from 'next/navigation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon, kindIcon } from '@/components/ui/Icon';
-import { onSearchGrow, search, suggest } from '@/lib/client/data';
+import { countParsed, onSearchGrow, relaxQuery, search, suggest } from '@/lib/client/data';
 import type { Suggestion } from '@/lib/search/suggest';
 import { setSink, stopBuffer, takeBuffer } from '@/lib/search/typeahead';
 import { describeCounts } from '@/lib/search/search';
+import { QueryChips } from './QueryChips';
+import { useQueryParse } from './useQueryParse';
 import type { SearchHit, SearchRecord, SearchResult } from '@/lib/search/types';
 import '@/styles/home.css';
 
@@ -37,6 +39,8 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const [suggested, setSuggested] = useState<{ q: string; s: Suggestion | null } | null>(null);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  // the words read as filters (backlog 3.43); the name hits below stay as they were (A1)
+  const smart = useQueryParse(q, { enabled: open });
 
   // keys typed before the input had focus (see typeahead.ts)
   useEffect(() => {
@@ -83,14 +87,32 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 
   // an empty box shows the hint, never the last answer
   const result = q.trim() ? answer : null;
-  const flat: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
-  const status = failed ? 'Search is unavailable' : result ? describeCounts(result) : '';
+  const hits: SearchHit[] = useMemo(() => result?.groups.flatMap((g) => g.hits) ?? [], [result]);
+  const parsed = smart.parsed;
+  const read = !!parsed && parsed.target !== 'search' && parsed.chips.length > 0 ? parsed : null;
+  const count = useMemo(() => (read ? countParsed(read) : null), [read]);
+  const relax = useMemo(() => (read && count?.n === 0 ? relaxQuery(read) : null), [read, count]);
+  const noun = read?.target === 'trips' ? 'trips' : 'places';
+  // the first option opens the list the words describe, then the other readings, then the name hits (smart-search 6.1)
+  const lead: { id: string; href: string; kind: 'show' | 'dym'; label: string }[] = useMemo(
+    () =>
+      read
+        ? [
+            { id: 'show', href: read.href, kind: 'show', label: count === null ? `Show ${noun}` : `Show ${count.n} ${count.n === 1 ? noun.slice(0, -1) : noun}` },
+            ...[...read.didYouMean, ...(relax ? [relax] : [])].map((d, i) => ({ id: `dym-${i}`, href: d.href, kind: 'dym' as const, label: d.label })),
+          ]
+        : [],
+    [read, count, noun, relax],
+  );
+  const optionCount = lead.length + hits.length;
+  const status = failed ? 'Search is unavailable' : `${read ? `Read as ${read.chips.map((c) => c.label).join(', ')}. ` : ''}${result ? describeCounts(result) : ''}`.trim();
 
-  const go = (h: SearchHit | undefined) => {
-    if (!h) return;
+  const goTo = (href: string | undefined) => {
+    if (!href) return;
     onClose();
-    router.push(h.record.h);
+    router.push(href);
   };
+  const goOption = (i: number) => goTo(i < lead.length ? lead[i]?.href : hits[i - lead.length]?.record.h);
 
   useEffect(() => {
     document.getElementById(`${listId}-${active}`)?.scrollIntoView({ block: 'nearest' });
@@ -98,12 +120,16 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      if (!flat.length) return;
+      if (!optionCount) return;
       e.preventDefault();
-      setActive((a) => (e.key === 'ArrowDown' ? (a + 1) % flat.length : (a - 1 + flat.length) % flat.length));
+      setActive((a) => (e.key === 'ArrowDown' ? (a + 1) % optionCount : (a - 1 + optionCount) % optionCount));
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      go(flat[active] ?? flat[0]);
+      goOption(Math.min(active, Math.max(optionCount - 1, 0)));
+    } else if (e.key === 'Backspace' && read && e.currentTarget.selectionStart === 0 && e.currentTarget.selectionEnd === 0) {
+      // nothing left of the caret to delete: Backspace takes off the last chip instead
+      e.preventDefault();
+      smart.remove(read.chips[read.chips.length - 1]!.id);
     } else if (e.key === 'Escape' && q) {
       // first Esc clears; the dialog only closes on the next one
       e.preventDefault();
@@ -112,7 +138,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
     }
   };
 
-  let index = -1;
+  let index = lead.length - 1;
   return (
     <Dialog.Root open={open} onOpenChange={(o) => !o && onClose()}>
       <Dialog.Portal>
@@ -126,9 +152,9 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 ref={inputRef}
                 type="search"
                 role="combobox"
-                aria-expanded={flat.length > 0}
+                aria-expanded={optionCount > 0}
                 aria-controls={listId}
-                aria-activedescendant={flat.length ? `${listId}-${active}` : undefined}
+                aria-activedescendant={optionCount ? `${listId}-${Math.min(active, optionCount - 1)}` : undefined}
                 aria-autocomplete="list"
                 aria-label="Search trips, places and areas"
                 placeholder="Search trips, places and areas"
@@ -150,26 +176,85 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
           </div>
           <span className="sr-only" role="status" aria-live="polite">{status}</span>
 
+          {read ? (
+            <div className="gs-read">
+              <QueryChips parsed={read} onRemove={smart.remove} onPick={smart.pick} onEmpty={() => inputRef.current?.focus()} />
+            </div>
+          ) : null}
+
           <div className="gs-body" id={listId} role="listbox" aria-label="Results">
             {failed ? (
               <p className="gs-empty">Search could not load. Reload the page to try again.</p>
             ) : !q.trim() ? (
               <p className="gs-hint">Try a country, a trail or a kind, like lake.</p>
-            ) : !result ? (
+            ) : !result && !read ? (
               <p className="gs-hint">Searching.</p>
-            ) : result.groups.length === 0 && result.partial ? (
+            ) : null}
+            {lead.length ? (
+              <>
+                {lead.slice(0, 1).map((o, i) => (
+                  <a
+                    key={o.id}
+                    id={`${listId}-${i}`}
+                    role="option"
+                    aria-selected={i === active}
+                    data-active={i === active || undefined}
+                    href={o.href}
+                    className="gs-show"
+                    onMouseMove={() => setActive(i)}
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                      e.preventDefault();
+                      goTo(o.href);
+                    }}
+                  >
+                    <span>{o.label}</span>
+                    <small>{count && count.unchecked ? `+ ${count.unchecked} not checked yet \u00a0` : ''}Enter</small>
+                  </a>
+                ))}
+                {lead.length > 1 ? (
+                  <div role="group" aria-label="Did you mean" className="gs-dym">
+                    <span>Did you mean</span>
+                    {lead.slice(1).map((o, j) => {
+                      const i = j + 1;
+                      return (
+                        <a
+                          key={o.id}
+                          id={`${listId}-${i}`}
+                          role="option"
+                          aria-selected={i === active}
+                          data-active={i === active || undefined}
+                          href={o.href}
+                          className="gs-dym-row"
+                          onMouseMove={() => setActive(i)}
+                          onClick={(e) => {
+                            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                            e.preventDefault();
+                            goTo(o.href);
+                          }}
+                        >
+                          {o.label}
+                        </a>
+                      );
+                    })}
+                  </div>
+                ) : null}
+                {hits.length ? <h3 className="gs-names-h">Names that match the words</h3> : null}
+              </>
+            ) : null}
+            {result && result.groups.length === 0 && result.partial && !read ? (
               <p className="gs-hint">Searching.</p>
-            ) : result.groups.length === 0 ? (
+            ) : result && result.groups.length === 0 && !read && q.trim() ? (
               <p className="gs-empty">
                 No trip or place matches &lsquo;{q.trim()}&rsquo;. {suggestion ? '' : 'Try a country or a kind, like lake.'}
                 {suggestion?.href ? (
-                  <a className="gs-suggest" href={suggestion.href} onClick={(e) => { e.preventDefault(); onClose(); router.push(suggestion.href!); }}>{suggestion.label}</a>
+                  <a className="gs-suggest" href={suggestion.href} onClick={(e) => { e.preventDefault(); goTo(suggestion.href); }}>{suggestion.label}</a>
                 ) : suggestion?.query ? (
                   <button type="button" className="gs-suggest" onClick={() => { setQ(suggestion.query!); setActive(0); inputRef.current?.focus(); }}>{suggestion.label}</button>
                 ) : null}
               </p>
             ) : (
-              result.groups.map((g) => (
+              result?.groups.map((g) => (
                 <div key={g.id} role="group" aria-label={g.label} className="gs-group">
                   <h3 className="gs-group-h">
                     {g.label} <span className="gs-count">{g.total}</span>
@@ -190,7 +275,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                         onClick={(e) => {
                           if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
                           e.preventDefault();
-                          go(h);
+                          goTo(h.record.h);
                         }}
                       >
                         <span className="kind-glyph kind-glyph-sm" aria-hidden="true">
