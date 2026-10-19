@@ -1,3 +1,5 @@
+import { publicParty } from './party';
+
 // The household's home town is household data. Public output names the trip's public starting city instead.
 
 /** Default public starting city, and its centre, used wherever the home town or a point near it would show. */
@@ -8,7 +10,7 @@ const HOME_POINT = { lat: 43.88, lon: -78.94, radiusKm: 2 } as const;
 
 /** The text with the home town replaced by the public starting city, keeping the case ("Whitby" or "whitby"). */
 export function publicOrigin(text: string): string {
-  return text.replace(HOME, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
+  return publicParty(text).replace(HOME, (m) => (m === m.toLowerCase() ? PUBLIC_START_CITY.name.toLowerCase() : PUBLIC_START_CITY.name));
 }
 
 export function nearHome(lat: number, lon: number): boolean {

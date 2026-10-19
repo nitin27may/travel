@@ -23,7 +23,7 @@ export function publicTripBadges(t: TripListRow): Badge[] {
   const out: Badge[] = [];
   if (t.seasonLabel) out.push({ text: t.seasonLabel, tone: 'season', icon: 'calendar', title: 'This plan is valid for' });
   else out.push({ text: 'Season not set yet', tone: 'warn', icon: 'calendar', title: 'The season this plan is valid for has not been written yet' });
-  if (t.depth !== 'full') out.push({ text: DEPTH_NOTICE[t.depth], tone: 'warn', icon: 'info', title: t.depth === 'summary' ? 'A shorter day list; the original plan holds the detail' : 'No day list yet; the original plan holds the detail' });
+  if (t.depth !== 'full') out.push({ text: DEPTH_NOTICE[t.depth], tone: 'warn', icon: 'info', title: t.depth === 'summary' ? 'A shorter day list with the main stops' : 'No day list yet; this is an overview' });
   return out;
 }
 
