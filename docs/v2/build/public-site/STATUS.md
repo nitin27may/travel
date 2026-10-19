@@ -64,6 +64,8 @@ Running now (worktrees `travel-wt/v2-<lane>`, branch `public/<lane>`):
 
 After these merge: stage 4 (Opus design review of the whole site against P1-P9 and T1-T5, the polish rows 4.4-4.7 and 2.41), stage 5 (cross-model checks), stage 6 (owner preview from v2 HEAD with the tunnel rebuilt, Lighthouse on the real deploy, 2.47), stage 7 (go-live: redirects for retired legacy pages Q25, restore Google key restrictions, `_headers` caching 2.46, bot protection 7.6, publish).
 
+**Owner asked (19 Oct): after the next merge (D1, S1b or SQ1b), rebuild `web/out` from v2 HEAD with `web/.env.local` moved aside only if needed for the build, serve it on a free port, open a new cloudflared tunnel and send the owner the URL. Kill the stale preview on port 3430 (by PID) when the new one is up.**
+
 Open for the coordinator, not the owner: SQ1 phase 2 spike (Q38), CS7 batch 3 (remaining gaps), Rockies base points that differ from Wikidata (Kananaskis about 2 km, Lake Louise about 4 km; D1 reports them).
 
 ## Merged so far (all verified)
