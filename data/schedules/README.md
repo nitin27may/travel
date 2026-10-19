@@ -59,7 +59,7 @@ Both are read by `web/lib/public/timeline.ts` at build time. They are never publ
 
 Item override fields: `time` (`null` clears the source's time), `confidence` (`fixed` for an operator slot, else `suggested`), `source`
 (`operator`, `plan`, `data`), `note`, `title`, `kind`, `sub`, `durationMin` with `durationSource` (`plan`, `data`, `operator`),
-`checkinMin` (arrive this long before a slot), `optional`, `needs` (`sunrise`, `sunset`, `golden-pm`, `civil-dusk` with an offset in
+`checkinMin` (arrive this long before a slot), `optional`, `needs` (`sunrise`, `sunset`, `golden-pm`, `civil-dusk`, `nautical-dusk` (follows the day, after dark, no clock time) with an offset in
 minutes), `window` (`from`, `to`, `lastUp`, `lastDown`, `why`), `stats` (`distanceKm`, `gainM`), `minAge`.
 
 Leg endpoints are item ids plus three fixed names: `base` (where the day starts), `next-base` (where a transfer or departure

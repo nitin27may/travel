@@ -9,7 +9,7 @@ export type Confidence = "fixed" | "anchored" | "suggested";
 export type TimeSource = "operator" | "plan" | "sun" | "data" | "rule" | "visitor";
 export type LegBasis = "routed" | "plan" | "matrix" | "estimate";
 export type LegMode = "drive" | "walk" | "shuttle" | "bus" | "train" | "ferry" | "boat" | "lift" | "flight";
-export type SunEventId = "sunrise" | "golden-am" | "golden-pm" | "sunset" | "civil-dusk" | "no-sunset";
+export type SunEventId = "sunrise" | "golden-am" | "golden-pm" | "sunset" | "civil-dusk" | "nautical-dusk" | "no-sunset";
 /** Honesty chips the scheduler can attach to an entry. The web adapter maps them to its own chip ids. */
 export type ScheduleHonesty = "drive_estimated" | "estimate" | "not_known" | "pattern_2026";
 
@@ -25,7 +25,7 @@ export interface PlaceRef {
 }
 
 export interface TimelineEntry {
-  /** Stable: the source item id, or `${day}-${lane}-${kind}-${n}` for generated entries. */
+  /** Stable: the source item id, or `${day}-${lane}-${kind}-${sub}-${next stop id}` for generated entries, so adding a stop elsewhere keeps their ids. */
   id: string;
   day: number;
   lane: Lane;
@@ -58,7 +58,7 @@ export interface TimelineEntry {
   bookingOf?: string;
   insideOf?: string;
   /** Condensed plans only: the part of the day instead of a time ("Morning"). */
-  block?: "Morning" | "Afternoon" | "Evening";
+  block?: "Morning" | "Afternoon" | "Evening" | "After dark";
   /** Meals only: how it is eaten (spec 1.1). */
   style?: "sit-down" | "picnic" | "on-trail" | "at-base";
   honesty: ScheduleHonesty[];
@@ -118,7 +118,7 @@ export type ItemKind = "visit" | "trail" | "meal" | "break" | "rest" | "checkin"
 
 /** What an item needs from the sun, relative to the day's sun reference. */
 export interface SunNeed {
-  sun: "sunrise" | "sunset" | "golden-pm" | "civil-dusk";
+  sun: "sunrise" | "sunset" | "golden-pm" | "civil-dusk" | "nautical-dusk";
   offsetMin: number;
 }
 

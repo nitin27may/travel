@@ -31,7 +31,7 @@ export interface ScheduleItemOverride {
   durationSource?: 'plan' | 'data' | 'operator';
   checkinMin?: number;
   optional?: boolean;
-  needs?: { sun: 'sunrise' | 'sunset' | 'golden-pm' | 'civil-dusk'; offsetMin: number };
+  needs?: { sun: 'sunrise' | 'sunset' | 'golden-pm' | 'civil-dusk' | 'nautical-dusk'; offsetMin: number };
   window?: { from: string | null; to: string | null; lastUp: string | null; lastDown: string | null; why: string };
   stats?: { distanceKm: number | null; gainM: number | null };
   minAge?: number;
@@ -122,7 +122,15 @@ function applyOverride(it: ScheduleItem, o: ScheduleItemOverride | undefined, wh
   if (o.title) out.title = o.title;
   if (o.kind) out.kind = o.kind;
   if (o.sub !== undefined) out.sub = o.sub;
-  if (o.stats) out.stats = o.stats;
+  if (o.stats) {
+    // the plan walks part of a trail: the record's hours are for the whole of it, so the walk is timed by its own distance instead
+    const whole = it.stats?.distanceKm ?? null;
+    if (o.durationMin === undefined && it.durationRange && whole && o.stats.distanceKm !== null && o.stats.distanceKm < whole * 0.85) {
+      out.durationRange = null;
+      out.durationSource = null;
+    }
+    out.stats = o.stats;
+  }
   if (o.durationMin !== undefined) {
     out.durationMin = o.durationMin;
     out.durationRange = null;

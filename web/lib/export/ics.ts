@@ -78,6 +78,7 @@ function realStart(e: TimelineEntry, date: string, point: { lat: number; lon: nu
 
 /** Which entries become timed calendar events: places and bookings, sit-down meals and legs of 45 min or more; "Full detail" adds the rest. */
 function wanted(e: TimelineEntry, full: boolean): boolean {
+  if (e.block === 'After dark') return false; // no clock time: it follows the day when the sky is dark
   if (e.kind === 'visit' || e.kind === 'trail' || e.kind === 'booking' || e.kind === 'checkin') return true;
   if (e.kind === 'meal') return e.style === 'sit-down' || (full && e.style !== 'on-trail');
   if (e.kind === 'leg') return e.durationMin >= 45;

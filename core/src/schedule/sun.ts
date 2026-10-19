@@ -15,6 +15,8 @@ export interface SunRef {
   sunrise: SunRange;
   sunset: SunRange;
   civilDusk: SunRange;
+  /** When the sky is dark enough for stars: nautical dusk, or two hours after sunset where it never gets there. */
+  nauticalDusk: SunRange;
 }
 
 const REF_YEAR = 2027;
@@ -42,6 +44,7 @@ export function sunReference(point: Point, tz: string, window: SunWindow): SunRe
   const rises: number[] = [];
   const sets: number[] = [];
   const dusks: number[] = [];
+  const darks: number[] = [];
   let state: SunRef["state"] = "normal";
   for (const date of sampleDates(window)) {
     const d = sunDay(point.lat, point.lon, date, tz);
@@ -54,18 +57,19 @@ export function sunReference(point: Point, tz: string, window: SunWindow): SunRe
     sets.push(e.set);
     if (d.civil.kind === "normal") dusks.push(d.civil.set);
     else dusks.push(e.set + 60);
+    darks.push(d.nautical.kind === "normal" ? Math.max(d.nautical.set, e.set + 60) : e.set + 120);
   }
   if (!rises.length) {
     const zero: SunRange = { lo: 0, hi: 0, mid: 0 };
-    return { state, sunrise: zero, sunset: zero, civilDusk: zero };
+    return { state, sunrise: zero, sunset: zero, civilDusk: zero, nauticalDusk: zero };
   }
-  return { state, sunrise: range(rises), sunset: range(sets), civilDusk: range(dusks) };
+  return { state, sunrise: range(rises), sunset: range(sets), civilDusk: range(dusks), nauticalDusk: range(darks) };
 }
 
 /** The minute and the "HH:MM" range for an anchor like "sunset, -40 min". */
 export function anchorTime(ref: SunRef, to: SunEventId | "golden-pm", offsetMin: number): { mid: number; range: [string, string] } | null {
   if (ref.state !== "normal") return null;
-  const r = to === "sunrise" ? ref.sunrise : to === "civil-dusk" ? ref.civilDusk : ref.sunset;
+  const r = to === "sunrise" ? ref.sunrise : to === "civil-dusk" ? ref.civilDusk : to === "nautical-dusk" ? ref.nauticalDusk : ref.sunset;
   const off = to === "golden-pm" ? offsetMin - 60 : offsetMin;
   return { mid: r.mid + off, range: [fmtMin(r.lo + off), fmtMin(r.hi + off)] };
 }

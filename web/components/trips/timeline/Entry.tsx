@@ -82,7 +82,7 @@ export function Entry({ entry: e, warnings, moved, onRemove, laneOff }: Props) {
   const meta = [slot, ...stats(e, prefs), e.kind === 'meal' && e.style === 'on-trail' ? 'eaten on the trail' : null].filter(Boolean) as string[];
   const hasMore = (!quiet || e.addedBy === 'visitor') && e.kind !== 'sun' && !e.block;
   const flagged = [...new Set(e.honesty)].filter((h) => h !== 'drive_estimated');
-  const moveText = moved ? `moved ${Math.abs(moved)} min ${moved > 0 ? 'later' : 'earlier'}` : null;
+  const moveText = moved ? `moved ${fmtHM(Math.abs(moved))} ${moved > 0 ? 'later' : 'earlier'}` : null;
   const sr = `${e.block ? e.block.toLowerCase() : timeSpeech(e)}, ${KIND_WORD[e.kind]}, ${e.title}${e.stats?.distanceKm != null ? `, ${formatDistance(e.stats.distanceKm, prefs.distance)}` : ''}${dur ? `, ${dur}` : ''}`;
   return (
     <li

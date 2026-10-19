@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest";
 
 // The scheduler ships in the trip page bundle (spec D2): under 13 kB gzipped, fully minified (an iife build, because Vite
 // keeps whitespace in ES library output). browser.ts is the entry the page imports; the planner mapping stays out of it.
+// The limit went from 12 to 13 kB once, for lanes, the sun anchor and the leg ladder (design review L3c). Do not raise it again:
+// trim the scheduler first, and only then argue for more.
 describe("bundle size", () => {
   it("the page entry of core/src/schedule is under 13 kB gzip", async () => {
     const req = createRequire(import.meta.url);
