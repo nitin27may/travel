@@ -290,6 +290,12 @@
       "coord_src": "osm",
       "point_source": "OSM node 4546035994 (tourism=attraction, Athabasca Glacier, at the toe); agent checked, needs a person's check"
     },
+    "part/place/funbob-monte-baranci#place": {
+      "lat": 46.71811,
+      "lon": 12.27879,
+      "coord_src": "osm",
+      "point_source": "OSM node 1825738077 Haunold - Monte Baranci chairlift top station, where the Funbob run starts; agent checked, needs a person's check"
+    },
     "part/place/lago-dantorno#parking": {
       "lat": 46.59104,
       "lon": 12.26322,
@@ -457,6 +463,18 @@
       "lon": -72.88142,
       "coord_src": "osm",
       "point_source": "OSM node 660024150 (highway=trailhead); agent checked, needs a person's check"
+    },
+    "place/rifugio-nuvolau-and-averau": {
+      "lat": 46.49524,
+      "lon": 12.04573,
+      "coord_src": "osm",
+      "point_source": "OSM way 200226208 Rifugio Nuvolau centroid (tourism=alpine_hut, ele 2575); agent checked, needs a person's check"
+    },
+    "place/rifugio-scotoni": {
+      "lat": 46.5531,
+      "lon": 11.9984,
+      "coord_src": "osm",
+      "point_source": "OSM way 229003439 Ütia de Scotoni - Rifugio Scotoni centroid (tourism=alpine_hut); the prototype pin is about 1.9 km south; agent checked, needs a person's check"
     }
   }
 }

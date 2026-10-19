@@ -5,7 +5,26 @@
   "researched": "2026-10-18",
   "agent": "core/bin/capture.ts migrate",
   "model": "none",
-  "sources": [],
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path",
+      "title": "Stowe Recreation Path | Town of Stowe",
+      "publisher": "Town of Stowe Parks & Recreation Department",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://gostowe.com/listing/stowe-recreation-path",
+      "title": "Stowe Recreation Path | Things to Do in Stowe, Vermont | VT",
+      "publisher": "Go Stowe (Stowe Area Association)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    }
+  ],
   "records": [
     {
       "ref": "trip/vermont-fall-2026/sight:covered bridge loop",
@@ -33,7 +52,27 @@
       "layer": "route",
       "name": "Stowe Recreation Path",
       "route_is_attraction": true,
-      "attraction_reason": "A paved riverside path of any length: the path is the experience."
+      "attraction_reason": "A paved riverside path of any length: the path is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.stowevt.gov/Departments/Parks-Recreation/Parks-Facilities/Stowe-Recreation-Path",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0001"
+          ]
+        },
+        {
+          "kind": "tourism_board",
+          "url": "https://gostowe.com/listing/stowe-recreation-path",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/vermont-fall-2026/viewpoint:burke mountain overlook",

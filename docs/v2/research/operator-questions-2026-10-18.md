@@ -277,3 +277,17 @@ Fields or kinds that look wrong for a record; the data was left as `kind-map.jso
 | Vatnajökull National Park | from vatnajokulsthjodgardur.is | Is a camper van with 2 to 4 seats Category A or B for the Jökulsárlón regional fee, and from which date do the listed fees apply? |
 | Wild Water Adventures | from wildwater.com | Where are the put-ins and take-outs for the gentle trip and the Exciter (named landmarks or coordinates)? Fills the river sections' points. |
 | Parks Canada, Banff Field Unit | from parks.canada.ca | Which year do the shuttle fees on the fees page apply to? |
+
+## Added by lane CS7c (19 Oct 2026)
+
+| To | Contact | Question |
+|---|---|---|
+| South Tyrol Museum of Archaeology (Ötzi) | from iceman.it | Which year does the fee table apply to, and is entry timed for individual visitors who book the skip-the-line slot? Fills `price.applies_to` and `window`. |
+| Prags/Braies tourist office (prags.bz) | from prags.bz | On which day in June, and at what time, does online booking open for the summer access permit and the P4 parking? Fills `window` on Lago di Braies. Is swimming banned in the lake or only discouraged? Fills `ext.water.swimming`. |
+| Parco Naturale delle Dolomiti d'Ampezzo (Regole d'Ampezzo) | from dolomitiparco.com | Do the park's dog rule (leash) and other rules cover Lago di Sorapis, Croda da Lago / Lago Federa and the Cinque Torri, or are these outside the park? Fills `ext.trail.dogs`. |
+| Sass Pordoi cable car, Seggiovie 5 Torri | from sasspordoi.it, 5torri.it | Are dogs carried, and is there a dog ticket? Fills the lift offers' dog rule. |
+| Rifugio Croda da Lago (G. Palmieri) | from crodadalago.it | How many cars does the Ru Curto roadside parking on the Passo Giau road take, and is it full by a given hour in July and August? Replaces the AllTrails-only "small and often full". |
+| Parks Canada, Banff, Jasper, Yoho Field Units | from parks.canada.ca | Is swimming allowed at Bow Lake, Lake Louise, Moraine Lake, Emerald Lake, Lake Minnewanka and Maligne Lake, and are toilets at the Bow Lake and Maligne Lake lots? Fills `ext.water.swimming` and `toilets`. |
+| Alberta Parks, Kananaskis | from albertaparks.ca | Is Sarrail Ridge an official trail with a trail report page, and are dogs banned on Ptarmigan Cirque (a claim no Alberta Parks page makes)? |
+| Comune di Auronzo di Cadore | parktrecime@comune.auronzo.bl.it | Is the Lago d'Antorno car park before the toll booth free to use when the Tre Cime toll slots are sold out (the Plan B for the loop is Monte Piana from Antorno)? |
+| Ontario Parks, Algonquin | 705-633-5572 | The Track and Tower climb: the interpretive map shows only a profile chart; is there a published figure? (Repeats the 18 Oct question with the new evidence.) |

@@ -812,6 +812,55 @@ Every crawl or API run writes `data/capture/runs/<run-id>.json` (committed; smal
 
 Outcomes: `filled`, `searched_none` (every source the contract lists for the field was tried), `gap` (some were not), `blocked` (robots, terms, 404, 429, login), `conflict`. `capture.ts run --check` validates it; `gaps` reads it so the next pass starts where this one stopped; the source registry (3a.7) folds in its sources.
 
+### 9.7 Superseding a pre-migration value (Q41, decided 19 Oct 2026)
+
+The owner approved: an official re-read may replace a pre-migration value as the shown value, through an override that keeps
+the original leaf, so the ledger guarantee ("every pre-migration leaf still exists with the same value") holds unchanged. Not built
+yet; until it is, a re-read that disagrees is stored as a `conflicts` entry and the page shows the old value.
+
+**The file.** `data/capture/supersedes.json`, schema `capture-supersedes/1`, owned by research lanes:
+
+```jsonc
+{ "schema": "capture-supersedes/1",
+  "sources": [ { "id": "src-0001", "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en/", "title": "To Lago Sorapis", "publisher": "Cortina d'Ampezzo tourist office", "kind": "official", "read": "2026-10-19", "method": "read" } ],
+  "entries": [ {
+    "id": "sup-0001",
+    "layer": "suitability",                      // suitability | relevance | capture
+    "ref": "place/lago-di-sorapis",
+    "path": "suitability.effort.drivers.gain_m", // dot path into the record, as the ledger walks it
+    "was": 550,                                  // the stored v, exactly; the check that the override is not stale
+    "value": { "v": 434, "state": "value", "basis": "official_info", "src": ["src-0001"], "read": "2026-10-19", "quote": "434 m", "applies_to": "2026" },
+    "reason": "the tourist office's route sheet; the stored figure was the midpoint of trail reports",
+    "by": "travel-researcher (lane CS7c)",
+    "on": "2026-10-19"
+  } ] }
+```
+
+**Rules.**
+1. The lane file is never edited: the original leaf stays where it is, so `lostLeaves` stays 0 and the ledger file is not retaken.
+2. `value.basis` is `official_rule`, `official_grade`, `official_info`, `operator_rule` or `operator_info`. A community or inference
+   re-read never supersedes (E_SUP_BASIS).
+3. `was` must equal the leaf stored at `ref` + `path` today (E_SUP_STALE), and that leaf must be in the migration ledger (a
+   post-migration value is simply edited in place, it needs no override) (E_SUP_NOT_LEDGER).
+4. `path` must resolve to a Val in the record that wins for the ref (lane file over `migrated.json`) (E_SUP_PATH); `value` must pass
+   the same schema as the Val it replaces (E_SUP_SCHEMA) and every `src` must be in the file's `sources` (E_SUP_SRC).
+5. One entry per `ref` + `path` (E_SUP_DUP). Hard limits, prices, windows and closures in an entry are listed for the verifier.
+
+**Read order (one resolver, core).** `resolveVal(world, layer, ref, path)` in `core/src/capture/` returns, in order: the supersede
+entry for that ref and path, else the winning lane record's Val, else `migrated.json`'s. Every reader goes through it: the capture
+engine (`readProperty`), suitability derive (effort, flat copy), relevance derive (`judged`, access costs), the relevance points and
+the web adapter (`web/lib/public/suitability.ts`, `sections.ts`, `tags.ts`). The superseded value is not dropped from view: the
+resolver returns it as an extra conflict `{v: was, basis: <the old basis>, src: <the old src>, note: "earlier figure"}`, so the
+page shows "434 m (tourist office); earlier figure 550 m" under T3.
+
+**Tests a builder adds.** The ledger test keeps its guarantee and adds: every entry's `was` is a ledger leaf at that path; a fixture
+entry changes the shown value and leaves `lostLeaves` at 0; a stale `was` fails `validate --all`. `sources.ts build` reads the file's
+`sources`.
+
+**First entries once built** (each already stored as a conflict): Lago di Sorapis gain 550 to 434 m and distance 12.6 to 10.5 km
+(cortina.dolomiti.org); Track and Tower grade Difficult to moderate (Ontario Parks, the land manager, over The Friends of Algonquin
+Park). Monte Piana is not one: the stored 600 m covers the plateau loop, which the official one-way figure does not.
+
 ## 10. Migration and gaps
 
 ### 10.1 Today's 214 enriched records against the contract
@@ -930,3 +979,4 @@ Per record, aim at Usable under the contract. Hours, prices, windows and toilets
 | 2026-10-18 | First version: audit of 9 definition sites, the type tree (15 domains, 61 categories, 324 ids), the three-layer model tested on ten examples with 61 records to split, place, route and offer records with operators, variants and relations, the base contract and per-type deltas, the generator and CLI, contract-driven sections and type-aware filters, the extension checklist with three worked examples, crawler rules and run records, the migration assessment of the 214 records, and the build plan (backlog 3a.12) |
 | 2026-10-18 | Steps 1 to 4 built (lane CC). Resolved while building: (1) the registry counts are 15 domains, 61 categories (settlement and event are their own category) and 324 ids; (2) the profile rows live in `types.json` `profiles` and `suitability-applicability.json` is generated, with the 10 new profile rows drafted by the builder for design review; (3) `ferrata` operated is now `flag`; (4) the viewpoint, lake and waterfall profiles keep their effort-driver cells: 13 more records hold a short distance, so only the three long walks moved; (5) lifts: the line keeps the old ref and the suitability block moves to `offer/<ref>#ticket`; (6) an activity record keeps its ref as the offer; (7) the elk rut record is the viewing place and a new event record carries the occurrence; (8) the two Canmore Nordic Centre records are mtb routes at one new place, not offers; (9) a payoff place that already exists keeps its own relevance record and the trail's judgement is kept verbatim in `splits/<trip>.json`; (10) a record's relevance moves with the judgement (a route has none after a payoff split) and its trailhead point stays in `points.json`; (11) operators come only from a source row of kind `operator`; (12) `participation.driver` is added beside `ext.coaster.driver_rule`, which stays for the one record that uses it; (13) toilets stay A for parks (owner Q1 is still open); (14) 15 relevance classes marked new were added, one more than the 14 counted. |
 | 2026-10-18 | Verifier fixes (lane CC). (1) The minitrekking runs `at` the Perito Moreno walkways, as its `same_place_as` says. (2) Placement: 20 facts moved from routes and tickets to payoff places and top stations (altitude, food, shade, the toilets of a payoff, the services at a lift's arrival), each in the same lane file so src ids keep their meaning; 12 places and stations got a suitability record (a station is kind `access`, subkind `station`, profile `access`, which now takes facilities, altitude and wheelchair as A). A fact stays on the route unless its source text says it is about the endpoint; 52 such cases, hazards and exposure included, are in `data/capture/placement.json` `review` for the next research pass. The lift profile's altitude_m is A: it is the top station's. The two duplicated values on Lagazuoi `#tunnels` were removed and are kept verbatim in the same file; the ledger test counts them. (3) Draw lives on the place a visitor comes to see: five lifts' relevance records moved to their top stations; the Montenvers train keeps its own (a scenic train); 52 routes that keep a relevance record carry `route_is_attraction` with a reason, Tre Cime with spec example 4 (see relevance.md 3.7); derive reads the layer and gives a route with no judgement the draw of the place it reaches. (4) The ten new profile rows are marked `review: design`, with the verifier's fixes (play operated flag with min_age and adult_required R when operated; climb drivers are the pitch or route height and gain is for the approach; canyoning bail_out and adult_time_min A and on_site_min R; motor_water weights and swim ability A; dive and surf current_or_tide A; access wheelchair A). (5) The tree counts in the tests now come from `types.json`. (6) The stubs sights/banff-gondola and sights/canmore-nordic-centre are aliases of their real records (their lane records stay, so the ledger holds). (7) Kicking Horse is one offer per operator `on` its river, each with `run_by`, `variant_of` the family float, which keeps the variants. (8) Hielo y Aventura's `derived_from` URL is its public page. (9) The missing places and relations are in capture-research-backlog.md. |
+| 2026-10-19 | 9.7 added (lane CS7c, Q41): the supersede override for pre-migration values, as a spec for a builder; the file, its rules, the read order and the tests. |
