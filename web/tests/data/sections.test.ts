@@ -56,6 +56,13 @@ describe('buildSections: the 14 sections in order', () => {
   });
 });
 
+// A place that really lacks a price is found by query, so new data never breaks the fixture. Lake Louise had a price from CS7c on.
+const noPriceRef = [...world.cap.keys()].find((r) => {
+  if (!r.startsWith('place/')) return false;
+  const pm = buildSections(world, r, contract);
+  return !!pm && rowOf(pm, 'price')?.gap === true && sec(pm, 'options').empty;
+})!;
+
 describe('buildSections: the owner rule for empty sections (Lake Louise)', () => {
   const m = page('place/lake-louise');
 
@@ -71,8 +78,10 @@ describe('buildSections: the owner rule for empty sections (Lake Louise)', () =>
   it('shows a gap row for a missing R property and folds a section with no value into one closing line', () => {
     // CS7 filled Lake Louise's access points (parking and shuttle stop); a missing R property still draws a gap row
     expect(rowOf(m, 'access_points')).toMatchObject({ gap: false, mark: 'R', text: 'Lake Louise Lakeshore parking, Lake Louise Lakeshore shuttle stop' });
-    expect(rowOf(m, 'price')).toMatchObject({ gap: true, text: null });
-    const options = sec(m, 'options');
+    expect(noPriceRef, 'some place still lacks a price').toBeTruthy();
+    const np = page(noPriceRef);
+    expect(rowOf(np, 'price')).toMatchObject({ gap: true, text: null });
+    const options = sec(np, 'options');
     expect(options.empty).toBe(true); // the page draws the closing line, not a gap chip
     expect(options.rows.every((r) => r.gap)).toBe(true);
     expect(options.closing).toMatch(/^Not checked yet: price/);
@@ -206,7 +215,7 @@ describe('buildSections: one home, glance echoes and the warning lines', () => {
   });
 
   it('the place checks count answered base R properties and carry the engine level', () => {
-    const m = page('place/lake-louise');
+    const m = page(noPriceRef); // a place with an unanswered property, found by query (Lake Louise is fully answered since CS7c)
     expect(m.checks.total).toBeGreaterThan(5);
     expect(m.checks.done).toBeLessThan(m.checks.total);
     expect(m.checks.level).toBe('draft');
