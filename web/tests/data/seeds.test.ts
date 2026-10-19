@@ -58,6 +58,17 @@ describe('capture-seeded place pages', () => {
   });
 });
 
+describe('offers join the page of the place they are at', () => {
+  it('shows a ticket offer at a part under that part (Funbob at Monte Baranci)', () => {
+    const p = realData().getPlace('monte-baranci')!;
+    expect(p.sections!.offers.map((o) => o.name)).toContain('Funbob, Monte Baranci');
+  });
+  it('shows an experience offer under "At this place you can also" (Rafting on the Rienza at Rienza)', () => {
+    expect(JSON.stringify(realData().getPlace('rienza')!.sections!.around)).toContain('Rafting on the Rienza');
+    expect(JSON.stringify(realData().getPlace('moraine-lake')!.sections!.around)).toContain('Moraine Lake canoe rental');
+  });
+});
+
 describe('the type rule', () => {
   const table = typeTable(REPO);
   it('reads visitable from the marks of data/vocab/types.json', () => {
