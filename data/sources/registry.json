@@ -15365,6 +15365,60 @@
       }
     },
     {
+      "id": "s-581a9fe307",
+      "url": "https://www.openstreetmap.org/node/1485292613",
+      "title": "Dwight (OSM place=locality, wikidata Q1521274)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/algonquin-muskoka-oct-2026",
+          "field": "point"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
+      "id": "s-c87a519369",
+      "url": "https://www.openstreetmap.org/node/360010114",
+      "title": "Hotel Hacienda Guachipelin (OSM tourism=hotel)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/costa-rica-feb-2027",
+          "field": "point"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-b9292adbe0",
       "url": "https://www.openstreetmap.org/node/435438563",
       "title": "Aiguille du Midi 2, top station (OSM aerialway=station)",
@@ -15777,6 +15831,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-1195fd005c",
+      "url": "https://www.openstreetmap.org/way/272966214",
+      "title": "Niagara Glen Nature Centre (OSM way)",
+      "publisher": "OpenStreetMap contributors (ODbL)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/niagara-day-aug-2026",
+          "field": "point"
+        }
+      ],
+      "licence_note": "OpenStreetMap data is ODbL 1.0; attribution required.",
+      "terms_note": "Public servers: sequential requests, identified client.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -16945,6 +17026,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-e9b030ee04",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoice92ea18337e4724bbaf0b772f5b6b27.summer-walk-around-the-drei-zinnen-tre-cime-three-peaks.dobbiaco-vecchia-alttoblach",
+      "title": "Summer-walk around the Drei Zinnen/Tre Cime (Three Peaks)",
+      "publisher": "IDM Suedtirol-Alto Adige (suedtirol.info)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/capture/dolomites-2027/migrated.json",
+          "ref": "place/tre-cime-di-lavaredo-loop",
+          "field": "links"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -18386,6 +18494,33 @@
       }
     },
     {
+      "id": "s-bac76ded8d",
+      "url": "https://www.wikidata.org/wiki/Q145948",
+      "title": "Svolvaer (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/norway-summer",
+          "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-e6e8f85cca",
       "url": "https://www.wikidata.org/wiki/Q2085218",
       "title": "Temple Square (Wikidata P1435)",
@@ -18415,6 +18550,33 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-92fee4e924",
+      "url": "https://www.wikidata.org/wiki/Q4191",
+      "title": "Lucerne (Wikidata P625)",
+      "publisher": "Wikidata (CC0)",
+      "kind": "community",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/trips/base-points.json",
+          "ref": "trip/switzerland-2027",
+          "field": "point"
+        }
+      ],
+      "licence_note": "Wikipedia text is CC BY-SA 4.0, Wikidata is CC0; Commons files carry their own licence.",
+      "terms_note": "Identify the client with a User-Agent and keep requests sequential.",
+      "automated": "allowed",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {

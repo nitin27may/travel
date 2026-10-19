@@ -41,6 +41,15 @@
       "kind": "operator",
       "read": "2026-10-18",
       "method": "read"
+    },
+    {
+      "id": "src-0005",
+      "url": "https://www.suedtirol.info/en/en/experiences-and-events/plp-experiences/experiences-south-tyrol/pdp-experience.smgpoice92ea18337e4724bbaf0b772f5b6b27.summer-walk-around-the-drei-zinnen-tre-cime-three-peaks.dobbiaco-vecchia-alttoblach",
+      "title": "Summer-walk around the Drei Zinnen/Tre Cime (Three Peaks)",
+      "publisher": "IDM Suedtirol-Alto Adige (suedtirol.info)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -71,13 +80,19 @@
           "kind": "osm",
           "url": "https://www.openstreetmap.org/relation/1116663",
           "state": "filled",
-          "on": "2026-10-19"
+          "on": "2026-10-19",
+          "src": [
+            "src-0005"
+          ]
         },
         {
           "kind": "osm",
           "url": "https://www.openstreetmap.org/relation/1067603",
           "state": "filled",
-          "on": "2026-10-19"
+          "on": "2026-10-19",
+          "src": [
+            "src-0005"
+          ]
         }
       ]
     },

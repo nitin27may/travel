@@ -149,3 +149,30 @@ describe('route map with no positions (backlog 2.35)', () => {
     expect(routeHasPositions(m.route)).toBe(placed);
   });
 });
+
+describe('trip pins from data/trips/base-points.json (backlog 3.41)', () => {
+  const pin = (slug: string) => tripListRows().find((r) => r.slug === slug)!;
+  const SOURCED: [string, number, number][] = [
+    ['algonquin-muskoka-2026', 45.33099, -79.0115],
+    ['niagara-day-2026', 43.12922, -79.06],
+    ['costa-rica-2027', 10.75208, -85.37965],
+    ['norway-summer-2028', 68.23333, 14.56667],
+    ['switzerland-2027', 47.0523, 8.3059],
+  ];
+  it('the five trips with no positioned base sit on their sourced point, exactly, not as area-only rings', () => {
+    for (const [slug, lat, lon] of SOURCED) {
+      const r = pin(slug);
+      expect(r.approx, slug).toBe(false);
+      expect(r.lat, slug).toBe(lat);
+      expect(r.lon, slug).toBe(lon);
+    }
+  });
+  it('Algonquin and Niagara are no longer one shared country point', () => {
+    const a = pin('algonquin-muskoka-2026');
+    const n = pin('niagara-day-2026');
+    expect(`${a.lat}:${a.lon}`).not.toBe(`${n.lat}:${n.lon}`);
+  });
+  it('a trip with its own positioned base keeps it', () => {
+    expect(pin('dolomites-2027').lat).toBeCloseTo(46.7327, 3);
+  });
+});
