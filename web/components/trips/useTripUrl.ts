@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { PROFILE_KEYS } from '@travel/core/schedule/profileCodec.ts';
 import { CATEGORIES } from '@/lib/public/types';
 import type { Category } from '@/lib/public/types';
 
@@ -25,17 +26,27 @@ export interface TripUrl {
   /** Day number when the fragment is `day-N`. */
   day: number | null;
   category: Category | null;
-  /** Change the view and/or fragment. `push` makes Back undo it. */
-  go: (next: { view: TripView; hash?: string }, mode?: 'push' | 'replace') => void;
+  /** The timeline keys of the query (p, pace, a, walk, split, d, add) in the codec's order, without `view`; '' when none. */
+  timeline: string;
+  /** Change the view, the fragment and/or the timeline keys (patterns 1.2). `push` makes Back undo it. */
+  go: (next: { view: TripView; hash?: string; timeline?: string }, mode?: 'push' | 'replace') => void;
 }
 
-/** Parses `?view=category` and `#day-3` / `#stays` ... (patterns 1.2). A category fragment implies the By category view. */
-export function parseTripUrl(search: string, hash: string): Pick<TripUrl, 'view' | 'hash' | 'day' | 'category'> {
+/** Parses `?p=family-6&pace=relaxed&d=5C&add=5.moraine-lake&view=category` and `#day-3` / `#stays` ... (patterns 1.2, spec 3.8). A category fragment implies the By category view. */
+export function parseTripUrl(search: string, hash: string): Pick<TripUrl, 'view' | 'hash' | 'day' | 'category' | 'timeline'> {
   const h = hash.replace(/^#/, '');
   const category = (CATEGORIES as readonly string[]).includes(h) ? (h as Category) : null;
   const m = /^day-(\d+)$/.exec(h);
-  const view: TripView = new URLSearchParams(search).get('view') === 'category' || category ? 'category' : 'day';
-  return { view, hash: h, day: m ? Number(m[1]) : null, category };
+  const q = new URLSearchParams(search);
+  const view: TripView = q.get('view') === 'category' || category ? 'category' : 'day';
+  const timeline = PROFILE_KEYS.filter((k) => q.has(k)).map((k) => `${k}=${q.get(k)}`).join('&');
+  return { view, hash: h, day: m ? Number(m[1]) : null, category, timeline };
+}
+
+/** The query string for a view and the timeline keys: the timeline keys first, then `view`. */
+export function tripQuery(view: TripView, timeline: string): string {
+  const parts = [timeline, view === 'category' ? 'view=category' : ''].filter(Boolean);
+  return parts.length ? `?${parts.join('&')}` : '';
 }
 
 /** The trip page's own URL state: not list state, so it does not share `useUrlState`. */
@@ -50,7 +61,8 @@ export function useTripUrl(): TripUrl {
     return parseTripUrl(i === -1 ? raw : raw.slice(0, i), i === -1 ? '' : raw.slice(i));
   }, [raw]);
   const go = useCallback<TripUrl['go']>((next, mode = 'push') => {
-    const url = `${window.location.pathname}${next.view === 'category' ? '?view=category' : ''}${next.hash ? `#${next.hash}` : ''}`;
+    const timeline = next.timeline ?? parseTripUrl(window.location.search, '').timeline;
+    const url = `${window.location.pathname}${tripQuery(next.view, timeline)}${next.hash ? `#${next.hash}` : ''}`;
     if (url === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
     if (mode === 'push') window.history.pushState(null, '', url);
     else window.history.replaceState(null, '', url);

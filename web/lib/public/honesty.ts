@@ -1,6 +1,10 @@
 import type { Honesty, HonestyId } from './types';
 
 const TEXT: Record<HonestyId, string> = {
+  estimate: 'Estimate',
+  not_known: 'Not known yet',
+  sources_disagree: 'Sources disagree',
+  low_confidence: 'Low confidence',
   location_unconfirmed: 'Location unconfirmed',
   unverified: 'Unverified',
   no_source: 'No source yet',

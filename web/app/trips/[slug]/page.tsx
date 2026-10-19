@@ -8,7 +8,7 @@ import { TripPlan } from '@/components/trips/TripPlan';
 import { buildTripPageModel } from '@/components/trips/model';
 import type { PlaceLookup } from '@/components/trips/model';
 import { tripExportFor } from '@/lib/export/build.server';
-import { getPlace, getTrip, tripSlugs } from '@/lib/public';
+import { getPlace, getTrip, listPlaces, tripSlugs } from '@/lib/public';
 import { ogImageFor } from '@/lib/og';
 import { absoluteUrl, pageMetadata } from '@/lib/site';
 
@@ -39,7 +39,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
     if (tripSlugs().length) notFound();
     return <p className="muted">No published trips in this build.</p>;
   }
-  const model = buildTripPageModel(trip, lookup);
+  const model = buildTripPageModel(trip, lookup, trip.depth === 'overview' ? [] : listPlaces());
   const url = absoluteUrl(`/trips/${slug}/`);
   return (
     <article className="trip-page" data-depth={trip.depth}>
@@ -47,7 +47,7 @@ export default async function TripPage({ params }: { params: Promise<{ slug: str
       <SeasonBand trip={trip} />
       {trip.isDone ? (
         <section className="trip-sec" aria-label="About this plan" data-print="hide">
-          <Banner kind="notice">This trip has been taken, so the plan is read-only. Use it as a template to plan your own dates.</Banner>
+          <Banner kind="notice">A finished plan, kept as a template. Copy it to plan your own dates.</Banner>
         </section>
       ) : null}
       {trip.depth === 'overview' ? (

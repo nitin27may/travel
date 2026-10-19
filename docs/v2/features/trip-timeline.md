@@ -28,7 +28,7 @@ There is no A/B/C choice on each day.
 | # | Decision | Why | Trade-off |
 |---|---|---|---|
 | D1 | One typed **entry list per day** (12 kinds), each entry with a start, a duration, places, and a time confidence (`fixed`, `anchored`, `suggested`) plus a labelled source | The page, the copy, the ICS file and the planner's `items` rows all read the same list | Meals and breaks become data we invent by rule, so they must be labelled "suggested" |
-| D2 | The scheduler is **pure TypeScript in `core/src/schedule/`**. It runs at build time for the trip's default profile, and in the browser when the visitor changes the profile | First paint and SEO get the default; profile changes need no server (static export) | The scheduler ships in the trip page bundle (target under 12 kB gzip) |
+| D2 | The scheduler is **pure TypeScript in `core/src/schedule/`**. It runs at build time for the trip's default profile, and in the browser when the visitor changes the profile | First paint and SEO get the default; profile changes need no server (static export) | The scheduler ships in the trip page bundle (under 13 kB gzip; the limit rose from 12 once, for lanes, the sun anchor and the leg ladder. Any further raise needs a trim of the scheduler first) |
 | D3 | **The authored order is never changed.** The scheduler assigns times. It does not reorder. Only items the visitor adds are placed by the scheduler | The owner's order carries reasons (light, crowds, a booked slot) that rules cannot see | A badly ordered day shows warnings and is not "fixed" silently |
 | D4 | Sources in this order: **operator slot > authored (plan) > our data > rule by kind** | Our own research is better than a generic rule | Authored times need a one-off import and a person's check (L3d) |
 | D5 | **Party profile at trip level** replaces per-day tracks. Each day keeps its variants (A, B, C) as data. A selection rule picks one per day; a day can be overridden | One choice at the top; days still adapt; "swap this day" stays possible | A day can end up in a variant the author did not intend for that party, so the rule's reason is shown |
@@ -54,7 +54,7 @@ There is no A/B/C choice on each day.
 | `checkin` | `stay`, `hut`, `campsite` | arriving at the night's base | rule (30 min) or the stay's check-in window | `checkin` |
 | `checkout` | `stay` | leaving a base for good | rule (20 min) | `checkout` |
 | `booking` | `slot`, `timed-entry`, `day-use-permit`, `departure`, `meeting-point` | a fixed operator time: a boat, a timed ticket, a shuttle, a guided tour | operator | an `activity` row with `booking_id` and `start` |
-| `sun` | `sunrise`, `golden-am`, `golden-pm`, `sunset`, `civil-dusk`, `no-sunset` | a light marker with no duration. An entry can be anchored to it | `core/src/sun` | none (computed) |
+| `sun` | `sunrise`, `golden-am`, `golden-pm`, `sunset`, `civil-dusk`, `nautical-dusk`, `no-sunset` | a light marker with no duration. An entry can be anchored to it | `core/src/sun` | none (computed) |
 | `end` | `at-base`, `at-next-base`, `at-airport`, `at-home` | when the day ends; `at-home` can carry a **home-by** anchor (3.12) | 0 | none |
 
 A `booking` entry is the slot itself. The place it belongs to is its `visit`, and the two are linked by `bookingOf`. The booking also stays a Logistics row in By category.
@@ -169,7 +169,7 @@ This is the target output for the fixture `core/test/fixtures/schedule/rockies-d
 | about 19:55 to 20:30 | anchored | all | sun | Sunset | | sun |
 | 20:15 | sugg. | all | end | Back at the base | | |
 
-Warning: `S_DAY_CAP`: "Day 5 runs 12 h 45, over the 10 h of a standard family day. Pyramid Lake (evening) and Moose Lake Loop are optional." This day is shown honestly and is not trimmed silently.
+Day cap at the default profile (round 3 golden): the cap is measured on **time away from base**, so a long rest, dinner or an errand done at the base itself (a stored zero-minute leg to `base`) never counts. Across the Rockies trip it warns on **Days 4 and 13 only**: Day 4 is the Icefields Parkway move day (about 10 h 15 away) and Day 13 carries the optional Rawson Lake, which the message names. Day 5 (about 9 h 40 away) and Day 7 (laundry at the base, 2 h) do not warn. `core/test` and `web/tests/trips/timeline.test.ts` pin this list.
 
 Lane A is not shown by default for `family-6`. The day shows a "Split option: one adult can walk Bald Hills (4 h 30) and rejoin at 14:00" row, and `split=1` opens the two lanes (3.2).
 
@@ -305,7 +305,7 @@ Breaks on long drives:
 ### 2.8 Sun anchors
 
 - `sun` entries are computed with `core/src/sun` (`sunDay`) at the day's base point, for the first and last day of the season window. Public pages show a range; dated copies show the real time.
-- An item can declare `needs: { sun: 'sunrise' | 'sunset' | 'golden-pm', offsetMin }`. Its start is the anchor time plus the offset at the window's midpoint, with `confidence: 'anchored'`.
+- An item can declare `needs: { sun: 'sunrise' | 'sunset' | 'golden-pm' | 'civil-dusk' | 'nautical-dusk', offsetMin }`. Its start is the anchor time plus the offset at the window's midpoint, with `confidence: 'anchored'`. A `nautical-dusk` item (dark-sky watching) is never given a clock time: it follows the day as "After dark, about 21:05 to 22:10 in this window, if the sky is clear", outside the span, the cap and the totals, so it cannot land in daylight.
 - Example: Braies with `sunrise -30` gives "about 05:00 to 05:30".
 - Each day draws `sunrise` and `sunset` markers only when they fall inside the day's span or an entry is anchored to them. The design page decides how quiet they are.
 - Polar days (Norway, Iceland in June) use `no-sunset` and skip the daylight check (`sunState` from `core/bin/sun.ts`).
@@ -332,7 +332,7 @@ The function is deterministic. There is no randomness, no clock and no locale. E
 
 `addItem(dayTimeline, input, item)` (3.7) runs cheapest insertion:
 - it tries each boundary between unpinned entries;
-- it picks the slot with the least added leg time that keeps every pin;
+- it picks the slot that keeps every pin, then dinner on time, then the earliest end of the day, then the least added leg time;
 - it re-runs `scheduleDay` with the item inserted at that position.
 
 It is the only path that changes order, and only for visitor items.
@@ -385,7 +385,7 @@ The validation runs on every `DayTimeline` and per lane. It produces warnings, n
 | `W_HOURS` | a visit starts before opening or ends after closing | "Ends 17:45; the museum closes at 17:00." |
 | `S_LAST_RIDE` | a lift outing is not back down by `lastDown`, or starts after `lastUp` | "Last ride up is 19:30; this starts at 19:40." |
 | `W_DAYLIGHT` | a trail or `needs_daylight` entry ends after sunset (trails: civil dusk -30 min) at the late end of the window | "Ends about 20:10; sunset can be 19:55 in this window." |
-| `S_DAY_CAP` | the span is over the profile's cap (2.4) | "Day 5 runs 12 h 45, over 10 h for a standard family day. Optional: Pyramid Lake, Moose Lake Loop." |
+| `S_DAY_CAP` | the time away from base is over the profile's cap (2.4); time at the base never counts | "Day 5 runs 12 h 45, over 10 h for a standard family day. Optional: Pyramid Lake, Moose Lake Loop." |
 | `W_PACE` | active time is over the `PACE_MIN` budget | as core |
 | `W_DRIVE_LIMIT` | driving is over `daily_max_drive_min` (relaxed 180, standard 240, full 360) | as core |
 | `W_EARLY` | an unpinned start before 06:00 | as core |
@@ -500,12 +500,15 @@ The whole-trip timeline (Day 1 to N) re-renders with each day's span, drive shar
   - the trip's places that share the day's base;
   - catalog places within 30 km of the base that have a page (`listPlaces()` with a point).
 
-  Free text is not allowed on the public page.
+  Free text is not allowed on the public page, and **only places are offered**: never a meal, a break or a rest. The scheduler alone generates those, so an added lunch can never double the plan's lunch (round 4 decision).
 - The scheduler inserts the item (2.9 `addItem`), re-flows the day and shows the result in place.
 - **The diff** is highlighted:
   - the new entry, marked "You added this";
-  - the entries that moved, with a small "moved 40 min later" note;
+  - the entries that moved, with a small "moved 40 min later" note (the real difference between the two starts, rounded to 5 minutes, paired by a stable entry id; nothing is said about an entry that did not move);
+  - the generated entries the day no longer has room for ("Left out now there is less room: Rest at the base"), so nothing vanishes silently;
   - new warnings.
+- **Dinner holds.** An added or optional stop that would push dinner past its latest start (19:30 for a family) is placed after dinner instead, with a warning naming it. When dinner cannot hold (a transfer day), the warning names what was added. Lunch is likewise kept: a stop that would run across the whole lunch window is preceded by lunch.
+- **Generated ids** are named for the entry and the stop it precedes (meals: `<day>-<lane>-meal-lunch`, `-meal-dinner`), never for a running count, so adding a stop elsewhere does not rename them. `core/src/schedule/diff.ts` holds the comparison; `web/tests/trips/add-invariants.test.ts` checks every order of one to three added places on every Rockies and Dolomites day.
 - **Adding a third or fourth thing is allowed.** When the day goes over its cap, the message gives numbers and names the optional entries to drop ("Day 5 is now 11 h 20, 1 h 20 over a standard family day. Optional: Moose Lake Loop."). The visitor removes an entry with its own "Remove" action.
 - Added items live in the URL (`add=`), so a shared link reproduces the day.
 
