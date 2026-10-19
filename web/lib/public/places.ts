@@ -6,6 +6,8 @@ import { fileFromUrl, makePhoto } from './photos';
 import { CATEGORY_OF_KIND, PROTOTYPE_AREAS, kindLabel, mapLocationKind, mapPrototypeKind } from './taxonomy';
 import { undatedTitle } from './dateless';
 import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
+import { assignSeedSlugs, captureSeeds, type CaptureSeed, type SeedSkip } from './seeds';
+import { publicWorld } from './world';
 import { loadTracks, readDate, totalsDiffer, withTrack } from './tracks';
 import { folderVisibility, type ProtoFact, type ProtoPlace, type ProtoTrail, type Sources } from './sources';
 import type { AccessPoint, AreaRef, Fact, Honesty, LinkGroup, LinkNone, Photo, Point, PlaceKind, PlaceLine, PublicPlace, TripRef } from './types';
@@ -24,6 +26,8 @@ export interface PlaceBuild {
   byName: Map<string, string[]>;
   /** old /places/<cc>/<region>/<area>/<place>/ path -> slug */
   legacyPaths: Map<string, string>;
+  /** Capture records that look like places but got no page, and why (backlog 3.48). For the build report and the tests. */
+  seedSkips: SeedSkip[];
 }
 
 export const normName = (s: string): string =>
@@ -61,8 +65,11 @@ interface Rec extends Omit<PublicPlace, 'slug' | 'completeness' | 'sections' | '
   durationMin: number | null;
   timeHours: string | null;
   tripFolders: Set<string>;
-  /** Capture ref of a trail page built from a capture route record. */
+  /** Capture ref of a page built from a capture record (a trail route, or a seeded place, route or offer). */
   captureRef?: string | null;
+  /** Refs that used to name the capture record, and other names a trip calls the place by: they keep resolving to this page. */
+  aliasRefs?: string[];
+  altNames?: string[];
 }
 
 function provenance(f: { src?: string; read?: string; conf?: string }): string {
@@ -396,17 +403,33 @@ export function buildPlaces(src: Sources): PlaceBuild {
 
   // ---- trail routes of public trips that have no page yet (capture records, backlog 3.8) ----
   const taken = new Set(recs.map((r) => normName(r.name)));
+  const placeNames = new Set(taken);
+  const trailNames = new Set<string>();
   const notByName = new Set<string>();
   for (const seed of trailSeeds(src)) {
     if (taken.has(normName(seed.name)) || !folderTrips.has(seed.tripFolder)) continue;
     taken.add(normName(seed.name));
+    trailNames.add(normName(seed.name));
     recs.push(recFromSeed(seed, src, folderTrips.get(seed.tripFolder)!));
     if (seed.ambiguous) notByName.add(seed.ref);
   }
 
-  // ---- slugs ----
+  // ---- places, routes and offers of public trips that only the capture records hold (backlog 3.48) ----
+  const areaByName = new Map(recs.map((r) => [normName(r.name), r.areaChain]));
+  const sb = captureSeeds({ src, world: publicWorld(src.root), placeNames, trailNames, areaByName });
+  const seedOf = new Map<string, CaptureSeed>();
+  for (const seed of sb.seeds) {
+    if (!folderTrips.has(seed.tripFolder)) continue;
+    seedOf.set(seed.ref, seed);
+    recs.push(recFromCapture(seed, folderTrips.get(seed.tripFolder)!));
+  }
+  const isSeed = (r: Rec) => !!r.captureRef && seedOf.has(r.captureRef);
+
+  // ---- slugs: the pages that existed before keep theirs; the seeds fill free names ----
   const key = (r: Rec) => (r.captureRef ? `trail:${r.captureRef}` : r.locationId ? `loc:${r.locationId}` : `proto:${r.protoId}`);
-  const slugs = assignPlaceSlugs(recs.map((r) => ({ key: key(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })));
+  const slugs = assignPlaceSlugs(recs.filter((r) => !isSeed(r)).map((r) => ({ key: key(r), name: r.name, areaSlug: r.areaChain[2]?.slug ?? '' })));
+  const seedSlugs = assignSeedSlugs([...seedOf.values()], new Set(slugs.values()));
+  const slugOf = (r: Rec): string => (isSeed(r) ? seedSlugs.get(r.captureRef!)! : slugs.get(key(r))!);
 
   const places: PublicPlace[] = recs.map((r) => {
     const tripRefs = [...r.tripFolders].filter((f) => folderTrips.has(f)).map((f) => folderTrips.get(f)!);
@@ -428,9 +451,9 @@ export function buildPlaces(src: Sources): PlaceBuild {
       hasAccess: !!r.access,
       durationMin: r.durationMin,
     };
-    const { locationId: _l, protoId: _p, checklistComplete: _c, hasDatedSource: _d, hasTrailheadPoint: _t, durationMin: _m, timeHours: _h, tripFolders: _f, captureRef: _r, ...pub } = r;
-    void [_l, _p, _c, _d, _t, _m, _h, _f, _r];
-    return { ...pub, slug: slugs.get(key(r))!, trips: tripRefs, honesty: uniqueHonesty(r.honesty), completeness: computeCompleteness(input), sections: null, suitability: null, relevance: null, refSlugs: {} };
+    const { locationId: _l, protoId: _p, checklistComplete: _c, hasDatedSource: _d, hasTrailheadPoint: _t, durationMin: _m, timeHours: _h, tripFolders: _f, captureRef: _r, aliasRefs: _a, altNames: _n, ...pub } = r;
+    void [_l, _p, _c, _d, _t, _m, _h, _f, _r, _a, _n];
+    return { ...pub, slug: slugOf(r), trips: tripRefs, honesty: uniqueHonesty(r.honesty), completeness: computeCompleteness(input), sections: null, suitability: null, relevance: null, refSlugs: {} };
   });
   places.sort((a, b) => a.slug.localeCompare(b.slug));
 
@@ -440,9 +463,10 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const byCaptureRef = new Map<string, string>();
   const legacyPaths = new Map<string, string>();
   for (const r of recs) {
-    const slug = slugs.get(key(r))!;
+    const slug = slugOf(r);
     if (r.protoId) byProtoId.set(r.protoId, slug);
     if (r.captureRef) byCaptureRef.set(r.captureRef, slug);
+    for (const a of r.aliasRefs ?? []) byCaptureRef.set(a, slug);
     if (r.locationId) {
       byLocationId.set(r.locationId, slug);
       legacyPaths.set(`/places/${r.locationId.split('/').map(encodeURIComponent).join('/')}/`, slug);
@@ -450,8 +474,22 @@ export function buildPlaces(src: Sources): PlaceBuild {
   }
   const byName = new Map<string, string[]>();
   const skipName = new Set([...notByName].map((ref) => byCaptureRef.get(ref)));
-  for (const p of places) if (!skipName.has(p.slug)) byName.set(normName(p.name), [...(byName.get(normName(p.name)) ?? []), p.slug]);
-  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths };
+  const altNames = new Map(recs.map((r) => [slugOf(r), r.altNames ?? []]));
+  const seedSlugSet = new Set(recs.filter(isSeed).map(slugOf));
+  const isSeedSlug = (slug: string) => seedSlugSet.has(slug);
+  const addName = (name: string, slug: string) => {
+    const k = normName(name);
+    const cur = byName.get(k) ?? [];
+    if (!cur.includes(slug)) byName.set(k, [...cur, slug]);
+  };
+  for (const p of places) {
+    if (skipName.has(p.slug)) continue;
+    // a seeded page that shares a trail's name stays out of the name lookup, as the trail does: the trip page cannot tell the two apart by name
+    if (isSeedSlug(p.slug) && (trailNames.has(normName(p.name)) || (altNames.get(p.slug) ?? []).some((n) => trailNames.has(normName(n))))) continue;
+    addName(p.name, p.slug);
+    for (const n of altNames.get(p.slug) ?? []) addName(n, p.slug);
+  }
+  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths, seedSkips: sb.skipped };
 }
 
 function recFromSeed(seed: TrailSeed, src: Sources, trip: TripRef): Rec {
@@ -498,6 +536,53 @@ function recFromSeed(seed: TrailSeed, src: Sources, trip: TripRef): Rec {
     hasTrailheadPoint: false,
     durationMin: null,
     timeHours: seed.stats.hours,
+    tripFolders: new Set([seed.tripFolder]),
+  };
+}
+
+/** A page for a capture record that no older source covers: its sections, suitability and relevance come from the record (S1), so only the identity is set here. */
+function recFromCapture(seed: CaptureSeed, trip: TripRef): Rec {
+  return {
+    locationId: null,
+    protoId: null,
+    captureRef: seed.ref,
+    aliasRefs: seed.aliasRefs,
+    altNames: seed.names,
+    name: seed.name,
+    kind: seed.kind,
+    kindLabel: seed.typeLabel,
+    subkind: seed.subkind,
+    category: CATEGORY_OF_KIND[seed.kind],
+    areaChain: seed.areaChain,
+    areaLabel: seed.areaLabel,
+    point: seed.point,
+    season: [],
+    kidFit: 'unknown',
+    summary: seed.summary,
+    photo: null,
+    trips: [trip],
+    tags: [],
+    honesty: [],
+    stats: { distanceKm: null, gainM: null, hours: null },
+    sources: ['capture'],
+    elevationM: null,
+    access: null,
+    lines: [],
+    facts: [],
+    hazards: [],
+    links: [],
+    linksNone: [],
+    seasonNote: null,
+    photos: [],
+    wikidata: null,
+    notes: '',
+    minAge: null,
+    booking: null,
+    checklistComplete: null,
+    hasDatedSource: false,
+    hasTrailheadPoint: false,
+    durationMin: null,
+    timeHours: null,
     tripFolders: new Set([seed.tripFolder]),
   };
 }
