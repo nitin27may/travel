@@ -5075,11 +5075,6 @@
           "field": "links"
         },
         {
-          "file": "data/suitability/canadian-rockies-2029/CS7.json",
-          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
-          "field": "suitability.access_season"
-        },
-        {
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
           "field": "suitability.access_season"
@@ -5123,6 +5118,11 @@
           "file": "data/suitability/canadian-rockies-2029/R2a.json",
           "ref": "place/lake-louise",
           "field": "suitability.wheelchair"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R8.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+          "field": "suitability.access_season"
         }
       ],
       "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",

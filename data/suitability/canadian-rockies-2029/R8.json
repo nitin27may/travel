@@ -1,7 +1,7 @@
 {
   "schema": "suitability/1",
   "trip": "canadian-rockies-2029",
-  "lane": "CS7",
+  "lane": "R8",
   "researched": "2026-10-19",
   "agent": "travel-researcher",
   "model": "opus",
@@ -42,6 +42,20 @@
           "note": "The same access rule as Moraine Lake (the trail starts at its shore); copied to the pass so Plan B sees it (backlog 3.45).",
           "applies_to": "2026"
         }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     }
   ]
