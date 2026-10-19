@@ -55,7 +55,7 @@ describe('the client data boundary (principle P9)', () => {
 
   it('the data module exposes the functions a future API keeps', () => {
     const text = all.find((s) => s.rel === THE_MODULE)!.text;
-    for (const fn of ['searchManifest', 'searchPart', 'searchParts', 'loadSearchRecords', 'loadExport']) expect(text, fn).toMatch(new RegExp(`export (async )?function ${fn}\\b`));
+    for (const fn of ['searchManifest', 'searchPart', 'searchParts', 'loadSearchRecords', 'loadExport', 'searchVocab', 'parseQuery', 'relaxQuery', 'listPlacesChecked']) expect(text, fn).toMatch(new RegExp(`export (async )?function ${fn}\\b`));
   });
 
   it('no globe module calls fetch(): reference geometry goes through the data module (2.49)', () => {
@@ -73,5 +73,10 @@ describe('the client data boundary (principle P9)', () => {
     expect(CATALOGUE_URL.test("fetch('/search/place-ca/data.json')")).toBe(true);
     expect(CATALOGUE_URL.test('fetch(`/export-data/trips/${slug}/data.json`)')).toBe(true);
     expect(CATALOGUE_URL.test("fetch('/globe/data/gazetteer.json')")).toBe(false);
+  });
+
+  it('the smart-search files are catalogue URLs too: the vocabulary and, later, the vector shards (smart-search 9.1)', () => {
+    expect(CATALOGUE_URL.test("fetch('/search/vocab.json')")).toBe(true);
+    expect(CATALOGUE_URL.test('fetch(`/search/vec/${part}/data.bin`)')).toBe(true);
   });
 });

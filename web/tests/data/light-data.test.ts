@@ -133,12 +133,14 @@ describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds
   });
   it('every public data file is a search part or geography, and no search part is bigger than 48 KB', () => {
     const json = files.map(rel).filter((p) => p.endsWith('.json') && !p.startsWith('_next/') && !p.startsWith('globe/') && !p.startsWith('globe-data/')); // globe-data has its own limits in budget.test.ts
-    for (const p of json) expect(p === 'search/manifest.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p), p).toBe(true);
+    for (const p of json) expect(p === 'search/manifest.json' || p === 'search/vocab.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p), p).toBe(true);
     for (const p of json) expect(readFileSync(path.join(OUT, p)).length, p).toBeLessThan(48 * 1024);
   });
   it('a search file carries no content key', () => {
     for (const f of files.filter((x) => rel(x).startsWith('search/'))) {
-      const keys = keysDeep(JSON.parse(readText(f)));
+      // vocab.json names URL filter keys (`stroller`, `effort`) as words of its table, so only its own fields are checked; its words are pinned by tests/search/vocab.test.ts
+      const json = JSON.parse(readText(f));
+      const keys = rel(f) === 'search/vocab.json' ? new Set(Object.keys(json)) : keysDeep(json);
       for (const k of CONTENT_KEYS) expect(keys.has(k), `${rel(f)} key ${k}`).toBe(false);
     }
   });

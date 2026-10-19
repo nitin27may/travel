@@ -27,6 +27,8 @@ step "capture contract: generated files match data/vocab/types.json"
 node "$ROOT/core/bin/capture.ts" build --check --root "$ROOT"
 step "validate every data file"
 node "$ROOT/core/bin/validate.ts" --all --root "$ROOT"
+step "search vocabulary: no dead words, no unruled double meaning, vocab.json current"
+node "$ROOT/web/scripts/search-vocab.mjs" --check
 step "suitability scope manifest matches the public adapter"
 pnpm --dir "$ROOT/web" exec vitest run -c ../tools/suitability-scope/vitest.config.mts >/dev/null
 git -C "$ROOT" diff --exit-code -- data/suitability/scope.json
