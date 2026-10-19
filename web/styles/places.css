@@ -172,3 +172,9 @@
 }
 
 .pl-map-loading { display: grid; place-items: center; min-height: 320px; background: var(--well); border: 1px solid var(--line); border-radius: var(--r-4); font: var(--t-meta); color: var(--muted); }
+
+/* trail map, profile and export (L4b) */
+.pl-map-credit { margin: var(--s-2) 0 0; }
+.pl-export-note { flex-basis: 100%; }
+.pl-payoff { margin: 0; font: var(--t-small); color: var(--ink-2); }
+.pl-payoff a { font-weight: 600; }
