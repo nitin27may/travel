@@ -158,4 +158,15 @@ test.describe('globe layout', () => {
     for (const sel of ['.globe-panel-tab', '.globe-crumbs', '.globe-zoom']) expect(hit(card, await rect(sel)), `${sel} overlaps the card`).toBe(false);
     await ctx.close();
   });
+
+  test('Esc straight after a drill steps back from the level asked for, never from the old one', async ({ page, site }) => {
+    for (let i = 0; i < 4; i++) {
+      await page.goto(`${site.url}/globe/it/`);
+      const row = page.locator('.globe-panel').getByRole('button', { name: /^South Tyrol/ });
+      await expect(row).toBeVisible();
+      await row.click();
+      await page.keyboard.press('Escape'); // before the state's shapes have loaded
+      await expect(page).toHaveURL(/\/globe\/it\/(\?|$)/);
+    }
+  });
 });

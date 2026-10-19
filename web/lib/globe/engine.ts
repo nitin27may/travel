@@ -2,7 +2,7 @@ import type { ExpressionSpecification, GeoJSONSource, Map as MLMap, Marker, MapM
 import { distanceKm } from '@/lib/map/geo';
 import { prefersReducedMotion } from '@/lib/map/reduced-motion';
 import { mix, readGlobePalette, type GlobePalette } from './palette';
-import { PITCH_MIN_ZOOM, WIDE_ZOOM, boxCentre, fitZoom, flightDuration, flightPlan, pitchAt, shiftPx, terrainRamp, wideZoom, type FlightPlan } from './flight';
+import { PITCH_MIN_ZOOM, PITCH_MIN_ZOOM as TERRAIN_GATE, WIDE_ZOOM, boxCentre, fitZoom, flightDuration, flightPlan, pitchAt, shiftPx, terrainRamp, wideZoom, type FlightPlan } from './flight';
 import { isNameLayer, planLabel, type LayerLike } from './labels';
 import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_URL, modeOf, type StyleKey } from '@/lib/map/maplibre/styles';
 import { forRender, hitRank, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
@@ -80,6 +80,8 @@ export interface GlobeEngine {
   setFocus(f: Focus): void;
   /** Draws one city's outline (OSM admin level 8), or none. */
   setCityArea(f: Feat | null): void;
+  /** The 36 px ring on a selected city that has no outline of ours. */
+  setCityRing(on: boolean): void;
   /** Runs `cb` once the camera has come to rest (or after 3.5 s at most): a result opens its card when the flight lands, not during it. */
   afterMove(cb: () => void): void;
   /** The Natural Earth lake polygons (zoom 3 to 8, where the tiles name no lake): `render` is the GeoJSON text a worker wrote. */
@@ -325,11 +327,17 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   /** Relief grows in as the camera passes the terrain gate: five steps by zoom, so a fly-in ramps the exaggeration instead of popping it on (spec 5.3). */
+  let lastTerrainZoom = 0;
   function applyTerrain(): void {
     if (!map.getSource('dem')) return;
-    const ex = terrainOn ? terrainRamp(map.getZoom(), exaggeration) : 0;
+    const z = map.getZoom();
+    // The relief grows in on the way in; on the way out it keeps its full height until the gate and then goes, so a Reset flight
+    // does not rebuild the terrain four times mid-flight (profiled: that was the long-task burst).
+    const out = z < lastTerrainZoom;
+    lastTerrainZoom = z;
+    const ex = terrainOn && z >= TERRAIN_GATE ? (out ? exaggeration : terrainRamp(z, exaggeration)) : 0;
     const cur = map.getTerrain();
-    if (ex > 0 && (!cur || cur.exaggeration !== ex)) map.setTerrain({ source: 'dem', exaggeration: ex });
+    if (ex > 0 && (!cur || (!out && cur.exaggeration !== ex) || (out && !cur))) map.setTerrain({ source: 'dem', exaggeration: out ? exaggeration : ex });
     else if (ex === 0 && cur) map.setTerrain(null);
   }
 
@@ -415,6 +423,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       map.addLayer({ id: `${id}-casing`, type: 'circle', source, 'source-layer': id === 'hl-peak' ? 'mountain_peak' : 'water_name', filter: none, paint: { 'circle-radius': radius, 'circle-color': 'transparent', 'circle-stroke-color': pal.casingSel, 'circle-stroke-width': 4 } });
       map.addLayer({ id, type: 'circle', source, 'source-layer': id === 'hl-peak' ? 'mountain_peak' : 'water_name', filter: none, paint: { 'circle-radius': radius, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
     };
+    // The honest ring for a selected city we hold no outline for (spec 4.2): 36 px, casing and amber, on the city's own label point.
+    map.addLayer({ id: 'hl-city-casing', type: 'circle', source: vectorSource, 'source-layer': 'place', filter: none, paint: { 'circle-radius': 18, 'circle-color': 'transparent', 'circle-stroke-color': pal.casingSel, 'circle-stroke-width': 4 } });
+    map.addLayer({ id: 'hl-city', type: 'circle', source: vectorSource, 'source-layer': 'place', filter: none, paint: { 'circle-radius': 18, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
     ring('hl-peak', vectorSource, 9);
     ring('hl-label', vectorSource, 10);
     map.addLayer({ id: 'hl-park-casing', type: 'line', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'line-color': pal.casingSel, 'line-width': 4.5 } });
@@ -428,6 +439,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   let cityArea: Feat | null = null;
+  let ringOn = false;
   let lakesData: unknown = EMPTY;
   // What each shape source holds: GeoJSON, or the object URL of GeoJSON a worker wrote (MapLibre then reads it in its own worker).
   let countriesData: unknown = forRender(opts.countries);
@@ -475,7 +487,9 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const river = !!f && f.sourceLayer === 'waterway', peak = !!f && f.sourceLayer === 'mountain_peak', label = !!f && (f.sourceLayer === 'water_name' || f.sourceLayer === 'place'), park = !!f && f.sourceLayer === 'park';
     set('hl-river', river); set('hl-river-casing', river);
     set('hl-peak', peak); set('hl-peak-casing', peak);
-    set('hl-label', label); set('hl-label-casing', label);
+    set('hl-label', label && f?.sourceLayer !== 'place'); set('hl-label-casing', label && f?.sourceLayer !== 'place');
+    const cityRing = ringOn && !!f && f.sourceLayer === 'place';
+    if (map.getLayer('hl-city')) { map.setFilter('hl-city', cityRing && byName ? ['all', byName, ['==', ['get', 'class'], 'city']] as never : none); map.setFilter('hl-city-casing', cityRing && byName ? ['all', byName, ['==', ['get', 'class'], 'city']] as never : none); }
     set('hl-park', park); set('hl-park-casing', park); set('hl-park-fill', park);
     if (map.getLayer('hl-lake-fill')) map.setFilter('hl-lake-fill', lake && byName ? byName : none);
     if (map.getLayer('hl-lake-line')) map.setFilter('hl-lake-line', lake && byName ? byName : none);
@@ -830,8 +844,10 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       map.once('moveend', run);
       window.setTimeout(run, 3500);
     },
+    setCityRing(on) { ringOn = on; applyFeatureHighlight(); },
     setCityArea(f) {
       cityArea = f;
+      ringOn = false;
       (map.getSource('city') as GeoJSONSource | undefined)?.setData((f ? { type: 'FeatureCollection', features: [f] } : EMPTY) as never);
     },
     setSpin(enabled, world) {

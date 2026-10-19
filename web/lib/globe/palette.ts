@@ -98,7 +98,7 @@ export function buildPalette(t: (name: string) => string, mode: 'light' | 'dark'
   return {
     mode, ocean, land: t('--globe-land'), wood: t('--globe-wood'), river: t('--map-water'), high: t('--map-high'), shade: t('--map-shade'),
     border: t('--map-border'), label: t('--ink-2'), halo: t('--map-halo'), ink: t('--ink'), surface: t('--surface'), accent,
-    // The amber never touches the water: the 1 px casing does, so it is the casing that must reach 3:1 on water and land, and the amber against the casing.
+    // Dark: amber is 6.98:1 on the ocean and carries the edge alone; the darker casing only separates it from busy land. Light: the ink casing carries it.
     accentSel: accent,
     casing: t('--map-casing'),
     casingSel: dark ? mix(t('--map-casing'), 'rgb(0 0 0)', 0.75) : t('--map-casing'),

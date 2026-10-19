@@ -246,6 +246,7 @@ export class GlobeController {
     } catch { /* no file: the ring and the note */ }
     if (this.snap.feature !== f) return;
     this.engine?.setCityArea(found);
+    this.engine?.setCityRing(!found);
     this.emit({ boundary: found ? 'loaded' : 'none' });
   }
 
@@ -424,10 +425,12 @@ export class GlobeController {
     this.emit({ path: resolved, crumbs, pins: pinsFor(this.o.data, resolved, this.o.book.facts), loading: '' });
     if (o.camera) engine.jumpTo(o.camera);
     else if (o.fly && target && path.length === 3) engine.flyToBox(target, { plan: this.plan('district'), maxZoom });
+    if (token === this.areaToken) this.intent = null;
   }
 
   /** A step the visitor takes: updates the area, the URL and clears the selection. */
   async goArea(path: string[], o: { push?: boolean; fly?: boolean } = {}): Promise<void> {
+    this.intent = path;
     this.engine?.setFeature(null);
     this.engine?.setCityArea(null);
     this.emit({ selected: null, feature: null, boundary: null, notice: null });
@@ -439,11 +442,15 @@ export class GlobeController {
   /** The Reset view button and the Home key: close everything, return to the world level and frame the whole disc. */
   reset(): void { void this.goArea([]); }
 
+  /** Where the visitor has asked to be, before the shapes for it have loaded: Esc during a drill steps back from there, not from the old level. */
+  private intent: string[] | null = null;
+
   back(): void {
     if (this.closeHere()) return;
     if (this.snap.feature) { this.engine?.setFeature(null); this.engine?.setCityArea(null); this.emit({ feature: null, boundary: null }); return; }
     if (this.snap.selected) { this.closeCard(); return; }
-    if (this.snap.path.length) void this.goArea(this.snap.path.slice(0, -1));
+    const here = this.intent ?? this.snap.path;
+    if (here.length) void this.goArea(here.slice(0, -1));
   }
 
   // ---- pins ----------------------------------------------------------------------------------------------
@@ -456,7 +463,7 @@ export class GlobeController {
     }
   }
 
-  async selectCard(key: string, o: { push?: boolean; fly?: boolean; camera?: Camera | null } = {}): Promise<void> {
+  async selectCard(key: string, o: { push?: boolean; fly?: boolean; camera?: Camera | null; now?: boolean } = {}): Promise<void> {
     const card = await this.card(key);
     const engine = this.engine;
     if (!card || !engine) { this.emit({ notice: 'That place is not on the globe yet.' }); return; }
@@ -468,9 +475,12 @@ export class GlobeController {
     const prev = this.snap.path;
     const samePath = chain.join('/') === prev.join('/') || (prev.length > chain.length && chain.every((s, i) => prev[i] === s));
     // the area the card sits in is known now, so closing it before the shapes arrive still lands in the right place
-    this.emit({ selected: key, feature: null, notice: null, ...(samePath ? {} : { path: chain.slice(0, card.kind === 'trip' ? 1 : 3) }) });
+    // The card opens when the camera lands, not at the start of the flight (spec 4.3); with no flight it opens now.
+    const flies = o.fly !== false && !o.camera && !o.now;
+    this.emit({ selected: flies ? null : key, feature: null, notice: null, ...(samePath ? {} : { path: chain.slice(0, card.kind === 'trip' ? 1 : 3) }) });
     if (!samePath || !this.adm1) await this.showArea(chain.slice(0, card.kind === 'trip' ? 1 : 3), { fly: false });
-    if (this.snap.selected !== key || !pin) return;
+    if (!pin) return;
+    if (!flies && this.snap.selected !== key) return;
     if (o.camera) { engine.jumpTo(o.camera); return; }
     if (o.fly === false) return;
     engine.setPadding(this.padding(true));
@@ -479,6 +489,10 @@ export class GlobeController {
       if (cb) engine.flyToBox(cb.box, { plan: this.plan('place', { approx: true }), maxZoom: 6, wide: cb.wide });
     } else {
       engine.flyToPoint([pin.lon, pin.lat], card.kind === 'trip' ? 8 : 12, { plan: this.plan(card.kind === 'trip' ? 'trip' : 'place') });
+    }
+    if (flies) {
+      const mine = this.areaToken;
+      engine.afterMove(() => { if (this.areaToken === mine && this.currentUrl === url) this.emit({ selected: key }); });
     }
   }
 

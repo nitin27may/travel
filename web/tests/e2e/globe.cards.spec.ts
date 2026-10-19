@@ -124,4 +124,48 @@ test.describe('globe cards', () => {
     if (attr) expect(dock.y + dock.height <= attr.y || dock.x + dock.width <= attr.x, 'the dock does not cover the attribution').toBe(true);
     await ctx.close();
   });
+
+  for (const vp of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
+    test(`at ${vp.width}x${vp.height} the search results draw above the map buttons (round 3)`, async ({ browser, site }) => {
+      const ctx = await browser.newContext({ viewport: vp, hasTouch: true });
+      const page = await ctx.newPage();
+      await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
+      await page.goto(`${site.url}/globe/it/south-tyrol/`);
+      await page.getByRole('combobox', { name: 'Search the globe' }).fill('ital');
+      await expect(page.getByRole('option').first()).toBeVisible();
+      const hidden = await page.evaluate(() => {
+        const res = document.querySelector('.globe-results')!.getBoundingClientRect();
+        const bad: string[] = [];
+        for (const sel of ['.globe-zoom', '.globe-options-btn', '.globe-list-btn', '.globe-card-pill']) {
+          const el = document.querySelector(sel); if (!el) continue;
+          const b = el.getBoundingClientRect();
+          const l = Math.max(res.left, b.left), r = Math.min(res.right, b.right), t = Math.max(res.top, b.top), bt = Math.min(res.bottom, b.bottom);
+          if (r - l > 2 && bt - t > 2 && !document.elementFromPoint((l + r) / 2, (t + bt) / 2)?.closest('.globe-results')) bad.push(sel);
+        }
+        return bad;
+      });
+      expect(hidden, 'a map button draws over the results').toEqual([]);
+      await ctx.close();
+    });
+  }
+
+  for (const slug of ['lake-louise', 'adolf-munkel-weg']) {
+    test(`landscape: the place name is fully visible without scrolling (${slug}) (round 3)`, async ({ browser, site }) => {
+      const ctx = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true });
+      const page = await ctx.newPage();
+      await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
+      await page.goto(`${site.url}/globe/place/${slug}/`);
+      const dock = page.locator('.globe-card-dock');
+      await expect(dock).toBeVisible();
+      const m = await page.evaluate(() => {
+        const t = document.querySelector('.globe-card-dock .globe-card-title')!.getBoundingClientRect();
+        const a = document.querySelector('.globe-card-dock .globe-card-actions')!.getBoundingClientRect();
+        const d = document.querySelector('.globe-card-dock')!.getBoundingClientRect();
+        return { titleTop: t.top, titleBottom: t.bottom, actionsTop: a.top, dockTop: d.top };
+      });
+      expect(m.titleTop, 'the title starts inside the dock').toBeGreaterThanOrEqual(m.dockTop);
+      expect(m.titleBottom, 'the title ends above the actions footer').toBeLessThanOrEqual(m.actionsTop);
+      await ctx.close();
+    });
+  }
 });
