@@ -41,7 +41,7 @@ describe('markers become chips (spec 5.1)', () => {
     expect(prepareSentence('Opal Hills (opal-hills, 8.2 km, 460 m) is shorter.')!.plain).toBe('Opal Hills (8.2 km, 460 m) is shorter.');
   });
   it("says the plan's tracks in words", () => {
-    expect(prepareSentence('No Track A: arrival day.')!.plain).toBe("No the adults' hike: arrival day.".replace('No the', 'No the'));
+    expect(prepareSentence('No Track A: arrival day.')!.plain).toBe("No adults' hike: arrival day.");
   });
   it('scrubMarkers cleans every string of a built value in place', () => {
     const v = { a: 'ok', b: ['x (INFERENCE)', { c: 'price GAP' }] };

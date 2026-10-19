@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { fmtHM } from '@travel/core/schedule/browser.ts';
+import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { PlaceRef, ScheduleWarning, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { Chip } from '@/components/ui/Chip';
 import { Icon, type IconName } from '@/components/ui/Icon';

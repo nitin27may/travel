@@ -230,3 +230,11 @@
   .tl-time, .tl-node { color: var(--ink); }
 }
 .copy-full { display: flex; gap: var(--s-2); align-items: center; font: var(--t-small); color: var(--ink-2); }
+
+/* the version menu */
+.tl-menu { position: relative; }
+.tl-menu-list { position: absolute; z-index: var(--z-menu); right: 0; top: calc(100% + var(--s-1)); min-width: 15rem; max-width: 20rem; padding: var(--s-1); display: grid; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-3); box-shadow: var(--e-2); animation: tl-rise var(--d-fast) var(--e-out); }
+.tl-menu-item { min-height: 40px; padding: 0 var(--s-3); text-align: left; border: 0; border-radius: var(--r-2); background: none; color: var(--ink); font: var(--t-small); cursor: pointer; }
+.tl-menu-item:hover, .tl-menu-item:focus-visible { background: var(--surface-2); outline: none; }
+.tl-menu-item:focus-visible { box-shadow: inset 0 0 0 2px var(--focus); }
+@media (max-width: 639px) { .tl-menu-list { right: auto; left: 0; } .tl-menu-item { min-height: 48px; } }

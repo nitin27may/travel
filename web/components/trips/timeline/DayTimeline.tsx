@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { fmtHM } from '@travel/core/schedule/browser.ts';
+import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { DayTimeline as DayTimelineData, TimelineEntry } from '@travel/core/schedule/types.ts';
 import { CopyDayLink } from '@/components/actions/ShareButton';
 import { Chip } from '@/components/ui/Chip';
 import { DaySign } from '@/components/ui/DaySign';
 import { Icon } from '@/components/ui/Icon';
-import { Menu } from '@/components/ui/Menu';
+import { VariantMenu } from './VariantMenu';
 import { Segmented } from '@/components/ui/Segmented';
 import { imageSrcSet, sizedImage } from '@/lib/format/image';
 import { usePrefs } from '@/lib/format/prefs';
@@ -118,12 +118,10 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
         </div>
         <div className="tl-day-actions" data-print="hide">
           {day.variants.length > 1 ? (
-            <Menu
-              trigger={<><span className="tl-vchip-label">{tl.variant.label}</span><Icon name="chevronDown" size={14} /></>}
-              triggerClassName="btn btn-sm tl-vchip"
-              triggerLabel={`Version of Day ${day.n}: ${tl.variant.label}. ${tl.variant.reason}`}
+            <VariantMenu
+              label={tl.variant.label}
+              ariaLabel={`Version of Day ${day.n}: ${tl.variant.label}. ${tl.variant.reason}`}
               entries={menu}
-              align="end"
             />
           ) : null}
           {changed ? (
@@ -138,7 +136,7 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
         {tl.variant.reason && day.variants.length > 1 ? <p className="tl-reason num" title={tl.variant.reason}><Prose text={tl.variant.reason} /></p> : null}
         {noFit ? (
           <p className="tl-nofit" role="note">
-            <Icon name="warn" size={15} /> <b>Not suited to every setting.</b> <Prose text={noFit.text} />.
+            <Icon name="warn" size={15} /> <b>Not suited to every setting.</b> <Prose text={noFit.text} />{'.'}
           </p>
         ) : null}
         {day.summary ? <p className="tl-summary"><Prose text={day.summary} /></p> : null}
