@@ -7,12 +7,23 @@ html[data-globe] body { overflow: hidden; height: 100dvh; }
 html[data-globe] .site-footer { display: none; }
 html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 
-.globe-root { --globe-clip-right: 0px; --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
-@media (max-width: 639px) { .globe-root { bottom: var(--phone-bottombar-h); } }
+.globe-root { --halo-x: calc((100vw - 384px) / 2); --halo-y: calc((100vh - var(--header-h)) / 2); --halo-d: calc(min(100vw - 384px, 100vh - var(--header-h)) * 0.86); --globe-clip-right: 0px; --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
+@media (max-width: 639px) { .globe-root { bottom: var(--phone-bottombar-h); --halo-x: 50vw; --halo-y: calc((100vh - var(--header-h) - var(--phone-bottombar-h) - 176px) / 2); --halo-d: calc(min(100vw, 100vh - var(--header-h) - var(--phone-bottombar-h) - 176px) * 0.86); } }
 
-.globe-canvas { position: absolute; inset: 0; z-index: 0; background: var(--well); } /* its own stacking context: markers and the card never ride over the breadcrumb or search */
+/* The placeholder and the atmosphere (spec 6.6, 8.3): an ocean disc with a glow and a 1 px limb, in the static HTML so the world's
+   shape shows within 300 ms; the canvas fades in over it on the first idle, and the glow fades out between zoom 0 and 4. */
+.globe-halo { position: absolute; z-index: 0; left: var(--halo-x); top: var(--halo-y); width: calc(var(--halo-d) * 1.12); height: calc(var(--halo-d) * 1.12); transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; opacity: var(--globe-halo-o, 1);
+  background: radial-gradient(circle closest-side, var(--globe-ocean) 0, var(--globe-ocean) 89.2%, var(--globe-halo) 89.3%, transparent 100%); }
+.globe-halo::after { content: ''; position: absolute; left: 50%; top: 50%; width: calc(var(--halo-d)); height: calc(var(--halo-d)); transform: translate(-50%, -50%); border-radius: 50%; box-shadow: 0 0 0 1px var(--globe-edge); }
+
+.globe-canvas { position: absolute; inset: 0; z-index: 0; } /* its own stacking context: markers and the card never ride over the breadcrumb or search */
 .globe-canvas[data-globe-mode='cover'] { position: relative; width: 100%; height: 100%; min-height: 280px; }
 .globe-canvas .globe-map, .globe-canvas .globe-map.maplibregl-map { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* first paint: nothing but the halo disc until the world has painted, then the canvas fades in over 600 ms (spec 8.3) */
+.globe-canvas[data-globe-mode='full'] .globe-map { opacity: 0; }
+.globe-canvas[data-globe-mode='full'][data-painted='true'] .globe-map { opacity: 1; transition: opacity 600ms var(--e-out); }
+@media (prefers-reduced-motion: reduce) { .globe-canvas[data-globe-mode='full'][data-painted='true'] .globe-map { transition-duration: 120ms; } }
+.globe-root .globe-loading:not([role='alert']) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* the halo disc is the placeholder; screen readers still hear it */
 .globe-loading, .globe-fail { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: var(--t-meta); color: var(--muted); text-align: center; max-width: 80%; }
 .globe-fail { background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-3); padding: var(--s-3) var(--s-4); }
 .globe-map :focus-visible, .globe-root :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -34,6 +45,9 @@ html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 
 /* ---------- pins ---------- */
 .globe-marker { pointer-events: none; }
+/* pins arrive after the first paint: 200 ms fade, staggered 15 ms by latitude (spec 8.3) */
+.globe-marker > .globe-pin { animation: globe-pin-in 200ms var(--e-out) both; animation-delay: var(--pin-d, 0ms); }
+@keyframes globe-pin-in { from { opacity: 0; } to { opacity: 1; } }
 .globe-marker > * { pointer-events: auto; }
 .globe-pin {
   position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%;
@@ -201,6 +215,7 @@ span.globe-pin { cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   .globe-panel, .globe-card, .globe-marker-fan { animation: globe-fade-only 120ms linear both; }
   .globe-pin, .globe-pin-tag, .globe-root .maplibregl-ctrl-bottom-right, .globe-top, .globe-zoom { transition-duration: 120ms; }
+  .globe-marker > .globe-pin { animation-duration: 120ms; animation-delay: 0ms; }
 }
 @keyframes globe-fade-only { from { opacity: 0; } to { opacity: 1; } }
 

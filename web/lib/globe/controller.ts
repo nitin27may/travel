@@ -1,6 +1,6 @@
 import { factsLine, languagesLine } from './facts';
 import { loadAdmin, resolveFeature, slugify } from './admin';
-import type { CountryBook } from './countries';
+import { loadCountries50, type CountryBook } from './countries';
 import type { BasemapFeature, Focus, GlobeEngine, HitLayer, HoverInfo, Padding } from './engine';
 import { inBox, inFeature, locate, tally, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
 import { areaPathOfPin, boxOfArea, nodeAt, pinsFor, pinsUnder } from './model';
@@ -34,6 +34,8 @@ export interface ControllerOptions {
   /** Canvas size and what the open panels cover right now. */
   layout(): { width: number; height: number; cover: Footprint };
   onChange(s: GlobeSnapshot): void;
+  /** Filled by the controller when the 50m outlines have loaded. */
+  book50?: CountryBook;
 }
 
 export const WORLD_CAMERA = { desktop: { lng: -35, lat: 22, zoom: 1.95 }, phone: { lng: -35, lat: 22, zoom: 1.0 } };
@@ -99,6 +101,23 @@ export class GlobeController {
     this.frameWorld(true);
   }
 
+  // ---- 110m to 50m ---------------------------------------------------------------------------------------
+  private full: Promise<void> | null = null;
+  private swapped = false;
+  /** Starts the 50m download (called once the first idle has passed); applies nothing yet. */
+  prefetchCountries(): void { this.full ??= loadCountries50().then((b) => { this.o.book50 = b; }).catch(() => { this.full = null; }); }
+  /** Swaps the 50m shapes in: past zoom 3 or on the first drill-down (spec 8.2). The ids match the 110m shapes', so state carries over. */
+  async upgradeCountries(): Promise<void> {
+    if (this.swapped || !this.engine) return;
+    this.prefetchCountries();
+    await this.full;
+    const b = this.o.book50;
+    if (!b || this.swapped || !this.engine) return;
+    this.swapped = true;
+    Object.assign(this.o.book, b);
+    this.engine.setCountries(b.fc);
+  }
+
   // ---- engine events -------------------------------------------------------------------------------------
   ready(): void { this.emit({ ready: true }); }
   fail(reason: string): void { this.emit({ failed: reason }); }
@@ -108,6 +127,7 @@ export class GlobeController {
   onCamera(c: Camera, user = false): void {
     this.lastCamera = c;
     if (user || c.zoom >= 2.5) this.deepLinkPending = false;
+    if (c.zoom > 3) void this.upgradeCountries();
     if (this.deepLinkPending) return;
     this.o.navigate(`${this.currentUrl || viewPath({ kind: 'area', path: this.snap.path })}${cameraQuery(c)}${typeof window === 'undefined' ? '' : hitSuffix(window.location.search)}`, 'replace');
   }
@@ -216,6 +236,8 @@ export class GlobeController {
     }
     const cc = path[0];
     const a3 = country.facts.a3;
+    await this.upgradeCountries();
+    if (token !== this.areaToken) return;
     // The country's pins load once, here; every level below needs them (backlog 2.39).
     try {
       await ensureCountry(this.o.data, cc);

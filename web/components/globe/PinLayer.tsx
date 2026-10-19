@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import { Icon, kindIcon } from '@/components/ui/Icon';
@@ -118,6 +118,7 @@ function PinButton({ pin, active, interactive, count, merged, href, tabIndex, on
 export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFor, onOpen }: Props) {
   const groups = useMemo(() => groupColocated(pins), [pins]);
   const [fan, setFan] = useState<string | null>(null);
+  const stagger = useRef(false);
   const [els, setEls] = useState<Map<string, HTMLElement>>(new Map());
 
   // A new set of pins closes any open fan.
@@ -139,8 +140,13 @@ export function PinLayer({ engine, pins, selectedKey, interactive = true, hrefFo
     return out;
   }, [groups, fan]);
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- the marker elements exist only after the engine syncs them
-  useLayoutEffect(() => { setEls(engine.syncMarkers('pins', specs)); }, [engine, specs]);
+  useLayoutEffect(() => {
+    const made = engine.syncMarkers('pins', specs);
+    // The first set of pins arrives staggered by latitude, north first, 15 ms apart (spec 8.3).
+    if (!stagger.current) { stagger.current = true; [...specs].sort((a, b) => b.lat - a.lat).forEach((sp, i) => made.get(sp.key)?.style.setProperty('--pin-d', `${Math.min(i, 40) * 15}ms`)); }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- the marker elements exist only after the engine syncs them
+    setEls(made);
+  }, [engine, specs]);
   useLayoutEffect(() => () => { engine.syncMarkers('pins', []); }, [engine]);
 
   // A row of link pins (the home cover) is one Tab stop: the first pin that can take focus. The engine hides pins on the far
