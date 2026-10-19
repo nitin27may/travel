@@ -18,6 +18,8 @@ export interface PlaceBuild {
   /** prototype place id -> slug (merged places included) */
   byProtoId: Map<string, string>;
   byLocationId: Map<string, string>;
+  /** capture route ref -> slug, for the trail pages built from capture records (they have no prototype or location id) */
+  byCaptureRef: Map<string, string>;
   /** normalised name -> slugs, for resolving trip stops by name */
   byName: Map<string, string[]>;
   /** old /places/<cc>/<region>/<area>/<place>/ path -> slug */
@@ -394,10 +396,12 @@ export function buildPlaces(src: Sources): PlaceBuild {
 
   // ---- trail routes of public trips that have no page yet (capture records, backlog 3.8) ----
   const taken = new Set(recs.map((r) => normName(r.name)));
+  const notByName = new Set<string>();
   for (const seed of trailSeeds(src)) {
     if (taken.has(normName(seed.name)) || !folderTrips.has(seed.tripFolder)) continue;
     taken.add(normName(seed.name));
     recs.push(recFromSeed(seed, src, folderTrips.get(seed.tripFolder)!));
+    if (seed.ambiguous) notByName.add(seed.ref);
   }
 
   // ---- slugs ----
@@ -433,18 +437,21 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const bySlug = new Map(places.map((p) => [p.slug, p]));
   const byProtoId = new Map<string, string>();
   const byLocationId = new Map<string, string>();
+  const byCaptureRef = new Map<string, string>();
   const legacyPaths = new Map<string, string>();
   for (const r of recs) {
     const slug = slugs.get(key(r))!;
     if (r.protoId) byProtoId.set(r.protoId, slug);
+    if (r.captureRef) byCaptureRef.set(r.captureRef, slug);
     if (r.locationId) {
       byLocationId.set(r.locationId, slug);
       legacyPaths.set(`/places/${r.locationId.split('/').map(encodeURIComponent).join('/')}/`, slug);
     }
   }
   const byName = new Map<string, string[]>();
-  for (const p of places) byName.set(normName(p.name), [...(byName.get(normName(p.name)) ?? []), p.slug]);
-  return { places, bySlug, byProtoId, byLocationId, byName, legacyPaths };
+  const skipName = new Set([...notByName].map((ref) => byCaptureRef.get(ref)));
+  for (const p of places) if (!skipName.has(p.slug)) byName.set(normName(p.name), [...(byName.get(normName(p.name)) ?? []), p.slug]);
+  return { places, bySlug, byProtoId, byLocationId, byCaptureRef, byName, legacyPaths };
 }
 
 function recFromSeed(seed: TrailSeed, src: Sources, trip: TripRef): Rec {

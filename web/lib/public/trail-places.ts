@@ -29,6 +29,8 @@ export interface TrailSeed {
   payoff: string | null;
   datedSource: boolean;
   hasFacts: boolean;
+  /** A sight, offer or other place of the same trip carries this name: the name lookup must not point it at the trail page. */
+  ambiguous: boolean;
 }
 
 const country = (name: string, slug: string): AreaRef => ({ level: 'country', name, slug });
@@ -107,6 +109,8 @@ function wikidataPoint(root: string): Map<string, Point> {
   return out;
 }
 
+const norm = (s: string): string => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
 const hostOf = (u: string) => {
   try {
     return new URL(u).hostname.replace(/^www\./, '');
@@ -126,6 +130,7 @@ export function trailSeeds(src: Sources): TrailSeed[] {
   const points = wikidataPoint(src.root);
   const rockies = new Map((src.rockies?.trails as unknown as RockiesTrail[] | undefined)?.map((t) => [t.id, t]) ?? []);
   const out: TrailSeed[] = [];
+  const others = new Map<string, Set<string>>();
   for (const trip of readdirSync(dir).sort()) {
     const tdir = path.join(dir, trip);
     if (['splits', 'runs'].includes(trip) || !statSync(tdir).isDirectory()) continue;
@@ -135,6 +140,9 @@ export function trailSeeds(src: Sources): TrailSeed[] {
     for (const file of readdirSync(tdir).filter((n) => n.endsWith('.json')).sort()) {
       const doc = readJson<{ records?: CaptureRec[] }>(path.join(tdir, file));
       const byRef = new Map((doc?.records ?? []).map((r) => [r.ref, r]));
+      const names = others.get(trip) ?? new Set<string>();
+      for (const r of doc?.records ?? []) if (r.layer !== 'route') names.add(norm(r.name));
+      others.set(trip, names);
       for (const r of doc?.records ?? []) {
         if (r.layer !== 'route' || !/^nature\.trail\./.test(r.type)) continue;
         const subkind = r.type.endsWith('.walk') ? 'walk' : 'hike';
@@ -195,10 +203,15 @@ export function trailSeeds(src: Sources): TrailSeed[] {
           payoff: tripPayoff,
           datedSource: !!read,
           hasFacts: facts.length > 0 || links.length > 0,
+          ambiguous: false,
         });
       }
     }
   }
+  // Rockies sights and adventures live in their own datasets, not only in the capture records
+  const rk = src.rockies;
+  const rockiesNames = new Set([...(rk?.sights ?? []), ...(rk?.adventures ?? [])].map((r) => norm(String(r.name))));
+  for (const s of out) s.ambiguous = (others.get(TRIP_SLUGS[s.tripFolder]) ?? new Set()).has(norm(s.name)) || (s.tripFolder === 'canadian-rockies-sept-2029' && rockiesNames.has(norm(s.name)));
   return out;
 }
 
