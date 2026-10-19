@@ -50,7 +50,6 @@ export function TripTimeline({ model, timelines, changedDays, picked, onPick }: 
                   ev.preventDefault();
                   onPick(d.n);
                 }}
-                aria-label={`Day ${d.n}, ${d.title}, ${t.span.start} to ${t.span.end}, ${t.variant.label}${warn ? `, ${warn} ${warn === 1 ? 'warning' : 'warnings'}` : ''}`}
               >
                 <DaySign n={d.n} size="s" state={picked === d.n ? 'focused' : 'quiet'} />
                 <span className="tl-trip-title">{d.title}</span>

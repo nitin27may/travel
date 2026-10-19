@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { fmtHM } from '@travel/core/schedule/rules.ts';
 import type { DayTimeline as DayTimelineData, TimelineEntry } from '@travel/core/schedule/types.ts';
-import { CopyDayLink } from '@/components/actions/ShareButton';
+import { Button } from '@/components/ui/Button';
+import { useToast } from '@/components/ui/Toast';
 import { Chip } from '@/components/ui/Chip';
 import { DaySign } from '@/components/ui/DaySign';
 import { Icon } from '@/components/ui/Icon';
@@ -46,6 +47,27 @@ function moves(before: DayTimelineData, after: DayTimelineData): Map<string, num
 }
 
 const KNOW_VISIBLE = 3;
+
+/** "Copy link to this day": the day's anchor with the profile, versions and additions the visitor is looking at. */
+function DayLink({ day }: { day: number }) {
+  const { toast } = useToast();
+  return (
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}${window.location.search}#day-${day}`);
+          toast({ message: `Link to day ${day} copied` });
+        } catch {
+          toast({ message: 'Could not copy the link' });
+        }
+      }}
+    >
+      <Icon name="link" size={14} /> Copy link to this day
+    </Button>
+  );
+}
 
 /** One day as a timeline (design 4): header, totals and warnings, the entries on a time rail, add to this day, Know before you go. */
 export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken, onVariant, onAdd, onRemove, addedKeys }: Props) {
@@ -195,7 +217,7 @@ export function DayTimeline({ trip, day, tl, picked, changed, candidates, taken,
             </button>
           ) : null}
           <span data-day-link={day.n}>
-            <CopyDayLink trip={trip} day={day.n} />
+            <DayLink day={day.n} />
           </span>
         </div>
         {knowCount > 0 ? (
