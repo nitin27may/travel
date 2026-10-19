@@ -84,9 +84,14 @@ for (const size of SIZES) {
 
       test(`${path}: at the page bottom the last day is current`, async ({ page, site }) => {
         await page.goto(`${site.url}${path}`);
-        await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+        // late layout can grow the page after the first jump, so keep going to the bottom until it holds
+        await expect
+          .poll(async () => {
+            await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+            return (await probe(page)).bottom;
+          })
+          .toBe(true);
         const p = await probe(page);
-        expect(p.bottom).toBe(true);
         await expect(page.locator(CELL)).toHaveText(String(p.last));
         await expect.poll(() => page.evaluate(() => location.hash)).toBe(`#day-${p.last}`);
       });
