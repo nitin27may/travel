@@ -5167,17 +5167,17 @@
       "last_read": "2026-10-19",
       "used_by": [
         {
-          "file": "data/suitability/canadian-rockies-2029/CS7b.json",
+          "file": "data/suitability/canadian-rockies-2029/R7.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
           "field": "suitability.effort.drivers.distance_km"
         },
         {
-          "file": "data/suitability/canadian-rockies-2029/CS7b.json",
+          "file": "data/suitability/canadian-rockies-2029/R7.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
           "field": "suitability.effort.drivers.gain_m"
         },
         {
-          "file": "data/suitability/canadian-rockies-2029/CS7b.json",
+          "file": "data/suitability/canadian-rockies-2029/R7.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
           "field": "suitability.effort.source_grade"
         }

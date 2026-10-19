@@ -47,7 +47,7 @@ S6's "takes its badge from it" needs the route's draw to move to the pass, which
 
 ## 3.19 Cavell Meadows
 
-Re-sourced: a CS7b lane record supersedes the migrated one with Parks Canada's figures (Trail 42, moderate, 6-7 km return, 500 m).
+Re-sourced: an R7 lane record (lane CS7b) supersedes the migrated one with Parks Canada's figures (Trail 42, moderate, 6-7 km return, 500 m).
 Parks Canada also says Cavell Road stays closed for the 2026 season. The other link-only "Row note" texts (Lake Annette, Mary
 Schaffer, Rockwall) sit in `migrated.json` records that R2a lane records already supersede.
 
