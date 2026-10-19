@@ -158,6 +158,24 @@ export async function suggest(q: string, scope: SearchScope = {}): Promise<Sugge
   });
 }
 
+/**
+ * How many rows a parse would open, and how many more are listed apart as "not checked yet" (Places only), when the page already holds
+ * that list (the Places and Trips pages register theirs). Null on any other page: counting would mean loading the whole catalogue, and a new
+ * bulk load is a server feature (P9). The header then says "Show places" without a number.
+ */
+export function countParsed(parsed: ParsedQuery): { n: number; unchecked: number } | null {
+  if (parsed.target === 'search') return null;
+  const type: EntityType = parsed.target === 'trips' ? 'trip' : 'place';
+  const hit = registered.get(type);
+  if (!hit) return null;
+  const query = { ...emptyState(), q: parsed.q, facets: parsed.facets };
+  if (type === 'place') {
+    const got = listPlacesChecked(query);
+    return { n: got.rows.length, unchecked: got.unchecked.reduce((a, g) => a + g.rows.length, 0) };
+  }
+  return { n: filterRows(hit.rows as readonly unknown[], query, hit.d as unknown as EntityDescriptor<unknown>).length, unchecked: 0 };
+}
+
 // ---------------------------------------------------------------- lists
 
 /**
