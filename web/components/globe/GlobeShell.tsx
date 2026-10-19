@@ -65,6 +65,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [cardOpen, setCardOpen] = useState(true);
   const [hint, setHint] = useState(true);
+  const [painted, setPainted] = useState(false);
   const [dark, setDark] = useState(false);
   const [cardEl, setCardEl] = useState<HTMLElement | null>(null);
   const ctrl = useRef<GlobeController | null>(null);
@@ -217,15 +218,26 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: !phone && !short && cardOpen ? CARD_FOOT : 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 } };
     };
   }, [phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
+  // The CSS halo (and the placeholder disc before the map exists) follows the world frame: centre of the free area, the computed diameter.
+  const syncHalo = useCallback(() => {
+    const el = root.current;
+    if (!el) return;
+    const { width, height, cover } = layoutRef.current();
+    const f = worldFrame(width, height, cover);
+    el.style.setProperty('--halo-d', `${f.diameter}px`);
+    el.style.setProperty('--halo-x', `${cover.left + f.freeW / 2}px`);
+    el.style.setProperty('--halo-y', `${cover.top + f.freeH / 2}px`);
+  }, []);
+  useEffect(() => { syncHalo(); }, [syncHalo, phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
   useEffect(() => {
     if (!controller || !engine) return;
     let t: ReturnType<typeof setTimeout> | undefined;
-    const run = () => { clearTimeout(t); t = setTimeout(() => controller.reframe(), 150); };
+    const run = () => { clearTimeout(t); syncHalo(); t = setTimeout(() => controller.reframe(), 150); };
     run();
     const ro = new ResizeObserver(run);
     if (root.current) ro.observe(root.current);
     return () => { ro.disconnect(); clearTimeout(t); };
-  }, [controller, engine, phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
+  }, [controller, engine, syncHalo, phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
 
   const canBack = snap.path.length > 0 || !!snap.selected || !!snap.feature;
   const level = snap.path.length;
@@ -239,6 +251,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
 
   return (
     <div ref={root} className="globe-root" data-level={level} data-panel={panelOpen && !phone ? 'open' : 'closed'} data-phone={phone ? 'true' : undefined}>
+      <div className="globe-halo" aria-hidden="true" />
       {book && prefsReady && handlers && initialCamera ? (
         <GlobeCanvas
           mode="full"
@@ -250,13 +263,14 @@ export function GlobeShell({ data }: { data: GlobeData }) {
           camera={initialCamera}
           handlers={handlers}
           onEngine={onEngine}
+          onPainted={() => { setPainted(true); const run = () => ctrl.current?.prefetchCountries(); if ('requestIdleCallback' in window) window.requestIdleCallback(run, { timeout: 3000 }); else setTimeout(run, 1500); }}
           label="Globe of saved places and published trips"
         />
       ) : (
         <div className="globe-canvas"><div className="globe-loading" aria-live="polite">Loading globe</div></div>
       )}
 
-      {engine ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} onOpen={openPin} /> : null}
+      {engine && painted ? <PinLayer engine={engine} pins={snap.pins} selectedKey={snap.selected} onOpen={openPin} /> : null}
       {engine ? <HitMarker engine={engine} /> : null}
       {cardEl && card ? createPortal(<SelectionCard card={card} onClose={() => controller?.closeCard()} />, cardEl) : null}
       {short && card ? <div className="globe-card-dock"><SelectionCard card={card} onClose={() => controller?.closeCard()} /></div> : null}

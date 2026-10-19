@@ -1,6 +1,6 @@
 import type { ExpressionSpecification, GeoJSONSource, Map as MLMap, Marker, MapMouseEvent } from 'maplibre-gl';
 import { prefersReducedMotion } from '@/lib/map/reduced-motion';
-import { normaliseColour, readPalette, type MapPalette } from '@/lib/map/palette';
+import { mix, readGlobePalette, type GlobePalette } from './palette';
 import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_MIN_ZOOM, TERRAIN_URL, modeOf, type StyleKey } from '@/lib/map/maplibre/styles';
 import { centreOf, forRender, hitRank, spanLon, type Bbox, type FeatColl, type Pt } from './geometry';
 import { FLY_MS, SPIN_AFTER_GESTURE_MS, SPIN_AFTER_HOVER_MS, SPIN_EASE_MS, TILT_MS, isClick, spinAllowed, spinStepDeg } from './motion';
@@ -22,6 +22,8 @@ export interface GlobeHandlers {
   /** The exact world frame landed once the style loaded; the controller adopts its zoom as the world zoom. */
   onWorldFramed?(zoom: number): void;
   onReady?(): void;
+  /** The first `idle` after the style loaded: the canvas may fade in and the pins may mount (spec 8.3). */
+  onFirstIdle?(): void;
   onFail?(reason: string): void;
   onShape?(layer: HitLayer, id: number): void;
   onBasemap?(f: BasemapFeature | null): void;
@@ -62,6 +64,8 @@ export interface GlobeEngine {
   setStyle(style: StyleKey): void;
   setTerrain(on: boolean, exaggeration: number): void;
   setAdmin(level: 'adm1' | 'adm2', fc: FeatColl | null): void;
+  /** Swaps the country shapes (110m for the first paint, 50m later). Ids are the same in both. */
+  setCountries(fc: FeatColl): void;
   setFocus(f: Focus): void;
   setFeature(f: BasemapFeature | null): void;
   setPadding(p: Padding): void;
@@ -103,19 +107,12 @@ function describeBasemap(sourceLayer: string, p: Record<string, unknown>): { kin
   return { kind: cls || 'place', extra: p.capital === 2 ? 'capital' : '' };
 }
 
-/** Reads a colour token off the container as a string MapLibre parses. */
-function tokenColour(el: Element, name: string, fallback: string): string {
-  const raw = getComputedStyle(el).getPropertyValue(name).trim();
-  return normaliseColour(raw || fallback, fallback);
-}
-
 export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   const { container, handlers } = opts;
   let styleKey = opts.style;
   let terrainOn = opts.terrain;
   let exaggeration = opts.exaggeration;
-  let palette: MapPalette = readPalette(container, modeOf(styleKey));
-  let accent = tokenColour(container, '--accent', 'rgb(224 154 28)');
+  let pal: GlobePalette = readGlobePalette(container, modeOf(styleKey));
   let destroyed = false;
   let styleLoaded = false;
   let fellBack = false;
@@ -191,41 +188,56 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   // ---- base style ----------------------------------------------------------------------------------------
-  /** Relief, Light and Dark are three looks, not one recolour: relief keeps woods and parks and full hillshade, light is near-white with faint shading, dark follows the dark tokens. */
+  /** Relief, Light and Dark are three looks, not one recolour: relief keeps woods and full hillshade, light is paler with faint shading, dark follows the dark tokens. Every colour is a token (no literals). */
   function scheme(): { land: string; wood: string; water: string; hill: number } {
-    if (styleKey === 'relief') return { land: 'rgb(236 231 219)', wood: 'rgb(208 219 190)', water: palette.water, hill: 1.15 };
-    if (styleKey === 'light') return { land: 'rgb(246 246 244)', wood: 'rgb(246 246 244)', water: 'rgb(200 217 228)', hill: 0.2 };
-    return { land: palette.land, wood: palette.land, water: palette.water, hill: 1 };
+    if (styleKey === 'relief') return { land: pal.land, wood: pal.wood, water: pal.ocean, hill: 1.15 };
+    if (styleKey === 'light') return { land: mix(pal.land, pal.surface, 0.6), wood: mix(pal.wood, pal.surface, 0.5), water: mix(pal.ocean, pal.surface, 0.25), hill: 0.35 };
+    // Dark: land lighter than the sea, the way Apple's dark map reads (spec 6.6, M4); a step toward the highlight token keeps it a token value.
+    return { land: mix(pal.land, pal.high, 0.6), wood: mix(pal.wood, pal.high, 0.4), water: pal.ocean, hill: 1 };
   }
 
   function recolourBase(): void {
     const style = map.getStyle();
     if (!style?.layers) return;
     const sc = scheme();
+    const road = mix(sc.land, pal.ink, 0.16);
     const set = (id: string, kind: 'paint' | 'layout', prop: string, v: unknown) => {
       try { if (kind === 'paint') map.setPaintProperty(id, prop as never, v as never); else map.setLayoutProperty(id, prop as never, v as never); } catch { /* property not on this layer */ }
     };
     for (const l of style.layers) {
       const sl = (l as { 'source-layer'?: string })['source-layer'] ?? '';
-      if (l.type === 'background') set(l.id, 'paint', 'background-color', sc.land);
+      // The style background is the sea, so a globe whose tiles have not arrived reads as water with our own land on it. The tiles
+      // draw no land polygon (OpenMapTiles has only water), so past zoom 4 the background turns to land and the tiles' water draws the sea.
+      if (l.type === 'background') set(l.id, 'paint', 'background-color', ['interpolate', ['linear'], ['zoom'], 3, pal.ocean, 4.5, sc.land]);
+      // Liberty's shaded-relief raster is tinted green at the far zooms; the hillshade layer carries the relief instead.
+      else if (l.type === 'raster') set(l.id, 'layout', 'visibility', 'none');
       else if (l.type === 'fill') {
         const wooded = sl === 'landcover' || sl === 'park' || sl === 'landuse';
-        const fill = sl === 'water' ? sc.water : sl === 'building' ? palette.high : wooded ? sc.wood : sc.land;
+        const fill = sl === 'water' ? sc.water : sl === 'building' ? pal.high : wooded ? sc.wood : sc.land;
         set(l.id, 'paint', 'fill-color', fill);
         // The outline matches its own fill: a land-coloured outline on water drew a white ring at the 85 degree edge of the tiles.
         set(l.id, 'paint', 'fill-outline-color', fill);
+      } else if (l.type === 'fill-extrusion') {
+        set(l.id, 'paint', 'fill-extrusion-color', pal.high);
       } else if (l.type === 'line') {
-        if (sl === 'waterway') set(l.id, 'paint', 'line-color', sc.water);
-        else if (sl === 'boundary') set(l.id, 'paint', 'line-color', palette.border);
-        else if (sl === 'transportation') set(l.id, 'paint', 'line-color', palette.contour);
+        if (sl === 'waterway') set(l.id, 'paint', 'line-color', pal.river);
+        else if (sl === 'boundary') set(l.id, 'paint', 'line-color', pal.border);
+        else if (sl === 'transportation') set(l.id, 'paint', 'line-color', road);
       } else if (l.type === 'symbol') {
         // Our own pins carry the world view; keep only large place names and water names from the base.
         if (HIDE_SOURCE_LAYERS.has(sl) || HIDE_LABEL_LAYER.test(l.id)) { set(l.id, 'layout', 'visibility', 'none'); continue; }
-        set(l.id, 'paint', 'text-color', palette.label);
-        set(l.id, 'paint', 'text-halo-color', palette.halo);
-        set(l.id, 'paint', 'text-halo-width', 1.5);
+        set(l.id, 'paint', 'text-color', pal.label);
+        set(l.id, 'paint', 'text-halo-color', pal.halo);
+        set(l.id, 'paint', 'text-halo-width', styleKey === 'dark' ? 0.9 : 1.2);
       }
     }
+  }
+
+  function hillCurve(): ExpressionSpecification {
+    const h = scheme().hill;
+    const stops: (number)[] = [0, 0, 2, 0, 4, 0.15 * h, 7, 0.45 * h, 9, 0.55 * h];
+    if (styleKey === 'light') stops.push(10, 0.4 * h, 11, 0);
+    return ['interpolate', ['linear'], ['zoom'], ...stops] as unknown as ExpressionSpecification;
   }
 
   function addHills(beforeId: string | undefined): void {
@@ -233,10 +245,10 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     map.addLayer({
       id: 'hills', type: 'hillshade', source: 'dem-hill',
       paint: {
-        // Faint on the globe where tiles meet in seams, full relief once a country fills the view.
-        'hillshade-exaggeration': ['interpolate', ['linear'], ['zoom'], 0, 0.08 * scheme().hill, 2.5, 0.2 * scheme().hill, 5, 0.42 * scheme().hill, 8, 0.55 * scheme().hill],
-        'hillshade-shadow-color': palette.shade, 'hillshade-highlight-color': palette.high, 'hillshade-accent-color': palette.shade,
-        'hillshade-illumination-direction': 315,
+        // None on the far globe where tiles meet in seams (spec 6.6), full relief once a country fills the view; Light fades out above zoom 10.
+        'hillshade-exaggeration': hillCurve(),
+        'hillshade-shadow-color': pal.shade, 'hillshade-highlight-color': pal.high, 'hillshade-accent-color': pal.shade,
+        'hillshade-illumination-direction': 315, 'hillshade-illumination-anchor': 'map',
       },
     }, beforeId);
   }
@@ -273,41 +285,43 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   const sel = (key: string): ExpressionSpecification => ['boolean', ['feature-state', key], false];
   const EMPTY = { type: 'FeatureCollection' as const, features: [] };
 
-  function addLayers(firstSymbolId: string | undefined, firstWaterId: string | undefined): void {
-    const land = palette.land;
+  function addLayers(firstSymbolId: string | undefined, firstWaterId: string | undefined, bottomId: string | undefined): void {
+    const land = pal.land;
     map.addSource('countries', { type: 'geojson', data: forRender(opts.countries) as never });
-    map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': accent, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0] } }, firstWaterId);
+    // Our own land at the far zooms (the tiles carry none): the 110m or 50m countries in the land colour, fading out as the tiles' land background takes over.
+    map.addLayer({ id: 'land-fill', type: 'fill', source: 'countries', paint: { 'fill-color': scheme().land, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': true } }, bottomId);
+    map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': pal.accentSel, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0] } }, firstWaterId);
     map.addLayer({ id: 'country-dim', type: 'fill', source: 'countries', paint: { 'fill-color': land, 'fill-opacity': ['case', sel('dim'), 0.55, 0] } }, firstSymbolId);
     // Hover: 1.5 px accent line with a 0.5 px ink casing; selected: 2 px with a 1 px casing (spec 6.3), so the edge reads on land and on water.
-    map.addLayer({ id: 'country-casing', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
-    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': accent, 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0], 'line-opacity': 1 } }, firstSymbolId);
+    map.addLayer({ id: 'country-casing', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': pal.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': pal.accentSel, 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0], 'line-opacity': 1 } }, firstSymbolId);
 
     map.addSource('adm1', { type: 'geojson', data: (adm1 ? forRender(adm1) : EMPTY) as never });
-    map.addLayer({ id: 'adm1-fill', type: 'fill', source: 'adm1', paint: { 'fill-color': ['case', sel('hover'), accent, palette.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.06] } }, firstSymbolId);
-    map.addLayer({ id: 'adm1-casing', type: 'line', source: 'adm1', paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
-    map.addLayer({ id: 'adm1-line', type: 'line', source: 'adm1', paint: { 'line-color': ['case', sel('selected'), accent, palette.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.8], 'line-opacity': ['case', sel('dim'), 0.3, 0.9] } }, firstSymbolId);
+    map.addLayer({ id: 'adm1-fill', type: 'fill', source: 'adm1', paint: { 'fill-color': ['case', sel('hover'), pal.accentSel, pal.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.06] } }, firstSymbolId);
+    map.addLayer({ id: 'adm1-casing', type: 'line', source: 'adm1', paint: { 'line-color': pal.casingSel, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'adm1-line', type: 'line', source: 'adm1', paint: { 'line-color': ['case', sel('selected'), pal.accentSel, pal.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.8], 'line-opacity': ['case', sel('dim'), 0.3, 0.9] } }, firstSymbolId);
 
     map.addSource('adm2', { type: 'geojson', data: (adm2 ? forRender(adm2) : EMPTY) as never });
-    map.addLayer({ id: 'adm2-fill', type: 'fill', source: 'adm2', paint: { 'fill-color': ['case', sel('hover'), accent, palette.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.05] } }, firstSymbolId);
-    map.addLayer({ id: 'adm2-casing', type: 'line', source: 'adm2', paint: { 'line-color': palette.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
-    map.addLayer({ id: 'adm2-line', type: 'line', source: 'adm2', paint: { 'line-color': ['case', sel('selected'), accent, palette.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.9], 'line-opacity': ['case', sel('dim'), 0.25, 0.85] } }, firstSymbolId);
+    map.addLayer({ id: 'adm2-fill', type: 'fill', source: 'adm2', paint: { 'fill-color': ['case', sel('hover'), pal.accentSel, pal.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.05] } }, firstSymbolId);
+    map.addLayer({ id: 'adm2-casing', type: 'line', source: 'adm2', paint: { 'line-color': pal.casingSel, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'adm2-line', type: 'line', source: 'adm2', paint: { 'line-color': ['case', sel('selected'), pal.accentSel, pal.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.9], 'line-opacity': ['case', sel('dim'), 0.25, 0.85] } }, firstSymbolId);
     map.addLayer({
       id: 'adm2-label', type: 'symbol', source: 'adm2', minzoom: 6,
       layout: { 'text-field': ['get', 'name'], 'text-font': fontStack, 'text-size': ['interpolate', ['linear'], ['zoom'], 6, 10, 10, 13], 'text-padding': 6 },
-      paint: { 'text-color': palette.label, 'text-halo-color': palette.halo, 'text-halo-width': 1.4, 'text-opacity': ['case', sel('dim'), 0.3, 1] },
+      paint: { 'text-color': pal.label, 'text-halo-color': pal.halo, 'text-halo-width': 1.4, 'text-opacity': ['case', sel('dim'), 0.3, 1] },
     });
 
     // Named basemap things (rivers, seas, peaks, parks, towns) can be hovered and picked; the pick is outlined here.
     const none: ExpressionSpecification = ['==', ['get', 'name'], NONE];
-    map.addLayer({ id: 'hl-river', type: 'line', source: vectorSource, 'source-layer': 'waterway', filter: none, paint: { 'line-color': accent, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 2.2, 10, 5], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'hl-river', type: 'line', source: vectorSource, 'source-layer': 'waterway', filter: none, paint: { 'line-color': pal.accentSel, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 2.2, 10, 5], 'line-opacity': 0.9 } }, firstSymbolId);
     // The base styles draw no layer for mountain_peak, and queryRenderedFeatures only sees style layers: an invisible one makes peaks targets.
-    map.addLayer({ id: 'hit-peak', type: 'circle', source: vectorSource, 'source-layer': 'mountain_peak', minzoom: 9, paint: { 'circle-radius': 12, 'circle-color': palette.ink, 'circle-opacity': 0.01 } });
+    map.addLayer({ id: 'hit-peak', type: 'circle', source: vectorSource, 'source-layer': 'mountain_peak', minzoom: 9, paint: { 'circle-radius': 12, 'circle-color': pal.ink, 'circle-opacity': 0.01 } });
     // The dark style labels only line-shaped water; seas and lakes are points in the tiles, so they get a hit layer too.
-    map.addLayer({ id: 'hit-water', type: 'circle', source: vectorSource, 'source-layer': 'water_name', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-radius': 14, 'circle-color': palette.ink, 'circle-opacity': 0.01 } });
+    map.addLayer({ id: 'hit-water', type: 'circle', source: vectorSource, 'source-layer': 'water_name', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-radius': 14, 'circle-color': pal.ink, 'circle-opacity': 0.01 } });
     for (const id of ['hit-peak', 'hit-water']) if (!hitLayers.includes(id)) hitLayers.push(id);
-    map.addLayer({ id: 'hl-peak', type: 'circle', source: vectorSource, 'source-layer': 'mountain_peak', filter: none, paint: { 'circle-radius': 9, 'circle-color': 'rgba(0,0,0,0)', 'circle-stroke-color': accent, 'circle-stroke-width': 2 } });
-    map.addLayer({ id: 'hl-label', type: 'circle', source: vectorSource, 'source-layer': 'water_name', filter: none, paint: { 'circle-radius': 10, 'circle-color': 'rgba(0,0,0,0)', 'circle-stroke-color': accent, 'circle-stroke-width': 2 } });
-    map.addLayer({ id: 'hl-park', type: 'line', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'line-color': accent, 'line-width': 2.5 } }, firstSymbolId);
+    map.addLayer({ id: 'hl-peak', type: 'circle', source: vectorSource, 'source-layer': 'mountain_peak', filter: none, paint: { 'circle-radius': 9, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
+    map.addLayer({ id: 'hl-label', type: 'circle', source: vectorSource, 'source-layer': 'water_name', filter: none, paint: { 'circle-radius': 10, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
+    map.addLayer({ id: 'hl-park', type: 'line', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'line-color': pal.accentSel, 'line-width': 2.5 } }, firstSymbolId);
   }
 
   function applyFocus(): void {
@@ -345,7 +359,12 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       opts.handlers.onWorldFramed?.(z);
     }
     pendingFrame = null;
-    map.setSky({ 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 2.5, 0.35, 5, 0] });
+    // Sky, horizon and fog by theme (spec 6.6): MapLibre's default sky vanishes on a light page and the disc read as a cut-out.
+    map.setSky({
+      'sky-color': pal.sky, 'horizon-color': pal.horizon, 'fog-color': pal.fog,
+      'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 2.5, 0.6, 5, 0],
+      'sky-horizon-blend': 0.8, 'horizon-fog-blend': pal.mode === 'dark' ? 0.7 : 0.6,
+    });
     recolourBase();
     const layers = map.getStyle().layers;
     const firstSymbol = layers.find((l) => l.type === 'symbol');
@@ -357,12 +376,12 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     hitLayers = layers.filter((l) => HIT_SOURCE_LAYERS.has((l as { 'source-layer'?: string })['source-layer'] ?? '')).map((l) => l.id);
     fellBack = false;
     addRelief(firstWater?.id);
-    addLayers(firstSymbol?.id, firstWater?.id);
+    addLayers(firstSymbol?.id, firstWater?.id, layers.find((l) => l.type !== 'background')?.id);
     applyTerrain();
     applyFocus();
     applyFeatureHighlight();
     handlers.onReady?.();
-    scheduleWarm();
+    warmAndReveal();
     if (!warmPending) runQueued();
   });
   map.on('error', (ev) => {
@@ -370,6 +389,18 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     if (!styleLoaded && !e.sourceId && !destroyed) { console.warn('[globe] style error:', e.error?.message); handlers.onFail?.(TILES_DOWN); } // the raw AJAXError text stays in the console
   });
   map.on('zoomend', applyTerrain);
+
+  // The CSS halo behind the canvas fades from 1 at zoom 0 to 0 at zoom 4 (spec 6.6), one write per frame.
+  const haloHost = container.parentElement;
+  let haloQueued = false;
+  const syncHalo = (): void => {
+    haloQueued = false;
+    if (destroyed || !haloHost) return;
+    haloHost.style.setProperty('--globe-halo-o', String(Math.max(0, Math.min(1, 1 - map.getZoom() / 4)).toFixed(3)));
+  };
+  const queueHalo = (): void => { if (!haloQueued) { haloQueued = true; requestAnimationFrame(syncHalo); } };
+  map.on('zoom', queueHalo);
+  map.on('load', syncHalo);
 
   // ---- hit testing ---------------------------------------------------------------------------------------
   function setHover(source: string | null, id: number | null): void {
@@ -535,36 +566,43 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   }
 
   /**
-   * Shader warm-up: the first fly-in used to hitch for 250 to 430 ms while the driver linked the programs of the zoomed-in
-   * layers. Once the world has painted, draw one zoomed-in frame with the canvas hidden, then put the camera back.
+   * Shader warm-up and the reveal (spec 8.3, 1.14). The first fly-in used to hitch for 250 to 430 ms while the driver linked
+   * the programs of the zoomed-in layers. While the canvas is still transparent, draw one zoomed-in frame, put the camera
+   * back, and only then tell the page the world has painted (`onFirstIdle`): the canvas fades in and the pins mount. The warm
+   * never calls `map.stop()` with a pointer down (5.1), and gives up after 1.8 s so a slow network cannot hold the globe back.
    */
   let warmed = false;
   let warmPending = false;
-  function scheduleWarm(): void {
-    if (warmed || opts.interactive === false || !map.getCanvas()) return;
+  let firstIdleSent = false;
+  function warmAndReveal(): void {
+    const reveal = (): void => { if (firstIdleSent || destroyed) return; firstIdleSent = true; handlers.onFirstIdle?.(); };
+    if (warmed || opts.interactive === false || !map.getCanvas()) { map.once('idle', reveal); return; }
     warmed = true;
     warmPending = true;
     holdUntil = Infinity; // nothing may move the camera while we borrow it
     const release = (): void => { if (holdUntil === Infinity && !pointerDown) holdUntil = performance.now() + 500; };
-    map.stop();
-    map.once('idle', () => {
-      if (destroyed || pointerDown) { warmPending = false; release(); runQueued(); return; }
-      const token = flyToken;
-      const from = { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing(), padding: map.getPadding() };
-      container.dataset.warming = 'true';
-      let finished = false;
-      const finish = (): void => {
-        if (finished) return;
-        finished = true;
-        window.clearTimeout(timer);
-        warmPending = false;
-        if (!destroyed) { if (queuedMove) { delete container.dataset.warming; release(); runQueued(); return; } if (token === flyToken) map.jumpTo(from); delete container.dataset.warming; }
+    if (!pointerDown) map.stop();
+    const token = flyToken;
+    const from = { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing(), padding: map.getPadding() };
+    container.dataset.warming = 'true';
+    let finished = false;
+    const finish = (): void => {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(timer);
+      warmPending = false;
+      if (!destroyed) {
+        if (token === flyToken) map.jumpTo(from);
+        delete container.dataset.warming;
+        map.once('idle', reveal);
+        window.setTimeout(reveal, 1200); // tiles that never settle must not hold the globe back
         release();
-      };
-      const timer = window.setTimeout(finish, 2500);
-      map.jumpTo({ center: [12.5, 43], zoom: 6.5, pitch: 0, bearing: 0, padding: ZERO_PAD });
-      map.once('idle', finish);
-    });
+        runQueued();
+      }
+    };
+    const timer = window.setTimeout(finish, 1800);
+    map.jumpTo({ center: [12.5, 43], zoom: 6.5, pitch: 0, bearing: 0, padding: ZERO_PAD });
+    map.once('idle', finish);
   }
 
   const engine: GlobeEngine = {
@@ -572,8 +610,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     setStyle(next) {
       if (next === styleKey) return;
       styleKey = next;
-      palette = readPalette(container, modeOf(next));
-      accent = tokenColour(container, '--accent', accent);
+      pal = readGlobePalette(container, modeOf(next));
       styleLoaded = false;
       hoverRef = null;
       hideTip();
@@ -589,6 +626,11 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       const src = map.getSource(level) as GeoJSONSource | undefined;
       src?.setData((fc ? forRender(fc) : EMPTY) as never);
       if (fc && styleLoaded) fc.features.forEach((x) => map.setFeatureState({ source: level, id: x.id as number }, { selected: false, dim: false, hover: false }));
+      applyFocus();
+    },
+    setCountries(fc) {
+      opts.countries = fc;
+      (map.getSource('countries') as GeoJSONSource | undefined)?.setData(forRender(fc) as never);
       applyFocus();
     },
     setFocus(f) { focus = f; setHover(null, null); applyFocus(); },
