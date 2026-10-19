@@ -3,6 +3,7 @@ import { createPublicData } from '@/lib/public';
 import { publicSentences, undatedTitle } from '@/lib/public/dateless';
 import { describesParty, publicParty, suitabilityFromTitle } from '@/lib/public/party';
 import { publicOrigin } from '@/lib/public/origin';
+import { DropLog, undatedSentences } from '@/lib/public/dateless';
 
 describe('the shared public-text scrubber', () => {
   it('drops "Planned as" and stay ideas, whole, and never cuts inside a URL', () => {
@@ -78,6 +79,54 @@ describe('the party scrubber: public text says who a plan suits, never who trave
     expect(publicParty("Lovely lake. The child's body clock is 2 h ahead, so expect a crash around 19:00.")).toBe('Lovely lake.');
     expect(describesParty("The child's body clock is ahead")).toBe(true);
     expect(describesParty('Easy walk, suits children from about 6')).toBe(false);
+  });
+  it('keeps a building or a tree that is N years old (2.43)', () => {
+    expect(publicParty('A 300-year-old church stands here.')).toBe('A 300-year-old church stands here.');
+    expect(publicParty('The 800-year-old larch is the oldest in the valley.')).toBe('The 800-year-old larch is the oldest in the valley.');
+    expect(publicParty('A 12-year-old tradition: the autumn fair.')).toBe('A 12-year-old tradition: the autumn fair.');
+    expect(describesParty('A 300-year-old church stands here.')).toBe(false);
+    // a child-sized age is still a party description when it names a person
+    expect(describesParty('Pack snacks for the 7-year-old.')).toBe(true);
+  });
+  it('keeps "the child" when it is a fare, a carrier or an age condition (2.43)', () => {
+    expect(publicParty('Bring the child carrier.')).toBe('Bring the child carrier.');
+    expect(publicParty('Not suitable if the child is under 4.')).toBe('Not suitable if the child is under 4.');
+    expect(publicParty('Book the child seat early.')).toBe('Book the child seat early.');
+    // but "the child" as a traveller is still scrubbed
+    expect(publicParty('Lovely lake. Keep the child hydrated.')).toBe('Lovely lake.');
+    expect(publicParty('If the child is tired, turn back.')).toBe('If anyone is tired, turn back.');
+  });
+  it('keeps the source number in the fare rewrite (2.43)', () => {
+    expect(publicParty('A 12-year-old pays the child fare.')).toBe('The child fare applies from age 12.');
+    expect(publicParty('A 7-year-old pays the child fare on the gondola.')).toBe('The child fare applies from age 7 on the gondola.');
+    expect(publicParty('A 12-year-old pays the child fare.')).not.toMatch(/age 6/);
+  });
+  it('starts a rewritten sentence with a capital (2.43)', () => {
+    expect(publicParty('A family of 3 can share a room.')).toBe('A small group can share a room.');
+    expect(publicParty('Rooms sleep a family of 4.')).toBe('Rooms sleep a small group.');
+    expect(publicParty('Good value. One adult 19+ per canoe; one adult walks ahead.')).toBe('Good value. One adult 19+ per canoe; the stronger walkers walk ahead.');
+    // a lowercase fragment stays lowercase
+    expect(publicParty('one adult walks to Citadel Pass')).toBe('the stronger walkers walk to Citadel Pass');
+  });
+  it('logs every sentence it drops, with where it came from (2.43)', () => {
+    const log = new DropLog();
+    const out = publicParty("Lovely lake. The child's body clock is 2 h ahead. Pack snacks for the 7-year-old.", 'place lake-x summary', log);
+    expect(out).toBe('Lovely lake.');
+    expect(log.items.map((i) => i.text)).toEqual(["The child's body clock is 2 h ahead.", 'Pack snacks for the 7-year-old.']);
+    expect(log.items.every((i) => i.where === 'place lake-x summary' && /household party/.test(i.why))).toBe(true);
+    // the shared scrubber and publicOrigin pass the log through
+    const log2 = new DropLog();
+    expect(undatedSentences("Easy walk. The child's nap is at 13:00.", 'trip x note', log2)).toBe('Easy walk.');
+    expect(log2.items).toHaveLength(1);
+    expect(log2.items[0]!.where).toBe('trip x note');
+    const log3 = new DropLog();
+    expect(publicOrigin("Quiet. The child's snack.", 'where', log3)).toBe('Quiet.');
+    expect(log3.items).toHaveLength(1);
+  });
+  it('logs nothing when the text is clean', () => {
+    const log = new DropLog();
+    publicParty('A 300-year-old church. Bring the child carrier.', 'x', log);
+    expect(log.items).toEqual([]);
   });
   it('runs on every string through publicOrigin', () => {
     expect(publicOrigin('Patagonia with kids 11+')).toBe('Argentine Patagonia');
