@@ -79,6 +79,7 @@ test.describe('globe page', () => {
     const page = await ctx.newPage();
     await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
     await page.goto(`${site.url}/globe/`);
+    await page.getByRole('button', { name: 'Map options' }).click();
     const spin = page.getByRole('switch', { name: /Auto-spin/ });
     await expect(spin).toBeDisabled();
     await expect(spin).toContainText('Off: reduced motion');
@@ -87,6 +88,7 @@ test.describe('globe page', () => {
 
   test('control card: style segments are radios and the relief slider shows with terrain on', async ({ page, site }) => {
     await page.goto(`${site.url}/globe/`);
+    await page.getByRole('button', { name: 'Map options' }).click();
     await expect(page.getByRole('radio', { name: 'Relief' })).toBeVisible();
     await expect(page.getByRole('switch', { name: /3D terrain/ })).toHaveAttribute('aria-checked', 'true');
     await expect(page.getByRole('slider', { name: 'Relief' })).toBeVisible();

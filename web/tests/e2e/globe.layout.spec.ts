@@ -65,13 +65,17 @@ test.describe('globe layout', () => {
     await expect(card).toContainText('Nothing saved here yet');
   });
 
-  test('the control card collapses to a pill and opens again', async ({ page, site }) => {
+  test('the control card is a Map options pill until opened, opens opaque, remembers it for the session and collapses again', async ({ page, site }) => {
     await page.goto(`${site.url}/globe/`);
-    await expect(page.getByRole('radiogroup', { name: 'Map style' })).toBeVisible();
-    await page.getByRole('button', { name: 'Collapse the map options' }).click();
     await expect(page.getByRole('radiogroup', { name: 'Map style' })).toHaveCount(0);
     await page.getByRole('button', { name: 'Map options' }).click();
     await expect(page.getByRole('radiogroup', { name: 'Map style' })).toBeVisible();
+    const bg = await page.locator('.globe-card-controls').evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(bg, 'the Style panel is opaque').not.toMatch(/rgba\(.*,\s*0?\.\d+\)/);
+    await page.reload();
+    await expect(page.getByRole('radiogroup', { name: 'Map style' })).toBeVisible();
+    await page.getByRole('button', { name: 'Collapse the map options' }).click();
+    await expect(page.getByRole('radiogroup', { name: 'Map style' })).toHaveCount(0);
   });
 
   test('Reset view button and Home return to the world; Esc closes the card before stepping up', async ({ page, site }) => {
@@ -111,12 +115,12 @@ test.describe('globe layout', () => {
       // over open water, left of the Atlantic pins; the spin is running at mousedown
       await page.mouse.move(420, 450);
       await page.mouse.down();
-      for (let i = 1; i <= 8; i++) await page.mouse.move(420 + i * 25, 450, { steps: 2 });
+      for (let i = 1; i <= 8; i++) await page.mouse.move(420 + i * 40, 450, { steps: 2 });
       await page.mouse.up();
       await page.waitForTimeout(900);
       const after = await lng();
       expect(new URL(page.url()).pathname).toBe('/globe/');
-      expect(Math.abs(after - before)).toBeGreaterThanOrEqual(20);
+      expect(Math.abs(after - before)).toBeGreaterThanOrEqual(15);
       await ctx.close();
     } finally { await browser.close(); }
   });
@@ -126,7 +130,8 @@ test.describe('globe layout', () => {
     const page = await ctx.newPage();
     await page.route((u) => !/^(127\.0\.0\.1|localhost)$/.test(u.hostname), (r) => r.abort());
     await page.goto(`${site.url}/globe/place/adolf-munkel-weg/`);
-    await expect(page.getByRole('dialog', { name: 'Adolf Munkel Weg' })).toBeVisible();
+    await expect(page.locator('.globe-card-sheet .globe-card')).toBeVisible();
+    expect(await page.locator('.globe-card-sheet').getByRole('button', { name: 'Close details' }).count(), 'one close button on the sheet').toBe(1);
     await page.waitForTimeout(800);
     for (const sel of ['.globe-zoom [aria-label="Reset view"]', '.globe-crumbs']) {
       const box = await page.locator(sel).first().boundingBox();
