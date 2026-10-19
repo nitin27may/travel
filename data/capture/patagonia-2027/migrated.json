@@ -13,7 +13,10 @@
       "layer": "offer",
       "name": "Minitrekking on the glacier",
       "offer_class": "experience",
-      "run_by": "operator/hielo-y-aventura-s-a"
+      "run_by": "operator/hielo-y-aventura-s-a",
+      "at": [
+        "trip/patagonia-2027/sight:perito moreno walkways"
+      ]
     },
     {
       "ref": "trip/patagonia-2027/lake:beagle channel boat",
@@ -194,7 +197,9 @@
       "ref": "trip/patagonia-2027/trail:coastal path",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Coastal path"
+      "name": "Coastal path",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/patagonia-2027/trail:laguna esmeralda",

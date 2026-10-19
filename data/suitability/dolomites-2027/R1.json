@@ -1068,24 +1068,6 @@
             "src-0048"
           ]
         },
-        "altitude_m": {
-          "v": 1923,
-          "state": "value",
-          "basis": "community",
-          "src": [
-            "src-0048"
-          ],
-          "note": "Lake altitude; trailhead 1,809 m."
-        },
-        "food": {
-          "v": "hut",
-          "state": "value",
-          "basis": "community",
-          "src": [
-            "src-0048"
-          ],
-          "note": "Rifugio Vandelli on the shore, cash only."
-        },
         "access_season": {
           "v": [
             {
@@ -1131,6 +1113,45 @@
         "walk_km": 12.6,
         "walk_gain_m": 550,
         "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "part/place/lago-di-sorapis#payoff",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "food": {
+          "v": "hut",
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0048"
+          ],
+          "note": "Rifugio Vandelli on the shore, cash only."
+        },
+        "altitude_m": {
+          "v": 1923,
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0048"
+          ],
+          "note": "Lake altitude; trailhead 1,809 m."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -3503,15 +3524,6 @@
             "src-0034"
           ]
         },
-        "food": {
-          "v": "hut",
-          "state": "value",
-          "basis": "community",
-          "src": [
-            "src-0034"
-          ],
-          "note": "Rifugio Boè and Capanna Fassa at the summit."
-        },
         "access_season": {
           "v": [
             {
@@ -3556,6 +3568,36 @@
         "walk_km": 7.8,
         "walk_gain_m": 561,
         "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+      "kind": "viewpoint",
+      "subkind": "summit",
+      "suitability": {
+        "food": {
+          "v": "hut",
+          "state": "value",
+          "basis": "community",
+          "src": [
+            "src-0034"
+          ],
+          "note": "Rifugio Boè and Capanna Fassa at the summit."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -3709,49 +3751,6 @@
           "src": [
             "src-0008"
           ]
-        },
-        "altitude_m": {
-          "v": 2752,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0008"
-          ],
-          "note": "Route high point."
-        },
-        "access_season": {
-          "v": [
-            {
-              "from": "06-06",
-              "to": "10-18",
-              "status": "open",
-              "via": "lift",
-              "note": "Down from the Lagazuoi cable car top station; last cable car down 17:00 if you turn back"
-            }
-          ],
-          "state": "value",
-          "basis": "operator_info",
-          "src": [
-            "src-0007"
-          ],
-          "applies_to": "2026",
-          "conflicts": [
-            {
-              "v": [
-                {
-                  "from": "05-30",
-                  "to": "10-18",
-                  "status": "open",
-                  "via": "lift"
-                }
-              ],
-              "basis": "operator_info",
-              "src": [
-                "src-0009"
-              ],
-              "note": "The operator's price PDF gives 30 May."
-            }
-          ]
         }
       },
       "flat": {
@@ -3766,7 +3765,7 @@
         "accessibility": "none",
         "walk_km": null,
         "walk_gain_m": 0,
-        "suit_level": "usable"
+        "suit_level": "draft"
       }
     },
     {
@@ -3880,15 +3879,6 @@
             "src-0049"
           ]
         },
-        "altitude_m": {
-          "v": 2500,
-          "state": "value",
-          "basis": "operator_info",
-          "src": [
-            "src-0026"
-          ],
-          "note": "The operator's panoramic point is 'at 2500m'."
-        },
         "access_season": {
           "v": [
             {
@@ -3920,6 +3910,36 @@
         "walk_km": null,
         "walk_gain_m": 100,
         "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "part/place/seceda-ridge#payoff",
+      "kind": "viewpoint",
+      "subkind": "viewpoint",
+      "suitability": {
+        "altitude_m": {
+          "v": 2500,
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0026"
+          ],
+          "note": "The operator's panoramic point is 'at 2500m'."
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {
@@ -6767,25 +6787,6 @@
             "src-0049"
           ]
         },
-        "altitude_m": {
-          "v": 2752,
-          "state": "value",
-          "basis": "operator_info",
-          "src": [
-            "src-0011"
-          ],
-          "note": "The operator's accessibility page: 2,100 m to 2,752 m in 3 minutes.",
-          "conflicts": [
-            {
-              "v": 2782,
-              "basis": "operator_info",
-              "src": [
-                "src-0009"
-              ],
-              "note": "The price PDF heads the line 'Falzarego m. 2110 - Lagazuoi m. 2782'."
-            }
-          ]
-        },
         "adult_required": {
           "v": {
             "under": 18
@@ -6810,24 +6811,6 @@
           "note": "Enclosed cabin; the high top station is the only caution."
         },
         "kid_note": "A 3-minute ride to 2,752 m, children under 8 free with a paying adult. The top terrace and the refuge path are wheelchair-accessible. Think about the altitude for babies.",
-        "food": {
-          "v": "hut",
-          "state": "value",
-          "basis": "operator_info",
-          "src": [
-            "src-0007"
-          ],
-          "note": "Lagazuoi refuge and terrace bar."
-        },
-        "accessible_toilet": {
-          "v": true,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0011"
-          ],
-          "note": "The refuge is 'equipped with all services for disabled people, including a stairlift'."
-        },
         "access_season": {
           "v": [
             {
@@ -6945,6 +6928,64 @@
         "house_grade": null,
         "kid_fit": "yes",
         "accessibility": "step-free",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+      "kind": "access",
+      "subkind": "station",
+      "suitability": {
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0011"
+          ],
+          "note": "The refuge is 'equipped with all services for disabled people, including a stairlift'."
+        },
+        "food": {
+          "v": "hut",
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0007"
+          ],
+          "note": "Lagazuoi refuge and terrace bar."
+        },
+        "altitude_m": {
+          "v": 2752,
+          "state": "value",
+          "basis": "operator_info",
+          "src": [
+            "src-0011"
+          ],
+          "note": "The operator's accessibility page: 2,100 m to 2,752 m in 3 minutes.",
+          "conflicts": [
+            {
+              "v": 2782,
+              "basis": "operator_info",
+              "src": [
+                "src-0009"
+              ],
+              "note": "The price PDF heads the line 'Falzarego m. 2110 - Lagazuoi m. 2782'."
+            }
+          ]
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"

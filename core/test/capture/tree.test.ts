@@ -8,8 +8,18 @@ import { explain, resolveNode, suitMark } from "../../src/capture/resolve.ts";
 const tree = treeOf(DEFAULT_TYPES);
 
 describe("the type tree (backlog 3a.12 step 1)", () => {
-  it("has 15 domains, 61 categories and 324 type ids (277 types and 47 subtypes)", () => {
-    expect(countsOf(DEFAULT_TYPES)).toEqual({ domains: 15, categories: 61, types: 277, subtypes: 47, ids: 324, nodes: 398 });
+  it("the counts come from the file: a new type is one entry and needs no edit here", () => {
+    const n = DEFAULT_TYPES.nodes;
+    const by = (l: string) => n.filter((x) => x.level === l).length;
+    const own = n.filter((x) => x.level === "domain" && x.category).length;
+    expect(countsOf(DEFAULT_TYPES)).toEqual({ domains: by("domain"), categories: by("category") + own, types: by("type"), subtypes: by("subtype"), ids: by("type") + by("subtype"), nodes: n.length });
+    expect(own).toBe(2); // settlement and event are their own category
+  });
+  it("the spec's first cut (18 Oct 2026) had 15 domains, 61 categories and 324 ids; the tree may only have grown since", () => {
+    const c = countsOf(DEFAULT_TYPES);
+    expect(c.domains).toBeGreaterThanOrEqual(15);
+    expect(c.categories).toBeGreaterThanOrEqual(61);
+    expect(c.ids).toBeGreaterThanOrEqual(324);
   });
   it("every id is unique and sits under its parent", () => {
     expect(new Set(DEFAULT_TYPES.nodes.map((n) => n.id)).size).toBe(DEFAULT_TYPES.nodes.length);

@@ -6,21 +6,21 @@ R is required for Usable, R? is required when its condition holds, A is applicab
 
 ## Playgrounds (`play.playground`)
 
-Records: place. Suitability profile `play` (never). Effort: none, time is shown. Sources, in order: F O D C.
+Records: place. Suitability profile `play` (flag). Effort: none, time is shown. Sources, in order: F O D C.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, access_points, transit, pairs_with, closures, photos, part_of.
 
-Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated none; A min_age, adult_required, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
+Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
 
 Links: official; R? none; A hours_rates, booking, osm, commons.
 
 ### Splash pad (`play.playground.splash_pad`)
 
-Records: place. Suitability profile `play` (never, extension water). Effort: none, time is shown. Sources, in order: F O D C.
+Records: place. Suitability profile `play` (flag, extension water). Effort: none, time is shown. Sources, in order: F O D C.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, access_points, transit, pairs_with, closures, photos, part_of.
 
-Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated none; A min_age, adult_required, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
+Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
 
 Links: official; R? none; A hours_rates, booking, osm, commons.
 
@@ -74,12 +74,12 @@ Links: official; R? none; A hours_rates, booking, osm, commons.
 
 ## Pick your own and farm fun (`play.farm`)
 
-Records: place, offer. Suitability profile `play` (never). Effort: none, time is shown. Sources, in order: F O D C.
+Records: place, offer. Suitability profile `play` (flag). Effort: none, time is shown. Sources, in order: F O D C.
 
 **place**: R name, type, point, area_id, summary, season, hours, access_cost, price, class_key, draw, standing, distinction, easy_payoff, weather, why, signals, links; R? window (bookable); A names, wikidata, osm_ref, access_points, transit, pairs_with, closures, photos, part_of.
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable); A names, transit, pairs_with, closures, photos, part_of, on, run_by, variants, included.
 
-Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated none; A min_age, adult_required, carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
+Suitability: R age_band, kid_note, stroller, wheelchair, on_site_min, toilets, access_season; R when operated min_age, adult_required; A carrier_ok, stroller_extent, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, water, food, shade, signal, exposure, hazards.
 
 Links: official; R? none; A hours_rates, booking, osm, commons.

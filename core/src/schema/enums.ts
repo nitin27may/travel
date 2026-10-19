@@ -154,6 +154,8 @@ export const LIMIT_REASON = ["harness", "seat", "equipment", "insurance", "law",
 export const SUIT_KIND = [
   "trail", "viewpoint", "waterfall", "lake", "sight", "town", "activity", "lift", "swim_spot", "stay", "eatery",
   "drive",
+  // capture contract 2.2: a station where a lift or train arrives (access places carry facilities and altitude, nothing else)
+  "access",
 ] as const;
 
 // suitability applicability (docs/v2/research/suitability-applicability.md section 6.1). Append only.
@@ -177,7 +179,7 @@ export const SUIT_SUBKIND = [
   "zipline", "bungee", "swing", "via-ferrata", "bike-park", "mtb", "cycling", "horse", "caving",
   "glacier-walk", "ice-trek", "ski", "snowshoe", "sled", "wildlife", "wildlife_viewing",
   "hot-springs", "thermal-bath", "spa", "coaster", "paragliding", "heli", "scenic-flight", "vehicle-tour",
-  ...STAY_KIND, "restaurant", "cafe", "bakery", "teahouse", "bar", "market", "grocery", "hut_kitchen",
+  "station", ...STAY_KIND, "restaurant", "cafe", "bakery", "teahouse", "bar", "market", "grocery", "hut_kitchen",
 ] as const;
 export const APPLICABILITY = ["R", "A", "N", "op"] as const;
 export const SUIT_LEVEL = ["draft", "usable_partial", "usable", "complete"] as const;

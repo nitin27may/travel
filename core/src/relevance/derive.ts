@@ -84,6 +84,12 @@ export interface FarPointer { ref: string; km: number; draw: DrawTier; same_clas
 export interface FitOut { fit: Fit; reason: string }
 export interface Derived {
   ref: string;
+  /** capture layer of the record, when it has a capture record (relevance 3.7) */
+  layer?: "place" | "route" | "offer" | "event";
+  /** a route that carries its own draw because the route is itself the experience */
+  route_is_attraction?: boolean;
+  /** a route with no judgement of its own reads draw, role and badge from the place it reaches */
+  draw_from?: string;
   draw_suggested: DrawTier;
   effective_draw: DrawTier;
   access_load: AccessLoad;

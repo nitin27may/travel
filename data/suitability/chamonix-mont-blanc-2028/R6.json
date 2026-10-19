@@ -407,15 +407,6 @@
           "src": [],
           "note": "Ride up and back (about 40 min) plus summit terraces; the trip gives 150 min, the attractions research 3-4 h at peak."
         },
-        "altitude_m": {
-          "v": 3842,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0001"
-          ],
-          "quote": "at an altitude of 3842 meters"
-        },
         "access_season": {
           "v": [
             {
@@ -562,6 +553,36 @@
       }
     },
     {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "kind": "access",
+      "subkind": "station",
+      "suitability": {
+        "altitude_m": {
+          "v": 3842,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0001"
+          ],
+          "quote": "at an altitude of 3842 meters"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
       "ref": "offer/trip/chamonix-mont-blanc-2028/lift:montenvers train#ticket",
       "kind": "lift",
       "subkind": "rack_railway",
@@ -599,35 +620,6 @@
           "quote": "The access to the Montenvers train station is on a sloping ground and requires to be accompanied.",
           "note": "The ice cave is not accessible (same page)."
         },
-        "accessible_toilet": {
-          "v": true,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0003"
-          ],
-          "quote": "Adapted toilets are to be found on the right side at the arrival of the train."
-        },
-        "toilets": {
-          "v": [
-            "station"
-          ],
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0003"
-          ],
-          "quote": "Adapted toilets are to be found on the right side at the arrival of the train."
-        },
-        "food": {
-          "v": "cafe",
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0003"
-          ],
-          "quote": "Bar des Glaciers: For a quick bite."
-        },
         "on_site_min": {
           "v": [
             120,
@@ -639,15 +631,6 @@
             "src-0003"
           ],
           "quote": "Allow 2 to 3 hours for the complete visit (including travel time and the cave)."
-        },
-        "altitude_m": {
-          "v": 1913,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0005"
-          ],
-          "quote": "Arrival at Montenvers station at 1913 m"
         },
         "access_season": {
           "v": [
@@ -743,6 +726,65 @@
         "house_grade": null,
         "kid_fit": "unknown",
         "accessibility": "partial",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "usable"
+      }
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
+      "kind": "access",
+      "subkind": "station",
+      "suitability": {
+        "toilets": {
+          "v": [
+            "station"
+          ],
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Adapted toilets are to be found on the right side at the arrival of the train."
+        },
+        "accessible_toilet": {
+          "v": true,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Adapted toilets are to be found on the right side at the arrival of the train."
+        },
+        "food": {
+          "v": "cafe",
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0003"
+          ],
+          "quote": "Bar des Glaciers: For a quick bite."
+        },
+        "altitude_m": {
+          "v": 1913,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0005"
+          ],
+          "quote": "Arrival at Montenvers station at 1913 m"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
         "walk_km": null,
         "walk_gain_m": null,
         "suit_level": "usable"
@@ -1488,15 +1530,6 @@
           ],
           "quote": "Swimming is prohibited at Lac Blanc and the Cheserys Lakes by prefectural order."
         },
-        "altitude_m": {
-          "v": 2352,
-          "state": "value",
-          "basis": "official_info",
-          "src": [
-            "src-0006"
-          ],
-          "quote": "2352m"
-        },
         "access_season": {
           "v": [
             {
@@ -1554,6 +1587,36 @@
         "walk_km": 7,
         "walk_gain_m": 500,
         "suit_level": "usable_partial"
+      }
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "kind": "lake",
+      "subkind": "lake",
+      "suitability": {
+        "altitude_m": {
+          "v": 2352,
+          "state": "value",
+          "basis": "official_info",
+          "src": [
+            "src-0006"
+          ],
+          "quote": "2352m"
+        }
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": null,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": null,
+        "walk_gain_m": null,
+        "suit_level": "draft"
       }
     },
     {

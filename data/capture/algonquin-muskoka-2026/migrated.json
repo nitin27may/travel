@@ -23,13 +23,17 @@
       "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Solitaire Lake Trail"
+      "name": "Solitaire Lake Trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Track and Tower Trail"
+      "name": "Track and Tower Trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",

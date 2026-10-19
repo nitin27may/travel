@@ -1631,9 +1631,8 @@
       }
     },
     {
-      "ref": "place/lagazuoi-cable-car-and-tunnels",
-      "kind": "lift",
-      "subkind": "cable_car",
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+      "kind": "sight",
       "wikidata": {
         "v": "Q16557871",
         "state": "value",

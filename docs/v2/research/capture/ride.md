@@ -12,7 +12,7 @@ Records: route, offer. Suitability profile `lift` (always, extension lift). Effo
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, on; R? window (bookable), closures (status_page), part_of (part_of_something); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, variants, included.
 
-Suitability: R stroller_on_board, wheelchair, on_site_min, altitude_m, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, ext.lift.ride_min.
+Suitability: R stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, altitude_m, ext.lift.ride_min.
 
 Links: official; R? none; A hours_rates, booking, status, timetable, webcam.
 
@@ -24,7 +24,7 @@ Records: route, offer. Suitability profile `lift` (always, extension lift). Effo
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, on; R? window (bookable), closures (status_page), part_of (part_of_something); A names, best_window, best_time, transit, pairs_with, photos, at, run_by, variants, included.
 
-Suitability: R stroller_on_board, wheelchair, on_site_min, altitude_m, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, ext.lift.ride_min.
+Suitability: R stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, altitude_m, ext.lift.ride_min.
 
 Links: official; R? none; A hours_rates, booking, status, timetable, webcam.
 
@@ -36,6 +36,6 @@ Records: place, offer. Suitability profile `lift` (always, extension lift). Effo
 
 **offer (ticket)**: R name, type, summary, season, hours, access_cost, price, links, at; R? window (bookable), closures (status_page), part_of (part_of_something); A names, best_window, best_time, transit, pairs_with, photos, on, run_by, variants, included.
 
-Suitability: R stroller_on_board, wheelchair, on_site_min, altitude_m, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, ext.lift.ride_min.
+Suitability: R stroller_on_board, wheelchair, on_site_min, access_season, participation.weather_cancel, ext.lift.cabin, ext.lift.last_up, ext.lift.last_down; R when operated none; A min_age, min_height_cm, max_height_cm, limit_reason, adult_required, solo, age_band, kid_note, carrier_ok, access_detail, accessible_toilet, accessible_parking, limited_capacity_note, toilets, food, altitude_m, ext.lift.ride_min.
 
 Links: official; R? none; A hours_rates, booking, status, timetable, webcam.

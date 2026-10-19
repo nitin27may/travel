@@ -13,7 +13,7 @@ describe("one completeness engine (step 3)", () => {
   const tree = treeOf(DEFAULT_TYPES);
   const app = loadApplicability(REPO);
 
-  it("the contract's marks give every suitability record the level the suitability validator gives it (all 292 refs, in every file that holds them)", () => {
+  it("the contract's marks give every suitability record the level the suitability validator gives it (all 304 refs, in every file that holds them)", () => {
     const refs = new Set<string>();
     for (const f of sidecarFiles(REPO, "suitability")) {
       const doc = JSON.parse(readFileSync(f, "utf8")) as SuitabilityDoc;
@@ -24,12 +24,12 @@ describe("one completeness engine (step 3)", () => {
         const direct = checkRecord(r, app);
         const viaContract = checkRecord(r, app, locatedFromNode(node));
         expect(viaContract.level, r.ref).toBe(direct.level);
-        expect(viaContract.missingRequired, r.ref).toEqual(direct.missingRequired);
-        expect(viaContract.missingApplicable, r.ref).toEqual(direct.missingApplicable);
+        expect([...viaContract.missingRequired].sort(), r.ref).toEqual([...direct.missingRequired].sort());
+        expect([...viaContract.missingApplicable].sort(), r.ref).toEqual([...direct.missingApplicable].sort());
         refs.add(r.ref);
       }
     }
-    expect(refs.size).toBe(292); // 289 + the three routes cut out of places with a long walk
+    expect(refs.size).toBe(304); // 289, the three routes cut from long walks, the 12 places placement gave the facts it moved
   });
 
   it("the profile of a type equals the profile of its legacy (kind, subkind) for every legacy pair", () => {

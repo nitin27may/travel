@@ -138,6 +138,7 @@ export const CAP_ERROR_CODES = {
   E_CAP_SRC: "a src id is not in the file's sources table, or a value has no source",
   E_CAP_METHOD: "a source row says crawl or api without a run id, or names a run without saying how the page was taken",
   E_CAP_LINK_ONLY: "a source or a stored URL is on a link-only platform; AllTrails, Komoot, Google and the booking sites are only ever links",
+  E_CAP_DRAW_LAYER: "a route has a relevance record (draw and class) without route_is_attraction and a reason, or the flag is on a record that is not a route; draw belongs to the place a visitor comes to see",
   E_CAP_RUN: "a crawl run record is inconsistent: a result without a ref or field in scope, a blocked result without a reason, a searched_none without the pages tried",
   E_CAP_OPERATORS: "an operators file has a duplicate ref or an operator without a name and a URL",
 } as const;

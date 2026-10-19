@@ -107,6 +107,12 @@ export const capRecord = z.strictObject({
   /** the offer class when it differs from the type's */
   offer_class: z.enum(E.OFFER_CLASS).optional(),
   origin: origin.optional(),
+  /**
+   * A route may carry draw and class (relevance) only when the route is itself the experience: a circuit, a scenic drive, a ride.
+   * Otherwise they belong to the place the visitor comes to see. E_CAP_DRAW_LAYER.
+   */
+  route_is_attraction: z.boolean().optional(),
+  attraction_reason: z.string().min(1).optional(),
   area_id: z.string().min(1).optional(),
   osm_ref: z.string().regex(/^(node|way|relation)\/\d+$/).optional(),
   // relations (2.5); `reached_by` is derived and is rejected (E_CAP_REL_DERIVED)

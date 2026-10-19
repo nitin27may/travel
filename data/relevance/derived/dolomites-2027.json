@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "dolomites-2027",
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -117,7 +117,9 @@
           "code": "W_REL_DISTINCTION",
           "message": "distinction is unique but place/alpe-di-siusi has the same class within 100 km"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
@@ -208,7 +210,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "part/place/lago-di-sorapis#payoff",
@@ -291,7 +294,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/cinque-torri",
@@ -337,7 +341,7 @@
           "km": 2.4
         },
         {
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "km": 3.7
         },
         {
@@ -375,7 +379,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "place/monte-piana",
@@ -467,7 +473,9 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "part/place/croda-del-becco#payoff",
@@ -553,7 +561,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/val-fiscalina",
@@ -631,7 +640,9 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "place/lago-federa",
@@ -681,7 +692,7 @@
           "km": 6.8
         },
         {
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "km": 8.1
         },
         {
@@ -715,7 +726,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "part/place/cascate-di-fanes#payoff",
@@ -743,7 +755,7 @@
           "km": 9.8
         },
         {
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "km": 10.2
         },
         {
@@ -789,7 +801,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/adolf-munkel-weg",
@@ -887,7 +900,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "place/alpe-di-siusi",
@@ -981,7 +996,9 @@
           "code": "W_REL_DISTINCTION",
           "message": "distinction is unique but place/tre-cime-di-lavaredo-loop has the same class within 100 km"
         }
-      ]
+      ],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
@@ -1062,7 +1079,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/vallunga",
@@ -1140,7 +1158,9 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "place/viel-dal-pan",
@@ -1198,7 +1218,9 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
     },
     {
       "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
@@ -1279,10 +1301,11 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
-      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
       "draw_suggested": "regional",
       "effective_draw": "regional",
       "access_load": "plan",
@@ -1362,7 +1385,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "part/place/seceda-ridge#payoff",
@@ -1443,7 +1467,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lago-di-braies",
@@ -1492,7 +1517,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lago-di-carezza",
@@ -1577,7 +1603,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lago-di-landro",
@@ -1717,7 +1744,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lago-dantorno",
@@ -1853,7 +1881,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lago-di-dobbiaco",
@@ -1973,7 +2002,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lago-di-misurina",
@@ -2109,7 +2139,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/lago-di-limides",
@@ -2198,7 +2229,7 @@
       },
       "pair_with": [
         {
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "km": 1.4,
           "how": "walk",
           "extra_min": 131,
@@ -2249,7 +2280,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/passo-gardena",
@@ -2303,7 +2335,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/santa-maddalena-val-di-funes",
@@ -2374,7 +2407,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/cortina-dampezzo",
@@ -2455,7 +2489,7 @@
           "km": 9.2
         },
         {
-          "ref": "place/lagazuoi-cable-car-and-tunnels",
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
           "km": 10.1
         },
         {
@@ -2505,7 +2539,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/ortisei",
@@ -2617,7 +2652,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/selva-di-val-gardena",
@@ -2729,7 +2765,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/santa-cristina",
@@ -2841,7 +2878,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/san-candido",
@@ -2929,7 +2967,8 @@
       },
       "badge": "Local favourite",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/dobbiaco",
@@ -3025,7 +3064,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/san-vito-di-cadore",
@@ -3125,7 +3165,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/la-val",
@@ -3208,7 +3249,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/bolzano",
@@ -3277,7 +3319,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/otzi-south-tyrol-museum-of-archaeology",
@@ -3321,7 +3364,8 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "place/dolomites",
@@ -3427,7 +3471,8 @@
           "code": "W_REL_DISTINCTION",
           "message": "distinction is unique but part/place/croda-del-becco#payoff has the same class within 100 km"
         }
-      ]
+      ],
+      "layer": "place"
     },
     {
       "ref": "place/funbob-monte-baranci",
@@ -3485,7 +3530,8 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "offer"
     },
     {
       "ref": "place/rafting-on-the-rienza",
@@ -3534,7 +3580,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "offer"
     },
     {
       "ref": "place/drava-cycle-path-to-lienz",
@@ -3578,7 +3625,685 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "draw_suggested": "national",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 30,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "part/place/seceda-ridge#payoff",
+            "km": 43,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+            "km": 51.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/tre-cime-di-lavaredo-loop",
+        "km": 3.7,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-dantorno",
+          "km": 2.4
+        },
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 2.6
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 5.4
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 7
+        },
+        {
+          "ref": "part/place/lago-di-sorapis#payoff",
+          "km": 8.2
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Local favourite",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/cadini-di-misurina-viewpoint#payoff"
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 18,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/lago-federa",
+            "km": 9.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/lago-federa",
+            "km": 9.8,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-misurina",
+          "km": 7.2
+        },
+        {
+          "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+          "km": 8.2
+        },
+        {
+          "ref": "place/lago-dantorno",
+          "km": 8.9
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 10.6
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12.2
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw national, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/lago-di-sorapis#payoff"
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 38,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "place/dolomites",
+            "km": 9.8,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "place/dolomites",
+            "km": 9.8,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+            "km": 26.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 9.8,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/lago-di-braies",
+          "km": 2.2
+        },
+        {
+          "ref": "part/place/cascate-di-fanes#payoff",
+          "km": 9
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing good; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/croda-del-becco#payoff"
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 18,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 6.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/cinque-torri",
+          "km": 9.8
+        },
+        {
+          "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+          "km": 10.2
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 10.3
+        },
+        {
+          "ref": "place/lago-federa",
+          "km": 11.9
+        },
+        {
+          "ref": "place/lago-di-landro",
+          "km": 12
+        },
+        {
+          "ref": "place/monte-piana",
+          "km": 12.1
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/cascate-di-fanes#payoff"
+    },
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/place/seceda-ridge#payoff",
+            "km": 9.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "part/place/seceda-ridge#payoff",
+            "km": 9.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+            "km": 51.3,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 42.2,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/bullaccia-and-the-witches-benches#payoff"
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "draw_suggested": "national",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 34,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": [
+          {
+            "ref": "place/dolomites",
+            "km": 28.1,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/croda-del-becco#payoff",
+            "km": 26.2,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 28.1,
+        "draw": "world",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/viel-dal-pan",
+          "km": 2.8
+        },
+        {
+          "ref": "place/passo-gardena",
+          "km": 4.7
+        },
+        {
+          "ref": "place/vallunga",
+          "km": 7.3
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "draw regional, standing good; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/sass-pordoi-and-piz-boe#payoff"
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "draw_suggested": "national",
+      "effective_draw": "national",
+      "access_load": "plan",
+      "detour_min": 12,
+      "detour_basis": "town",
+      "detour_town": "Ortisei",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+            "km": 9.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+            "km": 43,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [
+              "toll_reservation"
+            ],
+            "family_effort": null
+          },
+          {
+            "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+            "km": 9.3,
+            "draw": "regional",
+            "standing": "good",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "place/passo-gardena",
+          "km": 8.5
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/seceda-ridge#payoff"
+    },
+    {
+      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 24,
+      "detour_basis": "town",
+      "detour_town": "Cortina d'Ampezzo",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "place/dolomites",
+        "km": 15.8,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [
+        {
+          "ref": "place/cinque-torri",
+          "km": 3.7,
+          "how": "drive",
+          "extra_min": 45,
+          "on_site_min": 45,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "Both are Great War open-air museums on Passo Falzarego, a few minutes apart by road",
+          "src": "src-0033"
+        },
+        {
+          "ref": "place/lago-di-limides",
+          "km": 1.4,
+          "how": "walk",
+          "extra_min": 101,
+          "on_site_min": 60,
+          "on_site_estimated": false,
+          "draw": "local",
+          "standing": "good",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "place/lago-federa",
+          "km": 8.1
+        },
+        {
+          "ref": "part/place/cascate-di-fanes#payoff",
+          "km": 10.2
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/place/lagazuoi-cable-car-and-tunnels#top"
     }
   ]
 }

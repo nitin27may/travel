@@ -128,7 +128,9 @@
       "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Arnarstapi to Hellnar"
+      "name": "Arnarstapi to Hellnar",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
@@ -178,7 +180,9 @@
       "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Thingvellir"
+      "name": "Thingvellir",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged this route as the thing visited (class sight/heritage-site); no place for it is recorded yet."
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",

@@ -26,7 +26,7 @@ describe("the applicability file", () => {
   const profiles = Object.entries(APP.profiles);
   it("has a row for every profile of SUIT_PROFILE (37 old and 10 new with the type tree), and no other", () => {
     expect(Object.keys(APP.profiles).sort()).toEqual([...E.SUIT_PROFILE].sort());
-    expect(profiles.length).toBe(47);
+    expect(profiles.length).toBe(Object.keys(E.SUIT_PROFILE).length);
   });
   it("every profile states every field path (N is explicit) and no other", () => {
     expect(APPLICABILITY_PATHS).toHaveLength(153); // 148 + change_rooms, showers, picnic, baby_change, participation.driver
@@ -145,10 +145,10 @@ describe("the lookup", () => {
     expect(markOf(boat, "stroller_on_board", true)).toBe("R");
     expect(markOf(boat, "toilets", true)).toBe("A");
   });
-  it("the spec's notes hold: group_min R on a hike, carrier_ok R in a show cave, altitude R on a lift, wheelchair A on a zip line", () => {
+  it("the spec's notes hold: group_min R on a hike, carrier_ok R in a show cave, altitude A on a lift (placement moved it to the top station), wheelchair A on a zip line", () => {
     expect(markOf(profileOf(rec("trail", "hike"))!.profile, "group_min", false)).toBe("R");
     expect(markOf(profileOf(rec("sight", "cave"))!.profile, "carrier_ok", false)).toBe("R");
-    expect(markOf(profileOf(rec("lift", "gondola"))!.profile, "altitude_m", true)).toBe("R");
+    expect(markOf(profileOf(rec("lift", "gondola"))!.profile, "altitude_m", true)).toBe("A");
     expect(markOf(profileOf(rec("activity", "zipline"))!.profile, "wheelchair", true)).toBe("A");
     expect(markOf(profileOf(rec("activity", "canoe"))!.profile, "water_safety.water_temp_c", true)).toBe("R");
     expect(markOf(profileOf(rec("activity", "paragliding"))!.profile, "ext.flight.weight_by_slot", true)).toBe("R");

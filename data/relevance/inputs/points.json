@@ -1,12 +1,6 @@
 {
   "schema": "relevance-points/1",
   "points": {
-    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": {
-      "lat": 51.14801,
-      "lon": -115.55557,
-      "coord_src": "wikidata",
-      "point_source": "Q125749525 P625"
-    },
     "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs": {
       "lat": 51.1506,
       "lon": -115.561,
@@ -24,18 +18,6 @@
       "lon": -117.27806,
       "coord_src": "wikidata",
       "point_source": "Q64841048 P625"
-    },
-    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": {
-      "lat": 52.8515,
-      "lon": -118.124,
-      "coord_src": "wikidata",
-      "point_source": "Q6164065 P625"
-    },
-    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola": {
-      "lat": 51.4419,
-      "lon": -116.161,
-      "coord_src": "wikidata",
-      "point_source": "Q13231225 P625"
     },
     "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs": {
       "lat": 53.1299,
@@ -313,6 +295,24 @@
       "coord_src": "wikidata",
       "point_source": "Q22616473 P625"
     },
+    "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top": {
+      "lat": 51.14801,
+      "lon": -115.55557,
+      "coord_src": "wikidata",
+      "point_source": "Q125749525 P625"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top": {
+      "lat": 52.8515,
+      "lon": -118.124,
+      "coord_src": "wikidata",
+      "point_source": "Q6164065 P625"
+    },
+    "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top": {
+      "lat": 51.4419,
+      "lon": -116.161,
+      "coord_src": "wikidata",
+      "point_source": "Q13231225 P625"
+    },
     "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff": {
       "lat": 51.1356,
       "lon": -115.79,
@@ -361,6 +361,12 @@
       "coord_src": "wikidata",
       "point_source": "Q446041 P625"
     },
+    "part/place/lagazuoi-cable-car-and-tunnels#top": {
+      "lat": 46.51921,
+      "lon": 12.00851,
+      "coord_src": "wikidata",
+      "point_source": "Q16557871 P625"
+    },
     "part/place/lago-di-sorapis#payoff": {
       "lat": 46.5204,
       "lon": 12.2236,
@@ -378,6 +384,12 @@
       "lon": 11.72579,
       "coord_src": "wikidata",
       "point_source": "Q2263528 P625"
+    },
+    "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top": {
+      "lat": 45.9182,
+      "lon": 6.87016,
+      "coord_src": "wikidata",
+      "point_source": "Q3088020 P625"
     },
     "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff": {
       "lat": 45.98222,
@@ -506,10 +518,10 @@
       "point_source": "Q419733 P625"
     },
     "place/lagazuoi-cable-car-and-tunnels": {
-      "lat": 46.51921,
-      "lon": 12.00851,
-      "coord_src": "wikidata",
-      "point_source": "Q16557871 P625"
+      "lat": 46.52751,
+      "lon": 12.00892,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of lagazuoi osm_node 360633381"
     },
     "place/lago-dantorno": {
       "lat": 46.5951,
@@ -690,12 +702,6 @@
       "lon": 6.8475,
       "coord_src": "wikidata",
       "point_source": "Q3215662 P625"
-    },
-    "trip/chamonix-mont-blanc-2028/lift:aiguille du midi": {
-      "lat": 45.9182,
-      "lon": 6.87016,
-      "coord_src": "wikidata",
-      "point_source": "Q3088020 P625"
     },
     "trip/chamonix-mont-blanc-2028/lift:montenvers train": {
       "lat": 45.92271,

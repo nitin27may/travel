@@ -13,6 +13,7 @@ import { SignalsClient, USER_AGENT } from "../src/relevance/signals.ts";
 import { REL_ERROR_LIST, REL_WARNING_LIST } from "../src/validate/codes.ts";
 import { validateFile } from "../src/validate/index.ts";
 import { relevanceFiles } from "../src/relevance/refs.ts";
+import { loadWorld } from "../src/capture/records.ts";
 import { staleFields } from "../src/relevance/stale.ts";
 import { checkInputs } from "../src/relevance/inputsCheck.ts";
 
@@ -87,13 +88,26 @@ function tripWindow(root: string, trip: string): { from: string; to: string } | 
 /** One derived file per trip. `as_of` pins the date staleness was judged at, so a stored file stays reproducible. */
 function deriveFiles(root: string, window: { from: string; to: string } | null, todayOf: (trip: string) => string): Map<string, string> {
   const { input, trips } = loadDeriveInput(root, window);
+  const world = loadWorld(root);
   const out = new Map<string, string>();
   for (const [trip, refs] of trips) {
     const w = window ?? tripWindow(root, trip);
     const asOf = todayOf(trip);
     const all = deriveAll({ ...input, window: w, today: asOf });
     const mine = new Set(refs);
-    const items: Derived[] = all.filter((d) => mine.has(d.ref));
+    const items: Derived[] = all.filter((d) => mine.has(d.ref)).map((d) => {
+      const c = world.cap.get(d.ref)?.rec;
+      return c ? { ...d, layer: c.layer, ...(c.route_is_attraction ? { route_is_attraction: true } : {}) } : d;
+    });
+    // relevance 3.7: a route with no judgement of its own reads draw, role and badge from the place it reaches
+    const byRef = new Map(all.map((d) => [d.ref, d]));
+    for (const ref of world.trips.get(trip) ?? []) {
+      const c = world.cap.get(ref)?.rec;
+      if (!c || c.layer !== "route" || mine.has(ref)) continue;
+      const from = (c.reaches ?? []).find((p) => byRef.has(p));
+      if (!from) continue;
+      items.push({ ...byRef.get(from)!, ref, layer: "route", draw_from: from });
+    }
     out.set(trip, JSON.stringify({ schema: "relevance-derived/1", trip, as_of: asOf, thresholds: THRESHOLDS, window: w, items }, null, 2) + "\n");
   }
   return out;

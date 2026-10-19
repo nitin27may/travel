@@ -50,7 +50,7 @@
           "file": "data/suitability/patagonia-2027/R3.json",
           "src": "src-0003",
           "publisher": "Hielo y Aventura S.A.",
-          "url": "https://api.hieloyaventura.com/api/excurtions"
+          "url": "https://hieloyaventura.com/excursiones/minitrekking"
         }
       ]
     },
@@ -128,6 +128,19 @@
           "src": "src-0003",
           "publisher": "Rafting Club Activ",
           "url": "https://www.rafting-club-activ.com/en/faq/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/wild-water-adventures",
+      "name": "Wild Water Adventures",
+      "url": "https://wildwater.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0001",
+          "publisher": "Wild Water Adventures",
+          "url": "https://wildwater.com/kicking-horse-rafting-trips/gentle/"
         }
       ]
     }

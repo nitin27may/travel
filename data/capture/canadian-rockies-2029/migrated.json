@@ -11,7 +11,9 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Bald Hills"
+      "name": "Bald Hills",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
@@ -36,19 +38,25 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Emerald Lakeshore"
+      "name": "Emerald Lakeshore",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Iceline Trail"
+      "name": "Iceline Trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Interlakes Trail (Upper and Lower Lake)"
+      "name": "Interlakes Trail (Upper and Lower Lake)",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
@@ -101,37 +109,49 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Lake Louise Lakeshore"
+      "name": "Lake Louise Lakeshore",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Larch Valley to Sentinel Pass"
+      "name": "Larch Valley to Sentinel Pass",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Mary Schaffer Loop"
+      "name": "Mary Schaffer Loop",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Parker Ridge"
+      "name": "Parker Ridge",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Plain of Six Glaciers (to teahouse and Abbot Pass viewpoint)"
+      "name": "Plain of Six Glaciers (to teahouse and Abbot Pass viewpoint)",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Ptarmigan Cirque"
+      "name": "Ptarmigan Cirque",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
@@ -175,13 +195,17 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Sunshine Meadows to Citadel Pass"
+      "name": "Sunshine Meadows to Citadel Pass",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/alpine-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Wilcox Pass"
+      "name": "Wilcox Pass",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
@@ -215,19 +239,25 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Fenland Loop"
+      "name": "Fenland Loop",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Miette Mine Trail"
+      "name": "Miette Mine Trail",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Lake Annette Loop"
+      "name": "Lake Annette Loop",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
@@ -242,13 +272,17 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Moose Lake Loop"
+      "name": "Moose Lake Loop",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Moraine Lakeshore"
+      "name": "Moraine Lakeshore",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/riverside); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
@@ -263,7 +297,9 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Paint Pots Walk"
+      "name": "Paint Pots Walk",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged this route as the thing visited (class sight/landmark); no place for it is recorded yet."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
@@ -278,7 +314,9 @@
       "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
       "type": "nature.trail.walk",
       "layer": "route",
-      "name": "Rockwall Lookout (Rockwall fen)"
+      "name": "Rockwall Lookout (Rockwall fen)",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
@@ -448,19 +486,25 @@
       "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
-      "name": "Icefields Parkway (Hwy 93N) scenic drive"
+      "name": "Icefields Parkway (Hwy 93N) scenic drive",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
-      "name": "Highwood Pass and Hwy 40 corridor"
+      "name": "Highwood Pass and Hwy 40 corridor",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive is the experience (class drive/mountain-pass)."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
       "type": "wheels.drive.scenic_drive",
       "layer": "route",
-      "name": "Vermilion Lakes Drive"
+      "name": "Vermilion Lakes Drive",
+      "route_is_attraction": true,
+      "attraction_reason": "A scenic drive is the experience (class drive/scenic-parkway)."
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
@@ -493,15 +537,6 @@
       "name": "Upper and Lower Kananaskis Lakes"
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
-      "type": "wheels.bike.mtb_trail",
-      "layer": "route",
-      "name": "Canmore Nordic Centre Provincial Park",
-      "starts_at": [
-        "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre"
-      ]
-    },
-    {
       "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
       "type": "water.river.rafting",
       "layer": "offer",
@@ -509,8 +544,43 @@
       "offer_class": "experience",
       "at": [
         "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+      ]
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#wild-water",
+      "type": "water.river.rafting",
+      "layer": "offer",
+      "name": "Wild Water Adventures: Gentle Kicking Horse",
+      "offer_class": "experience",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+        "reason": "One offer per operator on the river section: the variants of the family float are run by different operators (capture contract 2.4)."
+      },
+      "on": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+        }
       ],
-      "run_by": "operator/hydra-river-guides"
+      "run_by": "operator/wild-water-adventures",
+      "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#hydra",
+      "type": "water.river.rafting",
+      "layer": "offer",
+      "name": "Hydra River Guides: Family Whitewater",
+      "offer_class": "experience",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+        "reason": "One offer per operator on the river section: the variants of the family float are run by different operators (capture contract 2.4)."
+      },
+      "on": [
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+        }
+      ],
+      "run_by": "operator/hydra-river-guides",
+      "variant_of": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float"
     },
     {
       "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
@@ -550,6 +620,9 @@
       "name": "Banff Gondola (Sulphur Mountain summit)",
       "reaches": [
         "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top"
+      ],
+      "aliases": [
+        "legacy/canadian-rockies-sept-2029/sights/banff-gondola"
       ]
     },
     {
@@ -781,6 +854,11 @@
       "name": "Canmore Nordic Centre summer (mountain biking, skills park, hiking, disc golf)",
       "starts_at": [
         "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre"
+      ],
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/forest-loop); no payoff place is recorded yet, so the route carries the draw until research adds one.",
+      "aliases": [
+        "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre"
       ]
     },
     {
@@ -954,12 +1032,6 @@
       "type": "air.flight.heli_tour",
       "layer": "offer",
       "name": "Mount Assiniboine helicopter access"
-    },
-    {
-      "ref": "legacy/canadian-rockies-sept-2029/sights/banff-gondola",
-      "type": "ride.lift.gondola",
-      "layer": "route",
-      "name": "Banff Gondola (Sulphur Mountain)"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",

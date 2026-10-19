@@ -1,7 +1,7 @@
 {
   "schema": "relevance-derived/1",
   "trip": "chamonix-mont-blanc-2028",
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "thresholds": {
     "version": 2,
     "languages": {
@@ -64,7 +64,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
           "km": 1.8
         },
         {
@@ -106,7 +106,8 @@
       },
       "badge": null,
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lake:lac du chatelard",
@@ -154,7 +155,988 @@
           "code": "W_REL_NO_DETOUR",
           "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
         }
-      ]
+      ],
+      "layer": "place"
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+      "draw_suggested": "regional",
+      "effective_draw": "world",
+      "access_load": "plan",
+      "detour_min": 6,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+            "km": 0.6,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+            "km": 0.6,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 150,
+          "on_site_estimated": true,
+          "draw": "regional",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "Stop at the Plan de l'Aiguille mid-station and walk the Grand Balcon Nord",
+          "src": "src-0004"
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 1.8
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 4.1
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 7.3
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 7.3
+        }
+      ],
+      "part_of": [],
+      "plan_b": {
+        "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+        "km": 0.6,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [
+          "lift_only"
+        ],
+        "family_effort": null
+      },
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top; clear weather only: a world top draw keeps its step and gains go_clear_day"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": true,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+      "draw_suggested": "regional",
+      "effective_draw": "national",
+      "access_load": "plan",
+      "detour_min": 4,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+            "km": 0.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry",
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+            "km": 0.6,
+            "draw": "world",
+            "standing": "top",
+            "access_cost": [
+              "timed_entry",
+              "lift_only"
+            ],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 2.4
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 3.7
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 6.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.7
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 22,
+      "detour_basis": "town",
+      "detour_town": "Argentiere",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+        "km": 17.3,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+          "km": 5.5
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 10
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 10
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+      "draw_suggested": "regional",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+        "km": 4.1,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 3.7
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 4.1
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 6
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 6.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.6
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+      "draw_suggested": "world",
+      "effective_draw": "national",
+      "access_load": "easy",
+      "detour_min": 6,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 2.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 13.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 2.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 13.4,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 104,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 105,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 1.9
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 4.2
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 6.9
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.9
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "skip",
+          "reason": "local draw with a detour over 20 min or unknown (unknown)"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "detour unknown"
+        }
+      },
+      "role": "local_only",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+      "draw_suggested": "local",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 0,
+      "detour_basis": "town",
+      "detour_town": "Les Praz",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 2.3,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+        "km": 2.3,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 2
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 2.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 3.2
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 4
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 4.8
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 4.8
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
+      "draw_suggested": "regional",
+      "effective_draw": "local",
+      "access_load": "easy",
+      "detour_min": 14,
+      "detour_basis": "town",
+      "detour_town": "Argentiere",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 13.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+            "km": 13.4,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
+          },
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
+            "km": 11.2,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": {
+        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
+        "km": 13.4,
+        "draw": "national",
+        "same_class": true
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 6.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 6.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 12
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw local, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": true,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "easy",
+      "detour_min": 10,
+      "detour_basis": "town",
+      "detour_town": "Argentiere",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": {
+        "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+        "km": 12.4,
+        "draw": "world",
+        "same_class": false
+      },
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+          "km": 5.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+          "km": 5.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 10.2
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 11.7
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 12.4
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "if_nearby",
+          "reason": "draw regional, standing good"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "filler",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": null,
+      "stale": [],
+      "warnings": [],
+      "layer": "route",
+      "route_is_attraction": true
+    },
+    {
+      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "draw_suggested": "regional",
+      "effective_draw": "national",
+      "access_load": "plan",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Argentiere",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 6.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 6.7
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 7.3
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+          "km": 8.3
+        }
+      ],
+      "part_of": [
+        "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
+      "draw_suggested": "local",
+      "effective_draw": "regional",
+      "access_load": "plan",
+      "detour_min": null,
+      "detour_basis": "none",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [],
+        "area": []
+      },
+      "far_pointer": null,
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": null,
+          "how": null,
+          "extra_min": null,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": true,
+          "reason": "The Grand Balcon Nord ends at Montenvers; ride the train down to Chamonix",
+          "src": "src-0004"
+        }
+      ],
+      "pair_pending": [],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw regional, standing top, distinction rare"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [
+        {
+          "code": "W_REL_NO_DETOUR",
+          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
+        }
+      ],
+      "layer": "route",
+      "route_is_attraction": true
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
+      "draw_suggested": "regional",
+      "effective_draw": "national",
+      "access_load": "plan",
+      "detour_min": 8,
+      "detour_basis": "town",
+      "detour_town": "Argentiere",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+            "km": 8.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ],
+        "area": [
+          {
+            "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
+            "km": 8.3,
+            "draw": "local",
+            "standing": "good",
+            "access_cost": [],
+            "family_effort": null
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
+          "km": 6.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 6.7
+        },
+        {
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
+          "km": 7.3
+        }
+      ],
+      "part_of": [
+        "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff"
+      ],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "worth_it",
+          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known; clear weather only drops it one step"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "needs a booking or permit"
+        }
+      },
+      "role": "highlight",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth a detour",
+      "stale": [],
+      "warnings": [],
+      "layer": "place"
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
@@ -260,667 +1242,12 @@
       },
       "badge": "Worth the journey",
       "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top"
     },
     {
-      "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-      "draw_suggested": "regional",
-      "effective_draw": "national",
-      "access_load": "plan",
-      "detour_min": 4,
-      "detour_basis": "town",
-      "detour_town": "Les Praz",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-            "km": 0.6,
-            "draw": "world",
-            "standing": "top",
-            "access_cost": [
-              "timed_entry",
-              "lift_only"
-            ],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-            "km": 0.6,
-            "draw": "world",
-            "standing": "top",
-            "access_cost": [
-              "timed_entry",
-              "lift_only"
-            ],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 2.4
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 3.7
-        },
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 6.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 6.7
-        }
-      ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "needs a booking or permit"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
-      "draw_suggested": "regional",
-      "effective_draw": "regional",
-      "access_load": "easy",
-      "detour_min": 22,
-      "detour_basis": "town",
-      "detour_town": "Argentiere",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-        "km": 17.3,
-        "draw": "world",
-        "same_class": false
-      },
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
-          "km": 5.5
-        },
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 10
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 10
-        }
-      ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "if_nearby",
-          "reason": "draw regional, standing good"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "too long a stop for the draw"
-        }
-      },
-      "role": "filler",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-      "draw_suggested": "regional",
-      "effective_draw": "regional",
-      "access_load": "plan",
-      "detour_min": 8,
-      "detour_basis": "town",
-      "detour_town": "Les Praz",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-        "km": 4.1,
-        "draw": "world",
-        "same_class": false
-      },
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": 3.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-          "km": 4.1
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 6
-        },
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 6.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 6.6
-        }
-      ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "if_nearby",
-          "reason": "draw regional, standing good"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "needs a booking or permit"
-        }
-      },
-      "role": "filler",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": true,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-      "draw_suggested": "world",
-      "effective_draw": "national",
-      "access_load": "easy",
-      "detour_min": 6,
-      "detour_basis": "town",
-      "detour_town": "Les Praz",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-            "km": 2.3,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-            "km": 13.4,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-            "km": 2.3,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-            "km": 13.4,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-          "km": 0.5,
-          "how": "walk",
-          "extra_min": 104,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "world",
-          "standing": "top",
-          "hand_picked": false
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": 0.5,
-          "how": "walk",
-          "extra_min": 105,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": false
-        }
-      ],
-      "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 1.9
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 4.2
-        },
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 6.9
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 6.9
-        }
-      ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw national, standing top, but distinction common: an anchor needs unique or rare, or a world draw"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "too long a stop for the draw"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": true,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/town:chamonix market",
-      "draw_suggested": "local",
-      "effective_draw": "local",
-      "access_load": "easy",
-      "detour_min": null,
-      "detour_basis": "none",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "skip",
-          "reason": "local draw with a detour over 20 min or unknown (unknown)"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "detour unknown"
-        }
-      },
-      "role": "local_only",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-      "draw_suggested": "local",
-      "effective_draw": "local",
-      "access_load": "easy",
-      "detour_min": 0,
-      "detour_basis": "town",
-      "detour_town": "Les Praz",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-            "km": 2.3,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-            "km": 11.2,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-            "km": 2.3,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-            "km": 11.2,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-        "km": 2.3,
-        "draw": "national",
-        "same_class": true
-      },
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": 2
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-          "km": 2.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 3.2
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-          "km": 4
-        },
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 4.8
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 4.8
-        }
-      ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "if_nearby",
-          "reason": "draw local, standing good"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "too long a stop for the draw"
-        }
-      },
-      "role": "filler",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": true,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/town:vallorcine",
-      "draw_suggested": "regional",
-      "effective_draw": "local",
-      "access_load": "easy",
-      "detour_min": 14,
-      "detour_basis": "town",
-      "detour_town": "Argentiere",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-            "km": 13.4,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-            "km": 11.2,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-            "km": 13.4,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [],
-            "family_effort": null
-          },
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/town:les praz village",
-            "km": 11.2,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/town:chamonix old town",
-        "km": 13.4,
-        "draw": "national",
-        "same_class": true
-      },
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 6.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 6.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 12
-        }
-      ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "if_nearby",
-          "reason": "draw local, standing good"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "too long a stop for the draw"
-        }
-      },
-      "role": "filler",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": true,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
-      "draw_suggested": "local",
-      "effective_draw": "regional",
-      "access_load": "easy",
-      "detour_min": 10,
-      "detour_basis": "town",
-      "detour_town": "Argentiere",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": {
-        "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-        "km": 12.4,
-        "draw": "world",
-        "same_class": false
-      },
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
-          "km": 5.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-          "km": 5.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 10.2
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": 11.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-          "km": 12.4
-        }
-      ],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "if_nearby",
-          "reason": "draw regional, standing good"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "too long a stop for the draw"
-        }
-      },
-      "role": "filler",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": null,
-      "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
+      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "plan",
@@ -944,7 +1271,7 @@
           "km": 6.7
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "ref": "part/trip/chamonix-mont-blanc-2028/lift:aiguille du midi#top",
           "km": 7.3
         },
         {
@@ -980,146 +1307,9 @@
       },
       "badge": "Worth a detour",
       "stale": [],
-      "warnings": []
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
-      "draw_suggested": "local",
-      "effective_draw": "regional",
-      "access_load": "plan",
-      "detour_min": null,
-      "detour_basis": "none",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [],
-        "area": []
-      },
-      "far_pointer": null,
-      "pair_with": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": null,
-          "how": null,
-          "extra_min": null,
-          "on_site_min": 90,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": true,
-          "reason": "The Grand Balcon Nord ends at Montenvers; ride the train down to Chamonix",
-          "src": "src-0004"
-        }
-      ],
-      "pair_pending": [],
-      "part_of": [],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw regional, standing top, distinction rare"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "needs a booking or permit"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": [
-        {
-          "code": "W_REL_NO_DETOUR",
-          "message": "no trip leg, base or catalogue town with a stay gives a detour; fits that need one are conservative"
-        }
-      ]
-    },
-    {
-      "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
-      "draw_suggested": "regional",
-      "effective_draw": "national",
-      "access_load": "plan",
-      "detour_min": 8,
-      "detour_basis": "town",
-      "detour_town": "Argentiere",
-      "from_hubs": {},
-      "substitutes": {
-        "near": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-            "km": 8.3,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ],
-        "area": [
-          {
-            "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
-            "km": 8.3,
-            "draw": "local",
-            "standing": "good",
-            "access_cost": [],
-            "family_effort": null
-          }
-        ]
-      },
-      "far_pointer": null,
-      "pair_with": [],
-      "pair_pending": [
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
-          "km": 6.6
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
-          "km": 6.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
-          "km": 7.3
-        }
-      ],
-      "part_of": [
-        "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff"
-      ],
-      "plan_b": null,
-      "fits": {
-        "vacation": {
-          "fit": "worth_it",
-          "reason": "draw national, standing top, distinction rare; clear weather only drops it one step"
-        },
-        "weekend": {
-          "fit": "skip",
-          "reason": "no hub distance known; clear weather only drops it one step"
-        },
-        "day": {},
-        "passing": {
-          "fit": "skip",
-          "reason": "needs a booking or permit"
-        }
-      },
-      "role": "highlight",
-      "flags": {
-        "go_clear_day": false,
-        "rainy_day": false,
-        "en_route": false,
-        "hidden_gem": false
-      },
-      "badge": "Worth a detour",
-      "stale": [],
-      "warnings": []
+      "warnings": [],
+      "layer": "route",
+      "draw_from": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff"
     }
   ]
 }

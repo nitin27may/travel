@@ -61,7 +61,9 @@
       "name": "Montenvers train",
       "reaches": [
         "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top"
-      ]
+      ],
+      "route_is_attraction": true,
+      "attraction_reason": "The rack railway ride is itself the experience (a scenic train); the Mer de Glace has no place record yet."
     },
     {
       "ref": "part/trip/chamonix-mont-blanc-2028/lift:montenvers train#top",
@@ -129,7 +131,9 @@
       "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Col des Montets"
+      "name": "Col des Montets",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
@@ -154,7 +158,9 @@
       "ref": "trip/chamonix-mont-blanc-2028/trail:plan de l aiguille",
       "type": "nature.trail.hike",
       "layer": "route",
-      "name": "Plan de l'Aiguille"
+      "name": "Plan de l'Aiguille",
+      "route_is_attraction": true,
+      "attraction_reason": "The lane judged the walk itself (class trail/lookout); no payoff place is recorded yet, so the route carries the draw until research adds one."
     },
     {
       "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
