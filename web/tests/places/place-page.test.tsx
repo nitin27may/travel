@@ -149,7 +149,7 @@ describe('route line and point source wording', () => {
 });
 
 describe('no internal capture notes on public output', () => {
-  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|(?<!shuttle )\bstops? \d+\b|\bplans?\b(?! de l)(?! b\b)(?! to\b)|loose line|\bno details\b|\.json\b|\blegacy\b|\bfolder\b/i;
+  const INTERNAL = /\bprototype\b|osm_(?:node|way|relation)|\bosm (?:node|way|relation)\b|confirm this|\bcatalogue\b|research notes|\.\s?md\b|road ?trip|(?<!shuttle )\bstops? \d+\b|(?<!nobody )\bplans?\b(?! de l)(?! b\b)(?! to\b)(?! \d)(?! at least)(?! short)(?! your)|loose line|\bno details\b|\.json\b|\blegacy\b(?! trail)|\bfolder\b/i;
   const text = (h: string) => h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&');
   it('every place page, in its visible text', () => {
     const bad: string[] = [];

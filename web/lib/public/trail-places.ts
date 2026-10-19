@@ -44,6 +44,9 @@ const IS = country('Iceland', 'is');
 const FR = country('France', 'fr');
 const IT = country('Italy', 'it');
 
+/** The type of the routes this module builds pages for. */
+export const TRAIL_TYPE = /^nature\.trail\./;
+
 const BC_PARKS = /^(Yoho|Kootenay|Mount Robson|Mount Assiniboine|Elk Lakes)/;
 /** Rockies trails.json `park` -> district name (the park, or the area when it is a town). */
 function rockiesChain(park: string): AreaRef[] {
@@ -52,7 +55,7 @@ function rockiesChain(park: string): AreaRef[] {
 }
 
 /** Areas of the trips that have no trails.json: the park, valley or town the trail is in, written out from the trip's bases. */
-const AREAS: Record<string, [AreaRef[], string?]> = {
+export const AREAS: Record<string, [AreaRef[], string?]> = {
   'trail:laguna de los tres': [chain(AR, 'Santa Cruz', 'El Chalten')],
   'trail:laguna capri': [chain(AR, 'Santa Cruz', 'El Chalten')],
   'trail:mirador de los condores': [chain(AR, 'Santa Cruz', 'El Chalten')],
@@ -157,7 +160,7 @@ export function trailSeeds(src: Sources): TrailSeed[] {
       for (const r of doc?.records ?? []) if (r.layer !== 'route' && !r.ref.startsWith('part/')) names.add(norm(r.name)); // a payoff cut out of a trail is that trail's own
       others.set(trip, names);
       for (const r of doc?.records ?? []) {
-        if (r.layer !== 'route' || !/^nature\.trail\./.test(r.type)) continue;
+        if (r.layer !== 'route' || !TRAIL_TYPE.test(r.type)) continue;
         const subkind = r.type.endsWith('.walk') ? 'walk' : 'hike';
         const short = r.ref.replace(/^(part\/)?(trip\/[^/]+\/|place\/)/, '');
         const rk = /\/trails\/([^/#]+)$/.exec(r.ref)?.[1];
