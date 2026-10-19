@@ -10383,6 +10383,29 @@
                   "additionalProperties": false
                 }
               },
+              "plan_b_pick": {
+                "type": "object",
+                "properties": {
+                  "ref": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  "src": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "ref",
+                  "reason"
+                ],
+                "additionalProperties": false
+              },
               "override": {
                 "type": "object",
                 "properties": {
