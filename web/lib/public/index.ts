@@ -51,7 +51,7 @@ export function createPublicData(opts: SourceOptions = {}): PublicData & { inter
   const globe = buildGlobe(src.root, pb.places, tb.trips.filter((t) => t.visibility === 'public'), listed);
   // facets for the list filters: the type and the bands of each place, the tags of each public trip (L3b)
   const world = publicWorld(src.root);
-  const facets = placeFacets(world, src.root, pb.places, pb.byProtoId);
+  const facets = placeFacets(world, src.root, pb.places, pb.byProtoId, pb.byCaptureRef);
   const cards = pb.places.map((p): PublicPlaceCard => ({ ...card(p), type: facets.get(p.slug)?.type ?? null, bands: facets.get(p.slug)!.bands }));
   const folderOfSlug = new Map([...tb.built].map(([folder, slug]) => [slug, folder]));
   const labels = tagLabels(src.root);
