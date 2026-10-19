@@ -1,28 +1,45 @@
 'use client';
 
-import { useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import type { CountryBook } from '@/lib/globe/countries';
-import { loadGazetteer, search, type GazEntry, type SearchHit } from '@/lib/globe/search';
-import type { GlobeCard } from '@/lib/globe/types';
+import { search as searchSite } from '@/lib/client/data';
+import { loadGazetteer, norm, ownHit, search, type GazEntry, type SearchHit } from '@/lib/globe/search';
 
 interface Props {
   /** A shorter prompt where the field is narrow (landscape phone). */
   placeholder?: string;
-  cards: GlobeCard[];
   book: CountryBook;
   onPick(hit: SearchHit): void;
 }
 
 /** Search a country, state, city, sea or range (components 7.2); saved places and trips come first. `/` focuses it. */
-export function GlobeSearch({ cards, book, onPick, placeholder = 'Search a country, state, city, sea or range' }: Props) {
+export function GlobeSearch({ book, onPick, placeholder = 'Search a country, state, city, sea or range' }: Props) {
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState(0);
   const [gaz, setGaz] = useState<GazEntry[]>([]);
   const input = useRef<HTMLInputElement>(null);
   const listId = useId();
-  const sources = useMemo(() => ({ gazetteer: gaz, cards, countriesByA3: book.byA3 }), [gaz, cards, book]);
+  const [own, setOwn] = useState<SearchHit[]>([]);
+  const sources = useMemo(() => ({ gazetteer: gaz, own, countriesByA3: book.byA3 }), [gaz, own, book]);
+
+  // Saved places and trips come from the site search (sharded by country, loaded as the query needs them); the globe holds no list of its own.
+  useEffect(() => {
+    const term = q.trim();
+    if (!open || !term) { setOwn([]); return; } // eslint-disable-line react-hooks/set-state-in-effect -- clears the answer when the query empties
+    let live = true;
+    const run = () => searchSite(term, {}, 12).then((r) => {
+      if (!live) return;
+      const hits = r.groups.filter((g) => g.id !== 'areas').flatMap((g) => g.hits.map((h) => ownHit(h.record)));
+      // the site search also matches area and kind text; the globe lists only places and trips whose own name matches
+      const nq = norm(term);
+      const named = (h: SearchHit) => norm(h.name).startsWith(nq) || (nq.length >= 3 && norm(h.name).includes(nq));
+      setOwn(hits.filter((h): h is SearchHit => !!h && named(h)).sort((a, b) => Number(norm(b.name).startsWith(nq)) - Number(norm(a.name).startsWith(nq)) || a.name.length - b.name.length));
+    }).catch(() => live && setOwn([]));
+    void run();
+    return () => { live = false; };
+  }, [q, open]);
   const hits = useMemo(() => (open ? search(q, sources) : []), [q, sources, open]);
 
   const warm = () => { void loadGazetteer().then(setGaz).catch(() => undefined); };

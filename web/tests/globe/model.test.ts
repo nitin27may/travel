@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { slugify, resolveFeature } from '@/lib/globe/admin';
 import { discSize, groupColocated, nodeAt, pinsFor } from '@/lib/globe/model';
-import { norm, search } from '@/lib/globe/search';
+import { norm, ownHit, search } from '@/lib/globe/search';
+import { buildGlobeFiles } from '@/lib/globe/data';
+import { ensureCard, ensureCountry, newGlobeData } from '@/lib/globe/store';
 import { buildGlobeData } from '@/lib/globe/data';
 import { bbox, type FeatColl } from '@/lib/globe/geometry';
 import type { CountryFacts } from '@/lib/globe/types';
@@ -57,16 +59,21 @@ describe('search', () => {
     { row: ['city', 'Italica', 0, 0, 'ESP', 'Seville', 5] as never, n: norm('Italica') },
     { row: ['marine', 'Adriatic Sea', 15, 43, null, 'sea', 2] as never, n: norm('Adriatic Sea') },
   ];
-  const src = { gazetteer: gaz, cards: Object.values(data.cards), countriesByA3: {} };
+  // the globe asks the site search for saved places and trips; the records have the shape of a search part
+  const own = [
+    ownHit({ k: 'place', h: '/places/lago-di-braies/', n: 'Lago di Braies', s: 'Lake · Braies, South Tyrol, Italy', x: '', kind: 'lake' }),
+    ownHit({ k: 'trip', h: '/trips/dolomites-2027/', n: 'Dolomites, 13 nights', s: 'Dolomites · 14 days', x: '' }),
+  ].filter((h) => h !== null);
+  const src = { gazetteer: gaz, own, countriesByA3: {} };
   it('finds saved places before the gazetteer and ranks countries above cities', () => {
     const hits = search('braies', src);
     expect(hits[0].action.type).toBe('place');
-    const it = search('ital', src);
+    const it = search('ital', { ...src, own: [] });
     expect(it[0].name).toBe('Italy');
     expect(it.map((h) => h.name)).toContain('Italica');
   });
   it('matches without accents and finds a sea', () => {
-    expect(search('adriat', src)[0].kindLabel).toBe('Sea or ocean');
+    expect(search('adriat', { ...src, own: [] })[0].kindLabel).toBe('Sea or ocean');
     expect(norm('Zürich')).toBe('zurich');
   });
 });
@@ -85,5 +92,59 @@ describe('admin slugs', () => {
     expect(resolveFeature(fc, 'trento')).toBe(1);
     expect(resolveFeature(fc, 'south-tyrol', [[2, 2], [3, 3], [12, 1]])).toBe(0);
     expect(resolveFeature(fc, 'nowhere')).toBeNull();
+  });
+});
+
+describe('own hits from the site search', () => {
+  it('turns a place record into a place hit and a trip record into a trip hit, and skips areas', () => {
+    expect(ownHit({ k: 'place', h: '/places/capri/', n: 'Capri', s: 'Town · Capri, Italy', x: '' })).toMatchObject({ id: 'place:capri', kindLabel: 'Town', where: 'Capri, Italy', action: { type: 'place', slug: 'capri' } });
+    expect(ownHit({ k: 'trip', h: '/trips/x/', n: 'X', s: 'Alps · 3 days', x: '' })).toMatchObject({ kindLabel: 'Trip', action: { type: 'trip', slug: 'x' } });
+    expect(ownHit({ k: 'area', h: '/globe/it/', n: 'Italy', s: 'Country', x: '' })).toBeNull();
+  });
+});
+
+describe('split globe data (backlog 2.39)', () => {
+  const files = buildGlobeFiles();
+  it('the tree carries counts and a centre per country and no pins', () => {
+    const countries = files.tree.continents.flatMap((c) => c.countries);
+    expect(countries.length).toBeGreaterThan(3);
+    expect(JSON.stringify(files.tree)).not.toContain('"lat"');
+    expect(countries.find((c) => c.slug === 'it')?.at).toHaveLength(2);
+  });
+  it('pins are light: name, kind, slug, position, area path and nothing else', () => {
+    const keys = new Set(Object.values(files.pins).flat().flatMap((p) => Object.keys(p)));
+    expect([...keys].sort()).toEqual(['approx', 'kind', 'kindLabel', 'lat', 'lon', 'name', 'path', 'slug', 'type']);
+  });
+  it('every pin has a card file, and the card file carries the pin', () => {
+    for (const [cc, pins] of Object.entries(files.pins)) {
+      for (const p of pins) {
+        expect(p.path[0] ?? 'xx').toBe(cc);
+        expect(files.cards[`${p.kind}/${p.slug}`].pin.slug).toBe(p.slug);
+      }
+    }
+  });
+  it('the store fills one country and one card at a time', async () => {
+    const store = newGlobeData(files.tree);
+    expect(store.index.pins).toHaveLength(0);
+    const fetched: string[] = [];
+    const real = globalThis.fetch;
+    globalThis.fetch = (async (url: string) => {
+      fetched.push(url);
+      const m = /pins\/([^/]+)\/data\.json$/.exec(url);
+      const c = /card\/([^/]+)\/([^/]+)\/data\.json$/.exec(url);
+      const body = m ? files.pins[m[1]] : c ? files.cards[`${c[1]}/${c[2]}`] : null;
+      return new Response(JSON.stringify(body), { status: 200 });
+    }) as typeof fetch;
+    try {
+      await ensureCountry(store, 'it');
+      await ensureCountry(store, 'it');
+      expect(store.index.pins.length).toBe(files.pins.it.length);
+      expect(fetched.filter((u) => u.includes('/pins/'))).toHaveLength(1);
+      const card = await ensureCard(store, 'place:lago-di-braies');
+      expect(card?.title).toBeTruthy();
+      expect(await ensureCard(store, 'place:no-such-place')).toBeNull();
+    } finally {
+      globalThis.fetch = real;
+    }
   });
 });

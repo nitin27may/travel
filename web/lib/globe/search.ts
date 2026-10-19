@@ -1,5 +1,6 @@
 import { DATA_BASE } from './admin';
-import type { CountryFacts, GlobeCard } from './types';
+import type { SearchRecord } from '@/lib/search/types';
+import type { CountryFacts } from './types';
 
 /** Gazetteer row: [kind, name, lon, lat, a3, extra, rank, population]. */
 export type GazRow = [string, string, number, number, string | null, string | null, number?, number?];
@@ -27,8 +28,20 @@ export function loadGazetteer(): Promise<GazEntry[]> {
 
 export interface SearchSources {
   gazetteer: GazEntry[];
-  cards: GlobeCard[];
+  /** Saved places and trips that match, already ranked by the site search (the globe holds no list of them). */
+  own: SearchHit[];
   countriesByA3: Record<string, CountryFacts>;
+}
+
+/** A site-search record for a place or a trip as a globe hit; null for anything else. */
+export function ownHit(r: SearchRecord): SearchHit | null {
+  if (r.k === 'area') return null;
+  const slug = r.h.split('/').filter(Boolean).pop();
+  if (!slug) return null;
+  const parts = r.s.split(' · ');
+  return r.k === 'trip'
+    ? { id: `trip:${slug}`, name: r.n, kindLabel: 'Trip', where: r.s, action: { type: 'trip', slug } }
+    : { id: `place:${slug}`, name: r.n, kindLabel: parts[0] || 'Place', where: parts.slice(1).join(' · '), action: { type: 'place', slug } };
 }
 
 const score = (r: GazRow): number => KIND_ORDER[r[0]] * 10 + (r[0] === 'city' || r[0] === 'physical' || r[0] === 'marine' ? Math.min(9, r[6] ?? 9) : 0);
@@ -37,14 +50,6 @@ const score = (r: GazRow): number => KIND_ORDER[r[0]] * 10 + (r[0] === 'city' ||
 export function search(q: string, src: SearchSources, limit = 12): SearchHit[] {
   const nq = norm(q.trim());
   if (!nq) return [];
-  const own: SearchHit[] = [];
-  for (const c of src.cards) {
-    const n = norm(c.title);
-    if (n.startsWith(nq) || (nq.length >= 3 && n.includes(nq))) {
-      own.push({ id: c.key, name: c.title, kindLabel: c.kind === 'trip' ? 'Trip' : c.kindLabel, where: c.areaLabel, action: { type: c.kind, slug: c.slug } });
-    }
-  }
-  own.sort((a, b) => Number(norm(b.name).startsWith(nq)) - Number(norm(a.name).startsWith(nq)) || a.name.length - b.name.length);
   const starts: GazEntry[] = [], contains: GazEntry[] = [];
   for (const e of src.gazetteer) {
     if (e.n.startsWith(nq)) starts.push(e);
@@ -53,7 +58,7 @@ export function search(q: string, src: SearchSources, limit = 12): SearchHit[] {
   }
   const byScore = (a: GazEntry, b: GazEntry) => score(a.row) - score(b.row) || a.row[1].length - b.row[1].length;
   const gaz = [...starts.sort(byScore), ...contains.sort(byScore)].map((e) => toHit(e.row, src.countriesByA3));
-  return [...own.slice(0, 5), ...gaz].slice(0, limit);
+  return [...src.own.slice(0, 5), ...gaz].slice(0, limit);
 }
 
 function toHit(r: GazRow, byA3: Record<string, CountryFacts>): SearchHit {
