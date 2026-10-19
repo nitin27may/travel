@@ -8,6 +8,7 @@ import { undatedTitle } from './dateless';
 import { groupLinks, trailSeeds, type TrailSeed } from './trail-places';
 import { assignSeedSlugs, captureSeeds, type CaptureSeed, type SeedSkip } from './seeds';
 import { publicWorld } from './world';
+import { applyLegacySupersedes } from './superseded';
 import { loadTracks, readDate, totalsDiffer, withTrack } from './tracks';
 import { folderVisibility, type ProtoFact, type ProtoPlace, type ProtoTrail, type Sources } from './sources';
 import type { AccessPoint, AreaRef, Fact, Honesty, LinkGroup, LinkNone, Photo, Point, PlaceKind, PlaceLine, PublicPlace, TripRef } from './types';
@@ -431,6 +432,7 @@ export function buildPlaces(src: Sources): PlaceBuild {
   const seedSlugs = assignSeedSlugs([...seedOf.values()], new Set(slugs.values()));
   const slugOf = (r: Rec): string => (isSeed(r) ? seedSlugs.get(r.captureRef!)! : slugs.get(key(r))!);
 
+  applyLegacySupersedes(recs, publicWorld(src.root), normName);
   const places: PublicPlace[] = recs.map((r) => {
     const tripRefs = [...r.tripFolders].filter((f) => folderTrips.has(f)).map((f) => folderTrips.get(f)!);
     const input: CompletenessInput = {

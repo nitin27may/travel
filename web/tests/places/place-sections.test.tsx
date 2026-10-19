@@ -60,7 +60,7 @@ describe('legacy facts and Directions (step 9, PS4)', () => {
         expect(html(slug).split(`<dt>${label}</dt>`).length - 1, `${slug} ${label}`).toBe(0);
       }
     }
-    expect(mapped).toBeGreaterThan(0); // shrinks as research moves legacy facts into capture records (CS7c moved some into capture records)
+    expect(mapped, "legacy facts that fill a row").toBeGreaterThanOrEqual(3); // 5 today (was 6+ before CS7c moved some into capture records); a larger drop means the mapping broke
   });
   it('Directions go to a car park of the access place, never to a stop (M2, T5)', () => {
     const d = data.getPlace('lake-louise')!.sections!.directions;
