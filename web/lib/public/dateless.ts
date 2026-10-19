@@ -74,7 +74,7 @@ export function undatedSentences(text: string | null | undefined, where: string,
     if (isDated(noUrl)) log.add(where, p.trim(), 'carries a calendar date; rewrite it relative to a day or a season');
     else if (noUrl) kept.push(noUrl);
   }
-  return publicOrigin(kept.join(' '));
+  return publicOrigin(kept.join(' '), where, log);
 }
 
 /** A trip title without calendar dates: "Muskoka and Algonquin, 10–12 October 2026" becomes "Muskoka and Algonquin". */
