@@ -64,6 +64,19 @@ describe("the committed migration (counts)", () => {
       }
     }
   });
+  it("the reviewed type map is the record of every type that is not the legacy default (the 61 splits aside)", () => {
+    const tree = treeOf(DEFAULT_TYPES);
+    const overrides = new Map(read<{ overrides: { ref: string; type?: string }[] }>("data/capture/type-map.json").overrides.map((o) => [o.ref, o]));
+    const split = new Set(splits().flatMap((f) => f.splits.map((s) => s.ref)));
+    let overridden = 0;
+    for (const r of records.filter((x) => !x.origin && !split.has(x.ref))) {
+      const s = world.suit.get(r.ref)!.rec;
+      const want = overrides.get(r.ref)?.type ?? tree.legacy.get(`${s.kind}/${s.subkind}`);
+      expect(r.type, r.ref).toBe(want);
+      if (overrides.get(r.ref)?.type) overridden++;
+    }
+    expect(overridden).toBe(6);
+  });
   it("every capture file validates with zero errors", () => {
     for (const f of sidecarFiles(REPO, "capture")) {
       const res = validateFile(f, REPO);

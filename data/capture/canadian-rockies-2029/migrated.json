@@ -963,7 +963,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
-      "type": "nature.protected.national_park",
+      "type": "nature.protected.state_provincial_park",
       "layer": "place",
       "name": "Beauvais Lake Provincial Park"
     },
@@ -981,7 +981,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
-      "type": "nature.protected.national_park",
+      "type": "nature.protected.state_provincial_park",
       "layer": "place",
       "name": "Castle Provincial Park"
     },
@@ -993,7 +993,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
-      "type": "nature.protected.national_park",
+      "type": "nature.protected.state_provincial_park",
       "layer": "place",
       "name": "Elk Lakes Provincial Park"
     },
@@ -1047,7 +1047,7 @@
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
-      "type": "nature.protected.national_park",
+      "type": "nature.protected.state_provincial_park",
       "layer": "place",
       "name": "Top of the World Provincial Park"
     },
