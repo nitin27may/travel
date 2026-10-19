@@ -87,7 +87,16 @@
         }
       ],
       "part_of": [],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "place/alpe-di-siusi",
+        "km": 52.5,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [
+          "lift_only"
+        ],
+        "family_effort": 3
+      },
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -313,7 +322,9 @@
             "km": 18.4,
             "draw": "regional",
             "standing": "good",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 2
           }
         ],
@@ -323,7 +334,9 @@
             "km": 18.4,
             "draw": "regional",
             "standing": "good",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 2
           }
         ]
@@ -833,7 +846,8 @@
             "draw": "world",
             "standing": "top",
             "access_cost": [
-              "toll_reservation"
+              "toll_reservation",
+              "shuttle_only"
             ],
             "family_effort": 3
           },
@@ -933,7 +947,8 @@
             "draw": "world",
             "standing": "top",
             "access_cost": [
-              "toll_reservation"
+              "toll_reservation",
+              "shuttle_only"
             ],
             "family_effort": 3
           },

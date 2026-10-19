@@ -177,7 +177,9 @@
             "km": 21.3,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 2
           }
         ],
@@ -187,7 +189,9 @@
             "km": 21.3,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 2
           },
           {
@@ -195,7 +199,9 @@
             "km": 27.5,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 1
           }
         ]
@@ -281,7 +287,9 @@
             "km": 18.2,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           }
         ],
@@ -291,7 +299,9 @@
             "km": 18.2,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           },
           {
@@ -299,7 +309,9 @@
             "km": 25.5,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           },
           {
@@ -551,7 +563,9 @@
             "km": 10.3,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 1
           },
           {
@@ -569,7 +583,9 @@
             "km": 10.3,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 1
           },
           {
@@ -667,7 +683,9 @@
             "km": 7.7,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           }
         ],
@@ -677,7 +695,9 @@
             "km": 7.7,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           },
           {
@@ -723,7 +743,14 @@
         }
       ],
       "part_of": [],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+        "km": 25.5,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [],
+        "family_effort": 4
+      },
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -923,7 +950,9 @@
             "km": 7.7,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           },
           {
@@ -941,7 +970,9 @@
             "km": 7.7,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           },
           {
@@ -987,7 +1018,14 @@
         }
       ],
       "part_of": [],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+        "km": 18.2,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [],
+        "family_effort": 4
+      },
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -1213,7 +1251,9 @@
             "km": 39.9,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           },
           {
@@ -1221,7 +1261,9 @@
             "km": 47.1,
             "draw": "national",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 3
           },
           {
@@ -1814,7 +1856,9 @@
             "km": 10.3,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 2
           }
         ],
@@ -1824,7 +1868,9 @@
             "km": 10.3,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": 2
           },
           {
@@ -2137,7 +2183,9 @@
             "km": 32,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -2145,7 +2193,9 @@
             "km": 42.2,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -2211,7 +2261,9 @@
             "km": 21.3,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           }
         ],
@@ -2221,7 +2273,9 @@
             "km": 21.3,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -2229,7 +2283,9 @@
             "km": 27.5,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -2482,7 +2538,9 @@
             "km": 10.3,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           }
         ],
@@ -2492,7 +2550,9 @@
             "km": 10.3,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -2553,7 +2613,14 @@
       "part_of": [
         "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore"
       ],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+        "km": 27.5,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [],
+        "family_effort": null
+      },
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -2798,7 +2865,9 @@
             "km": 10.3,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -2816,7 +2885,9 @@
             "km": 10.3,
             "draw": "world",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -2868,7 +2939,14 @@
       "part_of": [
         "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore"
       ],
-      "plan_b": null,
+      "plan_b": {
+        "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+        "km": 21.3,
+        "draw": "national",
+        "standing": "top",
+        "access_cost": [],
+        "family_effort": null
+      },
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -3387,7 +3465,9 @@
             "km": 78.8,
             "draw": "regional",
             "standing": "good",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           }
         ]
@@ -4368,7 +4448,9 @@
             "km": 10.1,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -4386,7 +4468,9 @@
             "km": 10.1,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           },
           {
@@ -4551,7 +4635,9 @@
             "km": 27.9,
             "draw": "regional",
             "standing": "top",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           }
         ]
@@ -5789,7 +5875,9 @@
             "km": 78.8,
             "draw": "regional",
             "standing": "good",
-            "access_cost": [],
+            "access_cost": [
+              "shuttle_only"
+            ],
             "family_effort": null
           }
         ]

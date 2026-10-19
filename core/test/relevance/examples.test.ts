@@ -450,3 +450,36 @@ describe("guard for the S0b rebase: suitability's deriveEffort still returns a f
     expect(e.family_effort).toBe(3);
   });
 });
+
+describe("3.17 Plan B reads the access season as well as access_cost", () => {
+  // Moraine Lake as the data holds it: access_cost is empty (the shuttle sits in the suitability access_season)
+  const moraine = rec({ ref: "place/moraine-lake", qid: "Q1072342", draw: "world", standing: "top", distinction: "rare", weather: "better_clear", class_key: "lake/glacial-turquoise", access: [] });
+  const peyto = rec({ ref: "place/peyto-lake", qid: "Q1362681", draw: "world", standing: "top", distinction: "rare", class_key: "lake/glacial-turquoise", weather: "better_clear" });
+  const point = {
+    "place/moraine-lake": { point: pt(51.3217, -116.186), onSiteMin: 180 },
+    "place/peyto-lake": { point: pt(51.7253, -116.5155), onSiteMin: 30 },
+  };
+  it("gives a shuttle-only anchor a Plan B when the shuttle is only in the access season", () => {
+    const d = run([moraine, peyto], { ...point, "place/moraine-lake": { ...point["place/moraine-lake"], accessSeasonVia: ["shuttle"] } });
+    expect(d["place/moraine-lake"]!.role).toBe("anchor");
+    expect(d["place/moraine-lake"]!.plan_b?.ref).toBe("place/peyto-lake");
+  });
+  it("gives none when the season has no shuttle (the same anchor, reached by car)", () => {
+    const d = run([moraine, peyto], point);
+    expect(d["place/moraine-lake"]!.plan_b).toBeNull();
+  });
+  it("a lift or boat season is not a failing cost", () => {
+    const d = run([moraine, peyto], { ...point, "place/moraine-lake": { ...point["place/moraine-lake"], accessSeasonVia: ["lift", "boat"] } });
+    expect(d["place/moraine-lake"]!.plan_b).toBeNull();
+  });
+  it("never offers another shuttle place as the Plan B", () => {
+    const emerald = rec({ ref: "place/emerald-lake", qid: null, draw: "national", standing: "top", distinction: "common", class_key: "lake/glacial-turquoise", weather: "any_weather" });
+    const d = run([moraine, peyto, emerald], {
+      ...point,
+      "place/moraine-lake": { ...point["place/moraine-lake"], accessSeasonVia: ["shuttle"] },
+      "place/peyto-lake": { ...point["place/peyto-lake"], point: pt(51.33, -116.2), accessSeasonVia: ["shuttle"] },
+      "place/emerald-lake": { point: pt(51.4, -116.5), onSiteMin: 60 },
+    });
+    expect(d["place/moraine-lake"]!.plan_b?.ref).toBe("place/emerald-lake");
+  });
+});
