@@ -43,6 +43,13 @@ function occupiedRects(root: HTMLElement | null): Rect[] {
   });
 }
 
+/** The lowest edge of the search row and the breadcrumb, in root coordinates plus 8 px: no card starts above it (review round 3). */
+function chromeBottom(root: HTMLElement | null): number {
+  if (!root) return 0;
+  const r0 = root.getBoundingClientRect();
+  return Math.max(0, ...['.globe-search', '.globe-crumbs'].map((s) => { const b = root.querySelector(s)?.getBoundingClientRect(); return b && b.width ? b.bottom - r0.top + 8 : 0; }));
+}
+
 /** Height of the phone sheet at rest (components 5.5). */
 const PEEK = 176;
 /** The control card (316 wide at left 12) keeps the disc clear when it is open. */
@@ -267,7 +274,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     if (!engine || !pin || phone || short) { if (engine) engine.syncMarkers('card', []); setCardEl(null); return; }
     const at = engine.project(pin.lon, pin.lat);
     const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
-    const free: Rect = { left: 0, top: 0, right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
+    const free: Rect = { left: 0, top: chromeBottom(root.current), right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
     const pl = at ? placeCard(at, { w: 320, h: card?.image ? 390 : 330 }, free, occupiedRects(root.current)) : null;
     const m = engine.syncMarkers('card', [{ key: 'card', lng: pin.lon, lat: pin.lat, anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 26, pl?.offset[1] ?? 8], className: 'globe-card-anchor' }]);
     setCardEl(m.get('card') ?? null);
@@ -283,7 +290,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     if (!engine || !feature || phone || short || (feature.lngLat[0] === 0 && feature.lngLat[1] === 0)) { if (engine) engine.syncMarkers('feature', []); setFeatEl(null); return; }
     const at = engine.project(feature.lngLat[0], feature.lngLat[1]);
     const w = root.current?.clientWidth ?? window.innerWidth, h = root.current?.clientHeight ?? window.innerHeight;
-    const free: Rect = { left: 0, top: 0, right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
+    const free: Rect = { left: 0, top: chromeBottom(root.current), right: w - (panelOpen ? 384 : 0), bottom: h - 36 };
     const pl = at ? placeCard(at, { w: 300, h: 250 }, free, occupiedRects(root.current)) : null;
     const m = engine.syncMarkers('feature', [{ key: 'feature', lng: feature.lngLat[0], lat: feature.lngLat[1], anchor: pl?.anchor ?? 'top-left', offset: [pl?.offset[0] ?? 18, pl?.offset[1] ?? 8], className: 'globe-feature-anchor' }]);
     setFeatEl(m.get('feature') ?? null);

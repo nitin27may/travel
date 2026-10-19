@@ -31,6 +31,7 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
     await page.goto(url);
     return page;
   }
+  const settled = (page: Page) => page.evaluate(() => new Promise<void>((res) => { const m = (document.querySelector('.globe-map') as unknown as { __map: { loaded(): boolean; once(e: string, f: () => void): void } }).__map; if (m.loaded()) res(); else m.once('idle', () => res()); }));
   const painted = (page: Page) => page.waitForFunction(() => document.querySelector('.globe-canvas')?.getAttribute('data-painted') === 'true', null, { timeout: 45_000 });
 
   test('first paint: the halo disc is in the page, the canvas is clear until the first idle, pins come after (check 16)', async ({ site }) => {
@@ -53,7 +54,9 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
   test('frame time p50 / p95 during spin, a drag and three flights, and no long task after the first idle (A9, checks 8, 9, 25)', async ({ site }) => {
     const page = await open(`${site.url}/globe/`, { spin: true });
     await painted(page);
-    await page.waitForTimeout(2500);
+    // measure only once tiles and sprites are idle: MapLibre's own idle event, then a short warm-up
+    await settled(page);
+    await page.waitForTimeout(1500);
     await page.evaluate(() => {
       window.__frames = [];
       let last = performance.now();
@@ -75,15 +78,18 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
     await page.mouse.up();
     await page.waitForTimeout(1200);
     const panel = page.locator('.globe-panel');
+    await settled(page);
     await panel.getByRole('button', { name: /^Italy/ }).click();
     await expect.poll(async () => (await map(page)).z, { timeout: 30_000 }).toBeGreaterThan(4.5);
     await page.waitForTimeout(1500);
     const italy = await map(page);
     expect(Math.abs(italy.pitch - 20), 'Italy ends at pitch 20').toBeLessThan(1.5);
+    await settled(page);
     await panel.getByRole('button', { name: /^South Tyrol/ }).click();
     await expect.poll(async () => (await map(page)).z, { timeout: 30_000 }).toBeGreaterThan(7.5);
     await page.waitForTimeout(1500);
     expect(Math.abs((await map(page)).pitch - 45), 'South Tyrol ends at pitch 45').toBeLessThan(1.5);
+    await settled(page);
     await page.getByRole('button', { name: 'Reset view' }).click();
     await expect.poll(async () => (await map(page)).z, { timeout: 30_000 }).toBeLessThan(3);
     await page.waitForTimeout(1500);
@@ -182,7 +188,7 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
   }
   const intermediate = (zs: number[]): number => { const a = zs[0], b = zs[zs.length - 1]; return new Set(zs.filter((z) => Math.abs(z - a) > 0.2 && Math.abs(z - b) > 0.2).map((z) => z.toFixed(1))).size; };
 
-  test('long flights fly: stepping out, a search pick from the world and a panel row to a place all pass through intermediate zooms (M1)', async ({ site }) => {
+  test('long flights fly (and the card opens on landing, not during the flight): stepping out, a search pick from the world and a panel row to a place all pass through intermediate zooms (M1)', async ({ site }) => {
     const page = await open(`${site.url}/globe/it/south-tyrol/`);
     await painted(page);
     await expect.poll(async () => (await map(page)).z, { timeout: 30_000 }).toBeGreaterThan(7.5);
@@ -207,6 +213,7 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
     const q = page.getByRole('combobox', { name: 'Search the globe' });
     let zs = await zoomsDuring(page, async () => { await q.fill('Adolf Munkel'); await page.getByRole('option').first().click(); }, 4200);
     expect(zs[zs.length - 1], 'a search pick lands on the place').toBeGreaterThan(10);
+    await expect(page.locator('.globe-card')).toBeVisible({ timeout: 6000 });
     expect(intermediate(zs), `world to place by search: ${zs.map((z) => z.toFixed(1)).join(' ')}`).toBeGreaterThanOrEqual(5);
     await page.goto(`${site.url}/globe/it/`);
     await painted(page);
@@ -315,6 +322,40 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
     await expect(page.locator('.globe-feature')).toBeVisible();
     await page.waitForTimeout(800);
     expect(await clear(page, '.globe-feature')).toEqual([]);
+    await page.context().close();
+  });
+
+  test('a search for Birmingham lists the city first; its card opens on landing, with the honest ring when we hold no outline (round 3)', async ({ site }) => {
+    const page = await open(`${site.url}/globe/`);
+    await painted(page);
+    await page.waitForTimeout(2500);
+    await page.getByRole('combobox', { name: 'Search the globe' }).fill('Birmingham');
+    const first = page.getByRole('option').first();
+    await expect(first).toContainText(/City/);
+    await first.click();
+    await page.waitForTimeout(300);
+    expect(await page.locator('.globe-feature').count(), 'the card is not open at the start of the flight').toBe(0);
+    await expect(page.locator('.globe-feature')).toContainText('Boundary not loaded', { timeout: 25_000 });
+    await page.waitForTimeout(1500);
+    const ring = await page.evaluate(() => {
+      const m = (document.querySelector('.globe-map') as unknown as { __map: { queryRenderedFeatures(g: unknown, o: unknown): unknown[]; getContainer(): HTMLElement } }).__map;
+      const c = m.getContainer();
+      return m.queryRenderedFeatures([[0, 0], [c.clientWidth, c.clientHeight]], { layers: ['hl-city'] }).length;
+    });
+    expect(ring, 'the 36 px ring is drawn at the city').toBeGreaterThan(0);
+    await page.context().close();
+  });
+
+  test('a search pick opens its place card only when the camera lands (round 3)', async ({ site }) => {
+    const page = await open(`${site.url}/globe/`);
+    await painted(page);
+    await page.waitForTimeout(2500);
+    await page.getByRole('combobox', { name: 'Search the globe' }).fill('Adolf Munkel');
+    await page.getByRole('option').first().click();
+    await page.waitForTimeout(400);
+    expect(await page.locator('.globe-card').count(), 'no card while the camera is still flying').toBe(0);
+    await expect(page.locator('.globe-card')).toBeVisible({ timeout: 8000 });
+    expect((await map(page)).z, 'the card is up once the camera has landed').toBeGreaterThan(11);
     await page.context().close();
   });
 });

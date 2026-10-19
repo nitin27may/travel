@@ -72,6 +72,13 @@ describe('search', () => {
     expect(it[0].name).toBe('Italy');
     expect(it.map((h) => h.name)).toContain('Italica');
   });
+  it('ranks a city above an admin area with the same name (Birmingham)', () => {
+    const g = [
+      { row: ['admin1', 'Birmingham', -1.9, 52.5, 'GBR', 'United Kingdom'] as never, n: norm('Birmingham') },
+      { row: ['city', 'Birmingham', -1.9, 52.5, 'GBR', 'England', 4] as never, n: norm('Birmingham') },
+    ];
+    expect(search('birmingham', { ...src, gazetteer: g, own: [] })[0].action.type).toBe('city');
+  });
   it('matches without accents and finds a sea', () => {
     expect(search('adriat', { ...src, own: [] })[0].kindLabel).toBe('Sea or ocean');
     expect(norm('Zürich')).toBe('zurich');
