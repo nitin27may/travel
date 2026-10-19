@@ -1,0 +1,42 @@
+/* Filter bar extras (L3b): the Done button in the phone sheet, the Kids stepper, and the faded card. Tokens only. */
+
+/* ---------- phone sheet: Done folds a facet (44 px target) ---------- */
+.sheet-facet-done { display: flex; justify-content: flex-end; padding: var(--s-2) 0 var(--s-1); }
+.sheet-done { min-height: var(--touch-min); min-width: var(--touch-min); }
+
+/* ---------- Kids stepper ---------- */
+.age-control { display: grid; gap: var(--s-3); padding: var(--s-1); min-width: 15rem; }
+.age-stepper { display: flex; align-items: center; justify-content: center; gap: var(--s-4); }
+.age-step { width: var(--touch-min); height: var(--touch-min); padding: 0; display: inline-grid; place-items: center; border-radius: var(--r-full); }
+.age-value { min-width: 4.5rem; text-align: center; font: var(--t-card); }
+.age-quick { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); }
+.age-chip { height: 36px; min-width: 44px; justify-content: center; padding: 0 var(--s-3); background: transparent; cursor: pointer; }
+.age-chip:hover { border-color: var(--ink); }
+.age-chip[data-on] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-text); }
+.age-any { justify-self: center; min-height: var(--touch-min); }
+
+/* ---------- a stretch for the chosen age: the card fades to 60%, its text stays legible ---------- */
+html[data-kid-age='0'] .card:has([data-fade~='0']) { opacity: 0.6; }
+html[data-kid-age='1'] .card:has([data-fade~='1']) { opacity: 0.6; }
+html[data-kid-age='2'] .card:has([data-fade~='2']) { opacity: 0.6; }
+html[data-kid-age='3'] .card:has([data-fade~='3']) { opacity: 0.6; }
+html[data-kid-age='4'] .card:has([data-fade~='4']) { opacity: 0.6; }
+html[data-kid-age='5'] .card:has([data-fade~='5']) { opacity: 0.6; }
+html[data-kid-age='6'] .card:has([data-fade~='6']) { opacity: 0.6; }
+html[data-kid-age='7'] .card:has([data-fade~='7']) { opacity: 0.6; }
+html[data-kid-age='8'] .card:has([data-fade~='8']) { opacity: 0.6; }
+html[data-kid-age='9'] .card:has([data-fade~='9']) { opacity: 0.6; }
+html[data-kid-age='10'] .card:has([data-fade~='10']) { opacity: 0.6; }
+html[data-kid-age='11'] .card:has([data-fade~='11']) { opacity: 0.6; }
+html[data-kid-age='12'] .card:has([data-fade~='12']) { opacity: 0.6; }
+html[data-kid-age='13'] .card:has([data-fade~='13']) { opacity: 0.6; }
+html[data-kid-age='14'] .card:has([data-fade~='14']) { opacity: 0.6; }
+html[data-kid-age='15'] .card:has([data-fade~='15']) { opacity: 0.6; }
+html[data-kid-age='16'] .card:has([data-fade~='16']) { opacity: 0.6; }
+html[data-kid-age='17'] .card:has([data-fade~='17']) { opacity: 0.6; }
+html[data-kid-age] .card:has([data-fade]) { transition: opacity var(--d-fast); }
+@media (prefers-reduced-motion: reduce) { html[data-kid-age] .card:has([data-fade]) { transition: none; } }
+
+/* ---------- the count line may carry sentences (hidden facets, gaps): let it wrap instead of pushing the page sideways ---------- */
+.filter-bar .count { white-space: normal; flex-wrap: wrap; min-width: 0; max-width: 100%; }
+.filter-bar .count-note { overflow-wrap: anywhere; }

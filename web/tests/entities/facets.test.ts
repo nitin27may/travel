@@ -100,6 +100,9 @@ describe('coverage: the 60% rule (contract 7.1 rule 3)', () => {
     expect(hiddenNote([])).toBeNull();
     const two = hiddenNote([coverageOf(duration, rowsAnswering(10)), coverageOf(scopedFacets<PlaceListRow>()[0]!, rowsAnswering(10))]);
     expect(two).toMatch(/^Duration and .+ hidden: not known for most results$/);
+    const many = scopedFacets<PlaceListRow>().slice(0, 6).map((f) => coverageOf(f, rowsAnswering(10)));
+    expect(hiddenNote(many)).toMatch(/^.+, .+ and 4 more hidden: not known for most results$/);
+    expect(hiddenNote([coverageOf(duration, [])])).toBeNull(); // an empty scope has nothing to hide
   });
   it('scopeState hides a scoped facet that too few rows answer, and shows one that enough do', () => {
     const rows = [...Array.from({ length: 10 }, (_, i) => blank({ id: `a${i}`, type: 'water.motor.jet_ski', kind: 'activity', time_band: i % 2 ? '1-2h' : '<1h' })), ...Array.from({ length: 10 }, (_, i) => blank({ id: `b${i}`, type: 'nature.trail.hike' }))];

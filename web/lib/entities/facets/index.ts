@@ -90,7 +90,7 @@ export function scopeState<Row>(d: EntityDescriptor<Row>, rows: readonly Row[], 
     if (!f.scoped || !params.has(f.param)) continue;
     const c = coverageOf(f, scopeRows);
     if (c.shows || (state.facets[f.param]?.length ?? 0) > 0) shown.add(f.param);
-    else hidden.push(c);
+    else if (c.total > 0) hidden.push(c);
   }
   return { tokens, inScope: params, shown, promoted: promotedFor(tokens, undefined, slice) as FacetParam[], hidden, note: hiddenNote(hidden), guarded: new Set(), guardNotes: [] };
 }
