@@ -886,7 +886,7 @@ export function publicSuitability(located: { rec: SuitabilityRecord; file: strin
     if (i >= 0) {
       if (!effortGroup.rows[i]!.gap) effortGroup.rows[i] = { ...effortGroup.rows[i]!, text, short: text, label: 'Effort' };
     } else effortGroup.rows.unshift({ key: 'effort', label: 'Effort', text, look: 'advice', val: null, gap: false, honesty: null, short: text });
-    effortGroup.closing = effortGroup.closing?.replace(/(: )effort, /, '$1').replace(/: effort$/, '') ?? null;
+    effortGroup.closing = effortGroup.closing?.replace(/(: )effort, /, '$1').replace(/, effort$/, '').replace(/: effort$/, '') ?? null;
     if (effortGroup.closing === `${words.closingPrefix.trim()}`) effortGroup.closing = null;
   }
   push(effortGroup);
