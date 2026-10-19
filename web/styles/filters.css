@@ -16,26 +16,26 @@
 .age-any { justify-self: center; min-height: var(--touch-min); }
 
 /* ---------- a stretch for the chosen age: the card fades to 60%, its text stays legible ---------- */
-html[data-kid-age='0'] .card:has([data-fade~='0']) { opacity: 0.6; }
-html[data-kid-age='1'] .card:has([data-fade~='1']) { opacity: 0.6; }
-html[data-kid-age='2'] .card:has([data-fade~='2']) { opacity: 0.6; }
-html[data-kid-age='3'] .card:has([data-fade~='3']) { opacity: 0.6; }
-html[data-kid-age='4'] .card:has([data-fade~='4']) { opacity: 0.6; }
-html[data-kid-age='5'] .card:has([data-fade~='5']) { opacity: 0.6; }
-html[data-kid-age='6'] .card:has([data-fade~='6']) { opacity: 0.6; }
-html[data-kid-age='7'] .card:has([data-fade~='7']) { opacity: 0.6; }
-html[data-kid-age='8'] .card:has([data-fade~='8']) { opacity: 0.6; }
-html[data-kid-age='9'] .card:has([data-fade~='9']) { opacity: 0.6; }
-html[data-kid-age='10'] .card:has([data-fade~='10']) { opacity: 0.6; }
-html[data-kid-age='11'] .card:has([data-fade~='11']) { opacity: 0.6; }
-html[data-kid-age='12'] .card:has([data-fade~='12']) { opacity: 0.6; }
-html[data-kid-age='13'] .card:has([data-fade~='13']) { opacity: 0.6; }
-html[data-kid-age='14'] .card:has([data-fade~='14']) { opacity: 0.6; }
-html[data-kid-age='15'] .card:has([data-fade~='15']) { opacity: 0.6; }
-html[data-kid-age='16'] .card:has([data-fade~='16']) { opacity: 0.6; }
-html[data-kid-age='17'] .card:has([data-fade~='17']) { opacity: 0.6; }
-html[data-kid-age] .card:has([data-fade]) { transition: opacity var(--d-fast); }
-@media (prefers-reduced-motion: reduce) { html[data-kid-age] .card:has([data-fade]) { transition: none; } }
+html[data-kid-age='0'] :is(.card, .row, tr[data-row])[data-fade~='0'] { opacity: 0.6; }
+html[data-kid-age='1'] :is(.card, .row, tr[data-row])[data-fade~='1'] { opacity: 0.6; }
+html[data-kid-age='2'] :is(.card, .row, tr[data-row])[data-fade~='2'] { opacity: 0.6; }
+html[data-kid-age='3'] :is(.card, .row, tr[data-row])[data-fade~='3'] { opacity: 0.6; }
+html[data-kid-age='4'] :is(.card, .row, tr[data-row])[data-fade~='4'] { opacity: 0.6; }
+html[data-kid-age='5'] :is(.card, .row, tr[data-row])[data-fade~='5'] { opacity: 0.6; }
+html[data-kid-age='6'] :is(.card, .row, tr[data-row])[data-fade~='6'] { opacity: 0.6; }
+html[data-kid-age='7'] :is(.card, .row, tr[data-row])[data-fade~='7'] { opacity: 0.6; }
+html[data-kid-age='8'] :is(.card, .row, tr[data-row])[data-fade~='8'] { opacity: 0.6; }
+html[data-kid-age='9'] :is(.card, .row, tr[data-row])[data-fade~='9'] { opacity: 0.6; }
+html[data-kid-age='10'] :is(.card, .row, tr[data-row])[data-fade~='10'] { opacity: 0.6; }
+html[data-kid-age='11'] :is(.card, .row, tr[data-row])[data-fade~='11'] { opacity: 0.6; }
+html[data-kid-age='12'] :is(.card, .row, tr[data-row])[data-fade~='12'] { opacity: 0.6; }
+html[data-kid-age='13'] :is(.card, .row, tr[data-row])[data-fade~='13'] { opacity: 0.6; }
+html[data-kid-age='14'] :is(.card, .row, tr[data-row])[data-fade~='14'] { opacity: 0.6; }
+html[data-kid-age='15'] :is(.card, .row, tr[data-row])[data-fade~='15'] { opacity: 0.6; }
+html[data-kid-age='16'] :is(.card, .row, tr[data-row])[data-fade~='16'] { opacity: 0.6; }
+html[data-kid-age='17'] :is(.card, .row, tr[data-row])[data-fade~='17'] { opacity: 0.6; }
+html[data-kid-age] :is(.card, .row, tr[data-row])[data-fade] { transition: opacity var(--d-fast); }
+@media (prefers-reduced-motion: reduce) { html[data-kid-age] :is(.card, .row, tr[data-row])[data-fade] { transition: none; } }
 
 /* ---------- the count line may carry sentences (hidden facets, gaps): let it wrap instead of pushing the page sideways ---------- */
 .filter-bar .count { white-space: normal; flex-wrap: wrap; min-width: 0; max-width: 100%; }

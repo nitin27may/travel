@@ -34,7 +34,7 @@ export function guardHidden<Row>(d: EntityDescriptor<Row>, rows: readonly Row[],
       const c = coverageOf(f, among);
       if (!c.shows) {
         params.add(f.param);
-        notes.push(`${f.label} hidden: ${f.guard.what}`);
+        if (f.guard.what) notes.push(`${f.label} hidden: ${f.guard.what}`);
       }
     }
   }
@@ -92,7 +92,7 @@ export function scopeState<Row>(d: EntityDescriptor<Row>, rows: readonly Row[], 
     if (c.shows || (state.facets[f.param]?.length ?? 0) > 0) shown.add(f.param);
     else if (c.total > 0) hidden.push(c);
   }
-  return { tokens, inScope: params, shown, promoted: promotedFor(tokens, undefined, slice) as FacetParam[], hidden, note: hiddenNote(hidden), guarded: new Set(), guardNotes: [] };
+  return { tokens, inScope: params, shown, promoted: promotedFor(tokens, slice) as FacetParam[], hidden, note: hiddenNote(hidden), guarded: new Set(), guardNotes: [] };
 }
 
 /** Does this facet take part now? Unscoped facets always do; a scoped one only while the Kind brings it and enough rows answer it. */

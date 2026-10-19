@@ -74,13 +74,19 @@ export interface PlaceListRow {
   booking: string | null;
   /** Up to six ids of yes/no facets ("swim", "!dogs"); a gap stores neither. */
   flags: string[];
+  /** Walk from the car: lt200, 200-600, 600-1500, 1500+ (metres). */
+  walk_band: string | null;
+  /** Trail shape: loop, out-and-back, point-to-point, network. */
+  shape: string | null;
+  /** Best time of day: sunrise, golden_am, morning ... */
+  best_time: string | null;
 }
 
 /** Every key a list row may carry. A test compares this with the keys the builder writes. */
 export const PLACE_LIST_KEYS: readonly (keyof PlaceListRow)[] = [
   'id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name',
   'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added',
-  'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags',
+  'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags', 'walk_band', 'shape', 'best_time',
 ];
 
 /** Joins the adapter cards with the legacy rows through the old place URLs that LD already maps to slugs. */
@@ -140,6 +146,9 @@ export function buildPlaceRows(
       price_band: c.bands.price_band,
       booking: c.bands.booking,
       flags: c.bands.flags,
+      walk_band: c.bands.walk_band,
+      shape: c.bands.shape,
+      best_time: c.bands.best_time,
     };
   });
 }

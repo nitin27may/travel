@@ -1,7 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import dynamic from 'next/dynamic';
 import { PlaceCardFooter } from '@/components/places/PlaceCardFooter';
-import { KidsFade } from '@/components/entity/KidsFade';
 import { Elevation, Stat } from '@/components/entity/cells';
 import type { PlaceListRow } from '@/components/places/rows';
 import { Icon, kindIcon } from '@/components/ui/Icon';
@@ -162,12 +161,8 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       {p.elevation_m !== null ? <Elevation m={p.elevation_m} /> : null}
     </>
   ),
-  cardFooter: (p) => (
-    <>
-      <PlaceCardFooter p={p} />
-      <KidsFade kidsFrom={p.kids_from} basis={p.kids_basis} />
-    </>
-  ),
+  cardFooter: (p) => <PlaceCardFooter p={p} />,
+  fade: (p) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? Array.from({ length: Math.min(p.kids_from, 18) }, (_, i) => i).join(' ') : undefined),
   iconFor: (p) => kindIcon(p.kind),
   fallbackLabel: (p) => p.kindLabel,
   primary: 'link',

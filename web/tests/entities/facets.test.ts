@@ -18,7 +18,7 @@ const real = placeRows();
 
 const blank = (over: Partial<PlaceListRow> = {}): PlaceListRow => ({
   ...real[0]!, id: 'x', slug: 'x', name: 'X', kind: 'trail', type: 'nature.trail.hike', km: null, gain_m: null, season: [], kid_fit: 'unknown',
-  effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null, booking: null, flags: [], trips: [], tags: [], ...over,
+  effort: null, kids_from: null, kids_basis: null, time_band: null, price_band: null, booking: null, flags: [], walk_band: null, shape: null, best_time: null, trips: [], tags: [], ...over,
 });
 const labelsOf = (fs: { label: string }[]) => fs.map((f) => f.label);
 
@@ -79,6 +79,23 @@ describe('scope: the Kind brings its facets (contract 7.1, 7.2)', () => {
     expect(promotedFor(['culture.museum'])).toEqual(['f.time-on-site', 'f.price-band']);
     expect(promotedFor(['snow.ski'])).toEqual(['effort', 'kid']);
     expect(promotedFor([])).toEqual([]);
+  });
+});
+
+describe('the registry\'s promote marker and the new row keys', () => {
+  it('every promoted facet exists, ranks are 1 or 2, and each scope has at most two', () => {
+    const byScope = new Map<string, number[]>();
+    for (const f of SLICE.facets) for (const [scope, rank] of Object.entries(f.promote ?? {})) byScope.set(scope, [...(byScope.get(scope) ?? []), rank]);
+    expect(byScope.size).toBeGreaterThan(5);
+    for (const [scope, ranks] of byScope) expect(ranks.sort(), scope).toEqual(ranks.length === 1 ? [1] : [1, 2]);
+  });
+  it('Walk from the car, Shape and Best time are answered from the row', () => {
+    const f = (label: string) => scopedFacets<PlaceListRow>().find((x) => x.label === label)!;
+    expect(f('Walk from the car').options(blank({ walk_band: '200-600' })).map((o) => o.value)).toEqual(['200-600']);
+    expect(f('Walk from the car').options(blank())).toEqual([]);
+    expect(f('Shape').options(blank({ shape: 'loop' })).map((o) => o.label)).toEqual(['Loop']);
+    expect(f('Best time of day').options(blank({ best_time: 'sunrise' })).map((o) => o.label)).toEqual(['Sunrise']);
+    expect(f('Swimming').options(blank({ flags: ['swim'] })).map((o) => o.value)).toEqual(['yes']);
   });
 });
 

@@ -97,9 +97,9 @@ export interface FacetDef<Row> {
   scoped?: boolean;
   /**
    * The 60% rule for a facet that is not tied to a Kind: it shows only while enough of the rows `among` answer it, otherwise the
-   * count line says why ("From Toronto hidden: not known for most short trips"). `what` completes that sentence.
+   * count line says why when `what` is set ("... hidden: <what>"); without it the facet is hidden silently.
    */
-  guard?: { among: (row: Row) => boolean; what: string };
+  guard?: { among: (row: Row) => boolean; what?: string };
   /** Hide the facet when no row has a value for it (the data has not landed). */
   hideIfEmpty?: boolean;
   /** An old URL parameter that still filters and shows as a chip, but has no pill of its own (`kind=trail`, now `k=nature.trail`). */
@@ -179,6 +179,8 @@ export interface EntityDescriptor<Row> {
   defaultSort: (a: Row, b: Row) => number;
   defaultSortLabel: string;
   search: (row: Row) => string;
+  /** The ages for which a row is a stretch (space separated, e.g. "0 1 2 3"); cards, list rows and table rows carry it as `data-fade` and filters.css fades them while the Kids filter holds one of those ages. */
+  fade?: (row: Row) => string | undefined;
   /** Rows hidden unless a facet selection names them (dropped places). */
   hiddenByDefault?: (row: Row, state: ListState, ignore?: FacetParam | 'q') => boolean;
   /** Where the row lives as a page, or null. */

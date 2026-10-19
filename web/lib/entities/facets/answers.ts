@@ -15,6 +15,9 @@ export interface FacetRow {
   price_band?: string | null;
   booking?: string | null;
   flags?: string[];
+  walk_band?: string | null;
+  shape?: string | null;
+  best_time?: string | null;
   km?: number | null;
   gain_m?: number | null;
   season?: number[];
@@ -23,6 +26,9 @@ export interface FacetRow {
 export const TIME_LABELS: Record<TimeBand, string> = { '<1h': 'Under 1 hour', '1-2h': '1 to 2 hours', '2-4h': '2 to 4 hours', 'half-day': 'Half a day', 'full-day': 'A full day', 'multi-day': 'Several days' };
 export const PRICE_LABELS: Record<PriceBand, string> = { free: 'Free', $: '$ · low', $$: '$$ · mid', $$$: '$$$ · high' };
 export const BOOKING_LABELS: Record<BookingBand, string> = { none: 'Not needed', recommended: 'Recommended', required: 'Required' };
+export const WALK_LABELS: Record<string, string> = { lt200: 'Under 200 m', '200-600': '200 to 600 m', '600-1500': '600 m to 1.5 km', '1500+': 'Over 1.5 km' };
+export const SHAPE_LABELS: Record<string, string> = { loop: 'Loop', 'out-and-back': 'Out and back', 'point-to-point': 'Point to point', network: 'Network of paths' };
+export const BEST_TIME_LABELS: Record<string, string> = { sunrise: 'Sunrise', golden_am: 'Golden hour, morning', morning: 'Morning', midday: 'Midday', afternoon: 'Afternoon', golden_pm: 'Golden hour, evening', sunset: 'Sunset', night: 'Night' };
 export const EFFORT_VALUES = EFFORT_NAMES.map((n) => n.toLowerCase());
 export const EFFORT_LABELS: Record<string, string> = Object.fromEntries(EFFORT_NAMES.map((n) => [n.toLowerCase(), n]));
 
@@ -68,7 +74,8 @@ export function orderOf(f: SliceFacet): string[] | undefined {
     case 'climb_band': return CLIMB_BANDS.map((b) => b.value);
     case 'kids_from': return AGE_BANDS.map((b) => b.value);
     case 'season_band': return SEASONS.map((s) => s.value);
-    default: return f.control === 'bool' ? ['yes', 'no'] : undefined;
+    case 'walk_band': return Object.keys(WALK_LABELS);
+    default: return f.property === 'ext.trail.shape' ? Object.keys(SHAPE_LABELS) : f.property === 'best_time' ? Object.keys(BEST_TIME_LABELS) : f.control === 'bool' || FLAG_OF_PROPERTY[f.property] ? ['yes', 'no'] : undefined;
   }
 }
 
@@ -86,11 +93,15 @@ export function answersOf(f: SliceFacet, row: FacetRow): FacetOption[] {
       const months = row.season ?? [];
       return SEASONS.filter((s) => s.months.some((m) => months.includes(m))).map((s) => ({ value: s.value, label: s.label }));
     }
-    case undefined: break;
-    default: return []; // walk_band and any band the rows do not carry yet: a gap, so the 60% rule hides the facet
+    case undefined:
+      if (f.property === 'ext.trail.shape') return single(row.shape, SHAPE_LABELS);
+      if (f.property === 'best_time') return single(row.best_time, BEST_TIME_LABELS);
+      break;
+    case 'walk_band': return single(row.walk_band, WALK_LABELS);
+    default: return []; // a band the rows do not carry yet: a gap, so the 60% rule hides the facet
   }
   const flag = FLAG_OF_PROPERTY[f.property];
-  if (!flag || f.control !== 'bool') return [];
+  if (!flag) return [];
   const flags = row.flags ?? [];
   const part = flag === 'stroller' && flags.includes('stroller_part');
   if (flags.includes(flag) || part) return [{ value: 'yes', label: part ? 'Part of the way' : 'Yes' }];

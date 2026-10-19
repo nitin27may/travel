@@ -62,9 +62,14 @@ test.describe('Places filters', () => {
   test('a card whose age is advice fades to 60% while the age is below it', async ({ page, site }) => {
     // the advice cards carry a marker for the ages they are a stretch for
     await page.goto(`${site.url}/places/?kid=1`);
-    const faded = page.locator('article.card:has([data-fade~="1"])').first();
+    const faded = page.locator('article.card[data-fade~="1"]').first();
     await expect(faded).toBeVisible();
     await expect(faded).toHaveCSS('opacity', '0.6');
+    // the same in the list and the table
+    await page.goto(`${site.url}/places/?kid=1&view=list`);
+    await expect(page.locator('li.row[data-fade~="1"]').first()).toHaveCSS('opacity', '0.6');
+    await page.goto(`${site.url}/places/?kid=1&view=table`);
+    await expect(page.locator('tr[data-row][data-fade~="1"]').first()).toHaveCSS('opacity', '0.6');
     await page.goto(`${site.url}/places/?kid=17`);
     await expect(page.locator('article.card').first()).toHaveCSS('opacity', '1');
   });

@@ -60,13 +60,13 @@ test.describe('the Trips filter bar', () => {
     expect(clean(await axe(page))).toEqual([]);
   });
 
-  test('the From Toronto pill is hidden while no trip has a drive time, and the count line says so', async ({ page, site }) => {
+  test('the From Toronto pill is hidden while no trip has a drive time, with no line about it', async ({ page, site }) => {
     await page.goto(`${site.url}/trips/`);
     await expect(page.locator('.pill-trigger', { hasText: /^From Toronto/ })).toHaveCount(0);
     await page.getByRole('button', { name: 'More filters' }).click();
     await expect(page.getByRole('dialog', { name: 'More filters' }).locator('summary', { hasText: 'From Toronto' })).toHaveCount(0);
     await page.keyboard.press('Escape');
-    await expect(page.locator('.count')).toContainText('From Toronto hidden: not known for most short trips');
+    await expect(page.locator('.count')).not.toContainText('From Toronto');
   });
 
   test('group by Length puts the shortest trips first', async ({ page, site }) => {

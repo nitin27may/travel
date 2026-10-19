@@ -40,7 +40,7 @@ describe('the Trips filter bar', () => {
     expect(q('kid=6', r)).toEqual(['four']);
     expect(q('kid=8', r)).toEqual(['four', 'seven']);
     expect(q('kid=12', r)).toEqual(['four', 'seven', 'eleven']);
-    expect(gapNotes(r, decodeState('kid=8'), d)).toContain('1 not checked yet');
+    expect(gapNotes(r, decodeState('kid=8'), d)).toEqual(['1 not checked yet']);
   });
   it('More filters: activities, hike effort, getting around and shape filter on the derived tags', () => {
     const r = [row({ slug: 'lake', activities: [{ id: 'lake', label: 'Lake' }], hike: 'easy', around: ['rental-car'], shape: 'road-trip' }), row({ slug: 'none', activities: [], hike: null, around: [], shape: null })];
@@ -68,9 +68,9 @@ describe('the Trips filter bar', () => {
 
 describe('the From Toronto pill (short-trips 3.3, 4.2)', () => {
   const short = (over: Partial<TripListRow>) => row({ length: 'day', lengthClass: 'day', nights: 0, ...over });
-  it('is hidden by the 60% rule while no short trip has a drive time, and the count line says so', () => {
+  it('is hidden by the 60% rule while no short trip has a drive time, with no count-line note', () => {
     expect(facetCounts(rows, decodeState(''), d).drive).toBeUndefined();
-    expect(gapNotes(rows, decodeState(''), d)).toContain('From Toronto hidden: not known for most short trips');
+    expect(gapNotes(rows, decodeState(''), d).join(' ')).not.toContain('From Toronto');
   });
   it('shows with a fixture of hub values, filters by band and keeps ≈ for estimates', () => {
     const r = [short({ slug: 'a', fromHubMin: 50 }), short({ slug: 'b', fromHubMin: 85 }), short({ slug: 'c', fromHubMin: 85, fromHubApprox: true }), short({ slug: 'd', fromHubMin: 200 }), row({ slug: 'long', length: '9-14', lengthClass: 'multi-day', fromHubMin: null })];
@@ -81,7 +81,6 @@ describe('the From Toronto pill (short-trips 3.3, 4.2)', () => {
     // the ≈ shows in the band chip on the card
     expect(lengthLine(r[2]!)).toContain('≈');
     expect(lengthLine(r[1]!)).not.toContain('≈');
-    expect(gapNotes(r, decodeState(''), d)).not.toContain('From Toronto hidden: not known for most short trips');
   });
   it('a long trip with no hub value does not count against the rule', () => {
     const r = [short({ slug: 'a', fromHubMin: 50 }), short({ slug: 'b', fromHubMin: 130 }), ...Array.from({ length: 10 }, (_, i) => row({ slug: `l${i}`, length: '9-14', lengthClass: 'multi-day' }))];
