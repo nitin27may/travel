@@ -4,7 +4,7 @@ import { Popover } from '@base-ui/react/popover';
 import { Icon } from '@/components/ui/Icon';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { FacetDef, FacetParam, ListState } from '@/lib/entities/types';
-import { FacetOptions } from './FacetMenu';
+import { FacetBodyControl } from './FacetMenu';
 import { FacetLabel } from './ViewOptions';
 
 export interface MoreFiltersProps<Row> {
@@ -40,7 +40,7 @@ export function MoreFilters<Row>({ facets, waiting, counts, state, setFacet }: M
                     </span>
                     <Icon name="chevronDown" size={16} />
                   </summary>
-                  <FacetOptions facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
+                  <FacetBodyControl facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
                 </details>
               ))}
               {hint ? <p className="muted more-filters-hint">{hint}</p> : null}

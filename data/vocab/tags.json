@@ -28,6 +28,7 @@
 {"id":"gannets","label":"Gannets","kind":"feature","alias_of":null},
 {"id":"gateway","label":"Gateway","kind":"free","alias_of":null},
 {"id":"geysers","label":"Geysers","kind":"feature","alias_of":null},
+{"id":"glaciers","label":"Glaciers","kind":"feature","alias_of":null},
 {"id":"gorge","label":"Gorge","kind":"feature","alias_of":null},
 {"id":"gorges","label":"Gorges","kind":"feature","alias_of":"gorge"},
 {"id":"high-altitude","label":"High altitude","kind":"free","alias_of":null},

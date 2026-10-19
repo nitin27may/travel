@@ -30,7 +30,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
         <div className="trip-cover-scrim" aria-hidden="true" />
         <div className="trip-cover-text">
           <p className="trip-kicker">
-            {trip.depth === 'overview' ? 'Overview' : trip.isDone ? 'Done trip' : 'Published plan'} &middot; {trip.region}
+            {trip.depth === 'overview' ? 'Overview' : trip.isDone ? 'Finished plan' : 'Published plan'} &middot; {trip.region}
           </p>
           <h1 className="trip-title">{trip.title}</h1>
           <p className="trip-standfirst">{trip.subtitle}</p>
@@ -47,7 +47,7 @@ export function TripCover({ trip, url }: { trip: PublicTrip; url: string }) {
             ) : null}
             {trip.isDone ? (
               <li>
-                <Chip kind="neutral" icon="check" title="This trip has been taken. The plan stays as it was; copy it to plan your own.">Done, kept as a template</Chip>
+                <Chip kind="neutral" icon="check" title="A finished plan. It stays as written; copy it to plan your own.">Finished plan, kept as a template</Chip>
               </li>
             ) : null}
             <li>

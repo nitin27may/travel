@@ -332,3 +332,15 @@ describe('no party description in the timeline strings', () => {
     expect([...new Set(hits)].slice(0, 10)).toEqual([]);
   });
 });
+
+// "Draft" is the workshop's word for a place with only the basics. A visitor never reads it on a list page, in a card footer or in
+// the rows the list ships (the place pages and the about page still name it: S1 and the about page own those).
+describe('internal words on the list pages', () => {
+  it('"Draft" appears nowhere in the Places or Trips list HTML, payload included', () => {
+    for (const page of ['places/index.html', 'trips/index.html']) {
+      const f = path.join(REAL_OUT, page);
+      if (!existsSync(f)) continue;
+      expect(readText(f).match(/\bDraft\b/g) ?? [], page).toEqual([]);
+    }
+  });
+});

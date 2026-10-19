@@ -1,5 +1,6 @@
-import { FACET_PARAMS } from './types';
+import { FACET_PARAMS, isScopedParam } from './types';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState } from './types';
+import { facetShows, scopeOf } from './facets';
 
 const lc = (s: string) => s.toLocaleLowerCase('en');
 
@@ -56,8 +57,9 @@ export interface FacetCount {
  */
 export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: EntityDescriptor<Row>): Record<string, FacetCount[]> {
   const out: Record<string, FacetCount[]> = {};
+  const scope = scopeOf(d, rows, state);
   for (const facet of d.facets) {
-    if (facet.hidden) continue;
+    if (facet.hidden || !facetShows(facet, scope)) continue;
     const counts = new Map<string, FacetCount>();
     for (const row of rows) {
       if (!matchesRow(row, state, d, facet.param)) continue;
@@ -104,6 +106,10 @@ export function facetCounts<Row>(rows: readonly Row[], state: ListState, d: Enti
 
 /** Clearing a facet also clears every facet that depends on it, transitively (country, then region, then area). */
 export function dropDependents<Row>(facets: ListState['facets'], d: EntityDescriptor<Row>, param: FacetParam): void {
+  // clearing the Kind removes the scope's facets and keeps the base ones (contract 7.1 rule 5)
+  if ((param === 'k' || param === 'kind') && !(facets.k?.length ?? 0) && !(facets.kind?.length ?? 0)) {
+    for (const f of d.facets) if (f.scoped) delete facets[f.param];
+  }
   for (const child of d.facets) {
     if (child.dependsOn === param) {
       delete facets[child.param];
@@ -122,7 +128,8 @@ export interface ActiveFilter {
 /** Chips: one per selected facet value, plus the globe set and the map area. */
 export function activeFilters<Row>(state: ListState, d: EntityDescriptor<Row>, labelOf: (param: FacetParam, value: string) => string): ActiveFilter[] {
   const out: ActiveFilter[] = [];
-  for (const param of FACET_PARAMS) {
+  const params: FacetParam[] = [...FACET_PARAMS, ...d.facets.map((f) => f.param).filter(isScopedParam)];
+  for (const param of params) {
     const facet = d.facets.find((f) => f.param === param);
     if (!facet || facet.hidden) continue;
     for (const v of state.facets[param] ?? []) {
@@ -155,10 +162,21 @@ export function gapNotes<Row>(rows: readonly Row[], state: ListState, d: EntityD
   for (const facet of d.facets) {
     const gap = facet.gap;
     const selected = state.facets[facet.param] ?? [];
+    if (facet.note && selected.length && !facet.hidden) {
+      const line = facet.note(rows.filter((r) => matchesRow(r, state, d)), selected);
+      if (line) out.push(line);
+    }
     if (!gap || facet.hidden || !selected.length || selected.includes(gap.value)) continue;
     let n = 0;
-    for (const row of rows) if (matchesRow(row, state, d, facet.param) && facet.options(row).some((o) => o.value === gap.value)) n += 1;
+    for (const row of rows) {
+      if (!matchesRow(row, state, d, facet.param)) continue;
+      if (gap.isGap ? gap.isGap(row, selected) : facet.options(row).some((o) => o.value === gap.value)) n += 1;
+    }
     if (n > 0) out.push(`${n} ${gap.note}`);
   }
+  // facets the Kind brings but too few results answer: say so instead of showing an empty filter
+  const scope = scopeOf(d, rows, state);
+  if (scope.note) out.push(scope.note);
+  out.push(...scope.guardNotes);
   return out;
 }

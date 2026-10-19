@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { BOOKING_BANDS, BAND_KEYS } from '@travel/core/capture/bandKeys.ts';
 import { PLACE_LIST_KEYS } from '@/components/places/rows';
 import { TRIP_LIST_KEYS } from '@/components/trips/types';
 import { tripListRows } from '@/app/trips/rows';
@@ -31,7 +32,9 @@ function keysDeep(v: unknown, out = new Set<string>()): Set<string> {
  * these tests until it is added below, with a reason (principle P8). Nested objects are listed the same way.
  * km, gain_m and elevation_m are a recorded waiver: numeric glance facts (P3) that are widely published.
  */
-const PLACE_ROW_KEYS = ['id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name', 'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added'];
+const PLACE_ROW_KEYS = ['id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name', 'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added', 'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags', 'walk_band', 'shape', 'best_time'];
+/** The one content-looking key a place row may carry: the `booking` band (none, recommended, required), a label and not a fact (contract 7.3). */
+const BAND_NAMED_LIKE_CONTENT = ['booking'];
 const NESTED_KEYS: Record<string, string[]> = { tags: ['id', 'kind', 'label'], trips: ['slug', 'title'], honesty: ['id', 'label'], completeness: ['label', 'level'] };
 
 describe('list rows (principle P8)', () => {
@@ -50,7 +53,19 @@ describe('list rows (principle P8)', () => {
   });
   it('a place row carries no content key at any depth', () => {
     const keys = keysDeep(placeRows());
-    for (const k of CONTENT_KEYS) expect(keys.has(k), `place row key ${k}`).toBe(false);
+    for (const k of CONTENT_KEYS.filter((k) => !BAND_NAMED_LIKE_CONTENT.includes(k))) expect(keys.has(k), `place row key ${k}`).toBe(false);
+  });
+  it('the booking band is a label: none, recommended, required or null, never text', () => {
+    for (const r of placeRows()) expect([...BOOKING_BANDS, null], r.slug).toContain(r.booking);
+  });
+  it('band values are labels and numbers, never a fact with a source or a note (contract 7.3)', () => {
+    for (const r of placeRows()) {
+      for (const k of BAND_KEYS) {
+        const v = (r as unknown as Record<string, unknown>)[k === 'kids_from' ? 'kids_from' : k];
+        const ok = v === null || typeof v === 'number' || (typeof v === 'string' && v.length <= 16) || (Array.isArray(v) && v.length <= 6 && v.every((x) => typeof x === 'string' && x.length <= 14));
+        expect(ok, `${r.slug}.${k}`).toBe(true);
+      }
+    }
   });
   it('a place row has no URL except the card cover', () => {
     for (const r of placeRows()) {
@@ -130,8 +145,12 @@ describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds
   it('the list pages ship rows with no content key in their payload', () => {
     for (const page of ['places/index.html', 'trips/index.html']) {
       const text = readText(path.join(OUT, page));
-      for (const k of CONTENT_KEYS) expect(new RegExp(`\\\\?"${k}\\\\?":`).test(text), `${page} has "${k}"`).toBe(false);
+      const exempt = page.startsWith('places') ? BAND_NAMED_LIKE_CONTENT : [];
+      for (const k of CONTENT_KEYS.filter((k) => !exempt.includes(k))) expect(new RegExp(`\\\\?"${k}\\\\?":`).test(text), `${page} has "${k}"`).toBe(false);
     }
+    // the places payload may name `booking` only as the band: none, recommended, required or null
+    const text = readText(path.join(OUT, 'places/index.html'));
+    for (const m of text.matchAll(/\\?"booking\\?":(null|\\?"[^"\\]*\\?")/g)) expect(m[1]).toMatch(/^(null|\\?"(none|recommended|required)\\?")$/);
   });
   it('the globe page ships cards with a title, a kind and an area, not facts', () => {
     const text = readText(path.join(OUT, 'globe/index.html'));

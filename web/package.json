@@ -12,7 +12,8 @@
     "test": "vitest run",
     "e2e": "playwright test",
     "snapshot": "node scripts/snapshot-prototype.mjs",
-    "snapshot:check": "node scripts/snapshot-prototype.mjs --check"
+    "snapshot:check": "node scripts/snapshot-prototype.mjs --check",
+    "tag-conflicts": "WRITE_TAG_REPORT=1 vitest run tests/data/tag-conflicts.test.ts --config vitest.report.config.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",

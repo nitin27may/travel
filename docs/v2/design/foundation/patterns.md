@@ -57,8 +57,8 @@ Rules. **Slugs**: a trip slug is the kebab-case name plus the start year for dat
 it is dated, with the old slug redirecting. A place slug is the kebab-case name, disambiguated by its area
 when two share a name (`moss-glen-falls-stowe`, `moss-glen-falls-granville`). **List state** is always in the
 query string with keys in this order: `q`, filters (`when`, `source`, `country`, `kind`, `status`, `kids`,
-`season`, `tag`, `plan`), `view`, `group`, `sort`, `dir`, `page`; defaults are omitted, multi-values are
-comma-separated. **Sheets** are path segments, so Back closes a sheet and returns to the tab; nothing opens
+`season`, `tag`, `plan`; `k=<type id>` and the contract's `f.<facet>` follow the base filters, sorted), `view`, `group`, `sort`, `dir`, `page`; defaults are omitted, multi-values are
+comma-separated. **The filter bar** shows four pills, or six when a Kind is chosen (the Kind's two promoted facets); the rest sit under "More filters". **Sheets** are path segments, so Back closes a sheet and returns to the tab; nothing opens
 in a sheet without a URL. **Map view** of a list carries `?view=map&c=lon,lat,zoom`; the globe adds the same
 `c=` for camera as `c=lng,lat,zoom[,pitch,bearing]` (pitch and bearing because the fly-in tilts; both omitted when
 zero), written with `replaceState` at most every 400 ms after `moveend`, optional and never required to resolve a

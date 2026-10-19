@@ -29,6 +29,8 @@ export interface MapSpec {
   interactive?: boolean;
   legend?: LegendItem[];
   /** Hide the basemap's own town and city names, or country names, where the page's pins and labels sit on them and would collide. */
+  /** Report every camera move (a fly-to, wheel zoom, keys), not only drags: a page that clusters by zoom must re-cluster after all of them. */
+  reportAllMoves?: boolean;
   hideBasemapLabels?: ('towns' | 'regions' | 'countries')[];
 }
 export type FlyTarget = LngLat | { bounds: [LngLat, LngLat] };

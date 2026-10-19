@@ -1,20 +1,43 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { MapFamilyProvider } from '@/components/map/MapFamilyProvider';
 import { MapSurface } from '@/components/map/MapSurface';
 import { Chip } from '@/components/ui/Chip';
 import { EntityImage } from '@/components/ui/EntityImage';
 import { Icon } from '@/components/ui/Icon';
-import { formatCameraParam, parseCameraParam } from '@/lib/map/geo';
+import { clusterPins } from '@/components/places/cluster';
+import { boundsOf, formatCameraParam, parseCameraParam } from '@/lib/map/geo';
 import { registerPageFamily } from '@/lib/map/registry';
-import type { CameraState, MapSpec } from '@/lib/map/types';
+import type { CameraState, MapHandle, MapSpec, Pin } from '@/lib/map/types';
 import { DEPTH_NOTICE, lengthLabel, tripHref } from './format';
 import type { TripListRow } from './types';
 
 registerPageFamily('/trips', 'maplibre');
 
-const LEGEND: MapSpec['legend'] = [{ id: 'trip', label: 'Trip, at its first base', style: 'trip' }];
+const LEGEND: MapSpec['legend'] = [
+  { id: 'trip', label: 'Trip, at its first base', style: 'trip' },
+  { id: 'area', label: 'Area only, no base yet', style: 'place' },
+];
+
+/** Members closer than this (degrees) cannot be told apart by zooming: a click lists them instead. */
+const COINCIDENT_DEG = 0.02;
+
+/**
+ * A cluster draws at one of its own members, the one nearest the mean, never at the mean itself: the mean of Calgary and Toronto is
+ * a point in Hudson Bay where no trip is (backlog 2.41). Pure; the cluster's count and member list are unchanged.
+ */
+export function clusterAtMembers(pins: Pin[], members: ReadonlyMap<string, string[]>, at: ReadonlyMap<string, { lng: number; lat: number }>): Pin[] {
+  return pins.map((p) => {
+    const ids = members.get(p.id);
+    if (!ids) return p;
+    const pts = ids.map((id) => at.get(id)).filter((x): x is { lng: number; lat: number } => Boolean(x));
+    if (!pts.length) return p;
+    const mean = { lng: p.at.lng, lat: p.at.lat };
+    const d = (q: { lng: number; lat: number }) => (q.lng - mean.lng) ** 2 + (q.lat - mean.lat) ** 2;
+    return { ...p, at: pts.reduce((best, q) => (d(q) < d(best) ? q : best)) };
+  });
+}
 
 /** Reads `?c=lon,lat,zoom` once, on the client, so a shared Map view opens where it was left. */
 function initialCamera(): CameraState | undefined {
@@ -24,37 +47,88 @@ function initialCamera(): CameraState | undefined {
 
 /** Map view of the trips list: one pin per trip at its first base; a click opens the selection card with the cover photo. */
 export function TripsMap({ rows }: { rows: TripListRow[] }) {
+  const handle = useRef<MapHandle>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [camera] = useState(initialCamera);
+  const [zoom, setZoom] = useState(camera?.zoom ?? 1);
+  const [group, setGroup] = useState<string[] | null>(null);
 
   const pinned = useMemo(() => rows.filter((r) => r.lat !== null && r.lon !== null), [rows]);
   const unpinned = rows.length - pinned.length;
+  const positions = useMemo(() => new Map(pinned.map((r) => [r.slug, { lng: r.lon as number, lat: r.lat as number }])), [pinned]);
+  const { pins, members } = useMemo(() => {
+    // only trips with a real base cluster; a trip with just an area is its own hollow pin and never anchors a group (T5)
+    const exact = pinned.filter((x) => !x.approx);
+    const r = clusterPins(exact.map((x) => ({ id: x.slug, at: positions.get(x.slug)!, label: x.title })), Math.round(zoom * 2) / 2, selected);
+    // single trips keep the trip pin style; groups sit on one of their members
+    const placed = clusterAtMembers(r.pins, r.members, positions).map((p) => (p.id.startsWith('cluster:') ? p : { ...p, style: 'trip' as const }));
+    // area-only trips never merge or cluster. Two of them can share one middle-of-the-country point, so they are spread a little
+    // around it (about 1.5 degrees) to stay two separate rings, each with its own click.
+    const sameSpot = new Map<string, string[]>();
+    for (const x of pinned.filter((r) => r.approx)) {
+      const k = `${x.lat}:${x.lon}`;
+      sameSpot.set(k, [...(sameSpot.get(k) ?? []), x.slug]);
+    }
+    const area = pinned
+      .filter((x) => x.approx)
+      .map((x): Pin => {
+        const base = positions.get(x.slug)!;
+        const mates = sameSpot.get(`${x.lat}:${x.lon}`) ?? [];
+        const i = mates.indexOf(x.slug);
+        const a = mates.length > 1 ? (2 * Math.PI * i) / mates.length : 0;
+        const spread = mates.length > 1 ? 1.5 : 0;
+        return { id: x.slug, at: { lng: base.lng + Math.cos(a) * spread * 1.4, lat: base.lat + Math.sin(a) * spread }, style: 'place', label: `${x.title} (area only)` };
+      });
+    return { pins: [...placed, ...area], members: r.members };
+  }, [pinned, positions, zoom, selected]);
   const spec = useMemo<MapSpec>(
     () => ({
-      pins: pinned.map((r) => ({ id: r.slug, at: { lng: r.lon as number, lat: r.lat as number }, style: 'trip', label: r.title })),
+      pins,
       lines: [],
       fit: 'all',
       hideBasemapLabels: ['countries', 'towns'],
       camera,
       selectedId: selected ?? undefined,
+      reportAllMoves: true,
       legend: LEGEND,
     }),
-    [pinned, selected, camera],
+    [pins, selected, camera],
   );
 
   // The camera goes into the address bar as `c=` without adding history entries; list state is untouched.
+  const onSelect = useCallback(
+    (id: string | null) => {
+      const group = id ? members.get(id) : undefined;
+      if (group) {
+        const pts = group.map((m) => positions.get(m)).filter((x): x is { lng: number; lat: number } => Boolean(x));
+        const b = boundsOf(pts);
+        const span = b ? Math.max(Math.abs(b[1].lng - b[0].lng), Math.abs(b[1].lat - b[0].lat)) : 0;
+        if (!b || span < COINCIDENT_DEG) {
+          setSelected(null);
+          setGroup(group);
+        } else handle.current?.flyTo({ bounds: b });
+        return;
+      }
+      setGroup(null);
+      setSelected(id);
+    },
+    [members, positions],
+  );
+
   const onCamera = useCallback((c: CameraState) => {
+    setZoom(c.zoom);
     const p = new URLSearchParams(window.location.search);
     p.set('c', formatCameraParam(c));
     window.history.replaceState(null, '', `${window.location.pathname}?${p.toString().replace(/%2C/g, ',')}`);
   }, []);
 
   const trip = selected ? pinned.find((r) => r.slug === selected) : undefined;
+  const listed = group ? group.map((g) => pinned.find((r) => r.slug === g)).filter((r): r is TripListRow => Boolean(r)) : [];
 
   return (
     <MapFamilyProvider family="maplibre">
       <div className="trips-map">
-        <MapSurface spec={spec} label="Map of trips, one pin at each trip's first base" onSelect={setSelected} onCamera={onCamera} className="trips-map-surface" />
+        <MapSurface ref={handle} spec={spec} label="Map of trips, one pin at each trip's first base" onSelect={onSelect} onCamera={onCamera} className="trips-map-surface" />
         {trip ? (
           <aside className="trips-map-card" aria-label={`Selected trip: ${trip.title}`}>
             <div className="trips-map-photo">
@@ -70,13 +144,28 @@ export function TripsMap({ rows }: { rows: TripListRow[] }) {
                   {trip.seasonLabel ?? 'Season not set yet'}
                 </Chip>
                 {trip.depth !== 'full' ? <Chip kind="honest">{DEPTH_NOTICE[trip.depth]}</Chip> : null}
-                {trip.approx ? <Chip kind="honest" title="No base coordinates yet; the pin is the middle of the country">Position approximate</Chip> : null}
+                {trip.approx ? <Chip kind="honest" title="No base coordinates yet; the hollow pin marks the area, not a place">Area only</Chip> : null}
               </p>
               <a className="btn btn-primary btn-sm" href={tripHref(trip.slug)}>
                 Open the plan <Icon name="arrow" size={14} />
               </a>
             </div>
             <button type="button" className="trips-map-close btn btn-icon btn-sm btn-ghost" aria-label="Close the selection card" onClick={() => setSelected(null)}>
+              <Icon name="close" size={14} />
+            </button>
+          </aside>
+        ) : null}
+        {listed.length ? (
+          <aside className="trips-map-card trips-map-group" aria-label="Trips at this spot">
+            <p className="trips-map-meta">{listed.length} trips at this spot</p>
+            <ul>
+              {listed.map((r) => (
+                <li key={r.slug}>
+                  <a href={tripHref(r.slug)}>{r.title}</a>
+                </li>
+              ))}
+            </ul>
+            <button type="button" className="trips-map-close btn btn-icon btn-sm btn-ghost" aria-label="Close the list" onClick={() => setGroup(null)}>
               <Icon name="close" size={14} />
             </button>
           </aside>

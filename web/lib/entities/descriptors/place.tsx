@@ -6,7 +6,8 @@ import type { PlaceListRow } from '@/components/places/rows';
 import { Icon, kindIcon } from '@/components/ui/Icon';
 import { MONTH_NAMES, seasonLabel } from '@/lib/format/season';
 import { KID_HINTS, KID_ICONS, KID_LABELS, TAG_KIND_ORDER, cap } from '../labels';
-import type { Badge, EntityDescriptor } from '../types';
+import { EFFORT_LABELS, EFFORT_VALUES, nodeLabel, scopedFacets, typeInScope } from '../facets';
+import type { Badge, EntityDescriptor, FacetDef, FacetOption } from '../types';
 
 // the Map view loads when first opened, so the list's first load stays inside the JS budget
 const PlacesMap = dynamic(() => import('@/components/places/PlacesMap').then((m) => m.PlacesMap), { ssr: false, loading: () => <p className="muted">Loading map</p> });
@@ -88,6 +89,61 @@ const NO_TRIP = 'none';
 
 const COMPLETENESS_RANK: Record<string, number> = { draft: 0, usable: 1, complete: 2 };
 
+/** What an old `kind=` value stands for in the type tree (the place kinds of the list before the Kind pill read types). */
+const LEGACY_KIND_SCOPE: Record<string, string[]> = {
+  trail: ['nature.trail'],
+  lake: ['water.body'],
+  viewpoint: ['nature.viewpoint'],
+  waterfall: ['water.falls'],
+  sight: ['culture'],
+  town: ['settlement'],
+  area: ['nature.protected'],
+  activity: ['intent:do'],
+  lift: ['ride.lift'],
+  stay: ['stay'],
+  eatery: ['food'],
+};
+
+const EFFORT_HINTS: Record<string, string> = {
+  stroll: 'Flat, made surface',
+  easy: 'A clear path, no hands',
+  moderate: 'Rough or steep, sure footing',
+  hard: 'Long, exposed, or hands sometimes',
+  technical: 'Harness or scrambling',
+};
+
+/** The Kind pill: the domain, then the category, of the row's type (contract 7.1 rule 1). A place with no type is "Other". */
+function kindOptions(p: PlaceListRow): FacetOption[] {
+  if (!p.type) return [{ value: 'other', label: 'Other', group: 'Categories' }];
+  const [domain, category] = p.type.split('.');
+  const catId = category ? `${domain}.${category}` : null;
+  const out: FacetOption[] = [{ value: domain!, label: nodeLabel(domain!) ?? cap(domain!), group: 'Domains' }];
+  if (catId) out.push({ value: catId, label: nodeLabel(catId) ?? cap(category!), group: 'Categories' });
+  return out;
+}
+
+const isAge = (v: string) => /^\d{1,2}$/.test(v);
+/** A rule above the age hides the place; advice above it only fades the card; a gap never passes (suitability-display 5). */
+export const passesAge = (p: PlaceListRow, age: number): boolean => p.kids_from !== null && !(p.kids_basis === 'rule' && p.kids_from > age);
+
+function kidOptions(p: PlaceListRow): FacetOption[] {
+  const out: FacetOption[] = [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit, hint: KID_HINTS[p.kid_fit] }];
+  for (let age = 0; age <= 17; age += 1) if (passesAge(p, age)) out.push({ value: String(age), label: `Youngest child ${age}` });
+  return out;
+}
+
+function strollerOptions(p: PlaceListRow): FacetOption[] {
+  const any = p.flags.includes('stroller');
+  const out: FacetOption[] = [];
+  if (any) out.push({ value: 'any', label: 'Any stroller', hint: 'Paved, boardwalk or fine gravel' });
+  if (any || p.flags.includes('stroller_part')) out.push({ value: 'all-terrain', label: 'All-terrain stroller', hint: 'Packed gravel and roots too' });
+  return out;
+}
+
+/** The facet defs of this descriptor, for tests. */
+export type PlaceFacetDef = FacetDef<PlaceListRow>;
+
+
 export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
   type: 'place',
   schemaId: '#/$defs/places',
@@ -106,19 +162,33 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
     </>
   ),
   cardFooter: (p) => <PlaceCardFooter p={p} />,
+  fadeFrom: (p) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? p.kids_from : undefined),
+  fade: (p) => (p.kids_basis === 'advice' && p.kids_from !== null && p.kids_from >= 1 ? Array.from({ length: Math.min(p.kids_from, 18) }, (_, i) => i).join(' ') : undefined),
   iconFor: (p) => kindIcon(p.kind),
   fallbackLabel: (p) => p.kindLabel,
   primary: 'link',
   geo: (p) => (p.lat !== null && p.lon !== null ? { lat: p.lat, lon: p.lon } : null),
-  // Four primary filters (principle P4): Country, Kind, Season, Kids. The rest sit under "More filters".
+  // Four primary filters (principle P4): Country, Kind, Season, Kids. The rest sit under "More filters". Narrowing Kind adds that scope's
+  // facets from the capture contract and promotes up to two of them into the bar (contract 7.1, 7.2).
   facets: [
     { param: 'country', label: 'Country', type: 'single', options: (p) => [{ value: p.country, label: p.country_name }] },
     {
+      // domains first, then categories, each with a count (contract 7.1 rule 1)
+      param: 'k',
+      label: 'Kind',
+      type: 'multi',
+      groupOrder: ['Domains', 'Categories'],
+      options: kindOptions,
+      match: (p, sel) => sel.some((v) => typeInScope(p.type, [v])),
+    },
+    {
+      // old links say kind=trail or kind=park: they still filter and show as a chip, but the pill is the Kind above
       param: 'kind',
       label: 'Kind',
       type: 'multi',
+      legacy: true,
+      tier: 'more',
       options: (p) => [{ value: p.kind, label: kindName(p.kind) }],
-      // an old link may still say kind=park or kind=city
       match: (p, sel) => sel.some((v) => v === p.kind || v === p.legacyKind),
     },
     {
@@ -129,13 +199,47 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       options: (p) => p.season.map((m) => ({ value: String(m), label: MONTH_NAMES[m - 1] })),
     },
     {
+      // "Youngest child": a number is an age (0 to 17), read against `kids_from`; the older values (yes, strong-kid) are the kid-fit
+      // chip and keep working in links. A rule above the age hides a place, advice above it fades its card, a gap never passes.
       param: 'kid',
       label: 'Kids',
       type: 'single',
+      control: 'age',
       order: ['yes', 'strong-kid', 'no', 'unknown'],
-      options: (p) => [{ value: p.kid_fit, label: KID_LABELS[p.kid_fit] ?? p.kid_fit, hint: KID_HINTS[p.kid_fit] }],
-      // a place nobody has assessed never passes a Kids choice, and the count line says how many were left out
-      gap: { value: 'unknown', note: 'not checked yet' },
+      options: kidOptions,
+      match: (p, sel) => (isAge(sel[0] ?? '') ? passesAge(p, Number(sel[0])) : sel.includes(p.kid_fit)),
+      gap: { value: 'unknown', note: 'not checked yet', isGap: (p, sel) => (isAge(sel[0] ?? '') ? p.kids_from === null : p.kid_fit === 'unknown') },
+      note: (matched, sel) => {
+        if (!isAge(sel[0] ?? '')) return null;
+        const age = Number(sel[0]);
+        const stretch = matched.filter((p) => p.kids_from !== null && p.kids_from > age).length;
+        return stretch ? `for age ${age} · ${stretch} ${stretch === 1 ? 'is a stretch' : 'are a stretch'}, shown faded` : `for age ${age}`;
+      },
+    },
+    {
+      param: 'effort',
+      label: 'Effort',
+      type: 'multi',
+      tier: 'more',
+      hideIfEmpty: true,
+      order: EFFORT_VALUES,
+      options: (p) => (p.effort ? [{ value: p.effort.toLowerCase(), label: EFFORT_LABELS[p.effort.toLowerCase()] ?? p.effort, hint: EFFORT_HINTS[p.effort.toLowerCase()] }] : []),
+      // boat tours, lifts and bungee have no effort rating: they are left out, and the count line says how many
+      gap: { value: 'none', note: 'have no effort rating and are not shown', isGap: (p) => p.effort === null },
+    },
+    {
+      param: 'stroller',
+      label: 'Stroller',
+      type: 'single',
+      tier: 'more',
+      hideIfEmpty: true,
+      order: ['any', 'all-terrain'],
+      options: strollerOptions,
+      gap: { value: 'none', note: 'not checked yet', isGap: (p) => !p.flags.some((f) => f === 'stroller' || f === 'stroller_part' || f === '!stroller') },
+      note: (matched) => {
+        const part = matched.filter((p) => p.flags.includes('stroller_part')).length;
+        return part ? `${part} for part of the way, marked on the card` : null;
+      },
     },
     {
       param: 'region',
@@ -164,11 +268,13 @@ export const placeDescriptor: EntityDescriptor<PlaceListRow> = {
       last: [NO_TRIP],
       options: (p) => (p.trips.length ? p.trips.map((t) => ({ value: t.slug, label: t.title })) : [{ value: NO_TRIP, label: 'Not in a trip yet' }]),
     },
-    // Slots for the S1 suitability data (suitability-display.md section 5). Hidden until `family_effort` and `stroller_ok` ship:
-    // then each gets its options and loses `hidden`, and nothing else in the bar changes.
-    { param: 'effort', label: 'Effort', type: 'multi', tier: 'more', hidden: true, order: ['stroll', 'easy', 'moderate', 'hard', 'technical'], options: () => [] },
-    { param: 'stroller', label: 'Stroller', type: 'single', tier: 'more', hidden: true, order: ['any', 'all-terrain'], options: () => [] },
+    ...scopedFacets<PlaceListRow>(),
   ],
+  scope: {
+    typeOf: (p) => p.type,
+    legacyKind: (v) => LEGACY_KIND_SCOPE[v] ?? [],
+    scoped: scopedFacets<PlaceListRow>().map((f) => f.param),
+  },
   columns,
   defaultColumns: ['name', 'kind', 'region', 'area', 'season', 'kid', 'elevation', 'km', 'gain', 'sources', 'complete'],
   groupBy: [

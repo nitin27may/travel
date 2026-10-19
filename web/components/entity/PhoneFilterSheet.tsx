@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon';
 import { clearAll } from '@/lib/entities/filter';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { EntityDescriptor, FacetDef, FacetParam, ListState } from '@/lib/entities/types';
-import { FacetOptions } from './FacetMenu';
+import { FacetBodyControl } from './FacetMenu';
 import { FacetLabel, ViewOptions } from './ViewOptions';
 
 export interface PhoneFilterProps<Row> {
@@ -23,6 +23,29 @@ export interface PhoneFilterProps<Row> {
   onOpenChange: (open: boolean) => void;
   setFacet: (param: FacetParam, values: string[]) => void;
   onState: (s: ListState, mode?: 'push' | 'replace') => void;
+}
+
+/** One facet's options with a Done button: it folds the group so the next facet is a tap away (backlog 2.41; the target is 44 px). */
+function FacetBody<Row>({ facet, counts, selected, setFacet }: { facet: FacetDef<Row>; counts: FacetCount[]; selected: string[]; setFacet: (param: FacetParam, values: string[]) => void }) {
+  return (
+    <>
+      <FacetBodyControl facet={facet} options={counts} selected={selected} onChange={(v) => setFacet(facet.param, v)} />
+      <div className="sheet-facet-done">
+        <button
+          type="button"
+          className="btn sheet-done"
+          onClick={(e) => {
+            const details = e.currentTarget.closest('details');
+            if (!details) return;
+            details.open = false;
+            details.querySelector('summary')?.focus();
+          }}
+        >
+          Done
+        </button>
+      </div>
+    </>
+  );
 }
 
 /** Filters as a full-height bottom sheet on phones (components 2.7); "Show N" is the Apply. Loaded the first time it is opened. */
@@ -53,7 +76,7 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
             </span>
             <Icon name="chevronDown" size={16} />
           </summary>
-          <FacetOptions facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
+          <FacetBody facet={f} counts={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} setFacet={setFacet} />
         </details>
       ))}
       {more.length ? (
@@ -72,7 +95,7 @@ export default function PhoneFilterSheet<Row>({ d, state, facets, more = [], cou
                 </span>
                 <Icon name="chevronDown" size={16} />
               </summary>
-              <FacetOptions facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
+              <FacetBody facet={f} counts={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} setFacet={setFacet} />
             </details>
           ))}
         </details>
