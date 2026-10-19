@@ -33,11 +33,11 @@ test.describe('trips map re-clusters after the camera moves (GPU, real tiles)', 
     expect(await page.locator('[data-pin-id]').count()).toBeGreaterThanOrEqual(before);
   });
 
-  test('area-only trips are separate hollow pins that never join a cluster', async ({ site }) => {
+  test('the five trips that had no base now have a sourced pin, so none is an area-only ring and none is spread by hand (3.41)', async ({ site }) => {
     const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
     await page.goto(`${site.url}/trips/?view=map`);
     await expect(page.locator('[data-pin-id]').first()).toBeAttached({ timeout: 45_000 });
-    for (const slug of ['algonquin-muskoka-2026', 'niagara-day-2026', 'costa-rica-2027']) await expect(page.locator(`[data-pin-id="${slug}"]`)).toHaveCount(1);
+    await expect(page.locator('[data-pin-id][aria-label*="area only" i]')).toHaveCount(0);
     const members = await page.locator('[data-pin-id^="cluster:"]').evaluateAll((els) => els.map((e) => e.getAttribute('aria-label') ?? e.textContent ?? ''));
     for (const m of members) expect(m).not.toMatch(/area only/i);
   });

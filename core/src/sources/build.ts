@@ -40,6 +40,9 @@ export function laneFiles(root: string): string[] {
       for (const n of readdirSync(tdir).filter((x) => x.endsWith(".json")).sort()) out.push(join(tdir, n));
     }
   }
+  // the trips' base points: one file, with its own sources array and a record per trip (data/trips/base-points.json)
+  const bp = join(root, "data", "trips", "base-points.json");
+  if (existsSync(bp)) out.push(bp);
   return out;
 }
 

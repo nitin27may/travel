@@ -62,23 +62,11 @@ export function TripsMap({ rows }: { rows: TripListRow[] }) {
     const r = clusterPins(exact.map((x) => ({ id: x.slug, at: positions.get(x.slug)!, label: x.title })), Math.round(zoom * 2) / 2, selected);
     // single trips keep the trip pin style; groups sit on one of their members
     const placed = clusterAtMembers(r.pins, r.members, positions).map((p) => (p.id.startsWith('cluster:') ? p : { ...p, style: 'trip' as const }));
-    // area-only trips never merge or cluster. Two of them can share one middle-of-the-country point, so they are spread a little
-    // around it (about 1.5 degrees) to stay two separate rings, each with its own click.
-    const sameSpot = new Map<string, string[]>();
-    for (const x of pinned.filter((r) => r.approx)) {
-      const k = `${x.lat}:${x.lon}`;
-      sameSpot.set(k, [...(sameSpot.get(k) ?? []), x.slug]);
-    }
+    // area-only trips never merge or cluster: a hollow ring at the country point, each with its own click. No position is invented to
+    // pull two apart; every trip that had to share a point now has a sourced one (data/trips/base-points.json, backlog 3.41).
     const area = pinned
       .filter((x) => x.approx)
-      .map((x): Pin => {
-        const base = positions.get(x.slug)!;
-        const mates = sameSpot.get(`${x.lat}:${x.lon}`) ?? [];
-        const i = mates.indexOf(x.slug);
-        const a = mates.length > 1 ? (2 * Math.PI * i) / mates.length : 0;
-        const spread = mates.length > 1 ? 1.5 : 0;
-        return { id: x.slug, at: { lng: base.lng + Math.cos(a) * spread * 1.4, lat: base.lat + Math.sin(a) * spread }, style: 'place', label: `${x.title} (area only)` };
-      });
+      .map((x): Pin => ({ id: x.slug, at: positions.get(x.slug)!, style: 'place', label: `${x.title} (area only)` }));
     return { pins: [...placed, ...area], members: r.members };
   }, [pinned, positions, zoom, selected]);
   const spec = useMemo<MapSpec>(
