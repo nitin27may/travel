@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { PREFS_KEY, formatDistance, formatElevation, parsePrefs } from '@/lib/format/units';
 
 /**
  * The only script of the suitability and section blocks. Esc closes an open provenance row and returns focus to it; a link to a
@@ -25,16 +26,37 @@ export function Interactions() {
     };
     const onKey = (e: KeyboardEvent): void => {
       if (e.key !== 'Escape') return;
-      const open = document.querySelector<HTMLDetailsElement>('details.su-prov[open]');
+      // close the row that holds focus, else the first open one, and return focus to its summary
+      const active = document.activeElement instanceof Element ? document.activeElement.closest<HTMLDetailsElement>('details.su-prov[open]') : null;
+      const open = active ?? document.querySelector<HTMLDetailsElement>('details.su-prov[open]');
       if (!open) return;
       open.open = false;
       open.querySelector<HTMLElement>('summary')?.focus();
     };
+    // distances and heights follow the visitor's units (km or mi, m or ft)
+    const applyUnits = (): void => {
+      const prefs = parsePrefs(window.localStorage.getItem(PREFS_KEY), navigator.language);
+      const one = (v: string, u: string): string => {
+        const n = Number(v.replace(/,/g, ''));
+        const out = u === 'km' ? formatDistance(n, prefs.distance) : formatElevation(n, prefs.elevation);
+        return out.replace(/ \w+$/, '');
+      };
+      for (const el of document.querySelectorAll<HTMLElement>('data.ukm, data.um')) {
+        const u = el.classList.contains('ukm') ? 'km' : 'm';
+        const unit = u === 'km' ? prefs.distance : prefs.elevation;
+        el.textContent = `${(el.getAttribute('value') ?? '').split('–').map((v) => one(v, u)).join('–')} ${unit}`;
+      }
+    };
+    applyUnits();
+    window.addEventListener('travel:prefs', applyUnits);
+    window.addEventListener('storage', applyUnits);
     openAround();
     window.addEventListener('hashchange', openAround);
     document.addEventListener('keydown', onKey);
     return () => {
       window.removeEventListener('hashchange', openAround);
+      window.removeEventListener('travel:prefs', applyUnits);
+      window.removeEventListener('storage', applyUnits);
       document.removeEventListener('keydown', onKey);
     };
   }, []);

@@ -47,7 +47,7 @@ export function CoverRelevance({ rel, slugs, name }: { rel: PublicRelevance; slu
       {rel.payoff && rel.payoff.name.toLowerCase() !== name.toLowerCase() ? (
         <p className="rv-payoff">
           To <strong><RefLink r={rel.payoff} slugs={slugs} /></strong>
-          <span className="ps-stub"> · photo and judgement from the place it reaches</span>
+          <span className="pb"> · photo and judgement from the place it reaches</span>
         </p>
       ) : rel.payoffMissing ? (
         <p className="rv-payoff">
@@ -68,14 +68,13 @@ export function CoverRelevance({ rel, slugs, name }: { rel: PublicRelevance; slu
         </p>
       ) : rel.pointer ? (
         <p className="rv-pointer">
-          <Icon name="navigate" size={14} /> {rel.pointer.text} <strong>{rel.pointer.name}</strong>
-          <span className="ps-stub"> · {Math.round(rel.pointer.km)} km</span>
-          {slugs[rel.pointer.ref] ? (
-            <>
-              {' '}
-              <Link href={`/places/${slugs[rel.pointer.ref]}/`}>Open</Link>
-            </>
-          ) : null}
+          <Icon name="navigate" size={14} />
+          {rel.pointer.text.split(rel.pointer.name)[0]}
+          <strong>
+            <RefLink r={rel.pointer} slugs={slugs} />
+          </strong>
+          {rel.pointer.text.split(rel.pointer.name)[1]}
+          <span className="pb"> · {Math.round(rel.pointer.km)} km</span>
         </p>
       ) : null}
     </div>
@@ -94,7 +93,7 @@ function Pair({ p, slugs }: { p: PairPlace; slugs: Record<string, string> }) {
           {p.badge ? <span className="rv-chip rv-chip-sm"><Signpost />{p.badge.label}</span> : null}
         </p>
         {p.reason ? <p className="rv-reason">{p.reason}</p> : null}
-        <p className="ps-stub">{[p.handPicked ? 'our pick' : null, p.how, km(p.km) || null, extra || null].filter(Boolean).join(' · ')}</p>
+        <p className="pb">{[p.handPicked ? 'our pick' : null, p.how, km(p.km) || null, extra || null].filter(Boolean).join(' · ')}</p>
       </div>
     </li>
   );
@@ -109,7 +108,7 @@ function Similar({ s, slugs }: { s: SimilarPlace; slugs: Record<string, string> 
           {s.planB ? <span className="rv-tag">Plan B</span> : null}
           {s.badge ? <span className="rv-chip rv-chip-sm"><Signpost />{s.badge.label}</span> : null}
         </p>
-        <p className="ps-stub">{[s.access, s.effortName, km(s.km)].filter(Boolean).join(' · ')}</p>
+        <p className="pb">{[s.access, s.effortName, km(s.km)].filter(Boolean).join(' · ')}</p>
       </div>
     </li>
   );
@@ -151,7 +150,7 @@ export function PlanBLine({ rel, slugs }: { rel: PublicRelevance; slugs: Record<
   return (
     <li className="ps-line rv-planb">
       <span className="rv-tag">Plan B</span>
-      <p className="ps-text">
+      <p className="pt">
         {b.risk ? `${b.risk.charAt(0).toUpperCase()}${b.risk.slice(1)} can fall through. ` : ''}
         <RefLink r={b} slugs={slugs} /> is the same kind of draw: {b.access}
         {b.effortName ? ` · ${b.effortName.toLowerCase()}` : ''} · {km(b.km)}.

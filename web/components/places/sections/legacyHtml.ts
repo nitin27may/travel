@@ -1,4 +1,4 @@
-import { esc } from '@/components/suit/html';
+import { esc, withUnits } from '@/components/suit/html';
 import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
 import type { AccessPoint, Fact } from '@/lib/public/types';
 import { isUrl, observed, phoneParts, pointAt, pointSourceInfo, publicProvenance, publicText } from '../model';
@@ -14,11 +14,14 @@ const ICON: Record<string, string> = {
 const svg = (name: string, size: number): string => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="${ICON[name]}"/></svg>`;
 const NEW_TAB = '<span class="sr-only"> (opens in a new tab)</span>';
 
+/** A figure that rests on a link-only platform is dropped, never printed with its source in brackets (verifier 4). */
+const platformFree = (t: string | null | undefined): string => (t && !/\b(?:alltrails|komoot|tripadvisor)\b/i.test(t) ? t : '');
+
 /** Fact text: operator dates read "observed 2026", public business phone numbers are tel: links, a bare URL is a link. */
 export function factText(text: string): string {
   if (isUrl(text)) return `<a href="${esc(text)}" target="_blank" rel="noopener noreferrer">${esc(text.replace(/^https?:\/\//, '').replace(/\/$/, ''))}${NEW_TAB}</a>`;
   return phoneParts(observed(publicProvenance(text)))
-    .map((p) => (p.tel ? `<a href="tel:${esc(p.tel)}" class="num">${esc(p.text)}</a>` : esc(p.text)))
+    .map((p) => (p.tel ? `<a href="tel:${esc(p.tel)}" class="num">${esc(p.text)}</a>` : withUnits(p.text)))
     .join('');
 }
 
@@ -50,11 +53,11 @@ function pointSource(p: Pick<AccessPoint, 'pointSource' | 'pointChecked'>): stri
 }
 
 export function accessCard(p: AccessPoint, role: 'Trailhead' | 'Parking', unconfirmed: boolean): string {
-  const note = publicText(p.note);
+  const note = platformFree(publicText(p.note));
   const kv: string[] = [];
   if (p.elevationM !== null) kv.push(`<div><dt>Elevation</dt><dd class="num">${esc(p.elevationM.toLocaleString('en-CA'))} m</dd></div>`);
-  if (p.fee) kv.push(`<div><dt>Fee</dt><dd>${factText(p.fee)}</dd></div>`);
-  if (p.capacity) kv.push(`<div><dt>Capacity</dt><dd>${factText(p.capacity)}</dd></div>`);
+  if (platformFree(p.fee)) kv.push(`<div><dt>Fee</dt><dd>${factText(p.fee!)}</dd></div>`);
+  if (platformFree(p.capacity)) kv.push(`<div><dt>Capacity</dt><dd>${factText(p.capacity!)}</dd></div>`);
   kv.push(`<div><dt>Point</dt><dd><span class="num pl-point">${esc(formatPoint(pointAt(p)))}</span> ${pointSource(p)}</dd></div>`);
   const honest = unconfirmed || !p.pointChecked ? `<span class="chip chip-honest" data-kind="honest" title="A person has not checked this pin yet">${svg('warn', 13)}${unconfirmed ? 'Location unconfirmed' : 'Pin not checked yet'}</span>` : '';
   return `<article class="pl-access" data-role="${role.toLowerCase()}"><header>${svg(role === 'Parking' ? 'parking' : 'pin', 16)}<h3>${esc(p.name)}</h3><span class="chip chip-kind" data-kind="kind">${role}</span>${honest}</header>${note ? `<p class="pl-access-note">${esc(observed(note))}</p>` : ''}<dl class="pl-kv pl-kv-stack">${kv.join('')}</dl>${mapLinks(pointAt(p), p.name)}</article>`;

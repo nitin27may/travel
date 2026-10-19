@@ -10,7 +10,7 @@ export function SuitChip({ chip, short = false }: { chip: Chip; short?: boolean 
   const text = short && chip.textNoTime ? chip.textNoTime : chip.text;
   return (
     <li className="su-chip" data-kind={chip.kind}>
-      <span className="su-chip-in" aria-label={chip.label}>
+      <span className="ci" aria-label={chip.label}>
         <SuitGlyph name={chip.glyph} />
         <span>{text}</span>
         {chip.extra > 0 ? <span className="su-chip-more">+{chip.extra}</span> : null}
@@ -36,7 +36,7 @@ export function SuitChips({ chips, short = false, className }: { chips: readonly
 export function CardChip({ kind, text, glyph }: { kind: Chip['kind']; text: string; glyph: Chip['glyph'] }) {
   return (
     <span className="su-chip su-chip-card" data-kind={kind}>
-      <span className="su-chip-in">
+      <span className="ci">
         <SuitGlyph name={glyph} />
         <span>{text}</span>
       </span>

@@ -19,12 +19,12 @@ export function RefLink({ r, slugs }: { r: { ref: string; name: string }; slugs:
 }
 
 export function GapChip({ children = GAP_WORDS }: { children?: ReactNode }) {
-  return <span className="su-gapchip">{children}</span>;
+  return <span className="gc">{children}</span>;
 }
 
 /** Several rows as one block of markup. */
 export function RowsHtml({ rows, slugs, idOf }: { rows: ShowRow[]; slugs: Slugs; idOf?: (r: ShowRow) => string }) {
-  return <div className="su-rows" dangerouslySetInnerHTML={{ __html: rowsHtml(rows, slugs, idOf) }} />;
+  return <div className="srs" dangerouslySetInnerHTML={{ __html: rowsHtml(rows, slugs, idOf) }} />;
 }
 
 /** One row. */

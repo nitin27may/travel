@@ -13,12 +13,12 @@ export function WhoItSuits({ suit, slugs, title = 'Who it suits' }: { suit: Publ
 export function WhoItSuitsEmpty({ title = 'Who it suits' }: { title?: string }) {
   return (
     <section className="ps-sec su" id="suits" aria-labelledby="h-suits">
-      <header className="ps-head">
+      <header className="ph">
         <h2 id="h-suits">{title}</h2>
       </header>
       <ul className="su-chips" aria-label="Who it suits">
         <li className="su-chip" data-kind="gap">
-          <span className="su-chip-in" aria-label="Not checked yet: family checks">
+          <span className="ci" aria-label="Not checked yet: family checks">
             <span>Family checks not done yet</span>
           </span>
         </li>

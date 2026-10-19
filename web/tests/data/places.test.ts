@@ -93,19 +93,19 @@ describe('completeness', () => {
     expect(p.sections).not.toBeNull();
     expect(p.completeness.passed).toBe(p.sections!.checks.done);
     expect(p.completeness.total).toBe(p.sections!.checks.total);
-    expect(p.completeness.label).toMatch(/^(Basics only|Partly checked · \d+ of \d+|Checked)$/);
+    expect(p.completeness.label).toMatch(/^(Basics only|Early research · \d+ of \d+|Partly checked · \d+ of \d+|Checked)$/);
     expect(p.completeness.failed.every((f) => f.id.startsWith('check:'))).toBe(true);
   });
   it('"Draft" is nobody\'s label: no place says it', () => {
     for (const slug of d.placeSlugs()) expect(d.getPlace(slug)!.completeness.label, slug).not.toMatch(/draft|usable|complete\b/i);
   });
 
-  it('a locations.json lake without access is Basics only until access is recorded', () => {
+  it('a lake without access is Early research until access is recorded', () => {
     const lake = computeCompleteness({ ...base, kind: 'lake', hasAccess: false, checklistComplete: null });
     expect(lake.total).toBeGreaterThan(8);
     expect(lake.failed.map((f) => f.id)).toContain('U3');
     expect(lake.level).toBe('draft');
-    expect(lake.label).toBe('Basics only');
+    expect(lake.label).toMatch(/^Early research · \d+ of \d+$/);
     expect(lake.notTracked).toBe(PROFILE_TOTAL.lake - lake.total);
   });
 

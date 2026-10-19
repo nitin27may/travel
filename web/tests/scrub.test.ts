@@ -146,6 +146,16 @@ describe('the party scrubber: public text says who a plan suits, never who trave
     expect(publicOrigin('Whitby to Banff is 3,400 km.')).toBe('Toronto to Banff is 3,400 km.');
     expect(publicOrigin('Whitby - Toronto - Whitby')).not.toMatch(/Toronto\s*[-–]\s*Toronto/);
   });
+  it('catches the unhyphenated and abbreviated ages, and keeps an object age (verifier 3)', () => {
+    for (const t of ['Not for a 6 year old.', 'Not for a 6 yr old.', 'Pack snacks for the 7yo.', 'Pack snacks for the 7-yo.']) {
+      expect(describesParty(t), t).toBe(true);
+      expect(publicParty(`Lovely lake. ${t}`), t).not.toMatch(/\b[67]\b|year old|yr old|\byo\b/);
+    }
+    for (const t of ['The 5,300-year-old Iceman is on show.', 'A 300 year old church stands here.', 'A 12 year old tradition: the fair.']) {
+      expect(describesParty(t), t).toBe(false);
+      expect(publicParty(t)).toBe(t);
+    }
+  });
   it('runs on every string through publicOrigin', () => {
     expect(publicOrigin('Patagonia with kids 11+')).toBe('Argentine Patagonia');
   });

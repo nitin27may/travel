@@ -10,13 +10,13 @@ test.describe('Who it suits (S1b)', () => {
     await expect(group).not.toHaveAttribute('open', '');
     await group.locator(':scope > summary').click();
     await expect(group).toHaveAttribute('open', '');
-    await expect(group.locator('.su-row').first()).toBeVisible();
+    await expect(group.locator('.sr').first()).toBeVisible();
   });
 
   test('a row with a source opens its provenance, and the chip text never carries an FE code', async ({ page, site }) => {
     await page.goto(`${site.url}/places/larch-valley-to-sentinel-pass/`);
     expect(await page.locator('#suits').innerText()).not.toMatch(/\bFE[1-5]\b/);
-    const row = page.locator('#suits details.su-row').first();
+    const row = page.locator('#suits details.sr').first();
     await row.locator(':scope > summary').click();
     await expect(row.locator('.su-pop')).toBeVisible();
   });

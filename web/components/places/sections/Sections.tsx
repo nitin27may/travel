@@ -37,7 +37,7 @@ export interface LegacySlots {
 
 function Head({ sec, meta }: { sec: SectionModel; meta?: string | null }) {
   return (
-    <header className="ps-head">
+    <header className="ph">
       <h2 id={`h-${sec.id}`}>{sec.title}</h2>
       {meta ? <p className="ps-meta">{meta}</p> : null}
     </header>
@@ -99,13 +99,13 @@ function OfferCardView({ o, slugs }: { o: OfferCard; slugs: Record<string, strin
         <h3>
           <RefLink r={o} slugs={slugs} />
         </h3>
-        <p className="ps-stub">{[o.operator?.name, o.offerClass].filter(Boolean).join(' · ')}</p>
+        <p className="pb">{[o.operator?.name, o.offerClass].filter(Boolean).join(' · ')}</p>
       </header>
-      <div className="su-rows">
+      <div className="srs">
         <RowsHtml rows={rows.map(fromRow)} slugs={slugs} idOf={(r) => `${o.ref}-${r.key}`.replace(/[^\w-]/g, '-')} />
-        <div className="su-row">
-          <span className="su-lab">Where</span>
-          <span className="su-val">{o.at ? <RefLink r={o.at} slugs={slugs} /> : <GapChip>Not checked yet · no meeting place recorded</GapChip>}</span>
+        <div className="sr">
+          <span className="sl">Where</span>
+          <span className="sv">{o.at ? <RefLink r={o.at} slugs={slugs} /> : <GapChip>Not checked yet · no meeting place recorded</GapChip>}</span>
         </div>
       </div>
       <Closing text={o.closing} />
@@ -136,9 +136,9 @@ function Access({ sec, model, legacy, slugs }: { sec: SectionModel; model: PageM
         <ul className="ps-stops" aria-label="Start, on the way, payoff">
           {sortedStops.map((s) => (
             <li key={`${s.role}-${s.ref}`}>
-              <span className="ps-kind">{ROLE_LABEL[s.role] ?? s.role}</span>
+              <span className="pk">{ROLE_LABEL[s.role] ?? s.role}</span>
               <RefLink r={s} slugs={slugs} />
-              {s.atKm ? <span className="ps-stub"> · {s.atKm} km</span> : null}
+              {s.atKm ? <span className="pb"> · {s.atKm} km</span> : null}
             </li>
           ))}
         </ul>
@@ -147,7 +147,7 @@ function Access({ sec, model, legacy, slugs }: { sec: SectionModel; model: PageM
         <ul className="ps-stops" aria-label="Where you arrive">
           {model.accessPoints.map((a) => (
             <li key={a.ref}>
-              <span className="ps-kind">{AP_ROLE[a.role] ?? a.role}</span>
+              <span className="pk">{AP_ROLE[a.role] ?? a.role}</span>
               <RefLink r={a} slugs={slugs} />
             </li>
           ))}
@@ -181,7 +181,7 @@ function Around({ sec, model, slugs }: { sec: SectionModel; model: PageModel; sl
             {g.items.slice(0, 6).map((it) => (
               <li key={it.ref}>
                 <RefLink r={it} slugs={slugs} />
-                {it.where ? <span className="ps-stub"> · at {it.where.name}</span> : null}
+                {it.where ? <span className="pb"> · at {it.where.name}</span> : null}
               </li>
             ))}
           </ul>
