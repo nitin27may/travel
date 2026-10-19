@@ -17,9 +17,6 @@ const THE_MODULE = 'lib/client/data.ts';
  * researched content); the map loader reads its own worker script.
  */
 const NOT_CATALOGUE: Record<string, string> = {
-  'lib/globe/admin.ts': 'admin boundary geography',
-  'lib/globe/countries.ts': 'country outlines and facts',
-  'lib/globe/search.ts': 'world gazetteer for the globe search',
   'components/map/MapLibreMap.tsx': 'the map library worker script',
 };
 
@@ -59,6 +56,17 @@ describe('the client data boundary (principle P9)', () => {
   it('the data module exposes the functions a future API keeps', () => {
     const text = all.find((s) => s.rel === THE_MODULE)!.text;
     for (const fn of ['searchManifest', 'searchPart', 'searchParts', 'loadSearchRecords', 'loadExport']) expect(text, fn).toMatch(new RegExp(`export (async )?function ${fn}\\b`));
+  });
+
+  it('no globe module calls fetch(): reference geometry goes through the data module (2.49)', () => {
+    const direct = all.filter((s) => /^(?:lib\/globe|components\/globe)\//.test(s.rel) && /\bfetch\s*\(/.test(s.text)).map((s) => s.rel);
+    expect(direct).toEqual([]);
+  });
+
+  it('the data module exposes the globe reference readers', () => {
+    const text = all.find((s) => s.rel === THE_MODULE)!.text;
+    expect(text).toContain('// ---------------------------------------------------------------- globe reference geo (2.49)');
+    for (const fn of ['globeCountries', 'globeCountryFacts', 'globeAdminManifest', 'globeAdmin', 'globeGazetteer', 'globeLakes']) expect(text, fn).toMatch(new RegExp(`export (async )?(function|const) ${fn}\\b`));
   });
 
   it('the check can fail: a stray fetch of a search part would be caught', () => {

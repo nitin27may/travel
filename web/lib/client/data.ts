@@ -9,7 +9,8 @@ import { suggest as suggestFrom } from '@/lib/search/suggest';
 import type { Suggestion } from '@/lib/search/suggest';
 import type { SearchManifest, SearchPartRef, SearchRecord, SearchResult } from '@/lib/search/types';
 import type { FacetCount } from '@/lib/entities/filter';
-import type { GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
+import type { CountryFacts, GlobeCardFile, GlobeTree, LightPin } from '@/lib/globe/types';
+import type { Topology } from '@/lib/globe/geometry';
 import type { PlaceListRow } from '@/components/places/rows';
 import type { TripListRow } from '@/components/trips/types';
 
@@ -272,4 +273,58 @@ export function globeCard(key: string): Promise<GlobeCardFile | null> {
     cardPromises.set(key, p);
   }
   return p;
+}
+
+// ---------------------------------------------------------------- globe reference geo (2.49)
+
+// Geography the globe draws, from public sources (Natural Earth, geoBoundaries, Statistics Canada, OpenStreetMap), not our
+// researched content. It still goes through this module so a server step can replace a body and leave the callers alone.
+
+const GEO_BASE = '/globe/data/';
+const ADMIN_BASE = '/globe/admin/';
+/** ISO 3 codes whose admin file is filed under the Natural Earth code. */
+const NE_ALIAS: Record<string, string> = { PSE: 'PSX', SSD: 'SDS', XKX: 'KOS' };
+
+export type GlobeAdminLevel = 'adm1' | 'adm2';
+export interface GlobeAdminEntry { file: string; n: number; source: string }
+export type GlobeAdminManifest = Record<string, Partial<Record<GlobeAdminLevel, GlobeAdminEntry>>>;
+
+const geoPromises = new Map<string, Promise<unknown>>();
+/** One cached read of a reference file; a failure is forgotten so the next call retries. */
+function geoOnce<T>(url: string): Promise<T> {
+  let p = geoPromises.get(url) as Promise<T> | undefined;
+  if (!p) {
+    p = getJson<T>(url).catch((e) => {
+      geoPromises.delete(url);
+      throw e;
+    });
+    geoPromises.set(url, p);
+  }
+  return p;
+}
+
+/** Country outlines as TopoJSON: 110m for the first paint and the world view, 50m from zoom 3 and on the first drill-down. */
+export const globeCountries = (res: '110m' | '50m' = '50m'): Promise<Topology> => geoOnce<Topology>(`${GEO_BASE}countries-${res}.json`);
+/** Facts for each country keyed by the zero-padded ISO numeric code. */
+export const globeCountryFacts = (): Promise<Record<string, CountryFacts>> => geoOnce<Record<string, CountryFacts>>(`${GEO_BASE}countries.json`);
+/** Which admin files exist for which country. */
+export const globeAdminManifest = (): Promise<GlobeAdminManifest> => geoOnce<GlobeAdminManifest>(`${ADMIN_BASE}index.json`);
+/** The 1,000 largest lakes as TopoJSON. */
+export const globeLakes = (): Promise<Topology> => geoOnce<Topology>(`${GEO_BASE}lakes-10m.json`);
+
+/** Rows are [kind, name, lon, lat, a3, extra, rank, population]. `part` is reserved for the top and rest split. */
+export function globeGazetteer(part: 'all' = 'all'): Promise<(string | number | null)[][]> {
+  return geoOnce<(string | number | null)[][]>(`${GEO_BASE}${part === 'all' ? 'gazetteer' : part}.json`);
+}
+
+/** The admin boundaries of one country at one level as TopoJSON, or null when we ship none. */
+export async function globeAdmin(a3: string, level: GlobeAdminLevel): Promise<Topology | null> {
+  const manifest = await globeAdminManifest();
+  const entry = manifest[a3]?.[level] ?? manifest[NE_ALIAS[a3]]?.[level];
+  if (!entry) return null;
+  try {
+    return await geoOnce<Topology>(`${ADMIN_BASE}${entry.file}`);
+  } catch {
+    return null;
+  }
 }
