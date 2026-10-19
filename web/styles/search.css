@@ -91,3 +91,6 @@
 @media (prefers-reduced-motion: reduce) {
   .qchip, .qc-pop, .smart-row, .unchecked-body, .unchecked-caret { animation: none !important; transition: none !important; }
 }
+
+/* the chips row is a third row of the search sheet: the listbox keeps the flexible one, so "Show places" sits under the chips */
+.search-dialog.gs:has(> .gs-read) { grid-template-rows: auto auto minmax(0, 1fr); align-content: start; }
