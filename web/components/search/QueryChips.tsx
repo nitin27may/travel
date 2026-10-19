@@ -16,6 +16,8 @@ export interface QueryChipsProps {
   /** Leave out the "Not used" words (the list shows them in its own box). */
   hideWords?: boolean;
   label?: string;
+  /** Open this chip's choices now (Enter on a question): the age asked for "with kids" on Trips. */
+  openRequest?: { id: string; n: number };
 }
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -25,8 +27,13 @@ const reduced = () => typeof window !== 'undefined' && window.matchMedia('(prefe
  * offers the other readings, the words that were not used, and the words that have no filter yet. Chip words are the facet labels the
  * filter bar already uses. A dashed chip is a question; a dashed grey one was added because another chip needs it.
  */
-export function QueryChips({ parsed, onRemove, onPick, onEmpty, onlyAsk, hideWords, label = 'Read as' }: QueryChipsProps) {
+export function QueryChips({ parsed, onRemove, onPick, onEmpty, onlyAsk, hideWords, label = 'Read as', openRequest }: QueryChipsProps) {
   const [open, setOpen] = useState<string | null>(null);
+  const [seen, setSeen] = useState(openRequest?.n ?? 0);
+  if (openRequest && openRequest.n !== seen) {
+    setSeen(openRequest.n);
+    setOpen(openRequest.id);
+  }
   const [leaving, setLeaving] = useState<string | null>(null);
   const root = useRef<HTMLDivElement>(null);
   const popId = useId();

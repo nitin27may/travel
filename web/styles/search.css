@@ -56,11 +56,6 @@
 .smart-hint { font: var(--t-label); color: var(--muted); }
 .smart-hint kbd { font-family: var(--font-mono); }
 @media (max-width: 639px) {
-  .filter-bar:has(> .smart-row[data-open]) > .smart-row { grid-column: 1 / -1; grid-row: 2; }
-  .filter-bar:has(> .smart-row[data-open]) .count { grid-row: 3; }
-  .filter-bar:has(> .smart-row[data-open]) > .filter-row .seg { grid-row: 3; }
-  .filter-bar:has(> .smart-row[data-open]) .chips { grid-row: 4; }
-  .filter-bar:has(> .smart-row[data-open]) .filter-row-2 > .link-btn { grid-row: 5; }
   .qchip, .qchip-t { min-height: 36px; }
   .qchip-x { width: 36px; }
   .qc-pop button { min-height: 36px; }
@@ -94,3 +89,7 @@
 
 /* the chips row is a third row of the search sheet: the listbox keeps the flexible one, so "Show places" sits under the chips */
 .search-dialog.gs:has(> .gs-read) { grid-template-rows: auto auto minmax(0, 1fr); align-content: start; }
+
+/* under 640 px the reading is drawn below the sticky bar, one line, and scrolls away with the page */
+.smart-slot:not(:empty) { margin-top: var(--s-2); }
+.smart-slot .smart-undo { flex-wrap: nowrap; justify-content: space-between; }
