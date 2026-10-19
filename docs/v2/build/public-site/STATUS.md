@@ -68,6 +68,8 @@ After these merge: stage 4 (Opus design review of the whole site against P1-P9 a
 
 Open for the coordinator, not the owner: SQ1 phase 2 spike (Q38), CS7 batch 3 (remaining gaps), Rockies base points that differ from Wikidata (Kananaskis about 2 km, Lake Louise about 4 km; D1 reports them).
 
+**Owner instruction (19 Oct): he reviews at stage 6 only. Do not ask for review or approvals before then; finish the remaining stage 3 work (S1b round 4, L4c page seeds for capture-only places, CS7 batch 3, SQ1 phase 2 spike), stage 4 (Opus design review and polish rows 4.4-4.9, 2.41), stage 5 (cross-model checks), then rebuild the preview from v2 HEAD, run Lighthouse on it (2.47) and hand him the link. Stage 7 only after his approval.**
+
 ## Merged so far (all verified)
 
 | Lane | Merge | What |
