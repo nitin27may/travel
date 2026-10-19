@@ -6,7 +6,10 @@ import type { ReactElement } from 'react';
 import { EmptyState as MapPlaceholder } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
 import { PAGE_SIZE, Pager } from '@/components/ui/Pager';
-import { listPlaces, listTrips, registerList } from '@/lib/client/data';
+import type { Applied } from '@/lib/search/applied';
+import type { UncheckedRowsProps } from '@/components/search/UncheckedRows';
+import { listPlacesChecked, listTrips, registerList } from '@/lib/client/data';
+import type { UncheckedGroup } from '@/lib/entities/gaps';
 import { registry } from '@/lib/entities/registry';
 import { activeGroup, groupRows } from '@/lib/entities/sort';
 import type { EntityDescriptor, EntityType, FacetParam, ViewName } from '@/lib/entities/types';
@@ -23,6 +26,9 @@ import { MAP_DISABLED_NOTE } from './ViewSwitcher';
 // the list pages inside the JS budget. dynamic() drops the generic parameter, so it is restored here.
 const TableView = dynamic(() => import('./TableView').then((m) => m.TableView), { ssr: false, loading: () => <p className="muted table-loading">Loading table</p> }) as unknown as <Row>(props: ViewProps<Row>) => ReactElement | null;
 const DetailSheet = dynamic(() => import('./DetailSheet').then((m) => m.DetailSheet), { ssr: false }) as unknown as <Row>(props: DetailSheetProps<Row>) => ReactElement | null;
+
+// "Not checked yet" (H1) loads when a filter leaves rows with no answer, never with the first paint
+const UncheckedRows = dynamic(() => import('@/components/search/UncheckedRows'), { ssr: false }) as unknown as <Row>(props: UncheckedRowsProps<Row>) => ReactElement | null;
 
 const VIEW_TITLES: Record<ViewName, string> = { cards: 'Cards view', list: 'List view', table: 'Table view', map: 'Map view' };
 
@@ -41,10 +47,13 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
   const trigger = useRef<HTMLElement | null>(null);
   const [announce, setAnnounce] = useState('');
   const [sheetEver, setSheetEver] = useState(false);
+  // a reading the search box applied, until the visitor undoes it or changes those filters by hand (backlog 3.43)
+  const [applied, setApplied] = useState<Applied | null>(null);
 
   // the list answers come from the data module, in the shape a server will answer (principle P9)
   const version = registerList(d, rows);
-  const answer = useMemo(() => (void version, d.type === 'trip' ? listTrips(state) : listPlaces(state)) as unknown as ReturnType<typeof listPlaces> & { rows: Row[] }, [version, state, d]);
+  const answer = useMemo(() => (void version, d.type === 'trip' ? { ...listTrips(state), unchecked: [] } : listPlacesChecked(state)) as unknown as ReturnType<typeof listPlacesChecked> & { rows: Row[] }, [version, state, d]);
+  const unchecked = answer.unchecked as unknown as UncheckedGroup<Row>[];
   const sorted = answer.rows as Row[];
   const filtered = sorted;
   // grouping by country with one country chosen would head the whole list with that country's name again: no header then
@@ -122,7 +131,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
       </header>
 
       <div className="filter-sticky" ref={barRef}>
-        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} notes={notes} onState={setState} />
+        <FilterBar d={d} state={state} counts={counts} labelOf={labelOf} shown={filtered.length} total={rows.length} searchRef={searchRef} notes={notes} smart={{ applied, onApplied: setApplied }} onState={setState} />
       </div>
 
       <section className="results" aria-labelledby="results-heading" data-view={view}>
@@ -130,7 +139,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
           {VIEW_TITLES[view]}, {filtered.length} {filtered.length === 1 ? d.noun.one : d.noun.many}
         </h2>
         {filtered.length === 0 ? (
-          <EmptyState d={d} state={state} rows={rows} labelOf={labelOf} onState={setState} />
+          <EmptyState d={d} state={state} rows={rows} labelOf={labelOf} applied={applied} onApplied={setApplied} uncheckedCount={unchecked.reduce((a, g) => a + g.rows.length, 0)} onState={setState} />
         ) : view === 'cards' ? (
           <CardsView {...viewProps} />
         ) : view === 'list' ? (
@@ -152,6 +161,7 @@ export function EntityPage<Row>({ type, rows, lede }: Props<Row>) {
           />
         )}
         {filtered.length > 0 && view !== 'map' ? <Pager page={page} pageSize={pageSize} total={sorted.length} onPage={(p) => setState({ ...state, page: p }, 'push')} /> : null}
+        {unchecked.length > 0 && view !== 'map' ? <UncheckedRows d={d} groups={unchecked} /> : null}
       </section>
 
       <div className="sr-only" role="status" aria-live="polite">

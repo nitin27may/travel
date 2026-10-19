@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import '@/styles/filters.css';
 import type { ReactElement, RefObject } from 'react';
 import { Chip } from '@/components/ui/Chip';
+import type { SmartRowProps } from '@/components/search/SmartRow';
 import { Icon } from '@/components/ui/Icon';
 import { SearchInput } from '@/components/ui/Input';
 import { activeFilters, clearAll, dropDependents } from '@/lib/entities/filter';
@@ -28,6 +29,8 @@ export interface FilterBarProps<Row> {
   searchRef: RefObject<HTMLInputElement | null>;
   /** What the count line adds, e.g. "12 not checked yet" (a facet's `gap`). */
   notes?: string[];
+  /** The smart-search reading of the box (backlog 3.43): held by the page, because the empty state needs it too. */
+  smart?: Pick<SmartRowProps<Row>, 'applied' | 'onApplied'>;
   onState: (s: ListState, mode?: 'push' | 'replace') => void;
 }
 
@@ -60,11 +63,14 @@ function waitingFacets<Row>(d: EntityDescriptor<Row>, state: ListState): { facet
     .map((facet) => ({ facet, parent: d.facets.find((p) => p.param === facet.dependsOn)?.label ?? facet.dependsOn! }));
 }
 
+// the search box reads its words as filters in a chunk of its own: nothing of the parser rides in the first load of the list pages
+const SmartRow = dynamic(() => import('@/components/search/SmartRow'), { ssr: false }) as unknown as <Row>(props: SmartRowProps<Row>) => ReactElement | null;
+
 // generic components lose their type parameter through dynamic(); restore it
 const PhoneFilterSheet = dynamic(() => import('./PhoneFilterSheet'), { ssr: false }) as unknown as <Row>(props: PhoneFilterProps<Row>) => ReactElement | null;
 
 export function FilterBar<Row>(props: FilterBarProps<Row>) {
-  const { d, state, counts, labelOf, shown, total, searchRef, notes = [], onState } = props;
+  const { d, state, counts, labelOf, shown, total, searchRef, notes = [], smart, onState } = props;
   const phone = useMediaQuery('(max-width: 639px)');
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetEver, setSheetEver] = useState(false);
@@ -138,6 +144,8 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
 
         <ViewSwitcher view={state.view} onChange={changeView} mapEnabled={Boolean(d.renderMap)} />
       </div>
+
+      {smart ? <SmartRow d={d} state={state} onState={onState} searchRef={searchRef} applied={smart.applied} onApplied={smart.onApplied} /> : null}
 
       <div className="filter-row filter-row-2">
         <p className="count" role="status" aria-live="polite">
