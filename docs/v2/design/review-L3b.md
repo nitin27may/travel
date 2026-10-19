@@ -60,3 +60,40 @@ No green anywhere in the UI. Accent is amber, warnings are red, dark mode is nav
 - Overview trips show Where, Length and When only, with no fake zeros.
 - The Trips Kids menu copy "No age guidance yet · Hidden when you pick an age" is a model for honest filter copy.
 - Hike-effort chips match the conflicts doc. Algonquin's computed "strenuous" over the typed "easy" is the right direction.
+
+## Round 2
+
+Reviewer: travel-design-reviewer (Opus), 19 Oct 2026. Branch `public/L3b` at `6df3180`, `pnpm build`, served from `web/out`, Chromium on the Arc GPU with real OpenFreeMap and Mapterhorn tiles (98 to 140 tile responses per desktop run), 2x, 1440 and 390, light and dark through the theme toggle. Shots are in `/tmp/l3b-review/r2/`.
+
+**Verdict: not yet.** M1, M2, M4 and M5 are fixed. M3 is half fixed: pins now sit in the right places on a real map, but clusters never split after the camera moves, two area-only trips still form a solid cluster in Hudson Bay, and the legend does not show the hollow pin.
+
+### Round-1 must-fixes
+
+| | Status | Evidence |
+|---|---|---|
+| M1 Kids floor | Fixed | Utah and Dolomites read "Kids from 10 · checked"; Rockies "Kids from 5 · our plan"; Algonquin "Kids from 10 · checked" (`trips-cards-d-light.t0.png`, `.t1.png`) |
+| M2 Kids basis | Fixed | "· our plan" and "· checked" on every chip. Vermont reads "All ages · checked", one of the two options round 1 allowed. Hike effort follows suit: Rockies "moderate · our plan" |
+| M3 honest pins | Partly fixed | See R1 to R3 below. Fixed: Utah sits at Zion, Vermont near Stowe, New Hampshire in the White Mountains, Quebec on the St Lawrence; nothing is in Kansas (`trips-map-na-d-light.png`, `vt-z6-direct.png`). Costa Rica, Norway and Switzerland are ring pins that open a card with an "Area only" chip (`click-costa.png`) |
+| M4 phone switcher | Fixed | 162 x 40 at 390 in light and dark; no orange slab (`phone-switcher-*.png`) |
+| M5 stretch | Fixed | Chip "A stretch at 6 · advice says 8+" on cards and list rows; title and area line stay full contrast; the table carries hidden text (`places-kid6-*`) |
+
+### Must-fix before merge
+
+**R1. Clusters never re-cluster after the camera moves.** Clicking the "3" cluster in New England flies to a 50 km view and the pin still reads "3" (`click-world3.png`). Clicking the Vermont "2" at zoom 3.2 flies to a 5 km view and it still reads "2" (`click-ne.png`). Mouse-wheel zoom does the same (`vt-wheel.png`). In all three the address bar keeps the old `c=`, so `onCamera` is not firing after the first load. Loading `?c=-72,44.3,6` directly does split Vermont and New Hampshire correctly (`vt-z6-direct.png`), so the clustering is right and only the update is missing. A family who clicks a cluster lands on an empty valley with the same number on it. This is the round-1 "re-cluster on moveend" fix, not yet done.
+*Fix:* call `onCamera` on every `moveend` (user gesture and `flyTo`), and add an e2e test that clicks a cluster and expects its members as separate pins.
+
+**R2. Area-only pins still cluster, solid, in Hudson Bay.** Algonquin and Niagara are both area-only at 60, -95. The app keeps them out of `clusterPins`, but the map engine merges the two coincident pins into a solid numbered "2" (`pin-merged`, `n > 1`), and clicking it fans out two solid buttons, "A" and "N" (`click-hudson.png`). That is exactly what T5 forbids: a solid cluster drawn where no trip is, 1,700 km from Niagara.
+*Fix:* never merge pins whose style is `place` (area only) in the engine, or offset coincident area pins; keep them hollow in the fan. Better still, give Algonquin and Niagara a first positioned stop (a research task: their places seem to be `prototype_approx` only), because "the middle of Canada" for a Niagara day trip is not useful even when it is hollow.
+
+**R3. The legend shows a solid dot for "Area only, no base yet".** Both legend rows draw the same filled dot in light and dark (`legend-zoom.png`, `trips-map-eu-d-dark.png`), while the map draws a ring with a centre dot. The legend is the only explanation of the hollow pin.
+*Fix:* render the legend swatch from the same icon image as the pin (`pin-place`).
+
+### Stage 4
+
+1. At 390 the Switzerland ring sits on top of the Chamonix and Dolomites "2" and hides its numeral (`trips-map-m-dark.png`). Draw clusters above area pins, or nudge the ring.
+2. Dark basemap shows dense admin labels (Russian oblasts in Cyrillic, German states) at the Europe view (`trips-map-eu-d-dark.png`); `hideBasemapLabels` should also drop states and provinces below zoom 5.
+3. The table has no visible stretch marker, only hidden text (`places-kid6-table-d-dark.t0.png`). Add a narrow "Fit" column or the chip in the Name cell.
+4. Table cells repeat their header: "Length 8.3 mi", "Climb 2,400 ft".
+5. Card footers read "No source yet Draft" as one run; separate with " · ".
+6. At 390 the count line still runs to five lines with Kind and Kids active, the Kids chip is clipped at the right edge, and "Clear all" sits alone below a gap (`phone-switcher-places-dark.png`). Round-1 stage 4 item 2 covers the count line.
+7. The five template trip cards show an empty grey image box with no icon in a full-page shot (`trips-cards-d-light.t1.png`); check lazy loading, and use the same icon fallback the place cards use.
