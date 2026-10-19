@@ -58,7 +58,12 @@ export const PARTY_LEAK = new RegExp(
     String.raw`\bthe child(?:'s)?\b(?!${CHILD_RULE_AFTER})`,
     String.raw`\b${KID_AGE}-year-old\b(?! ${THING}\b)`,
     String.raw`\bfamily of \d`,
-    String.raw`\b(?:\d+|two|three|four) adults? (?:plus|and) (?:\d+|two|three|four) (?:children|kids)`,
+    String.raw`\b(?:\d+|two|three|four) adults? (?:plus|and) (?:\d+|two|three|four|a|one) (?:children|kids|child|kid)\b`,
+    // first-person household: "my wife", "with my kids" (3.26)
+    String.raw`\bmy (?:wife|husband|partner|spouse|son|daughter|kids?|child(?:ren)?|family|girlfriend|boyfriend|toddler|baby)\b`,
+    // a bare age after the youngest, or the youngest in the past tense: "The youngest, 7, was tired"
+    String.raw`\b(?:the )?(?:youngest|eldest|little one)\b,?\s*(?:aged |is |was |\()?\d{1,2}\b(?!\s*(?:km|m\b|min|h\b|kg|cm))`,
+    String.raw`\bthe (?:youngest|eldest|little one) (?:was|were|got|had|liked|loved|fell|needed|wanted|slept)\b`,
     String.raw`\bwith (?:kids|children) \d+\+?`,
     String.raw`\bthe other adult\b`,
     String.raw`\bboth adults\b`,
