@@ -1,96 +1,108 @@
 # Public site build: live status (coordinator handover)
 
-Updated 2026-10-18, late evening. Read this first after a context reset. **The full backlog to go-live, with every finding and its status, is `BACKLOG.md` in this folder: every new finding goes there first.** Then read `docs/v2/TODO.md` and `README.md`.
+Updated 2026-10-18, night, before a context compaction. Read this first after any reset, then `BACKLOG.md` (the full staged list: every finding goes there first, with an ID, and is marked done with its commit), then `docs/v2/TODO.md` and `README.md`.
 
 ## Where things are
 
-- Integration branch: `claude/serene-goldberg-wtn3di`, worktree `/home/nitin27may/workspace/travel-wt/v2`. Everything merges here, and it is pushed after each merge.
-- `main` (`/home/nitin27may/workspace/travel`) is the published site. It keeps the legacy globe until the owner approves the go-live. Never run `./publish.sh` from the v2 branch.
-- The public site is built in `web/` (Next.js static export). `prototype/` is frozen as the reference and is the workbench for the planner, which comes later.
-- Lane worktrees are `/home/nitin27may/workspace/travel-wt/v2-<lane>` on branch `public/<lane>`.
+- **Integration branch:** `claude/serene-goldberg-wtn3di`, worktree `/home/nitin27may/workspace/travel-wt/v2`. Every lane merges here, and the branch is pushed after each merge. HEAD at handover is deef245.
+- **main** (`/home/nitin27may/workspace/travel`) is the published live site. Never run `./publish.sh` from v2. Go-live (stage 7) needs the owner's approval of the preview.
+- **Lane worktrees:** `/home/nitin27may/workspace/travel-wt/v2-<lane>`, on branch `public/<lane>`.
+- **The gate on the merged branch is `bash tools/check-all.sh`.** Move `web/.env.local` aside to a mode-600 file first and restore it afterwards, because it sets the google-js family. At handover it passed with 166 python tests, 1,273 core and 486 web.
 
-## Lanes
+## Running now (at handover)
 
-| Lane | Scope | State | Notes |
+| Lane | Worktree | Work | Next step |
 |---|---|---|---|
-| L0 | foundation: tokens, fonts, components, header, routes | merged 1f9e7d9 | |
-| LD | read-only data adapter (`web/lib/public`) | merged ac4d947 | 14 trips (all public), 105 places, privacy allow-list, dateless |
-| LM | map adapter (`web/lib/map`, `web/components/map`) | merged 24b6609 | maplibre by default; google-js/embed through `NEXT_PUBLIC_PLACE_MAP_FAMILY` |
-| L5 | copy, export, share | merged 972fbd4 | ICS only for dated copies, licence guard on GPX/KML/CSV |
-| L1 | home and global search | merged bc8d102 | the cover is still a flat map; swap to L2's `GlobeCover` after L2 merges |
-| L2 | full-screen globe | merged 4777821 | verified twice on the Arc GPU; the remaining cosmetic items are in L2b (backlog 3.3b) |
-| L3 | trips list and trip page | merged 65eee4c | dark-style label hiding via `web/lib/map/maplibre/labels.ts` (additive LM edit, `hideBasemapLabels`); TripsMap lazy for the JS budget |
-| L4 | places list and place/trail pages | merged d0cb415 | real Google key checked 18 Oct (facade, our points, directions from our coordinates) |
-| PS | privacy: personal place status off public output | merged e883636 | Status facet becomes "In a public trip"; payload test |
-| L2b | globe experience | spec in progress (Fable) | `globe/experience-review.md`, `spec.md`, owner feedback F1, F3, F4, F6 |
-| L3c | trip page timeline and party profile | design + model in progress | `design/trip-page/timeline-design.md`, `features/trip-timeline.md`, brief `L3c-trip-timeline.md` |
-| L3b | trip tags and filters at parity with Places | queued | TODO row; spec `features/trip-tags.md` first |
-| L4b | real trail tracks; trail pages for every trip's trails | queued | TODO row; `research/lanes/trails.md` |
+| SW-A | v2-SWA | sweep must-fixes 2.34 (privacy: no party, child ages or "with kids N+" in public text; remove the links to legacy plans), 2.35 (Vermont map frames Europe), 2.36 (/about/, the 404 page's links, favicon) and 2.37 (terms page) | verify, then merge |
+| SW-B | v2-SWB | sweep must-fixes 2.38 (self-hosted resized images, LCP and CLS), 2.39 (globe pin list into on-demand data files) and 2.40 (tables scroll with a sticky first column) | verify, then merge |
 
-Merge procedure per lane:
-1. travel-verifier (Sonnet) checks the lane.
-2. Fix anything it finds.
-3. `git merge --no-ff public/<lane>` into the v2 branch.
-4. Run tsc, test and build on the merged result.
-5. Push.
+After both merge, start **stage 3**. Run lanes in parallel with disjoint files:
+- **L3c**, the trip timeline. It goes first; its brief is `L3c-trip-timeline.md`.
+- **S1**, the "Who it suits" display and capture-contract step 5 (UI sections from the contract). Read `CC-adapter-requests.md`.
+- **L3b**, trip tags and filters (step 6, type-aware filters).
+- **L2b**, the globe experience (`design/globe/spec.md`).
+- **L4b**, trail tracks.
+- **Capture contract step 7**, gap-filling research: hours, prices, booking windows, toilets and parking. Work through `research/capture-research-backlog.md` first.
 
-## Final plan to the owner's review (agreed 18 Oct, late evening)
+Stage 4 is the design review by the Opus reviewer (never Fable), scored against P1-P9 and T1-T5. Stage 5 is the cross-model checks. Stage 6 is the owner's review. Stage 7 is go-live.
 
-The owner tries the whole site once everything below is fixed: trips (every view), trip pages, places, place and trail pages, the globe. Work goes down this list in order; new feedback is slotted into the stage it belongs to, not started on its own. Every build lane ends with travel-verifier (Sonnet, on the Arc GPU) and every UI stage with travel-design-reviewer (Opus).
+## Merged so far (all verified)
 
-| Stage | Work | Feedback it closes | Gate |
-|---|---|---|---|
-| 1 | Finish wave 2: L2 verify, then L2 fixes (verifier must-fixes, F2 rings, F5 reset view), merge. PS privacy lane, verify, merge. Fable experience review and the rewritten globe spec land as docs. | F2, F5, F7 | verifier pass per lane; tsc, test, build on the merged branch |
-| 2 | Integration pass (list below): GlobeCover on home, adapter note scrub at the source, L0 fixes, foundation doc edits, full e2e, Lighthouse, privacy grep | | integration sweep `verify-integration.md` |
-| 3 | Wave 3, four lanes in parallel with disjoint files. **L3c trip page timeline** (whole-trip and per-day timelines, a scheduler in `core/`, party profile replacing per-day A/B/C; design by Fable and model by Opus, both in progress) and **L3b trip tags and filters** (trips first, as the owner asked); **L2b globe experience** (rendering, motion, look, selection cards, city areas, Canada census divisions and the ADM2 audit, image-first place card); **L4b trail tracks** (real OSM lines, elevation and GPX from them, trail pages for every trip's trails) | F1, F3, F4, F6, trip tags, trail maps, trip timeline | verifier per lane, Fable re-review of L2b against its spec |
-| 4 | the design reviewer (Opus) review of the whole built site (`review.md`), then the fixes it lists | | the design reviewer (Opus) sign-off |
-| 5 | Sanity checks across models: travel-verifier full sweep on the GPU (every page, 1440 and 390, light and dark, frame times on the globe); an independent Opus audit of privacy, data honesty and the dateless rule over `web/out` | | both pass |
-| 6 | Owner preview on a tunnel: he reviews trips, trip pages, places, place and trail pages and the globe | | owner approval |
-| 7 | Go-live: restore the Google key's website restrictions, set Cloudflare Pages env vars, publish from main after merging v2 | | owner go |
+| Lane | Merge | What |
+|---|---|---|
+| L0, LD, LM, L5, L1 | 1f9e7d9, ac4d947, 24b6609, 972fbd4, bc8d102 | foundation, data adapter, map adapter, copy and export, home and search |
+| L3 | 65eee4c | trips list and trip page |
+| L4 | d0cb415 | places and place/trail pages; real Google key checked |
+| PS | e883636 | personal status, stay state, raw notes, dated titles and the home town removed from public output |
+| L2 | 4777821 | full-screen globe: drag, seas, peaks, antimeridian, reset, phone layouts |
+| S0, S0b | e83e77c, f0c49cc | suitability schema, and applicability (field marks per kind) |
+| RV0 | 678e1ab | relevance ("worth the journey") |
+| R1-R6 research | 6ef1c43 | suitability and relevance for the 207 places on planned trips |
+| CF | f9d3e98 | operator_info, no_limit, usable_partial, relevance role rules |
+| SR | adae259 | source registry (296 sources, link checker) |
+| RVC | 03b3318 | fame signals and calibration, points.json, pair_with, bases |
+| INT-A | ea37797 | home GlobeCover, cross-browser, a11y, OG images, honest actions, deep links |
+| INT-B | ed4f847 | no bulk files (P8), light list rows, split search, the P9 data boundary, four-filter Places |
+| RC | 327d8a7 | research correction pass (anchors cut from 57 to 43, links re-sourced, 20 hand pairs) |
+| INT-C | 431bd1a | place page JS cut from 197 to 147 KB, link-only facts dropped, build error gate |
+| CC | eaa5684 | capture contract foundation: 324-type tree, property registry, place/route/offer layers, 61 records split with a value ledger |
 
-Ownership in wave 3: L2b owns `web/lib/globe`, `web/components/globe`, `web/styles/globe.css`, `web/public/globe`; L3b owns `web/lib/entities/descriptors/trip.tsx`, `web/components/trips`, the trip side of `data/vocab/tags.json`; L4b owns `web/components/places` trail parts, the trail code in `web/lib/public/places.ts`, and new track data. Shared files (`web/lib/public/types.ts`, `web/lib/map`) take additive edits only, listed in each report.
+The stage 2 sweep report is `verify-integration.md` (Lighthouse, privacy, P8, the 10,000-place test, the first-use walk).
 
-## After every lane is merged (the integration pass, done by the coordinator)
+## Key specs (read before working in an area)
 
-1. Scrub internal capture notes in the adapter. Today they are filtered per page, in L1 and L4.
-2. Fix the L0 items:
-   - the `/specimen/` axe failure (a loading button with no name, small-text contrast)
-   - scope the `app.css` phone `.search` rule to `.filter-bar`
-   - the unused `rows` lint warning in `tests/export/formats.test.ts`
-3. Swap the home cover to `GlobeCover`.
-4. Foundation doc edits from the globe spec section 10 (hover fill and casings, `--map-park`, `--map-casing`, `--globe-edge`, `?f=`, pitch and bearing in `?c=`).
-5. Run the full e2e on a quiet machine (places-parity is flaky under load), run a real Lighthouse (home first paint is 1.47 s against a 1.5 s target), and do the privacy grep of `web/out`.
-6. Integration sweep (travel-verifier), recorded in `verify-integration.md`.
-7. Fable design review of the built site (`review.md`), then fixes.
-8. Serve a tunnel preview to the owner. Go-live only with his approval.
+- **Principles:** `design/foundation/principles.md`. P1-P9, plus the travel cross-check with T1-T5. Includes P8 (protect the catalogue) and P9 (server-ready).
+- **Data model:**
+  - `research/capture-contract.md`, the single schema contract.
+  - `research/suitability.md` and `research/suitability-applicability.md`.
+  - `research/relevance.md`, including pair_with and route_is_attraction.
+  - `data/vocab/types.json`, the one authored type tree.
+- **Trip page:** `features/trip-timeline.md` and `design/trip-page/timeline-design.md`, which has a mock.
+- **Short trips:** `features/short-trips.md`.
+- **Suitability display:** `design/suitability-display.md`, which has a mock.
+- **Globe:** `design/globe/spec.md`, `experience-review.md`, `owner-feedback-2026-10-18.md`.
+- **Operator questions for the owner to send:** `research/operator-questions-2026-10-18.md`.
 
-## Owner decisions in force (18 Oct)
+## Owner decisions in force
 
-- The public read-only site comes first, with no login; the planner comes second. Under 100 users in year one, so free tiers. No green palette. Design direction is C, Trailhead.
-- All 14 trips are public, and **public trips are dateless** (Day 1 to N, a season window, booking rules relative to days). Dates attach only when a trip is copied.
-- Maps:
-  - MapLibre for the globe, trips and the planner.
-  - Google Maps JS on place pages, with Embed as the fallback.
-  - Google Maps URLs for directions.
-  - OpenRouteService for drive legs.
+- **Product scope:**
+  - The public read-only site comes first; the planner second.
+  - Under 100 users in year one, so free tiers.
+  - No green. Trailhead design.
+  - All 14 trips are public and dateless.
+- **Maps:**
+  - MapLibre on the globe and trips; Google Maps JS on place pages.
   - Never two map families on one page.
-- Coordinates never come from Google. Trailheads and car parks come from OSM.
-- Business phone numbers (huts, operators) may be shown. Photos credited "Unknown" on Commons are kept with their licence.
-- Owner keys are in `travel-wt/v2/web/.env.local` (mode 600, gitignored). Never print or commit them. Copy the file to a lane worktree only when that lane needs it.
+  - Coordinates never come from Google.
+- **Privacy:**
+  - No household data on the public site: no party, no ages of the travellers, no home town (Whitby), no personal status, no stay ideas.
+  - Public trips say who they suit, not who went.
+- **Catalogue (P8):** nobody can pull the catalogue in bulk; exports are per item.
+- **Server (P9):** all data goes through `web/lib/client/data.ts`, so the site can move to a server step by step.
+- **Taxonomy:** complete and extensible. A new type is one entry in `types.json`.
+- **Models:**
+  - Opus for planning, research and design review.
+  - Sonnet for building and verifying.
+  - **Never Fable.**
+  - Browser checks run on the Arc GPU (`--use-gl=angle --use-angle=gl --ignore-gpu-blocklist --enable-gpu-rasterization`), never SwiftShader.
+- **Keys:** the owner's keys are in `travel-wt/v2/web/.env.local` (mode 600). Never print or commit them. The Google key's website restrictions are open for testing and must be restored at go-live (7.2).
+- **Empty sections:** empty place sections stay visible as markers of missing data. Enrichment fills them.
 
-## Running services (after cleanup, 18 Oct evening)
+## Open owner questions
+
+Q1-Q24 are in `BACKLOG.md`, each with a recommendation. "Go with your recommendations" settles all of them. The ones that matter soonest:
+- Q6: the dark globe palette.
+- Q7: trip page defaults.
+- Q17-Q19: relevance badges, default order and hubs.
+- Q22-Q24: toilets as required, gap-fill order, crawler.
+
+## Services
 
 | Service | Port | What |
 |---|---|---|
-| http.server | 5197 | `docs/v2/design` (redesign, foundation specimen) behind the tunnel https://accountability-workshops-refused-rural.trycloudflare.com |
-| lane dev servers | 3412 to 3414 | started and stopped by lane agents (kill by PID on the port) |
+| http.server | 5197 | `docs/v2/design`, behind https://accountability-workshops-refused-rural.trycloudflare.com (mocks: `/trip-page/mock/`, `/globe/mock/`, `/suitability-display/mock/`) |
+| http.server | 3430 | `/tmp/l2preview/web/out`, an older build of the site, behind https://storage-repeat-reflects-growing.trycloudflare.com. Rebuild it from v2 HEAD before showing it again |
 
-Removed 18 Oct with the owner's approval:
-- the merged worktrees and branches v2-L0, LD, LM, L1 and L5
-- the old prototype servers on 5191 and 5192 and their tunnel
-- the stray untracked `docs/design/` folder in `main`
+## Cleanup due
 
-## Older work still open (pre-v2)
-
-- `travel-wt/p3b` (phase/p3b): parked after 3 of its 5 steps; it has uncommitted a11y edits. Superseded by the v2 public site.
-- `travel-wt/p4b` (phase/p4b): PR #7 is open and unmerged; its catalog ingestion logic carries into v2. Verify it before merging, or close it.
+The merged lane worktrees can be removed once the owner agrees (confirm every deletion): v2-L2, L3, L4, PS, S0, S0b, RV0, RVC, CF, SR, RC, INTA, INTB, INTC and CC. Older pre-v2 work: `travel-wt/p3b` (parked) and `travel-wt/p4b` (PR #7 still open).
