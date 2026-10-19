@@ -31,7 +31,21 @@ test.describe('globe motion and first paint (GPU, real tiles)', () => {
     await page.goto(url);
     return page;
   }
-  const settled = (page: Page) => page.evaluate(() => new Promise<void>((res) => { const m = (document.querySelector('.globe-map') as unknown as { __map: { loaded(): boolean; once(e: string, f: () => void): void } }).__map; if (m.loaded()) res(); else m.once('idle', () => res()); }));
+  // MapLibre never fires `idle` while the globe spins or a flight runs, so waiting for it alone times out. Settled means: idle if the map is
+  // at rest, otherwise every tile and the style loaded for 12 frames running (a spinning globe still counts, nothing is left to decode).
+  const settled = (page: Page) => page.evaluate(() => new Promise<void>((res, rej) => {
+    type M = { loaded(): boolean; isMoving(): boolean; areTilesLoaded(): boolean; isStyleLoaded(): boolean };
+    const m = (document.querySelector('.globe-map') as unknown as { __map: M }).__map;
+    const t0 = performance.now(); let quiet = 0;
+    const tick = () => {
+      if (!m.isMoving() && m.loaded()) return res();
+      quiet = m.areTilesLoaded() && m.isStyleLoaded() ? quiet + 1 : 0;
+      if (quiet >= 12) return res();
+      if (performance.now() - t0 > 40_000) return rej(new Error('map never settled: tiles still loading after 40 s'));
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }));
   const painted = (page: Page) => page.waitForFunction(() => document.querySelector('.globe-canvas')?.getAttribute('data-painted') === 'true', null, { timeout: 45_000 });
 
   test('first paint: the halo disc is in the page, the canvas is clear until the first idle, pins come after (check 16)', async ({ site }) => {
