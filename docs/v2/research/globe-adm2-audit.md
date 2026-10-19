@@ -14,13 +14,13 @@ Owner feedback F4: the globe's districts for Canada were the 76 economic regions
 | Truncated names | geoBoundaries cuts long names with `*` | any name contains `*` |
 | Shoreline | the 50m Natural Earth coast and border inside the file's box, sampled at up to 1,500 vertices, each measured to the nearest ADM2 edge | more than 25% of the samples are farther than 0.05 degrees (about 5 km) from every ADM2 edge |
 
-A failing country loses its `adm2` entry in `web/public/globe/admin/index.json`: its shapes fall back to ADM1 only, and the panel still lists the districts from our own area tree. Nothing is deleted: the failing files stay on disk, unreferenced, until someone confirms they can go.
+A failing country loses its `adm2` entry in `web/public/globe/admin/index.json`: its shapes fall back to ADM1 only, and the panel still lists the districts from our own area tree. The failing files were left on disk, unreferenced, until the owner approved removal (below).
 
 ## What changed in the shipped data
 
 - **Canada** is now the 293 census divisions of the 2021 census (Statistics Canada cartographic boundary file, Open Government Licence - Canada), one file per province (`CAN-ADM2-ON.json` and twelve more). Whitby resolves to **Durham** (CDUID 3518), not Toronto. The cartographic file is clipped to the coast, so the Lake Ontario shore follows the water. Source: `geo.statcan.gc.ca` ArcGIS service, layer 4 (the zip on `www12.statcan.gc.ca` answers a Cloudflare challenge to scripts). The service fails on some long-coast divisions at full detail, so the script falls back to coarser copies (0.002, 0.005, 0.01 degrees) and simplifies everything again to 1.5%.
 - **USA, India and Brazil** are split into one district file per state (`USA-ADM2-TX.json`), so Texas does not download Alaska. The split follows Natural Earth's ISO 3166-2 code for the state; a district whose points vote for no state (Puerto Rico and the other territories, 91 of 3,233 US districts) is left out of the state files.
-- The old whole files `CAN-ADM2.json`, `USA-ADM2.json`, `IND-ADM2.json` and `BRA-ADM2.json` are no longer referenced. They are still on disk.
+- The old whole files `CAN-ADM2.json`, `USA-ADM2.json`, `IND-ADM2.json` and `BRA-ADM2.json` are no longer referenced. They were removed on 19 Oct 2026 with the others (below).
 
 ## Result: 180 countries checked, 155 pass, 25 fall back to ADM1 only
 
@@ -229,3 +229,9 @@ Italy is the one that matters for us: the shipped ITA file holds the 20 regions,
 | Date | Change |
 |---|---|
 | 19 Oct 2026 | First audit: 180 countries, Canada replaced by census divisions, USA, India and Brazil split by state. |
+
+## Orphaned whole-country files removed (19 Oct 2026)
+
+With the owner's approval (Q33) the 29 unreferenced whole-country files were deleted from `web/public/globe/admin/`, 4,653,807 bytes: `USA`, `BRA`, `IND`, `CAN` and `COL`, plus the 24 countries that fell back to ADM1 only (`AZE BEL BFA BHS BIH DZA ESP FRA GBR GIN GRC ITA LKA MAR MDV MKD MNP MWI PHL SRB SVK SVN SYC URY`). Nothing in `web/`, `core/` or the tests loaded them. `tools/tests/fixtures/served-urls.txt` still names `globe/assets/admin/BEL-ADM2.json`; that is the legacy site's assets directory, a different tree, and is untouched.
+
+They are regenerable. `globe_data.py audit` and `check` no longer read them from the shipped tree: a dropped country's whole file is rebuilt from the download cache (`tools/.cache/adm2/<ISO3>.geojson`, simplified the way `admin2` does, written to `tools/.cache/adm2-whole/`), fetched through the same geoBoundaries code when the cache lacks it (only for countries a previous audit looked at). `check` still skips with a message when the cached sources are missing, and its result is the same with and without the files: 131 files rebuilt identically.
