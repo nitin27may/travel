@@ -1,0 +1,276 @@
+{
+ "day": 5,
+ "kind": "normal",
+ "tz": "America/Edmonton",
+ "base": {
+  "name": "Jasper",
+  "placeSlug": null,
+  "point": {
+   "lat": 52.8737,
+   "lon": -118.0814
+  }
+ },
+ "nextBase": null,
+ "sunPoint": {
+  "lat": 52.8737,
+  "lon": -118.0814
+ },
+ "sunWindow": {
+  "from": [
+   9,
+   8
+  ],
+  "to": [
+   9,
+   22
+  ]
+ },
+ "start": {
+  "time": "07:30",
+  "source": "plan",
+  "label": "Leave Jasper"
+ },
+ "origin": null,
+ "homeBy": null,
+ "splitNote": null,
+ "legs": [
+  {
+   "from": "base",
+   "to": "maligne-lake-cruise",
+   "mode": "drive",
+   "minutes": 60,
+   "km": null,
+   "basis": "plan",
+   "estimate": true
+  },
+  {
+   "from": "moose-lake-loop",
+   "to": "base",
+   "mode": "drive",
+   "minutes": 60,
+   "km": null,
+   "basis": "plan",
+   "estimate": true
+  },
+  {
+   "from": "maligne-lake-cruise",
+   "to": "mary-schaffer-loop",
+   "mode": "walk",
+   "minutes": 0,
+   "km": null,
+   "basis": "plan",
+   "estimate": false
+  },
+  {
+   "from": "base",
+   "to": "bald-hills",
+   "mode": "drive",
+   "minutes": 60,
+   "km": null,
+   "basis": "plan",
+   "estimate": true
+  }
+ ],
+ "variants": [
+  {
+   "key": "A",
+   "label": "Adults' hike",
+   "audience": "adults",
+   "relation": "parallel",
+   "rank": 3,
+   "rejoin": {
+    "time": "14:00",
+    "place": "Maligne Lake boathouse car park",
+    "afterItem": "mary-schaffer-loop"
+   },
+   "items": [
+    {
+     "id": "bald-hills",
+     "kind": "trail",
+     "sub": "hike",
+     "title": "Bald Hills",
+     "placeSlug": null,
+     "point": null,
+     "rule": null,
+     "durationMin": null,
+     "durationRange": [
+      240,
+      300
+     ],
+     "durationSource": "data",
+     "stats": {
+      "distanceKm": 10.4,
+      "gainM": 500
+     },
+     "start": null,
+     "needs": null,
+     "window": null,
+     "checkinMin": null,
+     "optional": false,
+     "note": null,
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    }
+   ]
+  },
+  {
+   "key": "B",
+   "label": "Whole family",
+   "audience": "family",
+   "relation": "alternative",
+   "rank": 2,
+   "rejoin": {
+    "time": "14:00",
+    "place": "Maligne Lake boathouse car park",
+    "afterItem": "mary-schaffer-loop"
+   },
+   "items": [
+    {
+     "id": "maligne-lake-cruise",
+     "kind": "visit",
+     "sub": "boat",
+     "title": "Spirit Island cruise",
+     "placeSlug": null,
+     "point": null,
+     "rule": null,
+     "durationMin": 90,
+     "durationRange": null,
+     "durationSource": "operator",
+     "stats": null,
+     "start": {
+      "time": "10:00",
+      "confidence": "fixed",
+      "source": "operator",
+      "note": "Book the 10:00 sailing"
+     },
+     "needs": null,
+     "window": null,
+     "checkinMin": 20,
+     "optional": false,
+     "note": null,
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    },
+    {
+     "id": "mary-schaffer-loop",
+     "kind": "trail",
+     "sub": "hike",
+     "title": "Mary Schaffer Loop",
+     "placeSlug": null,
+     "point": null,
+     "rule": null,
+     "durationMin": null,
+     "durationRange": null,
+     "durationSource": null,
+     "stats": {
+      "distanceKm": 3.2,
+      "gainM": 84
+     },
+     "start": null,
+     "needs": null,
+     "window": null,
+     "checkinMin": null,
+     "optional": false,
+     "note": null,
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    },
+    {
+     "id": "moose-lake-loop",
+     "kind": "trail",
+     "sub": "hike",
+     "title": "Moose Lake Loop",
+     "placeSlug": null,
+     "point": null,
+     "rule": null,
+     "durationMin": null,
+     "durationRange": null,
+     "durationSource": null,
+     "stats": {
+      "distanceKm": 2.7,
+      "gainM": 59
+     },
+     "start": null,
+     "needs": null,
+     "window": null,
+     "checkinMin": null,
+     "optional": true,
+     "note": "If the child wants more",
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    },
+    {
+     "id": "pyramid-lake",
+     "kind": "visit",
+     "sub": "lake",
+     "title": "Pyramid Lake",
+     "placeSlug": null,
+     "point": null,
+     "rule": null,
+     "durationMin": null,
+     "durationRange": null,
+     "durationSource": null,
+     "stats": null,
+     "start": null,
+     "needs": {
+      "sun": "sunset",
+      "offsetMin": -40
+     },
+     "window": null,
+     "checkinMin": null,
+     "optional": true,
+     "note": "Calm water before sunset",
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    }
+   ]
+  },
+  {
+   "key": "C",
+   "label": "Easy day",
+   "audience": "easy",
+   "relation": "alternative",
+   "rank": 1,
+   "items": [
+    {
+     "id": "maligne-lake-cruise",
+     "kind": "visit",
+     "sub": "boat",
+     "title": "Spirit Island cruise",
+     "placeSlug": null,
+     "point": null,
+     "rule": null,
+     "durationMin": 90,
+     "durationRange": null,
+     "durationSource": "operator",
+     "stats": null,
+     "start": {
+      "time": "10:00",
+      "confidence": "fixed",
+      "source": "operator",
+      "note": "Book the 10:00 sailing"
+     },
+     "needs": null,
+     "window": null,
+     "checkinMin": 20,
+     "optional": false,
+     "note": null,
+     "minAge": null,
+     "minAgeRule": null,
+     "needsDaylight": false,
+     "honesty": []
+    }
+   ]
+  }
+ ]
+}
