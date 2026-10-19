@@ -63,3 +63,51 @@ Contrast pairs used, checked against tokens.md 2.2: `--muted` on `--surface` 6.9
 | Lighter sticky bar; map above the days | **Change, stage 4** | The bar must name the profile ("Family, 6 · Standard · Edit"), not "Plan as written". The map should become a sticky column at 1024 px and up and a "Map · Day N" pill on phone, because P5 says the map follows the timeline. Not a merge blocker. |
 | `adult_only` trails labelled "planned for age 13 and up" | **Change wording, keep the 13** | 13 is our rule, not the plan's limit or an operator's. Write it as "An adults' hike in this plan; we offer it from age 13", and never use "the limit here is". |
 | Default line "Showing the plan as written … Written for families with a child from about 6", with the stepper at 6 | **Keep** | It says who the plan suits, not who travelled, and the stepper matches the line. Drop the redundant "Whole family on 15 days" when every day uses the same version. |
+
+## Round 2 (19 Oct 2026)
+
+Re-review of `public/L3c` at e1babd4, built with `pnpm build` (exit 0, no `.env.local`), served from `web/out`, Chromium 1248 on the Arc GPU (ANGLE/GL), 1440 and 390, light and dark through the site's own theme toggle, 2x. Screens are in `/tmp/l3c-review/r2/` (element shots per scene, `texts.json` holds the rendered text of every Rockies day).
+
+**Verdict: not yet. Seven of the eight must-fixes are fixed and the eighth is mostly fixed, but the add-to-day flow and one Rockies day still show times a family would not believe.** Three blockers are left, all in the scheduler and all small.
+
+### Status of the round-1 must-fixes
+
+| # | Item | Status | Evidence |
+|---|---|---|---|
+| 1 | Day cap on 14 of 15 days | **Fixed, one wrong day left** | Warns on Days 4, 7 and 13. Day 7 is a false warning, see R2-2 |
+| 2 | Invented 10-minute legs; far candidates | **Fixed for the leg in, not the leg out** | Bow Lake is no longer offered to Jasper ("Nothing else is offered for this day that matches 'Bow'"); the one nearby place shows "16.7 mi away". Leg in is ladder-computed. Leg out is wrong, see R2-3 |
+| 3 | Patagonia Day 2 timetable | **Fixed** | Morning: Flight to Ushuaia 3 h; Afternoon: Harbour walk. No legs, no clock times (`pat-d2-*.png`) |
+| 4 | Unrounded times | **Mostly fixed** | Rockies suggested times and durations are on 5 minutes. Left: routed sums and legs on Dolomites Day 3, "1 h 37 driving", "Drive 48 min", "39 min", "10 h 42 of active time" |
+| 5 | Adults Day 5 order and title | **Fixed** | Titled "Bald Hills"; packed lunch at ~13:05 sits before "Drive 1 h back to Jasper" (`rk-adults-d5-*.png`) |
+| 6 | Split lanes unexplained | **Fixed** | Lane heads "Whole family" and "The stronger walkers: Bald Hills", a full-width "Together again at the Maligne Lake boathouse car park" band at 14:00, "Show both lanes" on the split row, "Show one lane" to go back; the phone toggle is kept (`rk-split-d5-*.png`) |
+| 7 | Research wording | **Fixed** | No `dataset`, `trail id` or `audience '` on Rockies, Dolomites or Patagonia. One new awkward note, see I-2 |
+| 8 | Dolomites age 4 | **Fixed** | "Not suited to age 4. Tre Cime di Lavaredo loop is 6.2 mi; we plan walks up to 2.5 mi at age 4." Cadini no longer overlaps: one line, "moves from 16:30 to about 19:45: what comes before it takes longer." "the limit here" and the doubled reason are gone. I accept the moved pin with its conflict line in place of dropping it, because the line says why |
+
+Round-1 rulings: "we offer it from age 13" no longer appears as "limit"; "Whole family on 15 days" is gone at the default ("Showing the plan as written. Written for families with a child from about 6.").
+
+### Remaining must-fixes (merge blockers)
+
+- **R2-1. Wrong "moved" notes after an addition (critical, T3).** On Rockies Day 5, add Athabasca Falls Walk, A rest, Coffee and a snack, Lunch (`?add=5.athabasca-falls-walk,5.rest-stop,5.coffee-break,5.lunch-stop#day-5`). "Dinner in Jasper" still at 17:45 says "moved 375 min later". "Rest at the base" says "moved 25 min later" although it went from 15:50 to 17:05. The note must be the difference between the entry's old and new start, in the house duration format ("moved 1 h 15 later"), and absent when the start did not change. Add a unit test that compares the note to the two starts.
+- **R2-2. Rockies Day 7 is a false day-cap warning, and it schedules dark-sky watching in daylight (critical, T1/T3).** "Day 7 is 10 h 15 away from base" counts "Laundry, groceries and rest in Jasper, 2 h" (08:00 to 10:00, at the base) and "Dark-sky watching, 1 h 30" at 16:35, more than three hours before a sunset of about 20:11. Time away from base is about 8 h 15 with the optional and 6 h 45 without it. Fix: leave out any block at the base of 45 minutes or more, not only blocks of kind rest. Anchor a dark-sky stop after astronomical dusk from `core/src/sun`; if that falls past the day's end, show it as "after dark, if clear" without a clock time, and keep it out of the cap.
+- **R2-3. The leg out of an added place copies the leg in (important, but blocking because it feeds the slot conflict).** After adding Athabasca Falls Walk, both legs read "≈Drive 55 min · 24.9 mi", Jasper to Athabasca and Athabasca to Spirit Island cruise. On the map those are different: the second goes back through Jasper, about 80 km by road. The page then reports "Drive to Spirit Island cruise runs 20 min into Check in" from the copied figure. The conflict line itself is honest and good. Fix: compute each leg from its own two endpoints (spec 2.5 ladder), and add a test with an added place between two points that are not on one line.
+
+Fix in the same pass (important, small): round routed sums and legs to 5 minutes when they are shown as totals ("1 h 35 driving", "about 10 h 40 of active time"); a single routed leg may stay exact only if the spec says so, otherwise round it too.
+
+### Rulings on the builder's caveats
+
+| Caveat | Ruling | Why |
+|---|---|---|
+| (a) Cap warns on Days 4, 7, 13, not 5 and 8 | **Day 4 right, Day 13 right, Day 7 wrong; change the golden to Days 4 and 13** | Day 4 is the Jasper move day over the Icefields Parkway, 07:30 to 19:00, 10 h 15 away: genuinely long. Day 13 runs to 21:55 only because optional Rawson Lake (4.8 mi, 5 h 35) starts at 14:25, and the warning names it ("Optional: Rawson Lake"), which is the right advice. Day 5 is about 9 h 40 away (07:30 to 15:50, then 19:00 to 20:30) and Day 8 about 7 h 45 (08:00 to the 15:45 check-in), so neither should warn; my round-1 target of 5 and 8 was wrong. Day 7 is R2-2. Update spec 1.4's golden to 4 and 13 when R2-2 lands |
+| (b) Scheduler size limit 12 to 13 kB | **Accept, once** | 1 kB for lanes, the sun anchor and the ladder is reasonable on a public page (P9). Record the new limit and the reason in the spec; the next raise needs a trim first |
+| (c) Stepper shows "age 6" at the default | **Keep** | It matches "Written for families with a child from about 6", the same ruling as round 1 |
+| (d) Added coffee, lunch or rest near its own time of day | **Accept** | Coffee landed at 08:45, lunch at 11:35 (replacing the picnic lunch, no double lunch), a rest at 15:20. That is what a family expects. The notes around it are R2-1 |
+
+### New findings (not blockers)
+
+- **I-1. Showing both lanes changes the day (important, P4).** Rockies Day 5 at rest has no warning, Moose Lake at ~13:45 and "Rest at the base 1 h 55". With `split=1` the same day warns "10 h 15 away", Moose Lake moves to ~14:10 and the rest drops to 1 h 30, because the family lane now waits for the 14:00 rejoin. A view switch should not change the plan. Schedule the rejoin wait in both views, so the times and the warning match whichever lane view is shown.
+- **I-2. "rated Poor in 2026 (not known yet)" (important, wording).** The Adults Day 5 note contradicts itself. Say what is known: either "Trail condition: poor in 2026" or "Trail condition not known yet".
+- **I-3. Rockies Day 13 runs to 21:55 with dinner at 20:40 at the default (important, T4).** The cause is the optional Rawson Lake. When an optional pushes dinner past 19:30 for a family, place it after the evening meal rather than before, or show it as a stretch goal without moving dinner.
+- **I-4. Interlakes "2.5 mi, 4 h" on flat ground (polish).** That is about 0.6 mph. Check the family pace for flat trails.
+- Stage-4 items from round 1 are unchanged as expected: truncated "2 h 30 dri…" in the strip, the variant column still shows "Whole family" on every row.
+
+Contrast: dark-mode warning text on the warning panel and `--muted` on `--surface` render as in round 1 (`dolo-f4-d3-390-dark.png`, `rk-strip-1440-dark.png`); no new colour pairs.
