@@ -79,9 +79,9 @@ const rel = (field: string): Home => ({ in: "relevance", path: field });
 // --------------------------------------------------------------------------------------------------------------------
 export const BASE_PROPERTIES: PropertyDef[] = [
   // Identity
-  def({ key: "name", group: "identity", label: "Name", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "A record needs a name", home: cap("name") }),
+  def({ key: "name", group: "identity", label: "Name", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Name not recorded yet", home: cap("name") }),
   def({ key: "names", group: "identity", label: "Names by language", value: "names", section: "cover", display: ["detail"], base: "A", gap: "Local name not recorded", home: cap("names") }),
-  def({ key: "type", group: "identity", label: "Type", value: "type_id", section: "cover", display: ["rest", "card", "filter"], base: "R", gap: "A record needs a type", home: cap("type") }),
+  def({ key: "type", group: "identity", label: "Type", value: "type_id", section: "cover", display: ["rest", "card", "filter"], base: "R", gap: "Type not recorded yet", home: cap("type") }),
   def({ key: "point", group: "identity", label: "Location", value: "point", section: "access", display: ["rest"], base: "R", gap: "Location approximate", home: cap("point") }),
   def({ key: "area_id", group: "identity", label: "Area", value: "ref", section: "cover", display: ["rest", "card"], base: "R", home: cap("area_id") }),
   def({ key: "wikidata", group: "identity", label: "Wikidata", value: "qid", section: "sources", display: ["detail"], base: "R", gap: "Not linked to Wikidata yet", home: rel("wikidata") }),
@@ -120,7 +120,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "weather", group: "relevance", label: "Weather", value: "enum", section: "cover", display: ["detail"], base: "R", home: rel("weather"), layers: ["place", "route", "offer"] }),
   def({ key: "why", group: "relevance", label: "Why go", value: "text", section: "cover", display: ["rest", "card"], base: "R", gap: "Not judged yet", home: rel("why"), layers: ["place", "route", "offer"] }),
   def({ key: "signals", group: "relevance", label: "Evidence of fame", value: "object", section: "sources", display: ["detail"], base: "R", home: rel("signals"), layers: ["place", "route", "offer"] }),
-  def({ key: "pairs_with", group: "relevance", label: "Nearby, worth adding", value: "object_list", section: "pairs", display: ["rest"], base: "A", gap: "Derived pairs fill in", home: rel("pairs_with") }),
+  def({ key: "pairs_with", group: "relevance", label: "Nearby, worth adding", value: "object_list", section: "pairs", display: ["rest"], base: "A", gap: "Nearby pairs not checked yet", home: rel("pairs_with") }),
 
   // Safety
   def({ key: "closures", group: "safety", label: "Closures and conditions", value: "object_list", section: "warnings", display: ["rest!"], base: "R?", trigger: "status_page", gap: "Closures not checked yet" }),

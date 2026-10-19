@@ -116,7 +116,7 @@ export function ElevationProfile({ guide, profile = null, track = null, ...input
         <span id={`${id}-hint`} className="muted small">
           {real ? (
             <>
-              Elevation sampled every 25 m along the OpenStreetMap line, from Terrain Tiles; climb and loss are computed from it. Drag or use the arrow keys; the map marker stays on the line.
+              Elevation sampled every {prefs.elevation === 'ft' ? '80 ft' : '25 m'} along the OpenStreetMap line, from Terrain Tiles; climb and loss are computed from it. Drag or use the arrow keys; the map marker stays on the line.
             </>
           ) : (
             <>

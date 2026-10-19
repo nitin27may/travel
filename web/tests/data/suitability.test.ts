@@ -124,7 +124,7 @@ describe('publicSuitability: the three chips', () => {
     expect(r.chips[1]!.text).toMatch(/^(Stroll|Easy|Moderate|Hard|Technical) · Parks Canada Easy · 1–1 h 30$/);
     expect(r.chips[1]!.textNoTime).toMatch(/^(Stroll|Easy|Moderate|Hard|Technical) · Parks Canada Easy$/);
     expect(r.card.effort!.text).toMatch(/^(Stroll|Easy|Moderate|Hard|Technical)$/);
-    expect(r.chips[2]!.text).toBe('No stroller');
+    expect(r.chips[2]!.text).toBe('No stroller access');
     expect(JSON.stringify(r)).not.toMatch(/\bFE[1-5]\b/);
   });
 });
@@ -303,5 +303,18 @@ describe('process notes never reach a visitor (3.27)', () => {
     expect(log.items.every((i) => /process note/.test(i.why))).toBe(true);
     // ordinary text stays
     expect(scrub.text('Parks Canada confirmed the closure by phone.', 'x')).toBe('Parks Canada confirmed the closure by phone.');
+  });
+});
+
+describe('time ranges carry their units (S1c 4)', () => {
+  it('shows the unit on both ends when they differ and once when they match', async () => {
+    const { publicSuitability } = await import('@/lib/public/suitability');
+    void publicSuitability;
+    const range = (a: number, b: number) => run('nature.trail.hike', { kind: 'trail', subkind: 'hike', suitability: { adult_time_min: v([a, b], 'our_inference') } } as never).groups.flatMap((g) => g.rows).find((r) => r.key === 'adult_time_min')?.text;
+    expect(range(45, 90)).toBe('45 min–1 h 30');
+    expect(range(30, 60)).toBe('30 min–1 h');
+    expect(range(30, 45)).toBe('30–45 min');
+    expect(range(60, 90)).toBe('1–1 h 30');
+    expect(range(120, 180)).toBe('2–3 h');
   });
 });

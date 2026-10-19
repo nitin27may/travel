@@ -351,10 +351,11 @@ td[data-align='right'] { text-align: right; font: var(--t-mono); }
 
 /* ---------- gallery, lightbox, credits (4.5) ---------- */
 .gal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.gal-item { position: relative; border-radius: var(--r-3); overflow: hidden; }
 .gal-tile { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; padding: 0; border: 0; border-radius: var(--r-3); overflow: hidden; background: var(--well); cursor: zoom-in; }
 .gal-tile img { width: 100%; height: 100%; object-fit: cover; filter: brightness(var(--img)); }
-.gal-credit { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 8px; background: var(--scrim); color: var(--header-ink); font: var(--t-chip); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; transition: opacity var(--d-fast); }
-.gal-tile:hover .gal-credit, .gal-tile:focus-visible .gal-credit { opacity: 1; }
+.gal-credit { pointer-events: none; position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 8px; background: var(--scrim); color: var(--header-ink); font: var(--t-chip); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; transition: opacity var(--d-fast); }
+.gal-item:hover .gal-credit, .gal-tile:focus-visible + .gal-credit { opacity: 1; }
 @media (max-width: 639px) { .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); } .gal-credit { opacity: 1; } }
 .lightbox { position: fixed; inset: 0; z-index: var(--z-scrim); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: var(--s-3); padding: var(--s-4); background: var(--header); color: var(--header-ink); transition: opacity var(--d-base), transform var(--d-base) var(--e-out); }
 .lightbox[data-starting-style], .lightbox[data-ending-style] { opacity: 0; transform: scale(0.98); }
