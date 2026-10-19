@@ -5,6 +5,7 @@ import type { GpxSource } from './gpx';
 import { buildKml } from './kml';
 import { tripCsv } from './csv';
 import { buildIcs, icsEventCount, NoCalendarError } from './ics';
+import type { IcsTimeline } from './ics';
 import { fileName, saveFile } from './download';
 import type { PlaceExport, TripExport } from './types';
 
@@ -36,10 +37,10 @@ export function downloadTripCsv(d: TripExport): Generated {
   saveFile(name, 'csv', tripCsv(d));
   return { name, summary: `${d.stops.length} stops` };
 }
-export function downloadIcs(d: TripExport, startDate: string): Generated {
+export function downloadIcs(d: TripExport, startDate: string, timeline?: IcsTimeline): Generated {
   const name = fileName(d.slug, 'ics');
-  saveFile(name, 'ics', buildIcs(d, startDate));
-  const c = icsEventCount(d);
+  saveFile(name, 'ics', buildIcs(d, startDate, new Date(), timeline));
+  const c = icsEventCount(d, timeline);
   return { name, summary: `${c.allDay} all-day events${c.timed ? `, ${c.timed} timed` : ''}` };
 }
 export { NoCalendarError };
