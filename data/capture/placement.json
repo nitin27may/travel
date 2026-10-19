@@ -960,6 +960,15 @@
       "decided": "2026-10-18"
     }
   ],
+  "cs7_draw_moves": [
+    {
+      "from": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "to": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+      "kind": "viewpoint",
+      "reason": "The visitor comes for the pass and the larch meadows below it; the walk is the way there. The relevance record took the pass's ref (D1, backlog 3.18); the ledger ignores refs, so no leaf changed.",
+      "file": "data/relevance/canadian-rockies-2029/R2a.json"
+    }
+  ],
   "cs7_moves": [
     {
       "from": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
