@@ -125,10 +125,11 @@ function PointSource({ p }: { p: Pick<AccessPoint, 'pointSource' | 'pointChecked
 
 function RouteLine({ lines, confirmed }: { lines: PlaceLineT[]; confirmed: boolean }) {
   const info = routeLineInfo(lines, confirmed);
+  const stored = lines.find((l) => l.exportable && (l.geometry?.length ?? 0) > 1);
   if (!info) return <p className="muted small">No route line is stored for this place yet.</p>;
   return (
     <p className="muted small">
-      {info.text}
+      {stored ? info.text.replace(/; (?:not yet )?confirmed by a person\.$/, '; it starts at our trailhead and matches the researched length.') : info.text}
       {info.refs.length ? ' Records: ' : ''}
       {info.refs.map((r, i) => (
         <span key={r.url}>
