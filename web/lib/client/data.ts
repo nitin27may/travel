@@ -1,8 +1,13 @@
 import type { PlaceExport, TripExport } from '@/lib/export/types';
 import { filterRows, facetCounts, gapNotes } from '@/lib/entities/filter';
+import { emptyState } from '@/lib/entities/url';
 import { sortRows } from '@/lib/entities/sort';
-import type { EntityDescriptor, EntityType, ListState } from '@/lib/entities/types';
+import { uncheckedRows } from '@/lib/entities/gaps';
+import type { UncheckedGroup } from '@/lib/entities/gaps';
+import type { EntityDescriptor, EntityType, FacetParam, ListState } from '@/lib/entities/types';
 import { queryTokens } from '@/lib/search/aliases';
+import { hrefFor } from '@/lib/search/parse/href';
+import type { DidYouMean, ParseOptions, ParsedQuery, VocabFile } from '@/lib/search/parse/types';
 import { createSearcher } from '@/lib/search/search';
 import type { Searcher } from '@/lib/search/search';
 import { suggest as suggestFrom } from '@/lib/search/suggest';
@@ -362,4 +367,64 @@ export async function globeWikidata(qid: string, signal?: AbortSignal): Promise<
   const body = (await r.json()) as { entities?: Record<string, WikidataEntity & { missing?: string }> };
   const e = body.entities?.[qid];
   return e && !e.missing ? e : null;
+}
+
+// ---------------------------------------------------------------- smart search (backlog 3.43, smart-search.md section 9.1)
+
+let vocabPromise: Promise<VocabFile> | null = null;
+
+/** The parser's words (`vocab.json`, labels only). Loaded on the first parse and kept for the page view; retries after a failure. */
+export function searchVocab(): Promise<VocabFile> {
+  vocabPromise ??= getJson<VocabFile>('/search/vocab.json').catch((e) => {
+    vocabPromise = null;
+    throw e;
+  });
+  return vocabPromise;
+}
+
+/**
+ * Reads a human query as filters, in the shape a server answers (`GET /api/parse?q=&target=` later): the same call with the same
+ * result. Today it runs in the browser from `vocab.json` and the search parts the search already loads, so a query leaves no
+ * request of its own (H7) and nothing is sent to a third party.
+ */
+export async function parseQuery(q: string, opts?: ParseOptions): Promise<ParsedQuery> {
+  // the parser is its own chunk: it loads on the first query, never with the first paint of a page
+  const [vocab, records, { parse }] = await Promise.all([searchVocab(), loadSearchRecords(), import('@/lib/search/parse/parse')]);
+  return parse(q, vocab, records, opts);
+}
+
+/**
+ * The Places answer split by honesty (H1): the rows that pass, and the rows that fail only on a gap of a constraint, per constraint.
+ * `parsed` limits the second part to the keys a parse wrote (a filter the visitor chose by hand keeps its count line).
+ */
+export function listPlacesChecked(query: ListState, parsed?: readonly FacetParam[]): ListResult<PlaceListRow> & { unchecked: UncheckedGroup<PlaceListRow>[] } {
+  const hit = registered.get('place');
+  if (!hit) throw new Error('No place list registered');
+  const d = hit.d as unknown as EntityDescriptor<PlaceListRow>;
+  return { ...listPlaces(query), unchecked: uncheckedRows(hit.rows as readonly PlaceListRow[], query, d, parsed) };
+}
+
+/**
+ * "Did you mean" for an empty answer (section 6.2, item 5): the parse with the one chip removed whose removal adds the most rows, with
+ * the count ("Without September: 8 places"). Null when the answer is not empty, when no single chip is to blame, or when the list of that
+ * kind is not registered.
+ */
+export function relaxQuery(parsed: ParsedQuery): DidYouMean | null {
+  if (parsed.target === 'search') return null;
+  const type: EntityType = parsed.target === 'trips' ? 'trip' : 'place';
+  const hit = registered.get(type);
+  if (!hit) return null;
+  const d = hit.d as unknown as EntityDescriptor<unknown>;
+  const rows = hit.rows as readonly unknown[];
+  const asked = { ...emptyState(), q: parsed.q, facets: parsed.facets };
+  if (parsed.chips.length < 2 || filterRows(rows, asked, d).length > 0) return null;
+  let best: { label: string; href: string; n: number } | null = null;
+  for (const chip of parsed.chips) {
+    if (chip.ask || !Object.keys(chip.set).length) continue;
+    const facets = { ...parsed.facets };
+    for (const key of Object.keys(chip.set)) delete facets[key];
+    const n = filterRows(rows, { ...emptyState(), q: parsed.q, facets }, d).length;
+    if (n > (best?.n ?? 0)) best = { label: `Without ${chip.label}: ${n} ${n === 1 ? d.noun.one : d.noun.many}`, href: hrefFor(parsed.target, facets, parsed.q), n };
+  }
+  return best ? { label: best.label, href: best.href } : null;
 }
