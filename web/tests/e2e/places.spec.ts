@@ -47,7 +47,8 @@ test.describe('places list', () => {
 
   test('a place with a position links to its spot on the globe', async ({ page, site }) => {
     await page.goto(`${site.url}/places/?q=lake louise`);
-    await expect(page.locator('article.card', { hasText: 'Lake Louise' }).getByRole('link', { name: /^Globe/ })).toHaveAttribute('href', '/globe/place/lake-louise/');
+    // "Lake Louise Summer Gondola" and others match the search too: look for the one Globe link of the lake itself
+    await expect(page.locator('article.card a[href="/globe/place/lake-louise/"]').first()).toHaveAttribute('href', '/globe/place/lake-louise/');
   });
 
   test('a saved Instagram place shows its source and a count of the rest', async ({ page, site }) => {
