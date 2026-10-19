@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { WEB, readText, walkFiles } from './helpers';
@@ -9,14 +10,28 @@ const imgs = pages.flatMap((f) => [...readText(f).matchAll(/<img\b[^>]*>/g)].map
 describe('images (backlog 2.14)', () => {
   it('finds images to check', () => expect(imgs.length).toBeGreaterThan(50));
 
-  it('asks Commons for a thumbnail width, never the original, and never wider than 1600', () => {
+  it('serves photos from our own /img renditions, 320, 640 or 960 px, and every file exists (backlog 2.38)', () => {
+    let local = 0;
     for (const { page, tag } of imgs) {
       const src = /\ssrc="([^"]+)"/.exec(tag)?.[1] ?? '';
-      if (!/commons\.wikimedia\.org/.test(src)) continue;
-      const w = Number(/[?&]width=(\d+)/.exec(src)?.[1]);
-      expect(w, `${page}: ${src}`).toBeGreaterThan(0);
-      expect(w, `${page}: ${src}`).toBeLessThanOrEqual(1600);
+      if (/commons\.wikimedia\.org/.test(src)) {
+        // the photo could not be fetched at build time: it stays on Commons, at a width the pages ask for
+        expect([320, 640, 960], `${page}: ${src}`).toContain(Number(/[?&]width=(\d+)/.exec(src)?.[1]));
+        continue;
+      }
+      if (!src.startsWith('/img/')) continue;
+      local++;
+      expect(src, page).toMatch(/^\/img\/[a-z0-9]+-(320|640|960)\.webp$/);
+      expect(existsSync(path.join(OUT, src)), `${page}: ${src}`).toBe(true);
+      const set = /\ssrcSet="([^"]+)"/.exec(tag)?.[1];
+      if (set) for (const part of set.split(', ')) expect(part, page).toMatch(/^\/img\/[a-z0-9]+-(320|640|960)\.webp (320|640|960)w$/);
     }
+    expect(local).toBeGreaterThan(50);
+  });
+
+  it('keeps Wikimedia out of the page weight: no photo is a Commons hot-link unless the build could not fetch it', () => {
+    const remote = imgs.filter(({ tag }) => /commons\.wikimedia\.org/.test(tag)).length;
+    expect(remote, 'photos still on Commons').toBeLessThan(imgs.length * 0.05);
   });
 
   it('sets width and height on every image so the box is reserved before it loads', () => {
@@ -26,10 +41,21 @@ describe('images (backlog 2.14)', () => {
     }
   });
 
-  it('lazy-loads every image except the one hero a page marks high priority', () => {
+  it('lazy-loads every image except the hero a page marks high priority and at most three eager cards beside it', () => {
     for (const { page, tag } of imgs) {
-      if (/fetchPriority="high"/i.test(tag)) continue;
+      if (/fetchPriority="high"/i.test(tag) || /loading="eager"/.test(tag)) continue;
       expect(tag, page).toContain('loading="lazy"');
+    }
+    for (const page of pages) {
+      const tags = [...readText(page).matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+      expect(tags.filter((t) => /loading="eager"/.test(t)).length, path.relative(OUT, page)).toBeLessThanOrEqual(4);
+      expect(tags.filter((t) => /fetchPriority="high"/i.test(t)).length, path.relative(OUT, page)).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('gives the first card on the home page, the lists and the hero of a trip or place high priority', () => {
+    for (const rel of ['index.html', 'trips/index.html', 'places/index.html', 'trips/dolomites-2027/index.html', 'places/arches-national-park/index.html']) {
+      expect(readText(path.join(OUT, rel)), rel).toMatch(/<img\b[^>]*fetchPriority="high"/i);
     }
   });
 });

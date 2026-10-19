@@ -76,34 +76,30 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
           shortcut
         />
 
-        {phone ? (
-          <>
-            <span className="pill filters-btn" data-active={activeCount > 0 || undefined}>
-              <button
-                type="button"
-                className="pill-trigger"
-                aria-haspopup="dialog"
-                onClick={() => {
-                  setSheetEver(true);
-                  setSheetOpen(true);
-                }}
-              >
-                <Icon name="filter" size={16} />
-                <span>{activeCount ? `Filters (${activeCount})` : 'Filters'}</span>
-              </button>
-            </span>
-            {sheetEver ? (
-              <PhoneFilterSheet d={d} state={state} facets={primary} more={more} counts={counts} shown={shown} filtered={filtered} open={sheetOpen} onOpenChange={setSheetOpen} setFacet={setFacet} onState={onState} />
-            ) : null}
-          </>
-        ) : (
-          <div className="facet-group" role="group" aria-label="Filters">
-            {primary.map((f) => (
-              <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
-            ))}
-            {more.length || waiting.length ? <LazyMoreFilters facets={more} waiting={waiting} counts={counts} state={state} setFacet={setFacet} /> : null}
-          </div>
-        )}
+        {/* Both forms are in the server HTML and CSS shows one, so the bar has its final height before hydration (backlog 2.38, CLS). */}
+        <span className="pill filters-btn" data-active={activeCount > 0 || undefined}>
+          <button
+            type="button"
+            className="pill-trigger"
+            aria-haspopup="dialog"
+            onClick={() => {
+              setSheetEver(true);
+              setSheetOpen(true);
+            }}
+          >
+            <Icon name="filter" size={16} />
+            <span>{activeCount ? `Filters (${activeCount})` : 'Filters'}</span>
+          </button>
+        </span>
+        {phone && sheetEver ? (
+          <PhoneFilterSheet d={d} state={state} facets={primary} more={more} counts={counts} shown={shown} filtered={filtered} open={sheetOpen} onOpenChange={setSheetOpen} setFacet={setFacet} onState={onState} />
+        ) : null}
+        <div className="facet-group" role="group" aria-label="Filters">
+          {primary.map((f) => (
+            <FacetPopover key={f.param} facet={f} options={counts[f.param] ?? []} selected={state.facets[f.param] ?? []} onChange={(v) => setFacet(f.param, v)} />
+          ))}
+          {more.length || waiting.length ? <LazyMoreFilters facets={more} waiting={waiting} counts={counts} state={state} setFacet={setFacet} /> : null}
+        </div>
 
         <ViewSwitcher view={state.view} onChange={changeView} mapEnabled={Boolean(d.renderMap)} />
       </div>
@@ -130,11 +126,9 @@ export function FilterBar<Row>(props: FilterBarProps<Row>) {
             Clear all
           </button>
         ) : null}
-        {!phone ? (
-          <div className="row-end">
-            <ViewOptions d={d} state={state} onState={onState} />
-          </div>
-        ) : null}
+        <div className="row-end">
+          <ViewOptions d={d} state={state} onState={onState} />
+        </div>
       </div>
     </div>
   );

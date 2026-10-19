@@ -5,6 +5,7 @@ import type { BasemapFeature, Focus, GlobeEngine, HitLayer, HoverInfo, Padding }
 import { inBox, inFeature, locate, tally, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
 import { areaPathOfPin, boxOfArea, nodeAt, pinsFor, pinsUnder } from './model';
 import { zoomForRank, type SearchHit } from './search';
+import { ensureCard, ensureCountry } from './store';
 import type { Camera, GlobeCard, GlobeData, PinModel, View } from './types';
 import { cameraQuery, hitSuffix, viewPath } from './url';
 import { WORLD_LAT, WORLD_LNG, worldFrame, type Footprint } from './framing';
@@ -215,6 +216,13 @@ export class GlobeController {
     }
     const cc = path[0];
     const a3 = country.facts.a3;
+    // The country's pins load once, here; every level below needs them (backlog 2.39).
+    try {
+      await ensureCountry(this.o.data, cc);
+    } catch {
+      this.emit({ notice: 'The places in this area could not be loaded. Try again in a moment.' });
+    }
+    if (token !== this.areaToken) return;
     this.focus = { country: country.id, s: null, d: null };
     this.adm2 = null;
     engine.setAdmin('adm2', null);
@@ -295,10 +303,17 @@ export class GlobeController {
   }
 
   // ---- pins ----------------------------------------------------------------------------------------------
-  card(key: string): GlobeCard | undefined { return this.o.data.cards[key]; }
+  /** The card for a key, loading it (and its country's pins) the first time. Null when the key is not on the globe. */
+  private async card(key: string): Promise<GlobeCard | null> {
+    try {
+      return await ensureCard(this.o.data, key);
+    } catch {
+      return null;
+    }
+  }
 
   async selectCard(key: string, o: { push?: boolean; fly?: boolean; camera?: Camera | null } = {}): Promise<void> {
-    const card = this.card(key);
+    const card = await this.card(key);
     const engine = this.engine;
     if (!card || !engine) { this.emit({ notice: 'That place is not on the globe yet.' }); return; }
     engine.setFeature(null);
@@ -348,7 +363,7 @@ export class GlobeController {
       return;
     }
     const key = `${v.kind}:${v.slug}`;
-    if (!this.card(key)) {
+    if (!(await this.card(key))) {
       this.emit({ selected: null, notice: v.kind === 'trip' ? 'That trip is not on the globe.' : 'That place is not on the globe.' });
       await this.showArea([], { fly: !o.camera, camera: o.camera });
       return;

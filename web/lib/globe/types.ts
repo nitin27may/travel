@@ -1,6 +1,31 @@
-import type { GlobeIndex } from '@/lib/public/types';
+import type { GlobeNode, GlobePin } from '@/lib/public/types';
 
-export type { GlobeIndex };
+/** A country, state or district of the tree. A country also carries the point its disc sits on when the world is drawn. */
+export interface GlobeTreeNode extends Omit<GlobeNode, 'children'> {
+  children: GlobeTreeNode[];
+  /** Countries only: [lon, lat], the mean of the country's real (not approximate) pins; null when it has none. */
+  at?: [number, number] | null;
+}
+
+/** The areas with their counts and nothing else: what the world view and the side panel need (backlog 2.39). */
+export interface GlobeTree {
+  continents: { slug: string; name: string; places: number; trips: number; countries: GlobeTreeNode[] }[];
+}
+
+/**
+ * One pin in the light shape (principle P8): name, kind, slug, position and the area path that clusters it. No facts, no
+ * photo, no credit; those come with the card, one item at a time.
+ */
+export interface LightPin extends GlobePin {
+  /** "Trail", "Lake", or "Trip": the display label of the kind. */
+  kindLabel: string;
+}
+
+/** The file for one pin: its card, and the pin itself (so a deep link needs no country file first). */
+export interface GlobeCardFile {
+  card: GlobeCard;
+  pin: LightPin;
+}
 
 /** What a pin's selection card shows. Built on the server from the data adapter, so the client holds no page data. */
 export interface GlobeCard {
@@ -22,8 +47,12 @@ export interface GlobeCard {
   href: string;
 }
 
+/**
+ * What the globe holds in the browser. The tree arrives first; `index.pins` fills one country at a time as areas open,
+ * and `cards` one card at a time as pins are selected (see `lib/globe/store.ts`). Both are filled in place.
+ */
 export interface GlobeData {
-  index: GlobeIndex;
+  index: { continents: GlobeTree['continents']; pins: LightPin[] };
   cards: Record<string, GlobeCard>;
 }
 

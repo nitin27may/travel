@@ -14,7 +14,7 @@ export function SelectionCard({ card, onClose }: { card: GlobeCard; onClose(): v
     <article className="globe-card" aria-label={card.title}>
       {card.photo ? (
         <div className="globe-card-photo">
-          <EntityImage src={card.photo.url} width={640} fallbackIcon={icon} />
+          <EntityImage src={card.photo.url} width={640} sizes="360px" fallbackIcon={icon} />
           <Button size="sm" variant="secondary" icon aria-label="Close details" className="globe-card-x" onClick={onClose}>
             <Icon name="close" size={16} />
           </Button>

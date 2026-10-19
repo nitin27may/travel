@@ -1,11 +1,12 @@
 import { globeIndex, listPlaces, listTrips } from '@/lib/public';
-import type { GlobeCard, GlobeData } from './types';
+import type { GlobeCard, GlobeCardFile, GlobeData, GlobeTree, GlobeTreeNode, LightPin } from './types';
 
 const DEPTH_BADGE: Record<string, string> = { full: 'Full plan', summary: 'Condensed from the full plan', overview: 'Overview only' };
 
 /**
- * Server-side: the pins and the cards behind them, as plain JSON for the client (the globe page, and the home page's
- * cover globe). Only listed trips are pinned, so a private trip never reaches the page (README 2.3).
+ * Server-side, at build time: every pin and every card, in memory. The site never ships this as one object: the build splits
+ * it into the files below (backlog 2.39) and the browser loads the tree, then one country of pins, then one card at a time.
+ * Only listed trips are pinned, so a private trip never reaches the output (README 2.3).
  */
 export function buildGlobeData(): GlobeData {
   const idx = globeIndex();
@@ -32,10 +33,51 @@ export function buildGlobeData(): GlobeData {
         badge: DEPTH_BADGE[t.depth] ?? null, approx: pin.approx, href: `/trips/${t.slug}/`,
       };
     }
-    pins.push(pin);
+    pins.push({ ...pin, kindLabel: cards[key].kindLabel });
   }
   // Trip counts in the tree include only listed trips already (the adapter builds them from public trips).
-  return { index: { continents: idx.continents, pins }, cards };
+  return { index: { continents: withCentres(idx.continents, pins), pins }, cards };
+}
+
+const mean = (pins: LightPin[]): [number, number] | null =>
+  pins.length ? [pins.reduce((n, p) => n + p.lon, 0) / pins.length, pins.reduce((n, p) => n + p.lat, 0) / pins.length] : null;
+
+/** Gives each country the point its disc sits on in the world view, so that view needs no pins. */
+function withCentres(continents: GlobeTree['continents'], pins: LightPin[]): GlobeTree['continents'] {
+  return continents.map((c) => ({
+    ...c,
+    countries: c.countries.map((n): GlobeTreeNode => ({ ...n, at: mean(pins.filter((p) => p.path[0] === n.slug && !p.approx)) })),
+  }));
+}
+
+/** The files the globe loads, built once per build. */
+export interface GlobeFiles {
+  tree: GlobeTree;
+  /** Country slug (`xx` when a pin has no country) to the light pins under it. */
+  pins: Record<string, LightPin[]>;
+  /** `<kind>/<slug>` to the card file. */
+  cards: Record<string, GlobeCardFile>;
+}
+
+let files: GlobeFiles | null = null;
+export function buildGlobeFiles(): GlobeFiles {
+  if (files) return files;
+  const data = buildGlobeData();
+  const pins: Record<string, LightPin[]> = {};
+  const cards: Record<string, GlobeCardFile> = {};
+  for (const pin of data.index.pins) {
+    (pins[pin.path[0] ?? 'xx'] ??= []).push(pin);
+    const key = `${pin.kind}:${pin.slug}`;
+    cards[`${pin.kind}/${pin.slug}`] = { card: data.cards[key], pin };
+  }
+  files = { tree: { continents: data.index.continents }, pins, cards };
+  return files;
+}
+
+/** The tree for the home cover: countries with their centre and counts, no states or districts. */
+export function coverTree(): GlobeTree {
+  const { tree } = buildGlobeFiles();
+  return { continents: tree.continents.map((c) => ({ ...c, countries: c.countries.map((n) => ({ ...n, children: [] })) })) };
 }
 
 /** Slugs the static export pre-renders under /globe/place and /globe/trip: the pinned ones. */

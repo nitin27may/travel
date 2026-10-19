@@ -1,6 +1,5 @@
-import type { GlobeNode, GlobePin } from '@/lib/public/types';
 import { boxOfPoints, type Bbox, type Pt } from './geometry';
-import type { CountryFacts, GlobeCard, GlobeData, PinModel } from './types';
+import type { CountryFacts, GlobeData, GlobeTreeNode as GlobeNode, LightPin as GlobePin, PinModel } from './types';
 
 /** The node of the index tree at `path` (['it', 'south-tyrol']), or null. */
 export function nodeAt(data: GlobeData, path: string[]): GlobeNode | null {
@@ -28,27 +27,25 @@ const meanPoint = (pins: GlobePin[]): Pt => [pins.reduce((s, p) => s + p.lon, 0)
 /** Rounds to about 11 m so co-located pins share a key. */
 export const colocationKey = (p: { lng: number; lat: number }): string => `${p.lng.toFixed(4)},${p.lat.toFixed(4)}`;
 
-const placePin = (p: GlobePin, cards: Record<string, GlobeCard>): PinModel | null => {
+const placePin = (p: GlobePin): PinModel => {
   const key = `${p.kind}:${p.slug}`;
-  const card = cards[key];
-  return card ? { id: key, kind: p.kind, lng: p.lon, lat: p.lat, count: 1, label: p.name, cardKey: key, glyph: card.glyph } : null;
+  return { id: key, kind: p.kind, lng: p.lon, lat: p.lat, count: 1, label: p.name, cardKey: key, glyph: p.kind === 'trip' ? 'trip' : p.type };
 };
 
 /**
  * What the globe draws at a given area path (patterns 3.2): the world shows one pin per country with content;
  * a country shows its state pins and trips; a state shows district pins (two or more places) and the places
  * themselves; a district shows its places. Places inside the open area only; trips of the open country always.
+ * The world level needs only the tree; any other level needs that country's pins in `data.index.pins` (see `store.ts`).
  */
 export function pinsFor(data: GlobeData, path: string[], countries: Record<string, CountryFacts>): PinModel[] {
   const out: PinModel[] = [];
-  const cards = data.cards;
   if (!path.length) {
     for (const c of data.index.continents.flatMap((x) => x.countries)) {
       const total = c.places + c.trips;
       if (!total) continue;
       const facts = Object.values(countries).find((f) => f.a2.toLowerCase() === c.slug);
-      const pins = data.index.pins.filter((p) => p.path[0] === c.slug && !p.approx);
-      const at: Pt | null = facts?.latlng ? [facts.latlng[1], facts.latlng[0]] : pins.length ? meanPoint(pins) : null;
+      const at: Pt | null = facts?.latlng ? [facts.latlng[1], facts.latlng[0]] : (c.at ?? null);
       if (at) out.push({ id: `country:${c.slug}`, kind: 'country', lng: at[0], lat: at[1], count: total, label: facts?.name ?? c.name, path: [c.slug] });
     }
     return out;
@@ -56,7 +53,7 @@ export function pinsFor(data: GlobeData, path: string[], countries: Record<strin
   const country = nodeAt(data, path.slice(0, 1));
   const here = nodeAt(data, path);
   const trips = pinsUnder(data, path.slice(0, 1), 'trip');
-  for (const t of trips) { const m = placePin(t, cards); if (m) out.push(m); }
+  for (const t of trips) out.push(placePin(t));
   const places = pinsUnder(data, path, 'place');
   if (path.length === 1) {
     for (const s of country?.children ?? []) {
@@ -79,8 +76,7 @@ export function pinsFor(data: GlobeData, path: string[], countries: Record<strin
   }
   for (const p of places) {
     if (districtPlaces.has(p.slug)) continue;
-    const m = placePin(p, cards);
-    if (m) out.push(m);
+    out.push(placePin(p));
   }
   return out;
 }
