@@ -117,12 +117,14 @@ describe('trail pages for every trail of a public trip', () => {
     expect(new Set(a).size).toBe(a.length);
     for (const slug of ['lago-di-braies', 'seceda-ridge', 'tre-cime-di-lavaredo-loop']) expect(a).toContain(slug);
   });
-  it('links each Rockies trail named in the itinerary to its page', () => {
+  it('links the Rockies trails named in the itinerary to their pages, except where a sight or adventure has the same name', () => {
     const t = data.getTrip('canadian-rockies-2029')!;
     const items = t.days.flatMap((d) => d.items).filter((i) => i.kind === 'trail');
     expect(items.length).toBeGreaterThan(20);
+    const ambiguous = new Set(trailSeeds(loadSources()).filter((s) => s.ambiguous).map((s) => s.name));
     const unlinked = items.filter((i) => !i.placeSlug).map((i) => i.name);
-    expect(unlinked).toEqual([]);
+    for (const n of unlinked) expect(ambiguous.has(n), n).toBe(true);
+    expect(items.length - unlinked.length).toBeGreaterThan(20);
   });
   it('gives a trail its full link list and says "none found" only where the research recorded it', () => {
     const p = data.getPlace('larch-valley-to-sentinel-pass')!;

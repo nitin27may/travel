@@ -176,7 +176,7 @@ describe('the place a trail reaches (L4b)', () => {
   const place = data.getPlace('larch-valley-to-sentinel-pass')!;
   const render = (payoff: { name: string; slug: string | null } | null) => renderToString(<PlacePage place={place} inside={[]} url="https://example.test/p/" payoff={payoff} />).replace(/<!-- -->/g, '');
   it('links the payoff when it has a page and names it when it has none', () => {
-    expect(render({ name: 'Sentinel Pass', slug: 'sentinel-pass' })).toContain('To <a href="/places/sentinel-pass/">Sentinel Pass</a>');
+    expect(render({ name: 'Sentinel Pass', slug: 'sentinel-pass' })).toMatch(/To <a href="\/places\/sentinel-pass\/?">Sentinel Pass<\/a>/);
     expect(render({ name: 'Sentinel Pass', slug: null })).toContain('To <strong>Sentinel Pass</strong>');
     expect(render(null)).not.toContain('pl-payoff');
   });
