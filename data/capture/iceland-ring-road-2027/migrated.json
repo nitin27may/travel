@@ -14,6 +14,33 @@
       "kind": "official",
       "read": "2026-10-18",
       "method": "read"
+    },
+    {
+      "id": "src-0002",
+      "url": "https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2",
+      "title": "Arnarstapi - Hellnar - Snæfellsjökulsþjóðgarður",
+      "publisher": "Snæfellsjökull National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0003",
+      "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarsker-sel-s2",
+      "title": "Svartifoss - Sjónarsker - Sel - Vatnajökull National Park",
+      "publisher": "Vatnajökull National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0004",
+      "url": "https://www.thingvellir.is/en/things-to-do/hiking-trails/",
+      "title": "Hiking trails - Thingvellir National Park",
+      "publisher": "Thingvellir National Park",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -140,7 +167,18 @@
       "layer": "route",
       "name": "Arnarstapi to Hellnar",
       "route_is_attraction": true,
-      "attraction_reason": "A coastal path past sea arches and bird cliffs: the walk itself is the experience."
+      "attraction_reason": "A coastal path past sea arches and bird cliffs: the walk itself is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://snaefellsjokull.is/en/gonguleid/arnarstapi-hellnar-2",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0002"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
@@ -155,6 +193,14 @@
       "name": "Fjadrargljufur canyon",
       "reaches": [
         "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "state": "searched_none",
+          "query": "Fjaðrárgljúfur trail page on the Icelandic nature conservation agency site",
+          "on": "2026-10-19"
+        }
       ]
     },
     {
@@ -217,6 +263,17 @@
       "name": "Skaftafell Svartifoss",
       "reaches": [
         "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff"
+      ],
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.vatnajokulsthjodgardur.is/en/areas/skaftafell/svartifoss-sjonarsker-sel-s2",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0003"
+          ]
+        }
       ]
     },
     {
@@ -272,7 +329,18 @@
       "layer": "route",
       "name": "Thingvellir",
       "route_is_attraction": true,
-      "attraction_reason": "The walk down the rift between two plates is the experience."
+      "attraction_reason": "The walk down the rift between two plates is the experience.",
+      "links": [
+        {
+          "kind": "official",
+          "url": "https://www.thingvellir.is/en/things-to-do/hiking-trails/",
+          "state": "filled",
+          "on": "2026-10-19",
+          "src": [
+            "src-0004"
+          ]
+        }
+      ]
     },
     {
       "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
