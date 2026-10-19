@@ -6,7 +6,7 @@ import { countryPins, pickPlaces } from '@/components/home/pick';
 import { HomePlaceCard, HomeTripCard } from '@/components/home/Strips';
 import { Credits, type PhotoCredit } from '@/components/ui/Credits';
 import { globeIndex, listPlaces, listTrips, type Photo } from '@/lib/public';
-import { buildGlobeData } from '@/lib/globe/data';
+import { coverTree } from '@/lib/globe/data';
 import { pageMetadata } from '@/lib/site';
 import '@/styles/home.css';
 
@@ -24,8 +24,8 @@ export default function Home() {
   const allPlaces = listPlaces();
   const places = pickPlaces(allPlaces, 8);
   const pins = countryPins(globeIndex());
-  // the cover draws country discs from the tree alone; the cards (photos, titles) are for the full globe
-  const cover = { index: buildGlobeData().index, cards: {} };
+  // the cover draws country discs from the tree alone (counts and a centre per country); no pins, no cards (backlog 2.39)
+  const cover = { index: { continents: coverTree().continents, pins: [] }, cards: {} };
   const photos = [...trips.map((t) => t.cover), ...places.map((p) => p.photo)].filter((p): p is Photo => !!p);
   return (
     <div className="home">
@@ -47,9 +47,9 @@ export default function Home() {
             <Link href="/trips/">All {allTrips.length} trips &rarr;</Link>
           </div>
           <ul className="home-cards">
-            {trips.map((t) => (
+            {trips.map((t, i) => (
               <li key={t.slug}>
-                <HomeTripCard trip={t} />
+                <HomeTripCard trip={t} priority={i === 0} />
               </li>
             ))}
           </ul>

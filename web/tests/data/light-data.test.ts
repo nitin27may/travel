@@ -117,7 +117,7 @@ describe.skipIf(!existsSync(path.join(OUT, 'index.html')))('the built site holds
     expect(bad).toEqual([]);
   });
   it('every public data file is a search part or geography, and no search part is bigger than 48 KB', () => {
-    const json = files.map(rel).filter((p) => p.endsWith('.json') && !p.startsWith('_next/') && !p.startsWith('globe/'));
+    const json = files.map(rel).filter((p) => p.endsWith('.json') && !p.startsWith('_next/') && !p.startsWith('globe/') && !p.startsWith('globe-data/')); // globe-data has its own limits in budget.test.ts
     for (const p of json) expect(p === 'search/manifest.json' || /^search\/(trip|place|area)-[a-z]{2,4}\/data\.json$/.test(p), p).toBe(true);
     for (const p of json) expect(readFileSync(path.join(OUT, p)).length, p).toBeLessThan(48 * 1024);
   });
