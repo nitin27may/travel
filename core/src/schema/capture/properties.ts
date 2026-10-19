@@ -3,7 +3,7 @@
 // A property has a key, a group, a value type, a unit, a label, the wording for an honest gap, the page section that
 // shows it, its display levels, its base mark (3.2) and, when it can split a result list, a filter role (section 7).
 // `home` says where a value lives today, so the completeness engine knows where to read it: in the suitability block, in
-// the relevance record, on the capture record, or nowhere yet (then the property is always a gap and the page says
+// the relevance record, on the capture record, in the stored OSM tracks (data/tracks), or nowhere yet (then the property is always a gap and the page says
 // "Not checked yet").
 //
 // What this file does NOT hold: which types need a property. That is data/vocab/types.json (marks per node). A new TYPE is
@@ -26,7 +26,7 @@ export type ValueType =
   | "season_rows" | "hours" | "price_list" | "window" | "limit" | "grade" | "relation_list" | "link_list" | "photo_list"
   | "object" | "object_list" | "enum_list";
 
-export type HomeIn = "suitability" | "relevance" | "capture" | "none";
+export type HomeIn = "suitability" | "relevance" | "capture" | "tracks" | "none";
 export interface Home { in: HomeIn; path?: string }
 
 export interface FilterDef {
@@ -145,7 +145,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "variant_of", group: "relations", label: "Variant of", value: "relation_list", section: "options", display: ["detail"], base: "N", home: cap("variant_of"), layers: ["offer"] }),
 
   // Route facts no suitability field holds
-  def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", layers: ["route"] }),
+  def({ key: "geometry", group: "type_facts", label: "Track", value: "object", section: "activity", display: ["detail"], base: "N", gap: "Track not recorded yet", home: { in: "tracks", path: "data/tracks" }, layers: ["route"] }),
   def({ key: "high_point_m", group: "type_facts", label: "High point", value: "number", unit: "m", section: "activity", display: ["detail"], base: "N", layers: ["route"] }),
   def({ key: "gpx_licence", group: "type_facts", label: "Track licence", value: "text", section: "links", display: ["detail"], base: "N", layers: ["route"] }),
   def({ key: "snow_free_window", group: "type_facts", label: "Snow-free window", value: "season_rows", section: "when", display: ["rest"], base: "N", layers: ["route"] }),
