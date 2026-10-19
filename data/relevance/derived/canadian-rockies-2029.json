@@ -291,6 +291,14 @@
               "shuttle_only"
             ],
             "family_effort": 3
+          },
+          {
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+            "km": 24.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": null
           }
         ],
         "area": [
@@ -305,14 +313,12 @@
             "family_effort": 3
           },
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-            "km": 25.5,
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+            "km": 24.8,
             "draw": "national",
             "standing": "top",
-            "access_cost": [
-              "shuttle_only"
-            ],
-            "family_effort": 3
+            "access_cost": [],
+            "family_effort": null
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
@@ -627,8 +633,8 @@
           "km": 5.7
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "km": 8.7
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+          "km": 7.9
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
@@ -668,11 +674,11 @@
       "route_is_attraction": true
     },
     {
-      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
       "draw_suggested": "local",
       "effective_draw": "world",
-      "access_load": "plan",
-      "detour_min": 22,
+      "access_load": "easy",
+      "detour_min": 20,
       "detour_basis": "town",
       "detour_town": "Lake Louise",
       "from_hubs": {},
@@ -680,19 +686,7 @@
         "near": [
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
-            "km": 7.7,
-            "draw": "national",
-            "standing": "top",
-            "access_cost": [
-              "shuttle_only"
-            ],
-            "family_effort": 3
-          }
-        ],
-        "area": [
-          {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
-            "km": 7.7,
+            "km": 6.9,
             "draw": "national",
             "standing": "top",
             "access_cost": [
@@ -702,7 +696,27 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-            "km": 25.5,
+            "km": 24.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+            "km": 6.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+            "km": 24.8,
             "draw": "national",
             "standing": "top",
             "access_cost": [],
@@ -710,7 +724,7 @@
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
-            "km": 39.9,
+            "km": 40.6,
             "draw": "regional",
             "standing": "top",
             "access_cost": [],
@@ -722,35 +736,28 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
-          "km": 2.6
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "km": 3.1
         },
         {
-          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
-          "km": 2.6
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "km": 3.2
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
-          "km": 8.7
+          "km": 7.9
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
-          "km": 9.1
+          "km": 8.3
         },
         {
           "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
-          "km": 12.7
+          "km": 12
         }
       ],
       "part_of": [],
-      "plan_b": {
-        "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-        "km": 25.5,
-        "draw": "national",
-        "standing": "top",
-        "access_cost": [],
-        "family_effort": 4
-      },
+      "plan_b": null,
       "fits": {
         "vacation": {
           "fit": "plan_around",
@@ -763,7 +770,7 @@
         "day": {},
         "passing": {
           "fit": "skip",
-          "reason": "needs a booking or permit"
+          "reason": "too long a stop for the draw"
         }
       },
       "role": "anchor",
@@ -785,8 +792,7 @@
           "reason": "draw world, standing top"
         }
       },
-      "layer": "route",
-      "route_is_attraction": true
+      "layer": "place"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
@@ -946,14 +952,12 @@
       "substitutes": {
         "near": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-            "km": 7.7,
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+            "km": 6.9,
             "draw": "national",
             "standing": "top",
-            "access_cost": [
-              "shuttle_only"
-            ],
-            "family_effort": 3
+            "access_cost": [],
+            "family_effort": null
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
@@ -966,14 +970,12 @@
         ],
         "area": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-            "km": 7.7,
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+            "km": 6.9,
             "draw": "national",
             "standing": "top",
-            "access_cost": [
-              "shuttle_only"
-            ],
-            "family_effort": 3
+            "access_cost": [],
+            "family_effort": null
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
@@ -1019,12 +1021,12 @@
       ],
       "part_of": [],
       "plan_b": {
-        "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
-        "km": 18.2,
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+        "km": 6.9,
         "draw": "national",
         "standing": "top",
         "access_cost": [],
-        "family_effort": 4
+        "family_effort": null
       },
       "fits": {
         "vacation": {
@@ -1247,14 +1249,12 @@
         "near": [],
         "area": [
           {
-            "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-            "km": 39.9,
+            "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+            "km": 40.6,
             "draw": "national",
             "standing": "top",
-            "access_cost": [
-              "shuttle_only"
-            ],
-            "family_effort": 3
+            "access_cost": [],
+            "family_effort": null
           },
           {
             "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
@@ -1904,8 +1904,8 @@
       ],
       "pair_pending": [
         {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "km": 2.6
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+          "km": 3.2
         },
         {
           "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
@@ -2575,19 +2575,6 @@
       },
       "far_pointer": null,
       "pair_with": [
-        {
-          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "km": 2.6,
-          "how": "drive",
-          "extra_min": 150,
-          "on_site_min": 150,
-          "on_site_estimated": true,
-          "draw": "national",
-          "standing": "top",
-          "hand_picked": true,
-          "reason": "The Larch Valley trail starts at the lakeshore; in larch season people walk up from the lake",
-          "src": "src-0017"
-        },
         {
           "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
           "km": 0.5,
@@ -5502,6 +5489,128 @@
       "warnings": [],
       "layer": "route",
       "draw_from": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "draw_suggested": "local",
+      "effective_draw": "world",
+      "access_load": "easy",
+      "detour_min": 20,
+      "detour_basis": "town",
+      "detour_town": "Lake Louise",
+      "from_hubs": {},
+      "substitutes": {
+        "near": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+            "km": 6.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+            "km": 24.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
+          }
+        ],
+        "area": [
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+            "km": 6.9,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [
+              "shuttle_only"
+            ],
+            "family_effort": 3
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+            "km": 24.8,
+            "draw": "national",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 4
+          },
+          {
+            "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+            "km": 40.6,
+            "draw": "regional",
+            "standing": "top",
+            "access_cost": [],
+            "family_effort": 3
+          }
+        ]
+      },
+      "far_pointer": null,
+      "pair_with": [],
+      "pair_pending": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+          "km": 3.1
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+          "km": 3.2
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+          "km": 7.9
+        },
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+          "km": 8.3
+        },
+        {
+          "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+          "km": 12
+        }
+      ],
+      "part_of": [],
+      "plan_b": null,
+      "fits": {
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        },
+        "weekend": {
+          "fit": "skip",
+          "reason": "no hub distance known"
+        },
+        "day": {},
+        "passing": {
+          "fit": "skip",
+          "reason": "too long a stop for the draw"
+        }
+      },
+      "role": "anchor",
+      "flags": {
+        "go_clear_day": false,
+        "rainy_day": false,
+        "en_route": false,
+        "hidden_gem": false
+      },
+      "badge": "Worth the journey",
+      "stale": [],
+      "warnings": [],
+      "peak": {
+        "tier": "world",
+        "role": "anchor",
+        "badge": "Worth the journey",
+        "vacation": {
+          "fit": "plan_around",
+          "reason": "draw world, standing top"
+        }
+      },
+      "layer": "route",
+      "draw_from": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass"
     },
     {
       "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",

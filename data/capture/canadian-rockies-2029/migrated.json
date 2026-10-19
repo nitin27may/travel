@@ -295,8 +295,6 @@
       "type": "nature.trail.hike",
       "layer": "route",
       "name": "Larch Valley to Sentinel Pass",
-      "route_is_attraction": true,
-      "attraction_reason": "Sentinel Pass and the Larch Valley meadows now exist as places (CS7); the draw belongs on Sentinel Pass and moves when the migration ledger allows a relevance edit. Until then the route carries it.",
       "starts_at": [
         "part/legacy/canadian-rockies-sept-2029/sights/moraine-lake#shuttle-stop"
       ],
