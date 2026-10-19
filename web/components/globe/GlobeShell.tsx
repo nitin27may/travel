@@ -69,7 +69,8 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   const [dark, setDark] = useState(false);
   const [cardEl, setCardEl] = useState<HTMLElement | null>(null);
   const ctrl = useRef<GlobeController | null>(null);
-  const layoutRef = useRef<() => { width: number; height: number; cover: { top: number; right: number; bottom: number; left: number } }>(() => ({ width: 1, height: 1, cover: { top: 0, right: 0, bottom: 0, left: 0 } }));
+  const terrainRef = useRef(true);
+  const layoutRef = useRef<() => { width: number; height: number; cover: { top: number; right: number; bottom: number; left: number }; mode: 'desktop' | 'landscape' | 'phone' }>(() => ({ width: 1, height: 1, cover: { top: 0, right: 0, bottom: 0, left: 0 }, mode: 'desktop' }));
   const short = useMedia('(max-height: 500px) and (orientation: landscape)');
   const root = useRef<HTMLDivElement>(null);
   // The first frame is computed from the window, before the canvas exists; the controller re-frames from the real canvas once it does.
@@ -114,7 +115,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     if (!book) return null;
     // The controller calls `layout` from event handlers only, never during render, so the ref is read after render.
     // eslint-disable-next-line react-hooks/refs
-    return new GlobeController({ data, book, navigate, isPhone: () => window.matchMedia('(max-width: 639px)').matches, layout, onChange: setSnap });
+    return new GlobeController({ data, book, navigate, isPhone: () => window.matchMedia('(max-width: 639px)').matches, terrain: () => terrainRef.current, layout, onChange: setSnap });
   }, [book, data, navigate, layout]);
   useEffect(() => { ctrl.current = controller; }, [controller]);
 
@@ -173,6 +174,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  useEffect(() => { terrainRef.current = prefs.terrain; }, [prefs.terrain]);
   const styleKey = effectiveStyle(prefs.style, dark);
   const changePrefs = (next: Partial<GlobePrefs>) => {
     setPrefs((p) => {
@@ -181,6 +183,9 @@ export function GlobeShell({ data }: { data: GlobeData }) {
       return merged;
     });
   };
+
+  // The pointer tooltip would sit on top of an open card (spec 4.1 rule 8).
+  useEffect(() => { engine?.setTooltipEnabled(!snap.selected && !snap.feature); }, [engine, snap.selected, snap.feature]);
 
   // Spin is for the world view only, and never under reduced motion.
   useEffect(() => { engine?.setSpin(prefs.spin && !reduced, snap.path.length === 0 && !snap.selected && !snap.feature); }, [engine, prefs.spin, reduced, snap.path.length, snap.selected, snap.feature]);
@@ -215,7 +220,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
   useEffect(() => {
     layoutRef.current = () => {
       const r = root.current?.getBoundingClientRect();
-      return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: !phone && !short && cardOpen ? CARD_FOOT : 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 } };
+      return { width: r?.width ?? window.innerWidth, height: r?.height ?? window.innerHeight, cover: { top: short ? 52 : 0, left: !phone && !short && cardOpen ? CARD_FOOT : 0, right: !phone && panelOpen ? panelFoot : 0, bottom: phone && sheetOpen ? PEEK : 0 }, mode: phone ? 'phone' : short ? 'landscape' : 'desktop' };
     };
   }, [phone, short, panelOpen, sheetOpen, panelFoot, cardOpen]);
   // The CSS halo (and the placeholder disc before the map exists) follows the world frame: centre of the free area, the computed diameter.
@@ -288,7 +293,7 @@ export function GlobeShell({ data }: { data: GlobeData }) {
           nearby={nearby}
           onPick={(k) => { void controller?.selectCard(k); }}
           onClose={() => controller?.back()}
-          onFly={() => { const f = snap.feature!; engine?.flyToPoint(f.lngLat, f.sourceLayer === 'waterway' ? 8 : 11); }}
+          onFly={() => controller?.flyToFeature(snap.feature!)}
         />
       ) : null}
 

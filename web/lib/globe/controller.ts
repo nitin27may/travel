@@ -2,7 +2,8 @@ import { factsLine, languagesLine } from './facts';
 import { loadAdmin, resolveFeature, slugify } from './admin';
 import { loadCountries50, type CountryBook } from './countries';
 import type { BasemapFeature, Focus, GlobeEngine, HitLayer, HoverInfo, Padding } from './engine';
-import { inBox, inFeature, locate, tally, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
+import { flightPlan, featureZoom, isWide, type FlightPlan } from './flight';
+import { inBox, inFeature, locate, spanLon, tally, type Bbox, type Feat, type FeatColl, type Pt } from './geometry';
 import { areaPathOfPin, boxOfArea, nodeAt, pinsFor, pinsUnder } from './model';
 import { zoomForRank, type SearchHit } from './search';
 import { ensureCard, ensureCountry } from './store';
@@ -31,8 +32,10 @@ export interface ControllerOptions {
   /** Writes the URL. `replace` for camera updates, `push` for a step the visitor can go Back from. */
   navigate(url: string, mode: 'push' | 'replace'): void;
   isPhone(): boolean;
+  /** The 3D terrain preference: a tilted fly-in only makes sense with relief to look at. */
+  terrain(): boolean;
   /** Canvas size and what the open panels cover right now. */
-  layout(): { width: number; height: number; cover: Footprint };
+  layout(): { width: number; height: number; cover: Footprint; mode: 'desktop' | 'landscape' | 'phone' };
   onChange(s: GlobeSnapshot): void;
   /** Filled by the controller when the 50m outlines have loaded. */
   book50?: CountryBook;
@@ -68,9 +71,32 @@ export class GlobeController {
     this.o.onChange(this.snap);
   }
 
+  private plan(step: Parameters<typeof flightPlan>[0], o: { approx?: boolean; featureClass?: string } = {}): FlightPlan {
+    const plan = flightPlan(step, { terrain: this.o.terrain(), ...o });
+    // A landscape phone has 330 px of height: half the shift keeps the subject out from under the search and crumb rows.
+    return this.o.layout().mode === 'landscape' ? { ...plan, shift: plan.shift / 2 } : plan;
+  }
+
+  /** A country's box for the flight: the mainland where there is one (the 48 states, metropolitan France), else its shape. */
+  private countryBox(a2: string): { box: Bbox; wide: boolean } | null {
+    const c = this.o.book.byA2[a2];
+    const f = c ? this.o.book.fc.features.find((x) => x.id === c.id) : undefined;
+    if (!c || !f?._bbox) return null;
+    const m = (c.facts as { mainland_bbox?: [number, number, number, number] }).mainland_bbox;
+    const wide = isWide(spanLon(f._bbox));
+    return { box: m ? [[m[0], m[1]], [m[2], m[3]]] : f._bbox, wide };
+  }
+
   // ---- layout-aware camera padding -----------------------------------------------------------------------
-  padding(): Padding {
-    return this.o.isPhone() ? { top: 120, right: 24, bottom: 190, left: 24 } : { top: 90, right: 410, bottom: 80, left: 90 };
+  /**
+   * What a flight keeps clear (the free area, spec 3.1): the open side panel, the search and crumb rows, and on a landscape phone
+   * the card dock that opens on the left. `card` is true when a selection card is about to open: on the phone it is a half sheet.
+   */
+  padding(card = false): Padding {
+    const { height, cover, mode } = this.o.layout();
+    if (mode === 'phone') return { top: 120, right: 24, bottom: card ? Math.round(height * 0.5) + 24 : cover.bottom + 20, left: 24 };
+    if (mode === 'landscape') return { top: 64, right: (cover.right || 8) + 12, bottom: 24, left: card ? 308 : 24 };
+    return { top: 90, right: cover.right ? cover.right + 26 : 90, bottom: 80, left: 90 };
   }
   /** The world camera from the free canvas (spec 3.1); the longitude follows wherever the globe is now. */
   frame() {
@@ -184,6 +210,13 @@ export class GlobeController {
     this.emit({ feature: f });
   }
 
+  /** Fly here on a feature card: the class decides the zoom and whether the camera tilts (spec 5.3 last column). */
+  flyToFeature(f: BasemapFeature): void {
+    const cls = f.sourceLayer === 'waterway' ? 'river' : f.sourceLayer === 'mountain_peak' ? 'peak' : f.sourceLayer === 'park' ? 'park' : f.sourceLayer === 'place' ? 'city' : /lake/.test(f.kind) ? 'lake' : 'sea';
+    this.engine?.setPadding(this.padding());
+    this.engine?.flyToPoint(f.lngLat, featureZoom(cls, 3), { plan: this.plan('feature', { featureClass: cls }) });
+  }
+
   onBackground(): void {
     if (this.snap.feature) { this.engine?.setFeature(null); this.emit({ feature: null }); }
     else if (this.snap.selected) this.closeCard();
@@ -254,8 +287,10 @@ export class GlobeController {
     const countryFeat = this.o.book.fc.features.find((x) => x.id === country.id)!;
     let target: Bbox | null = countryFeat._bbox ?? null;
     let maxZoom = 7;
-    // Start moving at once; a deeper path refines the target once its shapes have loaded.
-    if (o.fly && !o.camera) engine.flyToBox((path.length > 1 ? boxOfArea(this.o.data, path) : null) ?? target!, { maxZoom: path.length > 1 ? 9 : 7 });
+    // One flight per step (spec 5.3): a country starts moving at once; a state or district waits for the shape it flies to, so
+    // the camera never heads for one box and then turns to another.
+    const cb = this.countryBox(cc);
+    if (o.fly && !o.camera && path.length === 1 && cb) engine.flyToBox(cb.box, { plan: this.plan('country'), maxZoom, wide: cb.wide });
 
     const adm1 = await loadAdmin(a3, 'adm1');
     if (token !== this.areaToken) return;
@@ -276,7 +311,7 @@ export class GlobeController {
       maxZoom = 9;
       crumbs.push({ label: this.nameFor([cc, path[1]], sFeat), path: [cc, path[1]] });
       this.emit({ path: resolved, crumbs: [...crumbs], pins: pinsFor(this.o.data, resolved, this.o.book.facts), loading: sFeat ? 'Loading districts' : '' });
-      if (o.fly && !o.camera && target) engine.flyToBox(target, { maxZoom });
+      if (o.fly && !o.camera && target && path.length === 2) engine.flyToBox(target, { plan: this.plan('state'), maxZoom });
 
       if (sFeat) {
         const all = await loadAdmin(a3, 'adm2');
@@ -303,7 +338,7 @@ export class GlobeController {
     }
     this.emit({ path: resolved, crumbs, pins: pinsFor(this.o.data, resolved, this.o.book.facts), loading: '' });
     if (o.camera) engine.jumpTo(o.camera);
-    else if (o.fly && target && path[1]) engine.flyToBox(target, { maxZoom });
+    else if (o.fly && target && path.length === 3) engine.flyToBox(target, { plan: this.plan('district'), maxZoom });
   }
 
   /** A step the visitor takes: updates the area, the URL and clears the selection. */
@@ -349,13 +384,12 @@ export class GlobeController {
     if (this.snap.selected !== key || !pin) return;
     if (o.camera) { engine.jumpTo(o.camera); return; }
     if (o.fly === false) return;
-    engine.setPadding(this.o.isPhone() ? { top: 100, right: 24, bottom: 470, left: 24 } : this.padding());
+    engine.setPadding(this.padding(true));
     if (card.approx) {
-      const country = this.o.book.byA2[pin.path[0]];
-      const cf = country ? this.o.book.fc.features.find((x) => x.id === country.id) : undefined;
-      if (cf?._bbox) engine.flyToBox(cf._bbox, { maxZoom: 6 });
+      const cb = this.countryBox(pin.path[0]);
+      if (cb) engine.flyToBox(cb.box, { plan: this.plan('place', { approx: true }), maxZoom: 6, wide: cb.wide });
     } else {
-      engine.flyToPoint([pin.lon, pin.lat], card.kind === 'trip' ? 8 : 12, { tilt: true });
+      engine.flyToPoint([pin.lon, pin.lat], card.kind === 'trip' ? 8 : 12, { plan: this.plan(card.kind === 'trip' ? 'trip' : 'place') });
     }
   }
 
@@ -410,20 +444,20 @@ export class GlobeController {
       const idx = this.adm1 ? resolveFeature(this.adm1, a.name) : null;
       const f = idx !== null && this.adm1 ? this.adm1.features[idx] : null;
       if (f && slugify(String(f.properties.name)) === slugify(a.name)) await this.goArea([cc, this.slugFor(f, [cc])], { fly: true });
-      else engine.flyToPoint([a.lng, a.lat], 5.5);
+      else engine.flyToPoint([a.lng, a.lat], 5.5, { plan: this.plan('state') });
       return;
     }
     if (a.type === 'city') {
       const c = countryOf(a.a3);
       if (c) await this.drillToPoint(c.a2.toLowerCase(), [a.lng, a.lat]);
       engine.setPadding(this.padding());
-      engine.flyToPoint([a.lng, a.lat], a.rank <= 2 ? 9.5 : 11);
+      engine.flyToPoint([a.lng, a.lat], a.rank <= 2 ? 9.5 : featureZoom('city'), { plan: this.plan('feature', { featureClass: 'city' }) });
       return;
     }
     // A sea, range or other landform: fly there at a scale that fits its rank and stay on the world level.
     if (this.snap.path.length || this.snap.selected) await this.goArea([], { fly: false });
     engine.setPadding(this.padding());
-    engine.flyToPoint([a.lng, a.lat], Math.max(3, zoomForRank(a.rank))); // zoom 3 or more so a sea or ocean is clickable on arrival
+    engine.flyToPoint([a.lng, a.lat], Math.max(3, zoomForRank(a.rank)), { plan: this.plan('feature', { featureClass: 'sea' }) }); // zoom 3 or more so a sea or ocean is clickable on arrival
     // The landform or sea becomes a selection card too: name, kind and the saved places near it.
     this.emit({ feature: { sourceLayer: '', kind: hit.where || hit.kindLabel.toLowerCase(), name: a.name, extra: '', lngLat: [a.lng, a.lat], wikidata: null } });
   }

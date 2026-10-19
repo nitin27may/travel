@@ -7,7 +7,7 @@ html[data-globe] body { overflow: hidden; height: 100dvh; }
 html[data-globe] .site-footer { display: none; }
 html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 
-.globe-root { --halo-x: calc((100vw - 384px) / 2); --halo-y: calc((100vh - var(--header-h)) / 2); --halo-d: calc(min(100vw - 384px, 100vh - var(--header-h)) * 0.86); --globe-clip-right: 0px; --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
+.globe-root { --globe-halo-o: 1; --halo-x: calc((100vw - 384px) / 2); --halo-y: calc((100vh - var(--header-h)) / 2); --halo-d: calc(min(100vw - 384px, 100vh - var(--header-h)) * 0.86); --globe-clip-right: 0px; --globe-panel-w: 360px; --globe-panel-gap: calc(var(--globe-panel-w) + 24px); position: fixed; z-index: var(--z-base); left: 0; right: 0; top: var(--header-h); bottom: 0; overflow: hidden; background: var(--well); color: var(--ink); }
 @media (max-width: 639px) { .globe-root { bottom: var(--phone-bottombar-h); --halo-x: 50vw; --halo-y: calc((100vh - var(--header-h) - var(--phone-bottombar-h) - 176px) / 2); --halo-d: calc(min(100vw, 100vh - var(--header-h) - var(--phone-bottombar-h) - 176px) * 0.86); } }
 
 /* The placeholder and the atmosphere (spec 6.6, 8.3): an ocean disc with a glow and a 1 px limb, in the static HTML so the world's
@@ -44,7 +44,7 @@ html[data-globe] main.page { padding: 0; max-width: none; flex: 0 0 0; }
 .globe-hit-label { position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); white-space: nowrap; padding: 4px 9px; border-radius: 6px; background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); font: var(--t-label); }
 
 /* ---------- pins ---------- */
-.globe-marker { pointer-events: none; }
+.globe-marker { --pin-d: 0ms; pointer-events: none; }
 /* pins arrive after the first paint: 200 ms fade, staggered 15 ms by latitude (spec 8.3) */
 .globe-marker > .globe-pin { animation: globe-pin-in 200ms var(--e-out) both; animation-delay: var(--pin-d, 0ms); }
 @keyframes globe-pin-in { from { opacity: 0; } to { opacity: 1; } }
@@ -61,7 +61,11 @@ span.globe-pin { cursor: default; }
 .globe-pin[data-kind='trip'] { border-radius: 8px; }
 .globe-pin[data-hot='true'] { background: var(--globe-pin-pick); color: var(--globe-pin-pick-ink); outline: 2px solid var(--map-select-ring); outline-offset: 4px; z-index: 2; }
 .globe-pin:focus-visible { outline: 2px solid var(--map-select-ring); outline-offset: 4px; }
-.globe-pin::after { content: ''; position: absolute; inset: -10px; border-radius: 50%; } /* a 44 px hit area around small dots */
+.globe-pin::after { content: ''; position: absolute; inset: -13px; border-radius: 50%; } /* an 18 px dot gets a 44 px hit area; the visual size does not change (spec 2.41) */
+.globe-pin[data-quiet='true'] { background: color-mix(in srgb, var(--map-stop) 55%, transparent); border-width: 1px; }
+.globe-pin[data-quiet='true']::after { inset: -17px; }
+.globe-pin[data-dim='true'] { opacity: 0.35; } /* outside the open area: faded, still clickable (spec 6.4) */
+.globe-pin[data-dim='true'][data-hot='true'] { opacity: 1; }
 .globe-pin-tag {
   position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%); white-space: nowrap; pointer-events: none;
   display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; background: var(--surface); color: var(--ink);

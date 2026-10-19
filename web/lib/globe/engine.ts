@@ -1,9 +1,11 @@
 import type { ExpressionSpecification, GeoJSONSource, Map as MLMap, Marker, MapMouseEvent } from 'maplibre-gl';
 import { prefersReducedMotion } from '@/lib/map/reduced-motion';
 import { mix, readGlobePalette, type GlobePalette } from './palette';
-import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_MIN_ZOOM, TERRAIN_URL, modeOf, type StyleKey } from '@/lib/map/maplibre/styles';
-import { centreOf, forRender, hitRank, spanLon, type Bbox, type FeatColl, type Pt } from './geometry';
-import { FLY_MS, SPIN_AFTER_GESTURE_MS, SPIN_AFTER_HOVER_MS, SPIN_EASE_MS, TILT_MS, isClick, spinAllowed, spinStepDeg } from './motion';
+import { PITCH_MIN_ZOOM, WIDE_ZOOM, boxCentre, fitZoom, flightPlan, pitchAt, shiftPx, terrainRamp, wideZoom, type FlightPlan } from './flight';
+import { isNameLayer, planLabel, type LayerLike } from './labels';
+import { STYLE_URLS, TERRAIN_FALLBACK, TERRAIN_URL, modeOf, type StyleKey } from '@/lib/map/maplibre/styles';
+import { forRender, hitRank, type Bbox, type FeatColl, type Pt } from './geometry';
+import { SPIN_AFTER_GESTURE_MS, SPIN_AFTER_HOVER_MS, SPIN_EASE_MS, SPIN_HOVER_SPEED, isClick, spinAllowed, spinSpeedToward, spinStepDeg } from './motion';
 import type { Camera } from './types';
 
 type ML = typeof import('maplibre-gl');
@@ -57,7 +59,12 @@ export interface GlobeEngineOptions {
   interactive?: boolean;
 }
 
-export interface FlyOptions { maxZoom?: number; tilt?: boolean }
+export interface FlyOptions {
+  plan: FlightPlan;
+  maxZoom?: number;
+  /** The shape spans more than 170 degrees: stay on the globe at zoom 2.6 to 3.2, flat. */
+  wide?: boolean;
+}
 
 export interface GlobeEngine {
   readonly map: MLMap;
@@ -72,8 +79,12 @@ export interface GlobeEngine {
   setSpin(enabled: boolean, worldView: boolean): void;
   /** Stops the spin loop entirely (a cover scrolled out of view) and starts it again. */
   setActive(on: boolean): void;
-  flyToBox(b: Bbox, o?: FlyOptions): void;
-  flyToPoint(p: Pt, zoom: number, o?: { tilt?: boolean }): void;
+  flyToBox(b: Bbox, o: FlyOptions): void;
+  flyToPoint(p: Pt, zoom: number, o: { plan: FlightPlan }): void;
+  /** False while a selection or feature card is open: the pointer tooltip would sit on top of it. */
+  setTooltipEnabled(on: boolean): void;
+  /** The discs drawn as DOM pins, so the map can keep its own labels off them (collision boxes). */
+  setDiscs(list: { lng: number; lat: number; size: number }[]): void;
   setMinZoom(z: number): void;
   /** Frames the whole disc in the free area: `pad` is what the open panels cover (disc centre goes to the middle of the rest). */
   frameWorld(c: { lng: number; lat: number; zoom: number; diameter?: number }, pad: Padding, animate: boolean): number;
@@ -84,17 +95,20 @@ export interface GlobeEngine {
   /** Keeps the markers of one namespace in step with `specs` and returns their elements by key, for React to portal into. */
   syncMarkers(ns: string, specs: MarkerSpec[]): Map<string, HTMLElement>;
   isTerrainOn(): boolean;
+  /** Where a point is on the canvas, or null when it is behind the globe or well off the canvas: what the clustering works from. */
+  project(lng: number, lat: number): { x: number; y: number } | null;
   destroy(): void;
 }
 
 // Peaks, rivers, seas, parks and towns stay in the style: they are what the visitor can hover and pick.
-const HIDE_LABEL_LAYER = /village|suburb|hamlet|neighbo|quarter|label_other|(^|[_-])poi([_-]|$)|housenumber|aerodrome|airport|ferry/i;
+const HIDE_LABEL_LAYER = /suburb|hamlet|neighbo|quarter|label_other|(^|[_-])poi([_-]|$)|housenumber|aerodrome|airport|ferry/i;
 const HIDE_SOURCE_LAYERS = new Set(['poi', 'housenumber', 'aerodrome_label', 'transportation_name']);
 const HIT_SOURCE_LAYERS = new Set(['waterway', 'water_name', 'mountain_peak', 'park', 'place']);
 const NONE = '\u0000';
 /** A shape round a pole has its edge on the tile limit; its outline would draw as a ring at 85 degrees, so only its fill shows. */
 const NOT_POLAR = ['!=', ['get', 'polar'], true] as never;
 const ZERO_PAD = { top: 0, right: 0, bottom: 0, left: 0 };
+const WIDE_MAX = WIDE_ZOOM.max;
 
 const featureName = (p: Record<string, unknown>): string => String(p['name:en'] || p.name_en || p.name || '');
 
@@ -126,6 +140,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   let hovered: BasemapFeature | null = null;
   let hoverRef: { source: string; id: number } | null = null;
   let tipOwner: string | null = null;
+  let tipsOff = false;
   let padding: Padding = { top: 80, right: 80, bottom: 80, left: 80 };
   let flyToken = 0;
   /** The spin waits until this time; Infinity while a pointer is down. */
@@ -134,7 +149,10 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   let loopActive = true;
   let pressAt: { x: number; y: number } | null = null;
   let dragged = false;
-  const hold = (ms: number): void => { holdUntil = Math.max(holdUntil === Infinity ? 0 : holdUntil, performance.now() + ms); };
+  const hold = (ms: number): void => { holdUntil = Math.max(holdUntil === Infinity ? 0 : holdUntil, performance.now() + ms); spinSpeed = 0; };
+  let spinSpeed = 1;
+  let hoverSlowUntil = 0;
+  const slowSpin = (): void => { hoverSlowUntil = performance.now() + SPIN_AFTER_HOVER_MS; };
   let spinEnabled = false;
   let worldView = true;
   let raf = 0;
@@ -152,6 +170,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     attributionControl: false,
     canvasContextAttributes: { antialias: true },
   });
+  // A handle for the browser tests and probes (camera reads, projected positions); nothing in the app reads it.
+  (container as unknown as { __map?: MLMap }).__map = map;
   map.addControl(new ml.AttributionControl({ compact: false }), 'bottom-right');
   map.addControl(new ml.ScaleControl({ unit: 'metric' }), 'bottom-right');
   // The scale bar has no meaning (it reads NaN) on the globe's far view; show it once the map is flat enough to measure.
@@ -168,6 +188,8 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
 
   // ---- tooltip -------------------------------------------------------------------------------------------
   function showTip(e: { point: { x: number; y: number } }, info: HoverInfo, owner: string): void {
+    // No tooltip while a card is open or a pointer is down (spec 4.1 rule 8): it would sit on top of the card.
+    if (tipsOff || pointerDown) { hideTip(); return; }
     tip.replaceChildren();
     const k = document.createElement('div'); k.className = 'globe-tip-k'; k.textContent = info.kicker;
     const t = document.createElement('div'); t.className = 'globe-tip-t'; t.textContent = info.title;
@@ -233,6 +255,36 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     }
   }
 
+  /**
+   * One label pass for all three styles (spec 6.2): one script per name, no capitals, state names from zoom 5, cities by rank.
+   * The decisions are in labels.ts; this applies them to the loaded style.
+   */
+  function applyLabels(): void {
+    const layers = map.getStyle().layers as (LayerLike & { filter?: unknown; minzoom?: number; maxzoom?: number })[];
+    const set = (id: string, prop: string, v: unknown, kind: 'layout' | 'paint' = 'layout') => {
+      try { if (kind === 'layout') map.setLayoutProperty(id, prop as never, v as never); else map.setPaintProperty(id, prop as never, v as never); } catch { /* not on this layer */ }
+    };
+    for (let i = 0; i < layers.length; i++) {
+      const l = layers[i];
+      if (!isNameLayer(l)) continue;
+      const plan = planLabel(l);
+      if (plan.hide) { set(l.id, 'visibility', 'none'); continue; }
+      for (const [k, v] of Object.entries(plan.layout)) set(l.id, k, v);
+      if (plan.muted) set(l.id, 'text-color', mix(pal.label, scheme().land, 0.35), 'paint');
+      if (plan.minzoom !== undefined || plan.maxzoom !== undefined) map.setLayerZoomRange(l.id, plan.minzoom ?? l.minzoom ?? 0, plan.maxzoom ?? l.maxzoom ?? 24);
+      if (!plan.bands) continue;
+      const next = layers[i + 1]?.id;
+      const rank: ExpressionSpecification = ['coalesce', ['get', 'rank'], 99];
+      plan.bands.forEach((b, k) => {
+        const band: ExpressionSpecification = ['all', ['>=', rank, b.minRank], ['<=', rank, b.maxRank]];
+        const filter = (l.filter ? ['all', l.filter, band] : band) as ExpressionSpecification;
+        if (k === 0) { map.setFilter(l.id, filter); map.setLayerZoomRange(l.id, b.minzoom, 24); return; }
+        const spec = (map.getStyle().layers.find((x) => x.id === l.id) ?? l) as never as Record<string, unknown>;
+        try { map.addLayer({ ...spec, id: `${l.id}${b.suffix}`, filter, minzoom: b.minzoom } as never, next); } catch { /* the style changed under us */ }
+      });
+    }
+  }
+
   function hillCurve(): ExpressionSpecification {
     const h = scheme().hill;
     const stops: (number)[] = [0, 0, 2, 0, 4, 0.15 * h, 7, 0.45 * h, 9, 0.55 * h];
@@ -253,12 +305,13 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     }, beforeId);
   }
 
+  /** Relief grows in as the camera passes the terrain gate: five steps by zoom, so a fly-in ramps the exaggeration instead of popping it on (spec 5.3). */
   function applyTerrain(): void {
     if (!map.getSource('dem')) return;
-    const want = terrainOn && map.getZoom() >= TERRAIN_MIN_ZOOM;
+    const ex = terrainOn ? terrainRamp(map.getZoom(), exaggeration) : 0;
     const cur = map.getTerrain();
-    if (want && (!cur || cur.exaggeration !== exaggeration)) map.setTerrain({ source: 'dem', exaggeration });
-    else if (!want && cur) map.setTerrain(null);
+    if (ex > 0 && (!cur || cur.exaggeration !== ex)) map.setTerrain({ source: 'dem', exaggeration: ex });
+    else if (ex === 0 && cur) map.setTerrain(null);
   }
 
   function addRelief(firstWaterId: string | undefined): void {
@@ -284,55 +337,90 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   // ---- our layers ----------------------------------------------------------------------------------------
   const sel = (key: string): ExpressionSpecification => ['boolean', ['feature-state', key], false];
   const EMPTY = { type: 'FeatureCollection' as const, features: [] };
+  /** Selected: a 2.5 px amber line between two 1 px casings; hover: 1.5 px with a 0.5 px casing (spec 6.3), so the edge reads on land and on water. */
+  const lineWidth = (rest: number): ExpressionSpecification => ['case', sel('selected'), 2.5, sel('hover'), 1.5, rest];
+  const casingWidth = ['case', sel('selected'), 4.5, sel('hover'), 2.5, 0] as ExpressionSpecification;
 
   function addLayers(firstSymbolId: string | undefined, firstWaterId: string | undefined, bottomId: string | undefined): void {
-    const land = pal.land;
     map.addSource('countries', { type: 'geojson', data: forRender(opts.countries) as never });
     // Our own land at the far zooms (the tiles carry none): the 110m or 50m countries in the land colour, fading out as the tiles' land background takes over.
     map.addLayer({ id: 'land-fill', type: 'fill', source: 'countries', paint: { 'fill-color': scheme().land, 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 3, 1, 4.5, 0], 'fill-antialias': true } }, bottomId);
     map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: { 'fill-color': pal.accentSel, 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0] } }, firstWaterId);
-    map.addLayer({ id: 'country-dim', type: 'fill', source: 'countries', paint: { 'fill-color': land, 'fill-opacity': ['case', sel('dim'), 0.55, 0] } }, firstSymbolId);
-    // Hover: 1.5 px accent line with a 0.5 px ink casing; selected: 2 px with a 1 px casing (spec 6.3), so the edge reads on land and on water.
-    map.addLayer({ id: 'country-casing', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': pal.ink, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
-    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': pal.accentSel, 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0], 'line-opacity': 1 } }, firstSymbolId);
 
     map.addSource('adm1', { type: 'geojson', data: (adm1 ? forRender(adm1) : EMPTY) as never });
-    map.addLayer({ id: 'adm1-fill', type: 'fill', source: 'adm1', paint: { 'fill-color': ['case', sel('hover'), pal.accentSel, pal.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.06] } }, firstSymbolId);
-    map.addLayer({ id: 'adm1-casing', type: 'line', source: 'adm1', paint: { 'line-color': pal.casingSel, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
-    map.addLayer({ id: 'adm1-line', type: 'line', source: 'adm1', paint: { 'line-color': ['case', sel('selected'), pal.accentSel, pal.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.8], 'line-opacity': ['case', sel('dim'), 0.3, 0.9] } }, firstSymbolId);
-
+    map.addLayer({ id: 'adm1-fill', type: 'fill', source: 'adm1', paint: { 'fill-color': ['case', sel('hover'), pal.accentSel, pal.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0.06] } }, firstSymbolId);
     map.addSource('adm2', { type: 'geojson', data: (adm2 ? forRender(adm2) : EMPTY) as never });
-    map.addLayer({ id: 'adm2-fill', type: 'fill', source: 'adm2', paint: { 'fill-color': ['case', sel('hover'), pal.accentSel, pal.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('dim'), 0.02, sel('hover'), 0.35, 0.05] } }, firstSymbolId);
-    map.addLayer({ id: 'adm2-casing', type: 'line', source: 'adm2', paint: { 'line-color': pal.casingSel, 'line-width': ['case', sel('selected'), 4, sel('hover'), 2.5, 0], 'line-opacity': 0.9 } }, firstSymbolId);
-    map.addLayer({ id: 'adm2-line', type: 'line', source: 'adm2', paint: { 'line-color': ['case', sel('selected'), pal.accentSel, pal.border], 'line-width': ['case', sel('selected'), 2, sel('hover'), 1.5, 0.9], 'line-opacity': ['case', sel('dim'), 0.25, 0.85] } }, firstSymbolId);
+    map.addLayer({ id: 'adm2-fill', type: 'fill', source: 'adm2', paint: { 'fill-color': ['case', sel('hover'), pal.accentSel, pal.ink], 'fill-opacity': ['case', sel('selected'), 0, sel('hover'), 0.35, 0.05] } }, firstSymbolId);
+
+    // The dim sits above the basemap labels, so names and hillshade outside the open shape fade with the land (spec 6.4, review M14).
+    // Its opacity is a plain expression on the shape's id, set when the focus changes: no loop over features, no feature-state.
+    for (const [id, source] of [['country-dim', 'countries'], ['adm1-dim', 'adm1'], ['adm2-dim', 'adm2']] as const) {
+      map.addLayer({ id, type: 'fill', source, paint: { 'fill-color': pal.dim, 'fill-opacity': 0 } });
+    }
+    map.addLayer({ id: 'country-casing', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': pal.casingSel, 'line-width': casingWidth, 'line-opacity': 1 } });
+    map.addLayer({ id: 'country-line', type: 'line', source: 'countries', filter: NOT_POLAR, paint: { 'line-color': pal.accentSel, 'line-width': lineWidth(0), 'line-opacity': 1 } });
+    map.addLayer({ id: 'adm1-line-rest', type: 'line', source: 'adm1', paint: { 'line-color': pal.border, 'line-width': 0.8, 'line-opacity': 0.9 } });
+    map.addLayer({ id: 'adm1-casing', type: 'line', source: 'adm1', paint: { 'line-color': pal.casingSel, 'line-width': casingWidth, 'line-opacity': 1 } });
+    map.addLayer({ id: 'adm1-line', type: 'line', source: 'adm1', paint: { 'line-color': pal.accentSel, 'line-width': lineWidth(0), 'line-opacity': 1 } });
+    map.addLayer({ id: 'adm2-line-rest', type: 'line', source: 'adm2', paint: { 'line-color': pal.border, 'line-width': 0.9, 'line-opacity': 0.85 } });
+    map.addLayer({ id: 'adm2-casing', type: 'line', source: 'adm2', paint: { 'line-color': pal.casingSel, 'line-width': casingWidth, 'line-opacity': 1 } });
+    map.addLayer({ id: 'adm2-line', type: 'line', source: 'adm2', paint: { 'line-color': pal.accentSel, 'line-width': lineWidth(0), 'line-opacity': 1 } });
     map.addLayer({
       id: 'adm2-label', type: 'symbol', source: 'adm2', minzoom: 6,
-      layout: { 'text-field': ['get', 'name'], 'text-font': fontStack, 'text-size': ['interpolate', ['linear'], ['zoom'], 6, 10, 10, 13], 'text-padding': 6 },
-      paint: { 'text-color': pal.label, 'text-halo-color': pal.halo, 'text-halo-width': 1.4, 'text-opacity': ['case', sel('dim'), 0.3, 1] },
+      layout: { 'text-field': ['get', 'name'], 'text-font': fontStack, 'text-size': ['interpolate', ['linear'], ['zoom'], 6, 10, 10, 13], 'text-padding': 8, 'text-transform': 'none' },
+      paint: { 'text-color': pal.label, 'text-halo-color': pal.halo, 'text-halo-width': 1.2, 'text-opacity': 1 },
     });
 
-    // Named basemap things (rivers, seas, peaks, parks, towns) can be hovered and picked; the pick is outlined here.
+    // Named basemap things (rivers, seas, peaks, parks, towns) can be hovered and picked; the pick is outlined here, with its casing.
     const none: ExpressionSpecification = ['==', ['get', 'name'], NONE];
-    map.addLayer({ id: 'hl-river', type: 'line', source: vectorSource, 'source-layer': 'waterway', filter: none, paint: { 'line-color': pal.accentSel, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 2.2, 10, 5], 'line-opacity': 0.9 } }, firstSymbolId);
+    map.addLayer({ id: 'hl-park-fill', type: 'fill', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'fill-color': pal.accentSel, 'fill-opacity': 0.2 } });
+    map.addLayer({ id: 'hl-river-casing', type: 'line', source: vectorSource, 'source-layer': 'waterway', filter: none, paint: { 'line-color': pal.casingSel, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 4.2, 10, 7], 'line-opacity': 1 } });
+    map.addLayer({ id: 'hl-river', type: 'line', source: vectorSource, 'source-layer': 'waterway', filter: none, paint: { 'line-color': pal.accentSel, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 2.2, 10, 5], 'line-opacity': 1 } });
     // The base styles draw no layer for mountain_peak, and queryRenderedFeatures only sees style layers: an invisible one makes peaks targets.
     map.addLayer({ id: 'hit-peak', type: 'circle', source: vectorSource, 'source-layer': 'mountain_peak', minzoom: 9, paint: { 'circle-radius': 12, 'circle-color': pal.ink, 'circle-opacity': 0.01 } });
     // The dark style labels only line-shaped water; seas and lakes are points in the tiles, so they get a hit layer too.
     map.addLayer({ id: 'hit-water', type: 'circle', source: vectorSource, 'source-layer': 'water_name', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-radius': 14, 'circle-color': pal.ink, 'circle-opacity': 0.01 } });
     for (const id of ['hit-peak', 'hit-water']) if (!hitLayers.includes(id)) hitLayers.push(id);
-    map.addLayer({ id: 'hl-peak', type: 'circle', source: vectorSource, 'source-layer': 'mountain_peak', filter: none, paint: { 'circle-radius': 9, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
-    map.addLayer({ id: 'hl-label', type: 'circle', source: vectorSource, 'source-layer': 'water_name', filter: none, paint: { 'circle-radius': 10, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
-    map.addLayer({ id: 'hl-park', type: 'line', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'line-color': pal.accentSel, 'line-width': 2.5 } }, firstSymbolId);
+    const ring = (id: string, source: string, radius: number) => {
+      map.addLayer({ id: `${id}-casing`, type: 'circle', source, 'source-layer': id === 'hl-peak' ? 'mountain_peak' : 'water_name', filter: none, paint: { 'circle-radius': radius, 'circle-color': 'transparent', 'circle-stroke-color': pal.casingSel, 'circle-stroke-width': 4 } });
+      map.addLayer({ id, type: 'circle', source, 'source-layer': id === 'hl-peak' ? 'mountain_peak' : 'water_name', filter: none, paint: { 'circle-radius': radius, 'circle-color': 'transparent', 'circle-stroke-color': pal.accentSel, 'circle-stroke-width': 2 } });
+    };
+    ring('hl-peak', vectorSource, 9);
+    ring('hl-label', vectorSource, 10);
+    map.addLayer({ id: 'hl-park-casing', type: 'line', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'line-color': pal.casingSel, 'line-width': 4.5 } });
+    map.addLayer({ id: 'hl-park', type: 'line', source: vectorSource, 'source-layer': 'park', filter: none, paint: { 'line-color': pal.accentSel, 'line-width': 2.5 } });
+
+    // Our discs are DOM markers the map cannot see; this symbol layer (a transparent 1 px image scaled to each disc) gives them collision
+    // boxes, so a basemap name moves off the disc instead of hiding under it: the Italy disc must not cover "Italy" (spec 6.2).
+    if (!map.hasImage('globe-blank')) map.addImage('globe-blank', { width: 1, height: 1, data: new Uint8Array(4) });
+    map.addSource('discs', { type: 'geojson', data: discData() as never });
+    map.addLayer({ id: 'disc-collider', type: 'symbol', source: 'discs', layout: { 'icon-image': 'globe-blank', 'icon-size': ['get', 'size'], 'icon-allow-overlap': true, 'icon-ignore-placement': false, 'icon-padding': 4 }, paint: { 'icon-opacity': 0 } });
+  }
+
+  let discs: { lng: number; lat: number; size: number }[] = [];
+  const discData = () => ({ type: 'FeatureCollection' as const, features: discs.map((d) => ({ type: 'Feature' as const, properties: { size: d.size }, geometry: { type: 'Point' as const, coordinates: [d.lng, d.lat] } })) });
+
+  const selected: Record<string, number | null> = { countries: null, adm1: null, adm2: null };
+  function setSelected(source: string, id: number | null): void {
+    if (!map.getSource(source)) return;
+    const prev = selected[source];
+    if (prev !== null && prev !== undefined && prev !== id) { try { map.setFeatureState({ source, id: prev }, { selected: false }); } catch { /* source replaced */ } }
+    if (id !== null) map.setFeatureState({ source, id }, { selected: true });
+    selected[source] = id;
   }
 
   function applyFocus(): void {
     if (!styleLoaded) return;
-    const touch = (source: string, fc: FeatColl | null, f: (id: number) => Record<string, boolean>) => {
-      if (!fc || !map.getSource(source)) return;
-      fc.features.forEach((x) => map.setFeatureState({ source, id: x.id as number }, f(x.id as number)));
+    const dim = (layer: string, id: number | null): void => {
+      if (map.getLayer(layer)) map.setPaintProperty(layer, 'fill-opacity', (id === null ? 0 : ['case', ['==', ['id'], id], 0, pal.dimAlpha]) as never);
     };
-    touch('countries', opts.countries, (id) => ({ dim: focus.country !== null && id !== focus.country, selected: id === focus.country, hover: false }));
-    touch('adm1', adm1, (id) => ({ selected: focus.s === id, dim: focus.s !== null && id !== focus.s, hover: false }));
-    touch('adm2', adm2, (id) => ({ selected: focus.d === id, dim: focus.d !== null && id !== focus.d, hover: false }));
+    dim('country-dim', focus.country);
+    dim('adm1-dim', focus.country !== null ? focus.s : null);
+    dim('adm2-dim', focus.s !== null ? focus.d : null);
+    setSelected('countries', focus.country);
+    setSelected('adm1', focus.s);
+    setSelected('adm2', focus.d);
+    if (map.getLayer('adm2-label')) map.setPaintProperty('adm2-label', 'text-opacity', (focus.d === null ? 1 : ['case', ['==', ['id'], focus.d], 1, 0.4]) as never);
     hoverRef = null;
   }
 
@@ -342,10 +430,15 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const f = feature ?? hovered;
     const byName: ExpressionSpecification | null = f ? ['any', ['==', ['get', 'name'], f.name], ['==', ['get', 'name:en'], f.name]] : null;
     const set = (id: string, on: boolean) => { if (map.getLayer(id)) map.setFilter(id, on && byName ? byName : none); };
-    set('hl-river', !!f && f.sourceLayer === 'waterway');
-    set('hl-peak', !!f && f.sourceLayer === 'mountain_peak');
-    set('hl-label', !!f && (f.sourceLayer === 'water_name' || f.sourceLayer === 'place'));
-    set('hl-park', !!f && f.sourceLayer === 'park');
+    const river = !!f && f.sourceLayer === 'waterway', peak = !!f && f.sourceLayer === 'mountain_peak', label = !!f && (f.sourceLayer === 'water_name' || f.sourceLayer === 'place'), park = !!f && f.sourceLayer === 'park';
+    set('hl-river', river); set('hl-river-casing', river);
+    set('hl-peak', peak); set('hl-peak-casing', peak);
+    set('hl-label', label); set('hl-label-casing', label);
+    set('hl-park', park); set('hl-park-casing', park); set('hl-park-fill', park);
+    // selected is larger than hovered (spec 6.3: 11 px against 9)
+    const r = feature ? 11 : 9;
+    for (const id of ['hl-peak', 'hl-peak-casing', 'hl-label', 'hl-label-casing']) if (map.getLayer(id)) map.setPaintProperty(id, 'circle-radius', r);
+    if (map.getLayer('hl-park-fill')) map.setPaintProperty('hl-park-fill', 'fill-opacity', feature ? 0.1 : 0.2);
   }
 
   map.on('style.load', () => {
@@ -366,6 +459,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       'sky-horizon-blend': 0.8, 'horizon-fog-blend': pal.mode === 'dark' ? 0.7 : 0.6,
     });
     recolourBase();
+    applyLabels();
     const layers = map.getStyle().layers;
     const firstSymbol = layers.find((l) => l.type === 'symbol');
     const f = (firstSymbol?.layout as { 'text-font'?: string[] } | undefined)?.['text-font'];
@@ -388,7 +482,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const e = ev as unknown as { error?: { message?: string }; sourceId?: string };
     if (!styleLoaded && !e.sourceId && !destroyed) { console.warn('[globe] style error:', e.error?.message); handlers.onFail?.(TILES_DOWN); } // the raw AJAXError text stays in the console
   });
-  map.on('zoomend', applyTerrain);
+  map.on('zoom', applyTerrain);
 
   // The CSS halo behind the canvas fades from 1 at zoom 0 to 0 at zoom 4 (spec 6.6), one write per frame.
   const haloHost = container.parentElement;
@@ -471,7 +565,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       setHover(p.layer === 'country' ? 'countries' : p.layer, p.id);
       const info = handlers.describe?.(p.layer, p.id);
       if (info) showTip(e, info, 'shape');
-      hold(SPIN_AFTER_HOVER_MS);
+      slowSpin();
       return;
     }
     setHover(null, null);
@@ -479,6 +573,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     const f = p.f;
     if (hovered?.name !== f.name || hovered.sourceLayer !== f.sourceLayer) { hovered = f; applyFeatureHighlight(); }
     showTip(e, { kicker: f.kind, title: f.name, sub: `${f.extra ? `${f.extra} · ` : ''}click to select` }, 'basemap');
+    slowSpin();
   });
   container.addEventListener('mouseleave', () => { setHover(null, null); hideTip(); if (hovered) { hovered = null; applyFeatureHighlight(); } });
   map.on('click', (e: MapMouseEvent) => {
@@ -494,7 +589,7 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   // ---- camera --------------------------------------------------------------------------------------------
   // A grab stops the spin at once and nothing moves the camera while a pointer is down; the spin resumes after a quiet moment.
   for (const ev of ['mousedown', 'touchstart'] as const) {
-    map.on(ev, (e) => { flyToken++; pointerDown = true; holdUntil = Infinity; dragged = false; pressAt = (e as MapMouseEvent).point ?? null; handlers.onInteract?.(); });
+    map.on(ev, (e) => { flyToken++; pointerDown = true; spinSpeed = 0; holdUntil = Infinity; dragged = false; pressAt = (e as MapMouseEvent).point ?? null; handlers.onInteract?.(); });
   }
   map.on('wheel', () => { flyToken++; hold(SPIN_AFTER_GESTURE_MS); handlers.onInteract?.(); });
   map.on('dragstart', () => { dragged = true; flyToken++; handlers.onInteract?.(); });
@@ -506,19 +601,36 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   map.on('moveend', (e) => {
     const ev = e as { originalEvent?: unknown; spin?: boolean; ours?: boolean };
     if (ev.spin || container.dataset.warming === 'true') return; // the shader warm-up borrows the camera; it is not the visitor's view
-    const c = map.getCenter();
-    handlers.onCamera?.({ lng: c.lng, lat: c.lat, zoom: map.getZoom() }, !!ev.originalEvent);
+    handlers.onCamera?.(camera(), !!ev.originalEvent);
+    // Pitch only shows above the terrain gate: below it a tilted camera eases back to flat in 300 ms (spec 5.1). Never with a pointer down.
+    if (!pointerDown && map.getPitch() > 0.5 && map.getZoom() < PITCH_MIN_ZOOM) map.easeTo({ pitch: 0, duration: reduced() ? 0 : 300 });
   });
 
   const reduced = (): boolean => prefersReducedMotion();
-  const camera = (): Camera => { const c = map.getCenter(); return { lng: c.lng, lat: c.lat, zoom: map.getZoom() }; };
+  const camera = (): Camera => {
+    const c = map.getCenter();
+    const pitch = map.getPitch(), bearing = map.getBearing();
+    return { lng: c.lng, lat: c.lat, zoom: map.getZoom(), ...(pitch > 0.5 ? { pitch } : {}), ...(Math.abs(bearing) > 0.5 ? { bearing } : {}) };
+  };
 
-  function tiltAfter(token: number, tilt: boolean): void {
-    if (!tilt || !terrainOn || reduced()) return;
-    map.once('moveend', () => {
-      if (token !== flyToken || destroyed || map.getZoom() < TERRAIN_MIN_ZOOM) return;
-      map.easeTo({ pitch: 45, duration: TILT_MS });
-    });
+  /**
+   * One flight per step (spec 5.3): the target pitch is inside the flight, the subject sits in the upper-middle of the free area
+   * (`offset`), and the duration comes from MapLibre's distance model capped by the plan. Nothing waits for `moveend` to start a
+   * second move, which is the see-saw the owner felt. Reduced motion jumps with the target pitch at once.
+   */
+  function fly(center: Pt, zoom: number, plan: FlightPlan, keepPadding = false): void {
+    const token = ++flyToken;
+    void token;
+    const pitch = pitchAt(plan.pitch, zoom);
+    const pad = keepPadding ? padding : ZERO_PAD;
+    const up = shiftPx(container.clientHeight - padding.top - padding.bottom, plan.shift);
+    if (reduced()) {
+      map.jumpTo({ center, zoom, pitch, padding: pad });
+      if (up) map.panBy([0, up], { duration: 0 });
+      applyTerrain();
+      return;
+    }
+    map.flyTo({ center, zoom, pitch, padding: pad, offset: [0, -up], speed: plan.speed, curve: plan.curve, maxDuration: plan.maxDuration, essential: false });
   }
 
   /** Markers behind the globe or off the canvas are not drawn, not focusable and not in the way of a tap. */
@@ -618,14 +730,15 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     },
     setTerrain(on, ex) {
       terrainOn = on; exaggeration = ex;
-      if (!on) map.easeTo({ pitch: 0, duration: reduced() ? 0 : TILT_MS });
+      if (!on) map.easeTo({ pitch: 0, duration: reduced() ? 0 : 500 });
       applyTerrain();
     },
     setAdmin(level, fc) {
       if (level === 'adm1') adm1 = fc; else adm2 = fc;
       const src = map.getSource(level) as GeoJSONSource | undefined;
       src?.setData((fc ? forRender(fc) : EMPTY) as never);
-      if (fc && styleLoaded) fc.features.forEach((x) => map.setFeatureState({ source: level, id: x.id as number }, { selected: false, dim: false, hover: false }));
+      // Feature state belongs to the source and survives setData, so a new set of shapes starts clean (no loop over features).
+      if (styleLoaded && map.getSource(level)) { map.removeFeatureState({ source: level }); selected[level] = null; }
       applyFocus();
     },
     setCountries(fc) {
@@ -636,7 +749,11 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
     setFocus(f) { focus = f; setHover(null, null); applyFocus(); },
     setFeature(f) { feature = f; applyFeatureHighlight(); },
     setPadding(p) { padding = p; },
-    setSpin(enabled, world) { spinEnabled = enabled; worldView = world; },
+    setSpin(enabled, world) {
+      // Back at the world level the spin waits 2 s before it ramps up again (spec 5.2).
+      if (world && !worldView) { holdUntil = Math.max(holdUntil === Infinity ? 0 : holdUntil, performance.now() + SPIN_AFTER_GESTURE_MS); spinSpeed = 0; }
+      spinEnabled = enabled; worldView = world;
+    },
     setActive(on) {
       loopActive = on;
       cancelAnimationFrame(raf);
@@ -656,35 +773,28 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       }
       zoom = Math.max(map.getMinZoom(), zoom);
       const cam = { center: [c.lng, c.lat] as [number, number], zoom, pitch: 0, bearing: 0, padding: pad };
-      if (!animate || reduced()) map.jumpTo(cam); else map.flyTo({ ...cam, duration: 400, essential: false });
+      // Reset view and stepping out to the world are one flight too (spec 5.3), at the same speed as every other.
+      const plan = flightPlan('country', { terrain: false });
+      if (!animate || reduced()) map.jumpTo(cam); else map.flyTo({ ...cam, speed: plan.speed, curve: plan.curve, maxDuration: plan.maxDuration, essential: false });
       return zoom;
     },
-    flyToBox(b, o = {}) {
+    flyToBox(b, o) {
       if (!styleLoaded) { queuedMove = () => engine.flyToBox(b, o); return; }
-      const token = ++flyToken;
-      const tilt = o.tilt !== false;
-      if (spanLon(b) > 170) {
-        const c = centreOf(b);
-        if (reduced()) map.jumpTo({ center: c, zoom: 2.6, pitch: 0, bearing: 0, padding: ZERO_PAD });
-        else map.flyTo({ center: c, zoom: 2.6, pitch: 0, bearing: 0, padding: ZERO_PAD, duration: FLY_MS, essential: false });
-        return;
-      }
-      const cam = map.cameraForBounds([b[0], b[1]], { padding, maxZoom: o.maxZoom ?? 8 });
-      if (!cam?.center) return;
-      const center = cam.center as { lng: number; lat: number };
-      const zoom = cam.zoom ?? 5;
-      if (reduced()) { map.jumpTo({ center, zoom, pitch: 0, bearing: 0, padding: ZERO_PAD }); return; }
-      map.flyTo({ center, zoom, pitch: 0, bearing: 0, padding: ZERO_PAD, duration: FLY_MS, essential: false });
-      tiltAfter(token, tilt && zoom >= TERRAIN_MIN_ZOOM);
+      const free = { w: container.clientWidth - padding.left - padding.right, h: container.clientHeight - padding.top - padding.bottom };
+      const z = fitZoom(b, free.w, free.h, o.wide ? WIDE_MAX : (o.maxZoom ?? 8));
+      // A country wider than 170 degrees stays on the globe at zoom 2.6 to 3.2 and does not tilt.
+      fly(boxCentre(b), o.wide ? wideZoom(z) : z, o.wide ? { ...o.plan, pitch: 0, shift: 0 } : o.plan, true);
     },
-    flyToPoint(p, zoom, o = {}) {
+    flyToPoint(p, zoom, o) {
       if (!styleLoaded) { queuedMove = () => engine.flyToPoint(p, zoom, o); return; }
-      const token = ++flyToken;
-      if (reduced()) { map.jumpTo({ center: p, zoom }); return; }
-      map.flyTo({ center: p, zoom, pitch: 0, bearing: 0, duration: FLY_MS, essential: false, padding });
-      tiltAfter(token, !!o.tilt && zoom >= TERRAIN_MIN_ZOOM);
+      fly(p, zoom, o.plan, true);
     },
-    jumpTo(c) { queuedMove = null; flyToken++; map.jumpTo({ center: [c.lng, c.lat], zoom: c.zoom, padding: ZERO_PAD }); },
+    setTooltipEnabled(on) { tipsOff = !on; if (!on) hideTip(); },
+    setDiscs(list) {
+      discs = list;
+      (map.getSource('discs') as GeoJSONSource | undefined)?.setData(discData() as never);
+    },
+    jumpTo(c) { queuedMove = null; flyToken++; map.jumpTo({ center: [c.lng, c.lat], zoom: c.zoom, pitch: c.pitch ?? 0, bearing: c.bearing ?? 0, padding: ZERO_PAD }); },
     camera,
     zoomBy(d) { flyToken++; if (reduced()) map.jumpTo({ zoom: map.getZoom() + d }); else map.easeTo({ zoom: map.getZoom() + d, duration: 200 }); },
     syncMarkers(ns, specs) {
@@ -707,6 +817,13 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
       return out;
     },
     isTerrainOn: () => !!map.getTerrain(),
+    project(lng, lat) {
+      const pt = map.project([lng, lat]);
+      const tr = (map as unknown as { transform?: { isLocationOccluded?(l: unknown): boolean } }).transform;
+      const w = container.clientWidth, h = container.clientHeight;
+      if (pt.x < -60 || pt.y < -60 || pt.x > w + 60 || pt.y > h + 60 || tr?.isLocationOccluded?.(new ml.LngLat(lng, lat))) return null;
+      return { x: pt.x, y: pt.y };
+    },
     destroy() {
       destroyed = true;
       cancelAnimationFrame(raf);
@@ -725,10 +842,13 @@ export function createGlobe(ml: ML, opts: GlobeEngineOptions): GlobeEngine {
   // The spin: one revolution in 90 s as chained one-second linear eases (MapLibre's own pattern). A user gesture interrupts an
   // ease once through the normal path; no jumpTo or stop() is called per frame, so drags and clicks keep their handler state.
   const canSpin = (): boolean => spinAllowed({ active: loopActive, enabled: spinEnabled, world: worldView, reduced: reduced(), styleLoaded, zoom: map.getZoom(), pointerDown, destroyed, hidden: document.hidden });
+  // The speed is a multiplier: 0 the moment a gesture starts, 1 at rest, 0.25 while a country or feature is hovered and for 20 s after,
+  // and it moves toward its target by half a step each step so a start or a stop is never a jump (spec 5.2).
   function spinOnce(): void {
     if (!canSpin() || performance.now() < holdUntil || map.isMoving()) return;
+    spinSpeed = spinSpeedToward(spinSpeed, performance.now() < hoverSlowUntil ? SPIN_HOVER_SPEED : 1);
     const c = map.getCenter();
-    map.easeTo({ center: [c.lng + spinStepDeg(), c.lat], duration: SPIN_EASE_MS, easing: (t) => t, essential: false }, { spin: true });
+    map.easeTo({ center: [c.lng + spinStepDeg(SPIN_EASE_MS) * spinSpeed, c.lat], duration: SPIN_EASE_MS, easing: (t) => t, essential: false }, { spin: true });
   }
   map.on('moveend', (e) => { if ((e as { spin?: boolean }).spin) spinOnce(); });
   // Under reduced motion nothing spins, so the frame loop stops altogether instead of waking 60 times a second to do nothing;
