@@ -3005,16 +3005,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
           "field": "draw"
         },
@@ -3101,6 +3091,16 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
           "field": "signals.designations"
         },
         {
@@ -3527,16 +3527,6 @@
         },
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "field": "draw"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
-          "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
-          "field": "signals.designations"
-        },
-        {
-          "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
           "field": "draw"
         },
@@ -3583,6 +3573,16 @@
         {
           "file": "data/relevance/canadian-rockies-2029/R2a.json",
           "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+          "field": "signals.designations"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
+          "field": "draw"
+        },
+        {
+          "file": "data/relevance/canadian-rockies-2029/R2a.json",
+          "ref": "part/legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass#sentinel-pass",
           "field": "signals.designations"
         },
         {
