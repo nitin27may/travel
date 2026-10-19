@@ -236,8 +236,10 @@ describe('no household notes, home town or dates in any public file', () => {
 // Public output says who a plan suits ("Suits ages 11 and up"), never who travelled (backlog 2.34).
 const PARTY_PATTERNS: [string, RegExp][] = [
   ['a child around N', /\b(?:a|the) child around \d/i],
-  ['"the child" as a traveller', /\bthe child(?:'s)?\b(?! (?:fare|rate|price|ticket))/i],
-  ['an N-year-old', /\b\d+-year-old/i],
+  // "the child" is a traveller unless it is a fare, a carrier or an age condition (backlog 2.43)
+  ['"the child" as a traveller', /\bthe child(?:'s)?\b(?! (?:fares?|rates?|prices?|tickets?|carriers?|seats?|harness(?:es)?|sizes?|pass(?:es)?|menu|portions?|discount|helmets?|bikes?|trailers?)\b| is (?:under|over|younger|older|below|above|aged|less|at least|\d))/i],
+  // a child's age is 1 to 17; "a 300-year-old church" is a building
+  ['an N-year-old', /\b(?:1[0-7]|[1-9])-year-old\b(?! (?:church|chapel|tree|building|house|hut|bridge|town|village|tradition|wine|cheese|rule|record|school|hotel|lodge|inn|castle|fort|mill|barn|cabin|trail|road|route|mine|dam|tunnel|forest|glacier|ruin|ruins|monastery|temple|shrine|festival|company|business|brand|boat|ship|vessel)\b)/i],
   ['a family of N', /\bfamily of \d/i],
   ['N adults plus N children', /\b(?:\d+|two|three|four) adults? (?:plus|and) (?:\d+|two|three|four) (?:children|kids)/i],
   ['"with kids N+" in a title', /\bwith (?:kids|children) \d+\+?/i],
@@ -280,5 +282,8 @@ describe('no party description in any public file', () => {
     ];
     for (const e of examples) expect(PARTY_PATTERNS.some(([, re]) => re.test(e)), e).toBe(true);
     expect(PARTY_PATTERNS.some(([, re]) => re.test('The family version suits children from about 6. Suits ages 11 and up. The child fare is 16.'))).toBe(false);
+    // legitimate text the scrub keeps (backlog 2.43)
+    const fine = ['A 300-year-old church stands here.', 'Bring the child carrier.', 'Not suitable if the child is under 4.', 'The child fare applies from age 12.', 'A small group can share a room.'];
+    for (const e of fine) expect(PARTY_PATTERNS.some(([, re]) => re.test(e)), e).toBe(false);
   });
 });
