@@ -25,3 +25,13 @@ describe('card placement (spec 3.2, review M3)', () => {
     expect(p.overlap).toBeGreaterThan(0);
   });
 });
+
+describe('centred placement', () => {
+  it('uses a vertically centred side when every corner would sit on something', () => {
+    const search: Rect = { left: 100, top: 12, right: 700, bottom: 112 };
+    const pill: Rect = { left: 12, top: 682, right: 152, bottom: 744 };
+    const p = placeCard({ x: 352, y: 373 }, { w: 320, h: 330 }, { left: 0, top: 0, right: 640, bottom: 732 }, [search, pill]);
+    expect(['left', 'right']).toContain(p.anchor);
+    expect(p.overlap).toBe(0);
+  });
+});
