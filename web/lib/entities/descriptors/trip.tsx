@@ -189,7 +189,7 @@ export const tripDescriptor: EntityDescriptor<TripListRow> = {
   ],
   defaultColumns: ['title', 'length', 'nights', 'season', 'countries', 'kids', 'depth'],
   groupBy: [
-    { id: 'phase', label: 'Plan', key: phase, title: (t) => PHASE_TITLE[phase(t)], subtitle: (t) => (t.isDone ? 'Finished plans, kept as templates to copy' : '') },
+    { id: 'phase', label: 'Plan', key: phase, title: (t) => PHASE_TITLE[phase(t)], subtitle: (t) => (t.isDone ? 'Kept as templates to copy' : '') },
     // Day trips first, then overnights, weekends, long weekends and the 4+ bands (short-trips 3.3)
     { id: 'length', label: 'Length', key: (t) => String(lengthRank(t)), order: (t) => lengthRank(t), title: (t) => (t.length ? PHASE_FOR_LENGTH[t.length] : 'Length not set') },
     { id: 'country', label: 'Country', key: (t) => t.country || '~', title: (t) => t.countryName || 'Country not set' },
