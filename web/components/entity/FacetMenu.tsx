@@ -7,6 +7,7 @@ import type { PillOption } from '@/components/ui/PillOptions';
 import { TAG_KIND_LABELS } from '@/lib/entities/labels';
 import type { FacetCount } from '@/lib/entities/filter';
 import type { FacetDef } from '@/lib/entities/types';
+import { AgeControl } from './AgeControl';
 import { lazyComponent } from './lazyComponent';
 
 interface OptionsProps<Row> {
@@ -46,7 +47,24 @@ function PillPlaceholder({ label, options, selected }: PillProps) {
 // the list pages stay inside the JS budget without a fallback that looks different.
 const LazyPill = lazyComponent<PillProps>(() => import('@/components/ui/FilterPill').then((m) => m.FilterPill), PillPlaceholder);
 
-/** A facet as a filter pill that opens its options. */
+type AgeProps = ComponentProps<typeof import('./AgePill').AgePill>;
+const LazyAgePill = lazyComponent<AgeProps>(() => import('./AgePill').then((m) => m.AgePill), function AgePlaceholder({ label, selected }: AgeProps) {
+  return <PillPlaceholder label={label} options={[]} selected={selected} onChange={() => undefined} />;
+});
+
+/** A facet as a filter pill that opens its options (or, for the Kids facet, a stepper). */
 export function FacetPopover<Row>({ facet, options, selected, onChange }: OptionsProps<Row>) {
+  if (facet.control === 'age') {
+    const legacy = (v: string) => options.find((o) => o.value === v)?.label ?? v;
+    return <LazyAgePill label={facet.label} selected={selected} onChange={onChange} legacyLabel={legacy} />;
+  }
   return <LazyPill label={facet.label} options={toOptions(options)} selected={selected} onChange={onChange} mode={facet.type} groupLabel={groupLabel} />;
+}
+
+/** The facet's body for a sheet or a More-filters group: the stepper for Kids, the option list for the rest. */
+export function FacetBodyControl<Row>({ facet, options, selected, onChange }: OptionsProps<Row>) {
+  if (facet.control === 'age') {
+    return <AgeControl selected={selected} onChange={onChange} />;
+  }
+  return <FacetOptions facet={facet} options={options} selected={selected} onChange={onChange} />;
 }

@@ -61,12 +61,26 @@ export interface PlaceListRow {
   /** True when the place has research beyond a saved pin. */
   researched: boolean;
   added: string;
+  // ---- facet fields (capture contract 7.3; L3b): a type id and bands, all labels. Never a fact with a source (principle P8). ----
+  /** The capture type id (`nature.trail.hike`) or the category its kind implies; the Kind pill and the type-aware facets read it. */
+  type: string | null;
+  /** Effort name (Stroll to Technical), or null where the profile has none or nobody has checked. */
+  effort: string | null;
+  kids_from: number | null;
+  /** `rule` hides the place from a younger child; `advice` only fades its card. */
+  kids_basis: 'rule' | 'advice' | null;
+  time_band: string | null;
+  price_band: string | null;
+  booking: string | null;
+  /** Up to six ids of yes/no facets ("swim", "!dogs"); a gap stores neither. */
+  flags: string[];
 }
 
 /** Every key a list row may carry. A test compares this with the keys the builder writes. */
 export const PLACE_LIST_KEYS: readonly (keyof PlaceListRow)[] = [
   'id', 'slug', 'name', 'kind', 'kindLabel', 'legacyKind', 'country', 'country_name', 'region', 'region_name', 'regionAliases', 'area', 'area_name',
   'lat', 'lon', 'km', 'gain_m', 'elevation_m', 'season', 'kid_fit', 'tags', 'image', 'trips', 'honesty', 'completeness', 'sourceTypes', 'statsState', 'researched', 'added',
+  'type', 'effort', 'kids_from', 'kids_basis', 'time_band', 'price_band', 'booking', 'flags',
 ];
 
 /** Joins the adapter cards with the legacy rows through the old place URLs that LD already maps to slugs. */
@@ -118,6 +132,14 @@ export function buildPlaceRows(
       statsState: hasStats ? (old?.stats_verified ? 'verified' : 'unverified') : null,
       researched: c.sources.some((o) => o !== 'locations'),
       added: old?.added ?? '',
+      type: c.type,
+      effort: c.bands.effort,
+      kids_from: c.bands.kids_from,
+      kids_basis: c.bands.kids_basis,
+      time_band: c.bands.time_band,
+      price_band: c.bands.price_band,
+      booking: c.bands.booking,
+      flags: c.bands.flags,
     };
   });
 }
