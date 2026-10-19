@@ -12,7 +12,7 @@ import type {
 } from '@travel/core/schedule/types.ts';
 import { fmtMin } from '@travel/core/checks/time.ts';
 import { DropLog, undatedSentences } from './dateless';
-import { dayKnow, noteBlock, noteLine, type NoteBlock, type PrepareOpts } from './prose';
+import { dayKnow, noteBlock, noteLine, parseHoursRange, type NoteBlock, type PrepareOpts } from './prose';
 import type { ProtoPlace, ProtoPubTrip, RockiesData, RockiesDay, Sources } from './sources';
 import type { DayItem, DayVariantInfo, PublicBase, PublicDay, TripSchedule } from './types';
 
@@ -115,15 +115,6 @@ const blankItem = (id: string, kind: ItemKind, title: string): ScheduleItem => (
   id, kind, sub: null, title, placeSlug: null, point: null, rule: null, durationMin: null, durationRange: null, durationSource: null, stats: null, start: null, needs: null,
   window: null, checkinMin: null, optional: false, note: null, minAge: null, minAgeRule: null, needsDaylight: false, honesty: [],
 });
-
-/** "4-5 h" -> [240, 300]; "3-3.5 h" -> [180, 210]; "45 min" -> null (a single value is not a range). */
-export function parseHoursRange(text: string | null | undefined): [number, number] | null {
-  if (!text) return null;
-  const m = /(\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(\d+(?:\.\d+)?)\s*(h|hours?|min)\b/i.exec(text);
-  if (!m) return null;
-  const k = /^h/i.test(m[3]!) ? 60 : 1;
-  return [Math.round(Number(m[1]) * k), Math.round(Number(m[2]) * k)];
-}
 
 function applyOverride(it: ScheduleItem, o: ScheduleItemOverride | undefined, where: string, log: DropLog, names?: Map<string, string>): ScheduleItem {
   if (!o) return it;

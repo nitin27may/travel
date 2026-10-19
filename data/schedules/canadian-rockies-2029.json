@@ -1044,10 +1044,7 @@
       "sub": "fuel",
       "title": "Fuel and toilets at Saskatchewan River Crossing",
       "durationMin": 30,
-      "durationSource": "plan",
-      "time": "14:30",
-      "confidence": "suggested",
-      "source": "plan"
+      "durationSource": "plan"
      }
     ],
     "C": [
