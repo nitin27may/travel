@@ -36,6 +36,8 @@ export interface FilterDef {
   label: string;
   /** the derived list-row key it reads (7.3); absent when the facet reads a flag */
   band?: string;
+  /** scope (a type id or intent) -> 1 or 2: the facet is promoted into the filter bar when the Kind narrows to that scope, in that order (7.2) */
+  promote?: Record<string, 1 | 2>;
 }
 
 export interface PropertyDef {
@@ -91,7 +93,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "best_window", group: "when", label: "Best weeks", value: "season_rows", section: "when", display: ["rest"], base: "A", gap: "No best weeks recorded", home: cap("best_window") }),
   def({ key: "best_time", group: "when", label: "Best time of day", value: "object_list", section: "when", display: ["rest", "filter"], base: "A", gap: "No best time of day recorded", home: cap("best_time"), filter: { scopes: ["nature.viewpoint", "nature.summit"], control: "enum", label: "Best time of day" } }),
   def({ key: "hours", group: "when", label: "Opening hours", value: "hours", section: "when", display: ["rest", "filter"], base: "R?", trigger: "operates", gap: "Hours not published; check before you go", home: cap("hours"), filter: { scopes: ["culture", "animals.see"], control: "enum", label: "Open on" } }),
-  def({ key: "duration_min", group: "when", label: "Door-to-door time", value: "range", unit: "min", section: "options", display: ["rest", "card", "filter"], base: "N", gap: "Time not published; our estimate", layers: ["offer"], filter: { scopes: ["intent:do"], control: "range", label: "Duration", band: "time_band" } }),
+  def({ key: "duration_min", group: "when", label: "Door-to-door time", value: "range", unit: "min", section: "options", display: ["rest", "card", "filter"], base: "N", gap: "Time not published; our estimate", layers: ["offer"], filter: { scopes: ["intent:do"], control: "range", label: "Duration", promote: { "intent:do": 2 }, band: "time_band" } }),
   def({ key: "activity_min", group: "when", label: "Time on the activity", value: "range", unit: "min", section: "options", display: ["detail"], base: "N", layers: ["offer"] }),
   def({ key: "check_in_out", group: "when", label: "Check-in and check-out", value: "object", section: "options", display: ["rest"], base: "N", layers: ["offer"] }),
 
@@ -99,7 +101,7 @@ export const BASE_PROPERTIES: PropertyDef[] = [
   def({ key: "access_points", group: "access", label: "Trailhead and parking", value: "relation_list", section: "access", display: ["rest"], base: "R?", trigger: "no_door_access", gap: "No parking or stop recorded", home: { in: "none" } }),
   def({ key: "transit", group: "access", label: "Public transport", value: "relation_list", section: "access", display: ["detail"], base: "A", gap: "No public transport found" }),
   def({ key: "access_cost", group: "access", label: "Permit or booking", value: "object_list", section: "warnings", display: ["rest!"], base: "R", gap: "No permit or booking needed is a value", home: rel("access_cost") }),
-  def({ key: "price", group: "access", label: "Price", value: "price_list", section: "options", display: ["rest", "card", "filter"], base: "R?", trigger: "sells", gap: "Price not published", home: cap("price"), filter: { scopes: ["intent:do", "culture", "play", "snow"], control: "enum", label: "Price band", band: "price_band" } }),
+  def({ key: "price", group: "access", label: "Price", value: "price_list", section: "options", display: ["rest", "card", "filter"], base: "R?", trigger: "sells", gap: "Price not published", home: cap("price"), filter: { scopes: ["intent:do", "culture", "play", "snow"], control: "enum", label: "Price band", promote: { "culture": 2, "animals.see": 2, "play": 2 }, band: "price_band" } }),
   def({ key: "window", group: "access", label: "Booking window", value: "window", section: "options", display: ["rest!", "filter"], base: "R?", trigger: "bookable", gap: "Booking window not published; book as early as possible", home: cap("window"), filter: { scopes: ["intent:do", "culture"], control: "enum", label: "Booking needed", band: "booking" } }),
   def({ key: "book_url", group: "access", label: "Booking page", value: "text", section: "links", display: ["detail"], base: "N", layers: ["offer"] }),
   def({ key: "reservation", group: "access", label: "Reservation", value: "enum", section: "options", display: ["rest"], base: "N", layers: ["offer", "place"] }),
@@ -195,7 +197,7 @@ const SUIT_ROWS: Record<string, SuitRow> = {
   adult_required: ["Adult required", "limits", "limit", "suits", LIM],
   solo: ["Ride without an adult", "limits", "limit", "suits", LIM],
   group_min: ["Group minimum", "limits", "limit", "suits", LIM],
-  age_band: ["Who it suits (ages)", "suits", "range", "suits", ["rest", "card", "filter"], { scopes: ["intent:do", "play", "snow"], control: "range", label: "Ages from", band: "kids_from" }, "years"],
+  age_band: ["Who it suits (ages)", "suits", "range", "suits", ["rest", "card", "filter"], { scopes: ["intent:do", "play", "snow"], control: "range", label: "Ages from", promote: { "intent:do": 1, "play": 1, "snow": 2 }, band: "kids_from" }, "years"],
   kid_note: ["Note for families", "suits", "text", "suits", ["rest"]],
   carrier_ok: ["Baby carrier", "suits", "bool", "suits", D],
   stroller: ["Stroller surface", "suits", "enum", "suits", ["rest", "filter"], { scopes: ["nature.trail", "nature.viewpoint", "nature.summit", "culture"], control: "bool", label: "Stroller" }],
@@ -206,8 +208,8 @@ const SUIT_ROWS: Record<string, SuitRow> = {
   accessible_toilet: ["Accessible toilet", "suits", "bool", "suits", D],
   accessible_parking: ["Accessible parking", "suits", "bool", "suits", D],
   limited_capacity_note: ["Limited capacity", "suits", "text", "suits", D],
-  "effort.source_grade": ["Published grade", "effort", "grade", "activity", ["rest", "card", "filter"], { scopes: ["nature.trail", "nature.trek", "snow.ski", "intent:do"], control: "enum", label: "Effort", band: "effort" }],
-  "effort.drivers.distance_km": ["Distance", "effort", "number", "activity", ["rest", "card", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "range", label: "Length", band: "length_band" }, "km"],
+  "effort.source_grade": ["Published grade", "effort", "grade", "activity", ["rest", "card", "filter"], { scopes: ["nature.trail", "nature.trek", "snow.ski", "intent:do"], control: "enum", label: "Effort", promote: { "nature.trail": 1, "nature.trek": 1, "snow": 1 }, band: "effort" }],
+  "effort.drivers.distance_km": ["Distance", "effort", "number", "activity", ["rest", "card", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "range", label: "Length", promote: { "nature.trail": 2, "nature.trek": 2 }, band: "length_band" }, "km"],
   "effort.drivers.gain_m": ["Climb", "effort", "number", "activity", ["rest", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "range", label: "Climb", band: "climb_band" }, "m"],
   "effort.drivers.surface": ["Surface", "effort", "enum_list", "activity", D],
   "effort.drivers.scrambling": ["Scrambling", "effort", "enum", "activity", D],
@@ -216,7 +218,7 @@ const SUIT_ROWS: Record<string, SuitRow> = {
   "effort.drivers.max_grade_pct": ["Steepest gradient", "effort", "number", "activity", D, undefined, "%"],
   adult_time_min: ["Time (adult)", "time", "range", "glance", ["rest", "card", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "range", label: "Time", band: "time_band" }, "min"],
   child_time_min: ["Time (child)", "time", "object_list", "glance", ["rest"], undefined, "min"],
-  on_site_min: ["Time on site", "time", "range", "glance", ["rest", "card", "filter"], { scopes: ["culture", "animals.see"], control: "range", label: "Time on site", band: "time_band" }, "min"],
+  on_site_min: ["Time on site", "time", "range", "glance", ["rest", "card", "filter"], { scopes: ["culture", "animals.see"], control: "range", label: "Time on site", promote: { "culture": 1, "animals.see": 1 }, band: "time_band" }, "min"],
   toilets: ["Toilets", "facilities", "enum_list", "facilities", ["detail", "filter"], { scopes: ["water", "play"], control: "bool", label: "Toilets" }],
   water: ["Drinking water", "facilities", "enum", "facilities", D],
   food: ["Food", "facilities", "enum", "facilities", D],
@@ -230,7 +232,7 @@ const SUIT_ROWS: Record<string, SuitRow> = {
   exposure: ["Exposure and fencing", "safety", "object", "warnings", ["rest!", "filter"], { scopes: ["nature.viewpoint", "nature.summit", "play"], control: "bool", label: "Fenced" }],
   altitude_m: ["Altitude", "safety", "number", "warnings", D, undefined, "m"],
   hazards: ["Hazards", "safety", "object_list", "warnings", ["rest!"]],
-  walk_m: ["Walk from the car", "time", "number", "access", ["rest", "card", "filter"], { scopes: ["nature.viewpoint", "nature.summit", "water"], control: "range", label: "Walk from the car", band: "walk_band" }, "m"],
+  walk_m: ["Walk from the car", "time", "number", "access", ["rest", "card", "filter"], { scopes: ["nature.viewpoint", "nature.summit", "water"], control: "range", label: "Walk from the car", promote: { "nature.viewpoint": 1, "nature.summit": 1, "water.body": 2, "water.falls": 2, "water.swim": 2 }, band: "walk_band" }, "m"],
   "water_safety.class": ["Water class", "water", "grade", "activity", D],
   "water_safety.lifejacket": ["Life jackets", "water", "enum", "activity", ["rest!"]],
   "water_safety.child_sizes_from_kg": ["Child sizes from", "water", "number", "activity", D, undefined, "kg"],
@@ -258,7 +260,7 @@ const EXT_ROW_DEFAULT: SuitRow = ["", "ext", "text", "activity", D];
 const EXT_ROWS: Record<string, Partial<SuitRow>> = {
   "ext.trail.shape": ["Shape", "ext", "enum", "activity", ["rest", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "enum", label: "Shape" }],
   "ext.trail.dogs": ["Dogs", "ext", "enum", "facilities", ["detail", "filter"], { scopes: ["nature.trail", "nature.trek"], control: "bool", label: "Dogs" }],
-  "ext.water.swimming": ["Swimming", "ext", "enum", "activity", ["rest", "card", "filter"], { scopes: ["water.body", "water.falls", "water.swim"], control: "enum", label: "Swimming" }],
+  "ext.water.swimming": ["Swimming", "ext", "enum", "activity", ["rest", "card", "filter"], { scopes: ["water.body", "water.falls", "water.swim"], control: "enum", label: "Swimming", promote: { "water.body": 1, "water.falls": 1, "water.swim": 1 } }],
   "ext.lift.last_up": ["Last ride up", "ext", "object_list", "when", ["rest!"]],
   "ext.lift.last_down": ["Last ride down", "ext", "object_list", "when", ["rest!"]],
   "ext.lift.ride_min": ["Ride time", "ext", "range", "glance", ["rest"]],
