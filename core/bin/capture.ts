@@ -8,6 +8,8 @@ import { PROPERTY_BY_KEY } from "../src/schema/capture/properties.ts";
 import { checkDrift, writeAll } from "../src/capture/generate.ts";
 import { explain, resolveNode, suitMark } from "../src/capture/resolve.ts";
 import type { Layer, ResolvedNode } from "../src/capture/resolve.ts";
+import { completeness } from "../src/capture/engine.ts";
+import { loadWorld } from "../src/capture/records.ts";
 import { countsOf, loadTypes, resolveWord, treeOf } from "../src/capture/tree.ts";
 import { TRIGGERS } from "../src/capture/triggers.ts";
 import { validateFile } from "../src/validate/index.ts";
@@ -42,6 +44,8 @@ const err = (s: string): void => void process.stderr.write(s + "\n");
 function typeArg(argv: string[], root: string): string | null {
   const file = loadTypes(root);
   const tree = treeOf(file);
+  const ref = arg(argv, "--ref");
+  if (ref) return loadWorld(root).cap.get(ref)?.rec.type ?? null;
   const t = arg(argv, "--type");
   if (t) return tree.byId.has(t) ? t : resolveWord(tree, t);
   const kind = arg(argv, "--kind");
@@ -108,9 +112,18 @@ function fields(argv: string[], root: string): number {
     err(`no type ${id}`);
     return 1;
   }
-  const rep = fieldsReport(node, (arg(argv, "--layer") as Layer | null) ?? null);
+  const ref = arg(argv, "--ref");
+  const rep = fieldsReport(node, (arg(argv, "--layer") as Layer | null) ?? (ref ? (loadWorld(root).cap.get(ref)?.rec.layer ?? null) : null));
+  if (ref) {
+    const c = completeness(loadWorld(root), ref);
+    if (c) (rep as Record<string, unknown>).record = { ref, level: c.level, missing: [...c.missingBase, ...c.missingSuitability, ...c.conditionalMissing], missing_applicable: c.missingApplicable, condition_unknown: c.conditionUnknown, soft: c.soft };
+  }
   if (arg(argv, "--format") === "json") out(JSON.stringify(rep, null, 2));
-  else printFields(rep);
+  else {
+    printFields(rep);
+    const r = (rep as { record?: { level: string; missing: string[]; missing_applicable: string[] } }).record;
+    if (r) out(`\n-- ${ref}: ${r.level}\n   still missing (R): ${r.missing.join(", ") || "nothing"}\n   not yet answered (A): ${r.missing_applicable.join(", ") || "nothing"}`);
+  }
   return 0;
 }
 

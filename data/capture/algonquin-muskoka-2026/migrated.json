@@ -1,0 +1,47 @@
+{
+  "schema": "capture/1",
+  "trip": "algonquin-muskoka-2026",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/algonquin-muskoka-2026/sight:ragged falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Ragged Falls"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/town:huntsville",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Huntsville"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:solitaire lake trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Solitaire Lake Trail"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Track and Tower Trail"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dorset lookout tower",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Dorset lookout tower"
+    },
+    {
+      "ref": "trip/algonquin-muskoka-2026/viewpoint:dwight beach sunset",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Dwight Beach sunset"
+    }
+  ]
+}

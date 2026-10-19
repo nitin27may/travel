@@ -133,7 +133,14 @@ describe("capture/1 sidecars (step 3)", () => {
     const season = { v: [{ from: "06-01", to: "09-30", status: "open" }], state: "value", basis: "our_inference", note: "fixture", src: [] };
     const res = run(r, capDoc([{ ref: "part/place/lago-di-braies#shore", type: "nature.trail.walk", layer: "route", season }]));
     expect(codes(res)).toEqual([]);
-    expect(warns(res)).toEqual(["W_CAP_NA_FIELD"]);
+    expect(warns(res)).toContain("W_CAP_NA_FIELD");
+  });
+  it("W_CAP_BELOW_USABLE: the completeness engine names the required properties no value answers; a complete-enough record has none", () => {
+    const r = root();
+    const res = run(r, capDoc([lake()]));
+    expect(warns(res)).toEqual(["W_CAP_BELOW_USABLE"]);
+    expect(res.warnings[0]!.message).toMatch(/water\.body\.lake \(place\) is draft: \d+ required propert/);
+    expect(res.warnings[0]!.message).toContain("capture.ts fields --ref place/lago-di-braies");
   });
 });
 

@@ -1,0 +1,214 @@
+{
+  "schema": "capture/1",
+  "trip": "iceland-ring-road-2027",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+      "type": "water.thermal.thermal_bath",
+      "layer": "offer",
+      "name": "Myvatn Nature Baths",
+      "offer_class": "ticket",
+      "at": [
+        "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place"
+      ]
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place",
+      "type": "water.thermal.thermal_bath",
+      "layer": "place",
+      "name": "Myvatn Nature Baths",
+      "origin": {
+        "from": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+        "reason": "the place the offer runs at"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Blue Lagoon area lava fields"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Borgarfjordur waterfalls"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Dettifoss"
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Dettifoss walk",
+      "reaches": [
+        "trip/iceland-ring-road-2027/sight:dettifoss"
+      ],
+      "origin": {
+        "from": "trip/iceland-ring-road-2027/sight:dettifoss",
+        "reason": "the route to the place"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:geysir",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Geysir"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:glaumbaer turf farm",
+      "type": "culture.museum.museum",
+      "layer": "place",
+      "name": "Glaumbaer turf farm"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:godafoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Godafoss"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:gullfoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Gullfoss"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:namaskard",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Namaskard"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:seljalandsfoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Seljalandsfoss"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:skogafoss",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Skogafoss"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:akureyri botanical garden",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Akureyri botanical garden"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:hofn harbour",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Hofn harbour"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:reykjavik old harbour",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Reykjavik old harbour"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/town:seydisfjordur",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Seydisfjordur"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:arnarstapi to hellnar",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Arnarstapi to Hellnar"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:djupalonssandur",
+      "type": "water.swim.beach",
+      "layer": "place",
+      "name": "Djupalonssandur"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Fjadrargljufur canyon",
+      "reaches": [
+        "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+      "type": "nature.landform.gorge",
+      "layer": "place",
+      "name": "Fjadrargljufur canyon",
+      "origin": {
+        "from": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Skaftafell Svartifoss",
+      "reaches": [
+        "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff"
+      ]
+    },
+    {
+      "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Svartifoss",
+      "origin": {
+        "from": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:thingvellir",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Thingvellir"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:diamond beach",
+      "type": "water.swim.beach",
+      "layer": "place",
+      "name": "Diamond Beach"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:jokulsarlon",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Jokulsarlon"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:kirkjufell",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Kirkjufell"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach",
+      "type": "water.swim.beach",
+      "layer": "place",
+      "name": "Reynisfjara beach"
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Snaefellsjokull view"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import { captureRun } from "../schema/capture/records.ts";
 import type { TypesFile } from "../schema/capture/typesFile.ts";
 import { tableOf } from "../schema/index.ts";
 import { applicabilityFile } from "../capture/generate.ts";
+import { completeness } from "../capture/engine.ts";
 import { loadWorld } from "../capture/records.ts";
 import type { World } from "../capture/records.ts";
 import { resolveNode } from "../capture/resolve.ts";
@@ -205,7 +206,9 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
   }
   const d = parsed.data as unknown as CaptureDoc;
   const tree = treeOf(loadTypes(root));
-  const w = world ?? loadWorld(root);
+  const w = world ?? loadWorld(root, ctx.file);
+  // the whole world with this document in it, for the completeness engine
+  const full = world ?? loadWorld(root, ctx.file, [d]);
   const resolver = new RefResolver(root);
   const ids = new Set<string>();
   d.sources.forEach((s, i) => {
@@ -232,10 +235,7 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
     if (first !== undefined) E_("E_CAP_DUP_REF", `${base}/ref`, `ref "${r.ref}" appears in records ${first} and ${i} of this file. Keep one record per ref.`);
     else seen.set(r.ref, i);
     const other = w.cap.get(r.ref);
-    if (other && other.file && !other.file.endsWith(`/${d.trip}/${d.lane}.json`) && first === undefined && other.trip === d.trip && !ctx.refs.root.includes("\u0000")) {
-      // the same trip must not carry a ref in two files (the loader keeps the first); ignore the file being validated
-      if (!sameFile(other.file, d.trip, d.lane)) E_("E_CAP_DUP_REF", `${base}/ref`, `ref "${r.ref}" is also in ${other.file.slice(root.length + 1)}. Keep one record per ref.`);
-    }
+    if (other && first === undefined) E_("E_CAP_DUP_REF", `${base}/ref`, `ref "${r.ref}" is also in ${other.file.startsWith(root) ? other.file.slice(root.length + 1) : other.file}. Keep one record per ref.`);
     const node = resolveNode(r.type, loadTypes(root));
     if (!node) {
       E_("E_CAP_TYPE", `${base}/type`, `type "${r.type}" is not in data/vocab/types.json. Find the nearest with: node core/bin/capture.ts types --tree. Example: "water.river.rafting".`);
@@ -288,6 +288,14 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
       if ((E.CAP_LINK_ONLY_KIND as readonly string[]).includes(l.kind) && l.state === "filled" && l.url && !l.on) W("W_CAP_NA_FIELD", `${base}/links/${j}`, `a ${l.kind} link is link-only: record the date it was found (found_in_search with "on"), and never read its figures.`);
       if (l.url && linkOnly(l.url) && !(E.CAP_LINK_ONLY_KIND as readonly string[]).includes(l.kind)) E_("E_CAP_LINK_ONLY", `${base}/links/${j}/url`, `a ${l.kind} link points at ${linkOnly(l.url)}. That platform is a link-only kind (alltrails, komoot, gaia, outdooractive, wikiloc, trailforks, reseller), never official.`);
     }
+    // the completeness engine: required properties no value answers
+    if (full) {
+      const c = completeness(full, r.ref);
+      if (c && c.level !== "usable" && c.level !== "complete" && c.level !== "usable_partial") {
+        const miss = [...c.missingBase, ...c.conditionalMissing];
+        if (miss.length > 0) W("W_CAP_BELOW_USABLE", base, `${r.type} (${r.layer}) is ${c.level}: ${miss.length} required propert${miss.length > 1 ? "ies" : "y"} unanswered (${miss.slice(0, 6).join(", ")}${miss.length > 6 ? `, +${miss.length - 6} more` : ""}), and ${c.missingSuitability.length} in the suitability block. Run: node core/bin/capture.ts fields --ref ${r.ref}`);
+      }
+    }
     // present but not asked
     const rl = node.layers[r.layer];
     if (rl) for (const k of ["season", "hours", "price", "window", "best_window", "best_time", "duration_min", "activity_min", "book_url"] as const) {
@@ -296,6 +304,3 @@ export function validateCapture(doc: unknown, ctx: Ctx, world?: World): void {
   });
 }
 
-function sameFile(file: string, trip: string, lane: string): boolean {
-  return file.replace(/\\/g, "/").endsWith(`/capture/${trip}/${lane}.json`);
-}

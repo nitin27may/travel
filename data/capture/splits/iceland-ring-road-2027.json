@@ -1,0 +1,70 @@
+{
+  "schema": "capture-splits/1",
+  "trip": "iceland-ring-road-2027",
+  "reviewed": "2026-10-18",
+  "note": "Proposed by the builder (SP1) from the lane sidecars, to be confirmed by a researcher (SP2): payoff points, operators and the place each offer runs at. `core/bin/capture.ts migrate` applies it (SP3).",
+  "splits": [
+    {
+      "ref": "trip/iceland-ring-road-2027/activity:myvatn nature baths",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.thermal.thermal_bath",
+        "class": "ticket"
+      },
+      "at": {
+        "mode": "new",
+        "ref": "part/trip/iceland-ring-road-2027/activity:myvatn nature baths#place",
+        "type": "water.thermal.thermal_bath",
+        "name": "Myvatn Nature Baths",
+        "kind": "activity"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/sight:dettifoss",
+      "how": "place_walk",
+      "reason": "A place carrying a walk of 2 km or more: the place plus the route to it. Effort drivers and walking time move to the route; walk_m, exposure, access and facilities stay (capture contract 2.7.2).",
+      "route": {
+        "ref": "part/trip/iceland-ring-road-2027/sight:dettifoss#walk",
+        "type": "nature.trail.walk",
+        "name": "Dettifoss walk"
+      },
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "bail_out"
+      ]
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class gorge/river-limestone): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff",
+        "type": "nature.landform.gorge",
+        "kind": "waterfall",
+        "name": "Fjadrargljufur canyon"
+      }
+    },
+    {
+      "ref": "trip/iceland-ring-road-2027/trail:skaftafell svartifoss",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff",
+        "type": "water.falls.waterfall",
+        "kind": "waterfall",
+        "name": "Svartifoss"
+      }
+    }
+  ]
+}

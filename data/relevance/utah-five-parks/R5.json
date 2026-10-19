@@ -415,9 +415,8 @@
   ],
   "records": [
     {
-      "ref": "trip/utah-five-parks/trail:narrows from the temple of sinawava",
-      "kind": "trail",
-      "subkind": "river_hike",
+      "ref": "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff",
+      "kind": "waterfall",
       "wikidata": {
         "v": "Q3029053",
         "state": "value",
@@ -879,9 +878,8 @@
       }
     },
     {
-      "ref": "trip/utah-five-parks/trail:navajo loop and queens garden",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff",
+      "kind": "waterfall",
       "wikidata": {
         "v": "Q104976971",
         "state": "value",
@@ -1166,9 +1164,8 @@
       }
     },
     {
-      "ref": "trip/utah-five-parks/trail:lower calf creek falls",
-      "kind": "trail",
-      "subkind": "hike",
+      "ref": "part/trip/utah-five-parks/trail:lower calf creek falls#payoff",
+      "kind": "waterfall",
       "wikidata": {
         "v": "Q105099406",
         "state": "value",

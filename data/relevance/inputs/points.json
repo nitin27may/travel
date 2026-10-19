@@ -199,29 +199,17 @@
       "coord_src": "wikidata",
       "point_source": "trailhead \"Athabasca Falls\" at legacy/canadian-rockies-sept-2029/sights/athabasca-falls"
     },
-    "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake": {
-      "lat": 51.1356,
-      "lon": -115.79,
-      "coord_src": "wikidata",
-      "point_source": "Q17511214 P625"
-    },
     "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": {
       "lat": 51.444,
       "lon": -116.531,
       "coord_src": "wikidata",
       "point_source": "trailhead \"Emerald Lake\" at legacy/canadian-rockies-sept-2029/sights/emerald-lake"
     },
-    "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": {
-      "lat": 51.07222,
-      "lon": -115.40694,
+    "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline": {
+      "lat": 51.444,
+      "lon": -116.531,
       "coord_src": "wikidata",
-      "point_source": "Q5597550 P625"
-    },
-    "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak": {
-      "lat": 51.06417,
-      "lon": -115.39972,
-      "coord_src": "wikidata",
-      "point_source": "Q5636437 P625"
+      "point_source": "trailhead \"Emerald Lake\" at legacy/canadian-rockies-sept-2029/sights/emerald-lake"
     },
     "legacy/canadian-rockies-sept-2029/trails/iceline-trail": {
       "lat": 51.49972,
@@ -234,6 +222,12 @@
       "lon": -117.771,
       "coord_src": "wikidata",
       "point_source": "trailhead \"Miette Hot Springs\" at legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/lake-agnes": {
+      "lat": 51.41167,
+      "lon": -116.22806,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Lake Louise Lakeshore\" at place/lake-louise"
     },
     "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop": {
       "lat": 52.9016,
@@ -265,6 +259,18 @@
       "coord_src": "wikidata",
       "point_source": "trailhead \"Moraine Lake\" at legacy/canadian-rockies-sept-2029/sights/moraine-lake"
     },
+    "legacy/canadian-rockies-sept-2029/trails/mount-fairview": {
+      "lat": 51.41167,
+      "lon": -116.22806,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Lake Louise Lakeshore\" at place/lake-louise"
+    },
+    "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop": {
+      "lat": 50.96944,
+      "lon": -115.10778,
+      "coord_src": "wikidata",
+      "point_source": "trailhead \"Mount Lorette Ponds\" at legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds"
+    },
     "legacy/canadian-rockies-sept-2029/trails/parker-ridge": {
       "lat": 52.18083,
       "lon": -117.09222,
@@ -295,12 +301,6 @@
       "coord_src": "wikidata",
       "point_source": "trailhead \"Takakkaw Falls\" at legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
     },
-    "legacy/canadian-rockies-sept-2029/trails/troll-falls": {
-      "lat": 50.94806,
-      "lon": -115.14444,
-      "coord_src": "wikidata",
-      "point_source": "Q115958301 P625"
-    },
     "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": {
       "lat": 50.87278,
       "lon": -115.14917,
@@ -312,6 +312,114 @@
       "lon": -117.23558,
       "coord_src": "wikidata",
       "point_source": "Q22616473 P625"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff": {
+      "lat": 51.1356,
+      "lon": -115.79,
+      "coord_src": "wikidata",
+      "point_source": "Q17511214 P625"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff": {
+      "lat": 51.07222,
+      "lon": -115.40694,
+      "coord_src": "wikidata",
+      "point_source": "Q5597550 P625"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff": {
+      "lat": 51.06417,
+      "lon": -115.39972,
+      "coord_src": "wikidata",
+      "point_source": "Q5636437 P625"
+    },
+    "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff": {
+      "lat": 50.94806,
+      "lon": -115.14444,
+      "coord_src": "wikidata",
+      "point_source": "Q115958301 P625"
+    },
+    "part/place/bullaccia-and-the-witches-benches#payoff": {
+      "lat": 46.56397,
+      "lon": 11.6159,
+      "coord_src": "wikidata",
+      "point_source": "Q2117539 P625"
+    },
+    "part/place/cadini-di-misurina-viewpoint#payoff": {
+      "lat": 46.57928,
+      "lon": 12.28729,
+      "coord_src": "wikidata",
+      "point_source": "Q476378 P625"
+    },
+    "part/place/cascate-di-fanes#payoff": {
+      "lat": 46.59452,
+      "lon": 12.08419,
+      "coord_src": "wikidata",
+      "point_source": "Q67370898 P625"
+    },
+    "part/place/croda-del-becco#payoff": {
+      "lat": 46.67522,
+      "lon": 12.07278,
+      "coord_src": "wikidata",
+      "point_source": "Q446041 P625"
+    },
+    "part/place/lago-di-sorapis#payoff": {
+      "lat": 46.5204,
+      "lon": 12.2236,
+      "coord_src": "wikidata",
+      "point_source": "Q15410555 P625"
+    },
+    "part/place/sass-pordoi-and-piz-boe#payoff": {
+      "lat": 46.51,
+      "lon": 11.82778,
+      "coord_src": "wikidata",
+      "point_source": "Q1478439 P625"
+    },
+    "part/place/seceda-ridge#payoff": {
+      "lat": 46.60059,
+      "lon": 11.72579,
+      "coord_src": "wikidata",
+      "point_source": "Q2263528 P625"
+    },
+    "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff": {
+      "lat": 45.98222,
+      "lon": 6.88944,
+      "coord_src": "wikidata",
+      "point_source": "Q3214753 P625"
+    },
+    "part/trip/iceland-ring-road-2027/trail:fjadrargljufur canyon#payoff": {
+      "lat": 63.77125,
+      "lon": -18.17194,
+      "coord_src": "wikidata",
+      "point_source": "Q956845 P625"
+    },
+    "part/trip/iceland-ring-road-2027/trail:skaftafell svartifoss#payoff": {
+      "lat": 64.0277,
+      "lon": -16.97525,
+      "coord_src": "wikidata",
+      "point_source": "Q1145786 P625"
+    },
+    "part/trip/patagonia-2027/trail:laguna capri#payoff": {
+      "lat": -49.3049,
+      "lon": -72.936,
+      "coord_src": "wikidata",
+      "point_source": "Q124360343 P625"
+    },
+    "part/trip/utah-five-parks/trail:lower calf creek falls#payoff": {
+      "lat": 37.82913,
+      "lon": -111.41992,
+      "coord_src": "wikidata",
+      "point_source": "Q105099406 P625"
+    },
+    "part/trip/utah-five-parks/trail:narrows from the temple of sinawava#payoff": {
+      "lat": 37.30669,
+      "lon": -112.94769,
+      "coord_src": "wikidata",
+      "point_source": "Q3029053 P625"
+    },
+    "part/trip/utah-five-parks/trail:navajo loop and queens garden#payoff": {
+      "lat": 37.62165,
+      "lon": -112.15575,
+      "coord_src": "wikidata",
+      "point_source": "Q104976971 P625"
     },
     "place/adolf-munkel-weg": {
       "lat": 46.63567,
@@ -332,22 +440,22 @@
       "point_source": "Q6526 P625"
     },
     "place/bullaccia-and-the-witches-benches": {
-      "lat": 46.56397,
-      "lon": 11.6159,
-      "coord_src": "wikidata",
-      "point_source": "Q2117539 P625"
+      "lat": 46.55184,
+      "lon": 11.61718,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of puflatsch osm_node 625195493"
     },
     "place/cadini-di-misurina-viewpoint": {
-      "lat": 46.57928,
-      "lon": 12.28729,
-      "coord_src": "wikidata",
-      "point_source": "Q476378 P625"
+      "lat": 46.605,
+      "lon": 12.27,
+      "coord_src": "prototype",
+      "point_source": "snapshot place cadini (approximate)"
     },
     "place/cascate-di-fanes": {
-      "lat": 46.59452,
-      "lon": 12.08419,
-      "coord_src": "wikidata",
-      "point_source": "Q67370898 P625"
+      "lat": 46.60263,
+      "lon": 12.10671,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of fanes-falls osm_node 7920730765"
     },
     "place/cinque-torri": {
       "lat": 46.50925,
@@ -362,10 +470,10 @@
       "point_source": "Q41158 P625"
     },
     "place/croda-del-becco": {
-      "lat": 46.67522,
-      "lon": 12.07278,
-      "coord_src": "wikidata",
-      "point_source": "Q446041 P625"
+      "lat": 46.69898,
+      "lon": 12.08554,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of seekofel osm_node 2984514849"
     },
     "place/dobbiaco": {
       "lat": 46.73543,
@@ -446,10 +554,10 @@
       "point_source": "Q1177961 P625"
     },
     "place/lago-di-sorapis": {
-      "lat": 46.5204,
-      "lon": 12.2236,
-      "coord_src": "wikidata",
-      "point_source": "Q15410555 P625"
+      "lat": 46.55605,
+      "lon": 12.20487,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of sorapis osm_node 14166465331"
     },
     "place/lago-federa": {
       "lat": 46.4881,
@@ -518,16 +626,16 @@
       "point_source": "Q33481488 P625"
     },
     "place/sass-pordoi-and-piz-boe": {
-      "lat": 46.51,
-      "lon": 11.82778,
-      "coord_src": "wikidata",
-      "point_source": "Q1478439 P625"
+      "lat": 46.50028,
+      "lon": 11.80775,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of pordoi osm_node 29916900"
     },
     "place/seceda-ridge": {
-      "lat": 46.60059,
-      "lon": 11.72579,
-      "coord_src": "wikidata",
-      "point_source": "Q2263528 P625"
+      "lat": 46.59794,
+      "lon": 11.72435,
+      "coord_src": "osm",
+      "point_source": "snapshot trailhead of seceda osm_node 296550944"
     },
     "place/selva-di-val-gardena": {
       "lat": 46.55575,
@@ -631,12 +739,6 @@
       "coord_src": "wikidata",
       "point_source": "Q31661143 P625"
     },
-    "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": {
-      "lat": 45.98222,
-      "lon": 6.88944,
-      "coord_src": "wikidata",
-      "point_source": "Q3214753 P625"
-    },
     "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection": {
       "lat": 45.98222,
       "lon": 6.88944,
@@ -733,18 +835,6 @@
       "coord_src": "wikidata",
       "point_source": "Q5285420 P625"
     },
-    "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon": {
-      "lat": 63.77125,
-      "lon": -18.17194,
-      "coord_src": "wikidata",
-      "point_source": "Q956845 P625"
-    },
-    "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": {
-      "lat": 64.0277,
-      "lon": -16.97525,
-      "coord_src": "wikidata",
-      "point_source": "Q1145786 P625"
-    },
     "trip/iceland-ring-road-2027/trail:thingvellir": {
       "lat": 64.26108,
       "lon": -21.12219,
@@ -810,12 +900,6 @@
       "lon": -72.88613,
       "coord_src": "wikidata",
       "point_source": "Q1323978 P625"
-    },
-    "trip/patagonia-2027/trail:laguna capri": {
-      "lat": -49.3049,
-      "lon": -72.936,
-      "coord_src": "wikidata",
-      "point_source": "Q124360343 P625"
     },
     "trip/patagonia-2027/viewpoint:laguna nimez birds": {
       "lat": -50.31667,
@@ -883,29 +967,11 @@
       "coord_src": "wikidata",
       "point_source": "Q1844612 P625"
     },
-    "trip/utah-five-parks/trail:lower calf creek falls": {
-      "lat": 37.82913,
-      "lon": -111.41992,
-      "coord_src": "wikidata",
-      "point_source": "Q105099406 P625"
-    },
     "trip/utah-five-parks/trail:mesa arch": {
       "lat": 38.38806,
       "lon": -109.86361,
       "coord_src": "wikidata",
       "point_source": "Q6821049 P625"
-    },
-    "trip/utah-five-parks/trail:narrows from the temple of sinawava": {
-      "lat": 37.30669,
-      "lon": -112.94769,
-      "coord_src": "wikidata",
-      "point_source": "Q3029053 P625"
-    },
-    "trip/utah-five-parks/trail:navajo loop and queens garden": {
-      "lat": 37.62165,
-      "lon": -112.15575,
-      "coord_src": "wikidata",
-      "point_source": "Q104976971 P625"
     },
     "trip/utah-five-parks/trail:riverside walk": {
       "lat": 37.29189,

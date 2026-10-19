@@ -21,7 +21,7 @@
   },
   "items": [
     {
-      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
       "draw_suggested": "national",
       "effective_draw": "world",
       "access_load": "easy",
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
       "draw_suggested": "national",
       "effective_draw": "national",
       "access_load": "easy",
@@ -113,7 +113,7 @@
       "warnings": []
     },
     {
-      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -161,7 +161,7 @@
       ]
     },
     {
-      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
@@ -209,7 +209,7 @@
       ]
     },
     {
-      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
       "draw_suggested": "local",
       "effective_draw": "local",
       "access_load": "easy",
@@ -446,7 +446,7 @@
       ]
     },
     {
-      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
       "draw_suggested": "local",
       "effective_draw": "regional",
       "access_load": "easy",
@@ -914,7 +914,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/patagonia-2027/trail:laguna capri",
+          "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
           "km": 4.7
         }
       ],

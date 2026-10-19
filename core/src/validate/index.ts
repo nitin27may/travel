@@ -92,6 +92,7 @@ export function validateDoc(doc: unknown, family: Family, root: string, info: Pa
   const refs = new Refs(root);
   if (selfPath) refs.exclude(selfPath);
   const ctx = newCtx(refs);
+  if (selfPath) ctx.file = selfPath;
   switch (family) {
     case "trip":
       validateTrip(doc, ctx, info.folder ?? null);

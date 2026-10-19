@@ -1,0 +1,1235 @@
+{
+  "schema": "capture-splits/1",
+  "trip": "canadian-rockies-2029",
+  "reviewed": "2026-10-18",
+  "note": "Proposed by the builder (SP1) from the lane sidecars, to be confirmed by a researcher (SP2): payoff points, operators and the place each offer runs at. `core/bin/capture.ts migrate` applies it (SP3).",
+  "splits": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "how": "lift",
+      "reason": "A lift stored as one record: the line is a route, the ticket an offer that carries the suitability block, and the top station a place (capture contract 2.7, rule 4).",
+      "line": {
+        "type": "ride.lift.gondola"
+      },
+      "ticket": {
+        "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+        "type": "ride.lift.gondola",
+        "class": "ticket"
+      },
+      "top": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+        "type": "access.transit.station",
+        "name": "Banff Gondola (Sulphur Mountain summit) top station"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.thermal.hot_spring",
+        "class": "ticket"
+      },
+      "at": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
+        "type": "water.thermal.hot_spring",
+        "name": "Banff Upper Hot Springs",
+        "kind": "activity"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "how": "route",
+      "reason": "A mountain-bike trail network at the centre: a route (mtb profile), not an offer. The two Canmore Nordic Centre records share one new place (capture contract 2.7.5).",
+      "route": {
+        "type": "wheels.bike.mtb_trail"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+        "type": "snow.ski.nordic_centre",
+        "name": "Canmore Nordic Centre Provincial Park"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "wheels.drive.vehicle_tour",
+        "class": "experience"
+      },
+      "at": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "how": "viewing_event",
+      "reason": "The rut is a dated natural event; the viewing rules (distance, stay in the vehicle) belong to the place where it is watched. The record keeps its ref as the viewing place and a new event record carries the occurrence.",
+      "place": {
+        "type": "nature.wildlife.viewing_spot"
+      },
+      "event": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/elk-rut#rut",
+        "type": "event.natural",
+        "name": "Elk rut"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.paddle.canoe.rental",
+        "class": "rental"
+      },
+      "at": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "how": "lift",
+      "reason": "A lift stored as one record: the line is a route, the ticket an offer that carries the suitability block, and the top station a place (capture contract 2.7, rule 4).",
+      "line": {
+        "type": "ride.lift.gondola"
+      },
+      "ticket": {
+        "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+        "type": "ride.lift.gondola",
+        "class": "ticket"
+      },
+      "top": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+        "type": "access.transit.station",
+        "name": "Jasper SkyTram (Whistlers Mountain) top station"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.river.rafting",
+        "class": "experience"
+      },
+      "at": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place",
+        "type": "water.body.river",
+        "name": "Kananaskis River",
+        "kind": "activity"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.river.rafting",
+        "class": "experience"
+      },
+      "at": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+        "type": "water.body.river",
+        "name": "Kicking Horse River",
+        "kind": "activity"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.paddle.canoe.rental",
+        "class": "rental"
+      },
+      "at": {
+        "mode": "existing",
+        "ref": "place/lake-louise"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "how": "lift",
+      "reason": "A lift stored as one record: the line is a route, the ticket an offer that carries the suitability block, and the top station a place (capture contract 2.7, rule 4).",
+      "line": {
+        "type": "ride.lift.gondola"
+      },
+      "ticket": {
+        "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
+        "type": "ride.lift.gondola",
+        "class": "ticket"
+      },
+      "top": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+        "type": "access.transit.station",
+        "name": "Lake Louise Summer Gondola (grizzly/wildlife viewing, Whitehorn corridor) top station"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.boat.cruise",
+        "class": "experience"
+      },
+      "at": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.boat.cruise",
+        "class": "experience"
+      },
+      "at": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.thermal.hot_spring",
+        "class": "ticket"
+      },
+      "at": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.paddle.canoe.rental",
+        "class": "rental"
+      },
+      "at": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
+      "how": "route",
+      "reason": "A mountain-bike trail network at the centre: a route (mtb profile), not an offer. The two Canmore Nordic Centre records share one new place (capture contract 2.7.5).",
+      "route": {
+        "type": "wheels.bike.mtb_trail"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "how": "place_walk",
+      "reason": "A place carrying a walk of 2 km or more: the place plus the route to it. Effort drivers and walking time move to the route; walk_m, exposure, access and facilities stay (capture contract 2.7.2).",
+      "route": {
+        "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+        "type": "nature.trail.walk",
+        "name": "Johnston Canyon walk"
+      },
+      "move": [
+        "effort",
+        "adult_time_min",
+        "child_time_min",
+        "bail_out"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/roadside): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+        "reason": "Same name as an existing place record; the trail judgement is kept in displaced_relevance for the reviewer (SP2), the place keeps its own."
+      },
+      "displaced_relevance": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+        "kind": "trail",
+        "subkind": "walk",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no item for the path; the falls are Q739181 (on the falls record)",
+            "wikidata.org entity search 'Athabasca Falls trail'"
+          ]
+        },
+        "class_key": "waterfall/roadside",
+        "draw": {
+          "v": "regional",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0045",
+            "src-0006"
+          ],
+          "note": "The path to Athabasca Falls, a stop on Parks Canada's Icefields Parkway itinerary, inside Jasper National Park and the WHS (parent). The falls carry the draw on their own record; as their easy way the path is judged regional."
+        },
+        "standing": {
+          "v": "top",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement against the same kind of place in the scope"
+        },
+        "standing_scope": "Icefields Parkway",
+        "distinction": {
+          "v": "rare",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Sunwapta Falls (25 km) is the other big roadside fall on the Parkway."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The path is the easy way."
+        },
+        "weather": {
+          "v": "any_weather",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement of whether the payoff survives cloud or rain"
+        },
+        "why": "Railed viewpoints over the Athabasca River pouring into a narrow canyon.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no access cost beyond those already held as the suitability access season (shuttle, lift, seasonal road) or a park pass"
+        },
+        "signals": {
+          "designations": {
+            "v": [
+              {
+                "type": "unesco_whs",
+                "name": "Canadian Rocky Mountain Parks",
+                "id": "304",
+                "scope": "parent"
+              },
+              {
+                "type": "national_park",
+                "name": "Jasper National Park",
+                "scope": "parent",
+                "wikidata": "Q503429"
+              }
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0045",
+              "src-0006"
+            ]
+          },
+          "editorial": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        }
+      },
+      "displaced_sources": [
+        {
+          "id": "src-0006",
+          "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails",
+          "title": "Day hiking in Jasper National Park (trail table)",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        },
+        {
+          "id": "src-0045",
+          "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+          "title": "Canadian Rocky Mountain Parks World Heritage Site",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/alpine-hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+        "type": "water.body.lake",
+        "kind": "lake",
+        "name": "Bourgeau Lake"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/alpine-hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+        "type": "water.body.lake",
+        "kind": "lake",
+        "name": "Grassi Lakes"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class peak/summit): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+        "type": "nature.summit.summit",
+        "kind": "viewpoint",
+        "name": "Ha Ling Peak"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/alpine-hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
+        "reason": "Same name as an existing place record; the trail judgement is kept in displaced_relevance for the reviewer (SP2), the place keeps its own."
+      },
+      "displaced_relevance": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+        "kind": "trail",
+        "subkind": "hike",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "the lake has item Q317376 (used on the lake record); no item for the trail section",
+            "wikidata.org entity search 'Kinney Lake Trail' (no item)"
+          ]
+        },
+        "class_key": "lake/alpine-hike-in",
+        "draw": {
+          "v": "regional",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0045",
+            "src-0040"
+          ],
+          "note": "Inside Mount Robson Provincial Park and the WHS (parent only); the first stage of the Berg Lake Trail, worth it when staying near Robson."
+        },
+        "standing": {
+          "v": "good",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement against the same kind of place in the scope"
+        },
+        "standing_scope": "Mount Robson Provincial Park",
+        "distinction": {
+          "v": "rare",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Few turquoise lakes this size sit on an easy riverside trail; Berg Lake is the backpacking goal."
+        },
+        "easy_payoff": {
+          "v": "none",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The lake needs the walk or a bike."
+        },
+        "weather": {
+          "v": "better_clear",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement of whether the payoff survives cloud or rain"
+        },
+        "why": "A turquoise lake below Mount Robson on the easiest part of the Berg Lake Trail.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no access cost beyond those already held as the suitability access season (shuttle, lift, seasonal road) or a park pass"
+        },
+        "signals": {
+          "designations": {
+            "v": [
+              {
+                "type": "unesco_whs",
+                "name": "Canadian Rocky Mountain Parks",
+                "id": "304",
+                "scope": "parent"
+              },
+              {
+                "type": "provincial_or_state_park",
+                "name": "Mount Robson Provincial Park",
+                "scope": "parent",
+                "wikidata": "Q1950710"
+              }
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0045",
+              "src-0040"
+            ]
+          },
+          "editorial": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        }
+      },
+      "displaced_sources": [
+        {
+          "id": "src-0040",
+          "url": "https://bcparks.ca/mount-robson-park/",
+          "title": "Mount Robson Provincial Park",
+          "publisher": "BC Parks",
+          "kind": "official",
+          "read": "2026-10-18"
+        },
+        {
+          "id": "src-0045",
+          "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+          "title": "Canadian Rocky Mountain Parks World Heritage Site",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class gorge/river-limestone): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+        "reason": "Same name as an existing place record; the trail judgement is kept in displaced_relevance for the reviewer (SP2), the place keeps its own."
+      },
+      "displaced_relevance": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+        "kind": "trail",
+        "subkind": "walk",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no item for the walk; the canyon is Q6755166 (on the canyon record)",
+            "wikidata.org entity search 'Marble Canyon walk'"
+          ]
+        },
+        "class_key": "gorge/river-limestone",
+        "draw": {
+          "v": "regional",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0045",
+            "src-0025"
+          ],
+          "note": "Inside Kootenay National Park and the WHS (parent); listed as a Kootenay point of interest; judged with the canyon."
+        },
+        "standing": {
+          "v": "top",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement against the same kind of place in the scope"
+        },
+        "standing_scope": "Kootenay",
+        "distinction": {
+          "v": "rare",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Johnston Canyon (Banff, 30 km) and Maligne Canyon are the same kind."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The walk is the easy way."
+        },
+        "weather": {
+          "v": "any_weather",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement of whether the payoff survives cloud or rain"
+        },
+        "why": "Bridges over a narrow marble canyon cut by Tokumm Creek.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no access cost beyond those already held as the suitability access season (shuttle, lift, seasonal road) or a park pass"
+        },
+        "signals": {
+          "designations": {
+            "v": [
+              {
+                "type": "unesco_whs",
+                "name": "Canadian Rocky Mountain Parks",
+                "id": "304",
+                "scope": "parent"
+              },
+              {
+                "type": "national_park",
+                "name": "Kootenay National Park",
+                "scope": "parent",
+                "wikidata": "Q903323"
+              }
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0045",
+              "src-0025"
+            ]
+          },
+          "editorial": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        }
+      },
+      "displaced_sources": [
+        {
+          "id": "src-0025",
+          "url": "https://parks.canada.ca/pn-np/bc/kootenay/activ/randonnee-hike/jour-day",
+          "title": "Day hikes in Kootenay National Park",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        },
+        {
+          "id": "src-0045",
+          "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+          "title": "Canadian Rocky Mountain Parks World Heritage Site",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+        "reason": "Same name as an existing place record; the trail judgement is kept in displaced_relevance for the reviewer (SP2), the place keeps its own."
+      },
+      "displaced_relevance": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+        "kind": "trail",
+        "subkind": "walk",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no item for the trail; the falls are Q37949 (on the falls record)",
+            "wikidata.org entity search 'Overlander Falls trail'"
+          ]
+        },
+        "class_key": "waterfall/hike-in",
+        "draw": {
+          "v": "local",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0045",
+            "src-0040"
+          ],
+          "note": "Inside Mount Robson Provincial Park and the WHS (parent designations only); a short walk near the visitor centre, done when passing."
+        },
+        "standing": {
+          "v": "good",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement against the same kind of place in the scope"
+        },
+        "standing_scope": "Mount Robson Provincial Park",
+        "distinction": {
+          "v": "common",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Short walks to river falls are common along the Yellowhead."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The walk is the easy way."
+        },
+        "weather": {
+          "v": "any_weather",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement of whether the payoff survives cloud or rain"
+        },
+        "why": "A short forest walk to a wide fall on the young Fraser River.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no access cost beyond those already held as the suitability access season (shuttle, lift, seasonal road) or a park pass"
+        },
+        "signals": {
+          "designations": {
+            "v": [
+              {
+                "type": "unesco_whs",
+                "name": "Canadian Rocky Mountain Parks",
+                "id": "304",
+                "scope": "parent"
+              },
+              {
+                "type": "provincial_or_state_park",
+                "name": "Mount Robson Provincial Park",
+                "scope": "parent",
+                "wikidata": "Q1950710"
+              }
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0045",
+              "src-0040"
+            ]
+          },
+          "editorial": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        }
+      },
+      "displaced_sources": [
+        {
+          "id": "src-0040",
+          "url": "https://bcparks.ca/mount-robson-park/",
+          "title": "Mount Robson Provincial Park",
+          "publisher": "BC Parks",
+          "kind": "official",
+          "read": "2026-10-18"
+        },
+        {
+          "id": "src-0045",
+          "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+          "title": "Canadian Rocky Mountain Parks World Heritage Site",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/roadside): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+        "reason": "Same name as an existing place record; the trail judgement is kept in displaced_relevance for the reviewer (SP2), the place keeps its own."
+      },
+      "displaced_relevance": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+        "kind": "trail",
+        "subkind": "walk",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no item for the path; the lake is Q1362681 (on the viewpoint record)",
+            "wikidata.org entity search 'Peyto Lake Lookout'"
+          ]
+        },
+        "class_key": "viewpoint/roadside",
+        "draw": {
+          "v": "regional",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0045",
+            "src-0001",
+            "src-0018"
+          ],
+          "note": "The lookout path at Peyto Lake (Parks Canada Icefields Parkway top 10, headline). The viewpoint carries the draw on its own record; as its easy way the path is judged regional."
+        },
+        "standing": {
+          "v": "top",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement against the same kind of place in the scope"
+        },
+        "standing_scope": "Icefields Parkway",
+        "distinction": {
+          "v": "rare",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Bow Lake (6 km) is roadside but seen from the shore, not from above."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The walk is the easy way."
+        },
+        "weather": {
+          "v": "better_clear",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement of whether the payoff survives cloud or rain"
+        },
+        "why": "A short path to the platform above Peyto Lake.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no access cost beyond those already held as the suitability access season (shuttle, lift, seasonal road) or a park pass"
+        },
+        "signals": {
+          "designations": {
+            "v": [
+              {
+                "type": "unesco_whs",
+                "name": "Canadian Rocky Mountain Parks",
+                "id": "304",
+                "scope": "parent"
+              },
+              {
+                "type": "national_park",
+                "name": "Banff National Park",
+                "scope": "parent",
+                "wikidata": "Q41858"
+              },
+              {
+                "type": "official_highlight",
+                "name": "Parks Canada Banff top 10: the Icefields Parkway stops",
+                "scope": "own"
+              }
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0045",
+              "src-0001",
+              "src-0018"
+            ]
+          },
+          "editorial": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        }
+      },
+      "displaced_sources": [
+        {
+          "id": "src-0001",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/activ/randonnee-hiking",
+          "title": "Day hikes in Banff National Park (Banff, Lake Louise and Icefields Parkway tables)",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        },
+        {
+          "id": "src-0018",
+          "url": "https://parks.canada.ca/pn-np/ab/banff/visit/promenadedesglaciers-icefieldsparkway",
+          "title": "Travelling the Icefields Parkway (Banff top 10)",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        },
+        {
+          "id": "src-0045",
+          "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+          "title": "Canadian Rocky Mountain Parks World Heritage Site",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/summit-panorama): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+        "type": "nature.viewpoint.viewpoint",
+        "kind": "viewpoint",
+        "name": "Sarrail Ridge"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/summit-panorama): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+        "type": "nature.viewpoint.viewpoint",
+        "kind": "viewpoint",
+        "name": "Sulphur Skyline"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/giant): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+        "reason": "Same name as an existing place record; the trail judgement is kept in displaced_relevance for the reviewer (SP2), the place keeps its own."
+      },
+      "displaced_relevance": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+        "kind": "trail",
+        "subkind": "walk",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no item for the path; the falls are Q572771 (on the falls record)",
+            "wikidata.org entity search 'Takakkaw Falls walk'"
+          ]
+        },
+        "class_key": "waterfall/giant",
+        "draw": {
+          "v": "regional",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0045",
+            "src-0023"
+          ],
+          "note": "The path to Takakkaw Falls, which Parks Canada calls Canada's second highest waterfall (headline). The falls carry the draw on their own record; as their easy way the path is judged regional."
+        },
+        "standing": {
+          "v": "top",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement against the same kind of place in the scope"
+        },
+        "standing_scope": "Yoho",
+        "distinction": {
+          "v": "unique",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "No fall of this height in the parks is reached on a flat paved path."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The path is the easy way."
+        },
+        "weather": {
+          "v": "any_weather",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement of whether the payoff survives cloud or rain"
+        },
+        "why": "A flat paved path to the foot of a 373 m waterfall.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no access cost beyond those already held as the suitability access season (shuttle, lift, seasonal road) or a park pass"
+        },
+        "signals": {
+          "designations": {
+            "v": [
+              {
+                "type": "unesco_whs",
+                "name": "Canadian Rocky Mountain Parks",
+                "id": "304",
+                "scope": "parent"
+              },
+              {
+                "type": "national_park",
+                "name": "Yoho National Park",
+                "scope": "parent",
+                "wikidata": "Q828404"
+              }
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0045",
+              "src-0023"
+            ]
+          },
+          "editorial": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        }
+      },
+      "displaced_sources": [
+        {
+          "id": "src-0023",
+          "url": "https://parks.canada.ca/pn-np/bc/yoho/activ/randonnee-hike/jour-day",
+          "title": "Day hikes in Yoho National Park",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        },
+        {
+          "id": "src-0045",
+          "url": "https://parks.canada.ca/culture/spm-whs/sites-canada/sec02h",
+          "title": "Canadian Rocky Mountain Parks World Heritage Site",
+          "publisher": "Parks Canada",
+          "kind": "official",
+          "read": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class glacier/walk-on): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+        "type": "nature.landform.glacier_view",
+        "kind": "sight",
+        "name": "Toe of Athabasca Glacier"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+        "type": "water.falls.waterfall",
+        "kind": "waterfall",
+        "name": "Troll Falls"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/small-mirror): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "existing",
+        "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+        "reason": "Same name as an existing place record; the trail judgement is kept in displaced_relevance for the reviewer (SP2), the place keeps its own."
+      },
+      "displaced_relevance": {
+        "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+        "kind": "trail",
+        "subkind": "walk",
+        "wikidata": {
+          "v": null,
+          "state": "searched_none",
+          "basis": null,
+          "src": [],
+          "on": "2026-10-18",
+          "tried": [
+            "no item for the loop; the pond is Q115978512 (on the pond record)",
+            "wikidata.org entity search 'Wedge Pond loop'"
+          ]
+        },
+        "class_key": "lake/small-mirror",
+        "draw": {
+          "v": "local",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [
+            "src-0038"
+          ],
+          "note": "Inside Spray Valley Provincial Park (parent); a short roadside pond loop on Highway 40."
+        },
+        "standing": {
+          "v": "good",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement against the same kind of place in the scope"
+        },
+        "standing_scope": "Kananaskis Country",
+        "distinction": {
+          "v": "common",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "Mount Lorette Ponds (10 km) and Barrier Lake are similar stops."
+        },
+        "easy_payoff": {
+          "v": "full",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "The walk is the payoff."
+        },
+        "weather": {
+          "v": "clear_only",
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "our judgement of whether the payoff survives cloud or rain"
+        },
+        "why": "A short loop round a pond that mirrors Mount Kidd on calm mornings.",
+        "access_cost": {
+          "v": [],
+          "state": "value",
+          "basis": "our_inference",
+          "src": [],
+          "note": "no access cost beyond those already held as the suitability access season (shuttle, lift, seasonal road) or a park pass"
+        },
+        "signals": {
+          "designations": {
+            "v": [
+              {
+                "type": "provincial_or_state_park",
+                "name": "Spray Valley Provincial Park",
+                "scope": "parent",
+                "wikidata": "Q3364735"
+              }
+            ],
+            "state": "value",
+            "basis": "official_info",
+            "src": [
+              "src-0038"
+            ]
+          },
+          "editorial": {
+            "v": null,
+            "state": "gap",
+            "basis": null,
+            "src": []
+          }
+        }
+      },
+      "displaced_sources": [
+        {
+          "id": "src-0038",
+          "url": "https://www.albertaparks.ca/parks/kananaskis/spray-valley-pp/information-facilities/day-use/wedge-pond/",
+          "title": "Wedge Pond day use",
+          "publisher": "Alberta Parks",
+          "kind": "official",
+          "read": "2026-10-18"
+        }
+      ]
+    }
+  ]
+}

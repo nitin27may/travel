@@ -1,0 +1,125 @@
+{
+  "schema": "capture-splits/1",
+  "trip": "patagonia-2027",
+  "reviewed": "2026-10-18",
+  "note": "Proposed by the builder (SP1) from the lane sidecars, to be confirmed by a researcher (SP2): payoff points, operators and the place each offer runs at. `core/bin/capture.ts migrate` applies it (SP3).",
+  "splits": [
+    {
+      "ref": "trip/patagonia-2027/activity:minitrekking on the glacier",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "mountain.alpine.glacier_walk",
+        "class": "experience"
+      },
+      "at": null,
+      "at_reason": "The lane record does not name the place the product runs at; the research pass supplies it."
+    },
+    {
+      "ref": "trip/patagonia-2027/lake:beagle channel boat",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.boat.boat_tour",
+        "class": "experience"
+      },
+      "at": {
+        "mode": "new",
+        "ref": "part/trip/patagonia-2027/lake:beagle channel boat#place",
+        "type": "water.body.sea_bay_fjord",
+        "name": "Beagle Channel",
+        "kind": "activity"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:chorrillo del salto",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/patagonia-2027/trail:chorrillo del salto#payoff",
+        "type": "water.falls.waterfall",
+        "kind": "waterfall",
+        "name": "Chorrillo del Salto"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna capri",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/alpine-hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/patagonia-2027/trail:laguna capri#payoff",
+        "type": "water.body.lake",
+        "kind": "lake",
+        "name": "Laguna Capri"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna de los tres",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/alpine-hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/patagonia-2027/trail:laguna de los tres#payoff",
+        "type": "water.body.lake",
+        "kind": "lake",
+        "name": "Laguna de los Tres"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:laguna esmeralda",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/glacial-turquoise): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/patagonia-2027/trail:laguna esmeralda#payoff",
+        "type": "water.body.lake",
+        "kind": "lake",
+        "name": "Laguna Esmeralda"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de las aguilas",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/summit-panorama): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/patagonia-2027/trail:mirador de las aguilas#payoff",
+        "type": "nature.viewpoint.viewpoint",
+        "kind": "viewpoint",
+        "name": "Mirador de las Aguilas"
+      }
+    },
+    {
+      "ref": "trip/patagonia-2027/trail:mirador de los condores",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/summit-panorama): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/trip/patagonia-2027/trail:mirador de los condores#payoff",
+        "type": "nature.viewpoint.viewpoint",
+        "kind": "viewpoint",
+        "name": "Mirador de los Condores"
+      }
+    }
+  ]
+}

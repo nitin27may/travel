@@ -64,11 +64,19 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "km": 1.8
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 2.4
+        },
+        {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 6
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 8.3
         }
       ],
@@ -167,7 +175,7 @@
             "access_cost": [
               "lift_only"
             ],
-            "family_effort": 1
+            "family_effort": null
           }
         ],
         "area": [
@@ -179,7 +187,7 @@
             "access_cost": [
               "lift_only"
             ],
-            "family_effort": 1
+            "family_effort": null
           }
         ]
       },
@@ -209,16 +217,12 @@
           "km": 4.1
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 7.3
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
           "km": 7.3
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
-          "km": 12.4
         }
       ],
       "part_of": [],
@@ -230,7 +234,7 @@
         "access_cost": [
           "lift_only"
         ],
-        "family_effort": 1
+        "family_effort": null
       },
       "fits": {
         "vacation": {
@@ -278,7 +282,7 @@
               "timed_entry",
               "lift_only"
             ],
-            "family_effort": 1
+            "family_effort": null
           }
         ],
         "area": [
@@ -291,7 +295,7 @@
               "timed_entry",
               "lift_only"
             ],
-            "family_effort": 1
+            "family_effort": null
           }
         ]
       },
@@ -307,16 +311,12 @@
           "km": 3.7
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 6.7
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection",
           "km": 6.7
-        },
-        {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:col des montets",
-          "km": 11.7
         }
       ],
       "part_of": [],
@@ -373,7 +373,7 @@
           "km": 5.5
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 10
         },
         {
@@ -431,11 +431,19 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 3.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "km": 4.1
+        },
+        {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
           "km": 6
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 6.6
         },
         {
@@ -519,7 +527,30 @@
         ]
       },
       "far_pointer": null,
-      "pair_with": [],
+      "pair_with": [
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 104,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "world",
+          "standing": "top",
+          "hand_picked": false
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 0.5,
+          "how": "walk",
+          "extra_min": 105,
+          "on_site_min": 90,
+          "on_site_estimated": true,
+          "draw": "national",
+          "standing": "top",
+          "hand_picked": false
+        }
+      ],
       "pair_pending": [
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
@@ -530,7 +561,7 @@
           "km": 4.2
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 6.9
         },
         {
@@ -670,6 +701,14 @@
       "pair_with": [],
       "pair_pending": [
         {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 2
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "km": 2.6
+        },
+        {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 3.2
         },
@@ -678,7 +717,7 @@
           "km": 4
         },
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 4.8
         },
         {
@@ -770,7 +809,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 6.7
         },
         {
@@ -832,7 +871,7 @@
       "pair_with": [],
       "pair_pending": [
         {
-          "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+          "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
           "km": 5.6
         },
         {
@@ -842,6 +881,14 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 10.2
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 11.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "km": 12.4
         }
       ],
       "part_of": [],
@@ -873,7 +920,7 @@
       "warnings": []
     },
     {
-      "ref": "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere",
+      "ref": "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff",
       "draw_suggested": "regional",
       "effective_draw": "national",
       "access_load": "plan",
@@ -891,6 +938,14 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 6.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 6.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "km": 7.3
         },
         {
           "ref": "trip/chamonix-mont-blanc-2028/lake:lac des gaillands",
@@ -946,8 +1001,8 @@
           "km": null,
           "how": null,
           "extra_min": null,
-          "on_site_min": 180,
-          "on_site_estimated": false,
+          "on_site_min": 90,
+          "on_site_estimated": true,
           "draw": "national",
           "standing": "top",
           "hand_picked": true,
@@ -1026,10 +1081,18 @@
         {
           "ref": "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace",
           "km": 6.6
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:montenvers train",
+          "km": 6.7
+        },
+        {
+          "ref": "trip/chamonix-mont-blanc-2028/lift:aiguille du midi",
+          "km": 7.3
         }
       ],
       "part_of": [
-        "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere"
+        "part/trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere#payoff"
       ],
       "plan_b": null,
       "fits": {

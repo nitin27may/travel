@@ -1,0 +1,661 @@
+{
+  "schema": "capture-migration-ledger/1",
+  "note": "The multiset of every value leaf of the suitability and relevance lane files, without ref, kind, subkind and the computed flat copy, taken before the capture migration. The migration moves blocks between records and renames refs; it must not change this.",
+  "computed": "2026-10-18",
+  "suitability": {
+    "records": 503,
+    "leaves": 17248,
+    "sha1": "a40fc08dace92b16436fda8f02455150a7747770"
+  },
+  "relevance": {
+    "records": 209,
+    "leaves": 11353,
+    "sha1": "8061ef45ba6e286d11c2b1b0180f88b4c363a4a1"
+  },
+  "points": {
+    "legacy/canadian-rockies-sept-2029/adventures/banff-gondola": [
+      51.14801,
+      -115.55557
+    ],
+    "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs": [
+      51.1506,
+      -115.561
+    ],
+    "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre": [
+      51.0925,
+      -115.39
+    ],
+    "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk": [
+      52.25917,
+      -117.27806
+    ],
+    "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram": [
+      52.8515,
+      -118.124
+    ],
+    "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola": [
+      51.4419,
+      -116.161
+    ],
+    "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs": [
+      53.1299,
+      -117.771
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/athabasca-falls": [
+      52.66444,
+      -117.88377
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/bow-lake": [
+      51.66444,
+      -116.44861
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre": [
+      51.0925,
+      -115.39
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/cave-and-basin": [
+      51.16944,
+      -115.59111
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier": [
+      52.19083,
+      -117.25528
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/emerald-lake": [
+      51.444,
+      -116.531
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit": [
+      50.5994,
+      -114.988
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive": [
+      52.55908,
+      -117.69103
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/jasper-townsite": [
+      52.8731,
+      -118.082
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/johnston-canyon": [
+      51.25001,
+      -115.83543
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use": [
+      50.6181,
+      -115.154
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view": [
+      53.0825,
+      -119.19278
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka": [
+      51.25806,
+      -115.37306
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island": [
+      52.66444,
+      -117.53361
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/marble-canyon": [
+      51.18667,
+      -116.12528
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/moraine-lake": [
+      51.3225,
+      -116.18556
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds": [
+      50.96944,
+      -115.10778
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint": [
+      53.11056,
+      -119.15667
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view": [
+      53.0333,
+      -119.2
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/peyto-lake": [
+      51.725,
+      -116.52222
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/pyramid-lake": [
+      52.9225,
+      -118.096
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls": [
+      52.53233,
+      -117.64463
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls": [
+      51.49972,
+      -116.47278
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes": [
+      51.17806,
+      -115.59889
+    ],
+    "legacy/canadian-rockies-sept-2029/sights/wedge-pond": [
+      50.87278,
+      -115.14917
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail": [
+      52.66444,
+      -117.88377
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake": [
+      51.1356,
+      -115.79
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore": [
+      51.444,
+      -116.531
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper": [
+      51.07222,
+      -115.40694
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak": [
+      51.06417,
+      -115.39972
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/iceline-trail": [
+      51.49972,
+      -116.47278
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail": [
+      53.1299,
+      -117.771
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop": [
+      52.9016,
+      -118.04827
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore": [
+      51.41167,
+      -116.22806
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass": [
+      51.33329,
+      -116.21888
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk": [
+      51.18667,
+      -116.12528
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore": [
+      51.3225,
+      -116.18556
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/parker-ridge": [
+      52.18083,
+      -117.09222
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers": [
+      51.3936,
+      -116.2726
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque": [
+      50.60291,
+      -114.98171
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline": [
+      53.1299,
+      -117.771
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk": [
+      51.49972,
+      -116.47278
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/troll-falls": [
+      50.94806,
+      -115.14444
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop": [
+      50.87278,
+      -115.14917
+    ],
+    "legacy/canadian-rockies-sept-2029/trails/wilcox-pass": [
+      52.25002,
+      -117.23558
+    ],
+    "place/adolf-munkel-weg": [
+      46.63567,
+      11.76576
+    ],
+    "place/alpe-di-siusi": [
+      46.54236,
+      11.617
+    ],
+    "place/bolzano": [
+      46.49811,
+      11.35478
+    ],
+    "place/bullaccia-and-the-witches-benches": [
+      46.56397,
+      11.6159
+    ],
+    "place/cadini-di-misurina-viewpoint": [
+      46.57928,
+      12.28729
+    ],
+    "place/cascate-di-fanes": [
+      46.59452,
+      12.08419
+    ],
+    "place/cinque-torri": [
+      46.50925,
+      12.05397
+    ],
+    "place/cortina-dampezzo": [
+      46.53833,
+      12.13735
+    ],
+    "place/croda-del-becco": [
+      46.67522,
+      12.07278
+    ],
+    "place/dobbiaco": [
+      46.73543,
+      12.22428
+    ],
+    "place/dolomites": [
+      46.61306,
+      12.16306
+    ],
+    "place/drava-cycle-path-to-lienz": [
+      46.6697,
+      13.722
+    ],
+    "place/funbob-monte-baranci": [
+      46.725,
+      12.27
+    ],
+    "place/la-val": [
+      46.65772,
+      11.92433
+    ],
+    "place/lagazuoi-cable-car-and-tunnels": [
+      46.51921,
+      12.00851
+    ],
+    "place/lago-dantorno": [
+      46.5951,
+      12.2654
+    ],
+    "place/lago-di-braies": [
+      46.69361,
+      12.085
+    ],
+    "place/lago-di-carezza": [
+      46.40917,
+      11.575
+    ],
+    "place/lago-di-dobbiaco": [
+      46.70306,
+      12.21917
+    ],
+    "place/lago-di-landro": [
+      46.63,
+      12.23194
+    ],
+    "place/lago-di-limides": [
+      46.51181,
+      12.02289
+    ],
+    "place/lago-di-misurina": [
+      46.58194,
+      12.25389
+    ],
+    "place/lago-di-sorapis": [
+      46.5204,
+      12.2236
+    ],
+    "place/lago-federa": [
+      46.4881,
+      12.1045
+    ],
+    "place/lake-louise": [
+      51.41167,
+      -116.22806
+    ],
+    "place/monte-piana": [
+      46.61528,
+      12.23944
+    ],
+    "place/ortisei": [
+      46.57521,
+      11.67214
+    ],
+    "place/otzi-south-tyrol-museum-of-archaeology": [
+      46.49986,
+      11.34953
+    ],
+    "place/passo-gardena": [
+      46.55,
+      11.80944
+    ],
+    "place/rafting-on-the-rienza": [
+      46.796,
+      11.94
+    ],
+    "place/san-candido": [
+      46.73287,
+      12.27917
+    ],
+    "place/san-vito-di-cadore": [
+      46.45897,
+      12.20574
+    ],
+    "place/santa-cristina": [
+      46.55907,
+      11.71549
+    ],
+    "place/santa-maddalena-val-di-funes": [
+      46.63845,
+      11.71862
+    ],
+    "place/sass-pordoi-and-piz-boe": [
+      46.51,
+      11.82778
+    ],
+    "place/seceda-ridge": [
+      46.60059,
+      11.72579
+    ],
+    "place/selva-di-val-gardena": [
+      46.55575,
+      11.76056
+    ],
+    "place/tre-cime-di-lavaredo-loop": [
+      46.61203,
+      12.29648
+    ],
+    "place/val-fiscalina": [
+      46.66684,
+      12.35448
+    ],
+    "place/vallunga": [
+      46.56395,
+      11.77359
+    ],
+    "place/viel-dal-pan": [
+      46.48742,
+      11.81296
+    ],
+    "trip/algonquin-muskoka-2026/sight:ragged falls": [
+      45.39167,
+      -78.90611
+    ],
+    "trip/algonquin-muskoka-2026/town:huntsville": [
+      45.33333,
+      -79.21667
+    ],
+    "trip/algonquin-muskoka-2026/trail:solitaire lake trail": [
+      45.39183,
+      -79.00851
+    ],
+    "trip/chamonix-mont-blanc-2028/lake:lac des gaillands": [
+      45.9139,
+      6.8475
+    ],
+    "trip/chamonix-mont-blanc-2028/lift:aiguille du midi": [
+      45.9182,
+      6.87016
+    ],
+    "trip/chamonix-mont-blanc-2028/lift:montenvers train": [
+      45.92271,
+      6.87538
+    ],
+    "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks": [
+      46.0675,
+      6.9322
+    ],
+    "trip/chamonix-mont-blanc-2028/sight:grotte de la mer de glace": [
+      45.92704,
+      6.92225
+    ],
+    "trip/chamonix-mont-blanc-2028/town:chamonix old town": [
+      45.92222,
+      6.86889
+    ],
+    "trip/chamonix-mont-blanc-2028/town:les praz village": [
+      45.93944,
+      6.88472
+    ],
+    "trip/chamonix-mont-blanc-2028/town:vallorcine": [
+      46.03444,
+      6.93306
+    ],
+    "trip/chamonix-mont-blanc-2028/trail:col des montets": [
+      46.01837,
+      6.93982
+    ],
+    "trip/chamonix-mont-blanc-2028/trail:lac blanc via flegere": [
+      45.98222,
+      6.88944
+    ],
+    "trip/chamonix-mont-blanc-2028/viewpoint:mont blanc reflection": [
+      45.98222,
+      6.88944
+    ],
+    "trip/iceland-ring-road-2027/activity:myvatn nature baths": [
+      65.63082,
+      -16.84847
+    ],
+    "trip/iceland-ring-road-2027/sight:blue lagoon area lava fields": [
+      63.87766,
+      -22.44816
+    ],
+    "trip/iceland-ring-road-2027/sight:borgarfjordur waterfalls": [
+      64.70279,
+      -20.97985
+    ],
+    "trip/iceland-ring-road-2027/sight:dettifoss": [
+      65.82192,
+      -16.38817
+    ],
+    "trip/iceland-ring-road-2027/sight:geysir": [
+      64.31383,
+      -20.29949
+    ],
+    "trip/iceland-ring-road-2027/sight:glaumbaer turf farm": [
+      65.6108,
+      -19.5046
+    ],
+    "trip/iceland-ring-road-2027/sight:godafoss": [
+      65.68313,
+      -17.55038
+    ],
+    "trip/iceland-ring-road-2027/sight:gullfoss": [
+      64.32611,
+      -20.12111
+    ],
+    "trip/iceland-ring-road-2027/sight:seljalandsfoss": [
+      63.61583,
+      -19.99278
+    ],
+    "trip/iceland-ring-road-2027/sight:skogafoss": [
+      63.52972,
+      -19.51389
+    ],
+    "trip/iceland-ring-road-2027/town:akureyri botanical garden": [
+      65.6751,
+      -18.0934
+    ],
+    "trip/iceland-ring-road-2027/town:hofn harbour": [
+      64.25,
+      -15.21667
+    ],
+    "trip/iceland-ring-road-2027/town:reykjavik old harbour": [
+      64.15272,
+      -21.93713
+    ],
+    "trip/iceland-ring-road-2027/town:seydisfjordur": [
+      65.26008,
+      -14.00577
+    ],
+    "trip/iceland-ring-road-2027/trail:djupalonssandur": [
+      64.75232,
+      -23.90132
+    ],
+    "trip/iceland-ring-road-2027/trail:fjadrargljufur canyon": [
+      63.77125,
+      -18.17194
+    ],
+    "trip/iceland-ring-road-2027/trail:skaftafell svartifoss": [
+      64.0277,
+      -16.97525
+    ],
+    "trip/iceland-ring-road-2027/trail:thingvellir": [
+      64.26108,
+      -21.12219
+    ],
+    "trip/iceland-ring-road-2027/viewpoint:diamond beach": [
+      64.05339,
+      -16.15311
+    ],
+    "trip/iceland-ring-road-2027/viewpoint:jokulsarlon": [
+      64.07028,
+      -16.21167
+    ],
+    "trip/iceland-ring-road-2027/viewpoint:kirkjufell": [
+      64.9475,
+      -23.31083
+    ],
+    "trip/iceland-ring-road-2027/viewpoint:reynisfjara beach": [
+      63.40494,
+      -19.06401
+    ],
+    "trip/iceland-ring-road-2027/viewpoint:snaefellsjokull view": [
+      64.80712,
+      -23.77623
+    ],
+    "trip/patagonia-2027/sight:penguin colony stop": [
+      -54.9067,
+      -67.3872
+    ],
+    "trip/patagonia-2027/sight:perito moreno walkways": [
+      -50.49322,
+      -73.12798
+    ],
+    "trip/patagonia-2027/town:palermo and recoleta walk": [
+      -34.59056,
+      -58.39056
+    ],
+    "trip/patagonia-2027/town:san telmo market": [
+      -34.62056,
+      -58.37167
+    ],
+    "trip/patagonia-2027/town:village and cafes": [
+      -49.33141,
+      -72.88613
+    ],
+    "trip/patagonia-2027/trail:laguna capri": [
+      -49.3049,
+      -72.936
+    ],
+    "trip/patagonia-2027/viewpoint:laguna nimez birds": [
+      -50.31667,
+      -72.63333
+    ],
+    "trip/patagonia-2027/viewpoint:lapataia bay": [
+      -54.85889,
+      -68.54278
+    ],
+    "trip/utah-five-parks/sight:fruita orchards": [
+      38.28331,
+      -111.24648
+    ],
+    "trip/utah-five-parks/sight:goblin valley": [
+      38.5667,
+      -110.71
+    ],
+    "trip/utah-five-parks/sight:temple square": [
+      40.77056,
+      -111.8925
+    ],
+    "trip/utah-five-parks/sight:zion canyon scenic drive by shuttle": [
+      37.25556,
+      -112.95472
+    ],
+    "trip/utah-five-parks/town:main street moab": [
+      38.5725,
+      -109.54972
+    ],
+    "trip/utah-five-parks/trail:angels landing chains view or scout lookout": [
+      37.2694,
+      -112.948
+    ],
+    "trip/utah-five-parks/trail:delicate arch trail": [
+      38.74361,
+      -109.49944
+    ],
+    "trip/utah-five-parks/trail:devils garden": [
+      38.8039,
+      -109.614
+    ],
+    "trip/utah-five-parks/trail:hickman bridge": [
+      38.28981,
+      -111.23438
+    ],
+    "trip/utah-five-parks/trail:lower calf creek falls": [
+      37.82913,
+      -111.41992
+    ],
+    "trip/utah-five-parks/trail:mesa arch": [
+      38.38806,
+      -109.86361
+    ],
+    "trip/utah-five-parks/trail:narrows from the temple of sinawava": [
+      37.30669,
+      -112.94769
+    ],
+    "trip/utah-five-parks/trail:navajo loop and queens garden": [
+      37.62165,
+      -112.15575
+    ],
+    "trip/utah-five-parks/trail:riverside walk": [
+      37.29189,
+      -112.94679
+    ],
+    "trip/utah-five-parks/trail:upheaval dome": [
+      38.42455,
+      -109.92925
+    ],
+    "trip/utah-five-parks/viewpoint:bryce amphitheatre rim": [
+      37.62637,
+      -112.15075
+    ],
+    "trip/utah-five-parks/viewpoint:dead horse point": [
+      38.50582,
+      -109.73317
+    ],
+    "trip/utah-five-parks/viewpoint:grand view point": [
+      38.32221,
+      -109.84901
+    ],
+    "trip/utah-five-parks/viewpoint:sunset point": [
+      37.62276,
+      -112.16603
+    ],
+    "trip/vermont-fall-2026/town:hyde park village": [
+      44.595,
+      -72.615
+    ],
+    "trip/vermont-fall-2026/town:peacham village": [
+      44.32861,
+      -72.17
+    ],
+    "trip/vermont-fall-2026/viewpoint:burke mountain overlook": [
+      44.5708,
+      -71.8932
+    ],
+    "trip/vermont-fall-2026/viewpoint:smugglers notch": [
+      44.5536,
+      -72.7961
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "capture-operators/1",
+  "updated": "2026-10-18",
+  "operators": [
+    {
+      "ref": "operator/3-zinnen-dolomites-lift-operator",
+      "name": "3 Zinnen Dolomites (lift operator)",
+      "url": "https://www.dreizinnen.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "src": "src-0001",
+          "publisher": "3 Zinnen Dolomites (lift operator)",
+          "url": "https://www.dreizinnen.com/en/the-cable-cars/the-cable-cars/funbob"
+        }
+      ]
+    },
+    {
+      "ref": "operator/chinook-rafting",
+      "name": "Chinook Rafting",
+      "url": "https://www.chinookrafting.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0006",
+          "publisher": "Chinook Rafting",
+          "url": "https://www.chinookrafting.com/faqs/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/fairmont-chateau-lake-louise",
+      "name": "Fairmont Chateau Lake Louise",
+      "url": "https://www.chateau-lake-louise.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0022",
+          "publisher": "Fairmont Chateau Lake Louise",
+          "url": "https://www.chateau-lake-louise.com/activities/canoeing/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/hielo-y-aventura-s-a",
+      "name": "Hielo y Aventura S.A.",
+      "url": "https://hieloyaventura.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/patagonia-2027/R3.json",
+          "src": "src-0003",
+          "publisher": "Hielo y Aventura S.A.",
+          "url": "https://api.hieloyaventura.com/api/excurtions"
+        }
+      ]
+    },
+    {
+      "ref": "operator/hydra-river-guides",
+      "name": "Hydra River Guides",
+      "url": "https://www.raftbanff.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0003",
+          "publisher": "Hydra River Guides",
+          "url": "https://www.raftbanff.com/the-experience/faq/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/lagazuoi-s-p-a",
+      "name": "Lagazuoi S.p.A.",
+      "url": "https://lagazuoi.it/",
+      "derived_from": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "src": "src-0007",
+          "publisher": "Lagazuoi S.p.A.",
+          "url": "https://lagazuoi.it/EN/Information-Prices-and-useful-information-page20-Lagazuoi-cable-car"
+        }
+      ]
+    },
+    {
+      "ref": "operator/lake-louise-ski-resort",
+      "name": "Lake Louise Ski Resort",
+      "url": "https://www.skilouise.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0014",
+          "publisher": "Lake Louise Ski Resort",
+          "url": "https://www.skilouise.com/explore-summer/sightseeing-gondola/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/pursuit-banff-jasper-collection",
+      "name": "Pursuit (Banff Jasper Collection)",
+      "url": "https://www.banffjaspercollection.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0012",
+          "publisher": "Pursuit (Banff Jasper Collection)",
+          "url": "https://www.banffjaspercollection.com/attractions/jasper-skytram/tickets/"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0018",
+          "publisher": "Pursuit (Banff Jasper Collection)",
+          "url": "https://www.banffjaspercollection.com/attractions/maligne-lake-cruise/faqs/"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R2b.json",
+          "src": "src-0020",
+          "publisher": "Pursuit (Banff Jasper Collection)",
+          "url": "https://www.banffjaspercollection.com/attractions/lake-minnewanka-cruise/faqs/"
+        }
+      ]
+    },
+    {
+      "ref": "operator/rafting-club-activ",
+      "name": "Rafting Club Activ",
+      "url": "https://www.rafting-club-activ.com/",
+      "derived_from": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "src": "src-0003",
+          "publisher": "Rafting Club Activ",
+          "url": "https://www.rafting-club-activ.com/en/faq/"
+        }
+      ]
+    }
+  ]
+}

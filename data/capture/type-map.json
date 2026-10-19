@@ -1,0 +1,52 @@
+{
+  "schema": "capture-type-map/1",
+  "reviewed": "2026-10-18",
+  "note": "The reviewed assignment of a type to every record (M1). Each record takes the type that data/vocab/types.json gives its kind and subkind (the legacy pairs) unless it has an entry here. The record keeps the suitability profile it had: the migration test pins that.",
+  "overrides": [
+    {
+      "ref": "part/place/lagazuoi-cable-car-and-tunnels#tunnels",
+      "name": "Lagazuoi tunnels",
+      "reason": "A walk cut out of a place (S0b); named from its parent. It starts at the parent.",
+      "starts_at": [
+        "place/lagazuoi-cable-car-and-tunnels"
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-braies#walk",
+      "name": "Lago di Braies walk",
+      "reason": "A walk cut out of a place (S0b); named from its parent. It starts at the parent.",
+      "starts_at": [
+        "place/lago-di-braies"
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-dobbiaco#walk",
+      "name": "Lago di Dobbiaco walk",
+      "reason": "A walk cut out of a place (S0b); named from its parent. It starts at the parent.",
+      "starts_at": [
+        "place/lago-di-dobbiaco"
+      ]
+    },
+    {
+      "ref": "part/place/lago-di-limides#walk",
+      "name": "Lago di Limides walk",
+      "reason": "A walk cut out of a place (S0b); named from its parent. It starts at the parent.",
+      "starts_at": [
+        "place/lago-di-limides"
+      ]
+    },
+    {
+      "ref": "part/place/lago-federa#walk",
+      "name": "Lago Federa walk",
+      "reason": "A walk cut out of a place (S0b); named from its parent. It starts at the parent.",
+      "starts_at": [
+        "place/lago-federa"
+      ]
+    },
+    {
+      "ref": "trip/chamonix-mont-blanc-2028/sight:emosson dam and dinosaur tracks",
+      "type": "culture.heritage.dam",
+      "reason": "A dam; the profile stays sight, as for sight/attraction."
+    }
+  ]
+}

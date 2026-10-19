@@ -1,0 +1,172 @@
+{
+  "schema": "capture-splits/1",
+  "trip": "dolomites-2027",
+  "reviewed": "2026-10-18",
+  "note": "Proposed by the builder (SP1) from the lane sidecars, to be confirmed by a researcher (SP2): payoff points, operators and the place each offer runs at. `core/bin/capture.ts migrate` applies it (SP3).",
+  "splits": [
+    {
+      "ref": "place/bullaccia-and-the-witches-benches",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/summit-panorama): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/place/bullaccia-and-the-witches-benches#payoff",
+        "type": "nature.viewpoint.viewpoint",
+        "kind": "viewpoint",
+        "name": "Bullaccia and the Witches' Benches"
+      }
+    },
+    {
+      "ref": "place/cadini-di-misurina-viewpoint",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/summit-panorama): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/place/cadini-di-misurina-viewpoint#payoff",
+        "type": "nature.viewpoint.viewpoint",
+        "kind": "viewpoint",
+        "name": "Cadini di Misurina viewpoint"
+      }
+    },
+    {
+      "ref": "place/cascate-di-fanes",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class waterfall/hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/place/cascate-di-fanes#payoff",
+        "type": "water.falls.waterfall",
+        "kind": "waterfall",
+        "name": "Cascate di Fanes"
+      }
+    },
+    {
+      "ref": "place/croda-del-becco",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class peak/summit): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/place/croda-del-becco#payoff",
+        "type": "nature.summit.summit",
+        "kind": "viewpoint",
+        "name": "Croda del Becco"
+      }
+    },
+    {
+      "ref": "place/drava-cycle-path-to-lienz",
+      "how": "route",
+      "reason": "A cycle path is a route.",
+      "route": {
+        "type": "wheels.bike.cycle_path"
+      },
+      "place": null
+    },
+    {
+      "ref": "place/funbob-monte-baranci",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "play.amusement.alpine_coaster",
+        "class": "ticket"
+      },
+      "at": {
+        "mode": "new",
+        "ref": "part/place/funbob-monte-baranci#place",
+        "type": "play.amusement.alpine_coaster",
+        "name": "Monte Baranci",
+        "kind": "activity"
+      }
+    },
+    {
+      "ref": "place/lagazuoi-cable-car-and-tunnels",
+      "how": "lift",
+      "reason": "A lift stored as one record: the line is a route, the ticket an offer that carries the suitability block, and the top station a place (capture contract 2.7, rule 4).",
+      "line": {
+        "type": "ride.lift.cable_car"
+      },
+      "ticket": {
+        "ref": "offer/place/lagazuoi-cable-car-and-tunnels#ticket",
+        "type": "ride.lift.cable_car",
+        "class": "ticket"
+      },
+      "top": {
+        "ref": "part/place/lagazuoi-cable-car-and-tunnels#top",
+        "type": "access.transit.station",
+        "name": "Lagazuoi cable car and tunnels top station"
+      }
+    },
+    {
+      "ref": "place/lago-di-sorapis",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class lake/alpine-hike-in): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/place/lago-di-sorapis#payoff",
+        "type": "water.body.lake",
+        "kind": "lake",
+        "name": "Lago di Sorapis"
+      }
+    },
+    {
+      "ref": "place/rafting-on-the-rienza",
+      "how": "offer",
+      "reason": "An activity stored as a place: the record carries limits, an operator and a price, so it is an offer (capture contract 2.7.5).",
+      "offer": {
+        "type": "water.river.rafting",
+        "class": "experience"
+      },
+      "at": {
+        "mode": "new",
+        "ref": "part/place/rafting-on-the-rienza#place",
+        "type": "water.body.river",
+        "name": "Rienza",
+        "kind": "activity"
+      }
+    },
+    {
+      "ref": "place/sass-pordoi-and-piz-boe",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class peak/summit): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.hike"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/place/sass-pordoi-and-piz-boe#payoff",
+        "type": "nature.summit.summit",
+        "kind": "viewpoint",
+        "name": "Sass Pordoi and Piz Boè"
+      }
+    },
+    {
+      "ref": "place/seceda-ridge",
+      "how": "trail_payoff",
+      "reason": "Judged as its payoff (relevance class viewpoint/summit-panorama): a route plus the place it reaches; the class and draw move to the place (capture contract 2.7.5).",
+      "route": {
+        "type": "nature.trail.walk"
+      },
+      "place": {
+        "mode": "new",
+        "ref": "part/place/seceda-ridge#payoff",
+        "type": "nature.viewpoint.viewpoint",
+        "kind": "viewpoint",
+        "name": "Seceda ridge"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1247 @@
+{
+  "schema": "capture/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "C0-migrated",
+  "researched": "2026-10-18",
+  "agent": "core/bin/capture.ts migrate",
+  "model": "none",
+  "sources": [],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bald-hills",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Bald Hills"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Bourgeau Lake",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/bourgeau-lake#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Bourgeau Lake",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/bourgeau-lake",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-lakeshore",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Emerald Lakeshore"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/iceline-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Iceline Trail"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/interlakes-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Interlakes Trail (Upper and Lower Lake)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Ha Ling Peak",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/ha-ling-peak#payoff",
+      "type": "nature.summit.summit",
+      "layer": "place",
+      "name": "Ha Ling Peak",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/ha-ling-peak",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Grassi Lakes (easy route)",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper#payoff",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Grassi Lakes",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/grassi-lakes-upper",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/kinney-lake",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Kinney Lake",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-louise-lakeshore",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Lake Louise Lakeshore"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/larch-valley-sentinel-pass",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Larch Valley to Sentinel Pass"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mary-schaffer-loop",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Mary Schaffer Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/parker-ridge",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Parker Ridge"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/plain-of-six-glaciers",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Plain of Six Glaciers (to teahouse and Abbot Pass viewpoint)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ptarmigan-cirque",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Ptarmigan Cirque"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Sarrail Ridge",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sarrail-ridge#payoff",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Sarrail Ridge",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/sarrail-ridge",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Sulphur Skyline",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/sulphur-skyline#payoff",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Sulphur Skyline",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/sulphur-skyline",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunshine-meadows-citadel-pass",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Sunshine Meadows to Citadel Pass"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wilcox-pass",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Wilcox Pass"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Troll Falls",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/troll-falls#payoff",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Troll Falls",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/troll-falls",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/athabasca-falls-trail",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Athabasca Falls Walk",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/athabasca-falls"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fenland-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Fenland Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/jasper-miette-mine-trail",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Miette Mine Trail"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-annette-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Lake Annette Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/marble-canyon-walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Marble Canyon Walk",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/marble-canyon"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moose-lake-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Moose Lake Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/moraine-lakeshore",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Moraine Lakeshore"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/overlander-falls-trail",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Overlander Falls trail",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/paint-pots-walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Paint Pots Walk"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/peyto-lake-lookout",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Peyto Lake Lookout",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/peyto-lake"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rockwall-lookout",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Rockwall Lookout (Rockwall fen)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/takakkaw-falls-walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Takakkaw Falls Walk",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Toe of Athabasca Glacier",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk#payoff",
+      "type": "nature.landform.glacier_view",
+      "layer": "place",
+      "name": "Toe of Athabasca Glacier",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/trails/toe-glacier-walk",
+        "reason": "payoff of the trail"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wedge-pond-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Wedge Pond loop",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/wedge-pond"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/bow-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Bow Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/emerald-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Emerald Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/kinney-lake-view",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Kinney Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lake Minnewanka"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Maligne Lake and Spirit Island"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/moraine-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Moraine Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-lorette-ponds",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Mount Lorette Ponds"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/pyramid-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Pyramid Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/wedge-pond",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Wedge Pond"
+    },
+    {
+      "ref": "place/lake-louise",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Lake Louise"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/athabasca-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Athabasca Falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+      "type": "nature.landform.canyon",
+      "layer": "place",
+      "name": "Johnston Canyon"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/sights/johnston-canyon#walk",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Johnston Canyon walk",
+      "reaches": [
+        "legacy/canadian-rockies-sept-2029/sights/johnston-canyon"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/sights/johnston-canyon",
+        "reason": "the route to the place"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/marble-canyon",
+      "type": "nature.landform.canyon",
+      "layer": "place",
+      "name": "Marble Canyon"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/natural-bridge",
+      "type": "nature.landform.gorge",
+      "layer": "place",
+      "name": "Natural Bridge"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/overlander-falls-view",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Overlander Falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/sunwapta-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Sunwapta Falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/takakkaw-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Takakkaw Falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-robson-viewpoint",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Mount Robson Visitor Centre viewpoint"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/peyto-lake",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Peyto Lake Lookout"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/icefields-parkway-drive",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Icefields Parkway (Hwy 93N) scenic drive"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/highwood-pass-summit",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Highwood Pass and Hwy 40 corridor"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/vermilion-lakes",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Vermilion Lakes Drive"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/jasper-townsite",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Jasper Townsite"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cave-and-basin",
+      "type": "culture.heritage.historic_site",
+      "layer": "place",
+      "name": "Cave and Basin National Historic Site"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Athabasca Glacier and Columbia Icefield"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/paint-pots",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Paint Pots"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/kananaskis-lakes-day-use",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Upper and Lower Kananaskis Lakes"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/canmore-nordic-centre",
+      "type": "wheels.bike.mtb_trail",
+      "layer": "route",
+      "name": "Canmore Nordic Centre Provincial Park",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+      "type": "water.river.rafting",
+      "layer": "offer",
+      "name": "Kicking Horse family/gentle rafting (Wild Water Adventures Gentle Introduction; Banff Adventures family trip)",
+      "offer_class": "experience",
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place"
+      ],
+      "run_by": "operator/hydra-river-guides"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float#place",
+      "type": "water.body.river",
+      "layer": "place",
+      "name": "Kicking Horse River",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-family-float",
+        "reason": "the place the offer runs at"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+      "type": "water.river.rafting",
+      "layer": "offer",
+      "name": "Kananaskis River rafting (Class II-III)",
+      "offer_class": "experience",
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place"
+      ],
+      "run_by": "operator/chinook-rafting"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft#place",
+      "type": "water.body.river",
+      "layer": "place",
+      "name": "Kananaskis River",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/kananaskis-river-raft",
+        "reason": "the place the offer runs at"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+      "type": "ride.lift.gondola",
+      "layer": "route",
+      "name": "Banff Gondola (Sulphur Mountain summit)",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#top",
+      "type": "access.transit.station",
+      "layer": "place",
+      "name": "Banff Gondola (Sulphur Mountain summit) top station",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "reason": "the top station of the lift"
+      }
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/banff-gondola#ticket",
+      "type": "ride.lift.gondola",
+      "layer": "offer",
+      "offer_class": "ticket",
+      "name": "Banff Gondola (Sulphur Mountain summit) ticket",
+      "on": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola"
+        }
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-gondola",
+        "reason": "the ticket offer on the lift line"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+      "type": "ride.lift.gondola",
+      "layer": "route",
+      "name": "Jasper SkyTram (Whistlers Mountain)",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#top",
+      "type": "access.transit.station",
+      "layer": "place",
+      "name": "Jasper SkyTram (Whistlers Mountain) top station",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+        "reason": "the top station of the lift"
+      }
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/jasper-skytram#ticket",
+      "type": "ride.lift.gondola",
+      "layer": "offer",
+      "offer_class": "ticket",
+      "name": "Jasper SkyTram (Whistlers Mountain) ticket",
+      "on": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram"
+        }
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/jasper-skytram",
+        "reason": "the ticket offer on the lift line"
+      },
+      "run_by": "operator/pursuit-banff-jasper-collection"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+      "type": "ride.lift.gondola",
+      "layer": "route",
+      "name": "Lake Louise Summer Gondola (grizzly/wildlife viewing, Whitehorn corridor)",
+      "reaches": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#top",
+      "type": "access.transit.station",
+      "layer": "place",
+      "name": "Lake Louise Summer Gondola (grizzly/wildlife viewing, Whitehorn corridor) top station",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+        "reason": "the top station of the lift"
+      }
+    },
+    {
+      "ref": "offer/legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola#ticket",
+      "type": "ride.lift.gondola",
+      "layer": "offer",
+      "offer_class": "ticket",
+      "name": "Lake Louise Summer Gondola (grizzly/wildlife viewing, Whitehorn corridor) ticket",
+      "on": [
+        {
+          "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola"
+        }
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-gondola",
+        "reason": "the ticket offer on the lift line"
+      },
+      "run_by": "operator/lake-louise-ski-resort"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/maligne-lake-cruise",
+      "type": "water.boat.cruise",
+      "layer": "offer",
+      "name": "Maligne Lake Cruise and Spirit Island",
+      "offer_class": "experience",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/maligne-lake-spirit-island"
+      ],
+      "run_by": "operator/pursuit-banff-jasper-collection"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-minnewanka-cruise",
+      "type": "water.boat.cruise",
+      "layer": "offer",
+      "name": "Lake Minnewanka Cruise (Classic, Premium, Junior Explorer)",
+      "offer_class": "experience",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/lake-minnewanka"
+      ],
+      "run_by": "operator/pursuit-banff-jasper-collection"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-canoe",
+      "type": "water.paddle.canoe.rental",
+      "layer": "offer",
+      "name": "Lake Louise canoe rental",
+      "offer_class": "rental",
+      "at": [
+        "place/lake-louise"
+      ],
+      "run_by": "operator/fairmont-chateau-lake-louise"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/moraine-lake-canoe",
+      "type": "water.paddle.canoe.rental",
+      "layer": "offer",
+      "name": "Moraine Lake canoe rental",
+      "offer_class": "rental",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/moraine-lake"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/emerald-lake-canoe",
+      "type": "water.paddle.canoe.rental",
+      "layer": "offer",
+      "name": "Emerald Lake canoe rental (Boathouse Trading Co.)",
+      "offer_class": "rental",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/emerald-lake"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+      "type": "water.thermal.hot_spring",
+      "layer": "offer",
+      "name": "Banff Upper Hot Springs",
+      "offer_class": "ticket",
+      "at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs#place",
+      "type": "water.thermal.hot_spring",
+      "layer": "place",
+      "name": "Banff Upper Hot Springs",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/banff-upper-hot-springs",
+        "reason": "the place the offer runs at"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/miette-hot-springs",
+      "type": "water.thermal.hot_spring",
+      "layer": "offer",
+      "name": "Miette Hot Springs",
+      "offer_class": "ticket",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/columbia-icefield-ice-explorer",
+      "type": "wheels.drive.vehicle_tour",
+      "layer": "offer",
+      "name": "Columbia Icefield Adventure (Ice Explorer onto Athabasca Glacier)",
+      "offer_class": "experience",
+      "at": [
+        "legacy/canadian-rockies-sept-2029/sights/columbia-icefield-athabasca-glacier"
+      ]
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/glacier-skywalk",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Columbia Icefield Skywalk (Glacier Skywalk)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-dark-sky",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Jasper Dark Sky Preserve stargazing"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+      "type": "nature.wildlife.viewing_spot",
+      "layer": "place",
+      "name": "Elk rut viewing (Banff, Jasper) and bighorn rut"
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/elk-rut#rut",
+      "type": "event.natural",
+      "layer": "event",
+      "name": "Elk rut",
+      "part_of": [
+        "legacy/canadian-rockies-sept-2029/adventures/elk-rut"
+      ],
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/elk-rut",
+        "reason": "the dated occurrence at the viewing place"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+      "type": "wheels.bike.mtb_trail",
+      "layer": "route",
+      "name": "Canmore Nordic Centre summer (mountain biking, skills park, hiking, disc golf)",
+      "starts_at": [
+        "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre"
+      ]
+    },
+    {
+      "ref": "part/legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre#centre",
+      "type": "snow.ski.nordic_centre",
+      "layer": "place",
+      "name": "Canmore Nordic Centre Provincial Park",
+      "origin": {
+        "from": "legacy/canadian-rockies-sept-2029/adventures/canmore-nordic-centre",
+        "reason": "the place the route belongs to"
+      }
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/athabasca-icewalks",
+      "type": "mountain.alpine.glacier_walk",
+      "layer": "offer",
+      "name": "Athabasca Glacier guided ice walk (Icewalks)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-horse-ride",
+      "type": "animals.ride.horse_ride",
+      "layer": "offer",
+      "name": "Banff horseback rides (Banff Trail Riders / Warner Stables, Spray River, Bow River, Sulphur Mountain)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/banff-springs-spa",
+      "type": "water.thermal.spa",
+      "layer": "offer",
+      "name": "Fairmont Banff Springs spa"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-river-raft",
+      "type": "water.river.float",
+      "layer": "offer",
+      "name": "Bow River float / raft"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/bow-valley-parkway-cycling",
+      "type": "wheels.bike.cycle_path",
+      "layer": "route",
+      "name": "Bow Valley Parkway cycling (seasonal vehicle closure 17 km)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-mt-stephen",
+      "type": "mountain.alpine.guided_summit",
+      "layer": "offer",
+      "name": "Burgess Shale guided hike: Mount Stephen fossil beds (Parks Canada, Yoho)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/burgess-walcott",
+      "type": "mountain.alpine.guided_summit",
+      "layer": "offer",
+      "name": "Burgess Shale guided hike: Walcott Quarry (Parks Canada, Yoho)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/crypt-lake-shuttle",
+      "type": "water.boat.water_taxi",
+      "layer": "offer",
+      "name": "Crypt Lake boat shuttle (Waterton Shoreline Cruises)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/golden-skybridge",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Golden Skybridge (bridges, coaster, zipline)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-flight-canmore",
+      "type": "air.flight.heli_tour",
+      "layer": "offer",
+      "name": "Scenic helicopter flights (Three Sisters, Assiniboine, Continental Divide)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/heli-hiking",
+      "type": "mountain.alpine.guided_summit",
+      "layer": "offer",
+      "name": "Heli-hiking (Backroads family option etc.)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-bike-rental",
+      "type": "wheels.bike.cycle_path",
+      "layer": "route",
+      "name": "Jasper bike rentals"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-waterton-horse",
+      "type": "animals.ride.horse_ride",
+      "layer": "offer",
+      "name": "Jasper and Waterton horseback rides"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/jasper-wildlife-tour",
+      "type": "nature.wildlife.wildlife_tour",
+      "layer": "offer",
+      "name": "Jasper wildlife tours (SunDog, Maligne Adventures)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-class3-4",
+      "type": "water.river.rafting",
+      "layer": "offer",
+      "name": "Kicking Horse whitewater rafting (Class III-IV: Exciter, Tradition, Maximum Horsepower)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/kicking-horse-gondola-grizzly",
+      "type": "ride.lift.gondola",
+      "layer": "route",
+      "name": "Kicking Horse Mountain Resort Golden Eagle Express gondola and Grizzly Bear Refuge (Boo)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-horse",
+      "type": "animals.ride.horse_ride",
+      "layer": "offer",
+      "name": "Brewster Stables Lake Louise horseback"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/lake-louise-sightseeing",
+      "type": "ride.lift.gondola",
+      "layer": "route",
+      "name": "Lake Louise Sightseeing (same product as Lake Louise Gondola)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/legacy-trail",
+      "type": "wheels.bike.cycle_path",
+      "layer": "route",
+      "name": "Legacy Trail Banff to Canmore"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/nakiska-summer",
+      "type": "ride.lift.gondola",
+      "layer": "route",
+      "name": "Nakiska summer gondola / coaster"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/norquay-via-ferrata",
+      "type": "mountain.ferrata.via_ferrata",
+      "layer": "offer",
+      "name": "Mount Norquay Via Ferrata (Explorer, Ridgewalker; also Skyline, Summiteer)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/radium-hot-springs",
+      "type": "water.thermal.hot_spring",
+      "layer": "offer",
+      "name": "Radium Hot Springs pools"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/red-rock-parkway",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Waterton Red Rock Parkway (scenic drive)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/sulphur-mountain-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Sulphur Mountain switchback trail (hike up, gondola down)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/waterton-cruise",
+      "type": "water.boat.cruise",
+      "layer": "offer",
+      "name": "Waterton border cruise and Goat Haunt cruise"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/adventures/yamnuska-scramble",
+      "type": "mountain.alpine.guided_summit",
+      "layer": "offer",
+      "name": "Yamnuska guided scrambles (Yamnuska Mountain Adventures)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/assiniboine-lodge-helicopter",
+      "type": "air.flight.heli_tour",
+      "layer": "offer",
+      "name": "Mount Assiniboine helicopter access"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/banff-gondola",
+      "type": "ride.lift.gondola",
+      "layer": "route",
+      "name": "Banff Gondola (Sulphur Mountain)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/beauvais-lake-pp",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Beauvais Lake Provincial Park"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/berg-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Berg Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/cameron-lake",
+      "type": "water.body.lake",
+      "layer": "place",
+      "name": "Cameron Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/castle-provincial-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Castle Provincial Park"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elbow-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Elbow Falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/elk-lakes-park",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Elk Lakes Provincial Park"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/lake-magog",
+      "type": "nature.protected.nature_reserve",
+      "layer": "place",
+      "name": "Lake Magog and Assiniboine core area"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/maligne-canyon",
+      "type": "nature.landform.canyon",
+      "layer": "place",
+      "name": "Maligne Canyon"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/miette-hot-springs",
+      "type": "water.thermal.hot_spring",
+      "layer": "place",
+      "name": "Miette Hot Springs"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/mount-edith-cavell",
+      "type": "nature.viewpoint.viewpoint",
+      "layer": "place",
+      "name": "Mount Edith Cavell and Cavell Meadows"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/prince-of-wales-hotel",
+      "type": "culture.heritage.landmark",
+      "layer": "place",
+      "name": "Prince of Wales Hotel"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/radium-hot-springs",
+      "type": "water.thermal.hot_spring",
+      "layer": "place",
+      "name": "Radium Hot Springs"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/red-rock-parkway",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Red Rock Parkway and Red Rock Canyon"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/smith-dorrien-trail",
+      "type": "wheels.drive.scenic_drive",
+      "layer": "route",
+      "name": "Smith-Dorrien / Spray Trail (Hwy 742)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/top-of-the-world-pp",
+      "type": "nature.protected.national_park",
+      "layer": "place",
+      "name": "Top of the World Provincial Park"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/wapta-falls",
+      "type": "water.falls.waterfall",
+      "layer": "place",
+      "name": "Wapta Falls"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/waterton-townsite",
+      "type": "settlement.town",
+      "layer": "place",
+      "name": "Waterton Townsite"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/sights/whiteswan-lussier-hot-springs",
+      "type": "water.thermal.hot_spring",
+      "layer": "place",
+      "name": "Whiteswan Lake and Lussier Hot Springs"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/assiniboine-mount-shark-to-magog",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Mount Shark to Lake Magog"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/bears-hump",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Bear's Hump"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/beauvais-lake-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Beauvais Lake Trail"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/berg-lake-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Berg Lake Trail"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/burstall-pass",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Burstall Pass"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Cavell Meadows"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/chester-lake",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Chester Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cory-pass-loop",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Cory Pass Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/crypt-lake",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Crypt Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elbow-falls-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Elbow Falls loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-lower-upper",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Elk Lakes (Lower and Upper)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/elk-lakes-viewpoint",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Elk Lakes Viewpoint trail"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/emerald-triangle-wapta-highline",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Emerald Triangle (via Wapta Highline)"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/fryatt-valley",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Fryatt Valley"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/johnson-lake-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Johnson Lake Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lake-agnes",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Lake Agnes Tea House"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/lillian-lake",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Lillian Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-fairview",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Mount Fairview"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-indefatigable-viewpoint",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Indefatigable Bench viewpoint"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/mount-lorette-ponds-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Mount Lorette Ponds loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/opal-hills",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Opal Hills Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/rawson-lake",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Rawson Lake"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/red-rock-canyon-loop",
+      "type": "nature.trail.walk",
+      "layer": "route",
+      "name": "Red Rock Canyon Loop"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/ribbon-creek",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Ribbon Creek"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/skyline-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Skyline Trail"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/sunburst-lake-magog",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Sunburst Lake to Lake Magog"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/tent-ridge-horseshoe",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Tent Ridge Horseshoe"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/upper-kananaskis-lake-loop",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Upper Kananaskis Lake Circuit"
+    },
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/wapta-falls-trail",
+      "type": "nature.trail.hike",
+      "layer": "route",
+      "name": "Wapta Falls"
+    }
+  ]
+}
