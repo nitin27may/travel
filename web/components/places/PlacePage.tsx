@@ -13,6 +13,7 @@ import { appleMapsUrl, directionsUrl, formatPoint } from '@/lib/map/links';
 import type { LngLat } from '@/lib/map/types';
 import type { AccessPoint, Fact, PlaceLine as PlaceLineT, PublicPlace, PublicPlaceCard } from '@/lib/public/types';
 import { Interactions } from '@/components/suit/Interactions';
+import { accessCard, factsDl } from './sections/legacyHtml';
 import { CoverRelevance } from './sections/Relevance';
 import { Glance, Sections, type LegacySlots } from './sections/Sections';
 import { GalleryLazy } from './GalleryLazy';
@@ -239,8 +240,11 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
   const showProfile = trail && ((km !== null && km > 0 && gain !== null) || storedProfile);
   const guide = thAt && dest && !loop && Math.hypot(thAt.lat - dest.lat, thAt.lng - dest.lng) > 0.001 ? { from: thAt, to: dest } : null;
 
-  const target = directionsTarget(place);
-  const targetPoint = target ? (target.source === 'parking' ? place.access?.parking[0] : target.source === 'trailhead' ? th : place.point) : null;
+  // PS4: with no car park of our own, Directions go to the access place the contract found (a car park or a stop with a stored point)
+  const via = place.sections?.directions && !place.access?.parking.length ? place.sections.directions : null;
+  const viaPoint: AccessPoint | null = via ? { lat: via.lat, lon: via.lon, pointSource: via.pointSource, pointChecked: null, sourceLicence: via.pointSource.startsWith('osm_') ? 'ODbL' : 'unknown', name: via.name, note: null, elevationM: null } : null;
+  const target = via ? { at: { lat: via.lat, lng: via.lon }, label: via.name, source: 'access' as const } : directionsTarget(place);
+  const targetPoint = viaPoint ?? (target ? (target.source === 'parking' ? place.access?.parking[0] : target.source === 'trailhead' ? th : place.point) : null);
   const unconfirmed = place.honesty.some((h) => h.id === 'location_unconfirmed');
   const points: PlaceMapPoint[] = [
     ...(th ? [{ id: 'trailhead', at: pointAt(th), style: 'trailhead' as const, label: th.name }] : []),
@@ -303,33 +307,10 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
       <RouteLine lines={place.lines} confirmed={!unconfirmed && Boolean(place.access?.trailhead?.pointChecked)} />
     </>
   ) : null;
-  const accessBlock =
-    (place.access && (place.access.trailhead || place.access.parking.length)) || access.length ? (
-      <>
-        {place.access && (place.access.trailhead || place.access.parking.length) ? (
-          <div className="pl-access-list">
-            {place.access.trailhead ? <AccessCard p={place.access.trailhead} role="Trailhead" unconfirmed={unconfirmed} /> : null}
-            {place.access.parking.map((p, i) => (
-              <AccessCard key={`${p.name}-${i}`} p={p} role="Parking" unconfirmed={false} />
-            ))}
-          </div>
-        ) : null}
-        {access.length ? (
-          <dl className="pl-kv pl-kv-wide">
-            {access.map((f, i) => (
-              <div key={`${f.label}-${i}`}>
-                <dt>{f.label}</dt>
-                <dd>
-                  <FactText text={f.value} />
-                  <span className="pl-prov">{provenanceText(f.provenance)}</span>
-                  <Conflict fact={f} />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        ) : null}
-      </>
-    ) : null;
+  const mapped = new Set(place.sections?.legacyMapped ?? []);
+  const accessHtml =
+    (place.access?.trailhead ? `<div class="pl-access-list">${accessCard(place.access.trailhead, 'Trailhead', unconfirmed)}${(place.access.parking ?? []).map((p) => accessCard(p, 'Parking', false)).join('')}</div>` : place.access?.parking.length ? `<div class="pl-access-list">${place.access.parking.map((p) => accessCard(p, 'Parking', false)).join('')}</div>` : '') + factsDl(access.filter((f) => !mapped.has(f.label)));
+  const accessBlock = accessHtml ? <div className="su-c" dangerouslySetInnerHTML={{ __html: accessHtml }} /> : null;
   const seasonBlock = place.season.length || publicText(place.seasonNote) ? (
     <>
       {place.season.length ? (
@@ -351,23 +332,10 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
       <Icon name="info" size={14} /> No licensed photo yet, so none is shown.
     </p>
   );
-  const modelFacts = place.facts.filter((f, i, all) => !accessLabels.has(f.label) && !(showProfile && huts.some((h) => h.label === f.label)) && all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
+  const modelFacts = place.facts.filter((f, i, all) => !mapped.has(f.label) && !accessLabels.has(f.label) && !(showProfile && huts.some((h) => h.label === f.label)) && all.findIndex((g) => g.label === f.label && g.value === f.value) === i);
   const factsBlock = (
     <>
-      {modelFacts.length ? (
-        <dl className="pl-kv pl-kv-wide">
-          {modelFacts.map((f, i) => (
-            <div key={`${f.label}-${i}`}>
-              <dt>{f.label}</dt>
-              <dd>
-                <FactText text={f.value} />
-                <span className="pl-prov">{provenanceText(f.provenance)}</span>
-                <Conflict fact={f} />
-              </dd>
-            </div>
-          ))}
-        </dl>
-      ) : null}
+      {modelFacts.length ? <div className="su-c" dangerouslySetInnerHTML={{ __html: factsDl(modelFacts) }} /> : null}
       {publicText(place.notes) && publicText(place.notes) !== publicText(place.summary) ? <p className="pl-notes">{observed(publicText(place.notes))}</p> : null}
       {place.honesty.length ? (
         <ul className="pl-reasons">
@@ -737,6 +705,7 @@ export function PlacePage({ place, inside, url, payoff = null }: PlacePageProps)
                       Apple Maps<span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   </p>
+                  {via ? <p className="muted small">{place.name} has no car park of its own stored here, so directions go to {via.name}, where you {via.role === 'parks_for' ? 'park' : via.role === 'serves' ? 'catch the shuttle or bus' : 'start'}.</p> : null}
                   {target.source === 'parking' && th ? <p className="muted small">The trail starts at {th.name}, on foot from the car park.</p> : null}
                 </>
               ) : (

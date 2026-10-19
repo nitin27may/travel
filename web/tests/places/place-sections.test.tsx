@@ -42,6 +42,29 @@ describe('place pages from the capture contract (S1)', () => {
   });
 });
 
+describe('legacy facts and Directions (step 9, PS4)', () => {
+  it('a fact the page already knows fills its row, with its own source line and no invented basis', () => {
+    let mapped = 0;
+    for (const slug of data.placeSlugs()) {
+      const p = data.getPlace(slug)!;
+      for (const label of p.sections?.legacyMapped ?? []) {
+        mapped += 1;
+        const rows = p.sections!.sections.flatMap((s) => s.rows).filter((r) => r.val?.basis === null && r.val.look === 'info' && !r.gap);
+        expect(rows.length, `${slug} ${label}`).toBeGreaterThan(0);
+        // a mapped fact is drawn once: in its row, not again in Facts and sources
+        expect(html(slug).split(`<dt>${label}</dt>`).length - 1, `${slug} ${label}`).toBe(0);
+      }
+    }
+    expect(mapped).toBeGreaterThan(5);
+  });
+  it('Directions go to the access place when the record has no car park of its own', () => {
+    const d = data.getPlace('lake-louise')!.sections!.directions;
+    expect(d).not.toBeNull();
+    expect(d!.name).toMatch(/parking|stop/i);
+    expect(html('lake-louise')).toContain(`directions go to ${d!.name}`);
+  });
+});
+
 describe('timeline fit chip (D6)', () => {
   const suit = (kidsFrom: number | null, kidsBasis: ItemSuit['kidsBasis']): ItemSuit => ({ chips: [], kidsFrom, kidsBasis, badge: null });
   it('fits, advice fail and rule fail, by the youngest in the party', () => {

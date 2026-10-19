@@ -64,7 +64,7 @@ p.ps-stub { margin: 0; }
 .su-gbody > .su-row:first-child, .su-rows > .su-row:first-child { border-top: 0; }
 .su-lab { font: var(--t-label); color: var(--muted); }
 .su-val { font: 400 15.5px/1.4 var(--font-body); color: var(--ink); overflow-wrap: anywhere; min-width: 0; }
-.su-val[data-look='sentence'] { color: var(--ink-2); }
+.su-row[data-look='sentence'] .su-val { color: var(--ink-2); }
 .su-stub { display: block; font: var(--t-meta); color: var(--muted); margin-top: 2px; }
 .su-gapnote { font: var(--t-meta); color: var(--muted); }
 details.su-row { display: block; padding: 0; }
@@ -193,3 +193,9 @@ details.su-prov[open] > .su-pop { animation: su-rise var(--d-base) var(--e-out);
 /* ---------- timeline entries ---------- */
 .su-entry .su-chip-in { min-height: 22px; padding: 1px 8px; }
 .tl-flag-anchor { display: inline-flex; align-items: center; gap: 4px; color: var(--ink); font-weight: 600; }
+
+.su-echo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0; padding: 10px 0; border-top: 1px solid var(--line); font: var(--t-meta); color: var(--ink-2); }
+.su-echo .su-gtitle { color: var(--ink); }
+.su-echo a { margin-left: auto; }
+.su-group[open] > summary .su-gsum { display: none; }
+.su-c { display: contents; }

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { GapChip, RefLink, RowLine, fromRow, fromSuit, longDate, stubOf, type ShowRow } from '@/components/suit/Rows';
+import { GapChip, RefLink, RowsHtml, fromRow, fromSuit, longDate, stubOf, type ShowRow } from '@/components/suit/Rows';
 import { SuitGlyph } from '@/components/suit/SuitGlyph';
 import { WhoItSuits, WhoItSuitsEmpty } from '@/components/suit/WhoItSuits';
 import { CHIP_ROW_PROPERTIES } from '@/lib/public/contract';
@@ -8,7 +8,7 @@ import type { OfferCard, PageModel, Row, SectionModel } from '@/lib/public/secti
 import type { PublicSuitability } from '@/lib/public/suitability';
 import type { Completeness } from '@/lib/public/types';
 import { Nearby, PlanBLine } from './Relevance';
-import { SeasonGrid, seasonShort } from './SeasonGrid';
+import { seasonShort } from './SeasonGrid';
 
 // The 14 sections of the capture contract in order (place-page-sections section 2). Each section reads its rows, its structures
 // and its closing line from the page model; the only decisions here are by section id, the contract's own, never by the type of the
@@ -56,11 +56,7 @@ function Closing({ text }: { text: string | null }) {
 const shownRows = (sec: SectionModel, skip: (r: Row) => boolean = () => false): Row[] => sec.rows.filter((r) => !NOT_ROWS.has(r.key) && !skip(r));
 
 function Rows({ rows, slugs }: { rows: Row[]; slugs: Record<string, string> }) {
-  return rows.length ? (
-    <div className="su-rows">
-      {rows.map((r) => (r.valueType === 'season_rows' && !r.gap ? <SeasonGrid key={r.key} row={fromRow(r)} /> : <RowLine key={r.key} row={fromRow(r)} slugs={slugs} />))}
-    </div>
-  ) : null;
+  return rows.length ? <RowsHtml rows={rows.map(fromRow)} slugs={slugs} /> : null;
 }
 
 /* ---------- the glance strip (section 2) ---------- */
@@ -189,7 +185,7 @@ function OfferCardView({ o, slugs }: { o: OfferCard; slugs: Record<string, strin
         <p className="ps-stub">{[o.operator?.name, o.offerClass].filter(Boolean).join(' · ')}</p>
       </header>
       <div className="su-rows">
-        {rows.map((r) => (r.valueType === 'season_rows' && !r.gap ? <SeasonGrid key={r.key} row={fromRow(r)} /> : <RowLine key={`${o.ref}-${r.key}`} row={fromRow(r)} slugs={slugs} id={`${o.ref}-${r.key}`.replace(/[^\w-]/g, '-')} />))}
+        <RowsHtml rows={rows.map(fromRow)} slugs={slugs} idOf={(r) => `${o.ref}-${r.key}`.replace(/[^\w-]/g, '-')} />
         <div className="su-row">
           <span className="su-lab">Where</span>
           <span className="su-val">{o.at ? <RefLink r={o.at} slugs={slugs} /> : <GapChip>Not checked yet · no meeting place recorded</GapChip>}</span>
