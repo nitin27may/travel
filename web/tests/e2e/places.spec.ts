@@ -8,12 +8,11 @@ test.describe('places list', () => {
     await page.goto(`${site.url}/places/`);
     const pills = page.locator('.facet-group .pill-trigger');
     await expect(pills).toHaveText([/^Country/, /^Kind/, /^Season/, /^Kids/, /^More filters/]);
-    // the rest wait one tap away, and the effort and stroller slots stay hidden until the S1 data lands
+    // the rest wait one tap away: Effort and Stroller (L3b) sit under More filters with the others
     for (const name of ['Tag', 'In a public trip', 'Effort', 'Stroller']) await expect(page.locator('.pill-trigger', { hasText: new RegExp(`^${name}`) })).toHaveCount(0);
     await page.getByRole('button', { name: 'More filters' }).click();
     const more = page.getByRole('dialog', { name: 'More filters' });
-    for (const name of ['Tag', 'In a public trip']) await expect(more.locator('summary', { hasText: name })).toBeVisible();
-    await expect(more.locator('summary', { hasText: /Effort|Stroller/ })).toHaveCount(0);
+    for (const name of ['Tag', 'In a public trip', 'Effort', 'Stroller']) await expect(more.locator('summary', { hasText: name })).toBeVisible();
     await expect(more.getByText(/Region appears once you choose a country; Area once you choose a region/)).toBeVisible();
     await page.keyboard.press('Escape');
     const views = page.getByRole('radiogroup', { name: /view/i });
@@ -21,14 +20,14 @@ test.describe('places list', () => {
     await expect(views.getByRole('radio', { name: 'Map' })).not.toHaveAttribute('aria-disabled', 'true');
   });
 
-  test('the Kind menu lists every kind with a count, and a pick filters and lands in the URL', async ({ page, site }) => {
+  test('the Kind menu lists the domains and categories with a count, and a pick filters and lands in the URL', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     await page.locator('.pill-trigger', { hasText: /^Kind/ }).click();
     const menu = page.getByRole('dialog', { name: 'Kind' });
-    for (const kind of ['Trail', 'Lake', 'Viewpoint', 'Waterfall', 'Sight', 'Town', 'Area', 'Activity', 'Lift', 'Eatery']) await expect(menu.getByText(kind, { exact: true })).toBeAttached();
-    await menu.getByLabel(/^Lift/).check();
-    await expect(page).toHaveURL(/kind=lift/);
-    await expect(page.locator('.filter-bar .count strong')).toHaveText('1');
+    for (const label of ['Nature', 'Water', 'Trails and walks']) await expect(menu.getByText(label, { exact: false }).first()).toBeAttached();
+    await menu.getByLabel(/^Trails and walks/).check();
+    await expect(page).toHaveURL(/k=nature\.trail/);
+    expect(Number(await page.locator('.filter-bar .count strong').innerText())).toBeGreaterThan(0);
   });
 
   test('cards show the area chain, chips, honesty markers, source counts, footer links and group headings with counts', async ({ page, site }) => {

@@ -71,5 +71,10 @@ export function groupRows<Row>(rows: readonly Row[], group: GroupDef<Row> | null
     }
     g.rows.push(r);
   }
-  return [...map.values()];
+  const out = [...map.values()];
+  if (group.order) {
+    const rank = new Map(out.map((g) => [g.key, group.order!(g.rows[0]!)]));
+    out.sort((a, b) => rank.get(a.key)! - rank.get(b.key)!);
+  }
+  return out;
 }

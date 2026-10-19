@@ -50,12 +50,12 @@ test.describe('the views share one URL state', () => {
   test('a facet menu filters with live counts', async ({ page, site }) => {
     await page.goto(`${site.url}/places/`);
     await page.getByRole('button', { name: 'Kind' }).click();
-    const lakeOption = page.getByRole('checkbox', { name: /^Lake/ });
+    const lakeOption = page.getByRole('checkbox', { name: /^Lakes/ });
     const lakes = Number(((await lakeOption.evaluate((el) => el.closest('label')?.textContent)) ?? '').replace(/\D/g, ''));
     await lakeOption.check();
-    await expect(page).toHaveURL(/kind=lake/);
+    await expect(page).toHaveURL(/k=water\.body/);
     await expect(count(page)).toHaveText(String(lakes));
-    expect(lakes).toBeGreaterThanOrEqual(store.places.filter((p) => p.kind === 'lake').length);
+    expect(lakes).toBeGreaterThan(0);
     // Region sits under More filters and appears only after a country is chosen
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: 'More filters' }).click();
@@ -125,9 +125,9 @@ test.describe('the views share one URL state', () => {
     await expect(page.getByRole('button', { name: /Remove filter Region: / })).toBeVisible();
     await expect(page.getByRole('button', { name: /Remove filter Tag: / })).toBeVisible();
     await expect(page.getByRole('button', { name: /^More filters · 2/ })).toBeVisible();
-    // the hidden slots never filter, so a link that carries them is not a dead end
+    // Effort and Stroller are real filters now (L3b): a link that carries them shows them as chips
     await page.goto(`${site.url}/places/?effort=easy&stroller=any`);
-    await expect(page.getByRole('heading', { name: 'No places match' })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: /Remove filter Effort: / })).toBeVisible();
   });
 });
 

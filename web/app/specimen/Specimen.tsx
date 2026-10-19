@@ -323,7 +323,7 @@ export function Specimen() {
           <Card variant="trail" photo={P3} focus={{ x: 50, y: 70 }} title="Tre Cime di Lavaredo loop" meta="Auronzo, Belluno · 10 km · 450 m" chips={<div className="chips"><Chip kind="kind" icon="trail">Trail</Chip><Chip kind="ok">Fits ages 6+</Chip></div>} />
           <Card variant="trip" done photo={P3} identity="none" title="Quebec" meta="Sept 2026 · 2 nights" chips={<div className="chips"><Chip kind="notice">Past trip</Chip></div>} />
         </div>
-        <Tag>trail card with a photo focus point · done trip, photo desaturated</Tag>
+        <Tag>trail card with a photo focus point · finished plan, photo desaturated</Tag>
       </Section>
 
       <Section id="rows" title="ROWS">

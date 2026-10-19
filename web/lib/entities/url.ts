@@ -1,4 +1,4 @@
-import { FACET_PARAMS, VIEW_NAMES } from './types';
+import { FACET_PARAMS, VIEW_NAMES, isScopedParam } from './types';
 import type { FacetParam, ListState, ViewName } from './types';
 
 export function emptyState(): ListState {
@@ -26,6 +26,12 @@ export function decodeState(search: string): ListState {
     const norm = NORMALISE[param];
     const values = csv(p.get(param)).map((v) => (norm ? norm(v) : v));
     if (values.length) s.facets[param] = values;
+  }
+  // the contract's facets for the chosen Kind: f.<facet>=<value>
+  for (const [key, raw] of p.entries()) {
+    if (!isScopedParam(key)) continue;
+    const values = csv(raw);
+    if (values.length) s.facets[key] = values;
   }
   s.bbox = p.get('bbox') || null;
   s.view = parseView(p.get('view'));
@@ -55,6 +61,10 @@ export function encodeState(s: ListState): string {
   const p = new URLSearchParams();
   if (s.q) p.set('q', s.q);
   for (const param of FACET_PARAMS) {
+    const v = s.facets[param];
+    if (v && v.length) p.set(param, v.join(','));
+  }
+  for (const param of Object.keys(s.facets).filter(isScopedParam).sort()) {
     const v = s.facets[param];
     if (v && v.length) p.set(param, v.join(','));
   }

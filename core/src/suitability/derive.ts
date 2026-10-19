@@ -217,3 +217,41 @@ export function strollerOkOf(rec: RecordLike, app: Applicability = loadApplicabi
   if (s === "all_terrain") return "partly";
   return b.stroller_extent?.scope === "whole" ? "yes" : "partly";
 }
+
+/** What `kidsFromOf` decided on and why: a rule hides a place from a younger child, advice only fades it (suitability-display 5). */
+export interface KidsFrom {
+  value: number;
+  basis: "rule" | "advice";
+}
+
+/** `kidsFromOf` with its basis: `rule` when a rule minimum sets the number (or ties with the band), `advice` when the recommended band start is higher. */
+export function kidsFromBasisOf(rec: RecordLike, app: Applicability = loadApplicability()): KidsFrom | null {
+  const located = profileOf(rec, app);
+  const parts: KidsFrom[] = [];
+  for (const blk of [rec.suitability, ...(rec.offers ?? []).map((o) => o.suitability)]) {
+    const b = maskNotApplicable(blk, located, rec.operated);
+    const min = b.age_rule === "recommendation" ? null : ruleValOf(b.min_age);
+    const band = valOf(b.age_band)?.from ?? null;
+    if (min === null && band === null) continue;
+    const value = Math.max(min ?? 0, band ?? 0);
+    parts.push({ value, basis: min !== null && min >= (band ?? 0) ? "rule" : "advice" });
+  }
+  if (parts.length === 0) return null;
+  const pick = rec.offers && rec.offers.length > 0 ? parts.reduce((a, b) => (b.value < a.value ? b : a)) : parts[0]!;
+  return pick;
+}
+
+/**
+ * The effort a trip-level "Hike effort" tag may rest on: the family effort when the record carries an official or operator grade
+ * or a person's override, otherwise only the effort band from distance and gain. Terrain read off exposure or surface drivers
+ * is a hazard, not effort, and never raises the tag. Null where effort is N, or where nothing but drivers says anything.
+ */
+export function tagEffortOf(rec: RecordLike, map: DifficultyMap = DEFAULT_MAP, app: Applicability = loadApplicability()): Grade5 | null {
+  const located = profileOf(rec, app);
+  const b = maskNotApplicable(rec.suitability, located, rec.operated);
+  if (located && !hasEffort(located.profile, isOperated(located.profile, rec.operated))) return null;
+  const e = deriveEffort({ kind: rec.kind, subkind: rec.subkind, operated: rec.operated, block: b, ext: rec.ext }, map);
+  // an official or operator grade (even one the difficulty map does not translate) or an override is a valid basis
+  if (e.source_grade !== null || e.terrain_basis === "override") return e.family_effort;
+  return e.band === null ? null : (e.band as Grade5);
+}
