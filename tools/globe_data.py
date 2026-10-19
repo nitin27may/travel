@@ -177,6 +177,53 @@ def cmd_admin2(args) -> int:
     return 0
 
 
+def _build_adm2(iso3: str, out: Path) -> None:
+    """Download (if not cached) and simplify one whole-country geoBoundaries ADM2 file into `out`."""
+    with urllib.request.urlopen(urllib.request.Request(f"https://www.geoboundaries.org/api/current/gbOpen/{iso3}/ADM2/", headers=UA), timeout=60) as r:
+        meta = json.loads(r.read().decode("utf-8"))
+    raw = fetch(meta["simplifiedGeometryGeoJSON"], CACHE / "adm2" / f"{iso3}.geojson")
+    pct = "4%" if raw.stat().st_size > 20_000_000 else "8%"
+    each = ["-each", "name=shapeName,id=shapeID,delete shapeGroup,delete shapeType,delete shapeISO"]
+    mapshaper(raw, out, pct, each)
+    if out.stat().st_size > LIMIT:
+        mapshaper(raw, out, "2%", each)
+
+
+def _audited_before() -> set[str]:
+    f = WEB / "admin" / "adm2-audit.json"
+    return {r["a3"] for r in json.loads(f.read_text(encoding="utf-8"))["countries"]} if f.exists() else set()
+
+
+def _whole_adm2(a3: str) -> Path | None:
+    """The whole-country ADM2 file the audit reads. It is not shipped for countries that were split or fell back to ADM1 only, so it
+    comes from the download cache (tools/.cache/adm2), simplified the way `admin2` does, and is fetched through the same code when
+    the cache lacks it. None when there is no ADM2 for the country."""
+    shipped = WEB / "admin" / f"{a3}-ADM2.json"
+    if shipped.exists():
+        return shipped
+    out = CACHE / "adm2-whole" / f"{a3}-ADM2.json"
+    if out.exists():
+        return out
+    if a3 not in _audited_before():       # only countries a previous audit looked at are worth a download
+        return None
+    out.parent.mkdir(parents=True, exist_ok=True)
+    raw = CACHE / "adm2" / f"{a3}.geojson"
+    try:
+        if raw.exists():
+            pct = "4%" if raw.stat().st_size > 20_000_000 else "8%"
+            each = ["-each", "name=shapeName,id=shapeID,delete shapeGroup,delete shapeType,delete shapeISO"]
+            mapshaper(raw, out, pct, each)
+            if out.stat().st_size > LIMIT:
+                mapshaper(raw, out, "2%", each)
+        else:
+            _build_adm2(a3, out)
+    except Exception as ex:
+        print(f"  {a3}: no ADM2 source ({str(ex)[:100]})", file=sys.stderr)
+        out.unlink(missing_ok=True)
+        return None
+    return out
+
+
 # ----------------------------------------------------------------------------- G3
 def cmd_gazetteer(args) -> int:
     """Search index: countries, admin-1, populated places, physical features. Compact rows: [kind, name, lon, lat, iso3, extra]."""
@@ -548,7 +595,7 @@ class _Grid:
 
 def cmd_audit(args) -> int:
     """Audit every ADM2 file we ship: level meaning, truncated names, and shoreline fidelity against the 50m coast. A failing
-    country loses its ADM2 entry (its shapes fall back to ADM1 only); the files stay on disk until someone deletes them."""
+    country loses its ADM2 entry (its shapes fall back to ADM1 only); the whole-country files of those countries are not shipped (removed 19 Oct 2026); they are rebuilt from tools/.cache/adm2."""
     atlas = json.loads((CACHE / "countries-50m.json").read_text(encoding="utf-8"))
     facts = json.loads((WEB / "data" / "countries.json").read_text(encoding="utf-8"))
     a3_of = {str(k).zfill(3): v["a3"] for k, v in facts.items()}
@@ -575,9 +622,10 @@ def cmd_audit(args) -> int:
     rows = []
     for a3, e in sorted(m.items()):
         a2 = e.get("adm2")
-        if not a2 and (WEB / "admin" / f"{a3}-ADM2.json").exists():
-            # an entry an earlier audit dropped: look at the file again, so the audit gives the same answer every time it runs
-            t = json.loads((WEB / "admin" / f"{a3}-ADM2.json").read_text(encoding="utf-8"))
+        whole = None if a2 else _whole_adm2(a3)
+        if whole is not None:
+            # an entry an earlier audit dropped: look at the source again, so the audit gives the same answer every time it runs
+            t = json.loads(whole.read_text(encoding="utf-8"))
             a2 = {"file": f"{a3}-ADM2.json", "n": len(next(iter(t["objects"].values()))["geometries"]), "source": "geoBoundaries gbOpen ADM2 (CC BY 4.0)"}
             e["adm2"] = a2
         if not a2:
@@ -585,7 +633,7 @@ def cmd_audit(args) -> int:
         files = [a2["file"]] if a2.get("file") else list(a2.get("parts", {}).values())
         names, n_trunc, lines = 0, [], []
         for f in files:
-            topo = json.loads((WEB / "admin" / f).read_text(encoding="utf-8"))
+            topo = json.loads(((whole if whole is not None and f == a2["file"] else WEB / "admin" / f)).read_text(encoding="utf-8"))
             obj = next(iter(topo["objects"].values()))
             for g in obj["geometries"]:
                 names += 1
@@ -643,8 +691,8 @@ def cmd_check(args) -> int:
         # the inputs these steps read from the shipped tree: the facts, the manifest and the admin-1 files
         shutil.copy(shipped / "data" / "countries.json", tmp / "data" / "countries.json")
         shutil.copy(shipped / "admin" / "index.json", tmp / "admin" / "index.json")
-        for f in (shipped / "admin").glob("*.json"):       # the whole-country files the audit reads; the per-state parts are rebuilt
-            if "-ADM2-" not in f.name and f.name != "index.json":
+        for f in (shipped / "admin").glob("*.json"):       # the whole-country files that ARE shipped (listed in index.json); dropped and split
+            if "-ADM2-" not in f.name and f.name != "index.json":   # countries have none and the audit reads their source from the cache
                 shutil.copy(f, tmp / "admin" / f.name)
         WEB = tmp
         ns = argparse.Namespace(iso3=None, force=False)
