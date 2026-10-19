@@ -18,7 +18,8 @@
 .tl-trip-row:focus-visible, .tl-rail-cell:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .tl-profile-controls { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 1.3fr); gap: var(--s-5) var(--s-6); align-items: start; }
 .tl-field { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
-.tl-field[data-disabled] { opacity: 0.55; }
+.tl-field[data-disabled] .tl-step-v { color: var(--muted); }
+.tl-field[data-disabled] .tl-step { opacity: 0.45; }
 .tl-label { font: var(--t-cap); letter-spacing: var(--t-cap-tracking); text-transform: var(--t-cap-transform); color: var(--muted); }
 .tl-hint { font: var(--t-meta); color: var(--muted); max-width: 26rem; }
 .tl-stepper { display: inline-flex; align-items: center; gap: var(--s-1); height: 40px; padding: 0 var(--s-1); border: 1px solid var(--line-2); border-radius: var(--r-3); background: var(--surface); width: max-content; }
