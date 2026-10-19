@@ -492,8 +492,8 @@
       "title": "Parcheggio Tre Cime di Lavaredo",
       "publisher": "Comune di Auronzo di Cadore",
       "kind": "official",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
@@ -774,6 +774,38 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-9d53f59b1b",
+      "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en",
+      "title": "To Lago Sorapis",
+      "publisher": "Cortina d'Ampezzo tourist office (IAT)",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/lago-di-sorapis",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/lago-di-sorapis",
+          "field": "suitability.effort.drivers.gain_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -5123,6 +5155,43 @@
       "link": {
         "status": "ok",
         "checked": "2026-10-18"
+      }
+    },
+    {
+      "id": "s-2443fe23a5",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell",
+      "title": "Mount Edith Cavell area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/canadian-rockies-2029/R7.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+          "field": "suitability.effort.drivers.distance_km"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R7.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+          "field": "suitability.effort.drivers.gain_m"
+        },
+        {
+          "file": "data/suitability/canadian-rockies-2029/R7.json",
+          "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+          "field": "suitability.effort.source_grade"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
       }
     },
     {
@@ -11806,6 +11875,33 @@
       }
     },
     {
+      "id": "s-45ac7b0a8a",
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
+      "title": "Summer hiking tour: Lake Antorno (Misurina) - Monte Piano",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/dolomites-2027/R1.json",
+          "ref": "place/monte-piana",
+          "field": "suitability.effort.drivers.gain_m"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-8d9702c0a5",
       "url": "https://www.dreizinnen.com/en/activity/summer-walk-around-the-drei-zinnen-tre-cime-three-peaks-_569",
       "title": "Summer walk around the Three Peaks",
@@ -15141,6 +15237,33 @@
       }
     },
     {
+      "id": "s-99f3fda9b9",
+      "url": "https://www.ontarioparks.ca/park/algonquin/lakeoftworivers/activities",
+      "title": "Lake of Two Rivers: activities (Algonquin)",
+      "publisher": "Ontario Parks",
+      "kind": "official",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
+      "used_by": [
+        {
+          "file": "data/suitability/algonquin-muskoka-2026/R6.json",
+          "ref": "trip/algonquin-muskoka-2026/trail:track and tower trail",
+          "field": "suitability.effort.source_grade"
+        }
+      ],
+      "licence_note": "Publisher's copyright; we record facts and short quotes only, no copied text, photos or maps.",
+      "terms_note": "No terms review recorded yet.",
+      "automated": "unknown",
+      "recheck": {
+        "cadence_days": 730,
+        "fact_type": "grades_geography"
+      },
+      "link": {
+        "status": "unchecked",
+        "checked": null
+      }
+    },
+    {
       "id": "s-352ba9c782",
       "url": "https://www.ontarioparks.ca/park/oxtongueriverraggedfalls",
       "title": "Oxtongue River-Ragged Falls Provincial Park",
@@ -15918,8 +16041,8 @@
       "title": "Parking Lago di Braies P4",
       "publisher": "Parking Lago di Braies (Prags)",
       "kind": "operator",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",
@@ -16267,8 +16390,8 @@
       "title": "Rifugio Lavaredo",
       "publisher": "Rifugio Lavaredo",
       "kind": "operator",
-      "first_read": "2026-10-18",
-      "last_read": "2026-10-18",
+      "first_read": "2026-10-19",
+      "last_read": "2026-10-19",
       "used_by": [
         {
           "file": "data/capture/dolomites-2027/CS7.json",

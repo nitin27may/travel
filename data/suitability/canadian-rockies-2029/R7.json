@@ -1,0 +1,77 @@
+{
+  "schema": "suitability/1",
+  "trip": "canadian-rockies-2029",
+  "lane": "CS7b",
+  "researched": "2026-10-19",
+  "agent": "travel-researcher",
+  "model": "opus",
+  "sources": [
+    {
+      "id": "src-0001",
+      "url": "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/sentiers-trails/cavell",
+      "title": "Mount Edith Cavell area",
+      "publisher": "Parks Canada",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    }
+  ],
+  "records": [
+    {
+      "ref": "legacy/canadian-rockies-sept-2029/trails/cavell-meadows",
+      "kind": "trail",
+      "subkind": "hike",
+      "suitability": {
+        "effort": {
+          "source_grade": {
+            "v": {
+              "system": "parks-canada",
+              "value": "Moderate"
+            },
+            "state": "value",
+            "basis": "official_grade",
+            "src": [
+              "src-0001"
+            ],
+            "note": "Parks Canada: \"Trail 42 (moderate); 6-7 km return; 500 m elevation gain/loss; 3-5 hours\"."
+          },
+          "drivers": {
+            "distance_km": {
+              "v": 7,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "note": "Parks Canada gives \"6-7 km return\"; the upper end is stored. Re-sourced on 2026-10-19 (backlog 3.19): the migrated 7.7 km came from a link-only platform and is superseded by this record."
+            },
+            "gain_m": {
+              "v": 500,
+              "state": "value",
+              "basis": "official_info",
+              "src": [
+                "src-0001"
+              ],
+              "note": "Parks Canada: \"500 m elevation gain/loss\". Supersedes the migrated 553 m, which came from a link-only platform."
+            }
+          }
+        },
+        "kid_note": "Graded moderate by Parks Canada: 6-7 km return with 500 m of climbing, 3-5 hours."
+      },
+      "flat": {
+        "min_age": null,
+        "max_age": null,
+        "min_height_cm": null,
+        "max_height_cm": null,
+        "min_weight_kg": null,
+        "max_weight_kg": null,
+        "house_grade": 3,
+        "kid_fit": "unknown",
+        "accessibility": "unknown",
+        "walk_km": 7,
+        "walk_gain_m": 500,
+        "suit_level": "draft"
+      }
+    }
+  ]
+}

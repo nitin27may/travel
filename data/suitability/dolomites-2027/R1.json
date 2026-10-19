@@ -469,6 +469,24 @@
       "publisher": "ecnews.it",
       "kind": "press",
       "read": "2026-10-18"
+    },
+    {
+      "id": "src-0063",
+      "url": "https://cortina.dolomiti.org/en/escursioni/to-lago-sorapis-en/",
+      "title": "To Lago Sorapis",
+      "publisher": "Cortina d'Ampezzo tourist office (IAT)",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
+    },
+    {
+      "id": "src-0064",
+      "url": "https://www.dreizinnen.com/en/activity/summer-hiking-tour-lake-antorno-misurina-monte-piano_22272",
+      "title": "Summer hiking tour: Lake Antorno (Misurina) - Monte Piano",
+      "publisher": "3 Zinnen Dolomites tourism board",
+      "kind": "official",
+      "read": "2026-10-19",
+      "method": "read"
     }
   ],
   "records": [
@@ -980,6 +998,14 @@
                     "src-0048"
                   ],
                   "note": "Lowest trail-report figure."
+                },
+                {
+                  "v": 10.5,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0063"
+                  ],
+                  "note": "Cortina tourist office: \"10,5 km\" for the out and back on path 215 from Passo Tre Croci."
                 }
               ]
             },
@@ -999,6 +1025,14 @@
                     "src-0048"
                   ],
                   "note": "One report gives 114 m to the lake one way: the traverse is mostly level."
+                },
+                {
+                  "v": 434,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0063"
+                  ],
+                  "note": "The Cortina tourist office lists path 215 from Passo Tre Croci and back by the same path as \"10,5 km\", 434 m up and 437 m down, 4 h, For Experts. Re-read on 2026-10-19 for backlog 3.29; it is the official figure for the out and back. The OSM track (11 km one way, 1,388 m up) runs on past the lake up path 215, so it is not this walk."
                 }
               ]
             },
@@ -1388,7 +1422,17 @@
                 "src-0049",
                 "src-0021"
               ],
-              "note": "The plan's figure; the board's theme path adds 130 m from the hut (read)."
+              "note": "The plan's figure; the board's theme path adds 130 m from the hut (read).",
+              "conflicts": [
+                {
+                  "v": 368,
+                  "basis": "official_info",
+                  "src": [
+                    "src-0064"
+                  ],
+                  "note": "3 Zinnen tourism board: Lake Antorno to Monte Piano on path 122 by the Bosi hut, 3.9 km, 368 m up and 30 m down, one way (highest point 2,204 m). The stored 600 m covers the plan's whole outing with the plateau loop. The OSM relation of path 122 runs on to Capanna Carducci (2,313 m), so its 519 m is not this figure either."
+                }
+              ]
             }
           }
         },
