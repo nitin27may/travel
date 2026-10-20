@@ -17,9 +17,9 @@ export function OfflineMap({ spec }: { spec: MapSpec }) {
           key={l.id}
           fill="none"
           points={l.coords.map((c) => `${x(c.lng)},${y(c.lat)}`).join(' ')}
-          stroke={l.style === 'route-pick' ? 'var(--accent)' : 'var(--ink)'}
-          strokeWidth={l.style === 'route-pick' ? 4 : l.style === 'trail' ? 3 : 2}
-          strokeDasharray={l.style === 'straight-estimate' ? '5 5' : undefined}
+          stroke={l.style === 'route-pick' ? 'var(--accent)' : l.style === 'trail-unconfirmed' ? 'var(--muted)' : 'var(--ink)'}
+          strokeWidth={l.style === 'route-pick' ? 4 : l.style === 'trail' || l.style === 'trail-unconfirmed' ? 3 : 2}
+          strokeDasharray={l.style === 'straight-estimate' ? '5 5' : l.style === 'trail-unconfirmed' ? '7 5' : undefined}
           opacity={l.style === 'straight-estimate' ? 0.5 : 1}
           strokeLinecap="round"
           strokeLinejoin="round"

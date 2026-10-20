@@ -48,14 +48,14 @@ export function PlaceMap({ name, points, guide, selectedId, track = null }: { na
       ...(points.some((p) => p.style === 'trailhead') ? [{ id: 'l-th', label: 'Trailhead', style: 'trailhead' as const }] : []),
       ...(points.some((p) => p.style === 'parking') ? [{ id: 'l-pk', label: 'Parking', style: 'parking' as const }] : []),
       ...(track
-        ? [track.dashed ? { id: 'l-track', label: 'Route not confirmed yet', style: 'straight-estimate' as const } : { id: 'l-track', label: 'Route from OpenStreetMap', style: 'trail' as const }]
+        ? [track.dashed ? { id: 'l-track', label: 'Route not confirmed yet', style: 'trail-unconfirmed' as const } : { id: 'l-track', label: 'Route from OpenStreetMap', style: 'trail' as const }]
         : guide
           ? [{ id: 'l-guide', label: 'Straight line, not the path', style: 'straight-estimate' as const }]
           : []),
     ];
     // a stored line replaces the straight guide: we draw the path we hold, or an honest straight line, never both
     const lines = track
-      ? track.lines.map((coords, i) => ({ id: `track-${i}`, coords, style: track.dashed ? ('straight-estimate' as const) : ('trail' as const) }))
+      ? track.lines.map((coords, i) => ({ id: `track-${i}`, coords, style: track.dashed ? ('trail-unconfirmed' as const) : ('trail' as const) }))
       : guide
         ? [{ id: 'guide', coords: [guide.from, guide.to], style: 'straight-estimate' as const }]
         : [];
